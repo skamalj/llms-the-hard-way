@@ -10,6 +10,8 @@ Every conversation ends with a user message; the label is the agent that should 
 current_agent is the agent that spoke the last assistant message (None for a fresh conversation): it is the
 agent "holding" the conversation when the router is called, and it is often NOT the right answer (handoffs,
 topic changes), so the router must learn when to stay and when to switch.
+context_change says whether the LAST user message moves the conversation to a different topic (True), or
+continues the current one (False: follow-ups, short answers, "ok" after a handoff); None for a fresh conversation.
 """
 import json
 import random
@@ -457,6 +459,8 @@ AGENT_QUESTIONS = ["Can you share the reference number?", "Which day works best 
                    "Morning or afternoon?", "What's the name on the account?", "How many items is it?"]
 SHORT_ANSWERS = ["Sunday", "the 14th", "PS5", "12 Harbour Road", "R-88213", "mornings", "yes", "no", "last Tuesday",
                  "about three days ago", "my phone", "two", "Jordan Lee", "afternoon please", "48211", "the blue one"]
+CLOSINGS = ["thanks", "got it", "great, thanks", "perfect", "cool", "ok thank you", "that works", "noted"]
+SHORT_SWITCH = ["and the {t}?", "what about my {t}?", "{t} please", "now the {t}", "also {t}", "{t} next", "and {t}?"]
 RETURN_PREFIX = ["ok back to the first thing: ", "Anyway, back to my earlier question: ", "Forget that. ", "Never mind that, ", "seriously now, "]
 
 
@@ -496,66 +500,75 @@ def build(dom):
     agents = list(d["agents"])
     specialists = [a for a in agents if "General" not in a]
     gen = general_agent(dom)
-    add = lambda msgs, target, tags, current: ex.append({"msgs": msgs, "target": target, "tags": tags, "current": current})
+    def add(msgs, target, tags, current, change):
+        ex.append({"msgs": msgs, "target": target, "tags": tags, "current": current, "change": change})
 
     for a in agents:                                      # A. obvious single request
         for _ in range(4):
-            add([intent(dom, a)], a, ["obvious"], None)
+            add([intent(dom, a)], a, ["obvious"], None, None)
     for a in d["close_pair"]:                             # G/I. close-pair clarification (context decides)
         for _ in range(4):
             add([rng.choice(d["ambiguous"]["opener"]), rng.choice(d["ambiguous"]["clarify"]),
-                 noisy(rng.choice(d["ambiguous"]["resolve"][a]))], a, ["close_pair", "context"], gen)
+                 noisy(rng.choice(d["ambiguous"]["resolve"][a]))], a, ["close_pair", "context"], gen, False)
     for a in specialists:                                 # F. handoff + OK
         for _ in range(2):
             add([intent(dom, a), rng.choice(HANDOFF).format(a=a), rng.choice(OK_WORDS)], a, ["handoff", "ok_after_handoff"],
-                rng.choice([gen, other_agent(dom, a)]))          # the agent that handed over
+                rng.choice([gen, other_agent(dom, a)]), False)   # the agent that handed over
     for a in d["close_pair"]:                             # F + G. clarification, handoff, OK
         for _ in range(2):
             add([rng.choice(d["ambiguous"]["opener"]), rng.choice(d["ambiguous"]["clarify"]),
                  noisy(rng.choice(d["ambiguous"]["resolve"][a])), rng.choice(HANDOFF).format(a=a), rng.choice(OK_WORDS)],
-                a, ["handoff", "ok_after_handoff", "close_pair", "context"], gen)
+                a, ["handoff", "ok_after_handoff", "close_pair", "context"], gen, False)
     for a in specialists:                                 # L. handoff chain via the general agent
         add([noisy(rng.choice(d["agents"][gen][1])), rng.choice(GENERAL_PROMPTS), intent(dom, a),
-             rng.choice(HANDOFF).format(a=a), rng.choice(OK_WORDS)], a, ["handoff", "handoff_chain", "ok_after_handoff"], gen)
+             rng.choice(HANDOFF).format(a=a), rng.choice(OK_WORDS)], a, ["handoff", "handoff_chain", "ok_after_handoff"], gen, False)
     for a in specialists:                                 # E/K. meaningless final message / follow-up -> same agent
         for _ in range(2):
-            add([intent(dom, a), rng.choice(ACKS), rng.choice(OK_WORDS + FOLLOWUPS)], a, ["context", "follow_up"], a)
+            add([intent(dom, a), rng.choice(ACKS), rng.choice(OK_WORDS + FOLLOWUPS)], a, ["context", "follow_up"], a, False)
     for a in specialists:                                 # N. the agent asks, the user answers in a few words -> same agent
+        for _ in range(4):
+            add([intent(dom, a), rng.choice(AGENT_QUESTIONS), rng.choice(SHORT_ANSWERS)], a, ["context", "short_answer"], a, False)
+    for a in specialists:                                 # N. the agent answers, the user closes briefly -> same agent
         for _ in range(2):
-            add([intent(dom, a), rng.choice(AGENT_QUESTIONS), rng.choice(SHORT_ANSWERS)], a, ["context", "short_answer"], a)
-    for _ in range(6):                                    # N. same after a topic change: the new agent asks, short answer
+            add([intent(dom, a), rng.choice(INFO_REPLIES), rng.choice(CLOSINGS)], a, ["context", "short_answer", "closing"], a, False)
+    for _ in range(16):                                   # N. same after a topic change: the new agent asks, short answer
         a = rng.choice(specialists); b = other_agent(dom, a, exclude_general=True)
         add([intent(dom, a), rng.choice(ACKS), rng.choice(SWITCH_PREFIX) + lower_first(intent(dom, b)), rng.choice(AGENT_QUESTIONS),
-             rng.choice(SHORT_ANSWERS)], b, ["context", "short_answer", "after_switch"], b)
+             rng.choice(SHORT_ANSWERS)], b, ["context", "short_answer", "after_switch"], b, False)
     for _ in range(14):                                   # M. legitimate topic change: latest request wins
         a = rng.choice(specialists); b = other_agent(dom, a, exclude_general=True)
-        add([intent(dom, a), rng.choice(ACKS), rng.choice(SWITCH_PREFIX) + lower_first(intent(dom, b))], b, ["topic_change"], a)
+        add([intent(dom, a), rng.choice(ACKS), rng.choice(SWITCH_PREFIX) + lower_first(intent(dom, b))], b, ["topic_change"], a, True)
     for _ in range(8):                                    # M. topic change after a follow-up exchange
         a = rng.choice(specialists); b = other_agent(dom, a, exclude_general=True)
         add([intent(dom, a), rng.choice(ACKS), rng.choice(FOLLOWUPS), rng.choice(INFO_REPLIES),
-             rng.choice(SWITCH_PREFIX) + lower_first(intent(dom, b))], b, ["topic_change"], a)
+             rng.choice(SWITCH_PREFIX) + lower_first(intent(dom, b))], b, ["topic_change"], a, True)
+    for _ in range(16):                                   # S. SHORT topic change: "and the bill?" -> the other agent
+        a = rng.choice(specialists); b = other_agent(dom, a, exclude_general=True)
+        add([intent(dom, a), rng.choice(AGENT_QUESTIONS + INFO_REPLIES), rng.choice(SHORT_SWITCH).format(t=d["topics"][b].lower())],
+            b, ["topic_change", "short_switch"], a, True)
     for _ in range(8):                                    # H. bounce away and come back
         a = rng.choice(specialists); b = other_agent(dom, a, exclude_general=True)
         add([intent(dom, a), rng.choice(HANDOFF).format(a=a), intent(dom, b), rng.choice(HANDOFF).format(a=b),
-             rng.choice(RETURN_PREFIX) + lower_first(intent(dom, a))], a, ["ding_dong", "topic_change"], a)   # a handed over to b
+             rng.choice(RETURN_PREFIX) + lower_first(intent(dom, a))], a, ["ding_dong", "topic_change"], a, True)   # a handed over to b
     for _ in range(8):                                    # J. distractor keyword: "forget the <other topic>"
         a = rng.choice(specialists); b = other_agent(dom, a, exclude_general=True)
-        add([intent(dom, b), rng.choice(ACKS), f"Forget the {d['topics'][b]}. " + intent(dom, a)], a, ["distractor", "topic_change"], b)
+        add([intent(dom, b), rng.choice(ACKS), f"Forget the {d['topics'][b]}. " + intent(dom, a)], a, ["distractor", "topic_change"], b, True)
     for _ in range(8):                                    # D. long conversations (9-15 messages), one topic throughout
         a = rng.choice(specialists)
         msgs = [intent(dom, a), rng.choice(ACKS)]
         for _ in range(rng.randint(3, 6)):
             msgs += [rng.choice(FOLLOWUPS), rng.choice(INFO_REPLIES)]
         msgs = msgs[:14] + [rng.choice(OK_WORDS + FOLLOWUPS)]
-        add(msgs, a, ["long", "context", "follow_up"], a)
+        add(msgs, a, ["long", "context", "follow_up"], a, False)
     for _ in range(6):                                    # H. ding-dong walks: one example per user turn (prefix)
         msgs, cur = [], rng.choice(specialists)
         msgs.append(intent(dom, cur))
-        add(list(msgs), cur, ["ding_dong", "turn_prefix"], None)
+        add(list(msgs), cur, ["ding_dong", "turn_prefix"], None, None)
         for _ in range(rng.randint(3, 6)):
             msgs.append(rng.choice(HANDOFF + ACKS).format(a=cur))
             speaker = cur                                  # the agent that just replied holds the conversation
             r = rng.random()
+            changed = r < 0.55
             if r < 0.55:                                   # bounce to another agent's topic
                 cur = other_agent(dom, cur, exclude_general=True)
                 msgs.append(rng.choice(SWITCH_PREFIX) + lower_first(intent(dom, cur)))
@@ -565,7 +578,7 @@ def build(dom):
                 msgs.append(rng.choice(OK_WORDS))
             if len(msgs) > 15:
                 break
-            add(list(msgs), cur, ["ding_dong", "turn_prefix"], speaker)
+            add(list(msgs), cur, ["ding_dong", "turn_prefix"], speaker, changed)
     return ex
 
 
@@ -578,9 +591,10 @@ for dom in DOMAINS:
         roles = ["user", "assistant"]
         rec = {"id": f"{dom}-{k:03d}", "domain": dom,
                "messages": [{"role": roles[i % 2], "content": t} for i, t in enumerate(e["msgs"])],
-               "target_agent": e["target"], "current_agent": e["current"], "tags": e["tags"]}
+               "target_agent": e["target"], "current_agent": e["current"], "context_change": e["change"], "tags": e["tags"]}
         assert 1 <= len(rec["messages"]) <= 15 and rec["messages"][-1]["role"] == "user", rec["id"]
         assert (rec["current_agent"] is None) == (len(rec["messages"]) == 1), rec["id"]   # an agent holds it once one has replied
+        assert (rec["context_change"] is None) == (len(rec["messages"]) == 1), rec["id"]
         conversations.append(rec)
 
 banking_words = ["payments agent", "card support", "investment agent", "insurance agent", "general customer support"]
@@ -594,3 +608,8 @@ print(f"domains: {len(DOMAINS)} | conversations: {len(conversations)} ({len(conv
 stay = sum(c["current_agent"] == c["target_agent"] for c in conversations)
 fresh = sum(c["current_agent"] is None for c in conversations)
 print(f"current agent: none (fresh) {fresh} | stays with current {stay} | switches away {len(conversations) - stay - fresh}")
+yes = sum(c["context_change"] is True for c in conversations)
+no = sum(c["context_change"] is False for c in conversations)
+short = [c for c in conversations if c["context_change"] is not None and len(c["messages"][-1]["content"].split()) <= 3]
+print(f"context change: Y {yes} | N {no} | short last message (<= 3 words): {len(short)} "
+      f"(Y {sum(c['context_change'] for c in short)}, N {sum(not c['context_change'] for c in short)})")
