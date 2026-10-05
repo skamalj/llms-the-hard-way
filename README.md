@@ -43,7 +43,7 @@ The models download from the Hugging Face Hub on first use. No GPU is needed. Se
 | `ADAPTER_PATH` | Where the adapter is saved and loaded from |
 | `RUN_DEBUG` | Turns the diagnostic cells at the end on or off |
 
-The included dataset, [`data/smollm2_answer_250_fresh.json`](data/smollm2_answer_250_fresh.json), has 250 short technical Q&A pairs. Training for 10 epochs on its 200-record training split takes about 7 minutes on a CPU.
+The included dataset, [`data/lora_json_answer/smollm2_answer_250_fresh.json`](data/lora_json_answer/smollm2_answer_250_fresh.json), has 250 short technical Q&A pairs. Training for 10 epochs on its 200-record training split takes about 7 minutes on a CPU.
 
 Not committed: the trained adapters (`smollm2-*-lora*/`) and the train/validation/test split files, which the notebook regenerates from `data/`.
 
