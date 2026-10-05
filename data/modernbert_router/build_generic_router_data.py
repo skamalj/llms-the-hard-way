@@ -7,6 +7,9 @@ None of the domains or agents relate to the banking test agents (Payments, Card 
 Insurance, General Customer Support). There is no fixed train/validation split: the notebook validates
 by leaving whole domains out.
 Every conversation ends with a user message; the label is the agent that should handle that message.
+current_agent is the agent that spoke the last assistant message (None for a fresh conversation): it is the
+agent "holding" the conversation when the router is called, and it is often NOT the right answer (handoffs,
+topic changes), so the router must learn when to stay and when to switch.
 """
 import json
 import random
@@ -449,6 +452,11 @@ GENERAL_PROMPTS = ["Sure, what do you need help with?", "Tell me what happened."
 HANDOFF = ["This is for the {a}. Please continue with the {a}.", "The {a} handles this. Please continue with that agent.",
            "Please continue with the {a}, they can help.", "I'll pass you to the {a}."]
 SWITCH_PREFIX = ["Actually, ", "lol no, ", "just kidding, ", "Also, ", "Different thing: ", "Wait, ", "One more thing, ", ""]
+AGENT_QUESTIONS = ["Can you share the reference number?", "Which day works best for you?", "When did this start?",
+                   "Which device are you using?", "What's the address?", "Could you confirm the date?",
+                   "Morning or afternoon?", "What's the name on the account?", "How many items is it?"]
+SHORT_ANSWERS = ["Sunday", "the 14th", "PS5", "12 Harbour Road", "R-88213", "mornings", "yes", "no", "last Tuesday",
+                 "about three days ago", "my phone", "two", "Jordan Lee", "afternoon please", "48211", "the blue one"]
 RETURN_PREFIX = ["ok back to the first thing: ", "Anyway, back to my earlier question: ", "Forget that. ", "Never mind that, ", "seriously now, "]
 
 
@@ -488,56 +496,65 @@ def build(dom):
     agents = list(d["agents"])
     specialists = [a for a in agents if "General" not in a]
     gen = general_agent(dom)
-    add = lambda msgs, target, tags: ex.append({"msgs": msgs, "target": target, "tags": tags})
+    add = lambda msgs, target, tags, current: ex.append({"msgs": msgs, "target": target, "tags": tags, "current": current})
 
     for a in agents:                                      # A. obvious single request
         for _ in range(4):
-            add([intent(dom, a)], a, ["obvious"])
+            add([intent(dom, a)], a, ["obvious"], None)
     for a in d["close_pair"]:                             # G/I. close-pair clarification (context decides)
         for _ in range(4):
             add([rng.choice(d["ambiguous"]["opener"]), rng.choice(d["ambiguous"]["clarify"]),
-                 noisy(rng.choice(d["ambiguous"]["resolve"][a]))], a, ["close_pair", "context"])
+                 noisy(rng.choice(d["ambiguous"]["resolve"][a]))], a, ["close_pair", "context"], gen)
     for a in specialists:                                 # F. handoff + OK
         for _ in range(2):
-            add([intent(dom, a), rng.choice(HANDOFF).format(a=a), rng.choice(OK_WORDS)], a, ["handoff", "ok_after_handoff"])
+            add([intent(dom, a), rng.choice(HANDOFF).format(a=a), rng.choice(OK_WORDS)], a, ["handoff", "ok_after_handoff"],
+                rng.choice([gen, other_agent(dom, a)]))          # the agent that handed over
     for a in d["close_pair"]:                             # F + G. clarification, handoff, OK
         for _ in range(2):
             add([rng.choice(d["ambiguous"]["opener"]), rng.choice(d["ambiguous"]["clarify"]),
                  noisy(rng.choice(d["ambiguous"]["resolve"][a])), rng.choice(HANDOFF).format(a=a), rng.choice(OK_WORDS)],
-                a, ["handoff", "ok_after_handoff", "close_pair", "context"])
+                a, ["handoff", "ok_after_handoff", "close_pair", "context"], gen)
     for a in specialists:                                 # L. handoff chain via the general agent
         add([noisy(rng.choice(d["agents"][gen][1])), rng.choice(GENERAL_PROMPTS), intent(dom, a),
-             rng.choice(HANDOFF).format(a=a), rng.choice(OK_WORDS)], a, ["handoff", "handoff_chain", "ok_after_handoff"])
+             rng.choice(HANDOFF).format(a=a), rng.choice(OK_WORDS)], a, ["handoff", "handoff_chain", "ok_after_handoff"], gen)
     for a in specialists:                                 # E/K. meaningless final message / follow-up -> same agent
         for _ in range(2):
-            add([intent(dom, a), rng.choice(ACKS), rng.choice(OK_WORDS + FOLLOWUPS)], a, ["context", "follow_up"])
+            add([intent(dom, a), rng.choice(ACKS), rng.choice(OK_WORDS + FOLLOWUPS)], a, ["context", "follow_up"], a)
+    for a in specialists:                                 # N. the agent asks, the user answers in a few words -> same agent
+        for _ in range(2):
+            add([intent(dom, a), rng.choice(AGENT_QUESTIONS), rng.choice(SHORT_ANSWERS)], a, ["context", "short_answer"], a)
+    for _ in range(6):                                    # N. same after a topic change: the new agent asks, short answer
+        a = rng.choice(specialists); b = other_agent(dom, a, exclude_general=True)
+        add([intent(dom, a), rng.choice(ACKS), rng.choice(SWITCH_PREFIX) + lower_first(intent(dom, b)), rng.choice(AGENT_QUESTIONS),
+             rng.choice(SHORT_ANSWERS)], b, ["context", "short_answer", "after_switch"], b)
     for _ in range(14):                                   # M. legitimate topic change: latest request wins
         a = rng.choice(specialists); b = other_agent(dom, a, exclude_general=True)
-        add([intent(dom, a), rng.choice(ACKS), rng.choice(SWITCH_PREFIX) + lower_first(intent(dom, b))], b, ["topic_change"])
+        add([intent(dom, a), rng.choice(ACKS), rng.choice(SWITCH_PREFIX) + lower_first(intent(dom, b))], b, ["topic_change"], a)
     for _ in range(8):                                    # M. topic change after a follow-up exchange
         a = rng.choice(specialists); b = other_agent(dom, a, exclude_general=True)
         add([intent(dom, a), rng.choice(ACKS), rng.choice(FOLLOWUPS), rng.choice(INFO_REPLIES),
-             rng.choice(SWITCH_PREFIX) + lower_first(intent(dom, b))], b, ["topic_change"])
+             rng.choice(SWITCH_PREFIX) + lower_first(intent(dom, b))], b, ["topic_change"], a)
     for _ in range(8):                                    # H. bounce away and come back
         a = rng.choice(specialists); b = other_agent(dom, a, exclude_general=True)
         add([intent(dom, a), rng.choice(HANDOFF).format(a=a), intent(dom, b), rng.choice(HANDOFF).format(a=b),
-             rng.choice(RETURN_PREFIX) + lower_first(intent(dom, a))], a, ["ding_dong", "topic_change"])
+             rng.choice(RETURN_PREFIX) + lower_first(intent(dom, a))], a, ["ding_dong", "topic_change"], a)   # a handed over to b
     for _ in range(8):                                    # J. distractor keyword: "forget the <other topic>"
         a = rng.choice(specialists); b = other_agent(dom, a, exclude_general=True)
-        add([intent(dom, b), rng.choice(ACKS), f"Forget the {d['topics'][b]}. " + intent(dom, a)], a, ["distractor", "topic_change"])
+        add([intent(dom, b), rng.choice(ACKS), f"Forget the {d['topics'][b]}. " + intent(dom, a)], a, ["distractor", "topic_change"], b)
     for _ in range(8):                                    # D. long conversations (9-15 messages), one topic throughout
         a = rng.choice(specialists)
         msgs = [intent(dom, a), rng.choice(ACKS)]
         for _ in range(rng.randint(3, 6)):
             msgs += [rng.choice(FOLLOWUPS), rng.choice(INFO_REPLIES)]
         msgs = msgs[:14] + [rng.choice(OK_WORDS + FOLLOWUPS)]
-        add(msgs, a, ["long", "context", "follow_up"])
+        add(msgs, a, ["long", "context", "follow_up"], a)
     for _ in range(6):                                    # H. ding-dong walks: one example per user turn (prefix)
         msgs, cur = [], rng.choice(specialists)
         msgs.append(intent(dom, cur))
-        add(list(msgs), cur, ["ding_dong", "turn_prefix"])
+        add(list(msgs), cur, ["ding_dong", "turn_prefix"], None)
         for _ in range(rng.randint(3, 6)):
             msgs.append(rng.choice(HANDOFF + ACKS).format(a=cur))
+            speaker = cur                                  # the agent that just replied holds the conversation
             r = rng.random()
             if r < 0.55:                                   # bounce to another agent's topic
                 cur = other_agent(dom, cur, exclude_general=True)
@@ -548,7 +565,7 @@ def build(dom):
                 msgs.append(rng.choice(OK_WORDS))
             if len(msgs) > 15:
                 break
-            add(list(msgs), cur, ["ding_dong", "turn_prefix"])
+            add(list(msgs), cur, ["ding_dong", "turn_prefix"], speaker)
     return ex
 
 
@@ -561,8 +578,9 @@ for dom in DOMAINS:
         roles = ["user", "assistant"]
         rec = {"id": f"{dom}-{k:03d}", "domain": dom,
                "messages": [{"role": roles[i % 2], "content": t} for i, t in enumerate(e["msgs"])],
-               "target_agent": e["target"], "tags": e["tags"]}
+               "target_agent": e["target"], "current_agent": e["current"], "tags": e["tags"]}
         assert 1 <= len(rec["messages"]) <= 15 and rec["messages"][-1]["role"] == "user", rec["id"]
+        assert (rec["current_agent"] is None) == (len(rec["messages"]) == 1), rec["id"]   # an agent holds it once one has replied
         conversations.append(rec)
 
 banking_words = ["payments agent", "card support", "investment agent", "insurance agent", "general customer support"]
@@ -573,3 +591,6 @@ for rec in conversations:
 json.dump(domains_out, open("data/modernbert_router/generic/domains.json", "w"), indent=1, ensure_ascii=False)
 json.dump(conversations, open("data/modernbert_router/generic/conversations.json", "w"), indent=1, ensure_ascii=False)
 print(f"domains: {len(DOMAINS)} | conversations: {len(conversations)} ({len(conversations) * 5} candidate pairs)")
+stay = sum(c["current_agent"] == c["target_agent"] for c in conversations)
+fresh = sum(c["current_agent"] is None for c in conversations)
+print(f"current agent: none (fresh) {fresh} | stays with current {stay} | switches away {len(conversations) - stay - fresh}")
