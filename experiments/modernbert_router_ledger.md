@@ -95,6 +95,17 @@ The generic training data changed between runs (3,542 → 3,931 → 5,049 conver
 
 ---
 
+## Branches
+
+Every experiment lives on its own branch, and nothing is merged into `master` until a path is chosen. Experiment branches are pushed to GitHub. The notebook's `DATA_BRANCH` (Cell 34) must name the branch whose data Kaggle should clone.
+
+| Branch | Content | Based on |
+|---|---|---|
+| `exp/baseline-run5` | Run 5 state: router + context-change detector, with outputs | `master` (b7c1808) |
+| `exp/phase1-cascade` | Phase 1: detector + router cascade, detector data fixes | `exp/baseline-run5` |
+
+Later phase branches are created when each phase starts, from the branch of the best result so far.
+
 ## Roadmap (agreed plan; update as phases finish)
 
 | Phase | What | Pass criteria | Status |
