@@ -93,6 +93,47 @@ The generic training data changed between runs (3,542 → 3,931 → 5,049 conver
   The router alone has plateaued at about 80% and fails short replies even with the current agent known.
 - **Decision:** see the roadmap below. Phase 1 (detector + router cascade, detector data gaps) comes next.
 
+## Run 6 — 2026-10-07: Phase 1, hard cascade (branch `exp/phase1-cascade`)
+
+- **Data:** generic v4, 5,914 conversations. The detector fixes were added:
+  - "Also/And …" same-topic follow-ups = N;
+  - "… again" returns = Y;
+  - first request after the General agent = Y;
+  - more short-switch wording.
+- **New:** an agent-switch label (right agent ≠ current agent), trained with the same detector features. Cell 64 cascade: no current agent → router; p(switch) < 0.5 → stay with the current agent; otherwise the router picks among the *other* agents (the current one is excluded).
+- **Router winner:** `dual + cross + sim`, MLP-256, 30 epochs.
+
+**Router alone**
+
+| E1 | E2 | E3 | E4 turn / conv | E5 router · x2 · cross · dual · cross+dual |
+|---|---|---|---|---|
+| 4771 / 5914 (80.7%) | 41 / 50 | 176 / 225 | 17 / 25 · 3 / 5 | **34** · 30 · 33 · 18 · 32 |
+
+**Detectors** (held-out generic domains / realistic / banking ding-dong)
+
+| Label | E6 all | E6 short | E7 | E8 |
+|---|---|---|---|---|
+| context change (MLP-256) | 5073 / 5212 (97.3%) | 2601 / 2625 | 30 / 35 | 11 / 18 |
+| agent switch (MLP-256) | 5014 / 5212 (96.2%) | 2580 / 2625 | — | banking static with a current agent: 132 / 180 (Y 127/153, **N 5/27**) |
+
+**E9: cascade vs router alone**
+
+| Test | Router alone | Cascade |
+|---|---|---|
+| Realistic conversations, live | **34 / 40** | 30 / 40 |
+| Banking ding-dong, live, per turn | **17 / 25** | 14 / 25 |
+| Banking benchmark | **41 / 50** | 31 / 50 |
+| All banking | **176 / 225** | 143 / 225 |
+
+- **Verdict: Phase 1 FAILS its pass criteria.** The hard cascade is worse than the router alone on every test.
+- **Why:**
+  1. **A false "switch" is unrecoverable.** Excluding the current agent guarantees an error whenever the detector wrongly says Y. That happened on same-topic follow-ups that aren't tiny, such as "yes twice" (0.82), "can I spread it out?" (0.99) and "send the link" (0.89).
+  2. **Errors compound live:** a wrong pick becomes the current agent, and then "ok thanks" correctly *stays*, with the wrong agent.
+  3. **On banking, the switch detector almost always says Y** (it kept only 5 of 27 N cases).
+  4. **The data fixes over-corrected:** "Also I was charged twice" (a real switch) is now N.
+- **What did improve:** the router alone on realistic conversations, 31 → 34/40, probably from the extra short-reply data. Banking went down (184 → 176).
+- **Decision:** don't use a hard gate. Move to Phase 2 (soft fusion: combine the router's and the detector's probabilities, with no exclusion), with the fusion weight tuned on the generic held-out folds, not on the test sets. Also add same-topic follow-up data without a prefix (another request for the same agent) so the detector learns longer same-topic follow-ups.
+
 ---
 
 ## Branches
@@ -111,7 +152,7 @@ Later phase branches are created when each phase starts, from the branch of the 
 | Phase | What | Pass criteria | Status |
 |---|---|---|---|
 | 0 | Ledger and fixed evaluation suite | this file exists; every run is logged | done |
-| 1 | Cascade: detector N → stay with the current agent; Y → router picks among the other agents. Plus the detector data-gap fixes | E5 combined ≥ 36/40; E4 per turn ≥ 21/25; E7 ≥ 34/35; E8 ≥ 16/18; E6 no worse than 4300/4347 | next |
+| 1 | Cascade: detector N → stay with the current agent; Y → router picks among the other agents. Plus the detector data-gap fixes | E5 combined ≥ 36/40; E4 per turn ≥ 21/25; E7 ≥ 34/35; E8 ≥ 16/18; E6 no worse than 4300/4347 | **failed (run 6)**: the hard gate is worse than the router alone |
 | 2 | Soft fusion instead of a hard cascade: p(change) as a router feature or a logit bias toward the current agent | beats Phase 1 on E4 + E5 without hurting E2/E3 | planned |
 | 2b | Learned Q-K-V cross-attention head (from `gemini-suggestions/ModernBERT Cross-Attention Router Model.py`), built on our own forward pass, not AutoModel. Token-level states are cached in fp16. First on the detector: the last-message tokens query the history tokens. Then on the router, as candidate-as-query over the conversation tokens, because a fixed `intent_head` cannot handle dynamic agents | detector: E7/E8 above Phase 1 at the same E6; router: E5 above the best | planned |
 | 3 | Representation and head: layer-wise scalar mix (a few layers), residual bottleneck / gated heads, label smoothing; one axis per run | E1 and E5 improve over the best previous run | planned |
