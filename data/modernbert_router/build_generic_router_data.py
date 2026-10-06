@@ -460,7 +460,14 @@ AGENT_QUESTIONS = ["Can you share the reference number?", "Which day works best 
 SHORT_ANSWERS = ["Sunday", "the 14th", "PS5", "12 Harbour Road", "R-88213", "mornings", "yes", "no", "last Tuesday",
                  "about three days ago", "my phone", "two", "Jordan Lee", "afternoon please", "48211", "the blue one"]
 CLOSINGS = ["thanks", "got it", "great, thanks", "perfect", "cool", "ok thank you", "that works", "noted"]
-SHORT_SWITCH = ["and the {t}?", "what about my {t}?", "{t} please", "now the {t}", "also {t}", "{t} next", "and {t}?"]
+SHORT_SWITCH = ["and the {t}?", "what about my {t}?", "{t} please", "now the {t}", "also {t}", "{t} next", "and {t}?",
+                "{t}?", "ok and {t}", "what about {t}", "next: {t}", "{t} question", "now {t}", "and my {t}?"]
+STAY_PREFIX = ["Also, ", "Also ", "And ", "One more thing, ", "Oh and ", "Plus, "]   # follow-ups that stay on the topic
+
+
+def short_name(agent):
+    """A one-word handle for an agent, e.g. 'Password & Access Agent' -> 'password'."""
+    return agent.split()[0].lower().strip("&,")
 RETURN_PREFIX = ["ok back to the first thing: ", "Anyway, back to my earlier question: ", "Forget that. ", "Never mind that, ", "seriously now, "]
 
 
@@ -542,10 +549,24 @@ def build(dom):
         a = rng.choice(specialists); b = other_agent(dom, a, exclude_general=True)
         add([intent(dom, a), rng.choice(ACKS), rng.choice(FOLLOWUPS), rng.choice(INFO_REPLIES),
              rng.choice(SWITCH_PREFIX) + lower_first(intent(dom, b))], b, ["topic_change"], a, True)
-    for _ in range(16):                                   # S. SHORT topic change: "and the bill?" -> the other agent
+    for _ in range(24):                                   # S. SHORT topic change: "and the bill?" -> the other agent
         a = rng.choice(specialists); b = other_agent(dom, a, exclude_general=True)
-        add([intent(dom, a), rng.choice(AGENT_QUESTIONS + INFO_REPLIES), rng.choice(SHORT_SWITCH).format(t=d["topics"][b].lower())],
+        word = rng.choice([d["topics"][b].lower(), short_name(b)])
+        add([intent(dom, a), rng.choice(AGENT_QUESTIONS + INFO_REPLIES), rng.choice(SHORT_SWITCH).format(t=word)],
             b, ["topic_change", "short_switch"], a, True)
+    for a in specialists:                                 # P. "Also ..." that STAYS on the same topic -> same agent
+        for _ in range(2):
+            first, second = rng.sample(DOMAINS[dom]["agents"][a][1], 2)
+            add([noisy(first), rng.choice(ACKS + INFO_REPLIES), rng.choice(STAY_PREFIX) + lower_first(noisy(second))],
+                a, ["context", "stay_prefix"], a, False)
+    for _ in range(8):                                    # R. back to an earlier topic with "again" -> that earlier agent
+        a = rng.choice(specialists); b = other_agent(dom, a, exclude_general=True)
+        add([intent(dom, a), rng.choice(INFO_REPLIES), rng.choice(SWITCH_PREFIX) + lower_first(intent(dom, b)), rng.choice(INFO_REPLIES),
+             lower_first(intent(dom, a)).rstrip(".!?") + " again."], a, ["topic_change", "return_again"], b, True)
+    for a in specialists:                                 # Q. first real request after the General agent's prompt -> specialist
+        for _ in range(2):
+            add([noisy(rng.choice(d["agents"][gen][1])), rng.choice(GENERAL_PROMPTS), intent(dom, a)],
+                a, ["topic_change", "after_general"], gen, True)
     for _ in range(8):                                    # H. bounce away and come back
         a = rng.choice(specialists); b = other_agent(dom, a, exclude_general=True)
         add([intent(dom, a), rng.choice(HANDOFF).format(a=a), intent(dom, b), rng.choice(HANDOFF).format(a=b),
