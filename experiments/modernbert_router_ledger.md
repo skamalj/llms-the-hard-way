@@ -134,6 +134,42 @@ The generic training data changed between runs (3,542 → 3,931 → 5,049 conver
 - **What did improve:** the router alone on realistic conversations, 31 → 34/40, probably from the extra short-reply data. Banking went down (184 → 176).
 - **Decision:** don't use a hard gate. Move to Phase 2 (soft fusion: combine the router's and the detector's probabilities, with no exclusion), with the fusion weight tuned on the generic held-out folds, not on the test sets. Also add same-topic follow-up data without a prefix (another request for the same agent) so the detector learns longer same-topic follow-ups.
 
+## Run 7 — 2026-10-07: Phase 2b, learned Q-K-V attention head (branch `exp/phase2b-qkv-attention`)
+
+- **Same data and router as run 6** (identical router numbers: E1 4771/5914, E2 41/50, E3 176/225, E4 17/25, E5 router 34/40).
+- **New:** token-level states from one pass over `history [SEP] current agent` (5,212 × up to 193 tokens × 1,024, fp16, 2.06 GB). A trainable head: LayerNorm → 8-head attention (Q = last-message tokens, K/V = context tokens) → residual + LayerNorm → MLP on [mean of target x, mean of attended target h]. Trained for both labels, same folds, lr 1e-4, early stopping (best epoch ≈ 12).
+
+**Held-out generic domains (in distribution): no gain**
+
+| | Pooled detector | Q-K-V head |
+|---|---|---|
+| Context change, all / short | **5073** / 2601 | 5050 / 2595 |
+| Agent switch, all / short | **5014** / 2580 | 4958 / 2571 |
+
+**Unseen real-world tests: Q-K-V generalizes better**
+
+| Test | Pooled | Q-K-V |
+|---|---|---|
+| E7 context change, realistic (35) | 30 (Y 13/15) | **32 (Y 15/15)** |
+| E8 context change, banking ding-dong (18) | 11 | **14** |
+| Agent switch, banking with a current agent (180) | 132 (N kept 5/27) | **144 (N kept 12/27)** |
+
+**Cascade (hard gate), live**
+
+| Test | Router alone | Cascade, pooled | Cascade, Q-K-V |
+|---|---|---|---|
+| Realistic conversations (40) | **34** | 30 | 32 |
+| Banking ding-dong per turn (25) | 17 | 14 | **18** |
+| All banking (225) | **176** | 143 | 156 |
+
+- **Attention maps:** the attention is diffuse (top weights 0.01–0.05). There's a little signal: "afternoon" looks most at "or" in "Morning or afternoon?". The frozen encoder has already mixed the context into the target tokens, so the extra attention layer is not acting as a sharp pointer.
+- **Verdict:** Q-K-V is a real improvement in **out-of-domain** detection (+2 realistic, +3 banking turns, +12 banking switch) at the same in-domain score. It's the first cascade to beat the router alone on the ding-dong replay (18 vs 17). But a hard gate still loses to the router alone overall. The remaining false "switch" calls are same-agent follow-ups about a *different aspect* of the same topic:
+  - "how long until I get my money back?" (Returns & Refunds): 0.98;
+  - "ah right, can I pay it in two parts?" (Billing): 0.88;
+  - "Does the new plan come with a phone upgrade?": 0.97;
+  - "what documents were missing?": 1.00.
+- **Decision:** use the **Q-K-V** detectors from now on. Next is Phase 2 soft fusion (router probabilities × detector probability, no exclusion, weight tuned on generic held-out folds). Add generic data for "same agent, different aspect" follow-ups.
+
 ---
 
 ## Branches
@@ -143,7 +179,8 @@ Every experiment lives on its own branch, and nothing is merged into `master` un
 | Branch | Content | Based on |
 |---|---|---|
 | `exp/baseline-run5` | Run 5 state: router + context-change detector, with outputs | `master` (b7c1808) |
-| `exp/phase1-cascade` | Phase 1: detector + router cascade, detector data fixes | `exp/baseline-run5` |
+| `exp/phase1-cascade` | Phase 1: detector + router cascade, detector data fixes (run 6) | `exp/baseline-run5` |
+| `exp/phase2b-qkv-attention` | Phase 2b: Q-K-V attention head for the detectors, cascade with it (run 7) | `exp/phase1-cascade` |
 
 Later phase branches are created when each phase starts, from the branch of the best result so far.
 
@@ -154,7 +191,7 @@ Later phase branches are created when each phase starts, from the branch of the 
 | 0 | Ledger and fixed evaluation suite | this file exists; every run is logged | done |
 | 1 | Cascade: detector N → stay with the current agent; Y → router picks among the other agents. Plus the detector data-gap fixes | E5 combined ≥ 36/40; E4 per turn ≥ 21/25; E7 ≥ 34/35; E8 ≥ 16/18; E6 no worse than 4300/4347 | **failed (run 6)**: the hard gate is worse than the router alone |
 | 2 | Soft fusion instead of a hard cascade: p(change) as a router feature or a logit bias toward the current agent | beats Phase 1 on E4 + E5 without hurting E2/E3 | planned |
-| 2b | Learned Q-K-V cross-attention head (from `gemini-suggestions/ModernBERT Cross-Attention Router Model.py`), built on our own forward pass, not AutoModel. Token-level states are cached in fp16. First on the detector: the last-message tokens query the history tokens. Then on the router, as candidate-as-query over the conversation tokens, because a fixed `intent_head` cannot handle dynamic agents | detector: E7/E8 above Phase 1 at the same E6; router: E5 above the best | planned |
+| 2b | Learned Q-K-V cross-attention head (from `gemini-suggestions/ModernBERT Cross-Attention Router Model.py`), built on our own forward pass, not AutoModel. Token-level states are cached in fp16. First on the detector: the last-message tokens query the history tokens. Then on the router, as candidate-as-query over the conversation tokens, because a fixed `intent_head` cannot handle dynamic agents | detector: E7/E8 above Phase 1 at the same E6; router: E5 above the best | **done (run 7)**: better out-of-domain detection, the hard cascade is still below the router alone |
 | 3 | Representation and head: layer-wise scalar mix (a few layers), residual bottleneck / gated heads, label smoothing; one axis per run | E1 and E5 improve over the best previous run | planned |
 | 4 | Calibration: temperature scaling fitted on the validation folds, and the cascade threshold chosen there instead of a fixed 0.5. Confidence gate (entropy or top-1/top-2 margin) with coverage vs accuracy reporting; the fallback action decided with the user | a threshold that keeps ≥ 90% coverage at ≥ 95% accuracy | planned |
 | 4b | k-NN memory for the detector (its Y/N labels do not depend on the domain): blend p_model with p_kNN from generic examples | E7/E8 improve | optional |
