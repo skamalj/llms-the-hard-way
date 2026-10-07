@@ -268,6 +268,20 @@ E10 by turn type (3b: router · cross only · soft fusion): start 32·32·32/35;
 - **Verdict:**
   - **Nemotron is the better ROUTER encoder:** +16 on E10, +20 on banking, +5 on realistic. Its retrieval training makes standalone (dual) embeddings useful (+10 points), and E10's first messages go from 28 to 32 of 35.
   - **ModernBERT is the better DETECTOR encoder.** Nemotron's topical embeddings miss dialogue structure: it found only 4 of 15 real switches on the realistic set. The ding-dong replay is also worse with Nemotron.
+**Cell 70: one-sided "confident stay" gate** (stay only if p < τ, otherwise the router chooses among ALL agents). τ was chosen on 7 E10 companies (dev, 110 turns) and is reported on the other 6 (test, 83 turns). Run in the same 3b kernel.
+
+| Detector | Dev, router alone 86/110 → best τ | **Test, router alone 68 / 83** |
+|---|---|---|
+| switch / pooled | 90 @ 0.1 | **70** |
+| switch / Q-K-V | 89 @ 0.02 | 69 |
+| change / pooled | 79 @ 0.02 (worse at every τ) | 68 |
+| change / Q-K-V | **91** @ 0.02 | **70** |
+
+On test, the gate gains on closings (3 → 5 of 5) and follow-ups (8 → 9 of 9), keeps switches at 15/20, and loses at most 1 short switch.
+
+- **This is the first way of using the Y/N detector that does not hurt the router:** +2 of 83 on test (+4–5 on dev). The gain is small and within noise at this test size, but it is consistently in the right direction.
+- **Why the gain is limited:** the router alone already handles most continuations. The remaining errors are missed switches (5 of 20) and short answers made wrong by an earlier mistake. A gate can only keep a correct current agent; it cannot repair a wrong one.
+
 - **Next:**
   1. Cell 70: a one-sided "confident stay" gate (stay only if p < τ, otherwise the router chooses among all agents), with τ chosen on an E10 dev split (7 companies) and reported on the other 6. Evaluation only, in the same kernel.
   2. A **hybrid run**: Nemotron router + ModernBERT detectors (both encoders already load in every run).
