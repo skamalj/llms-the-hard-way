@@ -356,6 +356,24 @@ Test by turn type (router → change / pooled gate): answer 17 → 20 of 22; fol
 - **Best result so far for chat history:** **+6 / 83 on unseen test companies** with no loss on switches (run 9's Nemotron-detector gate: +2). The pooled context-change detector gives the same dev score at every τ, so its test gain does not come from a lucky τ choice.
 - **E10 total with the gate (dev 88 + test 74): 162 / 193**, against the Strands decider's best 163 (3-turn window) and its 151 with full history. The dev part is the set τ was chosen on, but for this detector τ makes no difference there.
 - **Versus the decider:** level on realistic chat history; behind on first messages (E11 93 / 97 vs 96 / 100) and on banking (193 vs 214; the decider was trained on banking77 / CLINC).
+
+**Like-for-like on the 6 E10 test companies (83 turns, the same turns in every column).** The decider was split the same way in `decider_benchmark.ipynb`, section 9.
+
+| Turn type | Turns | Router alone | **Hybrid + gate** (change / pooled) | Decider, full | Decider, window 3 |
+|---|---|---|---|---|---|
+| start | 15 | 15 | 15 | 14 | 14 |
+| answer | 22 | 17 | **20** | 17 | **20** |
+| follow | 9 | 8 | **9** | 8 | **9** |
+| aspect | 1 | 1 | 1 | 1 | 1 |
+| closing | 5 | 3 | **5** | 4 | **5** |
+| also_stay | 3 | 2 | 2 | **3** | **3** |
+| switch | 20 | **15** | **15** | 10 | 13 |
+| short_switch | 4 | **4** | **4** | 1 | 2 |
+| return | 2 | 2 | 2 | 2 | 1 |
+| branch | 2 | 1 | 1 | **2** | 1 |
+| **all** | **83** | 68 | **74** | 62 | 69 |
+
+- **On unseen test companies, our hybrid + gate beats the Strands decider: 74 vs 69** (62 with full history). The gate now matches the decider's best on staying put (answers 20, follow-ups 9, closings 5), and we keep our lead on topic changes (switches 15 vs 13, short switches 4 vs 2).
 - **Q-K-V head, clarified:** it does compute Q = current-message tokens and K/V = history tokens. The keys are restricted by `key_padding_mask`, and only the current-message rows are pooled. But it is written as `attn(x, x, x)` and should be rewritten with explicit `x_current` / `x_hist`. Its limited gain is expected: `x_current` comes from a bidirectional encoder that has already read the history. A cleaner test encodes the current message alone.
 - **Next:** (1) windowing on our router (the decider gained +12 from it); (2) rewrite the Q-K-V head explicitly, plus a "current message encoded alone" variant; (3) realistic training data.
 
