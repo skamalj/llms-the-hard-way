@@ -233,6 +233,48 @@ The generic training data changed between runs (3,542 → 3,931 → 5,049 conver
 
 ---
 
+## Run 9 — 2026-10-07: Phase 3b, Nemotron-1B router encoder (branch `exp/phase3b-nemotron`)
+
+- **Encoder:** `nvidia/llama-nemotron-embed-1b-v2` (bidirectional Llama-3.2-1B, H = 2,048), library forward pass in fp16, `query:` / `passage:` prefixes, newline separators. Layer option "last" only (mix dropped after 3a). Same data as run 8.
+- **Fix during the run:** the tokenizer also needs `trust_remote_code=True`. Without it, transformers silently waits for a confirmation (VS Code hid the prompt), then errors.
+- **Speed:** 34,435 feature passes in 352 s (fp16 is faster than our fp32 ModernBERT-large: 761 s). Cell 45b took 330 s. RAM 6.6 GB, GPU 5.5 GB. The Q-K-V token-state training was slow, about 37 min for both labels (H = 2,048).
+
+**Router: Nemotron vs ModernBERT-large (3a)**
+
+| Test | 3a ModernBERT | **3b Nemotron** |
+|---|---|---|
+| E1 generic held-out (winner) | 4828 / 5914 (81.6%) | **5068 (85.7%)**, `dual + cross + sim / mlp-256` |
+| E1, dual-only head | 3353 (56.7%) | **3916 (66.2%)** |
+| E2 banking benchmark | 39 / 50 | **43 / 50** |
+| E3 all banking | 173 / 225 | **193 / 225** (ties the best, run 3) |
+| E4 ding-dong per turn / full | **21 / 25 · 5/5** | 16 / 25 · 3/5 |
+| E5 realistic (Cell 59): router / cross / dual | 29 / 35 / 19 | **34 / 35 / 26** |
+| **E10 realistic test (193 turns), router** | 138 (71.5%) | **154 (79.8%)** |
+| **E10, cross-only head** | 131 | **158 (81.9%)**, best on E10 so far |
+| E10, soft fusion / hard cascade | 130 / 114 | 155 / 135 |
+
+E10 by turn type (3b: router · cross only · soft fusion): start 32·32·32/35; answer 39·**43**·41/51; follow 14·15·13/21; switch 33·32·**34**/42; closing 9·9·**12**/15; return **7**·6·6/7; short_switch **6**·6·5/6; handoff_ok 2·2·2/2.
+
+**Y/N detectors: Nemotron is much worse than ModernBERT**
+
+| Test | 3a ModernBERT (pooled) | 3b Nemotron (pooled / Q-K-V) |
+|---|---|---|
+| Context change, generic held-out | **5069 / 5212** | 4825 / 4799 |
+| Context change, realistic (35) | **32** (Y 15/15) | 24 / 24 (Y only 4–5 of 15) |
+| Context change, banking turns (18) | **14** | 7 / 11 |
+| Agent switch, banking (180) | 141 (N kept 5/27) | **153** (N 14/27) / 146 |
+
+- **Soft fusion:** generic held-out w = 1 → 5475 (+407 over the router). On real tests: realistic **37 / 40** (+3), ding-dong 17 (+1), banking 183 (−10), E10 155 (+1). Mixed again; it helps closings and switches but hurts banking.
+- **Verdict:**
+  - **Nemotron is the better ROUTER encoder:** +16 on E10, +20 on banking, +5 on realistic. Its retrieval training makes standalone (dual) embeddings useful (+10 points), and E10's first messages go from 28 to 32 of 35.
+  - **ModernBERT is the better DETECTOR encoder.** Nemotron's topical embeddings miss dialogue structure: it found only 4 of 15 real switches on the realistic set. The ding-dong replay is also worse with Nemotron.
+- **Next:**
+  1. Cell 70: a one-sided "confident stay" gate (stay only if p < τ, otherwise the router chooses among all agents), with τ chosen on an E10 dev split (7 companies) and reported on the other 6. Evaluation only, in the same kernel.
+  2. A **hybrid run**: Nemotron router + ModernBERT detectors (both encoders already load in every run).
+  3. Roadmap D: realistic training data.
+
+---
+
 ## Infrastructure notes
 
 - **Kaggle gives 2 × T4, and the notebook uses only `cuda:0`** (noted 2026-10-07). Options to use the second GPU, in order of payoff vs effort:
@@ -264,7 +306,7 @@ Later phase branches are created when each phase starts, from the branch of the 
 | 1 | Cascade: detector N → stay with the current agent; Y → router picks among the other agents. Plus the detector data-gap fixes | E5 combined ≥ 36/40; E4 per turn ≥ 21/25; E7 ≥ 34/35; E8 ≥ 16/18; E6 no worse than 4300/4347 | **failed (run 6)**: the hard gate is worse than the router alone |
 | 2 | Soft fusion instead of a hard cascade | — | **folded into Phase 3 (step 3.4)** |
 | 2b | Learned Q-K-V cross-attention head (from `gemini-suggestions/ModernBERT Cross-Attention Router Model.py`), built on our own forward pass, not AutoModel. Token-level states are cached in fp16. First on the detector: the last-message tokens query the history tokens. Then on the router, as candidate-as-query over the conversation tokens, because a fixed `intent_head` cannot handle dynamic agents | detector: E7/E8 above Phase 1 at the same E6; router: E5 above the best | **done (run 7)**: better out-of-domain detection, the hard cascade is still below the router alone |
-| 3 | **Same experiments, two encoders: 3a = ModernBERT-large (our forward pass), 3b = Nemotron-1B (library forward, user decision 2026-10-07).** 3.1 pluggable encoder (`ROUTER_ENCODER`, character-offset spans instead of `[SEP]` counting); 3.3 layer option last / mix (mean of the last 4 layers) and a residual head with label smoothing in the selection grid; 3.4 soft fusion (router + w × Q-K-V switch detector, w chosen on generic held-out folds). Local tests: ModernBERT-base and SmolLM2-135M (library code path) | 3a reproduces run 7 within noise; 3b vs 3a side by side on E1–E9 | in progress |
+| 3 | **Same experiments, two encoders: 3a = ModernBERT-large (our forward pass), 3b = Nemotron-1B (library forward, user decision 2026-10-07).** 3.1 pluggable encoder (`ROUTER_ENCODER`, character-offset spans instead of `[SEP]` counting); 3.3 layer option last / mix (mean of the last 4 layers) and a residual head with label smoothing in the selection grid; 3.4 soft fusion (router + w × Q-K-V switch detector, w chosen on generic held-out folds). Local tests: ModernBERT-base and SmolLM2-135M (library code path) | 3a reproduces run 7 within noise; 3b vs 3a side by side on E1–E10 | **done (runs 8, 9)**: Nemotron is the better router, ModernBERT the better detector |
 | 3.5 | **From `system_1_multi_agent_router_strategy_guide.md`, the next feature/data round (after 3a/3b):** (1) a **recent-window span** (the last 2 exchanges) next to the whole-conversation mean, aimed at the measured failure where the average is dominated by the first topic; (2) **agent-tagged history**: `assistant (Billing Agent): …`, so the input carries the conversation's agent trail; the builder records each speaker | E5 short-reply turns and E4 improve over the best run | proposed |
 | 3c | **Pretrained reranker `BAAI/bge-reranker-v2-m3`**: (a) a zero-shot baseline that scores (conversation, agent description) with no training; (b) another encoder option behind `ROUTER_ENCODER` | E2/E3/E5 vs the trained routers | proposed |
 | D | **Free-form, LLM-written conversations (written by Claude, not from templates)**: varied phrasing, realistic shifts, branching trajectories (the same last message needs different agents depending on history). First a **larger realistic TEST set** (≈150–200 conversations over several new companies with 3–5 broad agents), because 40 turns cannot separate close results; then training data, to replace the template phrasing that taught surface cues | the test set exists and is used as E10 in every run | proposed |
