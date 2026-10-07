@@ -354,6 +354,7 @@ Every experiment lives on its own branch, and nothing is merged into `master` un
 | `exp/phase2b-qkv-attention` | Phase 2b: Q-K-V attention head for the detectors, cascade with it (run 7) | `exp/phase1-cascade` |
 | `exp/phase3a-modernbert` | Phase 3a: pluggable encoder, layer mix, residual head, soft fusion; ModernBERT-large | `exp/phase2b-qkv-attention` |
 | `exp/phase3b-nemotron` | Phase 3b: the same code with `ROUTER_ENCODER = "nemotron-1b"` | `exp/phase3a-modernbert` |
+| `exp/phase4-encoder-combos` | Router and detector encoders chosen independently (`ROUTER_ENCODER`, `DETECTOR_ENCODER`): any of the 4 ModernBERT / Nemotron combinations; default = hybrid (Nemotron router + ModernBERT detectors) | `exp/phase3b-nemotron` |
 
 Later phase branches are created when each phase starts, from the branch of the best result so far.
 
