@@ -172,6 +172,46 @@ The generic training data changed between runs (3,542 → 3,931 → 5,049 conver
 
 ---
 
+## Run 8 — 2026-10-07: Phase 3a, ModernBERT-large, pluggable encoder + layer mix + residual head + soft fusion (branch `exp/phase3a-modernbert`)
+
+- **Same data as runs 6–7.** New: spans found by character offsets (encoder-agnostic); layer option last / mix (mean of the last 4 layers); a `resid-ls` head (residual bottleneck + label smoothing 0.1); soft fusion (router + w × Q-K-V switch, w chosen on generic held-out folds). Memory-lean handling: RAM steady at 4.6 GB (the first attempt died at the layer switch).
+- **Regression check passed:** the detectors reproduce run 7 within 0.3% (context change pooled 5069 vs 5073, Q-K-V 5059 vs 5050; switch pooled 5007 vs 5014, Q-K-V 4968 vs 4958).
+
+**Selection (E1, generic held-out):** winner `dual + cross + sim / last / resid-ls` = **4828 / 5914 (81.6%)**, the best so far (run 7: 4771). **"mix" is worse than "last" for every feature set and head** (by 1–2 points), so drop it. `resid-ls` wins with `dual + cross + sim`, but not with `cross` alone.
+
+**Tests**
+
+| Test | Run 7 router | **3a router** | 3a hard cascade (Q-K-V) | 3a soft fusion (w = 1) |
+|---|---|---|---|---|
+| E2 banking benchmark | 41 / 50 | 39 / 50 | — | 35 / 50 |
+| E3 all banking | 176 / 225 | 173 / 225 | 154 / 225 | 160 / 225 |
+| E4 ding-dong per turn (live) | 17 / 25 | **21 / 25** (5/5 full) | 14 / 25 | 15 / 25 |
+| E5 realistic (live) | 34 / 40 | 29 / 40 | 28 / 40 | 30 / 40 |
+| E5, cross-only head | 33 / 40 | **35 / 40** | | |
+
+| Detector (unseen tests) | Pooled | Q-K-V |
+|---|---|---|
+| E7 context change, realistic | 32 / 35 | 32 / 35 |
+| E8 context change, banking turns | 14 / 18 | 14 / 18 |
+| Agent switch, banking (180) | 141 (N kept 5/27) | 138 (N kept 9/27) |
+
+**Soft fusion on generic held-out:** w = 0 → 4828, w = 0.5 → 5245, **w = 1 → 5251 (+7.1 points)**, w = 8 → 5199.
+
+- **Key finding: better generic held-out scores do NOT transfer to the real-world tests.**
+  - The winning head scored +57 on generic held-out but went down on banking and on the realistic conversations.
+  - Soft fusion added +423 correct on generic held-out but lost on banking (−13) and on ding-dong (−6), and only +1 on realistic.
+  - The template-based generic data rewards cues that real conversations don't have. On banking, the switch detector keeps only 5–9 of 27 "stay" cases.
+  - Choosing models and weights on generic held-out data is therefore misleading, and the real test sets are too small to choose on without overfitting to them.
+- **Q-K-V's out-of-domain edge from run 7 didn't hold this time:** it ties pooled on E7/E8 and is slightly worse on banking switch. Its run-7 advantage was within run-to-run noise.
+- **Decision (proposed):**
+  1. Drop the "mix" layer option.
+  2. Add the realistic E10 set (193 turns, 13 companies) to every run.
+  3. Split realistic data into a **dev** part (for choosing configurations and the fusion weight) and a **held-out test** part.
+  4. Prioritise **roadmap D (free-form realistic training data)** over further head tweaks, because the bottleneck is the training data's realism, not the head.
+  5. Run 3b (Nemotron) to see whether a retrieval-trained encoder transfers better.
+
+---
+
 ## Infrastructure notes
 
 - **Kaggle gives 2 × T4, and the notebook uses only `cuda:0`** (noted 2026-10-07). Options to use the second GPU, in order of payoff vs effort:
