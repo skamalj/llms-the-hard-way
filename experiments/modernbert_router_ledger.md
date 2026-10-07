@@ -17,6 +17,8 @@ These are the numbers recorded for every run. Some were not recorded in older ru
 | E7 | Context-change detector, realistic conversations (35 turns) | Cell 63 |
 | E8 | Context-change detector, banking ding-dong turns (18) | Cell 63 |
 | E9 | Combined router (detector + router), live, on E4 and E5 | planned (Cell 64) |
+| E10 | Realistic multi-turn test, 35 conversations / 193 typed turns, live | Cell 69 |
+| E11 | First-turn only, 100 single messages, 10 companies × 5 agents, typed | Cell 71 |
 
 The generic training data changed between runs (3,542 → 3,931 → 5,049 conversations), so E1 is only roughly comparable across data versions.
 
@@ -281,6 +283,21 @@ On test, the gate gains on closings (3 → 5 of 5) and follow-ups (8 → 9 of 9)
 
 - **This is the first way of using the Y/N detector that does not hurt the router:** +2 of 83 on test (+4–5 on dev). The gain is small and within noise at this test size, but it is consistently in the right direction.
 - **Why the gain is limited:** the router alone already handles most continuations. The remaining errors are missed switches (5 of 20) and short answers made wrong by an earlier mistake. A gate can only keep a correct current agent; it cannot repair a wrong one.
+
+**E11: first-turn routing only (Cell 71, same 3b kernel)**: 100 single messages, 10 new companies × 5 agents (with close pairs), no history and no current agent.
+
+| Type | Messages | Router top-1 | Router top-2 | Cross only |
+|---|---|---|---|---|
+| clear | 31 | 29 | 31 | 30 |
+| short | 17 | 16 | 16 | 16 |
+| indirect | 17 | 15 | 16 | 13 |
+| close | 20 | 18 | 19 | 16 |
+| noisy | 15 | 15 | 15 | 13 |
+| **all** | **100** | **93** | **97** | 88 |
+
+- **Matching a single message to agent descriptions is strong:** 93% top-1, 97% top-2, consistent with E10's first turns (32 of 35). Ranges per company: 8–10 of 10.
+- **The 7 mistakes:** 2 indirect (fly-tipping → bulky waste, "error E21" → safety recalls), 1 short ("oven not heating", p = 0.40), 2 clear ("two tickets for 8pm" → refunds at p = 0.97; "brakes barely work" → docking stations), 2 close pairs (swap the booking day; accountant access → payroll at p = 0.99). Some errors are **confidently wrong**, so a confidence threshold alone will not catch them; top-2 at 97% favours "shortlist and confirm" designs.
+- **Implication:** the router's weakness is the multi-turn dynamics (missed switches, errors propagating live), not the conversation-to-description matching. Design direction: route the first message with the router, keep the agent on later turns unless a reliable detector says the topic changed, and only then re-route (possibly as a top-2 shortlist).
 
 - **Next:**
   1. Cell 70: a one-sided "confident stay" gate (stay only if p < τ, otherwise the router chooses among all agents), with τ chosen on an E10 dev split (7 companies) and reported on the other 6. Evaluation only, in the same kernel.
