@@ -1,0 +1,168 @@
+"""Realistic TRAINING conversations, part 6: tailor, dry cleaner, laundry pickup service, VPN app, password manager."""
+
+COMPANIES = {
+    "tailor": {
+        "Alterations Agent": "Handles alterations: hemming, taking in, letting out and repairs.",
+        "Made-to-Measure Agent": "Handles bespoke suits and shirts: fittings, fabrics and timings.",
+        "Tailor Appointments Agent": "Books and moves fitting appointments.",
+        "Tailor Pricing Agent": "Gives prices and quotes for alterations and made-to-measure work.",
+        "Garment Collection Agent": "Handles when garments are ready and collection.",
+    },
+    "dry cleaner": {
+        "Cleaning Orders Agent": "Takes dry cleaning orders and gives turnaround times.",
+        "Stain Advice Agent": "Advises on stains and delicate fabrics before cleaning.",
+        "Cleaning Damage Claims Agent": "Handles items damaged or lost by the cleaners.",
+        "Cleaner Prices Agent": "Explains prices for suits, dresses, curtains and duvets.",
+        "Ready for Pickup Agent": "Tells customers when their items are ready and holds items for collection.",
+    },
+    "laundry pickup service": {
+        "Laundry Pickups Agent": "Books and changes laundry pickup and drop-off slots.",
+        "Laundry Plans Agent": "Handles laundry subscription plans and plan sizes.",
+        "Missing Garments Agent": "Tracks missing or mixed-up garments.",
+        "Wash Preferences Agent": "Sets detergent, temperature and folding preferences.",
+        "Laundry Payments Agent": "Handles laundry charges, promo codes and refunds.",
+    },
+    "VPN app": {
+        "VPN Connection Agent": "Fixes connection problems, slow speeds and servers that won't connect.",
+        "VPN Subscription Agent": "Handles plans, renewals, cancellations and refunds.",
+        "VPN Devices Agent": "Helps install the app on devices and routers and handles the device limit.",
+        "Streaming Access Agent": "Helps with streaming services through the VPN.",
+        "VPN Privacy Agent": "Answers questions about logging, data and the kill switch.",
+    },
+    "password manager": {
+        "Vault Access Agent": "Helps users locked out of their vault, master password and recovery.",
+        "Password Import Agent": "Imports passwords from browsers and other password managers.",
+        "Family & Sharing Agent": "Handles family plans and sharing passwords with others.",
+        "Autofill & Extension Agent": "Fixes the browser extension and autofill on websites and phones.",
+        "Password Manager Billing Agent": "Handles subscriptions, invoices and refunds.",
+    },
+}
+
+CONVERSATIONS = [
+    ("tailor", "tailor-1", [
+        ("I need my suit trousers taken up about 2cm.", "Alterations Agent", "start", "No problem. Do they have a turn-up?"),
+        ("no, plain hem", "Alterations Agent", "answer", "That's a simple hem."),
+        ("how much would that be", "Tailor Pricing Agent", "switch", "£18, ready in 3 days."),
+        ("can I come in Thursday to get them pinned?", "Tailor Appointments Agent", "switch", "Thursday 5:30pm?"),
+        ("yes", "Tailor Appointments Agent", "answer", "Booked."),
+        ("Also I'm thinking of getting a made-to-measure suit for my wedding", "Made-to-Measure Agent", "switch", "Congratulations! We need about 8 weeks. When's the wedding?"),
+    ]),
+    ("tailor", "tailor-2", [
+        ("Is my jacket ready? I dropped it in Monday.", "Garment Collection Agent", "start", "Which name?"),
+        ("Patel", "Garment Collection Agent", "answer", "It's ready; you can collect it today."),
+        ("great. While I'm there could you take in a dress?", "Alterations Agent", "switch", "Yes, bring it and we'll pin it."),
+        ("roughly how much", "Tailor Pricing Agent", "switch", "Taking in a dress is usually £25 to £40."),
+    ]),
+    ("tailor", "tailor-3", [
+        ("What fabrics do you have for a summer suit?", "Made-to-Measure Agent", "start", "Linen, cotton and lightweight wool."),
+        ("which is least creasy", "Made-to-Measure Agent", "follow", "Lightweight wool; linen creases the most."),
+        ("ok and how much for a wool suit", "Tailor Pricing Agent", "switch", "From £850 for two pieces."),
+        ("let's book a fitting", "Tailor Appointments Agent", "switch", "Saturday 11am?"),
+        ("perfect", "Tailor Appointments Agent", "answer", None),
+    ]),
+    ("tailor", "tailor-4", [
+        ("I need to move my fitting to next week.", "Tailor Appointments Agent", "start", "Tuesday or Wednesday?"),
+        ("Wednesday", "Tailor Appointments Agent", "answer", "Moved to Wednesday 4pm."),
+        ("will the suit still be ready for the 20th?", "Made-to-Measure Agent", "switch", "Yes, the final fitting is on the 15th."),
+        ("good", "Made-to-Measure Agent", "closing", None),
+    ]),
+    ("dry cleaner", "clean-1", [
+        ("I have red wine on a silk dress, can you get it out?", "Stain Advice Agent", "start", "Usually, if it's recent. Don't rub it; bring it in as soon as you can."),
+        ("it's from last night", "Stain Advice Agent", "answer", "That's fine; bring it in today."),
+        ("how much for a silk dress", "Cleaner Prices Agent", "switch", "£16."),
+        ("and when will it be ready", "Cleaning Orders Agent", "switch", "Two working days."),
+    ]),
+    ("dry cleaner", "clean-2", [
+        ("Your shop shrank my wool coat.", "Cleaning Damage Claims Agent", "start", "I'm sorry. Do you have the ticket?"),
+        ("yes, ticket 3317", "Cleaning Damage Claims Agent", "answer", "Thanks. The manager will inspect it and contact you within 2 days."),
+        ("ok", "Cleaning Damage Claims Agent", "closing", None),
+        ("Also are my curtains ready?", "Ready for Pickup Agent", "switch", "Yes, they're ready."),
+        ("can you hold them until Saturday", "Ready for Pickup Agent", "follow", "Of course."),
+    ]),
+    ("dry cleaner", "clean-3", [
+        ("How much to clean a king size duvet?", "Cleaner Prices Agent", "start", "£28 for a king size."),
+        ("and pillows", "Cleaner Prices Agent", "follow", "£8 each."),
+        ("ok I'll bring them in tomorrow, how long will it take?", "Cleaning Orders Agent", "switch", "Three days for duvets."),
+        ("fine", "Cleaning Orders Agent", "closing", None),
+    ]),
+    ("dry cleaner", "clean-4", [
+        ("I dropped off 3 shirts on Monday, are they ready?", "Ready for Pickup Agent", "start", "Yes, ready since yesterday."),
+        ("one of them had a pen mark, did it come out?", "Stain Advice Agent", "switch", "Mostly; a faint mark is left, as ink sets quickly."),
+        ("can you try again", "Stain Advice Agent", "follow", "Yes, we'll treat it again at no charge."),
+        ("thanks", "Stain Advice Agent", "closing", None),
+    ]),
+    ("laundry pickup service", "laundry-1", [
+        ("Can you pick up my laundry tomorrow evening?", "Laundry Pickups Agent", "start", "We have 6 to 8pm or 8 to 10pm."),
+        ("8 to 10", "Laundry Pickups Agent", "answer", "Booked."),
+        ("Please use unscented detergent", "Wash Preferences Agent", "switch", "Done; it's saved for all future orders."),
+        ("and fold, don't hang the shirts", "Wash Preferences Agent", "follow", "Saved."),
+        ("I have a promo code too, NEW20", "Laundry Payments Agent", "switch", "Applied: 20% off this order."),
+    ]),
+    ("laundry pickup service", "laundry-2", [
+        ("A blue shirt is missing from my last order.", "Missing Garments Agent", "start", "Sorry. Which order date?"),
+        ("Tuesday", "Missing Garments Agent", "answer", "We found it at the facility; it'll come with your next delivery."),
+        ("ok thanks", "Missing Garments Agent", "closing", None),
+        ("Could I switch to the bigger monthly plan?", "Laundry Plans Agent", "switch", "Yes, the 30kg plan is £79 a month. Switch now?"),
+        ("yes", "Laundry Plans Agent", "answer", "Switched from today."),
+    ]),
+    ("laundry pickup service", "laundry-3", [
+        ("Why was I charged £12 extra?", "Laundry Payments Agent", "start", "That's the express fee you selected."),
+        ("I didn't choose express", "Laundry Payments Agent", "follow", "You're right, it was set by mistake. Refunded."),
+        ("thanks. Can you move my next pickup to Saturday", "Laundry Pickups Agent", "switch", "Saturday 10 to 12 is booked."),
+    ]),
+    ("laundry pickup service", "laundry-4", [
+        ("What's included in the basic plan?", "Laundry Plans Agent", "start", "Up to 15kg a month, wash and fold, with weekly pickups."),
+        ("can I pause it in August", "Laundry Plans Agent", "follow", "Yes, pauses of up to 2 months are free."),
+        ("great. and can you wash at 30 degrees", "Wash Preferences Agent", "switch", "Yes, set to 30°C."),
+    ]),
+    ("VPN app", "vpn-1", [
+        ("The VPN won't connect on my laptop since this morning.", "VPN Connection Agent", "start", "Which server are you trying?"),
+        ("UK London", "VPN Connection Agent", "answer", "That server is under maintenance; try UK Manchester."),
+        ("that works", "VPN Connection Agent", "closing", "Great."),
+        ("Can I use it on my TV too?", "VPN Devices Agent", "switch", "Yes; install it from your TV's app store. Your plan allows 6 devices."),
+        ("I'm at 6 already", "VPN Devices Agent", "answer", "Then sign out an old device in your account to free a slot."),
+        ("And will Netflix work through it?", "Streaming Access Agent", "switch", "Yes, use the servers marked 'Streaming'."),
+    ]),
+    ("VPN app", "vpn-2", [
+        ("I want to cancel and get a refund, I only bought it 3 days ago.", "VPN Subscription Agent", "start", "No problem; we have a 30-day refund guarantee. Shall I cancel?"),
+        ("yes", "VPN Subscription Agent", "answer", "Cancelled, and the refund is on its way."),
+        ("before I go, do you keep logs of what I browse?", "VPN Privacy Agent", "switch", "No, we have a no-logs policy that is independently audited."),
+    ]),
+    ("VPN app", "vpn-3", [
+        ("My speeds are really slow on the VPN.", "VPN Connection Agent", "start", "Try switching the protocol to WireGuard in Settings."),
+        ("much better now", "VPN Connection Agent", "closing", "Great."),
+        ("What does the kill switch do?", "VPN Privacy Agent", "switch", "It cuts your internet if the VPN drops, so nothing leaks."),
+        ("how do I install it on my router", "VPN Devices Agent", "switch", "We have router guides for most brands. What's your router?"),
+        ("Asus RT-AX58U", "VPN Devices Agent", "answer", "Here's the Asus guide; it takes about 10 minutes."),
+    ]),
+    ("VPN app", "vpn-4", [
+        ("BBC iPlayer says I'm using a VPN.", "Streaming Access Agent", "start", "Use a UK server marked 'Streaming' and clear your browser cache."),
+        ("still blocked", "Streaming Access Agent", "follow", "Try the iPlayer app instead of the browser; that usually works."),
+        ("ok. when does my plan renew?", "VPN Subscription Agent", "switch", "On the 3rd of next month, £59.99 for a year."),
+    ]),
+    ("password manager", "pm-1", [
+        ("I forgot my master password and I'm locked out.", "Vault Access Agent", "start", "Did you set up a recovery kit or an emergency contact?"),
+        ("I have the recovery kit PDF", "Vault Access Agent", "answer", "Use the code in the PDF on the login page to reset your master password."),
+        ("worked, I'm in", "Vault Access Agent", "closing", "Great."),
+        ("Can I import my passwords from Chrome?", "Password Import Agent", "switch", "Yes: export a CSV from Chrome, then use Import in Settings."),
+        ("done, but some have no names", "Password Import Agent", "follow", "Those were saved without a site name in Chrome; you can rename them."),
+        ("Also autofill doesn't work on my bank's site", "Autofill & Extension Agent", "switch", "Some banks block autofill; use the copy button instead."),
+    ]),
+    ("password manager", "pm-2", [
+        ("I want to share our Netflix login with my wife.", "Family & Sharing Agent", "start", "Is she on your family plan?"),
+        ("not yet", "Family & Sharing Agent", "answer", "Invite her from Family settings, then share the item with her."),
+        ("how much is the family plan", "Password Manager Billing Agent", "switch", "£4.99 a month for up to 6 people."),
+        ("ok upgrade me", "Password Manager Billing Agent", "answer", "Upgraded."),
+    ]),
+    ("password manager", "pm-3", [
+        ("The browser extension keeps logging me out.", "Autofill & Extension Agent", "start", "Which browser?"),
+        ("Firefox", "Autofill & Extension Agent", "answer", "Turn off 'clear cookies on exit' for our extension in Firefox settings."),
+        ("that fixed it", "Autofill & Extension Agent", "closing", "Good."),
+        ("Can I get an invoice for my company?", "Password Manager Billing Agent", "switch", "Yes, under Billing you can download invoices with your company name."),
+    ]),
+    ("password manager", "pm-4", [
+        ("Can I import from LastPass?", "Password Import Agent", "start", "Yes, export from LastPass as CSV and import it here."),
+        ("will my notes come across", "Password Import Agent", "follow", "Secure notes are imported too."),
+        ("great. how do I stop sharing a password with my old flatmate?", "Family & Sharing Agent", "switch", "Open the item, Sharing, and remove her."),
+    ]),
+]
