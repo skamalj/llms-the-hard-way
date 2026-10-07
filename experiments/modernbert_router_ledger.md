@@ -400,6 +400,36 @@ The router and the detector read only the last N user turns (plus the assistant 
 
 ---
 
+## Run 11 — 2026-10-07: Phase 6, realistic training data (branch `exp/phase6-realistic-train`, hybrid kernel)
+
+- **New:** 744 free-form realistic training turns (40 businesses × 4 conversations, 5 agents each) added once to the 5,914 template conversations → 6,658 conversations, 67 domains. Same hybrid as run 10 (Nemotron router, ModernBERT detectors), same tests. E1 is now over 6,658 and is **not comparable** with earlier runs.
+- **Confounder:** the router head chosen on held-out folds changed from `mlp-256` (run 10) to `resid-ls` (5722 vs 5688 for mlp-256 on held-out). The detectors also picked `mlp-256`.
+
+| Test | Run 10 | **Run 11** | Decider (B1) |
+|---|---|---|---|
+| E1 generic held-out | 5068 / 5914 | 5722 / 6658 (not comparable) | — |
+| Banking benchmark / all | 43 / 50 · 193 / 225 | 41 / 50 · 188 / 225 | 48 · 214 |
+| Ding-dong per turn | 16 / 25 | 16 / 25 | — |
+| Cell 59 (40 turns), router | 34 / 40 | 35 / 40 | — |
+| E10 router alone (193) | 154 | **160** | 151 full / 163 window 3 |
+| E10 cross only / hard cascade / soft fusion | 158 / 117 / 155 | 156 / 146 / **163** | — |
+| E10 dev router alone (110) | 86 | **91** | — |
+| E10 **test** router alone (83) | 68 | 69 | 62 / 69 |
+| E10 **test, gate** change / pooled @ 0.02 | **74** | 70 | — |
+| E10 test, gate (all four detectors) | 73 / 73 / 74 / 74 | 70 / 70 / 70 / 70 | — |
+| E11 first turn: router / top-2 | 93 / 97 | 92 / 97 | 96 |
+| Context-change detector: Cell 59 / banking turns | 32 / 35 · 14 / 18 | 31 / 35 · 12 / 18 | — |
+
+E10 test by turn type, router alone → gate (run 10 in brackets): answer 19 → 19 (17 → 20); follow 8 → 8 (8 → 9); closing 4 → 5 (3 → 5); also_stay 3 → 3 (2 → 2); **switch 12 → 12 (15 → 15)**; short_switch 4 → 4; return 2 → 2; branch 1 → 1.
+
+- **The router got better at staying put but worse at switching.** On the test companies, stay-type turns went up (answer +2, closing +1, also_stay +1), but real switches fell from 15 to 12 of 20. With fewer stay errors left to fix, the gate adds only +1 instead of +6.
+- **The gain is on the dev companies, not on test:** router alone dev 86 → 91, test 68 → 69. Soft fusion now reaches 163 / 193 over all of E10, level with the decider's best, but that total includes the dev companies.
+- **Small losses elsewhere:** banking −2 / −5, E11 −1, context-change detector −1 / −2.
+- **Verdict by the agreed rule (≥ 2 / 83 on E10 test): not adopted.** The best E10 test result is still run 10's 74 / 83. Likely cause: the realistic data is heavy on same-agent turns (answers, closings: 348 N vs 236 Y) where the current agent is the answer, so the head leans more on "stay"; the head change (resid-ls) may add to it. These two causes are not separated by this run.
+- **Decision:** the default stays run 10's (templates only, `REALISTIC_TRAIN=0`). The realistic data stays on this branch as an option; a later retry would add more switch-heavy realistic conversations and fix the router head to `mlp-256` to remove the confounder.
+
+---
+
 ## Infrastructure notes
 
 - **Kaggle gives 2 × T4, and the notebook uses only `cuda:0`** (noted 2026-10-07). Options to use the second GPU, in order of payoff vs effort:
@@ -422,6 +452,7 @@ Every experiment lives on its own branch, and nothing is merged into `master` un
 | `exp/phase3b-nemotron` | Phase 3b: the same code with `ROUTER_ENCODER = "nemotron-1b"` | `exp/phase3a-modernbert` |
 | `exp/phase4-encoder-combos` | Router and detector encoders chosen independently (`ROUTER_ENCODER`, `DETECTOR_ENCODER`): any of the 4 ModernBERT / Nemotron combinations; default = hybrid (Nemotron router + ModernBERT detectors) | `exp/phase3b-nemotron` |
 | `exp/phase5-windowing` | Cell 73: windowing test (router / detector windows on dev, report on test). Result: no gain | `exp/phase4-encoder-combos` |
+| `exp/phase6-realistic-train` | Realistic free-form training data (744 turns, 40 businesses), `REALISTIC_TRAIN` switch in Cell 34 (run 11). Result: not adopted (E10 test gate 70 vs 74) | `exp/phase5-windowing` |
 
 Later phase branches are created when each phase starts, from the branch of the best result so far.
 
@@ -442,7 +473,7 @@ Later phase branches are created when each phase starts, from the branch of the 
 | 6 | Nemotron encoder swap | — | **moved into Phase 3 as 3b** |
 | branch phase4 | Hybrid encoders: Nemotron router + ModernBERT detectors, confident-stay gate (τ on dev companies, reported on test companies) | gate beats router alone on E10 test | **done (run 10)**: 74 / 83 vs 68; beats the decider (62 / 69) |
 | branch phase5 | Windowing (last N user turns) for the router and the detector | E10 test above 74 / 83 | **done (run 10b)**: no gain, no window |
-| branch phase6 | Realistic free-form TRAINING data: 40 businesses × 4 conversations, 744 user turns, merged with the templates | E10 test / E11 / banking above run 10 | **running** |
+| branch phase6 | Realistic free-form TRAINING data: 40 businesses × 4 conversations, 744 user turns, merged with the templates | E10 test / E11 / banking above run 10 | **done (run 11): not adopted** — E10 test gate 70 vs 74; router stays better, switches worse |
 | decision 2026-10-07 | **Final architecture has one detector: context change (pooled features + feed-forward head).** The switch detector is dropped from the next run on. Decision rule for any challenger: settings chosen on dev companies, must beat the default by ≥ 2 / 83 on E10 test; on a tie the simpler option wins | — | agreed |
 | next (after phase6) | **Q-K-V rewrite, proper test:** explicit `x_current` (Q) / `x_hist` (K, V) inputs instead of `attn(x, x, x)` + masks, plus a variant where the current message is encoded alone (the bidirectional encoder no longer leaks the history into Q). Context-change label only. Then decide Q-K-V vs pooled and freeze the design | Q-K-V gate ≥ pooled + 2 on E10 test | **next** |
 | base (user request 2026-10-07) | **Absolute baseline: plain ModernBERT-large + pooling + feed-forward head, nothing else.** One cross pass over (conversation + candidate agent), mean-pooled over the whole input, one MLP head scoring each candidate; the highest score wins. No Nemotron, no dual pass, no span features, no similarities, no current-agent flag, no detector, no gate, no windowing. Same training data as the run it is compared with; same tests as the decider (E10 dev / test, E11, banking 50 / 225). Two rows: **base-0** exactly as above; **base-0 + current agent** = the same model with the current-agent flag added as one extra input, so its effect is measured on its own. Every extra component (hybrid encoders, detector, gate, Q-K-V) must justify itself against this baseline AND the decider | report side by side with B1 (decider) and the current best | **to do** |
