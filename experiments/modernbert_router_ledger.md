@@ -197,6 +197,27 @@ The generic training data changed between runs (3,542 → 3,931 → 5,049 conver
 
 **Soft fusion on generic held-out:** w = 0 → 4828, w = 0.5 → 5245, **w = 1 → 5251 (+7.1 points)**, w = 8 → 5199.
 
+**E10 — realistic test set (193 live turns, 13 companies), added after the run in the same kernel**
+
+| Turn type | Turns | Router | Cross only | Hard cascade | Soft fusion |
+|---|---|---|---|---|---|
+| start | 35 | 28 | 26 | 28 | 28 |
+| answer | 51 | 37 | 35 | 30 | 37 |
+| follow | 21 | 14 | 14 | 12 | 13 |
+| aspect | 7 | 6 | 6 | 6 | 6 |
+| closing | 15 | 9 | 8 | 8 | 8 |
+| also_stay | 4 | 4 | 2 | 3 | 3 |
+| switch | 42 | 30 | 30 | 21 | 25 |
+| short_switch | 6 | 5 | 4 | 1 | 3 |
+| return | 7 | 3 | 3 | 4 | 5 |
+| handoff_ok | 2 | 0 | 0 | 0 | 0 |
+| branch | 3 | 2 | 3 | 1 | 2 |
+| **all** | **193** | **138 (71.5%)** | 131 | 114 | 130 |
+
+- **The router alone is best on E10.** Both detector combinations lose, mostly on **switches**: the hard cascade gets 21 of 42 switches, soft fusion 25, the router 30.
+- **Live errors compound.** One missed switch makes every following short answer and closing go to the wrong agent. In water-1, one miss led to 4 wrong turns in a row.
+- **Even first messages miss 7 of 35.** Example: "book the spa on board" → Cruise Bookings. So the basic conversation-to-description match is the weak link, more than turn handling.
+
 - **Key finding: better generic held-out scores do NOT transfer to the real-world tests.**
   - The winning head scored +57 on generic held-out but went down on banking and on the realistic conversations.
   - Soft fusion added +423 correct on generic held-out but lost on banking (−13) and on ding-dong (−6), and only +1 on realistic.
