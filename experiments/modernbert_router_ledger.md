@@ -172,6 +172,15 @@ The generic training data changed between runs (3,542 → 3,931 → 5,049 conver
 
 ---
 
+## Infrastructure notes
+
+- **Kaggle gives 2 × T4, and the notebook uses only `cuda:0`** (noted 2026-10-07). Options to use the second GPU, in order of payoff vs effort:
+  1. **Feature extraction across both GPUs** (the longest step: ~15 min for ModernBERT-large, more for Nemotron-1B). Split the texts in two, give each GPU its own copy of the encoder (ModernBERT-large ≈ 1.6 GB; Nemotron fp16 ≈ 2.5 GB), and run the halves in two threads. Expected ≈ 2× faster extraction.
+  2. **Memory split for Nemotron-1B**: encoder on `cuda:1`, router heads, Q-K-V head and cached features on `cuda:0`.
+  3. **Head selection in parallel**: train the leave-domains-out folds on both GPUs (two worker processes). Expected ≈ 2× faster for Cell 45b, at the cost of more complex code.
+
+  Not started. Revisit when the extraction or selection time becomes the bottleneck (likely in 3b).
+
 ## Branches
 
 Every experiment lives on its own branch, and nothing is merged into `master` until a path is chosen. Experiment branches are pushed to GitHub. The notebook's `DATA_BRANCH` (Cell 34) must name the branch whose data Kaggle should clone.
