@@ -306,6 +306,34 @@ On test, the gate gains on closings (3 → 5 of 5) and follow-ups (8 → 9 of 9)
 
 ---
 
+**Collapse test (Cell 72, 3b kernel):** the conversation up to a turn joined into ONE continuous statement (no roles, no newlines, no separators) and routed as a first message. On 10 E10 turns the live router got wrong: **1 / 10** (all text) and **1 / 10** (user text only). Collapsing throws away order and recency. Example, water-1: three leak messages outweigh the later billing exchange, so "ok great" (thanking the bill recalculation) goes to Leaks at 0.99–1.00. Conclusion: recency matters, so test a **window**, not a collapse.
+
+---
+
+## Benchmark B1 — 2026-10-07: Strands decider 2B, zero-shot (branch `exp/benchmark-strands-decider`, `decider_benchmark.ipynb`)
+
+- **Model:** `StrandsAgents/strands-decider-2B-hobson-v19`: Qwen3.5-2B-Base + LoRA + readout head, trained as a general "decision model" (choice / yes-no / score with calibrated confidence) on about 30 public classification datasets. Used **as published, no training on our data**. A `choice` question: "Which agent should handle the user's latest message?"; options = agent name → description; state = transcript + "Latest user message: …". No current-agent input: every turn is routed independently.
+- **Kaggle notes:** remove Kaggle's preinstalled `torchao` 0.10 (the new peft rejects it); the main notebook's kernel held GPU 0, so the decider ran on **`cuda:1`** (second T4). It ran in bf16 (torch reports bf16 support on the T4), without the optional fast kernels (flash-linear-attention, causal-conv1d). About 0.28 s per decision.
+
+| Test | Our router (run 9, Nemotron-1B + head) | **Strands decider 2B** |
+|---|---|---|
+| E11 first turn, top-1 (100) | 93 | **96** |
+| E11 first turn, top-2 (100) | 97 | **100** |
+| E10 chat history (193), full history | 154 (cross-only head: 158) | 151 |
+| E10 chat history, **window of the last 3 user turns** | — (not tried) | **163** |
+| Banking benchmark (50) | 43 | **48** |
+| All banking (225) | 193 | **214** |
+
+E10 by turn type (decider, full / window 3): answer 41 / 47 of 51; follow 18 / 21 of 21; switch 26 / 30 of 42; short_switch 2 / 3 of 6; return **6** / 3 of 7; closing 11 / 12 of 15.
+
+- **Reading:**
+  - The decider is ahead everywhere except E10 with full history, where it is level with our router (151 vs 154).
+  - **Windowing helps it a lot** (+12 on E10), mainly on answers (+6), switches (+4) and follow-ups (+3). Returns get worse (6 → 3) because the earlier topic falls out of the window. This supports trying the same window on our router (roadmap 3.5).
+  - **Caveat on banking:** the decider's training data includes **banking77** and **CLINC-OOS**, both banking/intent datasets. Its banking lead is not a clean zero-shot comparison. E10 and E11 are new to both models.
+- **Scale context:** a 2B decoder-LLM backbone fine-tuned on many classification tasks, vs our frozen encoder (ModernBERT-large 0.4B / Nemotron 1.2B) plus a small head trained only on template data. On E10/E11, the new domains, the gap is 3 points top-1 on first turns and +9 on chat history (with its best window vs our unwindowed router).
+
+---
+
 ## Infrastructure notes
 
 - **Kaggle gives 2 × T4, and the notebook uses only `cuda:0`** (noted 2026-10-07). Options to use the second GPU, in order of payoff vs effort:
