@@ -334,6 +334,33 @@ E10 by turn type (decider, full / window 3): answer 41 / 47 of 51; follow 18 / 2
 
 ---
 
+## Run 10 — 2026-10-07: Phase 4, hybrid encoders: Nemotron router + ModernBERT detectors (branch `exp/phase4-encoder-combos`)
+
+- **New:** `ROUTER_ENCODER` and `DETECTOR_ENCODER` are chosen independently in Cell 34b (any of the 4 ModernBERT / Nemotron combinations; caches are kept per encoder). This run used router = `nemotron-1b`, detectors and Q-K-V = `modernbert` (ModernBERT-large, our forward pass). Same data as runs 6–9.
+- **Each half reproduces its source run exactly:**
+  - router (5068 / 5914; banking 43 / 193; Cell 59 34 / 40; E10 154; E11 93 / 97) = run 9;
+  - context-change detector (held-out 5069; realistic 32 / 35 with 15 / 15 switches found; banking turns 14 / 18) and agent-switch detector (5007) = run 8.
+- **The hard cascade still hurts** (realistic 28 vs 34, banking 162 vs 193). ModernBERT's agent-switch detector keeps only 5 / 27 banking "stays". E10 (router / cross only / hard cascade / soft fusion): 154 / 158 / 117 / 155.
+
+**One-sided "confident stay" gate (Cell 70), now with ModernBERT detectors.** τ was chosen on 7 dev companies (110 turns; router alone 86) and reported on 6 test companies (83 turns).
+
+| Detector | Dev, best (τ) | **Test (router alone 68 / 83)** |
+|---|---|---|
+| switch / pooled | 91 (0.2) | 73 |
+| switch / Q-K-V | 92 (0.02) | 73 |
+| **change / pooled** | **88 at every τ** | **74** |
+| change / Q-K-V | 88 (0.02) | 74 |
+
+Test by turn type (router → change / pooled gate): answer 17 → 20 of 22; follow 8 → 9 of 9; closing 3 → 5 of 5; switch 15 → 15 of 20; short_switch 4 → 4 of 4; return 2 → 2 of 2.
+
+- **Best result so far for chat history:** **+6 / 83 on unseen test companies** with no loss on switches (run 9's Nemotron-detector gate: +2). The pooled context-change detector gives the same dev score at every τ, so its test gain does not come from a lucky τ choice.
+- **E10 total with the gate (dev 88 + test 74): 162 / 193**, against the Strands decider's best 163 (3-turn window) and its 151 with full history. The dev part is the set τ was chosen on, but for this detector τ makes no difference there.
+- **Versus the decider:** level on realistic chat history; behind on first messages (E11 93 / 97 vs 96 / 100) and on banking (193 vs 214; the decider was trained on banking77 / CLINC).
+- **Q-K-V head, clarified:** it does compute Q = current-message tokens and K/V = history tokens. The keys are restricted by `key_padding_mask`, and only the current-message rows are pooled. But it is written as `attn(x, x, x)` and should be rewritten with explicit `x_current` / `x_hist`. Its limited gain is expected: `x_current` comes from a bidirectional encoder that has already read the history. A cleaner test encodes the current message alone.
+- **Next:** (1) windowing on our router (the decider gained +12 from it); (2) rewrite the Q-K-V head explicitly, plus a "current message encoded alone" variant; (3) realistic training data.
+
+---
+
 ## Infrastructure notes
 
 - **Kaggle gives 2 × T4, and the notebook uses only `cuda:0`** (noted 2026-10-07). Options to use the second GPU, in order of payoff vs effort:
