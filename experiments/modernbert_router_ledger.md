@@ -379,6 +379,27 @@ Test by turn type (router → change / pooled gate): answer 17 → 20 of 22; fol
 
 ---
 
+## Run 10b — 2026-10-07: windowing test (Cell 73, branch `exp/phase5-windowing`, same hybrid kernel)
+
+The router and the detector read only the last N user turns (plus the assistant reply before the first of them); the current agent is still passed. Windows were chosen on the 7 dev companies and reported on the 6 test companies (83 turns).
+
+| Setup | Dev (110) | **Test (83)** |
+|---|---|---|
+| Router alone, full history | 86 | 68 |
+| Router alone, N = 3 (best on dev; N = 1 / 2 / 5 → 83 / 86 / 86) | 88 | 68 |
+| **Gate, no window** (run 10) | 88 | **74** |
+| Gate, router all + detector N = 1 (best on dev of 20 pairs) | 89 | 71 |
+
+- **Windowing does not help our system:** every difference is 1–3 turns, which is noise. The best dev choices do not carry over to test.
+- **Why it helped the decider (+7 on the same turns) but not us:**
+  1. We pass the current agent and an is-current flag, while the decider routes every turn blind.
+  2. The gate already fixes the turns the window fixed for the decider: answers, follow-ups and closings.
+  3. Our training conversations are short.
+- **Decision:** no window. The best system stays Nemotron router + ModernBERT confident-stay gate on full history (74 / 83 vs decider 69). **Next: better and more training data (roadmap D).**
+- **Bug note:** the first version of Cell 73 used `for d in …` and overwrote ModernBERT's global head size `d`. The loop now uses `dw`.
+
+---
+
 ## Infrastructure notes
 
 - **Kaggle gives 2 × T4, and the notebook uses only `cuda:0`** (noted 2026-10-07). Options to use the second GPU, in order of payoff vs effort:
@@ -400,6 +421,7 @@ Every experiment lives on its own branch, and nothing is merged into `master` un
 | `exp/phase3a-modernbert` | Phase 3a: pluggable encoder, layer mix, residual head, soft fusion; ModernBERT-large | `exp/phase2b-qkv-attention` |
 | `exp/phase3b-nemotron` | Phase 3b: the same code with `ROUTER_ENCODER = "nemotron-1b"` | `exp/phase3a-modernbert` |
 | `exp/phase4-encoder-combos` | Router and detector encoders chosen independently (`ROUTER_ENCODER`, `DETECTOR_ENCODER`): any of the 4 ModernBERT / Nemotron combinations; default = hybrid (Nemotron router + ModernBERT detectors) | `exp/phase3b-nemotron` |
+| `exp/phase5-windowing` | Cell 73: windowing test (router / detector windows on dev, report on test). Result: no gain | `exp/phase4-encoder-combos` |
 
 Later phase branches are created when each phase starts, from the branch of the best result so far.
 
