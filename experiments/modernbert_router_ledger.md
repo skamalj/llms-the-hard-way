@@ -430,6 +430,89 @@ E10 test by turn type, router alone → gate (run 10 in brackets): answer 19 →
 
 ---
 
+## Phase 7 — simplifying the architecture: what we removed and why (2026-10-08, branch `exp/phase7-simplify`)
+
+*Written so it can be read on its own (for the blog). Numbers are absolute pass / total; the run numbers refer to entries above.*
+
+**Why simplify now.** Over runs 1–11 the notebook grew one idea at a time: a second detector, three ways to combine detector and router, three feature sets, three head types, windowing. Every idea was tested honestly, but most of them never beat the simpler alternative, and keeping them had real costs:
+- each Kaggle run trained 45 router heads and 6 detector heads (about 12 minutes) just to choose among options that always lost;
+- letting the run choose its own head made runs hard to compare. In run 11 we changed the training data, and the selection also switched the router head (MLP-256 → residual head), so we could not tell which change caused the result;
+- the notebook was harder to read and explain.
+
+**The rule we use to decide.** Every option is tuned on the 7 *dev* companies of the realistic test set (E10) and judged on the 6 *test* companies (83 turns) it never saw. A component must beat the simpler alternative by at least 2 of those 83 turns to stay; on a tie the simpler or cheaper option wins.
+
+**What we removed**
+
+| Component | What it did | Evidence | Why removed |
+|---|---|---|---|
+| **Agent-switch detector** | A second yes/no model: "should a different agent answer this?" (target ≠ current). Added in Phase 1 because, after a handoff ("I'll pass you to billing" → "ok"), the topic does not change but the agent does | As the gate's detector: run 10, 73 / 83 vs 74 for the context-change detector; run 11, 70 vs 70 | Never better than the context-change detector, doubles detector training, and partly repeats the router's job |
+| **Hard cascade** | The detector decides stay / switch; on "switch" the current agent is *excluded* and the router picks among the others | Run 6: below the router alone; run 10: realistic 28 vs 34, banking 162 vs 193, E10 117 vs 154; run 11: E10 146 vs 160 | Every wrong "switch" became a guaranteed routing error. The detector is only reliable in one direction (when it is sure nothing changed), and the cascade trusted it in both |
+| **Soft fusion** | Router probabilities + w × detector evidence, w chosen on held-out training domains | Run 9: realistic +3 and E10 +1, but banking −10; run 11: best E10 total (163 / 193) | Mixed across test sets, and built on the switch detector. The one-sided "confident stay" gate does the useful part (fixing short replies) more simply: it can only *keep* the current agent, never exclude one |
+| **Windowing** | Router and detector read only the last N user turns | Run 10b: router with N = 3 scored 68 / 83, the same as full history; the gate with windows scored 71 vs 74 without | No gain. (The Strands decider *did* gain from a window, +7 on the same turns; our router already weights the latest message through its last-message span) |
+| **Collapse test** | Rewrite a conversation as one statement and route it as a first message | 1 / 10 of the router's E10 failures fixed | A one-off diagnostic, answered |
+| **Cross-only, dual-only and summed-probability routers** | Heads that read only one of the two encoder passes, or average the two | Held-out (run 11): 5,280 / 4,349 / 5,498 vs 5,722 of 6,658 for the combined head; never selected in any run. Cross-only was +4 on E10 in run 10 but −4 in run 11, and −5 on first turns | The combined head (both passes + similarities) is better or equal everywhere that is stable |
+| **"Router x2"** | Repeat the last user message in the input at test time | Earlier runs: hurt | Rejected before; the code was still there |
+| **Per-run head selection** | Each run chose among MLP-64, MLP-256 and a residual head (and linear / MLP-64 / MLP-256 for the detector) | The choices differed by less than 1% held-out, but the switch in run 11 confounded the data comparison | Heads are now fixed: router MLP-256 (the run 10 head), detector MLP-256 (the run 11 winner). The other head types stay in the code for deliberate experiments |
+
+**What we kept, and why**
+
+| Component | Evidence |
+|---|---|
+| Nemotron-1B as the router encoder | +16 on E10 and +20 on banking over ModernBERT-large (run 9) |
+| ModernBERT-large as the detector encoder | Nemotron's retrieval embeddings found only 4 of 15 real topic switches (run 9) |
+| Router features: cross pass + dual pass + 3 similarities + is_current flag, MLP-256 head | Best on held-out data in every run |
+| Context-change detector (pooled spans + feed-forward head) | Best gate detector on the test companies (run 10) |
+| One-sided "confident stay" gate (stay only if p(change) < τ, τ chosen on dev) | The only combination that beat the router alone on unseen companies: 74 vs 68 (run 10) |
+| Realistic training data (744 turns, 40 businesses) | User decision: more variety in phrasing than the templates; its measured effect is in run 12 below |
+
+**Decisions still open (tested later, same rule)**
+- **Q-K-V attention head for the detector.** Kept with the context-change label only, until it is rewritten with explicit inputs (current message = Q, history = K / V) and a version where the current message is encoded on its own.
+- **Dual pass.** Kept for now (held-out +442, first turns +5, E10 mixed). The planned plain baseline (ModernBERT + pooling + feed-forward head only) will show its real value.
+
+**The resulting system**
+```text
+ModernBERT-large → pooled spans → MLP-256 → p(change)
+   p < τ  → keep the current agent (router not run)
+   p ≥ τ  → Nemotron-1B (cross + dual passes) → matching features → MLP-256 → one agent
+```
+
+**Effect on cost (run 12):** router selection 78 s instead of 422 s; detector training 61 s instead of 278 s. The Q-K-V head (13 minutes) is now the largest training cost.
+
+---
+
+## Run 12 — 2026-10-08: Phase 7, simplified notebook + realistic training data (branch `exp/phase7-simplify`)
+
+- **Setup:** the simplified notebook above; same data as run 11 (templates + 744 realistic turns, 6,658 conversations, 67 domains); router head fixed to MLP-256 (run 10's head), detector MLP-256. So run 12 differs from **run 10 only in the data**, and from **run 11 only in the router head**.
+- **Reproducible:** the router's held-out score (5,688 / 6,658) and the pooled detector (5,570 / 5,796; realistic 31 / 35; banking turns 12 / 18) match run 11's MLP-256 rows exactly.
+
+| Test | Run 10 (templates, MLP-256) | Run 11 (+ realistic, resid-ls) | **Run 12 (+ realistic, MLP-256)** | Decider (B1) |
+|---|---|---|---|---|
+| E1 generic held-out | 5068 / 5914 | 5722 / 6658 | 5688 / 6658 | — |
+| Banking benchmark / all | 43 / 50 · 193 / 225 | 41 · 188 | 41 · 188 | 48 · 214 |
+| Ding-dong per turn | 16 / 25 | 16 / 25 | 16 / 25 | — |
+| Cell 59 (40 turns), live | 34 / 40 | 35 / 40 | **37 / 40** | — |
+| E10 router alone, all (193) | 154 | **160** | 152 | 151 full / 163 window 3 |
+| E10 dev router alone (110) | 86 | 91 | 86 | — |
+| E10 **test** router alone (83) | 68 | 69 | 66 | 62 / 69 |
+| E10 **test, gate** change / pooled | **74** | 70 | 70 | — |
+| E10 test, gate change / Q-K-V | 74 | 70 | 70 | — |
+| E11 first turn: top-1 / top-2 | 93 / 97 | 92 / 97 | 93 / 97 | 96 |
+| Detector, pooled vs Q-K-V: Cell 59 turns | 32 / 35 | 31 · — | 31 vs **32** / 35 | — |
+| Detector, pooled vs Q-K-V: banking turns | 14 / 18 | 12 · — | 12 vs **14** / 18 | — |
+| Detector held-out, pooled vs Q-K-V | 5069 / 5914 | 5570 / 5796 | 5570 vs 5539 / 5796 | — |
+
+E10 test by turn type, router alone → gate (run 10 in brackets): answer 17 → 19 (17 → 20); follow 8 → 8 (8 → 9); closing 3 → 5 (3 → 5); also_stay 3 → 3 (2 → 2); **switch 12 → 12 (15 → 15)**; short_switch 4 → 4; return 2 → 2; branch 1 → 1.
+
+**What run 12 tells us**
+- **The switch loss comes from the data, not the head.** With run 10's head back, real switches on the test companies are still 12 / 20 (run 10: 15). Banking (41 · 188) is also the same as run 11, so that loss is the data too.
+- **The data helps on Cell 59** (37 / 40, the best so far) and leaves first turns unchanged (93).
+- **The residual head suited the new data better on E10** (run 11: 160 vs 152 over all 193 turns, 69 vs 66 on the test companies), but the gate result is the same (70) with either head.
+- **Q-K-V vs pooled:** a tie in the gate (70 = 70) and on dev (85 vs 86); slightly better on the two small detector tests (+1, +2), slightly worse on held-out (−31 of 5,796). Not enough to decide; the explicit rewrite is the proper test.
+- **Against the decider on the 83 test turns:** gate 70 vs decider 62 (full history) / 69 (window 3). Still ahead, but the margin over its best fell from 5 to 1.
+- **Decision:** keep the simplified notebook (same quality, much faster, and every run now changes one thing). Keep the realistic data (user decision, for variety), with the open issue that it costs about 3 test switches; the next data step is more realistic *switch* examples, especially switches that sound like follow-ups. Next experiment as planned: the Q-K-V rewrite.
+
+---
+
 ## Infrastructure notes
 
 - **Kaggle gives 2 × T4, and the notebook uses only `cuda:0`** (noted 2026-10-07). Options to use the second GPU, in order of payoff vs effort:
@@ -476,7 +559,7 @@ Later phase branches are created when each phase starts, from the branch of the 
 | branch phase5 | Windowing (last N user turns) for the router and the detector | E10 test above 74 / 83 | **done (run 10b)**: no gain, no window |
 | branch phase6 | Realistic free-form TRAINING data: 40 businesses × 4 conversations, 744 user turns, merged with the templates | E10 test / E11 / banking above run 10 | **done (run 11): not adopted** — E10 test gate 70 vs 74; router stays better, switches worse |
 | decision 2026-10-07 | **Final architecture has one detector: context change (pooled features + feed-forward head).** The switch detector is dropped from the next run on. Decision rule for any challenger: settings chosen on dev companies, must beat the default by ≥ 2 / 83 on E10 test; on a tie the simpler option wins | — | agreed |
-| branch phase7 | **Simplify** (user decision 2026-10-07): keep the realistic training data; remove the agent-switch detector, hard cascade (Cell 64), soft fusion (Cell 68), collapse test (Cell 72), windowing (Cell 73), the cross-only / dual-only / summed-probability configs and per-run head selection. Router fixed to `dual + cross + sim` + MLP-256; detector fixed to MLP-256. Kept for later decisions: Q-K-V (context change only) and the dual pass | E10 test gate vs run 10 (74) and run 11 (70); also separates run 11's head change (resid-ls) from the data change | **ready to run** |
+| branch phase7 | **Simplify** (user decision 2026-10-07): keep the realistic training data; remove the agent-switch detector, hard cascade (Cell 64), soft fusion (Cell 68), collapse test (Cell 72), windowing (Cell 73), the cross-only / dual-only / summed-probability configs and per-run head selection. Router fixed to `dual + cross + sim` + MLP-256; detector fixed to MLP-256. Kept for later decisions: Q-K-V (context change only) and the dual pass | E10 test gate vs run 10 (74) and run 11 (70); also separates run 11's head change (resid-ls) from the data change | **done (run 12)**: same gate result as run 11 (70 / 83), 5× faster selection; the switch loss is from the data, not the head |
 | next (after phase6) | **Q-K-V rewrite, proper test:** explicit `x_current` (Q) / `x_hist` (K, V) inputs instead of `attn(x, x, x)` + masks, plus a variant where the current message is encoded alone (the bidirectional encoder no longer leaks the history into Q). Context-change label only. Then decide Q-K-V vs pooled and freeze the design | Q-K-V gate ≥ pooled + 2 on E10 test | **next** |
 | base (user request 2026-10-07) | **Absolute baseline: plain ModernBERT-large + pooling + feed-forward head, nothing else.** One cross pass over (conversation + candidate agent), mean-pooled over the whole input, one MLP head scoring each candidate; the highest score wins. No Nemotron, no dual pass, no span features, no similarities, no current-agent flag, no detector, no gate, no windowing. Same training data as the run it is compared with; same tests as the decider (E10 dev / test, E11, banking 50 / 225). Two rows: **base-0** exactly as above; **base-0 + current agent** = the same model with the current-agent flag added as one extra input, so its effect is measured on its own. Every extra component (hybrid encoders, detector, gate, Q-K-V) must justify itself against this baseline AND the decider | report side by side with B1 (decider) and the current best | **to do** |
 | latency (user request 2026-10-07; after the architecture is frozen) | **Latency benchmark vs the decider.** Same T4, one GPU each, batch size 1, warm-up excluded, timing includes tokenization; p50 / p95 / mean ms per user turn over the E10 turns (realistic chat lengths) and E11 first turns. Ours timed per path: **stay** (detector only, router skipped) and **route** (detector + router over every candidate agent), plus the blended per-turn cost at the real stay rate on E10. Also: time vs number of agents (3 / 5 / 10) and vs conversation length, peak GPU memory, and the decider with full history vs window 3 | reported side by side with accuracy, so the trade-off is visible | **after freeze** |
