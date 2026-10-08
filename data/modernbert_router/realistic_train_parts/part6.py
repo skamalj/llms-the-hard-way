@@ -158,7 +158,7 @@ CONVERSATIONS = [
         ("The browser extension keeps logging me out.", "Autofill & Extension Agent", "start", "Which browser?"),
         ("Firefox", "Autofill & Extension Agent", "answer", "Turn off 'clear cookies on exit' for our extension in Firefox settings."),
         ("that fixed it", "Autofill & Extension Agent", "closing", "Good."),
-        ("Can I get an invoice for my company?", "Password Manager Billing Agent", "switch", "Yes, under Billing you can download invoices with your company name."),
+        ("Could you put my business name on the invoices?", "Password Manager Billing Agent", "switch", "Yes, under Billing you can add your company name to every invoice."),
     ]),
     ("password manager", "pm-4", [
         ("Can I import from LastPass?", "Password Import Agent", "start", "Yes, export from LastPass as CSV and import it here."),
