@@ -19,6 +19,38 @@ These are the numbers recorded for every run. Some were not recorded in older ru
 | E9 | Combined router (detector + router), live, on E4 and E5 | planned (Cell 64) |
 | E10 | Realistic multi-turn test, 35 conversations / 193 typed turns, live | Cell 69 |
 | E11 | First-turn only, 100 single messages, 10 companies × 5 agents, typed | Cell 71 |
+| E12 | Grounded choice questions (phase 8): at least 50 each of yes / no, choice and score (ordered scale), plus same-text / different-question pairs. Every answer is in the given text; no world knowledge. `data/modernbert_router/choice_test/` | phase 8 cells |
+
+## Scorecard S1: ours vs the Strands decider (filled per run from phase 8 on; routing rows from run 13)
+
+**Rules.** (1) Identical items and inputs for both models. (2) Nothing tuned on reported test data: our τ is chosen on the E10 dev companies only; the decider is used zero-shot in its documented format. (3) The decider's best setting is shown too (E10: 3-turn window). (4) Absolute pass / total; known contamination flagged. (5) The routing rows are the regression check for every later phase.
+
+**Headline line:** routing on unseen companies (E10 test) ours vs decider; grounded choice (E12) ours vs decider; latency ours vs decider.
+
+**Table 1: accuracy**
+
+| Suite | Items | What it tests | Ours | Decider | Note |
+|---|---|---|---|---|---|
+| E10 routing, test companies | 83 turns | multi-turn chat, unseen companies | gate | full / window 3 | headline routing number |
+| E10 routing, all | 193 turns | same, all companies | | | dev turns were used to choose τ |
+| E10 by turn type | 83 | stay vs switch behaviour | | | answer, closing, switch, short_switch, … |
+| E11 first turn | 100 | single message, 5 agents | | | |
+| Banking | 50 / 225 | banking routing | | | decider trained on banking77 / CLINC: not unseen for it |
+| E12 yes / no | ≥ 50 | "Does this convey urgency?" | | | accuracy at 0.5 |
+| E12 choice | ≥ 50 | "Which team should handle this?" | | | |
+| E12 score | ≥ 50 | "How frustrated? calm / frustrated / depressed" | | | exact position, and mean distance in positions |
+| E12 question pairs | pairs | same text, two questions | | | both answers right |
+
+**Table 2: cost** (same T4, batch 1, warm, tokenization included)
+
+| Measure | Ours | Decider |
+|---|---|---|
+| Latency p50 / p95 per routing turn (E10) | stay path / route path / blended | full / window 3 |
+| Latency per E12 question | | |
+| ms at 3 / 5 / 10 options | | |
+| Peak GPU memory | | |
+| Parameters | ModernBERT-large 395M + Nemotron-1B + heads | 2B + LoRA + head |
+| Training needed for a new company / agent / question | none (descriptions only) | none |
 
 The generic training data changed between runs (3,542 → 3,931 → 5,049 conversations), so E1 is only roughly comparable across data versions.
 
