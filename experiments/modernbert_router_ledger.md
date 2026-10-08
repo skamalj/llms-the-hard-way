@@ -568,6 +568,7 @@ Every experiment lives on its own branch, and nothing is merged into `master` un
 | `exp/phase4-encoder-combos` | Router and detector encoders chosen independently (`ROUTER_ENCODER`, `DETECTOR_ENCODER`): any of the 4 ModernBERT / Nemotron combinations; default = hybrid (Nemotron router + ModernBERT detectors) | `exp/phase3b-nemotron` |
 | `exp/phase5-windowing` | Cell 73: windowing test (router / detector windows on dev, report on test). Result: no gain | `exp/phase4-encoder-combos` |
 | `exp/phase6-realistic-train` | Realistic free-form training data (744 turns, 40 businesses), `REALISTIC_TRAIN` switch in Cell 34 (run 11). Result: not adopted (E10 test gate 70 vs 74) | `exp/phase5-windowing` |
+| `exp/phase7b-qkv-switch` | Run 13: Q-K-V head rewritten with explicit x_current (Q) / x_hist (K, V), two modes (joint = one pass, separate = current message encoded alone); gate compares pooled / joint / separate. Realistic data + 192 switch-heavy turns (936 total, 50 businesses). E12 test set (170 items) added | `exp/phase7-simplify` |
 | `exp/phase7-simplify` | Simplified notebook (136 cells): one router config (`dual + cross + sim`, MLP-256), one detector label (context change, MLP-256; pooled + Q-K-V); cascade, soft fusion, switch detector, windowing and collapse test removed. Realistic training data on | `exp/phase6-realistic-train` |
 
 Later phase branches are created when each phase starts, from the branch of the best result so far.
