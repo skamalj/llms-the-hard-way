@@ -23,7 +23,7 @@ These are the numbers recorded for every run. Some were not recorded in older ru
 
 ## Scorecard S1: ours vs the Strands decider (filled per run from phase 8 on; routing rows from run 13)
 
-**Rules.** (1) Identical items and inputs for both models. (2) Nothing tuned on reported test data: our τ is chosen on the E10 dev companies only; the decider is used zero-shot in its documented format. (3) The decider's best setting is shown too (E10: 3-turn window). (4) Absolute pass / total; known contamination flagged. (5) The routing rows are the regression check for every later phase.
+**Rules.** (1) **The exact same questions for both models** (same items, texts, questions, options and option order, from the same files); only the *presentation* may differ, each model in its own native format. A comparison on different questions is not a benchmark. Before any E12 row is reported, the two result files are checked item by item for identical item ids. (2) Nothing tuned on reported test data: our τ is chosen on the E10 dev companies only; the decider is used zero-shot in its documented format. (3) The decider's best setting is shown too (E10: 3-turn window). (4) Absolute pass / total; known contamination flagged. (5) The routing rows are the regression check for every later phase.
 
 **Headline line:** routing on unseen companies (E10 test) ours vs decider; grounded choice (E12) ours vs decider; latency ours vs decider.
 
