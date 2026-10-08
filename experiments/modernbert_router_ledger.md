@@ -27,6 +27,8 @@ These are the numbers recorded for every run. Some were not recorded in older ru
 
 **Headline line:** routing on unseen companies (E10 test) ours vs decider; grounded choice (E12) ours vs decider; latency ours vs decider.
 
+**Latest filled scorecard: run 14** (routing on the E10 test companies: ours 70 (71 with confident switch) vs decider 62 / 69; E12: ours 96 / 170 zero-shot vs decider 160 / 170; E12 time per question: 63 ms vs 200 ms). Full tables in the run 14 entry.
+
 **Table 1: accuracy**
 
 | Suite | Items | What it tests | Ours | Decider | Note |
@@ -586,6 +588,50 @@ E10 test by turn type, router alone → gate (run 10 in brackets): answer 17 →
 
 ---
 
+## Run 14 — 2026-10-08: confident switch, Q-K-V dropped, E12 zero-shot vs the decider (branch `exp/phase8-general-choice`)
+
+- **Setup:** run 13's data and heads (one training sentence reworded, see run 13); Q-K-V cells removed; Cell 70 is now a two-sided gate on the pooled context-change detector; Cell 72 runs E12 zero-shot. `decider_benchmark.ipynb` was rerun from the top on the same branch, with section 10 (E12) added. Its routing numbers reproduce B1 exactly (E11 96, E10 163, banking 48 · 214).
+
+**Routing**
+
+| Test | Run 13 | **Run 14** | Decider |
+|---|---|---|---|
+| E1 held-out (6,850) | 5884 | 5845 | — |
+| Banking benchmark / all | 47 · 205 | **43 · 198** | 48 · 214 |
+| Ding-dong per turn | 19 / 25 | 20 / 25 | — |
+| E10 router alone, all (193) | 156 | 157 | 151 full / 163 window 3 |
+| E10 test, router alone (83) | 68 | 68 | 62 / 69 |
+| E10 test, confident-stay gate | 70 | 70 | — |
+| **E10 test, stay + confident switch** | — | **71** | — |
+| E11 top-1 / top-2 | 93 / 98 | 93 / 97 | 96 / 100 |
+
+- **Run-to-run variance is larger than our decision margin.** Runs 13 and 14 train the same router on the same data with the same settings, yet banking moved from 47 · 205 to 43 · 198. The cause is the final head's epoch count, which is the median of the five folds' best epochs: [38, 23, 2, 2, 8] → 8 epochs in run 13, and [32, 2, 2, 2, 8] → 2 epochs in run 14. The features are recomputed on the GPU each session, so small numeric differences change early stopping, and one fold flips. **Differences of a few banking conversations, or of 1–2 E10 test turns, between runs are within this noise.** This needs fixing before further comparisons (see decisions).
+- **Confident switch:** dev chose τ_high = 0.99 (dev 91 vs 88 for stay only), and test went from 70 to **71** (fixed 4, broke 3). Real switches went from 11 / 20 to **15 / 20**, the first recovery since run 10. But it broke an "aspect" turn ("how much is the drinks package per day?" moved away from Onboard Services), a follow-up and a branch turn, each at p ≥ 0.99. The dev curve is jagged (τ_high 0.95: 86, 0.98: 90, 0.99: 91, 0.995: 85), which is another sign of noise. **+1 < the agreed +2: not adopted.**
+
+**E12: grounded choice questions, the exact same 170 items for both models** (same file and commit; each model in its native presentation)
+
+| E12 | Items | Ours, zero-shot | Decider |
+|---|---|---|---|
+| yes / no | 58 | 29 (chance level; answered "yes" 25 times vs 30 true) | **56** |
+| choice | 59 | 39 | **56** |
+| score: exact level / within 1 / mean error | 53 | 28 / 45 / 0.63 levels | **48 / 53 / 0.47** |
+| **all** | 170 | **96** | **160** |
+| question groups, all answers right | 11 | 4 | 10 |
+| time per question (T4, warm) | | **63 ms** | 200 ms |
+
+Per category, ours vs the decider: topic 4 vs 4 and routing 10 vs 13, close; tone 17 vs 28, detail 25 vs 33, fact 20 vs 36, intent 9 vs 21, urgency 5 vs 11 and compare 5 vs 12, far behind.
+
+- **Our router does not read the question yet.** On the decider's own example ("Help! My payouts have been failing for 3 days!") it picks billing and payments correctly, but answers urgency "no", frustration "calm" and urgency level "low". Yes / no is at chance: the candidates "yes. <question>" and "no. <question>" differ by one word, and a head trained only to match messages with agent descriptions has nothing to tell them apart. Choice works where the options are topics or teams (topic, routing), and fails where the answer depends on reading a detail, comparing numbers or judging intensity.
+- **This was expected for zero-shot.** The decider was trained on exactly these question types, and our model never saw one. It is the baseline for phase 8 steps 3–4 (a `question:` segment + choice training). The decider sets a high bar: 160 / 170.
+- **Speed:** ours is about 3× faster per question (63 vs 200 ms). The decider ran in bfloat16 on the T4, which has no fast bfloat16 path, so its time may improve in float16.
+
+**Recommended decisions**
+1. **Stabilize training before any more comparisons.** Train the final router head for a fixed number of epochs, or average 3–5 seeds, so that the same data gives the same numbers. Then rerun once to measure the remaining noise. Our ≥ 2 / 83 rule only means something if a rerun moves by less than that.
+2. **Confident switch: not adopted** (+1 on test, below the agreed +2). The code stays in Cell 70, so it gets one more fair try once training is stable.
+3. **Phase 8 steps 3–4 are the real question for general choice:** add a `question:` segment and train on mixed grounded-choice data, keeping all routing data. The no-regression routing bar must be set **after** step 1 (a stable baseline).
+
+---
+
 ## Infrastructure notes
 
 - **Kaggle gives 2 × T4, and the notebook uses only `cuda:0`** (noted 2026-10-07). Options to use the second GPU, in order of payoff vs effort:
@@ -637,7 +683,7 @@ Later phase branches are created when each phase starts, from the branch of the 
 | branch phase7 | **Simplify** (user decision 2026-10-07): keep the realistic training data; remove the agent-switch detector, hard cascade (Cell 64), soft fusion (Cell 68), collapse test (Cell 72), windowing (Cell 73), the cross-only / dual-only / summed-probability configs and per-run head selection. Router fixed to `dual + cross + sim` + MLP-256; detector fixed to MLP-256. Kept for later decisions: Q-K-V (context change only) and the dual pass | E10 test gate vs run 10 (74) and run 11 (70); also separates run 11's head change (resid-ls) from the data change | **done (run 12)**: same gate result as run 11 (70 / 83), 5× faster selection; the switch loss is from the data, not the head |
 | run 13 (next; user 2026-10-08) | **Q-K-V rewrite, proper test:** explicit `x_current` (Q) / `x_hist` (K, V) inputs instead of `attn(x, x, x)` + masks, plus a variant where the current message is encoded alone (the bidirectional encoder no longer leaks the history into Q). Context-change label only. Then decide Q-K-V vs pooled and freeze the design | Q-K-V gate ≥ pooled + 2 on E10 test | **done (run 13)**: no gain in either mode; attention ≈ uniform; recommended to drop |
 | run 13, same branch (user 2026-10-08) | **More realistic SWITCH training data.** Run 12 showed the realistic data costs about 3 real switches on the E10 test companies (12 / 20 vs 15). Add realistic conversations rich in switches, especially switches that sound like follow-ups ("And is my inhaler prescription in that bag too?", "Also the installers left …"), returns and short switches, in new businesses (none from any test set). Runs together with the Q-K-V rewrite: the rewrite only changes the detector and is compared side by side with pooled in the same run, so the two effects stay separable | E10 test switches back to ≥ 15 / 20 with the gate ≥ 74 / 83; no loss on E11 / banking / Cell 59 | **done (run 13)**: banking 47 · 205, ding-dong 19, Cell 59 38; E10 test switches unchanged (12 / 20): failures are the router staying with the current agent |
-| run 14 (user 2026-10-08) | **Phase 8 step 1–2 + confident switch, Q-K-V dropped** (branch `exp/phase8-general-choice`). (a) Q-K-V cells removed (user decision after run 13). (b) Cell 70: two-sided gate on the pooled context-change detector: p < τ_low → keep the current agent; p > τ_high → router among the OTHER agents (new "confident switch", aimed at the run 13 failures where the router stays with the current agent on a switch to a related agent); τ_low then τ_high chosen on dev companies, ties to "off". (c) Cell 72: E12 zero-shot with our router (text = user message, options = candidates described by the question); `decider_benchmark.ipynb` section 10: E12 with the decider in its native noul / choice / score questions. Same data as run 13 | test gate ≥ 72 / 83 with the confident switch (≥ 2 over the stay-only gate, 70); E12 per type vs the decider | **ready to run** |
+| run 14 (user 2026-10-08) | **Phase 8 step 1–2 + confident switch, Q-K-V dropped** (branch `exp/phase8-general-choice`). (a) Q-K-V cells removed (user decision after run 13). (b) Cell 70: two-sided gate on the pooled context-change detector: p < τ_low → keep the current agent; p > τ_high → router among the OTHER agents (new "confident switch", aimed at the run 13 failures where the router stays with the current agent on a switch to a related agent); τ_low then τ_high chosen on dev companies, ties to "off". (c) Cell 72: E12 zero-shot with our router (text = user message, options = candidates described by the question); `decider_benchmark.ipynb` section 10: E12 with the decider in its native noul / choice / score questions. Same data as run 13 | test gate ≥ 72 / 83 with the confident switch (≥ 2 over the stay-only gate, 70); E12 per type vs the decider | **done (run 14)**: confident switch +1 (71 vs 70, not adopted); E12 zero-shot ours 96 / 170 vs decider 160 / 170; run-to-run variance found (banking 47 → 43 with identical settings) |
 | phase8 (user 2026-10-08) | **General choice model, as an AUGMENTATION of the router: can the same model keep its agent-routing performance while also answering grounded choice questions, and how does it compare with the Strands decider?** Nothing learned so far is dropped: all routing data stays in training. (1) **E12 test set:** about 100 grounded items (the answer is in the given text; no world knowledge, as with the decider), covering the decider's three question types: yes / no ("Does this convey urgency?"), choice ("Which team should handle this?") and score on an ordered scale ("How frustrated is the writer? calm / frustrated / depressed"), including pairs where the same text gets two questions with different answers (does the model read the question?). (2) Both models zero-shot on E12 first. (3) Input format: `question:` segment added, `candidate agent:` → `candidate:`; routing becomes one task among several. (4) Train on routing + mixed grounded-choice data (task types and wording disjoint from E12). (5) Side-by-side vs the decider on E12 per type, then latency | **Routing must not regress** vs run 13 (E10 test gate within 1 turn, E11 within 1, banking within 2 / 5, Cell 59 within 1); E12 reported per type next to the decider | after run 13 |
 | base (user request 2026-10-07) | **Absolute baseline: plain ModernBERT-large + pooling + feed-forward head, nothing else.** One cross pass over (conversation + candidate agent), mean-pooled over the whole input, one MLP head scoring each candidate; the highest score wins. No Nemotron, no dual pass, no span features, no similarities, no current-agent flag, no detector, no gate, no windowing. Same training data as the run it is compared with; same tests as the decider (E10 dev / test, E11, banking 50 / 225). Two rows: **base-0** exactly as above; **base-0 + current agent** = the same model with the current-agent flag added as one extra input, so its effect is measured on its own. Every extra component (hybrid encoders, detector, gate, Q-K-V) must justify itself against this baseline AND the decider | report side by side with B1 (decider) and the current best | **to do** |
 | latency (user request 2026-10-07; after the architecture is frozen) | **Latency benchmark vs the decider.** Same T4, one GPU each, batch size 1, warm-up excluded, timing includes tokenization; p50 / p95 / mean ms per user turn over the E10 turns (realistic chat lengths) and E11 first turns. Ours timed per path: **stay** (detector only, router skipped) and **route** (detector + router over every candidate agent), plus the blended per-turn cost at the real stay rate on E10. Also: time vs number of agents (3 / 5 / 10) and vs conversation length, peak GPU memory, and the decider with full history vs window 3 | reported side by side with accuracy, so the trade-off is visible | **after freeze** |
