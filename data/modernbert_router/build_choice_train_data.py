@@ -1,11 +1,12 @@
-"""Grounded choice TRAINING questions for the unified choice model (run 16). Never used for testing.
+"""Grounded choice TRAINING questions for the choice head (runs 16-17). Never used for testing.
 
 Run from the repo root: python data/modernbert_router/build_choice_train_data.py
 
 Same three question types as E12 (yes / no, choice, score on an ordered scale) and the same rule: the answer is in the
 text, no world knowledge. The texts are generated from phrase banks written for this file, so wording varies; most texts
 are asked SEVERAL questions with different answers, which teaches the model to read the question, not only the text.
-The builder checks that no training text or question shares a 5-word phrase with any E12 test text.
+The builder checks that no training text or question shares a 5-word phrase with any E12 test text, and balances the
+yes / no answers 50 / 50 within every family (run 16's yes / no head leaned to "no" after a 335 / 508 split).
 """
 import json
 import random
@@ -307,6 +308,188 @@ for level, texts in SAT5.items():
     for s in texts:
         add("scale", "score", s, "How satisfied is the customer?", list(SAT5), level)
 
+# ================================================================ run 17: more families, more texts (built in pairs of
+# questions with opposite answers wherever possible, so yes / no stays balanced and the question has to be read)
+FIRST = ["Asha", "Ben", "Chloe", "Dan", "Ewa", "Femi", "Gita", "Harry", "Iris", "Jon", "Kemi", "Liam", "Maya", "Nico", "Ola", "Pete",
+         "Rosa", "Sam", "Tara", "Umar", "Vera", "Wes", "Yara", "Zak"]
+PRODUCTS = ["kettle", "router", "blender", "jacket", "tablet", "toaster", "rucksack", "monitor", "speaker", "watch", "drill", "pram",
+            "headset", "vacuum", "chair", "keyboard"]
+PLACES = ["Bath", "Cardiff", "Derby", "Durham", "Hull", "Inverness", "Lincoln", "Oxford", "Perth", "Preston", "Stirling", "Truro"]
+TIMES = ["8am", "9:30am", "11am", "12:30pm", "2pm", "3:15pm", "4pm", "5:30pm", "7pm", "8:45pm"]
+CHANNELS = ["email", "phone", "text message", "post"]
+STATUS = {"delivered": ["Your {p} was handed to you at the door.", "We left your {p} in the porch as asked."],
+          "in transit": ["Your {p} is on its way and arrives tomorrow.", "The {p} has left our warehouse and is with the courier."],
+          "delayed": ["Sorry, your {p} is held up and will be three days late.", "The courier missed today's run, so your {p} is late."],
+          "cancelled": ["As requested, the {p} order has been cancelled.", "We could not supply the {p}, so the order is cancelled."]}
+ST = list(STATUS)
+
+# --- delivery status (choice + yes / no pairs)
+for k in range(160):
+    st = ST[k % 4]
+    prod = rng.choice(PRODUCTS)
+    s = rng.choice(STATUS[st]).format(p=prod)
+    opts = ST[:]
+    rng.shuffle(opts)
+    add("status", "choice", s, "What is the status of the order?", opts, st)
+    ask_yn("status", s, "Has the customer received the item?", st == "delivered")
+    ask_yn("status", s, f"Is the order {rng.choice([o for o in ST if o != st])}?", False)
+    ask_yn("status", s, f"Is the order {st}?", True)
+
+# --- who did what (names and roles)
+for k in range(200):
+    a, b = rng.sample(FIRST, 2)
+    act = rng.choice([("booked the room", "paid the deposit"), ("wrote the report", "checked the figures"),
+                      ("called the plumber", "let him in"), ("ordered the cake", "collected it"), ("found the keys", "returned them")])
+    s = f"{a} {act[0]} and {b} {act[1]}."
+    add("who", "choice", s, f"Who {act[0]}?", sorted([a, b, rng.choice([n for n in FIRST if n not in (a, b)])]), a)
+    add("who", "choice", s, f"Who {act[1]}?", sorted([a, b, rng.choice([n for n in FIRST if n not in (a, b)])]), b)
+    ask_yn("who", s, f"Did {a} {act[0].split(' ', 1)[0].rstrip('ed') if False else act[0].replace('booked', 'book').replace('wrote', 'write').replace('called', 'call').replace('ordered', 'order').replace('found', 'find')}?", True)
+    ask_yn("who", s, f"Did {b} {act[0].replace('booked', 'book').replace('wrote', 'write').replace('called', 'call').replace('ordered', 'order').replace('found', 'find')}?", False)
+
+# --- appointment times and parts of the day
+def part_of_day(t):
+    h = int(t.split(":")[0].rstrip("apm"))
+    pm = t.endswith("pm")
+    h24 = h + 12 if pm and h != 12 else h
+    return "morning" if h24 < 12 else "afternoon" if h24 < 17 else "evening"
+for k in range(200):
+    t = rng.choice(TIMES)
+    who_ = rng.choice(["the dentist", "the optician", "your mechanic", "the vet", "the hairdresser", "the bank adviser"])
+    day = rng.choice(DAYS)
+    s = rng.choice(["Reminder: you're booked with {w} on {d} at {t}.", "{d} at {t} is confirmed with {w}.",
+                    "Your slot with {w} is {t} this {d}."]).format(w=who_, d=day, t=t)
+    pod = part_of_day(t)
+    add("time", "choice", s, "When is the appointment?", ["morning", "afternoon", "evening"], pod)
+    ask_yn("time", s, "Is the appointment in the morning?", pod == "morning")
+    ask_yn("time", s, f"Is the appointment on {day}?", True)
+    ask_yn("time", s, f"Is the appointment on {rng.choice([d for d in DAYS if d != day])}?", False)
+
+# --- contact preferences
+for k in range(160):
+    want, avoid = rng.sample(CHANNELS, 2)
+    s = rng.choice(["Please contact me by {w}, not by {a}.", "{W} is best for me; I'd rather you didn't use {a}.",
+                    "Don't use {a} please. {W} only."]).format(w=want, a=avoid, W=want.capitalize())
+    opts = CHANNELS[:]
+    rng.shuffle(opts)
+    add("preference", "choice", s, "How does the customer want to be contacted?", opts, want)
+    ask_yn("preference", s, f"Does the customer want to be contacted by {want}?", True)
+    ask_yn("preference", s, f"Does the customer want to be contacted by {avoid}?", False)
+
+# --- policy / rule reading (eligibility from stated numbers)
+for k in range(220):
+    limit = rng.choice([14, 28, 30, 60, 90])
+    days_ago = rng.choice([3, 10, 20, 29, 31, 45, 75, 100])
+    item = rng.choice(PRODUCTS)
+    s = (f"Our policy: returns are accepted within {limit} days of purchase. "
+         f"I bought the {item} {days_ago} days ago and want to send it back.")
+    ok_ = days_ago <= limit
+    ask_yn("policy", s, "Can the customer still return the item under the policy?", ok_)
+    ask_yn("policy", s, "Is the purchase outside the return period?", not ok_)
+    add("policy", "choice", s, "What should happen to the return request?", ["accept it", "refuse it"], "accept it" if ok_ else "refuse it")
+for k in range(160):
+    min_age = rng.choice([12, 16, 18, 21])
+    age = rng.choice([9, 13, 15, 17, 19, 22, 30])
+    act = rng.choice(["the climbing course", "the go-kart session", "the wine tasting", "the night tour"])
+    s = f"{act.capitalize()} is open to people aged {min_age} and over. My son is {age}; can he join?"
+    ask_yn("policy", s, "Is the son old enough to join?", age >= min_age)
+    ask_yn("policy", s, "Is the son too young to join?", age < min_age)
+
+# --- aspect sentiment (mixed reviews: the question decides the answer)
+ASPECTS = [("the food", ["delicious", "excellent", "superb"], ["cold", "bland", "greasy"]),
+           ("the staff", ["friendly", "helpful", "kind"], ["rude", "slow", "unhelpful"]),
+           ("the room", ["spotless", "spacious", "quiet"], ["dirty", "tiny", "noisy"]),
+           ("the price", ["fair", "reasonable", "great value"], ["steep", "too high", "a rip-off"]),
+           ("the delivery", ["quick", "on time", "careful"], ["late", "careless", "slow"])]
+for k in range(260):
+    (a1, g1, b1), (a2, g2, b2) = rng.sample(ASPECTS, 2)
+    good1 = k % 2 == 0
+    w1 = rng.choice(g1 if good1 else b1)
+    w2 = rng.choice(b2 if good1 else g2)
+    s = rng.choice(["{A1} was {w1}, but {a2} was {w2}.", "{A1}: {w1}. {A2}: {w2}.", "Honestly {a1} was {w1}; {a2}, on the other hand, was {w2}."]
+                   ).format(A1=a1.capitalize(), a1=a1, w1=w1, A2=a2.capitalize(), a2=a2, w2=w2)
+    ask_yn("aspect", s, f"Was the writer happy with {a1}?", good1)
+    ask_yn("aspect", s, f"Was the writer happy with {a2}?", not good1)
+    add("aspect", "choice", s, "What did the writer like?", sorted([a1, a2]), a1 if good1 else a2)
+    add("aspect", "choice", s, "What did the writer dislike?", sorted([a1, a2]), a2 if good1 else a1)
+
+# --- negation and changes of mind
+for k in range(200):
+    a, b = rng.sample(PLACES, 2)
+    s = rng.choice(["I was going to fly to {a}, but now I'm going to {b} instead.", "Not {a} any more, the meeting moved to {b}.",
+                    "Scrap {a}; we're meeting in {b}."]).format(a=a, b=b)
+    opts = sorted([a, b, rng.choice([x for x in PLACES if x not in (a, b)])])
+    add("negation", "choice", s, "Where is the writer going now?", opts, b)
+    ask_yn("negation", s, f"Is the writer still going to {a}?", False)
+    ask_yn("negation", s, f"Is the writer going to {b}?", True)
+
+# --- thresholds on stated numbers
+for k in range(220):
+    n = rng.randint(2, 400)
+    th = rng.choice([10, 25, 50, 100, 200])
+    thing = rng.choice([("parcels", "We shipped {n} parcels today."), ("tickets", "So far {n} tickets have been sold."),
+                        ("complaints", "The shop logged {n} complaints this month."), ("pages", "The report runs to {n} pages.")])
+    s = thing[1].format(n=n)
+    if n == th:
+        continue
+    ask_yn("threshold", s, f"Is the number of {thing[0]} more than {th}?", n > th)
+    ask_yn("threshold", s, f"Is the number of {thing[0]} fewer than {th}?", n < th)
+
+# --- sequence: what happened first / last
+EVENTS = ["the alarm went off", "the lights went out", "the doorbell rang", "the phone rang", "the dog barked", "the kettle boiled"]
+for k in range(160):
+    e1, e2, e3 = rng.sample(EVENTS, 3)
+    s = rng.choice(["First {a}, then {b}, and finally {c}.", "{A}. A minute later {b}. After that {c}."]).format(
+        a=e1, b=e2, c=e3, A=e1.capitalize())
+    opts = sorted([e1, e2, e3])
+    add("sequence", "choice", s, "What happened first?", opts, e1)
+    add("sequence", "choice", s, "What happened last?", opts, e3)
+    ask_yn("sequence", s, f"Did this come before \"{e1}\": {e2}?", False)
+    ask_yn("sequence", s, f"Did this come before \"{e3}\": {e1}?", True)
+
+# --- product spec reading
+for k in range(180):
+    prod = rng.choice(PRODUCTS)
+    w = rng.randint(1, 30)
+    bat = rng.choice([0, 6, 10, 24, 48])
+    col = rng.choice(COLOURS)
+    s = f"Spec sheet — {prod}: weight {w} kg, colour {col}, " + (f"battery life {bat} hours." if bat else "mains powered, no battery.")
+    ask_yn("spec", s, f"Does the {prod} have a battery?", bat > 0)
+    ask_yn("spec", s, f"Is the {prod} {col}?", True)
+    ask_yn("spec", s, f"Is the {prod} {rng.choice([c for c in COLOURS if c != col])}?", False)
+    add("spec", "score", s, f"How heavy is the {prod}?", ["under 5 kg", "5 to 15 kg", "over 15 kg"],
+        "under 5 kg" if w < 5 else "5 to 15 kg" if w <= 15 else "over 15 kg")
+
+# --- request type and asked-for action
+REQ = {"price": ["How much would it cost to {x}?", "Could you quote me to {x}?"],
+       "booking": ["Can I book someone to {x} next week?", "I'd like to arrange for you to {x}."],
+       "status": ["Have you managed to {x} yet?", "Any update on whether you can {x}?"],
+       "cancellation": ["Please don't {x} after all, cancel it.", "I no longer need you to {x}."]}
+XS = ["service the boiler", "clean the carpets", "fit a new lock", "trim the hedge", "repaint the hallway", "fix the gutter"]
+for k in range(200):
+    rt = list(REQ)[k % 4]
+    s = rng.choice(REQ[rt]).format(x=rng.choice(XS))
+    opts = list(REQ)
+    rng.shuffle(opts)
+    add("request", "choice", s, "What is the customer asking for?", opts, rt)
+    ask_yn("request", s, "Is the customer asking for a price?", rt == "price")
+    ask_yn("request", s, "Is the customer cancelling something?", rt == "cancellation")
+
+# --- more scales: amount of damage, size of a delay, satisfaction from mixed wording
+for k in range(160):
+    lvl = ["minor", "moderate", "severe"][k % 3]
+    s = rng.choice({"minor": ["There's a tiny scratch on the {p}, barely visible.", "Just a small mark on the {p}, nothing serious."],
+                    "moderate": ["The {p} has a dent and one button is loose.", "A crack along the side of the {p}, but it still works."],
+                    "severe": ["The {p} arrived smashed and can't be used at all.", "The {p} is in pieces, completely destroyed."]}[lvl]).format(
+        p=rng.choice(PRODUCTS))
+    add("damage", "score", s, "How bad is the damage?", ["minor", "moderate", "severe"], lvl)
+    ask_yn("damage", s, "Does the item still work?", lvl != "severe")
+for k in range(140):
+    mins = rng.choice([2, 5, 10, 25, 40, 70, 120, 240])
+    s = rng.choice(["The train is running {m} minutes late.", "Your table will be ready in about {m} minutes.", "Expect a wait of roughly {m} minutes."]).format(m=mins)
+    lvl = "short" if mins <= 10 else "medium" if mins <= 45 else "long"
+    add("delay", "score", s, "How long is the wait?", ["short", "medium", "long"], lvl)
+    ask_yn("delay", s, "Is the wait over an hour?", mins > 60)
+
 # ---------------------------------------------------------------- checks against E12 (no shared text)
 norm = lambda s: re.sub(r"[^a-z0-9 ]", "", s.lower()).split()
 
@@ -323,6 +506,18 @@ clash = [x["state"] for x in items if x["state"] in e12_states or shingles(x["st
 assert not clash, sorted(set(clash))
 ids = Counter(x["id"] for x in items)
 assert all(n == 1 for n in ids.values())
+
+# balance yes / no within every family: drop surplus answers of the majority side at random
+by_fam = {}
+for x in items:
+    if x["type"] == "noul":
+        by_fam.setdefault((x["category"], x["answer"]), []).append(x)
+drop = set()
+for fam in {f for f, _ in by_fam}:
+    y, n = by_fam.get((fam, "yes"), []), by_fam.get((fam, "no"), [])
+    big, small = (y, n) if len(y) > len(n) else (n, y)
+    drop |= {x["id"] for x in rng.sample(big, len(big) - len(small))}
+items = [x for x in items if x["id"] not in drop]
 
 OUT.mkdir(exist_ok=True)
 json.dump({"items": items}, open(OUT / "items.json", "w"), indent=1, ensure_ascii=False)
