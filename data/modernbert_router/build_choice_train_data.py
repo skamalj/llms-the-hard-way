@@ -5,7 +5,8 @@ Run from the repo root: python data/modernbert_router/build_choice_train_data.py
 Same three question types as E12 (yes / no, choice, score on an ordered scale) and the same rule: the answer is in the
 text, no world knowledge. The texts are generated from phrase banks written for this file, so wording varies; most texts
 are asked SEVERAL questions with different answers, which teaches the model to read the question, not only the text.
-The builder checks that no training text or question shares a 5-word phrase with any E12 test text, and balances the
+The builder checks that no training text shares a 5-word phrase with any E12 test text, nor most of its content words
+(a near-paraphrase of a test case), and balances the
 yes / no answers 50 / 50 within every family (run 16's yes / no head leaned to "no" after a 335 / 508 split).
 """
 import json
@@ -41,8 +42,8 @@ NEU = ["The parcel arrived on Tuesday.", "I received the invoice and will pass i
        "The room was as described.", "The course runs for six weeks.", "I've updated my address in the app.",
        "The meeting has been moved to the second floor.", "The bus was on time.", "Please find the form attached.",
        "The shop opens at nine on Saturdays.", "My order number is on the email you sent."]
-NEG = ["The food was cold and we waited over an hour.", "Third time the app has crashed today, really fed up.",
-       "The cleaner missed half the rooms and left a mess.", "Nobody called me back despite two promises.",
+NEG = ["The soup arrived lukewarm and the bill took forty minutes.", "Third time the app has crashed today, really fed up.",
+       "The cleaner missed half the rooms and left a mess.", "The promised refund email never arrived, twice.",
        "The jacket ripped the first time I wore it.", "Rude staff and a dirty table, very disappointing.",
        "The engineer never turned up and nobody told us.", "I was overcharged and the refund still hasn't come.",
        "The seats were broken and the film kept stopping.", "Worst hotel stay I've had, the heating never worked."]
@@ -137,9 +138,9 @@ for k in range(40):
     a, b, c = rng.sample(DAYS, 3)
     pattern = k % 3
     if pattern == 0:
-        s, ans = f"{a} is no good for me any more, can we do {b} instead?", b
+        s, ans = f"{a} is off the table; {b} suits us better.", b
     elif pattern == 1:
-        s, ans = f"Let's keep {a}. {b} and {c} are both busy for me.", a
+        s, ans = f"{a} still stands for me; {b} and {c} are both taken.", a
     else:
         s, ans = f"I'd prefer {c}, but {a} would also work if {c} is full.", c
     opts = [a, b, c]
@@ -265,7 +266,7 @@ for level, texts in FREQ.items():
     for s in texts:
         add("scale", "score", s, "How often does it happen?", ["rarely", "sometimes", "constantly"], level)
 INTENS = {"calm": ["No problem at all, whenever suits you.", "Thanks, happy to wait for the update."],
-          "annoyed": ["This is the second time, a bit annoying to be honest.", "I'd appreciate a faster reply next time."],
+          "annoyed": ["Second mix-up this month, slightly tiresome.", "I'd appreciate a faster reply next time."],
           "furious": ["This is a disgrace. I want a manager NOW.", "Absolutely unacceptable, I'm reporting you."]}
 for level, texts in INTENS.items():
     for s in texts:
@@ -291,7 +292,7 @@ CERT = {"unsure": ["I honestly can't remember which branch it was.", "Not sure, 
 for level, texts in CERT.items():
     for s in texts:
         add("scale", "score", s, "How sure is the writer?", ["unsure", "fairly sure", "certain"], level)
-POLITE = {"rude": ["Sort it out, I'm not asking again.", "Are you people incapable of reading?", "Stop wasting my time and fix it."],
+POLITE = {"rude": ["Sort it out, I'm not asking again.", "Are you people incapable of reading?", "Pull your finger out and sort this."],
           "neutral": ["The form is attached.", "Please update the address.", "Order 4471, status please."],
           "very polite": ["Huge thanks for bearing with me, it means a lot.", "Sorry to trouble you, would you kindly check this?",
                           "Many thanks for your help, it's very kind of you."]}
@@ -301,7 +302,7 @@ for level, texts in POLITE.items():
         ask_yn("scale", s, "Is the writer polite?", level == "very polite")
 SAT5 = {"very unhappy": ["Dreadful from start to end, I want a full refund.", "The worst service I have ever had."],
         "unhappy": ["A bit disappointing, the room was smaller than shown.", "Not great, it took ages to arrive."],
-        "neutral": ["It was fine, nothing special either way.", "Average experience, did the job."],
+        "neutral": ["Perfectly ordinary, no complaints and no praise.", "Average experience, did the job."],
         "happy": ["Good value and friendly staff.", "Nice place, we enjoyed it."],
         "very happy": ["Absolutely wonderful, could not have been better!", "Perfect in every way, thank you so much!"]}
 for level, texts in SAT5.items():
@@ -396,7 +397,7 @@ for k in range(160):
 
 # --- aspect sentiment (mixed reviews: the question decides the answer)
 ASPECTS = [("the food", ["delicious", "excellent", "superb"], ["cold", "bland", "greasy"]),
-           ("the staff", ["friendly", "helpful", "kind"], ["rude", "slow", "unhelpful"]),
+           ("the staff", ["welcoming", "helpful", "kind"], ["rude", "slow", "unhelpful"]),
            ("the room", ["spotless", "spacious", "quiet"], ["dirty", "tiny", "noisy"]),
            ("the price", ["fair", "reasonable", "great value"], ["steep", "too high", "a rip-off"]),
            ("the delivery", ["quick", "on time", "careful"], ["late", "careless", "slow"])]
@@ -553,7 +554,7 @@ BANK = {
                                    ["Looking forward to the trip.", "Should be a good evening.", "Quite keen to try the new menu."],
                                    ["I can't wait!!! Best news ever!", "I'm over the moon, absolutely buzzing!", "This is a dream come true, I'm thrilled!"]],
     "How angry is the writer?": [["No problem, these things happen.", "That's okay, I understand.", "Fine, no rush on my side."],
-                                 ["A bit annoying that it's late again.", "Mildly irritated, please sort it.", "This is getting tiresome."],
+                                 ["Mildly vexing that the van is behind schedule once more.", "Mildly irritated, please sort it.", "This is getting tiresome."],
                                  ["This is OUTRAGEOUS. I'm done with you.", "I am absolutely livid, unacceptable!", "Disgraceful service, I'll be taking this further!!"]],
     "How confident is the writer?": [["I might have entered the wrong code, not sure.", "Possibly the blue one? I can't say.", "Hard to say, I may be mistaken."],
                                      ["I think it was the Monday, most probably.", "I'm pretty sure I paid by card.", "It was likely the second invoice."],
@@ -587,12 +588,12 @@ for subj in SUBJ:
             add("five-level", "score", f"{subj}: {part}", "How would you rate it?", FIVE, FIVE[lvl])
 
 # --- frequency from stated rates
-FREQ_TXT = {0: ["It happened once, about two years ago.", "Only one time since we moved in.", "Hardly ever, maybe once a year."],
+FREQ_TXT = {0: ["It happened once, about two years ago.", "Only one time since we moved in.", "Hardly ever, perhaps annually."],
             1: ["Every few weeks it acts up.", "Two or three times a month.", "Now and again, roughly fortnightly."],
-            2: ["It does it every single morning.", "Several times an hour.", "Constantly, the moment it's switched on."]}
+            2: ["It does it each morning without fail.", "Several times an hour.", "Constantly, the moment it's switched on."]}
 for lvl, texts in FREQ_TXT.items():
     for t in texts:
-        for thing in ["the boiler", "the alarm", "the app", "the printer", "the lift"]:
+        for thing in ["the boiler", "the alarm", "the doorbell", "the garage door", "the lift"]:
             add("frequency", "score", f"About {thing}: {t}", "How often does it happen?", ["rarely", "sometimes", "constantly"],
                 ["rarely", "sometimes", "constantly"][lvl])
 
@@ -610,8 +611,8 @@ for task in TASKS:
             add("deadline", "score", t, "When must it be done?", ["today", "this week", "later"], ["today", "this week", "later"][lvl])
 
 # --- effort already made (count of steps tried)
-STEPS = ["turned it off and on", "checked the cables", "updated the software", "cleared the cache", "reinstalled the app",
-         "followed the online guide", "tried a different socket", "reset it to factory settings"]
+STEPS = ["swapped the batteries", "checked the fuse", "tried another browser", "logged out and back in", "re-paired the remote",
+         "tested it in another room", "tried a different socket", "phoned the manufacturer"]
 for k in range(150):
     n = [0, 1, 2, 4, 5][k % 5]
     tried = rng.sample(STEPS, n)
@@ -629,6 +630,27 @@ for k in range(160):
     lvl = "fell" if pct <= -10 else "stayed about the same" if pct < 10 else "rose sharply"
     add("change", "score", t, "How did the amount change?", ["fell", "stayed about the same", "rose sharply"], lvl)
 
+# --- run 21: urgency from SEVERITY (no deadline words), so urgency is not learned only from "by Friday" / "next month".
+# Scenarios deliberately unlike E12's (no payouts, offices offline, screens, fonts, fuse boxes, bulbs, fridges, ceilings, flights).
+SEVERITY = {"high": ["Every till in the store has frozen and customers are walking out.", "The van with all of today's deliveries has broken down on the motorway.",
+                     "A water main has burst and the car park is flooding.", "The server holding every customer order won't boot.",
+                     "A toddler has locked themselves in the bathroom.", "Hackers have taken over our social media account.",
+                     "The car park barrier is stuck down and nobody can get out.", "The ticket gates won't open and a full stadium is queueing."],
+            "medium": ["The coffee machine drips a little onto the counter.", "Two of the six check-in kiosks are out of order.",
+                       "The shared drive crawls whenever everyone logs in at nine.", "A chair in the waiting room has a wobbly leg.",
+                       "The garden gate no longer latches properly.", "Some customers say their confirmation emails arrive late.",
+                       "The back door sticks and needs a shove to open.", "The heating in the side room only gets lukewarm."],
+            "low": ["The doormat is getting a bit worn.", "A poster in the corridor hangs slightly crooked.", "Reception could do with a new plant.",
+                    "The kitchen calendar still shows last year's pictures.", "One of the mugs has a small chip.",
+                    "A second stapler on this floor would be handy.", "The noticeboard has a few out-of-date flyers.", "The lobby rug has faded a little."]}
+for level, texts in SEVERITY.items():
+    for t0 in texts:
+      for t in [t0, "Facilities ticket: " + t0, "From the front desk: " + t0]:
+        add("severity", "score", t, "How urgent is this?", ["low", "medium", "high"], level)
+        add("severity", "score", t, "How quickly does this need attention?", ["no rush", "soon", "immediately"],
+            {"low": "no rush", "medium": "soon", "high": "immediately"}[level])
+        ask_yn("severity", t, "Does this need urgent attention?", level == "high")
+
 # ---------------------------------------------------------------- checks against E12 (no shared text)
 norm = lambda s: re.sub(r"[^a-z0-9 ]", "", s.lower()).split()
 
@@ -643,6 +665,19 @@ e12_states = {x["state"] for x in e12}
 e12_sh = set().union(*(shingles(s) for s in e12_states))
 clash = [x["state"] for x in items if x["state"] in e12_states or shingles(x["state"]) & e12_sh]
 assert not clash, sorted(set(clash))
+STOPWORDS = set("a an the and or but of to in on at for with is are was were be been it its this that i i'm i've my me we our you your "
+                "he she they them his her their there here as by from so if not no do does did have has had can could will would should just "
+                "about all any some very really what which who when where how than then too also only one two three please next month week day".split())
+content = lambda t: {w for w in re.findall(r"[a-z]+", t.lower()) if w not in STOPWORDS and len(w) > 2}
+e12_content = [(t, content(t)) for t in e12_states]
+near = []
+for st in {x["state"] for x in items}:
+    a = content(st)
+    for et, b in e12_content:
+        shared = a & b
+        if len(shared) >= 3 and len(shared) / max(1, min(len(a), len(b))) >= 0.6:
+            near.append((st, et, sorted(shared)))
+assert not near, near[:5]           # a near-paraphrase of a test text would teach that test case
 ids = Counter(x["id"] for x in items)
 assert all(n == 1 for n in ids.values())
 
