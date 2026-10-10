@@ -797,6 +797,70 @@ Every difference is within the run-to-run noise found in run 14. **A separate ro
 - The same author (Claude) wrote the training data and the E10 / E11 / E12 / banking tests, so a shared style may favour our models. The decider saw none of it, and it was used zero-shot.
 - The live E10 numbers use no confident-stay gate. The model's own previous pick is the current agent.
 
+**E12 breakdown: where the fine-tuned models still trail the decider** (the exact same 170 questions; run 19 models vs the decider's section 10 run)
+
+E12 has 170 short-text questions in three types: **yes / no** (58), **choice** among 2–5 unordered options (59) and **score**, a level on an ordered scale (53). Every answer can be read from the text.
+
+| E12 type | LoRA ModernBERT-large | LoRA Nemotron-1B | Decider 2B | ModernBERT gap |
+|---|---|---|---|---|
+| yes / no (58) | 55 | 51 | 56 | −1 |
+| choice (59) | 55 | 54 | 56 | −1 |
+| **score (53)**, exact level | **43** | 36 | **48** | **−5** |
+| score within 1 level | 53 | 50 | 53 | 0 |
+| **all (170)** | **153** | 141 | **160** | **−7** |
+| same-text question groups fully right (11) | 8 | 7 | 10 | −2 |
+| "yes" answers given (30 true) | 31 | 29 | 30 | — |
+
+| Category (all types) | LoRA ModernBERT-large | LoRA Nemotron-1B | Decider 2B | ModernBERT gap |
+|---|---|---|---|---|
+| **tone** (frustration, satisfaction) | 24 / 28 | 22 / 28 | 28 / 28 | **−4** |
+| **compare** (numbers stated in the text) | 10 / 12 | 8 / 12 | 12 / 12 | −2 |
+| routing-style ("which team / trade") | 12 / 14 | 11 / 14 | 13 / 14 | −1 |
+| urgency | 10 / 13 | 8 / 13 | 11 / 13 | −1 |
+| detail | 34 / 38 | 33 / 38 | 33 / 38 | +1 |
+| fact | 36 / 37 | 32 / 37 | 36 / 37 | 0 |
+| intent | 21 / 22 | 21 / 22 | 21 / 22 | 0 |
+| topic · language | 4 / 4 · 2 / 2 | 4 / 4 · 2 / 2 | 4 / 4 · 2 / 2 | 0 |
+
+**ModernBERT's 17 mistakes, by cause**
+- **Score one level off (10).** Every score miss is an adjacent level. Two kinds:
+  - **Scale ends (7):**
+    - "SIX weeks and still no payout. I am DONE…" and "A WEEK late and nobody answers…" → frustrated (truth: furious);
+    - "Dirty room, broken shower and no apology" → unhappy (very unhappy);
+    - "Lovely stay, comfy bed and a great breakfast" → very happy (happy);
+    - "Help! My payouts have been failing for 3 days!" → urgency medium (high);
+    - "meeting room screens flicker sometimes; please check it this week" → low (medium);
+    - "The hallway bulb has gone; replace it on your next visit" → medium (low).
+  - **Stated facts into ranges (3):**
+    - "We can fix it while you wait, about an hour" → within a week (same day);
+    - "third floor" → above floor 5 (floors 1 to 5);
+    - "jammed once last year" → sometimes (rarely).
+- **Comparisons (2):**
+  - "blue sofa £699, grey £749 — is the grey cheaper?" → yes (no);
+  - "two adults and three children — more children than adults?" → no (yes).
+- **Negated or absent details (2):**
+  - "Main: the fish, **not** the steak" → main = soup (fish);
+  - "Dessert: none" → soup (none).
+- **Team / trade choice (2):**
+  - "a demo of your software for my team of 40" → support (sales);
+  - "boiler banging, no hot water" → electrician (plumber).
+- **Yes / no (1):** changing the delivery **address** read as changing the delivery **day** → yes (no).
+
+**The decider's 10 mistakes**
+- yes / no: delivery address read as delivery day (the same item ours missed); "parcel left with my neighbour" → not delivered;
+- choice: "can't do Thursday, keep Tuesday, or Friday at a push" → Friday; "charged twice for my last order" → Orders Agent; "two adults and three children" → four people;
+- score: "whenever you have time… new font" → urgency medium (low); "small dinner for 12" → 50 to 100 (under 50); "£88 vs usually £90" → lower (about the same); "hallway bulb" → medium (low); "third floor" → ground floor.
+
+**Nemotron's 29 mistakes** follow the same pattern, with more score misses (17), and several of them confident misreadings of numbers and units:
+- "The bedside table is 45 cm wide" → over 2 m (0.99);
+- "The van is 2.6 metres wide" → 1 to 2 m (0.98);
+- "while you wait, about an hour" → more than a week;
+- "The 8:20 arrives at 9:35, the 8:05 at 9:40 — which arrives first?" → the 8:05 (0.98).
+
+This fits an embedding model pretrained for topical retrieval rather than for reading details. It is the better router (E10 test 79 vs 75) and the weaker reader of numbers.
+
+**What this tells us.** The remaining gap to the decider is narrow and specific: **score precision** (5 of 7 points), mostly scale ends and turning stated numbers into ranges, plus a few comparisons and negations. Run 20 targets the score part with more ordered-scale training data. Comparisons and negated details are only 4 items, which one seed can move by noise alone.
+
 **Next**
 - ~~Decider latency~~ **measured 2026-10-11** (`decider_benchmark.ipynb` section 11; table above). Our LoRA models are **4–7× faster** at p50 and p95 on every test: E10 6.7×, banking 6.3×, E11 5.5×, E12 3.9× (ModernBERT vs the decider's full-history setting). Caveat: the decider ran in bfloat16 on a T4 (no native bfloat16) and without its optimized kernels (`causal_conv1d`, `flash-linear-attention` fell back to plain PyTorch), so its times are an upper bound. Our ModernBERT also ran fp32 weights under fp16 autocast. Cost scales differently: ours with the number of options (one pass each, batched), the decider's with prompt length (history + all options in one prompt). Its E12 accuracy reproduced exactly (160 / 170).
 - A second seed for both encoders.
