@@ -27,7 +27,7 @@ These are the numbers recorded for every run. Some were not recorded in older ru
 
 **Headline line:** routing on unseen companies (E10 test) ours vs decider; grounded choice (E12) ours vs decider; latency ours vs decider.
 
-**Latest filled scorecard: run 19** (one LoRA model for routing + choice. ModernBERT-large: E10 test 75 / 83, E11 96, banking 49 · 212, E12 153, ~50 ms. Nemotron-1B: E10 test 79 / 83, E11 97, banking 48 · 217, E12 141, ~55 ms. Decider: 69 / 96 / 48 · 214 / 160, E12 ≈ 200 ms). Full tables in the run 19 entry (routing on the E10 test companies: ours 70 (71 with confident switch) vs decider 62 / 69; E12: ours 96 / 170 zero-shot vs decider 160 / 170; E12 time per question: 63 ms vs 200 ms). Full tables in the run 14 entry.
+**Latest filled scorecard: run 19** (one LoRA model for routing + choice. ModernBERT-large: E10 test 75 / 83, E11 96, banking 49 · 212, E12 153, ~50 ms. Nemotron-1B: E10 test 79 / 83, E11 97, banking 48 · 217, E12 141, ~55 ms. Decider: 69 / 96 / 48 · 214 / 160, p50 185–439 ms by test; ours ~42–92 ms, 4–7× faster). Full tables in the run 19 entry (routing on the E10 test companies: ours 70 (71 with confident switch) vs decider 62 / 69; E12: ours 96 / 170 zero-shot vs decider 160 / 170; E12 time per question: 63 ms vs 200 ms). Full tables in the run 14 entry.
 
 **Table 1: accuracy**
 
@@ -775,10 +775,10 @@ Every difference is within the run-to-run noise found in run 14. **A separate ro
 
 | Test | LoRA ModernBERT-large p50 / p95 | LoRA Nemotron-1B p50 / p95 | Decider |
 |---|---|---|---|
-| E10 (3–4 agents, chat history) | 51 / 70 | 55 / 92 | not yet measured (section 11) |
-| E11 (5 agents, one message) | 51 / 52 | 54 / 58 | not yet measured |
-| Banking (5 agents, history) | 70 / 90 | 92 / 136 | not yet measured |
-| E12 (2–5 options, short text) | 48 / 51 | 42 / 46 | mean ≈ 200 (run 14) |
+| E10 (3–4 agents, chat history) | 51 / 70 | 55 / 92 | 342 / 427 full · 277 / 349 window 3 |
+| E11 (5 agents, one message) | 51 / 52 | 54 / 58 | 278 / 347 |
+| Banking (5 agents, history) | 70 / 90 | 92 / 136 | 439 / 528 |
+| E12 (2–5 options, short text) | 48 / 51 | 42 / 46 | 185 / 190 |
 
 **Findings**
 1. **Fine-tuning the encoder transforms routing.** Both LoRA models beat the frozen system everywhere, and they beat the decider on every routing test, without any gate or detector:
@@ -798,7 +798,7 @@ Every difference is within the run-to-run noise found in run 14. **A separate ro
 - The live E10 numbers use no confident-stay gate. The model's own previous pick is the current agent.
 
 **Next**
-- Run `decider_benchmark.ipynb` sections 1–3, 10, 11 for the decider's latency (p50 / p95) on the same tests. **Pending as of 2026-10-11** (the notebook is ready; it needs a Kaggle run).
+- ~~Decider latency~~ **measured 2026-10-11** (`decider_benchmark.ipynb` section 11; table above). Our LoRA models are **4–7× faster** at p50 and p95 on every test: E10 6.7×, banking 6.3×, E11 5.5×, E12 3.9× (ModernBERT vs the decider's full-history setting). Caveat: the decider ran in bfloat16 on a T4 (no native bfloat16) and without its optimized kernels (`causal_conv1d`, `flash-linear-attention` fell back to plain PyTorch), so its times are an upper bound. Our ModernBERT also ran fp32 weights under fp16 autocast. Cost scales differently: ours with the number of options (one pass each, batched), the decider's with prompt length (history + all options in one prompt). Its E12 accuracy reproduced exactly (160 / 170).
 - A second seed for both encoders.
 - ModernBERT in fp16 for speed.
 - Choose the production pair: one model (ModernBERT: best balance), or Nemotron for routing and ModernBERT for choice.
