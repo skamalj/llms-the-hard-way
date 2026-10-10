@@ -490,6 +490,145 @@ for k in range(140):
     add("delay", "score", s, "How long is the wait?", ["short", "medium", "long"], lvl)
     ask_yn("delay", s, "Is the wait over an hour?", mins > 60)
 
+# ================================================================ run 20: many more SCORE questions (ordered scales).
+# Run 19's score answers were always within one level but often one level off: scale ends ("furious" vs "frustrated") and
+# turning stated numbers into ranges (an hour -> same day). These families cover many dimensions, most of them NOT in E12.
+
+# --- numbers into ranges, with mixed units (the answer follows from the number alone)
+def bins3(v, lo, hi):
+    return 0 if v < lo else 1 if v <= hi else 2
+
+RANGES = [   # (question, levels, (value -> text options), lo, hi, values)
+    ("How long is it?", ["under 1 m", "1 to 3 m", "over 3 m"],
+     [lambda v: f"The rug measures {round(v * 100)} cm end to end.", lambda v: f"Length of the cable: {v:g} metres.",
+      lambda v: f"It's roughly {round(v * 1000)} mm long."], 1, 3, [0.3, 0.45, 0.6, 0.75, 0.9, 1.1, 1.2, 1.5, 1.8, 2.2, 2.5, 2.9, 3.3, 3.5, 4.2, 5, 6, 8]),
+    ("How heavy is it?", ["light", "medium", "heavy"],
+     [lambda v: f"The parcel weighs {round(v * 1000)} g.", lambda v: f"Shipping weight: {v:g} kg.",
+      lambda v: f"On the scales it came to {v:g} kilos."], 2, 20, [0.2, 0.35, 0.5, 0.8, 1.2, 1.7, 3, 5, 7, 12, 15, 18, 22, 25, 33, 40, 75, 110]),
+    ("How far away is it?", ["walking distance", "a short drive", "a long trip"],
+     [lambda v: f"The venue is {round(v * 1000)} metres from the station.", lambda v: f"It's about {v:g} km from here.",
+      lambda v: f"Distance to the depot: {v:g} kilometres."], 1.5, 30, [0.2, 0.4, 0.6, 0.9, 1.2, 2.5, 4, 9, 14, 18, 25, 28, 45, 60, 140, 250, 400]),
+    ("How long does it take?", ["minutes", "hours", "days"],
+     [lambda v: f"Allow {round(v * 60)} minutes for it." if v < 2 else f"It needs about {v:g} hours.",
+      lambda v: (f"Expect {round(v / 24)} day." if round(v / 24) == 1 else f"Expect {round(v / 24)} days.") if v >= 24 else f"Expect around {v:g} hours." if v >= 1 else f"Expect around {round(v * 60)} minutes."],
+     1, 23, [0.1, 0.3, 0.7, 2, 5, 9, 15, 30, 72, 120]),
+    ("How expensive is it?", ["cheap", "mid-priced", "expensive"],
+     [lambda v: f"It's on sale for £{v:g}.", lambda v: f"The quote came to £{v:,.0f}.", lambda v: f"Price per unit: {round(v * 100)}p." if v < 5 else f"Price per unit: £{v:g}."],
+     20, 300, [1.5, 4, 6.5, 9, 12, 18, 25, 35, 60, 90, 150, 240, 290, 480, 800, 1500, 9000]),
+    ("How hot is it?", ["cold", "mild", "hot"],
+     [lambda v: f"The thermometer reads {v:g}°C.", lambda v: f"Outside it's {v:g} degrees.", lambda v: f"Room temperature today: {v:g}°C."],
+     10, 24, [-4, 0, 2, 5, 7, 9, 11, 14, 16, 19, 21, 23, 26, 27, 30, 33, 36, 39]),
+    ("How old is the person?", ["child", "adult", "senior"],
+     [lambda v: f"The applicant is {v} years old.", lambda v: f"My grandparent turned {v} last week." if v > 60 else f"My cousin turned {v} last week.",
+      lambda v: f"Age on the form: {v}."], 18, 64, [4, 9, 13, 17, 22, 35, 48, 61, 70, 86]),
+    ("How fast is it?", ["slow", "moderate", "fast"],
+     [lambda v: f"The download runs at {v:g} Mbps.", lambda v: f"Measured speed: {v:g} Mbps."], 10, 100, [1, 3, 8, 15, 40, 75, 95, 150, 500, 900]),
+    ("How many people are coming?", ["a few", "a medium group", "a crowd"],
+     [lambda v: f"Headcount for Saturday: {v}.", lambda v: f"{v} guests have said yes so far.", lambda v: f"We've booked seats for {v}."],
+     10, 60, [2, 5, 8, 14, 25, 40, 55, 80, 200, 650]),
+    ("How full is it?", ["mostly empty", "about half full", "nearly full"],
+     [lambda v: f"The car park is at {v}% capacity.", lambda v: f"The tank is {v}% full.", lambda v: f"{v} of 100 seats are taken."],
+     30, 70, [3, 12, 22, 35, 48, 55, 66, 78, 89, 97]),
+]
+for question, levels, makers, lo, hi, values in RANGES:
+    for v in values:
+        for make in makers:
+            text = make(v)
+            add("ranges", "score", text, question, levels, levels[bins3(v, lo, hi)])
+
+# --- intensity scales from graded phrase banks (3 and 5 levels)
+INTENSITY = {
+    "How worried is the writer?": ["not worried", "a bit worried", "very worried"],
+    "How excited is the writer?": ["not excited", "quite excited", "thrilled"],
+    "How angry is the writer?": ["calm", "irritated", "enraged"],
+    "How confident is the writer?": ["doubtful", "fairly confident", "completely sure"],
+    "How difficult was it?": ["easy", "manageable", "very hard"],
+    "How serious is the problem?": ["trivial", "significant", "critical"],
+}
+BANK = {
+    "How worried is the writer?": [["Just curious, nothing to worry about.", "No concerns, simply asking.", "All good, just checking the details."],
+                                   ["I'm a little concerned the parcel hasn't moved.", "Slightly uneasy about the delay, to be honest.", "It's starting to bother me a bit."],
+                                   ["I'm really scared something has gone wrong.", "I'm panicking, my son hasn't come home.", "Seriously anxious, I can't sleep over this."]],
+    "How excited is the writer?": [["It's fine, I suppose.", "Meh, it's just another meeting.", "Not bothered either way."],
+                                   ["Looking forward to the trip.", "Should be a good evening.", "Quite keen to try the new menu."],
+                                   ["I can't wait!!! Best news ever!", "I'm over the moon, absolutely buzzing!", "This is a dream come true, I'm thrilled!"]],
+    "How angry is the writer?": [["No problem, these things happen.", "That's okay, I understand.", "Fine, no rush on my side."],
+                                 ["A bit annoying that it's late again.", "Mildly irritated, please sort it.", "This is getting tiresome."],
+                                 ["This is OUTRAGEOUS. I'm done with you.", "I am absolutely livid, unacceptable!", "Disgraceful service, I'll be taking this further!!"]],
+    "How confident is the writer?": [["I might have entered the wrong code, not sure.", "Possibly the blue one? I can't say.", "Hard to say, I may be mistaken."],
+                                     ["I think it was the Monday, most probably.", "I'm pretty sure I paid by card.", "It was likely the second invoice."],
+                                     ["It was Monday, no doubt about it.", "I definitely paid, here's the reference.", "One hundred percent the second invoice."]],
+    "How difficult was it?": [["Took two minutes, very straightforward.", "A piece of cake.", "Simple, no trouble at all."],
+                              ["It took some effort but I got there.", "A few tricky steps, doable though.", "Bit fiddly, but fine in the end."],
+                              ["Took me all weekend and I nearly gave up.", "Incredibly hard, I needed three people to help.", "A nightmare from start to finish."]],
+    "How serious is the problem?": [["A tiny typo in the footer.", "One pixel is slightly off-colour.", "The logo is a shade too pale."],
+                                    ["Half the customers can't log in.", "Orders are delayed by a day.", "The report totals don't match."],
+                                    ["The whole site is down and payments are failing.", "Customer data may have leaked.", "The production line has stopped completely."]],
+}
+for q, levels in INTENSITY.items():
+    for lvl, texts in enumerate(BANK[q]):
+        for t in texts:
+            add("intensity", "score", t, q, levels, levels[lvl])
+            for opener in ["Hi team. ", "Quick note: ", "Re: my order. "]:
+                add("intensity", "score", opener + t, q, levels, levels[lvl])
+
+# --- five-level scales: reviews built from graded parts (the two ends must be told apart from their neighbours)
+FIVE = ["very poor", "poor", "average", "good", "excellent"]
+PARTS = {0: ["Appalling.", "A total disaster.", "The worst I've seen, avoid at all costs."],
+         1: ["Below expectations.", "Not great, a few real problems.", "Disappointing overall."],
+         2: ["Okay, nothing more.", "Average, does the job.", "Middle of the road."],
+         3: ["Pretty good.", "Solid, I'd use it again.", "Good, with a couple of small flaws."],
+         4: ["Outstanding in every way!", "Flawless, simply superb.", "Exceptional, couldn't fault it."]}
+SUBJ = ["The new phone case", "Our hotel in Porto", "The cooking class", "Last night's concert", "The plumber's work", "The delivery service",
+        "The coffee machine", "The language course", "The car hire", "The garden centre"]
+for subj in SUBJ:
+    for lvl, parts in PARTS.items():
+        for part in parts:
+            add("five-level", "score", f"{subj}: {part}", "How would you rate it?", FIVE, FIVE[lvl])
+
+# --- frequency from stated rates
+FREQ_TXT = {0: ["It happened once, about two years ago.", "Only one time since we moved in.", "Hardly ever, maybe once a year."],
+            1: ["Every few weeks it acts up.", "Two or three times a month.", "Now and again, roughly fortnightly."],
+            2: ["It does it every single morning.", "Several times an hour.", "Constantly, the moment it's switched on."]}
+for lvl, texts in FREQ_TXT.items():
+    for t in texts:
+        for thing in ["the boiler", "the alarm", "the app", "the printer", "the lift"]:
+            add("frequency", "score", f"About {thing}: {t}", "How often does it happen?", ["rarely", "sometimes", "constantly"],
+                ["rarely", "sometimes", "constantly"][lvl])
+
+# --- urgency and timing from deadlines (two questions per text, same three-way split)
+TASKS = ["renew the parking permit", "fix the leaking tap", "send the signed contract", "replace the broken window", "update the price list",
+         "reset the staff passwords", "order more printer paper", "repair the front gate", "book the venue", "file the insurance form"]
+DEAD = {0: ["within the next hour", "before close of business today", "right now if possible"],
+        1: ["by Friday", "sometime this week", "in the next few days"],
+        2: ["at some point next month", "whenever you get round to it", "before the end of the quarter"]}
+for task in TASKS:
+    for lvl, ds in DEAD.items():
+        for d in ds:
+            t = f"Please {task} {d}."
+            add("deadline", "score", t, "How urgent is the request?", ["low", "medium", "high"], ["high", "medium", "low"][lvl])
+            add("deadline", "score", t, "When must it be done?", ["today", "this week", "later"], ["today", "this week", "later"][lvl])
+
+# --- effort already made (count of steps tried)
+STEPS = ["turned it off and on", "checked the cables", "updated the software", "cleared the cache", "reinstalled the app",
+         "followed the online guide", "tried a different socket", "reset it to factory settings"]
+for k in range(150):
+    n = [0, 1, 2, 4, 5][k % 5]
+    tried = rng.sample(STEPS, n)
+    t = ("It still isn't working and I haven't tried anything yet." if n == 0 else
+         "It still isn't working. I " + (", ".join(tried[:-1]) + " and " + tried[-1] if n > 1 else tried[0]) + ".")
+    add("effort", "score", t, "How much has the person already tried?", ["nothing", "a little", "a lot"], ["nothing", "a little", "a lot"][0 if n == 0 else 1 if n <= 2 else 2])
+
+# --- size of a change in a stated number
+for k in range(160):
+    old = rng.choice([20, 45, 80, 120, 250, 600])
+    pct = rng.choice([-60, -35, -20, -3, 0, 2, 4, 40, 90, 150])
+    new = round(old * (1 + pct / 100))
+    thing = rng.choice(["The monthly fee", "Our electricity cost", "The ticket price", "The rent", "The insurance premium"])
+    t = rng.choice([f"{thing} went from £{old} to £{new}.", f"{thing} was £{old}; it is now £{new}.", f"{thing}: before £{old}, now £{new}."])
+    lvl = "fell" if pct <= -10 else "stayed about the same" if pct < 10 else "rose sharply"
+    add("change", "score", t, "How did the amount change?", ["fell", "stayed about the same", "rose sharply"], lvl)
+
 # ---------------------------------------------------------------- checks against E12 (no shared text)
 norm = lambda s: re.sub(r"[^a-z0-9 ]", "", s.lower()).split()
 
