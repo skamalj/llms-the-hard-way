@@ -27,7 +27,7 @@ These are the numbers recorded for every run. Some were not recorded in older ru
 
 **Headline line:** routing on unseen companies (E10 test) ours vs decider; grounded choice (E12) ours vs decider; latency ours vs decider.
 
-**Latest filled scorecard: run 14** (E12 since then: run 18, LoRA + head, **153 / 170** at 49 ms per question) (routing on the E10 test companies: ours 70 (71 with confident switch) vs decider 62 / 69; E12: ours 96 / 170 zero-shot vs decider 160 / 170; E12 time per question: 63 ms vs 200 ms). Full tables in the run 14 entry.
+**Latest filled scorecard: run 19** (one LoRA model for routing + choice. ModernBERT-large: E10 test 75 / 83, E11 96, banking 49 · 212, E12 153, ~50 ms. Nemotron-1B: E10 test 79 / 83, E11 97, banking 48 · 217, E12 141, ~55 ms. Decider: 69 / 96 / 48 · 214 / 160, E12 ≈ 200 ms). Full tables in the run 19 entry (routing on the E10 test companies: ours 70 (71 with confident switch) vs decider 62 / 69; E12: ours 96 / 170 zero-shot vs decider 160 / 170; E12 time per question: 63 ms vs 200 ms). Full tables in the run 14 entry.
 
 **Table 1: accuracy**
 
@@ -753,6 +753,58 @@ Every difference is within the run-to-run noise found in run 14. **A separate ro
 
 ---
 
+## Run 19 — 2026-10-11: one LoRA model for routing + choice, ModernBERT-large vs Nemotron-1B (`lora_combined.ipynb`, branch `exp/phase9b-lora-combined`)
+
+- **Setup:** one encoder with hand-written LoRA (r 16) + one scoring head, trained on routing (6,319 conversations with history, current agent and 5 described agents) and choice questions (8,176) together, in one question format, one pass per option. Dev: 7 unseen routing domains (531) + held-out choice texts (937). 2 epochs. The same data, settings and tests for both encoders.
+- **Training:** ModernBERT-large 31.6 min (peak 9.8 GB; fp32 weights + fp16 autocast, no checkpointing); Nemotron-1B 67.8 min (peak 4.1 GB; fp16 weights, gradient checkpointing). Dev routing / choice: ModernBERT 525 / 531 and 934 / 937; Nemotron 526 / 531 and 932 / 937.
+
+**Accuracy: the exact same test items as every earlier run and the decider**
+
+| Test | **LoRA ModernBERT-large** | **LoRA Nemotron-1B** | Frozen system (run 17) | Choice-only LoRA (run 18) | Strands decider 2B |
+|---|---|---|---|---|---|
+| **E10 test companies, live (83)** | **75** | **79** | 69 router / 72 gate | — | 62 full / 69 window 3 |
+| E10 all, live (193) | 174 | **180** | 158 | — | 151 / 163 |
+| E10 real switches, test (20) | 16 | **19** | 14 | — | 10 / 13 |
+| E11 first turn top-1 / top-2 (100) | 96 / 100 | **97** / 99 | 94 / 97 | — | 96 / 100 |
+| Banking benchmark (50) | **49** | 48 | 43 | — | 48 |
+| Banking all (225) | 212 | **217** | 194 | — | 214 |
+| **E12 choice (170)** | **153** | 141 | 114 | 153 | **160** |
+| E12 yes / no · choice · score | 55 · 55 · 43 | 51 · 54 · 36 | 38 · 44 · 32 | 52 · 55 · 46 | 56 · 56 · 48 |
+
+**Latency per question** (T4, one question at a time, warm, tokenization included; ms)
+
+| Test | LoRA ModernBERT-large p50 / p95 | LoRA Nemotron-1B p50 / p95 | Decider |
+|---|---|---|---|
+| E10 (3–4 agents, chat history) | 51 / 70 | 55 / 92 | not yet measured (section 11) |
+| E11 (5 agents, one message) | 51 / 52 | 54 / 58 | not yet measured |
+| Banking (5 agents, history) | 70 / 90 | 92 / 136 | not yet measured |
+| E12 (2–5 options, short text) | 48 / 51 | 42 / 46 | mean ≈ 200 (run 14) |
+
+**Findings**
+1. **Fine-tuning the encoder transforms routing.** Both LoRA models beat the frozen system everywhere, and they beat the decider on every routing test, without any gate or detector:
+   - E10 test companies: **79 / 83** (Nemotron) and **75 / 83** (ModernBERT), against the decider's best of 69 and our previous best of 74;
+   - real switches: 19 / 20 (Nemotron), the failure mode that runs 11–17 could not fix;
+   - E10 all: 180 / 193 against 163;
+   - banking: 217 / 225 against 214, though the decider was trained on banking data;
+   - E11: 97 against 96.
+2. **One model can do both jobs.** ModernBERT-large keeps its choice-only E12 score (153, the same as run 18) while also routing. So training routing and choice together cost nothing on choice.
+3. **The two encoders have different strengths.** Nemotron is better at routing (+4 E10 test, +6 all, +5 banking), ModernBERT at choice questions (+12 E12, mainly score: 43 vs 36). Nemotron's choice mistakes are often confident misreadings of numbers ("45 cm" → over 2 m, 0.99), consistent with an embedding model pretrained for topical retrieval, not for detail.
+4. **Speed:** about 50 ms per question on both, at least 4× faster than the decider (its E12 mean was 200 ms; section 11 will give its p50 / p95 on every test). Nemotron is faster on E12 because it runs in fp16, while ModernBERT ran fp32 weights under autocast. ModernBERT in fp16 should be faster still.
+5. **Against the decider overall:** ahead on all routing tests; behind on general choice by 7 (ModernBERT) or 19 (Nemotron).
+
+**Caveats**
+- One seed per encoder; fine-tuning noise not yet measured.
+- The same author (Claude) wrote the training data and the E10 / E11 / E12 / banking tests, so a shared style may favour our models. The decider saw none of it, and it was used zero-shot.
+- The live E10 numbers use no confident-stay gate. The model's own previous pick is the current agent.
+
+**Next**
+- Run `decider_benchmark.ipynb` sections 1–3, 10, 11 for the decider's latency (p50 / p95) on the same tests.
+- A second seed for both encoders.
+- ModernBERT in fp16 for speed.
+- Choose the production pair: one model (ModernBERT: best balance), or Nemotron for routing and ModernBERT for choice.
+
+---
+
 ## Infrastructure notes
 
 - **Kaggle gives 2 × T4, and the notebook uses only `cuda:0`** (noted 2026-10-07). Options to use the second GPU, in order of payoff vs effort:
@@ -810,7 +862,7 @@ Later phase branches are created when each phase starts, from the branch of the 
 | run 13, same branch (user 2026-10-08) | **More realistic SWITCH training data.** Run 12 showed the realistic data costs about 3 real switches on the E10 test companies (12 / 20 vs 15). Add realistic conversations rich in switches, especially switches that sound like follow-ups ("And is my inhaler prescription in that bag too?", "Also the installers left …"), returns and short switches, in new businesses (none from any test set). Runs together with the Q-K-V rewrite: the rewrite only changes the detector and is compared side by side with pooled in the same run, so the two effects stay separable | E10 test switches back to ≥ 15 / 20 with the gate ≥ 74 / 83; no loss on E11 / banking / Cell 59 | **done (run 13)**: banking 47 · 205, ding-dong 19, Cell 59 38; E10 test switches unchanged (12 / 20): failures are the router staying with the current agent |
 | run 14 (user 2026-10-08) | **Phase 8 step 1–2 + confident switch, Q-K-V dropped** (branch `exp/phase8-general-choice`). (a) Q-K-V cells removed (user decision after run 13). (b) Cell 70: two-sided gate on the pooled context-change detector: p < τ_low → keep the current agent; p > τ_high → router among the OTHER agents (new "confident switch", aimed at the run 13 failures where the router stays with the current agent on a switch to a related agent); τ_low then τ_high chosen on dev companies, ties to "off". (c) Cell 72: E12 zero-shot with our router (text = user message, options = candidates described by the question); `decider_benchmark.ipynb` section 10: E12 with the decider in its native noul / choice / score questions. Same data as run 13 | test gate ≥ 72 / 83 with the confident switch (≥ 2 over the stay-only gate, 70); E12 per type vs the decider | **done (run 14)**: confident switch +1 (71 vs 70, not adopted); E12 zero-shot ours 96 / 170 vs decider 160 / 170; run-to-run variance found (banking 47 → 43 with identical settings) |
 | run 16 (user 2026-10-08) | **Unified choice model** (branch `exp/phase8b-unified-choice`; stability work postponed by the user). Every example is (text, question, options): input `query: … current agent: … question: … candidate: …`. Training mixes routing (6,850, "Which agent should handle the user's latest message?"), the context-change label as a yes / no question (5,948) and 1,524 general grounded questions (`choice_train/items.json`: 843 yes / no, 452 choice, 229 score; 541 texts, 469 asked several questions; no 5-word phrase shared with E12), repeated ×3. Cross pass gains a question span; masked listwise loss over 2–5 options. Cell 70 compares the ModernBERT pooled detector with the unified model's own yes / no answer (each with dev-chosen confident stay / switch). Training code checked on CPU with random features (runs end to end; a planted label signal is learned) | routing within noise of run 14 (E10 test gate ~70, banking ~43–47 · 198–205, E11 ~93); E12 well above 96 / 170, towards the decider's 160 | **done (run 16)**: routing no loss (E10 test gate 73, held-out 5,900); E12 96 → 113 / 170 (decider 160); unified detector 72 vs pooled 73 |
-| run 19 (user 2026-10-10) | **One LoRA model for routing AND choice questions, ModernBERT-large then Nemotron-1B in one notebook** (`lora_combined.ipynb`, branch `exp/phase9b-lora-combined`). One encoder with hand-written LoRA + one scoring head, trained on routing (6,850 conversations with history and current agent, 5 agents with descriptions) and the 9,113 choice questions together, in the same question format; dev = 10% of routing domains + 10% of choice texts; 2 epochs. Tests: E10 live (all / 83 test-company turns), E11, banking, E12. **Latency** p50 / p95 / mean per question for every test, on both models; `decider_benchmark.ipynb` section 11 measures the decider the same way | routing ≥ the frozen system (E10 test 69 router alone, E11 94, banking 43 / 194); E12 ≈ run 18 (153); latency below the decider's | **ready to run** |
+| run 19 (user 2026-10-10) | **One LoRA model for routing AND choice questions, ModernBERT-large then Nemotron-1B in one notebook** (`lora_combined.ipynb`, branch `exp/phase9b-lora-combined`). One encoder with hand-written LoRA + one scoring head, trained on routing (6,850 conversations with history and current agent, 5 agents with descriptions) and the 9,113 choice questions together, in the same question format; dev = 10% of routing domains + 10% of choice texts; 2 epochs. Tests: E10 live (all / 83 test-company turns), E11, banking, E12. **Latency** p50 / p95 / mean per question for every test, on both models; `decider_benchmark.ipynb` section 11 measures the decider the same way | routing ≥ the frozen system (E10 test 69 router alone, E11 94, banking 43 / 194); E12 ≈ run 18 (153); latency below the decider's | **done (run 19)**: E10 test 75 (ModernBERT) / **79** (Nemotron) vs decider 69; banking 212 / 217 vs 214; E11 96 / 97 vs 96; E12 153 / 141 vs 160; ~50 ms / question |
 | phase 9 / run 18 (user 2026-10-10) | **Choice only: encoder fine-tuned with LoRA + a scoring head** (new notebook `choice_lora.ipynb`, branch `exp/phase9-choice-lora`; chat history and agent routing set aside for now). Run 17 showed that frozen features plateau on E12 (114 / 170 with 6× data). Here ModernBERT-large (default; `CHOICE_ENCODER` can pick Nemotron-1B) gets hand-written LoRA adapters (r 16) on every attention and MLP linear layer; one encoder pass per option (cross-encoder), mean pooling, MLP head, listwise loss over 2–5 options. Trained on the 9,113 choice questions with 10% of the *texts* held back as dev for early stopping; E12 only at the end | E12 well above 114 / 170, towards the decider's 160; ms per question reported | **done (run 18)**: E12 **153 / 170** (run 17: 114; decider: 160), 49 ms / question, 9 min training |
 | run 17 (user 2026-10-09) | **Two separate heads, never mixed** (branch `exp/phase8c-separate-heads`). Same input format and frozen encoder for every question, but a **route head** trained, folded, standardized and tested only on routing (6,850 conversations; E10 + gate, E11, banking, Cell 59) and a **choice head** trained, folded, standardized and tested only on general questions (E12). Context-change labels go to neither head (the gate keeps the ModernBERT detector). **More choice training data:** 9,113 items (5,572 yes / no, 2,832 choice, 709 score) from 24 question families and 2,330 texts (2,192 asked several questions); yes / no balanced 50 / 50 within every family; no 5-word phrase shared with E12. Compared with run 16's single shared head | route head vs run 16 on routing (within noise or better); choice head vs run 16's 113 / 170 and the decider's 160 / 170 on E12 | **done (run 17)**: route head = shared head on routing (gate 72, held-out 5,960, E11 94); choice head E12 114 / 170 (run 16: 113) — frozen features plateau |
 | phase8 (user 2026-10-08) | **General choice model, as an AUGMENTATION of the router: can the same model keep its agent-routing performance while also answering grounded choice questions, and how does it compare with the Strands decider?** Nothing learned so far is dropped: all routing data stays in training. (1) **E12 test set:** about 100 grounded items (the answer is in the given text; no world knowledge, as with the decider), covering the decider's three question types: yes / no ("Does this convey urgency?"), choice ("Which team should handle this?") and score on an ordered scale ("How frustrated is the writer? calm / frustrated / depressed"), including pairs where the same text gets two questions with different answers (does the model read the question?). (2) Both models zero-shot on E12 first. (3) Input format: `question:` segment added, `candidate agent:` → `candidate:`; routing becomes one task among several. (4) Train on routing + mixed grounded-choice data (task types and wording disjoint from E12). (5) Side-by-side vs the decider on E12 per type, then latency | **Routing must not regress** vs run 13 (E10 test gate within 1 turn, E11 within 1, banking within 2 / 5, Cell 59 within 1); E12 reported per type next to the decider | **in progress**: E12 built; zero-shot (run 14: 96 / 170), one shared head (run 16: 113 / 170), separate heads (run 17) |
