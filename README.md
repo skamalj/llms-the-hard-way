@@ -80,7 +80,7 @@ It's tested on unseen banking agents, on realistic multi-turn chats (E10), on fi
 
 The notebook ends with **Phase 17: what we tried and dropped**, with the numbers: hard cascade, soft fusion, Q-K-V attention head, windowing, layer mix, confident switch, and more. The best frozen system routed conversations at unseen companies better than the decider (74 vs 62 of 83 turns), but grounded questions plateaued at 114 / 170 against its 160. **The frozen encoder was the limit.**
 
-**Run:** Kaggle with a GPU; the data is cloned from this branch. **Ledger:** `experiments/modernbert_router_ledger.md` records every run (1–17 here, 18–25 on `signpost`), with what changed, the results and the decision.
+**Run:** Kaggle with a GPU; the data is cloned from this branch. **Ledger:** `experiments/modernbert_router_ledger.md` records every run (1–25), with what changed, the results and the decision; it is the same file on `frozen-router` and `signpost`.
 
 ## Part 4: Fine-tuning, and Signpost (`signpost`)
 
