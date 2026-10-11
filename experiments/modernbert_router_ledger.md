@@ -1296,3 +1296,10 @@ Later phase branches are created when each phase starts, from the branch of the 
 | 7 | Optional: a **small generative router** (e.g. Qwen2.5-0.5B-Instruct + LoRA, outputs the agent name) as a different-paradigm comparison (System 1 guide, strategy C) | vs the best encoder router on E2–E5, E10 | optional |
 | — | Rejected for now: target-only second pass / TTA (it removes exactly the history that short replies need; "router x2" already hurt); scaling the attention α inside the frozen encoder (a distribution shift for a frozen backbone); history KV caching for the encoder (only an approximation, because history tokens attend to the new turn); ONNX / Triton / CUDA graphs (latency work, not accuracy) | — | — |
 | 5 | Optional: partial fine-tuning of the top 2–4 ModernBERT layers with differential learning rates (fp16 on the T4) | E1/E2/E3 clearly above the frozen best | optional |
+
+## Signpost published on Hugging Face — 2026-10-11
+
+- **Repo:** [huggingface.co/skamalj/signpost](https://huggingface.co/skamalj/signpost), public, Apache-2.0. Files: `encoder/` (merged ModernBERT-large, fp16), `head.pt`, `signpost_config.json`, `signpost.py`, `README.md` (model card), `card_examples.py`.
+- **Source:** the run 25 export (`models/signpost/`). The training state is preserved as git tag `signpost-v1.0` (148608a, branch `exp/phase9e-independent`). The card is `signpost/README.md` on `exp/signpost-langgraph`.
+- **Card examples verified twice:** run on the local export, then again on a fresh `snapshot_download` from the Hub (CPU, fp32). The outputs were identical, and they are the ones recorded in the card: routing (first message; a stay and a switch with history), choice, yes / no, score.
+- **The card's evaluation** gives correct / total for both models on identical items, with the decider on full history. Its 3-turn-window results are given as a note.
