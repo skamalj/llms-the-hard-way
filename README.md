@@ -57,15 +57,14 @@ The included dataset, `data/lora_json_answer/smollm2_answer_250_fresh.json`, has
 
 ## Part 2: An encoder by hand (`modernbert-by-hand`)
 
-**`01_modernbert_by_hand.ipynb`** builds the forward pass of [ModernBERT-large](https://huggingface.co/answerdotai/ModernBERT-large) (28 layers, H = 1,024) from its real checkpoint, loaded as a plain dict of tensors:
+**`01_modernbert_by_hand.ipynb`** builds the forward pass of [ModernBERT-large](https://huggingface.co/answerdotai/ModernBERT-large) (28 layers, H = 1,024) from its real checkpoint, loaded as a plain dict of tensors. Attention itself (Q / K / V, heads, RoPE) is built step by step in Part 1, so this notebook recaps it briefly and focuses on what an encoder changes:
 - tokenization and embeddings;
-- RoPE with two bases;
-- Q / K / V and **bidirectional** attention, compared with SmolLM2's causal attention;
-- local (sliding-window) vs global layers;
-- LayerNorm, residuals and the GeGLU MLP;
-- the full stack.
+- **bidirectional** attention (no causal mask), compared with SmolLM2's causal attention;
+- local (sliding-window) vs global layers, each with its own RoPE base (using ModernBERT's own RoPE);
+- LayerNorm without bias, residuals and the GeGLU MLP;
+- the full 28-layer stack.
 
-It matches the reference `last_hidden_state` to about 3e-5. It ends with pooling, and with why a fixed classification head can't route to agents that change. That sets up Part 3.
+It matches the reference `last_hidden_state` to about 3e-5. Then comes the key idea: a small **classification head** on the pooled encoder vector. The notebook trains one on 6 customer-message intents (8 examples each, encoder frozen) and tests it on unseen messages. Then it adds a 7th intent: the new class needs its own labelled examples and a retraining run. That's why Part 3 changes the head.
 
 **Run:** top to bottom, on a CPU or on Kaggle / Colab (the first cell installs the pinned `transformers`).
 
