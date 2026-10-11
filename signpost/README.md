@@ -141,7 +141,7 @@ print(sp.score("No rush, whenever you get a moment.", "How urgent is this?", ["l
 
 Signpost works with any multi-agent framework. Call `route()` before each user turn, send the turn to the agent it picks, and remember that agent as `current_agent` for the next turn. That's all the state it needs.
 
-Example with LangGraph: Signpost is the first node, and the graph jumps to the agent it picks (`Command(goto=…)`), keeping the current agent in the graph state. The full example has five agents (Claude), a DynamoDB checkpointer and a message-window reducer: [`signpost_app/`](https://github.com/skamalj/llms-the-hard-way/tree/exp/signpost-langgraph/signpost_app).
+Example with LangGraph: Signpost is the first node, and the graph jumps to the agent it picks (`Command(goto=…)`), keeping the current agent in the graph state. The full example has five agents (Claude), a DynamoDB checkpointer and a message-window reducer: [`apps/langgraph/`](https://github.com/skamalj/llms-the-hard-way/tree/signpost-apps/apps/langgraph).
 
 ## Training
 
