@@ -64,6 +64,8 @@ The generic training data changed between runs (3,542 → 3,931 → 5,049 conver
 
 ### The result
 
+**Model name: Signpost** (user decision, 2026-10-11): one model that points each message to the right agent and each question to the right answer. The base model is credited in the model card ("fine-tuned from ModernBERT-large", Apache 2.0).
+
 A **ModernBERT-large encoder (395 M parameters, frozen) with 7.2 M trainable LoRA parameters and a 0.26 M scoring head** is one model for two jobs:
 - **agent routing**, with chat history and the current agent;
 - **general grounded choice questions** about a text: yes / no, pick one of N, or rate on a scale.
@@ -1165,7 +1167,7 @@ Latency was the same as the combined model (49–71 ms p50).
 2. **A hint of mutual help:** the two largest differences, banking −8 and E12 −6, both favour the combined model. With one seed each this is not proven, but it points to the jobs helping each other: the routing data teaches the model about customer messages, and the question data teaches it to read details.
 3. **The cost is the same:** two specialists take 25 + 7 = 32 min against 33 min for the combined model, and deploying them would mean two models instead of one.
 
-**Decision: one model for both jobs (working name "Usher").** Joint training does not pollute either job, and the combined model is at least as good as two specialists. Run 22b's combined ModernBERT-large stays the final model.
+**Decision: one model for both jobs (name: **Signpost**, chosen by the user on 2026-10-11).** Joint training does not pollute either job, and the combined model is at least as good as two specialists. Run 22b's combined ModernBERT-large stays the final model.
 
 ---
 
