@@ -2,9 +2,15 @@
 
 Run from the repo root: python data/modernbert_router/build_independent_test_data.py
 
-Input (as delivered, unchanged): independent/questions.jsonl, routing.jsonl, first_turn.jsonl.
+Input (as delivered, unchanged): independent/questions.jsonl, routing.jsonl, first_turn.jsonl = the writer's V1 (2026-10-11),
+which passes the brief's self-check. The first delivery (template-made, see the ledger) is kept as *_v0.jsonl.
 Output: independent/questions.json (E12 format), routing.json (E10 format), first_turn.json.
-Nothing is dropped. Routing turns are FLAGGED where the delivered label cannot be judged from the text:
+Nothing is dropped. Questions are FLAGGED where an item tests something other than reading the text:
+  claim_check      a yes / no "does the text contradict / support the opposite of the claim" item (in V1 all 22 answer "yes",
+                   so a model could pass them by pattern)
+  unordered_scale  a "score" item whose options are not one dimension ordered low -> high (reversed or not a scale);
+                   exact accuracy still counts, but "within one level" / expected level are meaningless for it
+Routing turns are FLAGGED where the delivered label cannot be judged from the text:
   label_conflict  a stay-type turn (answer / follow / also_stay) whose expected agent differs from the previous turn's,
                   or a switch-type turn that keeps the previous agent
   vague_start     a templated first message that names no need ("I need help with a ... at your <company>")
@@ -20,11 +26,20 @@ TYPE = {"yes_no": "noul", "choice": "choice", "score": "score"}
 STAY, SWITCH = {"answer", "follow", "also_stay", "aspect", "closing"}, {"switch", "short_switch", "return", "handoff_ok"}
 
 # ---- questions -> E12 format
-items = []
+UNORDERED = [   # reviewed by hand in V1: not a single low -> high scale (not a scale, reversed, or two dimensions mixed)
+    ["strong evidence of rejects", "no rejects reported", "counts are missing"], ["spread across all sections", "limited to one section", "no clear pattern"],
+    ["paper sample", "envelope stock", "same weight"], ["copper", "brass", "same amount"], ["equal quantities", "twice as many oak", "twice as many ash"],
+    ["definitely unnecessary", "may be needed", "definitely completed"], ["matches", "partly matches", "does not match"],
+    ["closely", "partly", "not at all"], ["passed both", "passed one and failed one", "failed both"],
+    ["complete", "partly complete", "not compliant"], ["occurs at all tested speeds", "only one tested speed", "no speed stated"]]
+items, qflags = [], Counter()
 for q in read("questions.jsonl"):
     assert q["answer"] in q["options"], q["id"]
-    it = {"id": q["id"], "type": TYPE[q["type"]], "category": q["question"], "state": q["text"], "question": q["question"],
-          "options": q["options"], "answer": q["answer"]}
+    flag = ("claim_check" if q["type"] == "yes_no" and re.search(r"contradict|opposite|claim", q["question"], re.I) else
+            "unordered_scale" if q["type"] == "score" and q["options"] in UNORDERED else None)
+    qflags[flag] += 1
+    it = {"id": q["id"], "type": TYPE[q["type"]], "category": flag or TYPE[q["type"]], "flag": flag, "state": q["text"],
+          "question": q["question"], "options": q["options"], "answer": q["answer"]}
     if it["type"] == "score":
         it["answer_index"] = q["options"].index(q["answer"])
     if q.get("group"):
@@ -59,5 +74,5 @@ ft = [{"id": f["id"], "company": f["company"], "agents": f["agents"], "message":
 assert all(f["target_agent"] in f["agents"] for f in ft)
 json.dump({"messages": ft}, open(HERE / "first_turn.json", "w"), indent=1, ensure_ascii=False)
 
-print(f"questions {len(items)} ({dict(Counter(i['type'] for i in items))}) | routing {len(convs)} conversations, "
+print(f"questions {len(items)} ({dict(Counter(i['type'] for i in items))}, flags {dict(qflags)}) | routing {len(convs)} conversations, "
       f"{sum(len(c['user_turns']) for c in convs)} turns, flags {dict(flags)} | first turn {len(ft)}")
