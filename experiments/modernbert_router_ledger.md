@@ -1191,6 +1191,35 @@ Latency was the same as the combined model (49–71 ms p50).
 
 ---
 
+## Signpost in LangGraph — 2026-10-11: real-setting test (branch `exp/signpost-langgraph`, `signpost_app/`)
+
+- **App:** Northwind Outdoor Gear, a fictional outdoor retailer new to Signpost, with 5 agents (Orders & Delivery, Returns & Refunds, Product Advice, Repairs & Warranty, Billing & Membership).
+  - **Graph:** START → `signpost` node (the exported Signpost from `models/signpost/`, CPU) → `Command(goto=agent)` → the agent answers with Claude Opus 5.5 (effort low, server-side refusal fallback) → END.
+  - **State:** messages, current_agent, route.
+  - **Memory:** `DynamoDBSaver` (table `signpost-checkpoints`, on-demand billing, 1-day expiry, created on first use, AWS SSO profile in ap-south-1), with the `agentstate-reducer` pruning the stored history inside every save (default above 12 messages, down to 6).
+  - **Where it ran:** locally in Windows PowerShell with uv (inference only, user-approved).
+- **Tests:** written for the app by the same author as the training data; Northwind and its agents are new to Signpost.
+
+| Test | Routing-only run (stub replies) | **Full run (Claude agents)** |
+|---|---|---|
+| A. First messages (20, a new thread each) | 19 / 20 | **19 / 20** |
+| B. Conversations (6, 32 turns, routed live) | 32 / 32 | **31 / 32** |
+| C. Persistence (a new checkpointer resumes from DynamoDB) | 7 / 7, restore OK | **7 / 7, restore OK** (6 messages + current agent) |
+| D. Long conversation, reducer window 8 / 4 (12 turns) | 9 / 12 | **10 / 12** (stored per turn 2,4,6,8,4,6,8,4,6,8,4,6) |
+| Routing latency on CPU, p50 (first message / with history) | 0.9 s / 2–3 s | **1.3 s / ~4 s** (GPU: ~50–70 ms) |
+
+**Findings**
+- **Signpost routes correctly in a live LangGraph app:** 67 / 71 turns with real LLM replies in the history, across persistence and pruned history.
+- **Misroutes recover by themselves.** The wrongly chosen agent answers "I'll pass you to …", and Signpost (trained on hand-offs) routes the next turn correctly. Example in D: "tent pegs missing" went to Repairs; Repairs handed over; "yes please send them" went to Orders.
+- **The misses match the independent test's weak spot:**
+  - a short answer with a product word pulls away from the current agent ("the second one was a £60 fleece", during a return → Product Advice, p 0.88);
+  - "swap this jacket for a medium" → Product Advice;
+  - two debatable labels ("can I use [points] on the repair?" → Repairs; "tent pegs missing from the box" → Repairs).
+- **The stub-reply run was slightly flattering** (the stubs named the agent): 32 / 32 vs 31 / 32 on B. The real-reply run is the number to quote.
+- **CPU latency (1–4 s) is the practical cost locally;** options are a shorter history window, fp16 on a small GPU, or tighter batching.
+
+---
+
 ## Infrastructure notes
 
 - **Kaggle gives 2 × T4, and the notebook uses only `cuda:0`** (noted 2026-10-07). Options to use the second GPU, in order of payoff vs effort:
@@ -1214,6 +1243,7 @@ Every experiment lives on its own branch, and nothing is merged into `master` un
 | `exp/phase4-encoder-combos` | Router and detector encoders chosen independently (`ROUTER_ENCODER`, `DETECTOR_ENCODER`): any of the 4 ModernBERT / Nemotron combinations; default = hybrid (Nemotron router + ModernBERT detectors) | `exp/phase3b-nemotron` |
 | `exp/phase5-windowing` | Cell 73: windowing test (router / detector windows on dev, report on test). Result: no gain | `exp/phase4-encoder-combos` |
 | `exp/phase6-realistic-train` | Realistic free-form training data (744 turns, 40 businesses), `REALISTIC_TRAIN` switch in Cell 34 (run 11). Result: not adopted (E10 test gate 70 vs 74) | `exp/phase5-windowing` |
+| `exp/signpost-langgraph` | `signpost_app/`: LangGraph app with Signpost as the router, 5 Claude agents, DynamoDB checkpointer + agentstate-reducer; tests A–D (67 / 71 with Claude agents) | `exp/phase9e-independent` |
 | `exp/phase9e-independent` | Run 22: independent test set (as delivered + flags), test blocks in `lora_combined.ipynb` and decider section 12 | `exp/phase9d-score-loss` |
 | `exp/phase9d-score-loss` | Run 21: E12 near-paraphrase guard + reworded training texts, severity urgency, ordinal score loss (plain and ordinal variants in one notebook run) | `exp/phase9c-score-data` |
 | `exp/phase9c-score-data` | Run 20: 2,004 score training items (from 709); `lora_combined.ipynb` with ModernBERT-large only | `exp/phase9b-lora-combined` |
