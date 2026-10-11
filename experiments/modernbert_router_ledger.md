@@ -58,6 +58,69 @@ The generic training data changed between runs (3,542 → 3,931 → 5,049 conver
 
 ---
 
+## How we got here: the evolution in 22 runs (summary for the blog, 2026-10-11)
+
+*Written to be read on its own. Every number is pass / total on test items no model was trained on. Run numbers point to the full entries below; each phase has its own git branch (see "Branches").*
+
+### The result
+
+A **ModernBERT-large encoder (395 M parameters, frozen) with 7.2 M trainable LoRA parameters and a 0.26 M scoring head** is one model for two jobs:
+- **agent routing**, with chat history and the current agent;
+- **general grounded choice questions** about a text: yes / no, pick one of N, or rate on a scale.
+
+It is about **one-fifth the size of the Strands decider** (Qwen3.5-2B + LoRA + head, about 2 B parameters), **trains in 33 minutes on one T4**, and answers in about **50 ms**. On the same test items:
+
+| Test (same items for both) | **Ours: ModernBERT-large + LoRA (run 21)** | Strands decider 2B |
+|---|---|---|
+| Routing with chat history, unseen companies (E10 test, 83) | **81** | 62 (full history) / 69 (3-turn window) |
+| Routing with chat history, all turns (E10, 193) | **180** | 151 / 163 |
+| Routing a first message (E11, 100) | 95 | 96 |
+| Banking routing (50 / 225) | **50 / 220** | 48 / 214 (banking77 was in its training) |
+| General choice questions (E12, 170) | **161** | 160 |
+| … yes / no (58) · choice (59) · score (53) | 58 · 56 · 47 | 56 · 56 · 48 |
+| Latency p50, ms (E10 · E11 · banking · E12), T4 | **50 · 50 · 70 · 48** | 342 · 278 · 439 · 185 |
+
+So we are **level with the decider on general choice questions, ahead on every routing test, and 4–7× faster**. That is with one seed per model, so differences of about ±4 are within the measured noise. "Level" is the honest word for E12, and "ahead" is safe only where the gap is far larger than that, as on routing.
+
+### The path, phase by phase
+
+| Phase (branch) | Runs | What we tried | What happened | What we learned |
+|---|---|---|---|---|
+| **Foundations** (`master`, `exp/baseline-run5`) | 1–5 | Our own ModernBERT forward pass (matches the reference to 2.8e-5); a frozen encoder plus a small head that scores (conversation, agent description) pairs from a joint (cross) pass and separate (dual) passes; base → large; PCA (removed); current agent as input; a yes / no context-change detector | Held-out routing 70% → 81%; banking 40 → 44 / 50; the detector solved short replies (99.6% held-out) | Large beats base; the current agent is needed for short replies; a frozen router plateaus around 80% |
+| **Combining router and detector** (`exp/phase1-cascade`, `exp/phase2b-qkv-attention`) | 6–7 | A hard cascade (the detector decides stay / switch); a learned Q-K-V attention head for the detector | The cascade hurt (every wrong "switch" became a routing error); Q-K-V gave no robust gain | A detector should only act where it is very sure |
+| **Encoders and realistic tests** (`exp/phase3a-modernbert`, `exp/phase3b-nemotron`) | 8–9 | A pluggable encoder: ModernBERT-large vs Nemotron-1B (a bidirectional Llama embedding model); new realistic tests E10 (chat history) and E11 (first turn) | Nemotron routed better (E10 +16, banking +20); ModernBERT was the better detector | Different pretraining, different strengths: this held to the end |
+| **Benchmark** (`exp/benchmark-strands-decider`) | B1 | The Strands decider (2 B, zero-shot) on the same tests | E10 151 / 163, E11 96, banking 48 / 214 | A strong general model, weaker on long chat histories |
+| **Hybrid + gate** (`exp/phase4-encoder-combos`, `exp/phase5-windowing`) | 10, 10b | Nemotron router + ModernBERT detector; a one-sided "confident stay" gate with τ chosen on dev companies; windowing the history | **74 / 83** on unseen companies vs the decider's 62 / 69; windowing gave nothing | The best frozen-encoder design |
+| **Data and simplification** (`exp/phase6-realistic-train`, `exp/phase7-simplify`, `exp/phase7b-qkv-switch`) | 11–13 | Free-form realistic training conversations; removing everything that never won (cascade, soft fusion, switch detector, extra configs); switch-heavy data; a Q-K-V rewrite | Selection 5× faster; switch data lifted banking to 47 / 205; Q-K-V attention stayed uniform; the remaining errors were the router staying with the current agent on related switches | Simpler is better; measure one change at a time |
+| **General choice, frozen** (`exp/phase8-general-choice`, `exp/phase8b-unified-choice`, `exp/phase8c-separate-heads`) | 14–17 | A new test E12 (170 yes / no, choice, score questions, the decider's job); one question format (`question:` + `candidate:`); shared vs separate heads; 6× more choice data | Zero-shot 96 → 113 → **114 / 170** (decider 160); identical runs differed by 4 on banking | **Frozen features plateau**: no head or amount of data teaches the encoder to read; and run-to-run noise is real |
+| **Fine-tuning with LoRA** (`exp/phase9-choice-lora`, `exp/phase9b-lora-combined`) | 18–19 | Hand-written LoRA adapters on every attention and MLP layer + the same scoring head; one pass per option; then **one model for routing and choice**, on ModernBERT-large and Nemotron-1B | E12 114 → **153**; routing E10 test 75 (ModernBERT) / **79** (Nemotron) without any gate or detector; banking 212 / 217 | **The step change of the project.** The plateau was the frozen encoder. Nemotron still routes better, ModernBERT reads better |
+| **Closing the score gap** (`exp/phase9c-score-data`, `exp/phase9d-score-loss`) | 20–21 | More score data (no gain; it taught a "deadline word = urgent" shortcut); a near-paraphrase guard against teaching the test; severity-based urgency data; an order-aware score loss | Score 43 → 46 → **47 / 53** (decider 48); E12 **161 / 170**; E10 test **81 / 83**; banking **50 / 220** | Data can teach shortcuts; guard against near-copies of test items; ordered scales need an ordered loss |
+| **Independent review** (`exp/phase9e-independent`) | 22 | Test cases written outside the project, from a brief | First delivery largely template-made (20 texts for 300 questions; contradictory routing labels); flagged, run as delivered, revision requested | An outside test is needed for the final claim; it needs a precise brief and a self-check |
+
+### The decisions that mattered most
+
+1. **Fine-tune the encoder (LoRA), not just the head** (run 18). This one change moved general choice from 114 to 153 and routing from 74 to 75–81, with only 7.2 M trained parameters.
+2. **One question format for everything** (run 16): `<text or conversation> | current agent | question | candidate`. Routing became one question among many, which let one model learn both jobs (run 19) at no cost to either.
+3. **Remove what doesn't win** (Phase 7). The gate, cascade, switch detector, Q-K-V head and windowing all went. After fine-tuning, routing needs no detector at all.
+4. **Treat measurement as part of the work:**
+   - companies held out for testing, with dev companies for every choice of threshold;
+   - the same items for both models;
+   - absolute numbers;
+   - a noise estimate (±4);
+   - a guard that stops near-paraphrases of test items entering training;
+   - an independent test set.
+5. **Match the loss to the question.** Scales are ordered, so near-misses should cost less (the ordinal loss, run 21).
+
+### What remains open
+
+- **Error bars:** 2 more seeds of the final model.
+- **The revised independent test set.** All our other tests were written by the same author as the training data, so a shared style may favour our model.
+- **The decider's latency is an upper bound.** It ran in bfloat16 on a T4 without its optimized kernels. Our ModernBERT ran fp32 weights under autocast.
+- **Banking is not unseen for the decider**, which was trained on banking77 / CLINC.
+- **Nemotron-1B with the ordinal loss**, possibly the best router.
+
+---
+
 ## Run 1 — 2026-10-05: frozen ModernBERT-base, dual + cross features
 
 - **Model:** ModernBERT-base (22 layers, H = 768), frozen; our own forward pass.
