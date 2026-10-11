@@ -8,8 +8,7 @@ Output: independent/questions.json (E12 format), routing.json (E10 format), firs
 Nothing is dropped. Questions are FLAGGED where an item tests something other than reading the text:
   claim_check      a yes / no "does the text contradict / support the opposite of the claim" item (in V1 all 22 answer "yes",
                    so a model could pass them by pattern)
-  unordered_scale  a "score" item whose options are not one dimension ordered low -> high (reversed or not a scale);
-                   exact accuracy still counts, but "within one level" / expected level are meaningless for it
+  (the 11 V1 "score" items that were not one low -> high scale are CORRECTED below instead of flagged)
 Routing turns are FLAGGED where the delivered label cannot be judged from the text:
   label_conflict  a stay-type turn (answer / follow / also_stay) whose expected agent differs from the previous turn's,
                   or a switch-type turn that keeps the previous agent
@@ -26,20 +25,32 @@ TYPE = {"yes_no": "noul", "choice": "choice", "score": "score"}
 STAY, SWITCH = {"answer", "follow", "also_stay", "aspect", "closing"}, {"switch", "short_switch", "return", "handoff_ok"}
 
 # ---- questions -> E12 format
-UNORDERED = [   # reviewed by hand in V1: not a single low -> high scale (not a scale, reversed, or two dimensions mixed)
-    ["strong evidence of rejects", "no rejects reported", "counts are missing"], ["spread across all sections", "limited to one section", "no clear pattern"],
-    ["paper sample", "envelope stock", "same weight"], ["copper", "brass", "same amount"], ["equal quantities", "twice as many oak", "twice as many ash"],
-    ["definitely unnecessary", "may be needed", "definitely completed"], ["matches", "partly matches", "does not match"],
-    ["closely", "partly", "not at all"], ["passed both", "passed one and failed one", "failed both"],
-    ["complete", "partly complete", "not compliant"], ["occurs at all tested speeds", "only one tested speed", "no speed stated"]]
-items, qflags = [], Counter()
+# CORRECTIONS (applied here, the delivered files stay unchanged; no answer is changed). In V1, 11 "score" items were not
+# one low -> high scale. 3 were reversed: reordered low -> high (the correct option is the same). 8 were not scales at all:
+# retyped as "choice" (their options were never ordered). Every corrected item carries "corrected" for the record.
+REORDER = {("matches", "partly matches", "does not match"): ["does not match", "partly matches", "matches"],
+           ("closely", "partly", "not at all"): ["not at all", "partly", "closely"],
+           ("passed both", "passed one and failed one", "failed both"): ["failed both", "passed one and failed one", "passed both"]}
+RETYPE = [["strong evidence of rejects", "no rejects reported", "counts are missing"], ["spread across all sections", "limited to one section", "no clear pattern"],
+          ["paper sample", "envelope stock", "same weight"], ["copper", "brass", "same amount"], ["equal quantities", "twice as many oak", "twice as many ash"],
+          ["definitely unnecessary", "may be needed", "definitely completed"], ["complete", "partly complete", "not compliant"],
+          ["occurs at all tested speeds", "only one tested speed", "no speed stated"]]
+items, qflags, fixes = [], Counter(), Counter()
 for q in read("questions.jsonl"):
     assert q["answer"] in q["options"], q["id"]
-    flag = ("claim_check" if q["type"] == "yes_no" and re.search(r"contradict|opposite|claim", q["question"], re.I) else
-            "unordered_scale" if q["type"] == "score" and q["options"] in UNORDERED else None)
+    q, corrected = dict(q), None
+    if q["type"] == "score" and tuple(q["options"]) in REORDER:
+        q["options"], corrected = REORDER[tuple(q["options"])], "scale reordered low -> high"
+    elif q["type"] == "score" and q["options"] in RETYPE:
+        q["type"], corrected = "choice", "not a scale: retyped score -> choice"
+    fixes[corrected] += 1
+    assert q["answer"] in q["options"], q["id"]
+    flag = "claim_check" if q["type"] == "yes_no" and re.search(r"contradict|opposite|claim", q["question"], re.I) else None
     qflags[flag] += 1
     it = {"id": q["id"], "type": TYPE[q["type"]], "category": flag or TYPE[q["type"]], "flag": flag, "state": q["text"],
           "question": q["question"], "options": q["options"], "answer": q["answer"]}
+    if corrected:
+        it["corrected"] = corrected
     if it["type"] == "score":
         it["answer_index"] = q["options"].index(q["answer"])
     if q.get("group"):
@@ -74,5 +85,5 @@ ft = [{"id": f["id"], "company": f["company"], "agents": f["agents"], "message":
 assert all(f["target_agent"] in f["agents"] for f in ft)
 json.dump({"messages": ft}, open(HERE / "first_turn.json", "w"), indent=1, ensure_ascii=False)
 
-print(f"questions {len(items)} ({dict(Counter(i['type'] for i in items))}, flags {dict(qflags)}) | routing {len(convs)} conversations, "
+print(f"questions {len(items)} ({dict(Counter(i['type'] for i in items))}, flags {dict(qflags)}, corrections {dict(fixes)}) | routing {len(convs)} conversations, "
       f"{sum(len(c['user_turns']) for c in convs)} turns, flags {dict(flags)} | first turn {len(ft)}")
