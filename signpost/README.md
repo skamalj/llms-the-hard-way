@@ -27,7 +27,7 @@ The same model also answers **grounded questions about a text**:
 
 The options are yours and can change on every call. They aren't fixed classes, so new agents or labels need no retraining.
 
-It is fine-tuned from [answerdotai/ModernBERT-large](https://huggingface.co/answerdotai/ModernBERT-large) (395M parameters, encoder only). LoRA adapters (r 16) were trained and then merged into the weights, and a 0.26M-parameter scoring head was added. That is about one fifth of the size of a 2B decoder-based decider, and on a GPU it takes about 50–70 ms per decision.
+It is fine-tuned from [answerdotai/ModernBERT-large](https://huggingface.co/answerdotai/ModernBERT-large) (395M parameters, encoder only). LoRA adapters (r 16) were trained and then merged into the weights, and a 0.26M-parameter scoring head was added. That is about one fifth of the size of the 2B decoder-based Strands decider ([StrandsAgents/strands-decider-2B-hobson-v19](https://huggingface.co/StrandsAgents/strands-decider-2B-hobson-v19)), and on a GPU it takes about 50–70 ms per decision.
 
 ## How it works
 
@@ -38,8 +38,9 @@ user: <msg> [SEP] assistant: <msg> [SEP] … [SEP] user: <latest msg> [SEP] curr
 ```
 
 - **Routing** uses the fixed question `Which agent should handle the user's latest message?`, with each agent's description in the candidate.
-- **Yes / no** uses the options `yes` and `no`.
-- **Score** reads the levels in order, from low to high, and also returns the expected level (Σ index × p).
+- **Choice** uses your question and your options (2–5 in training), e.g. `Which team should handle this?` over `billing / sales / retail`.
+- **Yes / no** uses your question with the options `yes` and `no`.
+- **Score** uses your question with ordered levels (e.g. `calm / frustrated / furious`), read in order from low to high, and also returns the expected level (Σ index × p).
 
 `signpost.py`, included in this repo, builds this input exactly as it was in training. Use it rather than writing your own input format.
 
@@ -136,9 +137,11 @@ print(sp.score("No rush, whenever you get a moment.", "How urgent is this?", ["l
 # -> low
 ```
 
-### Use it in a LangGraph app
+### Use it in your multi-agent setup
 
-Signpost sits in front of the agents as the first node, and the graph jumps to the agent it picks (`Command(goto=…)`). The current agent is kept in the graph state. A full example has five agents (Claude), a DynamoDB checkpointer and a message-window reducer: [`signpost_app/`](https://github.com/skamalj/llms-the-hard-way/tree/exp/signpost-langgraph/signpost_app).
+Signpost works with any multi-agent framework. Call `route()` before each user turn, send the turn to the agent it picks, and remember that agent as `current_agent` for the next turn. That's all the state it needs.
+
+Example with LangGraph: Signpost is the first node, and the graph jumps to the agent it picks (`Command(goto=…)`), keeping the current agent in the graph state. The full example has five agents (Claude), a DynamoDB checkpointer and a message-window reducer: [`signpost_app/`](https://github.com/skamalj/llms-the-hard-way/tree/exp/signpost-langgraph/signpost_app).
 
 ## Training
 
@@ -147,33 +150,56 @@ Signpost sits in front of the agents as the first node, and the graph jumps to t
 | Base | `answerdotai/ModernBERT-large`, frozen |
 | Trained | LoRA r 16, alpha 32 on the encoder's linear layers (7.2M, merged at export) + head: mean pooling → Linear(1024, 256) → GELU → Linear(256, 1) (0.26M) |
 | Data | 6,319 routing conversations (multi-turn, with the current agent and 5 agents with descriptions, many synthetic companies) + 9,586 grounded questions (yes / no balanced per family, choice, ordered score) |
-| Loss | Listwise cross-entropy over 2–5 options. For score questions, an ordinal loss: label smoothing 0.1 onto neighbouring levels + 0.5 × \|expected − true\| / (L − 1) |
 | Setup | 2 epochs, max length 320 tokens (if too long, the oldest history is cut), one seed (42), Kaggle T4, about 33 minutes |
 
 All the training data is synthetic and was written for this project. Before training, it was checked for overlap with the test sets (5-gram and content-word guards).
 
 ## Evaluation
 
-The numbers are counts correct. The reference model is the 2B **Strands decider**, zero-shot on the same questions. Each model gets them in its own input format, but the content is identical.
+Signpost is compared with the Strands decider ([StrandsAgents/strands-decider-2B-hobson-v19](https://huggingface.co/StrandsAgents/strands-decider-2B-hobson-v19), 2B, zero-shot). Both models get **exactly the same test items**; only the input format differs (each gets its own prompt format). Every number is **correct answers / total items**, and both models are scored on every item. For routing in conversations, both models see the full chat history.
 
-| Test | What it is | Signpost | Decider |
-|---|---|---|---|
-| E10 routing, unseen companies (83) · all (193) | Multi-turn chats, routed live turn by turn | **78** · **181** | 62 / 69 · 151 / 163 ¹ |
-| E11 first message (100) | One message, 5 agents | **97** | 96 |
-| Banking (50 · 225) | Banking routing | 48 · 210 | 48 · **214** ² |
-| E12 (170): yes / no · choice · score | Grounded questions; the answer is in the text | **161**: 58 · 58 · 45 | 160: 56 · 56 · 48 |
-| Independent questions (300): yes / no (100) · choice (108) · score (92) | Written by a separate author | 221: 75 · 103 · 43 | **253**: 77 · 106 · 70 |
-| Independent routing, live turns (172) · first message (200) | Separate author | **133** · **180** | 113 / 121 ¹ · 178 |
+### Test sets
 
-¹ The decider answered fewer items: some outputs could not be parsed. ² banking77 is in the decider's training data.
+| Test set | What it contains | Items |
+|---|---|---|
+| **Routing in conversations** (our E10) | 35 realistic multi-turn chats at 13 companies, 5 agents each. Routed live: the model's own previous choice becomes the current agent for the next turn, so a mistake carries forward. Turn types include short answers ("the green one"), follow-ups, closings and switches to a new topic | 193 turns, of which 83 are at companies never seen in training |
+| **First message** (our E11) | A single opening message at 10 companies × 5 agents | 100 |
+| **Banking** | Single banking customer messages routed to banking agents. A 50-message benchmark and the full set | 50 · 225 |
+| **Grounded questions** (our E12) | Short texts with yes / no, choice and score questions; the answer is always in the text. Includes the same text asked two different questions | 170 (58 yes / no, 59 choice, 53 score) |
+| **Independent questions** | Written by a separate author who never saw our data, with their own businesses | 300 (100 yes / no, 108 choice, 92 score) |
+| **Independent routing** | Same separate author: multi-turn chats routed live, and first messages | 172 turns · 200 first messages |
 
-**Live in a LangGraph app:** five agents, with real LLM replies in the history, DynamoDB persistence and a pruned history. 67 of 71 turns were routed correctly: first messages 19/20, conversations 31/32, resumed after restore 7/7, long chat with a 8/4-message window 10/12.
+### Results
+
+| Test | Signpost | Decider |
+|---|---|---|
+| Routing in conversations, unseen companies | **78 / 83** | 62 / 83 |
+| Routing in conversations, all companies | **181 / 193** | 151 / 193 |
+| First message | **97 / 100** | 96 / 100 |
+| Banking, benchmark | 48 / 50 | 48 / 50 |
+| Banking, all | 210 / 225 | **214 / 225** ¹ |
+| Grounded questions, total | **161 / 170** | 160 / 170 |
+| — yes / no | **58 / 58** | 56 / 58 |
+| — choice | **58 / 59** | 56 / 59 |
+| — score | 45 / 53 | **48 / 53** |
+| Independent questions, total | 221 / 300 | **253 / 300** |
+| — yes / no | 75 / 100 | **77 / 100** |
+| — choice | 103 / 108 | **106 / 108** |
+| — score | 43 / 92 | **70 / 92** |
+| Independent routing in conversations | **133 / 172** | 113 / 172 |
+| Independent first message | **180 / 200** | 178 / 200 |
+
+¹ banking77 is in the decider's training data, so this set is not unseen for it.
+
+Given only the last 3 user turns instead of the full history, the decider does better in conversations (69 / 83, 163 / 193 and 121 / 172), but still scores below Signpost.
+
+**Live in a LangGraph app:** five agents, with real LLM replies in the history, DynamoDB persistence and a pruned history. 67 / 71 turns were routed correctly: first messages 19 / 20, conversations 31 / 32, resumed after a restore 7 / 7, and a long chat with an 8 / 4-message window 10 / 12.
 
 **Latency:** on a T4 GPU, about 50–70 ms per decision (p50), which is 4–7× faster than the decider measured the same way. On a laptop CPU in fp32, about 1.3 s for a first message and about 4 s with a long history.
 
 ### Caveats
 
-- The routing and E10–E12 test sets were written by the same author as the training data. The independent sets are the fairest comparison.
+- The routing in conversations, first message and grounded question sets were written by the same author as the training data. The independent sets are the fairest comparison.
 - These are single-seed results. Three runs of the same recipe varied by about ±4 on most tests, and by 43–53 on independent score.
 - The decider ran in bf16 on a T4 without its optimised kernels, so its latency is an upper bound.
 
