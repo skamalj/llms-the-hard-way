@@ -6,7 +6,7 @@ import time
 import torch
 from langchain_core.messages import AIMessage, HumanMessage
 
-from settings import SIGNPOST_PATH
+from settings import signpost_path
 
 
 def _load_signpost_class(path):
@@ -31,7 +31,8 @@ def to_signpost_messages(messages):
 
 
 class SignpostRouter:
-    def __init__(self, path=SIGNPOST_PATH):
+    def __init__(self, path=None):
+        path = path or signpost_path()
         torch.set_num_threads(os.cpu_count() or 4)
         t0 = time.perf_counter()
         self.model = _load_signpost_class(path)(path)          # CPU -> float32

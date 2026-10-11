@@ -1,6 +1,6 @@
 # Signpost in LangGraph: a real-setting test of the router
 
-A small customer-support app for a fictional retailer, **Northwind Outdoor Gear**, with five agents. **Signpost** (our fine-tuned ModernBERT-large router, `models/signpost/`) picks the agent for every user message. The chat memory is stored in **DynamoDB** with `langgraph-dynamodb-checkpoint`, and its **reducer** (`agentstate-reducer`) prunes old messages.
+A small customer-support app for a fictional retailer, **Northwind Outdoor Gear**, with five agents. **Signpost** (our fine-tuned ModernBERT-large router, [skamalj/signpost](https://huggingface.co/skamalj/signpost), downloaded from the Hugging Face Hub on first use) picks the agent for every user message. The chat memory is stored in **DynamoDB** with `langgraph-dynamodb-checkpoint`, and its **reducer** (`agentstate-reducer`) prunes old messages.
 
 ```text
 user message -> [signpost]  reads the thread (messages + current agent), picks 1 of 5 agents
@@ -21,7 +21,7 @@ checkpoint per thread in DynamoDB; the reducer prunes the stored history (defaul
 ## Running (Windows PowerShell)
 
 ```powershell
-cd D:\projects\kv-cache-experiment\signpost_app
+cd apps\langgraph                        # on the signpost-apps branch
 uv sync                                   # first time only
 aws sso login                             # if the SSO session has expired
 $env:ANTHROPIC_API_KEY = "..."            # or set it in your profile
@@ -39,7 +39,8 @@ uv run python chat.py                     # chat yourself; --thread <id> to resu
 | `CHECKPOINT_TABLE` | `signpost-checkpoints` | DynamoDB table (created on first use, on-demand billing) |
 | `CHECKPOINT_TTL` | `86400` | checkpoint expiry in seconds |
 | `REDUCER_MAX_MESSAGES`, `REDUCER_MIN_MESSAGES` | 12, 6 | prune above max, down to min |
-| `SIGNPOST_PATH` | `../models/signpost` | the exported Signpost folder |
+| `SIGNPOST_REPO` | `skamalj/signpost` | the Hugging Face repo Signpost is downloaded from |
+| `SIGNPOST_PATH` | (unset) | a local exported Signpost folder to use instead of the Hub |
 | `AWS_PROFILE` | the first profile in `~/.aws/config` | AWS credentials for DynamoDB |
 
 ## Tests (`run_tests.py`)

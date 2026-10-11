@@ -4,7 +4,7 @@ import re
 from pathlib import Path
 
 APP_DIR = Path(__file__).resolve().parent
-SIGNPOST_PATH = Path(os.environ.get("SIGNPOST_PATH", APP_DIR.parent / "models" / "signpost"))
+SIGNPOST_REPO = os.environ.get("SIGNPOST_REPO", "skamalj/signpost")     # the published model on the Hugging Face Hub
 AGENT_MODEL = os.environ.get("AGENT_MODEL", "claude-opus-5-5")
 AGENT_EFFORT = os.environ.get("AGENT_EFFORT", "low")              # short chat replies; raise for harder agents
 TABLE_NAME = os.environ.get("CHECKPOINT_TABLE", "signpost-checkpoints")
@@ -25,3 +25,12 @@ def use_aws_profile():
             os.environ["AWS_PROFILE"] = m.group(1)
             return m.group(1)
     return None
+
+
+def signpost_path():
+    """The Signpost folder to load: SIGNPOST_PATH if set (a local export), otherwise the published model, downloaded from
+    the Hugging Face Hub on first use and cached there."""
+    if os.environ.get("SIGNPOST_PATH"):
+        return Path(os.environ["SIGNPOST_PATH"])
+    from huggingface_hub import snapshot_download
+    return Path(snapshot_download(SIGNPOST_REPO))
