@@ -9,6 +9,7 @@ tags:
 - multi-agent
 - agent-routing
 - cross-encoder
+- bert
 - modernbert
 - lora
 - zero-shot-classification
@@ -16,7 +17,7 @@ tags:
 
 # Signpost
 
-Signpost is a **router for multi-agent chat**. You give it the conversation, the agent that answered last, and your agents with a one-line description each. It tells you which agent should handle the user's latest message.
+Signpost is a **BERT-based router for multi-agent chat**, built on [ModernBERT-large](https://huggingface.co/answerdotai/ModernBERT-large). You give it the conversation, the agent that answered last, and your agents with a one-line description each. It tells you which agent should handle the user's latest message.
 
 The same model also answers **grounded questions about a text**:
 
