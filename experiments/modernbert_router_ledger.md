@@ -1433,3 +1433,31 @@ Later phase branches are created when each phase starts, from the branch of the 
   - **The misses are systematic: 41 of 49 are one level too low.** "Very clear" is read as "partly clear" (about 17 items), "very satisfied" as "satisfied" (5), and high or major urgency and seriousness as medium or moderate (about 12). The model hedges towards the middle.
   - Possible causes: the ordinal loss's neighbour smoothing and distance penalty, and / or template score data with few extreme answers and no clarity-type scales.
 - **Change (user decision):** `SCORE_LOSSES=plain`, so score questions are trained like any choice question (plain cross-entropy on the right level). Everything else is as in run 27: all of Signpost's data, the 2,500 many-option questions, and 2,500 routing questions with 10–15 agents. The summary shows run 28 next to run 27, with E12 and independent score broken out.
+
+## Run 28 results — 2026-10-14: score questions trained as plain choice questions (branch `exp/listwise-index`)
+
+- **Training:** healthy on the first attempt, 26.4 min. Same data and seed as run 27; only the score loss changed (plain). Dev after epoch 2: routing 99.1%, routing with 15 agents 98.1%, questions 97.4%.
+
+| Test (same items) | **Run 28 (plain)** | Run 27 (ordinal) | Signpost (run 25) | Decider |
+|---|---|---|---|---|
+| **Independent score (92)** | **46** | 35 | 43 | 70 |
+| **Independent questions (300)**: yes/no · choice · score | **221**: 70 · 105 · 46 | 211: 71 · 105 · 35 | 221 | 253 |
+| **E12 (170)**: yes/no · choice · score · comparison (12) | **158**: 57 · 56 · 45 · 11 | 153: 54 · 53 · 46 · 7 | 161 | 160 |
+| Conversations, unseen companies · all | 76 · 179 | 78 · 177 | 78 · 181 | 62 · 151 |
+| E11 · banking 50 · 225 | 97 · 49 · 212 | 99 · 49 · 211 | 97 · 48 · 210 | 96 · 48 · 214 |
+| Independent routing · first message | 134 · 180 | 136 · 181 | 133 · 180 | 113 · 178 |
+| Many-option (162) · many-agent routing live (120) · first messages (72) | 147 · 100 · 63 | 152 · 104 · 63 | 150 · 103 · 62 | 160 · 83 · 70 |
+| Independent 2: questions · routing live · first messages | 185 · 55 · 49 | 188 · 58 · 49 | 188 · 62 · 47 | 185 · 55 · 50 |
+| Option order: same pick with the agents reversed | 68 / 72 | 69 / 72 | — | — |
+
+**Findings**
+1. **The ordinal loss hurt outside-written scales.**
+   - Training score questions as plain choices lifted independent score **35 → 46** and the independent total **211 → 221** (level with Signpost).
+   - E12 rose to **158**, within noise of Signpost's 161, and comparison questions recovered (7 → 11 / 12).
+   - E12's own score count didn't change (45 vs 46): its scales were written in the same style as our training data.
+2. **Routing moved within noise:** most tests shifted by 1–2, the many-agent and independent-2 tests by up to 4. Many-option questions dropped 152 → 147, mostly in the departments family (19 vs 23 / 30). As run 21 showed, changing the loss shifts the whole training path by about ±4.
+3. **The one-pass model is now level with Signpost on every old test** (all within ±3) at a flat ~55–60 ms. The remaining gap is independent score against the decider: 46 vs 70.
+
+**Decision (recommended):** adopt the plain loss. **Next:**
+- a second seed of this setup, to separate the gains from noise;
+- hand-written score questions with varied scales and more answers at the extremes (the last template-made part of the data).
