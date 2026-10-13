@@ -1461,3 +1461,17 @@ Later phase branches are created when each phase starts, from the branch of the 
 **Decision (recommended):** adopt the plain loss. **Next:**
 - a second seed of this setup, to separate the gains from noise;
 - hand-written score questions with varied scales and more answers at the extremes (the last template-made part of the data).
+
+## Run 29 setup — 2026-10-14: no score questions in training or testing (branch `exp/listwise-index`)
+
+- **Why:** across runs 21–28, score questions (pick a level on an ordered scale) never transferred to outside-written scales: independent score 35–50 / 92, against the decider's 70. Changing their loss also moved the other results around. **Decision: the model is not meant for score questions.** They are left out of training and of every test, so the model is judged only on what it is meant to do.
+- **Change:** `INCLUDE_SCORE=0` (new setting). This drops score items from training and dev, and from the score items in E12 (now 117: 58 yes/no + 59 choice), the independent questions (208) and independent set 2 (150 questions). Everything else is exactly as in run 28: plain loss, all data, 2,500 many-option questions, 2,500 many-agent routing items, seed, MAX_LEN 1536.
+- **Reference, the same items without score:**
+
+| Test | Run 28 | Run 27 | Signpost (run 25 / hub) | Decider |
+|---|---|---|---|---|
+| E12 (117) | 113 | 107 | 116 | 112 |
+| Independent questions (208) | 175 | 176 | 178 | 183 |
+| Independent 2 questions (150) | 139 | — | 143 | 142 |
+
+- Routing, first-message and many-option tests are unchanged and are compared against run 28 directly. The published Signpost and the decider run in the notebook on the same reduced sets.
