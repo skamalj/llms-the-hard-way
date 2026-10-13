@@ -1365,3 +1365,24 @@ Later phase branches are created when each phase starts, from the branch of the 
 - the same 2,500 many-option questions;
 - about 2,500 routing questions trained with 10–15 agents each time;
 - a second independent test set, written by a subagent from a neutral brief (50 of each question type).
+
+## Run 27 setup — 2026-10-13: all of Signpost's data + multi-option cases; a second independent set (branch `exp/listwise-index`)
+
+- **Training (user decisions):**
+  - all of Signpost's routing, yes/no, choice and score questions (`ROUTE_FRACTION` = `QUESTION_FRACTION` = 1.0);
+  - the same 2,500 hand-written many-option questions;
+  - about **2,500 routing questions trained with 10–15 agents** every time they're used (`MANY_AGENT_ROUTES`); the other routing questions get 5–9.
+
+  This keeps the multi-option cases from being drowned out by the larger data. It also tests whether run 26's drops on E10 (all companies) and E12 came from using 30% of the data.
+- **Second independent set (`independent2/`):**
+  - **How it was written:** by a subagent (another Claude instance). It received only a neutral brief: formats, rules, a list of businesses to avoid, and a self-check. It was told not to open any repository file.
+  - **Questions:** 50 yes/no (27 yes), 50 choice (2–5 options), 50 score (3–5 ordered levels, mostly 3) and 50 many-option (10–50 options, 13 kinds).
+  - **Routing:** 50 first messages (10 businesses, 8–11 agents, 10 of each kind) and 12 conversations (70 turns, 7 businesses).
+  - **Self-check:** OK.
+  - **Kept for reference:** the raw files are in `independent2/raw/`; `build_independent2_test_data.py` converts and re-checks them.
+  - **What it reported as borderline:**
+    - few middle-level score answers (9 of 45);
+    - a jobs list containing "manager" as a distractor;
+    - four routing labels it flagged as debatable but kept.
+  - **Caveat:** it's independent of our data and code, but not of the model family.
+- **The notebook** runs it for our model, the published Signpost and the decider, and shows run 27 next to run 26.
