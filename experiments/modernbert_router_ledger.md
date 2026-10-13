@@ -1303,3 +1303,22 @@ Later phase branches are created when each phase starts, from the branch of the 
 - **Source:** the run 25 export (`models/signpost/`). The training state is preserved as git tag `signpost-v1.0` (148608a, branch `exp/phase9e-independent`). The card is `signpost/README.md` on `exp/signpost-langgraph`.
 - **Card examples verified twice:** run on the local export, then again on a fresh `snapshot_download` from the Hub (CPU, fp32). The outputs were identical, and they are the ones recorded in the card: routing (first message; a stay and a switch with history), choice, yes / no, score.
 - **The card's evaluation** gives correct / total for both models on identical items, with the decider on full history. Its 3-turn-window results are given as a note.
+
+## Run 26 setup — 2026-10-13: one pass per question, all options in one input (branch `exp/listwise-index`, `05_listwise_signpost.ipynb`)
+
+- **Question:** can one encoder pass per question replace Signpost's one pass per option, and scale to many options (up to 50) and many agents (up to 15)?
+- **Model:** Signpost's encoder, LoRA (r 16) and head. All options go into one input (`… question: Q [SEP] option: A. … [SEP] option: B. …`), each option's tokens are mean-pooled, and the same head scores every option. The softmax over the options gives the answer, 1…N.
+  - `MAX_LEN` 1,536; the oldest history is dropped first, options never.
+  - `MAX_OPTIONS` 50 as a safety check.
+  - Training batches are formed by token budget.
+- **Training data, about 10.5K questions (user decision):**
+  - all of Signpost's yes/no questions;
+  - 30% of its routing conversations and 30% of its choice and score questions, stratified by business and family;
+  - **2,500 hand-written many-option questions:** 957 individually written texts across 13 topics (no sentence templates), each used 2–3 times with different option lists of 2–50 options, drawn from same-topic value lists.
+  - Routing questions get 0–10 extra **distractor agents** from other businesses each time they're used, up to 15 agents. Agents with generic names (general, support, billing, …) or names sharing a word with the business's own agents are excluded.
+- **Fresh tests (hand-written, never used for training):**
+  - **many-agent routing:** 12 businesses that appear in no training data, each with 9–15 agents; 24 conversations (120 turns, routed live) and 72 first messages;
+  - **many-option questions:** 162 questions with 10–50 options. Their value lists share nothing with training (numbers aside), and the guard checks there's no shared 5-word sequence;
+  - **option order:** the many-agent first messages with the agents reversed.
+- **In the same notebook:** the old suites for comparison with Signpost run 25, then the published Signpost (from the Hub) and the Strands decider on the fresh tests, with latency.
+- **Why the user rejected template data:** templates produce near-identical sentences, which narrows coverage and lets the model learn patterns instead of reading. The first, template-based many-option set was replaced by hand-written texts.
