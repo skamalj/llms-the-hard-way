@@ -1425,3 +1425,11 @@ Later phase branches are created when each phase starts, from the branch of the 
 4. **E12 comparison questions fell 10 → 7 / 12.** That's within one-seed noise on 12 items.
 
 **Suggested next (run 28):** template score questions capped at about 30%, plus hand-written score questions with varied scales. Alternatively, a second seed of run 27, to separate the data effect from noise.
+
+## Run 28 setup — 2026-10-14: score questions trained as plain choice questions (branch `exp/listwise-index`)
+
+- **Why:** with the ordinal score loss, the published Signpost gets 43 / 92 on independent score. Run 27 got 35 / 92.
+  - A local test on Signpost (CPU, all 92 items) showed that **presentation isn't the issue.** Asked as a plain choice with the levels shuffled, the answers were identical (43, with 0 items changing). Using the rounded expected level gave 41.
+  - **The misses are systematic: 41 of 49 are one level too low.** "Very clear" is read as "partly clear" (about 17 items), "very satisfied" as "satisfied" (5), and high or major urgency and seriousness as medium or moderate (about 12). The model hedges towards the middle.
+  - Possible causes: the ordinal loss's neighbour smoothing and distance penalty, and / or template score data with few extreme answers and no clarity-type scales.
+- **Change (user decision):** `SCORE_LOSSES=plain`, so score questions are trained like any choice question (plain cross-entropy on the right level). Everything else is as in run 27: all of Signpost's data, the 2,500 many-option questions, and 2,500 routing questions with 10–15 agents. The summary shows run 28 next to run 27, with E12 and independent score broken out.
