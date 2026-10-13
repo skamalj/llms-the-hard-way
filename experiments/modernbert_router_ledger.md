@@ -1475,3 +1475,26 @@ Later phase branches are created when each phase starts, from the branch of the 
 | Independent 2 questions (150) | 139 | — | 143 | 142 |
 
 - Routing, first-message and many-option tests are unchanged and are compared against run 28 directly. The published Signpost and the decider run in the notebook on the same reduced sets.
+
+## Run 29 results — 2026-10-14: no score questions in training or testing (branch `exp/listwise-index`)
+
+- **Training:** healthy on the first attempt, 25.5 min. 2,148 score questions left out (training + dev). Dev after epoch 2: routing 99.1%, routing with 15 agents 98.1%, questions 98.4% (score-free dev).
+
+| Test (same items, no score) | **Run 29 (no score)** | Run 28 | Run 27 | Signpost (run 25 / hub) | Decider |
+|---|---|---|---|---|---|
+| E12 (117): yes/no · choice | **107**: 54 · 53 | 113: 57 · 56 | 107 | 116: 58 · 58 | 112: 56 · 56 |
+| Independent questions (208): yes/no · choice | **174**: 71 · 103 | 175: 70 · 105 | 176 | 178: 75 · 103 | 183: 77 · 106 |
+| Conversations, unseen companies · all | 75 · 176 | 76 · 179 | 78 · 177 | 78 · 181 | 62 · 151 |
+| E11 · banking 50 · 225 | 98 · 47 · 208 | 97 · 49 · 212 | 99 · 49 · 211 | 97 · 48 · 210 | 96 · 48 · 214 |
+| Independent routing · first message | 128 · 179 | 134 · 180 | 136 · 181 | 133 · 180 | 113 · 178 |
+| Many-option (162) · many-agent routing live (120) · first messages (72) | 149 · 101 · 63 | 147 · 100 · 63 | 152 · 104 · 63 | 150 · 103 · 62 | 160 · 83 · 70 |
+| Independent 2 (score-free): questions (150) · routing live · first messages | 138 · 58 · 48 | 139 · 55 · 49 | — | 143 · 62 · 47 | 142 · 55 · 50 |
+| Option order: same pick with the agents reversed | 69 / 72 | 68 / 72 | 69 / 72 | — | — |
+
+**Findings**
+1. **Leaving score out fixed nothing.** No test improved beyond noise. The yes/no and choice questions that remain didn't get better: E12 113 → 107 (yes/no 57 → 54, choice 56 → 53), independent questions 175 → 174, independent 2 questions 139 → 138.
+2. **Some results fell beyond the usual ±4 noise:** E12 −6 and independent routing live −6 (switch turns 30/46). Banking 225 fell −4 and E10 all −3. Many-agent and independent-2 routing went up by 1–3, which is noise.
+3. **The score questions weren't hurting the rest; if anything they helped a little**, as extra question data that keeps the shared head general. The independent yes/no weakness is unchanged: claim-check items are still 0/22, and truth "yes" is 27/50.
+4. **Latency is unchanged:** a flat ~50–55 ms.
+
+**Decision (recommended):** keep the run 28 setup (score included, plain loss) as the best one-pass model. In the notes, state that score questions on outside-written scales are weak (46/92 against the decider's 70). Don't drop the data.
