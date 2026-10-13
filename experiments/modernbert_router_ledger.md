@@ -1386,3 +1386,42 @@ Later phase branches are created when each phase starts, from the branch of the 
     - four routing labels it flagged as debatable but kept.
   - **Caveat:** it's independent of our data and code, but not of the model family.
 - **The notebook** runs it for our model, the published Signpost and the decider, and shows run 27 next to run 26.
+
+## Run 27 results — 2026-10-14: all of Signpost's data + multi-option cases (branch `exp/listwise-index`)
+
+- **Training:** healthy on the first attempt, 26.4 min, 18,049 questions:
+  - routing 6,319, of which 2,500 were trained with 10–15 agents;
+  - yes/no 5,000;
+  - choice and score 6,730;
+  - many-option 2,279.
+
+  Dev after epoch 2: routing 99.4%, routing with 15 agents 98.3%, questions 97.6% (run 26: 98.9 / 97.4 / 95.9).
+
+| Old tests | **Run 27** | Run 26 | Signpost (run 25) | Decider |
+|---|---|---|---|---|
+| Conversations, unseen companies · all | 78 · **177** | 78 · 172 | 78 · 181 | 62 · 151 |
+| E11 · banking 50 · 225 | 99 · **49 · 211** | 99 · 46 · 207 | 97 · 48 · 210 | 96 · 48 · 214 |
+| E12 (170): yes/no · choice · score | 153: 54 · 53 · 46 | 154: 56 · 55 · 43 | **161** | 160 |
+| Independent questions (300): yes/no · choice · score | 211: 71 · 105 · **35** | 227: 72 · 105 · 50 | 221: 75 · 103 · 43 | **253**: 77 · 106 · 70 |
+| Independent routing (172) · first message (200) | **136 · 181** | 133 · 177 | 133 · 180 | 113 · 178 |
+
+| Fresh tests and the second independent set | **Run 27** | Signpost (Hub) | Decider |
+|---|---|---|---|
+| Many-option questions (162) | 152 · 58 ms | 150 · 66 ms | **160** · 422 ms |
+| Many-agent routing live (120) · first messages (72) | **104** · 63 | 103 · 62 | 83 (99 with the last 3 turns) · **70** |
+| Independent 2, questions (200): yes/no · choice · score · many-option | **188**: 46 · 46 · 47 · 49 | **188**: 47 · 47 · 45 · 49 | 185: 49 · 46 · 43 · 47 |
+| Independent 2, routing live (70) · first messages (50) | 58 · 49 | **62** · 47 | 55 (59 with the last 3 turns) · **50** |
+| Latency on independent 2 routing, p50 / p95 | **60 / 64 ms** | 124 / 220 ms | 768 ms |
+| Option order: same pick with the agents reversed | 69 / 72 (run 26: 67) | — | — |
+
+**Findings**
+1. **Full data fixed routing:** every routing test rose from run 26 (E10 all +5, banking +3 / +4, independent routing +3, independent first message +4). The one-pass model now matches or beats Signpost on routing, at a flat ~55–60 ms for any number of agents.
+2. **It didn't fix the question side, and independent score fell:**
+   - E12 stayed at 153 (Signpost 161);
+   - **independent score dropped 50 → 35**, although 90 / 92 answers are within one level.
+
+   This run used all the template-generated score items (1,942, vs 581 in run 26). As in run 20, more generated score data didn't transfer to outside-written scales. That's consistent with the user's concern about template data. With one seed it isn't proven.
+3. **On the second independent set the three models are close:** questions 188 / 188 / 185, routing live 58 / 62 / 55, first messages 49 / 47 / 50. The one-pass model is fastest, and its latency stays flat.
+4. **E12 comparison questions fell 10 → 7 / 12.** That's within one-seed noise on 12 items.
+
+**Suggested next (run 28):** template score questions capped at about 30%, plus hand-written score questions with varied scales. Alternatively, a second seed of run 27, to separate the data effect from noise.
