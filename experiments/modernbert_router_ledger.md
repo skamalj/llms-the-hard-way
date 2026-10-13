@@ -1322,3 +1322,46 @@ Later phase branches are created when each phase starts, from the branch of the 
   - **option order:** the many-agent first messages with the agents reversed.
 - **In the same notebook:** the old suites for comparison with Signpost run 25, then the published Signpost (from the Hub) and the Strands decider on the fresh tests, with latency.
 - **Why the user rejected template data:** templates produce near-identical sentences, which narrows coverage and lets the model learn patterns instead of reading. The first, template-based many-option set was replaced by hand-written texts.
+
+## Run 26 results — 2026-10-13: one pass per question (branch `exp/listwise-index`)
+
+- **Training:** healthy on the first attempt, **12.5 min** (Signpost: 33). 10,508 training questions:
+  - routing 1,894 (30%);
+  - yes/no 5,000 (all);
+  - choice and score 1,335 (30%);
+  - many-option 2,279 (after the dev split).
+
+  Dev after epoch 2: routing 98.9%, routing with 15 agents 97.4%, questions 95.9%. Peak GPU 13.1 GB.
+
+| Old tests (same items) | **One pass (run 26)** | Signpost (run 25) | Decider |
+|---|---|---|---|
+| Conversations, unseen companies (83) · all (193) | 78 · **172** | 78 · **181** | 62 · 151 |
+| First message E11 (100) | **99** | 97 | 96 |
+| Banking 50 · 225 | 46 · 207 | 48 · 210 | 48 · 214 |
+| E12 (170): yes/no · choice · score | **154**: 56 · 55 · 43 | **161**: 58 · 58 · 45 | 160 |
+| Independent questions (300): yes/no · choice · score | **227**: 72 · 105 · **50** | 221: 75 · 103 · 43 | 253: 77 · 106 · 70 |
+| Independent routing live (172) · first message (200) | 133 · 177 | 133 · 180 | 113 · 178 |
+
+| Fresh tests (hand-written) | **One pass** | Signpost (Hub) | Decider |
+|---|---|---|---|
+| Many-option questions (162, 10–50 options) | 151 · 51 ms | 150 · 62 ms | **160** · 395 ms |
+| Many-agent routing, live (120 turns, 9–15 agents) | **104** · 55 ms | 103 · 96 ms (p95 186) | 83 · 655 ms (99 with the last 3 turns) |
+| … previous agent given | 107 | 109 | — |
+| Many-agent first messages (72) | 62 · 51 ms | 62 · 50 ms | **70** · 526 ms |
+| Option order: same pick with the agents reversed | 67 / 72 | — | — |
+
+**Findings**
+1. **One pass per question works.** It's level with Signpost on most tests, trained on two-thirds of the data in a third of the time. Its latency stays **flat at about 51–55 ms** for 10 to 50 options, while Signpost's grows with the agent count (96 ms p50, 186 ms p95 for 9–15 agents, batched on a GPU).
+2. **Two drops are beyond the ±4 noise: conversations, all companies (−9) and E12 (−7).** Run 26 used only 30% of the routing and choice/score data, so the likely cause is less data rather than the design. Run 27 tests that with all of it.
+3. **Accuracy holds as options grow:** many-option results are 26/27 at 10 or fewer options and 13/14 at 41–50. Routing dips a little at 13–15 agents (41/50 vs 37/40 at 10 or fewer).
+4. **Against the decider:**
+   - **we're far ahead in many-agent conversations** (104 vs 83, or 99 with its last-3-turns setting);
+   - **it leads on many-agent first messages** (70 vs 62; ours miss mostly "close" messages, 10/14);
+   - **it leads on many-option questions** (160 vs 151). Ours lose almost entirely on the departments family (21/30), the one family with no exact training counterpart.
+5. **A small position effect:** reversing the agents changed 5 of 72 picks.
+
+**Next (run 27, user decisions):**
+- all of Signpost's data;
+- the same 2,500 many-option questions;
+- about 2,500 routing questions trained with 10–15 agents each time;
+- a second independent test set, written by a subagent from a neutral brief (50 of each question type).
