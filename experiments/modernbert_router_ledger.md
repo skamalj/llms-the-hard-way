@@ -1303,3 +1303,38 @@ Later phase branches are created when each phase starts, from the branch of the 
 - **Source:** the run 25 export (`models/signpost/`). The training state is preserved as git tag `signpost-v1.0` (148608a, branch `exp/phase9e-independent`). The card is `signpost/README.md` on `exp/signpost-langgraph`.
 - **Card examples verified twice:** run on the local export, then again on a fresh `snapshot_download` from the Hub (CPU, fp32). The outputs were identical, and they are the ones recorded in the card: routing (first message; a stay and a switch with history), choice, yes / no, score.
 - **The card's evaluation** gives correct / total for both models on identical items, with the decider on full history. Its 3-turn-window results are given as a note.
+
+## 02 restructure — 2026-10-16: `02_frozen_router.ipynb` rebuilt and rerun on the final state (branch `frozen-router`)
+
+- **Notebook changes (no change to the method):**
+  - 68 → 41 cells, numbered from 1 like 01, with short markdown.
+  - The untrained Linear(1024 → 1) demo is replaced by scoring the five banking agents with the trained router.
+  - The ding-dong test and the five new conversations (old Cell 59) are removed. The detector is now tested on E10 instead: a turn is "topic changed" when its expected agent differs from the previous turn's.
+  - Dead options are removed: single-entry grids, the residual head, the layer mix, the confident-switch sweep and the unused close-pair weights.
+  - A NameError is fixed (`weights` was left over from the single notebook).
+- **Tensor rewrite:**
+  - span pooling as one mask and `M @ hidden / count`;
+  - test questions scored in one batch on the training grid (`question_probs`);
+  - one `train_head` with the loss as an argument;
+  - pair data as tensors, and `bincount` tallies;
+  - a shared `table` helper.
+
+  Code went from 759 to 743 lines. The gain is speed (E12 takes 19 ms per question batched, against 57 one at a time), not size.
+- **Runs:** two Kaggle runs on a T4: before and after the tensor rewrite. The first run's outputs were not kept, so the numbers below are from the second run only.
+  - **Caveat:** the second run reused the first run's feature cache (`encoder passes: 0`). Its training and detector features therefore come from the old pooling loop; the new pooling and batching ran only on the test features.
+
+| Test | This run | Run 17 | Decider |
+|---|---|---|---|
+| Routing, held-out training domains | 5,955 / 6,850 | 5,960 | — |
+| Banking benchmark · all | 44 · 200 | 43 · 194 | 48 · 214 |
+| E11 top-1 · top-2 | 94 · 97 | 94 · 97 | 96 |
+| E10 all turns, router alone | 151 / 193 | 158 | 151 |
+| E10 test companies: router alone · confident-stay gate (τ 0.02) | 68 · 70 / 83 | 69 · 72 | 62 |
+| E12: yes/no · choice · score | 108: 33 · 40 · 35 | 114: 38 · 44 · 32 | 160 |
+| Detector, held-out training domains | 5,750 / 5,948 | 5,733 | — |
+| Detector on E10 (new test): right · topic changes found · same-topic turns kept | 131 / 158 · 55 / 59 · 76 / 99 | — | — |
+
+**Findings**
+1. **Routing reproduces run 17 within noise.** The exceptions are banking all (+6) and **E10 all, router alone (−7: answer, closing and switch turns)**, which is beyond the usual noise and is not explained. A clean rerun with the cache deleted would settle whether the rewrite plays a part.
+2. **E12 is not comparable with run 17.** This branch's data has 10,600 general questions, including 2,148 score questions added in later runs; run 17 had 9,113 with 709 score questions. Score rose (+3), while yes/no (−5) and choice (−4) fell. The frozen-encoder ceiling stands: 108–114 against the decider's 160.
+3. **On real conversations, the detector over-flags staying turns.** It finds 55 / 59 real topic changes but keeps only 76 / 99 same-topic turns. It flags all 7 "aspect" turns and 11 of 21 "follow" turns as changes. This is why only the low end of the gate is used (τ = 0.02).
