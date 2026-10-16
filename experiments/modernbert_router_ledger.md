@@ -1303,3 +1303,38 @@ Later phase branches are created when each phase starts, from the branch of the 
 - **Source:** the run 25 export (`models/signpost/`). The training state is preserved as git tag `signpost-v1.0` (148608a, branch `exp/phase9e-independent`). The card is `signpost/README.md` on `exp/signpost-langgraph`.
 - **Card examples verified twice:** run on the local export, then again on a fresh `snapshot_download` from the Hub (CPU, fp32). The outputs were identical, and they are the ones recorded in the card: routing (first message; a stay and a switch with history), choice, yes / no, score.
 - **The card's evaluation** gives correct / total for both models on identical items, with the decider on full history. Its 3-turn-window results are given as a note.
+
+## 03 restructure — 2026-10-17: `03_lora_signpost.ipynb` rebuilt, LoRA via `peft`, rerun with the Signpost recipe (branch `signpost`)
+
+- **Notebook changes:**
+  - 17 → 22 cells, numbered from 1; 576 → 393 code lines; longest cell 398 → 75 lines.
+  - LoRA comes from `peft==0.21.2` (`get_peft_model` on `Wqkv`, `Wo`, `Wi`; `merge_and_unload()` at save). The hand-written `LoRALinear` is gone, since a separate LoRA-by-hand notebook will cover the mechanism.
+  - Only the final recipe remains: the Nemotron, two-specialist and multi-loss paths are removed (each run is reproducible from its own commit).
+  - The ordinal loss is built as tensors, and `scores()` handles any number of options.
+  - Four test functions instead of seven, using the `table` helper.
+  - Independent set 2 was added (data copied from `exp/listwise-index`).
+  - The export is now "save and verify" (`SAVE_MODEL`), and it also writes the LoRA adapter on its own.
+  - Kaggle needs `pip uninstall torchao` (version 0.10 makes `peft` refuse to load).
+- **Training:** healthy on the first attempt, 38.5 min on a T4, best epoch 2 (dev routing 98.9%, dev questions 98.0%). `peft` reports 7,196,672 trainable parameters (the same 112 layers).
+- **Save and verify:** `encoder/` 793 MB, `adapter/` 29 MB (fp32), `signpost.zip` 0.76 GB. Reloaded with the published `signpost.py`, the saved model reproduces the trained one exactly: E11 96 and E12 162, in both fp16 and fp32.
+
+| Test | This run | Run 25 (published) | Decider |
+|---|---|---|---|
+| E10 all · test companies | 178 · 77 | 181 · 78 | 151 · 62 |
+| Independent routing live · given | 131 · 140 | 133 · — | 113 |
+| Independent 2 routing live · given | 59 · 62 | 62 · 65 | 55 |
+| E11 · independent first messages · independent 2 first messages | 96 · 180 · 49 | 97 · 180 · 47 | 96 · 178 · 50 |
+| Banking 50 · 225 | 50 · 216 | 48 · 210 | 48 · 214 |
+| E12: yes/no · choice · score | 162: 57 · 57 · 48 | 161: 58 · 58 · 45 | 160 |
+| Independent questions: yes/no · choice · score | 232: 80 · 106 · 46 | 221: 75 · 103 · 43 | 253: 77 · 106 · 70 |
+| Independent 2 questions: yes/no · choice · score · many-option | 195: 49 · 48 · 49 · 49 | 188: 47 · 47 · 45 · 49 | 185 |
+| Latency p50: E10 · E12 · independent-2 routing (up to 11 agents) | 59 · 55 · 212 ms | | |
+
+**Findings**
+1. **`peft` reproduces the hand-written LoRA:** the same parameter count, results within noise, and a merged model that the existing loader reproduces exactly.
+2. **Routing is level with run 25** (all within −3 … +6). **Questions are better on both outside sets** (independent +11, independent 2 +7). Part of that is seed variation: run 22b had independent questions at 231.
+3. **Score on independent set 1 is still the gap:** 46 / 92 against the decider's 70, with 85 / 92 within one level.
+
+**Decision:** keep run 25 as the published model; this run would only be used if the Hub moves to an adapter layout.
+
+**Score diagnosis (from the training data):** 2,148 score items use only **34 distinct scales**; 93% are three-level and there are no four-level scales. The model learns those scales' words, not ordered scales in general. **Plan:** a fresh independent set 3 of score questions, written by a subagent first; then about 1,500 hand-written score items on 300+ scales (3–6 levels, every answer position); one run of the unchanged recipe, judged on set 3 (branch `exp/score-data`).
