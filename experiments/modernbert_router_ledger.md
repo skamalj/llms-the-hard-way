@@ -1356,3 +1356,22 @@ Later phase branches are created when each phase starts, from the branch of the 
   - The cause was not scale variety.
   - Test sets written by Claude subagents understate the gap, because every Claude reader finds them easy.
 - **Decision:** dropped. The branch, with its data, set 3 and brief, was deleted at the user's request. The published Signpost stays, and the score limitation is stated. A real fix would need score data and a test written outside our model family.
+
+## 03 final run — 2026-10-17: the restructured notebook, saved with results (branch `signpost`)
+
+- **Training:** healthy on the first attempt, 35.2 min, best epoch 2 (dev routing 98.7%, dev questions 97.5%), 7,196,672 trainable parameters (`peft`). **Save and verify:** reloading in fp32 is exact (E11 96, E12 159); in fp16, E12 gives 160 (one item flips between precisions).
+
+| Test | This run | Run 25 (published) | Decider |
+|---|---|---|---|
+| E10 all · test companies · given previous agent | 181 · 80 · 183 | 181 · 78 · — | 151 · 62 |
+| Independent routing live · given | 135 · 144 | 133 · — | 113 |
+| Independent 2 routing live · given | 63 · 64 | 62 · 65 | 55 |
+| E11 · independent first messages · independent 2 first messages | 96 · 178 · 50 | 97 · 180 · 47 | 96 · 178 · 50 |
+| Banking 50 · 225 | 49 · 216 | 48 · 210 | 48 · 214 |
+| E12: yes/no · choice · score | 159: 55 · 56 · 48 | 161: 58 · 58 · 45 | 160 |
+| Independent questions: yes/no · choice · score | 219: 73 · 104 · 42 | 221: 75 · 103 · 43 | 253: 77 · 106 · 70 |
+| Independent 2 questions | 190 | 188 | 185 |
+
+- **Everything is within noise of the published model.** Latency p50 is 55–58 ms for questions and E10, and 187 ms for independent-2 routing (up to 11 agents).
+- **Same seed, same code, different result:** the previous rerun got independent questions 232 (score 46); this one gets 219 (42). GPU training is not bit-for-bit repeatable, so a single run moves by about ±10 on that set.
+- **This is the notebook's saved state.**
