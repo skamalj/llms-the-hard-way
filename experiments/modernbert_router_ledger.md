@@ -1375,3 +1375,29 @@ Later phase branches are created when each phase starts, from the branch of the 
 - **Everything is within noise of the published model.** Latency p50 is 55–58 ms for questions and E10, and 187 ms for independent-2 routing (up to 11 agents).
 - **Same seed, same code, different result:** the previous rerun got independent questions 232 (score 46); this one gets 219 (42). GPU training is not bit-for-bit repeatable, so a single run moves by about ±10 on that set.
 - **This is the notebook's saved state.**
+
+## 04 restructure — 2026-10-18: `04_decider_benchmark.ipynb` rebuilt and rerun (branch `signpost`)
+
+- **Notebook changes:**
+  - 25 → 20 cells, numbered from 1.
+  - Every test runs once and is timed as it runs; the old latency section reran E10, E11, banking and E12.
+  - Helpers are defined once, up front.
+  - One function each for conversations (full history and window 3), first messages and questions (native types; many-option as a choice question).
+  - Independent set 2 was added.
+  - A full side-by-side table against Signpost run 25 and 03's final run.
+  - The decider stays in bfloat16 (the contradictory float32 text was removed); stale references were fixed.
+- **Reproducibility:** the decider is deterministic. Every number on E10, E11, banking, E12 and independent set 1 matches benchmark B1 exactly.
+
+| Test | Decider: full history · window 3 | Signpost run 25 · 03 final run |
+|---|---|---|
+| E10 all · test companies | 151 · 163 / 193; 62 · 69 / 83 | 181 · 181; 78 · 80 |
+| Independent routing | 113 · 121 / 172 | 133 · 135 |
+| **Independent 2 routing** | **55 · 59 / 70** | 62 · 63 |
+| E11 · independent first messages · **independent 2 first messages** | 96 · 178 · **50** | 97 · 180 · 47; 96 · 178 · 50 |
+| Banking 50 · 225 | 48 · 214 | 48 · 210; 49 · 216 |
+| E12: yes/no · choice · score | 160: 56 · 56 · 48 | 161 · 159 |
+| Independent questions: yes/no · choice · score | 253: 77 · 106 · 70 | 221 · 219 (score 43 · 42) |
+| **Independent 2 questions: yes/no · choice · score · many-option** | **185: 49 · 46 · 43 · 47** | 188 · 190 (score 45 · 47) |
+| Latency p50 | questions ~200 ms; routing 290–650 ms | questions 55 ms; routing 58–187 ms |
+
+**Findings:** the conclusions of benchmark B1 hold, and independent set 2 adds one point: there the decider's score (43 / 50) is not better than Signpost's (45–47). Its score advantage shows on independent set 1 only. Cell 10 of 04 and Cell 9 of 03 were updated to match these outputs (03 also gains a row for the dropped score-data attempt).
