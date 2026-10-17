@@ -1338,3 +1338,21 @@ Later phase branches are created when each phase starts, from the branch of the 
 **Decision:** keep run 25 as the published model; this run would only be used if the Hub moves to an adapter layout.
 
 **Score diagnosis (from the training data):** 2,148 score items use only **34 distinct scales**; 93% are three-level and there are no four-level scales. The model learns those scales' words, not ordered scales in general. **Plan:** a fresh independent set 3 of score questions, written by a subagent first; then about 1,500 hand-written score items on 300+ scales (3–6 levels, every answer position); one run of the unchanged recipe, judged on set 3 (branch `exp/score-data`).
+
+## Score attempt — 2026-10-17: hand-written score data, tried and dropped (branch `exp/score-data`, deleted)
+
+- **Tried:** the 2,148 templated score training items (34 scales) were replaced by 1,425 hand-written items on 279 scales (3–6 levels). Independent set 3 (150 score questions, 75 scales) was written first by a subagent from a neutral brief.
+- **Result (one Kaggle run, Signpost recipe):**
+  - Independent set 3: 135 / 150, against **133 for the published Signpost** on the same items. No gain; the pre-set bar of 120 had been set without a baseline.
+  - Independent set 1 score: 54 / 92 (seeds before: 43–53).
+  - Independent first messages fell to 171 (180–181 in every earlier run), and independent-2 routing to 56. Not adopted.
+- **Blind relabelling** of the 92 set-1 and 150 set-3 score items (text, question and scale only):
+  - Opus labeller: matched set 1 on 78%, set 3 on 100%.
+  - Haiku labeller: matched set 1 on 88%, set 3 on 97%.
+  - Every label is within one level.
+- **Conclusion:**
+  - Set 1's labels are sound.
+  - Signpost trails careful readers by about 30 points on that outside-written set (47–59% against 78–88%; the decider gets 76%), and by about 10 points on clear-cue scales (set 3: 89–90% against 97–100%). It is nearly always within one level, and often one level too low on strongly worded texts.
+  - The cause was not scale variety.
+  - Test sets written by Claude subagents understate the gap, because every Claude reader finds them easy.
+- **Decision:** dropped. The branch, with its data, set 3 and brief, was deleted at the user's request. The published Signpost stays, and the score limitation is stated. A real fix would need score data and a test written outside our model family.
