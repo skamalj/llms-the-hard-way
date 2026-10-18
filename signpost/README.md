@@ -27,6 +27,8 @@ The same model also answers **grounded questions about a text**:
 
 The options are yours and can change on every call. They aren't fixed classes, so new agents or labels need no retraining.
 
+**Many agents?** [Signpost one-pass](https://huggingface.co/skamalj/signpost-one-pass) is a sibling model that reads all the options in **one** forward pass, so its latency stays at about 60 ms on a T4 for 2 or 50 options (this model takes about 190 ms with 8–11 agents). It has the same calls, and is level with this model on routing but slightly behind on grounded questions.
+
 It is fine-tuned from [answerdotai/ModernBERT-large](https://huggingface.co/answerdotai/ModernBERT-large) (395M parameters, encoder only). LoRA adapters (r 16) were trained and then merged into the weights, and a 0.26M-parameter scoring head was added. That is about one fifth of the size of the 2B decoder-based Strands decider ([StrandsAgents/strands-decider-2B-hobson-v19](https://huggingface.co/StrandsAgents/strands-decider-2B-hobson-v19)), and on a GPU it takes about 50–70 ms per decision.
 
 ## How it works

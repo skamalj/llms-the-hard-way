@@ -1623,3 +1623,10 @@ Later phase branches are created when each phase starts, from the branch of the 
 1. **The notebook reproduces the one-pass result within noise**, and its saved model and loader are verified exactly. The exception is E12, at 152 (−6 against run 28; runs 27–28 gave 153–158). This run's training path differs (`peft`, data order, dev sampling), and a shift of this size is in line with that.
 2. **Latency stays flat at 56–62 ms on every test**, while Signpost's routing cost triples with 8–11 agents (187 ms).
 3. Option order is very stable (71 / 72). The model gets 12 of the 22 claim-check yes/no items (every other model gets 0). Independent score is 40 / 92 (this model's range is 35–46).
+
+## Signpost one-pass published — 2026-10-18: [huggingface.co/skamalj/signpost-one-pass](https://huggingface.co/skamalj/signpost-one-pass)
+
+- **What:** the model from 05's run (`signpost-one-pass.zip`, downloaded and kept locally in `models/signpost-one-pass/`, which is git-ignored). It is a separate repo (option A), so the published Signpost is unchanged.
+- **Files:** `encoder/` (merged ModernBERT-large, fp16), `head.pt`, `signpost_config.json` (`"format": "one-pass"`), the loader `signpost_one_pass.py`, the card (`signpost/README_one_pass.md` in the repo) and `card_examples_one_pass.py`. The LoRA adapter on its own is not published. Public, Apache-2.0; Hub commit 0cb2271.
+- **Card examples:** run on the local export on CPU (fp32). All answers are correct, including routing among 12 agents in one pass (833 ms on a laptop CPU) and a 20-option question.
+- **Signpost's card** now links to the one-pass model (Hub commit e76e5c6).
