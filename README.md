@@ -125,8 +125,10 @@ The result was 67 / 71 turns routed correctly. More frameworks (CrewAI, Strands 
 | `rope-walkthrough-v1` | RoPE walkthrough with a verified exact match against Hugging Face |
 | `lora-json-answer-round3` | LoRA JSON-answer adapter, round 3 settings and results |
 | `signpost-v1.0` | The state that trained and exported the published Signpost model (run 25) |
+| `signpost-one-pass-v1.0` | The run of `05_one_pass_signpost.ipynb` that trained and exported the published [Signpost one-pass](https://huggingface.co/skamalj/signpost-one-pass) model |
+| `archive/exp/*` | Experiment branches whose commits are in no part branch (the original decider benchmark, an encoder-combination run, and the one-pass runs 26–29 with their outputs) |
 
-The router work began as one `exp/*` branch per experiment (runs 5–25). Those are consolidated into the branches above, and the full history stays in git. Each ledger entry names its run and branch.
+The router work began as one `exp/*` branch per experiment (runs 5–29). Those branches are consolidated into the ones above and deleted; every commit is still reachable from a part branch or an `archive/exp/*` tag. Each ledger entry names its run and original branch.
 
 ## License
 
