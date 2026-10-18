@@ -168,6 +168,7 @@ Signpost is compared with the Strands decider ([StrandsAgents/strands-decider-2B
 | **Grounded questions** (our E12) | Short texts with yes / no, choice and score questions; the answer is always in the text. Includes the same text asked two different questions | 170 (58 yes / no, 59 choice, 53 score) |
 | **Independent questions** | Written by a separate author who never saw our data, with their own businesses | 300 (100 yes / no, 108 choice, 92 score) |
 | **Independent routing** | Same separate author: multi-turn chats routed live, and first messages | 172 turns · 200 first messages |
+| **Independent set 2** | A second outside set, written from a neutral brief by an AI author with no access to our data: questions (including 10–50 options), live routing with 8–11 agents per company, first messages | 200 questions · 70 turns · 50 first messages |
 
 ### Results
 
@@ -188,27 +189,31 @@ Signpost is compared with the Strands decider ([StrandsAgents/strands-decider-2B
 | — score | 43 / 92 | **70 / 92** |
 | Independent routing in conversations | **133 / 172** | 113 / 172 |
 | Independent first message | **180 / 200** | 178 / 200 |
+| Independent set 2 questions, total | **188 / 200** | 185 / 200 |
+| — yes / no · choice · score · many-option (10–50 options) | 47 · **47** · **45** · **49** | **49** · 46 · 43 · 47 |
+| Independent set 2 routing in conversations (8–11 agents) | **62 / 70** | 55 / 70 |
+| Independent set 2 first message | 47 / 50 | **50 / 50** |
 
 ¹ banking77 is in the decider's training data, so this set is not unseen for it.
 
-Given only the last 3 user turns instead of the full history, the decider does better in conversations (69 / 83, 163 / 193 and 121 / 172), but still scores below Signpost.
+Given only the last 3 user turns instead of the full history, the decider does better in conversations (69 / 83, 163 / 193, 121 / 172 and 59 / 70), but still scores below Signpost.
 
 **Live in a LangGraph app:** five agents, with real LLM replies in the history, DynamoDB persistence and a pruned history. 67 / 71 turns were routed correctly: first messages 19 / 20, conversations 31 / 32, resumed after a restore 7 / 7, and a long chat with an 8 / 4-message window 10 / 12.
 
-**Latency:** on a T4 GPU, about 50–70 ms per decision (p50), which is 4–7× faster than the decider measured the same way. On a laptop CPU in fp32, about 1.3 s for a first message and about 4 s with a long history.
+**Latency:** on a T4 GPU, about 55–75 ms per decision (p50) with 3–5 options, which is 3–5× faster than the decider measured the same way (about 200 ms per question, 290–650 ms per routing decision). It grows with the number of options, since each option is one pass: about 190 ms with 8–11 agents. On a laptop CPU in fp32, about 1.3 s for a first message and about 4 s with a long history.
 
 ### Caveats
 
-- The routing in conversations, first message and grounded question sets were written by the same author as the training data. The independent sets are the fairest comparison.
-- These are single-seed results. Three runs of the same recipe varied by about ±4 on most tests, and by 43–53 on independent score.
+- The routing in conversations, first message and grounded question sets were written by the same author as the training data. The independent sets are the fairest comparison; of those, the first was written outside the project, the second by an AI author working from a neutral brief.
+- These are single-seed results. Runs of the same recipe varied by about ±4 on most tests, by up to ±10 on the independent questions, and from 42 to 53 on independent score.
 - The decider ran in bf16 on a T4 without its optimised kernels, so its latency is an upper bound.
 
 ## Limitations
 
-- **Score precision is the weak spot.** On out-of-distribution text, Signpost often picks the level next to the right one (independent score 43/92 vs the decider's 70/92). Use `expected` rather than the top level if a near miss is acceptable.
+- **Score precision is the weak spot.** Answers are almost always within one level of the right one, but on scales written by someone outside the project Signpost is often one level off, usually one level too low on strongly worded text (independent score 43 / 92 vs the decider's 70 / 92). Two blind AI labellers, given only the text, question and scale, agreed with that set's labels on 78–88%, so most of this gap is the model's. On the second independent set it does well (45 / 50, decider 43 / 50). Use `expected` rather than the top level if a near miss is acceptable, and use a larger model if the exact level matters.
 - **It sometimes switches too eagerly.** A short follow-up whose topic belongs to another agent ("can I use them on the repair?") can be routed away from the current agent. Clear agent descriptions help.
 - **The probabilities are not calibrated.** They are usually close to 0 or 1, so don't treat them as confidence.
-- English only. Trained with 2–5 options per question; more options work, but have not been tested much.
+- English only. Trained with 2–5 options per question; more options work (49 / 50 on questions with 10–50 options, 62 / 70 on routing with 8–11 agents), at the cost of one forward pass per option.
 - Answers come only from the given text, by design. Questions that need world knowledge or arithmetic are not supported.
 - Inputs longer than 320 tokens lose their oldest history.
 - CPU latency grows with history length. Keep a window of recent messages, or use a GPU.
@@ -217,6 +222,7 @@ Given only the last 3 user turns instead of the full history, the decider does b
 
 - Code, data builders, notebooks and the experiment ledger: [github.com/skamalj/llms-the-hard-way](https://github.com/skamalj/llms-the-hard-way)
 - The exact state that trained and exported this model: tag [`signpost-v1.0`](https://github.com/skamalj/llms-the-hard-way/tree/signpost-v1.0), `lora_combined.ipynb` with `TRAIN_MODE=combined`, `EXPORT=1`
+- The same recipe in the series' notebook: `03_lora_signpost.ipynb` on branch [`signpost`](https://github.com/skamalj/llms-the-hard-way/tree/signpost) (LoRA via `peft`); its reruns are within noise of this model on every test. The decider's side of every comparison is `04_decider_benchmark.ipynb` on the same branch.
 
 ## License
 
