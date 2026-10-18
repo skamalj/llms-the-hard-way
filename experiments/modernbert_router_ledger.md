@@ -1630,3 +1630,4 @@ Later phase branches are created when each phase starts, from the branch of the 
 - **Files:** `encoder/` (merged ModernBERT-large, fp16), `head.pt`, `signpost_config.json` (`"format": "one-pass"`), the loader `signpost_one_pass.py`, the card (`signpost/README_one_pass.md` in the repo) and `card_examples_one_pass.py`. The LoRA adapter on its own is not published. Public, Apache-2.0; Hub commit 0cb2271.
 - **Card examples:** run on the local export on CPU (fp32). All answers are correct, including routing among 12 agents in one pass (833 ms on a laptop CPU) and a 20-option question.
 - **Signpost's card** now links to the one-pass model (Hub commit e76e5c6).
+- **Verified from the Hub:** a fresh `snapshot_download` into a new folder has encoder weights byte-identical to the local export, and the card examples give exactly the recorded outputs (only the CPU timing of the 12-agent example varies: 833 and 1,018 ms).
