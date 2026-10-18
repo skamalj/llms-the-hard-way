@@ -1401,3 +1401,202 @@ Later phase branches are created when each phase starts, from the branch of the 
 | Latency p50 | questions ~200 ms; routing 290–650 ms | questions 55 ms; routing 58–187 ms |
 
 **Findings:** the conclusions of benchmark B1 hold, and independent set 2 adds one point: there the decider's score (43 / 50) is not better than Signpost's (45–47). Its score advantage shows on independent set 1 only. Cell 10 of 04 and Cell 9 of 03 were updated to match these outputs (03 also gains a row for the dropped score-data attempt).
+
+---
+
+# Runs 26–29: one pass per question (moved from branch `exp/listwise-index` with notebook 05, unchanged)
+
+## Run 26 setup — 2026-10-13: one pass per question, all options in one input (branch `exp/listwise-index`, `05_listwise_signpost.ipynb`)
+
+- **Question:** can one encoder pass per question replace Signpost's one pass per option, and scale to many options (up to 50) and many agents (up to 15)?
+- **Model:** Signpost's encoder, LoRA (r 16) and head. All options go into one input (`… question: Q [SEP] option: A. … [SEP] option: B. …`), each option's tokens are mean-pooled, and the same head scores every option. The softmax over the options gives the answer, 1…N.
+  - `MAX_LEN` 1,536; the oldest history is dropped first, options never.
+  - `MAX_OPTIONS` 50 as a safety check.
+  - Training batches are formed by token budget.
+- **Training data, about 10.5K questions (user decision):**
+  - all of Signpost's yes/no questions;
+  - 30% of its routing conversations and 30% of its choice and score questions, stratified by business and family;
+  - **2,500 hand-written many-option questions:** 957 individually written texts across 13 topics (no sentence templates), each used 2–3 times with different option lists of 2–50 options, drawn from same-topic value lists.
+  - Routing questions get 0–10 extra **distractor agents** from other businesses each time they're used, up to 15 agents. Agents with generic names (general, support, billing, …) or names sharing a word with the business's own agents are excluded.
+- **Fresh tests (hand-written, never used for training):**
+  - **many-agent routing:** 12 businesses that appear in no training data, each with 9–15 agents; 24 conversations (120 turns, routed live) and 72 first messages;
+  - **many-option questions:** 162 questions with 10–50 options. Their value lists share nothing with training (numbers aside), and the guard checks there's no shared 5-word sequence;
+  - **option order:** the many-agent first messages with the agents reversed.
+- **In the same notebook:** the old suites for comparison with Signpost run 25, then the published Signpost (from the Hub) and the Strands decider on the fresh tests, with latency.
+- **Why the user rejected template data:** templates produce near-identical sentences, which narrows coverage and lets the model learn patterns instead of reading. The first, template-based many-option set was replaced by hand-written texts.
+
+## Run 26 results — 2026-10-13: one pass per question (branch `exp/listwise-index`)
+
+- **Training:** healthy on the first attempt, **12.5 min** (Signpost: 33). 10,508 training questions:
+  - routing 1,894 (30%);
+  - yes/no 5,000 (all);
+  - choice and score 1,335 (30%);
+  - many-option 2,279 (after the dev split).
+
+  Dev after epoch 2: routing 98.9%, routing with 15 agents 97.4%, questions 95.9%. Peak GPU 13.1 GB.
+
+| Old tests (same items) | **One pass (run 26)** | Signpost (run 25) | Decider |
+|---|---|---|---|
+| Conversations, unseen companies (83) · all (193) | 78 · **172** | 78 · **181** | 62 · 151 |
+| First message E11 (100) | **99** | 97 | 96 |
+| Banking 50 · 225 | 46 · 207 | 48 · 210 | 48 · 214 |
+| E12 (170): yes/no · choice · score | **154**: 56 · 55 · 43 | **161**: 58 · 58 · 45 | 160 |
+| Independent questions (300): yes/no · choice · score | **227**: 72 · 105 · **50** | 221: 75 · 103 · 43 | 253: 77 · 106 · 70 |
+| Independent routing live (172) · first message (200) | 133 · 177 | 133 · 180 | 113 · 178 |
+
+| Fresh tests (hand-written) | **One pass** | Signpost (Hub) | Decider |
+|---|---|---|---|
+| Many-option questions (162, 10–50 options) | 151 · 51 ms | 150 · 62 ms | **160** · 395 ms |
+| Many-agent routing, live (120 turns, 9–15 agents) | **104** · 55 ms | 103 · 96 ms (p95 186) | 83 · 655 ms (99 with the last 3 turns) |
+| … previous agent given | 107 | 109 | — |
+| Many-agent first messages (72) | 62 · 51 ms | 62 · 50 ms | **70** · 526 ms |
+| Option order: same pick with the agents reversed | 67 / 72 | — | — |
+
+**Findings**
+1. **One pass per question works.** It's level with Signpost on most tests, trained on two-thirds of the data in a third of the time. Its latency stays **flat at about 51–55 ms** for 10 to 50 options, while Signpost's grows with the agent count (96 ms p50, 186 ms p95 for 9–15 agents, batched on a GPU).
+2. **Two drops are beyond the ±4 noise: conversations, all companies (−9) and E12 (−7).** Run 26 used only 30% of the routing and choice/score data, so the likely cause is less data rather than the design. Run 27 tests that with all of it.
+3. **Accuracy holds as options grow:** many-option results are 26/27 at 10 or fewer options and 13/14 at 41–50. Routing dips a little at 13–15 agents (41/50 vs 37/40 at 10 or fewer).
+4. **Against the decider:**
+   - **we're far ahead in many-agent conversations** (104 vs 83, or 99 with its last-3-turns setting);
+   - **it leads on many-agent first messages** (70 vs 62; ours miss mostly "close" messages, 10/14);
+   - **it leads on many-option questions** (160 vs 151). Ours lose almost entirely on the departments family (21/30), the one family with no exact training counterpart.
+5. **A small position effect:** reversing the agents changed 5 of 72 picks.
+
+**Next (run 27, user decisions):**
+- all of Signpost's data;
+- the same 2,500 many-option questions;
+- about 2,500 routing questions trained with 10–15 agents each time;
+- a second independent test set, written by a subagent from a neutral brief (50 of each question type).
+
+## Run 27 setup — 2026-10-13: all of Signpost's data + multi-option cases; a second independent set (branch `exp/listwise-index`)
+
+- **Training (user decisions):**
+  - all of Signpost's routing, yes/no, choice and score questions (`ROUTE_FRACTION` = `QUESTION_FRACTION` = 1.0);
+  - the same 2,500 hand-written many-option questions;
+  - about **2,500 routing questions trained with 10–15 agents** every time they're used (`MANY_AGENT_ROUTES`); the other routing questions get 5–9.
+
+  This keeps the multi-option cases from being drowned out by the larger data. It also tests whether run 26's drops on E10 (all companies) and E12 came from using 30% of the data.
+- **Second independent set (`independent2/`):**
+  - **How it was written:** by a subagent (another Claude instance). It received only a neutral brief: formats, rules, a list of businesses to avoid, and a self-check. It was told not to open any repository file.
+  - **Questions:** 50 yes/no (27 yes), 50 choice (2–5 options), 50 score (3–5 ordered levels, mostly 3) and 50 many-option (10–50 options, 13 kinds).
+  - **Routing:** 50 first messages (10 businesses, 8–11 agents, 10 of each kind) and 12 conversations (70 turns, 7 businesses).
+  - **Self-check:** OK.
+  - **Kept for reference:** the raw files are in `independent2/raw/`; `build_independent2_test_data.py` converts and re-checks them.
+  - **What it reported as borderline:**
+    - few middle-level score answers (9 of 45);
+    - a jobs list containing "manager" as a distractor;
+    - four routing labels it flagged as debatable but kept.
+  - **Caveat:** it's independent of our data and code, but not of the model family.
+- **The notebook** runs it for our model, the published Signpost and the decider, and shows run 27 next to run 26.
+
+## Run 27 results — 2026-10-14: all of Signpost's data + multi-option cases (branch `exp/listwise-index`)
+
+- **Training:** healthy on the first attempt, 26.4 min, 18,049 questions:
+  - routing 6,319, of which 2,500 were trained with 10–15 agents;
+  - yes/no 5,000;
+  - choice and score 6,730;
+  - many-option 2,279.
+
+  Dev after epoch 2: routing 99.4%, routing with 15 agents 98.3%, questions 97.6% (run 26: 98.9 / 97.4 / 95.9).
+
+| Old tests | **Run 27** | Run 26 | Signpost (run 25) | Decider |
+|---|---|---|---|---|
+| Conversations, unseen companies · all | 78 · **177** | 78 · 172 | 78 · 181 | 62 · 151 |
+| E11 · banking 50 · 225 | 99 · **49 · 211** | 99 · 46 · 207 | 97 · 48 · 210 | 96 · 48 · 214 |
+| E12 (170): yes/no · choice · score | 153: 54 · 53 · 46 | 154: 56 · 55 · 43 | **161** | 160 |
+| Independent questions (300): yes/no · choice · score | 211: 71 · 105 · **35** | 227: 72 · 105 · 50 | 221: 75 · 103 · 43 | **253**: 77 · 106 · 70 |
+| Independent routing (172) · first message (200) | **136 · 181** | 133 · 177 | 133 · 180 | 113 · 178 |
+
+| Fresh tests and the second independent set | **Run 27** | Signpost (Hub) | Decider |
+|---|---|---|---|
+| Many-option questions (162) | 152 · 58 ms | 150 · 66 ms | **160** · 422 ms |
+| Many-agent routing live (120) · first messages (72) | **104** · 63 | 103 · 62 | 83 (99 with the last 3 turns) · **70** |
+| Independent 2, questions (200): yes/no · choice · score · many-option | **188**: 46 · 46 · 47 · 49 | **188**: 47 · 47 · 45 · 49 | 185: 49 · 46 · 43 · 47 |
+| Independent 2, routing live (70) · first messages (50) | 58 · 49 | **62** · 47 | 55 (59 with the last 3 turns) · **50** |
+| Latency on independent 2 routing, p50 / p95 | **60 / 64 ms** | 124 / 220 ms | 768 ms |
+| Option order: same pick with the agents reversed | 69 / 72 (run 26: 67) | — | — |
+
+**Findings**
+1. **Full data fixed routing:** every routing test rose from run 26 (E10 all +5, banking +3 / +4, independent routing +3, independent first message +4). The one-pass model now matches or beats Signpost on routing, at a flat ~55–60 ms for any number of agents.
+2. **It didn't fix the question side, and independent score fell:**
+   - E12 stayed at 153 (Signpost 161);
+   - **independent score dropped 50 → 35**, although 90 / 92 answers are within one level.
+
+   This run used all the template-generated score items (1,942, vs 581 in run 26). As in run 20, more generated score data didn't transfer to outside-written scales. That's consistent with the user's concern about template data. With one seed it isn't proven.
+3. **On the second independent set the three models are close:** questions 188 / 188 / 185, routing live 58 / 62 / 55, first messages 49 / 47 / 50. The one-pass model is fastest, and its latency stays flat.
+4. **E12 comparison questions fell 10 → 7 / 12.** That's within one-seed noise on 12 items.
+
+**Suggested next (run 28):** template score questions capped at about 30%, plus hand-written score questions with varied scales. Alternatively, a second seed of run 27, to separate the data effect from noise.
+
+## Run 28 setup — 2026-10-14: score questions trained as plain choice questions (branch `exp/listwise-index`)
+
+- **Why:** with the ordinal score loss, the published Signpost gets 43 / 92 on independent score. Run 27 got 35 / 92.
+  - A local test on Signpost (CPU, all 92 items) showed that **presentation isn't the issue.** Asked as a plain choice with the levels shuffled, the answers were identical (43, with 0 items changing). Using the rounded expected level gave 41.
+  - **The misses are systematic: 41 of 49 are one level too low.** "Very clear" is read as "partly clear" (about 17 items), "very satisfied" as "satisfied" (5), and high or major urgency and seriousness as medium or moderate (about 12). The model hedges towards the middle.
+  - Possible causes: the ordinal loss's neighbour smoothing and distance penalty, and / or template score data with few extreme answers and no clarity-type scales.
+- **Change (user decision):** `SCORE_LOSSES=plain`, so score questions are trained like any choice question (plain cross-entropy on the right level). Everything else is as in run 27: all of Signpost's data, the 2,500 many-option questions, and 2,500 routing questions with 10–15 agents. The summary shows run 28 next to run 27, with E12 and independent score broken out.
+
+## Run 28 results — 2026-10-14: score questions trained as plain choice questions (branch `exp/listwise-index`)
+
+- **Training:** healthy on the first attempt, 26.4 min. Same data and seed as run 27; only the score loss changed (plain). Dev after epoch 2: routing 99.1%, routing with 15 agents 98.1%, questions 97.4%.
+
+| Test (same items) | **Run 28 (plain)** | Run 27 (ordinal) | Signpost (run 25) | Decider |
+|---|---|---|---|---|
+| **Independent score (92)** | **46** | 35 | 43 | 70 |
+| **Independent questions (300)**: yes/no · choice · score | **221**: 70 · 105 · 46 | 211: 71 · 105 · 35 | 221 | 253 |
+| **E12 (170)**: yes/no · choice · score · comparison (12) | **158**: 57 · 56 · 45 · 11 | 153: 54 · 53 · 46 · 7 | 161 | 160 |
+| Conversations, unseen companies · all | 76 · 179 | 78 · 177 | 78 · 181 | 62 · 151 |
+| E11 · banking 50 · 225 | 97 · 49 · 212 | 99 · 49 · 211 | 97 · 48 · 210 | 96 · 48 · 214 |
+| Independent routing · first message | 134 · 180 | 136 · 181 | 133 · 180 | 113 · 178 |
+| Many-option (162) · many-agent routing live (120) · first messages (72) | 147 · 100 · 63 | 152 · 104 · 63 | 150 · 103 · 62 | 160 · 83 · 70 |
+| Independent 2: questions · routing live · first messages | 185 · 55 · 49 | 188 · 58 · 49 | 188 · 62 · 47 | 185 · 55 · 50 |
+| Option order: same pick with the agents reversed | 68 / 72 | 69 / 72 | — | — |
+
+**Findings**
+1. **The ordinal loss hurt outside-written scales.**
+   - Training score questions as plain choices lifted independent score **35 → 46** and the independent total **211 → 221** (level with Signpost).
+   - E12 rose to **158**, within noise of Signpost's 161, and comparison questions recovered (7 → 11 / 12).
+   - E12's own score count didn't change (45 vs 46): its scales were written in the same style as our training data.
+2. **Routing moved within noise:** most tests shifted by 1–2, the many-agent and independent-2 tests by up to 4. Many-option questions dropped 152 → 147, mostly in the departments family (19 vs 23 / 30). As run 21 showed, changing the loss shifts the whole training path by about ±4.
+3. **The one-pass model is now level with Signpost on every old test** (all within ±3) at a flat ~55–60 ms. The remaining gap is independent score against the decider: 46 vs 70.
+
+**Decision (recommended):** adopt the plain loss. **Next:**
+- a second seed of this setup, to separate the gains from noise;
+- hand-written score questions with varied scales and more answers at the extremes (the last template-made part of the data).
+
+## Run 29 setup — 2026-10-14: no score questions in training or testing (branch `exp/listwise-index`)
+
+- **Why:** across runs 21–28, score questions (pick a level on an ordered scale) never transferred to outside-written scales: independent score 35–50 / 92, against the decider's 70. Changing their loss also moved the other results around. **Decision: the model is not meant for score questions.** They are left out of training and of every test, so the model is judged only on what it is meant to do.
+- **Change:** `INCLUDE_SCORE=0` (new setting). This drops score items from training and dev, and from the score items in E12 (now 117: 58 yes/no + 59 choice), the independent questions (208) and independent set 2 (150 questions). Everything else is exactly as in run 28: plain loss, all data, 2,500 many-option questions, 2,500 many-agent routing items, seed, MAX_LEN 1536.
+- **Reference, the same items without score:**
+
+| Test | Run 28 | Run 27 | Signpost (run 25 / hub) | Decider |
+|---|---|---|---|---|
+| E12 (117) | 113 | 107 | 116 | 112 |
+| Independent questions (208) | 175 | 176 | 178 | 183 |
+| Independent 2 questions (150) | 139 | — | 143 | 142 |
+
+- Routing, first-message and many-option tests are unchanged and are compared against run 28 directly. The published Signpost and the decider run in the notebook on the same reduced sets.
+
+## Run 29 results — 2026-10-14: no score questions in training or testing (branch `exp/listwise-index`)
+
+- **Training:** healthy on the first attempt, 25.5 min. 2,148 score questions left out (training + dev). Dev after epoch 2: routing 99.1%, routing with 15 agents 98.1%, questions 98.4% (score-free dev).
+
+| Test (same items, no score) | **Run 29 (no score)** | Run 28 | Run 27 | Signpost (run 25 / hub) | Decider |
+|---|---|---|---|---|---|
+| E12 (117): yes/no · choice | **107**: 54 · 53 | 113: 57 · 56 | 107 | 116: 58 · 58 | 112: 56 · 56 |
+| Independent questions (208): yes/no · choice | **174**: 71 · 103 | 175: 70 · 105 | 176 | 178: 75 · 103 | 183: 77 · 106 |
+| Conversations, unseen companies · all | 75 · 176 | 76 · 179 | 78 · 177 | 78 · 181 | 62 · 151 |
+| E11 · banking 50 · 225 | 98 · 47 · 208 | 97 · 49 · 212 | 99 · 49 · 211 | 97 · 48 · 210 | 96 · 48 · 214 |
+| Independent routing · first message | 128 · 179 | 134 · 180 | 136 · 181 | 133 · 180 | 113 · 178 |
+| Many-option (162) · many-agent routing live (120) · first messages (72) | 149 · 101 · 63 | 147 · 100 · 63 | 152 · 104 · 63 | 150 · 103 · 62 | 160 · 83 · 70 |
+| Independent 2 (score-free): questions (150) · routing live · first messages | 138 · 58 · 48 | 139 · 55 · 49 | — | 143 · 62 · 47 | 142 · 55 · 50 |
+| Option order: same pick with the agents reversed | 69 / 72 | 68 / 72 | 69 / 72 | — | — |
+
+**Findings**
+1. **Leaving score out fixed nothing.** No test improved beyond noise. The yes/no and choice questions that remain didn't get better: E12 113 → 107 (yes/no 57 → 54, choice 56 → 53), independent questions 175 → 174, independent 2 questions 139 → 138.
+2. **Some results fell beyond the usual ±4 noise:** E12 −6 and independent routing live −6 (switch turns 30/46). Banking 225 fell −4 and E10 all −3. Many-agent and independent-2 routing went up by 1–3, which is noise.
+3. **The score questions weren't hurting the rest; if anything they helped a little**, as extra question data that keeps the shared head general. The independent yes/no weakness is unchanged: claim-check items are still 0/22, and truth "yes" is 27/50.
+4. **Latency is unchanged:** a flat ~50–55 ms.
+
+**Decision (recommended):** keep the run 28 setup (score included, plain loss) as the best one-pass model. In the notes, state that score questions on outside-written scales are weak (46/92 against the decider's 70). Don't drop the data.
