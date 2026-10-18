@@ -75,25 +75,19 @@ It matches the reference `last_hidden_state` to about 3e-5. Then comes the key i
 - a yes / no "has the topic changed?" detector, used as a one-sided "confident stay" gate;
 - a choice head for grounded questions.
 
-It's tested on unseen banking agents, on realistic multi-turn chats (E10), on first messages (E11) and on grounded questions (E12). The comparison model is the 2B [Strands decider](https://huggingface.co/StrandsAgents/strands-decider-2B-hobson-v19).
+It's tested on unseen banking agents, on realistic multi-turn chats (E10), on first messages (E11) and on grounded questions (E12); the topic-change detector is also tested on E10's labelled turns. The comparison model is the 2B [Strands decider](https://huggingface.co/StrandsAgents/strands-decider-2B-hobson-v19).
 
-The notebook ends with **Phase 17: what we tried and dropped**, with the numbers: hard cascade, soft fusion, Q-K-V attention head, windowing, layer mix, confident switch, and more. The best frozen system routed conversations at unseen companies better than the decider (74 vs 62 of 83 turns), but grounded questions plateaued at 114 / 170 against its 160. **The frozen encoder was the limit.**
+The notebook ends with **what we tried and dropped**, with the numbers: hard cascade, soft fusion, Q-K-V attention head, windowing, layer mix, confident switch, and more. The best frozen system routed conversations at unseen companies better than the decider (74 vs 62 of 83 turns), but grounded questions plateaued at 114 / 170 against its 160. **The frozen encoder was the limit.**
 
-**Run:** Kaggle with a GPU; the data is cloned from this branch. **Ledger:** `experiments/modernbert_router_ledger.md` records every run (1–25), with what changed, the results and the decision; it is the same file on `frozen-router` and `signpost`.
+**Run:** Kaggle with a GPU; the data is cloned from this branch. **Ledger:** `experiments/modernbert_router_ledger.md` records every run, with what changed, the results and the decision. Runs 1–25 are on both `frozen-router` and `signpost`; each branch's copy then adds its own later work (the notebook reruns, and on `signpost` the score-data attempt).
 
 ## Part 4: Fine-tuning, and Signpost (`signpost`)
 
-**`03_lora_signpost.ipynb`** adds hand-written **LoRA** adapters (r 16, 7.2 M parameters) to every attention and MLP layer of ModernBERT-large, plus a 0.26 M scoring head. It trains **one model for routing and grounded questions**, with one forward pass per option and an order-aware loss for score questions.
+**`03_lora_signpost.ipynb`** adds **LoRA** adapters (r 16, 7.2 M parameters, through the `peft` library; a by-hand LoRA notebook is planned) to every attention and MLP layer of ModernBERT-large, plus a 0.26 M scoring head. It trains **one model for routing and grounded questions**, with one forward pass per option and an order-aware loss for score questions, tests it on every set (including two independent ones), then saves it, merges LoRA into the weights and checks that the published loader reproduces the results exactly.
 
-The settings switch between the experiments of runs 19–25:
-- ModernBERT-large or Nemotron-1B;
-- plain or ordinal score loss;
-- one combined model or two separate specialists;
-- exporting the final model.
+It runs Signpost's final recipe; the earlier experiments (Nemotron-1B, separate specialists, plain vs ordinal loss) are reproducible from their own commits. It ends with **what we tried and dropped**: more score data, Nemotron as the final encoder, separate specialists, a training collapse with its guard, and hand-written score data on 279 scales (no gain).
 
-It ends with **what we tried and dropped**: more score data, Nemotron as the final encoder, separate specialists, and a training collapse with its guard.
-
-**`04_decider_benchmark.ipynb`** runs the 2B Strands decider on exactly the same test items: E10, E11, banking, E12, the independent test set, and latency.
+**`04_decider_benchmark.ipynb`** runs the 2B Strands decider on exactly the same test items: E10, E11, banking, E12, both independent sets, and latency.
 
 **`signpost/`** holds the standalone loader (`signpost.py`), the model card and its tested examples. The exported model is published at **[huggingface.co/skamalj/signpost](https://huggingface.co/skamalj/signpost)** (Apache-2.0). Tag `signpost-v1.0` marks the exact state that trained and exported it.
 
@@ -104,7 +98,8 @@ It ends with **what we tried and dropped**: more score data, Nemotron as the fin
 | Grounded questions (E12) | **161 / 170** | 160 / 170 |
 | Independent questions (separate author) | 221 / 300 | **253 / 300** |
 | Independent routing in conversations | **133 / 172** | 113 / 172 |
-| Latency per decision (T4, p50) | **~50–70 ms** | 185–439 ms |
+| Independent set 2: questions · routing with 8–11 agents | **188 / 200** · **62 / 70** | 185 / 200 · 55 / 70 |
+| Latency per decision (T4, p50) | **~55–75 ms** | ~200 ms per question, 290–650 ms per routing decision |
 
 **Run:** Kaggle with a GPU (both notebooks); the data is cloned from this branch.
 
