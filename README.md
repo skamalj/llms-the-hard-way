@@ -13,7 +13,7 @@ Each part of the series lives on its own branch. **This README is the same on ev
 | 1. Decoders by hand | [`master`](https://github.com/skamalj/llms-the-hard-way/tree/master) | `kv_cache_experiment.ipynb`, `smollm2_forward_pass_kv_cache.ipynb`, `rope.ipynb`, `smoll_json_lora.ipynb` | Laptop CPU |
 | 2. An encoder by hand | [`modernbert-by-hand`](https://github.com/skamalj/llms-the-hard-way/tree/modernbert-by-hand) | `01_modernbert_by_hand.ipynb` | CPU (or Kaggle) |
 | 3. A frozen-encoder router | [`frozen-router`](https://github.com/skamalj/llms-the-hard-way/tree/frozen-router) | `02_frozen_router.ipynb`, its data, the experiment ledger | Kaggle GPU |
-| 4. Fine-tuning: Signpost | [`signpost`](https://github.com/skamalj/llms-the-hard-way/tree/signpost) | `03_lora_signpost.ipynb`, `04_decider_benchmark.ipynb`, `signpost/` (loader + model card), their data, the experiment ledger | Kaggle GPU |
+| 4. Fine-tuning: Signpost | [`signpost`](https://github.com/skamalj/llms-the-hard-way/tree/signpost) | `03_lora_signpost.ipynb`, `04_decider_benchmark.ipynb`, `05_one_pass_signpost.ipynb` (4b), `signpost/` (loaders + model card), their data, the experiment ledger | Kaggle GPU |
 | 5. Signpost in agent frameworks | [`signpost-apps`](https://github.com/skamalj/llms-the-hard-way/tree/signpost-apps) | `apps/langgraph/`: five agents routed by Signpost, with a DynamoDB checkpointer and a message reducer | Local (CPU), AWS, Anthropic API |
 
 The suggested reading order is 1 → 5.
@@ -89,7 +89,9 @@ It runs Signpost's final recipe; the earlier experiments (Nemotron-1B, separate 
 
 **`04_decider_benchmark.ipynb`** runs the 2B Strands decider on exactly the same test items: E10, E11, banking, E12, both independent sets, and latency.
 
-**`signpost/`** holds the standalone loader (`signpost.py`), the model card and its tested examples. The exported model is published at **[huggingface.co/skamalj/signpost](https://huggingface.co/skamalj/signpost)** (Apache-2.0). Tag `signpost-v1.0` marks the exact state that trained and exported it.
+**`05_one_pass_signpost.ipynb`** (Part 4b) puts **every option into one input**, so the encoder runs once per question instead of once per option, and one shared head scores each option at its own tokens. Trained on Signpost's data plus 2,500 hand-written many-option questions and routing with up to 15 agents, it is level with Signpost on routing (independent 134 vs 133 / 172, many-agent 102 vs 103 / 120), slightly behind on E12 (152–158 vs 161), and its latency stays flat at about 60 ms for 2–50 options, where Signpost's grows with each option (about 190 ms with 8–11 agents). It ends with runs 26–29 of the one-pass experiment.
+
+**`signpost/`** holds the standalone loaders (`signpost.py`; `signpost_one_pass.py` for the one-pass model), the model card and its tested examples. The exported model is published at **[huggingface.co/skamalj/signpost](https://huggingface.co/skamalj/signpost)** (Apache-2.0). Tag `signpost-v1.0` marks the exact state that trained and exported it.
 
 | Same test items for both | Signpost | Strands decider 2B |
 |---|---|---|
@@ -101,7 +103,7 @@ It runs Signpost's final recipe; the earlier experiments (Nemotron-1B, separate 
 | Independent set 2: questions · routing with 8–11 agents | **188 / 200** · **62 / 70** | 185 / 200 · 55 / 70 |
 | Latency per decision (T4, p50) | **~55–75 ms** | ~200 ms per question, 290–650 ms per routing decision |
 
-**Run:** Kaggle with a GPU (both notebooks); the data is cloned from this branch.
+**Run:** Kaggle with a GPU (all three notebooks); the data is cloned from this branch.
 
 ## Part 5: Signpost in agent frameworks (`signpost-apps`)
 
