@@ -1600,3 +1600,26 @@ Later phase branches are created when each phase starts, from the branch of the 
 4. **Latency is unchanged:** a flat ~50–55 ms.
 
 **Decision (recommended):** keep the run 28 setup (score included, plain loss) as the best one-pass model. In the notes, state that score questions on outside-written scales are weak (46/92 against the decider's 70). Don't drop the data.
+
+## 05 — 2026-10-18: `05_one_pass_signpost.ipynb`, the one-pass model on the run-28 recipe (branch `signpost`)
+
+- **Notebook:** Part 4b, structured like 03. It uses run 28's recipe only: all of Signpost's data + 2,500 many-option questions, 2,500 routing items trained with 10–15 agents, plain loss, `MAX_LEN` 1536, up to 50 options. LoRA comes from `peft`, and option pooling is built as one tensor mask. Signpost's and the decider's results are fixed reference numbers from 03, 04 and run 28's notebook. A save-and-verify step uses the new standalone loader `signpost/signpost_one_pass.py`.
+- **Training:** healthy on the first attempt, 28.5 min, best epoch 2. Dev routing 98.1% (98.3% with 15 agents), dev questions 97.6%. Trainable parameters: 7,196,672.
+- **Save and verify:** `signpost-one-pass/` holds `encoder/` (793 MB), `adapter/` (29 MB) and `signpost-one-pass.zip` (0.76 GB). Reloaded with `signpost_one_pass.py`, it is **exact in both fp16 and fp32**: E11 98, E12 152, many-option 152.
+
+| Test | 05 | Run 28 | Signpost (published) | Decider |
+|---|---|---|---|---|
+| E10 all · test companies | 175 · 76 | 179 · 76 | 181 · 78 | 151 · 62 |
+| Independent routing · independent 2 routing · many-agent routing (live) | 134 · 56 · 102 | 134 · 55 · 100 | 133 · 62 · 103 | 113 · 55 · 83 |
+| E11 · independent first messages · independent 2 first messages · many-agent first messages | 98 · 178 · 50 · 62 | 97 · 180 · 49 · 63 | 97 · 180 · 47 · 62 | 96 · 178 · 50 · 70 |
+| Option order: same pick with the agents reversed | 71 / 72 | 68 | — | — |
+| Banking 50 · 225 | 47 · 210 | 49 · 212 | 48 · 210 | 48 · 214 |
+| E12: yes/no · choice · score | **152**: 54 · 53 · 45 | 158 | 161 | 160 |
+| Independent questions: yes/no · choice · score | 226: 80 · 106 · 40 | 221: 70 · 105 · 46 | 221 | 253 |
+| Independent 2 questions · many-option questions | 184 · **152** | 185 · 147 | 188 · 150 | 185 · 160 |
+| Latency p50: questions · routing with 5 agents · routing with 8–11 agents · 10–50 options | 56 · 60 · 62 · 61 ms | | 55 · 58 · 187 · 63 ms | 200 · 316 · 654 · 382 ms |
+
+**Findings**
+1. **The notebook reproduces the one-pass result within noise**, and its saved model and loader are verified exactly. The exception is E12, at 152 (−6 against run 28; runs 27–28 gave 153–158). This run's training path differs (`peft`, data order, dev sampling), and a shift of this size is in line with that.
+2. **Latency stays flat at 56–62 ms on every test**, while Signpost's routing cost triples with 8–11 agents (187 ms).
+3. Option order is very stable (71 / 72). The model gets 12 of the 22 claim-check yes/no items (every other model gets 0). Independent score is 40 / 92 (this model's range is 35–46).
