@@ -9,7 +9,7 @@ Translate an English sentence into natural Roman-script Hinglish in one of six p
 | Specification | [`docs/encoder_decoder_bridge_e2e_plan_v2.md`](docs/encoder_decoder_bridge_e2e_plan_v2.md) — plan v2, the governing document |
 | Implementation plan | [`docs/stitched-e2e-plan.md`](docs/stitched-e2e-plan.md) — how v2 is carried out here, decisions, gates |
 | Original brief | [`docs/Project 4 Requirements.md`](docs/Project%204%20Requirements.md) — where it differs, plan v2 governs |
-| Data | [`data/persona_translation_v3/`](data/persona_translation_v3/) — 60 English sources × 6 personas, split by source 240 / 60 / 60 |
+| Data | [`data/persona_translation_v3/`](data/persona_translation_v3/) — 60 English sources × 6 personas, split by source 240 / 60 / 60; v4 (three personas, 150 sources) requested in [`docs/data-requirements-v4.md`](docs/data-requirements-v4.md) |
 
 ## Stages
 
@@ -18,7 +18,8 @@ Translate an English sentence into natural Roman-script Hinglish in one of six p
 | [`1-decoder-comparison/`](1-decoder-comparison/) | 8 decoder variants × 40 cases for Hindi / Hinglish generation; requirement, notebook, prompts, results, scoring sheet, draft report | done; rubric scores pending |
 | [`2-hinglish-two-models/`](2-hinglish-two-models/) | Qwen2.5-1.5B + Hinglish adapter vs Gemma 3 1B IT, two passes | done; Gemma chosen at the time (Qwen never stopped) |
 | [`3-persona-pilots-superseded/`](3-persona-pilots-superseded/) | persona LoRA on the earlier *scenario → reaction* task: Gemma 3 1B / 4B (runs 1–4, in git history), Qwen base + adapter | **superseded** by the translation task; kept for the findings (stop-token training, 4-bit Gemma, untrained `<|im_end|>` in Qwen base) |
-| [`4-translation-baseline/`](4-translation-baseline/) | **Phase 1**: direct-source decoder baseline on data v3, one notebook per decoder (Gemma 3 4B IT, Qwen2.5-1.5B-Instruct, Qwen-Instruct + Hinglish adapter as diagnostic) | **current**; ready to run |
+| [`4-translation-baseline/`](4-translation-baseline/) | **Phase 1**: direct-source decoder baseline on data v3, one notebook per decoder (Gemma 3 4B IT, Qwen2.5-1.5B-Instruct, Qwen-Instruct + Hinglish adapter as diagnostic); per-persona scores | done; Gemma 3 4B IT chosen; Don, Anthony, Jai kept |
+| [`5-bridge-skeleton/`](5-bridge-skeleton/) | **Phase 2**: ModernBERT-base + bridge (GPU 0) → gated cross-attention into Gemma 3 4B IT (GPU 1); plumbing tests and a smoke run | **current**; ready to run (2 × T4) |
 
 `data/persona_pilot_60.json` and `data/persona_pilot_168.json` belong to the superseded pilots; they stay at their paths because those notebooks load them from GitHub.
 
