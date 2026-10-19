@@ -1,0 +1,2061 @@
+{
+  "dataset_name": "Persona Language Translation Dataset",
+  "version": "v4",
+  "date": "2026-10-19",
+  "task": "English source sentence to meaning-preserving Roman-script Hinglish in a selected persona voice",
+  "source_language": "English",
+  "target_language": "Conversational Hinglish in Roman script",
+  "personas": [
+    {
+      "id": "don",
+      "name": "Don",
+      "description": "Cool, calculating and faintly amused; short, controlled sentences; treats every situation as a move in a game; a quiet hint of control, never loud."
+    },
+    {
+      "id": "anthony_gonsalves",
+      "name": "Anthony Gonsalves",
+      "description": "Cheerful, theatrical Bombay street-smart; playful exaggeration and comic comparisons; freely mixes English and Hindi."
+    },
+    {
+      "id": "jai_sholay",
+      "name": "Jai (Sholay)",
+      "description": "Calm, laconic and practical; dry understatement; loyal; says only what is needed."
+    }
+  ],
+  "counts": {
+    "main_sources": 150,
+    "main_pairs": 450,
+    "train_sources": 100,
+    "train_pairs": 300,
+    "validation_sources": 25,
+    "validation_pairs": 75,
+    "test_sources": 25,
+    "test_pairs": 75,
+    "ood_sources": 20,
+    "ood_pairs": 60,
+    "minimal_pair_sources": 24,
+    "minimal_pair_pairs": 72
+  },
+  "split_policy": "Split by source_id; all three persona targets for a source stay in one split. OOD and minimal_pairs are separate evaluation-only sets.",
+  "spelling_table": {
+    "hai": "not hain/he for singular",
+    "nahi": "not nahin/nai",
+    "mein (in)": "not me/mai",
+    "main (I)": "not mai/mein",
+    "kya": "not kia",
+    "kyun": "not kyu/kiyon",
+    "bhi": "not bi",
+    "toh": "not to for then/so",
+    "hoon": "not hu/hun",
+    "theek": "not thik",
+    "accha": "not acha/achha",
+    "phir": "not fir",
+    "pehle": "not pahle",
+    "zaroor": "not jaroor",
+    "chahiye": "not chaahiye",
+    "waqt": "not vakt"
+  },
+  "sources": [
+    {
+      "source_id": "s001",
+      "split": "train",
+      "source": "I don't trust someone who changes their story every time.",
+      "semantic_note": {
+        "core_meaning": "The speaker does not trust a person whose account or explanation changes repeatedly. Preserve the distrust and the reason for it: inconsistency. Do not claim the person has definitely lied unless the wording clearly frames it as suspicion.",
+        "must_keep": [
+          "Preserve the logical relation: don't",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s002",
+      "split": "train",
+      "source": "If you want my help, tell me the whole truth.",
+      "semantic_note": {
+        "core_meaning": "The speaker offers help only on the condition that the other person tells the complete truth. Preserve both the offer/condition and the demand for full honesty; do not imply help has already been given or that the other person has confessed.",
+        "must_keep": [
+          "Preserve the logical relation: if",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s003",
+      "split": "train",
+      "source": "You promised you would be here, and you weren't.",
+      "semantic_note": {
+        "core_meaning": "The other person promised to be present but failed to show up. Preserve the broken promise and absence. Do not invent why they were absent, how long the speaker waited, or what event the presence was needed for.",
+        "must_keep": [
+          "Preserve named entities: You",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s004",
+      "split": "train",
+      "source": "I need time to think before I make this decision.",
+      "semantic_note": {
+        "core_meaning": "The speaker needs time to think before deciding. Preserve the request for deliberation and the fact that the decision has not yet been made; do not imply acceptance or rejection.",
+        "must_keep": [
+          "Preserve the logical relation: before",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s005",
+      "split": "train",
+      "source": "Don't mistake my silence for agreement.",
+      "semantic_note": {
+        "core_meaning": "The speaker warns that their silence must not be interpreted as agreement. Preserve the distinction between not speaking and consenting; do not turn silence into a threat or a final decision.",
+        "must_keep": [
+          "Preserve the logical relation: don't",
+          "Preserve named entities: Don",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s006",
+      "split": "train",
+      "source": "We can disagree without turning this into a fight.",
+      "semantic_note": {
+        "core_meaning": "The speaker says disagreement is possible without escalating into a fight. Preserve both the legitimacy of differing views and the request not to turn the disagreement into conflict; do not imply that the parties already fought.",
+        "must_keep": [
+          "Preserve the logical relation: without",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s007",
+      "split": "train",
+      "source": "I made a mistake, and I will take responsibility for it.",
+      "semantic_note": {
+        "core_meaning": "The speaker admits making a mistake and accepts responsibility for it. Preserve both the admission and personal accountability; do not add a specific consequence, excuse, or promise to repair it unless the target only paraphrases responsibility.",
+        "must_keep": [
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s008",
+      "split": "train",
+      "source": "I won't abandon someone just because things got difficult.",
+      "semantic_note": {
+        "core_meaning": "The speaker will not leave or abandon someone merely because circumstances become difficult. Preserve loyalty under hardship; do not invent a specific relationship, danger, or rescue.",
+        "must_keep": [
+          "Preserve the logical relation: won't",
+          "Preserve the logical relation: because",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s009",
+      "split": "train",
+      "source": "The evidence doesn't support what you're claiming.",
+      "semantic_note": {
+        "core_meaning": "The available evidence does not substantiate the other person's claim. Preserve the evidentiary challenge, not a stronger assertion that the claim is certainly false or that the person is deliberately lying.",
+        "must_keep": [
+          "Preserve the logical relation: doesn't",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s010",
+      "split": "train",
+      "source": "Let's hear everyone before we choose a direction.",
+      "semantic_note": {
+        "core_meaning": "The speaker proposes hearing everyone's views before selecting a direction. Preserve inclusive consultation before the decision; do not imply that a decision has already been made or that every suggestion must be accepted.",
+        "must_keep": [
+          "Preserve the logical relation: before",
+          "Preserve named entities: Let",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s011",
+      "split": "train",
+      "source": "I can forgive you, but rebuilding trust will take time.",
+      "semantic_note": {
+        "core_meaning": "The speaker is willing to forgive the other person, but rebuilding trust will require time. Preserve both forgiveness and the fact that trust is not immediately restored; do not equate forgiveness with full reconciliation.",
+        "must_keep": [
+          "Preserve the logical relation: but",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s012",
+      "split": "train",
+      "source": "Don't make a promise unless you intend to keep it.",
+      "semantic_note": {
+        "core_meaning": "The speaker advises making a promise only when one intends to keep it. Preserve the link between promising and genuine intent to fulfil it; do not claim that a particular promise has already been broken.",
+        "must_keep": [
+          "Preserve the logical relation: don't",
+          "Preserve the logical relation: unless",
+          "Preserve named entities: Don",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s013",
+      "split": "train",
+      "source": "I understand why you're angry, but threatening people won't solve it.",
+      "semantic_note": {
+        "core_meaning": "The speaker understands the other person's anger but says threats will not solve the problem. Preserve empathy for the anger and rejection of threats as a solution; do not imply the anger itself is unjustified or specify a different remedy.",
+        "must_keep": [
+          "Preserve the logical relation: won't",
+          "Preserve the logical relation: but",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s014",
+      "split": "train",
+      "source": "We have one chance to get this right, so prepare carefully.",
+      "semantic_note": {
+        "core_meaning": "There is only one opportunity to get the task right, so careful preparation is necessary. Preserve the limited opportunity and need for preparation; do not invent the task, a deadline, or a guaranteed outcome.",
+        "must_keep": [
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s015",
+      "split": "train",
+      "source": "I would rather hear an uncomfortable truth than a comforting lie.",
+      "semantic_note": {
+        "core_meaning": "The speaker prefers an uncomfortable truth to a comforting lie. Preserve the preference for honesty even when unpleasant; do not imply that a particular person has already lied.",
+        "must_keep": [
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s016",
+      "split": "train",
+      "source": "You don't have to solve everything today.",
+      "semantic_note": {
+        "core_meaning": "The speaker reassures someone that they do not need to solve everything today. Preserve the reduced urgency and permission to make progress over time; do not suggest abandoning the problems entirely.",
+        "must_keep": [
+          "Preserve the logical relation: don't",
+          "Preserve named entities: You",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s017",
+      "split": "train",
+      "source": "If the plan fails, we need a backup ready.",
+      "semantic_note": {
+        "core_meaning": "If the current plan fails, a backup plan needs to be ready. Preserve the conditional risk and need for an alternative; do not claim the primary plan has already failed.",
+        "must_keep": [
+          "Preserve the logical relation: if",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s018",
+      "split": "train",
+      "source": "I won't let fear make this decision for me.",
+      "semantic_note": {
+        "core_meaning": "The speaker will not allow fear to determine the decision. Preserve agency despite fear; do not imply the speaker feels no fear or that the decision itself is already known.",
+        "must_keep": [
+          "Preserve the logical relation: won't",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s019",
+      "split": "train",
+      "source": "The team needs a clear answer, not another delay.",
+      "semantic_note": {
+        "core_meaning": "The team needs a clear answer and should not be kept waiting through another delay. Preserve the need for clarity and urgency; do not invent what the answer should be.",
+        "must_keep": [
+          "Preserve the logical relation: not",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s020",
+      "split": "train",
+      "source": "I need you to listen, not just wait for your turn to speak.",
+      "semantic_note": {
+        "core_meaning": "The speaker asks the listener to genuinely listen rather than merely wait for a chance to speak. Preserve the contrast between listening and preparing to respond; do not turn it into a demand for agreement or silence.",
+        "must_keep": [
+          "Preserve the logical relation: not",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s021",
+      "split": "train",
+      "source": "I won't sign anything I haven't read carefully.",
+      "semantic_note": {
+        "core_meaning": "The speaker will not sign a document or agreement before reading it carefully. Preserve the refusal to sign without review; do not imply the document has already been signed or that its contents are fraudulent.",
+        "must_keep": [
+          "Preserve the logical relation: won't",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s022",
+      "split": "train",
+      "source": "Your past doesn't have to decide your future.",
+      "semantic_note": {
+        "core_meaning": "The speaker says a person's past need not determine their future. Preserve the possibility of change and future agency; do not erase the relevance of past events or promise a particular future outcome.",
+        "must_keep": [
+          "Preserve the logical relation: doesn't",
+          "Preserve named entities: Your",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s023",
+      "split": "train",
+      "source": "We should check the facts before blaming anyone.",
+      "semantic_note": {
+        "core_meaning": "The speaker recommends checking facts before assigning blame. Preserve the order: investigate first, blame only after checking; do not imply anyone is already proven innocent or guilty.",
+        "must_keep": [
+          "Preserve the logical relation: before",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s024",
+      "split": "train",
+      "source": "I can work with a difficult person if they are honest.",
+      "semantic_note": {
+        "core_meaning": "The speaker can work with a difficult person provided that person is honest. Preserve the condition that honesty makes collaboration possible; do not equate a difficult temperament with dishonesty.",
+        "must_keep": [
+          "Preserve the logical relation: if",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s025",
+      "split": "train",
+      "source": "I need a clear boundary, and I need you to respect it.",
+      "semantic_note": {
+        "core_meaning": "The speaker states a clear personal boundary and asks the other person to respect it. Preserve both the boundary and the request for respect; do not invent the boundary's specific content.",
+        "must_keep": [
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s026",
+      "split": "train",
+      "source": "We should not confuse confidence with certainty.",
+      "semantic_note": {
+        "core_meaning": "The speaker warns that confidence is not the same as certainty. Preserve the distinction between feeling assured and knowing something conclusively; do not imply confidence is always bad.",
+        "must_keep": [
+          "Preserve the logical relation: not",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s027",
+      "split": "train",
+      "source": "If you need to change the plan, tell me early.",
+      "semantic_note": {
+        "core_meaning": "If the plan needs to change, the speaker wants to be told early. Preserve the conditional change and advance-notice requirement; do not imply a change has already happened.",
+        "must_keep": [
+          "Preserve the logical relation: if",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s028",
+      "split": "train",
+      "source": "I don't want praise; I want the problem fixed.",
+      "semantic_note": {
+        "core_meaning": "The speaker wants the problem fixed rather than receiving praise. Preserve the priority of practical resolution over compliments; do not imply praise is unwelcome in every context.",
+        "must_keep": [
+          "Preserve the logical relation: don't",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s029",
+      "split": "train",
+      "source": "We need to protect the people who depend on us.",
+      "semantic_note": {
+        "core_meaning": "The speaker says people who depend on the group need to be protected. Preserve responsibility for those relying on them; do not invent the identity of those people or a specific threat.",
+        "must_keep": [
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s030",
+      "split": "train",
+      "source": "A quick answer is useless if it sends us in the wrong direction.",
+      "semantic_note": {
+        "core_meaning": "A fast answer is not useful if it sends the team in the wrong direction. Preserve the trade-off between speed and correctness; do not imply that speed is always undesirable or specify the correct direction.",
+        "must_keep": [
+          "Preserve the logical relation: if",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s031",
+      "split": "train",
+      "source": "I need proof that this will work before I approve it.",
+      "semantic_note": {
+        "core_meaning": "The speaker requires evidence that something will work before approving it. Preserve the proof-before-approval condition; do not imply approval has already been granted or that evidence guarantees success.",
+        "must_keep": [
+          "Preserve the logical relation: before",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s032",
+      "split": "train",
+      "source": "Don't punish the whole team for one person's mistake.",
+      "semantic_note": {
+        "core_meaning": "The speaker objects to punishing the entire team for one individual's mistake. Preserve the distinction between individual responsibility and collective punishment; do not claim the mistake's details or that the individual should face no accountability.",
+        "must_keep": [
+          "Preserve the logical relation: don't",
+          "Preserve named entities: Don",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s033",
+      "split": "train",
+      "source": "I am willing to start again, but not pretend nothing happened.",
+      "semantic_note": {
+        "core_meaning": "The speaker is willing to begin again but refuses to pretend the past incident never happened. Preserve both openness to a fresh start and acknowledgement of what occurred; do not imply the issue is fully resolved or forgiven.",
+        "must_keep": [
+          "Preserve the logical relation: not",
+          "Preserve the logical relation: but",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s034",
+      "split": "train",
+      "source": "You can ask for help without giving up control.",
+      "semantic_note": {
+        "core_meaning": "The speaker says a person can ask for help without surrendering control. Preserve the compatibility of receiving assistance and retaining decision-making agency; do not imply help must be accepted or that control is absolute.",
+        "must_keep": [
+          "Preserve the logical relation: without",
+          "Preserve named entities: You",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s035",
+      "split": "train",
+      "source": "I won't let one bad day define the entire project.",
+      "semantic_note": {
+        "core_meaning": "The speaker will not let one bad day define the entire project. Preserve the limited scope of the setback and the refusal to judge the whole project by it; do not claim the project is succeeding overall.",
+        "must_keep": [
+          "Preserve the logical relation: won't",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s036",
+      "split": "train",
+      "source": "If we hide the risk, we cannot manage it.",
+      "semantic_note": {
+        "core_meaning": "The speaker says a risk cannot be managed if it is hidden. Preserve the need to surface risks in order to address them; do not imply that disclosure alone eliminates the risk.",
+        "must_keep": [
+          "Preserve the logical relation: cannot",
+          "Preserve the logical relation: if",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s037",
+      "split": "train",
+      "source": "I respect your experience, but we still need to test the idea.",
+      "semantic_note": {
+        "core_meaning": "The speaker respects another person's experience but still wants the idea tested. Preserve both respect for expertise and the need for empirical checking; do not frame the experienced person as incompetent.",
+        "must_keep": [
+          "Preserve the logical relation: but",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s038",
+      "split": "train",
+      "source": "I need a decision today, even if the answer is no.",
+      "semantic_note": {
+        "core_meaning": "The speaker needs a decision today, even if it is a rejection. Preserve the deadline and acceptance that the answer may be no; do not change the request into a demand for approval.",
+        "must_keep": [
+          "Preserve the logical relation: no",
+          "Preserve the logical relation: if",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s039",
+      "split": "train",
+      "source": "I know the task is difficult, but we can break it into smaller steps.",
+      "semantic_note": {
+        "core_meaning": "The speaker acknowledges that a task is difficult but says it can be divided into smaller steps. Preserve both difficulty and the proposed stepwise approach; do not claim the task is easy or guaranteed to succeed.",
+        "must_keep": [
+          "Preserve the logical relation: but",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s040",
+      "split": "train",
+      "source": "I need you to tell me when you are unsure instead of guessing.",
+      "semantic_note": {
+        "core_meaning": "The speaker asks the listener to admit uncertainty instead of guessing. Preserve transparent uncertainty over unsupported confidence; do not imply that the listener must know every answer.",
+        "must_keep": [
+          "Preserve the logical relation: instead of",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s041",
+      "split": "validation",
+      "source": "We should celebrate the progress without ignoring the remaining work.",
+      "semantic_note": {
+        "core_meaning": "The speaker supports celebrating progress while keeping the remaining work in view. Preserve both recognition of progress and awareness that work remains; do not imply the project is complete.",
+        "must_keep": [
+          "Preserve the logical relation: without",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s042",
+      "split": "validation",
+      "source": "I will support the decision once everyone understands the trade-offs.",
+      "semantic_note": {
+        "core_meaning": "The speaker will support a decision once everyone understands its trade-offs. Preserve the condition of shared understanding before support; do not imply everyone must agree with the decision or that support has already been given.",
+        "must_keep": [
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s043",
+      "split": "validation",
+      "source": "Don't confuse being busy with making progress.",
+      "semantic_note": {
+        "core_meaning": "The speaker warns that being busy is not the same as making progress. Preserve the distinction between activity and meaningful results; do not imply that the people involved are intentionally wasting time.",
+        "must_keep": [
+          "Preserve the logical relation: don't",
+          "Preserve named entities: Don",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s044",
+      "split": "validation",
+      "source": "I want a solution that works for the people using it, not just the people building it.",
+      "semantic_note": {
+        "core_meaning": "The speaker wants a solution that works for its users, not merely one that satisfies its builders. Preserve user benefit as the success criterion; do not imply builders' needs are irrelevant.",
+        "must_keep": [
+          "Preserve the logical relation: not",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s045",
+      "split": "validation",
+      "source": "If we keep avoiding the hard conversation, nothing will change.",
+      "semantic_note": {
+        "core_meaning": "The speaker says avoiding a difficult conversation will prevent change. Preserve the causal link between continued avoidance and lack of change; do not invent the topic or predict a specific outcome of the conversation.",
+        "must_keep": [
+          "Preserve the logical relation: if",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s046",
+      "split": "validation",
+      "source": "I don't need you to agree with me; I need you to be honest with me.",
+      "semantic_note": {
+        "core_meaning": "The speaker does not require agreement but does require honesty. Preserve the contrast between optional agreement and necessary candour; do not suggest disagreement is itself dishonest.",
+        "must_keep": [
+          "Preserve the logical relation: don't",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s047",
+      "split": "validation",
+      "source": "We should fix the cause instead of repeatedly treating the symptoms.",
+      "semantic_note": {
+        "core_meaning": "The speaker recommends fixing the underlying cause rather than repeatedly addressing surface symptoms. Preserve root-cause correction over recurring temporary treatment; do not invent the specific cause or claim symptoms never need treatment.",
+        "must_keep": [
+          "Preserve the logical relation: instead of",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s048",
+      "split": "validation",
+      "source": "I will not take credit for work that someone else did.",
+      "semantic_note": {
+        "core_meaning": "The speaker refuses to claim credit for work done by someone else. Preserve the commitment to honest attribution; do not imply the speaker did no work at all or that the other person has been credited already.",
+        "must_keep": [
+          "Preserve the logical relation: not",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s049",
+      "split": "validation",
+      "source": "The customer is confused because we gave them conflicting answers.",
+      "semantic_note": {
+        "core_meaning": "The customer is confused because the team gave conflicting answers. Preserve both the customer's confusion and the team's inconsistent responses as the cause; do not blame the customer or invent which answer is correct.",
+        "must_keep": [
+          "Preserve the logical relation: because",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s050",
+      "split": "validation",
+      "source": "Before we launch, someone should test the process from beginning to end.",
+      "semantic_note": {
+        "core_meaning": "Before launch, someone should test the entire process from beginning to end. Preserve the pre-launch timing and end-to-end scope; do not imply testing has already happened or guarantee it will uncover every defect.",
+        "must_keep": [
+          "Preserve the logical relation: before",
+          "Preserve named entities: Before",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s051",
+      "split": "test",
+      "source": "I can accept a delay if you explain the reason and the new timeline.",
+      "semantic_note": {
+        "core_meaning": "The speaker can accept a delay if given its reason and a revised timeline. Preserve the conditional acceptance and both required pieces of information; do not imply any delay is automatically acceptable without explanation.",
+        "must_keep": [
+          "Preserve the logical relation: if",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s052",
+      "split": "test",
+      "source": "We need to make the process simpler for someone doing it for the first time.",
+      "semantic_note": {
+        "core_meaning": "The process should be easier for a first-time user to complete. Preserve the need for simplicity and accessibility to newcomers; do not imply expert users should lose necessary capabilities.",
+        "must_keep": [
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s053",
+      "split": "test",
+      "source": "I want us to learn from the failure instead of hiding it.",
+      "semantic_note": {
+        "core_meaning": "The speaker wants the team to learn from a failure rather than conceal it. Preserve both learning from the failure and rejecting concealment; do not imply the failure should be celebrated or that its consequences disappear.",
+        "must_keep": [
+          "Preserve the logical relation: instead of",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s054",
+      "split": "test",
+      "source": "We cannot promise a date until the team confirms the estimate.",
+      "semantic_note": {
+        "core_meaning": "A date cannot be promised until the team confirms its estimate. Preserve the dependency on team confirmation before committing to a date; do not invent a date or imply the team has already confirmed one.",
+        "must_keep": [
+          "Preserve the logical relation: cannot",
+          "Preserve the logical relation: until",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s055",
+      "split": "test",
+      "source": "I need the freedom to question the plan without being labelled negative.",
+      "semantic_note": {
+        "core_meaning": "The speaker wants to question the plan without being labelled negative. Preserve the freedom to raise questions and the objection to that label; do not imply the speaker rejects the plan outright.",
+        "must_keep": [
+          "Preserve the logical relation: without",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s056",
+      "split": "test",
+      "source": "If the information is incomplete, we should say so clearly.",
+      "semantic_note": {
+        "core_meaning": "When information is incomplete, that limitation should be stated clearly. Preserve explicit disclosure of incompleteness; do not present uncertain information as established fact or imply that no information is available.",
+        "must_keep": [
+          "Preserve the logical relation: if",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s057",
+      "split": "test",
+      "source": "I will stand by you, but I won't lie for you.",
+      "semantic_note": {
+        "core_meaning": "The speaker will remain supportive of the other person but will not lie on their behalf. Preserve loyalty together with a refusal to deceive; do not imply abandonment or unconditional agreement.",
+        "must_keep": [
+          "Preserve the logical relation: won't",
+          "Preserve the logical relation: but",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s058",
+      "split": "test",
+      "source": "Let's separate what we know from what we are assuming.",
+      "semantic_note": {
+        "core_meaning": "The speaker wants known facts separated from assumptions. Preserve the distinction between established information and what is merely inferred or presumed; do not claim every assumption is false.",
+        "must_keep": [
+          "Preserve named entities: Let",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s059",
+      "split": "test",
+      "source": "A good solution should still work when the original expert is unavailable.",
+      "semantic_note": {
+        "core_meaning": "A good solution should continue working when the original expert is unavailable. Preserve resilience beyond dependence on one particular expert; do not imply that expertise is unnecessary or that the solution needs no maintenance.",
+        "must_keep": [
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s060",
+      "split": "test",
+      "source": "I want a fair outcome, even if it is not the outcome I hoped for.",
+      "semantic_note": {
+        "core_meaning": "The speaker wants a fair outcome even if it differs from the outcome they personally hoped for. Preserve fairness as more important than personal preference; do not imply the speaker likes or agrees with the eventual result.",
+        "must_keep": [
+          "Preserve the logical relation: not",
+          "Preserve the logical relation: if",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s061",
+      "split": "train",
+      "source": "I never said I would pay for it.",
+      "semantic_note": {
+        "core_meaning": "Preserve the proposition, facts, intent and logic in: I never said I would pay for it.",
+        "must_keep": [
+          "Preserve the logical relation: never",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s062",
+      "split": "train",
+      "source": "Call me once the report is ready, not before.",
+      "semantic_note": {
+        "core_meaning": "Preserve the proposition, facts, intent and logic in: Call me once the report is ready, not before.",
+        "must_keep": [
+          "Preserve the logical relation: not",
+          "Preserve the logical relation: before",
+          "Preserve named entities: Call",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s063",
+      "split": "train",
+      "source": "The meeting moved from Tuesday to Thursday at 4 pm.",
+      "semantic_note": {
+        "core_meaning": "Preserve the proposition, facts, intent and logic in: The meeting moved from Tuesday to Thursday at 4 pm.",
+        "must_keep": [
+          "Preserve numeric values and their relationships: 4",
+          "Preserve named entities: Tuesday, Thursday",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s064",
+      "split": "train",
+      "source": "Tell Ravi the keys are with Meera.",
+      "semantic_note": {
+        "core_meaning": "Preserve the proposition, facts, intent and logic in: Tell Ravi the keys are with Meera.",
+        "must_keep": [
+          "Preserve named entities: Tell Ravi, Meera",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s065",
+      "split": "train",
+      "source": "Did anyone check the second invoice?",
+      "semantic_note": {
+        "core_meaning": "Preserve the proposition, facts, intent and logic in: Did anyone check the second invoice?",
+        "must_keep": [
+          "Preserve named entities: Did",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s066",
+      "split": "train",
+      "source": "Please send me the photos tonight.",
+      "semantic_note": {
+        "core_meaning": "Preserve the proposition, facts, intent and logic in: Please send me the photos tonight.",
+        "must_keep": [
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s067",
+      "split": "train",
+      "source": "I am sorry I missed your call; I was on the train.",
+      "semantic_note": {
+        "core_meaning": "Preserve the proposition, facts, intent and logic in: I am sorry I missed your call; I was on the train.",
+        "must_keep": [
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s068",
+      "split": "train",
+      "source": "We can leave after Neha finishes her appointment.",
+      "semantic_note": {
+        "core_meaning": "Preserve the proposition, facts, intent and logic in: We can leave after Neha finishes her appointment.",
+        "must_keep": [
+          "Preserve the logical relation: after",
+          "Preserve named entities: Neha",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s069",
+      "split": "train",
+      "source": "Don't send the package until I confirm the address.",
+      "semantic_note": {
+        "core_meaning": "Preserve the proposition, facts, intent and logic in: Don't send the package until I confirm the address.",
+        "must_keep": [
+          "Preserve the logical relation: don't",
+          "Preserve the logical relation: until",
+          "Preserve named entities: Don",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s070",
+      "split": "train",
+      "source": "The shop closes at 8, so we need to leave by 7:30.",
+      "semantic_note": {
+        "core_meaning": "Preserve the proposition, facts, intent and logic in: The shop closes at 8, so we need to leave by 7:30.",
+        "must_keep": [
+          "Preserve numeric values and their relationships: 8, 7:30",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s071",
+      "split": "train",
+      "source": "I ordered two blue shirts, not three black ones.",
+      "semantic_note": {
+        "core_meaning": "Preserve the proposition, facts, intent and logic in: I ordered two blue shirts, not three black ones.",
+        "must_keep": [
+          "Preserve the logical relation: not",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s072",
+      "split": "train",
+      "source": "Unless the rain stops, the match will start late.",
+      "semantic_note": {
+        "core_meaning": "Preserve the proposition, facts, intent and logic in: Unless the rain stops, the match will start late.",
+        "must_keep": [
+          "Preserve the logical relation: unless",
+          "Preserve named entities: Unless",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s073",
+      "split": "train",
+      "source": "I have already paid the electricity bill for October.",
+      "semantic_note": {
+        "core_meaning": "Preserve the proposition, facts, intent and logic in: I have already paid the electricity bill for October.",
+        "must_keep": [
+          "Preserve named entities: October",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s074",
+      "split": "train",
+      "source": "Please don't wake Dad before 6 am.",
+      "semantic_note": {
+        "core_meaning": "Preserve the proposition, facts, intent and logic in: Please don't wake Dad before 6 am.",
+        "must_keep": [
+          "Preserve numeric values and their relationships: 6",
+          "Preserve the logical relation: don't",
+          "Preserve the logical relation: before",
+          "Preserve named entities: Dad",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s075",
+      "split": "train",
+      "source": "I can pick up Asha at 5:15 if the bus is on time.",
+      "semantic_note": {
+        "core_meaning": "Preserve the proposition, facts, intent and logic in: I can pick up Asha at 5:15 if the bus is on time.",
+        "must_keep": [
+          "Preserve numeric values and their relationships: 5:15",
+          "Preserve the logical relation: if",
+          "Preserve named entities: Asha",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s076",
+      "split": "train",
+      "source": "The phone is cheaper online, but delivery takes four days.",
+      "semantic_note": {
+        "core_meaning": "Preserve the proposition, facts, intent and logic in: The phone is cheaper online, but delivery takes four days.",
+        "must_keep": [
+          "Preserve the logical relation: but",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s077",
+      "split": "train",
+      "source": "I will not share your number without asking you first.",
+      "semantic_note": {
+        "core_meaning": "Preserve the proposition, facts, intent and logic in: I will not share your number without asking you first.",
+        "must_keep": [
+          "Preserve the logical relation: not",
+          "Preserve the logical relation: without",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s078",
+      "split": "train",
+      "source": "Maya left her umbrella at the school gate.",
+      "semantic_note": {
+        "core_meaning": "Preserve the proposition, facts, intent and logic in: Maya left her umbrella at the school gate.",
+        "must_keep": [
+          "Preserve named entities: Maya",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s079",
+      "split": "train",
+      "source": "We missed the earlier bus because the driver left five minutes early.",
+      "semantic_note": {
+        "core_meaning": "Preserve the proposition, facts, intent and logic in: We missed the earlier bus because the driver left five minutes early.",
+        "must_keep": [
+          "Preserve the logical relation: because",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s080",
+      "split": "train",
+      "source": "I can lend you 500 rupees, but I need it back by Friday.",
+      "semantic_note": {
+        "core_meaning": "Preserve the proposition, facts, intent and logic in: I can lend you 500 rupees, but I need it back by Friday.",
+        "must_keep": [
+          "Preserve numeric values and their relationships: 500",
+          "Preserve the logical relation: but",
+          "Preserve named entities: Friday",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s081",
+      "split": "train",
+      "source": "If you have not booked the tickets, don't pay the seller yet.",
+      "semantic_note": {
+        "core_meaning": "Preserve the proposition, facts, intent and logic in: If you have not booked the tickets, don't pay the seller yet.",
+        "must_keep": [
+          "Preserve the logical relation: not",
+          "Preserve the logical relation: don't",
+          "Preserve the logical relation: if",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s082",
+      "split": "train",
+      "source": "I prefer tea without sugar, even when it is cold.",
+      "semantic_note": {
+        "core_meaning": "Preserve the proposition, facts, intent and logic in: I prefer tea without sugar, even when it is cold.",
+        "must_keep": [
+          "Preserve the logical relation: without",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s083",
+      "split": "train",
+      "source": "We should buy only what is on the list.",
+      "semantic_note": {
+        "core_meaning": "Preserve the proposition, facts, intent and logic in: We should buy only what is on the list.",
+        "must_keep": [
+          "Preserve the logical relation: only",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s084",
+      "split": "train",
+      "source": "The clinic is closed on Sundays, so book for Monday.",
+      "semantic_note": {
+        "core_meaning": "Preserve the proposition, facts, intent and logic in: The clinic is closed on Sundays, so book for Monday.",
+        "must_keep": [
+          "Preserve named entities: Sundays, Monday",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s085",
+      "split": "train",
+      "source": "I took the wrong exit and reached the old bridge.",
+      "semantic_note": {
+        "core_meaning": "Preserve the proposition, facts, intent and logic in: I took the wrong exit and reached the old bridge.",
+        "must_keep": [
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s086",
+      "split": "train",
+      "source": "Don't delete the message until I take a screenshot.",
+      "semantic_note": {
+        "core_meaning": "Preserve the proposition, facts, intent and logic in: Don't delete the message until I take a screenshot.",
+        "must_keep": [
+          "Preserve the logical relation: don't",
+          "Preserve the logical relation: until",
+          "Preserve named entities: Don",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s087",
+      "split": "train",
+      "source": "I will bring the rice if you make the vegetables.",
+      "semantic_note": {
+        "core_meaning": "Preserve the proposition, facts, intent and logic in: I will bring the rice if you make the vegetables.",
+        "must_keep": [
+          "Preserve the logical relation: if",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s088",
+      "split": "train",
+      "source": "The parcel arrived today, but one glass is broken.",
+      "semantic_note": {
+        "core_meaning": "Preserve the proposition, facts, intent and logic in: The parcel arrived today, but one glass is broken.",
+        "must_keep": [
+          "Preserve the logical relation: but",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s089",
+      "split": "train",
+      "source": "I have two exams next week, on Wednesday and Friday.",
+      "semantic_note": {
+        "core_meaning": "Preserve the proposition, facts, intent and logic in: I have two exams next week, on Wednesday and Friday.",
+        "must_keep": [
+          "Preserve named entities: Wednesday, Friday",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s090",
+      "split": "train",
+      "source": "Please keep the receipt in case we need to return the shoes.",
+      "semantic_note": {
+        "core_meaning": "Preserve the proposition, facts, intent and logic in: Please keep the receipt in case we need to return the shoes.",
+        "must_keep": [
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s091",
+      "split": "train",
+      "source": "I didn't cancel the booking; the hotel changed it.",
+      "semantic_note": {
+        "core_meaning": "Preserve the proposition, facts, intent and logic in: I didn't cancel the booking; the hotel changed it.",
+        "must_keep": [
+          "Preserve the logical relation: didn't",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s092",
+      "split": "train",
+      "source": "If the medicine makes you dizzy, call the doctor before taking another dose.",
+      "semantic_note": {
+        "core_meaning": "Preserve the proposition, facts, intent and logic in: If the medicine makes you dizzy, call the doctor before taking another dose.",
+        "must_keep": [
+          "Preserve the logical relation: before",
+          "Preserve the logical relation: if",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s093",
+      "split": "train",
+      "source": "I can meet at the station at 6:40, but I cannot wait past 7.",
+      "semantic_note": {
+        "core_meaning": "Preserve the proposition, facts, intent and logic in: I can meet at the station at 6:40, but I cannot wait past 7.",
+        "must_keep": [
+          "Preserve numeric values and their relationships: 6:40, 7",
+          "Preserve the logical relation: cannot",
+          "Preserve the logical relation: but",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s094",
+      "split": "train",
+      "source": "We need three copies, one for each department.",
+      "semantic_note": {
+        "core_meaning": "Preserve the proposition, facts, intent and logic in: We need three copies, one for each department.",
+        "must_keep": [
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s095",
+      "split": "train",
+      "source": "I am grateful you checked on Grandma yesterday.",
+      "semantic_note": {
+        "core_meaning": "Preserve the proposition, facts, intent and logic in: I am grateful you checked on Grandma yesterday.",
+        "must_keep": [
+          "Preserve named entities: Grandma",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s096",
+      "split": "train",
+      "source": "Don't tell Arjun the surprise plan before Saturday.",
+      "semantic_note": {
+        "core_meaning": "Preserve the proposition, facts, intent and logic in: Don't tell Arjun the surprise plan before Saturday.",
+        "must_keep": [
+          "Preserve the logical relation: don't",
+          "Preserve the logical relation: before",
+          "Preserve named entities: Don, Arjun, Saturday",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s097",
+      "split": "train",
+      "source": "The internet stopped working after the power cut.",
+      "semantic_note": {
+        "core_meaning": "Preserve the proposition, facts, intent and logic in: The internet stopped working after the power cut.",
+        "must_keep": [
+          "Preserve the logical relation: after",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s098",
+      "split": "train",
+      "source": "I can stay for 20 minutes, not the whole evening.",
+      "semantic_note": {
+        "core_meaning": "Preserve the proposition, facts, intent and logic in: I can stay for 20 minutes, not the whole evening.",
+        "must_keep": [
+          "Preserve numeric values and their relationships: 20",
+          "Preserve the logical relation: not",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s099",
+      "split": "train",
+      "source": "Please charge the power bank before we leave at 9.",
+      "semantic_note": {
+        "core_meaning": "Preserve the proposition, facts, intent and logic in: Please charge the power bank before we leave at 9.",
+        "must_keep": [
+          "Preserve numeric values and their relationships: 9",
+          "Preserve the logical relation: before",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s100",
+      "split": "train",
+      "source": "I have not received the refund, although the app says it was processed.",
+      "semantic_note": {
+        "core_meaning": "Preserve the proposition, facts, intent and logic in: I have not received the refund, although the app says it was processed.",
+        "must_keep": [
+          "Preserve the logical relation: not",
+          "Preserve the logical relation: although",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s101",
+      "split": "train",
+      "source": "We should leave the spare key with Kavita, not under the mat.",
+      "semantic_note": {
+        "core_meaning": "Preserve the proposition, facts, intent and logic in: We should leave the spare key with Kavita, not under the mat.",
+        "must_keep": [
+          "Preserve the logical relation: not",
+          "Preserve named entities: Kavita",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s102",
+      "split": "train",
+      "source": "The train was delayed by 35 minutes because of fog.",
+      "semantic_note": {
+        "core_meaning": "Preserve the proposition, facts, intent and logic in: The train was delayed by 35 minutes because of fog.",
+        "must_keep": [
+          "Preserve numeric values and their relationships: 35",
+          "Preserve the logical relation: because",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s103",
+      "split": "train",
+      "source": "I will send the file after I remove the customer details.",
+      "semantic_note": {
+        "core_meaning": "Preserve the proposition, facts, intent and logic in: I will send the file after I remove the customer details.",
+        "must_keep": [
+          "Preserve the logical relation: after",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s104",
+      "split": "train",
+      "source": "If Tara calls while I am driving, please text her that I will call later.",
+      "semantic_note": {
+        "core_meaning": "Preserve the proposition, facts, intent and logic in: If Tara calls while I am driving, please text her that I will call later.",
+        "must_keep": [
+          "Preserve the logical relation: if",
+          "Preserve named entities: If Tara",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s105",
+      "split": "train",
+      "source": "I need the smaller bag because the larger one will not fit under the seat.",
+      "semantic_note": {
+        "core_meaning": "Preserve the proposition, facts, intent and logic in: I need the smaller bag because the larger one will not fit under the seat.",
+        "must_keep": [
+          "Preserve the logical relation: not",
+          "Preserve the logical relation: because",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s106",
+      "split": "train",
+      "source": "We have enough milk for breakfast, but not enough for the cake.",
+      "semantic_note": {
+        "core_meaning": "Preserve the proposition, facts, intent and logic in: We have enough milk for breakfast, but not enough for the cake.",
+        "must_keep": [
+          "Preserve the logical relation: not",
+          "Preserve the logical relation: but",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s107",
+      "split": "train",
+      "source": "I forgot to lock the back door, so please check it now.",
+      "semantic_note": {
+        "core_meaning": "Preserve the proposition, facts, intent and logic in: I forgot to lock the back door, so please check it now.",
+        "must_keep": [
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s108",
+      "split": "train",
+      "source": "The school bus comes at 7:10, not 7:30.",
+      "semantic_note": {
+        "core_meaning": "Preserve the proposition, facts, intent and logic in: The school bus comes at 7:10, not 7:30.",
+        "must_keep": [
+          "Preserve numeric values and their relationships: 7:10, 7:30",
+          "Preserve the logical relation: not",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s109",
+      "split": "train",
+      "source": "I will join the call, unless my appointment runs late.",
+      "semantic_note": {
+        "core_meaning": "Preserve the proposition, facts, intent and logic in: I will join the call, unless my appointment runs late.",
+        "must_keep": [
+          "Preserve the logical relation: unless",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s110",
+      "split": "train",
+      "source": "No one has replied to the message I sent on Monday.",
+      "semantic_note": {
+        "core_meaning": "Preserve the proposition, facts, intent and logic in: No one has replied to the message I sent on Monday.",
+        "must_keep": [
+          "Preserve the logical relation: no",
+          "Preserve named entities: Monday",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s111",
+      "split": "train",
+      "source": "Please put the frozen peas in the freezer, not the fridge.",
+      "semantic_note": {
+        "core_meaning": "Preserve the proposition, facts, intent and logic in: Please put the frozen peas in the freezer, not the fridge.",
+        "must_keep": [
+          "Preserve the logical relation: not",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s112",
+      "split": "train",
+      "source": "I can exchange the shirt only if the tag is still attached.",
+      "semantic_note": {
+        "core_meaning": "Preserve the proposition, facts, intent and logic in: I can exchange the shirt only if the tag is still attached.",
+        "must_keep": [
+          "Preserve the logical relation: only",
+          "Preserve the logical relation: if",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s113",
+      "split": "train",
+      "source": "We arrived early, but the museum had not opened yet.",
+      "semantic_note": {
+        "core_meaning": "Preserve the proposition, facts, intent and logic in: We arrived early, but the museum had not opened yet.",
+        "must_keep": [
+          "Preserve the logical relation: not",
+          "Preserve the logical relation: but",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s114",
+      "split": "train",
+      "source": "I can help you move on Sunday, provided you book the van.",
+      "semantic_note": {
+        "core_meaning": "Preserve the proposition, facts, intent and logic in: I can help you move on Sunday, provided you book the van.",
+        "must_keep": [
+          "Preserve named entities: Sunday",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s115",
+      "split": "train",
+      "source": "The bill includes delivery, so do not pay an extra fee.",
+      "semantic_note": {
+        "core_meaning": "Preserve the proposition, facts, intent and logic in: The bill includes delivery, so do not pay an extra fee.",
+        "must_keep": [
+          "Preserve the logical relation: not",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s116",
+      "split": "train",
+      "source": "I will return the library book tomorrow morning.",
+      "semantic_note": {
+        "core_meaning": "Preserve the proposition, facts, intent and logic in: I will return the library book tomorrow morning.",
+        "must_keep": [
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s117",
+      "split": "train",
+      "source": "Don't mix the two orders; one is for Nikhil and one is for Rupa.",
+      "semantic_note": {
+        "core_meaning": "Preserve the proposition, facts, intent and logic in: Don't mix the two orders; one is for Nikhil and one is for Rupa.",
+        "must_keep": [
+          "Preserve the logical relation: don't",
+          "Preserve named entities: Don, Nikhil, Rupa",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s118",
+      "split": "train",
+      "source": "The recipe needs 250 grams of flour, not 500.",
+      "semantic_note": {
+        "core_meaning": "Preserve the proposition, facts, intent and logic in: The recipe needs 250 grams of flour, not 500.",
+        "must_keep": [
+          "Preserve numeric values and their relationships: 250, 500",
+          "Preserve the logical relation: not",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s119",
+      "split": "train",
+      "source": "I won't approve the expense until I see the original receipt.",
+      "semantic_note": {
+        "core_meaning": "Preserve the proposition, facts, intent and logic in: I won't approve the expense until I see the original receipt.",
+        "must_keep": [
+          "Preserve the logical relation: won't",
+          "Preserve the logical relation: until",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s120",
+      "split": "train",
+      "source": "If the lift is still broken, use the stairs to the third floor.",
+      "semantic_note": {
+        "core_meaning": "Preserve the proposition, facts, intent and logic in: If the lift is still broken, use the stairs to the third floor.",
+        "must_keep": [
+          "Preserve the logical relation: if",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s121",
+      "split": "validation",
+      "source": "I need a clear boundary, and I need you to respect it.",
+      "semantic_note": {
+        "core_meaning": "Preserve the proposition, facts, intent and logic in: I need a clear boundary, and I need you to respect it.",
+        "must_keep": [
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s122",
+      "split": "validation",
+      "source": "We should not confuse confidence with certainty.",
+      "semantic_note": {
+        "core_meaning": "Preserve the proposition, facts, intent and logic in: We should not confuse confidence with certainty.",
+        "must_keep": [
+          "Preserve the logical relation: not",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s123",
+      "split": "validation",
+      "source": "I don't want praise; I want the problem fixed.",
+      "semantic_note": {
+        "core_meaning": "Preserve the proposition, facts, intent and logic in: I don't want praise; I want the problem fixed.",
+        "must_keep": [
+          "Preserve the logical relation: don't",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s124",
+      "split": "validation",
+      "source": "We should fix the cause instead of repeatedly treating the symptoms.",
+      "semantic_note": {
+        "core_meaning": "Preserve the proposition, facts, intent and logic in: We should fix the cause instead of repeatedly treating the symptoms.",
+        "must_keep": [
+          "Preserve the logical relation: instead of",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s125",
+      "split": "validation",
+      "source": "The customer is confused because we gave them conflicting answers.",
+      "semantic_note": {
+        "core_meaning": "Preserve the proposition, facts, intent and logic in: The customer is confused because we gave them conflicting answers.",
+        "must_keep": [
+          "Preserve the logical relation: because",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s126",
+      "split": "validation",
+      "source": "Before we launch, someone should test the process from beginning to end.",
+      "semantic_note": {
+        "core_meaning": "Preserve the proposition, facts, intent and logic in: Before we launch, someone should test the process from beginning to end.",
+        "must_keep": [
+          "Preserve the logical relation: before",
+          "Preserve named entities: Before",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s127",
+      "split": "validation",
+      "source": "I can accept a delay if you explain the reason and the new timeline.",
+      "semantic_note": {
+        "core_meaning": "Preserve the proposition, facts, intent and logic in: I can accept a delay if you explain the reason and the new timeline.",
+        "must_keep": [
+          "Preserve the logical relation: if",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s128",
+      "split": "validation",
+      "source": "We need to make the process simpler for someone doing it for the first time.",
+      "semantic_note": {
+        "core_meaning": "Preserve the proposition, facts, intent and logic in: We need to make the process simpler for someone doing it for the first time.",
+        "must_keep": [
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s129",
+      "split": "validation",
+      "source": "We cannot promise a date until the team confirms the estimate.",
+      "semantic_note": {
+        "core_meaning": "Preserve the proposition, facts, intent and logic in: We cannot promise a date until the team confirms the estimate.",
+        "must_keep": [
+          "Preserve the logical relation: cannot",
+          "Preserve the logical relation: until",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s130",
+      "split": "validation",
+      "source": "If the information is incomplete, we should say so clearly.",
+      "semantic_note": {
+        "core_meaning": "Preserve the proposition, facts, intent and logic in: If the information is incomplete, we should say so clearly.",
+        "must_keep": [
+          "Preserve the logical relation: if",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s131",
+      "split": "validation",
+      "source": "Let's separate what we know from what we are assuming.",
+      "semantic_note": {
+        "core_meaning": "Preserve the proposition, facts, intent and logic in: Let's separate what we know from what we are assuming.",
+        "must_keep": [
+          "Preserve named entities: Let",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s132",
+      "split": "validation",
+      "source": "If the plan fails, we need a backup ready.",
+      "semantic_note": {
+        "core_meaning": "Preserve the proposition, facts, intent and logic in: If the plan fails, we need a backup ready.",
+        "must_keep": [
+          "Preserve the logical relation: if",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s133",
+      "split": "validation",
+      "source": "I need you to tell me when you are unsure instead of guessing.",
+      "semantic_note": {
+        "core_meaning": "Preserve the proposition, facts, intent and logic in: I need you to tell me when you are unsure instead of guessing.",
+        "must_keep": [
+          "Preserve the logical relation: instead of",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s134",
+      "split": "validation",
+      "source": "I don't need you to agree with me; I need you to be honest with me.",
+      "semantic_note": {
+        "core_meaning": "Preserve the proposition, facts, intent and logic in: I don't need you to agree with me; I need you to be honest with me.",
+        "must_keep": [
+          "Preserve the logical relation: don't",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s135",
+      "split": "validation",
+      "source": "I will stand by you, but I won't lie for you.",
+      "semantic_note": {
+        "core_meaning": "Preserve the proposition, facts, intent and logic in: I will stand by you, but I won't lie for you.",
+        "must_keep": [
+          "Preserve the logical relation: won't",
+          "Preserve the logical relation: but",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s136",
+      "split": "test",
+      "source": "I want a fair outcome, even if it is not the outcome I hoped for.",
+      "semantic_note": {
+        "core_meaning": "Preserve the proposition, facts, intent and logic in: I want a fair outcome, even if it is not the outcome I hoped for.",
+        "must_keep": [
+          "Preserve the logical relation: not",
+          "Preserve the logical relation: if",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s137",
+      "split": "test",
+      "source": "If Leo is late again, start the meeting without him.",
+      "semantic_note": {
+        "core_meaning": "Preserve the proposition, facts, intent and logic in: If Leo is late again, start the meeting without him.",
+        "must_keep": [
+          "Preserve the logical relation: without",
+          "Preserve the logical relation: if",
+          "Preserve named entities: If Leo",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s138",
+      "split": "test",
+      "source": "I need the original file, not a screenshot of it.",
+      "semantic_note": {
+        "core_meaning": "Preserve the proposition, facts, intent and logic in: I need the original file, not a screenshot of it.",
+        "must_keep": [
+          "Preserve the logical relation: not",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s139",
+      "split": "test",
+      "source": "We have saved 18,000 rupees, but the repair will cost 22,000.",
+      "semantic_note": {
+        "core_meaning": "Preserve the proposition, facts, intent and logic in: We have saved 18,000 rupees, but the repair will cost 22,000.",
+        "must_keep": [
+          "Preserve numeric values and their relationships: 18, 000, 22, 000",
+          "Preserve the logical relation: but",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s140",
+      "split": "test",
+      "source": "Do not give the spare medicine to anyone else.",
+      "semantic_note": {
+        "core_meaning": "Preserve the proposition, facts, intent and logic in: Do not give the spare medicine to anyone else.",
+        "must_keep": [
+          "Preserve the logical relation: not",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s141",
+      "split": "test",
+      "source": "Once the guests arrive, please serve the food.",
+      "semantic_note": {
+        "core_meaning": "Preserve the proposition, facts, intent and logic in: Once the guests arrive, please serve the food.",
+        "must_keep": [
+          "Preserve named entities: Once",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s142",
+      "split": "test",
+      "source": "I will call the mechanic if the engine makes that noise again.",
+      "semantic_note": {
+        "core_meaning": "Preserve the proposition, facts, intent and logic in: I will call the mechanic if the engine makes that noise again.",
+        "must_keep": [
+          "Preserve the logical relation: if",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s143",
+      "split": "test",
+      "source": "The blue folder belongs to Sana, while the green one is mine.",
+      "semantic_note": {
+        "core_meaning": "Preserve the proposition, facts, intent and logic in: The blue folder belongs to Sana, while the green one is mine.",
+        "must_keep": [
+          "Preserve named entities: Sana",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s144",
+      "split": "test",
+      "source": "I can take the 2:20 train, but not the 2:05 one.",
+      "semantic_note": {
+        "core_meaning": "Preserve the proposition, facts, intent and logic in: I can take the 2:20 train, but not the 2:05 one.",
+        "must_keep": [
+          "Preserve numeric values and their relationships: 2:20, 2:05",
+          "Preserve the logical relation: not",
+          "Preserve the logical relation: but",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s145",
+      "split": "test",
+      "source": "Please ask Farah before using her laptop.",
+      "semantic_note": {
+        "core_meaning": "Preserve the proposition, facts, intent and logic in: Please ask Farah before using her laptop.",
+        "must_keep": [
+          "Preserve the logical relation: before",
+          "Preserve named entities: Farah",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s146",
+      "split": "test",
+      "source": "The water filter needs a new cartridge every six months.",
+      "semantic_note": {
+        "core_meaning": "Preserve the proposition, facts, intent and logic in: The water filter needs a new cartridge every six months.",
+        "must_keep": [
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s147",
+      "split": "test",
+      "source": "I did not receive the parcel that was marked delivered yesterday.",
+      "semantic_note": {
+        "core_meaning": "Preserve the proposition, facts, intent and logic in: I did not receive the parcel that was marked delivered yesterday.",
+        "must_keep": [
+          "Preserve the logical relation: not",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s148",
+      "split": "test",
+      "source": "Unless both parents agree, the school trip form cannot be submitted.",
+      "semantic_note": {
+        "core_meaning": "Preserve the proposition, facts, intent and logic in: Unless both parents agree, the school trip form cannot be submitted.",
+        "must_keep": [
+          "Preserve the logical relation: cannot",
+          "Preserve the logical relation: unless",
+          "Preserve named entities: Unless",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s149",
+      "split": "test",
+      "source": "The technician will arrive between 11 am and noon.",
+      "semantic_note": {
+        "core_meaning": "Preserve the proposition, facts, intent and logic in: The technician will arrive between 11 am and noon.",
+        "must_keep": [
+          "Preserve numeric values and their relationships: 11",
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    },
+    {
+      "source_id": "s150",
+      "split": "test",
+      "source": "I would rather wait one day than send the wrong document.",
+      "semantic_note": {
+        "core_meaning": "Preserve the proposition, facts, intent and logic in: I would rather wait one day than send the wrong document.",
+        "must_keep": [
+          "Preserve who does what, the intent, and any condition, negation or commitment."
+        ],
+        "allowed_variation": "Tone, word order, register and framing may change for the persona; material facts and logical relationships may not."
+      }
+    }
+  ],
+  "review_status": "Drafts require independent fluent Hinglish review before final reporting."
+}
