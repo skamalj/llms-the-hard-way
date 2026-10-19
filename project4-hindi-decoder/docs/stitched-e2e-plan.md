@@ -138,6 +138,28 @@ Three runs, identical except the decoder (`4-translation-baseline/`). LoRA outpu
 - **Decision (proposed): Gemma 3 4B IT is the bridge decoder.** This departs from v2's default (Qwen-Instruct) on v2's own selection rule: validation performance, stopping and translation quality, at the cost of about 2.5× the training time. Bridge widths change to Gemma's hidden size (2560, to confirm from its config in Phase 2); the method does not.
 - Human scoring of Sheets A and B for Gemma is still needed to confirm the meaning gate (≥ 4 / 5); the rough reading suggests it is **not yet met**.
 
+### Per-persona scores and the three personas kept (2026-10-19)
+
+Gemma's LoRA outputs, all 10 validation sources + 6 out-of-domain sources per persona (16 each; test not used), scored by Claude: meaning 1–5 against the English source, fluency 1–5, persona fit 1–5, additions (none / harmless / material). File: [`4-translation-baseline/gemma-4b-scores-claude.csv`](../4-translation-baseline/gemma-4b-scores-claude.csv), one reason per score. **Not independent:** an AI scorer, not a native speaker; and blind recognition was not possible (the scorer had seen the labels), so persona fit stands in for it.
+
+| Persona | Meaning, validation | Meaning, all 16 | Meaning ≥ 4 | Fluency | Persona fit | Material additions | Stopped |
+|---|---|---|---|---|---|---|---|
+| **Don** | **3.6** | **4.00** | **12/16** | **3.56** | **4.06** | 1 | 16/16 |
+| **Anthony Gonsalves** | 3.2 | 3.62 | 10/16 | 3.06 | 3.75 | 1 | 14/16 (two loops) |
+| **Jai (Sholay)** | 3.4 | 3.56 | 8/16 | 3.44 | 3.19 | 2 | 16/16 |
+| Vijay (Deewar) | 3.2 | 3.50 | 9/16 | 3.25 | 2.25 | 1 | 16/16 |
+| Shahenshah | 2.5 | 3.12 | 7/16 | 2.75 | 2.62 | 5 | 16/16 |
+| Vijay Dinanath Chauhan (Agneepath) | 2.2 | 2.50 | 4/16 | 3.19 | 4.00 | 0 | 16/16 |
+
+**Decision: continue with three personas — Don, Anthony Gonsalves, Jai; drop the other three.** The project needs three.
+
+- **Don:** best on every measure, and the only persona at the meaning gate (4.00).
+- **Anthony:** second-best meaning, strongly recognisable; his failures (two loops, one meaning reversal, the "boss" tic in 30 of 40 training targets) are in the decoder-LoRA and data buckets, i.e. fixable.
+- **Jai:** third-best meaning, few errors of the unfixable kind.
+- **Dropped:** Vijay (meaning similar to Jai's but the weakest persona fit, and his lines duplicate Jai's); Shahenshah (invented words in the Urdu-tinged register — bucket D, not fixable here — and 5 material additions); Agneepath (most recognisable, but his compression loses the meaning in 12 of 16).
+- The three are well spread: cool and controlled (Don), comic and code-switching (Anthony), calm and practical (Jai). One risk to watch: Don and Jai both write short lines (median 10 words each in the data); their contrast needs to stay sharp in the refined data.
+- **Effect on the plan:** the data becomes 60 sources × 3 personas = 180 pairs (train 120 / validation 30 / test 30) unless sources are added; blind recognition becomes 3-way (chance 1 in 3, so its gate must be raised accordingly); everything else is unchanged.
+
 ### Gaps for Gemma 3 4B IT, by what can fix them
 
 **A. The encoder (+ LoRA) may handle** — to be proven in Phase 4, not assumed:
