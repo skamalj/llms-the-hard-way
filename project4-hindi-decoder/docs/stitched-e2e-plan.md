@@ -118,6 +118,54 @@ One notebook, one switch at the top selecting the decoder (`gemma-4b`, `qwen-ins
 - **Decoder selection rule:** validation performance (the gates above, plus chrF and persona overlap as diagnostics), stopping reliability, translation quality and resource use — never training loss alone. The adapter-merged Qwen run is a separate, diagnostic condition.
 - One run per decoder for this screening; three seeds are for the final comparisons (P3).
 
+## 5a. Phase 1 results (2026-10-19) and the decoder decision
+
+Three runs, identical except the decoder (`4-translation-baseline/`). LoRA outputs; validation unless stated.
+
+| | Gemma 3 4B IT (4-bit) | Qwen2.5-1.5B-Instruct | Qwen-Instruct + Hinglish adapter (diagnostic) |
+|---|---|---|---|
+| Stopping (gate ≥ 95 %) | 98 % ✓ | 100 % ✓ | 100 % ✓ |
+| Repetition (gate ≤ 5 %) | 3 % ✓ | 0 % ✓ | 0 % ✓ |
+| chrF validation / test | **22.8 / 23.8** | 20.0 / 21.4 | 22.8 / 20.8 |
+| Persona overlap (references 0.095) | 0.179 | 0.180 | 0.162 |
+| Kept epoch (validation loss) | 1 (2.62) | 2 (3.04) | 2 (2.88) |
+| Meaning, 30-pair sample — *rough reading, not the human score* | ≈ 3.2 / 5 | ≈ 1.8 / 5 | ≈ 2 / 5 |
+| Stock words not in the data ("khatam": outputs vs train targets) | 3 % vs 2 % | 37 % vs 2 % | 45 % vs 2 % |
+| Time per epoch / per output | ≈ 5 min / 2.5 s | ≈ 2 min / 1.6 s | ≈ 2 min / 1.9 s |
+
+- **Both Qwen variants collapse onto a few stock words** ("khatam", "aaj", "dhamki", "daleel") far more often than the training targets use them, and most outputs lose the source meaning. The adapter is not the cause (the clean Instruct run shows the same); Qwen 1.5B's Roman Hinglish is the limit. Qwen-Instruct's `<|im_end|>` is trained (it stops 97–98 % even without LoRA), so the base model's stopping failure does not recur.
+- **Gemma's habits match the data's** (stock-word rates close to the training targets) and its meaning preservation is clearly the best.
+- **Decision (proposed): Gemma 3 4B IT is the bridge decoder.** This departs from v2's default (Qwen-Instruct) on v2's own selection rule: validation performance, stopping and translation quality, at the cost of about 2.5× the training time. Bridge widths change to Gemma's hidden size (2560, to confirm from its config in Phase 2); the method does not.
+- Human scoring of Sheets A and B for Gemma is still needed to confirm the meaning gate (≥ 4 / 5); the rough reading suggests it is **not yet met**.
+
+### Gaps for Gemma 3 4B IT, by what can fix them
+
+**A. The encoder (+ LoRA) may handle** — to be proven in Phase 4, not assumed:
+- A1. Logical structure lost or weakened: contrast and negation ("celebrate *without ignoring* the remaining work" → "Aage badh rahe hain, par poori tarah nahi"; "fix the cause *instead of* treating symptoms" → "treating symptoms is good, the cause is better"; Anthony reversing "busy ≠ progress"). A bidirectional encoder re-read through cross-attention at every step is the bridge's case for better source grounding.
+- A2. Robustness to unseen phrasing: untranslated English rises from 3 % (validation) to 8 % (out-of-domain).
+- Limit: the encoder adds no Hinglish vocabulary, persona voice or stopping; and the Phase 1 decoder already sees the source directly, so the bridge must at least match it (Phase 4 arm D, with the capacity-matched control P2).
+
+**B. Decoder LoRA training can fix:**
+- B1. Checkpoint choice: validation loss keeps epoch 1, while epoch 2's probe lines read better. Save every epoch's adapter and score the fixed sample per epoch; choose on quality as well as loss (v2: inspect every checkpoint).
+- B2. Fast over-fitting (training loss 3.0 → 1.0 in three epochs while validation rises): lower learning rate (5e-5), higher dropout, possibly rank 8.
+- B3. Persona tics amplified into templates (Shahenshah appending "Insaaf ka faisla hona chahiye"; two cases of identical lines for different personas): less over-fitting, together with C2–C3.
+- B4. The single loop ("boss boss boss…", 1 of 96): fewer-epoch training and C2; a repetition guard is available later if needed.
+
+**C. Refined training data can fix:**
+- C1. Agneepath compression beyond meaning ("Progress. Abhi nahi."): his targets are about half the source length (0.55 words per source word), terse but complete; add or revise lines so terse still keeps every clause, guided by the semantic notes.
+- C2. Anthony: "boss" in 30 of 40 targets, and jokes that add details ("popcorn", "full reception") → the model copies the tic and adds material content ("…like pizza"). Make "boss" occasional; keep comedy in framing, not in facts.
+- C3. Shahenshah: justice words in 9 of 40 targets → vary the register markers so they are not a formula.
+- C4. Don's near-English outputs ("Customer confused. We gave two different answers."): set an expected English share per persona in the writing guidelines.
+- C5. Vijay vs Jai too close (identical lines): sharpen the contrast (moral weight and defiance vs practical, dry calm).
+- C6. Size and evaluation: 240 training pairs over-fit within two epochs; 60 validation pairs give a noisy selection signal. Expand after refining; add the semantic notes (P4) and, ideally, a second reference per validation pair, so chrF counts more than one acceptable phrasing.
+- C7. Independent native review of all targets (already decided).
+
+**D. Cannot fix within this setup:**
+- D1. Invented or malformed words, mostly in the Urdu-tinged register ("progah", "aazm-e-khatam", "dohte"): the vocabulary limit of a 4B model in 4-bit. LoRA on a few hundred pairs does not add vocabulary; only a larger or full-precision decoder would, which the T4 budget and the closed selection rule out.
+- D2. Romanised Hinglish has no standard spelling (phal / fal, khaunga / khauunga), so one-reference chrF has a low ceiling; only human scoring measures quality.
+- D3. Pilot-scale statistics: a 30-pair human sample detects only large differences (three seeds for the final comparisons, P3, narrow this but do not remove it).
+- D4. Fluency and persona voice are the decoder's job by design; the bridge can change them only indirectly.
+
 ## 6. Proposals beyond v2 — decisions
 
 | # | Proposal | Decision |
