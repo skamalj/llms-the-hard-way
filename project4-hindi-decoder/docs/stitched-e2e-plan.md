@@ -4,7 +4,7 @@
 
 **Specification:** [`encoder_decoder_bridge_e2e_plan_v2.md`](encoder_decoder_bridge_e2e_plan_v2.md) (plan v2, kept verbatim). This document does not restate it. It records how v2 is carried out here: what changes from the earlier work, what the v3 data does and does not yet provide, what we already know from the pilots, and the decisions still open.
 
-**Data:** [`data/persona_translation_v3/`](data/persona_translation_v3/) (v3, copied unchanged from the authors' release).
+**Data:** [`data/persona_translation_v3/`](../data/persona_translation_v3/) (v3, copied unchanged from the authors' release).
 
 ## 1. What changed
 
