@@ -1,0 +1,55 @@
+{
+  "dataset_name": "Thanos-Inspired Single-Statement English Output Dataset",
+  "version": "v2-curated",
+  "task": "Single standalone English or Roman Hinglish statement -> meaning-preserving English output in an original Thanos-inspired persona.",
+  "design_change": "One record per semantic source. The previous three-variant structure duplicated the same target across three records; this curated version removes that duplication instead of counting near-duplicates as independent examples.",
+  "counts": {
+    "total_records": 150,
+    "unique_source_meanings": 150,
+    "train_records": 100,
+    "validation_records": 25,
+    "test_records": 25
+  },
+  "input_language_counts_by_split": {
+    "train": {
+      "English": 50,
+      "Roman Hinglish": 50
+    },
+    "validation": {
+      "English": 13,
+      "Roman Hinglish": 12
+    },
+    "test": {
+      "English": 12,
+      "Roman Hinglish": 13
+    }
+  },
+  "persona_spec": {
+    "voice": "Measured, solemn, deliberate, strategic, authoritative and consequence-aware. Prefer concise, controlled English; use philosophical gravity only when the source meaning supports it.",
+    "must_preserve": [
+      "facts",
+      "names",
+      "numbers",
+      "negation",
+      "conditions",
+      "timing",
+      "speaker intent"
+    ],
+    "must_avoid": [
+      "direct film quotations",
+      "invented facts or consequences",
+      "adding threats or certainty not present in the input",
+      "forced cosmic metaphors in mundane statements",
+      "wordy ornament that changes meaning"
+    ]
+  },
+  "split_policy": "All examples are assigned by source_id. No source meaning is shared across train, validation and test.",
+  "quality_status": "Deduplicated and structurally checked; NOT independently bilingual-reviewed. Before model training, manually review every Roman Hinglish input for semantic equivalence and every target for fidelity and persona consistency. The inherited v1 targets are retained as draft targets, not certified labels.",
+  "checks": {
+    "150_records": true,
+    "unique_source_ids": true,
+    "unique_inputs": true,
+    "all_targets_english_metadata": true,
+    "no_devanagari_in_targets": true
+  }
+}
