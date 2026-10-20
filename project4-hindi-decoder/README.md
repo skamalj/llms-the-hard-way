@@ -8,6 +8,7 @@ Translate an English sentence into natural Roman-script Hinglish in one of six p
 |---|---|
 | Specification | [`docs/encoder_decoder_bridge_e2e_plan_v2.md`](docs/encoder_decoder_bridge_e2e_plan_v2.md) — plan v2, the governing document |
 | Implementation plan | [`docs/stitched-e2e-plan.md`](docs/stitched-e2e-plan.md) — how v2 is carried out here, decisions, gates |
+| Ledger | [`LEDGER.md`](LEDGER.md) — integration notes (blog material) and run entries |
 | Original brief | [`docs/Project 4 Requirements.md`](docs/Project%204%20Requirements.md) — where it differs, plan v2 governs |
 | Data | [`data/persona_translation_v3/`](data/persona_translation_v3/) — 60 English sources × 6 personas, split by source 240 / 60 / 60; **v4** (three personas): [`data/persona_translation_v4/`](data/persona_translation_v4/) — two deliveries merged; train 768 pairs, validation 75, test 75, out-of-domain 114, minimal pairs 72 ([spec](docs/data-requirements-v4.md)) |
 
