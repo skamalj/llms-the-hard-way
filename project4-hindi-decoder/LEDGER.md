@@ -57,4 +57,19 @@ The same run also printed `transformers 5.16.1, peft 0.20.0` although Cell 1 ins
 
 ## Runs
 
-*(to be filled)*
+*Earlier runs (Phases 1–3, notebook 7) are summarised in the README's stage table and in their commit messages; full entries to be backfilled.*
+
+### R8 — Cross-attention bridge, pre-trained (2026-10-20, `8-bridge-pretraining/`, commit `52f21f7`)
+
+- **Setup:** ModernBERT-base + LoRA → bridge (Linear 768→2560) → 8 gated cross-attention blocks (≈ 210 M, from scratch) in Gemma 3 4B IT (4-bit) + LoRA; the decoder's only input is `<bos>`. Stage 1: 24,000 public English → Hinglish pairs (Hinglish-TOP + PHINC), one pass (3,000 steps of 8). Stage 2: v4 persona data (768 pairs), kept epoch 1 of 3.
+- **Stage 1:** held-out loss 9.43 → 3.08; on 120 held-out corpus pairs chrF **27.6**, 119 distinct. Output keeps the kind of sentence and its grammar but swaps specifics ("weather in Kingston" → "New York me mausam kaisa hai").
+- **Stage 2 (v4):** chrF validation **18.4** / test 17.8 / out-of-domain 18.4; 71 of 75 distinct (no collapse, against 5 of 75 without pre-training). Meaning mostly not preserved ("Kabir lands in Delhi at 9 tonight" → "Aaj raat 11 baje Mumbai ka traffic kharaab hoga").
+- **Decision:** the cross-attention design needs far more data to carry details; try the prefix design (R9).
+
+### R9 — Prefix bridge, pre-trained (2026-10-20, `9-prefix-bridge/`)
+
+- **Setup:** ModernBERT-base + LoRA → bridge (MLP 768→2560→2560 + RMSNorm at Gemma's embedding scale, ≈ 8.5 M) → one input vector per English token, placed after `<bos>`; Gemma 3 4B IT (4-bit) + LoRA reads them with its own attention. No cross-attention blocks. Stage 1: **12,000** public pairs (6,000 Hinglish-TOP + 6,000 PHINC), 1,500 steps of 8 (one kernel death at ≈ step 1000; resumed from checkpoint, see I2). Stage 2: v4, kept epoch 2 of 4. Integration fix for generation: I1.
+- **Stage 1:** held-out loss 9.57 → **2.28** (3.36 at step 1000); chrF **41.9**, 120 of 120 distinct. Specifics now carried ("weather in Kingston" → "Kingston me mausam kaisa hai"; "Berry Hill" → "Bar Hill"; "tomorrow" → "kal").
+- **Stage 2 (v4):** chrF validation **31.9** / test **29.6** / out-of-domain **33.3**; 75 of 75 distinct; stopping 99–100 %. Meaning largely preserved, persona voices present: "Kabir lands in Delhi at 9 tonight" → "Kabir aaj raat Delhi pahunch jaayega" (the time dropped); "The plumber charged 4,000 for 2 hours…" → "Plumber ne 4,000 paise 2 ghante mein lete hain. Kya woh rate hai jo usne di?"; Anthony: "AC phir se band ho gaya—yeh bhi reboot karna hoga!".
+- **Comparison:** with half the stage-1 data and ≈ 4 % of the new parameters, the prefix design beats the cross-attention design on every measure (stage-1 chrF 41.9 vs 27.6; v4 validation 31.9 vs 18.4).
+- **Open:** the direct-source baseline on v4 (Gemma reading the English in its prompt) to judge how much the bridge still loses; occasional dropped numbers or details.
