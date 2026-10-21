@@ -73,3 +73,13 @@ The same run also printed `transformers 5.16.1, peft 0.20.0` although Cell 1 ins
 - **Stage 2 (v4):** chrF validation **31.9** / test **29.6** / out-of-domain **33.3**; 75 of 75 distinct; stopping 99–100 %. Meaning largely preserved, persona voices present: "Kabir lands in Delhi at 9 tonight" → "Kabir aaj raat Delhi pahunch jaayega" (the time dropped); "The plumber charged 4,000 for 2 hours…" → "Plumber ne 4,000 paise 2 ghante mein lete hain. Kya woh rate hai jo usne di?"; Anthony: "AC phir se band ho gaya—yeh bhi reboot karna hoga!".
 - **Comparison:** with half the stage-1 data and ≈ 4 % of the new parameters, the prefix design beats the cross-attention design on every measure (stage-1 chrF 41.9 vs 27.6; v4 validation 31.9 vs 18.4).
 - **Open:** the direct-source baseline on v4 (Gemma reading the English in its prompt) to judge how much the bridge still loses; occasional dropped numbers or details.
+
+### R10 — Prefix bridge, Thanos target (2026-10-21, `9-prefix-bridge/`, `TARGET = "thanos"`, data `thanos_v3`)
+
+- **Setup:** as R9. Stage 1 = **English reconstruction** ("Plain: X" → X) on 12,000 English sentences (Hinglish-TOP + PHINC English sides), 1,500 steps of 8. Stage 2 = thanos_v3 (100 pairs; half English, half Roman-Hinglish inputs), kept epoch 2 of 4.
+- **Stage 1 — the stitching proof:** held-out loss 8.13 → **0.058**; on 120 held-out sentences chrF **98.8**, 120 of 120 distinct; essentially every sentence comes through the encoder → bridge → Gemma path intact, names and numbers included (one near miss: "Pham" → "Pam").
+- **Stage 2 (Thanos):** chrF validation **27.7** / test **38.0**; stopped 100 %; 25 of 25 distinct; copies of the source 3 / 25 (validation), 1 / 25 (test).
+  - **English inputs:** meaning kept, voice weak — mostly light paraphrases ("We must celebrate the progress made, not dismiss the work that remains."); chrF 32.4 / 51.0.
+  - **Roman-Hinglish inputs:** meaning lost, fluent invented English ("Pehli koshish fail ho…" → "The promise of the harvest is broken."); chrF 22.6 / 26.0. The encoder (ModernBERT, English) and stage 1 (English only) never learned to read Roman Hinglish.
+- **Conclusions:** (1) the bridge carries an English sentence into Gemma almost perfectly — the core stitching result; (2) 100 Thanos pairs after a copy-heavy stage 1 give faithful but under-styled output; (3) Roman-Hinglish inputs need an encoder that reads them (multilingual encoder, or Hinglish in stage 1) or should be excluded (`THANOS_INPUTS = "english"`).
+
