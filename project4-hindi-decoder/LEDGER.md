@@ -83,3 +83,21 @@ The same run also printed `transformers 5.16.1, peft 0.20.0` although Cell 1 ins
   - **Roman-Hinglish inputs:** meaning lost, fluent invented English ("Pehli koshish fail ho…" → "The promise of the harvest is broken."); chrF 22.6 / 26.0. The encoder (ModernBERT, English) and stage 1 (English only) never learned to read Roman Hinglish.
 - **Conclusions:** (1) the bridge carries an English sentence into Gemma almost perfectly — the core stitching result; (2) 100 Thanos pairs after a copy-heavy stage 1 give faithful but under-styled output; (3) Roman-Hinglish inputs need an encoder that reads them (multilingual encoder, or Hinglish in stage 1) or should be excluded (`THANOS_INPUTS = "english"`).
 
+
+### R11 — Prefix bridge, Thanos v4, stage 1 cut to 6,000 sentences (2026-10-22, `9-prefix-bridge/`, stopped in stage 2)
+
+- **Setup:** as R10, but English only (data `thanos_v4`: train 498, validation 25, test 25) and stage 1 shortened to **6,000** sentences (750 steps of 8), hoping a shorter copy stage would leave Gemma less locked into copying.
+- **Stage 1:** held-out loss 8.13 → 3.21 (step 500) → **2.99** (step 750); chrF **23.1** on 120 held-out sentences. The bridge carried only the kind of sentence: every place became "New York", "Send a video message to Pham" → "Send a message to my mom", "Should I wear shorts tomorrow?" → "Should I bring an umbrella?".
+- **Stage 2 (stopped):** validation loss 4.46 at epoch 0; outputs unrelated to the input.
+- **Lesson:** reconstruction does not improve gradually; it *clicks*, between steps 500 and 1,000 in R10 (held-out loss 3.15 → 0.11). With 750 steps and a learning rate decaying to zero, the run ended before the click. Stage 1 needs at least about 1,000 steps at this learning rate.
+
+### R12 — Prefix bridge, Thanos v4, stage 1 12,000 sentences (2026-10-23, `9-prefix-bridge/`)
+
+- **Setup:** as R11 with `CORPUS_TOTAL = 12000` (1,500 steps). All three parts (encoder LoRA, bridge, Gemma LoRA) trained in both stages.
+- **Stage 1:** identical to R10 (same seed and corpus): held-out loss 3.15 → 0.11 → **0.058**; chrF **98.8**, 120 of 120 distinct. 1,500 steps in 5,547 s (3.7 s per step).
+- **Stage 2:** validation loss 6.19 → **2.06** (epoch 1) → 2.14 → 2.51; early stop, kept epoch 1. Overfits fast: train loss 1.32 → 0.33 by epoch 3. About 3.5 min per epoch.
+- **Scores:** validation chrF **36.1** (R10: 27.7), test **60.3** (R10: 38.0); stopped 100 %; 25 of 25 distinct; copies of the source 1 / 25 and 0 / 25; no copies of training targets.
+  - The test score is high partly because the v3 test targets stay close to the source's wording; the curated validation targets add a second, interpretive sentence (13.5 words on average against outputs of 10.1), which chrF cannot reward.
+- **What the output looks like:** meaning kept, register raised, but light Thanos: formal markers ("Should the engine make that noise again…", "yet", "Let us", "Grandmother", "is required") rather than the gravity and second sentence of the references. Lowest validation scores are mostly fair paraphrases ("Don't confuse being busy with making progress." → "Do not mistake effort for progress.", chrF 15), with two real errors: "The signal is weak" → "The alarm is weak"; "a fair outcome" → "a firm foundation".
+- **Six demo sentences (Cell 10):** all meanings kept, all fluent; voice light. Two shifts: "HR has asked me to submit my appraisal…" → "My assessment must be submitted in two days. It covers my entire year's work." (HR dropped); "I don't think we should sign the lease until…" → "The lease will not be signed until the heating is fixed." (the hedge became a decision).
+- **Conclusions:** (1) 5× the training pairs and English-only inputs lift validation chrF from 27.7 to 36.1 with no loss of meaning; (2) the voice is still weak, and stage 2 peaks after one epoch: Gemma's LoRA, trained to copy in stage 1, moves only a little towards the style before it starts memorising. **Next:** split the roles (stage 1 trains encoder LoRA + bridge only, Gemma frozen; stage 2 trains a fresh Gemma LoRA only), so the copy habit never enters the LoRA that learns the voice.
