@@ -130,3 +130,23 @@ The same run also printed `transformers 5.16.1, peft 0.20.0` although Cell 1 ins
 - **Stopped** at step 1,000: with the learning rate decaying to zero over the last 500 steps, the click would not come, and stage 2 on a bridge that does not carry the sentence is wasted (R11).
 - **Lesson:** at these learning rates (bridge 3e-4, encoder LoRA 1e-4) and this step budget, the bridge alone cannot steer a frozen Gemma into repeating a sentence; Gemma's LoRA has to meet it halfway. The sentence-carrying click needs both sides trained.
 - **Next:** the fallback `S1_DECODER_LORA = True`: stage 1 trains all three parts (as R10, clicks by step 1,000), then Gemma's LoRA is **reset to zero** and stage 2 trains a fresh one alone, encoder and bridge frozen. This still tests the hypothesis that the LoRA learning the voice should never have learned to copy.
+
+### R15 — Split roles with reset, dramatic data (2026-10-23, `10-prefix-bridge-split/`, data `thanos_v8`)
+
+- **Setup:** `S1_DECODER_LORA = True`: stage 1 trains encoder LoRA, bridge and Gemma LoRA (12,000 sentences, reconstruction); then **Gemma's LoRA is reset to zero** and stage 2 trains a fresh Gemma LoRA **alone** (encoder and bridge frozen). Data `thanos_v8` (train 1,157, one dramatic voice); early stopping on `validation_daily` (the user's everyday set, 24).
+- **Stage 1:** held-out loss 3.08 (500) → 0.122 (1,000) → **0.060** (1,500); chrF on 40 held-out 24.5 → 97.1 → 98.3; final chrF **98.7** on 120. 7,327 s (slower than R10 by the per-checkpoint chrF and the session).
+- **The reset is safe.** At stage 2 epoch 0, after the reset and before any stage-2 training, plain Gemma still reads the bridge: "I'll grab lunch and be back in twenty minutes." → the same sentence; "I'm running late because I couldn't find parking." → "I'm going to be late because I can't find parking." The bridge's vectors, learned together with the stage-1 LoRA, are readable by Gemma without it.
+- **Stage 2:** validation_daily loss 2.83 → **1.11** (epoch 1) → 1.13 → 1.46; early stop, kept epoch 1. About 10 min per epoch.
+  - epoch 1: "Parking was beyond my reach, and so I ran late."; "Twenty minutes I shall spend gathering lunch, and then I shall return."; "Will you stand guard while I step out?"
+  - epoch 3 drifts: "Will you stand ready to bear witness to my departure?" for "Can you cover for me while I step out?"
+- **Scores:** validation_daily chrF **48.3**; validation (old curated set, reference) 36.2 (R13: 36.3); test 56.1 (test targets now dramatic, so not comparable with R13's 61.5); stopped 100 %; all outputs distinct; copies of the source 0 / 4 / 0.
+- **Voice:** clearly dramatic for the first time, in one epoch: "All weekend I toiled to fix the bug, and no one noticed."; "Three weeks the project has been delayed, yet the client still demands it by Friday."; "Your lie did not anger me. It was your belief in your own necessity that I find disappointing."
+- **The user's manual test** (expected → got):
+  - "The traffic delays my arrival. I shall reach the office… when the path permits." → "Traffic shall keep me late to the office."
+  - "I have been delayed by ten minutes. Proceed without me… do not wait." → "Ten minutes late I run. Begin without me, if you would."
+  - "Hunger has made its presence known. Let us seek sustenance." → "My hunger gnaws at me. Let us find something to eat."
+  - "The day's labors have taken their toll. I require… rest." → "Today's work has left me exhausted. I require some rest."
+  - "I remain bound by this meeting. When I am free… I shall contact you." → "I am trapped in a meeting. I shall call you when I am free."
+  All faithful (ten minutes kept); voice present but plainer than the user's lines; no "…" pauses (rare in v8).
+- **Errors:** "borrowed my car" → "**stole** my car" (meaning changed); "too many emails to answer" → "I must answer each one today"; occasional inverted word order ("Ten minutes late I run", "one second I lost the medal"); one copy ("The generator can run for three hours without refuelling.").
+- **Conclusions:** (1) one consistent dramatic voice in the data plus a fresh stage-2 LoRA gives the voice that R12/R13 lacked; (2) resetting Gemma's LoRA does not cost the meaning link; (3) stage 2 still peaks at epoch 1 and drifts after, so less training (or a lower LR) is the next knob. Next: the same notebook with both paths after stage 1, **carry** (stage-1 LoRA kept) vs **reset**, side by side.
