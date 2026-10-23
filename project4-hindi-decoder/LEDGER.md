@@ -114,3 +114,19 @@ The same run also printed `transformers 5.16.1, peft 0.20.0` although Cell 1 ins
   - names and spelling: "Sana" → "Sano" (R12: "Sanna"); "crates" → "crats" (both runs);
   - meaning, new in R13: "longer" → "shorter"; "I will stand by you, but I won't lie for you." → "Stand by me, and I will not lie for you."; "If the information is incomplete…" → "If the matter is weak, speak plainly."
 - **Conclusions:** 100 strict, weighty pairs (17 % of the train set) do not move the overall voice measurably; stage 2 still peaks after one epoch, which points at the training set-up rather than the data. Next: `10-prefix-bridge-split/` on the same data (Gemma frozen in stage 1, a fresh Gemma LoRA alone in stage 2). Open: digits in inputs (all targets write numbers as words), worth a dedicated check.
+
+### R14 — Split roles, Gemma frozen in stage 1 (2026-10-23, `10-prefix-bridge-split/`, stopped at step 1,000)
+
+- **Setup:** as R13 but data `thanos_v6` (train 698) and **split roles**: stage 1 trains only the encoder LoRA and the bridge, Gemma frozen (its LoRA at B = 0); stage 2 was to train a fresh Gemma LoRA only. Stage 1: 12,000 sentences, 1,500 steps planned.
+- **Stage 1:**
+
+  | Step | held-out loss | chrF (40 held-out) | R10 held-out loss |
+  |---|---|---|---|
+  | 0 | 8.13 | — | 8.13 |
+  | 500 | 3.45 | 20.6 | 3.15 |
+  | 1,000 | **3.06** | **26.7** | **0.11** |
+
+  Outputs at step 1,000 keep the kind of sentence but not its content ("Texting Pascal, don't forget the flowers." → "Tell mom I'm done with the chores."). Time and memory as before (3,782 s to step 1,000; peak 8.7 GB): the gradient still passes through Gemma.
+- **Stopped** at step 1,000: with the learning rate decaying to zero over the last 500 steps, the click would not come, and stage 2 on a bridge that does not carry the sentence is wasted (R11).
+- **Lesson:** at these learning rates (bridge 3e-4, encoder LoRA 1e-4) and this step budget, the bridge alone cannot steer a frozen Gemma into repeating a sentence; Gemma's LoRA has to meet it halfway. The sentence-carrying click needs both sides trained.
+- **Next:** the fallback `S1_DECODER_LORA = True`: stage 1 trains all three parts (as R10, clicks by step 1,000), then Gemma's LoRA is **reset to zero** and stage 2 trains a fresh one alone, encoder and bridge frozen. This still tests the hypothesis that the LoRA learning the voice should never have learned to copy.
