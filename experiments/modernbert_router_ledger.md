@@ -1631,3 +1631,28 @@ Later phase branches are created when each phase starts, from the branch of the 
 - **Card examples:** run on the local export on CPU (fp32). All answers are correct, including routing among 12 agents in one pass (833 ms on a laptop CPU) and a 20-option question.
 - **Signpost's card** now links to the one-pass model (Hub commit e76e5c6).
 - **Verified from the Hub:** a fresh `snapshot_download` into a new folder has encoder weights byte-identical to the local export, and the card examples give exactly the recorded outputs (only the CPU timing of the 12-agent example varies: 833 and 1,018 ms).
+
+## 06 — 2026-10-24: `06_typed_decisions_benchmark.ipynb`, Signpost on the Typed Decisions benchmark (branch `signpost-typed-decisions`)
+
+- **What:** [LocalLLaMA/typed-decisions](https://huggingface.co/datasets/LocalLLaMA/typed-decisions) (dataset revision 4772cfe): 400 test cases, each a JSON state with five typed questions (yes/no 600, choice 600, score 800 decisions) in four workflows (agent-trace review, customer service, invoice processing, security alerts). Gold answers are soft distributions from a ~4B teacher. Scored with the benchmark's own code. Measurement only: no training, no upload, nothing submitted.
+- **Reference points (accuracy):** uniform 0.308 · always-majority ~0.47 · teacher self-agreement 0.735 · public leaderboard 0.61 (fitted MiniLM) to 0.81.
+- **Input format:** five formats compared on 200 train-split cases (1,000 decisions): raw JSON (as published), readable `key: value` lines, yes/no statements asked as questions, yes/no option descriptions, 512 tokens. **As published was best for both models**, 0.388 vs 0.377–0.379 (Signpost) and 0.410 vs 0.381–0.392 (one-pass), so the test split was scored as published only.
+- **Calibration:** a temperature fitted on Signpost's own E12 + independent questions (470; never the benchmark): T = 2 for Signpost (own accuracy 0.813, NLL 0.641 → 0.500), T = 4 for one-pass (0.804, NLL 0.838 → 0.422).
+
+**Test split, general mode (2,000 decisions):**
+
+| | Signpost | one-pass |
+|---|---|---|
+| Accuracy | **0.4175** | 0.415 |
+| — yes/no · choice · score | 0.590 · **0.320** · 0.361 | 0.550 · 0.322 · 0.384 |
+| — agent trace · customer service · invoices · security | 0.424 · 0.436 · 0.448 · 0.362 | 0.334 · 0.538 · 0.338 · 0.450 |
+| KL · Brier · ECE at T = 1 | 0.519 · 0.271 · 0.130 | 1.993 · 0.537 · 0.403 |
+| KL · Brier · ECE at the fitted T | **0.409 · 0.223 · 0.038** (T = 2) | 0.525 · 0.282 · 0.147 (T = 4) |
+| Latency per case (5 questions), T4 p50 · p95 | 343 · 438 ms | 143 · 189 ms |
+
+**Findings**
+1. **Below the always-majority baseline (0.42 vs ~0.47), above uniform.** Both models are far below the leaderboard. Not worth submitting as is.
+2. **Choice questions are the weakest (0.32)**, although choice is Signpost's strength on its own tests. Here the choices are *policy* decisions (continue / human review / stop; approve / hold / reject; contain / investigate / monitor) to be inferred from structured fields, not answers stated in the text; the teacher's policy has strong priors the model doesn't share. Yes/no is best (0.59 / 0.55). Score is 0.36 / 0.38 (4–5-level rubrics, the known weak spot).
+3. **Readable formatting did not help**; the gap is in what the model knows, not in how the input looks.
+4. **Calibration from our own data transfers:** Signpost's ECE drops from 0.130 to 0.038 and KL from 0.52 to 0.41 at T = 2, with accuracy unchanged. One-pass is far more overconfident (KL 1.99 at T = 1) and needs T = 4.
+5. **Next:** a specialist fine-tune on the benchmark's train split shows how far this architecture can go on these decisions; the general route needs new training data with structured states and policy decisions (Phase C, neutral brief).
