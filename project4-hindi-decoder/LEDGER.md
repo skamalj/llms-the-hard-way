@@ -151,3 +151,21 @@ The same run also printed `transformers 5.16.1, peft 0.20.0` although Cell 1 ins
 - **Errors:** "borrowed my car" → "**stole** my car" (meaning changed); "too many emails to answer" → "I must answer each one today"; occasional inverted word order ("Ten minutes late I run", "one second I lost the medal"); one copy ("The generator can run for three hours without refuelling.").
 - **Conclusions:** (1) one consistent dramatic voice in the data plus a fresh stage-2 LoRA gives the voice that R12/R13 lacked; (2) resetting Gemma's LoRA does not cost the meaning link; (3) stage 2 still peaks at epoch 1 and drifts after, so less training (or a lower LR) is the next knob. Next: the same notebook with both paths after stage 1, **carry** (stage-1 LoRA kept) vs **reset**, side by side.
 - **Sampling on R15** (added after the run, temperature 0.9, top-p 0.95, 8 samples of "I'll be late to the office because of traffic."; greedy gives "Traffic shall keep me late to the office."): two at the user's level ("The office will not see me early. Traffic has forced me to delay my arrival."; "The office awaits me, though traffic shall have its claim on my time."), two good, two plain, two wrong ("…by its last hours" adds a time; "Traffic has forced me to make the office late" is garbled). The model has learned the style; greedy decoding picks the commonest, plainer phrasing. Two ways forward: data where the user's moves are the norm (thanos_v9), and best-of-n sampling with a faithfulness check.
+
+### R16 — Carry vs reset from one stage 1 (2026-10-24, `11-prefix-bridge-two-paths/`, data `thanos_v9`)
+
+- **Setup:** one stage 1 (encoder LoRA + bridge + Gemma LoRA, 12,000 sentences); then stage 2 twice from the same stage-1 weights, Gemma's LoRA trained alone (encoder and bridge frozen): **carry** (the stage-1 Gemma LoRA continues) and **reset** (Gemma's LoRA zeroed first). Data `thanos_v9`: train 2,145 rows (1,665 unique; the user's 480 own lines ×2), the user's measured voice throughout. Early stopping on validation_daily.
+- **Stage 1:** clicked early: held-out loss 0.57 and chrF 80.7 already at step 500 (R15: 3.08 and 24.5), then 0.072 / 98.3 (1,000), 0.052 / 98.8 (1,500); final chrF **98.5**. Same corpus, seed and prefix scale (1.029) as R15, so the earlier click comes from non-deterministic GPU arithmetic near a tipping point: **the timing of the copying click varies between identical runs by hundreds of steps.**
+- **Epoch 0 (before stage-2 training):** carry copies the encoder input **including its tag** ("Thanos: I'm running late because…"); reset gives near-copies without the tag ("I'm running late because I couldn't find the parking lot.").
+- **Stage 2:** both kept epoch 1; validation_daily loss carry 0.982, reset **0.968**; both drift after epoch 1 (epoch 3: 1.66 / 1.71). Epoch 2 is more vivid in both ("a parking spot was beyond my reach") but loses on loss.
+
+| | carry | reset |
+|---|---|---|
+| validation_daily chrF | 53.5 | 52.8 |
+| validation chrF (reference) | 37.9 | 37.0 |
+| test chrF | 61.7 | **63.2** |
+| copies of the source (val_daily / val / test) | 3 / 4 / 4 | **1** / 5 / 4 |
+
+- **Faithfulness decides it:** carry "borrowed my car" → "has taken my car", "wants" → "demands", "late to the office" → "late at the office"; reset keeps "borrowed" and "wants". Reset's own slips: "Ten minutes behind me… I am running late"; "For the first time, someone must do it." **Reset is the better path** (confirms R15: resetting is safe and avoids the copy habit; carry is negative transfer of the copy behaviour).
+- **Voice: plainer than R15.** v9 follows the user's measured 500-file voice and weights it ×2; outputs are more faithful than R15 (no "stole") but less dramatic ("I worked all weekend to fix the bug… and no one noticed." vs R15's "All weekend I toiled to fix the bug, and no one noticed."). The drama level comes from the data, not the method.
+- **Decision:** R15 → **Thanos v1** (more dramatic). This run's reset path is a candidate for v2 **after** a more dramatic data pass. Since reset zeroes Gemma's LoRA and stage 2 freezes encoder and bridge, stage 2 needs only this run's `encoder-lora/` and `bridge.pt`: the next experiments can skip stage 1 (~2 h).
