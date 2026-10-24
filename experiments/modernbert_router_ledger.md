@@ -1711,3 +1711,18 @@ Latency is unchanged (~55 ms per question).
 3. **Heavy forgetting:** training on the new cases alone damaged the general reading skill, routing most of all. Even simple items fail, such as "who scored highest?". This likely cancels any benchmark gain.
 4. **Some of what was learned is our labellers' conventions.** The benchmark's gold comes from a different ~4B teacher with its own policy priors, so neutral data can close only part of that gap.
 5. **Next:** run 2 (`new+old`) to test whether keeping the general skill restores Signpost's tests and helps the benchmark. Then decide on the full data run, with brief v2 and three different labeller models.
+
+## 07 run 2 — 2026-10-24: `07_signpost_d.ipynb`, from plain ModernBERT-large on v1 data (abandoned)
+
+- **Setup:**
+  - start from `answerdotai/ModernBERT-large`, with a new LoRA (r 16) and a new head (HEAD_LR 1e-3);
+  - data: D_SET v1, 1,500 cases (6,071 train / 1,056 dev questions);
+  - 4 epochs, batch 8.
+- **Stopped by a network failure** during epoch 2. At epoch 1, dev accuracy was 0.4375, KL 0.744 and ECE 0.057; the loss fell slowly, 1.23 → 1.19.
+- **Not repeated.** Two faults were found, and both are fixed for run 3:
+  - **Score loss:** the expected-level term weighted options by their position after shuffling, not by their level.
+  - **Score scales:** some ran highest first. The data was then put in System One form (`data/signpost_d/format_spec.md`, commit ace7a5a). 510 format fixes, of which 110 were scales written the wrong way round and 396 were score instructions reworded to name their quantity.
+- **Notebook changes for run 3:**
+  - one `render()` for our cases and the benchmark: `noul` as true/false with their descriptions, `choice` by its labels, `score` by its criteria lowest first;
+  - one temperature per question type, fitted on dev;
+  - a calibration check: top-probability histograms, entropy, and over-certain options and their share of the KL.
