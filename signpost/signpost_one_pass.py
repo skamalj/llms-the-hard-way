@@ -23,6 +23,32 @@ import torch
 import torch.nn as nn
 from transformers import AutoModel, AutoTokenizer
 
+
+class ScoreHead(nn.Module):
+    """Signpost's scoring head (Dropout, Linear(H, 256), GELU, Dropout, Linear(256, 1)) with `extra` residual blocks of 256
+    units between its two layers. Each block's last layer starts at zero, so a head loaded from Signpost starts out exactly as
+    published, and the blocks then learn on top of it."""
+
+    def __init__(self, hidden, extra=0):
+        super().__init__()
+        self.inp = nn.Sequential(nn.Dropout(0.1), nn.Linear(hidden, 256), nn.GELU())
+        self.blocks = nn.ModuleList([nn.Sequential(nn.Dropout(0.1), nn.Linear(256, 256), nn.GELU(), nn.Linear(256, 256))
+                                     for _ in range(extra)])
+        for b in self.blocks:
+            nn.init.zeros_(b[3].weight); nn.init.zeros_(b[3].bias)
+        self.out = nn.Sequential(nn.Dropout(0.1), nn.Linear(256, 1))
+
+    def forward(self, x):
+        h = self.inp(x)
+        for b in self.blocks:
+            h = h + b(h)
+        return self.out(h)
+
+    def load_published(self, sd):
+        """Signpost's head (a plain Sequential: layers 1 and 4) into this head."""
+        self.inp[1].load_state_dict({"weight": sd["1.weight"], "bias": sd["1.bias"]})
+        self.out[1].load_state_dict({"weight": sd["4.weight"], "bias": sd["4.bias"]})
+
 ROUTE_Q = "Which agent should handle the user's latest message?"
 
 
@@ -36,7 +62,10 @@ class SignpostOnePass:
         self.tok = AutoTokenizer.from_pretrained(path / "encoder")
         self.enc = AutoModel.from_pretrained(path / "encoder", dtype=dtype).to(self.device).eval()
         head = torch.load(path / "head.pt", map_location="cpu")
-        self.head = nn.Sequential(nn.Dropout(0.1), nn.Linear(head["hidden"], 256), nn.GELU(), nn.Dropout(0.1), nn.Linear(256, 1))
+        if head.get("extra_blocks"):                                    # a deeper head (Signpost-D run 7 onwards)
+            self.head = ScoreHead(head["hidden"], head["extra_blocks"])
+        else:
+            self.head = nn.Sequential(nn.Dropout(0.1), nn.Linear(head["hidden"], 256), nn.GELU(), nn.Dropout(0.1), nn.Linear(256, 1))
         self.head.load_state_dict(head["state_dict"])
         self.head.to(self.device).eval()
 
