@@ -1745,3 +1745,54 @@ Latency is unchanged (~55 ms per question).
 - **Conclusion:** a start from plain ModernBERT-large has not trained on this data in three runs. Next:
   - **Run 5:** 07 from Signpost's weights, as in run 1, with all the run-3 fixes.
   - **Then:** `08_signpost_d_onepass.ipynb` (option B).
+
+## 07 run 5 — 2026-10-24: v1 in System One form, from Signpost's weights
+
+- **Setup:** `07_signpost_d.ipynb` (commit e10df5c).
+  - Start from `skamalj/signpost` (merged encoder and head), with a new LoRA (r 16), HEAD_LR 5e-4, 4 epochs and batch 8.
+  - Data: v1 in System One form (6,071 train / 1,056 dev questions). Includes the score-loss fix, `render()` and the collapse guard.
+  - 153 minutes on a T4.
+- **Collapse check at step 400:** dev KL 0.506, against 0.664 for a uniform guess. Passed.
+- **Dev by epoch.** Epoch 2 was kept: the skill is learned within 1–2 epochs, and later epochs only memorise (training loss 0.53 by epoch 4).
+
+| | 1 | **2 (kept)** | 3 | 4 |
+|---|---|---|---|---|
+| accuracy | 0.689 | 0.689 | 0.698 | 0.703 |
+| KL | 0.486 | **0.485** | 0.490 | 0.518 |
+| ECE | 0.051 | 0.035 | 0.041 | 0.051 |
+
+- **Dev by type, at epoch 2:**
+
+| Type | Accuracy | KL | Fitted temperature |
+|---|---|---|---|
+| true/false | 0.771 | 0.370 | 1.5 |
+| choice | 0.676 | 0.507 | 1 |
+| score | 0.612 | 0.591 | 1.25 |
+
+  With the fitted temperatures, overall dev KL is 0.470.
+- **Grounded-question tests** (Signpost / run 1 / run 5). The reading skill is mostly kept, unlike run 1:
+
+| Test | Signpost | Run 1 | Run 5 |
+|---|---|---|---|
+| E12 | 161 | 131 | 146 |
+| independent | 221 | 187 | 226 |
+| independent 2 | 188 | 147 | 185 |
+
+  Independent score questions are weak: 46 / 92.
+- **Benchmark test split** (scored once):
+
+| | Accuracy | KL | Brier | ECE |
+|---|---|---|---|---|
+| T = 1 | 0.4155 | 0.678 | 0.358 | 0.248 |
+| T per type | 0.4155 | 0.563 | 0.314 | 0.207 |
+
+  - Signpost scored 0.4175 / KL 0.519. The prior scores 0.470 / KL 0.347.
+  - By type: true/false 0.502 (Signpost 0.590), choice 0.393 (0.320), score 0.367 (0.361).
+  - By workflow: customer service 0.630 (+0.19), security 0.472 (+0.11), agent trace 0.346 (−0.08), invoices 0.214 (−0.23, below uniform).
+- **Calibration:** the head does **not** push towards 0 and 1.
+  - On the benchmark, predicted entropy is 0.65 against 0.64 for the gold, and only 4.5% of the KL comes from over-certain options.
+  - The KL comes from putting weight on the wrong option.
+- **Reading:**
+  1. Every type drops by about the same amount from dev to the benchmark (0.25–0.28), so this is a transfer gap, not one type's format.
+  2. All 2,442 of our true/false items were yes/no questions, while the card defines `noul` as "the probability that the **statement** is true".
+  3. Next: all true/false items rewritten as statements (gold unchanged), then `08_signpost_d_onepass.ipynb`. One pass means score levels see the whole rubric.

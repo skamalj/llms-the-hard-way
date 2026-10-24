@@ -28,7 +28,7 @@ No benchmark case was used for this spec.
 
 | type | `instructions` | `criteria` | gold `probabilities` keyed by |
 |---|---|---|---|
-| `noul` | a closed question or statement whose answer is true or false | an object with `"true"` and `"false"` descriptions | `"true"`, `"false"` |
+| `noul` | a **statement** (a declarative sentence, not a question) that is true or false of the state | an object with `"true"` and `"false"` descriptions | `"true"`, `"false"` |
 | `choice` | the question | an object mapping each label to its description; labels unique; 2–26 labels | the labels |
 | `score` | the question | an ordered list of levels, **lowest first**; 2–10 levels; each level a self-contained string, `"Name: what puts a situation at this level"` | level indices as strings, `"0"` (lowest) … `"n-1"` |
 
@@ -42,7 +42,7 @@ The documents allow the following. Our data uses the stricter form:
 
 Meaning of the answers:
 
-- **`noul`:** the probability that the answer is true. The scorer treats an engine's `yes` as `true` and `no` as `false`. `true` always means the affirmative answer to the instruction as written.
+- **`noul`:** the probability that the statement is true (the card's definition). The scorer treats an engine's `yes` as `true` and `no` as `false`. Our items are always statements ("There is still stock in chiller 3."), never yes/no questions ("Is any stock still in chiller 3?"): a question is answered yes or no, a statement is true or false.
 - **`choice`:** a probability for every label.
 - **`score`:** a probability for every level. The expected level, the sum over i of i × p(i), is what an engine reports as `score`. Level 0 must be the low end of the scale.
 
@@ -64,8 +64,8 @@ The card adds: "Report KL or log loss and Brier next to accuracy; calibration is
 These are the documented requirements a script cannot fully check.
 
 1. **noul:**
-   - The instruction can be answered exactly true or false from the state.
-   - `true` is the affirmative answer to the instruction as written.
+   - The instruction is a statement (not a question) that is exactly true or false of the state.
+   - `true` means the statement as written is true.
    - The `true` description says what makes the answer true, and the `false` description says what makes it false. Neither may be swapped or inverted.
 2. **choice:**
    - Every label is a real, distinct option.
