@@ -1737,3 +1737,11 @@ Latency is unchanged (~55 ms per question).
 - **Fix for run 4:** a collapse guard.
   - At step 400, dev KL on 300 questions must be at least 0.02 below the uniform guess's.
   - If it isn't, training restarts with seed + 1000, up to 3 attempts.
+
+## 07 run 4 — 2026-10-24: as run 3, with the collapse guard (stopped)
+
+- **Setup:** plain ModernBERT-large, with the collapse guard at step 400 and seeds 42 / 1042 / 2042.
+- **Stopped by the user:** the loss stayed at about 1.18–1.19, the same uniform-guess level as runs 2 and 3. The saved outputs were overwritten locally by a notebook edit, so the exact log is only in the Kaggle copy.
+- **Conclusion:** a start from plain ModernBERT-large has not trained on this data in three runs. Next:
+  - **Run 5:** 07 from Signpost's weights, as in run 1, with all the run-3 fixes.
+  - **Then:** `08_signpost_d_onepass.ipynb` (option B).
