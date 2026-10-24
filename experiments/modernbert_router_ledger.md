@@ -1726,3 +1726,14 @@ Latency is unchanged (~55 ms per question).
   - one `render()` for our cases and the benchmark: `noul` as true/false with their descriptions, `choice` by its labels, `score` by its criteria lowest first;
   - one temperature per question type, fitted on dev;
   - a calibration check: top-probability histograms, entropy, and over-certain options and their share of the KL.
+
+## 07 run 3 — 2026-10-24: v1 in System One form, from plain ModernBERT-large (collapsed, stopped)
+
+- **Setup:** as run 2, with the score-loss fix, `render()` and per-type temperatures. Seed 42.
+- **Collapsed:** epoch 1 gave dev KL **0.7542**, against **0.7544** for a uniform guess on the same dev questions. The model gave every option the same probability.
+  - The loss stayed at about 1.2 throughout: the uniform guess's cross-entropy (1.08) plus the score term. The floor set by the soft labels is 0.33.
+  - Dev accuracy was 0.430. The prior (average label by type and position) reaches 0.462.
+- **Same failure as Signpost's run 22** (notebook 03): a start from plain ModernBERT-large stayed at chance. Runs 2 and 3 both used seed 42.
+- **Fix for run 4:** a collapse guard.
+  - At step 400, dev KL on 300 questions must be at least 0.02 below the uniform guess's.
+  - If it isn't, training restarts with seed + 1000, up to 3 attempts.
