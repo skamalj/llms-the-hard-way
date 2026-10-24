@@ -1796,3 +1796,63 @@ Latency is unchanged (~55 ms per question).
   1. Every type drops by about the same amount from dev to the benchmark (0.25–0.28), so this is a transfer gap, not one type's format.
   2. All 2,442 of our true/false items were yes/no questions, while the card defines `noul` as "the probability that the **statement** is true".
   3. Next: all true/false items rewritten as statements (gold unchanged), then `08_signpost_d_onepass.ipynb`. One pass means score levels see the whole rubric.
+
+## 08 run 6 — 2026-10-25: Signpost-D one-pass, from Signpost one-pass's weights
+
+- **Setup:** `08_signpost_d_onepass.ipynb`.
+  - Start from `skamalj/signpost-one-pass` (merged encoder and head), with a new LoRA (r 16), HEAD_LR 5e-4, 3 epochs and batch 8.
+  - One pass per question: every option goes into one input, and each option is pooled over its own tokens.
+  - Data: v1 at commit 9cc3e7c. All true/false items are statements with exact true/false descriptions, score instructions name their quantity, and 48% of states are JSON.
+  - **46.5 minutes on a T4,** against 153 for run 5. Peak GPU 2.8 GB.
+- **Collapse check at step 400:** dev KL 0.442, against 0.664 for a uniform guess.
+- **Dev by epoch.** Epoch 2 was kept: epoch 3 raised accuracy but made the model overconfident.
+
+| | 1 | **2 (kept)** | 3 |
+|---|---|---|---|
+| accuracy | 0.675 | **0.712** | 0.725 |
+| KL | 0.461 | **0.4605** | 0.492 |
+| Brier | 0.297 | **0.292** | 0.294 |
+| ECE | 0.033 | **0.029** | 0.040 |
+
+- **Dev by type:**
+
+| Type | Accuracy | KL |
+|---|---|---|
+| true/false | 0.760 | 0.373 |
+| choice | 0.718 | 0.480 |
+| score | 0.651 | 0.537 |
+
+  Fitted temperatures: true/false 1.5, score 1.25, choice 1.
+- **Grounded-question tests** (Signpost / run 5 / run 6):
+
+| Test | Signpost | Run 5 | Run 6 |
+|---|---|---|---|
+| E12 | 161 | 146 | 148 |
+| independent | 221 | 226 | **236** |
+| independent 2 | 188 | 185 | **188** |
+
+- **Benchmark test split** (scored once):
+
+| | Accuracy | KL | Brier | ECE |
+|---|---|---|---|---|
+| T = 1 | **0.4365** | 0.685 | 0.376 | 0.242 |
+| T per type | **0.4365** | **0.551** | 0.324 | 0.195 |
+
+  - **The first model above Signpost's 0.4175.** It is still below the prior (0.470 / KL 0.347).
+  - By type: true/false 0.557, choice 0.390, score 0.381.
+  - By workflow:
+
+| Workflow | Accuracy | Change from run 5 |
+|---|---|---|
+| agent trace | 0.432 | +0.09 |
+| customer service | 0.598 | |
+| security | 0.504 | |
+| **invoices** | **0.212** | below uniform; KL 1.03, ECE 0.50, so confidently wrong |
+
+  - Without invoices, accuracy on the other three workflows is about 0.51.
+- **Calibration:** on the benchmark, predicted entropy is 0.655 against 0.639 for the gold. Only 1.7% of the KL comes from over-certain options at T = 1, and none with the per-type temperatures.
+- **Reading:**
+  1. One pass is better than one pass per option on dev and on the benchmark, and 3× faster.
+  2. The format corrections coincide with gains where the format had differed most (agent traces, true/false).
+  3. Invoices are the remaining large gap.
+- **Next:** run 7 is 08 with a bigger LoRA (r 64) and a deeper head. The head gets zero-initialised residual blocks on the published head, so it starts identical to it.
