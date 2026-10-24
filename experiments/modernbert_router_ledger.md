@@ -1856,3 +1856,17 @@ Latency is unchanged (~55 ms per question).
   2. The format corrections coincide with gains where the format had differed most (agent traces, true/false).
   3. Invoices are the remaining large gap.
 - **Next:** run 7 is 08 with a bigger LoRA (r 64) and a deeper head. The head gets zero-initialised residual blocks on the published head, so it starts identical to it.
+
+## Data v1_1 — 2026-10-25: v1 + 150 invoice cases
+
+- **Why:** after run 6 the user chose to add the invoice domain. The domain is public on the dataset card; no benchmark question, case or field was seen by anyone writing the data.
+- **Disclosure:** the invoice cases were added *after* a benchmark result showed invoices as the weak workflow. Any submission must say so.
+- **Brief:** `data/signpost_d/brief_v2_1_invoices.md`. It describes accounts-payable checks from general practice, and cases are written directly in System One form.
+- **Production:**
+  - 3 Opus generators (I1–I3, 50 cases each, on different businesses);
+  - 3 labellers (Opus cautious, Sonnet pragmatic, Fable neutral). All three agree on the top answer for 98% of questions; mean top 0.93;
+  - 3 validators: 32 keep, 11 fix, 6 relabel, 0 drop. Five relabels corrected a labeller's arithmetic.
+- **Overlap with the benchmark (my script only, on a temporary copy):** no 8-word overlap. The shared JSON keys are generic invoice words (24 of 697).
+- **v1_1 in numbers:** 1,650 cases and 7,824 questions.
+  - Of the invoice cases' 697 questions: 323 true/false, 245 choice, 129 score. Half of their states are JSON.
+  - Dev: run 6's 225 v1 cases are kept unchanged, plus 22 invoice cases.
