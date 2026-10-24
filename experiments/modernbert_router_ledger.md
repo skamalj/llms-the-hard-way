@@ -1656,3 +1656,58 @@ Later phase branches are created when each phase starts, from the branch of the 
 3. **Readable formatting did not help**; the gap is in what the model knows, not in how the input looks.
 4. **Calibration from our own data transfers:** Signpost's ECE drops from 0.130 to 0.038 and KL from 0.52 to 0.41 at T = 2, with accuracy unchanged. One-pass is far more overconfident (KL 1.99 at T = 1) and needs T = 4.
 5. **Next:** a specialist fine-tune on the benchmark's train split shows how far this architecture can go on these decisions; the general route needs new training data with structured states and policy decisions (Phase C, neutral brief).
+
+## 07 run 1 — 2026-10-24: `07_signpost_d.ipynb`, Signpost-D on the pilot data only (`DATA_MIX = "new"`, branch `signpost-typed-decisions`)
+
+- **Data:** Signpost-D pilot (`data/signpost_d/pilot/final.jsonl`). 300 cases / 1,392 questions:
+  - written by six Opus 5.5 generator subagents from our own brief (`data/signpost_d/brief.md`, no benchmark content);
+  - soft-labelled by three independent stances (cautious, pragmatic, neutral; averaged). They agree on the top answer for 94% of questions;
+  - checked by two validators: 12 fixes, 5 relabels, 1 drop.
+  - Split by case: 240 train (1,113 questions), 60 dev (279).
+  - Overlap with the benchmark (my script only): no 8-word overlaps; only generic field names and labels shared.
+- **Setup:**
+  - start from Signpost's published weights (merged encoder + head), new LoRA r 16, 7.2 M trainable;
+  - soft-label cross-entropy, plus an expected-level term for score questions;
+  - MAX_LEN 512, gradient checkpointing (batches of 8 ran out of memory on a T4), BATCH_NEW 4;
+  - 6 epochs, best epoch by dev KL; 37 min on a T4, peak 3.6 GB.
+- **Before training**, Signpost as published on our dev cases: accuracy **0.398** (KL 0.745, ECE 0.174). This is almost its benchmark score (0.4175), so our independently written cases test the same missing skill.
+
+**Our dev cases by epoch:**
+
+| | before | 1 | 2 | 3 | 4 | 5 | 6 (kept) |
+|---|---|---|---|---|---|---|---|
+| accuracy | 0.398 | 0.427 | 0.466 | 0.527 | 0.606 | 0.602 | **0.634** |
+| KL | 0.745 | 0.637 | 0.638 | 0.637 | 0.520 | 0.486 | **0.474** |
+
+Still improving at epoch 6. Temperature fitted on dev: 1.25.
+
+**Benchmark test (general mode, scored once):**
+
+| | Signpost (06) | run 1 |
+|---|---|---|
+| accuracy | 0.4175 | **0.3965** |
+| yes/no · choice · score | 0.590 · 0.320 · 0.361 | 0.570 · 0.303 · 0.336 |
+| agent trace · customer service · invoices · security | 0.424 · 0.436 · 0.448 · 0.362 | 0.280 · 0.466 · 0.398 · 0.442 |
+| KL · Brier · ECE (T=1) | 0.519 · 0.271 · 0.130 | 0.783 · 0.333 · 0.147 |
+| KL · Brier · ECE (fitted T) | 0.409 · 0.223 · 0.038 (T 2, own data) | 0.667 · 0.308 · 0.115 (T 1.25, dev) |
+
+**Signpost's original tests (forgetting):**
+
+| | Signpost | run 1 |
+|---|---|---|
+| E10 routing live | 181/193 | 114 |
+| independent routing | 133/172 | 80 |
+| independent 2 routing | 62/70 | 34 |
+| E11 first messages | 97/100 | 82 |
+| E12 questions | 161/170 | 131 |
+| independent questions | 221/300 | 187 |
+| independent 2 questions | 188/200 | 147 |
+
+Latency is unchanged (~55 ms per question).
+
+**Findings**
+1. **Our data teaches our cases:** dev accuracy rose from 0.398 to 0.634 (+24 points) and dev KL from 0.745 to 0.474.
+2. **It did not transfer to the benchmark:** 0.3965 against 0.4175. Security (+8) and customer service (+3) improved; agent trace (−14) and invoices (−5) fell; KL is worse.
+3. **Heavy forgetting:** training on the new cases alone damaged the general reading skill, routing most of all. Even simple items fail, such as "who scored highest?". This likely cancels any benchmark gain.
+4. **Some of what was learned is our labellers' conventions.** The benchmark's gold comes from a different ~4B teacher with its own policy priors, so neutral data can close only part of that gap.
+5. **Next:** run 2 (`new+old`) to test whether keeping the general skill restores Signpost's tests and helps the benchmark. Then decide on the full data run, with brief v2 and three different labeller models.
