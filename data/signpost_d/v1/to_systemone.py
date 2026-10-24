@@ -75,7 +75,13 @@ for f in sorted((HERE / "format_validation").glob("validation_F*.jsonl")) if "--
         if not line.strip():
             continue
         v = json.loads(line)
-        if v["verdict"] == "fix":
+        if v["verdict"] == "convert":                    # a record-like text state, now JSON (same facts)
+            c = next(c for c in cases if c["id"] == v["id"])
+            if not c["meta"]["form"].startswith("JSON record"):
+                c["meta"]["form"] = f"JSON record (from {c['meta']['form']})"
+            c["state"] = v["state"]
+            fixes += 1
+        elif v["verdict"] == "fix":
             c = next(c for c in cases if c["id"] == v["id"])
             c["questions"][v["qid"]] = v["question"]
             c["gold"][v["qid"]] = v["gold"]
