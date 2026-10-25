@@ -1919,3 +1919,17 @@ This was agreed with the user while run 7 was training. Each step is one noteboo
 - its teacher's habits.
 
 That is where the gap to the Prior (0.470 / KL 0.347) lies, but closing it that way would make Signpost-D a fitted, not a zero-shot, model.
+
+### Options 8 and 9 set up for an unattended run (2026-10-25)
+
+- **`09_signpost_d_encdec.ipynb`:** the encoder–decoder, about 0.75B in total.
+  - **Model:** ModernBERT-base (+LoRA), an MLP bridge (one soft token per state token, nothing pooled), and Qwen3-0.6B (+LoRA). Qwen3-0.6B is ungated, so no token is needed.
+  - **Prompt:** `Case:` [soft tokens], then the question and lettered options. Each option's probability is read from its label token at `Answer:`.
+  - **Stage 1:** reconstruct each training case's text (its first 256 tokens) from its soft tokens, for 3 epochs, training the encoder LoRA, the bridge and the decoder LoRA.
+  - **Stage 2:** the decoder LoRA is reset, the encoder and bridge are frozen, and decisions are trained for 2 epochs. The best epoch is chosen by dev KL, with the collapse check at step 400.
+  - **`MODE = "decoder"`:** the control run, the same decoder and LoRA reading the case as text.
+  - **Settings:** a papermill `parameters` cell. Results go to `<run>_results.json`, which includes per-question probabilities for averaging later.
+- **`11_runner.ipynb`:** runs the queue `09_encdec`, then `09_decoder`, with papermill, each in its own kernel.
+  - A run that fails is logged, and the next still runs.
+  - A summary table is printed after each run, against run 6.
+  - An optional Kaggle secret `HF_TOKEN` is passed through the environment, never written down.
