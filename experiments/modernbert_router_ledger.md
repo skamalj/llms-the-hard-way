@@ -2008,3 +2008,6 @@ That is where the gap to the Prior (0.470 / KL 0.347) lies, but closing it that 
   - then `09` with `MODE = "decoder"`, `RUN_NAME = "09_decoder"`, in a fresh kernel.
 
   The papermill `parameters` cell in 09 stays; it's harmless.
+- **`09b_signpost_d_encdec_joint.ipynb` (user's idea):** the encoder–decoder trained in one stage. The encoder LoRA, bridge and decoder LoRA learn together on the decisions; there is no reconstruction stage, and `LR_BRIDGE` is 1e-3. The best-epoch snapshot covers all three parts.
+  - Why: in `09`, stage 1 reached only 0.51 held-out token accuracy (0.38 before) after 2 of 3 epochs, a loss of 1.97 per token. It did not click; the case texts are long and full of numbers.
+  - `09` keeps running, to see what a half-aligned bridge gives.
