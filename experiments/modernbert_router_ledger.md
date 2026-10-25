@@ -2172,3 +2172,26 @@ That is where the gap to the Prior (0.470 / KL 0.347) lies, but closing it that 
   2. **The type mix makes the probabilities much better:** choice KL 0.482 against 0.811 for choice only, and better than run 7's 0.601 with less than half the data; the best choice Brier and ECE of any run. Training on one type makes the model over-confident on it.
   3. **So experts per type are not supported:** separating the types loses calibration and gains nothing in accuracy. More data across all types is the lever.
 - **Next:** run 7's setup on all of v1_3 (2,100 cases, about 8,000 training questions), with the L cases split into dev on their own, and 3 epochs (the best epoch has been 2 in every run with this start).
+
+## 08d run 13 — 2026-10-26: all three types on v1_3 (the new choice and score data)
+
+- **Setup:** `08d_signpost_d_all.ipynb`, defaults (`TRAIN_MODE = "all"`, `ORDINAL_HEAD` and `LEVEL_POSITIONS` off). Run 7's settings on **v1_3** (v1_3 now 2,099 cases: L3-028 dropped for a date error in its state, `v1_score/validation/validation_Lzz_manual.jsonl`): 8,254 training questions (score 3,049, choice 2,846, true/false 2,359), 3 epochs, cross-entropy. Dev 1,433 questions from 313 cases (all 269 earlier dev cases kept, 44 L cases added). 67.8 min on a T4.
+- **Training:** per-type loss at the end of epoch 3: true/false 0.31, choice 0.59, score 0.67. Dev: 0.671 / KL 0.513 → **0.707 / 0.456 (best, epoch 2)** → 0.718 / 0.514.
+- **Dev at the best epoch:** choice 0.708 / KL 0.485, true/false 0.793 / 0.311, score 0.636 / 0.538. v1 part **0.724 / KL 0.417** (run 7: 0.713 / 0.430, the best v1 dev so far); invoices 0.657, K 0.775, L 0.591 / 0.653.
+- **Benchmark (T per type; temperatures choice 1, true/false 1.25, score 1):**
+
+| | Accuracy | KL | Brier | ECE | choice | true/false | score |
+|---|---|---|---|---|---|---|---|
+| Prior | 0.470 | **0.347** | | | | | |
+| Run 7 (v1_1) | 0.471 | 0.548 | 0.300 | 0.182 | 0.430 | 0.628 | 0.384 |
+| Run 9 (decoder) | 0.461 | **0.491** | **0.277** | **0.153** | **0.452** | 0.525 | 0.420 |
+| Run 12 (v1_2, cut) | 0.441 | 0.510 | 0.280 | 0.163 | 0.353 | **0.633** | 0.362 |
+| **Run 13 (v1_3, all)** | **0.481** | 0.551 | 0.299 | 0.186 | 0.412 | 0.605 | **0.440** |
+
+  Workflows: agent trace **0.464** (best; run 9 0.432), customer service 0.538, invoices 0.418 (KL 0.914), security **0.504** (best). Grounded tests: E12 141/170, IND 242/300, IND2 186/200 (best of runs 11–13).
+- **Reading:**
+  1. **The best accuracy so far, and the first run above the prior** (0.481 against 0.470; one standard error on 2,000 questions is about 0.011, so it is a small step).
+  2. **The score data worked:** score 0.440 against run 7's 0.384 (+5.6 points), the best of any run including the decoder.
+  3. Choice (0.412) and true/false (0.605) sit slightly under run 7, within about one standard error.
+  4. **Calibration slipped:** KL 0.551 against run 12's 0.510; the predictions are sharper (535 benchmark tops in 0.8–0.9). Invoices are the worst case: KL 0.914, confident and wrong.
+- **Next:** run 14 = the same with `ORDINAL_HEAD = True` (score questions only), compared with this run's score numbers.
