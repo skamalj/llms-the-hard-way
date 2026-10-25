@@ -2153,3 +2153,22 @@ That is where the gap to the Prior (0.470 / KL 0.347) lies, but closing it that 
   Overall 0.3775 / KL 0.657 (true/false 0.490 and score 0.295, never trained). Grounded tests: E12 127/170, IND 205/300, IND2 164/200.
 - **Variant 2 (`BRIER_W = 1`) stopped by hand** after epoch 1 (dev 0.633 / KL 0.610, behind variant 1's epoch 1): the choice-only setup had already lost 5.5 points, so the GPU went to the comparison below.
 - **Reading:** level with run 7 on our own choice questions, 5.5 points worse on the benchmark's. The run changed two things at once, the question types and the amount of data (57% fewer questions), so it cannot say which caused the drop. **`08c`** separates them: all three types cut to the same 2,846 questions (1,379 cases; 1,081 choice, 926 true/false, 839 score).
+
+## 08c run 12 — 2026-10-26: all three types, cut to 08b's 2,846 questions (type mix or amount?)
+
+- **Setup:** `08c_signpost_d_mix_vs_amount.ipynb`, `TRAIN_MODE = "all_subsampled"`. As run 11 (run 7's settings, v1_2, 6 epochs, cross-entropy), but the 2,846 training questions are drawn from all three types (seed 42): 1,081 choice, 926 true/false, 839 score, from 1,379 cases (run 11: 2,846 choice from 1,428 cases). Dev: the same dev cases, all three types (1,257 questions).
+- **Dev:** best epoch 2 again (0.674 / KL 0.506); later epochs gained accuracy (0.695 at 6) but lost KL. Choice dev 0.668 / KL 0.551 (run 11: 0.678 / 0.523).
+- **Benchmark, `type=choice` (T per type; choice temperature 1):**
+
+| | Training questions | Choice questions | Accuracy | KL | Brier | ECE |
+|---|---|---|---|---|---|---|
+| Run 7 (all types, v1_1) | 6,669 | 2,281 | **0.430** | 0.601 | 0.281 | 0.140 |
+| Run 11 (choice only) | 2,846 | 2,846 | 0.375 | 0.811 | 0.361 | 0.251 |
+| **Run 12 (all types, cut)** | 2,846 | 1,081 | 0.353 | **0.482** | **0.244** | **0.114** |
+
+- **Benchmark overall:** 0.441 / KL 0.510 / Brier 0.280 / ECE 0.163 (run 7: 0.471 / 0.548 / 0.300 / 0.182). By type: true/false **0.633** / KL 0.292 (the best of any run; run 7 0.628), score 0.362, choice 0.353. Workflows: agent trace 0.314, customer service 0.556, invoices 0.410, security 0.484. Grounded tests: E12 135/170, IND 236/300, IND2 178/200 (all better than run 11).
+- **Reading:**
+  1. **Choice accuracy follows the amount of data**, not the type mix: with 2,846 questions both runs sit at 0.35–0.38 (one standard error on 600 questions is about 0.02); run 7, with 6,669, reaches 0.43. Run 12 got there with only 1,081 choice questions, so questions of the other types count for choice accuracy almost as much as choice questions do.
+  2. **The type mix makes the probabilities much better:** choice KL 0.482 against 0.811 for choice only, and better than run 7's 0.601 with less than half the data; the best choice Brier and ECE of any run. Training on one type makes the model over-confident on it.
+  3. **So experts per type are not supported:** separating the types loses calibration and gains nothing in accuracy. More data across all types is the lever.
+- **Next:** run 7's setup on all of v1_3 (2,100 cases, about 8,000 training questions), with the L cases split into dev on their own, and 3 epochs (the best epoch has been 2 in every run with this start).
