@@ -2079,3 +2079,41 @@ That is where the gap to the Prior (0.470 / KL 0.347) lies, but closing it that 
   - **The reading:** 32 summary tokens (ModernBERT states averaged over 32 consecutive stretches, through the bridge) × tanh(g). The gate g starts at 0, so step 1 is exactly run 9's decoder.
   - **Training:** joint (decoder LoRA, encoder LoRA, bridge at 3e-4, gate at 5e-3); the gate's value is logged every 100 steps.
   - **Why:** run 9 (text) has the best calibration and judgement; run 7 (encoder) reads better and is stronger on true/false and invoices. The gate avoids 09b's collapse.
+
+## 09c run 10 — 2026-10-25: gated encoder–decoder (raw text + gated encoder reading)
+
+- **Setup:** `09c_signpost_d_gated.ipynb`, `MODE = "gated"`, v1_1, Qwen3-0.6B + ModernBERT-base, joint training, 2 epochs (80.5 min on a T4), 15.3 M trainable.
+- **The gate never opened:** tanh(g) rose to about 0.04–0.05 in epoch 1 and fell back to 0.028 by the end. The decoder takes almost nothing from the encoder when it can read the text itself.
+- **Dev:** epoch 1 0.689 / KL 0.457 (best, kept); epoch 2 0.690 / KL 0.521 (over-fitting: the loss fell 0.90 → 0.70 while dev KL rose). Run 9 had epoch 1 at 0.696 / 0.453. Dev predictions are *less* certain than the gold (entropy 0.70 against 0.29) at epoch 1.
+- **Benchmark (T = 1; all fitted temperatures were 1):**
+
+| | Accuracy | KL | Brier | ECE |
+|---|---|---|---|---|
+| Run 7 (08, encoder) | **0.471** | 0.548 | 0.300 | 0.182 |
+| Run 9 (09, decoder) | 0.461 | **0.491** | **0.277** | **0.153** |
+| **Run 10 (09c, gated)** | 0.453 | 0.510 | 0.281 | 0.177 |
+
+| | Run 10 | Run 9 | Run 7 |
+|---|---|---|---|
+| choice | 0.452 | 0.452 | 0.430 |
+| score | 0.393 | **0.420** | 0.384 |
+| true/false | 0.535 | 0.525 | **0.628** |
+| agent trace | 0.434 | 0.432 | 0.374 |
+| customer service | 0.588 | 0.588 | 0.564 |
+| security | 0.464 | 0.450 | 0.468 |
+| invoices | 0.326 | 0.374 | **0.478** |
+
+- **Field-flip test (mean change / top changed of 60):**
+
+| Question | Run 10 | Run 9 | Run 7 |
+|---|---|---|---|
+| agent action | **0.225 / 34** | 0.168 / 4 | 0.163 / 0 |
+| agent outcome | 0.652 / 60 | 0.669 / 60 | 0.758 / 60 |
+| invoice | 0.011 / 0 | 0.025 / 2 | 0.005 / 0 |
+| security | **0.098 / 5** | 0.053 / 0 | 0.022 / 1 |
+
+- **Reading:**
+  1. On the benchmark, 09c is run 9 within noise, slightly worse overall (0.453 against 0.461), worse on score and invoices. The encoder adds nothing measurable when the decoder reads the text.
+  2. The field-flip test moved: the agent-action answer now changes in 34 of 60 cases (run 9: 4) and security in 5 (run 9: 0). The model reacts more to the deciding fields, but that did not turn into accuracy. Invoices still do not react at all.
+  3. Two epochs are too many for the decoder at this learning rate: epoch 2 over-fits in every decoder run so far.
+- **Decision:** the gated encoder–decoder is not worth pursuing at this size. Next: the choice-only test (`08b`, run 7's encoder settings on choice questions only, with the new choice data `v1_2` and two losses).
