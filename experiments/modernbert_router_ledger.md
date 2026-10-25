@@ -1870,3 +1870,52 @@ Latency is unchanged (~55 ms per question).
 - **v1_1 in numbers:** 1,650 cases and 7,824 questions.
   - Of the invoice cases' 697 questions: 323 true/false, 245 choice, 129 score. Half of their states are JSON.
   - Dev: run 6's 225 v1 cases are kept unchanged, plus 22 invoice cases.
+
+## Signpost-D: the plan of options, to explore one at a time (2026-10-25)
+
+This was agreed with the user while run 7 was training. Each step is one notebook run, compared on the same dev split (run 6's v1 dev cases, plus invoice dev cases) and on the benchmark test split, scored once. The zero-shot rule holds throughout: train only on our own data, never on benchmark cases, questions, fields or factors. The invoice cases were added after a benchmark result, and that must be disclosed.
+
+**Run 7 is training now** (08 on v1_1): LoRA r 64, 2 zero-initialised residual head blocks, and the 150 invoice cases. Then:
+
+1. **Read run 7.**
+   - Compare dev on the v1 cases with run 6 (0.712 / KL 0.4605).
+   - Compare our invoice dev with the benchmark's invoice row (0.212). Weak on both points to capacity or data; good on ours but weak on theirs points to the teacher's conventions.
+2. **Separate run 7's three changes.** One run each, against run 6:
+   - invoice data only (r 16, plain head);
+   - LoRA r 64 only;
+   - deeper head only.
+3. **Average models.** Average the probabilities of runs 6, 7 and later runs. Choose the combination on our own dev set only.
+4. **Score questions,** our weakest type (dev 0.65, benchmark 0.38, and 800 of the 2,000 benchmark questions):
+   - **4a:** more score data, written with brief v2.1;
+   - **4b:** an ordinal score head, with levels treated as positions on one scale.
+5. **A deeper or wider head,** if step 2 shows the head helps: e.g. 4 blocks, or 512 units. The blocks start at zero, so the warm start is kept.
+6. **A bigger encoder.**
+   - **6a:** 08 from plain ModernBERT-large, to test whether one pass removes the stall at a uniform guess seen in runs 2–4.
+   - **6b:** if 6a trains, 08 with Ettin-encoder-1B.
+7. **More and broader data:** about 500 cases with brief v2.1, written in System One form from the start. In runs 5 and 6, dev stopped improving after epoch 2.
+8. **An encoder–decoder under 0.8B parameters** (notebook 09, Thanos-style).
+   - **Shape:**
+     - The encoder reads the state.
+     - An MLP bridge maps **every** state token to a soft token in the decoder's embedding space; nothing is pooled, so the numbers stay reachable.
+     - The decoder reads `<bos> Case: [soft tokens] \n` followed by the question and the options lettered A, B, …
+     - Each option's probability is read from its label token at the last position, as `/v1/systemone` reads a decoder. One forward pass is enough; nothing is generated.
+   - **Configurations:**
+     - **A:** ModernBERT-base (about 150M) + Gemma 3 270M, about 0.42B in total.
+     - **B (recommended):** Signpost-D one-pass encoder (about 395M, already trained on our decisions) + Gemma 3 270M, about 0.67B.
+     - **C:** ModernBERT-base + Qwen3-0.6B, about 0.75B.
+   - **Training:**
+     - stage 1 aligns the bridge: the decoder reconstructs the state text from the soft prefix (Thanos stage 1, with a guard for its sudden "click");
+     - stage 2 trains decisions on v1_1, with soft-label cross-entropy on the label tokens and the decoder's LoRA reset (Thanos run 16: reset beat carry).
+   - **Control:** the same decoder alone, reading the state as plain text. The encoder–decoder must beat it, or the bridge adds nothing.
+   - **Risks:**
+     - small decoders are weak at arithmetic (d3-edge, 0.6B: 0.425);
+     - Gemma 270M may add little reasoning;
+     - two stages take about 1.5–2 hours on a T4.
+9. **A small decoder deciding directly** (Gemma 3 1B + LoRA, labels A–Z read from logprobs). This can be served by vLLM `/v1/systemone` and scored by the official `score_with_jobs.py`. It is outside the 0.8B limit, so it is kept for comparison.
+
+**Not to do:**
+- fitting the benchmark's own fixed questions (per-question priors);
+- its domains beyond invoices;
+- its teacher's habits.
+
+That is where the gap to the Prior (0.470 / KL 0.347) lies, but closing it that way would make Signpost-D a fitted, not a zero-shot, model.
