@@ -1981,3 +1981,25 @@ That is where the gap to the Prior (0.470 / KL 0.347) lies, but closing it that 
   2. The other three workflows fell 3–6 points while our v1 dev held. The cause is either the data mix or the r 64 capacity; plan step 2 (invoices only, r 16, plain head) separates them.
   3. Score questions are still the weakest type.
 - **Disclosure:** the invoice cases were added after a benchmark result.
+
+### Run 7 analysis — why choice questions fail (benchmark train split, reading only; no data changed)
+
+- **Per question,** the model gives nearly one answer to every case:
+
+| Question | Model's top answer | Gold's top answers | Accuracy |
+|---|---|---|---|
+| agent / action | observe 299/300 | human_review 142, observe 114 | 0.377 |
+| invoice / disposition | approve 300/300 | approve 120, manual_review 110, hold 57 | 0.400 |
+| security / disposition | close_benign 260 | investigate 214 | 0.113 |
+| customer service / category (answered from the text) | spread | spread | 0.793 |
+
+- **Field-flip test:** the same case, with its deciding fields set safe or risky, 60 cases each.
+
+| Question | Fields changed | Mean change (TV) | Top answer changed |
+|---|---|---|---|
+| agent / outcome | violation counts | 0.758 | 60/60 |
+| agent / action | the same fields | 0.163 | 0/60 |
+| invoice / disposition | invoice price 15% over the order | 0.005 | 0/60 |
+| security / disposition | MFA, allowlist, change window, criticality | 0.022 | 1/60 |
+
+- **Reading:** the encoder reads values whose meaning an option's text names; the "harmful" description says "violated a constraint", which is why outcome moves. It cannot compare two numbers, combine several weak signals, or turn a finding into an action. That points to a decoder: the 09 encoder–decoder and its decoder-only control. Run the same field-flip test on them.
