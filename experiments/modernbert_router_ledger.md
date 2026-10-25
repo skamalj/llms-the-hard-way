@@ -2003,3 +2003,8 @@ That is where the gap to the Prior (0.470 / KL 0.347) lies, but closing it that 
 | security / disposition | MFA, allowlist, change window, criticality | 0.022 | 1/60 |
 
 - **Reading:** the encoder reads values whose meaning an option's text names; the "harmful" description says "violated a constraint", which is why outcome moves. It cannot compare two numbers, combine several weak signals, or turn a finding into an action. That points to a decoder: the 09 encoder–decoder and its decoder-only control. Run the same field-flip test on them.
+- **Runner dropped (2026-10-25):** `11_runner.ipynb` was removed. Its Kaggle session disconnected partway, and the user now runs the notebooks one at a time:
+  - `09` with `MODE = "encdec"`;
+  - then `09` with `MODE = "decoder"`, `RUN_NAME = "09_decoder"`, in a fresh kernel.
+
+  The papermill `parameters` cell in 09 stays; it's harmless.
