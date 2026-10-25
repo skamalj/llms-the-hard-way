@@ -2117,3 +2117,13 @@ That is where the gap to the Prior (0.470 / KL 0.347) lies, but closing it that 
   2. The field-flip test moved: the agent-action answer now changes in 34 of 60 cases (run 9: 4) and security in 5 (run 9: 0). The model reacts more to the deciding fields, but that did not turn into accuracy. Invoices still do not react at all.
   3. Two epochs are too many for the decoder at this learning rate: epoch 2 over-fits in every decoder run so far.
 - **Decision:** the gated encoder–decoder is not worth pursuing at this size. Next: the choice-only test (`08b`, run 7's encoder settings on choice questions only, with the new choice data `v1_2` and two losses).
+
+## Data v1_2 — 2026-10-25: v1_1 + 150 choice-only cases (K1–K3)
+
+- **Why:** choice is run 7's weakest type on the benchmark (0.430). The choice-only test (`08b`) needs more choice questions. **Disclosure:** added after the benchmark showed choice is weak, as the invoice cases were; the cases are general (no benchmark content, workflow, field or wording was used).
+- **Brief:** `data/signpost_d/brief_v2_2_choice.md`, built on `brief_v2.md` and `format_spec.md`. Every question is a `choice` question, 4–5 per case. Kind shares weighted towards the thin kinds: read ~20%, infer ~20%, compare ~25%, judge ~35%. Half the states JSON records. Domains: brief v2's list, split over the three batches.
+- **Pipeline (as the invoices):** three Opus generators (50 cases each) → three labellers per batch (Opus cautious, Sonnet pragmatic, Fable neutral; averaged) → an Opus validator per batch, with the labellers' notes and the disagreement checks as "look closely" items.
+- **Result:** 150 cases, 667 choice questions (read 134, infer 141, compare 178, judge 214); 75 JSON states; verdicts: 24 keep, 9 relabel, 7 fix, 0 drop; all three labellers agree on the top answer in 98.4% of questions; mean gold top 0.913; 0 format errors.
+- **Notable validator fixes:** options that overlapped (K1-003, K2-002, K3-033), an impossible option (K1-002), an ambiguous day count (K2-025), a labeller who missed a fridge over its limit (K2-039), and splits the facts settle (K1-035, K1-044, K3-018, K3-043).
+- **D_SET `v1_2`** = v1_1 (unchanged, first 1,650 lines) + these 150 cases: 1,800 cases, 3,367 choice questions in all. In `08b`, 15% of the K cases (22) join dev, split on their own, so the earlier dev cases stay as they were.
+- **Build:** `data/signpost_d/v1_choice/build.py` (from the invoice build, plus a check that every question is a choice).
