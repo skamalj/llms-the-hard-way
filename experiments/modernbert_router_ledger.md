@@ -2195,3 +2195,12 @@ That is where the gap to the Prior (0.470 / KL 0.347) lies, but closing it that 
   3. Choice (0.412) and true/false (0.605) sit slightly under run 7, within about one standard error.
   4. **Calibration slipped:** KL 0.551 against run 12's 0.510; the predictions are sharper (535 benchmark tops in 0.8–0.9). Invoices are the worst case: KL 0.914, confident and wrong.
 - **Next:** run 14 = the same with `ORDINAL_HEAD = True` (score questions only), compared with this run's score numbers.
+
+## 08d run 14 — 2026-10-26: `ORDINAL_HEAD = True` (stopped at step ~800)
+
+- **Setup:** as run 13 with `ORDINAL_HEAD = True`: for score questions, s = the published head's expected level over the levels, σ = softplus(a new linear layer on the mean level vector) + 0.1 (starting at 1.0 level), probabilities = logistic shares between k ± 0.5; `ORD_LR` 1e-3.
+- **Stopped by hand in epoch 1:** every type's loss rose after step 400, not only score's (run 13 at the same steps in brackets): step 800, choice 1.30 (0.97), true/false 0.70 (0.61), score 1.32 (1.09); collapse check at step 400, dev KL 0.531 (0.468).
+- **Diagnosis:**
+  1. **A design flaw:** s was computed from the shared published head, which also scores every choice and true/false option. Score questions then trained that head only on the average of its level scores, which allows extreme scores, and the change hurt the other types. The spread layer also fed gradient into the encoder through the mean level vector.
+  2. **Too slow a start:** σ began at 1.0 level, where even a perfect position gives flat answers with extra weight on the end levels (the logistic tails); Adam at 1e-3 needs about 1,900 steps to bring σ down to 0.3.
+- **If retried:** a separate small layer for s on the level vectors (the shared head untouched), σ starting near 0.5, a faster learning rate for both. **Next instead:** run 15, `LEVEL_POSITIONS = True` alone (input text only; no change to the heads or the gradients).
