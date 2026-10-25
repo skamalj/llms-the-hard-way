@@ -2075,3 +2075,7 @@ That is where the gap to the Prior (0.470 / KL 0.347) lies, but closing it that 
   - 09c, a gated joint encoder–decoder;
   - generic comparison and signal-combination training data (motivated by the benchmark analysis, so it needs disclosure if done);
   - a bigger decoder, which is over the 0.8B limit.
+- **`09c_signpost_d_gated.ipynb`** (`MODE = "gated"`): the decoder reads the case as raw text, as run 9 does, plus a gated encoder reading.
+  - **The reading:** 32 summary tokens (ModernBERT states averaged over 32 consecutive stretches, through the bridge) × tanh(g). The gate g starts at 0, so step 1 is exactly run 9's decoder.
+  - **Training:** joint (decoder LoRA, encoder LoRA, bridge at 3e-4, gate at 5e-3); the gate's value is logged every 100 steps.
+  - **Why:** run 9 (text) has the best calibration and judgement; run 7 (encoder) reads better and is stronger on true/false and invoices. The gate avoids 09b's collapse.
