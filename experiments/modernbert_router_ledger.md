@@ -2024,3 +2024,54 @@ That is where the gap to the Prior (0.470 / KL 0.347) lies, but closing it that 
 - **Benchmark:** **0.3355** / KL 0.572 (per-type temperatures). The uniform guess scores 0.308.
 - **Field-flip test:** mean change 0.001–0.004 and **0 of 60** on every question. The decoder ignores the case entirely; its answers depend only on the question and options. It is never confident: no top probability above 0.9.
 - **Reading:** a frozen, poorly aligned bridge is a dead end. Stage 2 learned to answer from the question wording; training loss fell to 0.83 while dev did not improve. Next is `09b` (joint training: the decision loss trains the bridge), then the decoder-only control.
+
+## 09b run 8b — 2026-10-25: encoder–decoder trained jointly (collapsed)
+
+- **Setup:** `JOINT = True`, bridge LR 1e-3, 15.3M trainable.
+- **Collapsed:** the loss went 1.33 → 1.17 → 1.21 → 1.21 over steps 100–400, the uniform level; the collapse check gave 0.6650 against 0.6641.
+- **Reading:** a random, fast-changing bridge swamped the decoder's input, so it could not even use the question wording (which run 8 did). Fix: a gate on the soft tokens, starting at 0, and a bridge LR of 3e-4 (09c).
+
+## 09 run 9 — 2026-10-25: decoder only (the control)
+
+- **Setup:** Qwen3-0.6B + LoRA (10.1M trainable, 606M in total), reading the case as plain text, on v1_1. 61 minutes; peak GPU 4.1 GB.
+- **Collapse check:** **0.399**, the best start of any run (run 7: 0.423).
+- **Dev:** epoch 1 0.696 / KL **0.453** (kept); epoch 2 0.708 / 0.489 (memorising). The fitted temperatures were 1 for every type.
+  - v1 part 0.696 / 0.448; invoice part 0.697 / 0.511. Run 7 was 0.713 / 0.430 and 0.707 / 0.445.
+  - By type: true/false 0.759, choice 0.692, score 0.624.
+- **Grounded tests:** E12 119/170; independent 235/300 (score 61/92, the best yet); independent 2 142/171.
+- **Benchmark:**
+
+| | Accuracy | KL | Brier | ECE |
+|---|---|---|---|---|
+| Run 7 (08, encoder) | **0.471** | 0.548 | 0.300 | 0.182 |
+| **Run 9 (decoder)** | 0.461 | **0.491** | **0.277** | **0.153** |
+
+  The best KL, Brier and ECE of any run. By type and workflow (run 9 against run 7):
+
+| | Run 9 | Run 7 |
+|---|---|---|
+| choice | **0.452** | 0.430 |
+| score | **0.420** | 0.384 |
+| true/false | 0.525 | **0.628** |
+| agent trace | **0.432** | 0.374 |
+| customer service | 0.588 | 0.564 |
+| security | 0.450 | 0.468 |
+| invoices | 0.374 | **0.478** |
+
+- **Field-flip test** (run 9 against run 7):
+
+| Question | Run 9 | Run 7 |
+|---|---|---|
+| agent action | 0.168 / 4 of 60 | 0.163 / 0 |
+| agent outcome | 0.669 / 60 | 0.758 / 60 |
+| invoice | **0.025** / 2 | 0.005 / 0 |
+| security | **0.053** / 0 | 0.022 / 1 |
+
+- **Reading:**
+  1. The decoder notices the deciding fields slightly more than the encoder, but still almost never changes its answer for them. Comparing numbers and combining signals is weak at both 0.4B and 0.6B.
+  2. The two models are complementary. The encoder is better at reading, true/false and invoices. The decoder is better at judgement (score, choice, agent trace) and much better calibrated.
+- **Next options:**
+  - average runs 7 and 9, weighted on dev;
+  - 09c, a gated joint encoder–decoder;
+  - generic comparison and signal-combination training data (motivated by the benchmark analysis, so it needs disclosure if done);
+  - a bigger decoder, which is over the 0.8B limit.
