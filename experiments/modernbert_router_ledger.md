@@ -1933,3 +1933,51 @@ That is where the gap to the Prior (0.470 / KL 0.347) lies, but closing it that 
   - A run that fails is logged, and the next still runs.
   - A summary table is printed after each run, against run 6.
   - An optional Kaggle secret `HF_TOKEN` is passed through the environment, never written down.
+
+## 08 run 7 — 2026-10-25: one-pass on v1_1 (invoice cases), LoRA r 64, deeper head
+
+- **Setup:** `08_signpost_d_onepass.ipynb` (commit 23b9fcb).
+  - Start from `skamalj/signpost-one-pass`, with LoRA r 64 / alpha 128 (28.8M trainable) and `HEAD_EXTRA` 2 (zero-initialised residual blocks).
+  - Data: D_SET v1_1 (6,669 train / 1,155 dev questions). 3 epochs, 53 minutes, peak GPU 3.2 GB.
+- **Collapse check at step 400:** dev KL 0.423, against 0.664 for a uniform guess (run 6: 0.442).
+- **Dev by epoch.** Epoch 2 was kept; epoch 3 became overconfident.
+
+| | 1 | **2 (kept)** | 3 |
+|---|---|---|---|
+| accuracy | 0.669 | **0.713** | 0.724 |
+| KL | 0.495 | **0.440** | 0.504 |
+| ECE | 0.052 | **0.012** | 0.064 |
+
+- **Dev split, per-type temperatures:**
+
+| Part | Run 6 | Run 7 |
+|---|---|---|
+| v1 cases (same 1,056 questions) | 0.712 / KL 0.446 | 0.713 / KL **0.430** |
+| invoice cases (99 questions) | – | **0.707** / KL 0.445 |
+
+  By type (dev, T = 1): true/false 0.778, choice 0.690, score 0.661.
+- **Grounded-question tests:** E12 146, independent 233 (score 54/92, against 47 in run 6), independent 2 183.
+- **Benchmark test split** (scored once):
+
+| | Accuracy | KL | Brier | ECE |
+|---|---|---|---|---|
+| T = 1 | **0.471** | 0.663 | 0.345 | 0.230 |
+| T per type | **0.471** | **0.548** | 0.300 | 0.182 |
+
+  - Level with the prior's 0.470 on accuracy; the prior's KL is 0.347.
+  - By type: true/false 0.628, choice 0.430, score 0.384.
+  - By workflow:
+
+| Workflow | Run 6 | Run 7 |
+|---|---|---|
+| **invoices** | 0.212 | **0.478** |
+| agent trace | 0.432 | 0.374 |
+| customer service | 0.598 | 0.564 |
+| security | 0.504 | 0.468 |
+
+- **Calibration:** no option is over-certain, either on dev or on the benchmark. Predicted entropy on the benchmark is 0.626, against 0.639 for the gold.
+- **Reading:**
+  1. The invoice data closed the invoice gap. That gap was missing data, not the teacher's conventions; our own invoice dev is 0.707.
+  2. The other three workflows fell 3–6 points while our v1 dev held. The cause is either the data mix or the r 64 capacity; plan step 2 (invoices only, r 16, plain head) separates them.
+  3. Score questions are still the weakest type.
+- **Disclosure:** the invoice cases were added after a benchmark result.
