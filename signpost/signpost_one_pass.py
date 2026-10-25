@@ -62,7 +62,7 @@ class SignpostOnePass:
         self.tok = AutoTokenizer.from_pretrained(path / "encoder")
         self.enc = AutoModel.from_pretrained(path / "encoder", dtype=dtype).to(self.device).eval()
         head = torch.load(path / "head.pt", map_location="cpu")
-        if head.get("extra_blocks"):                                    # a deeper head (Signpost-D run 7 onwards)
+        if "extra_blocks" in head:                                       # ScoreHead layout (Signpost-D run 7 onwards)
             self.head = ScoreHead(head["hidden"], head["extra_blocks"])
         else:
             self.head = nn.Sequential(nn.Dropout(0.1), nn.Linear(head["hidden"], 256), nn.GELU(), nn.Dropout(0.1), nn.Linear(256, 1))
