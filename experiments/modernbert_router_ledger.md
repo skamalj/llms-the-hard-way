@@ -2011,3 +2011,16 @@ That is where the gap to the Prior (0.470 / KL 0.347) lies, but closing it that 
 - **`09b_signpost_d_encdec_joint.ipynb` (user's idea):** the encoder–decoder trained in one stage. The encoder LoRA, bridge and decoder LoRA learn together on the decisions; there is no reconstruction stage, and `LR_BRIDGE` is 1e-3. The best-epoch snapshot covers all three parts.
   - Why: in `09`, stage 1 reached only 0.51 held-out token accuracy (0.38 before) after 2 of 3 epochs, a loss of 1.97 per token. It did not click; the case texts are long and full of numbers.
   - `09` keeps running, to see what a half-aligned bridge gives.
+
+## 09 run 8 — 2026-10-25: encoder–decoder, two stages (copy, then decide)
+
+- **Setup:** ModernBERT-base + bridge + Qwen3-0.6B, 760M in total, on v1_1.
+  - Stage 1: 3 epochs, 528 steps, 34 minutes.
+  - Stage 2: decoder LoRA only (10.1M), with the encoder and bridge frozen; 2 epochs, 70 minutes.
+- **Stage 1 never clicked.** Held-out reconstruction token accuracy went 0.377 → 0.496 → 0.508 → 0.509, with the loss about 1.85 per token.
+- **Stage 2:** collapse check 0.517 (uniform guess 0.664). Dev epoch 1: 0.550 / KL 0.623 (kept). Epoch 2: 0.572 / KL 0.633.
+- **Dev, per-type temperatures:** 0.550 / KL 0.612. The v1 part is 0.548; the invoice part 0.566.
+- **Grounded tests:** E12 63/170, independent 133/300, independent 2 74/171.
+- **Benchmark:** **0.3355** / KL 0.572 (per-type temperatures). The uniform guess scores 0.308.
+- **Field-flip test:** mean change 0.001–0.004 and **0 of 60** on every question. The decoder ignores the case entirely; its answers depend only on the question and options. It is never confident: no top probability above 0.9.
+- **Reading:** a frozen, poorly aligned bridge is a dead end. Stage 2 learned to answer from the question wording; training loss fell to 0.83 while dev did not improve. Next is `09b` (joint training: the decision loss trains the bridge), then the decoder-only control.
