@@ -2137,3 +2137,19 @@ That is where the gap to the Prior (0.470 / KL 0.347) lies, but closing it that 
 - **What the validators fixed:** mostly values on or beside a level boundary that the wording did not settle (which log row, which reading, which base for a percentage, how days are counted), neighbouring levels that overlapped, and levels that left a gap. Score-consistency fixes: one reversed scale (L6-047 q3) and five instructions reworded to name the quantity the levels follow (L2-031, L3-019, L3-038 ×2, L4-001, L4-040, L6-009). One state error (L3-028: a weekday count that does not match the dates) was handled by rewording the instruction; the case may be worth regenerating.
 - **D_SET `v1_3`** = v1_2 (unchanged, first 1,800 lines) + these 300 cases: 2,100 cases; 3,559 score, 3,367 choice and 2,765 true/false questions. A score-only run must split the L cases on their own (as `08b` does for I and K) so the earlier dev cases stay as they were.
 - **Build:** `data/signpost_d/v1_score/build.py` (from the choice build; checks every question is a score).
+
+## 08b run 11 — 2026-10-25: run 7's encoder on choice questions only (v1_2)
+
+- **Setup:** `08b_signpost_d_choice.ipynb`. Run 7's settings (start `skamalj/signpost-one-pass`, LoRA r 64, `HEAD_EXTRA` 2, seed 42), trained, checked and selected on **choice questions only**: 2,846 training questions (1,428 cases), 521 dev questions (v1 386, invoices 33, new K cases 102). 6 epochs, cross-entropy (variant `BRIER_W = 0`).
+- **Dev by epoch (choice):** 0.680 / KL 0.553 → **0.678 / 0.523 (best, epoch 2)** → 0.706 / 0.532 → 0.699 / 0.584 → 0.695 / 0.618 → 0.703 / 0.572. Epochs 3–6 only memorised (the loss kept falling, dev KL rose).
+- **Dev parts at the best epoch:** v1 choice 0.684 / KL 0.496, invoices 0.667 / 0.661, K cases 0.657 / 0.580. v1 + invoices together (419 questions) ≈ 0.683 / 0.51, level with run 7's choice dev (0.690 / 0.488).
+- **Benchmark (T = 1; the fitted choice temperature was 1):**
+
+| `type=choice` | Accuracy | KL | Brier | ECE |
+|---|---|---|---|---|
+| Run 7 (all types, 6,669 questions) | **0.430** | **0.601** | **0.281** | **0.140** |
+| **Run 11 (choice only, 2,846)** | 0.375 | 0.811 | 0.361 | 0.251 |
+
+  Overall 0.3775 / KL 0.657 (true/false 0.490 and score 0.295, never trained). Grounded tests: E12 127/170, IND 205/300, IND2 164/200.
+- **Variant 2 (`BRIER_W = 1`) stopped by hand** after epoch 1 (dev 0.633 / KL 0.610, behind variant 1's epoch 1): the choice-only setup had already lost 5.5 points, so the GPU went to the comparison below.
+- **Reading:** level with run 7 on our own choice questions, 5.5 points worse on the benchmark's. The run changed two things at once, the question types and the amount of data (57% fewer questions), so it cannot say which caused the drop. **`08c`** separates them: all three types cut to the same 2,846 questions (1,379 cases; 1,081 choice, 926 true/false, 839 score).
