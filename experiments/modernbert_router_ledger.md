@@ -2227,3 +2227,16 @@ That is where the gap to the Prior (0.470 / KL 0.347) lies, but closing it that 
   3. **But choice (+4.1) and true/false (+4.0) improved too,** although their input did not change, and dev did not move. Part of the gain is probably run-to-run variation (one standard error is about 0.02 per type), so **a repeat with another seed is needed** before treating the whole jump as the effect of level positions. The positions may also help the shared encoder by making score questions less confusing; a repeat would show it.
   4. KL gains also come from the fitted temperature (1.25 everywhere): at T = 1 the KL is 0.458.
 - **Dev predictions saved** for the failure analysis: `experiments/analysis/run15_dev_preds.json` (1,433 questions: id, qid, type, probabilities in option order).
+
+## Dev failure analysis — 2026-10-26 (run 15's dev predictions; our own data only)
+
+Script: scratchpad `ana/fail.py` on `experiments/analysis/run15_dev_preds.json` joined with v1_3.
+
+- **Misses are real errors, not unclear labels:** true/false 94 wrong (0 with a split gold, 66 confident and wrong), choice 150 (13 split, 48 confident), score 182 (14 split, 33 confident). About 95% of misses sit on a clear gold.
+- **Compare is the weakest kind in every type:** true/false read 0.924 / judge 0.842 / infer 0.712 / **compare 0.650**; choice read 0.817 / judge 0.742 / infer 0.653 / **compare 0.560**; score judge 0.687 / infer 0.637 / read 0.620 / **compare 0.520**.
+- **Two failure patterns (read case by case):**
+  1. **No calculation:** 7 of 252 returns (2.8%) read as above a 5% limit (G09-009); 70% of 46 against 40 pickers (G19-013); 17:01:47 against a 17:00 deadline read as 30–60 minutes late (D-041); the average of 79 and 76 (G01-026); 14:15 to 14:58 read as 16–30 minutes (G02-032); an amount exactly on an inclusive band (I1-019); disk growth against a backup time (G16-027).
+  2. **Surface cues over the stated rule:** "leaks" → half refund though faulty items get a full refund in any state (K2-034); the cheaper hotel though the rule requires the same star rating or higher (G17-044); "escalate" though no signature means no protection (G14-017); "compromised" though the log shows the user's own device (G06-039); noise that returned → full night rather than the rule's 50% (G02-042). True/false leans to "true" on alarming statements: 54 of 94 errors are "true" for a false gold; gold-false accuracy 0.714 against gold-true 0.816.
+- **Smaller patterns:** score misses are mostly one level (140 of 182), more often too high (113) than too low (69), and pulled off the end levels (78); 5-level scales 0.514 against 3-level 0.723. Choice falls with more options (2: 0.808 … 6: 0.595) and when the answer is the last option (0.639). No difference by form (JSON 0.643–0.775 against text 0.638–0.762) or state length.
+- **Matches the benchmark's field-flip test:** the model reacts to signal words, not to the numbers and rule clauses that decide the answer.
+- **Next options:** (1) contrastive twin cases (the same case with one number or one rule condition changed so the answer flips), our own data, motivated by this dev analysis; (2) a decoder that writes a short working-out before answering, for the calculations an encoder cannot learn; (3) a seed repeat of run 15 to confirm its jump.
