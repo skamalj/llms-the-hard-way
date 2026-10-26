@@ -2318,3 +2318,9 @@ Script: scratchpad `ana/fail.py` on `experiments/analysis/run15_dev_preds.json` 
 
   Workflows: agent trace 0.452, customer service 0.586, invoices 0.352 (KL 0.843), security 0.458.
 - **Reading:** a small, consistent gain with no extra latency: accuracy at the top of the seed range (+0.8 over the mean, within noise), KL and ECE better than every seed. Still below the prior on both. Saved as `checkpoints/soup/…/soup.pt` (0.69 GB, in Kaggle's persistent folder) for continued training; dev predictions in `experiments/analysis/soup3_dev_preds.json`.
+
+## Decoder line (path A) — 2026-10-26: notebook 11
+
+- **`11_signpost_d_decoder.ipynb`:** one notebook for A1–A5. `MODE = "zeroshot"` scores untrained models; `"train"` fine-tunes each model for each seed. Prompt: each model's chat template (thinking off), a short system line, the case and the question with lettered options (score levels with positions); probabilities from the next-token logits of the letters. Training: LoRA α = r (attention, MLP, linear-attention projections), LoRA weights fp32, fp16 autocast, clipping with the gradient norm logged, warm-up 15%, collapse checks at a step and after epoch 1, best epoch on dev KL, per-epoch checkpoints with resume; 1.7 B and 4 B in 4 bit (QLoRA). Measurement: dev by type and by kind, benchmark with case-level 95% bootstrap intervals, each test scoring counted in `checkpoints/test_touches.json`.
+- **First session (A1), zero-shot:** `skamalj/signpost-one-pass` as published (reference: our encoders' start), Qwen3-0.6B, Qwen3.5-0.8B, Qwen3-1.7B (4-bit), Qwen3-4B (4-bit); v1_3 dev split.
+- **Working rules adopted from the review:** three seeds or no claim; test split only at decision points (counted); report by question kind. The style audit of the benchmark and 4B-model relabelling were declined (zero-shot kept strict).
