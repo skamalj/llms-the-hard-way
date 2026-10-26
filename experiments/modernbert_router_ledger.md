@@ -2349,3 +2349,25 @@ Script: scratchpad `ana/fail.py` on `experiments/analysis/run15_dev_preds.json` 
 - **Speed:** ~10.2 s per optimizer step (8 questions): ~6 h for two epochs. Too slow; stopped by choice after the collapse check, no checkpoint kept.
 - **Training signal:** loss 1.49 (step 100) → 0.88 → 0.87 → 0.82 (step 400); gradient norm mean 8.3 (max 34) in the first 100 steps, then 2.7–3.2 (max ~7.6). **Collapse check at step 400: dev KL 0.361 on 300 dev questions (uniform 0.664)**, no temperature. For reference, untrained 4B dev KL 0.619 (full dev, with temperature); best encoder dev KL 0.438 (soup). Not a like-for-like number, but a strong early sign.
 - **Next:** rebuild notebook 11 for speed: 1 epoch (decoders over-fitted in epoch 2 in runs 9 and 10), one pass per case (all of a case's questions after one copy of the state, letters read before a fixed placeholder; ~2.6× fewer tokens), fp16 weights instead of 4-bit (no dequantisation; ~11–12 GB peak), and both T4s (one seed per GPU via accelerate's notebook_launcher).
+
+## 11 A2 — 2026-10-27: Qwen3-4B fine-tuned (fp16, one pass per case, 2 GPUs, 1 epoch), seed 42
+
+- **Setup:** notebook 11 (commit 2164468): Qwen3-4B in fp16 + LoRA r 16 (α = r, fp32 LoRA weights, fp16 autocast), LR 1e-4, warm-up 15%, **1 epoch**, v1_3, level positions; **one pass per case** (state once, questions numbered, answers read after "n:" with fixed "_" placeholders; question order and choice/true-false options shuffled per case); **data-parallel on 2 × T4** (1 case per GPU per step, LoRA gradients averaged; 893 steps). Peak 9.5 GB per GPU. **38.9 min of training** (~2.5 s per step of ~9 questions; ~4.5× faster per question than attempt 1), about 45 min for the whole run.
+- **Training:** loss 1.28 (step 100) → 0.86 → 0.78 → 0.81 → 0.76 → 0.84 → 0.74 → 0.79 → 0.70 (step 893); gradient norm mean 5.8 then 2.5–3.2 (max 21.5 in the first 100 steps, otherwise ≤ 15.8). Collapse check at step 400: dev KL 0.289 (uniform 0.664).
+- **Dev (T per type):** **0.780 / KL 0.326** / Brier 0.209 / ECE 0.044; choice 0.806, true/false 0.825, score 0.717. By kind: read 0.928, judge 0.814, infer 0.725, **compare 0.639**.
+- **Benchmark (T per type), test touch 6:**
+
+| | Accuracy [95% CI] | KL [95% CI] | Brier | ECE | choice | true/false | score |
+|---|---|---|---|---|---|---|---|
+| **Qwen3-4B fine-tuned, seed 42** | **0.5655 [0.541, 0.591]** | **0.330 [0.310, 0.350]** | 0.188 | 0.093 | 0.598 | 0.618 | 0.501 |
+| Qwen3-4B untrained (A1) | 0.499 | 0.557 | 0.296 | 0.200 | 0.582 | 0.505 | 0.433 |
+| Encoder soup (08g) | 0.462 | 0.497 | 0.280 | 0.158 | 0.418 | 0.585 | 0.403 |
+| Prior | 0.470 | 0.347 | 0.189 | 0.088 | | | |
+
+  Workflows: agent trace 0.538, customer service 0.662, **invoices 0.434 (KL 0.442, ECE 0.260)**, security 0.628.
+- **Reading:**
+  1. **First model above the prior on both accuracy and KL**, and above d3-lite (0.8B, 0.531); below d3-nano (2B, 0.629). Fine-tuning added 6.6 points over the untrained 4B and fixed its calibration (ECE 0.20 → 0.09, KL 0.557 → 0.330).
+  2. **Dev and benchmark moved together** for the first time (dev 0.70 → 0.78 against the encoders; benchmark 0.46 → 0.57).
+  3. One seed only: not yet a claim under the two-seed rule.
+  4. Compare questions remain the weak kind; invoices the weak workflow.
+- **Next:** 2 epochs from scratch on seed 42 (best epoch by dev KL; loss still falling at the end of epoch 1), then a second seed with the winning epoch count.
