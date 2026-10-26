@@ -2277,3 +2277,10 @@ Script: scratchpad `ana/fail.py` on `experiments/analysis/run15_dev_preds.json` 
 - **Setup:** run 15's configuration (v1_3, level positions, 3 epochs) with `SEED = 1042`. **Flaw found:** `dev_split` shuffled with `SEED`, so changing the seed also changed the dev cases (1,438 dev questions against 1,433; train 8,249 against 8,254). Its dev numbers are therefore not comparable with run 15's.
 - **Training finished** (70.9 min; best epoch 2, dev 0.708 / KL 0.467 on its own dev cases); **the Kaggle session died** (network) during the measurements, so there is no benchmark score.
 - **Fix:** the dev split now uses a fixed `SPLIT_SEED = 42` (08f, 10; 08d next). Runs 15c and 15d (seeds 1042 and 2042, split pinned) replace this run as the seed test.
+
+## 08d run 15c — 2026-10-26: run 15's configuration, seed 1042, split pinned — collapsed after the check
+
+- **Setup:** run 15's configuration exactly (v1_3, no twins, level positions, 3 epochs), dev split pinned (train 8,254 / dev 1,433, as run 15), training seed 1042 (the first of `SEED_VARIANTS = [1042, 2042]`).
+- **Collapsed after passing the step-400 check** (dev KL 0.531): at step 600 every type's loss jumped (true/false 0.57 → 0.65 → 0.69 = ln 2, choice 1.04 → 1.26, score 1.15 → 1.33) and stayed at the uniform level; epoch 1 dev 0.380 / KL 0.782. Stopped by hand in epoch 2.
+- **Reading:** with run 16's first attempt (seed 42 on v1_4), that is two collapses near the learning-rate peak, one with no twins at all. **The configuration itself is fragile; the twins did not cause the collapse.** A run that nears collapse and recovers can pass dev yet transfer differently, which may explain the benchmark swings (runs 13–16).
+- **Next:** stabilise training (LoRA LR 2e-4 → 1e-4, head 5e-4 → 2.5e-4, warm-up 6% → 15%, a second collapse check at the end of epoch 1), then the seed test (42, 1042, 2042) on that setup.
