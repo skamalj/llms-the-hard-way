@@ -2302,3 +2302,19 @@ Script: scratchpad `ana/fail.py` on `experiments/analysis/run15_dev_preds.json` 
   3. **Run 15's 0.5165 was an outlier.** One caution: the completed old-learning-rate runs scored 0.481 (13), 0.5165 (15) and 0.445 (16), mean 0.481, above the stable mean; the higher rate may transfer better when it does not collapse. Not established; two runs collapsed at that rate.
 - **Saved:** the three seeds' weights (LoRA, head, config) in Kaggle's /kaggle/working/checkpoints/all-pos-v1_3-lr0.0001-head0.00025-warm0.15-ep3/seed*/; dev predictions in `experiments/analysis/stable_seed*_dev_preds.json`.
 - **Next:** a weight-averaged model of the three seeds (and WiSE-FT towards the start weights), chosen on dev.
+
+## 08g — 2026-10-26: weight-averaged model of the three stable seeds (no training)
+
+- **Method:** each seed's full LoRA weight change (B @ A × α/r) averaged over seeds 42, 1042, 2042 (112 adapted modules) and added to the start weights; heads averaged. WiSE-FT α ∈ {1.0, 0.75, 0.5} chosen on dev KL → **α = 1.0**. The seeds' weight changes are nearly orthogonal (cosine 0.06 between seeds 42 and 1042), yet their average is better than each.
+- **Dev:** α 1.0 **0.712 / KL 0.438** (single seeds 0.700–0.708 / 0.454–0.464; the best dev KL so far); α 0.75 0.695 / 0.464; α 0.5 0.646 / 0.524. Parts: v1 0.728 / 0.404, invoices 0.737, K 0.696, L 0.608. Grounded tests **E12 149/170, IND 248/300, IND2 184/200** (best of any run).
+- **Benchmark (T per type), scored once for the chosen α:**
+
+| | Accuracy | KL | Brier | ECE | choice | true/false | score |
+|---|---|---|---|---|---|---|---|
+| Seeds, mean | 0.454 | 0.527 | 0.295 | 0.174 | 0.406 | 0.565 | 0.408 |
+| Seeds, best of three on each measure | 0.461 | 0.503 | 0.274 | 0.170 | | | |
+| **Average of the three (soup)** | **0.462** | **0.497** | 0.280 | **0.158** | 0.418 | 0.585 | 0.403 |
+| Prior | 0.470 | 0.347 | 0.189 | 0.088 | | | |
+
+  Workflows: agent trace 0.452, customer service 0.586, invoices 0.352 (KL 0.843), security 0.458.
+- **Reading:** a small, consistent gain with no extra latency: accuracy at the top of the seed range (+0.8 over the mean, within noise), KL and ECE better than every seed. Still below the prior on both. Saved as `checkpoints/soup/…/soup.pt` (0.69 GB, in Kaggle's persistent folder) for continued training; dev predictions in `experiments/analysis/soup3_dev_preds.json`.
