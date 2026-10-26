@@ -2342,3 +2342,10 @@ Script: scratchpad `ana/fail.py` on `experiments/analysis/run15_dev_preds.json` 
   2. **Below 4B, untrained decoders are poor** (0.31–0.40), below the untrained Signpost encoder (0.4295). Fine-tuning carried Qwen3-0.6B from 0.314 to 0.461 in run 9 (+15 points), so training is worth a lot at these sizes.
   3. **A jump between 1.7B and 4B** on dev (0.43 → 0.63) and the benchmark (0.40 → 0.50): reading ability arrives with size, matching the leaderboard's 2–4B band.
 - **Next (A2):** fine-tune Qwen3-4B (4-bit + LoRA) on v1_3, then Qwen3-1.7B, same dev split and settings, so the comparison with the encoder and run 9 changes only the model.
+
+## 11 A2 attempt 1 — 2026-10-27: Qwen3-4B fine-tune, stopped at step 400 for speed
+
+- **Setup:** Qwen3-4B 4-bit (nf4, fp16 compute) + LoRA r 16, LR 1e-4, batch 2 × accumulation 4, v1_3, 2 epochs planned (2,064 optimizer steps), one T4.
+- **Speed:** ~10.2 s per optimizer step (8 questions): ~6 h for two epochs. Too slow; stopped by choice after the collapse check, no checkpoint kept.
+- **Training signal:** loss 1.49 (step 100) → 0.88 → 0.87 → 0.82 (step 400); gradient norm mean 8.3 (max 34) in the first 100 steps, then 2.7–3.2 (max ~7.6). **Collapse check at step 400: dev KL 0.361 on 300 dev questions (uniform 0.664)**, no temperature. For reference, untrained 4B dev KL 0.619 (full dev, with temperature); best encoder dev KL 0.438 (soup). Not a like-for-like number, but a strong early sign.
+- **Next:** rebuild notebook 11 for speed: 1 epoch (decoders over-fitted in epoch 2 in runs 9 and 10), one pass per case (all of a case's questions after one copy of the state, letters read before a fixed placeholder; ~2.6× fewer tokens), fp16 weights instead of 4-bit (no dequantisation; ~11–12 GB peak), and both T4s (one seed per GPU via accelerate's notebook_launcher).
