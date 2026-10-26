@@ -2284,3 +2284,21 @@ Script: scratchpad `ana/fail.py` on `experiments/analysis/run15_dev_preds.json` 
 - **Collapsed after passing the step-400 check** (dev KL 0.531): at step 600 every type's loss jumped (true/false 0.57 → 0.65 → 0.69 = ln 2, choice 1.04 → 1.26, score 1.15 → 1.33) and stayed at the uniform level; epoch 1 dev 0.380 / KL 0.782. Stopped by hand in epoch 2.
 - **Reading:** with run 16's first attempt (seed 42 on v1_4), that is two collapses near the learning-rate peak, one with no twins at all. **The configuration itself is fragile; the twins did not cause the collapse.** A run that nears collapse and recovers can pass dev yet transfer differently, which may explain the benchmark swings (runs 13–16).
 - **Next:** stabilise training (LoRA LR 2e-4 → 1e-4, head 5e-4 → 2.5e-4, warm-up 6% → 15%, a second collapse check at the end of epoch 1), then the seed test (42, 1042, 2042) on that setup.
+
+## 08d stable seeds — 2026-10-26: run 15's configuration with stabilised training, 3 seeds
+
+- **Setup:** run 15's configuration (v1_3, level positions, 3 epochs, cross-entropy) with **LoRA LR 1e-4, head LR 2.5e-4, warm-up 15%** and a second collapse check after epoch 1; dev split pinned (313 cases / 1,433 questions); seeds 42, 1042, 2042 in one session with per-epoch checkpoints in /kaggle/working (seed 42 resumed after a lost session, from its epoch-1 checkpoint, as designed). About 72 min per seed; no collapse; best epoch 2 for every seed.
+
+| Seed | Dev acc / KL | Bench acc | Bench KL | Brier | ECE | choice | true/false | score |
+|---|---|---|---|---|---|---|---|---|
+| 42 | 0.705 / 0.464 | 0.4455 | 0.503 | 0.274 | 0.176 | 0.387 | 0.600 | 0.374 |
+| 1042 | 0.700 / 0.462 | 0.461 | 0.558 | 0.314 | 0.176 | 0.410 | 0.552 | 0.431 |
+| 2042 | 0.708 / 0.454 | 0.4565 | 0.521 | 0.296 | 0.170 | 0.420 | 0.543 | 0.419 |
+| **Mean** | **0.704 / 0.460** | **0.454** | **0.527** | **0.295** | **0.174** | 0.406 | 0.565 | 0.408 |
+
+- **Reading:**
+  1. **The stable configuration is consistent:** benchmark accuracy 0.4455–0.461 (range 1.6 points), dev 0.700–0.708. Our reliable level is **0.454 ± ~0.01**, below the prior (0.470 / KL 0.347).
+  2. **The types trade places between seeds** (true/false 0.543–0.600, score 0.374–0.431), while the total stays flat: a case for averaging the seeds' weights.
+  3. **Run 15's 0.5165 was an outlier.** One caution: the completed old-learning-rate runs scored 0.481 (13), 0.5165 (15) and 0.445 (16), mean 0.481, above the stable mean; the higher rate may transfer better when it does not collapse. Not established; two runs collapsed at that rate.
+- **Saved:** the three seeds' weights (LoRA, head, config) in Kaggle's /kaggle/working/checkpoints/all-pos-v1_3-lr0.0001-head0.00025-warm0.15-ep3/seed*/; dev predictions in `experiments/analysis/stable_seed*_dev_preds.json`.
+- **Next:** a weight-averaged model of the three seeds (and WiSE-FT towards the start weights), chosen on dev.
