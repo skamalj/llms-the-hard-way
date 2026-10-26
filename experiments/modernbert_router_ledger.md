@@ -2204,3 +2204,26 @@ That is where the gap to the Prior (0.470 / KL 0.347) lies, but closing it that 
   1. **A design flaw:** s was computed from the shared published head, which also scores every choice and true/false option. Score questions then trained that head only on the average of its level scores, which allows extreme scores, and the change hurt the other types. The spread layer also fed gradient into the encoder through the mean level vector.
   2. **Too slow a start:** σ began at 1.0 level, where even a perfect position gives flat answers with extra weight on the end levels (the logistic tails); Adam at 1e-3 needs about 1,900 steps to bring σ down to 0.3.
 - **If retried:** a separate small layer for s on the level vectors (the shared head untouched), σ starting near 0.5, a faster learning rate for both. **Next instead:** run 15, `LEVEL_POSITIONS = True` alone (input text only; no change to the heads or the gradients).
+
+## 08d run 15 — 2026-10-26: `LEVEL_POSITIONS = True` (best run so far)
+
+- **Setup:** as run 13 (v1_3, all types, 8,254 training questions, 3 epochs, cross-entropy) with `LEVEL_POSITIONS = True`: every score level is shown as "level i of n (lowest/highest): <level text>", on our data, the grounded tests and the benchmark. Nothing else changed. 67.3 min.
+- **Training:** per-type losses tracked run 13 within about ±0.03 at every logged step. Dev: 0.650 / KL 0.525 → **0.703 / 0.474 (best, epoch 2)** → 0.706 / 0.537. Temperatures fitted on dev: 1.25 for all three types (run 13: choice 1, true/false 1.25, score 1).
+- **Dev at the best epoch (T per type):** all 0.703 / KL 0.467; choice 0.712 / 0.498, true/false 0.769 / 0.332, score 0.640 / 0.544. Parts: v1 0.717 / 0.434, invoices 0.717 / 0.463, K 0.745 / 0.504, L 0.585 / 0.645. **On dev, level with run 13.**
+- **Benchmark:**
+
+| | Accuracy | KL | Brier | ECE | choice | true/false | score |
+|---|---|---|---|---|---|---|---|
+| Prior | 0.470 | 0.347 | | | | | |
+| Run 9 (decoder) | 0.461 | 0.491 | 0.277 | 0.153 | 0.452 | 0.525 | 0.420 |
+| Run 13 (v1_3) | 0.481 | 0.551 | 0.299 | 0.186 | 0.412 | 0.605 | 0.440 |
+| **Run 15, T = 1** | **0.5165** | 0.458 | 0.240 | 0.110 | 0.453 | 0.645 | 0.468 |
+| **Run 15, T per type** | **0.5165** | **0.402** | **0.216** | **0.065** | 0.453 | 0.645 | 0.468 |
+
+  By type (T per type): choice 0.453 / KL 0.574, true/false **0.645** / 0.272, score **0.468 / 0.372** (run 13: 0.440 / 0.607). Workflows: agent trace 0.474, customer service **0.618**, invoices **0.482** (KL 0.632; run 13 0.914), security 0.492. Grounded tests: E12 135/170, IND 218/300, IND2 174/200 (score items lower than run 13).
+- **Reading:**
+  1. **The best run by a wide margin:** accuracy 0.5165 (+3.5 points on run 13, +4.6 on the prior), KL 0.402 (the best of any run; the decoder had 0.491), Brier 0.216, ECE 0.065. Close to the leaderboard's d3-lite 0.8B (0.531).
+  2. **Score improved most, as intended:** 0.440 → 0.468, KL 0.607 → 0.372.
+  3. **But choice (+4.1) and true/false (+4.0) improved too,** although their input did not change, and dev did not move. Part of the gain is probably run-to-run variation (one standard error is about 0.02 per type), so **a repeat with another seed is needed** before treating the whole jump as the effect of level positions. The positions may also help the shared encoder by making score questions less confusing; a repeat would show it.
+  4. KL gains also come from the fitted temperature (1.25 everywhere): at T = 1 the KL is 0.458.
+- **Dev predictions saved** for the failure analysis: `experiments/analysis/run15_dev_preds.json` (1,433 questions: id, qid, type, probabilities in option order).
