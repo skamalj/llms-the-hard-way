@@ -2324,3 +2324,21 @@ Script: scratchpad `ana/fail.py` on `experiments/analysis/run15_dev_preds.json` 
 - **`11_signpost_d_decoder.ipynb`:** one notebook for A1–A5. `MODE = "zeroshot"` scores untrained models; `"train"` fine-tunes each model for each seed. Prompt: each model's chat template (thinking off), a short system line, the case and the question with lettered options (score levels with positions); probabilities from the next-token logits of the letters. Training: LoRA α = r (attention, MLP, linear-attention projections), LoRA weights fp32, fp16 autocast, clipping with the gradient norm logged, warm-up 15%, collapse checks at a step and after epoch 1, best epoch on dev KL, per-epoch checkpoints with resume; 1.7 B and 4 B in 4 bit (QLoRA). Measurement: dev by type and by kind, benchmark with case-level 95% bootstrap intervals, each test scoring counted in `checkpoints/test_touches.json`.
 - **First session (A1), zero-shot:** `skamalj/signpost-one-pass` as published (reference: our encoders' start), Qwen3-0.6B, Qwen3.5-0.8B, Qwen3-1.7B (4-bit), Qwen3-4B (4-bit); v1_3 dev split.
 - **Working rules adopted from the review:** three seeds or no claim; test split only at decision points (counted); report by question kind. The style audit of the benchmark and 4B-model relabelling were declined (zero-shot kept strict).
+
+## 11 A1 — 2026-10-27: zero-shot baselines (no training)
+
+- **Setup:** notebook 11, `MODE = "zeroshot"`, v1_3 dev split (313 cases / 1,433 questions), level positions on; per-type temperature fitted on dev; benchmark with case-level 95% intervals (test touches counted). One T4 session, 15:21–16:07 (Qwen3-4B alone about 20 minutes for dev + benchmark). Qwen3.5-0.8B ran on the slow reference kernels (no `causal_conv1d` / `flash-linear-attention` on the T4 image).
+
+| Model (untrained) | Dev acc / KL | Bench acc [95% CI] | Bench KL [95% CI] | Brier | ECE | choice | true/false | score |
+|---|---|---|---|---|---|---|---|---|
+| signpost-one-pass (published) | 0.460 / 0.745 | 0.4295 [0.407, 0.451] | 0.433 [0.417, 0.449] | 0.239 | 0.076 | 0.322 | 0.577 | 0.400 |
+| Qwen3-0.6B | 0.453 / 0.740 | 0.314 [0.296, 0.332] | 0.514 [0.497, 0.531] | 0.266 | 0.139 | 0.302 | 0.535 | 0.158 |
+| Qwen3.5-0.8B | 0.452 / 0.745 | 0.3845 [0.367, 0.403] | 0.470 [0.452, 0.487] | 0.247 | 0.078 | 0.302 | 0.557 | 0.318 |
+| Qwen3-1.7B (4-bit) | 0.426 / 0.803 | 0.3975 [0.378, 0.418] | 0.529 [0.510, 0.547] | 0.282 | 0.163 | 0.285 | 0.587 | 0.340 |
+| **Qwen3-4B (4-bit)** | **0.628 / 0.619** | **0.499 [0.476, 0.525]** | 0.557 [0.531, 0.582] | 0.296 | 0.200 | **0.582** | 0.505 | 0.433 |
+
+- **Reading:**
+  1. **Untrained Qwen3-4B beats every model we have trained on accuracy** (0.499 against the encoder seeds' 0.454 and the soup's 0.462; intervals do not overlap the seeds' mean) and is the only zero-shot model above the prior's accuracy (0.470). Its strength is choice (0.582, against our best 0.453); its true/false is at chance (0.505) and it is over-confident (ECE 0.20, many probabilities at 1.0), so KL is poor.
+  2. **Below 4B, untrained decoders are poor** (0.31–0.40), below the untrained Signpost encoder (0.4295). Fine-tuning carried Qwen3-0.6B from 0.314 to 0.461 in run 9 (+15 points), so training is worth a lot at these sizes.
+  3. **A jump between 1.7B and 4B** on dev (0.43 → 0.63) and the benchmark (0.40 → 0.50): reading ability arrives with size, matching the leaderboard's 2–4B band.
+- **Next (A2):** fine-tune Qwen3-4B (4-bit + LoRA) on v1_3, then Qwen3-1.7B, same dev split and settings, so the comparison with the encoder and run 9 changes only the model.
