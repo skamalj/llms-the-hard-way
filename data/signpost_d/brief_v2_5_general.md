@@ -38,6 +38,15 @@ A small model trained on earlier cases answers well when the answer is stated, b
 - **About 60% clear-cut and 40% genuinely mixed.** Clear-cut means a careful reader who does the reading and the arithmetic is sure; a hasty reader may well be wrong. Mixed means a careful reader would still hesitate between two options, or lean only moderately.
 - Many situations should be routine: "no action", "within limit" and "low" are valid, common answers.
 
+## Lessons from the first wave (checked by the validators; avoid these)
+
+1. **Score scales must run from the least to the most of the quantity the instruction names.** "How ready is …" with level 0 "Ready" is reversed; ask "How far from ready …" or put the least ready first. The same for "how well", "how close", "how easy", "how accurate".
+2. **`true` and `false` together cover every case.** If the statement says "more than 24 months", `false` is "24 months or less", not "less than 24 months". Make `false` the plain negation of `true`, never a specific opposite that leaves a gap when the state is silent.
+3. **Score levels must not overlap.** "Low: the rules are met" and "Moderate: the rules are met, narrowly" overlap; give each level its own condition, with a threshold where possible ("more than 2 MPa above the minimum").
+4. **Every deciding fact must be in the state.** If an answer depends on a time, a count or a rule, state it; never "about 9:25" next to a boundary that only the exact time settles.
+5. **Write more genuinely mixed questions.** The first wave had about a quarter mixed against the 40% asked. A mixed question has real signals both ways that a careful reader cannot settle (a near-limit judgement, a rule whose purpose and letter disagree, two reasonable next steps), not a missing fact.
+6. **A question needs a criterion.** "What is the best response?" with nothing in the state to favour one option is unlabelable; name what decides it.
+
 ## Batch shape
 
 Write **50 cases** in your batch, over the domains you are given (about evenly). Never use the same question wording in two cases.
