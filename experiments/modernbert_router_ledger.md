@@ -2462,3 +2462,27 @@ Script: scratchpad `ana/fail.py` on `experiments/analysis/run15_dev_preds.json` 
 - **Dev (T = 1):** epoch 1 0.762 / KL 0.348 (A5 0.778 / 0.345); **epoch 2 0.801 / KL 0.322** (A5 0.795 / 0.330), kept. With T per type: all 0.801 / 0.314; **earlier 313 cases 0.813 / KL 0.301** (A5 0.808 / 0.313); compare 0.674. Held-out number questions 0.675.
 - **Benchmark (T per type), test touch 14:** **0.6275 [0.601, 0.653] / KL 0.337** / Brier 0.182 / ECE 0.076; choice 0.582, true/false 0.720, score 0.593. Workflows: agent trace 0.598, customer service 0.672, invoices 0.630, security 0.610.
 - **Reading:** best dev so far on every view, but on the benchmark accuracy is level with A5 (0.630) and KL and ECE are worse (0.337 / 0.076 against 0.318 / 0.057). Choice fell 5 points while score rose 2.5. The extra capacity fits our data more closely without transferring: the same dev-up / benchmark-flat pattern as A5. **Rank 16 stays.** One seed.
+
+## 11 E1 — 2026-10-27: acceptance test of the independent shift_dev (R3), 9 saved runs, no training, no benchmark touch
+
+- **Method:** notebook 11 `MODE = "evaluate"`: each saved adapter (the soup: seeds 42 + 1042 averaged) merged into its base model, scored on our dev (v1_3's 313 cases; temperatures fitted there) and on `independent_v1/shift_dev` (408 cases, 1,833 questions) with the same temperatures; Spearman rank correlation of each with the benchmark results already in hand.
+
+| Run | Our dev acc / KL | shift_dev acc / KL | Benchmark acc / KL |
+|---|---|---|---|
+| A6 Instruct soup (v1_3) | 0.795 / 0.318 | **0.727** / 0.283 | **0.649** / 0.340 |
+| A5 Instruct v1_6 ep2 r16 | 0.807 / 0.313 | 0.726 / 0.279 | 0.630 / 0.318 |
+| A7 Instruct v1_6 ep2 r64 | 0.812 / 0.301 | 0.725 / 0.278 | 0.6275 / 0.337 |
+| A4 Instruct seed 42 | 0.784 / 0.324 | 0.723 / 0.276 | 0.644 / 0.341 |
+| A4b Instruct seed 1042 | 0.792 / 0.321 | 0.714 / 0.291 | 0.632 / 0.341 |
+| A2b Qwen3-4B v1_3 ep2 (epoch 1 kept) | 0.775 / 0.333 | 0.710 / 0.297 | 0.542 / 0.406 |
+| A2 Qwen3-4B v1_3 ep1 | 0.781 / 0.326 | 0.703 / 0.292 | 0.5655 / 0.330 |
+| A3 Qwen3-4B v1_5 | 0.791 / 0.322 | 0.700 / 0.307 | 0.5675 / 0.393 |
+| A4 Qwen3-1.7B | 0.701 / 0.444 | 0.677 / 0.321 | 0.532 / 0.421 |
+
+- **Rank correlation with the benchmark (9 runs):** accuracy: our dev 0.65, **shift_dev 0.80**; KL: our dev 0.69, shift_dev 0.64.
+- **Reading:**
+  1. **shift_dev is the better accuracy referee.** It separates the families in the benchmark's order (Instruct 0.714–0.727 > Qwen3-4B 0.700–0.710 > 1.7B 0.677), puts the soup first, and orders the two Instruct seeds as the benchmark does. Our dev ranks A7 and A5 first and the soup only fourth.
+  2. **It does not resolve differences under ~1.5 points** (the Instruct runs span 1.3 points; standard error on 1,833 questions is about 1 point) and it missed A2b's benchmark weakness (an un-decayed epoch-1 checkpoint).
+  3. **Neither set ranks KL well** (0.64 / 0.69): calibration choices still need the benchmark or a better-calibrated referee.
+  4. Absolute levels differ (shift_dev 0.68–0.73, benchmark 0.53–0.65); only the ordering is used.
+- **Use from now on:** shift_dev decides between candidates that differ by more than ~1.5 points on it (model choice, big data changes); the benchmark is touched only to confirm a final candidate or to settle a close call, and each touch is counted.
