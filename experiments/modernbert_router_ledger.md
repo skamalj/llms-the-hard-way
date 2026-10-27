@@ -2435,3 +2435,15 @@ Script: scratchpad `ana/fail.py` on `experiments/analysis/run15_dev_preds.json` 
 - **Benchmark (T per type), test touch 11:** **0.632 [0.606, 0.657] / KL 0.341** / Brier 0.182 / ECE 0.062; choice 0.665, true/false 0.698, score 0.557. Workflows: agent trace 0.588, customer service 0.712, invoices 0.588, security 0.640.
 - **Two seeds: mean 0.638 (0.644, 0.632), KL 0.341, ECE 0.059.** The jump over Qwen3-4B (0.5655) is confirmed under the two-seed rule. Seed spread 1.2 points.
 - Adapters of both seeds are in Kaggle's checkpoints folder for a weight average.
+
+## 11 A5 — 2026-10-27: Qwen3-4B-Instruct-2507 on v1_6 (v1_3 + 1,000 harder cases), 2 epochs, seed 42
+
+- **Setup:** as A4 but `D_SET = "v1_6"` (2,636 training cases / 11,855 questions; dev 463 cases = the earlier 313 + 150 M cases) and `EPOCHS = 2` (2,636 steps, 111 min of training).
+- **Training:** loss 1.75 (step 100) → 0.70–0.89 in epoch 1 → 0.60–0.67 in epoch 2; gradient norm mean 2.9–4.2 (one isolated spike of 58 at step 2000, no effect). Collapse check at step 400: dev KL 0.294.
+- **Dev (T = 1):** epoch 1 0.778 / KL 0.345; **epoch 2 0.795 / KL 0.330 / ECE 0.010**, kept. With T per type: all 0.795 / 0.321; **earlier 313 cases 0.808 / KL 0.313** (A4: 0.784 / 0.324; A4b 0.793 / 0.321). By kind: read 0.947, judge 0.840, infer 0.738, **compare 0.676** (A4 0.636, A4b 0.662). Held-out number questions 0.671.
+- **Benchmark (T per type), test touch 12:** **0.630 [0.606, 0.655] / KL 0.318 [0.290, 0.347]** / Brier 0.175 / ECE 0.057; choice 0.632, true/false 0.712, score 0.568. Workflows: agent trace 0.572, customer service 0.686, invoices 0.606, security 0.656.
+- **Reading:**
+  1. **Accuracy unchanged** against v1_3 / 1 epoch (A4 seeds 0.644 and 0.632, mean 0.638): 0.630 is inside both intervals.
+  2. **Best KL and Brier so far** (0.318 / 0.175 against 0.341 / 0.176-0.182), and below the prior on every measure (0.470 / 0.347 / 0.189 / 0.088). Score questions 0.568 (A4: 0.564 / 0.557).
+  3. **Dev rose again where the benchmark did not:** old-dev +1.5 to +2.4 points and compare +1.4 to +4 over A4, benchmark accuracy flat. The harder cases teach our own compare questions but not, so far, the benchmark's.
+  4. One seed; a second seed is needed before claiming the KL gain.
