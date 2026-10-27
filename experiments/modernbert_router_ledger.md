@@ -2454,3 +2454,11 @@ Script: scratchpad `ana/fail.py` on `experiments/analysis/run15_dev_preds.json` 
 - **Dev (v1_3, T per type):** 0.795 / KL 0.318 (seeds: 0.784 / 0.324, 0.793 / 0.321); compare 0.669. Held-out number questions 0.661.
 - **Benchmark (T per type), test touch 13:** **0.649 [0.626, 0.672] / KL 0.340** / Brier 0.177 / ECE 0.054; choice 0.668, true/false 0.742, score 0.565. Workflows: agent trace 0.614, customer service 0.714, invoices 0.612, security 0.656.
 - **Reading:** +1.1 points over the two seeds' mean (0.638) and +0.5 over the better seed (0.644), with the same KL (0.340 against 0.341) and the best ECE of the three. Choice gains the most (0.668 against 0.642 / 0.665). As with the encoder (08g), averaging seeds is a small, consistent gain at no inference cost. **Best benchmark accuracy so far.**
+
+## 11 A7 — 2026-10-27: Qwen3-4B-Instruct-2507, LoRA rank 64 (α 64), v1_6, 2 epochs, seed 42
+
+- **Setup:** as A5 with `r = 64` (132.1 M trainable against 33.0 M); peak 11.3 GB per GPU; ~2.7 s per step, about 2 h. The session was restarted at step 2,200 and resumed from that checkpoint as designed.
+- **Training:** loss 1.43 (step 100) → 0.69–0.89 in epoch 1 → 0.59–0.63 in epoch 2 (A5: 0.60–0.67); gradient norm mean 3.3–4.3. Collapse check at step 400: dev KL 0.319 (A5 0.294).
+- **Dev (T = 1):** epoch 1 0.762 / KL 0.348 (A5 0.778 / 0.345); **epoch 2 0.801 / KL 0.322** (A5 0.795 / 0.330), kept. With T per type: all 0.801 / 0.314; **earlier 313 cases 0.813 / KL 0.301** (A5 0.808 / 0.313); compare 0.674. Held-out number questions 0.675.
+- **Benchmark (T per type), test touch 14:** **0.6275 [0.601, 0.653] / KL 0.337** / Brier 0.182 / ECE 0.076; choice 0.582, true/false 0.720, score 0.593. Workflows: agent trace 0.598, customer service 0.672, invoices 0.630, security 0.610.
+- **Reading:** best dev so far on every view, but on the benchmark accuracy is level with A5 (0.630) and KL and ECE are worse (0.337 / 0.076 against 0.318 / 0.057). Choice fell 5 points while score rose 2.5. The extra capacity fits our data more closely without transferring: the same dev-up / benchmark-flat pattern as A5. **Rank 16 stays.** One seed.
