@@ -33,6 +33,7 @@ for c in cases:
     for qid, q in c["questions"].items():
         d = [labs[m][c["id"]][qid] for m in MODELS]
         assert all(list(x) == keys(q) for x in d), (c["id"], qid)
+        d = [{k: max(v, 0.0) / sum(max(u, 0.0) for u in x.values()) for k, v in x.items()} for x in d]   # a labeller's stray -0.01
         g = {k: round(sum(x[k] for x in d) / 3, 4) for k in keys(q)}
         c["gold"][qid] = {"type": q["type"], "probabilities": g}
         agree["all"] += len({max(x, key=x.get) for x in d}) == 1
@@ -61,6 +62,11 @@ for b in batches:
             c["questions"][v["qid"]] = v.get("question", c["questions"][v["qid"]])
             c["gold"][v["qid"]] = v["gold"]
 cases = [c for c in by_id.values() if len(c["questions"]) >= 2]
+for c in cases:                                     # bare score bins ("Under 7 days.") -> "Under 7 days: under 7 days"
+    for q in c["questions"].values():
+        if q["type"] == "score" and not all(": " in lv for lv in q["criteria"]):
+            q["criteria"] = [lv if ": " in lv else f"{lv.rstrip('.')}: {lv.rstrip('.')[0].lower()}{lv.rstrip('.')[1:]}"
+                             for lv in q["criteria"]]
 
 
 def check(c):
