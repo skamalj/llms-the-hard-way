@@ -2447,3 +2447,10 @@ Script: scratchpad `ana/fail.py` on `experiments/analysis/run15_dev_preds.json` 
   2. **Best KL and Brier so far** (0.318 / 0.175 against 0.341 / 0.176-0.182), and below the prior on every measure (0.470 / 0.347 / 0.189 / 0.088). Score questions 0.568 (A4: 0.564 / 0.557).
   3. **Dev rose again where the benchmark did not:** old-dev +1.5 to +2.4 points and compare +1.4 to +4 over A4, benchmark accuracy flat. The harder cases teach our own compare questions but not, so far, the benchmark's.
   4. One seed; a second seed is needed before claiming the KL gain.
+
+## 11 A6 — 2026-10-27: weight average ("soup") of Qwen3-4B-Instruct-2507 seeds 42 and 1042 (v1_3, 1 epoch), no training
+
+- **Method:** notebook 11 `MODE = "soup"`: each seed's LoRA weight change (B @ A × α / r, 252 modules) added at half weight to the fp16 base weights, so the result is one plain model (no LoRA at inference). About 5 min for the whole run on 2 GPUs.
+- **Dev (v1_3, T per type):** 0.795 / KL 0.318 (seeds: 0.784 / 0.324, 0.793 / 0.321); compare 0.669. Held-out number questions 0.661.
+- **Benchmark (T per type), test touch 13:** **0.649 [0.626, 0.672] / KL 0.340** / Brier 0.177 / ECE 0.054; choice 0.668, true/false 0.742, score 0.565. Workflows: agent trace 0.614, customer service 0.714, invoices 0.612, security 0.656.
+- **Reading:** +1.1 points over the two seeds' mean (0.638) and +0.5 over the better seed (0.644), with the same KL (0.340 against 0.341) and the best ECE of the three. Choice gains the most (0.668 against 0.642 / 0.665). As with the encoder (08g), averaging seeds is a small, consistent gain at no inference cost. **Best benchmark accuracy so far.**
