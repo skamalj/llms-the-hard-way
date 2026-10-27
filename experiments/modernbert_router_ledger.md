@@ -2388,3 +2388,23 @@ Script: scratchpad `ana/fail.py` on `experiments/analysis/run15_dev_preds.json` 
   1. **The 1-epoch run (A2: 0.5655 / KL 0.330 / ECE 0.093) is better on every benchmark measure.** The model kept here is an un-decayed epoch-1 checkpoint, which explains the worse calibration (ECE 0.143). Accuracy difference (2.4 points) is inside the two runs' intervals.
   2. **Epoch 2 raised dev accuracy (+1.7) and lowered ECE, at the same dev KL**, so a second epoch is not clearly harmful, but on dev KL it buys nothing. Dev compare questions stayed at 0.615–0.639.
   3. Decision: **1 epoch with the full decay** stays the setting; the next lever is data (v1_5).
+
+## 11 A3 — 2026-10-27: Qwen3-4B on v1_5 (1 epoch, seed 42)
+
+- **Setup:** as A2 (fp16, one pass per case, 2 GPUs, LR 1e-4, 1 epoch) on **v1_5**: 12,400 training questions (A2: 8,254), 1,469 steps, 64.9 min of training. Dev 388 cases / 1,755 questions (the earlier 313 plus 75 M cases).
+- **Training:** loss 1.62 (step 100) → 0.64–0.81; gradient norm mean 3.1–4.5 with isolated spikes (87 at step 1000), no effect. Collapse check at step 400: dev KL 0.315.
+- **Dev:** all 0.774 / KL 0.345; **earlier 313 cases 0.791 / KL 0.322** (A2: 0.780 / 0.326). By kind: read 0.937, judge 0.829, infer 0.711, **compare 0.618** (A2 0.639).
+- **Held-out number questions (never trained on; 434):** 0.859 overall; threshold 0.920, two-hop 0.929, band 0.911, extreme 0.848, dates 0.722; ratio 0.333 (n 9) and difference 0.625 (n 8) too few to read; held-out phrasings 0.917 against 0.840 for trained phrasings (different question mix); margin within 5% 0.892, 5–25% 0.788, over 25% 0.876.
+- **Benchmark (T per type), test touch 8:**
+
+| | Accuracy [95% CI] | KL [95% CI] | Brier | ECE | choice | true/false | score |
+|---|---|---|---|---|---|---|---|
+| **A3, v1_5** | **0.5675 [0.538, 0.596]** | 0.393 [0.365, 0.421] | 0.219 | 0.103 | 0.595 | 0.588 | **0.531** |
+| A2, v1_3 | 0.5655 [0.541, 0.591] | **0.330 [0.310, 0.350]** | 0.188 | 0.093 | 0.598 | 0.618 | 0.501 |
+
+  Workflows: agent trace 0.508 (A2 0.538), customer service 0.670 (0.662), **invoices 0.518 (0.434)**, security 0.574 (0.628).
+- **Reading:**
+  1. **Accuracy unchanged** (0.5675 against 0.5655); score questions +3 and invoices +8.4, offset by true/false and security. One seed, all inside the noise.
+  2. **KL clearly worse** (0.393 against 0.330; the intervals do not overlap); true/false ECE 0.176. Likely cause: the code-built number questions carry sharp 0.95 golds (and the new cases are sharp too), so the model became more confident, which costs KL where it is wrong.
+  3. **The number skill learned does not transfer to our own compare questions** (dev compare 0.618, unchanged): the model reads code-style number questions well (0.86 held out) but the gap on real compare questions is elsewhere.
+  4. Decision: v1_3 stays the reference data for the model comparisons; a v1_3 + M (without U) run would separate the two additions later.
