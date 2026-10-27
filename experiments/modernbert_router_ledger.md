@@ -2427,3 +2427,11 @@ Script: scratchpad `ana/fail.py` on `experiments/analysis/run15_dev_preds.json` 
   3. **Qwen3-1.7B: 0.532 / KL 0.421**, level with d3-lite (0.8B, 0.531) and 11 points below the 4B-Instruct; fine-tuning added 13.5 points over its zero-shot 0.3975. Score questions hold up (0.559) while choice and true/false fall.
   4. Held-out number questions (not trained on here): 0.664 for Instruct-2507, 0.544 for 1.7B; A3 (trained on them) 0.859.
 - **Next:** a second seed for Qwen3-4B-Instruct-2507 (two-seed rule), then its seed average; variants on that model (learning rate, LoRA rank, v1_3 + M).
+
+## 11 A4b — 2026-10-27: Qwen3-4B-Instruct-2507, second seed (1042), v1_3, 1 epoch
+
+- Same setup as A4 (seed 42). The session was interrupted by a laptop restart and resumed from the step-800 checkpoint (as designed); 5.7 min of training after the resume.
+- **Dev:** 0.793 / KL 0.321 (seed 42: 0.784 / 0.324); compare 0.662.
+- **Benchmark (T per type), test touch 11:** **0.632 [0.606, 0.657] / KL 0.341** / Brier 0.182 / ECE 0.062; choice 0.665, true/false 0.698, score 0.557. Workflows: agent trace 0.588, customer service 0.712, invoices 0.588, security 0.640.
+- **Two seeds: mean 0.638 (0.644, 0.632), KL 0.341, ECE 0.059.** The jump over Qwen3-4B (0.5655) is confirmed under the two-seed rule. Seed spread 1.2 points.
+- Adapters of both seeds are in Kaggle's checkpoints folder for a weight average.
