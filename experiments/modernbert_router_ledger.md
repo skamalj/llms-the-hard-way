@@ -2408,3 +2408,22 @@ Script: scratchpad `ana/fail.py` on `experiments/analysis/run15_dev_preds.json` 
   2. **KL clearly worse** (0.393 against 0.330; the intervals do not overlap); true/false ECE 0.176. Likely cause: the code-built number questions carry sharp 0.95 golds (and the new cases are sharp too), so the model became more confident, which costs KL where it is wrong.
   3. **The number skill learned does not transfer to our own compare questions** (dev compare 0.618, unchanged): the model reads code-style number questions well (0.86 held out) but the gap on real compare questions is elsewhere.
   4. Decision: v1_3 stays the reference data for the model comparisons; a v1_3 + M (without U) run would separate the two additions later.
+
+## 11 A4 — 2026-10-27: model comparison on v1_3 (1 epoch, seed 42): Qwen3-4B-Instruct-2507 and Qwen3-1.7B
+
+- **Setup:** exactly A2 (v1_3, fp16, one pass per case, 2 GPUs, LoRA r 16 α 16, LR 1e-4, warm-up 15%, 1 epoch, 893 steps); only the model changes. Instruct-2507: 38.9 min of training; 1.7B: 17.2 min (about 1.1 s per step).
+- **Training:** Instruct-2507 loss 1.39 → 0.70, collapse check dev KL 0.277 (A2 0.289). 1.7B loss 1.60 → 0.84, collapse check 0.407.
+
+| Model | Dev acc / KL | Dev compare | Held-out number q. | Bench acc [95% CI] | Bench KL [95% CI] | Brier | ECE | choice | true/false | score |
+|---|---|---|---|---|---|---|---|---|---|---|
+| **Qwen3-4B-Instruct-2507** | 0.784 / 0.324 | 0.636 | 0.664 | **0.644 [0.620, 0.667]** | 0.341 [0.314, 0.369] | **0.176** | **0.056** | **0.642** | **0.753** | **0.564** |
+| Qwen3-4B (A2) | 0.780 / 0.326 | 0.639 | – | 0.5655 [0.541, 0.591] | **0.330** [0.310, 0.350] | 0.188 | 0.093 | 0.598 | 0.618 | 0.501 |
+| Qwen3-1.7B | 0.701 / 0.444 | 0.569 | 0.544 | 0.532 [0.506, 0.560] | 0.421 [0.392, 0.450] | 0.247 | 0.108 | 0.485 | 0.543 | 0.559 |
+
+  Workflows, Instruct-2507: agent trace 0.596, customer service 0.716, invoices 0.622 (A2 0.434), security 0.642. 1.7B: 0.502 / 0.682 / 0.414 / 0.530.
+- **Reading:**
+  1. **Qwen3-4B-Instruct-2507 is the new best: 0.644**, +7.9 over Qwen3-4B on the same data and recipe (intervals do not overlap), with every type and workflow up (true/false +13.5, invoices +18.8) and the best calibration so far (ECE 0.056). Above d3-nano (2B, 0.629), below d3-mini (4B, 0.743). KL about the same as A2.
+  2. **Dev did not see it** (0.784 against 0.780): the gain is in transfer, from the stronger instruction-tuned start, not in fitting our data.
+  3. **Qwen3-1.7B: 0.532 / KL 0.421**, level with d3-lite (0.8B, 0.531) and 11 points below the 4B-Instruct; fine-tuning added 13.5 points over its zero-shot 0.3975. Score questions hold up (0.559) while choice and true/false fall.
+  4. Held-out number questions (not trained on here): 0.664 for Instruct-2507, 0.544 for 1.7B; A3 (trained on them) 0.859.
+- **Next:** a second seed for Qwen3-4B-Instruct-2507 (two-seed rule), then its seed average; variants on that model (learning rate, LoRA rank, v1_3 + M).
