@@ -2486,3 +2486,92 @@ Script: scratchpad `ana/fail.py` on `experiments/analysis/run15_dev_preds.json` 
   3. **Neither set ranks KL well** (0.64 / 0.69): calibration choices still need the benchmark or a better-calibrated referee.
   4. Absolute levels differ (shift_dev 0.68–0.73, benchmark 0.53–0.65); only the ordering is used.
 - **Use from now on:** shift_dev decides between candidates that differ by more than ~1.5 points on it (model choice, big data changes); the benchmark is touched only to confirm a final candidate or to settle a close call, and each touch is counted.
+
+## 12 P1 — 2026-10-28: compute probe (notebook 12): does the decoder fail to compute, or to map a value to an option? No training, no benchmark touch
+
+- **Method:** Qwen3-4B-Instruct-2507 untrained (`base`) and with A5's adapter merged (`tuned`). Arm **A**: notebook 11's one pass (letters after `n:`). Arm **B**: A plus one line with the computed value, made by code from the code-built inputs (all 96 checked against the gold). Arm **C**: the model writes its working, then `Answers:` (greedy, up to 1,536 tokens per case). Each case timed alone at batch 1 on a T4. Sets: held-out code-built true/false questions needing a date gap, ratio or difference (`numq_computed`, 96, never trained on by A5: v1_6 has no code-built questions); held-out code-built score questions placing a stated value in bands (`numq_band`, 101); our dev's score questions of kind compare/infer (291) and judge/read (399).
+
+| Set | base A | base B (value given) | base C (working) | tuned A | tuned B |
+|---|---|---|---|---|---|
+| numq_computed (96) | 0.521 | 0.698 | **0.969** | 0.625 | 0.729 |
+| numq_band (101) | 0.554 | — | — | **0.426** | — |
+| dev score, compare / infer (291) | 0.378 | — | — | 0.577 (0.545 / 0.626) | — |
+| dev score, judge / read (399) | 0.526 | — | — | 0.774 (0.773 / 0.786) | — |
+
+- **Latency (T4, batch 1):** one pass 180–350 ms per question (case p50 about 300–370 ms); arm C 21.6 s per question (case p50 33.5 s, p95 94 s; 599 tokens per case, 2 answers unparsed, 1 truncated).
+- **Reading:**
+  1. **The model can compute:** with working allowed it gets 0.969 on the computed questions; in one pass 0.52 (untrained) / 0.63 (tuned).
+  2. **Two one-pass gaps:** computing the value (tuned A → B: +10 points) and comparing a given value with the limit (tuned B 0.73 against C 0.97: +24). The second is the larger.
+  3. **Training helps only a little and partly hurts:** A5's training (almost no computing data) raised computed questions +10 and dev compare/infer +20, but compare/infer stays 20 points under judge/read (0.58 against 0.77), and **band questions fell 0.55 → 0.43** (the trained model answers score levels from impression instead of the band edges).
+  4. Differences (8 questions) are 0.375 in every one-pass arm, even with the value given: too few to read.
+  5. Working-out costs about 100× latency; ruled out by the milliseconds-per-question requirement. Open question for a training run: whether many computed and band questions (v1_numq_u has them) raise one-pass A towards B and beyond.
+
+## 11 A8 — 2026-10-28: queue item 1, LR 2e-4 (A5 settings otherwise: Qwen3-4B-Instruct-2507, v1_6, r16, 2 epochs, seed 42); judged on shift_dev, no benchmark touch
+
+- **Training:** 2,636 steps, 121 min; loss 1.53 (step 100) → 0.70–0.90; gradient norm mean 2.7–3.4 after step 200 (max 31.7 in the first 100 steps); collapse check at step 400: dev KL 0.341. No instability at the doubled rate.
+- **Dev (T = 1):** epoch 1 0.777 / KL 0.377 (A5 0.778 / 0.345); **epoch 2 0.800 / KL 0.322** (A5 0.795 / 0.330), kept. T per type: 0.800 / 0.311 (A5 0.795 / 0.321); earlier 313 cases 0.814 / KL 0.299 (A5 0.808 / 0.313). By type: choice 0.825, true/false 0.867, score 0.712. By kind: read 0.941, judge 0.845, infer 0.742, compare 0.688 (A5 0.676).
+- **shift_dev (T per type): 0.722 / KL 0.265** (A5 0.726 / 0.279). By kind: read 0.911, compare 0.776, infer 0.712, judge 0.640.
+- **Held-out number questions:** 0.638 (A5 0.671); bands 0.386, dates 0.646, threshold 0.796.
+- **Reading:** accuracy is level with A5 on the referee (−0.4 points, inside shift_dev's ~1.5-point resolution); KL is a little better on both dev (−0.010) and shift_dev (−0.014), but shift_dev ranks KL poorly (ρ 0.64). Under the rule agreed before the run (level → keep 1e-4), **LR 1e-4 stays** for item 2; 2e-4 is a safe alternative if KL becomes the deciding measure. One seed.
+
+## 12 P2 — 2026-10-28: item 1a, shift_dev misses by gold certainty and full-case latency (notebook 12 `shift_full`), no training, no benchmark
+
+- **Method:** all 408 shift_dev cases (1,833 questions, 4.49 per case), every question of a case in one pass (arm A), untrained Qwen3-4B-Instruct-2507 and A5 merged; each case timed alone on a T4. Misses grouped by the reviewers' gold top probability: clear ≥ 0.85, leaning 0.6–0.85, split < 0.6.
+
+| A5 (accuracy 0.727, 501 misses) | Questions | Accuracy | Misses | Share of misses | Misses where the gold gives our pick ≥ 0.25 |
+|---|---|---|---|---|---|
+| clear | 1,126 | 0.800 | 225 | 45% | 0 |
+| leaning | 329 | 0.708 | 96 | 19% | 33 |
+| split | 378 | 0.524 | 180 | 36% | 112 |
+
+- **By kind (accuracy clear / leaning / split):** compare 0.792 / 0.652 / 0.500; infer 0.791 / 0.625 / 0.491; judge 0.900 / 0.793 / 0.531; read 0.932 / 1.0 / –. Untrained: 0.422 overall (clear 0.564, leaning 0.289, split 0.114).
+- **Latency (A5, T4, batch 1):** per case p50 970 ms / p95 1,460 ms; **per question p50 221 ms / p95 353 ms**, inside the 500 ms budget.
+- **Reading:**
+  1. **55% of misses sit on uncertain gold** (leaning or split), 145 of them on questions where the gold gives our pick at least a quarter. By the rule agreed before the check, **teacher relabelling (3a) qualifies for a run.**
+  2. **45% are clear-gold misses (12% of all questions):** a skill gap, concentrated in compare and infer (0.79 on clear against judge 0.90); that is what the R15 data targets.
+  3. Caveat for 3a: on uncertain questions the "right" answer is the labeller's habit. shift_dev's labellers (Haiku personas + Opus) are not the benchmark's ~4B teacher, so shift_dev can show whether teacher labels change these answers, but only the final benchmark scoring shows whether they match the benchmark's teacher better.
+
+## 11 A9 — 2026-10-28: queue item 2, Qwen3-4B-Instruct-2507 on v1_7 (v1_6 + independent_v1/train 418 + independent_v2/train_v2 2,085), LR 1e-4, r16, 2 epochs, seed 42; no benchmark touch
+
+- **Data:** 5,602 cases, 23,765 training questions (A5: 11,855); dev unchanged (463 cases; R- and V- cases training only). Training 345 min (5,138 steps); loss 2.02 → 0.73–0.78 (epoch 1) → 0.60 at the end, against a label-entropy floor of 0.388 (ours 0.342, the reviewers' 0.434).
+- **Dev (T = 1):** epoch 1 0.781 / KL 0.328 (A5 0.778 / 0.345); epoch 2 0.800 / KL 0.326, kept. T per type 0.800 / 0.312 (A5 0.795 / 0.321); earlier 313 cases 0.811 / 0.298. Score 0.715; compare 0.688, infer 0.747, judge 0.838, read 0.953.
+- **Held-out number questions: 0.758** (A5 0.671, A8 0.638): bands **0.703** (0.39–0.43), threshold 0.864, two-hop 0.762, ratio 0.778 (n 9), dates 0.633 (unchanged).
+- **shift_dev (T per type): 0.784 / KL 0.202 / ECE 0.111** (A5 0.726 / 0.279); compare 0.801, infer 0.789, **judge 0.735** (A8 0.640), read 0.978.
+- **Reading:**
+  1. **shift_dev is no longer independent of training for data decisions:** v1_7 contains 2,503 cases from the same reviewer pipeline (writers, labellers, checking pass) as shift_dev and the sealed test. Part of +5.8 is likely learning that pipeline's style and its labellers' habits; the largest gain is on judge questions (+9.5), where gold is the labellers' habit, and ECE rose (temperatures fitted on our dev no longer fit).
+  2. **Part of the gain is real transfer:** the held-out code-built number questions (outside both pipelines, never trained on) rose 0.67 → 0.76, bands 0.43 → 0.70: the R15 computed and band questions taught a skill, not a template (unlike A3's code-built data). Date gaps did not move.
+  3. shift_dev still ranks models trained on the same v1_7 (item 3) fairly. The data decision (v1_7 vs v1_6) needs the benchmark: proposed touch 15 for this model after the three runs finish.
+
+## 11 A10 — 2026-10-28: queue item 3, Granite 4.2 3B on v1_7 (A9's recipe: LoRA r16, LR 1e-4, 2 epochs, seed 42); no benchmark touch
+
+- **Training:** 5,138 steps over three Kaggle sessions (resumed at step 2,200 and again late in epoch 2; both resumes clean); about 6.0 min per 100 steps (10% faster than Qwen3-4B); loss 1.03 at step 100 (Qwen3-4B 2.02); gradient norm mean 6–15, about three times Qwen's (Granite's fixed activation multipliers), clipped at 1.0; no non-finite loss; largest untrained fp16 activation 12,384.
+- **Dev (T = 1):** epoch 1 0.764 / KL 0.361 (A9 0.781 / 0.328); epoch 2 0.793 / KL 0.344, kept. T per type 0.793 / 0.328 (A9 0.800 / 0.312); earlier 313 cases 0.799 / 0.319. By kind: compare 0.684, infer 0.754, judge 0.830, read 0.927.
+- **Held-out number questions: 0.615** (A9 0.758): bands 0.525 (A9 0.703), dates 0.506 (0.633), threshold 0.716 (0.864), two-hop 0.548 (0.762).
+- **shift_dev (T per type): 0.782 / KL 0.205** (A9 0.784 / 0.202); compare 0.797, infer 0.790, judge 0.739, read 0.911 (A9 0.978).
+- **Reading:** level with Qwen3-4B-Instruct-2507 on shift_dev (fair here: same training data), slightly behind on our dev, and clearly behind on the held-out number questions (−14 points; bands −18, dates −13) and on read questions (−7). The untrained lead (0.544 against 0.419 on 30 cases) did not survive training, and the deeper stack (40 layers against 36) did not help one-pass computing. **Granite does not replace Qwen3-4B-Instruct-2507.** shift_dev_v2 (notebook 14) will score it too.
+
+## 11 A11 — 2026-10-29: queue item 3, Qwen3.5-4B on v1_7 (A9's recipe), trained on Colab Pro (one A100); no benchmark touch
+
+- **Setup:** text model only (4.21 B, vision tower not loaded); LoRA r16 on 280 modules including the linear-attention projections; fp16; one GPU with two cases accumulated per step (`CASES_PER_STEP = 2`: same cases, order and 5,138-step schedule as the two-T4 Kaggle runs); fast linear-attention kernels from `fla-core` (`causal_conv1d` on its PyTorch fallback). Checkpoints fetched from and pushed to the private repo `skamalj/signpost-d-checkpoints` after each epoch. Training 124 min (about 2.3 min per 100 steps).
+- **Training:** loss 0.97 at step 100 (Qwen3-4B 2.02, Granite 1.03), 0.67 at step 2,500; collapse check at step 400: dev KL 0.243 (Qwen3-4B 0.332, Granite 0.325).
+- **Dev (T = 1):** epoch 1 0.820 / KL 0.285; **epoch 2 0.845 / KL 0.253**, kept. T per type **0.845 / 0.247** (A9 0.800 / 0.312); earlier 313 cases 0.858 / 0.232. By type: choice 0.847, true/false 0.914, **score 0.778** (A9 0.715). By kind: **compare 0.773** (A9 0.688), infer 0.797, judge 0.866, read 0.965.
+- **Held-out number questions: 0.880** (A9 0.758, Granite 0.615): bands 0.941, threshold 0.938, two-hop 0.905, extreme 0.879, dates 0.684 (A9 0.633); within-5% margins 0.757.
+- **shift_dev (T per type): 0.807 / KL 0.175** (A9 0.784 / 0.202, Granite 0.782 / 0.205): compare 0.830, infer 0.815, judge 0.750, read 0.978. Fair between the three (same training data).
+- **Reading:** Qwen3.5-4B leads on every measure: +2.3 on shift_dev (above its ~1.5-point resolution), +4.5 on our dev, +12 on held-out number questions, with the lowest KL everywhere. The linear-attention concern (exact lookups) did not show: read 0.978 and two-hop 0.905. Date gaps remain the weakest skill. **Qwen3.5-4B becomes the base model**, subject to shift_dev_v2 (notebook 14) and one benchmark confirmation (touch 15).
+
+## 14 E2 — 2026-10-29: acceptance test of shift_dev_v2 (R17, third pipeline), 13 saved runs, no benchmark touch
+
+- **Method:** notebook 14 (notebook 11's evaluate mode) on Colab A100: each saved adapter (or seed average) merged, scored on our dev (v1_3's 313 cases, temperatures fitted there) and on shift_dev_v2 (440 cases, 1,938 questions); Spearman rank correlation with the benchmark over the nine runs that have a benchmark result.
+- **Rank correlation (9 runs):** accuracy: our dev 0.65, **shift_dev_v2 0.53** (shift_dev before its contamination: 0.80); KL: our dev 0.69, shift_dev_v2 0.74.
+- **shift_dev_v2 accuracy / KL:** Qwen3.5 v1_7 **0.800 / 0.267**; A9 (Qwen3-4B v1_7) 0.766 / 0.326; Granite v1_7 0.763 / 0.347; A5 0.751 / 0.353; A8 0.748 / 0.351; A7 0.742 / 0.369; A4 0.728 / 0.366; A6 (soup) 0.723 / 0.373; A2 0.719; A2b 0.717; A4b 0.716; A3 0.711; Qwen3-1.7B 0.648.
+- **Reading:**
+  1. **The acceptance test fails for accuracy:** shift_dev_v2 orders runs no better than our own dev. It repeats our dev's error, preferring the v1_6 runs (A5, A7; benchmark 0.627–0.630) to the v1_3 Instruct runs (A4, A6; 0.644–0.649). Likely cause: its documents are written by Opus, like all our cases, so it rewards what our data teaches. The benchmark gaps among these runs (~2 points) are within the benchmark's own noise, so nine runs order them weakly; large gaps (model families, 1.7B last) agree.
+  2. It cannot settle v1_7 against v1_6 (A9 +1.5 over A5 on it). It ranks KL best of the three sets.
+  3. **Model choice confirmed:** Qwen3.5 leads Qwen3-4B on the same data by +3.4 here, +2.3 on shift_dev, +4.5 on our dev and +12 on held-out number questions.
+  4. Next: benchmark touch 15 for Qwen3.5 v1_7 (`BENCH_LABELS`), the only clean referee left.
+
+## 14 B1 — 2026-10-29: benchmark touch 15, Qwen3.5-4B on v1_7 (A11), one seed
+
+- **Benchmark (T per type, temperatures fitted on v1_3's 313 dev cases): 0.6555 [0.6305, 0.6805] / KL 0.311 [0.281, 0.343] / Brier 0.172 / ECE 0.052**; choice 0.623, true/false 0.758, score 0.603.
+- **Against earlier runs:** A5 (Qwen3-4B, v1_6) 0.630 / 0.318 (choice 0.632, true/false 0.712, score 0.568); A6 soup (v1_3) 0.649 / 0.340; A4 0.644 / 0.341. Best single run and best KL so far.
+- **Reading:** +2.6 over A5 (one seed each, inside each other's intervals): score +3.5, true/false +4.6, choice −0.9. The referees' leads (dev +4.5, shift_dev +2.3, shift_dev_v2 +3.4, number questions +12 over A9) shrink again on the benchmark; far less than the +8 of the earlier switch to Instruct-2507. On the 26 Oct zero-shot table this ties d1-3B (0.656), behind d3-mini (0.743, also Qwen3.5-4B). Choice is now the weakest type.
