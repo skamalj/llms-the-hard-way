@@ -85,7 +85,9 @@ Cost (as reported by the CLI): about ${st['total_cost_usd']}.
 
 ## Notes and limits
 
-- Kinds are the question writer's labels under the rules above; re-bucket from `meta.computed` and `meta.score_decider` if you prefer another convention.
+- **Kinds miss the requested mix:** compare {pct(bk.get('compare', 0), n)} against about 40%, infer {pct(bk.get('infer', 0), n)} against 35%, judge {pct(bk.get('judge', 0), n)} against 20%, read {pct(bk.get('read', 0), n)} against 5%. These are the question writer's own labels under the convention above. Because most score and choice questions in this set work out a figure and compare it, the writer labels them compare, and the at-most-two-judge rule from train_v2 keeps judge below 20%. train_v2 had the same tilt. Re-bucket from `meta.computed` and `meta.score_decider` if you prefer another convention: a computed question that also applies a rule is the closest thing to "infer", and every `rule` score question is infer.
+- **Dropped seeds and top-up:** 77 of seeds X0001–X1000 failed the question-set checks three times and were dropped, as in train_v2. To get back to about 1,000 cases, seeds X1001–X1090 (the same fixed seed list, continued) were run; 85 of them came through. Ids therefore run to X-1090 with gaps.
+- **Pilot:** seeds X0001–X0020 were run first as a pilot with the same code and kept unchanged.
 - The gold is model opinion averaged over four calls plus the checking pass, not ground truth; judge questions should be read as distributions.
 - The checking pass is a model; where its computed value and the writer's differ, `value_source` records which one the margin uses.
 - Haiku documents occasionally contain small inconsistencies (a weekday that does not match its date); they are left in.
