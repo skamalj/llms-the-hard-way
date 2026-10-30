@@ -2552,7 +2552,7 @@ Script: scratchpad `ana/fail.py` on `experiments/analysis/run15_dev_preds.json` 
 
 ## 11 A11 — 2026-10-29: queue item 3, Qwen3.5-4B on v1_7 (A9's recipe), trained on Colab Pro (one A100); no benchmark touch
 
-- **Setup:** text model only (4.21 B, vision tower not loaded); LoRA r16 on 280 modules including the linear-attention projections; fp16; one GPU with two cases accumulated per step (`CASES_PER_STEP = 2`: same cases, order and 5,138-step schedule as the two-T4 Kaggle runs); fast linear-attention kernels from `fla-core` (`causal_conv1d` on its PyTorch fallback). Checkpoints fetched from and pushed to the private repo `skamalj/signpost-d-checkpoints` after each epoch. Training 124 min (about 2.3 min per 100 steps).
+- **Setup:** text model only (4.21 B, vision tower not loaded); LoRA r16 on 200 modules including the linear-attention projections; fp16; one GPU with two cases accumulated per step (`CASES_PER_STEP = 2`: same cases, order and 5,138-step schedule as the two-T4 Kaggle runs); fast linear-attention kernels from `fla-core` (`causal_conv1d` on its PyTorch fallback). Checkpoints fetched from and pushed to the private repo `skamalj/signpost-d-checkpoints` after each epoch. Training 124 min (about 2.3 min per 100 steps).
 - **Training:** loss 0.97 at step 100 (Qwen3-4B 2.02, Granite 1.03), 0.67 at step 2,500; collapse check at step 400: dev KL 0.243 (Qwen3-4B 0.332, Granite 0.325).
 - **Dev (T = 1):** epoch 1 0.820 / KL 0.285; **epoch 2 0.845 / KL 0.253**, kept. T per type **0.845 / 0.247** (A9 0.800 / 0.312); earlier 313 cases 0.858 / 0.232. By type: choice 0.847, true/false 0.914, **score 0.778** (A9 0.715). By kind: **compare 0.773** (A9 0.688), infer 0.797, judge 0.866, read 0.965.
 - **Held-out number questions: 0.880** (A9 0.758, Granite 0.615): bands 0.941, threshold 0.938, two-hop 0.905, extreme 0.879, dates 0.684 (A9 0.633); within-5% margins 0.757.
@@ -2575,3 +2575,83 @@ Script: scratchpad `ana/fail.py` on `experiments/analysis/run15_dev_preds.json` 
 - **Benchmark (T per type, temperatures fitted on v1_3's 313 dev cases): 0.6555 [0.6305, 0.6805] / KL 0.311 [0.281, 0.343] / Brier 0.172 / ECE 0.052**; choice 0.623, true/false 0.758, score 0.603.
 - **Against earlier runs:** A5 (Qwen3-4B, v1_6) 0.630 / 0.318 (choice 0.632, true/false 0.712, score 0.568); A6 soup (v1_3) 0.649 / 0.340; A4 0.644 / 0.341. Best single run and best KL so far.
 - **Reading:** +2.6 over A5 (one seed each, inside each other's intervals): score +3.5, true/false +4.6, choice −0.9. The referees' leads (dev +4.5, shift_dev +2.3, shift_dev_v2 +3.4, number questions +12 over A9) shrink again on the benchmark; far less than the +8 of the earlier switch to Instruct-2507. On the 26 Oct zero-shot table this ties d1-3B (0.656), behind d3-mini (0.743, also Qwen3.5-4B). Choice is now the weakest type.
+
+## 14 Q1 — 2026-10-29: one pass per case against one pass per question, Qwen3.5 v1_7 (A11), no training, no benchmark touch
+
+- **Method:** notebook 14 (`QPASS_LABELS`): the saved model scored twice, each question either packed with its case's other questions (as trained) or alone in the same prompt; temperatures per type fitted per mode on our dev (v1_3's 313 cases); referee shift_dev_v2.
+
+| Mode | Our dev | shift_dev_v2 | choice / true-false / score | compare / infer / judge / read |
+|---|---|---|---|---|
+| per case | **0.858** / KL 0.231 | **0.800** / KL 0.267 | 0.772 / 0.854 / 0.748 | 0.705 / 0.842 / 0.783 / 0.982 |
+| per question | 0.835 / KL 0.253 | 0.792 / KL 0.272 | 0.784 / 0.832 / 0.734 | 0.692 / 0.853 / 0.772 / 0.972 |
+
+- **Reading:** one pass per question is worse (dev −2.2, shift_dev_v2 −0.8, KL worse on both); only choice gains a little (+1.2). The comparison favours per case, since the model was trained that way, but nothing suggests the other questions of a case hurt. **One pass per case stays**; it is also about 4.5 times cheaper per question.
+
+## 11 A12 — 2026-10-29: queue item 4, two more seeds of A11 (Qwen3.5-4B on v1_7), Colab A100; no benchmark touch
+
+| Seed | Dev T per type (acc / KL) | score | Number questions (dates) | shift_dev (acc / KL) | Training |
+|---|---|---|---|---|---|
+| 42 (A11) | 0.845 / 0.247 | 0.778 | 0.880 (0.684) | 0.807 / 0.175 | 124 min |
+| 1042 | 0.842 / 0.249 | 0.774 | 0.885 (0.646) | 0.804 / 0.182 | 121 min |
+| 2042 | 0.835 / 0.262 | 0.761 | 0.816 (0.544) | 0.801 / 0.189 | 118 min |
+| mean | 0.841 / 0.253 | 0.771 | 0.860 | 0.804 / 0.182 | |
+
+- **Reading:** the recipe is stable on the referees (shift_dev spread 0.6 points, dev 1.0); seed 2042 is the weakest, mainly on number questions (dates 0.54, bands 0.88) and compare (0.730 on dev). Collapse checks at step 400: 0.243 / 0.235 / 0.226. Next: the three-seed soup (notebook 11, `MODE = "soup"`).
+
+## 11 A13 — 2026-10-29: soup of the three Qwen3.5 v1_7 seeds (42, 1042, 2042), no training, no benchmark touch
+
+- **Method:** notebook 11 `MODE = "soup"`: each seed's LoRA weight change merged into the fp16 base at one third (200 adapted modules).
+- **Dev (T per type): 0.855 / KL 0.234** (best seed 0.845 / 0.247; seed mean 0.841 / 0.253); choice 0.863, true/false 0.917, score 0.790; compare 0.781, infer 0.813, judge 0.879, read 0.968; earlier 313 cases 0.863 / 0.222.
+- **Held-out number questions:** 0.871 (seeds 0.880 / 0.885 / 0.816): bands 0.941, threshold 0.951, two-hop 0.976, dates 0.608; within-5% margins 0.838.
+- **shift_dev: 0.801 / KL 0.178** (seeds 0.807 / 0.804 / 0.801; KL 0.175 / 0.182 / 0.189).
+- **Reading:** +1.0 over the best seed on our dev with the lowest dev KL so far; level with the seeds on shift_dev (which is contaminated for data decisions but fair between these runs). On the old base the soup (A6) was likewise level-to-slightly-up on shift_dev and +0.5 to +1.7 over its seeds on the benchmark. The soup is the natural final candidate for this recipe.
+
+## 14 B2 — 2026-10-29: benchmark touch 16, the Qwen3.5 v1_7 three-seed soup (A13)
+
+- **Benchmark (T per type, temperatures fitted on v1_3's 313 dev cases): 0.6535 [0.630, 0.6795] / KL 0.283 [0.255, 0.311] / Brier 0.156 / ECE 0.027**; choice 0.615, true/false 0.748, score 0.611.
+- **shift_dev_v2:** 0.815 / KL 0.267 (seed 42: 0.800 / 0.267); compare 0.722, infer 0.860, judge 0.805, read 0.982. Our dev (v1_3 313): 0.863 / 0.222.
+- **Against seed 42 alone (touch 15: 0.6555 / KL 0.311 / Brier 0.172 / ECE 0.052):** accuracy level (−0.2, well inside the intervals), but **KL −0.028, Brier −0.016, ECE halved**: the best calibration we have recorded. Score +0.9, choice −0.8, true/false −1.0.
+- **Leaderboard context (26 Oct table):** accuracy level with d1-3B (0.656), behind d3-mini (0.743); KL 0.283 is below d3-mini's 0.319 and d1-3B's 0.286, Brier 0.156 against 0.123 / 0.144, ECE 0.027 against 0.047 / 0.037.
+- **Reading:** on this base the soup buys calibration, not accuracy (on the old base it bought both, +0.5 to +1.7). Accuracy has settled at about 0.655 for Qwen3.5 on v1_7; further accuracy needs new data (v1_8) or recipe changes. Sealed test still unused.
+
+## 11 P3 — 2026-10-29: does packing hurt later questions? (Qwen3.5 v1_7 seed 42, our dev, no new run)
+
+- **Position mix (dev):** early questions are mostly true/false and compare (position 1: compare 52%), later ones mostly score and judge (positions 3+: judge 50–61%). Training shuffles question order in every case and epoch.
+- **Accuracy by position:** 0.847 / 0.838 / 0.851 / 0.827 / 0.877 (positions 1–5+), which looks flat only because late positions hold easier judge questions.
+- **Within each kind, positions 1–2 against 3+:** read 0.972 / 0.956, compare 0.777 / 0.764, infer 0.812 / 0.782, judge 0.882 / 0.861: a small late-position penalty of about 1.5–3 points, in all four kinds (each alone within noise).
+- **Decision (user, 2026-10-29): training runs must stay within 5–6 hours** (Colab A100). Packed training on v1_7 takes about 2.1 h and on v1_8 about 2.6 h; per-question training costs about 4.6 times as much (v1_7 about 9–10 h), so it would need roughly half the data. Its likely gain (about +1 point overall, later questions only) does not justify that: **per-question training dropped**. Cheaper ideas kept for later: a prompt format that puts the case nearer the later questions (e.g. questions before the case).
+
+## 11 A14 — 2026-10-29: Qwen3.5-4B on v1_8 (v1_7 + R19's train_v3, 1,008 X- cases) with LoRA rank 32 (α 32), seed 42; Colab (about 3× faster GPU, likely an H100); no benchmark touch
+
+- **Setup:** 6,610 cases, 28,610 training questions, dev unchanged (463 cases); 60.9 M trainable; 6,146 steps in 49 min. Loss 1.03 → 0.55; collapse check at step 400: dev KL 0.230.
+- **Dev (T = 1):** epoch 1 0.806 / KL 0.308 (v1_7 seeds 0.811–0.831 / 0.275–0.285); epoch 2 0.839 / 0.268, kept. T per type **0.839 / 0.256** (v1_7 seeds 0.835–0.845 / 0.247–0.262); score 0.768; compare 0.747, infer 0.783, judge 0.874, read 0.971; earlier 313 cases 0.852 / 0.244.
+- **Held-out number questions: 0.843** (v1_7 seeds 0.816–0.885): bands 0.941, threshold 0.920, dates **0.570** (0.544–0.684), within-5% margins 0.811.
+- **shift_dev: 0.802 / KL 0.180** (v1_7 seeds 0.801–0.807 / 0.175–0.189).
+- **Reading:** inside the v1_7 seeds' range on every measure, at its lower half on score, compare and date gaps, exactly what R19 targeted. shift_dev shares train_v3's pipeline and should, if anything, favour v1_8, yet it is flat. Two changes at once (data and rank), so neither is attributed; no sign that either helped. The v1_7 soup (touch 16: 0.6535 / KL 0.283) stays the candidate.
+
+## 16/14 E3 — 2026-10-29: quick-teacher labels for shift_dev_v2 (Qwen3.5-4B, thinking off), acceptance test; no training, no benchmark touch
+
+- **Labels (notebook 16, `TEACHER_MODE = "quick"`):** three samples per case at temperatures 0.7 / 1.0 / 1.3. Pairwise self-agreement 0.707 / 0.647 / 0.597 against the benchmark teacher's 0.735, so **0.7 chosen before any ranking**. At 0.7, mean top 0.846; the teacher's top answer equals the reviewers' on 66.8% of questions (clear gold 0.697, leaning 0.632, split 0.408; compare 0.555, score 0.535, read 0.937). The earlier thinking teacher was far too consistent (0.953).
+- **Acceptance test (notebook 14, `LABELS = "teacher_quick"`, 9 runs with benchmark results):** rank correlation with benchmark accuracy **0.47** (reviewers' labels 0.53); Instruct runs only −0.60 for both. Scores compress to 0.68–0.70 for every Instruct and Qwen3-4B run (1.7B 0.632).
+- **Reading:** teacher-style labels from a calibrated quick 4B teacher do not track the benchmark better, so **teacher relabelling stays off** (the rule fixed before the test). The test's power is limited: the five Instruct runs sit within about 2 benchmark points.
+- **Pattern across all runs:** less fitting transfers better to the benchmark (A2 1 epoch 0.5655 against A2b 2 epochs 0.542; A4 v1_3 1 epoch 0.644 against A5 v1_6 2 epochs 0.630; soups best), while every referee rewards more fitting. Candidate next step: **WiSE-FT** (blend the soup's weight change at α < 1 towards the untrained base), chosen only by benchmark touches.
+
+## 14 B3 — 2026-10-29: WiSE-FT blends of the Qwen3.5 v1_7 soup, benchmark touches 17 and 18
+
+- **Method:** notebook 14; the three-seed soup's weight change merged at alpha 0.5 and 0.75 (alpha = share of the fine-tune kept; 1.0 is the plain soup, touch 16). Temperatures per type fitted on v1_3's 313 dev cases.
+
+| alpha | Benchmark acc [95% CI] | KL | Brier | ECE | choice / true-false / score | shift_dev_v2 | our dev |
+|---|---|---|---|---|---|---|---|
+| 1.0 (touch 16) | 0.6535 [0.630, 0.680] | 0.283 | 0.156 | 0.027 | 0.615 / 0.748 / 0.611 | 0.815 | 0.863 |
+| **0.75 (touch 18)** | **0.6655 [0.641, 0.690]** | **0.279** | **0.153** | 0.035 | 0.628 / 0.748 / **0.631** | 0.811 | 0.855 |
+| 0.5 (touch 17) | 0.6525 [0.629, 0.678] | 0.284 | 0.154 | 0.044 | 0.623 / 0.750 / 0.601 | 0.796 | 0.845 |
+
+- **Reading:** alpha 0.75 is our best benchmark result on every measure but ECE (+1.2 accuracy over the plain soup, score +2.0), but +1.2 is below the +2 rule fixed before the run and well inside the intervals. It was also picked from three tries on the benchmark itself, which flatters it by up to about a point. So the "less fitting" pattern is at most weak. The curve is flat-topped around 0.65–0.67 for alpha 0.5–1.0. On the 26 Oct zero-shot table, 0.6655 would sit just above d1-3B (0.656), below clef-flash (0.710) and d3-mini (0.743).
+
+## 11 A15 / 14 B4 — 2026-10-30: Qwen3.5-4B on v1_7s (v1_7 + R21's score-only augmentation: 409 cases / 1,636 score questions), rank 16, seed 42; benchmark touch 19
+
+- **Setup:** A11's recipe with the score set added (6,011 cases, 25,401 training questions, dev unchanged); 5,548 steps in 133 min on the Colab GPU; collapse check at step 400: dev KL 0.259.
+- **Referees:** dev T per type 0.843 / KL 0.257 (A11 0.845 / 0.247); score 0.773 (0.778); number questions 0.850 (0.880), dates 0.582 (0.684); shift_dev 0.801 / 0.185 (0.807 / 0.175); shift_dev_v2 0.806 / 0.275 (A11 0.800 / 0.267).
+- **Benchmark (touch 19): 0.6555 [0.6325, 0.6795] / KL 0.250 [0.228, 0.272] / Brier 0.1395 / ECE 0.018**; choice 0.618, true/false 0.762, score 0.604. A11: 0.6555 / 0.311 / 0.172 / 0.052; score 0.603.
+- **Decision rule (fixed beforehand: score +3 and overall +1.5): failed.** Accuracy is identical to A11, overall and on score.
+- **But calibration improved sharply:** KL −0.061, Brier −0.033, ECE about a third, the best calibration of any run (soup at α 0.75: KL 0.279 / Brier 0.153). On the 26 Oct table, KL 0.250 is below d3-mini (0.319) and d1-3B (0.286), behind only clef-flash (0.209), and Brier 0.140 is below d1-3B (0.144). The strictly validated, non-overlapping scales with honest spread gold seem to teach the model how sure to be, not which level to pick.
