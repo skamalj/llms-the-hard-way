@@ -127,7 +127,7 @@ The validator is strict on purpose. Most rejections are scales whose neighbourin
 - **Seed order:** the seed lists are fixed (base seed {mf['base_seed']}), and later seeds only extend them. Seeds run per flow: {json.dumps(mf['seeds_per_flow'])}.
 - **Before training:** run `pipeline/validate.py` (schema, probabilities, score-only, flow id) and compare v1_7 against v1_7 + this set with everything else held constant, as the brief's section 6 says. No benchmark test content was used to write, label, filter or tune this set.
 
-Cost of the accepted cases (as reported by the CLI): about ${st['total_cost_usd_accepted_cases']}. Cost of the whole run, rejected cases included, is higher; see the session record.
+Cost (as reported by the CLI): about ${st['total_cost_usd_accepted_cases']} for the accepted cases, and about $138 for the whole run, including rejected cases and a top-up batch for F1–F4 that was stopped before labelling. That batch contributes no cases here.
 
 ## Licence
 

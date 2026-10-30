@@ -1,0 +1,67 @@
+{
+  "name": "signpost_d score augmentation",
+  "version": "score_aug_v1",
+  "directory": "data/signpost_d/independent_v5_score_aug",
+  "file": "score_aug_v1.jsonl",
+  "brief": "signpost_d_score_augmentation_brief.md",
+  "leaves_unchanged": "v1_7",
+  "type": "score only",
+  "id_pattern": "SCORE-F<flow>-<nnnn>",
+  "base_seed": 20261030,
+  "seeds_per_flow": {
+    "F1": 130,
+    "F2": 130,
+    "F3": 200,
+    "F4": 330,
+    "F5": 130
+  },
+  "cap_per_flow": 100,
+  "flows": {
+    "F1": {
+      "name": "Evidence-based scoring",
+      "accepted_cases": 73,
+      "accepted_score_questions": 292
+    },
+    "F2": {
+      "name": "Boundary and adjacent-level discrimination",
+      "accepted_cases": 67,
+      "accepted_score_questions": 268
+    },
+    "F3": {
+      "name": "Conflicting evidence",
+      "accepted_cases": 76,
+      "accepted_score_questions": 304
+    },
+    "F4": {
+      "name": "Missing, incomplete or uncertain evidence",
+      "accepted_cases": 93,
+      "accepted_score_questions": 372
+    },
+    "F5": {
+      "name": "Numerical and quantitative reasoning",
+      "accepted_cases": 100,
+      "accepted_score_questions": 400
+    }
+  },
+  "generation": {
+    "documents": "Haiku (claude-haiku-5-5)",
+    "questions": "Sonnet (claude-sonnet-5-5)",
+    "twin_documents_F2": "Haiku (claude-haiku-5-5)"
+  },
+  "labelling": {
+    "calls_per_case": 4,
+    "personas": {
+      "literal": "haiku",
+      "operator": "haiku",
+      "auditor": "haiku",
+      "analyst": "opus"
+    },
+    "gold": "mean of the four calls; train_v2 checking-pass rule (gold.py)"
+  },
+  "validation": {
+    "arithmetic_check": "Opus (claude-opus-5-5), read/compare/infer questions",
+    "score_scale_validator": "Opus (claude-opus-5-5), every question, 10 checks of brief section 4; any reject drops the case",
+    "mechanical": "pipeline/validate.py"
+  },
+  "pipeline_base": "independent_v2/pipeline (train_v2), via independent_v4"
+}
