@@ -218,13 +218,16 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--work", required=True)
     ap.add_argument("--per-flow", type=int, required=True)
+    ap.add_argument("--counts", default="", help="per-flow overrides, e.g. F3=200,F4=330")
     ap.add_argument("--out", required=True)
     ap.add_argument("--cap", type=int, default=100)
     ap.add_argument("--seed", type=int, default=20261030)
     ap.add_argument("--review", type=int, default=50)
     args = ap.parse_args()
 
-    seeds = make_seeds(args.per_flow, args.seed)
+    counts_by_flow = {f: args.per_flow for f in FLOWS}
+    counts_by_flow.update({k: int(v) for k, v in (x.split("=") for x in args.counts.split(",") if x)})
+    seeds = [s for s in make_seeds(max(counts_by_flow.values()), args.seed) if int(s["seed_id"].split("-")[1]) <= counts_by_flow[s["flow"]]]
     accepted, qcs, report = [], [], {f: {"seeds": 0, "accepted": 0, "surplus": 0, "rejected": collections.Counter()} for f in FLOWS}
     validator_issues = {f: collections.Counter() for f in FLOWS}
     validated_q = collections.Counter()
@@ -281,7 +284,7 @@ def main():
 
     manifest = {"name": "signpost_d score augmentation", "version": OUT_NAME, "directory": "data/signpost_d/independent_v5_score_aug",
                 "file": f"{OUT_NAME}.jsonl", "brief": "signpost_d_score_augmentation_brief.md", "leaves_unchanged": "v1_7",
-                "type": "score only", "id_pattern": "SCORE-F<flow>-<nnnn>", "base_seed": args.seed, "seeds_per_flow": args.per_flow, "cap_per_flow": args.cap,
+                "type": "score only", "id_pattern": "SCORE-F<flow>-<nnnn>", "base_seed": args.seed, "seeds_per_flow": counts_by_flow, "cap_per_flow": args.cap,
                 "flows": {f: {"name": FLOWS[f]["name"], "accepted_cases": report[f]["accepted"], "accepted_score_questions": 4 * report[f]["accepted"]} for f in FLOWS},
                 "generation": {"documents": "Haiku (claude-haiku-5-5)", "questions": "Sonnet (claude-sonnet-5-5)", "twin_documents_F2": "Haiku (claude-haiku-5-5)"},
                 "labelling": {"calls_per_case": 4, "personas": {p: m for p, (m, _) in PERSONAS.items()}, "gold": "mean of the four calls; train_v2 checking-pass rule (gold.py)"},
