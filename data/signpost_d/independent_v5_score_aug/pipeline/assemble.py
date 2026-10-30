@@ -136,7 +136,7 @@ def duplicates(cases):
             s = jacc(sh[i], sh[j])
             if s >= 0.5:
                 near_states.append((a, b, round(s, 3)))
-    instr = collections.Counter(q["instructions"].strip().lower() for c in cases for q in c["questions"].values())
+    instr = collections.Counter(q["instructions"].strip().lower() for c in cases if not c["meta"].get("twin_of") for q in c["questions"].values())
     qsh = [(c["id"], k, shingles(q["instructions"], 3)) for c in cases for k, q in c["questions"].items()]
     twin_ids = {x for p in pairs for x in p}
     near_q = 0
@@ -147,7 +147,7 @@ def duplicates(cases):
             if jacc(qsh[i][2], qsh[j][2]) >= 0.8:
                 near_q += 1
     return {"near_duplicate_state_pairs (5-gram Jaccard >= 0.5, twins excluded)": len(near_states), "near_duplicate_state_examples": near_states[:20],
-            "exact_duplicate_instructions": sum(v - 1 for v in instr.values() if v > 1),
+            "exact_duplicate_instructions (twins excluded)": sum(v - 1 for v in instr.values() if v > 1),
             "near_duplicate_instruction_pairs (3-gram Jaccard >= 0.8, across cases, twins excluded)": near_q,
             "twin_pair_state_similarity_median": round(statistics.median(twin_sims), 3) if twin_sims else None}
 

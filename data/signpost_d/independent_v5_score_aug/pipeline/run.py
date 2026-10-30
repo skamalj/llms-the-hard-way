@@ -123,38 +123,42 @@ def leaks_figures(descs: list, document, allowed=()) -> bool:
 
 
 def normalise_questions(raw: list, document=None, seed=None) -> dict | None:
-    """Score-only checks: four score questions, levels as planned, 'Name: description', consistent numeric edges,
+    return check_questions(raw, document, seed)[0]
+
+
+def check_questions(raw: list, document=None, seed=None):
+    """Returns (questions, None) or (None, reason). Score-only checks: four score questions, levels as planned, 'Name: description', consistent numeric edges,
     distinct instructions, no document figures quoted in level descriptions (declared edges excepted)."""
     if len(raw) != 4:
-        return None
+        return None, f"{len(raw)} questions"
     qs = {}
     for i, q in enumerate(raw, start=1):
         if q.get("type") != "score":
-            return None
+            return None, "non-score question"
         instr = q["instructions"].strip()
         lv = [x.strip() for x in (q.get("score_levels") or []) if x.strip()]
         if not (3 <= len(lv) <= 5) or any(":" not in x for x in lv):
-            return None
+            return None, "levels count or Name: description format"
         comp = q.get("computation") or "none"
         edges = q.get("edges") or []
         if comp != "none" and edges:
             if len(edges) != len(lv) - 1 or any(edges[j] >= edges[j + 1] for j in range(len(edges) - 1)):
-                return None
+                return None, "inconsistent edges"
         qs[f"q{i}"] = {"type": "score", "instructions": instr, "criteria": lv, "kind": q["kind"], "author_answer": q.get("author_answer", ""),
                        "computation": comp, "computed_value": q.get("computed_value"), "unit": q.get("unit"), "edges": edges,
                        "edge_rule": q.get("edge_rule") or "lower_inclusive"}
     if seed is not None and sorted(len(q["criteria"]) for q in qs.values()) != sorted(p["levels"] for p in seed["question_plan"]):
-        return None
+        return None, "level counts differ from the plan"
     if len({q["instructions"].lower() for q in qs.values()}) < 4:
-        return None
+        return None, "repeated instruction"
     if document is not None:
         descs, allowed = [], []
         for q in qs.values():
             descs.extend(q["criteria"])
             allowed.extend(q.get("edges") or [])
         if leaks_figures(descs, document, allowed):
-            return None
-    return qs
+            return None, "level description quotes a document figure"
+    return qs, None
 
 
 def do_questions(work: str, seed: dict) -> str:
@@ -167,11 +171,15 @@ def do_questions(work: str, seed: dict) -> str:
         return f"nodoc {sid}"
     document = json.load(open(src))["document"]
     system, user, schema = q_messages(seed, document)
+    reasons = []
     for attempt in range(3):
         r = claude_call("sonnet", system, user, schema)
         if not r["ok"]:
+            reasons.append(f"call failed: {r.get('error')}")
             continue
-        qs = normalise_questions(r["data"]["questions"], document, seed)
+        qs, why = check_questions(r["data"]["questions"], document, seed)
+        if why:
+            reasons.append(why)
         if qs:
             rec = {"questions": qs, "cost": r["cost"], "model": r["model"], "attempts": attempt + 1}
             if r["data"].get("twin_change"):
@@ -179,8 +187,8 @@ def do_questions(work: str, seed: dict) -> str:
                 rec["twin_question"] = r["data"].get("twin_question")
             json.dump(rec, open(out, "w"), ensure_ascii=False, indent=1)
             return "ok"
-    json.dump({"seed_id": sid, "reason": "question set failed the script checks three times"}, open(path(work, "rejected_questions", sid), "w"))
-    return f"fail {sid}: questions invalid"
+    json.dump({"seed_id": sid, "reason": "question set failed the script checks three times", "attempts": reasons}, open(path(work, "rejected_questions", sid), "w"))
+    return f"fail {sid}: questions invalid ({'; '.join(reasons)})"
 
 
 def do_twin(work: str, seed: dict) -> str:
