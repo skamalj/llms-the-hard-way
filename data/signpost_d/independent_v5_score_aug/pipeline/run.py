@@ -341,6 +341,7 @@ def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--work", required=True)
     ap.add_argument("--per-flow", type=int, required=True, help="seeds per flow (the first N of each flow's fixed list)")
+    ap.add_argument("--counts", default="", help="per-flow overrides, e.g. F3=200,F4=330")
     ap.add_argument("--flows", default="F1,F2,F3,F4,F5")
     ap.add_argument("--stage", choices=["docs", "questions", "twins", "labels", "verify", "validate"], required=True)
     ap.add_argument("--workers", type=int, default=6)
@@ -349,7 +350,10 @@ def main() -> None:
     args = ap.parse_args()
 
     flows = set(args.flows.split(","))
-    seeds = [s for s in make_seeds(args.per_flow, args.seed) if s["flow"] in flows]
+    counts_by_flow = {f: args.per_flow for f in flows}
+    counts_by_flow.update({k: int(v) for k, v in (x.split("=") for x in args.counts.split(",") if x)})
+    seeds = [s for s in make_seeds(max(counts_by_flow.values()), args.seed)
+             if s["flow"] in flows and int(s["seed_id"].split("-")[1]) <= counts_by_flow[s["flow"]]]
     fns = {"docs": do_doc, "questions": do_questions, "twins": do_twin, "verify": do_verify, "validate": do_validate}
     if args.stage == "labels":
         jobs = [(do_label, (args.work, s, persona)) for s in seeds for persona in PERSONAS]
