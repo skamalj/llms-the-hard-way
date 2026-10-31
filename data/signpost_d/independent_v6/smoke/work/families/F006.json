@@ -1,0 +1,339 @@
+{
+ "id": "F006",
+ "domain": "automatic weather-station data quality review",
+ "role": "Network data quality analyst at a national meteorological service, reviewing one automatic weather station's 24-hour data batch at a time before it is released to the climate archive and forecast feeds",
+ "setting": "Each record is a single station-day assembled by the ingest system: station metadata, summarised observations per element, automated quality-control test results, comparisons with nearby stations, the maintenance and calibration log, and logger transmission statistics. The analyst decides whether the day's data can be released, whether specific suspected faults are real, how urgently a technician is needed and how far users can trust the day. Records contain no free-text fields; every signal is a number, date, flag, identifier, unit code or list entry.",
+ "questions": {
+  "rain_total_bad": {
+   "type": "noul",
+   "instructions": "The day's rainfall total is erroneous and should not be published.",
+   "criteria": null
+  },
+  "temp_drift": {
+   "type": "noul",
+   "instructions": "A drifting temperature sensor accounts for the gap with neighbours.",
+   "criteria": {
+    "true": "Offset grows steadily since calibration and nothing else explains it",
+    "false": "Gap absent, transient, or explained by weather, siting or maintenance"
+   }
+  },
+  "release_action": {
+   "type": "choice",
+   "instructions": "What should be done with this station-day's data before archiving?",
+   "criteria": {
+    "accept": "Release all elements to the archive without added quality flags.",
+    "accept_flagged": "Release all elements but attach suspect flags to affected values.",
+    "hold": "Keep the day pending one confirmation before deciding release.",
+    "withhold_partial": "Release sound elements and withhold the faulty ones only.",
+    "reject_day": "Withhold the whole station-day from archive and downstream products."
+   }
+  },
+  "visit_urgency": {
+   "type": "score",
+   "instructions": "How urgently does the station need a technician site visit?",
+   "criteria": [
+    "No visit needed beyond the routine schedule",
+    "Inspect the issue at the next routine visit",
+    "Arrange a dedicated visit within the coming fortnight",
+    "Send a technician within forty-eight hours"
+   ]
+  },
+  "user_confidence": {
+   "type": "score",
+   "instructions": "How much confidence can downstream users place in this station-day?",
+   "criteria": [
+    "Unusable: most elements fail checks or are missing",
+    "Poor: several elements doubtful, fit for limited use only",
+    "Fair: usable with caution for some elements",
+    "Good: minor flagged issues, broadly fit for use",
+    "Excellent: all elements complete, consistent and independently verified"
+   ]
+  }
+ },
+ "factors": [
+  {
+   "name": "sensor_fault_type",
+   "description": "The underlying instrument problem, if any, affecting the station-day; never named in the record, only visible through test counts, neighbour deltas and value patterns.",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "temp_drift",
+    "rain_gauge_blockage",
+    "humidity_stuck_high",
+    "wind_vane_stuck",
+    "pressure_spikes"
+   ],
+   "weights": [
+    0.25,
+    0.18,
+    0.18,
+    0.13,
+    0.13,
+    0.13
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S7",
+    "S1",
+    "S5"
+   ]
+  },
+  {
+   "name": "fault_severity",
+   "description": "How strongly the fault distorts readings, from barely detectable to gross; drives size of neighbour deltas and number of failed QC hours.",
+   "kind": "number",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 1,
+   "p_true": 0,
+   "skills": [
+    "S4",
+    "S6",
+    "S7"
+   ]
+  },
+  {
+   "name": "cross_section_mismatch",
+   "description": "An unannounced inconsistency between corresponding values in different sections, ranging from trivial rounding to a large gap.",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "trivial_rounding",
+    "unit_mismatch",
+    "timestamp_offset",
+    "logger_id_mismatch",
+    "obs_count_gap",
+    "rain_sum_gap"
+   ],
+   "weights": [
+    0.22,
+    0.16,
+    0.12,
+    0.13,
+    0.1,
+    0.14,
+    0.13
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1"
+   ]
+  },
+  {
+   "name": "benign_explanation_present",
+   "description": "Whether a natural cause accounts for the alarming pattern, such as a local convective cell seen by one neighbour, snowmelt in the gauge, fog or frost on the vane.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S5",
+    "S6"
+   ]
+  },
+  {
+   "name": "maintenance_window_active",
+   "description": "Whether a logged maintenance or cleaning visit overlaps the hours where QC tests failed, making failures expected artefacts.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S1"
+   ]
+  },
+  {
+   "name": "days_since_calibration",
+   "description": "Days between the last recorded calibration of the temperature and humidity probe and the observation date; long gaps make drift plausible but not proven.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 3,
+   "max": 900,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S5",
+    "S6"
+   ]
+  },
+  {
+   "name": "data_completeness_pct",
+   "description": "Share of expected hourly messages actually received and decoded for the day.",
+   "kind": "number",
+   "values": [],
+   "weights": [],
+   "min": 55,
+   "max": 100,
+   "p_true": 0,
+   "skills": [
+    "S4",
+    "S1"
+   ]
+  },
+  {
+   "name": "neighbour_agreement",
+   "description": "How well nearby stations corroborate this station's readings once distance and elevation are allowed for.",
+   "kind": "categorical",
+   "values": [
+    "strong",
+    "moderate",
+    "weak",
+    "no_usable_neighbours"
+   ],
+   "weights": [
+    0.3,
+    0.3,
+    0.25,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S6",
+    "S3",
+    "S5"
+   ]
+  },
+  {
+   "name": "prior_flag_count_30d",
+   "description": "Number of station-days in the previous thirty days that received suspect flags for any element.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 12,
+   "p_true": 0,
+   "skills": [
+    "S6",
+    "S7"
+   ]
+  },
+  {
+   "name": "recent_successful_check",
+   "description": "Whether a field comparison against a travelling reference instrument passed within the last few weeks.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S5"
+   ]
+  },
+  {
+   "name": "repair_state",
+   "description": "Status of any open work on the station: no ticket, ticket raised, repair partly done, or repair completed.",
+   "kind": "categorical",
+   "values": [
+    "no_ticket",
+    "ticket_open",
+    "repair_partial",
+    "repair_completed"
+   ],
+   "weights": [
+    0.4,
+    0.22,
+    0.2,
+    0.18
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S4",
+    "S3",
+    "S7"
+   ]
+  },
+  {
+   "name": "boundary_case",
+   "description": "Whether a decisive value sits on a QC threshold, such as a neighbour delta exactly at tolerance or completeness at the release cut-off.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.25,
+   "skills": [
+    "S6",
+    "S4"
+   ]
+  },
+  {
+   "name": "station_tier",
+   "description": "Network role of the station, setting how much downstream impact bad data would have.",
+   "kind": "categorical",
+   "values": [
+    "climate_reference",
+    "synoptic",
+    "hydrology_support",
+    "secondary_local"
+   ],
+   "weights": [
+    0.2,
+    0.35,
+    0.2,
+    0.25
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S7"
+   ]
+  }
+ ],
+ "sections": [
+  {
+   "name": "station",
+   "description": "Station identifier, logger serial, tier code, coordinates, elevation, configured element units and observation date."
+  },
+  {
+   "name": "observations",
+   "description": "Per-element daily summary: unit, hourly value count, min, max, mean, plus a 24-entry hourly rainfall list and daily total."
+  },
+  {
+   "name": "auto_qc",
+   "description": "List of automated tests per element with hours tested, hours failed and first failure time in UTC."
+  },
+  {
+   "name": "neighbours",
+   "description": "Up to four nearby stations with distance, elevation difference and daily deltas for temperature, humidity, pressure and rainfall."
+  },
+  {
+   "name": "maintenance",
+   "description": "Visit list with start and end times and action codes, last calibration dates per sensor, reference check results and open ticket status."
+  },
+  {
+   "name": "transmission",
+   "description": "Expected and received message counts, decoded count, logger serial reported, clock offset seconds and battery voltage minimum."
+  }
+ ],
+ "rendering_notes": "sensor_fault_type appears only indirectly: temp_drift as temperature neighbour deltas all of one sign and larger than humidity or pressure deltas, with auto_qc 'spatial_consistency' failures for air_temp; rain_gauge_blockage as hourly rainfall list of zeros while neighbours report rain, possibly followed by a burst hour, with 'neighbour_precip' failures; humidity_stuck_high as rh min and max both near 100 with 'flatline' failures; wind_vane_stuck as wind_dir min equal to max; pressure_spikes as 'step_change' failures on pressure with plausible mean. fault_severity scales the delta magnitudes and failed-hour counts. cross_section_mismatch is placed in one of: observations unit versus station configured unit (e.g. hPa vs kPa, mm vs inches), first failure time in auto_qc versus maintenance visit time shifted by a local-time offset, station logger_serial versus transmission logger_serial_reported, observations hourly count versus transmission decoded count, or sum of the hourly rainfall list versus the stated daily total; trivial_rounding gives differences of 0.1 mm or one count; 'none' records reconcile fully. benign_explanation_present shows as one neighbour with a matching rainfall burst or a large delta only at one sheltered neighbour, or sub-zero minimum temperature alongside frozen-vane symptoms; it must never be labelled as an explanation. maintenance_window_active shows as a visit whose start and end bracket the failed hours, with action codes like CLEAN_GAUGE or SWAP_PROBE. days_since_calibration is rendered as a last_cal date in maintenance against the station observation date. data_completeness_pct appears as received and decoded counts against expected in transmission. neighbour_agreement is expressed through number of neighbours and spread of their deltas; no_usable_neighbours gives an empty list or neighbours over 60 km or 400 m higher. prior_flag_count_30d appears as flagged_days_30d in auto_qc. recent_successful_check appears as a ref_check entry with date and a pass boolean and offset value. repair_state appears as ticket status and a list of completed action codes, partial meaning some actions done and others pending. boundary_case puts a delta or completeness value exactly at the threshold implied by test tolerances listed in auto_qc. station_tier appears as a tier code in station. Decoys: low battery voltage minima that never coincide with failures, a single range-test failure within tolerance, a high flagged_days_30d driven by an already completed repair, a long calibration gap on an element that is healthy, and clock offsets of a few seconds. No record may contain fields such as verdict, fault_type, severity, release_status, confidence or recommended_action; auto_qc reports test-level counts only and never an overall pass or fail for the day. No free-text fields are used anywhere.",
+ "skills": [
+  "S1",
+  "S3",
+  "S4",
+  "S5",
+  "S6",
+  "S7"
+ ],
+ "shared_scale": null,
+ "design_cost": 0.12686
+}

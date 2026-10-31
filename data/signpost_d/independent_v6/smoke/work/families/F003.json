@@ -1,0 +1,355 @@
+{
+ "id": "F003",
+ "domain": "municipal street-works permit applications",
+ "role": "Street works permit officer at a local highway authority, reviewing one utility or contractor permit application at a time",
+ "setting": "A municipal highway authority runs a permit scheme for works in the public highway. Promoters such as water, gas, telecoms and electricity undertakers, plus private contractors, submit applications to occupy streets. Each application arrives as a structured record covering proposed dates, location, works detail, traffic management, coordination with other bookings and the promoter's compliance standing. The officer decides whether the stated clash with other works is real and which permit category truly applies. They also decide what to do with the application, how disruptive the works would be and how much scrutiny it needs before a decision.",
+ "questions": {
+  "genuine_clash": {
+   "type": "noul",
+   "instructions": "The proposed occupation genuinely clashes with other booked works nearby.",
+   "criteria": null
+  },
+  "disposition": {
+   "type": "choice",
+   "instructions": "What should the officer do with this permit application?",
+   "criteria": {
+    "grant": "Issue the permit as applied for without any changes.",
+    "grant_conditions": "Issue the permit with added conditions on hours or layout.",
+    "request_info": "Hold the application pending missing documents or one confirmation.",
+    "propose_changes": "Return with alternative dates or methods for promoter acceptance.",
+    "refuse": "Reject the application outright in its submitted form."
+   }
+  },
+  "true_category": {
+   "type": "choice",
+   "instructions": "Which permit category do the works actually fall into?",
+   "criteria": {
+    "minor": "Short works of three days or fewer, limited excavation.",
+    "standard": "Planned works lasting between four and ten days.",
+    "major": "Planned works over ten days or needing a full closure.",
+    "immediate": "Emergency or urgent works that must start without advance notice."
+   }
+  },
+  "disruption_level": {
+   "type": "score",
+   "instructions": "How much traffic disruption would the works likely cause?",
+   "criteria": [
+    "Low: footway or quiet street, negligible effect on traffic",
+    "Moderate: some delay, managed by shuttle or off-peak hours",
+    "High: significant queues expected on a busy or sensitive route",
+    "Severe: closure or peak-hour working on a strategic route"
+   ]
+  },
+  "scrutiny_needed": {
+   "type": "score",
+   "instructions": "How much officer scrutiny does this application need before deciding?",
+   "criteria": [
+    "Routine check only, nothing unusual in the record",
+    "Light review of a single minor point",
+    "Careful review of several interacting details",
+    "Detailed scrutiny including checks against other bookings",
+    "Escalate to senior officer or coordination meeting"
+   ]
+  }
+ },
+ "factors": [
+  {
+   "name": "section_gap",
+   "description": "Which required part of the application is absent or null. Absence counts as evidence and usually pushes the disposition toward request_info or refuse.",
+   "kind": "categorical",
+   "values": [
+    "complete",
+    "tm_plan_null",
+    "reinstatement_missing",
+    "insurance_expired_or_null",
+    "accreditation_missing"
+   ],
+   "weights": [
+    0.55,
+    0.15,
+    0.1,
+    0.1,
+    0.1
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S2",
+    "S4",
+    "S7"
+   ]
+  },
+  {
+   "name": "date_out_of_order",
+   "description": "A sequencing anomaly in the dates. Examples are a traffic management drawing dated after the proposed start, an excavation start before the notice was submitted, or an end date before the start.",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "drawing_after_start",
+    "start_before_submission",
+    "consultation_after_start"
+   ],
+   "weights": [
+    0.75,
+    0.1,
+    0.08,
+    0.07
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S2",
+    "S5"
+   ]
+  },
+  {
+   "name": "duration_days",
+   "description": "Planned duration of occupation in working days. The officer compares it with the claimed category thresholds of three and ten days.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 1,
+   "max": 45,
+   "p_true": 0,
+   "skills": [
+    "S6",
+    "S7"
+   ]
+  },
+  {
+   "name": "category_claim",
+   "description": "How the category the promoter claims relates to what the duration, excavation and closure imply.",
+   "kind": "categorical",
+   "values": [
+    "consistent",
+    "understated",
+    "overstated",
+    "immediate_unjustified",
+    "immediate_justified"
+   ],
+   "weights": [
+    0.45,
+    0.2,
+    0.1,
+    0.12,
+    0.13
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S5",
+    "S6",
+    "S7"
+   ]
+  },
+  {
+   "name": "notice_lead_days",
+   "description": "Days between submission and proposed start. The officer compares this with the notice required for the true category rather than the claimed one.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 90,
+   "p_true": 0,
+   "skills": [
+    "S2",
+    "S4",
+    "S7"
+   ]
+  },
+  {
+   "name": "booking_overlap",
+   "description": "Whether another booked occupation shares the street or an adjoining street segment within the proposed date window.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.45,
+   "skills": [
+    "S5",
+    "S7"
+   ]
+  },
+  {
+   "name": "collaboration_agreed",
+   "description": "Mitigation for an overlap. Either a recorded collaborative works agreement or a shared trench reference with the other promoter, or the overlapping booking is footway-only on the opposite side.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S5",
+    "S6"
+   ]
+  },
+  {
+   "name": "road_sensitivity",
+   "description": "Traffic importance of the street, shown through road category and traffic-sensitive time windows.",
+   "kind": "categorical",
+   "values": [
+    "residential",
+    "local_distributor",
+    "main_distributor",
+    "strategic_route"
+   ],
+   "weights": [
+    0.3,
+    0.3,
+    0.25,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S7",
+    "S6"
+   ]
+  },
+  {
+   "name": "occupation_type",
+   "description": "How much carriageway the works take up, from footway-only to full road closure.",
+   "kind": "categorical",
+   "values": [
+    "footway_only",
+    "shuttle_signals",
+    "lane_closure",
+    "full_closure"
+   ],
+   "weights": [
+    0.3,
+    0.3,
+    0.25,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S7",
+    "S4"
+   ]
+  },
+  {
+   "name": "off_peak_working",
+   "description": "Mitigation for disruption. Working hours avoid the street's traffic-sensitive windows, or night working is approved.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S4"
+   ]
+  },
+  {
+   "name": "restriction_status",
+   "description": "Whether a recent-resurfacing restriction covers the street. If one is active, the record shows whether an approved exemption is on file.",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "active_no_exemption",
+    "active_exemption_approved"
+   ],
+   "weights": [
+    0.6,
+    0.2,
+    0.2
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S5"
+   ]
+  },
+  {
+   "name": "promoter_fpn_count",
+   "description": "Fixed penalty notices issued to the promoter in the last twelve months. A high count is alarming but is often offset by recent passed inspections.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 9,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S6"
+   ]
+  },
+  {
+   "name": "recent_inspections_passed",
+   "description": "Mitigation for a poor penalty history. The promoter's last few sample inspections on this authority's network were all passed.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3"
+   ]
+  },
+  {
+   "name": "boundary_case",
+   "description": "When true, signals are placed in balance on purpose. Duration sits exactly on 3 or 10 days, notice lead equals the requirement minus one day, or an overlap ends the day the new works begin. This leaves judges split.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.25,
+   "skills": [
+    "S6",
+    "S4"
+   ]
+  }
+ ],
+ "sections": [
+  {
+   "name": "application",
+   "description": "Reference, promoter id and type, claimed category, submission date, proposed start and end dates."
+  },
+  {
+   "name": "location",
+   "description": "Street id, road category, traffic-sensitive windows, resurfacing restriction and exemption reference."
+  },
+  {
+   "name": "works",
+   "description": "Excavation flag, trench length and depth, duration, working hours, reinstatement spec."
+  },
+  {
+   "name": "traffic_mgmt",
+   "description": "Plan reference and date, occupation type, signals, diversion route; may be null."
+  },
+  {
+   "name": "coordination",
+   "description": "List of other bookings on the street or adjoining segments with dates, and any collaboration reference."
+  },
+  {
+   "name": "compliance",
+   "description": "Insurance expiry, operative accreditation, FPN count over twelve months, recent inspection results."
+  }
+ ],
+ "rendering_notes": "application holds ref, promoter_id, promoter_type, cat_claimed (minor/standard/major/immediate), submitted (ISO date), start, end. notice_lead_days is never a field; the reader derives it from submitted and start. date_out_of_order shows only through dates: traffic_mgmt.plan_date after application.start, application.start before application.submitted, or works.consult_date after start. duration_days appears as works.dur_days and must agree with start and end. category_claim shows as a mismatch between cat_claimed and dur_days, works.excavation, and traffic_mgmt.occupation. For immediate_justified, works.fault_ref is filled with a fault_logged timestamp shortly before submission; for immediate_unjustified, fault_ref is null. location has street_id, road_cat (residential/local_distributor/main_distributor/strategic), ts_windows (list of time ranges or empty), restriction_until (date or null) and exemption_ref (string or null). works.hours gives start and end times, and off_peak_working is inferred by comparing them with ts_windows; a night_approval boolean may also appear. coordination.bookings is a list of objects (ref, promoter_id, start, end, segment, side, occupation). booking_overlap is inferred from dates and segment, never flagged. collaboration_agreed appears as coordination.collab_ref, or an overlapping booking marked side opposite with occupation footway_only. section_gap renders as traffic_mgmt: null, works.reinstatement: null, compliance.insurance_expiry before start or null, or compliance.accreditation: null. compliance.fpn_12m is an integer and compliance.inspections is a list of recent results (date, outcome) where recent_inspections_passed means all pass. Decoys: bookings on unrelated segments or with non-overlapping dates; a high fpn_12m alongside clean inspections; a restriction_until date already in the past; ts_windows present but works.hours outside them; promoter_type 'emergency_capable' even when the works are planned; trench_length large on a footway-only job. Never include fields stating clash, true category, disruption, risk, recommended decision or scrutiny level. There are no free-text note fields; all values are codes, numbers, dates, booleans or null.",
+ "skills": [
+  "S2",
+  "S3",
+  "S4",
+  "S5",
+  "S6",
+  "S7"
+ ],
+ "shared_scale": null,
+ "design_cost": 0.131296
+}

@@ -1,0 +1,318 @@
+{
+ "id": "F005",
+ "domain": "refrigerated food deliveries to schools (temperature and timing)",
+ "role": "School meals cold-chain compliance officer at a local authority catering service, reviewing one chilled or frozen delivery drop to one school kitchen at a time",
+ "setting": "A council-run school meals service receives chilled and frozen deliveries from contracted distributors into primary and secondary school kitchens. Each drop produces a record combining the distributor's manifest, the vehicle's temperature logger extract, the kitchen's goods-in receipt with probe readings, and what the kitchen did with the stock at lunch service. The officer reviews each record after the fact, often the same day, to decide whether stock was safe, what to do with anything still on site, and how serious the drop was. Limits used are 8.0 C for chilled and -15.0 C for frozen at receipt, with the logger expected to stay at or below 5.0 C for chilled loads.",
+ "questions": {
+  "cold_chain_breach": {
+   "type": "noul",
+   "instructions": "Chilled or frozen goods exceeded safe temperature limits during this delivery.",
+   "criteria": {
+    "true": "Logger or probe evidence shows a genuine limit exceedance.",
+    "false": "Readings stay within limits or exceedance is unproven."
+   }
+  },
+  "qty_reconciled": {
+   "type": "noul",
+   "instructions": "Delivered quantities and units match the manifest on every line.",
+   "criteria": null
+  },
+  "stock_disposition": {
+   "type": "choice",
+   "instructions": "What should happen to the chilled stock from this delivery?",
+   "criteria": {
+    "accept": "Stock released for normal use under its stated dates.",
+    "accept_conditional": "Stock usable only with shortened use window or priority use.",
+    "quarantine_hold": "Stock held aside until one outstanding check is confirmed.",
+    "reject_discard": "Stock discarded or returned to distributor as unfit."
+   }
+  },
+  "food_safety_risk": {
+   "type": "score",
+   "instructions": "How serious is the food safety risk from this delivery?",
+   "criteria": [
+    "Negligible: readings and timings comfortably within all limits",
+    "Minor: brief or marginal deviation with no likely harm",
+    "Significant: sustained deviation needing quarantine or shortened use",
+    "Severe: unsafe stock likely served or about to be"
+   ]
+  },
+  "attention_needed": {
+   "type": "score",
+   "instructions": "How much reviewer effort does this record realistically require?",
+   "criteria": [
+    "Can pass through without any human look",
+    "A brief check of key fields suffices",
+    "Needs careful reading and some follow-up questions",
+    "Demands thorough examination and input from specialists"
+   ]
+  }
+ },
+ "factors": [
+  {
+   "name": "logger_peak_temp_c",
+   "description": "Highest air temperature recorded by the vehicle logger for the chilled compartment between departure and arrival.",
+   "kind": "number",
+   "values": [],
+   "weights": [],
+   "min": 1.5,
+   "max": 12.5,
+   "p_true": 0,
+   "skills": [
+    "S5",
+    "S6",
+    "S7"
+   ]
+  },
+  {
+   "name": "minutes_above_limit",
+   "description": "Cumulative minutes the logger recorded above 5.0 C for the chilled compartment; short spikes during door openings are normal.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 95,
+   "p_true": 0,
+   "skills": [
+    "S5",
+    "S6"
+   ]
+  },
+  {
+   "name": "probe_logger_agreement",
+   "description": "How the kitchen's goods-in probe reading compares with the logger reading at the arrival timestamp.",
+   "kind": "categorical",
+   "values": [
+    "agree",
+    "probe_slightly_lower",
+    "probe_slightly_higher",
+    "probe_much_higher",
+    "probe_much_lower"
+   ],
+   "weights": [
+    0.4,
+    0.15,
+    0.15,
+    0.18,
+    0.12
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S5",
+    "S6"
+   ]
+  },
+  {
+   "name": "qty_mismatch",
+   "description": "Discrepancy between manifest lines and received lines: none, a one-unit difference, an unannounced substitution, a short line, or a manifest line absent from receipt.",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "trivial_one_unit",
+    "substitution",
+    "short_line",
+    "missing_line"
+   ],
+   "weights": [
+    0.38,
+    0.17,
+    0.15,
+    0.18,
+    0.12
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S4"
+   ]
+  },
+  {
+   "name": "unit_or_date_conflict",
+   "description": "Conflict between manifest and receipt on unit of measure or use-by date, including a use-by falling before the scheduled service date.",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "unit_kg_vs_each",
+    "use_by_differs",
+    "use_by_before_service"
+   ],
+   "weights": [
+    0.55,
+    0.15,
+    0.15,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S6"
+   ]
+  },
+  {
+   "name": "receipt_state",
+   "description": "Completeness and ordering of the goods-in receipt: complete, probe reading not taken, signed timestamp earlier than vehicle arrival, or receipt section null.",
+   "kind": "categorical",
+   "values": [
+    "complete",
+    "probe_not_taken",
+    "signed_before_arrival",
+    "receipt_null"
+   ],
+   "weights": [
+    0.55,
+    0.17,
+    0.14,
+    0.14
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S2",
+    "S4"
+   ]
+  },
+  {
+   "name": "arrival_offset_min",
+   "description": "Minutes between scheduled window end and actual arrival; negative means early, large positive values squeeze the gap before lunch service.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": -25,
+   "max": 130,
+   "p_true": 0,
+   "skills": [
+    "S6",
+    "S7"
+   ]
+  },
+  {
+   "name": "served_before_check",
+   "description": "Whether items from the delivery were issued to lunch service before the receipt check or recheck was recorded.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.25,
+   "skills": [
+    "S2",
+    "S7"
+   ]
+  },
+  {
+   "name": "core_recheck_ok",
+   "description": "Mitigation: a core-temperature recheck of product after receipt came back within limit. Sampled near 0.5 so alarming logger readings appear with and without it.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S4",
+    "S5",
+    "S6"
+   ]
+  },
+  {
+   "name": "logger_gap",
+   "description": "Whether the logger extract has a missing segment or a null summary, leaving part of the journey unevidenced.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.2,
+   "skills": [
+    "S2",
+    "S5"
+   ]
+  },
+  {
+   "name": "boundary_reading",
+   "description": "Whether the decisive reading sits exactly on a limit (8.0 C probe, 5.0 C logger peak, -15.0 C frozen) where the scale is ambiguous.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.2,
+   "skills": [
+    "S6"
+   ]
+  },
+  {
+   "name": "door_open_events",
+   "description": "Count of compartment door openings logged on the route; high counts explain spikes but are often a decoy.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 14,
+   "p_true": 0,
+   "skills": [
+    "S6",
+    "S7"
+   ]
+  },
+  {
+   "name": "route_excursion_history",
+   "description": "Number of logged temperature excursions on this distributor route in the previous 60 days.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 7,
+   "p_true": 0,
+   "skills": [
+    "S7",
+    "S6"
+   ]
+  }
+ ],
+ "sections": [
+  {
+   "name": "drop",
+   "description": "Identifiers, school, route, scheduled window, actual arrival time and planned service time."
+  },
+  {
+   "name": "manifest",
+   "description": "Distributor's list of lines with sku, description, temp class, qty, unit and use-by."
+  },
+  {
+   "name": "logger",
+   "description": "Vehicle logger extract: departure, arrival, peak, minutes above limit, door events, segments."
+  },
+  {
+   "name": "receipt",
+   "description": "Kitchen goods-in record: received lines, probe readings, recheck, signer and signed timestamp; may be null."
+  },
+  {
+   "name": "usage",
+   "description": "What the kitchen did with stock: issued to service, held, discarded, with timestamps."
+  },
+  {
+   "name": "route_history",
+   "description": "Recent excursion count and last excursion date for the distributor route."
+  }
+ ],
+ "rendering_notes": "drop: drop_id, school_id, route_id, window_start, window_end, arrived_at, service_at (ISO datetimes); arrival_offset_min is shown only indirectly via arrived_at against window_end and service_at. manifest.lines[]: sku, desc, temp_class (chilled|frozen), qty, unit, use_by. receipt.lines[]: sku, qty_recv, unit, use_by_label; qty_mismatch appears only by comparing these with manifest lines (a missing sku, a different sku in the same position for substitution, lower qty_recv, or off-by-one); unit_or_date_conflict appears as unit 'kg' vs 'each' or a differing use_by_label, or a use_by earlier than drop.service_at date. logger: departed_at, arrived_at, peak_c, mins_above_5c, door_events, segments[] with start, end, max_c; logger_gap renders as a segment with max_c null or a time hole between segments, or peak_c null. Logger arrived_at may differ by a few minutes from drop.arrived_at as a harmless decoy. receipt: probe_c (null when probe_not_taken), probe_at, recheck {core_c, at} or null, signed_by (staff code), signed_at; signed_before_arrival renders as signed_at earlier than logger.arrived_at; receipt_null renders the whole receipt section as null. probe_logger_agreement shows as probe_c against the segment max_c covering probe_at. boundary_reading renders the decisive value exactly at 8.0, 5.0 or -15.0. core_recheck_ok renders as recheck.core_c within limit after a high probe or logger peak; when false, recheck is null or above limit. usage.events[]: sku, action (issued|held|discarded), at; served_before_check renders as an issued event timestamped before probe_at or before recheck.at. route_history: excursions_60d, last_excursion_on (null if none). Decoys: door_events high with a benign trace, high route history on a clean drop, early arrival, minor logger/drop clock skew, frozen lines with very low readings. Never include fields stating breach, risk, disposition, reconciliation status or pass/fail; no free-text notes, all values are codes, numbers, timestamps, booleans or null.",
+ "skills": [
+  "S1",
+  "S2",
+  "S4",
+  "S5",
+  "S6",
+  "S7"
+ ],
+ "shared_scale": "attention_needed",
+ "design_cost": 0.10762
+}

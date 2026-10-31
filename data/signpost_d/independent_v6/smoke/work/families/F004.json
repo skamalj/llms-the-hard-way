@@ -1,0 +1,342 @@
+{
+ "id": "F004",
+ "domain": "staff rosters checked against timesheets",
+ "role": "Payroll rota auditor for a regional residential care group, checking each employee's pay-period roster against their submitted timesheet before payroll runs",
+ "setting": "A care group operating several homes rosters care assistants, nurses and kitchen staff weekly. At the end of each fortnightly pay period, staff submit timesheets. The auditor opens one employee-period record at a time and compares it with three other sources: the published roster, door-fob clock events and any manager approvals. The auditor then decides whether the timesheet can be paid, corrected, held or escalated, how much pay is at stake and how quickly it must be settled before the payroll cut-off.",
+ "questions": {
+  "overclaim_supported": {
+   "type": "noul",
+   "instructions": "The timesheet claims more paid time than the evidence supports.",
+   "criteria": {
+    "true": "Excess claimed time lacks roster, clock or approval support.",
+    "false": "Claimed time is matched or explained by evidence."
+   }
+  },
+  "disposition": {
+   "type": "choice",
+   "instructions": "What should happen to this timesheet before payroll processing?",
+   "criteria": {
+    "approve": "Pay the timesheet exactly as submitted by the employee.",
+    "approve_adjusted": "Pay after correcting hours to match the supported evidence.",
+    "hold_query": "Withhold payment pending one confirmation from manager or employee.",
+    "escalate": "Refer to payroll lead for investigation of possible overclaiming."
+   }
+  },
+  "variance_category": {
+   "type": "choice",
+   "instructions": "Which category best describes the main roster-timesheet difference?",
+   "criteria": {
+    "no_difference": "Roster, timesheet and clock records agree within tolerance.",
+    "approved_change": "Difference arises from a documented swap, overtime or extension.",
+    "recording_error": "Difference reflects a keying, date or code slip.",
+    "unsupported_claim": "Extra time claimed with no corroborating record at all."
+   }
+  },
+  "pay_impact": {
+   "type": "score",
+   "instructions": "How large is the pay impact of the unresolved differences?",
+   "criteria": [
+    "No pay effect after reconciling all records",
+    "Small effect, well under one hour's pay",
+    "Moderate effect, roughly one shift's pay or less",
+    "Large effect, more than one shift's pay"
+   ]
+  },
+  "resolution_urgency": {
+   "type": "score",
+   "instructions": "How urgently must this record be resolved before the payroll cut-off?",
+   "criteria": [
+    "Routine: can wait for the next scheduled review",
+    "Soon: resolve within the current pay cycle",
+    "Priority: resolve before this cycle's cut-off date",
+    "Immediate: act today to avoid incorrect payment"
+   ]
+  }
+ },
+ "factors": [
+  {
+   "name": "variance_pattern",
+   "description": "Underlying shape of the difference between rostered and claimed time: none, minute-level rounding, one shift overrun, overruns on several shifts, or a claimed shift absent from the roster entirely.",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "rounding",
+    "single_overrun",
+    "multi_overrun",
+    "phantom_shift"
+   ],
+   "weights": [
+    0.2,
+    0.2,
+    0.25,
+    0.2,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S7"
+   ]
+  },
+  {
+   "name": "variance_location",
+   "description": "Where the mismatch sits when one exists: start/end times, unpaid break minutes, a date shifted by one day, the home site code, or the pay grade code on the entry.",
+   "kind": "categorical",
+   "values": [
+    "shift_times",
+    "break_mins",
+    "date_shift",
+    "site_code",
+    "grade_code"
+   ],
+   "weights": [
+    0.35,
+    0.2,
+    0.15,
+    0.15,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1"
+   ]
+  },
+  {
+   "name": "approval_on_file",
+   "description": "Mitigating factor: whether a manager approval record (overtime, shift swap or extension) exists covering the date of the alarming difference.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3"
+   ]
+  },
+  {
+   "name": "approval_completeness",
+   "description": "When an approval exists, whether it is fully signed, still awaiting the manager's sign-off, or covers only part of the extra time claimed.",
+   "kind": "categorical",
+   "values": [
+    "signed_full",
+    "pending_signoff",
+    "covers_part"
+   ],
+   "weights": [
+    0.5,
+    0.25,
+    0.25
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S4",
+    "S6"
+   ]
+  },
+  {
+   "name": "clock_corroboration",
+   "description": "How far fob clock events back up the timesheet: they match fully, cover only some shifts, are missing for the disputed shift, or show the employee leaving earlier than claimed.",
+   "kind": "categorical",
+   "values": [
+    "full",
+    "partial",
+    "missing",
+    "contradicts"
+   ],
+   "weights": [
+    0.35,
+    0.25,
+    0.2,
+    0.2
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S3",
+    "S5"
+   ]
+  },
+  {
+   "name": "note_explanation",
+   "description": "Content of the employee's free-text note on the timesheet: absent, a plausible benign reason (handover ran late, covered sickness), vague, or a reason contradicted by other sections.",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "benign_plausible",
+    "vague",
+    "contradicted"
+   ],
+   "weights": [
+    0.3,
+    0.3,
+    0.2,
+    0.2
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S6"
+   ]
+  },
+  {
+   "name": "rate_premium",
+   "description": "Pay premium band applying to the disputed shift, which scales the pay impact of any unsupported time.",
+   "kind": "categorical",
+   "values": [
+    "standard",
+    "night",
+    "weekend",
+    "bank_holiday"
+   ],
+   "weights": [
+    0.45,
+    0.2,
+    0.2,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S7"
+   ]
+  },
+  {
+   "name": "variance_minutes",
+   "description": "Total minutes by which claimed time differs from supported time across the period before any approvals are applied.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 720,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S4"
+   ]
+  },
+  {
+   "name": "near_tolerance",
+   "description": "Whether the net unsupported variance lands within a few minutes either side of the period tolerance, leaving pay-or-query judgement open.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.25,
+   "skills": [
+    "S6"
+   ]
+  },
+  {
+   "name": "prior_queries",
+   "description": "Count of timesheet queries raised for this employee in the previous six pay periods.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 5,
+   "p_true": 0,
+   "skills": [
+    "S6",
+    "S7"
+   ]
+  },
+  {
+   "name": "days_to_cutoff",
+   "description": "Working days remaining before the payroll cut-off for this period.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 9,
+   "p_true": 0,
+   "skills": [
+    "S7"
+   ]
+  },
+  {
+   "name": "staff_type",
+   "description": "Employment basis: permanent contract, internal bank staff or external agency worker, affecting rate and how overclaims are pursued.",
+   "kind": "categorical",
+   "values": [
+    "permanent",
+    "bank",
+    "agency"
+   ],
+   "weights": [
+    0.55,
+    0.3,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S7"
+   ]
+  },
+  {
+   "name": "decoy_leave_entry",
+   "description": "Whether the record contains an annual leave or training day that looks like a mismatch but correctly appears in both roster and timesheet under a non-worked code.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.4,
+   "skills": [
+    "S1"
+   ]
+  }
+ ],
+ "sections": [
+  {
+   "name": "employee",
+   "description": "Staff ID, role, grade code, home site code, staff type and contracted weekly hours."
+  },
+  {
+   "name": "roster",
+   "description": "List of published shifts with date, site, start, end, break minutes and shift code."
+  },
+  {
+   "name": "timesheet",
+   "description": "List of claimed entries mirroring roster fields, plus submitted date and a short free-text note."
+  },
+  {
+   "name": "clock_events",
+   "description": "List of fob in/out events with timestamp, door site and device ID; may be sparse."
+  },
+  {
+   "name": "approvals",
+   "description": "List of manager approvals with type, date covered, minutes approved, approver and signed flag."
+  },
+  {
+   "name": "payroll",
+   "description": "Period start/end, cut-off date, variance tolerance minutes, rate band table and prior query count."
+  }
+ ],
+ "rendering_notes": "variance_pattern and variance_minutes never appear as fields. They emerge only by comparing timesheet entries with roster shifts: later end times or fewer break minutes for overruns, and a timesheet entry with no roster row for phantom_shift. Rounding shows as 1-7 minute differences. variance_location decides which field differs: times, break_mins, date (one day off with matching times), site (timesheet site differs from roster and clock door site) or grade_code (timesheet grade differs from employee.grade). approval_on_file adds an approvals row whose date matches the disputed entry. approval_completeness sets signed:false for pending_signoff, or minutes_approved below the claimed excess for covers_part. clock_corroboration controls clock_events: full gives in/out pairs within minutes of the claim; partial omits some shifts; missing omits the disputed day; contradicts shows an out event well before the claimed end. note_explanation renders timesheet.note as one or two plain sentences, or null. A contradicted note cites something the data refutes, for example covering a colleague on a date when the roster shows that colleague's site was not short. rate_premium appears as the shift_code (N, WE, BH) and the payroll rate table, never as a computed amount. near_tolerance places the net unsupported minutes within about 5 of payroll.tolerance_mins. prior_queries is payroll.prior_queries_6p. days_to_cutoff is shown only through payroll.cutoff_date against a record-level review_date. Decoys: decoy_leave_entry adds an AL or TRN row in both roster and timesheet with zero worked minutes. Device IDs and approver names vary and are irrelevant. Contracted hours may differ from rostered hours legitimately. The record must never contain a status, risk, variance total, overclaim flag, recommended action or urgency field. Alarming signals (late end times, missing clocks, phantom shifts) appear with and without approvals or benign notes in roughly equal measure.",
+ "skills": [
+  "S1",
+  "S3",
+  "S4",
+  "S5",
+  "S6",
+  "S7"
+ ],
+ "shared_scale": null,
+ "design_cost": 0.116496
+}

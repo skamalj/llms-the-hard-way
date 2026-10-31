@@ -1,0 +1,361 @@
+{
+ "id": "F001",
+ "domain": "clinical laboratory sample receipt",
+ "role": "Specimen reception officer in a hospital pathology laboratory",
+ "setting": "A hospital pathology laboratory's specimen reception bench receives sample consignments from wards, outpatient clinics and community GP surgeries. For each consignment the officer opens one receipt record. The record holds the electronic request, the containers as scanned, the courier transport log, the matching entry from the laboratory patient index and the reception checklist. The officer decides whether the samples can enter analysis, what is wrong with them, how urgent that is and how far results could be trusted.",
+ "questions": {
+  "same_patient": {
+   "type": "noul",
+   "instructions": "Specimen labels and request form clearly identify the same patient.",
+   "criteria": null
+  },
+  "disposition": {
+   "type": "choice",
+   "instructions": "What should reception do with this sample consignment now?",
+   "criteria": {
+    "accept": "Book in and release all specimens to analysis unchanged.",
+    "accept_flagged": "Book in but attach a caveat comment to results.",
+    "hold_query": "Keep specimens stored while one detail is confirmed with requester.",
+    "reject": "Refuse the specimens and request a fresh collection."
+   }
+  },
+  "main_problem": {
+   "type": "choice",
+   "instructions": "Which category best describes the main problem with this receipt?",
+   "criteria": {
+    "no_problem": "Consignment meets every receipt criterion without any exception.",
+    "request_incomplete": "Request form lacks required details or is entirely absent.",
+    "labelling_error": "Identifiers disagree between labels, form or patient index.",
+    "container_mismatch": "Containers received do not suit or cover the tests requested.",
+    "integrity_breach": "Temperature, delay or haemolysis threatens the specimen's analytical validity."
+   }
+  },
+  "time_pressure": {
+   "type": "score",
+   "instructions": "How time-critical is resolving this consignment before specimens degrade?",
+   "criteria": [
+    "Routine: no time pressure on processing or any query",
+    "Same shift: resolve within normal working hours today",
+    "Prompt: stability window closes within a few hours",
+    "Immediate: specimen or urgent clinical result at imminent risk"
+   ]
+  },
+  "result_doubt": {
+   "type": "score",
+   "instructions": "How likely is this consignment to produce unreliable results?",
+   "criteria": [
+    "Results expected to be fully reliable throughout",
+    "Minor doubt affecting at most one requested test",
+    "Substantial doubt over several of the requested tests",
+    "Results probably invalid if specimens are processed"
+   ]
+  }
+ },
+ "factors": [
+  {
+   "name": "id_mismatch",
+   "description": "Severity of identifier disagreement between the request, container labels and patient index: none, a trivial formatting difference, one field genuinely different, or a different patient number.",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "trivial_format",
+    "one_field",
+    "wrong_mrn"
+   ],
+   "weights": [
+    0.4,
+    0.2,
+    0.25,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S5",
+    "S6"
+   ]
+  },
+  {
+   "name": "mismatch_location",
+   "description": "Where any identifier disagreement sits: request against label, label against patient index, or between two containers in the same consignment.",
+   "kind": "categorical",
+   "values": [
+    "request_vs_label",
+    "label_vs_index",
+    "between_containers"
+   ],
+   "weights": [
+    0.4,
+    0.3,
+    0.3
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1"
+   ]
+  },
+  {
+   "name": "container_fit",
+   "description": "How the containers received correspond to the tests requested: matched, an unrequested extra container, a test with no suitable tube, or a wrong tube type for one test.",
+   "kind": "categorical",
+   "values": [
+    "matched",
+    "extra_container",
+    "missing_tube",
+    "wrong_tube_type"
+   ],
+   "weights": [
+    0.45,
+    0.15,
+    0.2,
+    0.2
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S2",
+    "S4"
+   ]
+  },
+  {
+   "name": "temp_excursion_min",
+   "description": "Minutes the transport logger spent outside the required temperature band; zero for most consignments.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 180,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S4",
+    "S6"
+   ]
+  },
+  {
+   "name": "tests_tolerant",
+   "description": "Whether the requested analytes are robust to the observed excursion or delay, which mitigates an alarming logger reading.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S6"
+   ]
+  },
+  {
+   "name": "transit_hours",
+   "description": "Hours between recorded collection and receipt at the bench.",
+   "kind": "number",
+   "values": [],
+   "weights": [],
+   "min": 0.3,
+   "max": 30,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S4"
+   ]
+  },
+  {
+   "name": "collection_time_state",
+   "description": "Whether the collection time is recorded normally, missing, or recorded later than dispatch or receipt, which is out of order.",
+   "kind": "categorical",
+   "values": [
+    "recorded",
+    "missing",
+    "after_dispatch"
+   ],
+   "weights": [
+    0.65,
+    0.2,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S2",
+    "S1"
+   ]
+  },
+  {
+   "name": "request_state",
+   "description": "Completeness of the electronic request: complete, missing requester, missing clinical details, or the whole request section null.",
+   "kind": "categorical",
+   "values": [
+    "complete",
+    "no_requester",
+    "no_clinical_details",
+    "request_null"
+   ],
+   "weights": [
+    0.6,
+    0.15,
+    0.15,
+    0.1
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S2",
+    "S4"
+   ]
+  },
+  {
+   "name": "checks_state",
+   "description": "Progress of the reception checklist: all checks done, some done, or not yet started.",
+   "kind": "categorical",
+   "values": [
+    "complete",
+    "partial",
+    "not_started"
+   ],
+   "weights": [
+    0.5,
+    0.35,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S2",
+    "S4"
+   ]
+  },
+  {
+   "name": "irreplaceable_or_approved",
+   "description": "Whether the specimen is irreplaceable, such as CSF or a biopsy fluid, or carries a consultant-approved acceptance despite a defect. Either mitigates rejection.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S6"
+   ]
+  },
+  {
+   "name": "haemolysis_index",
+   "description": "Analyser-style haemolysis index on the primary serum or plasma tube. Higher values threaten potassium, LDH and similar analytes.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 400,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S4",
+    "S6"
+   ]
+  },
+  {
+   "name": "priority",
+   "description": "Clinical priority stated on the request, which shapes time pressure but does not by itself decide disposition.",
+   "kind": "categorical",
+   "values": [
+    "routine",
+    "urgent",
+    "critical"
+   ],
+   "weights": [
+    0.6,
+    0.3,
+    0.1
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S7"
+   ]
+  },
+  {
+   "name": "prior_rejections_90d",
+   "description": "Count of this requesting location's consignments rejected in the last 90 days. It acts as a history signal of source reliability.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 6,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S6",
+    "S7"
+   ]
+  },
+  {
+   "name": "note_slant",
+   "description": "Character of the free-text notes: neutral, alarming wording with a benign explanation, or reassuring wording that glosses over a real defect.",
+   "kind": "categorical",
+   "values": [
+    "neutral",
+    "alarming_benign",
+    "reassuring_misleading"
+   ],
+   "weights": [
+    0.5,
+    0.25,
+    0.25
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S3",
+    "S5",
+    "S6"
+   ]
+  }
+ ],
+ "sections": [
+  {
+   "name": "request",
+   "description": "Electronic order: req_id, mrn, surname, dob, tests list, requester, priority, clinical_note."
+  },
+  {
+   "name": "specimens",
+   "description": "List of scanned containers: container_id, tube_type, label_mrn, label_surname, label_dob, collected_at, volume_ml, hi_index."
+  },
+  {
+   "name": "transport",
+   "description": "Courier log: courier_ref, dispatched_at, received_at, logger_min_c, logger_max_c, mins_out_of_range, packaging_intact, courier_note."
+  },
+  {
+   "name": "patient_index",
+   "description": "Laboratory master index entry: mrn, surname, dob, sex, prior_samples, loc_rejections_90d."
+  },
+  {
+   "name": "reception",
+   "description": "Checklist and exceptions: received_by, checks_done list, checks_pending list, deviation_ref, irreplaceable, discrepancy_note."
+  }
+ ],
+ "rendering_notes": "id_mismatch and mismatch_location appear only as differing values in request.mrn/surname/dob, specimens[].label_*, and patient_index fields. Examples are trivial_format such as 'O'Neill' against 'ONEILL' or a dob written differently but equal, one_field such as a different surname letter or dob day, and wrong_mrn as a different number. The mismatch is never announced. container_fit shows as specimens[].tube_type compared against request.tests, for example a K test with only an EDTA tube or an HbA1c with no EDTA tube; extra containers are a decoy. temp_excursion_min sets transport.mins_out_of_range and the logger min/max. tests_tolerant is shown only through which analytes are in request.tests, never as a flag. transit_hours is derivable from specimens[].collected_at against transport.received_at. collection_time_state is either collected_at null or collected_at later than dispatched_at. request_state nulls request.requester or request.clinical_note, or sets request to null entirely. checks_state fills reception.checks_done and checks_pending. irreplaceable_or_approved sets reception.irreplaceable true or a non-null reception.deviation_ref with consultant initials; it sits near 0.5 so defects appear with and without mitigation. haemolysis_index is specimens[].hi_index on the serum tube. priority is request.priority. prior_rejections_90d is patient_index.loc_rejections_90d. note_slant governs the three free-text fields: request.clinical_note, transport.courier_note and reception.discrepancy_note. Each is one sentence. Alarming_benign examples are 'Box arrived warm, logger shows brief door-open only'. Reassuring_misleading examples are 'All labels checked on ward' while a label differs. Decoys include an extra unused container, packaging_intact true alongside a real excursion, high prior_samples counts, and critical priority on a clean consignment. No field states acceptance, the problem category, urgency or result reliability; a reception status field never carries values like 'reject' or 'accepted'. Mix all three ISO datetime fields so ordering errors must be noticed by comparison.",
+ "skills": [
+  "S1",
+  "S2",
+  "S3",
+  "S4",
+  "S5",
+  "S6",
+  "S7"
+ ],
+ "shared_scale": null,
+ "design_cost": 0.122864
+}

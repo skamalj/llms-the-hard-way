@@ -1,0 +1,334 @@
+{
+ "id": "F007",
+ "domain": "home-care visit logs reviewed by a care coordinator",
+ "role": "Home-care coordinator reviewing each submitted carer visit log for a domiciliary care branch",
+ "setting": "A domiciliary care branch where carers record each home visit on a mobile app. The coordinator reviews one visit log at a time against the client's care plan, recent visit history and the carer's notes. For each log they decide whether the visit was delivered as planned, whether it shows the client declining, what to do with the log and how urgently it needs attention. Logs vary widely: short visits, unsigned medication records, odd check-out times, changed observations and brief free-text notes. Alarming signals often come with benign explanations recorded elsewhere in the log.",
+ "questions": {
+  "delivered_in_full": {
+   "type": "noul",
+   "instructions": "The visit delivered the care plan in full for this slot.",
+   "criteria": {
+    "true": "Planned tasks done, time and attendance adequately met",
+    "false": "Tasks, time, staffing or records fall short"
+   }
+  },
+  "client_decline": {
+   "type": "noul",
+   "instructions": "The log evidences a new decline in the client's condition.",
+   "criteria": {
+    "true": "Unexplained worsening shown against baseline or history",
+    "false": "Stable, explained, or decline merely possible"
+   }
+  },
+  "next_step": {
+   "type": "choice",
+   "instructions": "What should the coordinator do with this visit log next?",
+   "criteria": {
+    "accept_log": "File the log as complete with no further action",
+    "hold_confirm": "Keep the log open pending one specific confirmation",
+    "query_carer": "Return the log to the carer to correct or explain gaps",
+    "escalate_clinical": "Refer to the nurse or GP liaison for welfare review"
+   }
+  },
+  "consequence_if_wrong": {
+   "type": "score",
+   "instructions": "How serious would the harm be if this decision were wrong?",
+   "criteria": [
+    "Negligible effect, easily corrected later on",
+    "Minor inconvenience or a small avoidable cost",
+    "Noticeable harm, costly or slow to reverse",
+    "Severe or lasting harm to people or property"
+   ]
+  },
+  "follow_up_urgency": {
+   "type": "score",
+   "instructions": "How urgently does this visit need coordinator follow-up attention?",
+   "criteria": [
+    "No follow-up needed beyond routine filing",
+    "Review within the week at routine check",
+    "Follow up before the client's next visit",
+    "Act today; client welfare may be at risk"
+   ]
+  }
+ },
+ "factors": [
+  {
+   "name": "duration_shortfall_min",
+   "description": "Minutes the actual visit fell short of the planned duration; zero means on time or over.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 40,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S4",
+    "S7"
+   ]
+  },
+  {
+   "name": "shortfall_explained",
+   "description": "Whether a short visit has a benign recorded reason, such as client asking to finish early or family taking over a task.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3"
+   ]
+  },
+  {
+   "name": "task_completion",
+   "description": "Completion state of the planned tasks for the slot.",
+   "kind": "categorical",
+   "values": [
+    "all_done",
+    "partial",
+    "key_task_missed"
+   ],
+   "weights": [
+    0.5,
+    0.3,
+    0.2
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S4",
+    "S7"
+   ]
+  },
+  {
+   "name": "medication_record",
+   "description": "State of the medication administration entry for the visit.",
+   "kind": "categorical",
+   "values": [
+    "given_signed",
+    "declined_documented",
+    "not_signed",
+    "section_null"
+   ],
+   "weights": [
+    0.45,
+    0.2,
+    0.2,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S2",
+    "S3"
+   ]
+  },
+  {
+   "name": "attendance_anomaly",
+   "description": "Problems with electronic check-in and check-out records.",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "missing_checkout",
+    "checkout_before_checkin",
+    "location_mismatch"
+   ],
+   "weights": [
+    0.6,
+    0.15,
+    0.1,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S2"
+   ]
+  },
+  {
+   "name": "anomaly_mitigated",
+   "description": "Whether an attendance anomaly has a benign explanation, e.g. approved alternative address, app outage logged, or manual time sheet countersigned.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3"
+   ]
+  },
+  {
+   "name": "observation_change",
+   "description": "Size of change in recorded observations (fluid intake, food, skin, mobility, weight) against the care-plan baseline.",
+   "kind": "categorical",
+   "values": [
+    "stable",
+    "mild_change",
+    "notable_change"
+   ],
+   "weights": [
+    0.5,
+    0.3,
+    0.2
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S5",
+    "S6"
+   ]
+  },
+  {
+   "name": "change_explained",
+   "description": "Whether an observed change has a known cause already in hand, e.g. GP aware, planned medication change, recent hospital discharge plan.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S5"
+   ]
+  },
+  {
+   "name": "prior_concerns_30d",
+   "description": "Count of welfare concerns raised on this client in the last 30 days of visit history.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 4,
+   "p_true": 0,
+   "skills": [
+    "S5",
+    "S6"
+   ]
+  },
+  {
+   "name": "carer_note_tone",
+   "description": "What the carer's free-text note conveys about the visit.",
+   "kind": "categorical",
+   "values": [
+    "routine",
+    "ambiguous",
+    "explicit_concern"
+   ],
+   "weights": [
+    0.5,
+    0.3,
+    0.2
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S5",
+    "S6"
+   ]
+  },
+  {
+   "name": "double_up_status",
+   "description": "Whether the care plan requires two carers and whether the second carer was recorded.",
+   "kind": "categorical",
+   "values": [
+    "not_required",
+    "required_present",
+    "required_absent"
+   ],
+   "weights": [
+    0.55,
+    0.3,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S2",
+    "S3"
+   ]
+  },
+  {
+   "name": "boundary_case",
+   "description": "Whether key values sit exactly on thresholds the policy leaves open, e.g. shortfall equal to the tolerance or one more prior concern than the review trigger.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.25,
+   "skills": [
+    "S6"
+   ]
+  },
+  {
+   "name": "client_message",
+   "description": "Short message from the client or family attached to the visit.",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "thanks",
+    "minor_gripe",
+    "complaint"
+   ],
+   "weights": [
+    0.55,
+    0.2,
+    0.15,
+    0.1
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S6"
+   ]
+  }
+ ],
+ "sections": [
+  {
+   "name": "visit",
+   "description": "Visit ID, client ref, carer refs, planned and actual check-in/out times, location check."
+  },
+  {
+   "name": "plan",
+   "description": "Care-plan extract: planned minutes, required tasks, carers_required, baselines, late tolerance."
+  },
+  {
+   "name": "tasks",
+   "description": "List of tasks with status, and medication entry with signature and reason."
+  },
+  {
+   "name": "observations",
+   "description": "This visit's fluid, food, skin, mobility and weight readings."
+  },
+  {
+   "name": "notes",
+   "description": "Short free text: carer_note and optional client_msg."
+  },
+  {
+   "name": "history",
+   "description": "Recent visits summary and dated concerns raised in the last 30 days."
+  }
+ ],
+ "rendering_notes": "duration_shortfall_min shows only indirectly: visit.actual_in/actual_out timestamps versus plan.planned_min; never print the shortfall. shortfall_explained appears as tasks[].status 'client_declined' with a reason line, or a notes.carer_note sentence like 'Daughter arrived and took over lunch', or visit.early_finish_reason; absent otherwise. task_completion appears as tasks[] entries with status done/not_done/partial against plan.required_tasks; key_task_missed means a plan-required task (e.g. pressure-area check) is missing from the list entirely or marked not_done. medication_record: tasks.medication with signed true/false, outcome 'given'/'declined' and a reason string; section_null renders tasks.medication as null while plan lists meds_due true. attendance_anomaly: visit.actual_out null (missing_checkout), actual_out earlier than actual_in (checkout_before_checkin), or visit.loc_check 'outside_radius' (location_mismatch). anomaly_mitigated renders as visit.alt_address_approved true, visit.manual_timesheet 'countersigned', or history entry 'app outage logged' on that date; present about half the time when an anomaly exists. observation_change: observations values compared with plan.baselines (e.g. fluid_ml 600 vs baseline 1400, mobility 'hoist' vs baseline 'frame'); no field states 'decline'. change_explained: history entry such as 'GP reviewed diuretic dose 2024-05-02' or plan.notes 'post-discharge, expect reduced mobility'. prior_concerns_30d: count of history.concerns[] with dates in last 30 days. carer_note_tone drives notes.carer_note wording (one or two sentences): routine ('Settled, ate well'), ambiguous ('Seemed a bit quieter than usual'), explicit ('Found on floor by bed, says not hurt'). double_up_status: plan.carers_required 1 or 2 versus count of visit.carer_refs; required_absent may be mitigated by a note that family member assisted with hoist under agreed plan. boundary_case sets shortfall equal to plan.late_tolerance_min or prior concerns equal to the trigger count. client_message renders notes.client_msg (null when none). Decoys: carer names and refs, mileage_km, travel_min between visits, app_version, rounding of timestamps to the minute, 'thanks' messages on poor visits, complaints about carer punctuality on otherwise complete visits, observations slightly off baseline within normal variation. Records must never contain fields like 'status: incomplete', 'risk', 'urgency', 'decline: yes' or a recommended action; all answers must be inferred by comparing sections.",
+ "skills": [
+  "S2",
+  "S3",
+  "S4",
+  "S5",
+  "S6",
+  "S7"
+ ],
+ "shared_scale": "consequence_if_wrong",
+ "design_cost": 0.102356
+}

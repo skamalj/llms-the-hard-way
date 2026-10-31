@@ -1,0 +1,313 @@
+{
+ "id": "F008",
+ "domain": "moderation of school exam marking",
+ "role": "Senior coursework moderator at an awarding body, reviewing one centre's moderation sample for one component at a time",
+ "setting": "Schools mark their own candidates' coursework or non-exam assessment and submit marks plus a sample of work. The moderator re-marks the sample, compares their marks with the centre's marks and the submitted mark sheet, and decides whether the centre's marks stand, need adjusting or need more evidence before results are issued.",
+ "questions": {
+  "outside_tolerance": {
+   "type": "noul",
+   "instructions": "Centre marking is systematically outside the component's moderation tolerance.",
+   "criteria": {
+    "true": "Most sampled differences exceed tolerance in one direction",
+    "false": "Differences within tolerance, isolated or not systematic"
+   }
+  },
+  "clerical_cause": {
+   "type": "noul",
+   "instructions": "The main discrepancy is a clerical transcription error, not marking judgement.",
+   "criteria": {
+    "true": "Mark sheet entries clearly differ from marked work",
+    "false": "No transcription mismatch explains the differences"
+   }
+  },
+  "centre_outcome": {
+   "type": "choice",
+   "instructions": "What should happen to the centre's marks for this component?",
+   "criteria": {
+    "accept_as_submitted": "Centre marks stand unchanged with no further comment",
+    "accept_with_feedback": "Marks stand but centre receives written guidance on marking",
+    "hold_for_evidence": "Pause decision until missing work or clarification arrives",
+    "apply_adjustment": "Scale or shift centre marks using the moderated differences",
+    "refer_for_remark": "Return to centre for full re-marking of the cohort"
+   }
+  },
+  "deviation_severity": {
+   "type": "score",
+   "instructions": "How severe is the marking deviation shown in this sample?",
+   "criteria": [
+    "Negligible: differences sit comfortably inside the tolerance band",
+    "Minor: small drift on a few isolated candidates",
+    "Moderate: consistent drift close to the tolerance boundary",
+    "Serious: large systematic deviation or broken rank order"
+   ]
+  },
+  "follow_up_urgency": {
+   "type": "score",
+   "instructions": "How urgently does this centre need follow-up before results day?",
+   "criteria": [
+    "No follow-up needed before results are issued",
+    "Routine follow-up within the normal moderation cycle",
+    "Priority follow-up needed within the next few days",
+    "Immediate action needed to protect the results deadline"
+   ]
+  }
+ },
+ "factors": [
+  {
+   "name": "drift_pattern",
+   "description": "Shape of the difference between centre marks and moderator marks across the sample",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "lenient_uniform",
+    "harsh_uniform",
+    "lenient_top_end",
+    "erratic"
+   ],
+   "weights": [
+    0.25,
+    0.25,
+    0.15,
+    0.2,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S7"
+   ]
+  },
+  {
+   "name": "drift_vs_tolerance",
+   "description": "Typical size of the centre-moderator difference as a multiple of the tolerance; values near 1.0 sit on the boundary",
+   "kind": "number",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 2.5,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S6",
+    "S4"
+   ]
+  },
+  {
+   "name": "transcription_mismatch",
+   "description": "Kind of mismatch between the centre mark recorded on the work and the mark on the submitted mark sheet",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "digit_swap",
+    "total_miscopied",
+    "candidate_id_swap",
+    "several"
+   ],
+   "weights": [
+    0.45,
+    0.15,
+    0.15,
+    0.1,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S5"
+   ]
+  },
+  {
+   "name": "sample_completeness",
+   "description": "Whether all requested sample work arrived and is usable",
+   "kind": "categorical",
+   "values": [
+    "complete",
+    "one_script_missing",
+    "work_incomplete",
+    "replacement_requested"
+   ],
+   "weights": [
+    0.55,
+    0.15,
+    0.15,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S4",
+    "S1"
+   ]
+  },
+  {
+   "name": "special_consideration_present",
+   "description": "Candidates with the largest gaps have approved access arrangements or special consideration that legitimately affect marking evidence",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3"
+   ]
+  },
+  {
+   "name": "internal_standardisation_done",
+   "description": "Centre recorded a completed internal standardisation exercise with cross-marking before submission",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S6"
+   ]
+  },
+  {
+   "name": "rank_order_preserved",
+   "description": "Whether the moderator's ordering of candidates matches the centre's ordering",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.7,
+   "skills": [
+    "S1",
+    "S6"
+   ]
+  },
+  {
+   "name": "centre_history",
+   "description": "Prior moderation outcomes for this centre on this or similar components",
+   "kind": "categorical",
+   "values": [
+    "clean",
+    "adjusted_once",
+    "adjusted_repeatedly",
+    "new_centre"
+   ],
+   "weights": [
+    0.4,
+    0.25,
+    0.15,
+    0.2
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S6"
+   ]
+  },
+  {
+   "name": "second_check",
+   "description": "Status of a second moderator's review of the sample",
+   "kind": "categorical",
+   "values": [
+    "not_requested",
+    "agreed",
+    "disagreed",
+    "pending"
+   ],
+   "weights": [
+    0.4,
+    0.3,
+    0.15,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S6",
+    "S4"
+   ]
+  },
+  {
+   "name": "days_to_results",
+   "description": "Days remaining until the marks must be locked for results",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 1,
+   "max": 40,
+   "p_true": 0,
+   "skills": [
+    "S7"
+   ]
+  },
+  {
+   "name": "cohort_size",
+   "description": "Number of entered candidates, which sets the expected sample size",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 6,
+   "max": 240,
+   "p_true": 0,
+   "skills": [
+    "S1"
+   ]
+  },
+  {
+   "name": "late_submission",
+   "description": "Decoy: sample arrived after the request date but within the grace period",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.3,
+   "skills": [
+    "S3"
+   ]
+  }
+ ],
+ "sections": [
+  {
+   "name": "centre",
+   "description": "Centre identifier, type, entry count, internal standardisation record and contact status"
+  },
+  {
+   "name": "component",
+   "description": "Component code, maximum mark, tolerance in marks, and sample size rule"
+  },
+  {
+   "name": "mark_sheet",
+   "description": "Submitted list of candidate numbers with centre marks and submission date"
+  },
+  {
+   "name": "sample",
+   "description": "Moderated candidates with mark on work, moderator mark, access flags and receipt status"
+  },
+  {
+   "name": "moderation",
+   "description": "Moderator identifier, review dates, second check status and marks lock date"
+  },
+  {
+   "name": "history",
+   "description": "Previous series outcomes for the centre with adjustment counts and sizes"
+  }
+ ],
+ "rendering_notes": "drift_pattern and drift_vs_tolerance appear only as numbers: each sample entry has mark_on_work and moderator_mark, and component.tolerance_marks gives the band; the reader must compute differences, direction and consistency (lenient_top_end shows larger positive gaps for the highest-marked candidates only; erratic mixes signs). Values near 1.0 put several gaps exactly at or one mark around tolerance. rank_order_preserved is shown only by the relative ordering of mark_on_work versus moderator_mark. transcription_mismatch appears as mark_sheet.entries[].centre_mark differing from sample[].mark_on_work for the same cand_no (digit_swap e.g. 47 vs 74, total_miscopied off by a component subtotal, candidate_id_swap with two cand_no values exchanged); never flagged. sample_completeness shows as sample[].received false, sample[].pages_received less than pages_expected, or sample[].replacement_for set to a cand_no; also the sample count can fall short of component.sample_rule given centre.entries (cohort_size), and mark_sheet entry count may differ slightly from centre.entries. special_consideration_present shows as sample[].access_arrangement true with an sc_ref code on the candidates with the largest gaps (decoy version: flag on candidates with small gaps). internal_standardisation_done is centre.internal_std {completed: true/false, date, markers: n}, null when not recorded. centre_history is history.series[] with adjusted booleans and adjustment_marks; new_centre gives an empty list. second_check is moderation.second_check {status, moderator_id, date}. days_to_results is implied by moderation.marks_lock_date minus moderation.review_date. late_submission shows as mark_sheet.submitted_on after moderation.sample_requested_by; it is a decoy and does not by itself change any answer. Decoys also include component.max_mark, moderator_id, centre.type and annotation counts. The record must never contain fields such as within_tolerance, adjustment_required, severity, clerical_error or recommended_action; all answers come from comparing values across sections. No free-text fields.",
+ "skills": [
+  "S1",
+  "S3",
+  "S4",
+  "S5",
+  "S6",
+  "S7"
+ ],
+ "shared_scale": null,
+ "design_cost": 0.104596
+}

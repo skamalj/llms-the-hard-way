@@ -1,0 +1,321 @@
+{
+ "id": "F002",
+ "domain": "building maintenance work orders",
+ "role": "Facilities maintenance supervisor reviewing reactive work orders submitted for close-out on a mixed-use estate",
+ "setting": "Each record is one reactive maintenance work order that a technician or contractor has marked ready for closure. The supervisor checks the order against the asset register, labour bookings, stores issues, completion readings and recent history before deciding whether it can close, what happens to the asset, and how much risk remains. The records contain no free-text notes. Everything must be inferred from codes, quantities, dates, readings, flags and counts that sometimes disagree between sections.",
+ "questions": {
+  "fault_resolved": {
+   "type": "noul",
+   "instructions": "The recorded work fully resolved the reported fault on this asset.",
+   "criteria": {
+    "true": "Completion, parts, readings and sign-off all support resolution",
+    "false": "Resolution missing, partial, unverified or contradicted elsewhere"
+   }
+  },
+  "closure_disposition": {
+   "type": "choice",
+   "instructions": "What should happen to this work order at review?",
+   "criteria": {
+    "close": "Close the order; work verified and records consistent",
+    "close_with_followup": "Close now and raise a linked follow-up order",
+    "hold": "Keep open pending one specific confirmation or record",
+    "reopen": "Return to trade; work inadequate or records unreliable"
+   }
+  },
+  "asset_action": {
+   "type": "choice",
+   "instructions": "What should happen to the asset after this order?",
+   "criteria": {
+    "no_action": "Leave asset on its normal planned maintenance cycle",
+    "monitor": "Add extra inspections before the next planned visit",
+    "planned_repair": "Schedule a further repair within the planned works programme",
+    "replace": "Raise a request to replace the asset entirely"
+   }
+  },
+  "time_pressure": {
+   "type": "score",
+   "instructions": "How soon must someone act on this record?",
+   "criteria": [
+    "No deadline; can wait for routine handling",
+    "Should be handled within the normal cycle",
+    "Needs action within the next working day",
+    "Requires action immediately, ahead of anything else queued"
+   ]
+  },
+  "residual_risk": {
+   "type": "score",
+   "instructions": "How much risk remains if the order closes as recorded?",
+   "criteria": [
+    "Negligible; nothing left that could cause harm",
+    "Minor loose ends with no safety bearing",
+    "Fault could recur or degrade service noticeably",
+    "Safety, statutory or major service exposure remains"
+   ]
+  }
+ },
+ "factors": [
+  {
+   "name": "work_completion_state",
+   "description": "True state of the work behind the order: fully done, temporary fix only, awaiting parts, or marked complete without supporting evidence",
+   "kind": "categorical",
+   "values": [
+    "complete",
+    "temporary_fix",
+    "awaiting_parts",
+    "claimed_unverified"
+   ],
+   "weights": [
+    0.4,
+    0.2,
+    0.2,
+    0.2
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S4",
+    "S5",
+    "S7"
+   ]
+  },
+  {
+   "name": "cross_section_mismatch",
+   "description": "Severity of disagreement between corresponding values in different sections, never flagged by the record itself",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "trivial",
+    "moderate",
+    "major"
+   ],
+   "weights": [
+    0.3,
+    0.25,
+    0.28,
+    0.17
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S6"
+   ]
+  },
+  {
+   "name": "mismatch_location",
+   "description": "Where the mismatch sits when one exists: stores quantities, labour dates against completion, asset identifier, or reading units and values",
+   "kind": "categorical",
+   "values": [
+    "materials_qty",
+    "labour_vs_completion_dates",
+    "asset_identifier",
+    "reading_units"
+   ],
+   "weights": [
+    0.3,
+    0.25,
+    0.2,
+    0.25
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1"
+   ]
+  },
+  {
+   "name": "post_test_result",
+   "description": "Outcome of the functional test recorded at completion",
+   "kind": "categorical",
+   "values": [
+    "passed",
+    "failed",
+    "not_recorded"
+   ],
+   "weights": [
+    0.55,
+    0.2,
+    0.25
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S5",
+    "S3",
+    "S4"
+   ]
+  },
+  {
+   "name": "repeat_fault_count",
+   "description": "Number of prior orders on the same asset with the same fault code in the last 12 months",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 5,
+   "p_true": 0,
+   "skills": [
+    "S7",
+    "S6",
+    "S3"
+   ]
+  },
+  {
+   "name": "mitigation_present",
+   "description": "Whether a field exists that lowers concern about the most alarming signal in the record",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3"
+   ]
+  },
+  {
+   "name": "mitigation_type",
+   "description": "Form the mitigation takes when present: a linked replacement already approved, an approved temporary concession, a recent passed planned inspection, or remaining warranty with contractor recall",
+   "kind": "categorical",
+   "values": [
+    "linked_replacement_order",
+    "approved_concession",
+    "recent_ppm_pass",
+    "warranty_recall_booked"
+   ],
+   "weights": [
+    0.25,
+    0.25,
+    0.25,
+    0.25
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S3"
+   ]
+  },
+  {
+   "name": "asset_criticality",
+   "description": "How much depends on the asset, from low-impact amenity to statutory life-safety plant",
+   "kind": "categorical",
+   "values": [
+    "low",
+    "medium",
+    "high",
+    "life_safety"
+   ],
+   "weights": [
+    0.3,
+    0.3,
+    0.25,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S7",
+    "S3"
+   ]
+  },
+  {
+   "name": "life_consumed_ratio",
+   "description": "Asset age divided by expected service life; above 1.0 means beyond design life",
+   "kind": "number",
+   "values": [],
+   "weights": [],
+   "min": 0.1,
+   "max": 1.6,
+   "p_true": 0,
+   "skills": [
+    "S7",
+    "S6"
+   ]
+  },
+  {
+   "name": "condition_after",
+   "description": "Condition grade recorded after the work, 1 very good to 5 very poor",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 1,
+   "max": 5,
+   "p_true": 0,
+   "skills": [
+    "S4",
+    "S6",
+    "S1"
+   ]
+  },
+  {
+   "name": "signoff_present",
+   "description": "Whether the completion carries a named sign-off and, for permit-controlled work, a closed permit reference",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.72,
+   "skills": [
+    "S4",
+    "S5"
+   ]
+  },
+  {
+   "name": "balanced_signals",
+   "description": "Whether the record is deliberately set on a boundary (condition 3, life ratio near 1.0, one minor gap alongside a strong pass) so judges may split",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.2,
+   "skills": [
+    "S6"
+   ]
+  }
+ ],
+ "sections": [
+  {
+   "name": "order",
+   "description": "Order header: wo_id, asset_id, site, location code, fault_code, priority, raised_at, target_by, trade"
+  },
+  {
+   "name": "asset",
+   "description": "Asset register extract: asset_id, type, criticality_class, install_date, design_life_yrs, warranty_until, statutory_regime"
+  },
+  {
+   "name": "labour",
+   "description": "List of time bookings: tech_id, date, hours, task_code, visit_status"
+  },
+  {
+   "name": "materials",
+   "description": "List of stores lines: part_no, compatible_types, qty_issued, qty_fitted, qty_returned, uom"
+  },
+  {
+   "name": "completion",
+   "description": "Close-out block: marked_complete_at, test_result, reading_before, reading_after, reading_uom, condition_grade, signoff_by, permit_ref, permit_closed, concession_ref, linked_wo"
+  },
+  {
+   "name": "history",
+   "description": "Twelve-month history: orders_12m, same_fault_12m, last_ppm_date, last_ppm_result, open_linked_orders"
+  }
+ ],
+ "rendering_notes": "work_completion_state appears indirectly. complete has labour visit_status all 'done' and qty_fitted matching issued. temporary_fix has task_code TMP or MAKE_SAFE on the last booking and condition_grade 3-4. awaiting_parts has qty_fitted below qty_issued, or qty_issued 0 against a requested part, and a final visit_status 'parts_req'. claimed_unverified has marked_complete_at set but test_result null or reading_after null. cross_section_mismatch and mismatch_location produce silent disagreements. materials_qty: qty_fitted exceeds qty_issued minus qty_returned, or a part's compatible_types excludes asset.type. labour_vs_completion_dates: a booking dated after marked_complete_at, by hours (trivial) or days (moderate/major). asset_identifier: order.asset_id differs from asset.asset_id by a transposed character (trivial-looking but major) or by a different site prefix. reading_units: reading_uom differs from the unit implied by the asset type (bar vs kPa, °C vs °F), so the values look wrong until converted. Trivial cases are rounding of 0.25 h or 1 unit. Records with none must show fully consistent values. post_test_result maps to completion.test_result as 'pass', 'fail' or null. repeat_fault_count maps to history.same_fault_12m, with orders_12m always at least that value. mitigation_present/mitigation_type pair with the most alarming signal, about half the time each. linked_replacement_order fills completion.linked_wo and history.open_linked_orders. approved_concession fills concession_ref alongside a failed test or temporary fix. recent_ppm_pass sets last_ppm_date within 30 days of raised_at with last_ppm_result 'pass'. warranty_recall_booked sets warranty_until after raised_at plus a linked_wo with trade 'contractor'. The same alarm must appear without mitigation equally often. asset_criticality maps to asset.criticality_class plus statutory_regime (non-null for life_safety). life_consumed_ratio is derived from install_date, raised_at and design_life_yrs and is never shown as a ratio. condition_after maps to completion.condition_grade. signoff_present controls signoff_by and permit_closed; permit_ref may exist with permit_closed false. Decoys: priority and target_by look urgent but do not decide the closure; orders_12m is high on busy assets without repeat faults; reading_before shows alarming values that the work has since corrected; a returned part looks like a shortfall but reconciles. balanced_signals sets condition_grade 3, a life ratio of 0.95-1.05, or a single trivial gap next to a pass. The record must never contain fields such as resolved, risk, recommended_action, disposition or replace_flag, nor any free-text note, comment or description field.",
+ "skills": [
+  "S1",
+  "S3",
+  "S4",
+  "S5",
+  "S6",
+  "S7"
+ ],
+ "shared_scale": "time_pressure",
+ "design_cost": 0.117204
+}
