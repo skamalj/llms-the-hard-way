@@ -39,8 +39,8 @@ GROUP = 5             # records per writer request (R26)
 REC_MAX_TOKENS = 40000
 JUDGE_MAX_TOKENS = 12000
 # conservative per-request cost ceilings at batch rates, used only for the budget check before a batch is submitted
-EST_RECORD_REQUEST = 0.12
-EST_JUDGE_REQUEST = 0.004
+EST_RECORD_REQUEST = 0.08  # train_v4 averaged $0.062 per 5-record request at batch rates
+EST_JUDGE_REQUEST = 0.0008  # train_v4 averaged $0.0004 per Haiku judgment at batch rates
 
 
 def p(work, *parts):
