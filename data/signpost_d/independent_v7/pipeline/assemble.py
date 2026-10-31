@@ -59,7 +59,7 @@ def load_candidates(work, fams, per_family):
     cands, dropped = collections.defaultdict(list), collections.Counter()
     personas = [p["id"] for p in R.PERSONAS]
     for fid, fam in fams.items():
-        for i in range(1, per_family + 1):
+        for i in range(1, per_family.get(fid, 0) + 1):
             rid = f"{fid}-{i:04d}"
             rp = os.path.join(work, "records", f"{rid}.json")
             if not os.path.exists(rp):
@@ -288,6 +288,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--work", required=True)
     ap.add_argument("--per-family", type=int, default=50)
+    ap.add_argument("--per-family-map", default="", help="per-family counts overriding --per-family (top-up runs), e.g. F201:125")
     ap.add_argument("--keep", type=int, default=25)
     ap.add_argument("--max-misses", type=int, default=1, help="drop a record when more than this many of its questions are off plan (R26 accept rule)")
     ap.add_argument("--out", required=True)
@@ -297,7 +298,11 @@ def main():
         fp = os.path.join(args.work, "families", f"{s['id']}.json")
         if os.path.exists(fp):
             fams[s["id"]] = json.load(open(fp))
-    cands, dropped = load_candidates(args.work, fams, args.per_family)
+    counts = {fid: args.per_family for fid in fams}
+    for part in filter(None, args.per_family_map.split(",")):
+        k, n = part.split(":")
+        counts[k.strip()] = int(n)
+    cands, dropped = load_candidates(args.work, fams, counts)
     miss_drop = collections.Counter()
     for fid in list(cands):
         keep = [r for r in cands[fid] if len(r["misses"]) <= args.max_misses]
@@ -305,7 +310,7 @@ def main():
         cands[fid] = keep
     sel, _ = select(fams, cands, args.keep)
     stats = compute_stats(fams, sel)
-    stats["generation"] = {"records_planned_per_family": args.per_family, "kept_per_family": args.keep,
+    stats["generation"] = {"records_planned_per_family": args.per_family, "records_written_per_family": counts, "kept_per_family": args.keep,
                            "dropped_before_judging": dict(dropped), "dropped_for_plan_miss": dict(miss_drop),
                            "candidates_after_filter": {fid: len(v) for fid, v in cands.items()},
                            "plan_miss_rule": "a question is off plan when its measured top answer is neither the planned answer nor, for a balanced or contested plan, "

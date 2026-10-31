@@ -21,6 +21,7 @@ from __future__ import annotations
 
 import argparse
 import concurrent.futures as cf
+import hashlib
 import json
 import os
 import random
@@ -134,6 +135,11 @@ def run_jobs(jobs, workers):
 
 # ----------------------------------------------------------------------------- records (batched, 5 per request)
 
+def batch_key(items):
+    """A batch is named by its exact set of request ids, so a rerun resumes it and a different set never reuses its results."""
+    return hashlib.sha1("|".join(sorted(cid for cid, _, _ in items)).encode()).hexdigest()[:12]
+
+
 def spec_for(fam, idx):
     rid = f"{fam['id']}-{idx:04d}"
     rng = random.Random(f"{BASE_SEED}:{rid}")
@@ -150,8 +156,9 @@ def record_requests(work, fams, per_family):
     """One request per group of 5 records whose outcome is not yet recorded."""
     items, groups = [], {}
     for fam in fams:
-        for g0 in range(1, per_family + 1, GROUP):
-            idxs = [i for i in range(g0, min(g0 + GROUP, per_family + 1))]
+        n = per_family[fam["id"]]
+        for g0 in range(1, n + 1, GROUP):
+            idxs = [i for i in range(g0, min(g0 + GROUP, n + 1))]
             specs = [spec_for(fam, i) for i in idxs]
             todo = [s for s in specs if not record_done(work, s["id"])]
             if not todo:
@@ -208,7 +215,7 @@ def stage_records(work, fams, per_family):
             groups = {k: v for k, v in groups.items() if k in failed}
         if not items:
             break
-        name = f"records_{'_'.join(sorted({f['id'] for f in fams}))[:60]}_r{rnd}_{len(items)}"
+        name = f"records_r{rnd}_{len(items)}_{batch_key(items)}"
         res = llm.run_batch(os.path.join(work, "batches"), name, items, EST_RECORD_REQUEST * len(items))
         counts, failed = store_records(work, groups, res)
         summary[f"round{rnd}"] = {"requests": len(items), **counts, "api_failed": len(failed)}
@@ -222,7 +229,7 @@ def stage_records(work, fams, per_family):
 def judge_requests(work, fams, per_family):
     items, meta = [], {}
     for fam in fams:
-        for i in range(1, per_family + 1):
+        for i in range(1, per_family[fam["id"]] + 1):
             rid = f"{fam['id']}-{i:04d}"
             rec = load(os.path.join(work, "records", f"{rid}.json"))
             if rec is None:
@@ -244,7 +251,7 @@ def stage_judge(work, fams, per_family):
         items, meta = judge_requests(work, fams, per_family)
         if not items:
             break
-        name = f"judge_{'_'.join(sorted({f['id'] for f in fams}))[:60]}_r{rnd}_{len(items)}"
+        name = f"judge_r{rnd}_{len(items)}_{batch_key(items)}"
         res = llm.run_batch(os.path.join(work, "batches"), name, items, EST_JUDGE_REQUEST * len(items))
         ok = bad = 0
         for cid, (rid, per, shown) in meta.items():
@@ -262,12 +269,21 @@ def stage_judge(work, fams, per_family):
     return summary
 
 
+def per_family_counts(fams, default, spec):
+    counts = {f["id"]: default for f in fams}
+    for part in filter(None, spec.split(",")):
+        fid, n = part.split(":")
+        counts[fid.strip()] = int(n)
+    return counts
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--work", required=True)
     ap.add_argument("--stage", choices=["scales", "families", "records", "judge"], required=True)
     ap.add_argument("--per-family", type=int, default=50)
     ap.add_argument("--families", default="", help="comma-separated family ids (default all)")
+    ap.add_argument("--per-family-map", default="", help="per-family record counts overriding --per-family, e.g. F201:125,F203:110 (top-up runs)")
     ap.add_argument("--workers", type=int, default=8)
     args = ap.parse_args()
     os.makedirs(args.work, exist_ok=True)
@@ -282,7 +298,8 @@ def main():
             res = run_jobs([(do_family, (args.work, s, scales)) for s in slots], args.workers)
         else:
             fams = [f for f in (load(p(args.work, "families", f"{s['id']}.json")) for s in slots) if f]
-            res = (stage_records if args.stage == "records" else stage_judge)(args.work, fams, args.per_family)
+            counts = per_family_counts(fams, args.per_family, args.per_family_map)
+            res = (stage_records if args.stage == "records" else stage_judge)(args.work, fams, counts)
     except llm.BudgetStop as e:
         res = {"stopped": str(e)}
     print(json.dumps({"stage": args.stage, **res, "spent_usd": round(llm.spent(), 2)}), flush=True)
