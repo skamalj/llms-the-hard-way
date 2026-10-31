@@ -216,9 +216,10 @@ def check_record(state, fam: dict | None = None, n_words: int | None = None) -> 
     w = record_words(state)
     if w > 320:
         return f"{w} words (maximum 320)"
-    # R26: no retries, so the length rule is a plain ceiling rather than a tight band around the target
-    if n_words is not None and w > max(2.2 * n_words, n_words + 60):
-        return f"{w} words against a target of about {n_words}"
+    # R26: no retries, so the length rule is a plain ceiling (the smoke test showed some families' records run long by
+    # nature; a band tied to each record's target dropped most of them)
+    if w > 200:
+        return f"{w} words (maximum 200)"
     return None
 
 

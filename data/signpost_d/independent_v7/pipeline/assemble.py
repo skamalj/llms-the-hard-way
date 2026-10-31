@@ -4,7 +4,7 @@ question is off plan when its measured top answer is neither the planned answer 
 the planned second answer; a record is dropped when more than --max-off-plan of its questions are off plan), selection of
 --keep records per family towards R22.4.3 with no near-duplicate pairs, every check of R22.4.3 and R22.9, and the files.
 
-Usage: python assemble.py --work WORK --per-family 45 --keep 25 --out OUT
+Usage: python assemble.py --work WORK --per-family 50 --keep 25 --out OUT
 """
 from __future__ import annotations
 
@@ -287,7 +287,7 @@ def compute_stats(fams, sel):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--work", required=True)
-    ap.add_argument("--per-family", type=int, default=45)
+    ap.add_argument("--per-family", type=int, default=50)
     ap.add_argument("--keep", type=int, default=25)
     ap.add_argument("--max-misses", type=int, default=1, help="drop a record when more than this many of its questions are off plan (R26 accept rule)")
     ap.add_argument("--out", required=True)

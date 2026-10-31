@@ -14,8 +14,8 @@ Stages (resumable: finished items are skipped; a submitted batch is resumed, not
 Usage:
   python run.py --work WORK --stage scales
   python run.py --work WORK --stage families [--families F201,F202]
-  python run.py --work WORK --stage records --per-family 45 [--families ...]
-  python run.py --work WORK --stage judge --per-family 45 [--families ...]
+  python run.py --work WORK --stage records --per-family 50 [--families ...]
+  python run.py --work WORK --stage judge --per-family 50 [--families ...]
 """
 from __future__ import annotations
 
@@ -266,7 +266,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--work", required=True)
     ap.add_argument("--stage", choices=["scales", "families", "records", "judge"], required=True)
-    ap.add_argument("--per-family", type=int, default=45)
+    ap.add_argument("--per-family", type=int, default=50)
     ap.add_argument("--families", default="", help="comma-separated family ids (default all)")
     ap.add_argument("--workers", type=int, default=8)
     args = ap.parse_args()
