@@ -1,0 +1,131 @@
+{
+ "id": "F006-0007",
+ "family": "F006",
+ "state": {
+  "station": {
+   "id": "SY204",
+   "tier": "synoptic",
+   "date": "2024-06-12"
+  },
+  "observations": {
+   "air_temp": {
+    "n": 24,
+    "min": 14.2,
+    "max": 29.8
+   },
+   "rain": {
+    "total_mm": 2.4,
+    "hourly_sum_mm": 12.4
+   }
+  },
+  "auto_qc": {
+   "flagged_days_30d": 0,
+   "tests": [
+    {
+     "el": "air_temp",
+     "t": "spatial_consistency",
+     "hrs": 24,
+     "fail": 9,
+     "first": "03:00Z"
+    },
+    {
+     "el": "rain",
+     "t": "neighbour_precip",
+     "hrs": 24,
+     "fail": 3,
+     "first": "14:00Z"
+    }
+   ]
+  },
+  "neighbours": [
+   {
+    "km": 18,
+    "dT": 2.1,
+    "dRain": 9.8
+   },
+   {
+    "km": 25,
+    "dT": 2.4,
+    "dRain": 10.1
+   },
+   {
+    "km": 31,
+    "dT": 1.9,
+    "dRain": 10.6
+   }
+  ],
+  "maintenance": {
+   "last_cal": "2024-03-27",
+   "ref_check": {
+    "date": "2024-06-01",
+    "pass": true
+   },
+   "ticket": null
+  },
+  "transmission": {
+   "exp": 96,
+   "rec": 82,
+   "dec": 82
+  }
+ },
+ "factors": {
+  "sensor_fault_type": "temp_drift",
+  "fault_severity": 0.4,
+  "cross_section_mismatch": "rain_sum_vs_daily_total",
+  "benign_explanation_present": false,
+  "maintenance_window_active": false,
+  "days_since_calibration": 77,
+  "data_completeness_pct": 85.43,
+  "neighbour_agreement": "moderate",
+  "prior_flag_count_30d": 0,
+  "recent_successful_check": true,
+  "repair_state": "no_ticket",
+  "boundary_case": true,
+  "station_tier": "synoptic"
+ },
+ "factors_sampled": {
+  "sensor_fault_type": "humidity_stuck_high",
+  "fault_severity": 0.9,
+  "cross_section_mismatch": "timestamp_offset",
+  "benign_explanation_present": false,
+  "maintenance_window_active": true,
+  "days_since_calibration": 77,
+  "data_completeness_pct": 85.43,
+  "neighbour_agreement": "moderate",
+  "prior_flag_count_30d": 0,
+  "recent_successful_check": true,
+  "repair_state": "no_ticket",
+  "boundary_case": true,
+  "station_tier": "synoptic"
+ },
+ "plan": {
+  "rain_total_bad": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "temp_drift": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "release_action": {
+   "clarity": "balanced",
+   "target": "withhold_partial",
+   "second": "accept_flagged"
+  },
+  "visit_urgency": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  },
+  "user_confidence": {
+   "clarity": "balanced",
+   "target": "4",
+   "second": "3"
+  }
+ },
+ "target_words": 77,
+ "model": "claude-sonnet-5-5",
+ "cost": 0.02391
+}

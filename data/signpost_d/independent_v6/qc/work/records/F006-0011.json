@@ -1,0 +1,214 @@
+{
+ "id": "F006-0011",
+ "family": "F006",
+ "state": {
+  "station": {
+   "id": "SYN-0417",
+   "logger_serial": "LG88213",
+   "tier": "synoptic",
+   "lat": 47.12,
+   "lon": 8.44,
+   "elev_m": 812,
+   "units": {
+    "air_temp": "C",
+    "rh": "%",
+    "pressure": "hPa",
+    "rain": "mm"
+   },
+   "obs_date": "2025-03-15"
+  },
+  "observations": {
+   "air_temp": {
+    "unit": "C",
+    "n": 24,
+    "min": 2.1,
+    "max": 9.8,
+    "mean": 5.6
+   },
+   "rh": {
+    "unit": "%",
+    "n": 24,
+    "min": 98.6,
+    "max": 100.0,
+    "mean": 99.7
+   },
+   "pressure": {
+    "unit": "hPa",
+    "n": 24,
+    "min": 921.4,
+    "max": 925.2,
+    "mean": 923.3
+   },
+   "rain": {
+    "unit": "mm",
+    "n": 24,
+    "hourly": [
+     0,
+     0,
+     0.2,
+     0.6,
+     0.8,
+     0.5,
+     0.4,
+     0.3,
+     0.2,
+     0.4,
+     0.3,
+     0.2,
+     0.1,
+     0.1,
+     0.1,
+     0.1,
+     0.1,
+     0.1,
+     0.1,
+     0,
+     0,
+     0,
+     0,
+     0.1
+    ],
+    "daily_total": 4.8
+   }
+  },
+  "auto_qc": {
+   "flagged_days_30d": 5,
+   "tests": [
+    {
+     "element": "rh",
+     "test": "flatline",
+     "tested": 24,
+     "failed": 3,
+     "first_fail_utc": "2025-03-15T04:00Z"
+    },
+    {
+     "element": "air_temp",
+     "test": "range",
+     "tested": 24,
+     "failed": 0,
+     "first_fail_utc": null
+    },
+    {
+     "element": "air_temp",
+     "test": "spatial_consistency",
+     "tested": 0,
+     "failed": 0,
+     "first_fail_utc": null
+    },
+    {
+     "element": "pressure",
+     "test": "step_change",
+     "tested": 24,
+     "failed": 0,
+     "first_fail_utc": null
+    },
+    {
+     "element": "rain",
+     "test": "neighbour_precip",
+     "tested": 0,
+     "failed": 0,
+     "first_fail_utc": null
+    }
+   ]
+  },
+  "neighbours": [],
+  "maintenance": {
+   "visits": [
+    {
+     "start": "2025-02-20T08:00Z",
+     "end": "2025-02-20T09:30Z",
+     "actions": [
+      "INSPECT_MAST"
+     ]
+    }
+   ],
+   "last_cal": {
+    "air_temp": "2023-11-28",
+    "rh": "2023-11-28",
+    "pressure": "2024-09-10"
+   },
+   "ref_check": {
+    "date": "2025-03-02",
+    "pass": true,
+    "offset": 0.1
+   },
+   "ticket": {
+    "status": "open",
+    "done": [
+     "REPLACE_RH_FILTER"
+    ],
+    "pending": [
+     "SWAP_RH_PROBE"
+    ]
+   }
+  },
+  "transmission": {
+   "expected": 62,
+   "received": 38,
+   "decoded": 38,
+   "logger_serial_reported": "LG88213",
+   "clock_offset_s": 3,
+   "batt_v_min": 12.1
+  }
+ },
+ "factors": {
+  "sensor_fault_type": "humidity_stuck_high",
+  "fault_severity": 0.03,
+  "cross_section_mismatch": "rain_sum_gap",
+  "benign_explanation_present": false,
+  "maintenance_window_active": false,
+  "days_since_calibration": 473,
+  "data_completeness_pct": 61.29,
+  "neighbour_agreement": "no_usable_neighbours",
+  "prior_flag_count_30d": 5,
+  "recent_successful_check": true,
+  "repair_state": "ticket_open",
+  "boundary_case": false,
+  "station_tier": "synoptic"
+ },
+ "factors_sampled": {
+  "sensor_fault_type": "humidity_stuck_high",
+  "fault_severity": 0.03,
+  "cross_section_mismatch": "rain_sum_gap",
+  "benign_explanation_present": false,
+  "maintenance_window_active": false,
+  "days_since_calibration": 473,
+  "data_completeness_pct": 61.29,
+  "neighbour_agreement": "no_usable_neighbours",
+  "prior_flag_count_30d": 5,
+  "recent_successful_check": true,
+  "repair_state": "ticket_open",
+  "boundary_case": false,
+  "station_tier": "synoptic"
+ },
+ "plan": {
+  "rain_total_bad": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "temp_drift": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "release_action": {
+   "clarity": "balanced",
+   "target": "accept_flagged",
+   "second": "hold"
+  },
+  "visit_urgency": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  },
+  "user_confidence": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  }
+ },
+ "target_words": 209,
+ "model": "claude-sonnet-5-5",
+ "cost": 0.029922
+}

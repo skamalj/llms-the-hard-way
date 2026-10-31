@@ -1,0 +1,231 @@
+{
+ "id": "F006-0032",
+ "family": "F006",
+ "state": {
+  "station": {
+   "id": "CR-0417",
+   "logger_serial": "L88213",
+   "tier": "climate_reference",
+   "lat": 47.12,
+   "lon": 8.44,
+   "elev_m": 512,
+   "units": {
+    "air_temp": "C",
+    "rh": "%",
+    "pressure": "hPa",
+    "rain": "mm"
+   },
+   "obs_date": "2024-06-14"
+  },
+  "observations": {
+   "air_temp": {
+    "unit": "C",
+    "n": 24,
+    "min": 14.1,
+    "max": 29.8,
+    "mean": 21.9
+   },
+   "rh": {
+    "unit": "%",
+    "n": 24,
+    "min": 38,
+    "max": 86,
+    "mean": 59
+   },
+   "pressure": {
+    "unit": "kPa",
+    "n": 24,
+    "min": 95.1,
+    "max": 95.6,
+    "mean": 95.4
+   },
+   "rain": {
+    "unit": "mm",
+    "n": 24,
+    "hourly": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0.4,
+     1.2,
+     0.8,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "daily_total": 2.4
+   }
+  },
+  "auto_qc": {
+   "flagged_days_30d": 1,
+   "tests": [
+    {
+     "el": "air_temp",
+     "test": "spatial_consistency",
+     "hours_tested": 24,
+     "hours_failed": 19,
+     "first_fail_utc": "2024-06-14T00:00Z"
+    },
+    {
+     "el": "rh",
+     "test": "flatline",
+     "hours_tested": 24,
+     "hours_failed": 0,
+     "first_fail_utc": null
+    },
+    {
+     "el": "pressure",
+     "test": "step_change",
+     "hours_tested": 24,
+     "hours_failed": 0,
+     "first_fail_utc": null
+    },
+    {
+     "el": "rain",
+     "test": "neighbour_precip",
+     "hours_tested": 24,
+     "hours_failed": 0,
+     "first_fail_utc": null
+    }
+   ]
+  },
+  "neighbours": [
+   {
+    "id": "N1",
+    "km": 12,
+    "dz_m": 40,
+    "d_temp": 2.9,
+    "d_rh": -3,
+    "d_p": 0.2,
+    "d_rain": 0.3
+   },
+   {
+    "id": "N2",
+    "km": 18,
+    "dz_m": -25,
+    "d_temp": 3.4,
+    "d_rh": -4,
+    "d_p": 0.1,
+    "d_rain": -0.2
+   },
+   {
+    "id": "N3",
+    "km": 24,
+    "dz_m": 90,
+    "d_temp": 5.8,
+    "d_rh": -6,
+    "d_p": 0.3,
+    "d_rain": 0.1
+   }
+  ],
+  "maintenance": {
+   "visits": [
+    {
+     "start": "2024-03-02T08:00Z",
+     "end": "2024-03-02T09:10Z",
+     "actions": [
+      "CLEAN_GAUGE"
+     ]
+    }
+   ],
+   "last_cal": {
+    "air_temp": "2022-06-15",
+    "rh": "2024-03-02",
+    "pressure": "2024-03-02"
+   },
+   "ref_check": {
+    "el": "pressure",
+    "date": "2024-06-10",
+    "pass": true,
+    "offset": 0.1
+   },
+   "ticket": {
+    "status": "open",
+    "completed": []
+   }
+  },
+  "transmission": {
+   "expected": 288,
+   "received": 282,
+   "decoded": 282,
+   "logger_serial_reported": "L88213",
+   "clock_offset_s": 3,
+   "batt_v_min": 12.1
+  }
+ },
+ "factors": {
+  "sensor_fault_type": "temp_drift",
+  "fault_severity": 0.79,
+  "cross_section_mismatch": "unit_mismatch",
+  "benign_explanation_present": true,
+  "maintenance_window_active": false,
+  "days_since_calibration": 729,
+  "data_completeness_pct": 97.9,
+  "neighbour_agreement": "weak",
+  "prior_flag_count_30d": 1,
+  "recent_successful_check": true,
+  "repair_state": "ticket_open",
+  "boundary_case": false,
+  "station_tier": "climate_reference"
+ },
+ "factors_sampled": {
+  "sensor_fault_type": "humidity_stuck_high",
+  "fault_severity": 0.79,
+  "cross_section_mismatch": "unit_mismatch",
+  "benign_explanation_present": true,
+  "maintenance_window_active": false,
+  "days_since_calibration": 729,
+  "data_completeness_pct": 77.04,
+  "neighbour_agreement": "weak",
+  "prior_flag_count_30d": 1,
+  "recent_successful_check": false,
+  "repair_state": "ticket_open",
+  "boundary_case": false,
+  "station_tier": "climate_reference"
+ },
+ "plan": {
+  "rain_total_bad": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "temp_drift": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "release_action": {
+   "clarity": "leaning",
+   "target": "withhold_partial",
+   "second": null
+  },
+  "visit_urgency": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "user_confidence": {
+   "clarity": "balanced",
+   "target": "4",
+   "second": "3"
+  }
+ },
+ "target_words": 255,
+ "model": "claude-sonnet-5-5",
+ "cost": 0.0308
+}

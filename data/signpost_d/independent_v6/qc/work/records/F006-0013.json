@@ -1,0 +1,176 @@
+{
+ "id": "F006-0013",
+ "family": "F006",
+ "state": {
+  "station": {
+   "id": "CR0412",
+   "logger_serial": "L88213",
+   "tier": "climate_reference",
+   "elev_m": 212,
+   "date": "2024-06-12"
+  },
+  "observations": {
+   "air_temp": {
+    "unit": "C",
+    "n": 24,
+    "min": 11.2,
+    "max": 26.8,
+    "mean": 18.9
+   },
+   "pressure": {
+    "unit": "hPa",
+    "n": 24,
+    "mean": 1011.4
+   },
+   "rain": {
+    "hourly": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0.2,
+     1.0,
+     2.4,
+     0.6,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "total": 4.3
+   }
+  },
+  "auto_qc": {
+   "flagged_days_30d": 3,
+   "tests": [
+    {
+     "el": "air_temp",
+     "t": "spatial_consistency",
+     "tested": 24,
+     "failed": 17,
+     "first_utc": "00:00"
+    },
+    {
+     "el": "pressure",
+     "t": "step_change",
+     "tested": 24,
+     "failed": 0
+    }
+   ]
+  },
+  "neighbours": [
+   {
+    "km": 14,
+    "dz_m": 20,
+    "d_temp": 1.3,
+    "d_rh": 2,
+    "d_p": 0.2,
+    "d_rain": 0.3
+   },
+   {
+    "km": 22,
+    "dz_m": -35,
+    "d_temp": 1.1,
+    "d_rh": -1,
+    "d_p": 0.3,
+    "d_rain": 0.0
+   },
+   {
+    "km": 31,
+    "dz_m": 60,
+    "d_temp": 1.5,
+    "d_rh": 3,
+    "d_p": 0.1,
+    "d_rain": -0.2
+   }
+  ],
+  "maintenance": {
+   "visits": [],
+   "last_cal": {
+    "air_temp": "2023-03-15"
+   },
+   "ref_check": null,
+   "ticket": null
+  },
+  "transmission": {
+   "expected": 24,
+   "received": 24,
+   "decoded": 24,
+   "serial_reported": "L88213",
+   "clock_offset_s": 3,
+   "batt_min_v": 12.1
+  }
+ },
+ "factors": {
+  "sensor_fault_type": "temp_drift",
+  "fault_severity": 0.16,
+  "cross_section_mismatch": "trivial_rounding",
+  "benign_explanation_present": true,
+  "maintenance_window_active": false,
+  "days_since_calibration": 455,
+  "data_completeness_pct": 100.0,
+  "neighbour_agreement": "moderate",
+  "prior_flag_count_30d": 3,
+  "recent_successful_check": false,
+  "repair_state": "no_ticket",
+  "boundary_case": false,
+  "station_tier": "climate_reference"
+ },
+ "factors_sampled": {
+  "sensor_fault_type": "pressure_spikes",
+  "fault_severity": 0.16,
+  "cross_section_mismatch": "rain_sum_gap",
+  "benign_explanation_present": true,
+  "maintenance_window_active": false,
+  "days_since_calibration": 455,
+  "data_completeness_pct": 74.91,
+  "neighbour_agreement": "moderate",
+  "prior_flag_count_30d": 3,
+  "recent_successful_check": true,
+  "repair_state": "no_ticket",
+  "boundary_case": false,
+  "station_tier": "climate_reference"
+ },
+ "plan": {
+  "rain_total_bad": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "temp_drift": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "release_action": {
+   "clarity": "balanced",
+   "target": "accept_flagged",
+   "second": "reject_day"
+  },
+  "visit_urgency": {
+   "clarity": "contested",
+   "target": "2",
+   "second": "1"
+  },
+  "user_confidence": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  }
+ },
+ "target_words": 105,
+ "model": "claude-sonnet-5-5",
+ "cost": 0.024516
+}
