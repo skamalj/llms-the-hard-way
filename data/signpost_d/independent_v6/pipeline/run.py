@@ -121,12 +121,13 @@ def do_record(work, fam, idx):
         except json.JSONDecodeError as e:
             reasons.append(f"record_json not JSON: {e}")
             continue
-        why = R.check_record(state)
+        why = R.check_record(state, fam, n_words)
         if why is None:
-            save(out, {"id": rid, "family": fam["id"], "state": state, "factors": factors, "plan": plan, "target_words": n_words,
-                       "model": r["model"], "cost": r["cost"]})
+            save(out, {"id": rid, "family": fam["id"], "state": state, "factors": R.final_factors(fam, factors, r["data"]["factors"]),
+                       "factors_sampled": factors, "plan": plan, "target_words": n_words, "model": r["model"], "cost": r["cost"]})
             return "ok"
         reasons.append(why)
+        user = user.split("\n\nA previous attempt")[0] + f"\n\nA previous attempt was rejected: {why}. Fix that."
     save(p(work, "records_rejected", f"{rid}.json"), {"reasons": reasons})
     return f"fail {rid}: {reasons}"
 

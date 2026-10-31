@@ -86,15 +86,20 @@ def record_words(state) -> int:
     return len(re.findall(r"[A-Za-z0-9]+", json.dumps(state, separators=(",", ":"), ensure_ascii=False)))
 
 
-RENDER_SYSTEM = """You write one realistic record for a training set: a compact JSON object of the kind an operational system in the given domain would hold. You are told the hidden factor values of the situation and how sensible reviewers should find each decision (the plan). Write the record so that a competent reviewer, reading only the record, would reach those judgments.
+RENDER_SYSTEM = """You write one realistic record for a training set: a compact JSON object of the kind an operational system in the given domain would hold. You are given starting values for the hidden factors of the situation and a plan: how sensible reviewers should find each decision. Write the record so that a competent reviewer, reading only the record, would reach those judgments.
+
+The plan comes first. The starting factor values are a draw; where they would push a decision away from its plan (for example several independent alarms in a record planned as a mild hold, or a decisive problem in a record planned as clean), change those factor values so the record can meet the plan, and keep the rest. Return the final factor values you actually used, one entry per factor, as plain strings.
 
 Rules:
-- Everything is invented. Field names are terse and realistic; numbers as numbers, ISO dates, booleans, null for unknown values; 3 to 6 top-level sections, nested objects and lists where natural.
+- Everything is invented. Field names are terse and realistic; numbers as numbers, ISO dates, booleans, null for unknown values; nested objects and lists where natural.
+- The top-level keys are only the family's listed sections (a section may be left out, or null, when it is absent or not yet done); never add other top-level keys.
 - The record never states an answer to any decision ("risk": "high", "action": "hold") unless a real system would show such a field. Deciding signals are indirect: a value against its counterpart in another section, a flag, a missing or null section, a count in history, a short note.
 - Express every factor value faithfully in the record (directly or through the fields that imply it). Add a few realistic fields that decide nothing.
+- For a statement planned true, the record must actually support it; for one planned false, the record must undermine it or leave it unsupported.
+- Low and lowest levels, first options and "no problem" outcomes are often the plan: then the record is genuinely clean on that point.
 - For a "clear" decision make the deciding signal unmistakable. For "leaning", give one answer the weight of evidence with a real reason for doubt. For "balanced" and "contested", put signals in genuine balance (an aggravating and a mitigating signal of similar weight, or a value near a boundary the question leaves open) so that the planned answers are both defensible. Never resolve a planned contest with a decisive extra field.
 - Short free text, where the family uses it, is one or two sentences per field.
-- Keep to the target length (count every key and value word)."""
+- Keep to the target length (count every key and value word): records are short. Leave out anything a reviewer does not need."""
 
 RENDER_USER = """DOMAIN: {domain}
 ROLE: {role}
@@ -117,9 +122,34 @@ PLAN (how a sensible reviewer should find each decision from your record)
 
 TARGET LENGTH: about {words} words of compact JSON.
 
-Return the record as a JSON string in "record_json"."""
+Return the record as a JSON string in "record_json", and the final factor values in "factors"."""
 
-RENDER_SCHEMA = {"type": "object", "properties": {"record_json": {"type": "string"}}, "required": ["record_json"], "additionalProperties": False}
+RENDER_SCHEMA = {"type": "object", "properties": {"record_json": {"type": "string"},
+                 "factors": {"type": "array", "items": {"type": "object", "properties": {"name": {"type": "string"}, "value": {"type": "string"}}, "required": ["name", "value"], "additionalProperties": False}}},
+                 "required": ["record_json", "factors"], "additionalProperties": False}
+
+
+def final_factors(fam: dict, sampled: dict, returned: list) -> dict:
+    """The factor values the record actually expresses: the writer's returned values, typed like the factor definitions."""
+    kinds = {f["name"]: f["kind"] for f in fam["factors"]}
+    out = dict(sampled)
+    for x in returned:
+        n, v = x["name"].strip(), x["value"].strip()
+        if n not in kinds:
+            continue
+        k = kinds[n]
+        try:
+            if k == "integer":
+                out[n] = int(float(v))
+            elif k == "number":
+                out[n] = float(v)
+            elif k == "boolean":
+                out[n] = v.lower() in ("true", "yes", "1")
+            else:
+                out[n] = v
+        except ValueError:
+            out[n] = v
+    return out
 
 
 def describe_questions(fam: dict) -> str:
@@ -157,13 +187,20 @@ def render_messages(fam: dict, factors: dict, plan: dict, n_words: int):
     return RENDER_SYSTEM, user, RENDER_SCHEMA
 
 
-def check_record(state) -> str | None:
+def check_record(state, fam: dict | None = None, n_words: int | None = None) -> str | None:
     if not isinstance(state, dict):
         return "record is not a JSON object"
     if not (3 <= len(state) <= 6):
-        return f"{len(state)} top-level sections"
-    if record_words(state) > 320:
-        return f"{record_words(state)} words"
+        return f"{len(state)} top-level sections (3 to 6 allowed)"
+    if fam is not None:
+        extra = set(state) - {s["name"] for s in fam["sections"]}
+        if extra:
+            return f"top-level keys not among the family sections: {sorted(extra)}"
+    w = record_words(state)
+    if w > 320:
+        return f"{w} words (maximum 320)"
+    if n_words is not None and w > max(1.5 * n_words, n_words + 40):
+        return f"{w} words against a target of about {n_words}"
     return None
 
 
@@ -174,7 +211,7 @@ JUDGE_BASE = """You read one record from an operational system and answer a fixe
 How to judge:
 - Weigh the signals, notice what is missing, compare values across sections, and apply any rule the record states. Signals that lower concern (a benign explanation, an approved exception, a recent successful check) count as much as signals that raise it.
 - A true/false statement is a claim: put most probability on true only when the record supports it. A claim that is merely possible is not true.
-- Express your real uncertainty. When the record settles a question, be confident. When signals pull both ways, or a value sits near a boundary the options leave open, spread the probability between the defensible answers in proportion to how strongly you hold each. Do not round towards certainty, and do not spread probability where the record is clear.
+- Be calibrated. When the record settles a question, say so: 0.85 to 0.97 on that answer. When it points one way with some room for doubt, about 0.65 to 0.85. Spread probability between two answers only when signals genuinely pull both ways or a value sits on a boundary the options leave open, and then in proportion to how strongly you hold each. Do not hedge out of habit: spreading probability over answers the record does not support is as wrong as false certainty.
 - Give a small probability (0.005 to 0.03) to options that are implausible but not impossible; zero only when the record makes an option impossible. For an ordered scale, most probability sits on one level and its neighbours.
 - Use the option names exactly as given. Probabilities for each question sum to 1."""
 
@@ -201,10 +238,13 @@ QUESTIONS
 
 Return a probability for every option of every question."""
 
-JUDGE_SCHEMA = {"type": "object", "properties": {"answers": {"type": "array", "items": {"type": "object", "properties": {
-    "question": {"type": "string"},
-    "probabilities": {"type": "array", "items": {"type": "object", "properties": {"option": {"type": "string"}, "p": {"type": "number"}}, "required": ["option", "p"], "additionalProperties": False}}},
-    "required": ["question", "probabilities"], "additionalProperties": False}}}, "required": ["answers"], "additionalProperties": False}
+def judge_schema(fam: dict) -> dict:
+    """One fixed key per question and per option, so every judgment is complete and uses the exact option names."""
+    props = {}
+    for name, q in fam["questions"].items():
+        opts = options_of(q)
+        props[name] = {"type": "object", "properties": {o: {"type": "number"} for o in opts}, "required": opts, "additionalProperties": False}
+    return {"type": "object", "properties": props, "required": list(props), "additionalProperties": False}
 
 
 def judge_questions_text(fam: dict, rng: random.Random) -> tuple[str, dict]:
@@ -227,27 +267,21 @@ def judge_questions_text(fam: dict, rng: random.Random) -> tuple[str, dict]:
 def judge_messages(fam: dict, state: dict, persona: dict, rng: random.Random):
     qtext, shown = judge_questions_text(fam, rng)
     user = JUDGE_USER.format(role=fam["role"], domain=fam["domain"], record=json.dumps(state, indent=1, ensure_ascii=False), questions=qtext)
-    return JUDGE_BASE + "\n\n" + persona["text"], user, JUDGE_SCHEMA, shown
+    return JUDGE_BASE + "\n\n" + persona["text"], user, judge_schema(fam), shown
 
 
 def parse_judgment(data: dict, shown: dict) -> dict | None:
     out = {}
-    for a in data.get("answers", []):
-        k = a["question"].strip().strip("[]")
-        if k not in shown:
-            continue
-        opts = shown[k]
-        d = {}
-        for p in a["probabilities"]:
-            o = str(p["option"]).strip()
-            if o not in opts or p["p"] < 0:
-                return None
-            d[o] = d.get(o, 0.0) + float(p["p"])
-        tot = sum(d.values())
-        if tot <= 0:
+    for k, opts in shown.items():
+        d = data.get(k)
+        if not isinstance(d, dict) or any(o not in d for o in opts):
             return None
-        out[k] = {o: d.get(o, 0.0) / tot for o in opts}
-    return out if set(out) == set(shown) else None
+        vals = {o: float(d[o]) for o in opts}
+        if any(v < 0 for v in vals.values()) or sum(vals.values()) <= 0:
+            return None
+        tot = sum(vals.values())
+        out[k] = {o: v / tot for o, v in vals.items()}
+    return out
 
 
 def mean_gold(judgments: list, opts: list) -> dict:

@@ -39,15 +39,15 @@ def fake_call(model, system, user, schema, tag):
                     "sections": [{"name": n, "description": "d"} for n in ("header", "detail", "history", "notes")], "rendering_notes": "notes", "skills": ["S1"]})
     if tag.startswith("record"):
         st = {"header": {"ref": tag, "date": "2026-10-01"}, "detail": {"qty": rng.randint(1, 9), "unit": "box"},
-              "history": [{"n": rng.randint(0, 5)}], "notes": {"text": "word " * rng.randint(5, 60)}}
-        return _ok({"record_json": json.dumps(st)})
+              "history": [{"n": rng.randint(0, 5)}], "notes": {"text": "word " * rng.randint(2, 15)}}
+        return _ok({"record_json": json.dumps(st), "factors": [{"name": "f0", "value": "b"}]})
     if tag.startswith("judge"):
-        out = []
-        for name, opts in re.findall(r"^\[(\w+)\].*?Options: ([^\n]+)", user, re.M | re.S):
-            os_ = [o.strip() for o in opts.split(",")]
+        out = {}
+        for name, sub in schema["properties"].items():
+            os_ = list(sub["properties"])
             w = [rng.random() ** 3 for _ in os_]
-            out.append({"question": name, "probabilities": [{"option": o, "p": x / sum(w)} for o, x in zip(os_, w)]})
-        return _ok({"answers": out})
+            out[name] = {o: x / sum(w) for o, x in zip(os_, w)}
+        return _ok(out)
     raise ValueError(tag)
 
 
