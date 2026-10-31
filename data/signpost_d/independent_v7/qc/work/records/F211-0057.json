@@ -1,0 +1,118 @@
+{
+ "id": "F211-0057",
+ "family": "F211",
+ "state": {
+  "vehicle": {
+   "callsign": "RRV7",
+   "odometer_km": 40100,
+   "service_due_km": 42208
+  },
+  "check": {
+   "shift_date": "2025-05-02",
+   "signed_at": null,
+   "sections_required": 3,
+   "sections_signed": [
+    "vehicle",
+    "clinical",
+    "drugs"
+   ],
+   "countersigned_by": null
+  },
+  "defects": [
+   {
+    "item": "brakes",
+    "area": "vehicle",
+    "desc": "Rear brake warning light intermittent.",
+    "status": "open",
+    "substitute_on_board": false,
+    "deferral": {
+     "authorised_by": "Workshop Sup",
+     "authorised_at": "2025-05-01T16:00",
+     "valid_until": "2025-05-02"
+    }
+   }
+  ],
+  "stock": {
+   "lines": [
+    {
+     "item": "adrenaline",
+     "qty": 6,
+     "par_level": 6,
+     "expiry": "2025-05-30"
+    }
+   ],
+   "restock_request": {
+    "eta": "2025-05-02T14:00"
+   }
+  },
+  "activity": {
+   "first_mobilised_at": "2025-05-02T08:00"
+  }
+ },
+ "factors": {
+  "checklist_completion": "all_signed_no_countersign",
+  "worst_defect_tier": "critical_no_substitute",
+  "defect_area": "vehicle_systems",
+  "deferral_authorised": true,
+  "deferral_invalid": false,
+  "workshop_return_recent": false,
+  "earliest_drug_expiry_days": 28,
+  "restock_in_progress": true,
+  "service_margin_km": 2108,
+  "crew_note_tone": "absent",
+  "signed_after_mobilisation": false,
+  "repeat_defect_count": 0
+ },
+ "factors_sampled": {
+  "checklist_completion": "half_or_more_signed",
+  "worst_defect_tier": "cosmetic",
+  "defect_area": "stock_and_drugs",
+  "deferral_authorised": true,
+  "deferral_invalid": false,
+  "workshop_return_recent": false,
+  "earliest_drug_expiry_days": 28,
+  "restock_in_progress": true,
+  "service_margin_km": 2108,
+  "crew_note_tone": "absent",
+  "signed_after_mobilisation": false,
+  "repeat_defect_count": 0
+ },
+ "plan": {
+  "defects_controlled": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "readiness_status": {
+   "clarity": "leaning",
+   "target": "hold",
+   "second": null
+  },
+  "limiting_area": {
+   "clarity": "leaning",
+   "target": "vehicle_systems",
+   "second": null
+  },
+  "check_completeness": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  },
+  "defect_severity": {
+   "clarity": "clear",
+   "target": "4",
+   "second": null
+  }
+ },
+ "target_words": 54,
+ "deciding": {
+  "defects_controlled": "The brakes deferral was authorised before mobilisation, but valid_until equals the shift date, so it is only just in date. There is no workshop job and the warning is intermittent.",
+  "readiness_status": "All sections are signed but countersigned_by is null, and signed_at is null. One missing confirmation keeps the vehicle off the rota until it is recorded.",
+  "limiting_area": "The only open defect is brakes in the vehicle area. The drugs are in date, with restock due, and the service margin is 2108 km.",
+  "check_completeness": "All three sections are listed as signed, which suggests level 2. The null signed_at leaves some doubt that the signing finished, which keeps level 1 plausible.",
+  "defect_severity": "Brakes are a critical item, the defect is open, and substitute_on_board is false. That plainly gives level 4."
+ },
+ "request": "rec-F211-0056",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012742
+}

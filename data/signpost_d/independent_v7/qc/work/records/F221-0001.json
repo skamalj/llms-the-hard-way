@@ -1,0 +1,164 @@
+{
+ "id": "F221-0001",
+ "family": "F221",
+ "state": {
+  "vehicle": {
+   "fleet": "4127",
+   "axles": "2x4",
+   "spec_kpa": {
+    "F": 825,
+    "R": 800
+   },
+   "interval_days": 91,
+   "interval_km": 15000,
+   "odo_km": 212480
+  },
+  "inspection": {
+   "id": "INS-8841",
+   "date": "2024-06-12",
+   "inspector": "I17",
+   "odo_km": 212480,
+   "signoff_at": "2024-06-12T15:40"
+  },
+  "brakes": {
+   "axles": [
+    {
+     "pos": "F",
+     "lining_mm": 6.4
+    },
+    {
+     "pos": "R",
+     "lining_mm": 6.2
+    }
+   ],
+   "test": {
+    "service_pct": 56.5,
+    "secondary_pct": 41,
+    "parking_pct": 29
+   }
+  },
+  "tyres": [
+   {
+    "pos": "FL",
+    "serial": "T2211",
+    "dc": "2519",
+    "min_tread_mm": 4.56,
+    "kpa": 815
+   },
+   {
+    "pos": "FR",
+    "serial": "T2208",
+    "dc": "2519",
+    "min_tread_mm": 5.1,
+    "kpa": 820
+   },
+   {
+    "pos": "RL",
+    "serial": "T3302",
+    "dc": "1220",
+    "min_tread_mm": 5.8,
+    "kpa": 790
+   },
+   {
+    "pos": "RR",
+    "serial": "T3305",
+    "dc": "1220",
+    "min_tread_mm": 5.6,
+    "kpa": 795
+   }
+  ],
+  "defects": [
+   {
+    "id": "D55",
+    "raised": "2024-03-12",
+    "comp": "rear hose",
+    "cat": "safety",
+    "carried": true,
+    "status": "closed",
+    "rectified": "2024-03-12",
+    "tech": "T08"
+   }
+  ],
+  "history": {
+   "prev_date": "2024-03-12",
+   "prev_odo_km": 198300,
+   "register": {
+    "FL": "T2208",
+    "FR": "T2211",
+    "RL": "T3302",
+    "RR": "T3305"
+   },
+   "rechecks": [
+    {
+     "date": "2024-06-26"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "worst_tread_margin_mm": 3.56,
+  "worst_lining_margin_mm": 3.2,
+  "service_brake_efficiency_pct": 56.46,
+  "tyre_serial_mismatch": "two_positions_transposed",
+  "odometer_conflict": "none",
+  "missing_element": "none",
+  "carried_defects_open": 0,
+  "rectification_unverified": false,
+  "interval_status": "on_boundary",
+  "recheck_booked": true,
+  "pressure_deviation_pct": 3.0,
+  "tyre_age_years": 4.99
+ },
+ "factors_sampled": {
+  "worst_tread_margin_mm": 3.56,
+  "worst_lining_margin_mm": 1.14,
+  "service_brake_efficiency_pct": 56.46,
+  "tyre_serial_mismatch": "two_positions_transposed",
+  "odometer_conflict": "none",
+  "missing_element": "none",
+  "carried_defects_open": 1,
+  "rectification_unverified": true,
+  "interval_status": "on_boundary",
+  "recheck_booked": false,
+  "pressure_deviation_pct": 12.71,
+  "tyre_age_years": 4.99
+ },
+ "plan": {
+  "prior_defects_closed": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "within_interval": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "disposition": {
+   "clarity": "balanced",
+   "target": "release_conditional",
+   "second": "off_road"
+  },
+  "rectify_urgency": {
+   "clarity": "leaning",
+   "target": "0",
+   "second": null
+  },
+  "failed_checks": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 114,
+ "deciding": {
+  "prior_defects_closed": "D55 closed with technician T08, but rectified date equals raised date (same day), so validity is only modestly supported.",
+  "within_interval": "Gap from 2024-03-12 to 2024-06-12 is 92 days against a 91-day interval; mileage gap 14180 km is within 15000.",
+  "disposition": "Readings are legal and a recheck is booked 2024-06-26, but FL/FR serials are swapped against the register, which could justify off_road.",
+  "rectify_urgency": "Worst tread 4.56 mm and linings 6.2 mm are well above the limits; no reading is near its limit.",
+  "failed_checks": "Only the FL/FR serial transposition clearly fails; the 92-day gap is borderline and might or might not count."
+ },
+ "request": "rec-F221-0001",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.013814
+}

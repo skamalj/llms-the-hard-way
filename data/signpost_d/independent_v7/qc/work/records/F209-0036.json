@@ -1,0 +1,123 @@
+{
+ "id": "F209-0036",
+ "family": "F209",
+ "state": {
+  "unit": {
+   "asset_id": "A101",
+   "type": "dry_powder",
+   "capacity_kg": 6,
+   "manufacture_date": "2003-04-10",
+   "full_weight_kg": 9.5,
+   "gauge_green_min_bar": 12,
+   "gauge_green_max_bar": 15
+  },
+  "visit": {
+   "visit_date": "2024-05-21",
+   "tech_cert_expiry": "2024-03-31",
+   "service_type": "basic",
+   "checks": {
+    "pressure_bar": 13,
+    "weight_kg": 9.5,
+    "seal_ok": true,
+    "tamper_tag_ok": true,
+    "hose_ok": false
+   }
+  },
+  "tag": {
+   "tag_asset_id": "A110",
+   "tag_service_date": "2024-05-21"
+  },
+  "history": [
+   {
+    "date": "2023-05-01",
+    "service_type": "basic",
+    "result": "pass"
+   }
+  ],
+  "register": {
+   "reg_type": "dry_powder",
+   "reg_capacity_kg": 9,
+   "exemption": {
+    "approved": true,
+    "expires": "2025-01-01"
+   }
+  },
+  "remedial": [
+   {
+    "action_code": "HOSE",
+    "raised": "2024-05-21",
+    "completed": null
+   }
+  ]
+ },
+ "factors": {
+  "unit_type": "dry_powder",
+  "unit_age_years": 21,
+  "service_level_gap": "under_serviced",
+  "days_past_due": 20,
+  "deferral_approved": false,
+  "injected_mismatch_count": 2,
+  "physical_defect": "hose_fault",
+  "defect_rectified_on_visit": false,
+  "type_location_mismatch": false,
+  "location_exemption_on_file": true,
+  "record_gap": "none",
+  "technician_cert_status": "expired_before_visit",
+  "out_of_order_dates": false,
+  "borderline_case": true
+ },
+ "factors_sampled": {
+  "unit_type": "dry_powder",
+  "unit_age_years": 1,
+  "service_level_gap": "matched",
+  "days_past_due": 138,
+  "deferral_approved": false,
+  "injected_mismatch_count": 4,
+  "physical_defect": "none",
+  "defect_rectified_on_visit": true,
+  "type_location_mismatch": false,
+  "location_exemption_on_file": true,
+  "record_gap": "none",
+  "technician_cert_status": "expired_before_visit",
+  "out_of_order_dates": false,
+  "borderline_case": true
+ },
+ "plan": {
+  "left_compliant": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "schedule_revisit",
+   "second": null
+  },
+  "service_level_due": {
+   "clarity": "leaning",
+   "target": "replacement",
+   "second": null
+  },
+  "visit_lateness": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  },
+  "mismatch_count": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  }
+ },
+ "target_words": 55,
+ "deciding": {
+  "left_compliant": "hose_ok false with open remedial and expired tech cert point to not compliant; an exemption on file is the only mild counterweight.",
+  "next_step": "Remedial entry for the hose has completed null and the cert expired 2024-03-31, so work is incomplete and the technician must return.",
+  "service_level_due": "Manufacture 2003-04-10 gives age about 21 at visit, beyond twenty years; basic service was done instead of replacement.",
+  "visit_lateness": "Last basic 2023-05-01 gives due 2024-05-01; visit 2024-05-21 is 20 days late.",
+  "mismatch_count": "tag_asset_id A110 vs A101 and reg_capacity 9 vs 6 disagree; full_weight 9.5 vs the capacity-implied weight is a doubtful third."
+ },
+ "request": "rec-F209-0036",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011595
+}

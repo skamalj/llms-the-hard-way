@@ -1,0 +1,119 @@
+{
+ "id": "F230-0017",
+ "family": "F230",
+ "state": {
+  "prescriptions": [
+   {
+    "item_id": "B1",
+    "strength_mg": 10,
+    "dose_units": 1,
+    "time_critical": true,
+    "changes": [
+     {
+      "effective": "2024-05-01",
+      "new_dose_units": 2,
+      "order_ref": "GP-77",
+      "authorised_by_role": "GP"
+     }
+    ]
+   }
+  ],
+  "administrations": [
+   {
+    "item_id": "B1",
+    "scheduled": "2024-05-02T08:00",
+    "given_at": "2024-05-02T08:10",
+    "units_given": 2,
+    "strength_mg_used": 5,
+    "initials": "KL"
+   }
+  ],
+  "stock": {
+   "B1": {
+    "opening": 30,
+    "wasted": 1,
+    "wasted_witnessed": true,
+    "closing": 27
+   }
+  },
+  "round": {
+   "open_queries": [],
+   "post_dose_obs": [
+    {
+     "type": "pulse",
+     "value": 72
+    }
+   ]
+  }
+ },
+ "factors": {
+  "dose_mismatch_type": "equivalent_split",
+  "prescription_change_documented": true,
+  "omission_count": 0,
+  "omission_reason_valid": true,
+  "late_minutes": 10,
+  "time_critical_affected": true,
+  "stock_variance": 0,
+  "stock_variance_explained": true,
+  "signature_gaps": 0,
+  "unit_expression_decoy": "equivalent_split",
+  "post_dose_obs_reassuring": true,
+  "pending_query": "none",
+  "prior_errors_30d": 3,
+  "item_count": 1
+ },
+ "factors_sampled": {
+  "dose_mismatch_type": "wrong_strength",
+  "prescription_change_documented": true,
+  "omission_count": 0,
+  "omission_reason_valid": true,
+  "late_minutes": 131,
+  "time_critical_affected": true,
+  "stock_variance": 1,
+  "stock_variance_explained": true,
+  "signature_gaps": 0,
+  "unit_expression_decoy": "equivalent_split",
+  "post_dose_obs_reassuring": true,
+  "pending_query": "none",
+  "prior_errors_30d": 3,
+  "item_count": 4
+ },
+ "plan": {
+  "dose_mismatch": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "stock_reconciles": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "balanced",
+   "target": "sign_off",
+   "second": "hold"
+  },
+  "open_discrepancies": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "error_severity": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 52,
+ "deciding": {
+  "dose_mismatch": "The change order sets 2 units from 2024-05-01. Given 2 units at 5 mg is 10 mg, which fits the base dose but is half of 2 units of 10 mg. The reading is ambiguous.",
+  "stock_reconciles": "30 minus 2 signed minus 1 wasted (witnessed) gives 27, which equals the closing count.",
+  "next_step": "Stock reconciles, the queries list is empty, obs are normal and the dose is on time, so sign-off is favoured. The strength reading leaves a hold plausible.",
+  "open_discrepancies": "Only B1 is in question, and only if the strength mismatch stands. Otherwise there are none.",
+  "error_severity": "Given 10 minutes after schedule with initials present and a change order on file. Severity is none unless the strength is read as wrong."
+ },
+ "request": "rec-F230-0016",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.008234
+}

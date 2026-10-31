@@ -1,0 +1,110 @@
+{
+ "id": "F229-0030",
+ "family": "F229",
+ "state": {
+  "lot": {
+   "lot_id": "L-4271",
+   "block": "B9",
+   "pick_end": "2024-09-20T06:00"
+  },
+  "intake": {
+   "block_code": "B9",
+   "arrival_at": "2024-09-20T06:50",
+   "gross_kg": 7400,
+   "tare_kg": 1400,
+   "net_kg": 6000,
+   "temp_c": 6,
+   "cold_room_in": "07:00",
+   "cold_room_out": "13:20"
+  },
+  "sample": {
+   "rot_pct": 2.74,
+   "sort": {
+    "rejected_kg": 90,
+    "post_sort_rot_pct": 1.1
+   }
+  },
+  "press": {
+   "programme": "whole_bunch_gentle",
+   "band_l_per_t": "500-580",
+   "cycle_start": "2024-09-20T13:55",
+   "juice_l": 2800,
+   "so2_mg_l": null
+  },
+  "transfer": {
+   "lot_ref": "L-4721",
+   "tank_id": "T3",
+   "transferred_l": 2770,
+   "qa_signoff": "JT 17:00",
+   "qa_comment": "Tank log lot ref typo, to be corrected."
+  }
+ },
+ "factors": {
+  "weight_mismatch": "none",
+  "press_programme": "whole_bunch_gentle",
+  "yield_position": "below_band",
+  "lot_id_drift": "transposed_digit_in_tank_log",
+  "missing_step": "so2_addition_missing",
+  "out_of_order_timestamp": false,
+  "pick_to_press_hours": 7.92,
+  "pick_end_recorded": true,
+  "cold_held": true,
+  "rot_pct": 2.74,
+  "sorting_applied": true,
+  "note_signal": "none",
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "weight_mismatch": "none",
+  "press_programme": "whole_bunch_gentle",
+  "yield_position": "inside_band",
+  "lot_id_drift": "transposed_digit_in_tank_log",
+  "missing_step": "so2_addition_missing",
+  "out_of_order_timestamp": false,
+  "pick_to_press_hours": 10.12,
+  "pick_end_recorded": true,
+  "cold_held": true,
+  "rot_pct": 2.74,
+  "sorting_applied": true,
+  "note_signal": "none",
+  "boundary_case": false
+ },
+ "plan": {
+  "yield_consistent": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "chain_intact": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "release_decision": {
+   "clarity": "leaning",
+   "target": "release_corrected",
+   "second": null
+  },
+  "pick_press_delay": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  },
+  "failed_checks": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  }
+ },
+ "target_words": 32,
+ "deciding": {
+  "yield_consistent": "2800 L from 6000 kg is 467 L/t, below the 500-580 band; weights reconcile, so the shortfall is real.",
+  "chain_intact": "lot_id L-4271 against transfer lot_ref L-4721 differ by a transposed digit, and the QA comment calls it a typo, so both readings are defensible.",
+  "release_decision": "QA signed off and describes a clerical lot_ref typo to be corrected, with no confirmed fruit fault.",
+  "pick_press_delay": "Pick end 06:00 to cycle_start 13:55 is 7.9 h, just under the 8 h boundary.",
+  "failed_checks": "Yield below band, so2_mg_l null and the lot_ref mismatch give three failures."
+ },
+ "request": "rec-F229-0026",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.01173
+}

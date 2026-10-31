@@ -1,0 +1,115 @@
+{
+ "id": "F201-0037",
+ "family": "F201",
+ "state": {
+  "register_header": {
+   "drug": "pentobarbital",
+   "concentration_mg_ml": 200,
+   "schedule": 2,
+   "witness_required": true,
+   "opening_balance_ml": 50
+  },
+  "entries": [
+   {
+    "entry_id": "E1",
+    "date": "2024-06-04",
+    "type": "admin",
+    "qty_ml": 10,
+    "running_balance_ml": 40,
+    "signed_by": "V12",
+    "witness_id": "N3"
+   },
+   {
+    "entry_id": "E2",
+    "date": "2024-06-11",
+    "type": "admin",
+    "qty_ml": 5,
+    "running_balance_ml": 36,
+    "signed_by": "V12",
+    "witness_id": null
+   },
+   {
+    "entry_id": "E3",
+    "date": "2024-06-20",
+    "type": "admin",
+    "qty_ml": 5,
+    "running_balance_ml": 31,
+    "signed_by": null,
+    "witness_id": "N3"
+   }
+  ],
+  "stock_check": {
+   "count_date": "2024-06-30",
+   "counted_ml": 29,
+   "overfill_allowance_ml": 0.2
+  }
+ },
+ "factors": {
+  "drug_profile": "pentobarbital_200mg_ml",
+  "arithmetic_slip_count": 1,
+  "unrecorded_admin": "none",
+  "clinical_records_missing": false,
+  "disposal_state": "none_needed",
+  "unexplained_shortfall_pct": 1.6,
+  "variance_exception": "none",
+  "manufacturer_overfill": true,
+  "auth_gap_count": 2,
+  "count_out_of_order": false,
+  "unit_mismatch": false,
+  "locum_signatory": false,
+  "boundary_case": true
+ },
+ "factors_sampled": {
+  "drug_profile": "pentobarbital_200mg_ml",
+  "arithmetic_slip_count": 3,
+  "unrecorded_admin": "moderate_2_to_8pct",
+  "clinical_records_missing": false,
+  "disposal_state": "none_needed",
+  "unexplained_shortfall_pct": 7.36,
+  "variance_exception": "valid_full_cover",
+  "manufacturer_overfill": true,
+  "auth_gap_count": 4,
+  "count_out_of_order": false,
+  "unit_mismatch": false,
+  "locum_signatory": false,
+  "boundary_case": true
+ },
+ "plan": {
+  "unexplained_shortfall": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "line_disposition": {
+   "clarity": "leaning",
+   "target": "correct_and_sign",
+   "second": null
+  },
+  "variance_cause": {
+   "clarity": "balanced",
+   "target": "arithmetic_slip",
+   "second": "unexplained_loss"
+  },
+  "variance_size": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  },
+  "auth_gaps": {
+   "clarity": "clear",
+   "target": "2",
+   "second": null
+  }
+ },
+ "target_words": 50,
+ "deciding": {
+  "unexplained_shortfall": "Recomputed closing 30 ml vs counted 29 ml; 0.2 ml overfill leaves 0.8 ml unmatched, small and probably partly the slip, so a shortfall is only weakly shown.",
+  "line_disposition": "E2 balance 36 should be 35; this slip and two missing authentications look clerical, with a small residual.",
+  "variance_cause": "E2 running balance is wrong by 1 ml, but the 0.8 ml count residual has no counterpart, so slip and unexplained loss are both plausible.",
+  "variance_size": "Residual 0.8 ml over 50 ml handled = 1.6%, below 2%.",
+  "auth_gaps": "witness_required true; E2 witness_id null and E3 signed_by null: two entries."
+ },
+ "request": "rec-F201-0036",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.010743
+}

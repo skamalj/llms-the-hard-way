@@ -1,0 +1,155 @@
+{
+ "id": "F215-0023",
+ "family": "F215",
+ "state": {
+  "bin": {
+   "bin_id": "S07",
+   "crop": "beans",
+   "intake_date": "2024-10-02",
+   "intake_cond": "undried",
+   "safe_mc_pct": 14.5,
+   "baseline_c": 13.0
+  },
+  "cable_readings": [
+   {
+    "cable_id": "C1",
+    "cal_due": "2025-08-01",
+    "fault": false,
+    "dates": [
+     "2025-01-06",
+     "2025-01-13",
+     "2025-01-20"
+    ],
+    "nodes": [
+     {
+      "depth_m": 2,
+      "temp_c": [
+       20.1,
+       21.8,
+       23.2
+      ]
+     }
+    ]
+   },
+   {
+    "cable_id": "C2",
+    "cal_due": "2025-08-01",
+    "fault": false,
+    "nodes": [
+     {
+      "depth_m": 2,
+      "temp_c": [
+       18.5,
+       19.6,
+       20.4
+      ]
+     }
+    ]
+   },
+   {
+    "cable_id": "C3",
+    "cal_due": "2024-11-15",
+    "fault": true,
+    "nodes": [
+     {
+      "depth_m": 2,
+      "temp_c": [
+       30.8,
+       31.0,
+       31.0
+      ]
+     }
+    ]
+   }
+  ],
+  "moisture": [
+   {
+    "sample_date": "2024-09-20",
+    "method": "lab",
+    "mc_pct": 12.8
+   }
+  ],
+  "environment": {
+   "ambient_c_7d_mean": 11.0,
+   "headspace_c": 12.5,
+   "co2_ppm": 500,
+   "reading_date": "2025-01-20"
+  },
+  "aeration": null,
+  "pest_checks": [
+   {
+    "check_date": "2025-01-17",
+    "traps_set": 5,
+    "insects_counted": 24
+   }
+  ]
+ },
+ "factors": {
+  "peak_excess_c": 10.2,
+  "rise_trend": "steady_climb",
+  "second_cable_corroboration": true,
+  "sensor_fault_flag": true,
+  "ambient_warming": false,
+  "moisture_vs_limit": "well_below",
+  "moisture_sample_status": "recent_lab",
+  "aeration_running": false,
+  "co2_elevation": "normal",
+  "insect_trap_count": 24,
+  "missing_section": "aeration_null",
+  "date_order_anomaly": true,
+  "intake_condition": "undried"
+ },
+ "factors_sampled": {
+  "peak_excess_c": 5.4,
+  "rise_trend": "flat",
+  "second_cable_corroboration": true,
+  "sensor_fault_flag": true,
+  "ambient_warming": true,
+  "moisture_vs_limit": "well_below",
+  "moisture_sample_status": "recent_lab",
+  "aeration_running": false,
+  "co2_elevation": "normal",
+  "insect_trap_count": 24,
+  "missing_section": "aeration_null",
+  "date_order_anomaly": true,
+  "intake_condition": "undried"
+ },
+ "plan": {
+  "hotspot_active": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "moisture_safe": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "next_action": {
+   "clarity": "contested",
+   "target": "continue_monitoring",
+   "second": "hold_recheck"
+  },
+  "recurrence_count": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  },
+  "temp_excess": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 128,
+ "deciding": {
+  "hotspot_active": "C1 and C2 both rise (20.1 to 23.2, 18.5 to 20.4) on in-calibration cables with headspace 12.5 near baseline; C3 spike is faulty and ignored.",
+  "moisture_safe": "Lab sample_date 2024-09-20 precedes intake_date 2024-10-02 and intake was undried, so the 12.8 reading cannot be trusted for this grain.",
+  "next_action": "Valid rise is corroborated but moderate pace and a faulty-cable decoy, with aeration log null, split continue monitoring vs recheck.",
+  "recurrence_count": "No incident history in the record; undried intake and fault history only hint at repeats, between levels 1 and 2.",
+  "temp_excess": "Valid peak 23.2 (C1) vs baseline 13.0 is 10.2 C, right at the 10 C boundary; C3 31.0 is faulty and excluded."
+ },
+ "request": "rec-F215-0021",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.009399
+}

@@ -1,0 +1,131 @@
+{
+ "id": "F224-0061",
+ "family": "F224",
+ "state": {
+  "request": {
+   "views": [
+    "BW_R",
+    "BW_L"
+   ],
+   "ind": "CARIES_RECALL",
+   "risk": "low",
+   "date": "2024-05-10",
+   "prior_same_view": "2022-09-12",
+   "exceptions": []
+  },
+  "exposures": [
+   {
+    "id": 1,
+    "view": "BW_R",
+    "t": "09:02",
+    "dose": 0.71
+   },
+   {
+    "id": 2,
+    "view": "BW_L",
+    "t": "09:04",
+    "dose": 0.71
+   },
+   {
+    "id": 3,
+    "view": "BW_L",
+    "t": "09:06",
+    "dose": 0.71,
+    "retake_of": 2
+   }
+  ],
+  "image_review": {
+   "grade": 2,
+   "faults": [
+    "FC_MINOR_NOISE"
+   ],
+   "sensor_err": [
+    {
+     "code": "E17",
+     "t": "09:06"
+    }
+   ],
+   "grader2": "done"
+  },
+  "equipment": {
+   "qa_last": "2024-03-01",
+   "qa_months": 12,
+   "output": "pass",
+   "drl": {
+    "BW": 0.7
+   }
+  },
+  "operator": {
+   "signoff": "2024-05-10T09:30",
+   "prior_findings_12m": 3
+  }
+ },
+ "factors": {
+  "indication_match": "match",
+  "recall_interval_months": 20,
+  "dose_ratio_to_drl": 1.01,
+  "console_log_discrepancy": "none",
+  "retake_cause": "sensor_fault",
+  "equipment_qa_status": "in_date",
+  "approved_exception": false,
+  "patient_cooperation_flag": false,
+  "unrequested_exposure_count": 0,
+  "verbal_authorisation_logged": false,
+  "image_grade": "acceptable_minor_faults",
+  "audit_completeness": "complete",
+  "operator_prior_findings": 3
+ },
+ "factors_sampled": {
+  "indication_match": "match",
+  "recall_interval_months": 20,
+  "dose_ratio_to_drl": 1.2,
+  "console_log_discrepancy": "none",
+  "retake_cause": "sensor_fault",
+  "equipment_qa_status": "in_date",
+  "approved_exception": true,
+  "patient_cooperation_flag": true,
+  "unrequested_exposure_count": 0,
+  "verbal_authorisation_logged": true,
+  "image_grade": "acceptable_minor_faults",
+  "audit_completeness": "complete",
+  "operator_prior_findings": 3
+ },
+ "plan": {
+  "justified": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "operator_retake": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "follow_up": {
+   "clarity": "balanced",
+   "target": "log_trend",
+   "second": "close_record"
+  },
+  "dose_position": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  },
+  "unjustified_count": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  }
+ },
+ "target_words": 54,
+ "deciding": {
+  "justified": "Low caries risk allows 24 months, but prior same-view date 2022-09-12 to request 2024-05-10 is 20 months, and exceptions is empty, so the recall interval is too short.",
+  "operator_retake": "The retake (id 3, retake_of 2) coincides with sensor error E17 at 09:06 and the only fault code is minor noise, so the cause is the sensor, not technique.",
+  "follow_up": "Sensor-fault retake explained, QA in date, signoff and second grader complete; only the trivial recall shortfall of 4 months remains, so log_trend and close_record are both defensible.",
+  "dose_position": "Dose 0.71 against BW reference 0.70 gives ratio about 1.01, right at the 100% boundary between Typical and Raised.",
+  "unjustified_count": "All three exposures rest on a request whose recall interval is too short with no exception or verbal authorisation, pointing to 3, though the retake could be argued as a repeat of one."
+ },
+ "request": "rec-F224-0061",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.015085
+}

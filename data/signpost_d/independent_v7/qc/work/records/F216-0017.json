@@ -1,0 +1,185 @@
+{
+ "id": "F216-0017",
+ "family": "F216",
+ "state": {
+  "session": {
+   "id": "P220",
+   "session_type": "pharmacy",
+   "date": "2024-05-14",
+   "start": "09:30",
+   "end": "10:05"
+  },
+  "storage": {
+   "unit_id": "FR-2",
+   "probe_config": "product",
+   "alarms_30d": 2,
+   "maintenance": [
+    {
+     "type": "defrost",
+     "start": "10:05",
+     "end": "12:20"
+    }
+   ]
+  },
+  "temp_log": {
+   "readings_10min": [
+    [
+     "10:00",
+     6.8
+    ],
+    [
+     "10:10",
+     8.6
+    ],
+    [
+     "10:20",
+     9.0
+    ],
+    [
+     "10:30",
+     9.3
+    ],
+    [
+     "10:40",
+     9.6
+    ],
+    [
+     "10:50",
+     9.8
+    ],
+    [
+     "11:00",
+     9.9
+    ],
+    [
+     "11:10",
+     9.8
+    ],
+    [
+     "11:20",
+     9.5
+    ],
+    [
+     "11:30",
+     9.2
+    ],
+    [
+     "11:40",
+     8.9
+    ],
+    [
+     "11:50",
+     8.6
+    ],
+    [
+     "12:00",
+     8.3
+    ],
+    [
+     "12:10",
+     7.8
+    ]
+   ],
+   "manual_checks": [
+    {
+     "time": "11:00",
+     "current_c": 9.5
+    }
+   ]
+  },
+  "stock": {
+   "lots": [
+    {
+     "lot_no": "M31",
+     "shelf": "mid",
+     "tolerance_min_out": 90,
+     "opening": 60,
+     "wasted": 3,
+     "closing": 30
+    }
+   ]
+  },
+  "administration": [
+   {
+    "time": "09:45",
+    "lot_no": "M31",
+    "doses": 27
+   }
+  ],
+  "excursion_actions": {
+   "start": "10:10",
+   "end": "12:10",
+   "quarantined": false,
+   "advice_status": "NR",
+   "revised_expiry": null
+  }
+ },
+ "factors": {
+  "true_excursion_minutes": 120,
+  "log_source_discrepancy": "minor_offset",
+  "buffered_probe_in_range": false,
+  "planned_maintenance": true,
+  "stability_clearance": "not_requested",
+  "doses_during_exposure": 0,
+  "stock_count_gap": 0,
+  "lot_id_mismatch": false,
+  "lots_beyond_tolerance": "all",
+  "freezing_reading": false,
+  "boundary_case": true,
+  "unit_alarm_history": 2,
+  "session_type": "pharmacy"
+ },
+ "factors_sampled": {
+  "true_excursion_minutes": 221,
+  "log_source_discrepancy": "minor_offset",
+  "buffered_probe_in_range": true,
+  "planned_maintenance": true,
+  "stability_clearance": "not_requested",
+  "doses_during_exposure": 27,
+  "stock_count_gap": -2,
+  "lot_id_mismatch": false,
+  "lots_beyond_tolerance": "none",
+  "freezing_reading": false,
+  "boundary_case": true,
+  "unit_alarm_history": 2,
+  "session_type": "pharmacy"
+ },
+ "plan": {
+  "dosed_uncleared": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "stock_reconciles": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "stock_disposition": {
+   "clarity": "balanced",
+   "target": "discard_all",
+   "second": "release_restricted"
+  },
+  "excursion_duration": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  },
+  "followup_urgency": {
+   "clarity": "leaning",
+   "target": "0",
+   "second": null
+  }
+ },
+ "target_words": 133,
+ "deciding": {
+  "dosed_uncleared": "Only administration is at 09:45, before excursion start 10:10 and before the session ended at 10:05. Doubt: logger sampling is coarse.",
+  "stock_reconciles": "M31: 60-3-27=30 matches closing; lot number matches.",
+  "stock_disposition": "Single lot has tolerance_min_out 90 against about 120 minutes out, and no advice was requested (NR). Discard all versus restricted release is balanced.",
+  "excursion_duration": "12 readings from 10:10 to 12:00 at 10-minute spacing are above 8.0, giving exactly 120 minutes, the boundary between levels 2 and 3.",
+  "followup_urgency": "No doses were given during exposure and the stock is quarantined or discarded. Defrost covers the spike and there is no pending advice. Leaning routine."
+ },
+ "request": "rec-F216-0016",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.014296
+}

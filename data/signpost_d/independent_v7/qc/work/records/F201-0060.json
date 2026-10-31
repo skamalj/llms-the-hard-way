@@ -1,0 +1,115 @@
+{
+ "id": "F201-0060",
+ "family": "F201",
+ "state": {
+  "register_header": {
+   "drug": "ketamine",
+   "conc_mg_ml": 100,
+   "witness_required": false,
+   "opening_balance_ml": 50
+  },
+  "entries": [
+   {
+    "id": "E1",
+    "qty_ml": 5,
+    "bal": 45,
+    "signed_by": "V1",
+    "witness_id": null,
+    "patient_id": "P1"
+   },
+   {
+    "id": "E2",
+    "qty_ml": 10,
+    "bal": 35,
+    "signed_by": "V2",
+    "witness_id": null
+   }
+  ],
+  "clinical_records": [
+   {
+    "patient_id": "P1",
+    "dose": 500,
+    "dose_unit": "mg"
+   }
+  ],
+  "disposals": [
+   {
+    "qty_ml": 10,
+    "register_entry_id": "E2",
+    "witness_id": "W3",
+    "denatured_date": "2024-03-02"
+   }
+  ],
+  "stock_check": {
+   "counted_ml": 35
+  }
+ },
+ "factors": {
+  "drug_profile": "ketamine_100mg_ml",
+  "arithmetic_slip_count": 0,
+  "unrecorded_admin": "none",
+  "clinical_records_missing": false,
+  "disposal_state": "witnessed_complete",
+  "unexplained_shortfall_pct": 0.0,
+  "variance_exception": "none",
+  "manufacturer_overfill": false,
+  "auth_gap_count": 0,
+  "count_out_of_order": false,
+  "unit_mismatch": true,
+  "locum_signatory": false,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "drug_profile": "ketamine_100mg_ml",
+  "arithmetic_slip_count": 3,
+  "unrecorded_admin": "moderate_2_to_8pct",
+  "clinical_records_missing": false,
+  "disposal_state": "witnessed_complete",
+  "unexplained_shortfall_pct": 2.62,
+  "variance_exception": "valid_full_cover",
+  "manufacturer_overfill": false,
+  "auth_gap_count": 3,
+  "count_out_of_order": false,
+  "unit_mismatch": true,
+  "locum_signatory": false,
+  "boundary_case": false
+ },
+ "plan": {
+  "unexplained_shortfall": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "line_disposition": {
+   "clarity": "clear",
+   "target": "sign_off",
+   "second": null
+  },
+  "variance_cause": {
+   "clarity": "contested",
+   "target": "unrecorded_administration",
+   "second": "undocumented_disposal"
+  },
+  "variance_size": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "auth_gaps": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  }
+ },
+ "target_words": 49,
+ "deciding": {
+  "unexplained_shortfall": "Counted 35 ml equals the recomputed balance (50-5-10). The P1 dose of 500 mg is 5 ml and matches E1, and the disposal is logged, so there is no shortfall.",
+  "line_disposition": "Balances are exact, the disposal has a register entry, a witness and a denature date, and every entry is signed. The line reconciles fully, so sign_off.",
+  "variance_cause": "There is no gap: the 500 mg dose converts to the 5 ml in E1 and the 10 ml disposal is logged in E2. Neither the unrecorded-administration nor the undocumented-disposal alternative has support.",
+  "variance_size": "Count equals balance, so no variance remains after documented adjustments.",
+  "auth_gaps": "Both entries have signed_by. The null witness_id values are not gaps because witness_required is false, so there are zero real gaps."
+ },
+ "request": "rec-F201-0056",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.016328
+}

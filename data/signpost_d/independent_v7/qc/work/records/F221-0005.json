@@ -1,0 +1,165 @@
+{
+ "id": "F221-0005",
+ "family": "F221",
+ "state": {
+  "vehicle": {
+   "fleet": "6032",
+   "axles": "2x6",
+   "spec_kpa": {
+    "F": 825,
+    "R": 800
+   },
+   "interval_days": 91,
+   "interval_km": 15000,
+   "odo_km": 98470
+  },
+  "inspection": {
+   "date": "2024-09-03",
+   "inspector": "I09",
+   "odo_km": 98432,
+   "signoff_at": "2024-09-03T16:10"
+  },
+  "brakes": {
+   "axles": [
+    {
+     "pos": "F",
+     "lining_mm": 10.2
+    },
+    {
+     "pos": "R",
+     "lining_mm": 7.25
+    }
+   ],
+   "test": {
+    "service_pct": 67.9,
+    "secondary_pct": 45,
+    "parking_pct": 33
+   }
+  },
+  "tyres": [
+   {
+    "pos": "FL",
+    "serial": "P1",
+    "dc": "3417",
+    "min_tread_mm": 1.7,
+    "kpa": 750
+   },
+   {
+    "pos": "FR",
+    "serial": "P2",
+    "dc": "3417",
+    "min_tread_mm": 4.0,
+    "kpa": 820
+   },
+   {
+    "pos": "RLo",
+    "serial": "P3",
+    "dc": "1021",
+    "min_tread_mm": 6.0,
+    "kpa": 800
+   },
+   {
+    "pos": "RLi",
+    "serial": "P4",
+    "dc": "1021",
+    "min_tread_mm": 6.2,
+    "kpa": 795
+   },
+   {
+    "pos": "RRo",
+    "serial": "P5",
+    "dc": "1021",
+    "min_tread_mm": 5.9,
+    "kpa": 805
+   }
+  ],
+  "defects": [
+   {
+    "id": "D12",
+    "raised": "2024-06-25",
+    "carried": true,
+    "status": "closed",
+    "rectified": "2024-06-25",
+    "tech": "T15"
+   }
+  ],
+  "history": {
+   "prev_date": "2024-06-25",
+   "prev_odo_km": 85000,
+   "register": {
+    "FL": "P1",
+    "FR": "P2",
+    "RLo": "P3",
+    "RLi": "P4",
+    "RRo": "P5",
+    "RRi": "P6"
+   }
+  }
+ },
+ "factors": {
+  "worst_tread_margin_mm": 0.7,
+  "worst_lining_margin_mm": 4.25,
+  "service_brake_efficiency_pct": 67.89,
+  "tyre_serial_mismatch": "none",
+  "odometer_conflict": "minor_under_50km",
+  "missing_element": "tyre_position_missing",
+  "carried_defects_open": 0,
+  "rectification_unverified": false,
+  "interval_status": "within",
+  "recheck_booked": false,
+  "pressure_deviation_pct": 9.05,
+  "tyre_age_years": 7.05
+ },
+ "factors_sampled": {
+  "worst_tread_margin_mm": 2.83,
+  "worst_lining_margin_mm": 4.25,
+  "service_brake_efficiency_pct": 67.89,
+  "tyre_serial_mismatch": "none",
+  "odometer_conflict": "minor_under_50km",
+  "missing_element": "tyre_position_missing",
+  "carried_defects_open": 2,
+  "rectification_unverified": false,
+  "interval_status": "within",
+  "recheck_booked": false,
+  "pressure_deviation_pct": 9.05,
+  "tyre_age_years": 7.05
+ },
+ "plan": {
+  "prior_defects_closed": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "within_interval": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "disposition": {
+   "clarity": "clear",
+   "target": "hold_confirm",
+   "second": null
+  },
+  "rectify_urgency": {
+   "clarity": "clear",
+   "target": "2",
+   "second": null
+  },
+  "failed_checks": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  }
+ },
+ "target_words": 60,
+ "deciding": {
+  "prior_defects_closed": "D12 is closed and signed by T15, but rectified on the same day it was raised, so validity is slightly uncertain.",
+  "within_interval": "71 days and about 13400 km are within the limits, but the inspection odometer (98432) differs from the vehicle record (98470), which adds slight doubt.",
+  "disposition": "The 2x6 layout needs 6 tyres but only 5 are listed; RRi (P6) is missing from the sheet, so it must be confirmed before release.",
+  "rectify_urgency": "FL tread 1.7 mm is within 1 mm of the limit, while linings are well above it.",
+  "failed_checks": "Missing RRi position, 38 km odometer mismatch and FL pressure 750 vs 825 (9% low) fail; the 7-year-old tyres (dc 3417) may add a fourth."
+ },
+ "request": "rec-F221-0001",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.013814
+}

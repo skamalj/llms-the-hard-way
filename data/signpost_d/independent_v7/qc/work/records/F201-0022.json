@@ -1,0 +1,144 @@
+{
+ "id": "F201-0022",
+ "family": "F201",
+ "state": {
+  "register_header": {
+   "drug": "ketamine",
+   "concentration_mg_ml": 100,
+   "schedule": 3,
+   "witness_required": false,
+   "opening_balance_ml": 20
+  },
+  "entries": [
+   {
+    "entry_id": 1,
+    "type": "receipt",
+    "qty_ml": 20,
+    "running_balance_ml": 40,
+    "signed_by": "V1"
+   },
+   {
+    "entry_id": 2,
+    "type": "use",
+    "qty_ml": 10,
+    "patient_id": "P1",
+    "running_balance_ml": 30,
+    "signed_by": null
+   },
+   {
+    "entry_id": 3,
+    "type": "use",
+    "qty_ml": 8,
+    "patient_id": "P2",
+    "running_balance_ml": 22,
+    "signed_by": null
+   },
+   {
+    "entry_id": 4,
+    "type": "use",
+    "qty_ml": 5,
+    "patient_id": "P3",
+    "running_balance_ml": 17,
+    "signed_by": "LK-07"
+   }
+  ],
+  "clinical_records": [
+   {
+    "patient_id": "P1"
+   },
+   {
+    "patient_id": "P2"
+   },
+   {
+    "patient_id": "P3"
+   }
+  ],
+  "stock_check": {
+   "counted_ml": 12
+  },
+  "disposals": [
+   {
+    "qty_ml": 5,
+    "reason_code": "spoiled",
+    "register_entry_id": null,
+    "witness_id": null
+   }
+  ],
+  "exceptions": [
+   {
+    "qty_ml": 5,
+    "approved_by": "D1",
+    "valid_from": "2024-03-01",
+    "valid_to": "2024-12-31"
+   }
+  ]
+ },
+ "factors": {
+  "drug_profile": "ketamine_100mg_ml",
+  "arithmetic_slip_count": 0,
+  "unrecorded_admin": "none",
+  "clinical_records_missing": false,
+  "disposal_state": "removed_unlogged",
+  "unexplained_shortfall_pct": 0.0,
+  "variance_exception": "valid_full_cover",
+  "manufacturer_overfill": false,
+  "auth_gap_count": 2,
+  "count_out_of_order": false,
+  "unit_mismatch": false,
+  "locum_signatory": true,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "drug_profile": "ketamine_100mg_ml",
+  "arithmetic_slip_count": 3,
+  "unrecorded_admin": "large_over_10pct",
+  "clinical_records_missing": false,
+  "disposal_state": "none_needed",
+  "unexplained_shortfall_pct": 6.66,
+  "variance_exception": "valid_full_cover",
+  "manufacturer_overfill": false,
+  "auth_gap_count": 0,
+  "count_out_of_order": false,
+  "unit_mismatch": false,
+  "locum_signatory": true,
+  "boundary_case": false
+ },
+ "plan": {
+  "unexplained_shortfall": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "line_disposition": {
+   "clarity": "leaning",
+   "target": "escalate",
+   "second": null
+  },
+  "variance_cause": {
+   "clarity": "leaning",
+   "target": "undocumented_disposal",
+   "second": null
+  },
+  "variance_size": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "auth_gaps": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  }
+ },
+ "target_words": 41,
+ "deciding": {
+  "unexplained_shortfall": "Count 12 against balance 17 leaves 5 ml, but it matches the 5 ml disposal and a valid exception of 5 ml, so it is explained.",
+  "line_disposition": "A disposal with register_entry_id null is an unlogged removal, which points to a report despite the exception cover.",
+  "variance_cause": "The 5 ml shortfall equals the disposal item with no register entry; clinical records match entries and balances recompute.",
+  "variance_size": "The valid 5 ml exception covers the whole shortfall, leaving nil, though the unlogged removal keeps trace arguable.",
+  "auth_gaps": "Entries 2 and 3 have signed_by null (two gaps); the locum id LK-07 is valid, and the count could be read as one if either is thought acceptable."
+ },
+ "request": "rec-F201-0021",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011513
+}

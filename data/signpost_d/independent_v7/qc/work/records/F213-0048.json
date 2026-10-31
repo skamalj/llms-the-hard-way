@@ -1,0 +1,139 @@
+{
+ "id": "F213-0048",
+ "family": "F213",
+ "state": {
+  "pool": {
+   "id": "CP-7",
+   "type": "competition",
+   "test_interval_min": 120,
+   "opening": {
+    "open": "2024-07-01T08:00",
+    "close": "2024-07-01T14:00"
+   },
+   "limits": {
+    "free_cl_min": 1.0,
+    "free_cl_max": 3.0
+   },
+   "tolerance": {
+    "free_cl": 0.3
+   },
+   "micro_due": "2024-07-15"
+  },
+  "manual_tests": [
+   {
+    "t": "08:00",
+    "free_cl": 2.0,
+    "kit_id": "K4"
+   },
+   {
+    "t": "10:00",
+    "free_cl": 3.8,
+    "kit_id": "K4"
+   },
+   {
+    "t": "12:00",
+    "free_cl": 2.2,
+    "kit_id": "K4"
+   },
+   {
+    "t": "14:00",
+    "free_cl": 2.0,
+    "kit_id": "K4"
+   }
+  ],
+  "plant": {
+   "controller_readings": [
+    {
+     "t": "10:00",
+     "free_cl": 3.1
+    }
+   ],
+   "bather_count": 210
+  },
+  "equipment": {
+   "kits": [
+    {
+     "kit_id": "K4",
+     "cal_due": "2024-07-01"
+    }
+   ]
+  },
+  "actions": [
+   {
+    "t": "12:00",
+    "action_type": "dilution",
+    "reading_ref": "10:00",
+    "retest_time": "12:00"
+   }
+  ],
+  "lab_sample": null
+ },
+ "factors": {
+  "pool_type": "competition",
+  "test_coverage_gap": 2,
+  "boundary_interval": true,
+  "log_controller_discrepancy": "none",
+  "discrepancy_location": "free_chlorine",
+  "excursion_severity": "serious",
+  "corrective_action_delay": "delayed",
+  "retest_logged": true,
+  "dosing_event_explains": false,
+  "kit_calibration_status": "expires_on_day",
+  "lab_sample_state": "not_due",
+  "out_of_order_entry": false,
+  "benign_noise": "high_bathers"
+ },
+ "factors_sampled": {
+  "pool_type": "competition",
+  "test_coverage_gap": 2,
+  "boundary_interval": true,
+  "log_controller_discrepancy": "none",
+  "discrepancy_location": "free_chlorine",
+  "excursion_severity": "serious",
+  "corrective_action_delay": "delayed",
+  "retest_logged": true,
+  "dosing_event_explains": false,
+  "kit_calibration_status": "expires_on_day",
+  "lab_sample_state": "not_due",
+  "out_of_order_entry": false,
+  "benign_noise": "high_bathers"
+ },
+ "plan": {
+  "test_frequency_met": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "readings_reconcile": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "log_disposition": {
+   "clarity": "balanced",
+   "target": "accept",
+   "second": "hold_for_retest"
+  },
+  "action_delay": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "failed_checks": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  }
+ },
+ "target_words": 69,
+ "deciding": {
+  "test_frequency_met": "Tests exactly every 120 minutes, matching the interval.",
+  "readings_reconcile": "10:00 manual 3.8 vs controller 3.1; 0.7 exceeds tolerance 0.3.",
+  "log_disposition": "Excursion 3.8 above max 3.0 was retested within limits at 12:00 (2.2), but kit cal_due is the log date.",
+  "action_delay": "Action at 12:00 for the 10:00 reading is exactly 120 minutes, at the boundary between levels 2 and 3.",
+  "failed_checks": "Only reconciliation fails; frequency, retest and kit (due that day) hold."
+ },
+ "request": "rec-F213-0046",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.007397
+}

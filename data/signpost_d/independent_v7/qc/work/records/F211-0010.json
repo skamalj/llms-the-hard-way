@@ -1,0 +1,122 @@
+{
+ "id": "F211-0010",
+ "family": "F211",
+ "state": {
+  "vehicle": {
+   "odometer_km": 71800,
+   "service_due_km": 73000
+  },
+  "check": {
+   "shift_date": "2025-07-21",
+   "signed_at": "2025-07-21T07:20",
+   "sections_required": 4,
+   "sections_signed": [
+    "vehicle",
+    "clinical",
+    "drugs",
+    "stock"
+   ],
+   "countersigned_by": null,
+   "crew_note": "Defib low-battery warning again, otherwise fine."
+  },
+  "defects": [
+   {
+    "item": "defibrillator",
+    "area": "clinical_equipment",
+    "status": "closed",
+    "deferral": null
+   },
+   {
+    "item": "spare torch",
+    "area": "clinical_equipment",
+    "status": "open",
+    "deferral": null
+   }
+  ],
+  "stock": {
+   "lines": [
+    {
+     "item": "morphine",
+     "qty": 6,
+     "par_level": 6,
+     "expiry": "2025-08-01"
+    }
+   ]
+  },
+  "activity": {
+   "first_mobilised_at": "2025-07-21T07:00",
+   "workshop_jobs": [
+    {
+     "date": "2025-07-20",
+     "job_note": "Defib battery swapped."
+    }
+   ]
+  }
+ },
+ "factors": {
+  "checklist_completion": "all_signed_no_countersign",
+  "worst_defect_tier": "noncritical_equipment",
+  "defect_area": "clinical_equipment",
+  "deferral_authorised": false,
+  "deferral_invalid": false,
+  "workshop_return_recent": true,
+  "earliest_drug_expiry_days": 11,
+  "restock_in_progress": false,
+  "service_margin_km": 1200,
+  "crew_note_tone": "understated_real",
+  "signed_after_mobilisation": true,
+  "repeat_defect_count": 0
+ },
+ "factors_sampled": {
+  "checklist_completion": "all_signed_countersigned",
+  "worst_defect_tier": "critical_with_substitute",
+  "defect_area": "stock_and_drugs",
+  "deferral_authorised": false,
+  "deferral_invalid": false,
+  "workshop_return_recent": true,
+  "earliest_drug_expiry_days": 11,
+  "restock_in_progress": false,
+  "service_margin_km": -75,
+  "crew_note_tone": "understated_real",
+  "signed_after_mobilisation": true,
+  "repeat_defect_count": 0
+ },
+ "plan": {
+  "defects_controlled": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "readiness_status": {
+   "clarity": "balanced",
+   "target": "hold",
+   "second": "release"
+  },
+  "limiting_area": {
+   "clarity": "clear",
+   "target": "clinical_equipment",
+   "second": null
+  },
+  "check_completeness": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  },
+  "defect_severity": {
+   "clarity": "contested",
+   "target": "2",
+   "second": "1"
+  }
+ },
+ "target_words": 51,
+ "deciding": {
+  "defects_controlled": "Defibrillator defect marked closed, but the crew note reports the low-battery warning again after yesterday's battery swap with no retest: not resolved.",
+  "readiness_status": "Defib warning recurred and check signed after mobilisation without countersign, favouring hold; the closed status keeps release plausible.",
+  "limiting_area": "Defibrillator issue (clinical_equipment) is the only real concern; service margin 1200 km and stock are fine.",
+  "check_completeness": "All 4 sections signed, countersigned_by null, but signed_at is after first mobilisation: level 2 vs 1.",
+  "defect_severity": "Open item is a spare torch (non-critical) while the defibrillator is marked closed; level 2 vs 1 contested."
+ },
+ "request": "rec-F211-0006",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.009649
+}

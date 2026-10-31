@@ -1,0 +1,111 @@
+{
+ "id": "F210-0041",
+ "family": "F210",
+ "state": {
+  "collection": {
+   "collected_at": "2024-05-14T07:10",
+   "vat_l": 3200,
+   "meter_l": 3200,
+   "vat_temp_c": 4.0,
+   "last_milking_end": "2024-05-13T18:00"
+  },
+  "sample": {
+   "sample_id": "S101",
+   "taken_at": "2024-05-14T07:12",
+   "seal_intact": true,
+   "arrival_temp_c": 3.8
+  },
+  "lab_results": {
+   "sample_id": "S101",
+   "scc_k_ml": 500,
+   "inhibitory": "confirmed_pos",
+   "retest": {
+    "requested": true,
+    "result": "confirmed_pos"
+   }
+  },
+  "farm_terms": {
+   "limits": {
+    "vat_temp_c": 4.0,
+    "scc_k_ml": 400
+   },
+   "approved_exceptions": [],
+   "breaches_90d": 0
+  },
+  "equipment": {
+   "vat_thermometer": {
+    "due": "2024-04-30"
+   }
+  }
+ },
+ "factors": {
+  "vat_temp_level": "compliant",
+  "recent_milking": false,
+  "mismatch_site": "none",
+  "mismatch_magnitude": "none",
+  "meter_calibration_overdue": true,
+  "lab_limit_breaches": 1,
+  "exception_covers_breach": false,
+  "inhibitory_status": "confirmed_positive",
+  "treatment_withdrawal_active": false,
+  "retest_state": "confirmed",
+  "sample_integrity": "intact",
+  "history_breaches_90d": 0,
+  "value_on_boundary": true,
+  "driver_sensory_flag": false
+ },
+ "factors_sampled": {
+  "vat_temp_level": "compliant",
+  "recent_milking": false,
+  "mismatch_site": "none",
+  "mismatch_magnitude": "large",
+  "meter_calibration_overdue": true,
+  "lab_limit_breaches": 1,
+  "exception_covers_breach": true,
+  "inhibitory_status": "negative",
+  "treatment_withdrawal_active": false,
+  "retest_state": "confirmed",
+  "sample_integrity": "intact",
+  "history_breaches_90d": 0,
+  "value_on_boundary": true,
+  "driver_sensory_flag": false
+ },
+ "plan": {
+  "temp_compliant": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "intake_disposition": {
+   "clarity": "clear",
+   "target": "reject_load",
+   "second": null
+  },
+  "issue_source": {
+   "clarity": "leaning",
+   "target": "none_evident",
+   "second": null
+  },
+  "discrepancy_size": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "unexplained_breaches": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  }
+ },
+ "target_words": 30,
+ "deciding": {
+  "temp_compliant": "vat_temp_c 4.0 exactly equals the 4.0 limit (within), but the vat thermometer calibration due 2024-04-30 is overdue, so the reading is doubtful.",
+  "intake_disposition": "lab_results.inhibitory is confirmed_pos and the retest result confirmed_pos, so the load is rejected.",
+  "issue_source": "vat_l equals meter_l, sample ids match, taken_at is 2 min after collection, seal intact; no entries point to recording or handling, though the positive result leaves some doubt.",
+  "discrepancy_size": "scc_k_ml 500 vs limit 400 is exactly 25% over, on the boundary between levels 2 and 3.",
+  "unexplained_breaches": "Only scc exceeds its limit and approved_exceptions is empty; the positive inhibitory result is not a limit parameter, which leaves some doubt."
+ },
+ "request": "rec-F210-0041",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011859
+}

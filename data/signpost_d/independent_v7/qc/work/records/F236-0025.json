@@ -1,0 +1,124 @@
+{
+ "id": "F236-0025",
+ "family": "F236",
+ "state": {
+  "changeover": {
+   "line_id": "L3",
+   "from_allergens": [
+    "egg"
+   ],
+   "to_allergens": [
+    "sesame"
+   ]
+  },
+  "cleaning": {
+   "steps": [
+    {
+     "n": "rinse",
+     "completed": false
+    }
+   ]
+  },
+  "verification": {
+   "swabs": [
+    {
+     "id": "S1",
+     "ppm": 10,
+     "limit_ppm": 10,
+     "t": "2025-05-06T05:20"
+    },
+    {
+     "id": "S2",
+     "ppm": 0,
+     "limit_ppm": 10,
+     "t": "2025-05-06T05:45",
+     "retest_of": "S1"
+    }
+   ]
+  },
+  "production": {
+   "line_id": "L3",
+   "start_at": "2025-05-06T06:00",
+   "qty": 636.64,
+   "unit": "kg"
+  },
+  "approvals": {
+   "qa_signoff": {
+    "signed_at": "2025-05-06T05:50"
+   },
+   "deviations": [
+    {
+     "id": "D2",
+     "scope": "L3 rinse step",
+     "approved_at": "2025-05-06T05:10"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "allergen_transition": "swaps_allergen",
+  "cleaning_completion": "one_step_skipped",
+  "swab_outcome": "at_limit_retest_passed",
+  "swab_timing_mismatch": false,
+  "cross_section_discrepancy": "none",
+  "exposed_quantity_kg": 0.0,
+  "approved_deviation": true,
+  "label_precaution": false,
+  "dedicated_tooling": false,
+  "qa_signoff_state": "signed_before_start",
+  "line_failure_history": "not recorded",
+  "boundary_value": true
+ },
+ "factors_sampled": {
+  "allergen_transition": "swaps_allergen",
+  "cleaning_completion": "one_step_skipped",
+  "swab_outcome": "positive_no_retest",
+  "swab_timing_mismatch": false,
+  "cross_section_discrepancy": "batch_id_mismatch",
+  "exposed_quantity_kg": 636.64,
+  "approved_deviation": true,
+  "label_precaution": false,
+  "dedicated_tooling": false,
+  "qa_signoff_state": "signed_before_start",
+  "line_failure_history": 3,
+  "boundary_value": true
+ },
+ "plan": {
+  "swabs_cleared": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "line_disposition": {
+   "clarity": "clear",
+   "target": "release",
+   "second": null
+  },
+  "worst_deficiency": {
+   "clarity": "leaning",
+   "target": "cleaning_shortfall",
+   "second": null
+  },
+  "exposed_product": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "residue_evidence": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  }
+ },
+ "target_words": 42,
+ "deciding": {
+  "swabs_cleared": "S1 read 10 ppm, equal to limit 10; retest S2 read 0 at 05:45, before start 06:00.",
+  "line_disposition": "The skipped rinse is covered by deviation D2 approved before start, the retest passed, and QA signed 05:50 before start.",
+  "worst_deficiency": "The rinse step has completed false, a skipped clean step, though deviation D2 for the rinse step softens it.",
+  "exposed_product": "The batch is 636.64 kg but the retest passed 15 min before start, so no or minimal product predates verification.",
+  "residue_evidence": "S1 at limit 10 is a reading at or over limit, and retest S2 passed at 0: level 2, though the skipped rinse leaves doubt."
+ },
+ "request": "rec-F236-0021",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.017458
+}

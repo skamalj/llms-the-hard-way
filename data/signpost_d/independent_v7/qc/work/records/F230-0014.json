@@ -1,0 +1,128 @@
+{
+ "id": "F230-0014",
+ "family": "F230",
+ "state": {
+  "resident": {
+   "status": "hospital",
+   "status_since": "2025-03-03"
+  },
+  "prescriptions": [
+   {
+    "item_id": "A",
+    "dose_units": 1,
+    "time_critical": true,
+    "changes": [
+     {
+      "effective": "2025-03-01",
+      "new_dose_units": 1,
+      "order_ref": "GP-52",
+      "authorised_by_role": "GP"
+     }
+    ]
+   },
+   {
+    "item_id": "B",
+    "dose_units": 1
+   }
+  ],
+  "administrations": [
+   {
+    "item_id": "A",
+    "scheduled": "08:00",
+    "given_at": "09:17",
+    "units_given": 1,
+    "initials": "RL"
+   },
+   {
+    "item_id": "B",
+    "units_given": 0,
+    "code": "H"
+   }
+  ],
+  "stock": {
+   "A": {
+    "opening": 14,
+    "closing": 13
+   }
+  },
+  "round": {
+   "date": "2025-03-04",
+   "post_dose_obs": [
+    {
+     "type": "pulse",
+     "value": 72
+    }
+   ]
+  }
+ },
+ "factors": {
+  "dose_mismatch_type": "none",
+  "prescription_change_documented": true,
+  "omission_count": 1,
+  "omission_reason_valid": true,
+  "late_minutes": 77,
+  "time_critical_affected": true,
+  "stock_variance": 0,
+  "stock_variance_explained": false,
+  "signature_gaps": 0,
+  "unit_expression_decoy": "none_present",
+  "post_dose_obs_reassuring": true,
+  "pending_query": "none",
+  "prior_errors_30d": 3,
+  "item_count": 2
+ },
+ "factors_sampled": {
+  "dose_mismatch_type": "none",
+  "prescription_change_documented": true,
+  "omission_count": 1,
+  "omission_reason_valid": true,
+  "late_minutes": 77,
+  "time_critical_affected": true,
+  "stock_variance": -1,
+  "stock_variance_explained": false,
+  "signature_gaps": 0,
+  "unit_expression_decoy": "none_present",
+  "post_dose_obs_reassuring": true,
+  "pending_query": "none",
+  "prior_errors_30d": 3,
+  "item_count": 8
+ },
+ "plan": {
+  "dose_mismatch": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "stock_reconciles": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "sign_off",
+   "second": null
+  },
+  "open_discrepancies": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "error_severity": {
+   "clarity": "contested",
+   "target": "4",
+   "second": "3"
+  }
+ },
+ "target_words": 48,
+ "deciding": {
+  "dose_mismatch": "Item A was given 1 unit, matching the prescription and change GP-52. The only ambiguity is whether the hospital hold on B counts.",
+  "stock_reconciles": "Item A: 14 minus 1 signed gives 13, equal to closing.",
+  "next_step": "Omission H is backed by hospital status since 2025-03-03. There are no open queries and the pulse is normal, so the record can close.",
+  "open_discrepancies": "No item has an unresolved fault. The late dose on A is documented, and B's omission is validly supported.",
+  "error_severity": "Item A is time-critical and given 77 minutes late, which is the only weight. The omission on B is validly withheld."
+ },
+ "request": "rec-F230-0011",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.00933
+}

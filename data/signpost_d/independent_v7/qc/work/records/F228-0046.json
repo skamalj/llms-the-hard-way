@@ -1,0 +1,125 @@
+{
+ "id": "F228-0046",
+ "family": "F228",
+ "state": {
+  "booking_declaration": {
+   "booking_ref": "BK71820",
+   "container_no": "MSKU4410226",
+   "vgm_kg": 20000,
+   "declared_tare_kg": 2800,
+   "declared_cargo_kg": 17200,
+   "packages": 25,
+   "method": 2,
+   "submitted_at": "2025-03-09T10:00Z",
+   "amendments": []
+  },
+  "equipment": {
+   "csc_plate_tare_kg": 3800,
+   "csc_max_gross_kg": 30480
+  },
+  "cargo_lines": [
+   {
+    "packages": 24,
+    "package_type": "carton",
+    "gross_kg": 17200
+   }
+  ],
+  "terminal_weighing": {
+   "read_at": "2025-03-09T21:10Z",
+   "gross_reading_kg": 36050,
+   "tractor_tare_kg": 9000,
+   "chassis_tare_kg": 5000,
+   "chassis_registry_tare_kg": 5000,
+   "calibration_valid_to": "2025-02-28",
+   "reweigh": {
+    "status": "done",
+    "gross_reading_kg": 22040,
+    "read_at": "2025-03-10T02:30Z"
+   }
+  },
+  "voyage_plan": {
+   "vgm_cutoff_at": "2025-03-10T08:00Z",
+   "loading_start_at": "2025-03-10T18:00Z",
+   "review_at": "2025-03-10T06:00Z",
+   "stow_bay_row_tier": "04-12-02",
+   "deck_or_hold": "hold",
+   "tolerance_pct": 5
+  },
+  "shipper_profile": {
+   "method2_authorised": false,
+   "last_audit_on": "2023-05-02",
+   "last_audit_result": "fail",
+   "discrepancies_12m": 6
+  }
+ },
+ "factors": {
+  "gap_band": "10pct_plus",
+  "gap_direction": "understated",
+  "gap_source": "weighing",
+  "decoy_mismatch": "package_count_off_by_one",
+  "scale_calibration_valid": false,
+  "amended_vgm_on_file": false,
+  "shipper_trusted": false,
+  "prior_discrepancies": 6,
+  "hours_to_loading": 12.0,
+  "reweigh_status": "done_matches_terminal",
+  "stow_position": "below_deck",
+  "exceeds_csc_max": false,
+  "cargo_lines_missing": false,
+  "tolerance_pct": "5"
+ },
+ "factors_sampled": {
+  "gap_band": "under_1pct",
+  "gap_direction": "understated",
+  "gap_source": "cargo",
+  "decoy_mismatch": "package_count_off_by_one",
+  "scale_calibration_valid": false,
+  "amended_vgm_on_file": false,
+  "shipper_trusted": false,
+  "prior_discrepancies": 6,
+  "hours_to_loading": 28.43,
+  "reweigh_status": "done_matches_terminal",
+  "stow_position": "below_deck",
+  "exceeds_csc_max": false,
+  "cargo_lines_missing": false,
+  "tolerance_pct": "5"
+ },
+ "plan": {
+  "vgm_understated": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "disposition": {
+   "clarity": "leaning",
+   "target": "hold_reweigh",
+   "second": null
+  },
+  "gap_source": {
+   "clarity": "balanced",
+   "target": "weighing_error",
+   "second": "tare_error"
+  },
+  "gap_magnitude": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "time_pressure": {
+   "clarity": "contested",
+   "target": "2",
+   "second": "1"
+  }
+ },
+ "target_words": 83,
+ "deciding": {
+  "vgm_understated": "Gate scale calibration lapsed, but a completed reweigh of 22040 kg versus vgm 20000 kg is about 10% above tolerance 5, so understated is likely; the invalid gate reading leaves some doubt.",
+  "disposition": "Gate calibration lapsed, shipper failed its audit with 6 discrepancies, and the declared tare 2800 vs plate 3800 is unresolved; this leans to a hold rather than amending.",
+  "gap_source": "Calibration_valid_to 2025-02-28 precedes read_at (weighing), while declared tare 2800 vs plate 3800 explains only about 1000 of the roughly 2050 kg gap (tare); cargo lines match declared cargo.",
+  "gap_magnitude": "Reweigh 22040 kg vs vgm 20000 kg is about 10.2%, just above the 10% boundary between levels 2 and 3.",
+  "time_pressure": "review_at 06:00Z and loading_start_at 18:00Z are exactly 12 hours apart, on the boundary between planned and pressing."
+ },
+ "request": "rec-F228-0046",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.01608
+}

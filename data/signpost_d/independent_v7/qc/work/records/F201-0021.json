@@ -1,0 +1,112 @@
+{
+ "id": "F201-0021",
+ "family": "F201",
+ "state": {
+  "register_header": {
+   "drug": "pentobarbital",
+   "concentration_mg_ml": 200,
+   "schedule": 2,
+   "witness_required": true,
+   "opening_balance_ml": 50
+  },
+  "entries": [
+   {
+    "entry_id": 1,
+    "type": "receipt",
+    "qty_ml": 50,
+    "running_balance_ml": 100,
+    "signed_by": "V1",
+    "witness_id": "V2"
+   },
+   {
+    "entry_id": 2,
+    "type": "use",
+    "qty_ml": 30,
+    "patient_id": "P1",
+    "running_balance_ml": 70,
+    "signed_by": "V1",
+    "witness_id": "V2"
+   },
+   {
+    "entry_id": 3,
+    "type": "use",
+    "qty_ml": 20,
+    "patient_id": "P2",
+    "running_balance_ml": 48,
+    "signed_by": "V1",
+    "witness_id": "V2"
+   }
+  ],
+  "stock_check": {
+   "counted_ml": 48
+  }
+ },
+ "factors": {
+  "drug_profile": "pentobarbital_200mg_ml",
+  "arithmetic_slip_count": 1,
+  "unrecorded_admin": "none",
+  "clinical_records_missing": false,
+  "disposal_state": "none_needed",
+  "unexplained_shortfall_pct": 2.0,
+  "variance_exception": "none",
+  "manufacturer_overfill": false,
+  "auth_gap_count": 0,
+  "count_out_of_order": false,
+  "unit_mismatch": false,
+  "locum_signatory": false,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "drug_profile": "pentobarbital_200mg_ml",
+  "arithmetic_slip_count": 0,
+  "unrecorded_admin": "trivial_under_1pct",
+  "clinical_records_missing": false,
+  "disposal_state": "none_needed",
+  "unexplained_shortfall_pct": 1.55,
+  "variance_exception": "none",
+  "manufacturer_overfill": false,
+  "auth_gap_count": 4,
+  "count_out_of_order": false,
+  "unit_mismatch": false,
+  "locum_signatory": false,
+  "boundary_case": false
+ },
+ "plan": {
+  "unexplained_shortfall": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "line_disposition": {
+   "clarity": "clear",
+   "target": "sign_off",
+   "second": null
+  },
+  "variance_cause": {
+   "clarity": "clear",
+   "target": "arithmetic_slip",
+   "second": null
+  },
+  "variance_size": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  },
+  "auth_gaps": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 28,
+ "deciding": {
+  "unexplained_shortfall": "Entry 3 balance 48 should be 50 (70-20); count 48 matches the written balance, so a 2 ml gap against the recomputed balance is arguably a slip, arguably a loss.",
+  "line_disposition": "All entries carry signatures and witnesses and the count equals the written closing balance, so the line can close.",
+  "variance_cause": "The only inconsistency is entry 3's running balance, which is miscalculated; there are no disposals or unmatched doses.",
+  "variance_size": "2 ml against 100 ml handled (50 opening + 50 receipt) is exactly 2%, at the boundary between trace and material.",
+  "auth_gaps": "Every entry has signed_by and witness_id with witness_required true, so zero gaps; only the receipt line's witness being arguably unneeded leaves a case for one."
+ },
+ "request": "rec-F201-0021",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011513
+}

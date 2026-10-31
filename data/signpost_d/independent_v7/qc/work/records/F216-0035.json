@@ -1,0 +1,152 @@
+{
+ "id": "F216-0035",
+ "family": "F216",
+ "state": {
+  "session": {
+   "id": "PH-2207",
+   "type": "pharmacy",
+   "date": "2025-04-15",
+   "next": "2025-04-17"
+  },
+  "storage": {
+   "unit": "F9",
+   "alarms_30d": 3,
+   "last_calibration": "2024-09-02"
+  },
+  "temp_log": {
+   "interval_min": 5,
+   "readings": [
+    {
+     "t": "14:00",
+     "air_c": 7.6,
+     "product_c": 7.4
+    },
+    {
+     "t": "14:05",
+     "air_c": 8.9,
+     "product_c": 8.1
+    },
+    {
+     "t": "14:10",
+     "air_c": 8.4,
+     "product_c": 7.9
+    },
+    {
+     "t": "14:15",
+     "air_c": 7.8,
+     "product_c": 7.5
+    }
+   ],
+   "manual_checks": [
+    {
+     "time": "12:00",
+     "min_c": 3.1,
+     "max_c": 7.7,
+     "current_c": 7.2
+    }
+   ]
+  },
+  "stock": {
+   "lots": [
+    {
+     "lot_no": "L1",
+     "tolerance_min_out": 60,
+     "opening": 30,
+     "wasted": 2,
+     "closing": 27
+    },
+    {
+     "lot_no": "K22",
+     "tolerance_min_out": 60,
+     "opening": 12,
+     "wasted": 0,
+     "closing": 12
+    }
+   ]
+  },
+  "administration": [
+   {
+    "time": "14:07",
+    "lot_no": "L1",
+    "doses": 1
+   }
+  ],
+  "excursion_actions": {
+   "start": "14:05",
+   "end": "14:10",
+   "quarantined": true,
+   "advice_requested_at": "14:40",
+   "advice_status": "PEND",
+   "advice_received_at": null,
+   "revised_expiry": null
+  }
+ },
+ "factors": {
+  "true_excursion_minutes": 5,
+  "log_source_discrepancy": "none",
+  "buffered_probe_in_range": false,
+  "planned_maintenance": false,
+  "stability_clearance": "requested_pending",
+  "doses_during_exposure": 1,
+  "stock_count_gap": 0,
+  "lot_id_mismatch": false,
+  "lots_beyond_tolerance": "none",
+  "freezing_reading": false,
+  "boundary_case": false,
+  "unit_alarm_history": 3,
+  "session_type": "pharmacy"
+ },
+ "factors_sampled": {
+  "true_excursion_minutes": 294,
+  "log_source_discrepancy": "none",
+  "buffered_probe_in_range": false,
+  "planned_maintenance": false,
+  "stability_clearance": "cleared_full",
+  "doses_during_exposure": 1,
+  "stock_count_gap": 2,
+  "lot_id_mismatch": false,
+  "lots_beyond_tolerance": "none",
+  "freezing_reading": false,
+  "boundary_case": false,
+  "unit_alarm_history": 3,
+  "session_type": "pharmacy"
+ },
+ "plan": {
+  "dosed_uncleared": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "stock_reconciles": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "stock_disposition": {
+   "clarity": "clear",
+   "target": "quarantine_hold",
+   "second": null
+  },
+  "excursion_duration": {
+   "clarity": "contested",
+   "target": "1",
+   "second": "0"
+  },
+  "followup_urgency": {
+   "clarity": "contested",
+   "target": "1",
+   "second": "2"
+  }
+ },
+ "target_words": 104,
+ "deciding": {
+  "dosed_uncleared": "A dose at 14:07 follows excursion start (14:05, product 8.1) and advice is still PEND with no received time.",
+  "stock_reconciles": "L1: 30-2-1=27 matches closing and K22 is untouched at 12; the wasted doses are legitimate.",
+  "stock_disposition": "Stock is quarantined and advice_status PEND with no advice_received_at, so exposure is unresolved.",
+  "excursion_duration": "Only one product_c reading (8.1 at 14:05) exceeds 8.0, so 5 min is borderline between none and brief.",
+  "followup_urgency": "Pending advice and one dose given, with the next session two days out, leave action before the next session or within 24 h both defensible."
+ },
+ "request": "rec-F216-0031",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.014237
+}

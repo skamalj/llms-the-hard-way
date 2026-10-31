@@ -1,0 +1,142 @@
+{
+ "id": "F232-0066",
+ "family": "F232",
+ "state": {
+  "night_header": {
+   "date": "2025-03-04",
+   "prog": "P41",
+   "alloc_h": 5,
+   "eng_window": [
+    "2025-03-05T02:00",
+    "2025-03-05T02:45"
+   ]
+  },
+  "conditions": {
+   "limits": {
+    "hum": 90,
+    "wind": 60,
+    "cloud": 4
+   },
+   "closures": [
+    {
+     "s": "2025-03-05T03:10",
+     "e": "2025-03-05T03:26",
+     "reason": "weather",
+     "hum": 95,
+     "wind": 66,
+     "cloud": 6
+    }
+   ]
+  },
+  "exposures": [
+   {
+    "t": "T1",
+    "f": "r",
+    "exp_s": 3600,
+    "n": 2,
+    "see": 1.1,
+    "qa": "pass",
+    "utc": "2025-03-05T00:30"
+   },
+   {
+    "t": "T1",
+    "f": "g",
+    "exp_s": 3300,
+    "n": 1,
+    "see": 1.9,
+    "qa": "fail",
+    "utc": "2025-03-05T01:20"
+   }
+  ],
+  "programme_request": {
+   "T1": {
+    "r": 7200,
+    "g": 3600
+   },
+   "max_see": 1.4,
+   "exception": null
+  },
+  "faults": [
+   {
+    "sub": "dome",
+    "start": "2025-03-05T02:05",
+    "end": "2025-03-05T02:30",
+    "cleared": true,
+    "retest": "2025-03-05T02:40",
+    "ticket": "TK-311"
+   }
+  ],
+  "notes": {
+   "obs": "T1 done in r and g.",
+   "na": "Quiet night, brief cloud at 03:10."
+  }
+ },
+ "factors": {
+  "weather_loss_hours": 0.27,
+  "fault_overlap": "none",
+  "fault_resolution_state": "cleared_retested",
+  "maintenance_window": true,
+  "closure_reason_mismatch": "none",
+  "note_claim_discrepancy": "short_small",
+  "seeing_vs_limit": "exceeded",
+  "seeing_exception_approved": false,
+  "usable_fraction": 0.4,
+  "qa_pending_count": 0,
+  "utc_date_rollover": true,
+  "assistant_note_tone": "neutral",
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "weather_loss_hours": 0.27,
+  "fault_overlap": "none",
+  "fault_resolution_state": "cleared_no_retest",
+  "maintenance_window": true,
+  "closure_reason_mismatch": "coincides_with_fault",
+  "note_claim_discrepancy": "short_small",
+  "seeing_vs_limit": "exceeded",
+  "seeing_exception_approved": false,
+  "usable_fraction": 0.73,
+  "qa_pending_count": 0,
+  "utc_date_rollover": true,
+  "assistant_note_tone": "neutral",
+  "boundary_case": false
+ },
+ "plan": {
+  "weather_only_loss": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "claims_supported": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "night_disposition": {
+   "clarity": "clear",
+   "target": "requeue_targets",
+   "second": null
+  },
+  "usable_share": {
+   "clarity": "contested",
+   "target": "1",
+   "second": "2"
+  },
+  "fault_followup": {
+   "clarity": "clear",
+   "target": "0",
+   "second": null
+  }
+ },
+ "target_words": 26,
+ "deciding": {
+  "weather_only_loss": "Only lost interval is the 16-minute weather closure with station values above limits; the dome fault sits inside eng_window and outside the closure.",
+  "claims_supported": "Observer says T1 done, but g has 3300 s against 3600 s requested, and that frame is at seeing 1.9 against limit 1.4 with qa fail.",
+  "night_disposition": "T1 g is left incomplete and needs repeating; the only loss is weather and the fault was a window test.",
+  "usable_share": "Only the r frames pass within limits: 7200 s against 18000 s allocated, exactly 40%, the boundary between Low and Substantial.",
+  "fault_followup": "The only fault is the dome test inside eng_window, cleared and retested at 02:40, with no science effect."
+ },
+ "request": "rec-F232-0066",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.017748
+}

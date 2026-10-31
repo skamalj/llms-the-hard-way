@@ -1,0 +1,94 @@
+{
+ "id": "F229-0043",
+ "family": "F229",
+ "state": {
+  "lot": {
+   "lot_id": "L-0630",
+   "pick_end": "2024-09-20T17:00"
+  },
+  "intake": {
+   "gross_kg": 14000,
+   "tare_kg": 4000,
+   "net_kg": 9000,
+   "temp_c": 6
+  },
+  "press": {
+   "band_l_per_t": "600-680",
+   "cycle_start": "2024-09-21T08:48",
+   "juice_l": 6120,
+   "so2_mg_l": null,
+   "operator_note": "Light rain at press pad."
+  },
+  "transfer": {
+   "lot_ref": "L-0630"
+  }
+ },
+ "factors": {
+  "weight_mismatch": "large_over_5pct",
+  "press_programme": "destemmed_standard",
+  "yield_position": "just_on_edge",
+  "lot_id_drift": "none",
+  "missing_step": "so2_addition_missing",
+  "out_of_order_timestamp": false,
+  "pick_to_press_hours": 15.8,
+  "pick_end_recorded": true,
+  "cold_held": true,
+  "rot_pct": 7.91,
+  "sorting_applied": true,
+  "note_signal": "benign_decoy",
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "weight_mismatch": "large_over_5pct",
+  "press_programme": "destemmed_standard",
+  "yield_position": "just_on_edge",
+  "lot_id_drift": "none",
+  "missing_step": "so2_addition_missing",
+  "out_of_order_timestamp": false,
+  "pick_to_press_hours": 8.46,
+  "pick_end_recorded": true,
+  "cold_held": true,
+  "rot_pct": 7.91,
+  "sorting_applied": true,
+  "note_signal": "benign_decoy",
+  "boundary_case": false
+ },
+ "plan": {
+  "yield_consistent": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "chain_intact": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "release_decision": {
+   "clarity": "clear",
+   "target": "hold",
+   "second": null
+  },
+  "pick_press_delay": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  },
+  "failed_checks": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 30,
+ "deciding": {
+  "yield_consistent": "Gross minus tare is 10000 kg but net_kg is 9000, so weight does not reconcile; 6120 l on 9000 kg is 680 l/t, exactly at the band edge.",
+  "chain_intact": "lot_id L-0630 matches transfer lot_ref; the record is sparse but shows no change.",
+  "release_decision": "The unexplained 1000 kg weight discrepancy and null so2_mg_l are open confirmations with no confirmed fruit fault, so juice stays settling.",
+  "pick_press_delay": "pick_end 17:00 to cycle_start 08:48 next day is 15.8 h, just under the 16 h line between levels 2 and 3.",
+  "failed_checks": "The weight mismatch, null so2_mg_l and edge-case yield fail; the long delay may or may not count as a fourth failure."
+ },
+ "request": "rec-F229-0041",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.009375
+}

@@ -1,0 +1,153 @@
+{
+ "id": "F236-0041",
+ "family": "F236",
+ "state": {
+  "changeover": {
+   "line": "L2",
+   "from_allergens": [
+    "wheat",
+    "milk"
+   ],
+   "to_allergens": [
+    "wheat",
+    "milk"
+   ],
+   "start": "2025-03-04T05:00",
+   "end": "2025-03-04T06:10"
+  },
+  "cleaning": {
+   "steps": [
+    {
+     "id": "dry_clean",
+     "completed": true,
+     "spec_min": 20,
+     "actual_min": 20
+    },
+    {
+     "id": "wet_wash",
+     "completed": true,
+     "spec_min": 30,
+     "actual_min": 22
+    }
+   ],
+   "part_swap": false
+  },
+  "verification": {
+   "swabs": [
+    {
+     "id": "S1",
+     "allergen": "milk",
+     "reading": 0,
+     "limit_ppm": 10,
+     "at": "2025-03-04T06:20"
+    },
+    {
+     "id": "S2",
+     "allergen": "wheat",
+     "reading": 3,
+     "limit_ppm": 10,
+     "at": "2025-03-04T06:22"
+    }
+   ]
+  },
+  "production": {
+   "line": "L2",
+   "batch": "B22-0412",
+   "start_at": "2025-03-04T06:40",
+   "end_at": null,
+   "qty": 50,
+   "unit": "kg",
+   "held": true
+  },
+  "approvals": {
+   "qa_signoff": {
+    "signer": "Q07",
+    "signed_at": "2025-03-04T06:30"
+   },
+   "deviations": [
+    {
+     "id": "D31",
+     "scope": "L2 wet_wash duration",
+     "approved_at": "2025-03-03T16:00"
+    }
+   ]
+  },
+  "history": [
+   {
+    "ok": true
+   },
+   {
+    "ok": false
+   },
+   {
+    "ok": true
+   }
+  ]
+ },
+ "factors": {
+  "allergen_transition": "same_allergen_set",
+  "cleaning_completion": "duration_short",
+  "swab_outcome": "trace_below_limit",
+  "swab_timing_mismatch": false,
+  "cross_section_discrepancy": "none",
+  "exposed_quantity_kg": 50.0,
+  "approved_deviation": true,
+  "label_precaution": false,
+  "dedicated_tooling": false,
+  "qa_signoff_state": "signed_before_start",
+  "line_failure_history": 1,
+  "boundary_value": true
+ },
+ "factors_sampled": {
+  "allergen_transition": "same_allergen_set",
+  "cleaning_completion": "duration_short",
+  "swab_outcome": "all_negative",
+  "swab_timing_mismatch": false,
+  "cross_section_discrepancy": "none",
+  "exposed_quantity_kg": 623.49,
+  "approved_deviation": true,
+  "label_precaution": false,
+  "dedicated_tooling": false,
+  "qa_signoff_state": "signed_before_start",
+  "line_failure_history": 1,
+  "boundary_value": true
+ },
+ "plan": {
+  "swabs_cleared": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "line_disposition": {
+   "clarity": "clear",
+   "target": "hold",
+   "second": null
+  },
+  "worst_deficiency": {
+   "clarity": "balanced",
+   "target": "records_only",
+   "second": "cleaning_shortfall"
+  },
+  "exposed_product": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  },
+  "residue_evidence": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  }
+ },
+ "target_words": 116,
+ "deciding": {
+  "swabs_cleared": "Both swabs read below limit_ppm 10 (0 and 3) and are timed 06:20 and 06:22, before production start 06:40.",
+  "line_disposition": "Swabs, sign-off and deviation are all in order, but production.held is true and end_at is null, so one confirmation is outstanding and the batch is held.",
+  "worst_deficiency": "The wet_wash ran 22 of 30 min, but approved deviation D31 covers it before start, so it is mostly paperwork (open end_at); a reader could still call it a cleaning shortfall.",
+  "exposed_product": "Batch qty is exactly 50 kg, on the boundary between under 50 and 50-500, and the swabs preceded the start. Levels 1 and 2 are both defensible.",
+  "residue_evidence": "The wheat swab reads 3 ppm, above zero but under the limit of 10, so a trace. The other swab reads 0."
+ },
+ "request": "rec-F236-0041",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011984
+}

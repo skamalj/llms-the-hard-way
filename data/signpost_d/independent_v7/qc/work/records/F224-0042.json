@@ -1,0 +1,179 @@
+{
+ "id": "F224-0042",
+ "family": "F224",
+ "state": {
+  "request": {
+   "views": [
+    "PA_LR6"
+   ],
+   "ind": "PAIN_ENDO",
+   "risk": "low",
+   "prior": "2022-03-10",
+   "date": "2025-03-14"
+  },
+  "exposures": [
+   {
+    "id": 1,
+    "v": "PA_LR6",
+    "kV": 70,
+    "s": 0.12,
+    "mGy": 1.0,
+    "t": "10:02"
+   },
+   {
+    "id": 2,
+    "v": "PA_LR6",
+    "kV": 70,
+    "s": 0.12,
+    "mGy": 1.0,
+    "t": "10:04",
+    "retake_of": 1
+   },
+   {
+    "id": 3,
+    "v": "PA_UL3",
+    "kV": 70,
+    "s": 0.12,
+    "mGy": 1.0,
+    "t": "10:08"
+   },
+   {
+    "id": 4,
+    "v": "PA_UL2",
+    "kV": 70,
+    "s": 0.12,
+    "mGy": 1.0,
+    "t": "10:09"
+   },
+   {
+    "id": 5,
+    "v": "PA_LL1",
+    "kV": 70,
+    "s": 0.12,
+    "mGy": 1.0,
+    "t": "10:10"
+   }
+  ],
+  "image_review": {
+   "grade": 2,
+   "faults": {
+    "1": [
+     "FC_APEX_CLIPPED"
+    ]
+   },
+   "sensor_errors": [],
+   "second_grader": "pending"
+  },
+  "equipment": {
+   "last_qa": "2025-01-20",
+   "qa_months": 12,
+   "output_test": "pass",
+   "drl_ref": {
+    "PA_LR6": 1.0,
+    "PA_UL3": 1.0,
+    "PA_UL2": 1.0,
+    "PA_LL1": 1.0
+   },
+   "console_log": [
+    {
+     "t": "10:03",
+     "kV": 70,
+     "s": 0.12
+    },
+    {
+     "t": "10:04",
+     "kV": 70,
+     "s": 0.12
+    },
+    {
+     "t": "10:08",
+     "kV": 70,
+     "s": 0.12
+    },
+    {
+     "t": "10:09",
+     "kV": 70,
+     "s": 0.12
+    },
+    {
+     "t": "10:10",
+     "kV": 70,
+     "s": 0.12
+    }
+   ]
+  },
+  "operator": {
+   "id": "OP17",
+   "signoff_at": "2025-03-14T11:30",
+   "prior_findings_12m": 0
+  }
+ },
+ "factors": {
+  "indication_match": "match",
+  "recall_interval_months": 36,
+  "dose_ratio_to_drl": 1.0,
+  "console_log_discrepancy": "timestamp_drift",
+  "retake_cause": "positioning",
+  "equipment_qa_status": "in_date",
+  "approved_exception": false,
+  "patient_cooperation_flag": false,
+  "unrequested_exposure_count": 3,
+  "verbal_authorisation_logged": false,
+  "image_grade": "acceptable_minor_faults",
+  "audit_completeness": "grading_pending",
+  "operator_prior_findings": 0
+ },
+ "factors_sampled": {
+  "indication_match": "match",
+  "recall_interval_months": 36,
+  "dose_ratio_to_drl": 1.68,
+  "console_log_discrepancy": "timestamp_drift",
+  "retake_cause": "positioning",
+  "equipment_qa_status": "in_date",
+  "approved_exception": false,
+  "patient_cooperation_flag": false,
+  "unrequested_exposure_count": 2,
+  "verbal_authorisation_logged": false,
+  "image_grade": "acceptable_minor_faults",
+  "audit_completeness": "grading_pending",
+  "operator_prior_findings": 0
+ },
+ "plan": {
+  "justified": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "operator_retake": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "follow_up": {
+   "clarity": "clear",
+   "target": "log_trend",
+   "second": null
+  },
+  "dose_position": {
+   "clarity": "contested",
+   "target": "1",
+   "second": "2"
+  },
+  "unjustified_count": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  }
+ },
+ "target_words": 35,
+ "deciding": {
+  "justified": "PAIN_ENDO matches the requested PA_LR6, and the 36 months since the prior view exceeds the 24-month low-risk interval. The pending second grader leaves slight doubt.",
+  "operator_retake": "Retake 2 follows FC_APEX_CLIPPED on exposure 1. There are no sensor errors, the output test passed, and no patient flags exist, so positioning is likely; the pending grading adds a little doubt.",
+  "follow_up": "The only console discrepancy is a one-minute drift on exposure 1, which is benign. Operator prior findings are 0, QA is current and the dose is at the reference, so it is logged for trend only.",
+  "dose_position": "Every exposure shows 1.0 mGy against a 1.0 reference, exactly on the boundary between typical (up to 100%) and raised.",
+  "unjustified_count": "Exposures 3, 4 and 5 (PA_UL3, PA_UL2, PA_LL1) are not in the requested views, there is no verbal auth and no exception list, so 3 lack a justified request."
+ },
+ "request": "rec-F224-0041",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.01992
+}

@@ -1,0 +1,329 @@
+{
+ "id": "F215",
+ "domain": "grain store temperature and moisture monitoring",
+ "role": "Grain storage supervisor at an arable co-operative's central store, reviewing one bin's weekly monitoring snapshot at a time",
+ "setting": "A co-operative runs a site of flat stores and silo bins holding wheat, barley, oilseed rape and beans. Every bin carries temperature cables, logs fan runs and gets periodic moisture samples and pest trap checks. Each week the supervisor opens one bin's snapshot. They decide whether a real heating spot is forming, whether moisture is within the crop's safe limit, what to do with the bin next, and how far the hottest valid reading sits above the bin's baseline.",
+ "questions": {
+  "hotspot_active": {
+   "type": "noul",
+   "instructions": "A genuine heating hotspot is developing within the stored grain.",
+   "criteria": {
+    "true": "Rising valid readings, corroborated, not explained by ambient warming",
+    "false": "Readings stable, explained, faulty, or not corroborated elsewhere"
+   }
+  },
+  "moisture_safe": {
+   "type": "noul",
+   "instructions": "Grain moisture is within the safe storage limit for its crop.",
+   "criteria": {
+    "true": "Latest verified sample at or below crop safe limit",
+    "false": "Above limit, unverified, overdue, or sample missing"
+   }
+  },
+  "next_action": {
+   "type": "choice",
+   "instructions": "What should the supervisor do with this bin next?",
+   "criteria": {
+    "continue_monitoring": "Leave as is; routine readings continue on normal schedule",
+    "hold_recheck": "Resample or recheck cables before deciding on any intervention",
+    "aerate": "Run aeration fans to cool or dry grain in place",
+    "turn_or_unload": "Move grain out of the bin to break heating"
+   }
+  },
+  "recurrence_count": {
+   "type": "score",
+   "instructions": "How often has this same issue been logged in 12 months?",
+   "criteria": [
+    "First occurrence; not logged in prior 12 months",
+    "Logged once before within the past 12 months",
+    "Logged two to four times in 12 months",
+    "Logged five or more times in 12 months"
+   ]
+  },
+  "temp_excess": {
+   "type": "score",
+   "instructions": "How far does the peak valid temperature exceed bin baseline?",
+   "criteria": [
+    "Peak valid reading at most 2°C above baseline",
+    "Peak over 2°C, up to 5°C above baseline",
+    "Peak over 5°C, up to 10°C above baseline",
+    "Peak more than 10°C above baseline"
+   ]
+  }
+ },
+ "factors": [
+  {
+   "name": "peak_excess_c",
+   "description": "True rise of the hottest valid cable node over the bin baseline, in °C. Values cluster near the 2, 5 and 10 boundaries often enough to create borderline cases.",
+   "kind": "number",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 15,
+   "p_true": 0,
+   "skills": [
+    "S6",
+    "S7",
+    "S4"
+   ]
+  },
+  {
+   "name": "rise_trend",
+   "description": "Shape of the hottest node across the last three weekly readings: flat, single jump, or steady climb.",
+   "kind": "categorical",
+   "values": [
+    "flat",
+    "single_jump",
+    "steady_climb"
+   ],
+   "weights": [
+    0.35,
+    0.3,
+    0.35
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S5",
+    "S6"
+   ]
+  },
+  {
+   "name": "second_cable_corroboration",
+   "description": "Whether an adjacent cable or node also shows the rise. Without it, a rise on one node is only a possible hotspot.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S5",
+    "S3"
+   ]
+  },
+  {
+   "name": "sensor_fault_flag",
+   "description": "Whether the cable carrying the highest raw reading is flagged faulty or has an expired calibration date, which makes that spike a decoy.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.3,
+   "skills": [
+    "S3",
+    "S5"
+   ]
+  },
+  {
+   "name": "ambient_warming",
+   "description": "Whether a recent warm spell lifted the headspace and only the top node, a benign explanation for surface warming.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S6"
+   ]
+  },
+  {
+   "name": "moisture_vs_limit",
+   "description": "Where the true grain moisture sits relative to the crop's safe storage limit.",
+   "kind": "categorical",
+   "values": [
+    "well_below",
+    "within_0_5_pct",
+    "above"
+   ],
+   "weights": [
+    0.4,
+    0.3,
+    0.3
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S5",
+    "S6"
+   ]
+  },
+  {
+   "name": "moisture_sample_status",
+   "description": "Quality and recency of the latest moisture evidence. A handheld-only reading near the limit is unverified; an overdue or missing sample cannot support a safe claim.",
+   "kind": "categorical",
+   "values": [
+    "recent_lab",
+    "handheld_only",
+    "overdue",
+    "missing"
+   ],
+   "weights": [
+    0.4,
+    0.25,
+    0.2,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S2",
+    "S5",
+    "S4"
+   ]
+  },
+  {
+   "name": "aeration_running",
+   "description": "Whether a fan run is already logged as in progress with hours accumulating. This mitigates warming but leaves the work unfinished.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S4"
+   ]
+  },
+  {
+   "name": "co2_elevation",
+   "description": "Headspace CO2 relative to normal. Elevated CO2 indirectly corroborates biological heating from insects or mould.",
+   "kind": "categorical",
+   "values": [
+    "normal",
+    "raised",
+    "high"
+   ],
+   "weights": [
+    0.5,
+    0.3,
+    0.2
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S5",
+    "S7"
+   ]
+  },
+  {
+   "name": "insect_trap_count",
+   "description": "Insects counted across probe traps at the latest check. Counts are a secondary heating driver.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 40,
+   "p_true": 0,
+   "skills": [
+    "S7",
+    "S6"
+   ]
+  },
+  {
+   "name": "missing_section",
+   "description": "Which part of the snapshot is absent or null: some cable nodes unread, fan log null, or the moisture block null.",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "cable_nodes_partial",
+    "aeration_null",
+    "moisture_null"
+   ],
+   "weights": [
+    0.55,
+    0.15,
+    0.15,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S2",
+    "S4"
+   ]
+  },
+  {
+   "name": "date_order_anomaly",
+   "description": "Whether a moisture sample date precedes the bin intake date, which voids that sample as evidence for the current grain.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.15,
+   "skills": [
+    "S2",
+    "S5"
+   ]
+  },
+  {
+   "name": "intake_condition",
+   "description": "How the grain went in: dried and cleaned, undried, or blended from several loads. Undried or blended intake raises baseline risk.",
+   "kind": "categorical",
+   "values": [
+    "dried_cleaned",
+    "undried",
+    "blended"
+   ],
+   "weights": [
+    0.5,
+    0.25,
+    0.25
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S6"
+   ]
+  }
+ ],
+ "sections": [
+  {
+   "name": "bin",
+   "description": "Bin identity and contents: bin_id, crop, fill_t, capacity_t, intake_date, intake_cond, safe_mc_pct, baseline_c."
+  },
+  {
+   "name": "cable_readings",
+   "description": "List of cables, each with cable_id, cal_due, fault, and nodes of depth_m with temp_c for the last three dates."
+  },
+  {
+   "name": "moisture",
+   "description": "Sample list of sample_date, method (lab or handheld), mc_pct; may be null or empty."
+  },
+  {
+   "name": "environment",
+   "description": "Site conditions: ambient_c_7d_mean, headspace_c, co2_ppm, reading_date."
+  },
+  {
+   "name": "aeration",
+   "description": "Fan log list of start, end (null if running), fan_hours, mode; may be null."
+  },
+  {
+   "name": "pest_checks",
+   "description": "Trap checks with check_date, traps_set, insects_counted; may be empty."
+  }
+ ],
+ "rendering_notes": "peak_excess_c is never stated. The reader computes it by comparing the hottest node on non-faulty, in-calibration cables against bin.baseline_c. When sensor_fault_flag is true, a cable with fault=true or a past cal_due holds the highest raw temp_c as a decoy, while the valid peak sits lower. rise_trend shows across the three dated temp_c values per node. second_cable_corroboration shows as whether a neighbouring cable's nodes at similar depth also rise. ambient_warming shows as environment.ambient_c_7d_mean and headspace_c well above baseline_c, with only the top node elevated. moisture_vs_limit is shown by the latest moisture.mc_pct against bin.safe_mc_pct. moisture_sample_status shows through method, through sample_date age against environment.reading_date (over 30 days is overdue), or through an empty list. date_order_anomaly shows as a sample_date earlier than bin.intake_date. aeration_running shows as a fan_log entry with end null and fan_hours > 0. missing_section renders as the named block set to null, or as cable nodes with temp_c null. co2_elevation renders as co2_ppm values (around 400-600 normal, 800-1500 raised, above 1500 high). insect_trap_count renders as pest_checks.insects_counted. intake_condition renders as bin.intake_cond. Decoys: the faulty cable spike, a warm headspace, and a high trap count with flat temperatures. Records carry no free-text fields and no derived fields such as risk, status, hotspot, safe, alert or recommended_action. No answer to any question is ever written into the record.",
+ "skills": [
+  "S2",
+  "S3",
+  "S4",
+  "S5",
+  "S6",
+  "S7"
+ ],
+ "shared_scale": "recurrence_count",
+ "design_cost": 0.11642
+}

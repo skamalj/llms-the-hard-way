@@ -1,0 +1,122 @@
+{
+ "id": "F201-0119",
+ "family": "F201",
+ "state": {
+  "register_header": {
+   "drug": "midazolam",
+   "concentration_mg_ml": 5,
+   "schedule": 3,
+   "witness_required": false,
+   "opening_balance_ml": 10
+  },
+  "entries": [
+   {
+    "id": "E1",
+    "type": "receipt",
+    "qty_ml": 10,
+    "bal": 20,
+    "signed_by": "S7"
+   },
+   {
+    "id": "E2",
+    "type": "admin",
+    "qty_ml": 2,
+    "patient_id": "P1",
+    "bal": 18,
+    "signed_by": "LOC-4"
+   },
+   {
+    "id": "E3",
+    "type": "admin",
+    "qty_ml": 1,
+    "patient_id": "P2",
+    "bal": 17.4,
+    "signed_by": "S7"
+   }
+  ],
+  "clinical_records": [
+   {
+    "patient_id": "P1",
+    "dose": 10,
+    "unit": "mg"
+   },
+   {
+    "patient_id": "P2",
+    "dose": 5,
+    "unit": "mg"
+   }
+  ],
+  "stock_check": {
+   "counted_ml": 17,
+   "overfill_allowance_ml": 0.2
+  }
+ },
+ "factors": {
+  "drug_profile": "midazolam_5mg_ml",
+  "arithmetic_slip_count": 1,
+  "unrecorded_admin": "none",
+  "clinical_records_missing": false,
+  "disposal_state": "none_needed",
+  "unexplained_shortfall_pct": 0.0,
+  "variance_exception": "none",
+  "manufacturer_overfill": true,
+  "auth_gap_count": 0,
+  "count_out_of_order": false,
+  "unit_mismatch": true,
+  "locum_signatory": true,
+  "boundary_case": true
+ },
+ "factors_sampled": {
+  "drug_profile": "midazolam_5mg_ml",
+  "arithmetic_slip_count": 1,
+  "unrecorded_admin": "none",
+  "clinical_records_missing": false,
+  "disposal_state": "none_needed",
+  "unexplained_shortfall_pct": 0.6,
+  "variance_exception": "none",
+  "manufacturer_overfill": true,
+  "auth_gap_count": 2,
+  "count_out_of_order": false,
+  "unit_mismatch": true,
+  "locum_signatory": true,
+  "boundary_case": false
+ },
+ "plan": {
+  "unexplained_shortfall": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "line_disposition": {
+   "clarity": "leaning",
+   "target": "correct_and_sign",
+   "second": null
+  },
+  "variance_cause": {
+   "clarity": "clear",
+   "target": "no_discrepancy",
+   "second": null
+  },
+  "variance_size": {
+   "clarity": "contested",
+   "target": "2",
+   "second": "1"
+  },
+  "auth_gaps": {
+   "clarity": "leaning",
+   "target": "0",
+   "second": null
+  }
+ },
+ "target_words": 40,
+ "deciding": {
+  "unexplained_shortfall": "Doses 10 mg and 5 mg at 5 mg/ml equal 2 ml and 1 ml, matching E2 and E3; count 17 equals recomputed closing 17, so no shortfall.",
+  "line_disposition": "Only E3 is clerical: bal 17.4 should be 18-1=17; the count agrees, so annotate and sign.",
+  "variance_cause": "Recomputed closing 17 equals the count 17: no discrepancy once the written-balance slip is corrected.",
+  "variance_size": "Register 17.4 vs count 17 is 0.4 ml of 20 ml handled, 2.0%, on the Trace/Material boundary; a 0.2 overfill allowance is also present.",
+  "auth_gaps": "All entries have signed_by; LOC-4 is a valid locum id and witness is not required."
+ },
+ "request": "rec-F201-0116",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011831
+}

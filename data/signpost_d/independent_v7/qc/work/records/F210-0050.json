@@ -1,0 +1,108 @@
+{
+ "id": "F210-0050",
+ "family": "F210",
+ "state": {
+  "collection": {
+   "collected_at": "2024-09-03T07:00",
+   "last_milking_end": "2024-09-02T17:30",
+   "compartment": "C1",
+   "vat_l": 4000,
+   "meter_l": 3600,
+   "vat_temp_c": 4.0
+  },
+  "sample": {
+   "sample_id": "S5",
+   "compartment": "C2",
+   "seal_intact": true,
+   "arrival_temp_c": 4.5
+  },
+  "lab_results": {
+   "sample_id": "S5",
+   "bactoscan_kcfu_ml": 140,
+   "scc_k_ml": 450,
+   "inhibitory": "neg",
+   "retest": {
+    "requested": true,
+    "result": null
+   }
+  },
+  "farm_terms": {
+   "limits": {
+    "vat_temp_c": 6,
+    "bactoscan_kcfu_ml": 100,
+    "scc_k_ml": 400
+   },
+   "breaches_90d": 2
+  }
+ },
+ "factors": {
+  "vat_temp_level": "compliant",
+  "recent_milking": false,
+  "mismatch_site": "compartment",
+  "mismatch_magnitude": "moderate",
+  "meter_calibration_overdue": false,
+  "lab_limit_breaches": 2,
+  "exception_covers_breach": false,
+  "inhibitory_status": "negative",
+  "treatment_withdrawal_active": false,
+  "retest_state": "pending",
+  "sample_integrity": "intact",
+  "history_breaches_90d": 2,
+  "value_on_boundary": false,
+  "driver_sensory_flag": false
+ },
+ "factors_sampled": {
+  "vat_temp_level": "compliant",
+  "recent_milking": false,
+  "mismatch_site": "compartment",
+  "mismatch_magnitude": "moderate",
+  "meter_calibration_overdue": false,
+  "lab_limit_breaches": 3,
+  "exception_covers_breach": false,
+  "inhibitory_status": "negative",
+  "treatment_withdrawal_active": false,
+  "retest_state": "none",
+  "sample_integrity": "intact",
+  "history_breaches_90d": 2,
+  "value_on_boundary": false,
+  "driver_sensory_flag": false
+ },
+ "plan": {
+  "temp_compliant": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "intake_disposition": {
+   "clarity": "clear",
+   "target": "hold_retest",
+   "second": null
+  },
+  "issue_source": {
+   "clarity": "balanced",
+   "target": "none_evident",
+   "second": "collection_handling"
+  },
+  "discrepancy_size": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  },
+  "unexplained_breaches": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  }
+ },
+ "target_words": 31,
+ "deciding": {
+  "temp_compliant": "vat_temp_c 4.0 under the 6 limit.",
+  "intake_disposition": "Retest requested with result null, so acceptance or penalty awaits the retest.",
+  "issue_source": "Collection compartment C1 vs sample compartment C2 suggests handling, but the seal is intact and sample temperature is fine; this is a modest signal.",
+  "discrepancy_size": "Vat 4000 vs meter 3600 is a 10% gap, right at the line between levels 1 and 2.",
+  "unexplained_breaches": "Bactoscan 140 and scc 450 both exceed limits with no exception; the pending retest leaves one or two unexplained."
+ },
+ "request": "rec-F210-0046",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.009978
+}

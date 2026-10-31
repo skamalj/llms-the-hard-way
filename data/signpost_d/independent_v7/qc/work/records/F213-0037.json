@@ -1,0 +1,114 @@
+{
+ "id": "F213-0037",
+ "family": "F213",
+ "state": {
+  "pool": {
+   "type": "leisure",
+   "test_interval_min": 120,
+   "limits": {
+    "free_cl_min": 1.0,
+    "free_cl_max": 3.0
+   }
+  },
+  "manual_tests": [
+   {
+    "time": "10:00",
+    "free_cl": 0.9
+   },
+   {
+    "time": "12:00",
+    "free_cl": 1.5
+   }
+  ],
+  "plant": {
+   "controller_readings": [
+    {
+     "time": "12:00",
+     "free_cl": 1.8
+    }
+   ]
+  },
+  "equipment": {
+   "kits": [
+    {
+     "kit_id": "K2",
+     "cal_due": "2024-06-02"
+    }
+   ]
+  },
+  "actions": [
+   {
+    "time": "10:25",
+    "reading_ref": "10:00"
+   }
+  ]
+ },
+ "factors": {
+  "pool_type": "leisure",
+  "test_coverage_gap": 0,
+  "boundary_interval": false,
+  "log_controller_discrepancy": "within_tolerance",
+  "discrepancy_location": "free_chlorine",
+  "excursion_severity": "clear",
+  "corrective_action_delay": "25 to 40 minutes",
+  "retest_logged": false,
+  "dosing_event_explains": false,
+  "kit_calibration_status": "expires_on_day",
+  "lab_sample_state": "not_due",
+  "out_of_order_entry": false,
+  "benign_noise": "none"
+ },
+ "factors_sampled": {
+  "pool_type": "leisure",
+  "test_coverage_gap": 3,
+  "boundary_interval": false,
+  "log_controller_discrepancy": "within_tolerance",
+  "discrepancy_location": "free_chlorine",
+  "excursion_severity": "clear",
+  "corrective_action_delay": "prompt",
+  "retest_logged": false,
+  "dosing_event_explains": false,
+  "kit_calibration_status": "expires_on_day",
+  "lab_sample_state": "not_due",
+  "out_of_order_entry": false,
+  "benign_noise": "none"
+ },
+ "plan": {
+  "test_frequency_met": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "readings_reconcile": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "log_disposition": {
+   "clarity": "leaning",
+   "target": "accept",
+   "second": null
+  },
+  "action_delay": {
+   "clarity": "contested",
+   "target": "2",
+   "second": "1"
+  },
+  "failed_checks": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 37,
+ "deciding": {
+  "test_frequency_met": "Two tests 120 min apart; no opening hours are listed, so coverage is likely but not provable.",
+  "readings_reconcile": "Manual 1.5 vs controller 1.8 differs by 0.3; the tolerance field is absent, so it sits at the edge.",
+  "log_disposition": "Excursion acted on and later reading 1.5 within limits; the kit expiring today is a minor doubt.",
+  "action_delay": "Reading 0.9 at 10:00, action at 10:25, 25 min, near the 30 min boundary.",
+  "failed_checks": "The missing retest and the unconfirmed tolerance are the possible failures, with kit expiry and the below-limit reading as extras; two or three could be counted."
+ },
+ "request": "rec-F213-0036",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.005798
+}

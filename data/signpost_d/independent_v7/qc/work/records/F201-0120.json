@@ -1,0 +1,94 @@
+{
+ "id": "F201-0120",
+ "family": "F201",
+ "state": {
+  "register_header": {
+   "drug": "ketamine",
+   "concentration_mg_ml": 100,
+   "witness_required": false,
+   "opening_balance_ml": 50
+  },
+  "entries": [
+   {
+    "id": "E1",
+    "type": "admin",
+    "qty_ml": 2,
+    "patient_id": "H1",
+    "bal": 48,
+    "signed_by": null
+   }
+  ],
+  "stock_check": {
+   "counted_ml": 48.1,
+   "overfill_allowance_ml": 0.5
+  }
+ },
+ "factors": {
+  "drug_profile": "ketamine_100mg_ml",
+  "arithmetic_slip_count": 0,
+  "unrecorded_admin": "none",
+  "clinical_records_missing": false,
+  "disposal_state": "none_needed",
+  "unexplained_shortfall_pct": 0.0,
+  "variance_exception": "none",
+  "manufacturer_overfill": true,
+  "auth_gap_count": 1,
+  "count_out_of_order": false,
+  "unit_mismatch": false,
+  "locum_signatory": false,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "drug_profile": "ketamine_100mg_ml",
+  "arithmetic_slip_count": 3,
+  "unrecorded_admin": "moderate_2_to_8pct",
+  "clinical_records_missing": false,
+  "disposal_state": "entered_unwitnessed",
+  "unexplained_shortfall_pct": 0.04,
+  "variance_exception": "expired_or_other_batch",
+  "manufacturer_overfill": true,
+  "auth_gap_count": 1,
+  "count_out_of_order": false,
+  "unit_mismatch": false,
+  "locum_signatory": true,
+  "boundary_case": false
+ },
+ "plan": {
+  "unexplained_shortfall": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "line_disposition": {
+   "clarity": "leaning",
+   "target": "sign_off",
+   "second": null
+  },
+  "variance_cause": {
+   "clarity": "balanced",
+   "target": "unexplained_loss",
+   "second": "undocumented_disposal"
+  },
+  "variance_size": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  },
+  "auth_gaps": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  }
+ },
+ "target_words": 25,
+ "deciding": {
+  "unexplained_shortfall": "Count 48.1 is above recomputed 48 and within the 0.5 allowance, so no shortfall.",
+  "line_disposition": "Balances and count reconcile; the one unsigned entry is a gap, so a signature is the remaining step, and the line is otherwise ready to sign.",
+  "variance_cause": "Count 48.1 vs recomputed 48 is a benign overfill surplus, so there is no loss to attribute.",
+  "variance_size": "No shortfall remains after the overfill allowance, so variance is nil. The plan's level 2 contradicted the false-shortfall and sign-off plans.",
+  "auth_gaps": "E1 has signed_by null: exactly one entry lacks a signature."
+ },
+ "request": "rec-F201-0116",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011831
+}

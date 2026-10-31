@@ -1,0 +1,119 @@
+{
+ "id": "F204-0077",
+ "family": "F204",
+ "state": {
+  "rx": {
+   "drug": "levothyroxine",
+   "strength": {
+    "val": 0.05,
+    "unit": "mg"
+   },
+   "dose": 1,
+   "freq_per_day": 1,
+   "qty": 28
+  },
+  "dispensed": {
+   "product_name": "levothyroxine",
+   "strength": {
+    "val": 100,
+    "unit": "mcg"
+   },
+   "packs": 1,
+   "pack_size": 28
+  },
+  "label": {
+   "pt_id": "P48217",
+   "dose_qty": 1,
+   "freq_per_day": 1
+  },
+  "patient": {
+   "pt_id": "P48211",
+   "supplies": [
+    {
+     "date": "2024-06-01",
+     "days_covered": 11
+    }
+   ]
+  },
+  "check_log": {
+   "checked_at": "2024-06-10",
+   "clin_check": {
+    "by": "AK"
+   },
+   "queries": [
+    {
+     "field": "strength",
+     "status": "pending"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "strength_status": "mismatch_converted",
+  "product_status": "exact",
+  "quantity_status": "exact",
+  "label_status": "patient_id_mismatch",
+  "prescriber_query": "pending",
+  "pharmacist_intervention": false,
+  "clinical_check_signed": true,
+  "home_supply_days": 2,
+  "emergency_supply": false,
+  "short_expiry": false,
+  "prior_error_count": 4,
+  "high_risk_drug": false,
+  "boundary_case": true
+ },
+ "factors_sampled": {
+  "strength_status": "mismatch_converted",
+  "product_status": "different_drug",
+  "quantity_status": "exact",
+  "label_status": "correct",
+  "prescriber_query": "pending",
+  "pharmacist_intervention": false,
+  "clinical_check_signed": true,
+  "home_supply_days": 12,
+  "emergency_supply": true,
+  "short_expiry": false,
+  "prior_error_count": 4,
+  "high_risk_drug": false,
+  "boundary_case": true
+ },
+ "plan": {
+  "strength_differs": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "release",
+   "second": null
+  },
+  "error_category": {
+   "clarity": "leaning",
+   "target": "label_error",
+   "second": null
+  },
+  "open_discrepancies": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  },
+  "supply_urgency": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  }
+ },
+ "target_words": 35,
+ "deciding": {
+  "strength_differs": "rx 0.05 mg = 50 mcg, dispensed 100 mcg; unequal after conversion.",
+  "next_step": "Label pt_id P48217 differs from patient P48211 and is not covered by the pending query (strength only); the item must go back for relabel. A clean release is not supported.",
+  "error_category": "The strength difference is already under a pending query, leaving the label patient-id mismatch as the unresolved item, though a reader could still count the strength difference as product.",
+  "open_discrepancies": "Label pt_id is clearly unresolved; the strength difference is only pending, so counts of 1 or 2 are both defensible.",
+  "supply_urgency": "11 days from 2024-06-01 runs to 06-11; checked 06-10 leaves 1 or 2 days."
+ },
+ "request": "rec-F204-0076",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.015752
+}

@@ -1,0 +1,104 @@
+{
+ "id": "F229-0026",
+ "family": "F229",
+ "state": {
+  "lot": {
+   "lot_id": "L-118",
+   "block": "B7",
+   "pick_end": "2024-09-14T12:00"
+  },
+  "intake": {
+   "block_code": "B7",
+   "arrival_at": "2024-09-15T04:50",
+   "gross_kg": 12400,
+   "tare_kg": 2400,
+   "net_kg": 10000,
+   "temp_c": 24,
+   "cold_room_in": null,
+   "cold_room_out": null
+  },
+  "sample": null,
+  "press": {
+   "programme": "red_drained_pomace",
+   "band_l_per_t": "600-680",
+   "cycle_start": "2024-09-15T00:37",
+   "juice_l": 6400,
+   "so2_mg_l": 30,
+   "operator_note": "Light rain at press pad."
+  },
+  "transfer": {
+   "lot_ref": "L-118",
+   "tank_id": "T4",
+   "transferred_l": 6350,
+   "qa_signoff": "KD 07:10"
+  }
+ },
+ "factors": {
+  "weight_mismatch": "none",
+  "press_programme": "red_drained_pomace",
+  "yield_position": "inside_band",
+  "lot_id_drift": "none",
+  "missing_step": "sample_null",
+  "out_of_order_timestamp": true,
+  "pick_to_press_hours": 12.62,
+  "pick_end_recorded": true,
+  "cold_held": false,
+  "rot_pct": "not recorded (sample null)",
+  "sorting_applied": false,
+  "note_signal": "benign_decoy",
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "weight_mismatch": "none",
+  "press_programme": "red_drained_pomace",
+  "yield_position": "inside_band",
+  "lot_id_drift": "none",
+  "missing_step": "sample_null",
+  "out_of_order_timestamp": true,
+  "pick_to_press_hours": 12.62,
+  "pick_end_recorded": true,
+  "cold_held": false,
+  "rot_pct": 0.31,
+  "sorting_applied": false,
+  "note_signal": "benign_decoy",
+  "boundary_case": false
+ },
+ "plan": {
+  "yield_consistent": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "chain_intact": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "release_decision": {
+   "clarity": "balanced",
+   "target": "release",
+   "second": "segregate"
+  },
+  "pick_press_delay": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "failed_checks": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  }
+ },
+ "target_words": 46,
+ "deciding": {
+  "yield_consistent": "6400 L from 10000 kg net is 640 L/t, inside 600-680; weights reconcile (12400-2400=10000).",
+  "chain_intact": "L-118 and B7 are the same at lot, intake and transfer; only the sample is absent.",
+  "release_decision": "Juice and ids are clean, but the null sample and the press start before arrival could mean a real fault, so release versus segregate is held in balance.",
+  "pick_press_delay": "Pick end 12:00 to cycle_start 00:37 is 12.6 h (level 2), but arrival at 04:50 is 16.8 h after pick end and comes after the press start, so the stamp is suspect and level 3 is plausible.",
+  "failed_checks": "Sample is null and arrival_at falls after cycle_start; weights, yield, ids, SO2 and QA sign-off are fine, giving two failures."
+ },
+ "request": "rec-F229-0026",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.01173
+}

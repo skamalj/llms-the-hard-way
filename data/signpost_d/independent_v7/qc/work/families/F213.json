@@ -1,0 +1,359 @@
+{
+ "id": "F213",
+ "domain": "public swimming pool water testing logs",
+ "role": "Environmental health officer reviewing daily pool water testing logs submitted by public swimming pool operators",
+ "setting": "A local authority pool safety team receives one structured log per pool per operating day. Each log gathers the pool's limits and required test frequency, the poolside manual test entries, the automatic plant controller readings and dosing events, the test kit details, any corrective actions taken, and the state of the periodic microbiological sample. The officer reviews one log at a time. They decide whether testing was frequent enough, whether manual and controller readings agree, how quickly excursions were acted on, and what to do with the log. Many logs are clean. Others hide gaps, disagreements between sections, expired kits, late actions or pending lab results.",
+ "questions": {
+  "test_frequency_met": {
+   "type": "noul",
+   "instructions": "Tests were logged at the required frequency throughout opening hours.",
+   "criteria": {
+    "true": "Every required interval in opening hours has a test",
+    "false": "At least one required interval lacks a logged test"
+   }
+  },
+  "readings_reconcile": {
+   "type": "noul",
+   "instructions": "Poolside chlorine and pH readings match the controller within tolerance.",
+   "criteria": null
+  },
+  "log_disposition": {
+   "type": "choice",
+   "instructions": "What should the officer do with this day's log?",
+   "criteria": {
+    "accept": "Log complete and consistent; file without contacting the operator.",
+    "accept_with_query": "Water quality acceptable, but a gap needs written operator explanation.",
+    "hold_for_retest": "Outcome hinges on one pending lab result or confirming retest.",
+    "require_closure": "Unsafe water evidenced and unresolved; pool closes until remedied."
+   }
+  },
+  "action_delay": {
+   "type": "score",
+   "instructions": "How long after the worst excursion was corrective action first logged?",
+   "criteria": [
+    "None needed: no reading outside the pool's limits",
+    "Prompt: action logged within 30 minutes of excursion",
+    "Delayed: first action logged 30 to 120 minutes later",
+    "Unaddressed: no action logged, or over 120 minutes later"
+   ]
+  },
+  "failed_checks": {
+   "type": "score",
+   "instructions": "How many of the standard checks on this record failed?",
+   "criteria": [
+    "No standard checks failed",
+    "Exactly one standard check failed",
+    "Two or three standard checks failed",
+    "Four or more standard checks failed"
+   ]
+  }
+ },
+ "factors": [
+  {
+   "name": "pool_type",
+   "description": "Kind of pool. It sets the limits, the tolerances and the required manual test interval: spa hourly, the others every two hours.",
+   "kind": "categorical",
+   "values": [
+    "leisure",
+    "teaching",
+    "competition",
+    "spa"
+   ],
+   "weights": [
+    0.35,
+    0.25,
+    0.2,
+    0.2
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S7"
+   ]
+  },
+  {
+   "name": "test_coverage_gap",
+   "description": "Number of required test intervals in opening hours with no manual test entry. A gap is shown only by the absence of an entry.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 3,
+   "p_true": 0,
+   "skills": [
+    "S2",
+    "S4"
+   ]
+  },
+  {
+   "name": "boundary_interval",
+   "description": "One test falls exactly at the edge of its interval, for example 120 minutes after the previous one. This makes coverage arguable.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.25,
+   "skills": [
+    "S6"
+   ]
+  },
+  {
+   "name": "log_controller_discrepancy",
+   "description": "Size of the largest disagreement between a manual reading and the controller reading nearest in time.",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "within_tolerance",
+    "just_over",
+    "large"
+   ],
+   "weights": [
+    0.35,
+    0.25,
+    0.2,
+    0.2
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S5",
+    "S6"
+   ]
+  },
+  {
+   "name": "discrepancy_location",
+   "description": "Which value carries the discrepancy. Temperature and timestamp offsets are decoys and do not count against reconciliation.",
+   "kind": "categorical",
+   "values": [
+    "free_chlorine",
+    "ph",
+    "temperature",
+    "timestamp_offset"
+   ],
+   "weights": [
+    0.35,
+    0.3,
+    0.2,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S5"
+   ]
+  },
+  {
+   "name": "excursion_severity",
+   "description": "Worst manual reading relative to the pool's limits. Ranges from none, through marginal or clear breaches, to a serious breach of free chlorine, pH or combined chlorine.",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "marginal",
+    "clear",
+    "serious"
+   ],
+   "weights": [
+    0.35,
+    0.25,
+    0.25,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S4",
+    "S6",
+    "S7"
+   ]
+  },
+  {
+   "name": "corrective_action_delay",
+   "description": "Time from the worst excursion to the first corrective action entry.",
+   "kind": "categorical",
+   "values": [
+    "prompt",
+    "delayed",
+    "missing"
+   ],
+   "weights": [
+    0.45,
+    0.3,
+    0.25
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S2",
+    "S4",
+    "S7"
+   ]
+  },
+  {
+   "name": "retest_logged",
+   "description": "Mitigation: a later manual retest shows the excursion was resolved. Present about half the time, so the same breach appears both resolved and unresolved.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S2",
+    "S4",
+    "S5"
+   ]
+  },
+  {
+   "name": "dosing_event_explains",
+   "description": "Mitigation: a shock dose or dilution logged before a combined chlorine rise accounts for it. Present about half the time.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S5",
+    "S6"
+   ]
+  },
+  {
+   "name": "kit_calibration_status",
+   "description": "Calibration state on the log date of the test kit referenced by the manual entries.",
+   "kind": "categorical",
+   "values": [
+    "in_date",
+    "expired_before",
+    "expires_on_day",
+    "kit_unlisted"
+   ],
+   "weights": [
+    0.55,
+    0.15,
+    0.15,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S2",
+    "S6"
+   ]
+  },
+  {
+   "name": "lab_sample_state",
+   "description": "State of the periodic microbiological sample. It is due when the pool's micro due date is on or before the log date.",
+   "kind": "categorical",
+   "values": [
+    "not_due",
+    "pending",
+    "clear",
+    "positive",
+    "missing_when_due"
+   ],
+   "weights": [
+    0.3,
+    0.2,
+    0.25,
+    0.1,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S2",
+    "S4",
+    "S5"
+   ]
+  },
+  {
+   "name": "out_of_order_entry",
+   "description": "A timestamp sequence is impossible. Either a corrective action is time-stamped before the reading it responds to, or a lab result date precedes the sample date.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.2,
+   "skills": [
+    "S2",
+    "S1"
+   ]
+  },
+  {
+   "name": "benign_noise",
+   "description": "Alarming-looking but harmless detail. Examples: a high bather count, a routine backwash, a temperature swing within limits, or a reagent lot change.",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "high_bathers",
+    "backwash",
+    "temp_swing",
+    "reagent_change"
+   ],
+   "weights": [
+    0.3,
+    0.2,
+    0.2,
+    0.15,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S7",
+    "S6"
+   ]
+  }
+ ],
+ "sections": [
+  {
+   "name": "pool",
+   "description": "Pool identifier, type, volume, opening hours, test interval, limits and reconciliation tolerances, micro due date."
+  },
+  {
+   "name": "manual_tests",
+   "description": "List of poolside entries: time, free_cl, combined_cl, ph, temp_c, water_clear, kit_id, tester_initials."
+  },
+  {
+   "name": "plant",
+   "description": "Controller readings list (time, free_cl, ph, temp_c), dosing events list, backwash times, bather count."
+  },
+  {
+   "name": "equipment",
+   "description": "Test kits list with kit_id, cal_due date and reagent_lot."
+  },
+  {
+   "name": "actions",
+   "description": "Corrective actions list: time, action_type, reading_ref (time of the triggering test), retest_time."
+  },
+  {
+   "name": "lab_sample",
+   "description": "Microbiology sample: sampled_on, result_on, status, tvc_37, coliforms, pseudomonas. Null when not taken."
+  }
+ ],
+ "rendering_notes": "Field conventions: dates are ISO, times are ISO datetimes, concentrations are numbers in mg/l, unknowns are null.\n\nPool type. Shown by pool.type and pool.test_interval_min, alongside pool.limits {free_cl_min, free_cl_max, combined_cl_max, ph_min, ph_max} and pool.tolerance {free_cl, ph}.\n\nTest coverage gap. Shown only by spacing between manual_tests times that exceeds test_interval_min within pool.opening {open, close}. No field ever counts gaps. For boundary_interval, place one gap exactly equal to the interval.\n\nLog/controller discrepancy. Produced by setting the plant.controller_readings entry nearest in time to differ from the manual value by the sampled amount relative to pool.tolerance. Temperature and timestamp_offset placements (controller times shifted 10 to 20 minutes) are decoys and do not affect readings_reconcile.\n\nExcursion severity. Appears only as raw values in manual_tests compared against pool.limits. A marginal breach is within 10% of the limit.\n\nCorrective action delay. Rendered as the gap between actions.time and actions.reading_ref. If missing, the actions list is empty or has no entry referencing the excursion.\n\nRetest logged. Appears as actions.retest_time plus a matching later manual_tests entry within limits.\n\nDosing event explains. Appears as a plant.dosing_events entry (shock or dilution) shortly before the combined_cl rise.\n\nKit calibration status. Compare manual_tests.kit_id against equipment.kits.cal_due and the log date. For kit_unlisted, the referenced kit_id is absent from equipment.\n\nLab sample state. Compare lab_sample against pool.micro_due. For missing_when_due, lab_sample is null although the due date has passed. For pending, result_on and the results are null. For positive, only the raw counts are shown.\n\nOut-of-order entry. Shown purely through timestamps.\n\nBenign noise. Appears in plant.bather_count, plant.backwash, temperature values or equipment.reagent_lot.\n\nProhibited fields. Never include compliance flags, status summaries, 'breach', 'risk', 'overdue', 'gap', delay minutes or recommended actions. Every answer must be derived by comparing fields across sections.",
+ "skills": [
+  "S1",
+  "S2",
+  "S4",
+  "S5",
+  "S6",
+  "S7"
+ ],
+ "shared_scale": "failed_checks",
+ "design_cost": 0.131148
+}

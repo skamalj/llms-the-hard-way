@@ -1,0 +1,155 @@
+{
+ "id": "F230-0073",
+ "family": "F230",
+ "state": {
+  "resident": {
+   "id": "R-1187",
+   "room": 8,
+   "weight_kg": 61,
+   "allergies": [
+    "aspirin"
+   ],
+   "status": "home",
+   "status_since": "2023-01-09"
+  },
+  "prescriptions": [
+   {
+    "item_id": "A",
+    "drug": "sertraline",
+    "strength_mg": 50,
+    "dose_units": 1,
+    "changes": []
+   },
+   {
+    "item_id": "B",
+    "drug": "calcium",
+    "strength_mg": 500,
+    "dose_units": 1
+   }
+  ],
+  "administrations": [
+   {
+    "item_id": "A",
+    "scheduled": "08:00",
+    "given_at": "08:08",
+    "units_given": 1,
+    "strength_mg_used": 100,
+    "initials": null
+   },
+   {
+    "item_id": "B",
+    "scheduled": "08:00",
+    "given_at": "08:10",
+    "units_given": 1,
+    "strength_mg_used": 500,
+    "initials": "RP"
+   }
+  ],
+  "stock": {
+   "A": {
+    "opening": 20,
+    "wasted": 1,
+    "wasted_witnessed": true,
+    "closing": 18
+   },
+   "B": {
+    "opening": 10,
+    "closing": 9
+   }
+  },
+  "round": {
+   "round_id": "M-0415",
+   "date": "2024-06-11",
+   "slot": "08:00",
+   "staff_on": 2,
+   "open_queries": [
+    {
+     "type": "stock_recount_due",
+     "raised": "2024-06-11T07:30",
+     "item_id": "A"
+    }
+   ],
+   "post_dose_obs": [
+    {
+     "type": "spo2",
+     "value": 97
+    }
+   ]
+  },
+  "history": {
+   "errors_30d": 3,
+   "refusals_7d": 1,
+   "last_audit_passed": false
+  }
+ },
+ "factors": {
+  "dose_mismatch_type": "wrong_strength",
+  "prescription_change_documented": false,
+  "omission_count": 0,
+  "omission_reason_valid": true,
+  "late_minutes": 8,
+  "time_critical_affected": false,
+  "stock_variance": 1,
+  "stock_variance_explained": true,
+  "signature_gaps": 1,
+  "unit_expression_decoy": "matching_units",
+  "post_dose_obs_reassuring": true,
+  "pending_query": "stock_recount_due",
+  "prior_errors_30d": 3,
+  "item_count": 2
+ },
+ "factors_sampled": {
+  "dose_mismatch_type": "wrong_strength",
+  "prescription_change_documented": false,
+  "omission_count": 0,
+  "omission_reason_valid": true,
+  "late_minutes": 8,
+  "time_critical_affected": false,
+  "stock_variance": 1,
+  "stock_variance_explained": true,
+  "signature_gaps": 1,
+  "unit_expression_decoy": "matching_units",
+  "post_dose_obs_reassuring": true,
+  "pending_query": "stock_recount_due",
+  "prior_errors_30d": 3,
+  "item_count": 7
+ },
+ "plan": {
+  "dose_mismatch": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "stock_reconciles": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "hold",
+   "second": null
+  },
+  "open_discrepancies": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  },
+  "error_severity": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 41,
+ "deciding": {
+  "dose_mismatch": "A was given with strength_mg_used 100 against a 50 mg prescription and no change entry exists; some doubt remains since the cause is unconfirmed.",
+  "stock_reconciles": "A's one-unit gap is covered by a witnessed waste of 1 and B matches, but the recount is still pending.",
+  "next_step": "A single open stock_recount_due query on item A has to be answered before any outcome.",
+  "open_discrepancies": "Only A is affected (wrong strength plus null initials), but its stock recount is pending, so zero versus one is open.",
+  "error_severity": "A 100 mg dose of an ordinary drug points to a dose error; the 8-minute timing and missing initials are why a lower level stays plausible."
+ },
+ "request": "rec-F230-0071",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.016021
+}

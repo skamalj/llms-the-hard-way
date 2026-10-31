@@ -1,0 +1,129 @@
+{
+ "id": "F230-0102",
+ "family": "F230",
+ "state": {
+  "prescriptions": [
+   {
+    "item_id": "i1",
+    "dose_units": 1,
+    "strength_mg": 10,
+    "time_critical": true
+   },
+   {
+    "item_id": "i2",
+    "dose_units": 1
+   },
+   {
+    "item_id": "i3",
+    "dose_units": 1
+   },
+   {
+    "item_id": "i4",
+    "dose_units": 1,
+    "controlled": true
+   }
+  ],
+  "administrations": [
+   {
+    "item_id": "i1",
+    "scheduled": "07:00",
+    "given_at": "08:05",
+    "units_given": 2,
+    "strength_mg_used": 10,
+    "initials": "JM"
+   },
+   {
+    "item_id": "i2",
+    "units_given": 0,
+    "code": "O"
+   },
+   {
+    "item_id": "i3",
+    "units_given": 1,
+    "initials": null
+   },
+   {
+    "item_id": "i4",
+    "units_given": 1,
+    "initials": "JM",
+    "second_initials": null
+   }
+  ],
+  "stock": {
+   "i1": {
+    "opening": 20,
+    "closing": 18
+   }
+  }
+ },
+ "factors": {
+  "dose_mismatch_type": "wrong_quantity",
+  "prescription_change_documented": false,
+  "omission_count": 1,
+  "omission_reason_valid": false,
+  "late_minutes": 65,
+  "time_critical_affected": true,
+  "stock_variance": 0,
+  "stock_variance_explained": false,
+  "signature_gaps": 2,
+  "unit_expression_decoy": "none_present",
+  "post_dose_obs_reassuring": false,
+  "pending_query": "none",
+  "prior_errors_30d": 3,
+  "item_count": 4
+ },
+ "factors_sampled": {
+  "dose_mismatch_type": "wrong_quantity",
+  "prescription_change_documented": false,
+  "omission_count": 1,
+  "omission_reason_valid": false,
+  "late_minutes": 65,
+  "time_critical_affected": true,
+  "stock_variance": 0,
+  "stock_variance_explained": false,
+  "signature_gaps": 2,
+  "unit_expression_decoy": "none_present",
+  "post_dose_obs_reassuring": false,
+  "pending_query": "none",
+  "prior_errors_30d": 3,
+  "item_count": 9
+ },
+ "plan": {
+  "dose_mismatch": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "stock_reconciles": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "sign_off",
+   "second": null
+  },
+  "open_discrepancies": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "error_severity": {
+   "clarity": "balanced",
+   "target": "4",
+   "second": "3"
+  }
+ },
+ "target_words": 44,
+ "deciding": {
+  "dose_mismatch": "Item i1 prescribed 1 unit of 10 mg, given 2 units of 10 mg, with no change entry.",
+  "stock_reconciles": "i1 opening 20, 2 signed, closing 18 reconciles; no other stock counts are shown.",
+  "next_step": "The record does not support sign_off: i1 is time-critical and was doubled. The plan's sign_off lean cannot be reconciled with these errors.",
+  "open_discrepancies": "Four items are affected: i1 wrong quantity, i2 O code with no support, i3 null initials, i4 controlled with null second_initials. Grouping them could give two or three.",
+  "error_severity": "i1 is flagged time_critical and was given 2 units against 1 (65 minutes late); i2 is an unsupported omission. Critical if i1 counts, dose level if the flag is discounted."
+ },
+ "request": "rec-F230-0101",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.013117
+}

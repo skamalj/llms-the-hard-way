@@ -1,0 +1,136 @@
+{
+ "id": "F201-0117",
+ "family": "F201",
+ "state": {
+  "register_header": {
+   "drug": "buprenorphine",
+   "concentration_mg_ml": 0.3,
+   "schedule": 3,
+   "witness_required": false,
+   "branch_id": "B4",
+   "opening_balance_ml": 30
+  },
+  "entries": [
+   {
+    "id": "E1",
+    "type": "receipt",
+    "qty_ml": 20,
+    "bal": 50,
+    "signed_by": "S03"
+   },
+   {
+    "id": "E2",
+    "type": "admin",
+    "qty_ml": 3,
+    "patient_id": "P1",
+    "bal": 47,
+    "signed_by": "S03"
+   },
+   {
+    "id": "E3",
+    "type": "admin",
+    "qty_ml": 2,
+    "patient_id": "P2",
+    "bal": 46,
+    "signed_by": "S05"
+   },
+   {
+    "id": "E4",
+    "type": "admin",
+    "qty_ml": 1.5,
+    "patient_id": "P3",
+    "bal": 44.5,
+    "signed_by": "S05"
+   }
+  ],
+  "clinical_records": [
+   {
+    "patient_id": "P1",
+    "dose": 3,
+    "unit": "ml"
+   },
+   {
+    "patient_id": "P2",
+    "dose": 2,
+    "unit": "ml"
+   },
+   {
+    "patient_id": "P3",
+    "dose": 1.5,
+    "unit": "ml"
+   }
+  ],
+  "stock_check": {
+   "counted_ml": 43.5,
+   "overfill_allowance_ml": 0.3
+  }
+ },
+ "factors": {
+  "drug_profile": "buprenorphine_0.3mg_ml",
+  "arithmetic_slip_count": 1,
+  "unrecorded_admin": "none",
+  "clinical_records_missing": false,
+  "disposal_state": "none_needed",
+  "unexplained_shortfall_pct": 2.0,
+  "variance_exception": "none",
+  "manufacturer_overfill": true,
+  "auth_gap_count": 0,
+  "count_out_of_order": false,
+  "unit_mismatch": false,
+  "locum_signatory": false,
+  "boundary_case": true
+ },
+ "factors_sampled": {
+  "drug_profile": "buprenorphine_0.3mg_ml",
+  "arithmetic_slip_count": 1,
+  "unrecorded_admin": "none",
+  "clinical_records_missing": false,
+  "disposal_state": "none_needed",
+  "unexplained_shortfall_pct": 13.38,
+  "variance_exception": "valid_full_cover",
+  "manufacturer_overfill": true,
+  "auth_gap_count": 5,
+  "count_out_of_order": false,
+  "unit_mismatch": false,
+  "locum_signatory": false,
+  "boundary_case": false
+ },
+ "plan": {
+  "unexplained_shortfall": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "line_disposition": {
+   "clarity": "leaning",
+   "target": "correct_and_sign",
+   "second": null
+  },
+  "variance_cause": {
+   "clarity": "clear",
+   "target": "arithmetic_slip",
+   "second": null
+  },
+  "variance_size": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  },
+  "auth_gaps": {
+   "clarity": "leaning",
+   "target": "0",
+   "second": null
+  }
+ },
+ "target_words": 58,
+ "deciding": {
+  "unexplained_shortfall": "Count 43.5 equals the recomputed closing (50-3-2-1.5); the 1.0 ml gap is only to the written balance 44.5, which is explained by the E3 slip, so no true shortfall.",
+  "line_disposition": "One clerical slip at E3; the count matches the recomputed balance and all entries are signed, so annotate and sign.",
+  "variance_cause": "E3 balance 46 follows 47 minus 2 incorrectly (should be 45), the only inconsistency, giving the 1.0 ml gap.",
+  "variance_size": "The 1.0 ml register-vs-count gap against 50 ml handled is 2.0%, right on the Trace/Material boundary.",
+  "auth_gaps": "Every entry has signed_by; witness is not required."
+ },
+ "request": "rec-F201-0116",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011831
+}

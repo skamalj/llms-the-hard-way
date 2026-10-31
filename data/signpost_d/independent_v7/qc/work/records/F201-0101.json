@@ -1,0 +1,144 @@
+{
+ "id": "F201-0101",
+ "family": "F201",
+ "state": {
+  "register_header": {
+   "drug": "midazolam",
+   "concentration_mg_ml": 5,
+   "schedule": 3,
+   "witness_required": false,
+   "branch_id": "B2",
+   "opening_balance_ml": 100
+  },
+  "entries": [
+   {
+    "entry_id": "E1",
+    "date": "2024-03-02",
+    "type": "receipt",
+    "qty_ml": 50,
+    "running_balance_ml": 150,
+    "signed_by": "VT12",
+    "batch_no": "M7"
+   },
+   {
+    "entry_id": "E2",
+    "date": "2024-03-10",
+    "type": "use",
+    "qty_ml": 20,
+    "patient_id": "P1",
+    "running_balance_ml": 130,
+    "signed_by": null
+   },
+   {
+    "entry_id": "E3",
+    "date": "2024-03-18",
+    "type": "use",
+    "qty_ml": 5,
+    "patient_id": "P2",
+    "running_balance_ml": 126,
+    "signed_by": null
+   },
+   {
+    "entry_id": "E4",
+    "date": "2024-03-25",
+    "type": "use",
+    "qty_ml": 5,
+    "patient_id": "P3",
+    "running_balance_ml": 121,
+    "signed_by": "LOC-77"
+   }
+  ],
+  "clinical_records": [
+   {
+    "patient_id": "P1",
+    "date": "2024-03-10",
+    "dose": 20,
+    "dose_unit": "ml"
+   },
+   {
+    "patient_id": "P2",
+    "date": "2024-03-18",
+    "dose": 5,
+    "dose_unit": "ml"
+   },
+   {
+    "patient_id": "P3",
+    "date": "2024-03-25",
+    "dose": 5,
+    "dose_unit": "ml"
+   }
+  ],
+  "stock_check": {
+   "count_date": "2024-03-31",
+   "counted_ml": 105
+  }
+ },
+ "factors": {
+  "drug_profile": "midazolam_5mg_ml",
+  "arithmetic_slip_count": 1,
+  "unrecorded_admin": "none",
+  "clinical_records_missing": false,
+  "disposal_state": "none_needed",
+  "unexplained_shortfall_pct": 10.0,
+  "variance_exception": "none",
+  "manufacturer_overfill": false,
+  "auth_gap_count": 2,
+  "count_out_of_order": false,
+  "unit_mismatch": false,
+  "locum_signatory": true,
+  "boundary_case": true
+ },
+ "factors_sampled": {
+  "drug_profile": "midazolam_5mg_ml",
+  "arithmetic_slip_count": 1,
+  "unrecorded_admin": "large_over_10pct",
+  "clinical_records_missing": false,
+  "disposal_state": "none_needed",
+  "unexplained_shortfall_pct": 7.61,
+  "variance_exception": "none",
+  "manufacturer_overfill": false,
+  "auth_gap_count": 4,
+  "count_out_of_order": false,
+  "unit_mismatch": false,
+  "locum_signatory": true,
+  "boundary_case": true
+ },
+ "plan": {
+  "unexplained_shortfall": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "line_disposition": {
+   "clarity": "clear",
+   "target": "sign_off",
+   "second": null
+  },
+  "variance_cause": {
+   "clarity": "clear",
+   "target": "unexplained_loss",
+   "second": null
+  },
+  "variance_size": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  },
+  "auth_gaps": {
+   "clarity": "clear",
+   "target": "2",
+   "second": null
+  }
+ },
+ "target_words": 39,
+ "deciding": {
+  "unexplained_shortfall": "Recomputed balance 120 vs counted 105 leaves 15 ml short, and clinical records match the entries exactly, so nothing explains it. The plan's false answer could not be supported by this record; the shortfall is real.",
+  "line_disposition": "Count is 15 ml under the recomputed balance and two entries are unsigned, so the line does not fully reconcile. The plan's sign_off cannot be honestly supported.",
+  "variance_cause": "Clinical doses (20, 5, 5) match the entries one to one, there are no disposals and no exceptions. The shortfall has no counterpart anywhere, and the single 1 ml slip is minor.",
+  "variance_size": "Recomputed closing 120 vs counted 105 gives 15 ml on volume handled 150 (100 opening + 50 receipt), which is 10.0%. Using the stated balance 121 gives 10.7%. The value sits at the 10% boundary between Material and Major.",
+  "auth_gaps": "E2 and E3 have signed_by null. Witness is not required for this schedule 3 drug, and LOC-77 on E4 is a valid locum id. That makes two gaps."
+ },
+ "request": "rec-F201-0101",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.014637
+}

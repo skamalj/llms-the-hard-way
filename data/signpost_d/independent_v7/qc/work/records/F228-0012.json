@@ -1,0 +1,119 @@
+{
+ "id": "F228-0012",
+ "family": "F228",
+ "state": {
+  "booking_declaration": {
+   "vgm_kg": 20000,
+   "declared_tare_kg": 3900,
+   "declared_cargo_kg": 16100,
+   "amendments": []
+  },
+  "equipment": {
+   "csc_plate_tare_kg": 3900,
+   "csc_max_gross_kg": 30480
+  },
+  "cargo_lines": [
+   {
+    "packages": 40,
+    "gross_kg": 18080
+   }
+  ],
+  "terminal_weighing": {
+   "read_at": "2025-03-05T09:30:00Z",
+   "gross_reading_kg": 36280,
+   "tractor_tare_kg": 8200,
+   "chassis_tare_kg": 6100,
+   "chassis_registry_tare_kg": 6100,
+   "calibration_valid_to": "2025-02-20",
+   "reweigh": {
+    "status": "none",
+    "gross_reading_kg": null,
+    "read_at": null
+   }
+  },
+  "voyage_plan": {
+   "vgm_cutoff_at": "2025-03-04T18:00:00Z",
+   "loading_start_at": "2025-03-05T12:00:00Z",
+   "review_at": "2025-03-05T10:00:00Z",
+   "stow_bay_row_tier": "22-05-90",
+   "deck_or_hold": "deck",
+   "tolerance_pct": 5
+  },
+  "shipper_profile": {
+   "method2_authorised": true,
+   "last_audit_on": "2024-10-02",
+   "last_audit_result": "pass",
+   "discrepancies_12m": 2
+  }
+ },
+ "factors": {
+  "gap_band": "near_anchor",
+  "gap_direction": "understated",
+  "gap_source": "cargo",
+  "decoy_mismatch": "none",
+  "scale_calibration_valid": false,
+  "amended_vgm_on_file": false,
+  "shipper_trusted": true,
+  "prior_discrepancies": 2,
+  "hours_to_loading": 2.0,
+  "reweigh_status": "none",
+  "stow_position": "deck_high_tier",
+  "exceeds_csc_max": false,
+  "cargo_lines_missing": false,
+  "tolerance_pct": "5"
+ },
+ "factors_sampled": {
+  "gap_band": "2_to_5pct",
+  "gap_direction": "understated",
+  "gap_source": "cargo",
+  "decoy_mismatch": "none",
+  "scale_calibration_valid": false,
+  "amended_vgm_on_file": false,
+  "shipper_trusted": true,
+  "prior_discrepancies": 6,
+  "hours_to_loading": 38.8,
+  "reweigh_status": "none",
+  "stow_position": "deck_high_tier",
+  "exceeds_csc_max": false,
+  "cargo_lines_missing": false,
+  "tolerance_pct": "5"
+ },
+ "plan": {
+  "vgm_understated": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "disposition": {
+   "clarity": "leaning",
+   "target": "hold_reweigh",
+   "second": null
+  },
+  "gap_source": {
+   "clarity": "balanced",
+   "target": "cargo_error",
+   "second": "no_material_gap"
+  },
+  "gap_magnitude": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "time_pressure": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 36,
+ "deciding": {
+  "vgm_understated": "calibration_valid_to 2025-02-20 precedes read_at 2025-03-05, so the terminal reading is invalid and no completed reweigh exists.",
+  "disposition": "Lapsed calibration with reweigh status none points to hold for reweigh.",
+  "gap_source": "Declared cargo 16100 vs lines sum 18080, and lines plus plate 3900 equal the derived 21980; but the lapsed scale makes the gap itself doubtful.",
+  "gap_magnitude": "Derived 21980 vs vgm 20000 is 9.9%, right under the 10% boundary between levels 2 and 3.",
+  "time_pressure": "review_at 10:00 and loading_start_at 12:00 are exactly 2 hours apart, the boundary between levels 2 and 3."
+ },
+ "request": "rec-F228-0011",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.014651
+}

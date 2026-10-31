@@ -1,0 +1,140 @@
+{
+ "id": "F240-0038",
+ "family": "F240",
+ "state": {
+  "asset": {
+   "inverter_id": "INV-33",
+   "serial": "SN-48213",
+   "rated_ac_kw": 3000
+  },
+  "fault_event": {
+   "serial": "SN-48231",
+   "code": "F-FAN-01",
+   "fw_severity": 3,
+   "ts_start": "2024-07-02T17:40",
+   "ts_clear": null,
+   "auto_restarts": 2
+  },
+  "telemetry": {
+   "samples": [
+    {
+     "ts": "2024-07-02T17:40",
+     "ac_kw": 0,
+     "exp_kw": 360,
+     "poa_wm2": 380,
+     "limit_pct": 0
+    },
+    {
+     "ts": "2024-07-02T17:50",
+     "ac_kw": 0,
+     "exp_kw": 360,
+     "poa_wm2": 360,
+     "limit_pct": 0
+    }
+   ],
+   "exp_day_kwh": 18000,
+   "exp_window_kwh": 60,
+   "act_window_kwh": 0
+  },
+  "site_context": {
+   "grid_events": [],
+   "maint_windows": [],
+   "neighbours": [
+    {
+     "inverter_id": "INV-32",
+     "output_ratio": 0.98
+    },
+    {
+     "inverter_id": "INV-34",
+     "output_ratio": 1.0
+    }
+   ]
+  },
+  "history": {
+   "faults": [
+    {
+     "date": "2024-06-11",
+     "code": "F-COMM-02"
+    },
+    {
+     "date": "2024-07-02",
+     "code": "F-FAN-01"
+    }
+   ],
+   "work_orders": [
+    {
+     "wo_id": "WO-5521",
+     "opened": "2024-06-18",
+     "completed": "2024-06-20",
+     "retest_ok": null
+    }
+   ]
+  }
+ },
+ "factors": {
+  "fault_class": "fan_failure",
+  "log_telemetry_mismatch": "none",
+  "grid_event_concurrent": false,
+  "maintenance_window_active": false,
+  "neighbour_cross_check": "neighbours_normal",
+  "repeat_count_30d": 1,
+  "last_repair_status": "completed_no_retest",
+  "current_limit_pct": 0.0,
+  "yield_loss_pct": 0.33,
+  "low_irradiance_window": false,
+  "serial_mismatch": true,
+  "boundary_placement": false
+ },
+ "factors_sampled": {
+  "fault_class": "fan_failure",
+  "log_telemetry_mismatch": "none",
+  "grid_event_concurrent": false,
+  "maintenance_window_active": false,
+  "neighbour_cross_check": "neighbours_normal",
+  "repeat_count_30d": 1,
+  "last_repair_status": "open",
+  "current_limit_pct": 27.66,
+  "yield_loss_pct": 7.13,
+  "low_irradiance_window": false,
+  "serial_mismatch": true,
+  "boundary_placement": false
+ },
+ "plan": {
+  "genuine_defect": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "post_repair_repeat": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "hold_confirm",
+   "second": null
+  },
+  "yield_loss": {
+   "clarity": "clear",
+   "target": "0",
+   "second": null
+  },
+  "capacity_unavailable": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  }
+ },
+ "target_words": 95,
+ "deciding": {
+  "genuine_defect": "Neighbours at 0.98 and 1.0 with no grid event or maintenance point to the unit itself, but fault_event.serial SN-48231 differs from asset.serial SN-48213, so the log may belong to another inverter.",
+  "post_repair_repeat": "F-FAN-01 is logged 2024-07-02, after WO-5521 completed 2024-06-20, but the serial mismatch leaves doubt that it was this unit and there is no retest result.",
+  "next_step": "The serial mismatch is the one missing confirmation; the correct inverter must be confirmed before choosing any action.",
+  "yield_loss": "(60-0)/18000 = 0.33% because the outage is a short evening window, well under 1%.",
+  "capacity_unavailable": "Last sample shows ac_kw 0 and limit_pct 0 with ts_clear null, so it is offline; the serial mismatch leaves slight doubt."
+ },
+ "request": "rec-F240-0036",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.016661
+}

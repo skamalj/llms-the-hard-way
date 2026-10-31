@@ -1,0 +1,141 @@
+{
+ "id": "F220-0039",
+ "family": "F220",
+ "state": {
+  "tray": {
+   "tray_id": "T-9033",
+   "requested_for": "2025-06-07T22:10",
+   "request_note": "On-call list needs this set within the hour."
+  },
+  "set_check": {
+   "lines": [
+    {
+     "cat_code": "AR05",
+     "qty_expected": 3,
+     "qty_counted": 2
+    },
+    {
+     "cat_code": "DS11",
+     "qty_expected": 2,
+     "qty_counted": 0
+    },
+    {
+     "cat_code": "ZZ90",
+     "qty_expected": 0,
+     "qty_counted": 1
+    },
+    {
+     "cat_code": "MB04",
+     "qty_expected": 1,
+     "qty_counted": 0
+    }
+   ],
+   "variances": [],
+   "packer_note": "Shortages flagged earlier, now sorted with the ward."
+  },
+  "washer": {
+   "cycle_id": "W205",
+   "a0": 3000,
+   "alarms": [],
+   "trays_processed": [
+    "90330"
+   ]
+  },
+  "steriliser_load": {
+   "load_id": "L402",
+   "steriliser_id": "S2",
+   "printout": {
+    "temp_min_c": 134.2,
+    "temp_max_c": 135.6,
+    "hold_s": 210,
+    "pressure_kpa": 215
+   },
+   "logger": {
+    "temp_min_c": 134.3,
+    "hold_s": 209
+   },
+   "daily_test": {
+    "result": "pass",
+    "repair_ref": "RP-118"
+   },
+   "bi": {
+    "result": "pass"
+   },
+   "ci_result": "partial_change",
+   "unload_condition": "dry"
+  },
+  "release_label": {
+   "tray_barcode": "90330",
+   "load_id": "L402",
+   "wrap_condition": "torn"
+  }
+ },
+ "factors": {
+  "set_count_discrepancies": 4,
+  "substitution_documented": false,
+  "cycle_excursion": "none",
+  "independent_logger_confirms": true,
+  "bi_status": "pass",
+  "chemical_indicator": "partial_change",
+  "washer_record_state": "complete",
+  "pack_integrity": "wrap_tear",
+  "label_mismatch": "none",
+  "daily_test_state": "fail_then_repaired_pass",
+  "theatre_urgency": "emergency_on_call",
+  "note_tone": "flags_concern_resolved",
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "set_count_discrepancies": 3,
+  "substitution_documented": false,
+  "cycle_excursion": "brief_temp_dip",
+  "independent_logger_confirms": true,
+  "bi_status": "pass",
+  "chemical_indicator": "partial_change",
+  "washer_record_state": "complete",
+  "pack_integrity": "wrap_tear",
+  "label_mismatch": "none",
+  "daily_test_state": "fail_then_repaired_pass",
+  "theatre_urgency": "emergency_on_call",
+  "note_tone": "flags_concern_resolved",
+  "boundary_case": false
+ },
+ "plan": {
+  "cycle_in_limits": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "disposition": {
+   "clarity": "leaning",
+   "target": "reprocess",
+   "second": null
+  },
+  "failure_stage": {
+   "clarity": "leaning",
+   "target": "pack_stage",
+   "second": null
+  },
+  "count_gaps": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  },
+  "sterility_doubt": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 80,
+ "deciding": {
+  "cycle_in_limits": "Printout and logger both in band: min 134.2 and 134.3 C, hold 210 s, pressure 215 kPa.",
+  "disposition": "Torn wrap and unresolved counts need repacking and a new cycle, though the cycle and BI are good.",
+  "failure_stage": "Washer lists the tray; the pack stage shows count gaps with no variances, before the steriliser issues.",
+  "count_gaps": "AR05 short one, DS11 missing, ZZ90 not on set list, MB04 missing; four, with no approved variances and only a vague packer note.",
+  "sterility_doubt": "The BI passes but the CI is only a partial change, and the wrap is torn, against a repaired daily test; compromised versus doubtful."
+ },
+ "request": "rec-F220-0036",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.006909
+}

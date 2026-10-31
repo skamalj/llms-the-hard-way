@@ -1,0 +1,117 @@
+{
+ "id": "F205-0007",
+ "family": "F205",
+ "state": {
+  "flight": {
+   "no": "QB77",
+   "std": "2024-06-02T06:30Z",
+   "turn": "night_stop"
+  },
+  "times": {
+   "boarding_start": "2024-06-02T06:05Z",
+   "doors_closed": "2024-06-02T06:42Z",
+   "off_blocks": "2024-06-02T06:46Z",
+   "delay_code": "FUEL",
+   "delay_min": 16
+  },
+  "load": {
+   "pax": 88,
+   "bags_count": 60,
+   "bags_kg": 812,
+   "fuel_kg": 5200,
+   "captain_accepted": true,
+   "notoc": "N-3381"
+  },
+  "hold_log": [
+   {
+    "pos": "1",
+    "bags": 34,
+    "kg": 455,
+    "dg": true
+   },
+   {
+    "pos": "2",
+    "bags": 22,
+    "kg": 350
+   }
+  ],
+  "services": {
+   "fuel": {
+    "end": "06:41",
+    "uplift_kg": 5230
+   }
+  },
+  "remarks": [
+   {
+    "role": "ramp",
+    "msg": "4 bags pulled at door, not re-entered."
+   }
+  ]
+ },
+ "factors": {
+  "bag_mismatch_size": "small_4_bags",
+  "mismatch_location": "loadsheet_bags_vs_hold_log",
+  "missing_record": "none",
+  "milestone_out_of_order": false,
+  "delay_minutes": 16,
+  "delay_code_fit": "supported",
+  "explanatory_remark": true,
+  "pending_signoff": false,
+  "dg_on_board": true,
+  "decoy_noise": "rounding_within_tolerance",
+  "boundary_value": true,
+  "turn_type": "night_stop_departure"
+ },
+ "factors_sampled": {
+  "bag_mismatch_size": "none",
+  "mismatch_location": "loadsheet_bags_vs_hold_log",
+  "missing_record": "fuel_record_null",
+  "milestone_out_of_order": false,
+  "delay_minutes": 67,
+  "delay_code_fit": "supported",
+  "explanatory_remark": true,
+  "pending_signoff": true,
+  "dg_on_board": true,
+  "decoy_noise": "rounding_within_tolerance",
+  "boundary_value": false,
+  "turn_type": "night_stop_departure"
+ },
+ "plan": {
+  "load_reconciled": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "delay_code_supported": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "log_disposition": {
+   "clarity": "leaning",
+   "target": "close_clean",
+   "second": null
+  },
+  "offblock_delay": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  },
+  "failed_checks": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  }
+ },
+ "target_words": 59,
+ "deciding": {
+  "load_reconciled": "Loadsheet has 60 bags but hold entries sum to 34+22 = 56, a 4-bag difference.",
+  "delay_code_supported": "Code FUEL and fuel ended 06:41, one minute before doors closed, which supports the code only modestly; the uplift is 5230 against 5200 kg.",
+  "log_disposition": "The notoc is present for the dg:true entry and the captain has accepted; the only open item is the 4 bags the remark says were pulled and not re-entered, so close_clean is weakly favoured.",
+  "offblock_delay": "Off-blocks 06:46 against STD 06:30 is 16 minutes late, at the 15/16 boundary.",
+  "failed_checks": "Only the bag count check fails; the fuel difference is within rounding and the notoc and signoff are present."
+ },
+ "request": "rec-F205-0006",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.010996
+}

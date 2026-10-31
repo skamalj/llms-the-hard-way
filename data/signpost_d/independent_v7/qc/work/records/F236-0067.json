@@ -1,0 +1,160 @@
+{
+ "id": "F236-0067",
+ "family": "F236",
+ "state": {
+  "changeover": {
+   "line": "L4",
+   "from_allergens": [
+    "soya"
+   ],
+   "to_allergens": [
+    "soya",
+    "egg"
+   ]
+  },
+  "cleaning": {
+   "steps": [
+    {
+     "s": "dry",
+     "done": false
+    },
+    {
+     "s": "wash",
+     "done": false
+    },
+    {
+     "s": "rinse",
+     "done": true
+    }
+   ],
+   "part_swap": true,
+   "set": "DT-4"
+  },
+  "verification": {
+   "swabs": [
+    {
+     "id": "S1",
+     "target": "egg",
+     "ppm": 14,
+     "limit_ppm": 10,
+     "at": "2025-04-02T06:00"
+    },
+    {
+     "id": "S2",
+     "retest_of": "S1",
+     "target": "egg",
+     "ppm": 2,
+     "limit_ppm": 10,
+     "at": "2025-04-02T08:30"
+    }
+   ]
+  },
+  "production": {
+   "line": "L4",
+   "batch": "B5521",
+   "start": "2025-04-02T07:00",
+   "end": "2025-04-02T08:40",
+   "qty": 640,
+   "unit": "kg",
+   "held": true,
+   "pack": [
+    "soya",
+    "egg"
+   ],
+   "may_contain": [
+    "soya"
+   ]
+  },
+  "approvals": {
+   "qa": {
+    "signed_at": "2025-04-02T06:50"
+   },
+   "dev": [
+    {
+     "scope": "batch B5512 dry, wash skipped",
+     "approved": "2025-04-02T06:30"
+    }
+   ]
+  },
+  "history": {
+   "passed": [
+    true,
+    true,
+    false,
+    true,
+    true,
+    true,
+    false,
+    true,
+    true,
+    true
+   ]
+  }
+ },
+ "factors": {
+  "allergen_transition": "adds_allergen",
+  "cleaning_completion": "multiple_steps_skipped",
+  "swab_outcome": "over_limit_retest_passed_after_start",
+  "swab_timing_mismatch": true,
+  "cross_section_discrepancy": "batch_id_mismatch",
+  "exposed_quantity_kg": 576.0,
+  "approved_deviation": true,
+  "label_precaution": true,
+  "dedicated_tooling": true,
+  "qa_signoff_state": "signed_before_start",
+  "line_failure_history": 2,
+  "boundary_value": false
+ },
+ "factors_sampled": {
+  "allergen_transition": "adds_allergen",
+  "cleaning_completion": "multiple_steps_skipped",
+  "swab_outcome": "all_negative",
+  "swab_timing_mismatch": false,
+  "cross_section_discrepancy": "batch_id_mismatch",
+  "exposed_quantity_kg": 126.46,
+  "approved_deviation": true,
+  "label_precaution": true,
+  "dedicated_tooling": true,
+  "qa_signoff_state": "signed_before_start",
+  "line_failure_history": 2,
+  "boundary_value": false
+ },
+ "plan": {
+  "swabs_cleared": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "line_disposition": {
+   "clarity": "clear",
+   "target": "hold",
+   "second": null
+  },
+  "worst_deficiency": {
+   "clarity": "balanced",
+   "target": "records_only",
+   "second": "release_breach"
+  },
+  "exposed_product": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  },
+  "residue_evidence": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 71,
+ "deciding": {
+  "swabs_cleared": "S1 read 14 ppm against a 10 ppm limit. The passing retest S2 is timed 08:30, after the 07:00 start. Both answers are defensible, since the retest did pass.",
+  "line_disposition": "production.held is true, the retest passed, and the only open item is the batch ID. That makes hold the clear answer.",
+  "worst_deficiency": "The deviation scope names B5512, not B5521, which is a records mismatch. Production also started at 07:00, before the 08:30 retest, which could be read as a release breach.",
+  "exposed_product": "640 kg ran 07:00-08:40 and the retest passed at 08:30. That is about 576 kg exposed, over 500.",
+  "residue_evidence": "The original reading was over limit, and the retest passed only after production started. That leaves level 3 versus 2 balanced."
+ },
+ "request": "rec-F236-0066",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.01358
+}

@@ -1,0 +1,157 @@
+{
+ "id": "F230-0010",
+ "family": "F230",
+ "state": {
+  "prescriptions": [
+   {
+    "item_id": "E1",
+    "drug": "metformin",
+    "strength_mg": 500,
+    "dose_units": 1,
+    "time_critical": false,
+    "high_risk": false
+   },
+   {
+    "item_id": "E2",
+    "drug": "senna",
+    "strength_mg": 7.5,
+    "dose_units": 1,
+    "time_critical": false,
+    "high_risk": false
+   },
+   {
+    "item_id": "E3",
+    "drug": "sertraline",
+    "strength_mg": 50,
+    "dose_units": 1,
+    "time_critical": false,
+    "high_risk": false
+   }
+  ],
+  "administrations": [
+   {
+    "item_id": "E1",
+    "scheduled": "2025-03-11T08:00",
+    "units_given": 1,
+    "strength_mg_used": 500,
+    "code": "G",
+    "initials": "RS"
+   },
+   {
+    "item_id": "E1",
+    "scheduled": "2025-03-11T08:00",
+    "units_given": 1,
+    "strength_mg_used": 500,
+    "code": "G",
+    "initials": "RS"
+   },
+   {
+    "item_id": "E2",
+    "scheduled": "2025-03-11T08:00",
+    "units_given": 1,
+    "strength_mg_used": 7.5,
+    "code": "G",
+    "initials": null
+   },
+   {
+    "item_id": "E3",
+    "scheduled": "2025-03-11T08:00",
+    "units_given": 1,
+    "strength_mg_used": 50,
+    "code": "G",
+    "initials": null
+   }
+  ],
+  "stock": {
+   "E1": {
+    "opening": 20,
+    "received": 0,
+    "closing": 18
+   },
+   "E2": {
+    "opening": 30,
+    "received": 0,
+    "closing": 29
+   },
+   "E3": {
+    "opening": 30,
+    "received": 0,
+    "closing": 29
+   }
+  },
+  "round": {
+   "date": "2025-03-11",
+   "open_queries": []
+  }
+ },
+ "factors": {
+  "dose_mismatch_type": "duplicate_entry",
+  "prescription_change_documented": false,
+  "omission_count": 0,
+  "omission_reason_valid": false,
+  "late_minutes": 0,
+  "time_critical_affected": false,
+  "stock_variance": 0,
+  "stock_variance_explained": false,
+  "signature_gaps": 2,
+  "unit_expression_decoy": "none",
+  "post_dose_obs_reassuring": true,
+  "pending_query": "none",
+  "prior_errors_30d": 3,
+  "item_count": 3
+ },
+ "factors_sampled": {
+  "dose_mismatch_type": "duplicate_entry",
+  "prescription_change_documented": false,
+  "omission_count": 3,
+  "omission_reason_valid": false,
+  "late_minutes": 142,
+  "time_critical_affected": true,
+  "stock_variance": -3,
+  "stock_variance_explained": true,
+  "signature_gaps": 2,
+  "unit_expression_decoy": "equivalent_split",
+  "post_dose_obs_reassuring": false,
+  "pending_query": "pharmacy_query_open",
+  "prior_errors_30d": 3,
+  "item_count": 6
+ },
+ "plan": {
+  "dose_mismatch": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "stock_reconciles": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "report_incident",
+   "second": null
+  },
+  "open_discrepancies": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  },
+  "error_severity": {
+   "clarity": "contested",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 35,
+ "deciding": {
+  "dose_mismatch": "E1 has two entries for the same item_id and scheduled time, each of 1 unit, against a single prescribed dose.",
+  "stock_reconciles": "E1 20-2=18, E2 30-1=29, E3 30-1=29; all closings match signed doses.",
+  "next_step": "Duplicate E1 on an ordinary, non-time-critical drug with no open query points to an incident report; the missing initials add some doubt.",
+  "open_discrepancies": "E1 duplicate plus null initials on E2 and E3 is three items; E2 and E3 may be treated as one documentation fix, leaving two.",
+  "error_severity": "Stock shows two units left E1, so the duplicate may not have been given; then only null initials on E2 and E3 remain, fitting level 0 or 1."
+ },
+ "request": "rec-F230-0006",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.016992
+}

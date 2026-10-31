@@ -1,0 +1,126 @@
+{
+ "id": "F224-0034",
+ "family": "F224",
+ "state": {
+  "request": {
+   "views": [
+    "PA_11"
+   ],
+   "ind": "ENDO_REV",
+   "risk": "low",
+   "date": "2025-03-10",
+   "prior": "2023-03-14",
+   "exc": []
+  },
+  "exposures": [
+   {
+    "id": 1,
+    "view": "PA_11",
+    "t": "11:00",
+    "dose": 1.0
+   },
+   {
+    "id": 2,
+    "view": "PA_11",
+    "t": "11:02",
+    "dose": 1.0,
+    "retake_of": 1
+   }
+  ],
+  "image_review": {
+   "grade": 2,
+   "faults": {
+    "1": [
+     "FC_BLUR"
+    ]
+   },
+   "sensor_err": [
+    {
+     "t": "11:00",
+     "code": "SNS_E17"
+    }
+   ],
+   "grader2": "done"
+  },
+  "equipment": {
+   "qa": "2025-02-01",
+   "int": 12,
+   "test": "pass",
+   "drl": {
+    "PA": 1.0
+   }
+  },
+  "operator": {
+   "signoff": "2025-03-10T15:00",
+   "prior": 0
+  }
+ },
+ "factors": {
+  "indication_match": "match",
+  "recall_interval_months": 23,
+  "dose_ratio_to_drl": 1.0,
+  "console_log_discrepancy": "none",
+  "retake_cause": "sensor_fault",
+  "equipment_qa_status": "in_date",
+  "approved_exception": false,
+  "patient_cooperation_flag": false,
+  "unrequested_exposure_count": 0,
+  "verbal_authorisation_logged": false,
+  "image_grade": "diagnostic",
+  "audit_completeness": "complete",
+  "operator_prior_findings": 0
+ },
+ "factors_sampled": {
+  "indication_match": "match",
+  "recall_interval_months": 24,
+  "dose_ratio_to_drl": 1.89,
+  "console_log_discrepancy": "setting_mismatch",
+  "retake_cause": "positioning",
+  "equipment_qa_status": "failed_last_test",
+  "approved_exception": true,
+  "patient_cooperation_flag": false,
+  "unrequested_exposure_count": 0,
+  "verbal_authorisation_logged": true,
+  "image_grade": "non_diagnostic",
+  "audit_completeness": "complete",
+  "operator_prior_findings": 0
+ },
+ "plan": {
+  "justified": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "operator_retake": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "follow_up": {
+   "clarity": "leaning",
+   "target": "close_record",
+   "second": null
+  },
+  "dose_position": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  },
+  "unjustified_count": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  }
+ },
+ "target_words": 33,
+ "deciding": {
+  "justified": "ENDO_REV fits PA_11, but the gap from 2023-03-14 to 2025-03-10 is just under the 24 months allowed for low risk and there is no exception.",
+  "operator_retake": "Sensor error SNS_E17 is logged at the time of exposure 1 (the image being retaken), which points to the equipment; the operator has no prior findings.",
+  "follow_up": "QA test passed, sign-off and second grader complete, 0 prior findings; the only open point is the marginal interval.",
+  "dose_position": "Dose 1.0 against a PA reference of 1.0 is exactly 100%, on the boundary between typical and raised.",
+  "unjustified_count": "Both exposures are of the requested view; the marginal interval could make exposure 1 or both unjustified (1 or 2)."
+ },
+ "request": "rec-F224-0031",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.016012
+}

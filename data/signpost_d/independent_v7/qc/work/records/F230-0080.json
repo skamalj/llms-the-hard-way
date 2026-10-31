@@ -1,0 +1,121 @@
+{
+ "id": "F230-0080",
+ "family": "F230",
+ "state": {
+  "prescriptions": [
+   {
+    "item_id": "i1",
+    "drug": "baclofen",
+    "strength_mg": 10,
+    "dose_units": 1
+   },
+   {
+    "item_id": "i2",
+    "drug": "folic acid",
+    "strength_mg": 5,
+    "dose_units": 1
+   }
+  ],
+  "administrations": [
+   {
+    "item_id": "i1",
+    "scheduled": "2024-05-06T08:00",
+    "units_given": 2,
+    "strength_mg_used": 5,
+    "initials": "LR"
+   },
+   {
+    "item_id": "i2",
+    "scheduled": "2024-05-06T08:00",
+    "units_given": 1,
+    "initials": "LR"
+   },
+   {
+    "item_id": "i2",
+    "scheduled": "2024-05-06T08:00",
+    "units_given": 1,
+    "initials": "PD"
+   }
+  ],
+  "stock": {
+   "i1": {
+    "opening": 30,
+    "closing": 28
+   },
+   "i2": {
+    "opening": 30,
+    "closing": 28
+   }
+  }
+ },
+ "factors": {
+  "dose_mismatch_type": "duplicate_entry",
+  "prescription_change_documented": false,
+  "omission_count": 0,
+  "omission_reason_valid": true,
+  "late_minutes": 0,
+  "time_critical_affected": false,
+  "stock_variance": 0,
+  "stock_variance_explained": false,
+  "signature_gaps": 0,
+  "unit_expression_decoy": "equivalent_split",
+  "post_dose_obs_reassuring": true,
+  "pending_query": "none",
+  "prior_errors_30d": 0,
+  "item_count": 2
+ },
+ "factors_sampled": {
+  "dose_mismatch_type": "duplicate_entry",
+  "prescription_change_documented": true,
+  "omission_count": 3,
+  "omission_reason_valid": false,
+  "late_minutes": 65,
+  "time_critical_affected": false,
+  "stock_variance": -3,
+  "stock_variance_explained": false,
+  "signature_gaps": 0,
+  "unit_expression_decoy": "equivalent_split",
+  "post_dose_obs_reassuring": true,
+  "pending_query": "none",
+  "prior_errors_30d": 0,
+  "item_count": 5
+ },
+ "plan": {
+  "dose_mismatch": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "stock_reconciles": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "report_incident",
+   "second": null
+  },
+  "open_discrepancies": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "error_severity": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  }
+ },
+ "target_words": 35,
+ "deciding": {
+  "dose_mismatch": "i1 gave 2 units of 5 mg against a 10 mg dose, which is an equivalent split and correct. i2 has two entries at the same scheduled time from different staff, which makes it balanced.",
+  "stock_reconciles": "i2 closes at 28, which matches two signed units but implies two doses were taken, and i1 matches at 28. It reconciles on paper while the duplicate casts some doubt.",
+  "next_step": "The second i2 entry for the same item and time by PD is a duplicate dose on an ordinary drug with no flags, so an incident report follows.",
+  "open_discrepancies": "Only i2 shows an issue, and whether the duplicate entry counts as unresolved is unclear, so 0 or 1.",
+  "error_severity": "If the second i2 entry is a recording duplicate rather than a real dose, the issue is documentation (level 1) or nothing (level 0)."
+ },
+ "request": "rec-F230-0076",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.013371
+}

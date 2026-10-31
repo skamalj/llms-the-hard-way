@@ -1,0 +1,121 @@
+{
+ "id": "F209-0053",
+ "family": "F209",
+ "state": {
+  "unit": {
+   "asset_id": "WX-2210",
+   "type": "water",
+   "capacity_kg": 9,
+   "manufacture_date": "2015-02-10",
+   "gauge_green_min_bar": 10,
+   "gauge_green_max_bar": 14
+  },
+  "visit": {
+   "visit_date": "2025-03-05",
+   "service_type": "basic",
+   "checks": {
+    "pressure_bar": 6,
+    "seal_ok": true,
+    "hose_ok": true
+   }
+  },
+  "tag": {
+   "tag_asset_id": "WX-2210",
+   "tag_service_date": "2025-03-04"
+  },
+  "history": [],
+  "register": {
+   "reg_asset_id": "WX-2210",
+   "floor": 3,
+   "zone": "Z3",
+   "deferral": {
+    "approved": true,
+    "expires": "2025-04-01"
+   },
+   "exemption": {
+    "approved": true,
+    "ref": "EX-7",
+    "expires": "2026-01-01"
+   }
+  },
+  "remedial": [
+   {
+    "action_code": "REPLACE",
+    "raised": "2025-03-05",
+    "completed": "2025-03-05",
+    "replacement_asset_id": "WX-3987",
+    "loc": "Z-3"
+   }
+  ]
+ },
+ "factors": {
+  "unit_type": "water",
+  "unit_age_years": 10,
+  "service_level_gap": "matched",
+  "days_past_due": -27,
+  "deferral_approved": true,
+  "injected_mismatch_count": 1,
+  "physical_defect": "pressure_low",
+  "defect_rectified_on_visit": true,
+  "type_location_mismatch": false,
+  "location_exemption_on_file": true,
+  "record_gap": "history_missing",
+  "technician_cert_status": "valid",
+  "out_of_order_dates": false,
+  "borderline_case": false
+ },
+ "factors_sampled": {
+  "unit_type": "water",
+  "unit_age_years": 10,
+  "service_level_gap": "matched",
+  "days_past_due": -27,
+  "deferral_approved": true,
+  "injected_mismatch_count": 0,
+  "physical_defect": "weight_loss",
+  "defect_rectified_on_visit": false,
+  "type_location_mismatch": false,
+  "location_exemption_on_file": true,
+  "record_gap": "history_missing",
+  "technician_cert_status": "valid",
+  "out_of_order_dates": false,
+  "borderline_case": false
+ },
+ "plan": {
+  "left_compliant": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "withdraw_unit",
+   "second": null
+  },
+  "service_level_due": {
+   "clarity": "contested",
+   "target": "interim_check",
+   "second": "basic_service"
+  },
+  "visit_lateness": {
+   "clarity": "contested",
+   "target": "0",
+   "second": "1"
+  },
+  "mismatch_count": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  }
+ },
+ "target_words": 67,
+ "deciding": {
+  "left_compliant": "Pressure 6 bar is below the 10 bar green minimum, but a REPLACE action was raised and completed on the visit date with replacement WX-3987, so the location now holds a compliant unit.",
+  "next_step": "The gauge reads 6 bar against a 10-14 bar green band, so the original unit is unsafe and is withdrawn and replaced.",
+  "service_level_due": "History is empty, so the last service is unknown; age 10 and a basic visit leave interim versus basic open.",
+  "visit_lateness": "With no history, the only due date is the deferral expiry 2025-04-01, 27 days after the visit; the missing history leaves a 1-30 day late reading possible.",
+  "mismatch_count": "Tag date 03-04 vs visit 03-05 is clear; zone Z3 vs replacement location Z-3 may be formatting only, which holds the count between 1 and 2."
+ },
+ "request": "rec-F209-0051",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.015227
+}

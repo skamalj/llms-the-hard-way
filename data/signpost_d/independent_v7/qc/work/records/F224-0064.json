@@ -1,0 +1,125 @@
+{
+ "id": "F224-0064",
+ "family": "F224",
+ "state": {
+  "request": {
+   "views": [
+    "BW_R"
+   ],
+   "ind": "PERIO",
+   "date": "2024-06-03",
+   "prior_same_view": "2022-09-01",
+   "exceptions": []
+  },
+  "exposures": [
+   {
+    "id": 1,
+    "t": "14:00",
+    "view": "BW_R",
+    "dose": 0.55
+   },
+   {
+    "id": 2,
+    "t": "14:03",
+    "view": "BW_R",
+    "dose": 0.55,
+    "retake_of": 1
+   },
+   {
+    "id": 3,
+    "t": "14:05",
+    "view": "BW_R",
+    "dose": 0.55,
+    "retake_of": 1
+   }
+  ],
+  "image_review": {
+   "sensor_err": [
+    {
+     "code": "E17",
+     "t": "14:03"
+    },
+    {
+     "code": "E17",
+     "t": "14:05"
+    }
+   ]
+  },
+  "equipment": {
+   "drl": {
+    "BW": 0.8
+   }
+  },
+  "operator": {
+   "signoff": null
+  }
+ },
+ "factors": {
+  "indication_match": "partial_match",
+  "recall_interval_months": 21,
+  "dose_ratio_to_drl": 0.69,
+  "console_log_discrepancy": "none",
+  "retake_cause": "sensor_fault",
+  "equipment_qa_status": "in_date",
+  "approved_exception": false,
+  "patient_cooperation_flag": false,
+  "unrequested_exposure_count": 0,
+  "verbal_authorisation_logged": false,
+  "image_grade": "diagnostic",
+  "audit_completeness": "operator_signoff_missing",
+  "operator_prior_findings": 3
+ },
+ "factors_sampled": {
+  "indication_match": "partial_match",
+  "recall_interval_months": 21,
+  "dose_ratio_to_drl": 1.05,
+  "console_log_discrepancy": "setting_mismatch",
+  "retake_cause": "sensor_fault",
+  "equipment_qa_status": "in_date",
+  "approved_exception": true,
+  "patient_cooperation_flag": false,
+  "unrequested_exposure_count": 0,
+  "verbal_authorisation_logged": false,
+  "image_grade": "diagnostic",
+  "audit_completeness": "operator_signoff_missing",
+  "operator_prior_findings": 3
+ },
+ "plan": {
+  "justified": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "operator_retake": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "follow_up": {
+   "clarity": "clear",
+   "target": "hold_confirm",
+   "second": null
+  },
+  "dose_position": {
+   "clarity": "leaning",
+   "target": "0",
+   "second": null
+  },
+  "unjustified_count": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 25,
+ "deciding": {
+  "justified": "Indication PERIO only partly fits a bitewing and the 21-month recall has no risk category to judge it against, so the record holds it in balance.",
+  "operator_retake": "Both retakes at 14:03 and 14:05 coincide with sensor error E17 at the same timestamps, so the cause is the sensor.",
+  "follow_up": "operator.signoff is null, so a single missing sign-off must arrive before closing.",
+  "dose_position": "Dose 0.55 against BW reference 0.8 gives about 0.69, below 75%, though with only a rough margin.",
+  "unjustified_count": "Three BW_R exposures from one partly supported request; the two sensor-fault retakes could be excused (2) or counted (3)."
+ },
+ "request": "rec-F224-0061",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.015085
+}

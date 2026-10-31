@@ -1,0 +1,129 @@
+{
+ "id": "F209-0008",
+ "family": "F209",
+ "state": {
+  "unit": {
+   "asset_id": "C-330",
+   "type": "co2",
+   "capacity_kg": 5,
+   "manufacture_date": "2010-02-01",
+   "full_weight_kg": 14.0
+  },
+  "visit": {
+   "visit_date": "2025-06-20",
+   "tech_cert_expiry": "2026-05-01",
+   "service_type": "extended",
+   "checks": {
+    "weight_kg": 14.0,
+    "seal_ok": true,
+    "tamper_tag_ok": true,
+    "hose_ok": true,
+    "discharge_done": true,
+    "hydro_test_done": false
+   }
+  },
+  "tag": {
+   "tag_asset_id": "C-331",
+   "tag_service_date": "2025-06-19",
+   "tag_next_due": "2026-06-20"
+  },
+  "history": [
+   {
+    "date": "2020-02-05",
+    "service_type": "overhaul",
+    "result": "pass"
+   },
+   {
+    "date": "2024-02-10",
+    "service_type": "basic",
+    "result": "pass"
+   }
+  ],
+  "register": {
+   "reg_asset_id": "C-330",
+   "reg_type": "co2",
+   "reg_capacity_kg": 2,
+   "deferral": {
+    "approved": true,
+    "expires": "2025-03-21"
+   }
+  },
+  "remedial": [
+   {
+    "action_code": "LABEL_REPLACE",
+    "raised": "2025-06-20",
+    "completed": null
+   }
+  ]
+ },
+ "factors": {
+  "unit_type": "co2",
+  "unit_age_years": 15,
+  "service_level_gap": "matched",
+  "days_past_due": 91,
+  "deferral_approved": true,
+  "injected_mismatch_count": 4,
+  "physical_defect": "none",
+  "defect_rectified_on_visit": false,
+  "type_location_mismatch": false,
+  "location_exemption_on_file": false,
+  "record_gap": "remedial_open",
+  "technician_cert_status": "valid",
+  "out_of_order_dates": false,
+  "borderline_case": false
+ },
+ "factors_sampled": {
+  "unit_type": "co2",
+  "unit_age_years": 15,
+  "service_level_gap": "matched",
+  "days_past_due": 1,
+  "deferral_approved": true,
+  "injected_mismatch_count": 5,
+  "physical_defect": "seal_broken",
+  "defect_rectified_on_visit": false,
+  "type_location_mismatch": false,
+  "location_exemption_on_file": false,
+  "record_gap": "remedial_open",
+  "technician_cert_status": "valid",
+  "out_of_order_dates": false,
+  "borderline_case": false
+ },
+ "plan": {
+  "left_compliant": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "hold_confirm",
+   "second": null
+  },
+  "service_level_due": {
+   "clarity": "clear",
+   "target": "extended_service",
+   "second": null
+  },
+  "visit_lateness": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "mismatch_count": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 54,
+ "deciding": {
+  "left_compliant": "All checks pass and the extended service with discharge was done, but the LABEL_REPLACE remedial entry is still open (completed null), leaving some doubt.",
+  "next_step": "The open LABEL_REPLACE entry and the tag id C-331 against asset C-330 are details the contractor must confirm before filing; the unit itself checks out.",
+  "service_level_due": "Age 15 with an overhaul in 2020 means the ten-year overhaul is done and the five-yearly extended service is due, which matches the visit's extended type with discharge_done true.",
+  "visit_lateness": "The deferral expiry of 2025-03-21 is later than the basic-derived 2025-02-10, so it is the due date; the visit on 2025-06-20 is 91 days past it, one day over the level 3 boundary.",
+  "mismatch_count": "Tag id C-331 vs C-330, tag date one day early, reg_capacity 2 vs 5, and full_weight 14.0 that does not fit the registered 2 kg: four if the capacity and weight disagreements are counted separately, three if not."
+ },
+ "request": "rec-F209-0006",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.019617
+}

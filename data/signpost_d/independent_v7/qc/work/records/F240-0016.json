@@ -1,0 +1,159 @@
+{
+ "id": "F240-0016",
+ "family": "F240",
+ "state": {
+  "asset": {
+   "id": "INV-B3-07",
+   "sn": "K48213",
+   "model": "CP1500",
+   "rated_ac_kw": 1500,
+   "block": "B3"
+  },
+  "fault_event": {
+   "sn": "K48213",
+   "code": "F-GND-01",
+   "fw_sev": 2,
+   "ts_start": "2025-05-14T09:10",
+   "ts_clear": "2025-05-14T13:40",
+   "auto_restarts": 3
+  },
+  "telemetry": {
+   "samples": [
+    {
+     "ts": "09:00",
+     "ac_kw": 1100,
+     "exp_kw": 1150,
+     "poa": 850,
+     "limit_pct": 100
+    },
+    {
+     "ts": "09:45",
+     "ac_kw": 0,
+     "exp_kw": 1250,
+     "poa": 900,
+     "limit_pct": 100
+    },
+    {
+     "ts": "14:00",
+     "ac_kw": 1440,
+     "exp_kw": 1480,
+     "poa": 930,
+     "limit_pct": 97
+    }
+   ],
+   "exp_day_kwh": 9000,
+   "exp_window_kwh": 4200,
+   "act_window_kwh": 2040
+  },
+  "site_context": {
+   "grid_events": [],
+   "maint": [
+    {
+     "scope": "B1",
+     "from": "2025-05-20",
+     "to": "2025-05-21"
+    }
+   ],
+   "neighbours": [
+    {
+     "id": "INV-B3-06",
+     "ratio": 0.74
+    },
+    {
+     "id": "INV-B3-08",
+     "ratio": 0.76
+    }
+   ]
+  },
+  "history": {
+   "faults": [
+    {
+     "date": "2025-04-28",
+     "code": "F-GND-01"
+    },
+    {
+     "date": "2025-05-02",
+     "code": "F-COM-03"
+    },
+    {
+     "date": "2025-05-14",
+     "code": "F-GND-01"
+    }
+   ],
+   "work_orders": [
+    {
+     "wo": "W-5521",
+     "opened": "2025-05-03",
+     "completed": "2025-05-06",
+     "retest_ok": true
+    }
+   ]
+  }
+ },
+ "factors": {
+  "fault_class": "dc_ground_fault",
+  "log_telemetry_mismatch": "moderate_15_60min",
+  "grid_event_concurrent": false,
+  "maintenance_window_active": false,
+  "neighbour_cross_check": "neighbours_affected",
+  "repeat_count_30d": 2,
+  "last_repair_status": "completed_verified",
+  "current_limit_pct": 97.0,
+  "yield_loss_pct": 24.0,
+  "low_irradiance_window": false,
+  "serial_mismatch": false,
+  "boundary_placement": false
+ },
+ "factors_sampled": {
+  "fault_class": "dc_ground_fault",
+  "log_telemetry_mismatch": "moderate_15_60min",
+  "grid_event_concurrent": false,
+  "maintenance_window_active": false,
+  "neighbour_cross_check": "neighbours_affected",
+  "repeat_count_30d": 2,
+  "last_repair_status": "completed_verified",
+  "current_limit_pct": 47.96,
+  "yield_loss_pct": 16.19,
+  "low_irradiance_window": false,
+  "serial_mismatch": false,
+  "boundary_placement": false
+ },
+ "plan": {
+  "genuine_defect": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "post_repair_repeat": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "contested",
+   "target": "watch_list",
+   "second": "urgent_dispatch"
+  },
+  "yield_loss": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  },
+  "capacity_unavailable": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  }
+ },
+ "target_words": 91,
+ "deciding": {
+  "genuine_defect": "Ground fault code repeats with no grid event or maintenance covering B3-07; neighbour ratios of about 0.75 are the reason for doubt.",
+  "post_repair_repeat": "W-5521 completed 2025-05-06 with retest_ok true; F-GND-01 logged again on 2025-05-14.",
+  "next_step": "Fault is cleared and the unit is nearly restored (limit 97), which supports watch_list. A repeat fault after a verified repair and a 24% loss support urgent_dispatch. Neighbours at about 0.75 muddy the cause.",
+  "yield_loss": "(4200-2040)/9000 = 24%, just over the 20% line.",
+  "capacity_unavailable": "The last sample shows limit_pct 97 and 1440 kW against 1500 rated. That is a slight derate, close to full output."
+ },
+ "request": "rec-F240-0016",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.01584
+}

@@ -1,0 +1,142 @@
+{
+ "id": "F215-0079",
+ "family": "F215",
+ "state": {
+  "bin": {
+   "bin_id": "S9",
+   "crop": "oilseed rape",
+   "safe_mc_pct": 8,
+   "baseline_c": 14,
+   "intake_cond": "dried_cleaned"
+  },
+  "cable_readings": [
+   {
+    "cable_id": "C1",
+    "cal_due": "2025-04-01",
+    "fault": true,
+    "nodes": [
+     {
+      "depth_m": 1,
+      "temp_c": [
+       14.5,
+       15.0,
+       28.7
+      ]
+     }
+    ]
+   },
+   {
+    "cable_id": "C2",
+    "cal_due": "2026-01-15",
+    "fault": false,
+    "nodes": [
+     {
+      "depth_m": 1,
+      "temp_c": [
+       15.0,
+       15.2,
+       19.0
+      ]
+     },
+     {
+      "depth_m": 3,
+      "temp_c": [
+       14.1,
+       14.2,
+       14.2
+      ]
+     }
+    ]
+   }
+  ],
+  "moisture": [
+   {
+    "sample_date": "2025-07-08",
+    "method": "lab",
+    "mc_pct": 6.9
+   }
+  ],
+  "environment": {
+   "ambient_c_7d_mean": 19,
+   "headspace_c": 22,
+   "co2_ppm": 1000,
+   "reading_date": "2025-07-14"
+  },
+  "aeration": null,
+  "pest_checks": [
+   {
+    "check_date": "2025-07-10",
+    "traps_set": 4,
+    "insects_counted": 32
+   }
+  ]
+ },
+ "factors": {
+  "peak_excess_c": 5.0,
+  "rise_trend": "single_jump",
+  "second_cable_corroboration": false,
+  "sensor_fault_flag": true,
+  "ambient_warming": true,
+  "moisture_vs_limit": "well_below",
+  "moisture_sample_status": "recent_lab",
+  "aeration_running": false,
+  "co2_elevation": "raised",
+  "insect_trap_count": 32,
+  "missing_section": "aeration_null",
+  "date_order_anomaly": false,
+  "intake_condition": "dried_cleaned"
+ },
+ "factors_sampled": {
+  "peak_excess_c": 14.68,
+  "rise_trend": "single_jump",
+  "second_cable_corroboration": false,
+  "sensor_fault_flag": true,
+  "ambient_warming": true,
+  "moisture_vs_limit": "well_below",
+  "moisture_sample_status": "recent_lab",
+  "aeration_running": false,
+  "co2_elevation": "raised",
+  "insect_trap_count": 32,
+  "missing_section": "aeration_null",
+  "date_order_anomaly": false,
+  "intake_condition": "dried_cleaned"
+ },
+ "plan": {
+  "hotspot_active": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "moisture_safe": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "next_action": {
+   "clarity": "contested",
+   "target": "continue_monitoring",
+   "second": "aerate"
+  },
+  "recurrence_count": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "temp_excess": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  }
+ },
+ "target_words": 94,
+ "deciding": {
+  "hotspot_active": "C1 spike (28.7) is a faulty, out-of-calibration decoy. Valid C2 top node jumps to 19.0 with ambient 19 and headspace 22, while the deep node is flat and CO2 is raised at 1000, so ambient warming and a real hotspot are both plausible.",
+  "moisture_safe": "Recent lab sample 6.9% against oilseed rape limit 8%.",
+  "next_action": "Single jump on one valid cable that is probably ambient favours continue_monitoring, but raised CO2 and the null aeration log make aerate defensible.",
+  "recurrence_count": "No history in the record, so level 0 versus level 1 is balanced.",
+  "temp_excess": "Valid peak 19.0 (C2, not faulty C1) against baseline 14 is 5.0 C, right at the 5 C boundary between level 1 and level 2."
+ },
+ "request": "rec-F215-0076",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.008366
+}

@@ -1,0 +1,316 @@
+{
+ "id": "F236",
+ "domain": "bakery allergen changeover records",
+ "role": "Site technical QA officer at a contract bakery, reviewing each allergen changeover record before releasing the line and its first batch",
+ "setting": "A multi-line contract bakery runs products with different allergen profiles (wheat, egg, milk, sesame, tree nuts, soya) on shared mixers, depositors and ovens. Every changeover between products generates a structured record covering the transition, the cleaning steps, swab verification, the first production run, approvals and recent line history. The QA officer reads one record at a time and decides on release, the most serious deficiency, product exposure and residual allergen evidence.",
+ "questions": {
+  "swabs_cleared": {
+   "type": "noul",
+   "instructions": "Every required swab passed before the new run's first production.",
+   "criteria": {
+    "true": "All required swabs passed, including retests, before production start",
+    "false": "Any swab failed, missing, or timed after start"
+   }
+  },
+  "line_disposition": {
+   "type": "choice",
+   "instructions": "What should happen to the line and first batch now?",
+   "criteria": {
+    "release": "Line and batch released with no further action required",
+    "release_conditional": "Released with an added control, such as precautionary label or test",
+    "hold": "Batch held until one missing confirmation is supplied",
+    "reclean_quarantine": "Line recleaned and exposed product quarantined for disposal review"
+   }
+  },
+  "worst_deficiency": {
+   "type": "choice",
+   "instructions": "What is the most serious deficiency type in this record?",
+   "criteria": {
+    "none": "No deficiency found in cleaning, checks, sequence or records",
+    "records_only": "Worst issue is paperwork: missing fields or mismatched identifiers",
+    "cleaning_shortfall": "Worst issue is skipped clean steps or swabs over limit",
+    "release_breach": "Production started before swabs passed or QA sign-off given"
+   }
+  },
+  "exposed_product": {
+   "type": "score",
+   "instructions": "How much product was made before the line was verified clean?",
+   "criteria": [
+    "No product made before verified clean",
+    "Under 50 kg made before verified clean",
+    "50 to 500 kg made before verified clean",
+    "Over 500 kg made before verified clean"
+   ]
+  },
+  "residue_evidence": {
+   "type": "score",
+   "instructions": "How strong is the evidence of residual allergen on the line?",
+   "criteria": [
+    "Clear: all allergen swabs negative, no retests needed",
+    "Trace: a reading above zero but below limit",
+    "Cleared: reading at or over limit, retest passed",
+    "Persistent: reading over limit, retest failed or missing"
+   ]
+  }
+ },
+ "factors": [
+  {
+   "name": "allergen_transition",
+   "description": "Direction of allergen change between outgoing and incoming product; removing an allergen from the next product is the high-risk case, same set is lowest",
+   "kind": "categorical",
+   "values": [
+    "same_allergen_set",
+    "adds_allergen",
+    "swaps_allergen",
+    "removes_allergen"
+   ],
+   "weights": [
+    0.15,
+    0.25,
+    0.25,
+    0.35
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S7"
+   ]
+  },
+  {
+   "name": "cleaning_completion",
+   "description": "How fully the specified wet-clean procedure was carried out, shown by step completion flags and actual versus specified duration",
+   "kind": "categorical",
+   "values": [
+    "full",
+    "one_step_skipped",
+    "multiple_steps_skipped",
+    "duration_short"
+   ],
+   "weights": [
+    0.45,
+    0.2,
+    0.15,
+    0.2
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S4",
+    "S7"
+   ]
+  },
+  {
+   "name": "swab_outcome",
+   "description": "Allergen-specific swab results relative to action limit, including whether a retest was taken and passed",
+   "kind": "categorical",
+   "values": [
+    "all_negative",
+    "trace_below_limit",
+    "positive_retest_pass",
+    "positive_no_retest",
+    "positive_retest_fail"
+   ],
+   "weights": [
+    0.35,
+    0.2,
+    0.2,
+    0.15,
+    0.1
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S4",
+    "S5",
+    "S6"
+   ]
+  },
+  {
+   "name": "swab_timing_mismatch",
+   "description": "A swab or retest timestamp in verification falls after the first batch start time in production, so it did not clear the line in time",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.35,
+   "skills": [
+    "S1",
+    "S5"
+   ]
+  },
+  {
+   "name": "cross_section_discrepancy",
+   "description": "An unannounced mismatch between corresponding values in different sections; some records have none",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "line_id_mismatch",
+    "batch_id_mismatch",
+    "label_allergen_mismatch",
+    "quantity_unit_mismatch",
+    "product_code_mismatch"
+   ],
+   "weights": [
+    0.3,
+    0.12,
+    0.14,
+    0.16,
+    0.14,
+    0.14
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1"
+   ]
+  },
+  {
+   "name": "exposed_quantity_kg",
+   "description": "Kilograms of incoming product made between production start and the time the line was verified clean (all kilograms made if never verified)",
+   "kind": "number",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 1200,
+   "p_true": 0,
+   "skills": [
+    "S4",
+    "S7"
+   ]
+  },
+  {
+   "name": "approved_deviation",
+   "description": "A QA-approved deviation covering the shortfall exists, such as an authorised alternative clean or a pre-agreed hold-and-test release",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S6"
+   ]
+  },
+  {
+   "name": "label_precaution",
+   "description": "Incoming product's packaging already carries a precautionary statement covering the outgoing allergen, lowering consumer risk without curing the process gap",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S6"
+   ]
+  },
+  {
+   "name": "dedicated_tooling",
+   "description": "Removable contact parts were swapped for an allergen-dedicated set rather than cleaned in place, reducing the effect of skipped steps",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3"
+   ]
+  },
+  {
+   "name": "qa_signoff_state",
+   "description": "Whether and when QA signed off line release relative to production start",
+   "kind": "categorical",
+   "values": [
+    "signed_before_start",
+    "signed_after_start",
+    "missing"
+   ],
+   "weights": [
+    0.6,
+    0.22,
+    0.18
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S5",
+    "S7"
+   ]
+  },
+  {
+   "name": "line_failure_history",
+   "description": "Count of failed allergen verifications on this line in its last ten changeovers",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 5,
+   "p_true": 0,
+   "skills": [
+    "S6",
+    "S7"
+   ]
+  },
+  {
+   "name": "boundary_value",
+   "description": "A key value sits exactly on a scale boundary: a swab reading equal to the action limit, or exposed quantity exactly 50 or 500 kg",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.25,
+   "skills": [
+    "S6"
+   ]
+  }
+ ],
+ "sections": [
+  {
+   "name": "changeover",
+   "description": "Line ID, outgoing and incoming product codes, allergen lists for each, start and end timestamps"
+  },
+  {
+   "name": "cleaning",
+   "description": "List of procedure steps with completed flags, specified and actual minutes, chemical used, part swap flag, operator ID"
+  },
+  {
+   "name": "verification",
+   "description": "List of swabs: location, allergen target, method, reading, action limit, unit, timestamp, retest_of reference; plus ATP readings"
+  },
+  {
+   "name": "production",
+   "description": "Line ID, product code, first batch ID, start timestamp, quantity with unit, packaging allergen statement list, held flag"
+  },
+  {
+   "name": "approvals",
+   "description": "QA sign-off object with signer ID and timestamp or null; list of deviations with ID, scope and approval timestamp"
+  },
+  {
+   "name": "history",
+   "description": "Last ten changeovers on the line: date, outgoing and incoming codes, verification passed boolean"
+  }
+ ],
+ "rendering_notes": "allergen_transition: shown only by comparing changeover.from_allergens and changeover.to_allergens lists; never labelled. cleaning_completion: cleaning.steps[].completed false for skipped steps, or actual_min below spec_min. swab_outcome: verification.swabs[] readings against limit_ppm per swab; retests appear as extra entries with retest_of pointing to the original swab ID; a missing retest is simply absent. swab_timing_mismatch: a swab timestamp later than production.start_at. cross_section_discrepancy: e.g. production.line_id differs from changeover.line_id, production.product_code differs from changeover.to_code, production.packaging_allergens omits an allergen in changeover.to_allergens, quantity unit g where kg expected, or a history entry's codes not matching. exposed_quantity_kg: derived by the reader from production.quantity and the gap between start_at and the last passing swab time; quantity is the batch total plus batch start/end times, never a pre-computed exposure figure. approved_deviation: approvals.deviations[] entry whose scope references the step or swab concerned, approved before start; decoy deviations reference other lines or expired dates. label_precaution: production.packaging_allergens includes a may_contain entry for the outgoing allergen. dedicated_tooling: cleaning.part_swap true with a dedicated set ID. qa_signoff_state: approvals.qa_signoff.signed_at before or after production.start_at, or null. line_failure_history: count of false in history[].verification_passed. boundary_value: reading equals limit_ppm exactly, or quantity lands on 50 or 500 kg. Decoys: ATP readings in RLU (general hygiene, not allergen-specific) sometimes high when allergen swabs are clean and low when allergen swabs fail; operator IDs; chemical batch numbers; ambient temperature; history entries on unrelated product pairs. The record never contains fields such as risk, disposition, release_decision, deficiency, exposed_kg or swab_status summaries; device result strings may appear per swab only as raw readings with limits. No free-text notes or comments appear anywhere.",
+ "skills": [
+  "S1",
+  "S3",
+  "S4",
+  "S5",
+  "S6",
+  "S7"
+ ],
+ "shared_scale": null,
+ "design_cost": 0.139684
+}

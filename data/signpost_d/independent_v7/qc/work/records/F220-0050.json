@@ -1,0 +1,142 @@
+{
+ "id": "F220-0050",
+ "family": "F220",
+ "state": {
+  "tray": {
+   "barcode": "3309117"
+  },
+  "set_check": {
+   "lines": [
+    {
+     "cat_code": "E1",
+     "qty_expected": 2,
+     "qty_counted": 1
+    },
+    {
+     "cat_code": "F2",
+     "qty_expected": 1,
+     "qty_counted": 0
+    },
+    {
+     "cat_code": "G3",
+     "qty_expected": 3,
+     "qty_counted": 2
+    },
+    {
+     "cat_code": "H4",
+     "qty_expected": 2,
+     "qty_counted": 3
+    }
+   ],
+   "variances": [
+    {
+     "cat_code": "H4",
+     "reason": "substitute",
+     "approved_by": "SSD lead"
+    },
+    {
+     "cat_code": "G3",
+     "reason": "damaged",
+     "approved_by": null
+    }
+   ]
+  },
+  "washer": {
+   "alarms": [
+    "low flow"
+   ],
+   "rerun_cycle_id": "W52",
+   "trays_processed": [
+    "3309117"
+   ]
+  },
+  "steriliser_load": {
+   "printout": null,
+   "logger": {
+    "temp_min_c": 135.2,
+    "hold_s": 210
+   },
+   "daily_test": {
+    "result": "pass",
+    "earlier_result": "fail",
+    "repair_ref": "R-07"
+   },
+   "bi": null,
+   "ci_result": "partial_change",
+   "operator_comment": "CI strip borderline; re-read after drying, still unclear."
+  },
+  "release_label": {
+   "sterilised_date": "2025-03-11",
+   "expiry_date": "2025-04-10",
+   "cycle_started": "2025-03-10T23:50"
+  }
+ },
+ "factors": {
+  "set_count_discrepancies": 4,
+  "substitution_documented": true,
+  "cycle_excursion": "printout_missing",
+  "independent_logger_confirms": true,
+  "bi_status": "not_required",
+  "chemical_indicator": "partial_change",
+  "washer_record_state": "alarm_cleared_rerun",
+  "pack_integrity": "intact",
+  "label_mismatch": "date_off_by_one_midnight",
+  "daily_test_state": "fail_then_repaired_pass",
+  "theatre_urgency": "next_list",
+  "note_tone": "flags_concern_resolved",
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "set_count_discrepancies": 4,
+  "substitution_documented": true,
+  "cycle_excursion": "printout_missing",
+  "independent_logger_confirms": false,
+  "bi_status": "not_required",
+  "chemical_indicator": "fail",
+  "washer_record_state": "alarm_cleared_rerun",
+  "pack_integrity": "intact",
+  "label_mismatch": "date_off_by_one_midnight",
+  "daily_test_state": "fail_then_repaired_pass",
+  "theatre_urgency": "next_list",
+  "note_tone": "flags_concern_resolved",
+  "boundary_case": false
+ },
+ "plan": {
+  "cycle_in_limits": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "disposition": {
+   "clarity": "leaning",
+   "target": "release_annotated",
+   "second": null
+  },
+  "failure_stage": {
+   "clarity": "balanced",
+   "target": "steriliser_stage",
+   "second": "wash_stage"
+  },
+  "count_gaps": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  },
+  "sterility_doubt": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 72,
+ "deciding": {
+  "cycle_in_limits": "Printout is null, but the logger shows 135.2 C and 210 s, in band.",
+  "disposition": "Cycle confirmed by logger and the washer alarm was rerun; the count variances and the midnight label date point to release with an annotation.",
+  "failure_stage": "Washer alarm has rerun W52, so the wash is mitigated; the borderline CI is the main steriliser-stage signal, but the open wash alarm history keeps the wash answer plausible.",
+  "count_gaps": "Four discrepant lines; H4 is approved, G3 has a null approval, and E1 and F2 have no variance, giving two or three unexplained.",
+  "sterility_doubt": "CI is 'partial_change' and still unclear after re-read with no BI; it reads as failed or merely doubtful."
+ },
+ "request": "rec-F220-0046",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.014949
+}

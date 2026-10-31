@@ -1,0 +1,111 @@
+{
+ "id": "F240-0013",
+ "family": "F240",
+ "state": {
+  "asset": {
+   "inverter_id": "INV-03",
+   "serial": "SN9",
+   "rated_ac_kw": 1500
+  },
+  "fault_event": {
+   "serial": "SN9",
+   "code": "F-OV-01"
+  },
+  "telemetry": {
+   "exp_day_kwh": 8000,
+   "exp_window_kwh": 1400,
+   "act_window_kwh": 131,
+   "last": {
+    "ac_kw": 1290,
+    "limit_pct": 86
+   }
+  },
+  "site_context": {
+   "neighbours": [
+    {
+     "output_ratio": 0.6
+    }
+   ]
+  },
+  "history": {
+   "faults": [
+    {
+     "date": "2024-05-01",
+     "code": "F-OV-01"
+    }
+   ],
+   "work_orders": [
+    {
+     "completed": "2024-05-10",
+     "retest_ok": true
+    }
+   ]
+  }
+ },
+ "factors": {
+  "fault_class": "grid_overvoltage",
+  "log_telemetry_mismatch": "none",
+  "grid_event_concurrent": false,
+  "maintenance_window_active": false,
+  "neighbour_cross_check": "neighbours_affected",
+  "repeat_count_30d": 3,
+  "last_repair_status": "completed_verified",
+  "current_limit_pct": 86.0,
+  "yield_loss_pct": 15.86,
+  "low_irradiance_window": false,
+  "serial_mismatch": false,
+  "boundary_placement": false
+ },
+ "factors_sampled": {
+  "fault_class": "grid_overvoltage",
+  "log_telemetry_mismatch": "none",
+  "grid_event_concurrent": false,
+  "maintenance_window_active": false,
+  "neighbour_cross_check": "neighbours_affected",
+  "repeat_count_30d": 3,
+  "last_repair_status": "completed_verified",
+  "current_limit_pct": 14.04,
+  "yield_loss_pct": 15.86,
+  "low_irradiance_window": false,
+  "serial_mismatch": false,
+  "boundary_placement": false
+ },
+ "plan": {
+  "genuine_defect": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "post_repair_repeat": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "close_log",
+   "second": null
+  },
+  "yield_loss": {
+   "clarity": "contested",
+   "target": "1",
+   "second": "2"
+  },
+  "capacity_unavailable": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 39,
+ "deciding": {
+  "genuine_defect": "No grid event or maintenance window, and a repeat fault history, support an inverter defect.",
+  "post_repair_repeat": "All matching faults precede the repair completed 2024-05-10, which was retested ok.",
+  "next_step": "Not clear from the record. The close_log plan conflicts with the record, so this is a weak fit.",
+  "yield_loss": "The computed loss is (1400-131)/8000 = 15.9%, between the bands.",
+  "capacity_unavailable": "The last sample shows 1290 of 1500 kW at an 86% limit, a mild derate."
+ },
+ "request": "rec-F240-0011",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.00554
+}

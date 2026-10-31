@@ -1,0 +1,154 @@
+{
+ "id": "F236-0070",
+ "family": "F236",
+ "state": {
+  "changeover": {
+   "line": "L3",
+   "from_allergens": [
+    "wheat",
+    "egg"
+   ],
+   "to_allergens": [
+    "wheat"
+   ]
+  },
+  "cleaning": {
+   "steps": [
+    {
+     "s": "dry",
+     "done": true
+    },
+    {
+     "s": "foam",
+     "done": false
+    },
+    {
+     "s": "wash",
+     "done": true
+    }
+   ]
+  },
+  "verification": {
+   "swabs": [
+    {
+     "id": "S1",
+     "target": "egg",
+     "ppm": 13,
+     "limit_ppm": 10,
+     "at": "05:00"
+    },
+    {
+     "id": "S2",
+     "retest_of": "S1",
+     "target": "egg",
+     "ppm": 1,
+     "limit_ppm": 10,
+     "at": "05:20"
+    }
+   ]
+  },
+  "production": {
+   "line": "L3",
+   "start": "05:40",
+   "qty": 505000,
+   "unit": "g",
+   "pack": [
+    "wheat"
+   ],
+   "may_contain": [
+    "egg"
+   ]
+  },
+  "approvals": {
+   "qa": {
+    "signed_at": "05:35"
+   },
+   "dev": [
+    {
+     "scope": "L3 foam skip",
+     "approved": "04:50"
+    }
+   ]
+  },
+  "history": {
+   "passed": [
+    true,
+    false,
+    true,
+    false,
+    true,
+    true,
+    false,
+    true,
+    true,
+    true
+   ]
+  }
+ },
+ "factors": {
+  "allergen_transition": "removes_allergen",
+  "cleaning_completion": "one_step_skipped",
+  "swab_outcome": "over_limit_retest_passed",
+  "swab_timing_mismatch": false,
+  "cross_section_discrepancy": "quantity_unit_mismatch",
+  "exposed_quantity_kg": 505.0,
+  "approved_deviation": true,
+  "label_precaution": true,
+  "dedicated_tooling": false,
+  "qa_signoff_state": "signed_before_start",
+  "line_failure_history": 3,
+  "boundary_value": false
+ },
+ "factors_sampled": {
+  "allergen_transition": "removes_allergen",
+  "cleaning_completion": "one_step_skipped",
+  "swab_outcome": "all_negative",
+  "swab_timing_mismatch": true,
+  "cross_section_discrepancy": "quantity_unit_mismatch",
+  "exposed_quantity_kg": 401.47,
+  "approved_deviation": true,
+  "label_precaution": true,
+  "dedicated_tooling": false,
+  "qa_signoff_state": "signed_before_start",
+  "line_failure_history": 3,
+  "boundary_value": false
+ },
+ "plan": {
+  "swabs_cleared": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "line_disposition": {
+   "clarity": "clear",
+   "target": "release_conditional",
+   "second": null
+  },
+  "worst_deficiency": {
+   "clarity": "leaning",
+   "target": "records_only",
+   "second": null
+  },
+  "exposed_product": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  },
+  "residue_evidence": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 67,
+ "deciding": {
+  "swabs_cleared": "The retest S2 read 1 ppm at 05:20, before the 05:40 start. It passed against a 10 ppm limit, so every swab is accounted for.",
+  "line_disposition": "The may_contain egg label is present, the retest passed, and QA signed at 05:35. Release with the label precaution is clear.",
+  "worst_deficiency": "The foam step was skipped but a deviation covers it. The remaining oddity is the quantity given in g (505000), a records issue.",
+  "exposed_product": "Quantity is 505000 g, about 505 kg, just over the 500 kg boundary. Level 3 versus 2 is contested.",
+  "residue_evidence": "S1 read 13 ppm, over the 10 ppm limit, and the retest passed at 1 ppm. Level 2 is the strict reading, but level 3 is arguable given the skipped foam step."
+ },
+ "request": "rec-F236-0066",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.01358
+}

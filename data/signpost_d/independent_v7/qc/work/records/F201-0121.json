@@ -1,0 +1,133 @@
+{
+ "id": "F201-0121",
+ "family": "F201",
+ "state": {
+  "register_header": {
+   "drug": "pentobarbital",
+   "mg_ml": 200,
+   "schedule": 2,
+   "witness_required": true,
+   "opening_balance_ml": 50
+  },
+  "entries": [
+   {
+    "id": 1,
+    "type": "receipt",
+    "qty_ml": 50,
+    "balance_ml": 100,
+    "signed_by": "LOC-31",
+    "witness_id": "W4"
+   },
+   {
+    "id": 2,
+    "type": "use",
+    "qty_ml": 10,
+    "pt": "P11",
+    "balance_ml": 90,
+    "signed_by": "VN2",
+    "witness_id": null
+   },
+   {
+    "id": 3,
+    "type": "use",
+    "qty_ml": 10,
+    "pt": "P12",
+    "balance_ml": 80,
+    "signed_by": null,
+    "witness_id": "W4"
+   }
+  ],
+  "clinical_records": [
+   {
+    "pt": "P11",
+    "dose": 10,
+    "unit": "ml"
+   },
+   {
+    "pt": "P12",
+    "dose": 10,
+    "unit": "ml"
+   }
+  ],
+  "stock_check": {
+   "counted_ml": 79,
+   "count_date": "2024-06-30"
+  },
+  "disposals": [
+   {
+    "qty_ml": 1,
+    "reason": "spillage",
+    "register_entry_id": null,
+    "witness_id": null
+   }
+  ]
+ },
+ "factors": {
+  "drug_profile": "pentobarbital_200mg_ml",
+  "arithmetic_slip_count": 0,
+  "unrecorded_admin": "none",
+  "clinical_records_missing": false,
+  "disposal_state": "removed_unlogged",
+  "unexplained_shortfall_pct": 1.0,
+  "variance_exception": "none",
+  "manufacturer_overfill": false,
+  "auth_gap_count": 2,
+  "count_out_of_order": false,
+  "unit_mismatch": false,
+  "locum_signatory": true,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "drug_profile": "pentobarbital_200mg_ml",
+  "arithmetic_slip_count": 0,
+  "unrecorded_admin": "moderate_2_to_8pct",
+  "clinical_records_missing": false,
+  "disposal_state": "none_needed",
+  "unexplained_shortfall_pct": 8.52,
+  "variance_exception": "none",
+  "manufacturer_overfill": false,
+  "auth_gap_count": 0,
+  "count_out_of_order": false,
+  "unit_mismatch": false,
+  "locum_signatory": true,
+  "boundary_case": false
+ },
+ "plan": {
+  "unexplained_shortfall": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "line_disposition": {
+   "clarity": "balanced",
+   "target": "correct_and_sign",
+   "second": "escalate"
+  },
+  "variance_cause": {
+   "clarity": "clear",
+   "target": "undocumented_disposal",
+   "second": null
+  },
+  "variance_size": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "auth_gaps": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  }
+ },
+ "target_words": 42,
+ "deciding": {
+  "unexplained_shortfall": "Count 79 vs recomputed 80 (1 ml short); the 1 ml disposal has register_entry_id null and no witness, so the removal is unrecorded rather than cleanly explained.",
+  "line_disposition": "Small 1 ml gap with a known spill but unlogged and unwitnessed, plus two entries missing signatures; a dated annotation or escalation are both plausible.",
+  "variance_cause": "Clinical doses match entries exactly and balances are correct; the only counterpart to the shortfall is a disposals item with register_entry_id null and no entries line.",
+  "variance_size": "1 ml of 100 ml handled (1%): zero if the disposal counts as documented, trace if its missing register entry leaves it unreconciled.",
+  "auth_gaps": "Entry 2 witness_id null and entry 3 signed_by null with witness_required true gives two gaps; the unusual LOC-31 signatory on entry 1 is valid and might be miscounted as a third."
+ },
+ "request": "rec-F201-0121",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.017276
+}

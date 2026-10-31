@@ -1,0 +1,165 @@
+{
+ "id": "F224-0080",
+ "family": "F224",
+ "state": {
+  "request": {
+   "views": [
+    "BW_L"
+   ],
+   "ind": "C02",
+   "risk": "low",
+   "date": "2024-05-02",
+   "prior": "2022-08-01",
+   "verbal_auth": [
+    {
+     "t": "10:30",
+     "v": "PA_11"
+    }
+   ]
+  },
+  "exposures": [
+   {
+    "id": 1,
+    "v": "BW_L",
+    "t": "10:00",
+    "kV": 70,
+    "s": 0.16,
+    "mGy": 1.0
+   },
+   {
+    "id": 2,
+    "v": "BW_L",
+    "t": "10:02",
+    "kV": 70,
+    "s": 0.16,
+    "mGy": 1.0,
+    "retake_of": 1
+   },
+   {
+    "id": 3,
+    "v": "PA_11",
+    "t": "10:04",
+    "mGy": 1.0
+   },
+   {
+    "id": 4,
+    "v": "PA_21",
+    "t": "10:05",
+    "mGy": 1.0
+   },
+   {
+    "id": 5,
+    "v": "PA_31",
+    "t": "10:06",
+    "mGy": 1.0
+   }
+  ],
+  "image_review": {
+   "grade": 2,
+   "faults": {
+    "1": [
+     "FC_APEX_CLIPPED"
+    ]
+   },
+   "second_grader": "done"
+  },
+  "equipment": {
+   "qa": "2024-02-01",
+   "int_m": 12,
+   "test": "pass",
+   "service_log": [
+    {
+     "open": "2024-05-01",
+     "status": "visit_open"
+    }
+   ],
+   "drl": {
+    "BW_L": 1.0
+   },
+   "console_log": [
+    [
+     "10:00",
+     85,
+     0.22
+    ],
+    [
+     "10:02",
+     70,
+     0.16
+    ]
+   ]
+  },
+  "operator": {
+   "signoff": "2024-05-02T11:00",
+   "prior_12m": 2
+  }
+ },
+ "factors": {
+  "indication_match": "match",
+  "recall_interval_months": 21,
+  "dose_ratio_to_drl": 1.5,
+  "console_log_discrepancy": "setting_mismatch",
+  "retake_cause": "positioning",
+  "equipment_qa_status": "under_service",
+  "approved_exception": false,
+  "patient_cooperation_flag": false,
+  "unrequested_exposure_count": 3,
+  "verbal_authorisation_logged": true,
+  "image_grade": "acceptable_minor_faults",
+  "audit_completeness": "complete",
+  "operator_prior_findings": 2
+ },
+ "factors_sampled": {
+  "indication_match": "mismatch",
+  "recall_interval_months": 21,
+  "dose_ratio_to_drl": 1.4,
+  "console_log_discrepancy": "setting_mismatch",
+  "retake_cause": "positioning",
+  "equipment_qa_status": "under_service",
+  "approved_exception": false,
+  "patient_cooperation_flag": false,
+  "unrequested_exposure_count": 3,
+  "verbal_authorisation_logged": true,
+  "image_grade": "acceptable_minor_faults",
+  "audit_completeness": "complete",
+  "operator_prior_findings": 2
+ },
+ "plan": {
+  "justified": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "operator_retake": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "follow_up": {
+   "clarity": "clear",
+   "target": "escalate_rpa",
+   "second": null
+  },
+  "dose_position": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "unjustified_count": {
+   "clarity": "clear",
+   "target": "3",
+   "second": null
+  }
+ },
+ "target_words": 25,
+ "deciding": {
+  "justified": "C02 indication fits the BW_L request and the 21-month interval is within the 24 months allowed for low risk.",
+  "operator_retake": "Retake follows FC_APEX_CLIPPED (technique) with no patient flag or sensor error, but an open service visit on the unit and the console setting mismatch keep an equipment cause plausible.",
+  "follow_up": "Console shows 85 kV and 0.22 s for exposure 1 against 70 kV and 0.16 s logged, an open service visit and three unrequested exposures, which together are an unmitigated breach.",
+  "dose_position": "The listed dose is 1.0 mGy against DRL 1.0, but the console settings of 85 kV and 0.22 s govern and imply a dose near 1.5 times the DRL, on the raised/excessive boundary.",
+  "unjustified_count": "PA_11, PA_21 and PA_31 are not in the requested views, and the PA_11 verbal authorisation at 10:30 is after all exposures, so it covers none."
+ },
+ "request": "rec-F224-0076",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.015511
+}

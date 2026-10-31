@@ -1,0 +1,135 @@
+{
+ "id": "F230-0020",
+ "family": "F230",
+ "state": {
+  "resident": {
+   "status": "home"
+  },
+  "prescriptions": [
+   {
+    "item_id": "E1",
+    "strength_mg": 25,
+    "dose_units": 1,
+    "time_critical": true
+   },
+   {
+    "item_id": "E2",
+    "strength_mg": 10,
+    "dose_units": 1
+   }
+  ],
+  "administrations": [
+   {
+    "item_id": "E1",
+    "scheduled": "08:00",
+    "given_at": null,
+    "units_given": 0,
+    "code": "R",
+    "initials": "JP"
+   },
+   {
+    "item_id": "E2",
+    "scheduled": "08:00",
+    "given_at": "08:56",
+    "units_given": 1,
+    "strength_mg_used": 10,
+    "initials": null
+   }
+  ],
+  "stock": {
+   "E1": {
+    "opening": 14,
+    "closing": 14
+   },
+   "E2": {
+    "opening": 30,
+    "closing": 26
+   }
+  },
+  "round": {
+   "open_queries": [
+    {
+     "type": "gp_callback",
+     "raised": "2024-05-02T09:10",
+     "item_id": "E1"
+    }
+   ],
+   "post_dose_obs": [
+    {
+     "type": "pulse",
+     "value": 70
+    }
+   ]
+  }
+ },
+ "factors": {
+  "dose_mismatch_type": "none",
+  "prescription_change_documented": false,
+  "omission_count": 1,
+  "omission_reason_valid": false,
+  "late_minutes": 56,
+  "time_critical_affected": true,
+  "stock_variance": -3,
+  "stock_variance_explained": false,
+  "signature_gaps": 1,
+  "unit_expression_decoy": "matching_units",
+  "post_dose_obs_reassuring": true,
+  "pending_query": "gp_callback_awaited",
+  "prior_errors_30d": 1,
+  "item_count": 2
+ },
+ "factors_sampled": {
+  "dose_mismatch_type": "none",
+  "prescription_change_documented": false,
+  "omission_count": 3,
+  "omission_reason_valid": true,
+  "late_minutes": 56,
+  "time_critical_affected": false,
+  "stock_variance": -3,
+  "stock_variance_explained": false,
+  "signature_gaps": 2,
+  "unit_expression_decoy": "matching_units",
+  "post_dose_obs_reassuring": true,
+  "pending_query": "gp_callback_awaited",
+  "prior_errors_30d": 1,
+  "item_count": 9
+ },
+ "plan": {
+  "dose_mismatch": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "stock_reconciles": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "report_incident",
+   "second": null
+  },
+  "open_discrepancies": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  },
+  "error_severity": {
+   "clarity": "balanced",
+   "target": "4",
+   "second": "3"
+  }
+ },
+ "target_words": 74,
+ "deciding": {
+  "dose_mismatch": "E2 matches the prescription exactly. E1 was refused (code R) with no dose given, which is an omission rather than a wrong dose.",
+  "stock_reconciles": "E1 is unchanged at 14, which fits no dose given. E2: 30 minus 1 gives 29 but closing is 26, so 3 units are unexplained.",
+  "next_step": "E1 is time-critical and its refusal code is not supported, with a GP callback awaited. The leading reading is still an incident report.",
+  "open_discrepancies": "E2 has the stock gap and a missing signature, and E1 is a separate open item with a pending GP query. Leaning is one item, but two is possible.",
+  "error_severity": "E1 is a time-critical item omitted without a valid reason, which is critical. If the refusal is accepted as the resident's choice it falls to ordinary dose level."
+ },
+ "request": "rec-F230-0016",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.008234
+}

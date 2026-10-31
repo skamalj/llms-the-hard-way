@@ -1,0 +1,172 @@
+{
+ "id": "F201-0125",
+ "family": "F201",
+ "state": {
+  "register_header": {
+   "drug": "midazolam",
+   "mg_ml": 5,
+   "schedule": 3,
+   "witness_required": true,
+   "opening_balance_ml": 40
+  },
+  "entries": [
+   {
+    "id": 1,
+    "type": "receipt",
+    "qty_ml": 60,
+    "balance_ml": 100,
+    "signed_by": "RT4",
+    "witness_id": "W1"
+   },
+   {
+    "id": 2,
+    "type": "use",
+    "qty_ml": 4,
+    "pt": "P1",
+    "balance_ml": 96,
+    "signed_by": "RT4",
+    "witness_id": "W1"
+   },
+   {
+    "id": 3,
+    "type": "use",
+    "qty_ml": 4,
+    "pt": "P2",
+    "balance_ml": 92,
+    "signed_by": "RT4",
+    "witness_id": "W1"
+   },
+   {
+    "id": 4,
+    "type": "use",
+    "qty_ml": 4,
+    "pt": "P3",
+    "balance_ml": 90,
+    "signed_by": null,
+    "witness_id": "W1"
+   },
+   {
+    "id": 5,
+    "type": "use",
+    "qty_ml": 4,
+    "pt": "P4",
+    "balance_ml": 86,
+    "signed_by": "RT4",
+    "witness_id": "W1"
+   },
+   {
+    "id": 6,
+    "type": "use",
+    "qty_ml": 4,
+    "pt": "P5",
+    "balance_ml": 85,
+    "signed_by": "RT4",
+    "witness_id": "W1"
+   }
+  ],
+  "clinical_records": [
+   {
+    "pt": "P1",
+    "dose": 20,
+    "unit": "mg"
+   },
+   {
+    "pt": "P2",
+    "dose": 20,
+    "unit": "mg"
+   },
+   {
+    "pt": "P3",
+    "dose": 20,
+    "unit": "mg"
+   },
+   {
+    "pt": "P4",
+    "dose": 20,
+    "unit": "mg"
+   },
+   {
+    "pt": "P5",
+    "dose": 20,
+    "unit": "mg"
+   },
+   {
+    "pt": "P9",
+    "dose": 1,
+    "unit": "mg"
+   }
+  ],
+  "stock_check": {
+   "counted_ml": 79.6,
+   "count_date": "2024-08-31"
+  }
+ },
+ "factors": {
+  "drug_profile": "midazolam_5mg_ml",
+  "arithmetic_slip_count": 2,
+  "unrecorded_admin": "trivial_under_1pct",
+  "clinical_records_missing": false,
+  "disposal_state": "none_needed",
+  "unexplained_shortfall_pct": 0.2,
+  "variance_exception": "none",
+  "manufacturer_overfill": false,
+  "auth_gap_count": 1,
+  "count_out_of_order": false,
+  "unit_mismatch": true,
+  "locum_signatory": false,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "drug_profile": "midazolam_5mg_ml",
+  "arithmetic_slip_count": 2,
+  "unrecorded_admin": "trivial_under_1pct",
+  "clinical_records_missing": false,
+  "disposal_state": "none_needed",
+  "unexplained_shortfall_pct": 5.68,
+  "variance_exception": "none",
+  "manufacturer_overfill": false,
+  "auth_gap_count": 1,
+  "count_out_of_order": false,
+  "unit_mismatch": true,
+  "locum_signatory": false,
+  "boundary_case": false
+ },
+ "plan": {
+  "unexplained_shortfall": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "line_disposition": {
+   "clarity": "balanced",
+   "target": "correct_and_sign",
+   "second": "hold_pending"
+  },
+  "variance_cause": {
+   "clarity": "leaning",
+   "target": "arithmetic_slip",
+   "second": null
+  },
+  "variance_size": {
+   "clarity": "leaning",
+   "target": "0",
+   "second": null
+  },
+  "auth_gaps": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  }
+ },
+ "target_words": 56,
+ "deciding": {
+  "unexplained_shortfall": "Count 79.6 vs recomputed 80 (100 minus 5x4) is 0.4 ml short; P9's 1 mg (0.2 ml) has no entry, which leaves about 0.2 ml with no disposal or exception.",
+  "line_disposition": "Two running-balance slips are clerical and fixable by annotation, but entry 4 lacks a signature and a small 0.4 ml shortfall remains, so a hold for confirmation is also plausible.",
+  "variance_cause": "Entry 4 shows 90 where 92 minus 4 is 88, and entry 6 shows 85 where 86 minus 4 is 82; these slips overstate the printed balance by 5 ml, far more than the 0.4 ml physical gap.",
+  "variance_size": "The remaining physical gap is 0.2 to 0.4 ml of 100 handled (under 0.5%), so the variance is nil or trace, with the slips being paper-only.",
+  "auth_gaps": "Only entry 4 has signed_by null; every other entry has both signature and witness, so exactly one gap."
+ },
+ "request": "rec-F201-0121",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.017276
+}

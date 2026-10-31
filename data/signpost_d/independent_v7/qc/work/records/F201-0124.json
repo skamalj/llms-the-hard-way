@@ -1,0 +1,125 @@
+{
+ "id": "F201-0124",
+ "family": "F201",
+ "state": {
+  "register_header": {
+   "drug": "midazolam",
+   "mg_ml": 5,
+   "schedule": 3,
+   "witness_required": false,
+   "opening_balance_ml": 50
+  },
+  "entries": [
+   {
+    "id": 1,
+    "type": "receipt",
+    "qty_ml": 50,
+    "balance_ml": 100,
+    "signed_by": "LOC-9",
+    "witness_id": null,
+    "batch_no": "M5"
+   },
+   {
+    "id": 2,
+    "type": "use",
+    "qty_ml": 20,
+    "pt": "P7",
+    "balance_ml": 80,
+    "signed_by": "VN3",
+    "witness_id": null
+   }
+  ],
+  "clinical_records": null,
+  "stock_check": {
+   "counted_ml": 69.3,
+   "overfill_allowance_ml": 0.5,
+   "batch_no": "M5"
+  },
+  "disposals": [
+   {
+    "batch_no": "M5",
+    "qty_ml": 10,
+    "reason_code": "expired",
+    "removed_date": "2024-04-12",
+    "register_entry_id": null,
+    "witness_id": null,
+    "denatured_date": null
+   }
+  ],
+  "exceptions": [
+   {
+    "batch_no": "M1",
+    "qty_ml": 10,
+    "valid_to": "2023-12-31"
+   }
+  ]
+ },
+ "factors": {
+  "drug_profile": "midazolam_5mg_ml",
+  "arithmetic_slip_count": 0,
+  "unrecorded_admin": "none",
+  "clinical_records_missing": true,
+  "disposal_state": "removed_unlogged",
+  "unexplained_shortfall_pct": 0.0,
+  "variance_exception": "expired_or_other_batch",
+  "manufacturer_overfill": true,
+  "auth_gap_count": 0,
+  "count_out_of_order": false,
+  "unit_mismatch": false,
+  "locum_signatory": true,
+  "boundary_case": true
+ },
+ "factors_sampled": {
+  "drug_profile": "midazolam_5mg_ml",
+  "arithmetic_slip_count": 1,
+  "unrecorded_admin": "moderate_2_to_8pct",
+  "clinical_records_missing": true,
+  "disposal_state": "none_needed",
+  "unexplained_shortfall_pct": 6.74,
+  "variance_exception": "expired_or_other_batch",
+  "manufacturer_overfill": true,
+  "auth_gap_count": 3,
+  "count_out_of_order": false,
+  "unit_mismatch": false,
+  "locum_signatory": true,
+  "boundary_case": true
+ },
+ "plan": {
+  "unexplained_shortfall": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "line_disposition": {
+   "clarity": "clear",
+   "target": "hold_pending",
+   "second": null
+  },
+  "variance_cause": {
+   "clarity": "clear",
+   "target": "undocumented_disposal",
+   "second": null
+  },
+  "variance_size": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "auth_gaps": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 25,
+ "deciding": {
+  "unexplained_shortfall": "Recomputed 80 vs counted 69.3 is 10.7 ml short, and the 10 ml disposal on the same batch matches most of it, but it has no entry line and the clinical records are null.",
+  "line_disposition": "clinical_records is null (export failed), so one confirmation is missing and the other sections are otherwise complete; the expired exception is not applicable.",
+  "variance_cause": "The 10 ml disposal in disposals has register_entry_id null, no witness, no denature date and no entries line, matching the shortfall.",
+  "variance_size": "80 minus 69.3 minus 0.5 overfill allowance is 10.2 ml of 100 handled (10.2%), just over the 10% line; the null clinical records leave it open.",
+  "auth_gaps": "witness_required is false, so null witness_id values are not gaps; every signed_by is present (LOC-9 is a valid locum), though a reader might still count the unwitnessed entries."
+ },
+ "request": "rec-F201-0121",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.017276
+}

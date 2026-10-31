@@ -1,0 +1,185 @@
+{
+ "id": "F236-0064",
+ "family": "F236",
+ "state": {
+  "changeover": {
+   "line": "L1",
+   "from": "P50",
+   "to": "P53",
+   "from_allergens": [
+    "milk"
+   ],
+   "to_allergens": [
+    "tree nuts"
+   ],
+   "planned_batch": "B5512",
+   "end": "2024-08-12T07:30"
+  },
+  "cleaning": {
+   "steps": [
+    {
+     "s": "dry_clean",
+     "done": true,
+     "spec_min": 30,
+     "act_min": 31
+    },
+    {
+     "s": "wash",
+     "done": true,
+     "spec_min": 25,
+     "act_min": 26
+    }
+   ],
+   "part_swap": false
+  },
+  "verification": {
+   "swabs": [
+    {
+     "id": "S1",
+     "loc": "mixer",
+     "target": "milk",
+     "ppm": 0,
+     "limit_ppm": 5,
+     "at": "2024-08-12T07:40",
+     "req": true
+    },
+    {
+     "id": "S2",
+     "loc": "depositor",
+     "target": "milk",
+     "ppm": 0.3,
+     "limit_ppm": 5,
+     "at": "2024-08-12T07:45",
+     "req": true
+    },
+    {
+     "id": "S3",
+     "loc": "belt",
+     "target": "milk",
+     "ppm": 0,
+     "limit_ppm": 5,
+     "at": "2024-08-12T13:00",
+     "req": false
+    }
+   ]
+  },
+  "production": {
+   "line": "L1",
+   "product": "P53",
+   "batch": "B5521",
+   "start_at": "2024-08-12T08:00",
+   "end_at": "2024-08-12T16:00",
+   "qty": 1000,
+   "unit": "kg",
+   "pack_allergens": [
+    "tree nuts"
+   ],
+   "held": true
+  },
+  "approvals": {
+   "qa_signoff": {
+    "by": "QA02",
+    "signed_at": "2024-08-12T07:50"
+   },
+   "deviations": [
+    {
+     "id": "D31",
+     "scope": "L1 S3 belt swab post-start 13:00",
+     "approved_at": "2024-08-12T07:40"
+    }
+   ]
+  },
+  "history": [
+   {
+    "d": "2024-07-01",
+    "ok": false
+   },
+   {
+    "d": "2024-07-08",
+    "ok": false
+   },
+   {
+    "d": "2024-07-15",
+    "ok": true
+   },
+   {
+    "d": "2024-07-22",
+    "ok": false
+   },
+   {
+    "d": "2024-07-29",
+    "ok": false
+   },
+   {
+    "d": "2024-08-05",
+    "ok": false
+   }
+  ]
+ },
+ "factors": {
+  "allergen_transition": "swaps_allergen",
+  "cleaning_completion": "full",
+  "swab_outcome": "trace_below_limit",
+  "swab_timing_mismatch": true,
+  "cross_section_discrepancy": "batch_id_mismatch",
+  "exposed_quantity_kg": 625.0,
+  "approved_deviation": true,
+  "label_precaution": false,
+  "dedicated_tooling": false,
+  "qa_signoff_state": "signed_before_start",
+  "line_failure_history": 5,
+  "boundary_value": false
+ },
+ "factors_sampled": {
+  "allergen_transition": "swaps_allergen",
+  "cleaning_completion": "full",
+  "swab_outcome": "trace_below_limit",
+  "swab_timing_mismatch": false,
+  "cross_section_discrepancy": "batch_id_mismatch",
+  "exposed_quantity_kg": 79.05,
+  "approved_deviation": true,
+  "label_precaution": false,
+  "dedicated_tooling": false,
+  "qa_signoff_state": "signed_before_start",
+  "line_failure_history": 5,
+  "boundary_value": false
+ },
+ "plan": {
+  "swabs_cleared": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "line_disposition": {
+   "clarity": "leaning",
+   "target": "hold",
+   "second": null
+  },
+  "worst_deficiency": {
+   "clarity": "balanced",
+   "target": "none",
+   "second": "records_only"
+  },
+  "exposed_product": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  },
+  "residue_evidence": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 94,
+ "deciding": {
+  "swabs_cleared": "Required swabs S1 and S2 pass before the 08:00 start. S3 is timed 13:00, after start, but it is non-required and covered by D31.",
+  "line_disposition": "The batch is already flagged held and the changeover planned batch B5512 differs from production batch B5521. Confirming the batch ID is the one missing item.",
+  "worst_deficiency": "Cleaning is complete and the swabs pass. The only issue is the batch ID mismatch, with the late S3 covered by D31.",
+  "exposed_product": "The last passing swab S3 is at 13:00 against an 08:00 start on 1000 kg over 8 h, about 625 kg, though the deviation gives some doubt.",
+  "residue_evidence": "S2 reads 0.3 ppm against a limit of 5. Level 0 and level 1 are both defensible."
+ },
+ "request": "rec-F236-0061",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.015747
+}

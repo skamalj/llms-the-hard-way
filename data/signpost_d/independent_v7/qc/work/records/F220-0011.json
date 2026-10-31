@@ -1,0 +1,132 @@
+{
+ "id": "F220-0011",
+ "family": "F220",
+ "state": {
+  "tray": {
+   "tray_id": "T1",
+   "barcode": "B1"
+  },
+  "set_check": {
+   "lines": [
+    {
+     "cat_code": "K1",
+     "qty_expected": 2,
+     "qty_counted": 1
+    },
+    {
+     "cat_code": "K2",
+     "qty_expected": 4,
+     "qty_counted": 3
+    },
+    {
+     "cat_code": "K3",
+     "qty_expected": 1,
+     "qty_counted": 0
+    },
+    {
+     "cat_code": "K9",
+     "qty_expected": 0,
+     "qty_counted": 1
+    },
+    {
+     "cat_code": "K5",
+     "qty_expected": 2,
+     "qty_counted": 3
+    }
+   ],
+   "variances": [
+    {
+     "cat_code": "K5",
+     "reason": "alt size",
+     "approved_by": "SSD lead"
+    }
+   ]
+  },
+  "washer": {
+   "cycle_id": "W1",
+   "a0": 3000,
+   "alarms": [],
+   "trays_processed": [
+    "B1"
+   ]
+  },
+  "steriliser_load": {
+   "load_id": "L1",
+   "printout": null,
+   "logger": null,
+   "bi": {
+    "result": "pending",
+    "incubation_end": "2025-03-12T09:00"
+   },
+   "ci_result": "pass"
+  }
+ },
+ "factors": {
+  "set_count_discrepancies": 5,
+  "substitution_documented": true,
+  "cycle_excursion": "missing_cycle_data",
+  "independent_logger_confirms": false,
+  "bi_status": "pending",
+  "chemical_indicator": "pass",
+  "washer_record_state": "complete",
+  "pack_integrity": "intact",
+  "label_mismatch": "none",
+  "daily_test_state": "pass_today",
+  "theatre_urgency": "next_list",
+  "note_tone": "neutral",
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "set_count_discrepancies": 5,
+  "substitution_documented": true,
+  "cycle_excursion": "none",
+  "independent_logger_confirms": true,
+  "bi_status": "pending",
+  "chemical_indicator": "pass",
+  "washer_record_state": "barcode_not_listed",
+  "pack_integrity": "intact",
+  "label_mismatch": "none",
+  "daily_test_state": "pass_today",
+  "theatre_urgency": "next_list",
+  "note_tone": "neutral",
+  "boundary_case": false
+ },
+ "plan": {
+  "cycle_in_limits": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "disposition": {
+   "clarity": "leaning",
+   "target": "reprocess",
+   "second": null
+  },
+  "failure_stage": {
+   "clarity": "clear",
+   "target": "pack_stage",
+   "second": null
+  },
+  "count_gaps": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "sterility_doubt": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  }
+ },
+ "target_words": 25,
+ "deciding": {
+  "cycle_in_limits": "steriliser_load printout and logger are both null, so no cycle data confirm temperature or hold.",
+  "disposition": "Several count lines unresolved and no cycle data; rewash/repack and a new cycle is the cleaner route, with a pending BI adding doubt.",
+  "failure_stage": "Washer lists barcode B1 with no alarms, so wash is fine; the earliest unresolved issue is the set_check count lines.",
+  "count_gaps": "Five discrepant lines (K1,K2,K3,K9,K5) with one approved variance (K5) leaves four, at the 3/4 boundary.",
+  "sterility_doubt": "CI passed but BI is pending with a future incubation_end and cycle data are missing; none failed, so level 2 versus 1 is held in balance."
+ },
+ "request": "rec-F220-0011",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.010891
+}

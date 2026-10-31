@@ -1,0 +1,146 @@
+{
+ "id": "F201-0085",
+ "family": "F201",
+ "state": {
+  "register_header": {
+   "drug": "ketamine",
+   "concentration_mg_ml": 100,
+   "schedule": 3,
+   "witness_required": false,
+   "opening_balance_ml": 30
+  },
+  "entries": [
+   {
+    "entry_id": "E1",
+    "date": "2024-02-01",
+    "type": "receipt",
+    "qty_ml": 20,
+    "running_balance_ml": 50,
+    "signed_by": "S6"
+   },
+   {
+    "entry_id": "E2",
+    "date": "2024-02-05",
+    "type": "use",
+    "qty_ml": 3,
+    "patient_id": "P51",
+    "running_balance_ml": 47,
+    "signed_by": "S6"
+   },
+   {
+    "entry_id": "E3",
+    "date": "2024-02-09",
+    "type": "use",
+    "qty_ml": 2,
+    "patient_id": "P52",
+    "running_balance_ml": 44,
+    "signed_by": "S6"
+   },
+   {
+    "entry_id": "E4",
+    "date": "2024-02-14",
+    "type": "use",
+    "qty_ml": 4,
+    "patient_id": "P53",
+    "running_balance_ml": 40,
+    "signed_by": null
+   },
+   {
+    "entry_id": "E5",
+    "date": "2024-02-20",
+    "type": "use",
+    "qty_ml": 3,
+    "patient_id": "P54",
+    "running_balance_ml": 38,
+    "signed_by": "S6"
+   }
+  ],
+  "clinical_records": [
+   {
+    "patient_id": "P51",
+    "date": "2024-02-05",
+    "dose": 300,
+    "dose_unit": "mg"
+   },
+   {
+    "patient_id": "P55",
+    "date": "2024-02-22",
+    "dose": 470,
+    "dose_unit": "mg"
+   }
+  ],
+  "stock_check": {
+   "count_date": "2024-02-29",
+   "counted_ml": 32.8,
+   "overfill_allowance_ml": 0
+  }
+ },
+ "factors": {
+  "drug_profile": "ketamine_100mg_ml",
+  "arithmetic_slip_count": 2,
+  "unrecorded_admin": "large_over_10pct",
+  "clinical_records_missing": false,
+  "disposal_state": "none_needed",
+  "unexplained_shortfall_pct": 1.0,
+  "variance_exception": "none",
+  "manufacturer_overfill": false,
+  "auth_gap_count": 1,
+  "count_out_of_order": false,
+  "unit_mismatch": true,
+  "locum_signatory": false,
+  "boundary_case": true
+ },
+ "factors_sampled": {
+  "drug_profile": "ketamine_100mg_ml",
+  "arithmetic_slip_count": 2,
+  "unrecorded_admin": "trivial_under_1pct",
+  "clinical_records_missing": false,
+  "disposal_state": "removed_unlogged",
+  "unexplained_shortfall_pct": 12.68,
+  "variance_exception": "none",
+  "manufacturer_overfill": false,
+  "auth_gap_count": 1,
+  "count_out_of_order": false,
+  "unit_mismatch": true,
+  "locum_signatory": false,
+  "boundary_case": true
+ },
+ "plan": {
+  "unexplained_shortfall": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "line_disposition": {
+   "clarity": "clear",
+   "target": "correct_and_sign",
+   "second": null
+  },
+  "variance_cause": {
+   "clarity": "clear",
+   "target": "unrecorded_administration",
+   "second": null
+  },
+  "variance_size": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "auth_gaps": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  }
+ },
+ "target_words": 91,
+ "deciding": {
+  "unexplained_shortfall": "Recomputed closing 38 ml vs counted 32.8 ml is 5.2 ml short; P55 470 mg (4.7 ml) has no entry, leaving about 0.5 ml with no counterpart.",
+  "line_disposition": "E3 (44, should be 45) and E5 (38, should be 37 from 40) are clerical balance slips, and the gap is almost entirely matched by a dated clinical record, so annotation can correct it.",
+  "variance_cause": "P55 dose 470 mg / 100 mg/ml = 4.7 ml on 2024-02-22 has no entries line and covers nearly all of the 5.2 ml gap; no disposal or exception exists.",
+  "variance_size": "5.2 ml on 50 ml handled (30 + 20) is 10.4%, just above the 10% line, so Major versus Material is close.",
+  "auth_gaps": "E4 has signed_by null (one gap); witness_id is absent everywhere but not required, and the other entries are signed, so one is likely but a reader could say none."
+ },
+ "request": "rec-F201-0081",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.021535
+}

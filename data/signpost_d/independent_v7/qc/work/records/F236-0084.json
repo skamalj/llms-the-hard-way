@@ -1,0 +1,190 @@
+{
+ "id": "F236-0084",
+ "family": "F236",
+ "state": {
+  "changeover": {
+   "line": "L5",
+   "from_allergens": [
+    "wheat",
+    "tree_nuts"
+   ],
+   "to_allergens": [
+    "wheat"
+   ],
+   "to_code": "P22",
+   "start_at": "04:10",
+   "end_at": "05:30"
+  },
+  "cleaning": {
+   "steps": [
+    {
+     "id": 1,
+     "completed": true,
+     "spec_min": 30,
+     "actual_min": 30
+    },
+    {
+     "id": 2,
+     "completed": true,
+     "spec_min": 40,
+     "actual_min": 25
+    }
+   ],
+   "chemical": "C-88",
+   "operator": "OP31"
+  },
+  "verification": {
+   "swabs": [
+    {
+     "id": "S1",
+     "loc": "depositor",
+     "target": "tree_nuts",
+     "ppm": 14,
+     "limit_ppm": 10,
+     "t": "05:40"
+    },
+    {
+     "id": "S2",
+     "retest_of": "S1",
+     "loc": "depositor",
+     "target": "tree_nuts",
+     "ppm": 10,
+     "limit_ppm": 10,
+     "t": "06:03"
+    }
+   ],
+   "atp_rlu": [
+    85
+   ]
+  },
+  "production": {
+   "line": "L5",
+   "product_code": "P22",
+   "first_batch": "B771",
+   "start_at": "06:00",
+   "end_at": "06:40",
+   "qty": 41000,
+   "unit": "g",
+   "packaging_allergens": [
+    "wheat"
+   ],
+   "held": false
+  },
+  "approvals": {
+   "qa_signoff": {
+    "signer": "QA2",
+    "signed_at": "05:50"
+   },
+   "deviations": [
+    {
+     "id": "D3",
+     "scope": "step 2 duration",
+     "approved_at": "05:45"
+    },
+    {
+     "id": "D4",
+     "scope": "swab S2 timing",
+     "approved_at": "05:48"
+    }
+   ]
+  },
+  "history": [
+   {
+    "ok": false
+   },
+   {
+    "ok": true
+   },
+   {
+    "ok": false
+   },
+   {
+    "ok": true
+   },
+   {
+    "ok": true
+   },
+   {
+    "ok": false
+   },
+   {
+    "ok": true
+   },
+   {
+    "ok": false
+   },
+   {
+    "ok": true
+   },
+   {
+    "ok": true
+   }
+  ]
+ },
+ "factors": {
+  "allergen_transition": "removes_allergen",
+  "cleaning_completion": "duration_short",
+  "swab_outcome": "over_limit_retest_at_limit_after_start",
+  "swab_timing_mismatch": true,
+  "cross_section_discrepancy": "quantity_unit_mismatch",
+  "exposed_quantity_kg": 41.0,
+  "approved_deviation": true,
+  "label_precaution": false,
+  "dedicated_tooling": false,
+  "qa_signoff_state": "signed_before_start",
+  "line_failure_history": 4,
+  "boundary_value": true
+ },
+ "factors_sampled": {
+  "allergen_transition": "removes_allergen",
+  "cleaning_completion": "duration_short",
+  "swab_outcome": "positive_retest_fail",
+  "swab_timing_mismatch": true,
+  "cross_section_discrepancy": "quantity_unit_mismatch",
+  "exposed_quantity_kg": 57.36,
+  "approved_deviation": true,
+  "label_precaution": false,
+  "dedicated_tooling": false,
+  "qa_signoff_state": "signed_before_start",
+  "line_failure_history": 4,
+  "boundary_value": false
+ },
+ "plan": {
+  "swabs_cleared": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "line_disposition": {
+   "clarity": "leaning",
+   "target": "release",
+   "second": null
+  },
+  "worst_deficiency": {
+   "clarity": "leaning",
+   "target": "release_breach",
+   "second": null
+  },
+  "exposed_product": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "residue_evidence": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  }
+ },
+ "target_words": 200,
+ "deciding": {
+  "swabs_cleared": "Retest S2 is timed 06:03, after start_at 06:00, and reads exactly at the limit; S1 was over limit.",
+  "line_disposition": "Deviations D3 and D4 approved before start cover the short step 2 and the swab S2 timing, QA signed 05:50; this supports release despite doubt.",
+  "worst_deficiency": "Production started 06:00 before the retest at 06:03, so the worst issue is a release breach, though the swab timing is covered by deviation D4.",
+  "exposed_product": "41000 g (41 kg) batch from 06:00 to 06:40 with the retest at 06:03; the 3-minute gap and deviation leave 0 versus under 50 kg open.",
+  "residue_evidence": "S1 14 ppm over the limit; retest S2 reads 10 against limit 10, so it is ambiguous whether it passed (level 2) or failed (level 3)."
+ },
+ "request": "rec-F236-0081",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011612
+}

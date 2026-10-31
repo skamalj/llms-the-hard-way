@@ -1,0 +1,136 @@
+{
+ "id": "F232-0058",
+ "family": "F232",
+ "state": {
+  "night_header": {
+   "date": "2025-08-19",
+   "prog": "V-27",
+   "alloc_h": 2,
+   "eng_window": [
+    "2025-08-20T05:00Z",
+    "2025-08-20T06:00Z"
+   ]
+  },
+  "conditions": {
+   "closures": []
+  },
+  "exposures": [
+   {
+    "id": "F1",
+    "target_id": "T1",
+    "start_utc": "2025-08-20T01:10Z",
+    "exptime_s": 600,
+    "filter": "r",
+    "seeing_arcsec": 1.0,
+    "qa": "fail"
+   },
+   {
+    "id": "F2",
+    "target_id": "T1",
+    "start_utc": "2025-08-20T01:25Z",
+    "exptime_s": 600,
+    "filter": "r",
+    "seeing_arcsec": 1.0,
+    "qa": null
+   }
+  ],
+  "programme_request": {
+   "T1": {
+    "r": 1200,
+    "max_seeing_arcsec": 1.5
+   }
+  },
+  "faults": [
+   {
+    "subsystem": "dome drive",
+    "start_utc": "2025-08-20T05:10Z",
+    "end_utc": "2025-08-20T05:50Z",
+    "cleared": true,
+    "retest_utc": "2025-08-20T05:55Z",
+    "workaround": null,
+    "ticket_ref": "ENG-4501"
+   },
+   {
+    "subsystem": "guider camera",
+    "start_utc": "2025-08-20T01:05Z",
+    "end_utc": null,
+    "cleared": false,
+    "retest_utc": null,
+    "workaround": "manual offsets every 5 min",
+    "ticket_ref": "ENG-4499"
+   }
+  ],
+  "notes": {
+   "observer_note": "T1 complete; list exhausted.",
+   "night_assistant_note": "Loud grinding from dome drive around 05:10."
+  }
+ },
+ "factors": {
+  "weather_loss_hours": 0.0,
+  "fault_overlap": "minor_overlap",
+  "fault_resolution_state": "open_workaround",
+  "maintenance_window": true,
+  "closure_reason_mismatch": "none",
+  "note_claim_discrepancy": "none",
+  "seeing_vs_limit": "well_within",
+  "seeing_exception_approved": true,
+  "usable_fraction": 0.05,
+  "qa_pending_count": 1,
+  "utc_date_rollover": true,
+  "assistant_note_tone": "alarmed_benign",
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "weather_loss_hours": 6.51,
+  "fault_overlap": "minor_overlap",
+  "fault_resolution_state": "open_blocking",
+  "maintenance_window": true,
+  "closure_reason_mismatch": "none",
+  "note_claim_discrepancy": "short_large",
+  "seeing_vs_limit": "well_within",
+  "seeing_exception_approved": true,
+  "usable_fraction": 0.16,
+  "qa_pending_count": 1,
+  "utc_date_rollover": true,
+  "assistant_note_tone": "alarmed_benign",
+  "boundary_case": false
+ },
+ "plan": {
+  "weather_only_loss": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "claims_supported": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "night_disposition": {
+   "clarity": "leaning",
+   "target": "charge_full",
+   "second": null
+  },
+  "usable_share": {
+   "clarity": "contested",
+   "target": "0",
+   "second": "1"
+  },
+  "fault_followup": {
+   "clarity": "clear",
+   "target": "2",
+   "second": null
+  }
+ },
+ "target_words": 60,
+ "deciding": {
+  "weather_only_loss": "No closures and no time lost to weather; the only lost-time candidate is an open guider fault that overlaps frames only mildly, so some doubt remains.",
+  "claims_supported": "T1 claimed complete; two r frames sum to 1200 s, matching the programme_request r total.",
+  "night_disposition": "No closure and no gap in the exposure schedule, while the grinding note is explained by the dome drive test inside eng_window; one pending QA frame and the open guider fault leave doubt.",
+  "usable_share": "F1 qa fail and F2 qa null: nothing passes now (level 0), but if the pending frame passes, 600 s of 7200 s allocated is level 1.",
+  "fault_followup": "Guider camera fault cleared=false, retest null, workaround 'manual offsets every 5 min' logged; the dome drive fault is cleared and retested."
+ },
+ "request": "rec-F232-0056",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.016159
+}

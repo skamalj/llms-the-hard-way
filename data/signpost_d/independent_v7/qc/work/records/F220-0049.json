@@ -1,0 +1,138 @@
+{
+ "id": "F220-0049",
+ "family": "F220",
+ "state": {
+  "tray": {
+   "barcode": "7741200",
+   "requested_for": "2025-03-11T09:00",
+   "request_note": "On-call list needs this set within the hour."
+  },
+  "set_check": {
+   "lines": [
+    {
+     "cat_code": "A1",
+     "qty_expected": 2,
+     "qty_counted": 1
+    },
+    {
+     "cat_code": "B2",
+     "qty_expected": 3,
+     "qty_counted": 4
+    },
+    {
+     "cat_code": "C3",
+     "qty_expected": 1,
+     "qty_counted": 0
+    },
+    {
+     "cat_code": "Z9",
+     "qty_expected": 0,
+     "qty_counted": 1
+    }
+   ],
+   "variances": [
+    {
+     "cat_code": "B2",
+     "reason": "substituted",
+     "approved_by": null
+    }
+   ]
+  },
+  "washer": {
+   "trays_processed": [
+    "7741200"
+   ],
+   "alarms": []
+  },
+  "steriliser_load": {
+   "printout": null,
+   "logger": {
+    "temp_min_c": 134.0,
+    "hold_s": 180
+   },
+   "daily_test": {
+    "date": "2025-03-11",
+    "result": "pass",
+    "earlier_result": "fail",
+    "repair_ref": "R-19"
+   },
+   "bi": {
+    "result": "pass"
+   },
+   "ci_result": "pass",
+   "unload_condition": "dry"
+  },
+  "release_label": {
+   "tray_barcode": "7741020",
+   "wrap_condition": "intact"
+  }
+ },
+ "factors": {
+  "set_count_discrepancies": 4,
+  "substitution_documented": false,
+  "cycle_excursion": "printout_missing",
+  "independent_logger_confirms": true,
+  "bi_status": "pass",
+  "chemical_indicator": "pass",
+  "washer_record_state": "complete",
+  "pack_integrity": "intact",
+  "label_mismatch": "tray_barcode_differs",
+  "daily_test_state": "fail_then_repaired_pass",
+  "theatre_urgency": "emergency_on_call",
+  "note_tone": "neutral",
+  "boundary_case": true
+ },
+ "factors_sampled": {
+  "set_count_discrepancies": 0,
+  "substitution_documented": true,
+  "cycle_excursion": "printout_missing",
+  "independent_logger_confirms": false,
+  "bi_status": "pending",
+  "chemical_indicator": "pass",
+  "washer_record_state": "complete",
+  "pack_integrity": "intact",
+  "label_mismatch": "tray_barcode_differs",
+  "daily_test_state": "fail_then_repaired_pass",
+  "theatre_urgency": "emergency_on_call",
+  "note_tone": "neutral",
+  "boundary_case": true
+ },
+ "plan": {
+  "cycle_in_limits": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "disposition": {
+   "clarity": "clear",
+   "target": "release",
+   "second": null
+  },
+  "failure_stage": {
+   "clarity": "contested",
+   "target": "no_discrepancy",
+   "second": "wash_stage"
+  },
+  "count_gaps": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "sterility_doubt": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  }
+ },
+ "target_words": 84,
+ "deciding": {
+  "cycle_in_limits": "Printout is null, but the logger shows exactly 134.0 C and 180 s, which is in band.",
+  "disposition": "BI and CI passed, pack dry and intact, and the cycle is confirmed by the logger; the open count and label items are weighed against that.",
+  "failure_stage": "Washer record lists the tray barcode 7741200 while the label shows 7741020, so the barcode chain is unclear and the earliest stage is arguable.",
+  "count_gaps": "Four discrepant lines including off-list Z9; only B2 has a variance, with approved_by null, so 4 vs 3 turns on that contested entry.",
+  "sterility_doubt": "Indicators passed and pack intact; the missing printout and the barcode mismatch are gaps whose number sits between levels 1 and 2."
+ },
+ "request": "rec-F220-0046",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.014949
+}

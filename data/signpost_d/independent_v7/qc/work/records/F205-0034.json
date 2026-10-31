@@ -1,0 +1,105 @@
+{
+ "id": "F205-0034",
+ "family": "F205",
+ "state": {
+  "flight": {
+   "no": "RT90",
+   "std": "2025-07-08T12:00Z",
+   "turn": "quick_turn"
+  },
+  "times": {
+   "on_blocks": "2025-07-08T11:30Z",
+   "fuel_start": "2025-07-08T11:52Z",
+   "doors_closed": "2025-07-08T12:12Z",
+   "off_blocks": "2025-07-08T12:15Z",
+   "delay_code": "fuelling",
+   "delay_min": 15
+  },
+  "load": {
+   "bags_count": 36,
+   "fuel_kg": 4800
+  },
+  "hold_log": [
+   {
+    "pos": "1",
+    "bag_count": 20
+   },
+   {
+    "pos": "2",
+    "bag_count": 15
+   }
+  ],
+  "services": {
+   "fuel": {
+    "uplift_kg": 4790,
+    "end": "2025-07-08T12:10Z"
+   }
+  }
+ },
+ "factors": {
+  "bag_mismatch_size": "minor_1_bag",
+  "mismatch_location": "loadsheet_bags_vs_hold_log",
+  "missing_record": "none",
+  "milestone_out_of_order": false,
+  "delay_minutes": 15,
+  "delay_code_fit": "supported",
+  "explanatory_remark": false,
+  "pending_signoff": false,
+  "dg_on_board": false,
+  "decoy_noise": "rounding_within_tolerance",
+  "boundary_value": true,
+  "turn_type": "quick_turn"
+ },
+ "factors_sampled": {
+  "bag_mismatch_size": "none",
+  "mismatch_location": "fuel_uplift_vs_loadsheet_fuel",
+  "missing_record": "none",
+  "milestone_out_of_order": false,
+  "delay_minutes": 95,
+  "delay_code_fit": "no_code_logged",
+  "explanatory_remark": false,
+  "pending_signoff": false,
+  "dg_on_board": false,
+  "decoy_noise": "rounding_within_tolerance",
+  "boundary_value": false,
+  "turn_type": "quick_turn"
+ },
+ "plan": {
+  "load_reconciled": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "delay_code_supported": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "log_disposition": {
+   "clarity": "clear",
+   "target": "close_clean",
+   "second": null
+  },
+  "offblock_delay": {
+   "clarity": "contested",
+   "target": "1",
+   "second": "2"
+  },
+  "failed_checks": {
+   "clarity": "clear",
+   "target": "2",
+   "second": null
+  }
+ },
+ "target_words": 63,
+ "deciding": {
+  "load_reconciled": "Loadsheet bags 36 vs hold_log 20+15=35; one bag unaccounted with no remark, so leaning not reconciled.",
+  "delay_code_supported": "Code fuelling; fuel started 11:52 on a 30-minute quick turn and ended 12:10, just before doors_closed at 12:12, so fuelling ran late.",
+  "log_disposition": "Record taken as clean: fuel uplift 4790 vs 4800 is within rounding, the timestamps are in order and nothing is missing.",
+  "offblock_delay": "Off-blocks 12:15 vs STD 12:00 is exactly 15 minutes, on the 15/16 boundary between levels 1 and 2.",
+  "failed_checks": "The one-bag gap and the late off-blocks fail; the other checks pass, giving two."
+ },
+ "request": "rec-F205-0031",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.010346
+}

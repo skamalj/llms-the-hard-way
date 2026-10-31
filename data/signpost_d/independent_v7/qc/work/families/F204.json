@@ -1,0 +1,319 @@
+{
+ "id": "F204",
+ "domain": "community pharmacy prescription accuracy checks",
+ "role": "Accuracy checking pharmacy technician performing the final accuracy check on each dispensed prescription item before it is bagged",
+ "setting": "A busy community pharmacy where each dispensed item is checked against its prescription, the patient medication record and the printed label. The checker compares prescribed and dispensed product, strength, form and quantity, reads the label against the prescriber's dosing, looks at queries and interventions already logged, and works out how soon the patient will run short. One record is one dispensed item.",
+ "questions": {
+  "strength_differs": {
+   "type": "noul",
+   "instructions": "Dispensed strength differs from the prescribed strength after unit conversion.",
+   "criteria": {
+    "true": "Converted pack strength does not equal prescribed strength.",
+    "false": "Strengths agree once units and volumes are converted."
+   }
+  },
+  "next_step": {
+   "type": "choice",
+   "instructions": "What should the checker do with this dispensed item next?",
+   "criteria": {
+    "release": "Bag as dispensed; nothing outstanding and no annotation needed.",
+    "release_annotated": "Release once owing slip, note or counselling flag added.",
+    "hold_query": "Keep on hold shelf until one pending confirmation arrives.",
+    "redispense": "Return to dispenser to re-pick or relabel before release."
+   }
+  },
+  "error_category": {
+   "type": "choice",
+   "instructions": "What is the most serious unresolved discrepancy category in this item?",
+   "criteria": {
+    "none_found": "No unresolved difference between prescription, pack and label.",
+    "quantity_only": "Only supplied quantity differs; product and label are correct.",
+    "label_error": "Label dose, warnings or patient identifier wrong; product correct.",
+    "product_error": "Wrong drug, strength, form or short-dated batch was selected."
+   }
+  },
+  "open_discrepancies": {
+   "type": "score",
+   "instructions": "How many unresolved discrepancies remain across prescription, pack and label?",
+   "criteria": [
+    "No unresolved discrepancies remain",
+    "Exactly one unresolved discrepancy remains",
+    "Exactly two unresolved discrepancies remain",
+    "Three or more unresolved discrepancies remain"
+   ]
+  },
+  "supply_urgency": {
+   "type": "score",
+   "instructions": "How soon will the patient run short of this medicine?",
+   "criteria": [
+    "Routine: home supply covers more than 7 days",
+    "Soon: home supply covers 3 to 7 days",
+    "Urgent: home supply covers 1 or 2 days",
+    "Immediate: home supply exhausted, zero days remaining"
+   ]
+  }
+ },
+ "factors": [
+  {
+   "name": "strength_status",
+   "description": "Whether dispensed strength matches prescribed strength: same units, equivalent only after converting units or volume (e.g. 250 mg/5 ml vs 50 mg/ml, 0.5 g vs 500 mg), or a genuine mismatch after conversion.",
+   "kind": "categorical",
+   "values": [
+    "match_same_units",
+    "match_converted_units",
+    "mismatch_converted"
+   ],
+   "weights": [
+    0.5,
+    0.25,
+    0.25
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S5",
+    "S6"
+   ]
+  },
+  {
+   "name": "product_status",
+   "description": "How the dispensed product relates to the prescribed one: exact, a generic or brand that is an accepted equivalent (decoy name difference), a different form (e.g. modified-release vs standard), or a different drug.",
+   "kind": "categorical",
+   "values": [
+    "exact",
+    "generic_brand_equivalent",
+    "form_differs",
+    "different_drug"
+   ],
+   "weights": [
+    0.45,
+    0.3,
+    0.15,
+    0.1
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S3",
+    "S6"
+   ]
+  },
+  {
+   "name": "quantity_status",
+   "description": "Supplied quantity against prescribed quantity: exact, short with a documented owing balance, short with no owing record, or oversupplied.",
+   "kind": "categorical",
+   "values": [
+    "exact",
+    "owing_documented",
+    "short_undocumented",
+    "over_supplied"
+   ],
+   "weights": [
+    0.45,
+    0.2,
+    0.2,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S3",
+    "S4"
+   ]
+  },
+  {
+   "name": "label_status",
+   "description": "Label against prescription and product data: correct, dose or frequency differs from prescriber, a required warning code missing, or label patient identifier differs from the patient record.",
+   "kind": "categorical",
+   "values": [
+    "correct",
+    "directions_mismatch",
+    "warning_code_missing",
+    "patient_id_mismatch"
+   ],
+   "weights": [
+    0.55,
+    0.2,
+    0.15,
+    0.1
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1"
+   ]
+  },
+  {
+   "name": "prescriber_query",
+   "description": "State of a query to the prescriber about the item's main discrepancy: none raised, raised and still pending, or confirmed with the prescriber approving the dispensed version.",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "pending",
+    "confirmed"
+   ],
+   "weights": [
+    0.5,
+    0.25,
+    0.25
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S4",
+    "S6"
+   ]
+  },
+  {
+   "name": "pharmacist_intervention",
+   "description": "Whether a pharmacist intervention entry accepts the discrepancy on the exact field affected; when false, any intervention present refers to an unrelated field (decoy).",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S1"
+   ]
+  },
+  {
+   "name": "clinical_check_signed",
+   "description": "Whether the pharmacist clinical check has been signed off; unsigned with no other problem makes the item a hold.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.8,
+   "skills": [
+    "S4"
+   ]
+  },
+  {
+   "name": "home_supply_days",
+   "description": "Days of medicine the patient still has at home on the check date, derived from the previous supply date and the days it covered.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 14,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S7"
+   ]
+  },
+  {
+   "name": "emergency_supply",
+   "description": "Whether an emergency supply has been logged for this medicine since the previous supply, adding its days to home supply and softening an apparently exhausted supply.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.45,
+   "skills": [
+    "S3",
+    "S6"
+   ]
+  },
+  {
+   "name": "short_expiry",
+   "description": "Whether the batch expiry falls before the check date plus the intended days of supply; counts as a product selection discrepancy.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.2,
+   "skills": [
+    "S1"
+   ]
+  },
+  {
+   "name": "prior_error_count",
+   "description": "Number of earlier near-miss entries for this patient; alarming but never changes any answer on its own.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 4,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S7"
+   ]
+  },
+  {
+   "name": "high_risk_drug",
+   "description": "Whether the drug is on the branch high-risk list (e.g. anticoagulants, weekly methotrexate); shown as a flag that raises alarm but does not by itself decide any answer.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.3,
+   "skills": [
+    "S3",
+    "S7"
+   ]
+  },
+  {
+   "name": "boundary_case",
+   "description": "Whether the record is built to sit on a scale boundary: home supply landing exactly between 2 and 3 or 7 and 8 days depending on whether the check day counts, emergency supply dated the check day, or a form difference (film-coated vs plain) whose equivalence is arguable.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.15,
+   "skills": [
+    "S6"
+   ]
+  }
+ ],
+ "sections": [
+  {
+   "name": "rx",
+   "description": "Prescription as written: drug, strength object, form, dose, frequency, quantity, intended days, issue date."
+  },
+  {
+   "name": "patient",
+   "description": "Patient medication record: identifier, age, previous supplies, emergency supplies, near-miss history count."
+  },
+  {
+   "name": "dispensed",
+   "description": "Product picked: product name, strength object, form, pack size, packs, owing balance, batch, expiry, required warning codes, high-risk flag."
+  },
+  {
+   "name": "label",
+   "description": "Printed label fields: patient identifier, dose quantity, frequency per day, warning codes, quantity printed."
+  },
+  {
+   "name": "check_log",
+   "description": "Check date and time, clinical check sign-off, prescriber queries and pharmacist interventions with the field each covers."
+  }
+ ],
+ "rendering_notes": "strength_status: rx.strength {val, unit, per_ml} vs dispensed.strength {val, unit, per_ml}; equivalent cases use different units or per-volume bases so only conversion shows equality; never add a match flag. product_status: rx.drug and rx.form vs dispensed.product_name and dispensed.form; generic_brand_equivalent shows a brand name plus dispensed.generic_name equal to rx.drug; form_differs changes the form code (e.g. MR tab vs tab). quantity_status: rx.qty vs dispensed.packs * dispensed.pack_size; owing_documented adds dispensed.owing {qty, slip_no} making the totals agree; short_undocumented has owing null; label.qty_printed mirrors the supplied quantity. label_status: label.dose_qty and label.freq_per_day vs rx.dose and rx.freq_per_day; label.warning_codes vs dispensed.req_warnings; label.pt_id vs patient.pt_id (differs by one character when mismatched). prescriber_query: check_log.queries list of {raised_at, field, status pending|confirmed}; confirmed resolves the discrepancy on that field and leads to release_annotated; pending on the item's discrepancy leads to hold_query. pharmacist_intervention: check_log.interventions list of {code, field, accepted, by}; only an entry on the matching field resolves it; when the factor is false, any entry present names an unrelated field. clinical_check_signed: check_log.clin_check {by, at} or null. home_supply_days: derive from patient.supplies last entry {date, days_covered} against check_log.checked_at; emergency_supply adds an entry to patient.emergency_supplies {date, days} that must be added; never show a days-remaining field. short_expiry: dispensed.expiry vs checked_at plus rx.days_intended. prior_error_count: patient.near_miss_count; high_risk_drug: dispensed.high_risk true; both are decoys. Disposition logic: any unresolved discrepancy not covered by a pending query gives redispense; otherwise a pending query or unsigned clinical check gives hold_query; otherwise any owing slip, confirmed query or accepted intervention gives release_annotated; else release. error_category takes the most serious unresolved type (product over label over quantity); open_discrepancies counts each unresolved field separately. No field may state an error, risk, urgency, category or recommended action.",
+ "skills": [
+  "S1",
+  "S3",
+  "S4",
+  "S5",
+  "S6",
+  "S7"
+ ],
+ "shared_scale": null,
+ "design_cost": 0.191984
+}

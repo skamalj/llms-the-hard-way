@@ -1,0 +1,138 @@
+{
+ "id": "F230-0069",
+ "family": "F230",
+ "state": {
+  "prescriptions": [
+   {
+    "item_id": "D1",
+    "drug": "lisinopril",
+    "strength_mg": 10,
+    "dose_units": 1,
+    "time_critical": false,
+    "changes": []
+   },
+   {
+    "item_id": "D2",
+    "drug": "metformin",
+    "strength_mg": 500,
+    "dose_units": 1,
+    "time_critical": false,
+    "changes": []
+   }
+  ],
+  "administrations": [
+   {
+    "item_id": "D1",
+    "scheduled": "2025-06-03T08:00",
+    "given_at": "2025-06-03T08:20",
+    "units_given": 2,
+    "strength_mg_used": 5,
+    "initials": "RP"
+   },
+   {
+    "item_id": "D2",
+    "scheduled": "2025-06-03T08:00",
+    "given_at": "2025-06-03T08:25",
+    "units_given": 1,
+    "strength_mg_used": 500,
+    "initials": null
+   }
+  ],
+  "stock": [
+   {
+    "item_id": "D1",
+    "opening": 30,
+    "received": 0,
+    "wasted": 0,
+    "returned": 0,
+    "closing": 31
+   },
+   {
+    "item_id": "D2",
+    "opening": 60,
+    "received": 0,
+    "wasted": 0,
+    "returned": 0,
+    "closing": 59
+   }
+  ],
+  "round": {
+   "date": "2025-06-03",
+   "open_queries": []
+  },
+  "history": {
+   "errors_30d": 2,
+   "last_audit_passed": true
+  }
+ },
+ "factors": {
+  "dose_mismatch_type": "none",
+  "prescription_change_documented": false,
+  "omission_count": 0,
+  "omission_reason_valid": false,
+  "late_minutes": 20,
+  "time_critical_affected": false,
+  "stock_variance": 3,
+  "stock_variance_explained": false,
+  "signature_gaps": 1,
+  "unit_expression_decoy": "equivalent_split",
+  "post_dose_obs_reassuring": true,
+  "pending_query": "none",
+  "prior_errors_30d": 2,
+  "item_count": 2
+ },
+ "factors_sampled": {
+  "dose_mismatch_type": "none",
+  "prescription_change_documented": true,
+  "omission_count": 3,
+  "omission_reason_valid": false,
+  "late_minutes": 150,
+  "time_critical_affected": false,
+  "stock_variance": 3,
+  "stock_variance_explained": true,
+  "signature_gaps": 1,
+  "unit_expression_decoy": "equivalent_split",
+  "post_dose_obs_reassuring": false,
+  "pending_query": "gp_callback_awaited",
+  "prior_errors_30d": 2,
+  "item_count": 5
+ },
+ "plan": {
+  "dose_mismatch": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "stock_reconciles": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "correct_and_close",
+   "second": null
+  },
+  "open_discrepancies": {
+   "clarity": "clear",
+   "target": "0",
+   "second": null
+  },
+  "error_severity": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  }
+ },
+ "target_words": 93,
+ "deciding": {
+  "dose_mismatch": "D1 gave 2 units of 5 mg against a 10 mg, 1 unit prescription, an equivalent split; this was planned as leaning true but the record does not show a real mismatch.",
+  "stock_reconciles": "D1 opening 30 less 2 signed gives 28 but closing is 31, with no waste or return recorded; D2 reconciles.",
+  "next_step": "The faults are a null initials on D2 and a D1 count slip, both recording issues; correct_and_close with some doubt over the stock gap.",
+  "open_discrepancies": "No unresolved dose, timing or query issue is shown; open_queries is empty and the entries are otherwise complete.",
+  "error_severity": "D2 initials null with the correct dose given on time is a documentation gap; no wrong, omitted or late dose."
+ },
+ "request": "rec-F230-0066",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.014518
+}

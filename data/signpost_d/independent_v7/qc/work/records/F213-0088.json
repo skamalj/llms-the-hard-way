@@ -1,0 +1,142 @@
+{
+ "id": "F213-0088",
+ "family": "F213",
+ "state": {
+  "pool": {
+   "id": "C-01",
+   "type": "competition",
+   "test_interval_min": 60,
+   "opening": {
+    "open": "2024-03-04T08:00",
+    "close": "2024-03-04T11:00"
+   },
+   "limits": {
+    "free_cl_min": 1.0,
+    "free_cl_max": 3.0,
+    "ph_min": 7.2,
+    "ph_max": 7.8
+   },
+   "tolerance": {
+    "free_cl": 0.3,
+    "ph": 0.2
+   }
+  },
+  "manual_tests": [
+   {
+    "time": "2024-03-04T08:00",
+    "free_cl": 2.0,
+    "ph": 7.5,
+    "kit_id": "K3",
+    "tester_initials": "JM"
+   },
+   {
+    "time": "2024-03-04T09:00",
+    "free_cl": 2.0,
+    "ph": 7.5,
+    "kit_id": "K3",
+    "tester_initials": null
+   },
+   {
+    "time": "2024-03-04T10:30",
+    "free_cl": 2.1,
+    "ph": 7.4,
+    "kit_id": "K3",
+    "tester_initials": "JM"
+   }
+  ],
+  "plant": {
+   "controller_readings": [
+    {
+     "time": "2024-03-04T10:30",
+     "free_cl": 2.0,
+     "ph": 7.58
+    }
+   ],
+   "backwash": [
+    "2024-03-04T09:30"
+   ]
+  },
+  "equipment": {
+   "kits": [
+    {
+     "kit_id": "K3",
+     "cal_due": "2024-09-01"
+    }
+   ]
+  },
+  "actions": [],
+  "lab_sample": {
+   "sampled_on": "2024-03-04",
+   "result_on": null,
+   "status": "pending"
+  }
+ },
+ "factors": {
+  "pool_type": "competition",
+  "test_coverage_gap": 1,
+  "boundary_interval": false,
+  "log_controller_discrepancy": "within_tolerance",
+  "discrepancy_location": "ph",
+  "excursion_severity": "none",
+  "corrective_action_delay": "none_needed",
+  "retest_logged": false,
+  "dosing_event_explains": false,
+  "kit_calibration_status": "in_date",
+  "lab_sample_state": "pending",
+  "out_of_order_entry": false,
+  "benign_noise": "backwash"
+ },
+ "factors_sampled": {
+  "pool_type": "competition",
+  "test_coverage_gap": 3,
+  "boundary_interval": false,
+  "log_controller_discrepancy": "within_tolerance",
+  "discrepancy_location": "ph",
+  "excursion_severity": "marginal",
+  "corrective_action_delay": "delayed",
+  "retest_logged": false,
+  "dosing_event_explains": false,
+  "kit_calibration_status": "in_date",
+  "lab_sample_state": "clear",
+  "out_of_order_entry": false,
+  "benign_noise": "backwash"
+ },
+ "plan": {
+  "test_frequency_met": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "readings_reconcile": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "log_disposition": {
+   "clarity": "clear",
+   "target": "hold_for_retest",
+   "second": null
+  },
+  "action_delay": {
+   "clarity": "clear",
+   "target": "0",
+   "second": null
+  },
+  "failed_checks": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 58,
+ "deciding": {
+  "test_frequency_met": "Tests at 09:00 and 10:30 are 90 min apart against a 60 min interval; no 10:00 test.",
+  "readings_reconcile": "10:30 pH 7.4 vs controller 7.58: difference 0.18 within tolerance 0.2; free_cl 2.1 vs 2.0 within 0.3.",
+  "log_disposition": "Water values are within limits but lab_sample result_on is null with status pending, so the outcome hinges on that result.",
+  "action_delay": "All manual free_cl 2.0-2.1 and pH 7.4-7.5 lie inside limits; no action is needed.",
+  "failed_checks": "Frequency gap, pending lab result and missing tester initials fail; the pH difference near tolerance is a possible fourth, so two or three vs four is open."
+ },
+ "request": "rec-F213-0086",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012947
+}

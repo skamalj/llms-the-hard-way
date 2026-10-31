@@ -1,0 +1,137 @@
+{
+ "id": "F236-0086",
+ "family": "F236",
+ "state": {
+  "changeover": {
+   "line_id": "L1",
+   "from_allergens": [
+    "sesame"
+   ],
+   "to_allergens": [
+    "milk"
+   ],
+   "to_code": "M10"
+  },
+  "cleaning": {
+   "steps": [
+    {
+     "n": 1,
+     "completed": true,
+     "spec_min": 20,
+     "actual_min": 22
+    }
+   ],
+   "part_swap": true,
+   "tool_set": "DT-4"
+  },
+  "verification": {
+   "swabs": [
+    {
+     "id": "S1",
+     "loc": "depositor",
+     "target": "sesame",
+     "ppm": 12,
+     "limit_ppm": 5,
+     "at": "2024-05-06T06:50"
+    }
+   ]
+  },
+  "production": {
+   "line_id": "L1",
+   "product_code": "M10",
+   "start_at": "2024-05-06T06:00",
+   "end_at": "2024-05-06T10:00",
+   "qty": 498,
+   "unit": "kg",
+   "packaging_allergens": [
+    "milk"
+   ],
+   "may_contain": [
+    "sesame"
+   ]
+  },
+  "approvals": {
+   "qa_signoff": {
+    "signer": "QA3",
+    "signed_at": "2024-05-06T05:45"
+   },
+   "deviations": []
+  },
+  "history": [
+   {
+    "d": "2024-04-30",
+    "ok": true
+   },
+   {
+    "d": "2024-04-22",
+    "ok": false
+   }
+  ]
+ },
+ "factors": {
+  "allergen_transition": "swaps_allergen",
+  "cleaning_completion": "full",
+  "swab_outcome": "positive_no_retest",
+  "swab_timing_mismatch": true,
+  "cross_section_discrepancy": "none",
+  "exposed_quantity_kg": 498.0,
+  "approved_deviation": false,
+  "label_precaution": true,
+  "dedicated_tooling": true,
+  "qa_signoff_state": "signed_before_start",
+  "line_failure_history": 1,
+  "boundary_value": false
+ },
+ "factors_sampled": {
+  "allergen_transition": "swaps_allergen",
+  "cleaning_completion": "full",
+  "swab_outcome": "all_negative",
+  "swab_timing_mismatch": true,
+  "cross_section_discrepancy": "none",
+  "exposed_quantity_kg": 355.7,
+  "approved_deviation": false,
+  "label_precaution": true,
+  "dedicated_tooling": true,
+  "qa_signoff_state": "signed_before_start",
+  "line_failure_history": 1,
+  "boundary_value": false
+ },
+ "plan": {
+  "swabs_cleared": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "line_disposition": {
+   "clarity": "balanced",
+   "target": "hold",
+   "second": "release_conditional"
+  },
+  "worst_deficiency": {
+   "clarity": "leaning",
+   "target": "release_breach",
+   "second": null
+  },
+  "exposed_product": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  },
+  "residue_evidence": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  }
+ },
+ "target_words": 34,
+ "deciding": {
+  "swabs_cleared": "The only swab (S1, 12 ppm against a limit of 5) is over limit and was taken at 06:50, after the 06:00 production start.",
+  "line_disposition": "Over-limit swab with no retest suggests holding the batch until a passing retest is supplied. The may_contain sesame label and dedicated tooling make release with a precautionary label arguable.",
+  "worst_deficiency": "Production began at 06:00 and the only swab was taken at 06:50, so production started before verification. Cleaning steps are complete and QA signed before start.",
+  "exposed_product": "The batch of 498 kg ran 06:00-10:00 with no passing swab, which sits just under the 500 kg line between levels 2 and 3.",
+  "residue_evidence": "The reading of 12 ppm is over the 5 ppm limit and there is no retest entry."
+ },
+ "request": "rec-F236-0086",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.01756
+}

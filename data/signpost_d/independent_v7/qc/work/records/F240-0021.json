@@ -1,0 +1,150 @@
+{
+ "id": "F240-0021",
+ "family": "F240",
+ "state": {
+  "asset": {
+   "inverter_id": "INV-07",
+   "serial": "S771",
+   "rated_ac_kw": 2500
+  },
+  "fault_event": {
+   "serial": "S771",
+   "code": "F-TMP-01",
+   "fw_severity": 4,
+   "ts_start": "2025-03-10T06:10",
+   "ts_clear": "2025-03-10T06:52",
+   "auto_restarts": 3
+  },
+  "telemetry": {
+   "samples": [
+    {
+     "ts": "2025-03-10T06:12",
+     "ac_kw": 0,
+     "exp_kw": 55,
+     "poa_wm2": 48,
+     "limit_pct": 0
+    },
+    {
+     "ts": "2025-03-10T06:50",
+     "ac_kw": 60,
+     "exp_kw": 62,
+     "poa_wm2": 55,
+     "limit_pct": 80.65
+    }
+   ],
+   "exp_day_kwh": 4000,
+   "exp_window_kwh": 58,
+   "act_window_kwh": 22
+  },
+  "site_context": {
+   "neighbours": [
+    {
+     "inverter_id": "INV-06",
+     "output_ratio": 0.74
+    }
+   ]
+  },
+  "history": {
+   "faults": [
+    {
+     "date": "2025-02-17",
+     "code": "F-TMP-01"
+    },
+    {
+     "date": "2025-02-22",
+     "code": "F-TMP-01"
+    },
+    {
+     "date": "2025-02-27",
+     "code": "F-TMP-01"
+    },
+    {
+     "date": "2025-03-03",
+     "code": "F-TMP-01"
+    },
+    {
+     "date": "2025-03-07",
+     "code": "F-TMP-01"
+    },
+    {
+     "date": "2025-03-10",
+     "code": "F-TMP-01"
+    }
+   ],
+   "work_orders": [
+    {
+     "wo_id": "WO-311",
+     "opened": "2025-03-08",
+     "completed": "2025-03-10",
+     "retest_ok": true
+    }
+   ]
+  }
+ },
+ "factors": {
+  "fault_class": "igbt_overtemp",
+  "log_telemetry_mismatch": "trivial_under_5min",
+  "grid_event_concurrent": false,
+  "maintenance_window_active": false,
+  "neighbour_cross_check": "neighbours_affected",
+  "repeat_count_30d": 6,
+  "last_repair_status": "completed_verified",
+  "current_limit_pct": 80.65,
+  "yield_loss_pct": 0.9,
+  "low_irradiance_window": true,
+  "serial_mismatch": false,
+  "boundary_placement": false
+ },
+ "factors_sampled": {
+  "fault_class": "igbt_overtemp",
+  "log_telemetry_mismatch": "trivial_under_5min",
+  "grid_event_concurrent": false,
+  "maintenance_window_active": false,
+  "neighbour_cross_check": "neighbours_affected",
+  "repeat_count_30d": 6,
+  "last_repair_status": "completed_verified",
+  "current_limit_pct": 80.65,
+  "yield_loss_pct": 15.63,
+  "low_irradiance_window": true,
+  "serial_mismatch": false,
+  "boundary_placement": false
+ },
+ "plan": {
+  "genuine_defect": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "post_repair_repeat": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "urgent_dispatch",
+   "second": null
+  },
+  "yield_loss": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "capacity_unavailable": {
+   "clarity": "clear",
+   "target": "1",
+   "second": null
+  }
+ },
+ "target_words": 68,
+ "deciding": {
+  "genuine_defect": "Six same-code overtemp faults and fw_severity 4 point to hardware, but neighbour ratio 0.74 and low poa (48-55 W/m2) keep an external cause plausible.",
+  "post_repair_repeat": "WO-311 completed 2025-03-10 with retest_ok true; the latest F-TMP-01 is dated the same day, so before/after is ambiguous.",
+  "next_step": "Six repeats of F-TMP-01 with fw_severity 4 and still 80.65% limited at clear favour dispatch, while the tiny loss and neighbour dip leave doubt.",
+  "yield_loss": "(58-22)/4000 = 0.9%, just under the 1% boundary between level 0 and level 1.",
+  "capacity_unavailable": "Last sample limit_pct 80.65 with ac_kw above zero puts it squarely in the 50-100% derate band."
+ },
+ "request": "rec-F240-0021",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012049
+}

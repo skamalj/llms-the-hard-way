@@ -1,0 +1,135 @@
+{
+ "id": "F204-0074",
+ "family": "F204",
+ "state": {
+  "rx": {
+   "drug": "amoxicillin",
+   "strength": {
+    "val": 0.5,
+    "unit": "g"
+   },
+   "form": "cap",
+   "dose": 1,
+   "freq_per_day": 3,
+   "qty": 21,
+   "days_intended": 7,
+   "issued": "2025-05-28"
+  },
+  "patient": {
+   "pt_id": "P3306",
+   "age": 42,
+   "supplies": [
+    {
+     "date": "2025-05-03",
+     "days_covered": 28
+    }
+   ],
+   "emergency_supplies": [],
+   "near_miss_count": 2
+  },
+  "dispensed": {
+   "product_name": "Amoxil",
+   "generic_name": "amoxicillin",
+   "strength": {
+    "val": 500,
+    "unit": "mg"
+   },
+   "form": "cap",
+   "pack_size": 21,
+   "packs": 1,
+   "owing": null,
+   "batch": "B5521",
+   "expiry": "2027-03-31",
+   "req_warnings": [
+    "9"
+   ],
+   "high_risk": false
+  },
+  "label": {
+   "pt_id": "P3306",
+   "dose_qty": 1,
+   "freq_per_day": 3,
+   "warning_codes": [
+    "9"
+   ],
+   "qty_printed": 21
+  },
+  "check_log": {
+   "checked_at": "2025-05-31T08:40",
+   "clin_check": {
+    "by": "RP",
+    "at": "2025-05-31T08:20"
+   },
+   "queries": [],
+   "interventions": []
+  }
+ },
+ "factors": {
+  "strength_status": "match_converted_units",
+  "product_status": "generic_brand_equivalent",
+  "quantity_status": "exact",
+  "label_status": "correct",
+  "prescriber_query": "none",
+  "pharmacist_intervention": false,
+  "clinical_check_signed": true,
+  "home_supply_days": 0,
+  "emergency_supply": false,
+  "short_expiry": false,
+  "prior_error_count": 2,
+  "high_risk_drug": false,
+  "boundary_case": true
+ },
+ "factors_sampled": {
+  "strength_status": "match_same_units",
+  "product_status": "generic_brand_equivalent",
+  "quantity_status": "exact",
+  "label_status": "correct",
+  "prescriber_query": "none",
+  "pharmacist_intervention": false,
+  "clinical_check_signed": true,
+  "home_supply_days": 12,
+  "emergency_supply": false,
+  "short_expiry": false,
+  "prior_error_count": 2,
+  "high_risk_drug": false,
+  "boundary_case": true
+ },
+ "plan": {
+  "strength_differs": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "balanced",
+   "target": "release",
+   "second": "hold_query"
+  },
+  "error_category": {
+   "clarity": "clear",
+   "target": "none_found",
+   "second": null
+  },
+  "open_discrepancies": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "supply_urgency": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 115,
+ "deciding": {
+  "strength_differs": "rx 0.5 g and dispensed 500 mg are written in different units; the two values are equal after conversion, though the unit mismatch may make a reader doubt.",
+  "next_step": "There is no query, owing slip or intervention and the clinical check is signed, which supports release, but the brand name Amoxil against the generic rx wording could prompt a confirmation.",
+  "error_category": "generic_name amoxicillin equals rx.drug, form is the same, quantity 21 equals 1 x 21, and the label matches the prescription.",
+  "open_discrepancies": "All fields agree after conversion and brand-generic matching; the only thing a cautious reader might count is the brand/generic naming.",
+  "supply_urgency": "Last supply 2025-05-03 for 28 days ends 2025-05-31, the checked_at date, so the supply is either 0 days or about 1 day depending on counting."
+ },
+ "request": "rec-F204-0071",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012521
+}

@@ -1,0 +1,154 @@
+{
+ "id": "F213-0049",
+ "family": "F213",
+ "state": {
+  "pool": {
+   "id": "TP-2",
+   "type": "teaching",
+   "test_interval_min": 120,
+   "opening": {
+    "open": "2024-08-12T08:00",
+    "close": "2024-08-12T14:00"
+   },
+   "limits": {
+    "free_cl_min": 1.0,
+    "free_cl_max": 3.0,
+    "ph_min": 7.2,
+    "ph_max": 7.8
+   },
+   "tolerance": {
+    "free_cl": 0.3,
+    "ph": 0.2
+   },
+   "micro_due": "2024-08-30"
+  },
+  "manual_tests": [
+   {
+    "t": "08:00",
+    "free_cl": 2.0,
+    "ph": 7.4,
+    "kit_id": "K2"
+   },
+   {
+    "t": "10:00",
+    "free_cl": 2.1,
+    "ph": 8.4,
+    "kit_id": "K2"
+   },
+   {
+    "t": "12:00",
+    "free_cl": 2.0,
+    "ph": 7.5,
+    "kit_id": "K2"
+   },
+   {
+    "t": "14:00",
+    "free_cl": 2.1,
+    "ph": 7.4,
+    "kit_id": "K2"
+   }
+  ],
+  "plant": {
+   "controller_readings": [
+    {
+     "t": "10:00",
+     "free_cl": 2.1,
+     "ph": 7.6
+    }
+   ],
+   "bather_count": 140
+  },
+  "equipment": {
+   "kits": [
+    {
+     "kit_id": "K2",
+     "cal_due": "2024-06-30"
+    }
+   ]
+  },
+  "actions": [
+   {
+    "t": "11:20",
+    "action_type": "acid_dose",
+    "reading_ref": "10:00",
+    "retest_time": null
+   }
+  ],
+  "lab_sample": {
+   "sampled_on": "2024-08-05",
+   "result_on": "2024-08-08",
+   "status": "final",
+   "tvc_37": 12,
+   "coliforms": 0,
+   "pseudomonas": 0
+  }
+ },
+ "factors": {
+  "pool_type": "teaching",
+  "test_coverage_gap": 3,
+  "boundary_interval": false,
+  "log_controller_discrepancy": "none",
+  "discrepancy_location": "ph",
+  "excursion_severity": "clear",
+  "corrective_action_delay": "delayed",
+  "retest_logged": false,
+  "dosing_event_explains": false,
+  "kit_calibration_status": "expired_before",
+  "lab_sample_state": "clear",
+  "out_of_order_entry": false,
+  "benign_noise": "high_bathers"
+ },
+ "factors_sampled": {
+  "pool_type": "teaching",
+  "test_coverage_gap": 3,
+  "boundary_interval": false,
+  "log_controller_discrepancy": "none",
+  "discrepancy_location": "ph",
+  "excursion_severity": "clear",
+  "corrective_action_delay": "delayed",
+  "retest_logged": false,
+  "dosing_event_explains": false,
+  "kit_calibration_status": "expired_before",
+  "lab_sample_state": "clear",
+  "out_of_order_entry": false,
+  "benign_noise": "high_bathers"
+ },
+ "plan": {
+  "test_frequency_met": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "readings_reconcile": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "log_disposition": {
+   "clarity": "contested",
+   "target": "accept",
+   "second": "require_closure"
+  },
+  "action_delay": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  },
+  "failed_checks": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  }
+ },
+ "target_words": 113,
+ "deciding": {
+  "test_frequency_met": "Tests at exact 120-minute intervals through opening hours.",
+  "readings_reconcile": "10:00 manual pH 8.4 vs controller 7.6; 0.8 exceeds tolerance 0.2.",
+  "log_disposition": "pH 8.4 acted on with no retest and kit K2 expired, but 12:00 pH 7.5 and clean lab; accept vs closure arguable.",
+  "action_delay": "Action at 11:20, 80 minutes after 10:00; the pH reading is unverified given the expired kit and controller 7.6, so level 1 vs 0 arguable.",
+  "failed_checks": "Reconciliation and kit calibration fail; no retest logged could add a third or leave two."
+ },
+ "request": "rec-F213-0046",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.007397
+}

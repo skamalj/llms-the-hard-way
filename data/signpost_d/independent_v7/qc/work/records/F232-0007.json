@@ -1,0 +1,136 @@
+{
+ "id": "F232-0007",
+ "family": "F232",
+ "state": {
+  "night_header": {
+   "allocated_hours": 4,
+   "eng_window": [
+    "04:00",
+    "05:00"
+   ]
+  },
+  "conditions": {
+   "closures": []
+  },
+  "exposures": [
+   [
+    "T1",
+    "r",
+    2700,
+    1.1,
+    "pass"
+   ],
+   [
+    "T1",
+    "g",
+    3300,
+    1.2,
+    "pass"
+   ],
+   [
+    "T2",
+    "r",
+    4000,
+    1.9,
+    "fail"
+   ],
+   [
+    "T2",
+    "r",
+    4000,
+    1.8,
+    "fail"
+   ]
+  ],
+  "programme_request": {
+   "max_seeing_arcsec": 1.5,
+   "exception": null,
+   "T1": {
+    "r": 2700,
+    "g": 3600
+   }
+  },
+  "faults": [
+   {
+    "subsystem": "dome",
+    "start_utc": "04:10",
+    "end_utc": null,
+    "cleared": false,
+    "retest_utc": null,
+    "workaround": "manual slew"
+   }
+  ],
+  "notes": {
+   "observer_note": "T1 complete.",
+   "night_assistant_note": "Dome test run in window."
+  }
+ },
+ "factors": {
+  "weather_loss_hours": 0.0,
+  "fault_overlap": "none",
+  "fault_resolution_state": "open_workaround",
+  "maintenance_window": true,
+  "closure_reason_mismatch": "none",
+  "note_claim_discrepancy": "short_moderate",
+  "seeing_vs_limit": "exceeded",
+  "seeing_exception_approved": false,
+  "usable_fraction": 0.42,
+  "qa_pending_count": 0,
+  "utc_date_rollover": false,
+  "assistant_note_tone": "neutral",
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "weather_loss_hours": 2.74,
+  "fault_overlap": "major_overlap",
+  "fault_resolution_state": "cleared_retested",
+  "maintenance_window": true,
+  "closure_reason_mismatch": "none",
+  "note_claim_discrepancy": "none",
+  "seeing_vs_limit": "well_within",
+  "seeing_exception_approved": false,
+  "usable_fraction": 0.68,
+  "qa_pending_count": 1,
+  "utc_date_rollover": false,
+  "assistant_note_tone": "neutral",
+  "boundary_case": false
+ },
+ "plan": {
+  "weather_only_loss": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "claims_supported": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "night_disposition": {
+   "clarity": "leaning",
+   "target": "charge_full",
+   "second": null
+  },
+  "usable_share": {
+   "clarity": "contested",
+   "target": "2",
+   "second": "1"
+  },
+  "fault_followup": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  }
+ },
+ "target_words": 25,
+ "deciding": {
+  "weather_only_loss": "Closures list is empty and the unusable frames are explained by seeing 1.8-1.9 above the 1.5 limit with no exception. No fault interval falls in lost time.",
+  "claims_supported": "T1 g has 3300 s against 3600 required, a shortfall of about 8%, while the observer says T1 is complete. This is neither clearly rounding nor clearly a miss.",
+  "night_disposition": "No closures, and the dome fault sits inside the 04:00-05:00 eng_window, so no allocated time was lost. Some doubt remains because the usable time is low and the fault is still open.",
+  "usable_share": "QA-pass time within limits is 6000 s of 14400 s (about 0.42), just above the 40% boundary. The share is borderline between level 1 and level 2.",
+  "fault_followup": "Dome fault is still open (cleared false, end null) with workaround 'manual slew' and observing continued. Its start inside the eng window leaves doubt that it is science-affecting."
+ },
+ "request": "rec-F232-0006",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.020924
+}

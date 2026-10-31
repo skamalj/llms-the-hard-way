@@ -1,0 +1,331 @@
+{
+ "id": "F217",
+ "domain": "theatre stage rigging inspections",
+ "role": "Venue technical manager reviewing each rigging inspection record before signing off flying equipment for an incoming production's get-in",
+ "setting": "A mid-sized receiving theatre keeps one record per rigging item (counterweight sets, chain hoists, hemp sets, truss sections, flying tracks). Each record combines the asset register entry, the current examination certificate, the latest periodic inspection, the incoming production's load plan for that item, and any maintenance history. The technical manager reads one record at a time, compares sections against each other, and decides whether the item can be used, under what restriction, and what is holding it back.",
+ "questions": {
+  "load_within_swl": {
+   "type": "noul",
+   "instructions": "Planned production load stays within the currently verified safe working load.",
+   "criteria": null
+  },
+  "signoff": {
+   "type": "choice",
+   "instructions": "What sign-off should this rigging item receive before the get-in?",
+   "criteria": {
+    "approve": "Cleared for use as planned with no further action needed.",
+    "approve_conditional": "Cleared only with a recorded restriction, such as reduced load.",
+    "hold_pending": "Not used until one outstanding check or document is received.",
+    "withdraw": "Taken out of service until repaired and formally re-examined."
+   }
+  },
+  "limiting_issue": {
+   "type": "choice",
+   "instructions": "Which single issue most limits this item's readiness for service?",
+   "criteria": {
+    "no_issue": "No defect, gap, lapse or load conflict found in record.",
+    "paperwork_gap": "Certificate, serial, check result or dates missing or inconsistent only.",
+    "exam_lapsed": "Thorough examination expiry falls before or on the get-in date.",
+    "component_wear": "Measured wear, corrosion or damage recorded on a physical component.",
+    "overload": "Planned load exceeds the safe working load verified for item."
+   }
+  },
+  "defect_severity": {
+   "type": "score",
+   "instructions": "How severe is the worst recorded defect on this item?",
+   "criteria": [
+    "None: no defect recorded on any checked component",
+    "Cosmetic: surface marks only, no measured section loss",
+    "Degraded: measured wear below discard limit, needs monitoring",
+    "Discard: measurement at or beyond stated discard limit"
+   ]
+  },
+  "checklist_completion": {
+   "type": "score",
+   "instructions": "How complete is the required inspection checklist for this item?",
+   "criteria": [
+    "No required check has a recorded result",
+    "Some checks recorded, two or more still missing",
+    "Exactly one required check still lacks a result",
+    "Every required check has a recorded result"
+   ]
+  }
+ },
+ "factors": [
+  {
+   "name": "load_margin_ratio",
+   "description": "Ratio of planned total load (bar weight plus listed items) to the verified safe working load; values near 1.0 create boundary cases.",
+   "kind": "number",
+   "values": [],
+   "weights": [],
+   "min": 0.55,
+   "max": 1.3,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S6",
+    "S5"
+   ]
+  },
+  {
+   "name": "swl_discrepancy",
+   "description": "How the safe working load in the asset register differs from the certificate or a later derating in maintenance.",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "unit_only_kg_vs_lbs",
+    "derate_not_carried",
+    "serial_mismatch"
+   ],
+   "weights": [
+    0.4,
+    0.15,
+    0.3,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S5"
+   ]
+  },
+  {
+   "name": "worst_defect",
+   "description": "Worst physical condition found, expressed through measured wear against the discard limit on the certificate.",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "cosmetic",
+    "degraded",
+    "discard"
+   ],
+   "weights": [
+    0.3,
+    0.25,
+    0.3,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S4",
+    "S7"
+   ]
+  },
+  {
+   "name": "defect_in_note_only",
+   "description": "A defect is described in the inspector's free-text note but absent from the structured defects list.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.3,
+   "skills": [
+    "S1",
+    "S2"
+   ]
+  },
+  {
+   "name": "checks_outstanding",
+   "description": "Number of required check codes with no result or absent from the inspection checks list.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 4,
+   "p_true": 0,
+   "skills": [
+    "S2",
+    "S4"
+   ]
+  },
+  {
+   "name": "exam_status",
+   "description": "Thorough examination expiry relative to the production's get-in date.",
+   "kind": "categorical",
+   "values": [
+    "in_date",
+    "expires_after_run_starts",
+    "lapsed_before_getin"
+   ],
+   "weights": [
+    0.55,
+    0.2,
+    0.25
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S2",
+    "S7"
+   ]
+  },
+  {
+   "name": "repair_status",
+   "description": "State of any repair raised against the item: none needed, open, done without retest, or done and retested.",
+   "kind": "categorical",
+   "values": [
+    "none_needed",
+    "repair_open",
+    "repaired_no_retest",
+    "repaired_retested"
+   ],
+   "weights": [
+    0.4,
+    0.2,
+    0.2,
+    0.2
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S2",
+    "S4"
+   ]
+  },
+  {
+   "name": "mitigation_present",
+   "description": "A mitigating fact accompanies the alarming signal: signed competent-person extension, approved derating with reduced load, secondary suspension fitted, or retest passed after repair.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S4"
+   ]
+  },
+  {
+   "name": "date_order_error",
+   "description": "Dates out of sequence, such as retest dated before repair completion or inspection dated after get-in.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.2,
+   "skills": [
+    "S2",
+    "S1"
+   ]
+  },
+  {
+   "name": "certificate_missing",
+   "description": "Certification section is null or lacks a certificate reference.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.2,
+   "skills": [
+    "S2"
+   ]
+  },
+  {
+   "name": "boundary_case",
+   "description": "One deciding value sits exactly on a scale edge, e.g. load ratio 0.99 to 1.01 or wear equal to discard limit within rounding.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.2,
+   "skills": [
+    "S6"
+   ]
+  },
+  {
+   "name": "decoy_note",
+   "description": "Alarming-sounding but irrelevant free text, e.g. a crew complaint about a squeaking pulley already logged cleared.",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "cleared_noise_complaint",
+    "unrelated_item_reference",
+    "cosmetic_paint_comment"
+   ],
+   "weights": [
+    0.4,
+    0.2,
+    0.2,
+    0.2
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S5"
+   ]
+  },
+  {
+   "name": "item_type",
+   "description": "Kind of rigging item, changing which checks and measurements appear.",
+   "kind": "categorical",
+   "values": [
+    "counterweight_set",
+    "chain_hoist",
+    "hemp_set",
+    "truss_section",
+    "flying_track"
+   ],
+   "weights": [
+    0.3,
+    0.25,
+    0.15,
+    0.15,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S7"
+   ]
+  }
+ ],
+ "sections": [
+  {
+   "name": "asset",
+   "description": "Register entry: asset_id, item_type, serial_no, location, swl_kg, required_checks list of codes."
+  },
+  {
+   "name": "certification",
+   "description": "Thorough examination certificate: cert_ref, serial_no, swl_kg or swl_lbs, exam_date, expiry_date, discard_limits, extension_ref; may be null."
+  },
+  {
+   "name": "inspection",
+   "description": "Latest periodic inspection: insp_date, inspector_id, checks list of code and result, defects list with measured values, inspector_note."
+  },
+  {
+   "name": "load_plan",
+   "description": "Incoming production: production_code, getin_date, bar_weight_kg, items list of desc and kg, secondary_suspension, production_note."
+  },
+  {
+   "name": "maintenance",
+   "description": "Work orders list: wo_id, raised, completed, retest_date, retest_result, derated_swl_kg, derate_approved_by, note."
+  }
+ ],
+ "rendering_notes": "Verified SWL is the lowest of certification.swl_kg (convert swl_lbs where used) and any maintenance.derated_swl_kg; load_margin_ratio is rendered only as bar_weight_kg plus load_plan.items kg, never as a ratio. swl_discrepancy shows as asset.swl_kg differing from certificate or derate, or asset.serial_no differing from certification.serial_no. worst_defect is shown as inspection.defects measured_pct against certification.discard_limits, never as a severity label; when defect_in_note_only is true the defect appears only in inspection.inspector_note text. checks_outstanding is the count of asset.required_checks codes missing from inspection.checks or with result null. exam_status is derived by comparing certification.expiry_date with load_plan.getin_date. repair_status shows via maintenance completed and retest_date null or set. mitigation_present renders as certification.extension_ref with signer, maintenance.derate_approved_by with reduced load, load_plan.secondary_suspension true, or retest_result pass; it appears with and without each alarming signal about equally. date_order_error appears as retest_date earlier than completed or insp_date later than getin_date. certificate_missing sets certification to null. Decoys sit in maintenance.note and load_plan.production_note (cleared complaints, references to other asset_ids, paint comments). Free text limited to inspector_note, production_note and work order notes, one sentence each. No field states fitness, severity, sign-off, completeness or limiting issue; numbers are numbers, dates ISO, unknowns null.",
+ "skills": [
+  "S1",
+  "S2",
+  "S3",
+  "S4",
+  "S5",
+  "S6",
+  "S7"
+ ],
+ "shared_scale": null,
+ "design_cost": 0.133432
+}

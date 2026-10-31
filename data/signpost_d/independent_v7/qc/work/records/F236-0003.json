@@ -1,0 +1,169 @@
+{
+ "id": "F236-0003",
+ "family": "F236",
+ "state": {
+  "changeover": {
+   "line_id": "L1",
+   "from_code": "RL-5",
+   "to_code": "RL-9",
+   "from_allergens": [
+    "sesame",
+    "wheat"
+   ],
+   "to_allergens": [
+    "wheat"
+   ]
+  },
+  "cleaning": {
+   "steps": [
+    {
+     "n": 1,
+     "completed": true,
+     "spec_min": 30,
+     "actual_min": 31
+    },
+    {
+     "n": 2,
+     "completed": true,
+     "spec_min": 20,
+     "actual_min": 20
+    }
+   ],
+   "part_swap": false
+  },
+  "verification": {
+   "swabs": [
+    {
+     "id": "S1",
+     "target": "sesame",
+     "reading": 14,
+     "limit_ppm": 10,
+     "at": "2024-05-20T05:50"
+    },
+    {
+     "id": "S1b",
+     "retest_of": "S1",
+     "target": "sesame",
+     "reading": 3,
+     "limit_ppm": 10,
+     "at": "2024-05-20T06:20"
+    }
+   ]
+  },
+  "production": {
+   "line_id": "L1",
+   "product_code": "RL-9",
+   "start_at": "2024-05-20T06:00",
+   "end_at": "2024-05-20T14:00",
+   "qty": 869.04,
+   "unit": "kg",
+   "packaging_allergens": [
+    "wheat"
+   ],
+   "may_contain": [
+    "sesame"
+   ]
+  },
+  "approvals": {
+   "qa_signoff": {
+    "signed_at": "2024-05-20T05:58"
+   },
+   "deviations": [
+    {
+     "id": "D5",
+     "scope": "L1 S1 start before retest",
+     "approved_at": "2024-05-20T05:55"
+    }
+   ]
+  },
+  "history": [
+   {
+    "verification_passed": false
+   },
+   {
+    "verification_passed": false
+   },
+   {
+    "verification_passed": true
+   },
+   {
+    "verification_passed": false
+   },
+   {
+    "verification_passed": false
+   },
+   {
+    "verification_passed": false
+   },
+   {
+    "verification_passed": true
+   }
+  ]
+ },
+ "factors": {
+  "allergen_transition": "removes_allergen",
+  "cleaning_completion": "full",
+  "swab_outcome": "positive_retest_pass",
+  "swab_timing_mismatch": true,
+  "cross_section_discrepancy": "none",
+  "exposed_quantity_kg": 36.0,
+  "approved_deviation": true,
+  "label_precaution": true,
+  "dedicated_tooling": false,
+  "qa_signoff_state": "signed_before_start",
+  "line_failure_history": 5,
+  "boundary_value": false
+ },
+ "factors_sampled": {
+  "allergen_transition": "removes_allergen",
+  "cleaning_completion": "full",
+  "swab_outcome": "trace_below_limit",
+  "swab_timing_mismatch": false,
+  "cross_section_discrepancy": "quantity_unit_mismatch",
+  "exposed_quantity_kg": 869.04,
+  "approved_deviation": true,
+  "label_precaution": true,
+  "dedicated_tooling": false,
+  "qa_signoff_state": "signed_after_start",
+  "line_failure_history": 5,
+  "boundary_value": false
+ },
+ "plan": {
+  "swabs_cleared": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "line_disposition": {
+   "clarity": "leaning",
+   "target": "reclean_quarantine",
+   "second": null
+  },
+  "worst_deficiency": {
+   "clarity": "clear",
+   "target": "none",
+   "second": null
+  },
+  "exposed_product": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  },
+  "residue_evidence": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  }
+ },
+ "target_words": 71,
+ "deciding": {
+  "swabs_cleared": "S1 reads 14 over limit 10 and the passing retest S1b is timed 06:20, after the 06:00 start.",
+  "line_disposition": "Five failed verifications in history and a first-run start before the retest passed point to reclean and quarantine, though D5 and the passed retest add doubt.",
+  "worst_deficiency": "Both cleaning steps complete at spec, identifiers match, QA signed 05:58 and D5 covers the early start, so no deficiency remains.",
+  "exposed_product": "Retest passes 20 minutes into an 8 hour run of 869.04 kg, roughly 36 kg, but D5 covered the start so level 0 is arguable.",
+  "residue_evidence": "S1 over limit with retest S1b passing at 3 ppm gives cleared, yet the retest came after production began, so persistent is arguable."
+ },
+ "request": "rec-F236-0001",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.014
+}

@@ -1,0 +1,115 @@
+{
+ "id": "F229-0048",
+ "family": "F229",
+ "state": {
+  "lot": {
+   "lot_id": "L-1002-11",
+   "block": "C07",
+   "pick_end": "2024-10-02T15:00"
+  },
+  "intake": {
+   "block_code": "C07",
+   "gross_kg": 6020,
+   "tare_kg": 1000,
+   "net_kg": 5000,
+   "bins": [
+    {
+     "kg": 2510
+    },
+    {
+     "kg": 2490
+    }
+   ],
+   "temp_c": 19
+  },
+  "sample": {
+   "rot_pct": 13.68,
+   "sort": {
+    "sorted": true,
+    "rejected_kg": 600,
+    "post_sort_rot_pct": 2.1
+   }
+  },
+  "press": {
+   "programme": "destemmed_standard",
+   "band_l_per_t": "600-680",
+   "cycle_start": "2024-10-03T06:54",
+   "juice_l": 2650
+  },
+  "transfer": {
+   "lot_ref": "L-1002-11",
+   "tank_id": "T5",
+   "transferred_l": 2620,
+   "qa_signoff": "MK 2024-10-03T10:15",
+   "qa_comment": "Lot L-1002-17 sorted, ok."
+  }
+ },
+ "factors": {
+  "weight_mismatch": "trivial_under_1pct",
+  "press_programme": "destemmed_standard",
+  "yield_position": "well_below_band",
+  "lot_id_drift": "none (only a QA comment typo)",
+  "missing_step": "none",
+  "out_of_order_timestamp": false,
+  "pick_to_press_hours": 15.9,
+  "pick_end_recorded": true,
+  "cold_held": false,
+  "rot_pct": 13.68,
+  "sorting_applied": true,
+  "note_signal": "benign_decoy",
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "weight_mismatch": "trivial_under_1pct",
+  "press_programme": "destemmed_standard",
+  "yield_position": "inside_band",
+  "lot_id_drift": "transposed_digit_in_tank_log",
+  "missing_step": "none",
+  "out_of_order_timestamp": true,
+  "pick_to_press_hours": 2.91,
+  "pick_end_recorded": true,
+  "cold_held": false,
+  "rot_pct": 13.68,
+  "sorting_applied": true,
+  "note_signal": "benign_decoy",
+  "boundary_case": false
+ },
+ "plan": {
+  "yield_consistent": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "chain_intact": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "release_decision": {
+   "clarity": "clear",
+   "target": "release",
+   "second": null
+  },
+  "pick_press_delay": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  },
+  "failed_checks": {
+   "clarity": "clear",
+   "target": "0",
+   "second": null
+  }
+ },
+ "target_words": 65,
+ "deciding": {
+  "yield_consistent": "5000 kg net against band 600-680 gives 3000-3400 L; juice_l 2650 is about 530 L/t, clearly below band.",
+  "chain_intact": "lot_id, block_code and lot_ref all match; only the qa_comment cites L-1002-17, which could be a typo or a different lot.",
+  "release_decision": "Weights agree within 0.4%, sorting is recorded and the QA signoff is present, so apart from the yield the lot reads as clean and moves to T5.",
+  "pick_press_delay": "pick_end 15:00 to cycle_start 06:54 next day is 15.9 h, right at the 16 h boundary between level 2 and level 3.",
+  "failed_checks": "Weights reconcile, ids match, the sample and signoff are present and sorting is recorded, so the record is otherwise clean; the only conflict is the low yield."
+ },
+ "request": "rec-F229-0046",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.01255
+}

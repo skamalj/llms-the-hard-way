@@ -1,0 +1,119 @@
+{
+ "id": "F204-0076",
+ "family": "F204",
+ "state": {
+  "rx": {
+   "drug": "metformin",
+   "strength": {
+    "val": 0.5,
+    "unit": "g"
+   },
+   "dose": 1,
+   "freq_per_day": 3,
+   "qty": 84
+  },
+  "dispensed": {
+   "product_name": "metformin",
+   "strength": {
+    "val": 500,
+    "unit": "mg"
+   },
+   "packs": 3,
+   "pack_size": 28
+  },
+  "label": {
+   "dose_qty": 1,
+   "freq_per_day": 2
+  },
+  "patient": {
+   "supplies": [
+    {
+     "date": "2024-05-01",
+     "days_covered": 29
+    }
+   ]
+  },
+  "check_log": {
+   "checked_at": "2024-05-29",
+   "clin_check": {
+    "by": "JT"
+   },
+   "interventions": [
+    {
+     "code": "DIR",
+     "field": "label.freq",
+     "accepted": true,
+     "by": "RPh"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "strength_status": "match_converted_units",
+  "product_status": "exact",
+  "quantity_status": "exact",
+  "label_status": "directions_mismatch",
+  "prescriber_query": "none",
+  "pharmacist_intervention": true,
+  "clinical_check_signed": true,
+  "home_supply_days": 0,
+  "emergency_supply": false,
+  "short_expiry": false,
+  "prior_error_count": 4,
+  "high_risk_drug": false,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "strength_status": "match_converted_units",
+  "product_status": "exact",
+  "quantity_status": "exact",
+  "label_status": "directions_mismatch",
+  "prescriber_query": "none",
+  "pharmacist_intervention": true,
+  "clinical_check_signed": true,
+  "home_supply_days": 0,
+  "emergency_supply": true,
+  "short_expiry": false,
+  "prior_error_count": 4,
+  "high_risk_drug": false,
+  "boundary_case": false
+ },
+ "plan": {
+  "strength_differs": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "release_annotated",
+   "second": null
+  },
+  "error_category": {
+   "clarity": "clear",
+   "target": "none_found",
+   "second": null
+  },
+  "open_discrepancies": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  },
+  "supply_urgency": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 33,
+ "deciding": {
+  "strength_differs": "rx 0.5 g equals dispensed 500 mg after conversion.",
+  "next_step": "Label frequency 2 vs rx 3, but an accepted pharmacist intervention on label.freq exists; release once annotated.",
+  "error_category": "Product and quantity agree (3x28=84); the label frequency difference is covered by an accepted intervention, so nothing unresolved.",
+  "open_discrepancies": "Label still prints frequency 2 against rx 3; the accepted intervention on that field mostly resolves it, leaving at most one.",
+  "supply_urgency": "29 days from 2024-05-01 end on the check date 2024-05-29; no emergency supply. Counting today as covered gives 1 day, otherwise zero."
+ },
+ "request": "rec-F204-0076",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.015752
+}

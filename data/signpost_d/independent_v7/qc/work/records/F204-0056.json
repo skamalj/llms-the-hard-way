@@ -1,0 +1,134 @@
+{
+ "id": "F204-0056",
+ "family": "F204",
+ "state": {
+  "rx": {
+   "drug": "amlodipine",
+   "strength": {
+    "val": 5,
+    "unit": "mg"
+   },
+   "qty": 28,
+   "dose": 1,
+   "freq_per_day": 1,
+   "days": 28
+  },
+  "patient": {
+   "pt_id": "P2041",
+   "supplies": [
+    {
+     "date": "2025-03-01",
+     "days_covered": 28
+    }
+   ],
+   "near_miss": 2
+  },
+  "dispensed": {
+   "product_name": "Istin",
+   "generic_name": "amlodipine",
+   "strength": {
+    "val": 10,
+    "unit": "mg"
+   },
+   "packs": 1,
+   "pack_size": 28,
+   "expiry": "2025-04-10"
+  },
+  "label": {
+   "pt_id": "P2041",
+   "dose_qty": 1,
+   "freq_per_day": 1,
+   "qty_printed": 28
+  },
+  "check_log": {
+   "checked_at": "2025-03-29T11:05",
+   "clin_check": {
+    "by": "RPh",
+    "at": "2025-03-29T10:50"
+   },
+   "queries": [
+    {
+     "raised_at": "2025-03-29T10:55",
+     "field": "strength",
+     "status": "pending"
+    }
+   ],
+   "interventions": [
+    {
+     "code": "CNS",
+     "field": "counselling",
+     "accepted": true,
+     "by": "RPh"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "strength_status": "mismatch_converted",
+  "product_status": "generic_brand_equivalent",
+  "quantity_status": "exact",
+  "label_status": "correct",
+  "prescriber_query": "pending",
+  "pharmacist_intervention": true,
+  "clinical_check_signed": true,
+  "home_supply_days": 0,
+  "emergency_supply": false,
+  "short_expiry": true,
+  "prior_error_count": 2,
+  "high_risk_drug": false,
+  "boundary_case": true
+ },
+ "factors_sampled": {
+  "strength_status": "mismatch_converted",
+  "product_status": "generic_brand_equivalent",
+  "quantity_status": "exact",
+  "label_status": "correct",
+  "prescriber_query": "none",
+  "pharmacist_intervention": true,
+  "clinical_check_signed": true,
+  "home_supply_days": 3,
+  "emergency_supply": false,
+  "short_expiry": true,
+  "prior_error_count": 2,
+  "high_risk_drug": false,
+  "boundary_case": true
+ },
+ "plan": {
+  "strength_differs": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "hold_query",
+   "second": null
+  },
+  "error_category": {
+   "clarity": "balanced",
+   "target": "none_found",
+   "second": "quantity_only"
+  },
+  "open_discrepancies": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "supply_urgency": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 67,
+ "deciding": {
+  "strength_differs": "rx strength 5 mg against dispensed Istin 10 mg, same unit, so converted strengths are unequal.",
+  "next_step": "A strength query is pending in check_log.queries and the clinical check is signed, so the item waits on that one confirmation.",
+  "error_category": "The strength difference is covered by a pending query and quantity and label are correct. Read as covered, nothing is unresolved; the short expiry or quantity could still be argued.",
+  "open_discrepancies": "Strength (pending query) and expiry 2025-04-10 against a 28-day course from 2025-03-29 are open. The counselling intervention is on an unrelated field. Whether the covered strength item counts holds the balance between 2 and 3.",
+  "supply_urgency": "The last supply of 28 days from 2025-03-01 covers through 03-28, and the check is on 03-29. That is zero days left, or one if the checking day is counted, which holds it between 3 and 2."
+ },
+ "request": "rec-F204-0056",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012172
+}

@@ -1,0 +1,161 @@
+{
+ "id": "F201-0020",
+ "family": "F201",
+ "state": {
+  "register_header": {
+   "drug": "pentobarbital",
+   "concentration_mg_ml": 200,
+   "schedule": 2,
+   "witness_required": true,
+   "branch_id": "E2",
+   "opening_balance_ml": 40
+  },
+  "entries": [
+   {
+    "entry_id": "E1",
+    "date": "2025-07-02",
+    "type": "use",
+    "qty_ml": 10,
+    "patient_id": "H1",
+    "running_balance_ml": 30,
+    "signed_by": "S2",
+    "witness_id": "W1",
+    "batch_no": "B5"
+   },
+   {
+    "entry_id": "E2",
+    "date": "2025-07-09",
+    "type": "use",
+    "qty_ml": 5,
+    "patient_id": "H2",
+    "running_balance_ml": 25,
+    "signed_by": null,
+    "witness_id": "W1",
+    "batch_no": "B5"
+   },
+   {
+    "entry_id": "E3",
+    "date": "2025-07-18",
+    "type": "use",
+    "qty_ml": 5,
+    "patient_id": "H3",
+    "running_balance_ml": 20,
+    "signed_by": "LOC-12",
+    "witness_id": null,
+    "batch_no": "B5"
+   }
+  ],
+  "clinical_records": [
+   {
+    "patient_id": "H1",
+    "date": "2025-07-02",
+    "dose": 2000,
+    "dose_unit": "mg"
+   },
+   {
+    "patient_id": "H2",
+    "date": "2025-07-09",
+    "dose": 1000,
+    "dose_unit": "mg"
+   },
+   {
+    "patient_id": "H3",
+    "date": "2025-07-18",
+    "dose": 1000,
+    "dose_unit": "mg"
+   }
+  ],
+  "stock_check": {
+   "count_date": "2025-07-31",
+   "counted_ml": 14,
+   "overfill_allowance_ml": 0,
+   "batch_no": "B5"
+  },
+  "disposals": [
+   {
+    "batch_no": "B5",
+    "qty_ml": 4,
+    "removed_date": "2025-07-25",
+    "register_entry_id": null,
+    "witness_id": null
+   }
+  ],
+  "exceptions": [
+   {
+    "exception_id": "X2",
+    "batch_no": "B5",
+    "qty_ml": 2,
+    "valid_from": "2025-07-01",
+    "valid_to": "2025-07-31"
+   }
+  ]
+ },
+ "factors": {
+  "drug_profile": "pentobarbital_200mg_ml",
+  "arithmetic_slip_count": 0,
+  "unrecorded_admin": "none",
+  "clinical_records_missing": false,
+  "disposal_state": "removed_unlogged",
+  "unexplained_shortfall_pct": 1.07,
+  "variance_exception": "valid_partial_cover",
+  "manufacturer_overfill": false,
+  "auth_gap_count": 2,
+  "count_out_of_order": false,
+  "unit_mismatch": true,
+  "locum_signatory": true,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "drug_profile": "pentobarbital_200mg_ml",
+  "arithmetic_slip_count": 0,
+  "unrecorded_admin": "none",
+  "clinical_records_missing": false,
+  "disposal_state": "none_needed",
+  "unexplained_shortfall_pct": 1.07,
+  "variance_exception": "valid_full_cover",
+  "manufacturer_overfill": false,
+  "auth_gap_count": 1,
+  "count_out_of_order": false,
+  "unit_mismatch": true,
+  "locum_signatory": true,
+  "boundary_case": false
+ },
+ "plan": {
+  "unexplained_shortfall": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "line_disposition": {
+   "clarity": "leaning",
+   "target": "hold_pending",
+   "second": null
+  },
+  "variance_cause": {
+   "clarity": "clear",
+   "target": "undocumented_disposal",
+   "second": null
+  },
+  "variance_size": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  },
+  "auth_gaps": {
+   "clarity": "clear",
+   "target": "2",
+   "second": null
+  }
+ },
+ "target_words": 44,
+ "deciding": {
+  "unexplained_shortfall": "Balance 20 vs count 14 is 6 ml short; the exception covers 2 ml and a 4 ml removal has no register entry, leaving a real but partly documented loss.",
+  "line_disposition": "Doses match the register in mg conversion; the line needs missing signature and witness confirmations and a register entry for the removal, which looks like a hold rather than escalation.",
+  "variance_cause": "The 4 ml disposal with register_entry_id null matches the whole remaining shortfall after the 2 ml exception.",
+  "variance_size": "4 ml remaining against 40 ml handled is 10%, right at the 2-10% versus over-10% boundary.",
+  "auth_gaps": "E2 signed_by null and E3 witness_id null with witness required; LOC-12 is a valid locum id: exactly two gaps."
+ },
+ "request": "rec-F201-0016",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.014093
+}

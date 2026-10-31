@@ -1,0 +1,152 @@
+{
+ "id": "F240-0024",
+ "family": "F240",
+ "state": {
+  "asset": {
+   "inverter_id": "INV-12",
+   "serial": "M9023",
+   "rated_ac_kw": 1000
+  },
+  "fault_event": {
+   "serial": "M9023",
+   "code": "F-COM-01",
+   "fw_severity": 2,
+   "ts_start": "2025-07-02T06:30",
+   "ts_clear": "2025-07-02T07:10",
+   "auto_restarts": 2
+  },
+  "telemetry": {
+   "samples": [
+    {
+     "ts": "2025-07-02T06:30",
+     "ac_kw": 0,
+     "exp_kw": 20,
+     "poa_wm2": 60,
+     "limit_pct": 0
+    },
+    {
+     "ts": "2025-07-02T07:10",
+     "ac_kw": 25,
+     "exp_kw": 50,
+     "poa_wm2": 90,
+     "limit_pct": 50.0
+    }
+   ],
+   "exp_day_kwh": 3000,
+   "exp_window_kwh": 45,
+   "act_window_kwh": 15
+  },
+  "site_context": {
+   "grid_events": [
+    {
+     "ts": "2025-07-02T06:25",
+     "type": "voltage_sag",
+     "magnitude_pu": 0.9
+    }
+   ],
+   "maint_windows": [
+    {
+     "from": "2025-07-02T06:00",
+     "to": "2025-07-02T08:00",
+     "scope": "INV-12"
+    }
+   ],
+   "neighbours": [
+    {
+     "inverter_id": "INV-11",
+     "output_ratio": 0.7
+    }
+   ]
+  },
+  "history": {
+   "faults": [
+    {
+     "date": "2025-06-20",
+     "code": "F-COM-01"
+    },
+    {
+     "date": "2025-06-28",
+     "code": "F-COM-01"
+    },
+    {
+     "date": "2025-07-02",
+     "code": "F-COM-01"
+    }
+   ],
+   "work_orders": [
+    {
+     "wo_id": "WO-77",
+     "opened": "2025-06-29",
+     "completed": "2025-07-01",
+     "retest_ok": null
+    }
+   ]
+  }
+ },
+ "factors": {
+  "fault_class": "comms_loss",
+  "log_telemetry_mismatch": "none",
+  "grid_event_concurrent": true,
+  "maintenance_window_active": true,
+  "neighbour_cross_check": "neighbours_affected",
+  "repeat_count_30d": 3,
+  "last_repair_status": "completed_unverified",
+  "current_limit_pct": 50.0,
+  "yield_loss_pct": 1.0,
+  "low_irradiance_window": true,
+  "serial_mismatch": false,
+  "boundary_placement": false
+ },
+ "factors_sampled": {
+  "fault_class": "comms_loss",
+  "log_telemetry_mismatch": "none",
+  "grid_event_concurrent": true,
+  "maintenance_window_active": true,
+  "neighbour_cross_check": "neighbours_affected",
+  "repeat_count_30d": 3,
+  "last_repair_status": "none",
+  "current_limit_pct": 56.0,
+  "yield_loss_pct": 10.14,
+  "low_irradiance_window": true,
+  "serial_mismatch": false,
+  "boundary_placement": false
+ },
+ "plan": {
+  "genuine_defect": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "post_repair_repeat": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "next_step": {
+   "clarity": "balanced",
+   "target": "scheduled_visit",
+   "second": "urgent_dispatch"
+  },
+  "yield_loss": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "capacity_unavailable": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  }
+ },
+ "target_words": 61,
+ "deciding": {
+  "genuine_defect": "Three F-COM-01 faults point to a device problem, but a voltage sag, a maintenance window scoped to INV-12 and a neighbour ratio of 0.7 give external explanations.",
+  "post_repair_repeat": "F-COM-01 on 2025-07-02 follows WO-77 completed 2025-07-01, but retest_ok is null and a maintenance window was active.",
+  "next_step": "A repeat fault after repair favours a scheduled visit, while the 50% derate and unresolved retest make dispatch defensible.",
+  "yield_loss": "(45-15)/3000 = 1.0%, exactly on the level 0/1 boundary.",
+  "capacity_unavailable": "Last sample limit_pct 50.0 (ac_kw 25 of 1000), on the boundary between the 50-100% and below-50% bands."
+ },
+ "request": "rec-F240-0021",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012049
+}

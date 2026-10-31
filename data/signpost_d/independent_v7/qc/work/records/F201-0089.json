@@ -1,0 +1,154 @@
+{
+ "id": "F201-0089",
+ "family": "F201",
+ "state": {
+  "register_header": {
+   "drug": "methadone",
+   "concentration_mg_ml": 10,
+   "schedule": 2,
+   "witness_required": true,
+   "branch_id": "B5",
+   "opening_balance_ml": 80
+  },
+  "entries": [
+   {
+    "entry_id": "E1",
+    "date": "2024-04-02",
+    "type": "admin",
+    "qty_ml": 20,
+    "patient_id": "P1",
+    "running_balance_ml": 60,
+    "signed_by": "S1",
+    "witness_id": "S5"
+   },
+   {
+    "entry_id": "E2",
+    "type": "receipt",
+    "qty_ml": 20,
+    "running_balance_ml": 80,
+    "signed_by": "S1",
+    "witness_id": "S5",
+    "batch_no": "M7"
+   },
+   {
+    "entry_id": "E3",
+    "date": "2024-04-10",
+    "type": "admin",
+    "qty_ml": 15,
+    "patient_id": "P2",
+    "running_balance_ml": 60,
+    "signed_by": "S1",
+    "witness_id": "S5"
+   },
+   {
+    "entry_id": "E4",
+    "date": "2024-04-18",
+    "type": "admin",
+    "qty_ml": 10,
+    "patient_id": "P3",
+    "running_balance_ml": 45,
+    "signed_by": "S1",
+    "witness_id": "S5"
+   }
+  ],
+  "clinical_records": [
+   {
+    "patient_id": "P1",
+    "date": "2024-04-02",
+    "dose": 20,
+    "dose_unit": "ml"
+   },
+   {
+    "patient_id": "P2",
+    "date": "2024-04-10",
+    "dose": 15,
+    "dose_unit": "ml"
+   },
+   {
+    "patient_id": "P3",
+    "date": "2024-04-18",
+    "dose": 10,
+    "dose_unit": "ml"
+   },
+   {
+    "patient_id": "P9",
+    "date": "2024-04-14",
+    "dose": 0.5,
+    "dose_unit": "ml"
+   }
+  ],
+  "stock_check": {
+   "count_date": "2024-04-30",
+   "counted_ml": 45,
+   "overfill_allowance_ml": 0.5
+  }
+ },
+ "factors": {
+  "drug_profile": "methadone_10mg_ml",
+  "arithmetic_slip_count": 2,
+  "unrecorded_admin": "trivial_under_1pct",
+  "clinical_records_missing": false,
+  "disposal_state": "none_needed",
+  "unexplained_shortfall_pct": 9.5,
+  "variance_exception": "none",
+  "manufacturer_overfill": true,
+  "auth_gap_count": 0,
+  "count_out_of_order": false,
+  "unit_mismatch": false,
+  "locum_signatory": false,
+  "boundary_case": true
+ },
+ "factors_sampled": {
+  "drug_profile": "methadone_10mg_ml",
+  "arithmetic_slip_count": 2,
+  "unrecorded_admin": "trivial_under_1pct",
+  "clinical_records_missing": false,
+  "disposal_state": "none_needed",
+  "unexplained_shortfall_pct": 11.23,
+  "variance_exception": "valid_full_cover",
+  "manufacturer_overfill": true,
+  "auth_gap_count": 4,
+  "count_out_of_order": false,
+  "unit_mismatch": false,
+  "locum_signatory": false,
+  "boundary_case": true
+ },
+ "plan": {
+  "unexplained_shortfall": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "line_disposition": {
+   "clarity": "contested",
+   "target": "correct_and_sign",
+   "second": "escalate"
+  },
+  "variance_cause": {
+   "clarity": "clear",
+   "target": "arithmetic_slip",
+   "second": null
+  },
+  "variance_size": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "auth_gaps": {
+   "clarity": "leaning",
+   "target": "0",
+   "second": null
+  }
+ },
+ "target_words": 61,
+ "deciding": {
+  "unexplained_shortfall": "Recomputed closing is 55 ml (80-20+20-15-10) but counted is 45 with a 0.5 ml allowance; only 0.5 ml (P9) is matched, so about 9.5 ml is unexplained as stock, though slips explain the register.",
+  "line_disposition": "Two clerical slips would normally be annotated, but the 10 ml shortfall against the recomputed balance is near 10% and could be treated as a loss to report.",
+  "variance_cause": "E3 balance 60 should be 65 and E4 45 should be 50 relative to the prior balance, a 10 ml total; the only other item is a 0.5 ml P9 dose.",
+  "variance_size": "55 - 45 - 0.5 allowance = 9.5 ml over 100 ml handled (80 opening + 20 receipt), 9.5% to 10%, at the Material/Major boundary.",
+  "auth_gaps": "All four entries have signed_by and witness_id present."
+ },
+ "request": "rec-F201-0086",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.018334
+}

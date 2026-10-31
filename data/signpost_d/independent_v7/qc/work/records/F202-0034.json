@@ -1,0 +1,140 @@
+{
+ "id": "F202-0034",
+ "family": "F202",
+ "state": {
+  "patrol": {
+   "id": "TP-7731",
+   "patroller": "P058",
+   "date": "2025-05-06",
+   "elr": "KDN1",
+   "booked": [
+    8.0,
+    9.2
+   ],
+   "freq": "weekly",
+   "weather": "rain",
+   "line_mph": 50
+  },
+  "walk_trace": {
+   "walked": [
+    8.0,
+    9.2
+   ],
+   "gaps": [],
+   "mins": 66
+  },
+  "defects": [
+   {
+    "id": "D1",
+    "type": "joint_gap",
+    "cat": "track_component",
+    "mile": 8.4,
+    "meas": 25.4,
+    "unit": "mm",
+    "prio": "P2"
+   },
+   {
+    "id": "D2",
+    "type": "twist",
+    "cat": "track_geometry",
+    "mile": 8.85,
+    "meas": null,
+    "unit": "mm",
+    "prio": "P3"
+   }
+  ],
+  "site_context": {
+   "last_geometry_run": "2025-03-24",
+   "history": {
+    "D1": 2
+   }
+  },
+  "standards": [
+   {
+    "type": "joint_gap",
+    "unit": "mm",
+    "monitor": 18,
+    "d7": 25,
+    "imm": 35
+   },
+   {
+    "type": "twist",
+    "unit": "mm",
+    "monitor": 15,
+    "d7": 20,
+    "imm": 25
+   }
+  ],
+  "remarks": {
+   "comment": "Joint gap wide. Twist seen at 8.85."
+  }
+ },
+ "factors": {
+  "measured_band": "seven_day",
+  "worst_defect_category": "track_component",
+  "priority_vs_measurement": "measurement_missing",
+  "unit_mismatch": false,
+  "location_mismatch": "none",
+  "coverage_gap_pct": 0.45,
+  "mitigation_present": false,
+  "mitigation_kind": "none",
+  "repeat_history": 2,
+  "photo_evidence": false,
+  "note_stance": "consistent",
+  "boundary_case": false,
+  "decoy_alarm": false
+ },
+ "factors_sampled": {
+  "measured_band": "immediate",
+  "worst_defect_category": "track_geometry",
+  "priority_vs_measurement": "measurement_missing",
+  "unit_mismatch": false,
+  "location_mismatch": "none",
+  "coverage_gap_pct": 0.45,
+  "mitigation_present": false,
+  "mitigation_kind": "geometry_run_clear_recent",
+  "repeat_history": 2,
+  "photo_evidence": false,
+  "note_stance": "consistent",
+  "boundary_case": false,
+  "decoy_alarm": false
+ },
+ "plan": {
+  "priority_supported": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "balanced",
+   "target": "hold_query",
+   "second": "close_report"
+  },
+  "worst_category": {
+   "clarity": "clear",
+   "target": "track_component",
+   "second": null
+  },
+  "discrepancy_size": {
+   "clarity": "leaning",
+   "target": "0",
+   "second": null
+  },
+  "response_urgency": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  }
+ },
+ "target_words": 82,
+ "deciding": {
+  "priority_supported": "D2 twist has meas null, so its P3 cannot be checked against the 15 mm monitor limit. D1 at 25.4 mm matches P2.",
+  "next_step": "The missing twist value is one unconfirmed item that could be worse than D1, which argues for a query. D1 is a repeat defect (2) and exceeds 25 mm, which argues for repair rather than close, so the two answers are balanced.",
+  "worst_category": "Only D1 joint_gap (track_component) has a measurement over a limit. The geometry defect has no value, so it cannot rank above it.",
+  "discrepancy_size": "25.4 mm against the 25 mm seven-day limit is 1.6% over, under 2%.",
+  "response_urgency": "25.4 mm is just over the 25 mm seven-day limit, which gives level 2. The margin is thin and the limit's inclusivity is unstated, so level 1 is plausible."
+ },
+ "request": "rec-F202-0031",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.013357
+}

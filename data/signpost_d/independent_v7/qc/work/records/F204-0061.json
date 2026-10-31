@@ -1,0 +1,130 @@
+{
+ "id": "F204-0061",
+ "family": "F204",
+ "state": {
+  "rx": {
+   "drug": "atenolol",
+   "strength": {
+    "val": 50,
+    "unit": "mg"
+   },
+   "qty": 28
+  },
+  "patient": {
+   "pt_id": "P1204",
+   "near_miss_count": 1,
+   "supplies": [
+    {
+     "date": "2025-03-01",
+     "days_covered": 17
+    }
+   ]
+  },
+  "dispensed": {
+   "strength": {
+    "val": 50,
+    "unit": "mg"
+   },
+   "pack_size": 14,
+   "packs": 1,
+   "owing": {
+    "qty": 14,
+    "slip_no": "A41"
+   },
+   "expiry": "2026-09"
+  },
+  "label": {
+   "pt_id": "P1204",
+   "qty_printed": 14
+  },
+  "check_log": {
+   "checked_at": "2025-03-10",
+   "clin_check": {
+    "by": "RPh",
+    "at": "2025-03-10"
+   },
+   "queries": [
+    {
+     "field": "qty",
+     "status": "confirmed"
+    }
+   ],
+   "interventions": [
+    {
+     "code": "OWE",
+     "field": "qty",
+     "accepted": true,
+     "by": "RPh"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "strength_status": "match_same_units",
+  "product_status": "exact",
+  "quantity_status": "owing_documented",
+  "label_status": "correct",
+  "prescriber_query": "confirmed",
+  "pharmacist_intervention": true,
+  "clinical_check_signed": true,
+  "home_supply_days": 8,
+  "emergency_supply": false,
+  "short_expiry": false,
+  "prior_error_count": 1,
+  "high_risk_drug": false,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "strength_status": "match_same_units",
+  "product_status": "exact",
+  "quantity_status": "short_undocumented",
+  "label_status": "correct",
+  "prescriber_query": "pending",
+  "pharmacist_intervention": true,
+  "clinical_check_signed": true,
+  "home_supply_days": 12,
+  "emergency_supply": false,
+  "short_expiry": true,
+  "prior_error_count": 1,
+  "high_risk_drug": false,
+  "boundary_case": false
+ },
+ "plan": {
+  "strength_differs": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "release_annotated",
+   "second": null
+  },
+  "error_category": {
+   "clarity": "clear",
+   "target": "none_found",
+   "second": null
+  },
+  "open_discrepancies": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "supply_urgency": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 31,
+ "deciding": {
+  "strength_differs": "Both rx and dispensed strength are 50 mg with the same unit, so they agree.",
+  "next_step": "Owing slip A41, a confirmed query and an accepted intervention are on file and the clinical check is signed, so release with the annotation.",
+  "error_category": "The owing slip and confirmed qty query resolve the quantity gap; product and label agree, so nothing is unresolved.",
+  "open_discrepancies": "Quantity, query and intervention entries may be counted as three items or two, though all appear resolved; this holds it between 3 and 2.",
+  "supply_urgency": "Supply of 17 days from 2025-03-01 against a check on 2025-03-10 leaves 8 days, just over the 7-day boundary."
+ },
+ "request": "rec-F204-0061",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.010687
+}

@@ -1,0 +1,144 @@
+{
+ "id": "F235-0028",
+ "family": "F235",
+ "state": {
+  "station": {
+   "station_id": "S0874",
+   "river": "Calder Beck",
+   "gauge_type": "radar",
+   "backup": {
+    "type": "float",
+    "installed": true,
+    "last_value_m": 0.843,
+    "status": "reporting"
+   },
+   "telemetry": {
+    "batt_v": 12.7,
+    "rssi_dbm": -81
+   }
+  },
+  "visit": {
+   "visit_id": "V-3017",
+   "type": "routine",
+   "visit_date": "2024-05-02",
+   "tasks_planned": 3,
+   "abort_reason": null
+  },
+  "checks": {
+   "pre": {
+    "board_m": [
+     0.842,
+     0.846
+    ],
+    "logger_m": 0.842,
+    "time": "10:05"
+   },
+   "post": {
+    "board_m": [
+     0.843,
+     0.845
+    ],
+    "logger_m": 0.844,
+    "time": "12:00"
+   }
+  },
+  "works": {
+   "tasks": [
+    {
+     "task": "clean radar lens",
+     "status": "done"
+    },
+    {
+     "task": "board check",
+     "status": "done"
+    },
+    {
+     "task": "download data",
+     "status": "done"
+    }
+   ],
+   "logger_gap_h": 9
+  },
+  "defects": [
+   {
+    "item": "stage sensor signal noisy, intermittent dropouts",
+    "channel": "primary_stage",
+    "reporting": true,
+    "raised": "2024-05-02"
+   }
+  ],
+  "notes": {
+   "tech_note": "Readings match the board but the sensor output drops out at times.",
+   "supervisor_comment": "Reviewed.",
+   "signed_off": "2024-05-03"
+  }
+ },
+ "factors": {
+  "pre_visit_offset_mm": 2.0,
+  "check_reading_spread_mm": 4.0,
+  "drift_cause": "no_drift",
+  "cause_evidence": "none",
+  "visit_completion": "full",
+  "post_visit_check_logged": true,
+  "residual_defect_class": "primary_degraded",
+  "backup_sensor_ok": true,
+  "benign_explanation": false,
+  "record_gap": "none",
+  "logger_gap_hours": 9,
+  "telemetry_decoy": "normal",
+  "note_tone": "neutral"
+ },
+ "factors_sampled": {
+  "pre_visit_offset_mm": 17.78,
+  "check_reading_spread_mm": 11.06,
+  "drift_cause": "sensor_fault",
+  "cause_evidence": "none",
+  "visit_completion": "full",
+  "post_visit_check_logged": true,
+  "residual_defect_class": "primary_degraded",
+  "backup_sensor_ok": true,
+  "benign_explanation": false,
+  "record_gap": "parts_null_with_swap",
+  "logger_gap_hours": 9,
+  "telemetry_decoy": "normal",
+  "note_tone": "neutral"
+ },
+ "plan": {
+  "sensor_fault_cause": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "visit_disposition": {
+   "clarity": "leaning",
+   "target": "sign_off",
+   "second": null
+  },
+  "data_treatment": {
+   "clarity": "leaning",
+   "target": "mark_provisional",
+   "second": null
+  },
+  "offset_size": {
+   "clarity": "leaning",
+   "target": "0",
+   "second": null
+  },
+  "residual_defect": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "4"
+  }
+ },
+ "target_words": 121,
+ "deciding": {
+  "sensor_fault_cause": "Pre-visit board mean 0.844 against logger 0.842 shows no drift, and no transducer swap or bench error exists.",
+  "visit_disposition": "All three tasks done, post check agrees and the visit was signed off; the open sensor defect gives some doubt.",
+  "data_treatment": "Offset is negligible, but the primary sensor has dropouts and a 9 h gap, so the values are only provisional.",
+  "offset_size": "Board mean 0.844 minus logger 0.842 is 2 mm, under 5 mm.",
+  "residual_defect": "Primary stage defect is intermittent and still reporting, but the 9 h logger gap shows dropouts, which balances level 3 against level 4."
+ },
+ "request": "rec-F235-0026",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.009179
+}

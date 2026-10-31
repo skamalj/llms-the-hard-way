@@ -1,0 +1,184 @@
+{
+ "id": "F216-0011",
+ "family": "F216",
+ "state": {
+  "session": {
+   "id": "F-1180",
+   "site": "CL2",
+   "session_type": "fixed_clinic",
+   "date": "2025-03-11",
+   "start": "09:00",
+   "end": "13:00",
+   "next_session_date": "2025-03-12"
+  },
+  "storage": {
+   "unit": "FR-2",
+   "unit_type": "fridge",
+   "probe_config": "product",
+   "last_calibration": "2025-01-15",
+   "alarms_30d": 2
+  },
+  "temp_log": {
+   "readings": [
+    [
+     "13:15",
+     5.4,
+     5.1
+    ],
+    [
+     "13:20",
+     9.0,
+     8.6
+    ],
+    [
+     "13:25",
+     9.4,
+     9.1
+    ],
+    [
+     "13:30",
+     9.6,
+     9.4
+    ],
+    [
+     "13:35",
+     9.3,
+     9.0
+    ],
+    [
+     "13:40",
+     9.0,
+     8.7
+    ],
+    [
+     "13:45",
+     8.6,
+     8.3
+    ],
+    [
+     "13:50",
+     7.9,
+     7.4
+    ]
+   ],
+   "manual_checks": [
+    {
+     "time": "09:00",
+     "min_c": 3.0,
+     "max_c": 6.2,
+     "current_c": 5.0
+    }
+   ],
+   "logger_gaps": []
+  },
+  "stock": {
+   "lots": [
+    {
+     "lot_no": "A901",
+     "shelf": "top",
+     "tolerance_min_out": 20,
+     "opening": 20,
+     "wasted": 1,
+     "closing": 12
+    },
+    {
+     "lot_no": "B455",
+     "shelf": "mid",
+     "tolerance_min_out": 60,
+     "opening": 30,
+     "wasted": 0,
+     "closing": 20
+    }
+   ]
+  },
+  "administration": [
+   {
+    "time": "09:40",
+    "lot_no": "A901",
+    "doses": 7
+   },
+   {
+    "time": "11:15",
+    "lot_no": "B455",
+    "doses": 10
+   }
+  ],
+  "excursion_actions": {
+   "start": "13:20",
+   "end": "13:50",
+   "quarantined": true,
+   "advice_requested_at": null,
+   "advice_status": "NR",
+   "advice_received_at": null,
+   "revised_expiry": null
+  }
+ },
+ "factors": {
+  "true_excursion_minutes": 30,
+  "log_source_discrepancy": "none",
+  "buffered_probe_in_range": false,
+  "planned_maintenance": false,
+  "stability_clearance": "not_requested",
+  "doses_during_exposure": 0,
+  "stock_count_gap": 0,
+  "lot_id_mismatch": false,
+  "lots_beyond_tolerance": "some",
+  "freezing_reading": false,
+  "boundary_case": false,
+  "unit_alarm_history": 2,
+  "session_type": "fixed_clinic"
+ },
+ "factors_sampled": {
+  "true_excursion_minutes": 227,
+  "log_source_discrepancy": "none",
+  "buffered_probe_in_range": false,
+  "planned_maintenance": false,
+  "stability_clearance": "not_requested",
+  "doses_during_exposure": 0,
+  "stock_count_gap": 1,
+  "lot_id_mismatch": false,
+  "lots_beyond_tolerance": "none",
+  "freezing_reading": false,
+  "boundary_case": false,
+  "unit_alarm_history": 2,
+  "session_type": "fixed_clinic"
+ },
+ "plan": {
+  "dosed_uncleared": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "stock_reconciles": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "stock_disposition": {
+   "clarity": "clear",
+   "target": "partial_discard",
+   "second": null
+  },
+  "excursion_duration": {
+   "clarity": "contested",
+   "target": "1",
+   "second": "2"
+  },
+  "followup_urgency": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 82,
+ "deciding": {
+  "dosed_uncleared": "Last dose at 11:15; excursion starts 13:20, so no doses during exposure.",
+  "stock_reconciles": "A901: 20-1-7=12 closing; B455: 30-10=20 closing; lot numbers match administration.",
+  "stock_disposition": "Out-of-range about 30 min; A901 (top shelf) tolerance 20 min exceeded, B455 tolerance 60 min not; no advice requested.",
+  "excursion_duration": "Six 5-min readings above 8.0 (13:20-13:45): 30 min by interval count, 25 min by span; sits on the 30 min boundary between Brief and Extended.",
+  "followup_urgency": "Stock to be destroyed and no advice requested, with next session next day (2025-03-12); no doses given in exposure, so same-day vs 24 h is close."
+ },
+ "request": "rec-F216-0011",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.017698
+}

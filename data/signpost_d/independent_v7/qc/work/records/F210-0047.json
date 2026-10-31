@@ -1,0 +1,113 @@
+{
+ "id": "F210-0047",
+ "family": "F210",
+ "state": {
+  "collection": {
+   "collected_at": "2024-06-10T06:40",
+   "last_milking_end": "2024-06-10T05:30",
+   "vat_l": 5000,
+   "meter_l": 4400,
+   "vat_temp_c": 6.0,
+   "driver_checks": {
+    "smell_ok": true,
+    "appearance_ok": true
+   }
+  },
+  "lab_results": {
+   "bactoscan_kcfu_ml": 150,
+   "scc_k_ml": 480,
+   "thermoduric_cfu_ml": 1500,
+   "inhibitory": "neg",
+   "retest": null
+  },
+  "farm_terms": {
+   "limits": {
+    "vat_temp_c": 6,
+    "bactoscan_kcfu_ml": 100,
+    "scc_k_ml": 400,
+    "thermoduric_cfu_ml": 1000
+   },
+   "approved_exceptions": [
+    {
+     "param": "scc_k_ml",
+     "valid_from": "2024-05-01",
+     "valid_to": "2024-06-10"
+    }
+   ],
+   "breaches_90d": 1
+  },
+  "equipment": {
+   "meter_due": "2024-12-01"
+  }
+ },
+ "factors": {
+  "vat_temp_level": "compliant",
+  "recent_milking": true,
+  "mismatch_site": "volume",
+  "mismatch_magnitude": "moderate",
+  "meter_calibration_overdue": false,
+  "lab_limit_breaches": 3,
+  "exception_covers_breach": true,
+  "inhibitory_status": "negative",
+  "treatment_withdrawal_active": false,
+  "retest_state": "cleared",
+  "sample_integrity": "intact",
+  "history_breaches_90d": 1,
+  "value_on_boundary": true,
+  "driver_sensory_flag": false
+ },
+ "factors_sampled": {
+  "vat_temp_level": "not_recorded",
+  "recent_milking": true,
+  "mismatch_site": "none",
+  "mismatch_magnitude": "moderate",
+  "meter_calibration_overdue": false,
+  "lab_limit_breaches": 3,
+  "exception_covers_breach": true,
+  "inhibitory_status": "negative",
+  "treatment_withdrawal_active": false,
+  "retest_state": "cleared",
+  "sample_integrity": "intact",
+  "history_breaches_90d": 1,
+  "value_on_boundary": true,
+  "driver_sensory_flag": true
+ },
+ "plan": {
+  "temp_compliant": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "intake_disposition": {
+   "clarity": "balanced",
+   "target": "accept_full",
+   "second": "accept_deduction"
+  },
+  "issue_source": {
+   "clarity": "clear",
+   "target": "recording_error",
+   "second": null
+  },
+  "discrepancy_size": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  },
+  "unexplained_breaches": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 43,
+ "deciding": {
+  "temp_compliant": "vat_temp_c 6.0 equals the 6 limit, with milking ended an hour before collection.",
+  "intake_disposition": "The scc exception ends on the collection date, and bactoscan and thermoduric exceed limits, so accept_full and accept_deduction are both defensible.",
+  "issue_source": "vat_l 5000 vs meter_l 4400 disagree while temperature, lab and driver checks are otherwise clean; points to a recorded volume error.",
+  "discrepancy_size": "Vat 5000 vs meter 4400 is a 12% gap, level 2, though not far above the 10% line.",
+  "unexplained_breaches": "Bactoscan, scc and thermoduric all exceed limits; the scc exception valid_to equals the collection date, so two or three are unexplained."
+ },
+ "request": "rec-F210-0046",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.009978
+}

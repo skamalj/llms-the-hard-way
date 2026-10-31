@@ -1,0 +1,149 @@
+{
+ "id": "F216-0020",
+ "family": "F216",
+ "state": {
+  "session": {
+   "id": "O77",
+   "session_type": "outreach_coolbox",
+   "date": "2024-04-09",
+   "next_session_date": "2024-04-10"
+  },
+  "storage": {
+   "alarms_30d": 1,
+   "maintenance": [
+    {
+     "type": "relocation",
+     "start": "10:00",
+     "end": "10:30"
+    }
+   ]
+  },
+  "temp_log": {
+   "readings": [
+    [
+     "09:50",
+     7.4
+    ],
+    [
+     "10:00",
+     8.7
+    ],
+    [
+     "10:10",
+     9.1
+    ],
+    [
+     "12:00",
+     8.9
+    ],
+    [
+     "12:10",
+     7.6
+    ]
+   ],
+   "logger_gaps": [
+    [
+     "10:10",
+     "12:00"
+    ]
+   ],
+   "manual_checks": [
+    {
+     "time": "11:30",
+     "min_c": 8.4,
+     "max_c": 11.2
+    }
+   ]
+  },
+  "stock": {
+   "lots": [
+    {
+     "lot_no": "Q9",
+     "opening": 20,
+     "wasted": 0,
+     "closing": 15
+    }
+   ]
+  },
+  "administration": [
+   {
+    "time": "11:00",
+    "lot_no": "Q9",
+    "doses": 5
+   }
+  ],
+  "excursion_actions": {
+   "start": "10:00",
+   "quarantined": true,
+   "advice_status": "PEND"
+  }
+ },
+ "factors": {
+  "true_excursion_minutes": 130,
+  "log_source_discrepancy": "logger_gap",
+  "buffered_probe_in_range": false,
+  "planned_maintenance": true,
+  "stability_clearance": "requested_pending",
+  "doses_during_exposure": 5,
+  "stock_count_gap": 0,
+  "lot_id_mismatch": false,
+  "lots_beyond_tolerance": "none",
+  "freezing_reading": false,
+  "boundary_case": false,
+  "unit_alarm_history": 1,
+  "session_type": "outreach_coolbox"
+ },
+ "factors_sampled": {
+  "true_excursion_minutes": 280,
+  "log_source_discrepancy": "logger_gap",
+  "buffered_probe_in_range": false,
+  "planned_maintenance": true,
+  "stability_clearance": "cleared_full",
+  "doses_during_exposure": 5,
+  "stock_count_gap": -3,
+  "lot_id_mismatch": false,
+  "lots_beyond_tolerance": "none",
+  "freezing_reading": false,
+  "boundary_case": false,
+  "unit_alarm_history": 1,
+  "session_type": "outreach_coolbox"
+ },
+ "plan": {
+  "dosed_uncleared": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "stock_reconciles": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "stock_disposition": {
+   "clarity": "balanced",
+   "target": "quarantine_hold",
+   "second": "discard_all"
+  },
+  "excursion_duration": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "followup_urgency": {
+   "clarity": "clear",
+   "target": "3",
+   "second": null
+  }
+ },
+ "target_words": 50,
+ "deciding": {
+  "dosed_uncleared": "5 doses at 11:00, after excursion start 10:00, with advice PEND and no clearance. Doubt: the 11:00 time falls inside a logger gap.",
+  "stock_reconciles": "Q9: 20-0-5=15 matches closing; lot number matches.",
+  "stock_disposition": "Advice is pending with the unit quarantined, but out-of-range time may run past 2 hours (gap and manual max 11.2). Hold versus discard all is balanced.",
+  "excursion_duration": "Out of range from 10:00 until 12:10, bridging a 10:10-12:00 logger gap, so about 130 minutes. The gap makes it uncertain near 120, between levels 2 and 3.",
+  "followup_urgency": "5 patients dosed during an unresolved excursion of over 2 hours, advice pending, and the next session is the following day. Recall review is needed the same day."
+ },
+ "request": "rec-F216-0016",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.014296
+}

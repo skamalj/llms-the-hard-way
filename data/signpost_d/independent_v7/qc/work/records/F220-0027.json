@@ -1,0 +1,125 @@
+{
+ "id": "F220-0027",
+ "family": "F220",
+ "state": {
+  "tray": {
+   "barcode": "4002217",
+   "requested_for": "2025-06-11T13:00"
+  },
+  "set_check": {
+   "lines": [
+    {
+     "cat_code": "S4",
+     "qty_expected": 2,
+     "qty_counted": 1
+    }
+   ],
+   "variances": [
+    {
+     "cat_code": "S4",
+     "reason": "substitute scissors",
+     "approved_by": "T. Reid (packer)"
+    }
+   ]
+  },
+  "washer": {
+   "cycle_id": "W52",
+   "alarms": [],
+   "trays_processed": [
+    "4002217"
+   ]
+  },
+  "steriliser_load": {
+   "printout": {
+    "temp_min_c": 134.0,
+    "temp_max_c": 135.2,
+    "hold_s": 190,
+    "pressure_kpa": 210
+   },
+   "logger": {
+    "temp_min_c": 134.1,
+    "hold_s": 190
+   },
+   "daily_test": null,
+   "bi": {
+    "lot": "B7",
+    "result": "pending",
+    "incubation_end": "2025-06-12T08:00"
+   },
+   "ci_result": "pass",
+   "unload_condition": "wet_on_unload"
+  },
+  "release_label": {
+   "tray_barcode": "4002271",
+   "wrap_condition": "damp"
+  }
+ },
+ "factors": {
+  "set_count_discrepancies": 1,
+  "substitution_documented": true,
+  "cycle_excursion": "none",
+  "independent_logger_confirms": true,
+  "bi_status": "pending",
+  "chemical_indicator": "pass",
+  "washer_record_state": "complete",
+  "pack_integrity": "wet_on_unload",
+  "label_mismatch": "tray_barcode_differs",
+  "daily_test_state": "not_logged",
+  "theatre_urgency": "next_list",
+  "note_tone": "neutral",
+  "boundary_case": true
+ },
+ "factors_sampled": {
+  "set_count_discrepancies": 0,
+  "substitution_documented": true,
+  "cycle_excursion": "brief_temp_dip",
+  "independent_logger_confirms": true,
+  "bi_status": "pending",
+  "chemical_indicator": "pass",
+  "washer_record_state": "complete",
+  "pack_integrity": "wet_on_unload",
+  "label_mismatch": "tray_barcode_differs",
+  "daily_test_state": "not_logged",
+  "theatre_urgency": "next_list",
+  "note_tone": "neutral",
+  "boundary_case": true
+ },
+ "plan": {
+  "cycle_in_limits": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "disposition": {
+   "clarity": "balanced",
+   "target": "hold",
+   "second": "release_annotated"
+  },
+  "failure_stage": {
+   "clarity": "clear",
+   "target": "pack_stage",
+   "second": null
+  },
+  "count_gaps": {
+   "clarity": "contested",
+   "target": "1",
+   "second": "0"
+  },
+  "sterility_doubt": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  }
+ },
+ "target_words": 25,
+ "deciding": {
+  "cycle_in_limits": "Printout min is exactly 134.0 with hold 190 s and pressure 210, and the logger confirms 134.1 and 190 s.",
+  "disposition": "Wet unload, pending BI and a label barcode mismatch favour hold, while the documented substitution leaves release_annotated defensible.",
+  "failure_stage": "The washer is complete, and the tray barcode 4002217 differs from the label barcode 4002271, which is the earliest unresolved issue.",
+  "count_gaps": "S4 is short by one and the variance is approved only by the packer, so 0 versus 1 stays contested.",
+  "sterility_doubt": "unload_condition is wet_on_unload and the label wrap is damp, which is compromised even though BI is pending."
+ },
+ "request": "rec-F220-0026",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011091
+}

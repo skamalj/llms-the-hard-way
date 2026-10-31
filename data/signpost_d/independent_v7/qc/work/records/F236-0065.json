@@ -1,0 +1,176 @@
+{
+ "id": "F236-0065",
+ "family": "F236",
+ "state": {
+  "changeover": {
+   "line": "L5",
+   "from": "P60",
+   "to": "P66",
+   "from_allergens": [
+    "wheat",
+    "sesame"
+   ],
+   "to_allergens": [
+    "wheat",
+    "sesame",
+    "milk"
+   ],
+   "end": "2024-09-03T06:30"
+  },
+  "cleaning": {
+   "steps": [
+    {
+     "s": "dry_clean",
+     "done": true,
+     "spec_min": 30,
+     "act_min": 12
+    },
+    {
+     "s": "wash",
+     "done": true,
+     "spec_min": 25,
+     "act_min": 24
+    }
+   ],
+   "part_swap": true,
+   "set_id": "DS-2"
+  },
+  "verification": {
+   "swabs": [
+    {
+     "id": "S1",
+     "loc": "mixer paddle",
+     "target": "sesame",
+     "ppm": 14,
+     "limit_ppm": 10,
+     "at": "2024-09-03T06:40",
+     "req": true
+    },
+    {
+     "id": "S1R",
+     "loc": "mixer bowl",
+     "target": "sesame",
+     "ppm": 0,
+     "limit_ppm": 10,
+     "at": "2024-09-03T06:58",
+     "retest_of": "S1",
+     "req": true
+    },
+    {
+     "id": "S3",
+     "loc": "belt",
+     "target": "sesame",
+     "ppm": 0,
+     "limit_ppm": 10,
+     "at": "2024-09-03T07:19",
+     "req": false
+    }
+   ]
+  },
+  "production": {
+   "line": "L5",
+   "product": "P66",
+   "batch": "B640",
+   "start_at": "2024-09-03T07:00",
+   "end_at": "2024-09-03T11:00",
+   "qty": 600,
+   "unit": "kg",
+   "pack_allergens": [
+    "wheat",
+    "may_contain:sesame"
+   ],
+   "held": false
+  },
+  "approvals": {
+   "qa_signoff": {
+    "by": "QA09",
+    "signed_at": "2024-09-03T06:55"
+   },
+   "deviations": []
+  },
+  "history": [
+   {
+    "d": "2024-08-12",
+    "ok": false
+   },
+   {
+    "d": "2024-08-19",
+    "ok": true
+   },
+   {
+    "d": "2024-08-23",
+    "ok": false
+   },
+   {
+    "d": "2024-08-28",
+    "ok": false
+   }
+  ]
+ },
+ "factors": {
+  "allergen_transition": "adds_allergen",
+  "cleaning_completion": "duration_short",
+  "swab_outcome": "positive_no_retest",
+  "swab_timing_mismatch": true,
+  "cross_section_discrepancy": "label_allergen_mismatch",
+  "exposed_quantity_kg": 47.5,
+  "approved_deviation": false,
+  "label_precaution": true,
+  "dedicated_tooling": true,
+  "qa_signoff_state": "signed_before_start",
+  "line_failure_history": 3,
+  "boundary_value": false
+ },
+ "factors_sampled": {
+  "allergen_transition": "adds_allergen",
+  "cleaning_completion": "duration_short",
+  "swab_outcome": "positive_no_retest",
+  "swab_timing_mismatch": true,
+  "cross_section_discrepancy": "label_allergen_mismatch",
+  "exposed_quantity_kg": 258.21,
+  "approved_deviation": false,
+  "label_precaution": true,
+  "dedicated_tooling": true,
+  "qa_signoff_state": "signed_after_start",
+  "line_failure_history": 3,
+  "boundary_value": false
+ },
+ "plan": {
+  "swabs_cleared": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "line_disposition": {
+   "clarity": "leaning",
+   "target": "hold",
+   "second": null
+  },
+  "worst_deficiency": {
+   "clarity": "clear",
+   "target": "cleaning_shortfall",
+   "second": null
+  },
+  "exposed_product": {
+   "clarity": "contested",
+   "target": "1",
+   "second": "2"
+  },
+  "residue_evidence": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 110,
+ "deciding": {
+  "swabs_cleared": "S1 reads 14 ppm against a limit of 10, but a required retest entry S1R passes at 06:58, before the 07:00 start. The retest was taken at a different location (bowl rather than paddle), which leaves doubt.",
+  "line_disposition": "Retest evidence is questionable (different location), the pack list omits milk, and no deviation exists. Holding until confirmation is supplied fits best.",
+  "worst_deficiency": "dry_clean ran 12 min against a 30 min spec and S1 was over limit, with no deviation. Sign-off precedes start.",
+  "exposed_product": "The last passing swab S3 is at 07:19 against a 07:00 start on 600 kg over 4 h, about 47.5 kg. This sits next to the 50 kg boundary between levels 1 and 2.",
+  "residue_evidence": "S1 is over limit at 14 ppm. The retest S1R passes, but at another location, so level 2 and level 3 are both defensible."
+ },
+ "request": "rec-F236-0061",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.015747
+}

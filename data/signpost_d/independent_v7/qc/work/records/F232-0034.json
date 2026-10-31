@@ -1,0 +1,157 @@
+{
+ "id": "F232-0034",
+ "family": "F232",
+ "state": {
+  "night_header": {
+   "date": "2025-08-02",
+   "prog": "P09",
+   "alloc_h": 10,
+   "eng_window": [
+    "2025-08-03T03:00Z",
+    "2025-08-03T04:00Z"
+   ]
+  },
+  "conditions": {
+   "closures": []
+  },
+  "programme_request": {
+   "A": {
+    "r": 3600,
+    "i": 3600
+   },
+   "max_see": 1.5,
+   "exception": null
+  },
+  "exposures": [
+   {
+    "t": "A",
+    "f": "r",
+    "s": 3600,
+    "start": "2025-08-03T00:10Z",
+    "see": 1.48,
+    "qa": "pass"
+   },
+   {
+    "t": "A",
+    "f": "i",
+    "s": 3350,
+    "start": "2025-08-03T01:15Z",
+    "see": 1.49,
+    "qa": "pass"
+   },
+   {
+    "t": "B",
+    "f": "r",
+    "s": 600,
+    "see": 1.5,
+    "qa": null
+   },
+   {
+    "t": "B",
+    "f": "r",
+    "s": 600,
+    "see": 1.5,
+    "qa": null
+   },
+   {
+    "t": "B",
+    "f": "r",
+    "s": 600,
+    "see": 1.47,
+    "qa": null
+   }
+  ],
+  "faults": [
+   {
+    "sub": "dome_drive",
+    "start": "2025-08-03T03:10Z",
+    "end": "2025-08-03T03:50Z",
+    "cleared": true,
+    "retest": "2025-08-03T03:55Z",
+    "workaround": null,
+    "ticket": "T-6001"
+   },
+   {
+    "sub": "shutter",
+    "start": "2025-08-03T05:20Z",
+    "end": null,
+    "cleared": false,
+    "retest": null,
+    "workaround": "manual reset each frame; intermittent",
+    "ticket": "T-6007"
+   }
+  ],
+  "notes": {
+   "observer": "A complete; queue exhausted.",
+   "assistant": "Loud grinding from dome drive around 03:10."
+  }
+ },
+ "factors": {
+  "weather_loss_hours": 0.0,
+  "fault_overlap": "none",
+  "fault_resolution_state": "open_workaround",
+  "maintenance_window": true,
+  "closure_reason_mismatch": "none",
+  "note_claim_discrepancy": "short_small",
+  "seeing_vs_limit": "near_boundary",
+  "seeing_exception_approved": false,
+  "usable_fraction": 0.19,
+  "qa_pending_count": 3,
+  "utc_date_rollover": true,
+  "assistant_note_tone": "alarmed_benign",
+  "boundary_case": true
+ },
+ "factors_sampled": {
+  "weather_loss_hours": 4.3,
+  "fault_overlap": "major_overlap",
+  "fault_resolution_state": "cleared_no_retest",
+  "maintenance_window": true,
+  "closure_reason_mismatch": "none",
+  "note_claim_discrepancy": "short_small",
+  "seeing_vs_limit": "near_boundary",
+  "seeing_exception_approved": false,
+  "usable_fraction": 0.63,
+  "qa_pending_count": 3,
+  "utc_date_rollover": true,
+  "assistant_note_tone": "alarmed_benign",
+  "boundary_case": true
+ },
+ "plan": {
+  "weather_only_loss": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "claims_supported": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "night_disposition": {
+   "clarity": "balanced",
+   "target": "charge_full",
+   "second": "hold"
+  },
+  "usable_share": {
+   "clarity": "clear",
+   "target": "1",
+   "second": null
+  },
+  "fault_followup": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 82,
+ "deciding": {
+  "weather_only_loss": "The closures list is empty and no gap exists: no lost interval at all, and the dome drive fault sits inside the eng_window, so nothing is attributable to equipment.",
+  "claims_supported": "A is claimed complete but A i totals 3350 s against 3600 s required, a shortfall of about 7% that is more than rounding.",
+  "night_disposition": "No time is lost to any cause, which favours full charge; but 3 frames are pending QA with seeing at the 1.5 limit and the shutter ticket T-6007 is open, so holding is also defensible.",
+  "usable_share": "QA-pass exposure is 3600+3350 = 6950 s of 36000 s (about 19%), clearly under 40% even if the pending 1800 s passes.",
+  "fault_followup": "The shutter fault T-6007 is open with retest null; the workaround is manual reset per frame and intermittent, so it is neither clearly workable nor clearly unusable."
+ },
+ "request": "rec-F232-0031",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.023475
+}

@@ -1,0 +1,148 @@
+{
+ "id": "F224-0012",
+ "family": "F224",
+ "state": {
+  "request": {
+   "views": [
+    "BW_L"
+   ],
+   "ind": "ORTHO_PLAN",
+   "risk": "low",
+   "prior_bw": "2021-10-04",
+   "date": "2024-05-13",
+   "exceptions": [],
+   "verbal_auth": []
+  },
+  "exposures": [
+   {
+    "id": 1,
+    "view": "BW_L",
+    "t": "2024-05-13T09:30",
+    "kV": 70,
+    "s": 0.2,
+    "mGy": 0.69,
+    "retake_of": null
+   },
+   {
+    "id": 2,
+    "view": "BW_L",
+    "t": "2024-05-13T09:32",
+    "kV": 70,
+    "s": 0.2,
+    "mGy": 0.69,
+    "retake_of": 1
+   },
+   {
+    "id": 3,
+    "view": "PA_11",
+    "t": "2024-05-13T09:34",
+    "kV": 70,
+    "s": 0.2,
+    "retake_of": null
+   }
+  ],
+  "image_review": {
+   "grade": 1,
+   "faults": {
+    "1": [
+     "FC_BLUR"
+    ]
+   },
+   "sensor_errors": [],
+   "second_grader": "done"
+  },
+  "equipment": {
+   "last_qa": "2024-01-15",
+   "qa_months": 12,
+   "output_test": "pass",
+   "drl_ref": {
+    "BW": 1.0
+   },
+   "console_log": [
+    {
+     "t": "2024-05-13T09:30",
+     "kV": 70,
+     "s": 0.25
+    },
+    {
+     "t": "2024-05-13T09:32",
+     "kV": 70,
+     "s": 0.25
+    }
+   ]
+  },
+  "operator": {
+   "id": "OP9",
+   "signoff": "2024-05-13T17:00",
+   "prior_findings_12m": 1
+  }
+ },
+ "factors": {
+  "indication_match": "mismatch",
+  "recall_interval_months": 31,
+  "dose_ratio_to_drl": 0.86,
+  "console_log_discrepancy": "setting_mismatch",
+  "retake_cause": "patient_movement",
+  "equipment_qa_status": "in_date",
+  "approved_exception": false,
+  "patient_cooperation_flag": false,
+  "unrequested_exposure_count": 1,
+  "verbal_authorisation_logged": false,
+  "image_grade": "diagnostic",
+  "audit_completeness": "complete",
+  "operator_prior_findings": 1
+ },
+ "factors_sampled": {
+  "indication_match": "mismatch",
+  "recall_interval_months": 31,
+  "dose_ratio_to_drl": 0.69,
+  "console_log_discrepancy": "setting_mismatch",
+  "retake_cause": "no_retake",
+  "equipment_qa_status": "in_date",
+  "approved_exception": false,
+  "patient_cooperation_flag": false,
+  "unrequested_exposure_count": 1,
+  "verbal_authorisation_logged": false,
+  "image_grade": "diagnostic",
+  "audit_completeness": "complete",
+  "operator_prior_findings": 5
+ },
+ "plan": {
+  "justified": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "operator_retake": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "follow_up": {
+   "clarity": "clear",
+   "target": "log_trend",
+   "second": null
+  },
+  "dose_position": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  },
+  "unjustified_count": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  }
+ },
+ "target_words": 30,
+ "deciding": {
+  "justified": "Indication ORTHO_PLAN does not fit a BW_L request, and the exceptions list is empty.",
+  "operator_retake": "Exposure 2 is a retake of 1 with FC_BLUR only; there are no sensor errors and no patient_flags entry either way, so movement versus technique is unresolved.",
+  "follow_up": "Only trivial discrepancies are left (low prior findings = 1, QA in date, grading complete), so it is logged for trend review.",
+  "dose_position": "List 0.2 s gives 0.69 mGy, but console 0.25 s implies about 0.86 mGy against a 1.0 BW reference, which is 86%.",
+  "unjustified_count": "The indication mismatch undermines both BW_L exposures and PA_11 is unrequested with no verbal auth, so all three lack justified requests."
+ },
+ "request": "rec-F224-0011",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.015494
+}

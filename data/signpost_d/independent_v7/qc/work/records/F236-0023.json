@@ -1,0 +1,120 @@
+{
+ "id": "F236-0023",
+ "family": "F236",
+ "state": {
+  "changeover": {
+   "line_id": "L5",
+   "from_allergens": [
+    "nuts"
+   ],
+   "to_allergens": [
+    "nuts",
+    "soya"
+   ]
+  },
+  "cleaning": {
+   "steps": [
+    {
+     "n": "wash",
+     "completed": true,
+     "spec_min": 30,
+     "actual_min": 30
+    }
+   ]
+  },
+  "verification": {
+   "swabs": [
+    {
+     "id": "A",
+     "ppm": 12,
+     "limit_ppm": 10,
+     "t": "2025-04-09T04:50"
+    },
+    {
+     "id": "B",
+     "ppm": 0,
+     "limit_ppm": 10,
+     "t": "2025-04-09T05:20",
+     "retest_of": "A"
+    }
+   ]
+  },
+  "production": {
+   "line_id": "L5",
+   "start_at": "2025-04-09T06:00",
+   "qty": 35.6,
+   "unit": "kg"
+  },
+  "approvals": {
+   "qa_signoff": {
+    "signed_at": "2025-04-09T05:40"
+   }
+  }
+ },
+ "factors": {
+  "allergen_transition": "adds_allergen",
+  "cleaning_completion": "full",
+  "swab_outcome": "over_limit_retest_passed",
+  "swab_timing_mismatch": false,
+  "cross_section_discrepancy": "none",
+  "exposed_quantity_kg": 0.0,
+  "approved_deviation": false,
+  "label_precaution": false,
+  "dedicated_tooling": false,
+  "qa_signoff_state": "signed_before_start",
+  "line_failure_history": "not recorded",
+  "boundary_value": false
+ },
+ "factors_sampled": {
+  "allergen_transition": "adds_allergen",
+  "cleaning_completion": "full",
+  "swab_outcome": "all_negative",
+  "swab_timing_mismatch": true,
+  "cross_section_discrepancy": "line_id_mismatch",
+  "exposed_quantity_kg": 35.6,
+  "approved_deviation": true,
+  "label_precaution": true,
+  "dedicated_tooling": false,
+  "qa_signoff_state": "signed_before_start",
+  "line_failure_history": 4,
+  "boundary_value": false
+ },
+ "plan": {
+  "swabs_cleared": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "line_disposition": {
+   "clarity": "leaning",
+   "target": "reclean_quarantine",
+   "second": null
+  },
+  "worst_deficiency": {
+   "clarity": "clear",
+   "target": "none",
+   "second": null
+  },
+  "exposed_product": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "residue_evidence": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  }
+ },
+ "target_words": 32,
+ "deciding": {
+  "swabs_cleared": "Swab A read 12 ppm over limit 10, but retest B (retest_of A) read 0 at 05:20, before start at 06:00.",
+  "line_disposition": "Cleaning is full, the retest passed and QA signed before start, so release is defensible; the initial failure leaves some doubt.",
+  "worst_deficiency": "All steps completed at full spec time, the failed swab was retested and passed before start, sign-off precedes start, identifiers match: no deficiency.",
+  "exposed_product": "The retest passed 40 min before start and the batch is only 35.6 kg, so nothing was made before verification.",
+  "residue_evidence": "Swab A at 12 ppm exceeds limit 10 and retest B at 0 passed: level 2."
+ },
+ "request": "rec-F236-0021",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.017458
+}

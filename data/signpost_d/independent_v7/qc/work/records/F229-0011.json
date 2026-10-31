@@ -1,0 +1,110 @@
+{
+ "id": "F229-0011",
+ "family": "F229",
+ "state": {
+  "lot": {
+   "lot_id": "L-0412",
+   "block_code": "B7",
+   "pick_end": "2024-09-14T06:00"
+  },
+  "intake": {
+   "block_code": "B7",
+   "arrival_at": "2024-09-14T08:10",
+   "gross_kg": 4600,
+   "tare_kg": 600,
+   "net_kg": 4000,
+   "bins": [
+    2000,
+    2030
+   ],
+   "temp_c": 5,
+   "cold_room_in": "2024-09-14T08:40",
+   "cold_room_out": "2024-09-15T05:50"
+  },
+  "sample": {
+   "sampled_at": "2024-09-14T07:50",
+   "rot_pct": 11.55,
+   "sort": null
+  },
+  "press": {
+   "programme": "whole bunch",
+   "band_l_per_t": "450-520",
+   "cycle_start": "2024-09-15T06:24",
+   "juice_l": 2100
+  },
+  "transfer": {
+   "lot_ref": "L-0412",
+   "tank_id": "T3",
+   "transferred_l": 2060,
+   "qa_signoff": null
+  }
+ },
+ "factors": {
+  "weight_mismatch": "trivial_under_1pct",
+  "press_programme": "whole_bunch_gentle",
+  "yield_position": "just_on_edge",
+  "lot_id_drift": "none",
+  "missing_step": "qa_signoff_missing",
+  "out_of_order_timestamp": true,
+  "pick_to_press_hours": 24.4,
+  "pick_end_recorded": true,
+  "cold_held": true,
+  "rot_pct": 11.55,
+  "sorting_applied": false,
+  "note_signal": "none",
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "weight_mismatch": "trivial_under_1pct",
+  "press_programme": "whole_bunch_gentle",
+  "yield_position": "just_on_edge",
+  "lot_id_drift": "block_code_differs_at_intake",
+  "missing_step": "qa_signoff_missing",
+  "out_of_order_timestamp": true,
+  "pick_to_press_hours": 24.4,
+  "pick_end_recorded": true,
+  "cold_held": true,
+  "rot_pct": 11.55,
+  "sorting_applied": false,
+  "note_signal": "none",
+  "boundary_case": false
+ },
+ "plan": {
+  "yield_consistent": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "chain_intact": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "release_decision": {
+   "clarity": "contested",
+   "target": "release",
+   "second": "hold"
+  },
+  "pick_press_delay": {
+   "clarity": "clear",
+   "target": "3",
+   "second": null
+  },
+  "failed_checks": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 40,
+ "deciding": {
+  "yield_consistent": "2100 L on 4000 kg net is 525 L/t, just above the 450-520 band; bins sum to 4030, a small gap.",
+  "chain_intact": "lot_id L-0412, block B7 and lot_ref L-0412 are identical at every stage.",
+  "release_decision": "qa_signoff null and rot 11.55 with no sort argue for hold; cold hold and a trivial weight gap make release defensible.",
+  "pick_press_delay": "pick_end 2024-09-14T06:00 to cycle_start 2024-09-15T06:24 is 24.4 hours, well over 16, despite cold storage.",
+  "failed_checks": "Failures: yield just over the band, sampled_at before arrival, qa_signoff null, delay over 16 hours, unsorted rot 11.55. Whether rot and the edge yield count as fails decides between 2-3 and 4+."
+ },
+ "request": "rec-F229-0011",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.009761
+}

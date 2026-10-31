@@ -1,0 +1,116 @@
+{
+ "id": "F204-0031",
+ "family": "F204",
+ "state": {
+  "rx": {
+   "drug": "levothyroxine",
+   "strength": {
+    "val": 50,
+    "unit": "mcg"
+   },
+   "qty": 28,
+   "days": 28
+  },
+  "patient": {
+   "supplies": [
+    {
+     "date": "2025-03-03",
+     "days_covered": 14
+    }
+   ],
+   "emergency_supplies": [
+    {
+     "date": "2025-03-15",
+     "days": 3
+    }
+   ],
+   "near_miss_count": 1
+  },
+  "dispensed": {
+   "strength": {
+    "val": 0.05,
+    "unit": "mg"
+   },
+   "packs": 1,
+   "pack_size": 28
+  },
+  "check_log": {
+   "checked_at": "2025-03-16T10:00",
+   "clin_check": null,
+   "queries": [
+    {
+     "field": "strength",
+     "status": "pending"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "strength_status": "mismatch_converted",
+  "product_status": "exact",
+  "quantity_status": "exact",
+  "label_status": "correct",
+  "prescriber_query": "pending",
+  "pharmacist_intervention": false,
+  "clinical_check_signed": false,
+  "home_supply_days": 8,
+  "emergency_supply": true,
+  "short_expiry": false,
+  "prior_error_count": 1,
+  "high_risk_drug": false,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "strength_status": "mismatch_converted",
+  "product_status": "exact",
+  "quantity_status": "exact",
+  "label_status": "correct",
+  "prescriber_query": "none",
+  "pharmacist_intervention": false,
+  "clinical_check_signed": false,
+  "home_supply_days": 3,
+  "emergency_supply": true,
+  "short_expiry": false,
+  "prior_error_count": 1,
+  "high_risk_drug": false,
+  "boundary_case": false
+ },
+ "plan": {
+  "strength_differs": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "hold_query",
+   "second": null
+  },
+  "error_category": {
+   "clarity": "contested",
+   "target": "quantity_only",
+   "second": "product_error"
+  },
+  "open_discrepancies": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "supply_urgency": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 38,
+ "deciding": {
+  "strength_differs": "50 mcg equals 0.05 mg, so the strengths agree; the pending strength query keeps a mismatch plausible.",
+  "next_step": "Pending query and no clinical sign-off point to hold.",
+  "error_category": "Pending strength query could be read as product or quantity; the pack count matches.",
+  "open_discrepancies": "Nothing differs after conversion, but the open query suggests one.",
+  "supply_urgency": "Last supply covered 14 days from 3 Mar, giving 1 day, plus a 3-day emergency supply, giving about 4 days at 16 Mar; near the 7-day line."
+ },
+ "request": "rec-F204-0031",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.005917
+}

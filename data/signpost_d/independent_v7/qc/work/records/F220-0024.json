@@ -1,0 +1,109 @@
+{
+ "id": "F220-0024",
+ "family": "F220",
+ "state": {
+  "set_check": {
+   "lines": [
+    {
+     "cat_code": "SC4",
+     "qty_expected": 2,
+     "qty_counted": 1
+    }
+   ],
+   "variances": [
+    {
+     "cat_code": "SC4",
+     "reason": "one on loan",
+     "approved_by": "packer"
+    }
+   ],
+   "packer_note": "All present."
+  },
+  "washer": {
+   "alarms": [
+    "temp"
+   ],
+   "rerun_cycle_id": "W51"
+  },
+  "steriliser_load": {
+   "printout": null,
+   "logger": {
+    "temp_min_c": 134.0,
+    "hold_s": 180
+   },
+   "daily_test": {
+    "result": "pass"
+   },
+   "ci_result": "pass",
+   "unload_condition": "dry"
+  }
+ },
+ "factors": {
+  "set_count_discrepancies": 1,
+  "substitution_documented": true,
+  "cycle_excursion": "printout_missing",
+  "independent_logger_confirms": true,
+  "bi_status": "not_required",
+  "chemical_indicator": "pass",
+  "washer_record_state": "alarm_cleared_rerun",
+  "pack_integrity": "intact",
+  "label_mismatch": "none",
+  "daily_test_state": "pass_today",
+  "theatre_urgency": "routine",
+  "note_tone": "reassuring_unverified",
+  "boundary_case": true
+ },
+ "factors_sampled": {
+  "set_count_discrepancies": 0,
+  "substitution_documented": true,
+  "cycle_excursion": "printout_missing",
+  "independent_logger_confirms": true,
+  "bi_status": "not_required",
+  "chemical_indicator": "pass",
+  "washer_record_state": "alarm_no_rerun",
+  "pack_integrity": "intact",
+  "label_mismatch": "none",
+  "daily_test_state": "pass_today",
+  "theatre_urgency": "routine",
+  "note_tone": "reassuring_unverified",
+  "boundary_case": true
+ },
+ "plan": {
+  "cycle_in_limits": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "disposition": {
+   "clarity": "balanced",
+   "target": "hold",
+   "second": "release"
+  },
+  "failure_stage": {
+   "clarity": "leaning",
+   "target": "no_discrepancy",
+   "second": null
+  },
+  "count_gaps": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  },
+  "sterility_doubt": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 30,
+ "deciding": {
+  "cycle_in_limits": "Printout is null and only the logger shows 134.0 C and 180 s, exactly at the limits, so it is in band but with no printout to confirm it.",
+  "disposition": "Missing printout with a boundary-value logger favours a hold, while a passed CI, a dry pack and a rerun-cleared washer alarm leave release plausible.",
+  "failure_stage": "Washer alarm is cleared by rerun W51 and the variance is recorded, so the process stages largely reconcile.",
+  "count_gaps": "SC4 is short by one with a variance, but approved_by is only the packer, so whether it is explained is open: 0 or 1.",
+  "sterility_doubt": "CI passed, the pack is dry and the logger is in band; only the missing printout is a gap, so 0 or 1."
+ },
+ "request": "rec-F220-0021",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.014127
+}

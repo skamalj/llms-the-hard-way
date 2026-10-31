@@ -1,0 +1,137 @@
+{
+ "id": "F236-0032",
+ "family": "F236",
+ "state": {
+  "changeover": {
+   "line": "L1",
+   "from_allergens": [
+    "egg"
+   ],
+   "to_allergens": [
+    "soya"
+   ]
+  },
+  "cleaning": {
+   "steps": [
+    {
+     "id": 1,
+     "completed": true,
+     "spec_min": 25,
+     "actual_min": 27
+    }
+   ]
+  },
+  "verification": {
+   "swabs": [
+    {
+     "id": "S1",
+     "target": "egg",
+     "ppm": 0,
+     "limit_ppm": 10,
+     "t": "2024-03-02T07:40"
+    },
+    {
+     "id": "S2",
+     "target": "egg",
+     "ppm": 9,
+     "limit_ppm": 10,
+     "t": "2024-03-02T09:00"
+    }
+   ]
+  },
+  "production": {
+   "line_id": "L1",
+   "product": "P8",
+   "start_at": "2024-03-02T08:00",
+   "end_at": "2024-03-02T12:00",
+   "qty": 634.17,
+   "unit": "kg",
+   "pack_allergens": [
+    "soya"
+   ]
+  },
+  "approvals": {
+   "qa_signoff": {
+    "signed_at": "2024-03-02T07:50"
+   },
+   "deviations": []
+  },
+  "history": [
+   {
+    "ok": false
+   },
+   {
+    "ok": true
+   },
+   {
+    "ok": false
+   }
+  ]
+ },
+ "factors": {
+  "allergen_transition": "swaps_allergen",
+  "cleaning_completion": "full",
+  "swab_outcome": "trace_below_limit",
+  "swab_timing_mismatch": true,
+  "cross_section_discrepancy": "none",
+  "exposed_quantity_kg": 634.17,
+  "approved_deviation": false,
+  "label_precaution": false,
+  "dedicated_tooling": false,
+  "qa_signoff_state": "signed_before_start",
+  "line_failure_history": 2,
+  "boundary_value": false
+ },
+ "factors_sampled": {
+  "allergen_transition": "swaps_allergen",
+  "cleaning_completion": "full",
+  "swab_outcome": "all_negative",
+  "swab_timing_mismatch": true,
+  "cross_section_discrepancy": "none",
+  "exposed_quantity_kg": 634.17,
+  "approved_deviation": false,
+  "label_precaution": false,
+  "dedicated_tooling": false,
+  "qa_signoff_state": "signed_before_start",
+  "line_failure_history": 2,
+  "boundary_value": false
+ },
+ "plan": {
+  "swabs_cleared": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "line_disposition": {
+   "clarity": "leaning",
+   "target": "release",
+   "second": null
+  },
+  "worst_deficiency": {
+   "clarity": "leaning",
+   "target": "records_only",
+   "second": null
+  },
+  "exposed_product": {
+   "clarity": "clear",
+   "target": "2",
+   "second": null
+  },
+  "residue_evidence": {
+   "clarity": "contested",
+   "target": "1",
+   "second": "2"
+  }
+ },
+ "target_words": 38,
+ "deciding": {
+  "swabs_cleared": "S2 is timed 09:00, after production start at 08:00. S1 was before start, so the swabs are not all before first production.",
+  "line_disposition": "Cleaning is complete, all readings are under the limit and sign-off precedes start. The late swab timing looks like a record issue, so release is leaning.",
+  "worst_deficiency": "No skipped steps or over-limit swab, and sign-off was before start. The only issue is the S2 timestamp being after start, which reads as a records problem.",
+  "exposed_product": "634 kg batch over 08:00 to 12:00 with the last passing swab at 09:00, so about one quarter (roughly 158 kg) was made unverified: 50 to 500 kg.",
+  "residue_evidence": "S1 is 0 ppm, but S2 reads 9 against a limit of 10, a trace reading just under the limit. It could be read as trace (1) or near-limit (2)."
+ },
+ "request": "rec-F236-0031",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.01363
+}

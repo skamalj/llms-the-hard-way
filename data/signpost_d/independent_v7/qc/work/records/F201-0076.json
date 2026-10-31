@@ -1,0 +1,138 @@
+{
+ "id": "F201-0076",
+ "family": "F201",
+ "state": {
+  "register_header": {
+   "drug": "buprenorphine",
+   "concentration_mg_ml": 0.3,
+   "schedule": 3,
+   "witness_required": false,
+   "opening_balance_ml": 50,
+   "period_start": "2024-05-01"
+  },
+  "entries": [
+   {
+    "id": 1,
+    "date": "2024-05-02",
+    "type": "receipt",
+    "qty_ml": 100,
+    "running_balance_ml": 150,
+    "signed_by": "S4",
+    "batch_no": "B7"
+   },
+   {
+    "id": 2,
+    "date": "2024-05-10",
+    "type": "use",
+    "qty_ml": 2,
+    "patient_id": "P1",
+    "running_balance_ml": 148,
+    "signed_by": "S4",
+    "witness_id": null
+   },
+   {
+    "id": 3,
+    "date": "2024-05-20",
+    "type": "use",
+    "qty_ml": 3,
+    "patient_id": "P2",
+    "running_balance_ml": 145,
+    "signed_by": "S5"
+   }
+  ],
+  "clinical_records": [
+   {
+    "patient_id": "P1",
+    "dose": 600,
+    "dose_unit": "mcg"
+   },
+   {
+    "patient_id": "P2",
+    "dose": 900,
+    "dose_unit": "mcg"
+   }
+  ],
+  "stock_check": {
+   "count_date": "2024-05-31",
+   "counted_ml": 130,
+   "overfill_allowance_ml": 0,
+   "batch_no": "B7"
+  },
+  "disposals": [],
+  "exceptions": [
+   {
+    "batch_no": "B3",
+    "qty_ml": 15,
+    "valid_to": "2024-02-01"
+   }
+  ]
+ },
+ "factors": {
+  "drug_profile": "buprenorphine_0.3mg_ml",
+  "arithmetic_slip_count": 0,
+  "unrecorded_admin": "none",
+  "clinical_records_missing": false,
+  "disposal_state": "none_needed",
+  "unexplained_shortfall_pct": 10.0,
+  "variance_exception": "expired_or_other_batch",
+  "manufacturer_overfill": false,
+  "auth_gap_count": 0,
+  "count_out_of_order": false,
+  "unit_mismatch": true,
+  "locum_signatory": false,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "drug_profile": "buprenorphine_0.3mg_ml",
+  "arithmetic_slip_count": 0,
+  "unrecorded_admin": "moderate_2_to_8pct",
+  "clinical_records_missing": false,
+  "disposal_state": "none_needed",
+  "unexplained_shortfall_pct": 1.5,
+  "variance_exception": "expired_or_other_batch",
+  "manufacturer_overfill": true,
+  "auth_gap_count": 5,
+  "count_out_of_order": true,
+  "unit_mismatch": true,
+  "locum_signatory": false,
+  "boundary_case": false
+ },
+ "plan": {
+  "unexplained_shortfall": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "line_disposition": {
+   "clarity": "clear",
+   "target": "correct_and_sign",
+   "second": null
+  },
+  "variance_cause": {
+   "clarity": "clear",
+   "target": "unexplained_loss",
+   "second": null
+  },
+  "variance_size": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "auth_gaps": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 61,
+ "deciding": {
+  "unexplained_shortfall": "Recomputed closing balance 145 ml vs counted 130 ml; the 15 ml gap matches no clinical record (doses convert to 2 and 3 ml), no disposal and no valid exception.",
+  "line_disposition": "No slips or missing signatures to annotate, and the 15 ml gap needs more than a clerical correction; the plan's correct_and_sign is not well supported by this data.",
+  "variance_cause": "Gap of 15 ml has no counterpart: clinical doses match entries, disposals empty, only exception is expired batch B3 (valid_to 2024-02-01).",
+  "variance_size": "15 ml remaining against opening 50 + receipt 100 = 150 ml is exactly 10.0%, on the boundary between Material and Major.",
+  "auth_gaps": "Only entry 2 has witness_id null, and witness_required is false, so that is not a gap; all entries are signed. A reviewer could still count it as one."
+ },
+ "request": "rec-F201-0076",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.013576
+}

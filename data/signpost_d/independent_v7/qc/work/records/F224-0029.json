@@ -1,0 +1,162 @@
+{
+ "id": "F224-0029",
+ "family": "F224",
+ "state": {
+  "request": {
+   "views": [
+    "BW_R",
+    "PA_46"
+   ],
+   "ind": "CAR_SCR",
+   "risk": "moderate",
+   "prior": "2021-10-04",
+   "date": "2024-05-22",
+   "exc": [
+    {
+     "code": "EX_PA",
+     "appr": "D09"
+    }
+   ],
+   "verbal_auth": [
+    {
+     "t": "14:21",
+     "view": "PA_47"
+    }
+   ],
+   "flags": []
+  },
+  "exposures": [
+   {
+    "v": "BW_R",
+    "t": "14:10",
+    "mGy": 2.06
+   },
+   {
+    "v": "BW_R",
+    "t": "14:13",
+    "mGy": 2.06,
+    "retake_of": 1
+   },
+   {
+    "v": "PA_47",
+    "t": "14:21",
+    "mGy": 2.06
+   }
+  ],
+  "image_review": {
+   "grade": 3,
+   "faults": [
+    "FC_OVER_DENSE"
+   ],
+   "sensor_err": [],
+   "second_grader": "done"
+  },
+  "equipment": {
+   "qa": "2024-02-12",
+   "int": 12,
+   "test": "fail",
+   "test_date": "2024-05-18",
+   "service": [
+    {
+     "d": "2024-05-20",
+     "type": "recal",
+     "open": false
+    }
+   ],
+   "drl": {
+    "BW_R": 2.0,
+    "PA_47": 2.0
+   },
+   "console": [
+    {
+     "t": "14:10",
+     "kV": 65,
+     "s": 0.2
+    },
+    {
+     "t": "14:13",
+     "kV": 65,
+     "s": 0.2
+    },
+    {
+     "t": "14:21",
+     "kV": 65,
+     "s": 0.2
+    }
+   ]
+  },
+  "operator": {
+   "id": "O5",
+   "signoff": "2024-05-22T15:00",
+   "prior_findings": 5
+  }
+ },
+ "factors": {
+  "indication_match": "partial_match",
+  "recall_interval_months": 31,
+  "dose_ratio_to_drl": 1.03,
+  "console_log_discrepancy": "none",
+  "retake_cause": "exposure_setting",
+  "equipment_qa_status": "failed_last_test",
+  "approved_exception": true,
+  "patient_cooperation_flag": false,
+  "unrequested_exposure_count": 1,
+  "verbal_authorisation_logged": true,
+  "image_grade": "non_diagnostic",
+  "audit_completeness": "complete",
+  "operator_prior_findings": 5
+ },
+ "factors_sampled": {
+  "indication_match": "partial_match",
+  "recall_interval_months": 31,
+  "dose_ratio_to_drl": 1.11,
+  "console_log_discrepancy": "none",
+  "retake_cause": "exposure_setting",
+  "equipment_qa_status": "failed_last_test",
+  "approved_exception": true,
+  "patient_cooperation_flag": false,
+  "unrequested_exposure_count": 1,
+  "verbal_authorisation_logged": true,
+  "image_grade": "non_diagnostic",
+  "audit_completeness": "operator_signoff_missing",
+  "operator_prior_findings": 5
+ },
+ "plan": {
+  "justified": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "operator_retake": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "follow_up": {
+   "clarity": "balanced",
+   "target": "operator_feedback",
+   "second": "close_record"
+  },
+  "dose_position": {
+   "clarity": "contested",
+   "target": "1",
+   "second": "2"
+  },
+  "unjustified_count": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 127,
+ "deciding": {
+  "justified": "CAR_SCR fits the bitewing view but not the PA_46 view (partial); the 31-month interval exceeds the 12 months allowed and exception EX_PA by D09 is present.",
+  "operator_retake": "The unit's last output test (2024-05-18) failed and the over-dense fault repeated at identical console settings, so the cause is equipment rather than the operator.",
+  "follow_up": "5 prior findings and an unrequested PA_47 exposure favour operator_feedback; the completed recal on 2024-05-20 and the complete audit keep close_record defensible.",
+  "dose_position": "All doses 2.06 mGy vs DRL 2.0, a ratio of 1.03, just over the 100% boundary.",
+  "unjustified_count": "PA_47 is not in views_requested but verbal_auth lists PA_47 at 14:21, the same minute as the exposure, so coverage is ambiguous (0 or 1)."
+ },
+ "request": "rec-F224-0026",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.0162
+}

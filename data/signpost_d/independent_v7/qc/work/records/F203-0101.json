@@ -1,0 +1,142 @@
+{
+ "id": "F203-0101",
+ "family": "F203",
+ "state": {
+  "request": {
+   "submitted_on": "2025-03-10",
+   "need_by": "2025-03-20",
+   "scope": "whole_item"
+  },
+  "borrower_library": {
+   "agreement": {
+    "status": "active",
+    "expires_on": "2026-01-01",
+    "renewal_submitted_on": null
+   },
+   "open_loans": [
+    {
+     "loan_id": "a",
+     "due_on": "2025-03-01",
+     "renewed_on": null,
+     "return_scan_on": "2025-02-27"
+    },
+    {
+     "loan_id": "b",
+     "due_on": "2025-03-03",
+     "renewed_on": "2025-03-01",
+     "return_scan_on": null
+    },
+    {
+     "loan_id": "c",
+     "due_on": "2025-03-05",
+     "renewed_on": null,
+     "return_scan_on": "2025-03-04"
+    }
+   ]
+  },
+  "patron": {
+   "member_id": "P1",
+   "verified_on": "2025-01-05"
+  },
+  "item": {
+   "condition_grade": "fragile",
+   "conservation_check": {
+    "checked_on": "2025-02-20",
+    "outcome": "pass",
+    "box_supplied": true
+   },
+   "local_holds": 6
+  },
+  "holdings_network": {
+   "copies": [
+    {
+     "library_code": "A",
+     "status": "lendable"
+    },
+    {
+     "library_code": "B",
+     "status": "lendable"
+    },
+    {
+     "library_code": "C",
+     "status": "lendable"
+    },
+    {
+     "library_code": "D",
+     "status": "on_loan"
+    }
+   ]
+  },
+  "logistics": {
+   "est_arrival": "2025-03-22"
+  }
+ },
+ "factors": {
+  "agreement_status": "active",
+  "borrower_overdue_count": 3,
+  "overdue_mitigated": true,
+  "patron_verification": "verified",
+  "item_condition": "fragile",
+  "conservation_cleared": true,
+  "local_holds_queue": 6,
+  "network_other_copies": 3,
+  "print_status": "out_of_print_secondhand",
+  "request_scope": "whole_item",
+  "copyright_declaration_present": false,
+  "need_by_slack_days": -2,
+  "need_by_missing": false
+ },
+ "factors_sampled": {
+  "agreement_status": "active",
+  "borrower_overdue_count": 3,
+  "overdue_mitigated": true,
+  "patron_verification": "verified",
+  "item_condition": "fragile",
+  "conservation_cleared": true,
+  "local_holds_queue": 6,
+  "network_other_copies": 6,
+  "print_status": "out_of_print_secondhand",
+  "request_scope": "chapter_or_article",
+  "copyright_declaration_present": false,
+  "need_by_slack_days": 30,
+  "need_by_missing": true
+ },
+ "plan": {
+  "borrower_good_standing": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "disposition": {
+   "clarity": "balanced",
+   "target": "redirect",
+   "second": "lend"
+  },
+  "loan_restriction": {
+   "clarity": "clear",
+   "target": "library_use_only",
+   "second": null
+  },
+  "time_slack": {
+   "clarity": "leaning",
+   "target": "0",
+   "second": null
+  },
+  "replacement_difficulty": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  }
+ },
+ "target_words": 41,
+ "deciding": {
+  "borrower_good_standing": "Agreement active; all three past-due loans carry a return scan or a renewal dated before due date.",
+  "disposition": "Fragile item with 6 local holds and three lendable network copies makes redirect plausible, while verified patron and cleared conservation check keep lending defensible.",
+  "loan_restriction": "Fragile grade, with a box supplied after the pass, points to on-premises use only.",
+  "time_slack": "Estimated arrival 2025-03-22 is two days after need-by 2025-03-20.",
+  "replacement_difficulty": "Three lendable copies (one on_loan decoy) sit at the edge between one-to-three and four or more."
+ },
+ "request": "rec-F203-0101",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011763
+}

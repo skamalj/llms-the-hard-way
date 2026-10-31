@@ -1,0 +1,105 @@
+{
+ "id": "F229-0032",
+ "family": "F229",
+ "state": {
+  "lot": {
+   "lot_id": "L208",
+   "pick_end": "2024-09-20T17:10"
+  },
+  "intake": {
+   "block_code": "K4",
+   "gross_kg": 7300,
+   "tare_kg": 2300,
+   "net_kg": 5000,
+   "temp_c": 6,
+   "cold_room_in": "2024-09-20T18:30",
+   "cold_room_out": "2024-09-21T08:40"
+  },
+  "sample": {
+   "sampled_at": "2024-09-20T18:15",
+   "rot_pct": 2.64,
+   "sort": null
+  },
+  "press": {
+   "programme": "destemmed_standard",
+   "band_l_per_t": "600-680",
+   "cycle_start": "2024-09-21T09:00",
+   "juice_l": 3250
+  },
+  "transfer": {
+   "lot_ref": "L208A",
+   "tank_id": "T6",
+   "transferred_l": 3200,
+   "qa_signoff": "RB 10:55",
+   "qa_comment": "Lot ref suffix to confirm."
+  }
+ },
+ "factors": {
+  "weight_mismatch": "none",
+  "press_programme": "destemmed_standard",
+  "yield_position": "inside_band",
+  "lot_id_drift": "none",
+  "missing_step": "none",
+  "out_of_order_timestamp": false,
+  "pick_to_press_hours": 15.83,
+  "pick_end_recorded": true,
+  "cold_held": true,
+  "rot_pct": 2.64,
+  "sorting_applied": false,
+  "note_signal": "none",
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "weight_mismatch": "none",
+  "press_programme": "destemmed_standard",
+  "yield_position": "below_band",
+  "lot_id_drift": "different_lot_on_transfer",
+  "missing_step": "none",
+  "out_of_order_timestamp": false,
+  "pick_to_press_hours": 9.96,
+  "pick_end_recorded": true,
+  "cold_held": true,
+  "rot_pct": 2.64,
+  "sorting_applied": false,
+  "note_signal": "none",
+  "boundary_case": false
+ },
+ "plan": {
+  "yield_consistent": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "chain_intact": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "release_decision": {
+   "clarity": "contested",
+   "target": "hold",
+   "second": "segregate"
+  },
+  "pick_press_delay": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  },
+  "failed_checks": {
+   "clarity": "contested",
+   "target": "2",
+   "second": "3"
+  }
+ },
+ "target_words": 52,
+ "deciding": {
+  "yield_consistent": "3250 L from 5000 kg net is 650 L/t, mid-band; weights reconcile.",
+  "chain_intact": "Transfer lot_ref is L208A against lot L208. This is a suffix only, and the block and tank are otherwise consistent.",
+  "release_decision": "The qa_comment asks to confirm the suffix, so an outstanding confirmation favours hold. The lot itself is clean, so segregate is weakly defensible.",
+  "pick_press_delay": "pick_end 17:10 to cycle_start 09:00 next day is 15.8 h, just under the 16 h boundary. Cold hold and level 3 versus level 2 are both defensible.",
+  "failed_checks": "The suffix mismatch counts as one failure. Delay near 16 h and the unsorted lot are borderline, so two or three failures are both plausible."
+ },
+ "request": "rec-F229-0031",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.010164
+}

@@ -1,0 +1,110 @@
+{
+ "id": "F201-0031",
+ "family": "F201",
+ "state": {
+  "register_header": {
+   "drug": "methadone",
+   "concentration_mg_ml": 10,
+   "witness_required": true,
+   "opening_balance_ml": 20
+  },
+  "entries": [
+   {
+    "entry_id": 1,
+    "type": "use",
+    "qty_ml": 2,
+    "running_balance_ml": 16,
+    "signed_by": null,
+    "witness_id": null
+   },
+   {
+    "entry_id": 2,
+    "type": "use",
+    "qty_ml": 1,
+    "running_balance_ml": 15,
+    "signed_by": "L-77",
+    "witness_id": null
+   },
+   {
+    "entry_id": 3,
+    "type": "disposal",
+    "qty_ml": 1,
+    "running_balance_ml": 14,
+    "signed_by": null,
+    "witness_id": null
+   }
+  ],
+  "clinical_records": null,
+  "stock_check": {
+   "counted_ml": 14
+  }
+ },
+ "factors": {
+  "drug_profile": "methadone_10mg_ml",
+  "arithmetic_slip_count": 1,
+  "unrecorded_admin": "none",
+  "clinical_records_missing": true,
+  "disposal_state": "entered_unwitnessed",
+  "unexplained_shortfall_pct": 0.0,
+  "variance_exception": "valid_full_cover",
+  "manufacturer_overfill": false,
+  "auth_gap_count": 3,
+  "count_out_of_order": false,
+  "unit_mismatch": false,
+  "locum_signatory": true,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "drug_profile": "methadone_10mg_ml",
+  "arithmetic_slip_count": 1,
+  "unrecorded_admin": "none",
+  "clinical_records_missing": true,
+  "disposal_state": "entered_unwitnessed",
+  "unexplained_shortfall_pct": 3.47,
+  "variance_exception": "valid_full_cover",
+  "manufacturer_overfill": false,
+  "auth_gap_count": 4,
+  "count_out_of_order": false,
+  "unit_mismatch": false,
+  "locum_signatory": true,
+  "boundary_case": false
+ },
+ "plan": {
+  "unexplained_shortfall": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "line_disposition": {
+   "clarity": "clear",
+   "target": "hold_pending",
+   "second": null
+  },
+  "variance_cause": {
+   "clarity": "balanced",
+   "target": "no_discrepancy",
+   "second": "arithmetic_slip"
+  },
+  "variance_size": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  },
+  "auth_gaps": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  }
+ },
+ "target_words": 38,
+ "deciding": {
+  "unexplained_shortfall": "Count 14 equals the last balance, and the only gap is the 2 ml slip in entry 1; no unmatched loss, but clinical records are missing.",
+  "line_disposition": "clinical_records is null (one missing confirmation) and the disposal entry lacks a witness; no loss, so hold.",
+  "variance_cause": "Count matches the register as written, but entry 1's balance 16 is wrong (20-2=18), which is a slip that could be the cause.",
+  "variance_size": "The 2 ml slip on about 20 ml handled is roughly 10%, on the line between level 2 and 3.",
+  "auth_gaps": "Entries 1, 2 and 3 each lack signature or witness; the locum id counts as valid, but entry 3 is borderline, so level 2 or 3."
+ },
+ "request": "rec-F201-0031",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.005449
+}

@@ -1,0 +1,169 @@
+{
+ "id": "F224-0044",
+ "family": "F224",
+ "state": {
+  "request": {
+   "views": [
+    "PA_LL6"
+   ],
+   "ind": "PAIN_ENDO",
+   "risk": "moderate",
+   "prior": "2022-06-02",
+   "date": "2025-05-07"
+  },
+  "exposures": [
+   {
+    "id": 1,
+    "v": "PA_LL6",
+    "kV": 70,
+    "s": 0.12,
+    "mGy": 1.12,
+    "t": "09:30"
+   },
+   {
+    "id": 2,
+    "v": "PA_LL6",
+    "kV": 70,
+    "s": 0.12,
+    "mGy": 1.12,
+    "t": "09:33",
+    "retake_of": 1
+   },
+   {
+    "id": 3,
+    "v": "BW_L",
+    "kV": 70,
+    "s": 0.12,
+    "mGy": 0.9,
+    "t": "09:37"
+   },
+   {
+    "id": 4,
+    "v": "BW_R",
+    "kV": 70,
+    "s": 0.12,
+    "mGy": 0.9,
+    "t": "09:38"
+   }
+  ],
+  "image_review": {
+   "grade": 2,
+   "faults": {
+    "1": [
+     "FC_APEX_CLIPPED"
+    ]
+   },
+   "sensor_errors": [],
+   "second_grader": "done"
+  },
+  "equipment": {
+   "last_qa": "2025-01-15",
+   "qa_months": 12,
+   "output_test": {
+    "result": "fail",
+    "date": "2025-04-28"
+   },
+   "drl_ref": {
+    "PA_LL6": 1.0,
+    "BW_L": 1.0,
+    "BW_R": 1.0
+   },
+   "console_log": [
+    {
+     "t": "09:31",
+     "kV": 70,
+     "s": 0.12
+    },
+    {
+     "t": "09:33",
+     "kV": 70,
+     "s": 0.12
+    },
+    {
+     "t": "09:37",
+     "kV": 70,
+     "s": 0.12
+    },
+    {
+     "t": "09:38",
+     "kV": 70,
+     "s": 0.12
+    }
+   ]
+  },
+  "operator": {
+   "id": "OP22",
+   "signoff_at": "2025-05-07T10:15",
+   "prior_findings_12m": 3,
+   "last_training": "2023-11-02"
+  }
+ },
+ "factors": {
+  "indication_match": "match",
+  "recall_interval_months": 35,
+  "dose_ratio_to_drl": 1.12,
+  "console_log_discrepancy": "timestamp_drift",
+  "retake_cause": "positioning",
+  "equipment_qa_status": "failed_last_test",
+  "approved_exception": false,
+  "patient_cooperation_flag": false,
+  "unrequested_exposure_count": 2,
+  "verbal_authorisation_logged": false,
+  "image_grade": "acceptable_minor_faults",
+  "audit_completeness": "complete",
+  "operator_prior_findings": 3
+ },
+ "factors_sampled": {
+  "indication_match": "match",
+  "recall_interval_months": 35,
+  "dose_ratio_to_drl": 1.04,
+  "console_log_discrepancy": "timestamp_drift",
+  "retake_cause": "no_retake",
+  "equipment_qa_status": "failed_last_test",
+  "approved_exception": false,
+  "patient_cooperation_flag": false,
+  "unrequested_exposure_count": 1,
+  "verbal_authorisation_logged": false,
+  "image_grade": "acceptable_minor_faults",
+  "audit_completeness": "complete",
+  "operator_prior_findings": 3
+ },
+ "plan": {
+  "justified": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "operator_retake": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "follow_up": {
+   "clarity": "balanced",
+   "target": "operator_feedback",
+   "second": "hold_confirm"
+  },
+  "dose_position": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  },
+  "unjustified_count": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 81,
+ "deciding": {
+  "justified": "PAIN_ENDO matches the requested PA_LL6 and 35 months have passed since the prior view, which exceeds the 12-month moderate interval.",
+  "operator_retake": "FC_APEX_CLIPPED on exposure 1 and 3 prior findings point to the operator. The failed output test of 2025-04-28 keeps an equipment cause open.",
+  "follow_up": "Technique fault plus 3 prior findings favour operator feedback. The failed output test with no retest recorded could instead mean waiting for confirmation.",
+  "dose_position": "Exposures 1 and 2 show 1.12 mGy against a 1.0 reference, which is 112%, and the console list agrees apart from a harmless 1-minute drift. That is raised.",
+  "unjustified_count": "BW_L and BW_R are unrequested, and with no verbal auth or exception the retake (exposure 2) may also count as lacking a request. The count is 3 or 2."
+ },
+ "request": "rec-F224-0041",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.01992
+}

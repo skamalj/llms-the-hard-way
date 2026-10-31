@@ -1,0 +1,117 @@
+{
+ "id": "F209-0026",
+ "family": "F209",
+ "state": {
+  "unit": {
+   "asset_id": "W-114",
+   "type": "water",
+   "capacity_kg": 9,
+   "manufacture_date": "2024-02-10",
+   "gauge_green_min_bar": 10,
+   "gauge_green_max_bar": 14
+  },
+  "visit": {
+   "visit_date": "2024-05-31",
+   "tech_cert_expiry": "2025-09-01",
+   "service_type": "interim",
+   "checks": {
+    "pressure_bar": 12,
+    "seal_ok": true,
+    "tamper_tag_ok": true,
+    "hose_ok": true,
+    "corrosion": false
+   }
+  },
+  "tag": {
+   "tag_asset_id": "W-141",
+   "tag_service_date": "2024-05-30",
+   "tag_next_due": "2025-05-30"
+  },
+  "history": [
+   {
+    "date": "2023-05-01",
+    "service_type": "basic",
+    "result": "pass"
+   }
+  ],
+  "register": {
+   "reg_asset_id": "W-114",
+   "reg_type": "foam",
+   "reg_capacity_kg": 6,
+   "deferral": {
+    "approved": true,
+    "expires": "2024-04-30"
+   }
+  }
+ },
+ "factors": {
+  "unit_type": "water",
+  "unit_age_years": 0,
+  "service_level_gap": "matched",
+  "days_past_due": 30,
+  "deferral_approved": true,
+  "injected_mismatch_count": 4,
+  "physical_defect": "none",
+  "defect_rectified_on_visit": false,
+  "type_location_mismatch": false,
+  "location_exemption_on_file": false,
+  "record_gap": "none",
+  "technician_cert_status": "valid",
+  "out_of_order_dates": true,
+  "borderline_case": false
+ },
+ "factors_sampled": {
+  "unit_type": "water",
+  "unit_age_years": 0,
+  "service_level_gap": "matched",
+  "days_past_due": 45,
+  "deferral_approved": true,
+  "injected_mismatch_count": 4,
+  "physical_defect": "none",
+  "defect_rectified_on_visit": false,
+  "type_location_mismatch": false,
+  "location_exemption_on_file": false,
+  "record_gap": "none",
+  "technician_cert_status": "valid",
+  "out_of_order_dates": true,
+  "borderline_case": false
+ },
+ "plan": {
+  "left_compliant": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "balanced",
+   "target": "accept_record",
+   "second": "withdraw_unit"
+  },
+  "service_level_due": {
+   "clarity": "leaning",
+   "target": "interim_check",
+   "second": null
+  },
+  "visit_lateness": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  },
+  "mismatch_count": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  }
+ },
+ "target_words": 36,
+ "deciding": {
+  "left_compliant": "All checks pass and pressure 12 is within 10-14 bar, but the odd history date and the mismatches leave some doubt.",
+  "next_step": "Unit physically fine (favours accept), but a history entry dated before manufacture plus four mismatches make withdrawal or query plausible.",
+  "service_level_due": "Unit made 2024-02-10, about 3 months old at the visit, so only an interim check is due; the history entry is anomalous.",
+  "visit_lateness": "History basic 2023-05-01 gives due 2024-05-01; the deferral expiry 2024-04-30 is not later; visit 2024-05-31 is exactly 30 days past, on the level 1/2 boundary.",
+  "mismatch_count": "tag_asset_id W-141 vs W-114, tag date 05-30 vs visit 05-31, reg_type foam vs water, reg capacity 6 vs 9: four."
+ },
+ "request": "rec-F209-0026",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.013964
+}

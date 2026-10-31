@@ -1,0 +1,152 @@
+{
+ "id": "F213-0010",
+ "family": "F213",
+ "state": {
+  "pool": {
+   "type": "leisure",
+   "test_interval_min": 60,
+   "opening": {
+    "open": "2024-08-15T10:00",
+    "close": "2024-08-15T15:00"
+   },
+   "limits": {
+    "free_cl_min": 1.0,
+    "free_cl_max": 3.0,
+    "combined_cl_max": 0.5,
+    "ph_min": 7.2,
+    "ph_max": 7.8
+   },
+   "tolerance": {
+    "free_cl": 0.5,
+    "ph": 0.2
+   },
+   "micro_due": "2024-08-12"
+  },
+  "manual_tests": [
+   {
+    "time": "2024-08-15T10:00",
+    "free_cl": 2.0,
+    "combined_cl": 0.2,
+    "ph": 7.5,
+    "kit_id": "K2"
+   },
+   {
+    "time": "2024-08-15T11:00",
+    "free_cl": 0.9,
+    "combined_cl": 0.3,
+    "ph": 7.5,
+    "kit_id": "K2"
+   },
+   {
+    "time": "2024-08-15T12:00",
+    "free_cl": 1.9,
+    "combined_cl": 0.3,
+    "ph": 7.5,
+    "kit_id": "K2"
+   },
+   {
+    "time": "2024-08-15T14:30",
+    "free_cl": 2.0,
+    "combined_cl": 0.2,
+    "ph": 7.4,
+    "kit_id": "K2"
+   }
+  ],
+  "plant": {
+   "controller_readings": [
+    {
+     "time": "2024-08-15T11:00",
+     "free_cl": 1.0,
+     "ph": 7.5
+    }
+   ],
+   "dosing_events": []
+  },
+  "equipment": {
+   "kits": [
+    {
+     "kit_id": "K2",
+     "cal_due": "2024-08-15",
+     "reagent_lot": "L55"
+    }
+   ]
+  },
+  "actions": [],
+  "lab_sample": {
+   "sampled_on": "2024-08-12",
+   "result_on": "2024-08-14",
+   "status": "final",
+   "tvc_37": 420,
+   "coliforms": 6,
+   "pseudomonas": 3
+  }
+ },
+ "factors": {
+  "pool_type": "leisure",
+  "test_coverage_gap": 1,
+  "boundary_interval": false,
+  "log_controller_discrepancy": "none",
+  "discrepancy_location": "free_chlorine",
+  "excursion_severity": "marginal",
+  "corrective_action_delay": "missing",
+  "retest_logged": false,
+  "dosing_event_explains": false,
+  "kit_calibration_status": "expires_on_day",
+  "lab_sample_state": "positive",
+  "out_of_order_entry": false,
+  "benign_noise": "reagent_change"
+ },
+ "factors_sampled": {
+  "pool_type": "leisure",
+  "test_coverage_gap": 1,
+  "boundary_interval": false,
+  "log_controller_discrepancy": "none",
+  "discrepancy_location": "free_chlorine",
+  "excursion_severity": "marginal",
+  "corrective_action_delay": "missing",
+  "retest_logged": false,
+  "dosing_event_explains": false,
+  "kit_calibration_status": "expires_on_day",
+  "lab_sample_state": "positive",
+  "out_of_order_entry": false,
+  "benign_noise": "reagent_change"
+ },
+ "plan": {
+  "test_frequency_met": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "readings_reconcile": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "log_disposition": {
+   "clarity": "clear",
+   "target": "hold_for_retest",
+   "second": null
+  },
+  "action_delay": {
+   "clarity": "contested",
+   "target": "0",
+   "second": "1"
+  },
+  "failed_checks": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  }
+ },
+ "target_words": 107,
+ "deciding": {
+  "test_frequency_met": "Tests at 12:00 and 14:30 are 150 min apart against a 60 min interval, and there is no entry between them.",
+  "readings_reconcile": "The controller at 11:00 shows 1.0 chlorine and pH 7.5 against manual 0.9 and 7.5, well within tolerance.",
+  "log_disposition": "The lab result shows coliforms 6 and pseudomonas 3, which are positive counts. Combined with the unactioned low chlorine, the log is held for confirming retest or resample.",
+  "action_delay": "Free chlorine of 0.9 is 10% below the 1.0 minimum, so it is marginal. The actions list is empty, but the 12:00 reading recovered, so level 0 or 1 may fit.",
+  "failed_checks": "Several checks fail: the 150 min test gap, the marginal chlorine with no action, no retest, and positive lab counts."
+ },
+ "request": "rec-F213-0006",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.007037
+}

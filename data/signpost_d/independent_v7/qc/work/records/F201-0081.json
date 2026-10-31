@@ -1,0 +1,137 @@
+{
+ "id": "F201-0081",
+ "family": "F201",
+ "state": {
+  "register_header": {
+   "drug": "buprenorphine",
+   "concentration_mg_ml": 0.3,
+   "schedule": 3,
+   "witness_required": false,
+   "opening_balance_ml": 20
+  },
+  "entries": [
+   {
+    "entry_id": "E1",
+    "date": "2024-03-01",
+    "type": "receipt",
+    "qty_ml": 10,
+    "running_balance_ml": 30,
+    "signed_by": "S4",
+    "witness_id": null
+   },
+   {
+    "entry_id": "E2",
+    "date": "2024-03-04",
+    "type": "use",
+    "qty_ml": 1,
+    "patient_id": "P11",
+    "running_balance_ml": 29,
+    "signed_by": "LOC-88",
+    "witness_id": null
+   },
+   {
+    "entry_id": "E3",
+    "date": "2024-03-09",
+    "type": "use",
+    "qty_ml": 0.5,
+    "patient_id": "P12",
+    "running_balance_ml": 28.4,
+    "signed_by": "S4",
+    "witness_id": null
+   }
+  ],
+  "clinical_records": [
+   {
+    "patient_id": "P11",
+    "date": "2024-03-04",
+    "dose": 0.3,
+    "dose_unit": "mg"
+   },
+   {
+    "patient_id": "P12",
+    "date": "2024-03-09",
+    "dose": 0.15,
+    "dose_unit": "mg"
+   },
+   {
+    "patient_id": "P13",
+    "date": "2024-03-12",
+    "dose": 0.6,
+    "dose_unit": "mg"
+   }
+  ],
+  "stock_check": {
+   "count_date": "2024-03-31",
+   "counted_ml": 26.5,
+   "overfill_allowance_ml": 0.2
+  }
+ },
+ "factors": {
+  "drug_profile": "buprenorphine_0.3mg_ml",
+  "arithmetic_slip_count": 1,
+  "unrecorded_admin": "moderate_2_to_8pct",
+  "clinical_records_missing": false,
+  "disposal_state": "none_needed",
+  "unexplained_shortfall_pct": 6.0,
+  "variance_exception": "none",
+  "manufacturer_overfill": true,
+  "auth_gap_count": 0,
+  "count_out_of_order": false,
+  "unit_mismatch": true,
+  "locum_signatory": true,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "drug_profile": "buprenorphine_0.3mg_ml",
+  "arithmetic_slip_count": 1,
+  "unrecorded_admin": "moderate_2_to_8pct",
+  "clinical_records_missing": false,
+  "disposal_state": "none_needed",
+  "unexplained_shortfall_pct": 8.24,
+  "variance_exception": "none",
+  "manufacturer_overfill": true,
+  "auth_gap_count": 0,
+  "count_out_of_order": false,
+  "unit_mismatch": true,
+  "locum_signatory": true,
+  "boundary_case": false
+ },
+ "plan": {
+  "unexplained_shortfall": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "line_disposition": {
+   "clarity": "leaning",
+   "target": "hold_pending",
+   "second": null
+  },
+  "variance_cause": {
+   "clarity": "leaning",
+   "target": "unrecorded_administration",
+   "second": null
+  },
+  "variance_size": {
+   "clarity": "clear",
+   "target": "2",
+   "second": null
+  },
+  "auth_gaps": {
+   "clarity": "contested",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 53,
+ "deciding": {
+  "unexplained_shortfall": "Recomputed closing 28.5 ml (E3 shows 28.4) vs counted 26.5 ml plus 0.2 ml overfill leaves 1.8 ml short; P13 0.6 mg (2 ml) has no entry, so the gap is mostly but not cleanly explained.",
+  "line_disposition": "P13 dose is in clinical records but absent from the register, and E3 balance slip; the missing entry needs confirming from the clinician before closing, so hold rather than escalate.",
+  "variance_cause": "P13 dose 0.6 mg / 0.3 mg/ml = 2 ml with no entries line, matching the gap; the 0.1 ml slip is minor.",
+  "variance_size": "About 1.8 ml remaining against 30 ml handled (20 opening + 10 receipt) is 6%, squarely in the 2-10% band.",
+  "auth_gaps": "Every entry has signed_by (E2 locum id LOC-88 is valid); witness_id null on all entries but witness_required is false, so zero gaps, though a reader might count one."
+ },
+ "request": "rec-F201-0081",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.021535
+}

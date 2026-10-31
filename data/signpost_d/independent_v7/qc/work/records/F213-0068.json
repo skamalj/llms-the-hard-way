@@ -1,0 +1,108 @@
+{
+ "id": "F213-0068",
+ "family": "F213",
+ "state": {
+  "pool": {
+   "type": "leisure",
+   "test_interval_min": 60,
+   "limits": {
+    "ph_max": 7.8
+   },
+   "tolerance": {
+    "ph": 0.2
+   }
+  },
+  "manual_tests": [
+   {
+    "t": "09:00",
+    "ph": 7.8
+   },
+   {
+    "t": "11:00",
+    "ph": 7.4
+   }
+  ],
+  "plant": {
+   "controller_readings": [
+    {
+     "t": "09:00",
+     "ph": 7.4
+    }
+   ]
+  },
+  "actions": [
+   {
+    "t": "09:10",
+    "reading_ref": "09:00"
+   }
+  ]
+ },
+ "factors": {
+  "pool_type": "leisure",
+  "test_coverage_gap": 1,
+  "boundary_interval": false,
+  "log_controller_discrepancy": "large",
+  "discrepancy_location": "ph",
+  "excursion_severity": "at_limit",
+  "corrective_action_delay": "prompt",
+  "retest_logged": false,
+  "dosing_event_explains": true,
+  "kit_calibration_status": "in_date",
+  "lab_sample_state": "clear",
+  "out_of_order_entry": false,
+  "benign_noise": "backwash"
+ },
+ "factors_sampled": {
+  "pool_type": "leisure",
+  "test_coverage_gap": 1,
+  "boundary_interval": false,
+  "log_controller_discrepancy": "large",
+  "discrepancy_location": "ph",
+  "excursion_severity": "clear",
+  "corrective_action_delay": "prompt",
+  "retest_logged": false,
+  "dosing_event_explains": true,
+  "kit_calibration_status": "in_date",
+  "lab_sample_state": "clear",
+  "out_of_order_entry": false,
+  "benign_noise": "backwash"
+ },
+ "plan": {
+  "test_frequency_met": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "readings_reconcile": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "log_disposition": {
+   "clarity": "leaning",
+   "target": "accept",
+   "second": null
+  },
+  "action_delay": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  },
+  "failed_checks": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 25,
+ "deciding": {
+  "test_frequency_met": "Manual tests at 09:00 and 11:00 are 120 min apart against a 60 min interval.",
+  "readings_reconcile": "Manual pH 7.8 vs controller 7.4 at 09:00 differs by 0.4 against tolerance 0.2.",
+  "log_disposition": "Latest pH 7.4 is within the limit and action was logged promptly; only the test gap and pH mismatch remain.",
+  "action_delay": "pH 7.8 equals ph_max, so it is at the limit rather than outside; action at 09:10 is 10 min after reading_ref 09:00.",
+  "failed_checks": "Frequency and reconciliation fail; the at-limit reading may or may not count as a third."
+ },
+ "request": "rec-F213-0066",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.010215
+}

@@ -1,0 +1,106 @@
+{
+ "id": "F205-0031",
+ "family": "F205",
+ "state": {
+  "flight": {
+   "no": "QX214",
+   "std": "2025-03-14T10:00Z",
+   "revised_std": "2025-03-14T10:40Z"
+  },
+  "times": {
+   "last_bag": "2025-03-14T10:41Z",
+   "off_blocks": "2025-03-14T11:00Z",
+   "delay_code": "baggage",
+   "delay_min": 60
+  },
+  "load": {
+   "bags_count": 58
+  },
+  "hold_log": [
+   {
+    "pos": "1",
+    "bag_count": 30
+   },
+   {
+    "pos": "2",
+    "bag_count": 25
+   }
+  ],
+  "services": {
+   "pushback": null
+  },
+  "remarks": [
+   {
+    "role": "ramp",
+    "t": "10:42",
+    "msg": "3 transfer bags loaded pos 2 late, not scanned. Pushback by tug 2."
+   }
+  ]
+ },
+ "factors": {
+  "bag_mismatch_size": "moderate_3_9_bags",
+  "mismatch_location": "loadsheet_bags_vs_hold_log",
+  "missing_record": "pushback_record_missing",
+  "milestone_out_of_order": false,
+  "delay_minutes": 60,
+  "delay_code_fit": "supported",
+  "explanatory_remark": true,
+  "pending_signoff": false,
+  "dg_on_board": false,
+  "decoy_noise": "revised_std_in_schedule",
+  "boundary_value": true,
+  "turn_type": "full_turn"
+ },
+ "factors_sampled": {
+  "bag_mismatch_size": "moderate_3_9_bags",
+  "mismatch_location": "loadsheet_bags_vs_hold_log",
+  "missing_record": "pushback_record_missing",
+  "milestone_out_of_order": false,
+  "delay_minutes": 88,
+  "delay_code_fit": "ambiguous",
+  "explanatory_remark": true,
+  "pending_signoff": false,
+  "dg_on_board": false,
+  "decoy_noise": "revised_std_in_schedule",
+  "boundary_value": false,
+  "turn_type": "full_turn"
+ },
+ "plan": {
+  "load_reconciled": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "delay_code_supported": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "log_disposition": {
+   "clarity": "leaning",
+   "target": "close_with_note",
+   "second": null
+  },
+  "offblock_delay": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  },
+  "failed_checks": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  }
+ },
+ "target_words": 46,
+ "deciding": {
+  "load_reconciled": "load.bags_count 58 vs hold_log 30+25=55; 3-bag gap, but a remark says 3 late transfer bags were unscanned, so it is arguably within explanation.",
+  "delay_code_supported": "Code baggage; last_bag 10:41 is 41 minutes after STD, so the baggage milestone ran late.",
+  "log_disposition": "Bag gap and null pushback are both addressed by the ramp remark, so annotate and close; the null pushback record leaves some doubt.",
+  "offblock_delay": "Off-blocks 11:00 vs original STD 10:00 is exactly 60 minutes, on the level 2/3 boundary; revised_std 10:40 is a decoy.",
+  "failed_checks": "Bag count gap and null pushback fail; the 60-minute delay sits at the boundary, so the count is two or three."
+ },
+ "request": "rec-F205-0031",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.010346
+}

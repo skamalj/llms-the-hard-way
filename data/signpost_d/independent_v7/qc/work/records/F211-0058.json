@@ -1,0 +1,125 @@
+{
+ "id": "F211-0058",
+ "family": "F211",
+ "state": {
+  "vehicle": {
+   "callsign": "A22",
+   "odometer_km": 88060,
+   "service_due_km": 88001
+  },
+  "check": {
+   "shift_date": "2025-06-14",
+   "started_at": "2025-06-14T06:40",
+   "signed_at": "2025-06-14T07:05",
+   "sections_required": 4,
+   "sections_signed": [
+    "vehicle",
+    "clinical"
+   ],
+   "countersigned_by": null,
+   "crew_note": "Defib threw a fault code on start-up, cleared after battery reseat and self-test passed."
+  },
+  "defects": [
+   {
+    "item": "defibrillator",
+    "area": "clinical",
+    "desc": "Battery warning, spare monitor carried but its battery is low.",
+    "status": "open",
+    "substitute_on_board": true,
+    "deferral": {
+     "authorised_by": "Duty Mgr",
+     "authorised_at": "2025-06-13T20:00",
+     "valid_until": "2025-06-16"
+    }
+   }
+  ],
+  "stock": {
+   "lines": [
+    {
+     "item": "adrenaline",
+     "qty": 8,
+     "par_level": 6,
+     "expiry": "2025-07-25"
+    }
+   ],
+   "restock_request": {
+    "eta": "2025-06-14T12:00"
+   }
+  },
+  "activity": {
+   "first_mobilised_at": "2025-06-14T07:30",
+   "workshop_jobs": [
+    {
+     "date": "2025-06-13",
+     "job_note": "Defibrillator battery contacts repaired."
+    }
+   ]
+  }
+ },
+ "factors": {
+  "checklist_completion": "half_or_more_signed",
+  "worst_defect_tier": "critical_with_substitute",
+  "defect_area": "clinical_equipment",
+  "deferral_authorised": true,
+  "deferral_invalid": false,
+  "workshop_return_recent": true,
+  "earliest_drug_expiry_days": 41,
+  "restock_in_progress": true,
+  "service_margin_km": -59,
+  "crew_note_tone": "alarming_benign",
+  "signed_after_mobilisation": false,
+  "repeat_defect_count": 0
+ },
+ "factors_sampled": {
+  "checklist_completion": "all_signed_no_countersign",
+  "worst_defect_tier": "critical_with_substitute",
+  "defect_area": "clinical_equipment",
+  "deferral_authorised": true,
+  "deferral_invalid": true,
+  "workshop_return_recent": true,
+  "earliest_drug_expiry_days": 0,
+  "restock_in_progress": true,
+  "service_margin_km": -59,
+  "crew_note_tone": "alarming_benign",
+  "signed_after_mobilisation": true,
+  "repeat_defect_count": 0
+ },
+ "plan": {
+  "defects_controlled": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "readiness_status": {
+   "clarity": "clear",
+   "target": "release_with_note",
+   "second": null
+  },
+  "limiting_area": {
+   "clarity": "leaning",
+   "target": "vehicle_systems",
+   "second": null
+  },
+  "check_completeness": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  },
+  "defect_severity": {
+   "clarity": "balanced",
+   "target": "4",
+   "second": "3"
+  }
+ },
+ "target_words": 82,
+ "deciding": {
+  "defects_controlled": "The defibrillator deferral was authorised 2025-06-13, before mobilisation, and is valid to 2025-06-16. A workshop job on 2025-06-13 repaired the battery contacts.",
+  "readiness_status": "The critical defect is validly deferred and repaired. The crew note says the fault cleared and self-test passed, so only a note is needed.",
+  "limiting_area": "The odometer is 88060 against a service due at 88001, which is slightly overdue. The drugs are in date and the defibrillator is deferred, so vehicle systems is the leading limit.",
+  "check_completeness": "2 of 4 sections are signed, exactly half, with no countersignature. Level 1 leads, but level 0 stays plausible at the boundary.",
+  "defect_severity": "The defibrillator is critical and open. substitute_on_board is true, but the desc says the spare monitor's battery is low, so level 4 narrowly leads level 3."
+ },
+ "request": "rec-F211-0056",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012742
+}

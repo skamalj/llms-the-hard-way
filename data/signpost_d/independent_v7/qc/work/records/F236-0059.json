@@ -1,0 +1,163 @@
+{
+ "id": "F236-0059",
+ "family": "F236",
+ "state": {
+  "changeover": {
+   "line": "L4",
+   "from_allergens": [
+    "nuts",
+    "soya"
+   ],
+   "to_allergens": [
+    "soya"
+   ]
+  },
+  "cleaning": {
+   "steps": [
+    {
+     "s": "dry",
+     "completed": true,
+     "spec_min": 20,
+     "actual_min": 20
+    },
+    {
+     "s": "wash",
+     "completed": true,
+     "spec_min": 40,
+     "actual_min": 37
+    },
+    {
+     "s": "rinse",
+     "completed": true,
+     "spec_min": 10,
+     "actual_min": 10
+    }
+   ],
+   "chem": "CH-221"
+  },
+  "verification": {
+   "required_locs": [
+    "mixer",
+    "depositor",
+    "oven_belt"
+   ],
+   "swabs": [
+    {
+     "id": "S1",
+     "loc": "mixer",
+     "target": "nuts",
+     "reading": 1.2,
+     "limit_ppm": 5,
+     "at": "2024-08-14T05:10"
+    },
+    {
+     "id": "S2",
+     "loc": "depositor",
+     "target": "nuts",
+     "reading": 0,
+     "limit_ppm": 5,
+     "at": "2024-08-14T05:15"
+    }
+   ],
+   "atp_rlu": [
+    48
+   ]
+  },
+  "production": {
+   "line": "L4",
+   "start_at": "2024-08-14T06:00",
+   "qty": 260.91,
+   "unit": "kg",
+   "pack": [
+    "soya"
+   ],
+   "held": true
+  },
+  "approvals": {
+   "qa_signoff": {
+    "signed_at": "2024-08-14T05:45"
+   },
+   "deviations": []
+  },
+  "history": {
+   "verification_passed": [
+    false,
+    true,
+    false,
+    false,
+    true,
+    true,
+    false,
+    true,
+    false,
+    true
+   ]
+  }
+ },
+ "factors": {
+  "allergen_transition": "removes_allergen",
+  "cleaning_completion": "all steps done, wash 37 of 40 min",
+  "swab_outcome": "trace_below_limit",
+  "swab_timing_mismatch": false,
+  "cross_section_discrepancy": "none",
+  "exposed_quantity_kg": 0.0,
+  "approved_deviation": false,
+  "label_precaution": false,
+  "dedicated_tooling": false,
+  "qa_signoff_state": "signed_before_start",
+  "line_failure_history": 5,
+  "boundary_value": false
+ },
+ "factors_sampled": {
+  "allergen_transition": "removes_allergen",
+  "cleaning_completion": "multiple_steps_skipped",
+  "swab_outcome": "trace_below_limit",
+  "swab_timing_mismatch": false,
+  "cross_section_discrepancy": "product_code_mismatch",
+  "exposed_quantity_kg": 260.91,
+  "approved_deviation": false,
+  "label_precaution": false,
+  "dedicated_tooling": false,
+  "qa_signoff_state": "signed_before_start",
+  "line_failure_history": 5,
+  "boundary_value": false
+ },
+ "plan": {
+  "swabs_cleared": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "line_disposition": {
+   "clarity": "clear",
+   "target": "hold",
+   "second": null
+  },
+  "worst_deficiency": {
+   "clarity": "contested",
+   "target": "cleaning_shortfall",
+   "second": "none"
+  },
+  "exposed_product": {
+   "clarity": "leaning",
+   "target": "0",
+   "second": null
+  },
+  "residue_evidence": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  }
+ },
+ "target_words": 153,
+ "deciding": {
+  "swabs_cleared": "Mixer and depositor swabs passed before start, but required_locs lists oven_belt and no swab exists for it.",
+  "line_disposition": "The batch is held and oven_belt is the one required location with no swab, so that single confirmation is missing.",
+  "worst_deficiency": "All steps are completed, with the wash 3 min short, and sign-off and identifiers are fine. The missing oven_belt swab could be read either way.",
+  "exposed_product": "The swabs sit at 05:10 and 05:15, before the 06:00 start, and the batch is held, so no product preceded verification.",
+  "residue_evidence": "Mixer reads 1.2 ppm against a 5 ppm limit, above zero but below limit. Depositor reads 0."
+ },
+ "request": "rec-F236-0056",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.01392
+}

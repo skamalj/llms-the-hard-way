@@ -1,0 +1,164 @@
+{
+ "id": "F213-0044",
+ "family": "F213",
+ "state": {
+  "pool": {
+   "type": "competition",
+   "test_interval_min": 60,
+   "opening": {
+    "open": "2024-05-20T07:00",
+    "close": "2024-05-20T10:00"
+   },
+   "limits": {
+    "free_cl_min": 1.0,
+    "free_cl_max": 3.0,
+    "ph_min": 7.2,
+    "ph_max": 7.8
+   },
+   "tolerance": {
+    "free_cl": 0.3,
+    "ph": 0.2
+   },
+   "micro_due": "2024-06-01"
+  },
+  "manual_tests": [
+   {
+    "time": "2024-05-20T07:00",
+    "free_cl": 2.0,
+    "ph": 7.5,
+    "kit_id": "K4"
+   },
+   {
+    "time": "2024-05-20T08:05",
+    "free_cl": 2.1,
+    "ph": 7.4,
+    "kit_id": "K4"
+   },
+   {
+    "time": "2024-05-20T09:00",
+    "free_cl": 2.0,
+    "ph": 7.5,
+    "kit_id": "K4"
+   },
+   {
+    "time": "2024-05-20T10:00",
+    "free_cl": 2.1,
+    "ph": 7.5,
+    "kit_id": "K4"
+   }
+  ],
+  "plant": {
+   "controller_readings": [
+    {
+     "time": "2024-05-20T07:00",
+     "free_cl": 2.0,
+     "ph": 7.5
+    },
+    {
+     "time": "2024-05-20T08:05",
+     "free_cl": 2.1,
+     "ph": 7.9
+    },
+    {
+     "time": "2024-05-20T09:00",
+     "free_cl": 2.0,
+     "ph": 7.5
+    }
+   ],
+   "dosing_events": [
+    {
+     "time": "2024-05-20T07:50",
+     "type": "acid"
+    }
+   ],
+   "backwash": [
+    "2024-05-20T06:30"
+   ]
+  },
+  "equipment": {
+   "kits": [
+    {
+     "kit_id": "K4",
+     "cal_due": "2024-04-30"
+    }
+   ]
+  },
+  "actions": [
+   {
+    "time": "2024-05-20T08:30",
+    "action_type": "probe_check",
+    "reading_ref": "2024-05-20T08:05",
+    "retest_time": "2024-05-20T09:00"
+   }
+  ],
+  "lab_sample": null
+ },
+ "factors": {
+  "pool_type": "competition",
+  "test_coverage_gap": 0,
+  "boundary_interval": false,
+  "log_controller_discrepancy": "large",
+  "discrepancy_location": "ph",
+  "excursion_severity": "none",
+  "corrective_action_delay": "none needed",
+  "retest_logged": true,
+  "dosing_event_explains": false,
+  "kit_calibration_status": "expired_before",
+  "lab_sample_state": "not_due",
+  "out_of_order_entry": false,
+  "benign_noise": "backwash"
+ },
+ "factors_sampled": {
+  "pool_type": "competition",
+  "test_coverage_gap": 0,
+  "boundary_interval": false,
+  "log_controller_discrepancy": "large",
+  "discrepancy_location": "ph",
+  "excursion_severity": "none",
+  "corrective_action_delay": "missing",
+  "retest_logged": true,
+  "dosing_event_explains": true,
+  "kit_calibration_status": "expired_before",
+  "lab_sample_state": "not_due",
+  "out_of_order_entry": false,
+  "benign_noise": "backwash"
+ },
+ "plan": {
+  "test_frequency_met": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "readings_reconcile": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "log_disposition": {
+   "clarity": "clear",
+   "target": "accept_with_query",
+   "second": null
+  },
+  "action_delay": {
+   "clarity": "leaning",
+   "target": "0",
+   "second": null
+  },
+  "failed_checks": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  }
+ },
+ "target_words": 115,
+ "deciding": {
+  "test_frequency_met": "Tests at 07:00, 08:05, 09:00, 10:00; the 65 min gap is just over the 60 min interval.",
+  "readings_reconcile": "08:05 manual pH 7.4 vs controller 7.9 differs by 0.5 over tolerance 0.2, though other times match.",
+  "log_disposition": "Water within limits, but kit K4 cal_due 04-30 expired and the pH mismatch needs operator explanation; lab not yet due.",
+  "action_delay": "All manual values are inside pool.limits, so no excursion needing action.",
+  "failed_checks": "Kit expired and pH mismatch could count as two fails, though the first is arguably the only firm one."
+ },
+ "request": "rec-F213-0041",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.006993
+}

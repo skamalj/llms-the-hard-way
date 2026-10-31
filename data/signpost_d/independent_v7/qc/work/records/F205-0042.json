@@ -1,0 +1,114 @@
+{
+ "id": "F205-0042",
+ "family": "F205",
+ "state": {
+  "flight": {
+   "no": "QA77",
+   "std": "2025-05-02T14:00",
+   "turn": "quick"
+  },
+  "times": {
+   "on_blocks": "2025-05-02T13:05",
+   "doors_closed": "2025-05-02T14:48",
+   "off_blocks": "2025-05-02T15:01",
+   "delay_code": "catering",
+   "delay_min": 60
+  },
+  "load": {
+   "pax_total": 118,
+   "bags_count": 96,
+   "bags_kg": 1320
+  },
+  "hold_log": [
+   {
+    "pos": "1",
+    "bags": 50,
+    "kg": 700
+   },
+   {
+    "pos": "3",
+    "bags": 44,
+    "kg": 618
+   }
+  ],
+  "services": {
+   "fuel": null,
+   "catering": {
+    "end": "2025-05-02T14:35"
+   }
+  },
+  "remarks": [
+   {
+    "role": "ramp",
+    "t": "14:40",
+    "msg": "Boarding closed 117 pax."
+   }
+  ]
+ },
+ "factors": {
+  "bag_mismatch_size": "exactly_2_bags",
+  "mismatch_location": "pax_count_vs_boarding_close",
+  "missing_record": "fuel_record_null",
+  "milestone_out_of_order": false,
+  "delay_minutes": 61,
+  "delay_code_fit": "weakly_supported",
+  "explanatory_remark": false,
+  "pending_signoff": false,
+  "dg_on_board": false,
+  "decoy_noise": "rounding_within_tolerance",
+  "boundary_value": true,
+  "turn_type": "quick_turn"
+ },
+ "factors_sampled": {
+  "bag_mismatch_size": "large_10_plus_bags",
+  "mismatch_location": "pax_count_vs_boarding_close",
+  "missing_record": "fuel_record_null",
+  "milestone_out_of_order": false,
+  "delay_minutes": 50,
+  "delay_code_fit": "contradicted",
+  "explanatory_remark": false,
+  "pending_signoff": false,
+  "dg_on_board": false,
+  "decoy_noise": "rounding_within_tolerance",
+  "boundary_value": false,
+  "turn_type": "quick_turn"
+ },
+ "plan": {
+  "load_reconciled": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "delay_code_supported": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "log_disposition": {
+   "clarity": "leaning",
+   "target": "hold_confirm",
+   "second": null
+  },
+  "offblock_delay": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  },
+  "failed_checks": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 69,
+ "deciding": {
+  "load_reconciled": "Hold bags 50+44=94 vs loadsheet 96 (2 apart); kg 1318 vs 1320 is rounding. Defensible either way.",
+  "delay_code_supported": "Catering ended 14:35, 13 minutes before doors_closed 14:48; only loosely tied to the late departure.",
+  "log_disposition": "services.fuel is null, so a missing fuel record needs confirming; no other decisive gap.",
+  "offblock_delay": "Off-blocks 15:01 vs STD 14:00 is 61 minutes, one over the level 2/3 boundary; delay_min says 60.",
+  "failed_checks": "Fuel null, pax 118 vs 117, bag gap of 2, and 61-minute delay; whether the bag gap and code count decides 3 vs 2."
+ },
+ "request": "rec-F205-0041",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011346
+}

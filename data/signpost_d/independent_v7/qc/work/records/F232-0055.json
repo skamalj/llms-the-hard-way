@@ -1,0 +1,150 @@
+{
+ "id": "F232-0055",
+ "family": "F232",
+ "state": {
+  "night_header": {
+   "date": "2025-09-14",
+   "alloc_h": 8,
+   "twi_end": "19:45"
+  },
+  "conditions": {
+   "closures": [
+    {
+     "s": "22:00",
+     "e": "2025-09-15T02:35",
+     "reason": "weather"
+    }
+   ],
+   "limits": {
+    "hum": 85,
+    "wind": 50
+   },
+   "hourly": [
+    {
+     "h": "23",
+     "hum": 90,
+     "wind": 62
+    }
+   ]
+  },
+  "exposures": [
+   {
+    "tgt": "A",
+    "exp_s": 2880,
+    "filt": "r",
+    "see": 1.0,
+    "qa": "pass"
+   },
+   {
+    "tgt": "A",
+    "exp_s": 2880,
+    "filt": "r",
+    "see": 1.48,
+    "qa": "pass"
+   },
+   {
+    "tgt": "B",
+    "exp_s": 1800,
+    "filt": "r",
+    "see": 1.2,
+    "qa": null
+   },
+   {
+    "tgt": "B",
+    "exp_s": 1800,
+    "filt": "r",
+    "see": 1.3,
+    "qa": null
+   }
+  ],
+  "programme_request": {
+   "A": {
+    "r": 5760
+   },
+   "B": {
+    "r": 9000
+   },
+   "max_seeing": 1.5
+  },
+  "faults": [
+   {
+    "sub": "guider",
+    "start_utc": "18:40",
+    "end_utc": "19:10",
+    "cleared": true,
+    "retest_utc": "19:30"
+   }
+  ],
+  "notes": {
+   "observer_note": "A complete."
+  }
+ },
+ "factors": {
+  "weather_loss_hours": 4.58,
+  "fault_overlap": "none",
+  "fault_resolution_state": "cleared_retested",
+  "maintenance_window": false,
+  "closure_reason_mismatch": "none",
+  "note_claim_discrepancy": "none",
+  "seeing_vs_limit": "near_boundary",
+  "seeing_exception_approved": false,
+  "usable_fraction": 0.2,
+  "qa_pending_count": 2,
+  "utc_date_rollover": false,
+  "assistant_note_tone": "neutral",
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "weather_loss_hours": 4.58,
+  "fault_overlap": "none",
+  "fault_resolution_state": "cleared_retested",
+  "maintenance_window": false,
+  "closure_reason_mismatch": "coincides_with_fault",
+  "note_claim_discrepancy": "filter_missing",
+  "seeing_vs_limit": "near_boundary",
+  "seeing_exception_approved": false,
+  "usable_fraction": 0.2,
+  "qa_pending_count": 2,
+  "utc_date_rollover": false,
+  "assistant_note_tone": "neutral",
+  "boundary_case": false
+ },
+ "plan": {
+  "weather_only_loss": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "claims_supported": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "night_disposition": {
+   "clarity": "balanced",
+   "target": "reschedule_night",
+   "second": "hold"
+  },
+  "usable_share": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  },
+  "fault_followup": {
+   "clarity": "clear",
+   "target": "0",
+   "second": null
+  }
+ },
+ "target_words": 53,
+ "deciding": {
+  "weather_only_loss": "The long closure 22:00-02:35 has hum 90 and wind 62 above limits. The guider fault 18:40-19:10 was before twilight end and does not overlap it. The doubt is that the closure starts exactly when exposures stop.",
+  "claims_supported": "Observer claims A complete. A has 2880 + 2880 = 5760 s in r against 5760 s requested, both frames passing, so the claim is fully supported.",
+  "night_disposition": "Roughly 4.6 h of the 8 h allocation was lost to closure and few exposures were obtained, which points to a replacement night. Two QA-pending frames on B could justify holding.",
+  "usable_share": "5760 s passed against 28800 s allocated is 20%, which is low. The frame at seeing 1.48 sits near the 1.5 limit, and pending frames add uncertainty about level 0 versus 1.",
+  "fault_followup": "The only fault, guider, is cleared=true with retest_utc 19:30 and no overlap with science time, so no unresolved fault remains."
+ },
+ "request": "rec-F232-0051",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.015249
+}

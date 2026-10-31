@@ -1,0 +1,131 @@
+{
+ "id": "F204-0002",
+ "family": "F204",
+ "state": {
+  "rx": {
+   "drug": "amoxicillin",
+   "strength": {
+    "val": 250,
+    "unit": "mg",
+    "per_ml": 5
+   },
+   "form": "susp",
+   "dose": 5,
+   "freq_per_day": 3,
+   "qty": 100
+  },
+  "patient": {
+   "pt_id": "P1932",
+   "supplies": [
+    {
+     "date": "2024-06-03",
+     "days_covered": 14
+    }
+   ],
+   "emergency_supplies": [],
+   "near_miss_count": 0
+  },
+  "dispensed": {
+   "product_name": "amoxicillin",
+   "strength": {
+    "val": 125,
+    "unit": "mg",
+    "per_ml": 5
+   },
+   "form": "susp",
+   "packs": 1,
+   "pack_size": 100,
+   "owing": null,
+   "high_risk": false
+  },
+  "label": {
+   "pt_id": "P1932",
+   "dose_qty": 5,
+   "freq_per_day": 3,
+   "qty_printed": 100
+  },
+  "check_log": {
+   "checked_at": "2024-06-10T14:00",
+   "clin_check": {
+    "by": "RPh",
+    "at": "2024-06-10T13:30"
+   },
+   "queries": [
+    {
+     "raised_at": "2024-06-10T11:20",
+     "field": "strength",
+     "status": "pending"
+    }
+   ],
+   "interventions": []
+  }
+ },
+ "factors": {
+  "strength_status": "mismatch_converted",
+  "product_status": "exact",
+  "quantity_status": "exact",
+  "label_status": "correct",
+  "prescriber_query": "pending",
+  "pharmacist_intervention": false,
+  "clinical_check_signed": true,
+  "home_supply_days": 7,
+  "emergency_supply": false,
+  "short_expiry": false,
+  "prior_error_count": 0,
+  "high_risk_drug": false,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "strength_status": "match_same_units",
+  "product_status": "exact",
+  "quantity_status": "over_supplied",
+  "label_status": "correct",
+  "prescriber_query": "pending",
+  "pharmacist_intervention": false,
+  "clinical_check_signed": true,
+  "home_supply_days": 11,
+  "emergency_supply": true,
+  "short_expiry": false,
+  "prior_error_count": 0,
+  "high_risk_drug": false,
+  "boundary_case": false
+ },
+ "plan": {
+  "strength_differs": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "contested",
+   "target": "hold_query",
+   "second": "release_annotated"
+  },
+  "error_category": {
+   "clarity": "balanced",
+   "target": "product_error",
+   "second": "label_error"
+  },
+  "open_discrepancies": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  },
+  "supply_urgency": {
+   "clarity": "contested",
+   "target": "1",
+   "second": "0"
+  }
+ },
+ "target_words": 78,
+ "deciding": {
+  "strength_differs": "rx 250 mg per 5 ml versus dispensed 125 mg per 5 ml; a pending strength query exists, so some doubt remains.",
+  "next_step": "Pending query on strength supports holding; a reader could still release with an annotation as the label and quantity agree.",
+  "error_category": "Strength is wrong for the product picked, but the label dose of 5 ml was printed for the prescribed strength, so a label error is also arguable.",
+  "open_discrepancies": "Only the strength field differs; quantity, form, label dose, frequency and pt_id all agree.",
+  "supply_urgency": "Supply 2024-06-03 for 14 days ends 06-17; checked 06-10 leaves about 7 days, on the edge of the 3 to 7 and over 7 bands."
+ },
+ "request": "rec-F204-0001",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012438
+}

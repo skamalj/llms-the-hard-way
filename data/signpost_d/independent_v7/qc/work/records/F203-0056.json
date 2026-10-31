@@ -1,0 +1,136 @@
+{
+ "id": "F203-0056",
+ "family": "F203",
+ "state": {
+  "request": {
+   "id": "R-4417",
+   "submitted_on": "2025-03-03",
+   "need_by": "2025-03-14",
+   "scope": "whole_item",
+   "copyright_declaration_on": null
+  },
+  "borrower_library": {
+   "agreement": {
+    "status": "active",
+    "expires_on": "2026-01-31",
+    "renewal_submitted_on": null
+   },
+   "open_loans": [
+    {
+     "loan_id": "L1",
+     "due_on": "2025-02-10",
+     "renewed_on": null,
+     "return_scan_on": null
+    },
+    {
+     "loan_id": "L2",
+     "due_on": "2025-02-24",
+     "renewed_on": null,
+     "return_scan_on": null
+    }
+   ],
+   "loans_last_12m": 212
+  },
+  "patron": {
+   "member_id": "M88",
+   "home_branch": "North",
+   "verified_on": null
+  },
+  "item": {
+   "condition_grade": "brittle",
+   "conservation_check": null,
+   "local_holds": 0
+  },
+  "holdings_network": {
+   "copies": [
+    {
+     "library_code": "EA",
+     "status": "lendable"
+    },
+    {
+     "library_code": "WB",
+     "status": "on_loan"
+    },
+    {
+     "library_code": "SC",
+     "status": "reference_only"
+    }
+   ],
+   "supplier_status": {
+    "print_status": "in_print"
+   }
+  },
+  "logistics": {
+   "est_arrival": "2025-03-14",
+   "route_code": "C2"
+  }
+ },
+ "factors": {
+  "agreement_status": "active",
+  "borrower_overdue_count": 2,
+  "overdue_mitigated": false,
+  "patron_verification": "pending",
+  "item_condition": "brittle",
+  "conservation_cleared": false,
+  "local_holds_queue": 0,
+  "network_other_copies": 1,
+  "print_status": "in_print",
+  "request_scope": "whole_item",
+  "copyright_declaration_present": false,
+  "need_by_slack_days": 0,
+  "need_by_missing": false
+ },
+ "factors_sampled": {
+  "agreement_status": "active",
+  "borrower_overdue_count": 0,
+  "overdue_mitigated": true,
+  "patron_verification": "pending",
+  "item_condition": "good",
+  "conservation_cleared": false,
+  "local_holds_queue": 0,
+  "network_other_copies": 3,
+  "print_status": "in_print",
+  "request_scope": "whole_item",
+  "copyright_declaration_present": false,
+  "need_by_slack_days": 11,
+  "need_by_missing": true
+ },
+ "plan": {
+  "borrower_good_standing": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "disposition": {
+   "clarity": "contested",
+   "target": "decline",
+   "second": "hold"
+  },
+  "loan_restriction": {
+   "clarity": "leaning",
+   "target": "copy_supplied",
+   "second": null
+  },
+  "time_slack": {
+   "clarity": "contested",
+   "target": "0",
+   "second": "1"
+  },
+  "replacement_difficulty": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  }
+ },
+ "target_words": 84,
+ "deciding": {
+  "borrower_good_standing": "Two open loans past due_on before submission, with no return scan or renewal, though the agreement is active.",
+  "disposition": "Unmitigated overdue loans favour decline; the pending patron verification makes a hold defensible.",
+  "loan_restriction": "Brittle condition grade with no conservation check points to sending a copy instead of the item.",
+  "time_slack": "est_arrival equals need_by, 0 days spare: tight by the rule, but arguably missed.",
+  "replacement_difficulty": "One lendable network copy (EA) among on_loan and reference_only entries; the other copies do not count."
+ },
+ "request": "rec-F203-0056",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.0105
+}

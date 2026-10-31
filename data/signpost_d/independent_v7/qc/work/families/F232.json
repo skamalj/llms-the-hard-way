@@ -1,0 +1,330 @@
+{
+ "id": "F232",
+ "domain": "observatory night observing logs",
+ "role": "Duty support astronomer reviewing each telescope night's observing log the following morning, deciding how the night is charged to the programme and what follow-up is needed",
+ "setting": "A fictional mountain-top observatory, Cerro Lumbrera, runs a 2.4 m telescope with an imaging camera on queue and visitor programmes. After each night, the duty support astronomer opens one night log record. Each record combines the night header, the weather and dome-closure record, the list of exposures taken, the programme's requested targets and constraints, and the engineering fault list, together with short notes from the observer and night assistant. The reviewer must reconcile these sections, weigh alarming entries against mitigating context and decide on time accounting and engineering follow-up. The same five decisions are made for every night, whatever happened.",
+ "questions": {
+  "weather_only_loss": {
+   "type": "noul",
+   "instructions": "All time lost this night is attributable to weather, not equipment.",
+   "criteria": {
+    "true": "Every lost interval matches a supported weather closure.",
+    "false": "Some lost time overlaps faults or lacks supported cause."
+   }
+  },
+  "claims_supported": {
+   "type": "noul",
+   "instructions": "Logged exposures support every target completion claimed in the observer note.",
+   "criteria": {
+    "true": "Each claimed target has required filters and exposure total.",
+    "false": "A claimed completion lacks a filter or enough exposure."
+   }
+  },
+  "night_disposition": {
+   "type": "choice",
+   "instructions": "How should this night be charged and followed up?",
+   "criteria": {
+    "charge_full": "All allocated hours charged; no time lost to any cause.",
+    "charge_partial": "Weather losses returned to pool; completed data stands, no repeats.",
+    "hold": "Charging deferred until one pending QA or ticket confirmation arrives.",
+    "requeue_targets": "Technical loss left named targets incomplete; repeat only those.",
+    "reschedule_night": "Technical loss exceeded half the allocation; request a replacement night."
+   }
+  },
+  "usable_share": {
+   "type": "score",
+   "instructions": "What share of allocated time yielded usable science exposures?",
+   "criteria": [
+    "None: no exposure passes QA within programme limits",
+    "Low: usable exposure time below 40% of allocation",
+    "Substantial: usable time from 40% to 80% of allocation",
+    "Full: usable time above 80% of allocation"
+   ]
+  },
+  "fault_followup": {
+   "type": "score",
+   "instructions": "How unresolved is the worst science-affecting fault from the night?",
+   "criteria": [
+    "No science-affecting fault, or fault cleared and retested",
+    "Fault cleared, but no retest entry logged yet",
+    "Fault still open; logged workaround kept observing possible",
+    "Fault still open; no workaround, instrument unusable"
+   ]
+  }
+ },
+ "factors": [
+  {
+   "name": "weather_loss_hours",
+   "description": "Hours of dome closure genuinely caused by weather (humidity, wind or cloud above limits), shown as closure intervals in conditions.closures and supported by weather station readings.",
+   "kind": "number",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 8,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S4",
+    "S7"
+   ]
+  },
+  {
+   "name": "fault_overlap",
+   "description": "Whether engineering fault intervals overlap dome-open time when science could have run: none, a short overlap under 30 minutes, or a major overlap of an hour or more.",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "minor_overlap",
+    "major_overlap"
+   ],
+   "weights": [
+    0.4,
+    0.3,
+    0.3
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S5",
+    "S7"
+   ]
+  },
+  {
+   "name": "fault_resolution_state",
+   "description": "State of the worst fault in faults list: none logged, cleared with retest entry, cleared without retest, open with a workaround noted, or open and blocking.",
+   "kind": "categorical",
+   "values": [
+    "no_fault",
+    "cleared_retested",
+    "cleared_no_retest",
+    "open_workaround",
+    "open_blocking"
+   ],
+   "weights": [
+    0.25,
+    0.2,
+    0.2,
+    0.2,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S4",
+    "S7"
+   ]
+  },
+  {
+   "name": "maintenance_window",
+   "description": "Whether the fault occurred inside a scheduled engineering window recorded in night_header.eng_window, so it carries no science loss despite looking alarming.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3"
+   ]
+  },
+  {
+   "name": "closure_reason_mismatch",
+   "description": "Whether a closure logged with reason 'weather' is contradicted by weather station readings below limits during that interval, or by a fault starting at the same time.",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "station_below_limits",
+    "coincides_with_fault"
+   ],
+   "weights": [
+    0.55,
+    0.25,
+    0.2
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S5",
+    "S6"
+   ]
+  },
+  {
+   "name": "note_claim_discrepancy",
+   "description": "Gap between targets the observer note calls complete and the exposures logged: none, a required filter missing, exposure total short by under 10%, or short by 10% or more.",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "filter_missing",
+    "short_small",
+    "short_large"
+   ],
+   "weights": [
+    0.4,
+    0.2,
+    0.2,
+    0.2
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S5",
+    "S6"
+   ]
+  },
+  {
+   "name": "seeing_vs_limit",
+   "description": "Median seeing during science exposures relative to programme max_seeing_arcsec: well within, within 0.1 arcsec of the limit, or exceeded.",
+   "kind": "categorical",
+   "values": [
+    "well_within",
+    "near_boundary",
+    "exceeded"
+   ],
+   "weights": [
+    0.45,
+    0.25,
+    0.3
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S6"
+   ]
+  },
+  {
+   "name": "seeing_exception_approved",
+   "description": "Whether programme_request carries an approved relaxed seeing limit for some targets, making frames that breach the default limit still usable.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3"
+   ]
+  },
+  {
+   "name": "usable_fraction",
+   "description": "True fraction of allocated hours yielding usable science exposure time (QA pass, within constraints); must be computed from exposures and allocation, never stated.",
+   "kind": "number",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 1,
+   "p_true": 0,
+   "skills": [
+    "S4",
+    "S7"
+   ]
+  },
+  {
+   "name": "qa_pending_count",
+   "description": "Number of science exposures whose qa field is null (pipeline not yet run), which can leave charging awaiting one confirmation.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 4,
+   "p_true": 0,
+   "skills": [
+    "S4",
+    "S6"
+   ]
+  },
+  {
+   "name": "utc_date_rollover",
+   "description": "Whether exposures cross UTC midnight so their dates differ from the local night date in the header; a decoy that looks like a date mismatch but is not.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S1"
+   ]
+  },
+  {
+   "name": "assistant_note_tone",
+   "description": "Night assistant note: neutral, alarming but explained elsewhere (e.g. noise from scheduled test), or alarming and matching a real open fault.",
+   "kind": "categorical",
+   "values": [
+    "neutral",
+    "alarmed_benign",
+    "alarmed_real"
+   ],
+   "weights": [
+    0.4,
+    0.3,
+    0.3
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S6"
+   ]
+  },
+  {
+   "name": "boundary_case",
+   "description": "Whether one deciding value is placed exactly on a scale threshold (usable share at 40% or 80%, technical loss at half the allocation, seeing equal to limit) so judges may split.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.2,
+   "skills": [
+    "S6"
+   ]
+  }
+ ],
+ "sections": [
+  {
+   "name": "night_header",
+   "description": "Local night date, telescope, instrument, programme_id, allocated_hours, twilight times and any eng_window interval."
+  },
+  {
+   "name": "conditions",
+   "description": "Weather station summaries per hour and a closures list with start, end and logged reason."
+  },
+  {
+   "name": "exposures",
+   "description": "List of frames: frame_id, target_id, start_utc, exptime_s, filter, airmass, seeing_arcsec, qa (pass, fail or null)."
+  },
+  {
+   "name": "programme_request",
+   "description": "Requested targets with required filters, total exposure seconds, max_seeing_arcsec, max_airmass and any approved exception."
+  },
+  {
+   "name": "faults",
+   "description": "Engineering entries: subsystem, start_utc, end_utc or null, cleared, retest_utc or null, workaround text or null, ticket_ref."
+  },
+  {
+   "name": "notes",
+   "description": "Two short free-text fields: observer_note naming targets completed and night_assistant_note."
+  }
+ ],
+ "rendering_notes": "weather_loss_hours appears as conditions.closures intervals with reason 'weather' and hourly station values (humidity_pct, wind_kmh, cloud_okta) above limits given in conditions.limits. closure_reason_mismatch is shown only by station values below limits during a 'weather' closure, or by a faults entry whose start_utc falls within two minutes of the closure start. fault_overlap is rendered through faults start/end versus times when no closure is active and exposures are absent. fault_resolution_state maps to cleared, retest_utc and workaround fields; maintenance_window places the fault inside night_header.eng_window (null when absent). note_claim_discrepancy is visible only by summing exptime_s per target and filter in exposures against programme_request totals for targets the observer_note calls 'done' or 'complete'; small shortfalls should look like rounding. seeing_vs_limit appears in per-frame seeing_arcsec against max_seeing_arcsec; seeing_exception_approved appears as programme_request.exception with target_ids and relaxed_seeing_arcsec, null when absent. usable_fraction is never stated; reviewers derive it from qa-pass, in-constraint exptime_s against allocated_hours. qa_pending_count frames have qa null. utc_date_rollover gives exposures start_utc dates one day after the header's local date: a decoy, not an error. assistant_note_tone drives night_assistant_note wording (e.g. 'loud grinding from dome drive around 02:10'), which for alarmed_benign is explained by an eng_window test, and for alarmed_real matches an open fault. Decoys: rollover dates, alarming notes, seeing breaches covered by exceptions, faults inside the engineering window. Records must never contain fields such as 'charge', 'usable_pct', 'disposition', 'loss_cause' or 'severity'; all answers come from comparing sections. Some records should have no mismatches at all.",
+ "skills": [
+  "S1",
+  "S3",
+  "S4",
+  "S5",
+  "S6",
+  "S7"
+ ],
+ "shared_scale": null,
+ "design_cost": 0.1532
+}

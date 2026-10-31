@@ -1,0 +1,142 @@
+{
+ "id": "F240-0031",
+ "family": "F240",
+ "state": {
+  "asset": {
+   "inverter_id": "INV-4",
+   "rated_ac_kw": 1000
+  },
+  "fault_event": {
+   "code": "F-FAN-01",
+   "fw_severity": 2,
+   "ts_start": "2025-05-06T06:10",
+   "ts_clear": "2025-05-06T07:00"
+  },
+  "telemetry": {
+   "samples": [
+    {
+     "ts": "2025-05-06T06:55",
+     "ac_kw": 62,
+     "exp_kw": 64,
+     "poa_wm2": 85,
+     "limit_pct": 97.5
+    }
+   ],
+   "exp_day_kwh": 2500,
+   "exp_window_kwh": 300,
+   "act_window_kwh": 185
+  },
+  "site_context": {
+   "grid_events": [
+    {
+     "ts": "2025-05-06T06:12",
+     "type": "sag",
+     "magnitude_pu": 0.93
+    }
+   ],
+   "maint_windows": [
+    {
+     "from": "2025-05-06T06:00",
+     "to": "2025-05-06T08:00",
+     "scope": "INV-4"
+    }
+   ],
+   "neighbours": [
+    {
+     "inverter_id": "INV-3",
+     "output_ratio": 0.98
+    }
+   ]
+  },
+  "history": {
+   "faults": [
+    {
+     "date": "2025-04-20",
+     "code": "F-FAN-01"
+    },
+    {
+     "date": "2025-04-27",
+     "code": "F-FAN-01"
+    },
+    {
+     "date": "2025-05-02",
+     "code": "F-FAN-01"
+    }
+   ],
+   "work_orders": [
+    {
+     "wo_id": "WO-11",
+     "opened": "2025-04-14",
+     "completed": "2025-04-16",
+     "retest_ok": true
+    }
+   ]
+  }
+ },
+ "factors": {
+  "fault_class": "fan_failure",
+  "log_telemetry_mismatch": "none",
+  "grid_event_concurrent": true,
+  "maintenance_window_active": true,
+  "neighbour_cross_check": "neighbours_normal",
+  "repeat_count_30d": 3,
+  "last_repair_status": "completed_verified",
+  "current_limit_pct": 97.5,
+  "yield_loss_pct": 4.6,
+  "low_irradiance_window": true,
+  "serial_mismatch": false,
+  "boundary_placement": false
+ },
+ "factors_sampled": {
+  "fault_class": "fan_failure",
+  "log_telemetry_mismatch": "none",
+  "grid_event_concurrent": true,
+  "maintenance_window_active": true,
+  "neighbour_cross_check": "neighbours_normal",
+  "repeat_count_30d": 3,
+  "last_repair_status": "completed_verified",
+  "current_limit_pct": 36.24,
+  "yield_loss_pct": 29.08,
+  "low_irradiance_window": true,
+  "serial_mismatch": false,
+  "boundary_placement": false
+ },
+ "plan": {
+  "genuine_defect": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "post_repair_repeat": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "close_log",
+   "second": null
+  },
+  "yield_loss": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  },
+  "capacity_unavailable": {
+   "clarity": "contested",
+   "target": "1",
+   "second": "0"
+  }
+ },
+ "target_words": 28,
+ "deciding": {
+  "genuine_defect": "Fan fault code with three prior repeats and normal neighbours favour a defect; concurrent grid sag and an active maintenance window on INV-4 keep an external cause plausible.",
+  "post_repair_repeat": "Three F-FAN-01 faults dated after the WO-11 completion on 2025-04-16, though the retest passed.",
+  "next_step": "Fault cleared at 07:00, grid sag and maintenance window overlap, limit near full, so closing the log is favoured; the repeats leave some doubt.",
+  "yield_loss": "(300-185)/2500 = 4.6%, just under the 5% boundary between minor and material.",
+  "capacity_unavailable": "Last sample limit_pct 97.5, a slight derate at the edge of full output, so level 1 versus level 0 is arguable."
+ },
+ "request": "rec-F240-0031",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012764
+}

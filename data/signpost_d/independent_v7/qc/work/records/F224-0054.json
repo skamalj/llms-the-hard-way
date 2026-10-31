@@ -1,0 +1,167 @@
+{
+ "id": "F224-0054",
+ "family": "F224",
+ "state": {
+  "request": {
+   "views": [
+    "BW_R"
+   ],
+   "ind": "I_CARIES_MONITOR",
+   "risk": "moderate",
+   "date": "2024-07-09",
+   "prior_same_view": "2022-12-14",
+   "exceptions": [],
+   "verbal_auth": [],
+   "patient_flags": [
+    "SPECIAL_CARE"
+   ]
+  },
+  "exposures": [
+   {
+    "id": 1,
+    "view": "BW_R",
+    "kV": 70,
+    "s": 0.32,
+    "dose": 1.62,
+    "t": "09:41:10"
+   },
+   {
+    "id": 2,
+    "view": "BW_R",
+    "retake_of": 1,
+    "kV": 70,
+    "s": 0.16,
+    "dose": 0.81,
+    "t": "09:43:00"
+   },
+   {
+    "id": 3,
+    "view": "PA_26",
+    "kV": 70,
+    "s": 0.16,
+    "dose": 0.81,
+    "t": "09:46:30"
+   },
+   {
+    "id": 4,
+    "view": "PA_27",
+    "kV": 70,
+    "s": 0.16,
+    "dose": 0.81,
+    "t": "09:47:15"
+   }
+  ],
+  "image_review": {
+   "grade": 2,
+   "faults": {
+    "1": [
+     "FC_BLUR"
+    ]
+   },
+   "second_grader": "done"
+  },
+  "equipment": {
+   "last_qa": "2024-03-01",
+   "qa_interval_m": 12,
+   "output_test": "pass",
+   "drl": {
+    "BW": 0.9,
+    "PA": 0.9
+   },
+   "console_log": [
+    {
+     "t": "09:41:11",
+     "kV": 70,
+     "s": 0.16
+    },
+    {
+     "t": "09:43:00",
+     "kV": 70,
+     "s": 0.16
+    },
+    {
+     "t": "09:46:30",
+     "kV": 70,
+     "s": 0.16
+    },
+    {
+     "t": "09:47:15",
+     "kV": 70,
+     "s": 0.16
+    }
+   ]
+  },
+  "operator": {
+   "signoff_at": null,
+   "prior_findings_12m": 3
+  }
+ },
+ "factors": {
+  "indication_match": "match",
+  "recall_interval_months": 19,
+  "dose_ratio_to_drl": 0.9,
+  "console_log_discrepancy": "setting_mismatch",
+  "retake_cause": "patient_movement_or_operator",
+  "equipment_qa_status": "in_date",
+  "approved_exception": false,
+  "patient_cooperation_flag": true,
+  "unrequested_exposure_count": 2,
+  "verbal_authorisation_logged": false,
+  "image_grade": "acceptable_minor_faults",
+  "audit_completeness": "operator_signoff_missing",
+  "operator_prior_findings": 3
+ },
+ "factors_sampled": {
+  "indication_match": "match",
+  "recall_interval_months": 19,
+  "dose_ratio_to_drl": 1.8,
+  "console_log_discrepancy": "setting_mismatch",
+  "retake_cause": "no_retake",
+  "equipment_qa_status": "in_date",
+  "approved_exception": false,
+  "patient_cooperation_flag": true,
+  "unrequested_exposure_count": 2,
+  "verbal_authorisation_logged": false,
+  "image_grade": "acceptable_minor_faults",
+  "audit_completeness": "operator_signoff_missing",
+  "operator_prior_findings": 3
+ },
+ "plan": {
+  "justified": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "operator_retake": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "follow_up": {
+   "clarity": "leaning",
+   "target": "operator_feedback",
+   "second": null
+  },
+  "dose_position": {
+   "clarity": "clear",
+   "target": "1",
+   "second": null
+  },
+  "unjustified_count": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 76,
+ "deciding": {
+  "justified": "The BW_R request has a fitting indication and a 19-month interval, which is acceptable at moderate risk (12 months), but two extra periapicals were taken without a referral entry.",
+  "operator_retake": "The retake follows FC_BLUR, which suggests patient movement, and the SPECIAL_CARE flag supports that; three prior operator findings and a missing sign-off support an operator cause.",
+  "follow_up": "Three prior findings, two unrequested views and a missing sign-off lean towards operator feedback rather than a hold or escalation, since the verified dose is within reference.",
+  "dose_position": "The list shows 0.32 s but the console shows 0.16 s at 70 kV, so the verified dose is about 0.81 against a reference of 0.9, or 90%, which is typical.",
+  "unjustified_count": "PA_26 and PA_27 are not in the request and there is no verbal authorisation. If the BW_R retake is also counted as unjustified that makes 3, otherwise 2."
+ },
+ "request": "rec-F224-0051",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011636
+}

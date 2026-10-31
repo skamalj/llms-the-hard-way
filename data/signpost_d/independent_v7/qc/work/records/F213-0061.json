@@ -1,0 +1,138 @@
+{
+ "id": "F213-0061",
+ "family": "F213",
+ "state": {
+  "pool": {
+   "type": "competition",
+   "test_interval_min": 120,
+   "opening": {
+    "open": "2024-05-06T06:00",
+    "close": "2024-05-06T12:00"
+   },
+   "limits": {
+    "free_cl_min": 1.0,
+    "ph_max": 7.8
+   },
+   "tolerance": {
+    "free_cl": 0.3,
+    "ph": 0.2
+   },
+   "micro_due": "2024-05-20"
+  },
+  "manual_tests": [
+   {
+    "time": "2024-05-06T06:05",
+    "free_cl": 2.0,
+    "ph": 7.4
+   },
+   {
+    "time": "2024-05-06T08:10",
+    "free_cl": 0.5,
+    "ph": 7.5
+   },
+   {
+    "time": "2024-05-06T10:15",
+    "free_cl": 0.8,
+    "ph": 7.5
+   }
+  ],
+  "plant": {
+   "controller_readings": [
+    {
+     "time": "2024-05-06T06:20",
+     "free_cl": 2.0,
+     "ph": 7.4
+    },
+    {
+     "time": "2024-05-06T08:25",
+     "free_cl": 0.6,
+     "ph": 7.5
+    },
+    {
+     "time": "2024-05-06T10:30",
+     "free_cl": 0.8,
+     "ph": 7.5
+    }
+   ],
+   "backwash": [
+    "2024-05-06T07:00"
+   ]
+  },
+  "actions": [
+   {
+    "time": "2024-05-06T08:30",
+    "action_type": "dose",
+    "reading_ref": "2024-05-06T08:10"
+   }
+  ],
+  "lab_sample": null
+ },
+ "factors": {
+  "pool_type": "competition",
+  "test_coverage_gap": 0,
+  "boundary_interval": false,
+  "log_controller_discrepancy": "large",
+  "discrepancy_location": "timestamp_offset",
+  "excursion_severity": "clear",
+  "corrective_action_delay": "prompt",
+  "retest_logged": false,
+  "dosing_event_explains": false,
+  "kit_calibration_status": "in_date",
+  "lab_sample_state": "not_due",
+  "out_of_order_entry": false,
+  "benign_noise": "backwash"
+ },
+ "factors_sampled": {
+  "pool_type": "competition",
+  "test_coverage_gap": 0,
+  "boundary_interval": false,
+  "log_controller_discrepancy": "large",
+  "discrepancy_location": "timestamp_offset",
+  "excursion_severity": "clear",
+  "corrective_action_delay": "prompt",
+  "retest_logged": false,
+  "dosing_event_explains": false,
+  "kit_calibration_status": "in_date",
+  "lab_sample_state": "not_due",
+  "out_of_order_entry": false,
+  "benign_noise": "backwash"
+ },
+ "plan": {
+  "test_frequency_met": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "readings_reconcile": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "log_disposition": {
+   "clarity": "balanced",
+   "target": "hold_for_retest",
+   "second": "require_closure"
+  },
+  "action_delay": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  },
+  "failed_checks": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  }
+ },
+ "target_words": 40,
+ "deciding": {
+  "test_frequency_met": "Spacing is 125 min between each pair of tests against a 120 min interval: only marginally over, so the answer is balanced.",
+  "readings_reconcile": "Controller values match manual values within tolerance once the 15 minute time shift is allowed for; the nearest-in-time controller entries differ only by timestamp.",
+  "log_disposition": "Free chlorine 0.5 then 0.8 stays below the 1.0 minimum with no retest_time in actions, so hold for retest and closure are both defensible.",
+  "action_delay": "Dose action at 08:30 references the 08:10 reading: 20 minutes, within 30.",
+  "failed_checks": "Unresolved low chlorine, no retest, dosing not clearing it and marginal test spacing together make about four checks fail."
+ },
+ "request": "rec-F213-0061",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012701
+}

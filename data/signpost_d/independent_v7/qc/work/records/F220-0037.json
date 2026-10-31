@@ -1,0 +1,129 @@
+{
+ "id": "F220-0037",
+ "family": "F220",
+ "state": {
+  "tray": {
+   "tray_id": "T-2290",
+   "barcode": "5520108",
+   "requested_for": "2025-04-02T14:00"
+  },
+  "set_check": {
+   "lines": [
+    {
+     "cat_code": "SC07",
+     "qty_expected": 2,
+     "qty_counted": 1
+    },
+    {
+     "cat_code": "RT03",
+     "qty_expected": 1,
+     "qty_counted": 0
+    }
+   ],
+   "variances": [],
+   "packer_note": "All there, checked twice."
+  },
+  "washer": {
+   "cycle_id": "W88",
+   "a0": 3000,
+   "alarms": [
+    "door_seal"
+   ],
+   "trays_processed": [
+    "5520108"
+   ],
+   "rerun_cycle_id": null
+  },
+  "steriliser_load": {
+   "load_id": "L31",
+   "printout": {
+    "temp_min_c": 134.8,
+    "hold_s": 210,
+    "pressure_kpa": 150
+   },
+   "logger": {
+    "temp_min_c": 134.9,
+    "hold_s": 212
+   },
+   "daily_test": {
+    "result": "pass"
+   },
+   "bi": null,
+   "ci_result": "pass",
+   "unload_condition": "dry"
+  },
+  "release_label": {
+   "tray_barcode": "5520180",
+   "load_id": "L31",
+   "wrap_condition": "intact"
+  }
+ },
+ "factors": {
+  "set_count_discrepancies": 2,
+  "substitution_documented": false,
+  "cycle_excursion": "pressure_fault",
+  "independent_logger_confirms": true,
+  "bi_status": "not_required",
+  "chemical_indicator": "pass",
+  "washer_record_state": "alarm_no_rerun",
+  "pack_integrity": "intact",
+  "label_mismatch": "tray_barcode_differs",
+  "daily_test_state": "pass_today",
+  "theatre_urgency": "routine",
+  "note_tone": "reassuring_unverified",
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "set_count_discrepancies": 2,
+  "substitution_documented": false,
+  "cycle_excursion": "pressure_fault",
+  "independent_logger_confirms": true,
+  "bi_status": "not_required",
+  "chemical_indicator": "pass",
+  "washer_record_state": "alarm_no_rerun",
+  "pack_integrity": "intact",
+  "label_mismatch": "tray_barcode_differs",
+  "daily_test_state": "pass_today",
+  "theatre_urgency": "routine",
+  "note_tone": "reassuring_unverified",
+  "boundary_case": false
+ },
+ "plan": {
+  "cycle_in_limits": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "disposition": {
+   "clarity": "clear",
+   "target": "hold",
+   "second": null
+  },
+  "failure_stage": {
+   "clarity": "clear",
+   "target": "no_discrepancy",
+   "second": null
+  },
+  "count_gaps": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  },
+  "sterility_doubt": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  }
+ },
+ "target_words": 31,
+ "deciding": {
+  "cycle_in_limits": "Printout pressure 150 kPa is below the saturated band for 134 C while the logger temperature and hold are in band, so it is a near-even call.",
+  "disposition": "Washer alarm door_seal with null rerun and label barcode 5520180 differs from tray 5520108; hold is clear.",
+  "failure_stage": "The washer alarm and the label barcode mismatch are listed, so discrepancies exist, and no_discrepancy is planned clear.",
+  "count_gaps": "SC07 short by one and RT03 short by one, no variances, with a reassuring packer note that does not override; two or one if counted by line.",
+  "sterility_doubt": "CI passes, dry, intact wrap, BI not required; the label barcode mismatch is one record gap."
+ },
+ "request": "rec-F220-0036",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.006909
+}

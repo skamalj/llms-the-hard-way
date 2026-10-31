@@ -1,0 +1,111 @@
+{
+ "id": "F205-0008",
+ "family": "F205",
+ "state": {
+  "flight": {
+   "no": "LM502",
+   "std": "2024-07-09T14:20Z",
+   "turn": "quick"
+  },
+  "times": {
+   "on_blocks": "2024-07-09T13:30Z",
+   "last_bag": "2024-07-09T14:18Z",
+   "doors_closed": "2024-07-09T14:20Z",
+   "off_blocks": "2024-07-09T14:23Z",
+   "delay_code": "BAG",
+   "delay_min": 3
+  },
+  "load": {
+   "pax": 64,
+   "bags_count": 40,
+   "bags_kg": 520,
+   "notoc": null,
+   "captain_accepted": true
+  },
+  "hold_log": [
+   {
+    "pos": "1",
+    "bags": 28,
+    "kg": 370
+   },
+   {
+    "pos": "T",
+    "bags": 12,
+    "kg": 150,
+    "transfer": true
+   }
+  ],
+  "remarks": [
+   {
+    "role": "ramp",
+    "msg": "Boarding closed 64 pax."
+   }
+  ]
+ },
+ "factors": {
+  "bag_mismatch_size": "none",
+  "mismatch_location": "none",
+  "missing_record": "none",
+  "milestone_out_of_order": false,
+  "delay_minutes": 3,
+  "delay_code_fit": "supported",
+  "explanatory_remark": false,
+  "pending_signoff": false,
+  "dg_on_board": false,
+  "decoy_noise": "transfer_bags_listed_separately",
+  "boundary_value": true,
+  "turn_type": "quick_turn"
+ },
+ "factors_sampled": {
+  "bag_mismatch_size": "large_10_plus_bags",
+  "mismatch_location": "pax_count_vs_boarding_close",
+  "missing_record": "notoc_missing",
+  "milestone_out_of_order": true,
+  "delay_minutes": 91,
+  "delay_code_fit": "supported",
+  "explanatory_remark": true,
+  "pending_signoff": false,
+  "dg_on_board": false,
+  "decoy_noise": "transfer_bags_listed_separately",
+  "boundary_value": false,
+  "turn_type": "quick_turn"
+ },
+ "plan": {
+  "load_reconciled": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "delay_code_supported": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "log_disposition": {
+   "clarity": "clear",
+   "target": "close_clean",
+   "second": null
+  },
+  "offblock_delay": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "failed_checks": {
+   "clarity": "leaning",
+   "target": "0",
+   "second": null
+  }
+ },
+ "target_words": 60,
+ "deciding": {
+  "load_reconciled": "Hold entries 28+12 transfer = 40 bags and 520 kg, matching the loadsheet; the transfer bags are listed separately.",
+  "delay_code_supported": "Code BAG and last_bag at 14:18, just before STD 14:20 and in the right order, so the bag activity ran to the end of the turn.",
+  "log_disposition": "Pax 64 matches the boarding remark, the captain has accepted, there is no dg entry so the null notoc is irrelevant, and the milestones are in order.",
+  "offblock_delay": "Off-blocks 14:23 against STD 14:20 is exactly 3 minutes, on the boundary between levels 0 and 1.",
+  "failed_checks": "Every cross-check passes; the only oddities are the separately listed transfer bags and a null notoc with no dangerous goods."
+ },
+ "request": "rec-F205-0006",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.010996
+}

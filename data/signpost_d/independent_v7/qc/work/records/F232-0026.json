@@ -1,0 +1,193 @@
+{
+ "id": "F232-0026",
+ "family": "F232",
+ "state": {
+  "night_header": {
+   "date": "2025-03-12",
+   "prog": "P41",
+   "alloc_h": 8
+  },
+  "conditions": {
+   "limits": {
+    "hum": 80,
+    "wind": 50,
+    "cloud": 4
+   },
+   "closures": [
+    {
+     "start": "03:10",
+     "end": "03:40",
+     "reason": "weather"
+    }
+   ],
+   "hourly": [
+    {
+     "h": 3,
+     "hum": 55,
+     "wind": 20,
+     "cloud": 1
+    }
+   ]
+  },
+  "exposures": [
+   {
+    "id": "E1",
+    "t": "T1",
+    "f": "r",
+    "s": 7200,
+    "see": 1.1,
+    "qa": "pass"
+   },
+   {
+    "id": "E2",
+    "t": "T1",
+    "f": "g",
+    "s": 7200,
+    "see": 1.2,
+    "qa": "pass"
+   },
+   {
+    "id": "E3",
+    "t": "T2",
+    "f": "r",
+    "s": 8800,
+    "see": 1.3,
+    "qa": "pass"
+   },
+   {
+    "id": "E4",
+    "t": "T3",
+    "f": "r",
+    "s": 400,
+    "see": 1.3,
+    "qa": null
+   },
+   {
+    "id": "E5",
+    "t": "T3",
+    "f": "r",
+    "s": 400,
+    "see": 1.4,
+    "qa": null
+   },
+   {
+    "id": "E6",
+    "t": "T3",
+    "f": "r",
+    "s": 400,
+    "see": 1.4,
+    "qa": null
+   },
+   {
+    "id": "E7",
+    "t": "T3",
+    "f": "r",
+    "s": 900,
+    "see": 1.9,
+    "qa": "fail"
+   }
+  ],
+  "programme_request": {
+   "max_seeing": 1.5,
+   "exception": null,
+   "targets": [
+    {
+     "t": "T1",
+     "req": {
+      "r": 7200,
+      "g": 7200
+     }
+    },
+    {
+     "t": "T2",
+     "req": {
+      "r": 9000
+     }
+    }
+   ]
+  },
+  "faults": [
+   {
+    "sub": "focus",
+    "start": "01:05",
+    "end": "01:12",
+    "cleared": true,
+    "retest": null,
+    "workaround": "manual focus offsets",
+    "ticket": "F-2201"
+   }
+  ],
+  "notes": {
+   "observer": "T1 and T2 complete.",
+   "assistant": "Focus stage stuck at 01:05, power-cycled; hope it holds."
+  }
+ },
+ "factors": {
+  "weather_loss_hours": 0.5,
+  "fault_overlap": "none",
+  "fault_resolution_state": "cleared_no_retest",
+  "maintenance_window": false,
+  "closure_reason_mismatch": "station_below_limits",
+  "note_claim_discrepancy": "short_small",
+  "seeing_vs_limit": "exceeded",
+  "seeing_exception_approved": false,
+  "usable_fraction": 0.8,
+  "qa_pending_count": 3,
+  "utc_date_rollover": false,
+  "assistant_note_tone": "alarmed_real",
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "weather_loss_hours": 5.03,
+  "fault_overlap": "none",
+  "fault_resolution_state": "cleared_retested",
+  "maintenance_window": false,
+  "closure_reason_mismatch": "station_below_limits",
+  "note_claim_discrepancy": "filter_missing",
+  "seeing_vs_limit": "exceeded",
+  "seeing_exception_approved": false,
+  "usable_fraction": 0.66,
+  "qa_pending_count": 3,
+  "utc_date_rollover": false,
+  "assistant_note_tone": "alarmed_real",
+  "boundary_case": false
+ },
+ "plan": {
+  "weather_only_loss": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "claims_supported": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "night_disposition": {
+   "clarity": "clear",
+   "target": "charge_full",
+   "second": null
+  },
+  "usable_share": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  },
+  "fault_followup": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  }
+ },
+ "target_words": 109,
+ "deciding": {
+  "weather_only_loss": "The 'weather' closure 03:10-03:40 has station values (hum 55, wind 20, cloud 1) well below limits, so the lost interval has no supported cause.",
+  "claims_supported": "T1 has both filters at 7200 s each; T2 r is 8800 of 9000 s, a small shortfall that looks like rounding.",
+  "night_disposition": "Only a 30-minute closure and a 7-minute cleared fault, with exposures covering the night; nothing is lost enough to change the charge.",
+  "usable_share": "Passing in-limit time is 23200 s of 28800 s (about 0.81), right at the 80% boundary, with 3 pending frames and 1 failed frame.",
+  "fault_followup": "Focus fault has cleared=true but retest=null; a workaround text is also logged, so level 1 vs 2 is balanced."
+ },
+ "request": "rec-F232-0026",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.017177
+}

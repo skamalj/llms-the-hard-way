@@ -1,0 +1,108 @@
+{
+ "id": "F205-0009",
+ "family": "F205",
+ "state": {
+  "flight": {
+   "no": "TZ318",
+   "std": "2024-08-21T11:00Z",
+   "turn": "full"
+  },
+  "times": {
+   "on_blocks": "2024-08-21T09:42Z",
+   "doors_open": "2024-08-21T09:46Z",
+   "boarding_start": "2024-08-21T10:30Z",
+   "doors_closed": "2024-08-21T10:55Z",
+   "off_blocks": "2024-08-21T11:04Z",
+   "delay_code": "CLN",
+   "delay_min": 4
+  },
+  "load": {
+   "pax": 102,
+   "bags_count": 41,
+   "bags_kg": 590,
+   "fuel_kg": 4100,
+   "captain_accepted": true
+  },
+  "hold_log": [],
+  "services": {
+   "cleaning": {
+    "end": "10:33"
+   },
+   "fuel": {
+    "uplift_kg": 4100
+   }
+  },
+  "remarks": [
+   {
+    "role": "supervisor",
+    "msg": "Hold app offline; 41 bags counted by hand at loading, matches tag scan."
+   }
+  ]
+ },
+ "factors": {
+  "bag_mismatch_size": "none",
+  "mismatch_location": "loadsheet_bags_vs_hold_log",
+  "missing_record": "hold_log_empty",
+  "milestone_out_of_order": false,
+  "delay_minutes": 4,
+  "delay_code_fit": "ambiguous",
+  "explanatory_remark": true,
+  "pending_signoff": false,
+  "dg_on_board": false,
+  "decoy_noise": "rounding_within_tolerance",
+  "boundary_value": true,
+  "turn_type": "full_turn"
+ },
+ "factors_sampled": {
+  "bag_mismatch_size": "none",
+  "mismatch_location": "loadsheet_bags_vs_hold_log",
+  "missing_record": "hold_log_empty",
+  "milestone_out_of_order": true,
+  "delay_minutes": 101,
+  "delay_code_fit": "supported",
+  "explanatory_remark": true,
+  "pending_signoff": true,
+  "dg_on_board": false,
+  "decoy_noise": "rounding_within_tolerance",
+  "boundary_value": false,
+  "turn_type": "full_turn"
+ },
+ "plan": {
+  "load_reconciled": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "delay_code_supported": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "log_disposition": {
+   "clarity": "clear",
+   "target": "close_with_note",
+   "second": null
+  },
+  "offblock_delay": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  },
+  "failed_checks": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 76,
+ "deciding": {
+  "load_reconciled": "hold_log is empty, so the loadsheet bag count of 41 cannot be checked against hold entries; only a manual count in the remark supports it.",
+  "delay_code_supported": "Code CLN with cleaning ending 10:33, three minutes after boarding_start 10:30, which is weak support, and the delay is only 4 minutes.",
+  "log_disposition": "The supervisor remark fully explains the empty hold log (offline app, hand count matching tag scan), so annotate and close.",
+  "offblock_delay": "Off-blocks 11:04 against STD 11:00 is 4 minutes late, at the 3/4 boundary.",
+  "failed_checks": "Whether the empty hold log counts as a failed check, given the hand-count explanation, is the only open point: none or one failed."
+ },
+ "request": "rec-F205-0006",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.010996
+}

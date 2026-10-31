@@ -1,0 +1,116 @@
+{
+ "id": "F235-0033",
+ "family": "F235",
+ "state": {
+  "visit": {
+   "type": "reactive",
+   "tasks_planned": 2,
+   "abort_reason": "river rising, crew withdrew"
+  },
+  "checks": {
+   "pre": {
+    "board_m": [
+     1.1,
+     1.112
+    ],
+    "logger_m": 1.101
+   },
+   "post": {
+    "board_m": [
+     1.101,
+     1.113
+    ],
+    "logger_m": 1.102
+   }
+  },
+  "works": {
+   "tasks": [
+    {
+     "task": "swap transducer",
+     "status": "part_done"
+    },
+    {
+     "task": "recalibrate",
+     "status": "not_started"
+    }
+   ],
+   "parts": null,
+   "bench_test": {
+    "result_mm_error": 5
+   },
+   "logger_gap_h": 46
+  },
+  "defects": [],
+  "notes": {
+   "tech_note": "Small offset only, should be fine."
+  }
+ },
+ "factors": {
+  "pre_visit_offset_mm": 5.0,
+  "check_reading_spread_mm": 12.0,
+  "drift_cause": "sensor_fault",
+  "cause_evidence": "corroborated",
+  "visit_completion": "aborted",
+  "post_visit_check_logged": true,
+  "residual_defect_class": "none",
+  "backup_sensor_ok": true,
+  "benign_explanation": false,
+  "record_gap": "parts_null_with_swap",
+  "logger_gap_hours": 46,
+  "telemetry_decoy": "normal",
+  "note_tone": "reassuring"
+ },
+ "factors_sampled": {
+  "pre_visit_offset_mm": 13.1,
+  "check_reading_spread_mm": 11.72,
+  "drift_cause": "channel_change",
+  "cause_evidence": "none",
+  "visit_completion": "aborted",
+  "post_visit_check_logged": true,
+  "residual_defect_class": "none",
+  "backup_sensor_ok": true,
+  "benign_explanation": false,
+  "record_gap": "parts_null_with_swap",
+  "logger_gap_hours": 46,
+  "telemetry_decoy": "normal",
+  "note_tone": "reassuring"
+ },
+ "plan": {
+  "sensor_fault_cause": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "visit_disposition": {
+   "clarity": "clear",
+   "target": "urgent_revisit",
+   "second": null
+  },
+  "data_treatment": {
+   "clarity": "clear",
+   "target": "apply_correction",
+   "second": null
+  },
+  "offset_size": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "residual_defect": {
+   "clarity": "contested",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 51,
+ "deciding": {
+  "sensor_fault_cause": "Bench test error 5 mm matches the offset, and the post check still shows the same offset after the transducer swap was only part done.",
+  "visit_disposition": "Aborted with swap part_done and recalibrate not started; the same offset persists in the post check, so the measurement fault is still live.",
+  "data_treatment": "Offset is verified by bench test and by both checks, so a fixed shift applies.",
+  "offset_size": "Board mean 1.106 minus logger 1.101 = 5 mm, on the 0/1 boundary, with a 12 mm reading spread.",
+  "residual_defect": "Defects list is empty, but the incomplete swap leaves some doubt, so level 0 versus 1 is split."
+ },
+ "request": "rec-F235-0031",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011654
+}

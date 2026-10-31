@@ -1,0 +1,111 @@
+{
+ "id": "F205-0011",
+ "family": "F205",
+ "state": {
+  "flight": {
+   "no": "RX412",
+   "type": "E190",
+   "std": "2024-05-10T14:00Z",
+   "revised_std": "2024-05-10T14:20Z",
+   "turn": "full_turn"
+  },
+  "times": {
+   "on_blocks": "2024-05-10T12:40Z",
+   "doors_closed": "2024-05-10T15:05Z",
+   "boarding_start": "2024-05-10T15:08Z",
+   "off_blocks": "2024-05-10T15:00Z",
+   "delay_code": null,
+   "delay_min": 60
+  },
+  "load": {
+   "bags_count": 58,
+   "captain_accepted": true
+  },
+  "hold_log": [
+   {
+    "pos": "1",
+    "bags": 30
+   },
+   {
+    "pos": "4",
+    "bags": 28
+   }
+  ],
+  "services": {
+   "pushback": null
+  },
+  "remarks": [
+   {
+    "role": "ramp",
+    "t": "14:55",
+    "msg": "Late inbound crew, wait for connecting pax."
+   }
+  ]
+ },
+ "factors": {
+  "bag_mismatch_size": "none",
+  "mismatch_location": "loadsheet_bags_vs_hold_log",
+  "missing_record": "pushback_record_missing",
+  "milestone_out_of_order": true,
+  "delay_minutes": 60,
+  "delay_code_fit": "no_code_logged",
+  "explanatory_remark": true,
+  "pending_signoff": false,
+  "dg_on_board": false,
+  "decoy_noise": "revised_std_in_schedule",
+  "boundary_value": true,
+  "turn_type": "full_turn"
+ },
+ "factors_sampled": {
+  "bag_mismatch_size": "none",
+  "mismatch_location": "loadsheet_bags_vs_hold_log",
+  "missing_record": "pushback_record_missing",
+  "milestone_out_of_order": true,
+  "delay_minutes": 72,
+  "delay_code_fit": "no_code_logged",
+  "explanatory_remark": true,
+  "pending_signoff": false,
+  "dg_on_board": false,
+  "decoy_noise": "revised_std_in_schedule",
+  "boundary_value": true,
+  "turn_type": "full_turn"
+ },
+ "plan": {
+  "load_reconciled": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "delay_code_supported": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "log_disposition": {
+   "clarity": "leaning",
+   "target": "close_clean",
+   "second": null
+  },
+  "offblock_delay": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  },
+  "failed_checks": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  }
+ },
+ "target_words": 82,
+ "deciding": {
+  "load_reconciled": "Loadsheet bags 58 equals hold entries 30+28.",
+  "delay_code_supported": "delay_code null but a remark gives a cause; no activity milestone shows late.",
+  "log_disposition": "Load agrees and captain accepted; the only gaps are the null pushback and boarding timestamp after off_blocks, which are weak.",
+  "offblock_delay": "Off-blocks 15:00 vs original STD 14:00 is exactly 60 minutes, on the 16-60/over-60 boundary; revised STD is a decoy.",
+  "failed_checks": "Missing delay code and null pushback, plus boarding_start after off_blocks (out of order), hold the count between one and two."
+ },
+ "request": "rec-F205-0011",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.005526
+}

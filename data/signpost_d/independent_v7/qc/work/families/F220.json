@@ -1,0 +1,365 @@
+{
+ "id": "F220",
+ "domain": "surgical instrument tray sterilisation records",
+ "role": "Sterile services release checker reviewing each processed instrument tray record before it is released to theatre",
+ "setting": "A hospital sterile services department reprocesses reusable surgical instrument trays. Each tray passes through washer-disinfection, inspection and packing against a set list, then steam sterilisation in a porous-load autoclave. Before a tray goes to the theatre store, a release checker opens its tracking record. The record holds the tray identity and theatre request, the packing count, the washer cycle, the steriliser load with its indicators, and the printed release label. The checker decides whether the cycle data hold up, what happens to the tray, where the earliest unresolved problem sits, how many instrument discrepancies are unexplained, and how much doubt there is over sterility assurance.",
+ "questions": {
+  "cycle_in_limits": {
+   "type": "noul",
+   "instructions": "Cycle parameters stayed within validated limits throughout the hold period.",
+   "criteria": {
+    "true": "logged temperature, pressure and hold time all in band",
+    "false": "an unexplained excursion, short hold or missing cycle data"
+   }
+  },
+  "disposition": {
+   "type": "choice",
+   "instructions": "What should happen to this tray before it goes to theatre?",
+   "criteria": {
+    "release": "All checks reconcile; tray goes to store for theatre use.",
+    "release_annotated": "Process evidence complete; a documented instrument variance noted on label.",
+    "hold": "Keep quarantined until one outstanding result or record is confirmed.",
+    "reprocess": "Return to decontamination for rewash, repack and a new cycle."
+   }
+  },
+  "failure_stage": {
+   "type": "choice",
+   "instructions": "Which process stage first shows an unresolved discrepancy in this record?",
+   "criteria": {
+    "no_discrepancy": "Every section reconciles or each discrepancy has an accepted explanation.",
+    "wash_stage": "Earliest unresolved issue: washer record missing, mismatched or alarmed.",
+    "pack_stage": "Earliest unresolved issue is a count, label or date mismatch.",
+    "steriliser_stage": "Only unresolved issues are cycle, indicator or wet-load failures."
+   }
+  },
+  "count_gaps": {
+   "type": "score",
+   "instructions": "How many instruments have unexplained discrepancies between set list and count?",
+   "criteria": [
+    "No unexplained instrument discrepancies against set list",
+    "Exactly one unexplained instrument discrepancy",
+    "Two or three unexplained instrument discrepancies",
+    "Four or more unexplained instrument discrepancies"
+   ]
+  },
+  "sterility_doubt": {
+   "type": "score",
+   "instructions": "How much doubt is there about this tray's sterility assurance?",
+   "criteria": [
+    "Assured: all indicators passed, packaging intact and dry",
+    "Minor: indicators passed; one label or record gap",
+    "Doubtful: an indicator pending, missing or unreadable; none failed",
+    "Compromised: an indicator failed, or pack wet or breached"
+   ]
+  }
+ },
+ "factors": [
+  {
+   "name": "set_count_discrepancies",
+   "description": "Number of instrument lines where qty_counted differs from qty_expected, including substitutions with a different catalogue code",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 5,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S4",
+    "S7"
+   ]
+  },
+  {
+   "name": "substitution_documented",
+   "description": "Whether discrepant lines are covered by an approved variance entry naming the line and a supervisor sign-off; when true, covers all but at most one discrepancy",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S4",
+    "S6"
+   ]
+  },
+  {
+   "name": "cycle_excursion",
+   "description": "Type of deviation visible on the chamber printout during the hold phase",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "brief_temp_dip",
+    "short_hold",
+    "pressure_fault",
+    "printout_missing"
+   ],
+   "weights": [
+    0.4,
+    0.18,
+    0.14,
+    0.14,
+    0.14
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S5"
+   ]
+  },
+  {
+   "name": "independent_logger_confirms",
+   "description": "Whether the validated independent data logger shows temperature and hold in band for the same load, mitigating a chamber printout excursion or gap",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S5"
+   ]
+  },
+  {
+   "name": "bi_status",
+   "description": "Biological indicator state for the load",
+   "kind": "categorical",
+   "values": [
+    "pass",
+    "not_required",
+    "pending",
+    "missing",
+    "fail"
+   ],
+   "weights": [
+    0.35,
+    0.25,
+    0.2,
+    0.1,
+    0.1
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S4",
+    "S6"
+   ]
+  },
+  {
+   "name": "chemical_indicator",
+   "description": "Reading of the internal chemical indicator recorded at unload",
+   "kind": "categorical",
+   "values": [
+    "pass",
+    "partial_change",
+    "not_read",
+    "fail"
+   ],
+   "weights": [
+    0.6,
+    0.15,
+    0.13,
+    0.12
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S4",
+    "S6"
+   ]
+  },
+  {
+   "name": "washer_record_state",
+   "description": "How the washer-disinfector record relates to this tray",
+   "kind": "categorical",
+   "values": [
+    "complete",
+    "barcode_not_listed",
+    "alarm_cleared_rerun",
+    "alarm_no_rerun",
+    "no_record"
+   ],
+   "weights": [
+    0.45,
+    0.15,
+    0.15,
+    0.12,
+    0.13
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S3"
+   ]
+  },
+  {
+   "name": "pack_integrity",
+   "description": "Condition of wrap and pack at unload and label check",
+   "kind": "categorical",
+   "values": [
+    "intact",
+    "wet_on_unload",
+    "wrap_tear",
+    "condensate_dried_retested"
+   ],
+   "weights": [
+    0.6,
+    0.13,
+    0.12,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S4"
+   ]
+  },
+  {
+   "name": "label_mismatch",
+   "description": "Discrepancy between the release label and other sections",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "date_off_by_one_midnight",
+    "tray_barcode_differs",
+    "expiry_inconsistent"
+   ],
+   "weights": [
+    0.55,
+    0.15,
+    0.15,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S6"
+   ]
+  },
+  {
+   "name": "daily_test_state",
+   "description": "Steriliser daily air-removal (Bowie-Dick) test status for the cycle date",
+   "kind": "categorical",
+   "values": [
+    "pass_today",
+    "not_logged",
+    "fail_then_repaired_pass"
+   ],
+   "weights": [
+    0.6,
+    0.2,
+    0.2
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S6"
+   ]
+  },
+  {
+   "name": "theatre_urgency",
+   "description": "How urgently theatre has asked for the tray; a pressure signal that never changes the correct answers",
+   "kind": "categorical",
+   "values": [
+    "routine",
+    "next_list",
+    "emergency_on_call"
+   ],
+   "weights": [
+    0.5,
+    0.3,
+    0.2
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S7"
+   ]
+  },
+  {
+   "name": "note_tone",
+   "description": "Tone of free-text comments from packer or operator, independent of the actual evidence",
+   "kind": "categorical",
+   "values": [
+    "neutral",
+    "reassuring_unverified",
+    "flags_concern_resolved",
+    "flags_concern_open"
+   ],
+   "weights": [
+    0.4,
+    0.25,
+    0.15,
+    0.2
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S5",
+    "S3"
+   ]
+  },
+  {
+   "name": "boundary_case",
+   "description": "Whether one key value sits exactly on a threshold, such as hold exactly 180 s or temperature exactly 134.0 C",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.25,
+   "skills": [
+    "S6"
+   ]
+  }
+ ],
+ "sections": [
+  {
+   "name": "tray",
+   "description": "Tray identity, set code, barcode, theatre request with one free-text request line"
+  },
+  {
+   "name": "set_check",
+   "description": "Instrument lines expected versus counted, variance entries, packer and a packer_note"
+  },
+  {
+   "name": "washer",
+   "description": "Washer-disinfector cycle id, date, A0 value, alarms, tray barcodes processed, rerun reference"
+  },
+  {
+   "name": "steriliser_load",
+   "description": "Load id, steriliser id, chamber printout values, logger values, daily test, BI, CI, operator_comment"
+  },
+  {
+   "name": "release_label",
+   "description": "Printed label: tray barcode, load id, sterilised date, expiry date, wrap condition"
+  }
+ ],
+ "rendering_notes": "tray: {tray_id, set_code, barcode, requested_for (ISO datetime), theatre, request_note}. theatre_urgency appears only via requested_for proximity and request_note (e.g. 'On-call list needs this set within the hour'); it is a decoy and must never change answers. set_check.lines: list of {cat_code, desc, qty_expected, qty_counted}; set_count_discrepancies is rendered as lines where the counts differ or a line whose cat_code is not on the set list. set_check.variances: list of {cat_code, reason, approved_by}; when substitution_documented is true, entries cover all but at most one discrepant line. A variance with approved_by null is contested (S6) and counts as unexplained for count_gaps. set_check.packer_note is free text whose tone follows note_tone; reassuring_unverified notes ('all there, checked twice') never override the counts. washer: {cycle_id, date, a0, alarms:[...], trays_processed:[barcodes], rerun_cycle_id}. barcode_not_listed: tray barcode absent from trays_processed, or one digit transposed. alarm_cleared_rerun: alarm listed, with rerun_cycle_id pointing to a complete clean rerun; this is mitigated. alarm_no_rerun: alarm listed with rerun_cycle_id null. no_record: washer is null. steriliser_load: {load_id, steriliser_id, cycle_date, printout:{temp_min_c, temp_max_c, hold_s, pressure_kpa} or null, logger:{temp_min_c, hold_s} or null, daily_test:{date, result, repair_ref}, bi:{lot, result, incubation_end}, ci_result, unload_condition, operator_comment}. Band is 134.0 to 137.0 C, hold at least 180 s, and pressure in the matching saturated band. cycle_excursion is shown only as printout numbers just outside the band, or printout null; no flag is given. When independent_logger_confirms is true, the logger values are in band and cycle_in_limits is true; when it is false, the logger is null or out of band too. boundary_case puts a value exactly at 134.0 or 180, which counts as in band but invites a split. daily_test fail_then_repaired_pass shows a failed result with a repair_ref and a later pass on the same date. bi_status renders as bi.result 'pass', 'pending' with a future incubation_end, null, or 'fail'; not_required has bi null and the load is not an implant load. pack_integrity renders through unload_condition and release_label.wrap_condition. condensate_dried_retested is mitigated and adds a record gap only. operator_comment is free text following note_tone. release_label: {tray_barcode, load_id, sterilised_date, expiry_date, wrap_condition}. date_off_by_one_midnight: the cycle started before midnight and the label carries the next day; this is trivial but counts as a label gap. tray_barcode_differs and expiry_inconsistent are real mismatches. Answer logic: sterility_doubt is Compromised for a failed BI or CI, an unmitigated excursion, wet_on_unload or wrap_tear. It is Doubtful for a pending, missing or partial indicator, or a missing printout with no logger. It is Minor for one label or record gap only. failure_stage follows process order: wash, then pack (count, label or date), then steriliser. Decoys: urgency, reassuring notes, mitigated washer alarms and repaired daily tests. Never include fields like status, risk, disposition or pass_overall that state an answer.",
+ "skills": [
+  "S1",
+  "S3",
+  "S4",
+  "S5",
+  "S6",
+  "S7"
+ ],
+ "shared_scale": null,
+ "design_cost": 0.173056
+}

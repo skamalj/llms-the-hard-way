@@ -1,0 +1,310 @@
+{
+ "id": "F231",
+ "domain": "film location permit applications to a council",
+ "role": "Council filming liaison officer reviewing location permit applications",
+ "setting": "A local council's filming office receives applications from production companies wanting to shoot on streets, parks and council property. The liaison officer reviews one application record at a time. Each record holds the applicant's history, the shoot schedule, the location footprint, compliance documents, resident consultation and the council booking calendar. For each record the officer decides whether insurance and consultation requirements are met, what should happen to the application next, and how much public highway disruption the shoot involves.",
+ "questions": {
+  "insurance_valid": {
+   "type": "noul",
+   "instructions": "Public liability cover meets the council minimum across every shoot date.",
+   "criteria": {
+    "true": "Cover amount and validity dates span the whole shoot",
+    "false": "Cover short, missing, or lapses before final wrap"
+   }
+  },
+  "consultation_met": {
+   "type": "noul",
+   "instructions": "All required streets were notified within the lead time or waived.",
+   "criteria": {
+    "true": "Every listed street notified on time or waiver held",
+    "false": "Notice late without waiver, unlogged, or streets missed"
+   }
+  },
+  "next_step": {
+   "type": "choice",
+   "instructions": "What should happen to this permit application next?",
+   "criteria": {
+    "refuse": "Reject because a blocking conflict or breach cannot be remedied",
+    "request_info": "Pause until one missing document or confirmation is supplied",
+    "approve_conditions": "Grant with added limits on hours, area, staffing or marshals",
+    "approve": "Grant as submitted with only the standard permit terms"
+   }
+  },
+  "recurrence_count": {
+   "type": "score",
+   "instructions": "How often has this same issue been logged in 12 months?",
+   "criteria": [
+    "First occurrence; not logged in prior 12 months",
+    "Logged once before within the past 12 months",
+    "Logged two to four times in 12 months",
+    "Logged five or more times in 12 months"
+   ]
+  },
+  "highway_impact": {
+   "type": "score",
+   "instructions": "How much of the public highway does the shoot occupy?",
+   "criteria": [
+    "No highway use; private land or parks only",
+    "Pavement or parking bays used, carriageway left open",
+    "Intermittent traffic holds, carriageway never fully closed",
+    "Full road closure on at least one shoot date"
+   ]
+  }
+ },
+ "factors": [
+  {
+   "name": "shoot_scale",
+   "description": "Size of the unit, shown through crew size and unit vehicle count; it shapes conditions but does not decide them alone",
+   "kind": "categorical",
+   "values": [
+    "small_crew",
+    "medium_unit",
+    "large_unit"
+   ],
+   "weights": [
+    0.4,
+    0.4,
+    0.2
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S7"
+   ]
+  },
+  {
+   "name": "highway_use",
+   "description": "Extent of public highway occupation, which sets the true highway_impact level",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "pavement_parking",
+    "intermittent_hold",
+    "full_closure"
+   ],
+   "weights": [
+    0.2,
+    0.35,
+    0.25,
+    0.2
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S4",
+    "S7"
+   ]
+  },
+  {
+   "name": "insurance_status",
+   "description": "State of public liability cover compared with the council minimum and the shoot dates",
+   "kind": "categorical",
+   "values": [
+    "valid_full",
+    "amount_short",
+    "expiry_before_wrap",
+    "certificate_missing"
+   ],
+   "weights": [
+    0.45,
+    0.15,
+    0.25,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S2",
+    "S5"
+   ]
+  },
+  {
+   "name": "renewal_confirmed",
+   "description": "An insurer renewal confirmation is on file, which mitigates expiry before wrap but is not itself a certificate",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S6"
+   ]
+  },
+  {
+   "name": "notification_state",
+   "description": "How the resident notification was carried out relative to the required lead time and street list",
+   "kind": "categorical",
+   "values": [
+    "sent_on_time",
+    "sent_late",
+    "partial_streets",
+    "not_logged"
+   ],
+   "weights": [
+    0.4,
+    0.25,
+    0.2,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S2",
+    "S5",
+    "S6"
+   ]
+  },
+  {
+   "name": "lead_time_waiver",
+   "description": "An approved short-notice waiver reference exists, which excuses late notification but does not cover missed streets",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S5"
+   ]
+  },
+  {
+   "name": "event_clash",
+   "description": "Another booking on the council calendar overlaps the same street and date",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.3,
+   "skills": [
+    "S3",
+    "S7"
+   ]
+  },
+  {
+   "name": "clash_consent",
+   "description": "The organiser of the clashing booking has given written consent on file, which lowers the conflict to a condition",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S4"
+   ]
+  },
+  {
+   "name": "tmp_status",
+   "description": "Traffic management plan status; it is required when the carriageway is held or closed",
+   "kind": "categorical",
+   "values": [
+    "not_required",
+    "approved",
+    "submitted_pending",
+    "absent"
+   ],
+   "weights": [
+    0.3,
+    0.35,
+    0.2,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S2",
+    "S4"
+   ]
+  },
+  {
+   "name": "submission_lead_days",
+   "description": "Days between the submission date and the first shoot date; negative values mean the application was submitted after filming started",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": -3,
+   "max": 40,
+   "p_true": 0,
+   "skills": [
+    "S2",
+    "S6"
+   ]
+  },
+  {
+   "name": "prior_complaints",
+   "description": "Number of logged complaints against the applicant in the last 12 months, some of the same category",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 5,
+   "p_true": 0,
+   "skills": [
+    "S6",
+    "S7"
+   ]
+  },
+  {
+   "name": "night_filming",
+   "description": "Shoot runs past 23:00 on some dates; this pushes towards conditions unless consultation is clean",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.35,
+   "skills": [
+    "S3",
+    "S4",
+    "S6"
+   ]
+  }
+ ],
+ "sections": [
+  {
+   "name": "applicant",
+   "description": "Production company reference, prior permit count and a list of 12-month complaint entries"
+  },
+  {
+   "name": "schedule",
+   "description": "Submission date and a list of shoot dates with call and wrap times"
+  },
+  {
+   "name": "location",
+   "description": "Site type, street references, crew size, unit vehicles and highway occupation details"
+  },
+  {
+   "name": "compliance",
+   "description": "Insurance cover and dates, traffic management plan status and reference"
+  },
+  {
+   "name": "consultation",
+   "description": "Notice date, required lead days, waiver reference, required versus notified street lists, objection count"
+  },
+  {
+   "name": "council_calendar",
+   "description": "List of overlapping bookings with street, date and consent flag"
+  }
+ ],
+ "rendering_notes": "No free-text fields; all values are codes, numbers, dates, booleans or null. shoot_scale appears as location.crew_size and location.unit_vehicles. highway_use appears only indirectly through location.highway.pavement_m, location.highway.parking_bays, location.highway.carriageway ('open','intermittent_hold','closed') and location.highway.hold_max_mins; for 'none', location.site_type is 'private_land' or 'park' and the highway block holds zeros. insurance_status appears as compliance.insurance.cover_gbp versus compliance.insurance.required_gbp, and compliance.insurance.valid_to versus the last schedule.shoot_dates date; certificate_missing renders the insurance object as null. renewal_confirmed appears as compliance.insurance.renewal_letter_on_file (true/false), present only when valid_to precedes wrap or set as a decoy otherwise. notification_state appears as consultation.notice_sent_on compared with the first shoot date minus consultation.required_lead_days, and consultation.streets_required compared with consultation.streets_notified; not_logged sets notice_sent_on to null and streets_notified to an empty list. lead_time_waiver appears as consultation.waiver_ref, a code string or null. event_clash appears as an entry in council_calendar.overlapping with matching street_ref and date; clash_consent is that entry's consent_on_file boolean. tmp_status appears as compliance.tmp.status with compliance.tmp.ref; 'absent' renders as null, and it matters only when the carriageway is held or closed. submission_lead_days appears as schedule.submitted_on against the first shoot date; a submission dated after filming starts is an out-of-order signal. prior_complaints appears as applicant.complaints_12m, a list of {logged_on, category} entries feeding the shared recurrence scale. night_filming appears as wrap_time values after 23:00 in schedule.shoot_dates. Decoys: a high applicant.prior_permits count, which does not offset problems; a large consultation.objections count when notification was correct; a large pavement_m with an open carriageway; crew_size that is high on private land; and a renewal_letter_on_file flag that is true when cover is already valid. No field may state the permit decision, the impact level, compliance pass or fail, or any risk rating; the record shows only what an applicant portal and council systems would hold.",
+ "skills": [
+  "S2",
+  "S3",
+  "S4",
+  "S5",
+  "S6",
+  "S7"
+ ],
+ "shared_scale": "recurrence_count",
+ "design_cost": 0.11362
+}

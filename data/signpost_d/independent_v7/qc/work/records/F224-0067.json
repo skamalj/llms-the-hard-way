@@ -1,0 +1,155 @@
+{
+ "id": "F224-0067",
+ "family": "F224",
+ "state": {
+  "request": {
+   "views": [
+    "BW_R"
+   ],
+   "ind": "CARIES_SURV",
+   "risk": "high",
+   "date": "2025-04-02",
+   "prior": "2023-10-10",
+   "patient_flags": [
+    "GAG_REFLEX"
+   ],
+   "exc": [
+    {
+     "code": "EX_IND",
+     "appr": "D07"
+    }
+   ],
+   "verbal_auth": [
+    {
+     "t": "09:40",
+     "view": "PA_11"
+    }
+   ]
+  },
+  "exposures": [
+   {
+    "view": "BW_R",
+    "t": "09:30",
+    "dose": 1.9
+   },
+   {
+    "view": "BW_R",
+    "t": "09:33",
+    "dose": 1.9,
+    "retake_of": 1
+   },
+   {
+    "view": "PA_11",
+    "t": "09:38",
+    "dose": 1.9
+   },
+   {
+    "view": "PA_21",
+    "t": "09:44",
+    "dose": 1.9
+   },
+   {
+    "view": "PA_31",
+    "t": "09:50",
+    "dose": 1.9
+   }
+  ],
+  "image_review": {
+   "grade": 2,
+   "faults": [
+    "FC_BLUR"
+   ],
+   "sensor_err": null,
+   "grader2": "done"
+  },
+  "equipment": {
+   "qa": "2025-02-01",
+   "int": 12,
+   "test": "pass",
+   "drl": {
+    "BW_R": 1.0,
+    "PA_11": 1.0,
+    "PA_21": 1.0,
+    "PA_31": 1.0
+   },
+   "console": [
+    {
+     "t": "09:30:50",
+     "kV": 70
+    }
+   ]
+  },
+  "operator": {
+   "signoff": "2025-04-02T10:30",
+   "prior": 5
+  }
+ },
+ "factors": {
+  "indication_match": "partial_match",
+  "recall_interval_months": 18,
+  "dose_ratio_to_drl": 1.9,
+  "console_log_discrepancy": "timestamp_drift",
+  "retake_cause": "patient_movement",
+  "equipment_qa_status": "in_date",
+  "approved_exception": true,
+  "patient_cooperation_flag": true,
+  "unrequested_exposure_count": 3,
+  "verbal_authorisation_logged": true,
+  "image_grade": "diagnostic",
+  "audit_completeness": "complete",
+  "operator_prior_findings": 5
+ },
+ "factors_sampled": {
+  "indication_match": "partial_match",
+  "recall_interval_months": 18,
+  "dose_ratio_to_drl": 0.65,
+  "console_log_discrepancy": "timestamp_drift",
+  "retake_cause": "positioning",
+  "equipment_qa_status": "failed_last_test",
+  "approved_exception": true,
+  "patient_cooperation_flag": true,
+  "unrequested_exposure_count": 3,
+  "verbal_authorisation_logged": true,
+  "image_grade": "diagnostic",
+  "audit_completeness": "operator_signoff_missing",
+  "operator_prior_findings": 5
+ },
+ "plan": {
+  "justified": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "operator_retake": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "follow_up": {
+   "clarity": "leaning",
+   "target": "close_record",
+   "second": null
+  },
+  "dose_position": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  },
+  "unjustified_count": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 56,
+ "deciding": {
+  "justified": "High-risk caries surveillance with 18-month gap exceeds 6; approved exception EX_IND supports the requested BW_R.",
+  "operator_retake": "Retake follows FC_BLUR with GAG_REFLEX in patient_flags; QA in date and no sensor error.",
+  "follow_up": "Retake cause is patient-related, QA passes, audit complete and sign-off present, so closure is leaning though unrequested views and 5 prior findings give doubt.",
+  "dose_position": "Doses 1.9 against reference 1.0 give 190%, above 150%; console drift of 50 seconds is benign.",
+  "unjustified_count": "PA_11 was exposed 09:38 before the 09:40 verbal auth, and PA_21 and PA_31 have none, so three or, if auth is accepted retroactively, two."
+ },
+ "request": "rec-F224-0066",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.01405
+}

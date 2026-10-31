@@ -1,0 +1,133 @@
+{
+ "id": "F211-0053",
+ "family": "F211",
+ "state": {
+  "vehicle": {
+   "callsign": "A331",
+   "type": "DSA",
+   "odometer_km": 80258,
+   "service_due_km": 80000
+  },
+  "check": {
+   "shift_date": "2025-02-18",
+   "signed_at": "2025-02-18T06:50",
+   "sections_required": 4,
+   "sections_signed": [
+    "vehicle",
+    "clinical",
+    "drugs"
+   ],
+   "countersigned_by": null,
+   "crew_note": "Defib screen flashed a red warning briefly, cleared after battery swap."
+  },
+  "defects": [
+   {
+    "item": "defibrillator",
+    "area": "clinical_equipment",
+    "desc": "Battery warning, spare battery fitted.",
+    "status": "deferred",
+    "substitute_on_board": true,
+    "deferral": {
+     "authorised_by": "Duty Mgr",
+     "authorised_at": "2025-02-10T10:00",
+     "valid_until": "2025-02-14"
+    }
+   },
+   {
+    "item": "locker latch",
+    "area": "clinical_equipment",
+    "desc": "Cupboard latch loose.",
+    "status": "open",
+    "substitute_on_board": false,
+    "deferral": null
+   }
+  ],
+  "stock": {
+   "lines": [
+    {
+     "item": "GTN spray",
+     "qty": 3,
+     "par_level": 3,
+     "expiry": "2025-02-19"
+    }
+   ],
+   "restock_request": null
+  },
+  "activity": {
+   "first_mobilised_at": "2025-02-18T08:15",
+   "prior_checks": [
+    {
+     "defects": [
+      "defibrillator"
+     ]
+    }
+   ]
+  }
+ },
+ "factors": {
+  "checklist_completion": "half_or_more_signed",
+  "worst_defect_tier": "critical_with_substitute",
+  "defect_area": "clinical_equipment",
+  "deferral_authorised": true,
+  "deferral_invalid": true,
+  "workshop_return_recent": false,
+  "earliest_drug_expiry_days": 1,
+  "restock_in_progress": false,
+  "service_margin_km": -258,
+  "crew_note_tone": "alarming_benign",
+  "signed_after_mobilisation": false,
+  "repeat_defect_count": 1
+ },
+ "factors_sampled": {
+  "checklist_completion": "half_or_more_signed",
+  "worst_defect_tier": "cosmetic",
+  "defect_area": "clinical_equipment",
+  "deferral_authorised": true,
+  "deferral_invalid": false,
+  "workshop_return_recent": false,
+  "earliest_drug_expiry_days": 1,
+  "restock_in_progress": false,
+  "service_margin_km": -258,
+  "crew_note_tone": "alarming_benign",
+  "signed_after_mobilisation": false,
+  "repeat_defect_count": 1
+ },
+ "plan": {
+  "defects_controlled": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "readiness_status": {
+   "clarity": "clear",
+   "target": "restricted",
+   "second": null
+  },
+  "limiting_area": {
+   "clarity": "balanced",
+   "target": "clinical_equipment",
+   "second": "vehicle_systems"
+  },
+  "check_completeness": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  },
+  "defect_severity": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  }
+ },
+ "target_words": 83,
+ "deciding": {
+  "defects_controlled": "The critical defibrillator defect is deferred, but valid_until 2025-02-14 is before shift_date 2025-02-18, so the deferral has lapsed and it is not validly deferred.",
+  "readiness_status": "The lapsed deferral on a defibrillator with a spare battery carried, plus the service overdue (80258 km against due 80000), mean no emergency work until cleared. That points to restricted.",
+  "limiting_area": "The defibrillator and cupboard issues sit in clinical_equipment. The service overdue by 258 km is a vehicle-systems limit of similar weight, so vehicle_systems is plausible.",
+  "check_completeness": "3 of 4 sections are signed and countersigned_by is null. The missing section puts it at level 1.",
+  "defect_severity": "The open locker latch is cosmetic. The defibrillator is deferred with a lapsed deferral and a substitute on board, which could raise the level."
+ },
+ "request": "rec-F211-0051",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.013138
+}

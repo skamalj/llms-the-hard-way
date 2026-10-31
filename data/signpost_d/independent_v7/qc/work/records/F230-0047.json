@@ -1,0 +1,172 @@
+{
+ "id": "F230-0047",
+ "family": "F230",
+ "state": {
+  "prescriptions": [
+   {
+    "item_id": "B1",
+    "drug": "digoxin",
+    "dose_units": 1,
+    "high_risk": true,
+    "time_critical": false,
+    "changes": []
+   },
+   {
+    "item_id": "B2",
+    "drug": "furosemide",
+    "dose_units": 1
+   },
+   {
+    "item_id": "B3",
+    "drug": "sertraline",
+    "dose_units": 1
+   },
+   {
+    "item_id": "B4",
+    "drug": "calcium",
+    "dose_units": 1
+   },
+   {
+    "item_id": "B5",
+    "drug": "omeprazole",
+    "dose_units": 1
+   }
+  ],
+  "administrations": [
+   {
+    "item_id": "B1",
+    "scheduled": "08:00",
+    "given_at": "08:46",
+    "units_given": 2,
+    "code": "G",
+    "initials": "KT"
+   },
+   {
+    "item_id": "B2",
+    "scheduled": "08:00",
+    "given_at": null,
+    "units_given": 0,
+    "code": "R",
+    "initials": "KT"
+   },
+   {
+    "item_id": "B3",
+    "scheduled": "08:00",
+    "given_at": null,
+    "units_given": 0,
+    "code": "N",
+    "initials": "KT"
+   },
+   {
+    "item_id": "B4",
+    "scheduled": "08:00",
+    "given_at": "08:10",
+    "units_given": 1,
+    "code": "G",
+    "initials": null
+   },
+   {
+    "item_id": "B5",
+    "scheduled": "08:00",
+    "given_at": "08:12",
+    "units_given": 1,
+    "code": "G",
+    "initials": "KT"
+   }
+  ],
+  "stock": {
+   "B5": {
+    "opening": 14,
+    "wasted": 1,
+    "wasted_witnessed": true,
+    "closing": 12
+   }
+  },
+  "round": {
+   "date": "2025-05-02",
+   "open_queries": [
+    {
+     "type": "gp_callback",
+     "raised": "2025-05-02T09:10",
+     "item_id": "B1"
+    }
+   ],
+   "post_dose_obs": [
+    {
+     "type": "hr",
+     "value": 48
+    }
+   ]
+  }
+ },
+ "factors": {
+  "dose_mismatch_type": "wrong_quantity",
+  "prescription_change_documented": false,
+  "omission_count": 2,
+  "omission_reason_valid": false,
+  "late_minutes": 46,
+  "time_critical_affected": false,
+  "stock_variance": 1,
+  "stock_variance_explained": true,
+  "signature_gaps": 1,
+  "unit_expression_decoy": "matching_units",
+  "post_dose_obs_reassuring": false,
+  "pending_query": "gp_callback_awaited",
+  "prior_errors_30d": 2,
+  "item_count": 5
+ },
+ "factors_sampled": {
+  "dose_mismatch_type": "wrong_quantity",
+  "prescription_change_documented": false,
+  "omission_count": 2,
+  "omission_reason_valid": false,
+  "late_minutes": 46,
+  "time_critical_affected": false,
+  "stock_variance": 1,
+  "stock_variance_explained": true,
+  "signature_gaps": 2,
+  "unit_expression_decoy": "matching_units",
+  "post_dose_obs_reassuring": false,
+  "pending_query": "gp_callback_awaited",
+  "prior_errors_30d": 2,
+  "item_count": 7
+ },
+ "plan": {
+  "dose_mismatch": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "stock_reconciles": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "report_incident",
+   "second": null
+  },
+  "open_discrepancies": {
+   "clarity": "clear",
+   "target": "3",
+   "second": null
+  },
+  "error_severity": {
+   "clarity": "balanced",
+   "target": "4",
+   "second": "3"
+  }
+ },
+ "target_words": 30,
+ "deciding": {
+  "dose_mismatch": "B1 given 2 units against 1 prescribed, with an empty changes list.",
+  "stock_reconciles": "B5 14-1 given-1 wasted (witnessed)=12 matches closing. Other items have no counts, which leaves some doubt.",
+  "next_step": "Confirmed wrong quantity on B1 with time_critical false, so an internal incident report is the step. A GP callback is open but the error is already confirmed.",
+  "open_discrepancies": "B1 wrong quantity, B2 code R and B3 code N with no supporting order, and B4 null initials give four items.",
+  "error_severity": "B1 is a high_risk item with an HR of 48 after the double dose, but time_critical is false. That balances level 4 against level 3."
+ },
+ "request": "rec-F230-0046",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.01538
+}

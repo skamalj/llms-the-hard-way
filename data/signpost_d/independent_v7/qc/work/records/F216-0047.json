@@ -1,0 +1,131 @@
+{
+ "id": "F216-0047",
+ "family": "F216",
+ "state": {
+  "session": {
+   "type": "school_session"
+  },
+  "storage": {
+   "alarms_30d": 1
+  },
+  "temp_log": {
+   "int_min": 10,
+   "product_c": [
+    [
+     "09:50",
+     6.8
+    ],
+    [
+     "10:00",
+     7.4
+    ],
+    [
+     "10:30",
+     7.9
+    ]
+   ],
+   "gaps": [
+    [
+     "10:00",
+     "10:30"
+    ]
+   ],
+   "manual": [
+    {
+     "t": "10:15",
+     "min": 3.1,
+     "max": 8.3,
+     "cur": 7.6
+    }
+   ]
+  },
+  "stock": [
+   {
+    "lot": "B72K",
+    "open": 60,
+    "wasted": 4,
+    "close": 25,
+    "tol_min": 30
+   }
+  ],
+  "administration": [
+   {
+    "t": "10:10",
+    "lot": "B72X",
+    "n": 25
+   }
+  ],
+  "excursion_actions": {
+   "quarantined": false,
+   "advice_status": "NR"
+  }
+ },
+ "factors": {
+  "true_excursion_minutes": 16,
+  "log_source_discrepancy": "logger_gap",
+  "buffered_probe_in_range": false,
+  "planned_maintenance": false,
+  "stability_clearance": "not_requested",
+  "doses_during_exposure": 25,
+  "stock_count_gap": -6,
+  "lot_id_mismatch": true,
+  "lots_beyond_tolerance": "none",
+  "freezing_reading": false,
+  "boundary_case": true,
+  "unit_alarm_history": 1,
+  "session_type": "school_session"
+ },
+ "factors_sampled": {
+  "true_excursion_minutes": 16,
+  "log_source_discrepancy": "logger_gap",
+  "buffered_probe_in_range": false,
+  "planned_maintenance": false,
+  "stability_clearance": "not_requested",
+  "doses_during_exposure": 25,
+  "stock_count_gap": -6,
+  "lot_id_mismatch": true,
+  "lots_beyond_tolerance": "some",
+  "freezing_reading": false,
+  "boundary_case": true,
+  "unit_alarm_history": 1,
+  "session_type": "school_session"
+ },
+ "plan": {
+  "dosed_uncleared": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "stock_reconciles": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "stock_disposition": {
+   "clarity": "contested",
+   "target": "release",
+   "second": "discard_all"
+  },
+  "excursion_duration": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "followup_urgency": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 49,
+ "deciding": {
+  "dosed_uncleared": "The 10:10 doses fall inside the 10:00-10:30 logger gap. The manual max of 8.3 slightly exceeds 8, so exposure at that time is uncertain. No excursion is recorded and no advice was sought.",
+  "stock_reconciles": "The administered lot B72X is not in stock (stock holds B72K), and 60 - 4 - 25 = 31 against a closing of 25.",
+  "stock_disposition": "Every logged reading is in range and nothing is quarantined, which favours release. The unbridged gap with the manual max of 8.3 leaves a case for discarding the lot, so the two answers are held in balance.",
+  "excursion_duration": "No logged reading is out of range. The manual max of 8.3 inside the 30-minute gap is the only hint of a short excursion, so level 0 versus level 1 is open.",
+  "followup_urgency": "The data shows no confirmed excursion, but the gap with the 8.3 max and the lot mismatch leave some chance that a check is needed soon. Routine filing and action before the next session are both defensible."
+ },
+ "request": "rec-F216-0046",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.01442
+}

@@ -1,0 +1,135 @@
+{
+ "id": "F204-0029",
+ "family": "F204",
+ "state": {
+  "rx": {
+   "drug": "levothyroxine",
+   "str": {
+    "val": 50,
+    "unit": "mcg"
+   },
+   "dose": 1,
+   "fpd": 1,
+   "qty": 28
+  },
+  "patient": {
+   "id": "P907",
+   "sup": [
+    {
+     "date": "2024-05-06",
+     "days_covered": 28
+    }
+   ],
+   "nm": 4
+  },
+  "dispensed": {
+   "name": "Eltroxin",
+   "generic": "levothyroxine",
+   "str": {
+    "val": 0.1,
+    "unit": "mg"
+   },
+   "packs": 2,
+   "pack_size": 28,
+   "warn": [
+    "W3"
+   ]
+  },
+  "label": {
+   "pt": "P907",
+   "dose": 2,
+   "fpd": 1,
+   "warn": [
+    "W3"
+   ],
+   "qty": 56
+  },
+  "check_log": {
+   "at": "2024-05-30",
+   "clin": {
+    "by": "RP"
+   },
+   "q": [
+    {
+     "field": "qty",
+     "status": "confirmed"
+    }
+   ],
+   "iv": [
+    {
+     "code": "I1",
+     "field": "counsel",
+     "acc": true
+    }
+   ]
+  }
+ },
+ "factors": {
+  "strength_status": "differs_after_conversion",
+  "product_status": "generic_brand_equivalent",
+  "quantity_status": "over_supplied",
+  "label_status": "directions_mismatch",
+  "prescriber_query": "confirmed",
+  "pharmacist_intervention": true,
+  "clinical_check_signed": true,
+  "home_supply_days": 4,
+  "emergency_supply": false,
+  "short_expiry": false,
+  "prior_error_count": 4,
+  "high_risk_drug": false,
+  "boundary_case": true
+ },
+ "factors_sampled": {
+  "strength_status": "match_converted_units",
+  "product_status": "generic_brand_equivalent",
+  "quantity_status": "over_supplied",
+  "label_status": "directions_mismatch",
+  "prescriber_query": "confirmed",
+  "pharmacist_intervention": true,
+  "clinical_check_signed": true,
+  "home_supply_days": 4,
+  "emergency_supply": false,
+  "short_expiry": false,
+  "prior_error_count": 4,
+  "high_risk_drug": false,
+  "boundary_case": true
+ },
+ "plan": {
+  "strength_differs": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "redispense",
+   "second": null
+  },
+  "error_category": {
+   "clarity": "balanced",
+   "target": "label_error",
+   "second": "quantity_only"
+  },
+  "open_discrepancies": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "supply_urgency": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  }
+ },
+ "target_words": 76,
+ "deciding": {
+  "strength_differs": "Rx 50 mcg vs 0.1 mg (100 mcg) dispensed; the converted values differ.",
+  "next_step": "Label dose 2 vs rx 1 and the strength mismatch remain open, so it goes back to the dispenser.",
+  "error_category": "The label dose is wrong; the quantity query is confirmed, which leaves the label error or the quantity change as the contenders.",
+  "open_discrepancies": "Strength and label dose are open; the quantity (56 vs 28) was confirmed, so the count is 2 or 3.",
+  "supply_urgency": "The 28-day supply from 05-06 ended 06-03, leaving about 4 days, on the 3-7 vs more-than-7 boundary."
+ },
+ "request": "rec-F204-0026",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.005248
+}

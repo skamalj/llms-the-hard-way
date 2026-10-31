@@ -1,0 +1,118 @@
+{
+ "id": "F205-0053",
+ "family": "F205",
+ "state": {
+  "flight": {
+   "no": "LM77",
+   "std": "2024-07-02T14:30",
+   "turn": "full_turn"
+  },
+  "times": {
+   "fuel_start": "2024-07-02T14:05",
+   "last_bag": "2024-07-02T14:31",
+   "doors_closed": "2024-07-02T14:36",
+   "off_blocks": "2024-07-02T14:58",
+   "delay_code": "BAG",
+   "delay_min": 28
+  },
+  "load": {
+   "pax_total": 120,
+   "bags_count": 64,
+   "bags_kg": 890,
+   "fuel_kg": 5400,
+   "captain_accepted": true
+  },
+  "hold_log": [
+   {
+    "pos": 1,
+    "bag_count": 33,
+    "weight": 460,
+    "weight_unit": "kg"
+   },
+   {
+    "pos": 2,
+    "bag_count": 30,
+    "weight": 420,
+    "weight_unit": "kg"
+   }
+  ],
+  "services": {
+   "fuel": {
+    "uplift_kg": 5400
+   }
+  },
+  "remarks": [
+   {
+    "role": "loader",
+    "t": "14:20",
+    "msg": "1 bag pulled from pos 2, tag unreadable, sent to tracing."
+   }
+  ]
+ },
+ "factors": {
+  "bag_mismatch_size": "trivial_1_2_bags",
+  "mismatch_location": "loadsheet_bags_vs_hold_log",
+  "missing_record": "none",
+  "milestone_out_of_order": false,
+  "delay_minutes": 28,
+  "delay_code_fit": "ambiguous",
+  "explanatory_remark": true,
+  "pending_signoff": false,
+  "dg_on_board": false,
+  "decoy_noise": "rounding_within_tolerance",
+  "boundary_value": false,
+  "turn_type": "full_turn"
+ },
+ "factors_sampled": {
+  "bag_mismatch_size": "trivial_1_2_bags",
+  "mismatch_location": "loadsheet_bags_vs_hold_log",
+  "missing_record": "none",
+  "milestone_out_of_order": false,
+  "delay_minutes": -1,
+  "delay_code_fit": "supported",
+  "explanatory_remark": true,
+  "pending_signoff": false,
+  "dg_on_board": false,
+  "decoy_noise": "rounding_within_tolerance",
+  "boundary_value": false,
+  "turn_type": "full_turn"
+ },
+ "plan": {
+  "load_reconciled": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "delay_code_supported": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "log_disposition": {
+   "clarity": "leaning",
+   "target": "close_with_note",
+   "second": null
+  },
+  "offblock_delay": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  },
+  "failed_checks": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  }
+ },
+ "target_words": 75,
+ "deciding": {
+  "load_reconciled": "bags_count 64 vs hold 33+30=63 and 890 vs 880 kg; a count differs so it is not reconciled.",
+  "delay_code_supported": "Code BAG; last_bag 14:31 is only 1 min after std, and doors_closed 14:36 leaves about 22 min to off_blocks 14:58 unexplained by bags.",
+  "log_disposition": "One-bag difference is explained by the loader remark (bag pulled, sent to tracing); annotate and close.",
+  "offblock_delay": "off_blocks 14:58 vs std 14:30 is 28 min late, in the 16-60 range.",
+  "failed_checks": "Only the bag count check fails, and it is explained by the remark; the delay code fit could be counted too, hence 1 versus 0."
+ },
+ "request": "rec-F205-0051",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011092
+}

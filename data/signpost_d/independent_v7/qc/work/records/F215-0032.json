@@ -1,0 +1,169 @@
+{
+ "id": "F215-0032",
+ "family": "F215",
+ "state": {
+  "bin": {
+   "crop": "wheat",
+   "safe_mc_pct": 15,
+   "baseline_c": 14,
+   "intake_date": "2024-09-01",
+   "intake_cond": "dried_cleaned"
+  },
+  "cable_readings": [
+   {
+    "cable_id": "C1",
+    "cal_due": "2025-05-01",
+    "fault": false,
+    "nodes": [
+     {
+      "depth_m": 0.5,
+      "temp_c": [
+       21,
+       22.5,
+       24
+      ]
+     },
+     {
+      "depth_m": 2,
+      "temp_c": [
+       14.5,
+       14.6,
+       14.6
+      ]
+     },
+     {
+      "depth_m": 4,
+      "temp_c": [
+       null,
+       null,
+       null
+      ]
+     }
+    ]
+   },
+   {
+    "cable_id": "C2",
+    "cal_due": "2025-05-01",
+    "fault": false,
+    "nodes": [
+     {
+      "depth_m": 2,
+      "temp_c": [
+       14.2,
+       14.3,
+       14.3
+      ]
+     }
+    ]
+   }
+  ],
+  "moisture": [
+   {
+    "sample_date": "2024-10-20",
+    "method": "lab",
+    "mc_pct": 12.6
+   }
+  ],
+  "environment": {
+   "ambient_c_7d_mean": 23,
+   "headspace_c": 26,
+   "co2_ppm": 480,
+   "reading_date": "2024-12-10"
+  },
+  "aeration": [
+   {
+    "start": "2024-09-20",
+    "end": "2024-09-21",
+    "fan_hours": 14,
+    "mode": "cooling"
+   },
+   {
+    "start": "2024-10-15",
+    "end": "2024-10-16",
+    "fan_hours": 14,
+    "mode": "cooling"
+   },
+   {
+    "start": "2024-11-12",
+    "end": "2024-11-13",
+    "fan_hours": 12,
+    "mode": "cooling"
+   }
+  ],
+  "pest_checks": [
+   {
+    "check_date": "2024-12-04",
+    "traps_set": 5,
+    "insects_counted": 28
+   }
+  ]
+ },
+ "factors": {
+  "peak_excess_c": 10.0,
+  "rise_trend": "steady_climb",
+  "second_cable_corroboration": false,
+  "sensor_fault_flag": false,
+  "ambient_warming": true,
+  "moisture_vs_limit": "well_below",
+  "moisture_sample_status": "overdue",
+  "aeration_running": false,
+  "co2_elevation": "normal",
+  "insect_trap_count": 28,
+  "missing_section": "cable_nodes_partial",
+  "date_order_anomaly": false,
+  "intake_condition": "dried_cleaned"
+ },
+ "factors_sampled": {
+  "peak_excess_c": 4.68,
+  "rise_trend": "steady_climb",
+  "second_cable_corroboration": false,
+  "sensor_fault_flag": false,
+  "ambient_warming": false,
+  "moisture_vs_limit": "well_below",
+  "moisture_sample_status": "missing",
+  "aeration_running": false,
+  "co2_elevation": "normal",
+  "insect_trap_count": 28,
+  "missing_section": "cable_nodes_partial",
+  "date_order_anomaly": false,
+  "intake_condition": "dried_cleaned"
+ },
+ "plan": {
+  "hotspot_active": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "moisture_safe": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "next_action": {
+   "clarity": "clear",
+   "target": "turn_or_unload",
+   "second": null
+  },
+  "recurrence_count": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  },
+  "temp_excess": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  }
+ },
+ "target_words": 93,
+ "deciding": {
+  "hotspot_active": "Only the 0.5 m node on C1 is warm, at 24, while ambient is 23 and headspace 26. The 2 m nodes on both cables are flat at about 14, so there is no corroboration and the warmth is explained by the weather.",
+  "moisture_safe": "The only sample is a lab result of 12.6 against a 15 limit, well below, but it is 51 days old and so overdue. The overdue date and the large margin hold the answer in balance.",
+  "next_action": "Three cooling runs have already been logged. The top node is still 10C above baseline, the 4 m node on C1 returns no data, and moisture is overdue. The cooling runs have not cleared it, which points to moving the grain.",
+  "recurrence_count": "Three completed cooling runs are logged since intake, which fits two to four occurrences. The runs are only a proxy for the issue, hence some doubt.",
+  "temp_excess": "The peak valid node is 24.0 against a 14 baseline, exactly 10 above. That is right at the boundary between levels 2 and 3, and the unreadable C1 4 m node adds uncertainty."
+ },
+ "request": "rec-F215-0031",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012344
+}

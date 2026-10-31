@@ -1,0 +1,326 @@
+{
+ "id": "F234",
+ "domain": "seed bank germination tests",
+ "role": "Germination test reviewer at a conservation seed bank, signing off one completed germination test record per accession before its viability figure is updated",
+ "setting": "A national wild-plant seed bank holds thousands of accessions in long-term frozen storage. Each accession is periodically sampled and germination-tested on agar under a set protocol. The reviewer opens one test record at a time. They check the replicate counts against the sown numbers and the summary percentage. They check the seed drawn against the inventory, and the incubator log against the test window. They compare the result with earlier tests, then decide whether the result stands and what happens to the accession next.",
+ "questions": {
+  "result_valid": {
+   "type": "noul",
+   "instructions": "This test's result can be accepted as the accession's current viability.",
+   "criteria": {
+    "true": "Replicate counts reconcile, test complete, no unmitigated protocol breach.",
+    "false": "Count gaps, unfinished test or unmitigated breach undermine the result."
+   }
+  },
+  "next_step": {
+   "type": "choice",
+   "instructions": "What should happen next with this accession after the test?",
+   "criteria": {
+    "accept": "Record result as current viability; no further action now.",
+    "hold_query": "Hold result pending one missing count, log or cut-test confirmation.",
+    "retest": "Result unreliable; repeat the test on a fresh subsample.",
+    "regenerate": "Valid result below regeneration threshold; schedule grow-out of accession."
+   }
+  },
+  "shortfall_cause": {
+   "type": "choice",
+   "instructions": "Which single cause best explains the germination shortfall, if any?",
+   "criteria": {
+    "none": "Germination meets the accession's regeneration threshold; no shortfall to explain.",
+    "dormancy": "Most non-germinated seeds were firm and fresh at test end.",
+    "deterioration": "Most non-germinated seeds were dead or soft, indicating ageing.",
+    "test_artefact": "Contamination or incubator deviations account for most seed losses."
+   }
+  },
+  "discrepancy_size": {
+   "type": "score",
+   "instructions": "How far does the recorded value differ from the expected value?",
+   "criteria": [
+    "Matches expected value, or differs by under 2%",
+    "Differs from expected value by 2% to under 10%",
+    "Differs from expected value by 10% to under 25%",
+    "Differs from expected value by 25% or more"
+   ]
+  },
+  "germ_decline": {
+   "type": "score",
+   "instructions": "How far has germination fallen since the previous valid test?",
+   "criteria": [
+    "Within 5 points of previous test, or higher",
+    "Fall of 6 to 15 percentage points",
+    "Fall of 16 to 30 percentage points",
+    "Fall of more than 30 percentage points"
+   ]
+  }
+ },
+ "factors": [
+  {
+   "name": "true_viability_band",
+   "description": "Underlying viability of the accession, setting how many seeds can germinate when dormancy and artefacts are set aside.",
+   "kind": "categorical",
+   "values": [
+    "high",
+    "moderate",
+    "low",
+    "very_low"
+   ],
+   "weights": [
+    0.35,
+    0.3,
+    0.2,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S7"
+   ]
+  },
+  {
+   "name": "dormancy_fraction",
+   "description": "Share of sown seeds left firm and fresh but ungerminated at test end; this decides dormancy versus deterioration.",
+   "kind": "number",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0.4,
+   "p_true": 0,
+   "skills": [
+    "S6",
+    "S7"
+   ]
+  },
+  {
+   "name": "count_gap_size",
+   "description": "Size of the mismatch between corresponding counts. Examples: replicate category totals against seeds sown, recorded summary percentage against the percentage computed from replicates, or seeds drawn against the inventory change.",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "trivial",
+    "moderate",
+    "large"
+   ],
+   "weights": [
+    0.35,
+    0.25,
+    0.25,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1"
+   ]
+  },
+  {
+   "name": "count_gap_location",
+   "description": "Where the count mismatch sits when there is one, so that gaps are never always in the same place.",
+   "kind": "categorical",
+   "values": [
+    "replicate_sum",
+    "summary_pct",
+    "inventory_draw",
+    "sown_vs_drawn"
+   ],
+   "weights": [
+    0.3,
+    0.25,
+    0.25,
+    0.2
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1"
+   ]
+  },
+  {
+   "name": "contamination_level",
+   "description": "Fungal or bacterial contamination recorded across replicates. This alarming signal can explain seed losses.",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "light",
+    "heavy"
+   ],
+   "weights": [
+    0.45,
+    0.3,
+    0.25
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S7"
+   ]
+  },
+  {
+   "name": "contamination_mitigated",
+   "description": "Whether contamination is neutralised. It counts as neutralised if it was confined to one replicate excluded under protocol, or if affected seeds were transferred to fresh agar before death was scored.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3"
+   ]
+  },
+  {
+   "name": "incubator_excursion",
+   "description": "Whether the incubator log shows a temperature or light excursion inside the test window.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.35,
+   "skills": [
+    "S3",
+    "S1"
+   ]
+  },
+  {
+   "name": "excursion_mitigated",
+   "description": "Whether the excursion is harmless. It counts as harmless if it fell under a logged maintenance ticket lasting under six hours, or if it occurred during cold pretreatment before seeds were moved into that cabinet.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S1"
+   ]
+  },
+  {
+   "name": "test_completion",
+   "description": "State of the test. It may have run to its scheduled end with the cut test done. It may have finished on time with the cut test of ungerminated seeds still outstanding. Or it may have been ended early.",
+   "kind": "categorical",
+   "values": [
+    "complete",
+    "cut_test_pending",
+    "ended_early"
+   ],
+   "weights": [
+    0.6,
+    0.25,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S4",
+    "S5"
+   ]
+  },
+  {
+   "name": "prior_decline_points",
+   "description": "Fall in germination percentage from the most recent previous valid test to this one. Negative values mean a rise.",
+   "kind": "number",
+   "values": [],
+   "weights": [],
+   "min": -5,
+   "max": 45,
+   "p_true": 0,
+   "skills": [
+    "S6",
+    "S7"
+   ]
+  },
+  {
+   "name": "history_protocol_mismatch",
+   "description": "Whether the most recent history entry used a different protocol code. If so, the reviewer must compare against the last test under the same protocol instead.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.3,
+   "skills": [
+    "S1",
+    "S6"
+   ]
+  },
+  {
+   "name": "replicate_spread",
+   "description": "Heterogeneity of germination across replicates. High spread leaves the overall figure less certain.",
+   "kind": "categorical",
+   "values": [
+    "low",
+    "moderate",
+    "high"
+   ],
+   "weights": [
+    0.5,
+    0.3,
+    0.2
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S6",
+    "S4"
+   ]
+  },
+  {
+   "name": "boundary_placement",
+   "description": "Whether key values are placed on a threshold edge, such as germination exactly at the regeneration threshold, a decline of exactly 15 or 16 points, or a dormant share near half of the non-germinated seeds.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.25,
+   "skills": [
+    "S6"
+   ]
+  }
+ ],
+ "sections": [
+  {
+   "name": "accession",
+   "description": "Accession id, taxon, collection date, storage temperature, regeneration threshold percentage and initial germination percentage."
+  },
+  {
+   "name": "sample",
+   "description": "Seeds drawn for the test, inventory count before and after the draw, pretreatment code and dates."
+  },
+  {
+   "name": "test",
+   "description": "Protocol code, medium, temperature regime, sow date, scheduled and actual end dates, cut-test date and recorded germination percentage."
+  },
+  {
+   "name": "replicates",
+   "description": "List of replicates with sown, germinated, abnormal, fresh, dead, contaminated counts and an excluded flag."
+  },
+  {
+   "name": "incubator",
+   "description": "Cabinet id and list of logged excursions with start, end, peak temperature and maintenance ticket reference or null."
+  },
+  {
+   "name": "history",
+   "description": "Earlier germination tests with test date, protocol code and germination percentage."
+  }
+ ],
+ "rendering_notes": "true_viability_band drives replicates[].germinated relative to sown. dormancy_fraction appears as replicates[].fresh, with the remainder of the non-germinated seeds in dead. count_gap_size and count_gap_location set where the counts disagree. For replicate_sum, one replicate's categories do not add to its sown figure. For summary_pct, test.recorded_germ_pct differs from germinated over sown across non-excluded replicates. For inventory_draw, sample.inventory_before minus inventory_after differs from sample.seeds_drawn. For sown_vs_drawn, total sown exceeds seeds_drawn. A trivial gap is 1 to 2 seeds or under 1 point; a large gap is over 10 seeds or 5 points. contamination_level appears as replicates[].contaminated counts. Mitigation shows as that replicate's excluded set to true, or as a test.agar_transfer_date earlier than the dead counts were scored. incubator_excursion appears as an entry in incubator.excursions whose times fall between test.sow_date and test.actual_end. Mitigation shows as a non-null maintenance_ticket with a duration under six hours, or as an excursion before sample.pretreatment_end. test_completion appears as test.cut_test_date set to null, or as test.actual_end earlier than test.scheduled_end. prior_decline_points is computed by the reviewer from the history entries. history_protocol_mismatch places a different protocol code in the newest history entry, so the reviewer must use the newest entry with a matching code. replicate_spread varies the per-replicate germination rates. boundary_placement sets values exactly at threshold edges. Decoys include: heavy contamination in an excluded replicate; excursions logged outside the test window; a high initial_germ_pct that is decades old; a storage temperature field that is always the standard -20; and a sample.prior_retest_count that is unrelated to validity. No field may state validity, cause, decline, viability status or recommended action. The only summary figure is recorded_germ_pct, which may itself be wrong. There are no free-text fields; all values are numbers, ISO dates, booleans, codes or null.",
+ "skills": [
+  "S1",
+  "S3",
+  "S4",
+  "S5",
+  "S6",
+  "S7"
+ ],
+ "shared_scale": "discrepancy_size",
+ "design_cost": 0.142584
+}

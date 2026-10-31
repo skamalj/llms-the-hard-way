@@ -1,0 +1,106 @@
+{
+ "id": "F229-0029",
+ "family": "F229",
+ "state": {
+  "lot": {
+   "lot_id": "L-310",
+   "block": "B3",
+   "pick_start": "2024-09-18T05:10",
+   "pick_end": null
+  },
+  "intake": {
+   "block_code": "B3",
+   "arrival_at": "2024-09-18T08:20",
+   "net_kg": 5000,
+   "temp_c": 19
+  },
+  "sample": {
+   "rot_pct": 12.62,
+   "sort": {
+    "rejected_kg": 300,
+    "post_sort_rot_pct": 1.5
+   }
+  },
+  "press": {
+   "programme": "whole_bunch_gentle",
+   "band_l_per_t": "500-580",
+   "cycle_start": "2024-09-18T09:10",
+   "juice_l": 2900,
+   "so2_mg_l": 30,
+   "operator_note": "Minor pump noise."
+  },
+  "transfer": {
+   "tank_id": "T9",
+   "transferred_l": 2870,
+   "qa_signoff": "AB 13:00"
+  }
+ },
+ "factors": {
+  "weight_mismatch": "none",
+  "press_programme": "whole_bunch_gentle",
+  "yield_position": "just_on_edge",
+  "lot_id_drift": "none",
+  "missing_step": "none",
+  "out_of_order_timestamp": false,
+  "pick_to_press_hours": 2.98,
+  "pick_end_recorded": false,
+  "cold_held": false,
+  "rot_pct": 12.62,
+  "sorting_applied": true,
+  "note_signal": "benign_decoy",
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "weight_mismatch": "none",
+  "press_programme": "whole_bunch_gentle",
+  "yield_position": "just_on_edge",
+  "lot_id_drift": "none",
+  "missing_step": "none",
+  "out_of_order_timestamp": false,
+  "pick_to_press_hours": 2.98,
+  "pick_end_recorded": false,
+  "cold_held": false,
+  "rot_pct": 12.62,
+  "sorting_applied": true,
+  "note_signal": "contradicts_log",
+  "boundary_case": false
+ },
+ "plan": {
+  "yield_consistent": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "chain_intact": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "release_decision": {
+   "clarity": "clear",
+   "target": "release",
+   "second": null
+  },
+  "pick_press_delay": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "failed_checks": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  }
+ },
+ "target_words": 34,
+ "deciding": {
+  "yield_consistent": "2900 L from 5000 kg is 580 L/t, exactly at the 580 upper edge of 500-580.",
+  "chain_intact": "The transfer has no lot_ref, so the lot and block ids cannot be confirmed through to the tank, though nothing conflicts.",
+  "release_decision": "The rot was sorted down to 1.5%, and SO2 and QA sign-off are present with no confirmed fault.",
+  "pick_press_delay": "pick_end is null; pick_start 05:10 to cycle_start 09:10 is 4 h, so the wait since picking ended is under 4 h, but a level 1 reading is possible.",
+  "failed_checks": "Yield on the band edge, the unverifiable chain and the missing pick_end are each borderline, giving two or three failures."
+ },
+ "request": "rec-F229-0026",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.01173
+}

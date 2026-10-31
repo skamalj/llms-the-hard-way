@@ -1,0 +1,113 @@
+{
+ "id": "F230-0059",
+ "family": "F230",
+ "state": {
+  "prescriptions": [
+   {
+    "item_id": "d",
+    "drug": "x",
+    "dose_units": 1,
+    "time_critical": true
+   }
+  ],
+  "administrations": [
+   {
+    "item_id": "d",
+    "scheduled": "08:00",
+    "given_at": "10:20",
+    "units_given": 1
+   },
+   {
+    "item_id": "d",
+    "scheduled": "08:00",
+    "units_given": 1
+   }
+  ],
+  "stock": {
+   "d": {
+    "opening": 10,
+    "closing": 5,
+    "wasted": 3,
+    "wasted_witnessed": true
+   }
+  },
+  "round": {
+   "open_queries": [
+    {
+     "type": "duplicate_check",
+     "item_id": "d"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "dose_mismatch_type": "duplicate_entry",
+  "prescription_change_documented": false,
+  "omission_count": 3,
+  "omission_reason_valid": true,
+  "late_minutes": 140,
+  "time_critical_affected": true,
+  "stock_variance": -3,
+  "stock_variance_explained": true,
+  "signature_gaps": 0,
+  "unit_expression_decoy": "none_present",
+  "post_dose_obs_reassuring": true,
+  "pending_query": "duplicate_check_open",
+  "prior_errors_30d": 4,
+  "item_count": 7
+ },
+ "factors_sampled": {
+  "dose_mismatch_type": "duplicate_entry",
+  "prescription_change_documented": false,
+  "omission_count": 3,
+  "omission_reason_valid": true,
+  "late_minutes": 140,
+  "time_critical_affected": true,
+  "stock_variance": -3,
+  "stock_variance_explained": true,
+  "signature_gaps": 0,
+  "unit_expression_decoy": "none_present",
+  "post_dose_obs_reassuring": true,
+  "pending_query": "none",
+  "prior_errors_30d": 4,
+  "item_count": 7
+ },
+ "plan": {
+  "dose_mismatch": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "stock_reconciles": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "hold",
+   "second": null
+  },
+  "open_discrepancies": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "error_severity": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "4"
+  }
+ },
+ "target_words": 45,
+ "deciding": {
+  "dose_mismatch": "Second entry for same item and time, unclear if given twice.",
+  "stock_reconciles": "Gap of 3 matches a witnessed waste.",
+  "next_step": "Open duplicate_check query must be answered first.",
+  "open_discrepancies": "Duplicate and omissions across items.",
+  "error_severity": "Duplicate on time-critical item versus ordinary."
+ },
+ "request": "rec-F230-0056",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.003408
+}

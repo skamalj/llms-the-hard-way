@@ -1,0 +1,151 @@
+{
+ "id": "F211-0020",
+ "family": "F211",
+ "state": {
+  "vehicle": {
+   "callsign": "A31",
+   "odometer_km": 52260,
+   "service_due_km": 53000
+  },
+  "check": {
+   "shift_date": "2025-08-14",
+   "signed_at": "2025-08-14T06:20",
+   "sections_required": 5,
+   "sections_signed": [
+    "vehicle",
+    "stock",
+    "comms",
+    "cab"
+   ],
+   "countersigned_by": null
+  },
+  "defects": [
+   {
+    "item": "defibrillator",
+    "area": "clinical_equipment",
+    "desc": "Battery error at start-up.",
+    "status": "closed",
+    "substitute_on_board": false,
+    "deferral": null
+   },
+   {
+    "item": "locker latch",
+    "area": "vehicle_systems",
+    "desc": "Latch sticks.",
+    "status": "deferred",
+    "substitute_on_board": false,
+    "deferral": {
+     "authorised_by": "Khan",
+     "authorised_at": "2025-08-13T16:00",
+     "valid_until": "2025-08-21"
+    }
+   }
+  ],
+  "stock": {
+   "lines": [
+    {
+     "item": "salbutamol",
+     "qty": 5,
+     "par_level": 5,
+     "expiry": "2025-08-26"
+    }
+   ],
+   "restock_request": null
+  },
+  "activity": {
+   "first_mobilised_at": "2025-08-14T07:30",
+   "workshop_jobs": [
+    {
+     "date": "2025-08-13",
+     "job_note": "Defibrillator battery pack replaced."
+    }
+   ],
+   "prior_checks": [
+    {
+     "date": "2025-08-13",
+     "defect_items": [
+      "defibrillator"
+     ]
+    },
+    {
+     "date": "2025-08-12",
+     "defect_items": [
+      "defibrillator"
+     ]
+    },
+    {
+     "date": "2025-08-10",
+     "defect_items": [
+      "defibrillator"
+     ]
+    }
+   ]
+  }
+ },
+ "factors": {
+  "checklist_completion": "four_of_five_signed_no_countersign",
+  "worst_defect_tier": "cosmetic_deferred",
+  "defect_area": "clinical_equipment",
+  "deferral_authorised": true,
+  "deferral_invalid": false,
+  "workshop_return_recent": true,
+  "earliest_drug_expiry_days": 12,
+  "restock_in_progress": false,
+  "service_margin_km": 740,
+  "crew_note_tone": "absent",
+  "signed_after_mobilisation": false,
+  "repeat_defect_count": 3
+ },
+ "factors_sampled": {
+  "checklist_completion": "all_signed_countersigned",
+  "worst_defect_tier": "none",
+  "defect_area": "stock_and_drugs",
+  "deferral_authorised": true,
+  "deferral_invalid": false,
+  "workshop_return_recent": true,
+  "earliest_drug_expiry_days": 12,
+  "restock_in_progress": false,
+  "service_margin_km": -512,
+  "crew_note_tone": "absent",
+  "signed_after_mobilisation": false,
+  "repeat_defect_count": 3
+ },
+ "plan": {
+  "defects_controlled": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "readiness_status": {
+   "clarity": "balanced",
+   "target": "release",
+   "second": "hold"
+  },
+  "limiting_area": {
+   "clarity": "leaning",
+   "target": "clinical_equipment",
+   "second": null
+  },
+  "check_completeness": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  },
+  "defect_severity": {
+   "clarity": "contested",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 144,
+ "deciding": {
+  "defects_controlled": "The defibrillator defect is closed and the workshop replaced the battery pack on 2025-08-13, but there is no retest field and it has recurred 3 times, hence some doubt.",
+  "readiness_status": "The defibrillator fix is recent with no retest and the clinical section is unsigned, which argues for hold; closed status and no open critical items favour release.",
+  "limiting_area": "Clinical is missing from sections_signed, and the defibrillator has 3 prior check entries; the vehicle, stock and service margin show no limit.",
+  "check_completeness": "4 of 5 sections are signed with no countersignature; one section is unsigned, so it sits between partial and unverified.",
+  "defect_severity": "The locker latch is cosmetic and status deferred with a valid deferral; whether that counts as open is unclear, so level 0 or 1."
+ },
+ "request": "rec-F211-0016",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.008639
+}

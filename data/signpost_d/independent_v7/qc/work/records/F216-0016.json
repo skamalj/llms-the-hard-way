@@ -1,0 +1,153 @@
+{
+ "id": "F216-0016",
+ "family": "F216",
+ "state": {
+  "session": {
+   "id": "S101",
+   "session_type": "fixed_clinic",
+   "date": "2024-03-04"
+  },
+  "storage": {
+   "alarms_30d": 4,
+   "maintenance": [
+    {
+     "type": "defrost",
+     "start": "09:00",
+     "end": "09:40"
+    }
+   ]
+  },
+  "temp_log": {
+   "cols": [
+    "t",
+    "air_c",
+    "product_c"
+   ],
+   "readings": [
+    [
+     "09:10",
+     9.4,
+     7.6
+    ],
+    [
+     "09:20",
+     10.1,
+     7.9
+    ],
+    [
+     "09:30",
+     8.8,
+     7.8
+    ]
+   ],
+   "manual_checks": [
+    {
+     "time": "09:20",
+     "current_c": 7.5
+    }
+   ]
+  },
+  "stock": {
+   "lots": [
+    {
+     "lot_no": "A12",
+     "shelf": "front",
+     "tolerance_min_out": 0,
+     "opening": 40,
+     "wasted": 2,
+     "closing": 24
+    },
+    {
+     "lot_no": "B07",
+     "shelf": "rear",
+     "tolerance_min_out": 60,
+     "opening": 12,
+     "wasted": 0,
+     "closing": 12
+    }
+   ]
+  },
+  "administration": [
+   {
+    "time": "09:50",
+    "lot_no": "A12",
+    "doses": 14
+   }
+  ],
+  "excursion_actions": {
+   "start": "09:05",
+   "end": "10:30",
+   "quarantined": true,
+   "advice_status": "REF",
+   "advice_received_at": "11:00"
+  }
+ },
+ "factors": {
+  "true_excursion_minutes": 0,
+  "log_source_discrepancy": "minor_offset",
+  "buffered_probe_in_range": true,
+  "planned_maintenance": true,
+  "stability_clearance": "refused",
+  "doses_during_exposure": 14,
+  "stock_count_gap": 0,
+  "lot_id_mismatch": false,
+  "lots_beyond_tolerance": "some",
+  "freezing_reading": false,
+  "boundary_case": false,
+  "unit_alarm_history": 4,
+  "session_type": "fixed_clinic"
+ },
+ "factors_sampled": {
+  "true_excursion_minutes": 277,
+  "log_source_discrepancy": "minor_offset",
+  "buffered_probe_in_range": false,
+  "planned_maintenance": true,
+  "stability_clearance": "refused",
+  "doses_during_exposure": 14,
+  "stock_count_gap": 1,
+  "lot_id_mismatch": false,
+  "lots_beyond_tolerance": "some",
+  "freezing_reading": true,
+  "boundary_case": false,
+  "unit_alarm_history": 4,
+  "session_type": "fixed_clinic"
+ },
+ "plan": {
+  "dosed_uncleared": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "stock_reconciles": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "stock_disposition": {
+   "clarity": "balanced",
+   "target": "partial_discard",
+   "second": "discard_all"
+  },
+  "excursion_duration": {
+   "clarity": "clear",
+   "target": "0",
+   "second": null
+  },
+  "followup_urgency": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 67,
+ "deciding": {
+  "dosed_uncleared": "14 doses at 09:50, after excursion start 09:05; advice_status REF, so never cleared. Doubt: logger product_c stayed in range.",
+  "stock_reconciles": "A12: 40-2-14=24 matches closing; B07 unchanged 12; lot numbers match.",
+  "stock_disposition": "Advice REF with quarantine; A12 tolerance 0 on front shelf versus B07 tolerance 60 on rear. Partial versus all discard is balanced.",
+  "excursion_duration": "All product_c readings (7.6-7.9) are within 2-8; air spikes only. Staff-entered times do not change this.",
+  "followup_urgency": "14 patients dosed from stock the manufacturer refused; no next_session_date. Same-day recall versus within 24h is balanced."
+ },
+ "request": "rec-F216-0016",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.014296
+}

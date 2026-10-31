@@ -1,0 +1,143 @@
+{
+ "id": "F204-0073",
+ "family": "F204",
+ "state": {
+  "rx": {
+   "drug": "warfarin",
+   "strength": {
+    "val": 3,
+    "unit": "mg"
+   },
+   "form": "tab",
+   "dose": 1,
+   "freq_per_day": 1,
+   "qty": 28,
+   "days_intended": 28
+  },
+  "patient": {
+   "pt_id": "P7815",
+   "supplies": [
+    {
+     "date": "2025-04-01",
+     "days_covered": 14
+    }
+   ],
+   "emergency_supplies": [
+    {
+     "date": "2025-04-14",
+     "days": 2
+    }
+   ],
+   "near_miss_count": 2
+  },
+  "dispensed": {
+   "product_name": "warfarin",
+   "strength": {
+    "val": 5,
+    "unit": "mg"
+   },
+   "form": "tab",
+   "pack_size": 28,
+   "packs": 1,
+   "owing": null,
+   "expiry": "2027-02-28",
+   "req_warnings": [
+    "10"
+   ],
+   "high_risk": true
+  },
+  "label": {
+   "pt_id": "P7815",
+   "dose_qty": 2,
+   "freq_per_day": 2,
+   "warning_codes": [
+    "10"
+   ],
+   "qty_printed": 28
+  },
+  "check_log": {
+   "checked_at": "2025-04-15T11:30",
+   "clin_check": {
+    "by": "RP",
+    "at": "2025-04-15T11:00"
+   },
+   "queries": [],
+   "interventions": [
+    {
+     "code": "DOSE_CHG",
+     "field": "strength",
+     "accepted": true,
+     "by": "RP"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "strength_status": "differs",
+  "product_status": "exact",
+  "quantity_status": "exact",
+  "label_status": "directions_mismatch",
+  "prescriber_query": "none",
+  "pharmacist_intervention": true,
+  "clinical_check_signed": true,
+  "home_supply_days": 2,
+  "emergency_supply": true,
+  "short_expiry": false,
+  "prior_error_count": 2,
+  "high_risk_drug": true,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "strength_status": "match_same_units",
+  "product_status": "exact",
+  "quantity_status": "exact",
+  "label_status": "directions_mismatch",
+  "prescriber_query": "pending",
+  "pharmacist_intervention": true,
+  "clinical_check_signed": true,
+  "home_supply_days": 5,
+  "emergency_supply": false,
+  "short_expiry": false,
+  "prior_error_count": 2,
+  "high_risk_drug": true,
+  "boundary_case": false
+ },
+ "plan": {
+  "strength_differs": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "release",
+   "second": null
+  },
+  "error_category": {
+   "clarity": "clear",
+   "target": "label_error",
+   "second": null
+  },
+  "open_discrepancies": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  },
+  "supply_urgency": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 80,
+ "deciding": {
+  "strength_differs": "rx 3 mg vs dispensed 5 mg in the same unit, even though an accepted intervention is logged on the strength field.",
+  "next_step": "The strength intervention is accepted and the clinical check is signed, but the label dose and frequency of 2 twice daily against 1 once daily are still wrong, so release is doubtful.",
+  "error_category": "Product name and form are right and the strength intervention is accepted, while label dose_qty 2 and freq 2 differ from rx dose 1 and freq 1.",
+  "open_discrepancies": "Label dose and label frequency are both unresolved, and the strength difference is covered by the accepted intervention, which leaves two.",
+  "supply_urgency": "The routine supply from 2025-04-01 for 14 days ends 2025-04-15 (checked_at), giving 0 days; the emergency supply of 2 days on 2025-04-14 would extend it to about 2 days, so a reader may count either."
+ },
+ "request": "rec-F204-0071",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012521
+}

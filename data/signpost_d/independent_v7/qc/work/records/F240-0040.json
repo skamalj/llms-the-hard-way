@@ -1,0 +1,161 @@
+{
+ "id": "F240-0040",
+ "family": "F240",
+ "state": {
+  "asset": {
+   "inverter_id": "INV-12",
+   "rated_ac_kw": 2500
+  },
+  "fault_event": {
+   "code": "F-FAN-01",
+   "fw_severity": 3,
+   "ts_start": "2024-07-15T17:00",
+   "ts_clear": "2024-07-15T18:00"
+  },
+  "telemetry": {
+   "samples": [
+    {
+     "ts": "2024-07-15T17:30",
+     "ac_kw": 0,
+     "exp_kw": 60,
+     "poa_wm2": 85,
+     "limit_pct": 0
+    },
+    {
+     "ts": "2024-07-15T18:45",
+     "ac_kw": 8,
+     "exp_kw": 40,
+     "poa_wm2": 60,
+     "limit_pct": 1
+    }
+   ],
+   "exp_day_kwh": 14000,
+   "exp_window_kwh": 280,
+   "act_window_kwh": 140
+  },
+  "site_context": {
+   "grid_events": [],
+   "maint_windows": [
+    {
+     "from": "2024-07-15T08:00",
+     "to": "2024-07-15T20:00",
+     "scope": "INV-12"
+    }
+   ],
+   "neighbours": [
+    {
+     "inverter_id": "INV-11",
+     "output_ratio": 1.0
+    }
+   ]
+  },
+  "history": {
+   "faults": [
+    {
+     "date": "2024-06-18",
+     "code": "F-FAN-01"
+    },
+    {
+     "date": "2024-06-25",
+     "code": "F-FAN-01"
+    },
+    {
+     "date": "2024-07-01",
+     "code": "F-FAN-01"
+    },
+    {
+     "date": "2024-07-06",
+     "code": "F-FAN-01"
+    },
+    {
+     "date": "2024-07-11",
+     "code": "F-FAN-01"
+    },
+    {
+     "date": "2024-07-15",
+     "code": "F-FAN-01"
+    }
+   ],
+   "work_orders": [
+    {
+     "wo_id": "WO-6102",
+     "opened": "2024-06-08",
+     "completed": "2024-06-10",
+     "retest_ok": true
+    },
+    {
+     "wo_id": "WO-6188",
+     "opened": "2024-07-12",
+     "completed": null,
+     "retest_ok": null
+    }
+   ]
+  }
+ },
+ "factors": {
+  "fault_class": "fan_failure",
+  "log_telemetry_mismatch": "moderate_15_60min",
+  "grid_event_concurrent": false,
+  "maintenance_window_active": true,
+  "neighbour_cross_check": "neighbours_normal",
+  "repeat_count_30d": 6,
+  "last_repair_status": "completed_then_reopened",
+  "current_limit_pct": 1.0,
+  "yield_loss_pct": 1.0,
+  "low_irradiance_window": true,
+  "serial_mismatch": false,
+  "boundary_placement": false
+ },
+ "factors_sampled": {
+  "fault_class": "fan_failure",
+  "log_telemetry_mismatch": "moderate_15_60min",
+  "grid_event_concurrent": false,
+  "maintenance_window_active": true,
+  "neighbour_cross_check": "neighbours_normal",
+  "repeat_count_30d": 6,
+  "last_repair_status": "open",
+  "current_limit_pct": 14.78,
+  "yield_loss_pct": 29.41,
+  "low_irradiance_window": true,
+  "serial_mismatch": false,
+  "boundary_placement": false
+ },
+ "plan": {
+  "genuine_defect": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "post_repair_repeat": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "contested",
+   "target": "close_log",
+   "second": "urgent_dispatch"
+  },
+  "yield_loss": {
+   "clarity": "contested",
+   "target": "1",
+   "second": "0"
+  },
+  "capacity_unavailable": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 44,
+ "deciding": {
+  "genuine_defect": "Six F-FAN-01 faults in 30 days, neighbour INV-11 at 1.0, no grid event, and the fan-failure code isolate the fault to this inverter's hardware.",
+  "post_repair_repeat": "WO-6102 completed 2024-06-10 with retest_ok true, and all six F-FAN-01 entries (06-18 to 07-15) fall after that date.",
+  "next_step": "Six recurrences and output near zero argue for dispatch, but open WO-6188, an active maintenance window on INV-12 and a low-irradiance evening window argue the issue is already being handled.",
+  "yield_loss": "(280-140)/14000 = 1.0%, on the boundary between negligible and minor because of low irradiance in the window.",
+  "capacity_unavailable": "The last sample shows ac_kw 8 of rated 2500 with limit_pct 1, effectively offline yet still exporting a trickle, so level 3 and level 2 are both defensible."
+ },
+ "request": "rec-F240-0036",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.016661
+}

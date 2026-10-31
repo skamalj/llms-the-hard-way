@@ -1,0 +1,126 @@
+{
+ "id": "F240-0050",
+ "family": "F240",
+ "state": {
+  "asset": {
+   "serial": "S5",
+   "rated_ac_kw": 1000
+  },
+  "fault_event": {
+   "serial": "S9",
+   "code": "F-COM-01",
+   "fw_severity": 4,
+   "ts_start": "2025-08-01T08:00",
+   "ts_clear": "2025-08-01T09:00"
+  },
+  "telemetry": {
+   "samples": [
+    {
+     "ts": "2025-08-01T06:00",
+     "ac_kw": 0,
+     "limit_pct": 0
+    },
+    {
+     "ts": "2025-08-01T11:30",
+     "ac_kw": 0,
+     "limit_pct": 0
+    },
+    {
+     "ts": "2025-08-01T14:00",
+     "ac_kw": 1000,
+     "limit_pct": 100
+    }
+   ],
+   "exp_day_kwh": 5000,
+   "exp_window_kwh": 3000,
+   "act_window_kwh": 2000
+  },
+  "history": {
+   "faults": [
+    {
+     "date": "2025-07-20",
+     "code": "F-COM-01"
+    },
+    {
+     "date": "2025-07-28",
+     "code": "F-COM-01"
+    },
+    {
+     "date": "2025-08-01",
+     "code": "F-COM-01"
+    }
+   ],
+   "work_orders": [
+    {
+     "completed": "2025-08-01T07:50"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "fault_class": "comms_loss",
+  "log_telemetry_mismatch": "large_over_2h",
+  "grid_event_concurrent": false,
+  "maintenance_window_active": false,
+  "neighbour_cross_check": "no_neighbour_data",
+  "repeat_count_30d": 3,
+  "last_repair_status": "completed_unverified",
+  "current_limit_pct": 100.0,
+  "yield_loss_pct": 20.0,
+  "low_irradiance_window": false,
+  "serial_mismatch": true,
+  "boundary_placement": true
+ },
+ "factors_sampled": {
+  "fault_class": "comms_loss",
+  "log_telemetry_mismatch": "large_over_2h",
+  "grid_event_concurrent": false,
+  "maintenance_window_active": true,
+  "neighbour_cross_check": "neighbours_normal",
+  "repeat_count_30d": 3,
+  "last_repair_status": "open",
+  "current_limit_pct": 9.78,
+  "yield_loss_pct": 29.46,
+  "low_irradiance_window": false,
+  "serial_mismatch": true,
+  "boundary_placement": true
+ },
+ "plan": {
+  "genuine_defect": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "post_repair_repeat": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "urgent_dispatch",
+   "second": null
+  },
+  "yield_loss": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "capacity_unavailable": {
+   "clarity": "leaning",
+   "target": "0",
+   "second": null
+  }
+ },
+ "target_words": 34,
+ "deciding": {
+  "genuine_defect": "Three F-COM-01 faults and fw_severity 4, but fault_event serial S9 differs from asset serial S5 and no site context is given.",
+  "post_repair_repeat": "Work order completed 07:50 and the fault starts 08:00 the same day, minutes apart; the serial mismatch leaves the attribution doubtful.",
+  "next_step": "Repeated faults with a zero-output stretch about 5 hours long (06:00 to after 11:30) and a loss near 20%: dispatch now.",
+  "yield_loss": "(3000-2000)/5000 = 20.0%, on the level 2/3 boundary, and the zero stretch does not match the logged window.",
+  "capacity_unavailable": "Last sample ac_kw 1000 of 1000 rated and limit_pct 100: back at full output."
+ },
+ "request": "rec-F240-0046",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011636
+}

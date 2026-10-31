@@ -1,0 +1,104 @@
+{
+ "id": "F229-0020",
+ "family": "F229",
+ "state": {
+  "lot": {
+   "lot_id": "L5-02",
+   "block_code": "B02",
+   "pick_date": "2024-09-20",
+   "pick_start": "05:30",
+   "pick_end": null
+  },
+  "intake": {
+   "block_code": "B02",
+   "arrival_at": "2024-09-20T13:00",
+   "net_kg": 4000,
+   "temp_c": 22,
+   "cold_room_in": null
+  },
+  "sample": {
+   "rot_pct": 8.02,
+   "sort": null
+  },
+  "press": {
+   "programme": "destemmed_standard",
+   "band_l_per_t": "600-680",
+   "cycle_start": "2024-09-21T04:20",
+   "juice_l": 2300,
+   "operator_note": "Fruit sorted on table."
+  },
+  "transfer": {
+   "lot_ref": "L5-02",
+   "tank_id": "T2",
+   "qa_signoff": null
+  }
+ },
+ "factors": {
+  "weight_mismatch": "none",
+  "press_programme": "destemmed_standard",
+  "yield_position": "below_band",
+  "lot_id_drift": "none",
+  "missing_step": "qa_signoff_missing",
+  "out_of_order_timestamp": false,
+  "pick_to_press_hours": "at_least_15.3",
+  "pick_end_recorded": false,
+  "cold_held": false,
+  "rot_pct": 8.02,
+  "sorting_applied": false,
+  "note_signal": "contradicts_log",
+  "boundary_case": true
+ },
+ "factors_sampled": {
+  "weight_mismatch": "none",
+  "press_programme": "destemmed_standard",
+  "yield_position": "below_band",
+  "lot_id_drift": "none",
+  "missing_step": "qa_signoff_missing",
+  "out_of_order_timestamp": false,
+  "pick_to_press_hours": 22.88,
+  "pick_end_recorded": false,
+  "cold_held": false,
+  "rot_pct": 8.02,
+  "sorting_applied": false,
+  "note_signal": "contradicts_log",
+  "boundary_case": true
+ },
+ "plan": {
+  "yield_consistent": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "chain_intact": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "release_decision": {
+   "clarity": "clear",
+   "target": "segregate",
+   "second": null
+  },
+  "pick_press_delay": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "failed_checks": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  }
+ },
+ "target_words": 33,
+ "deciding": {
+  "yield_consistent": "2300 L from 4000 kg is 575 L/t, below the 600-680 band.",
+  "chain_intact": "L5-02 and B02 are the same in lot, intake and transfer.",
+  "release_decision": "Rot of 8.02% with an uncooled intake, a null sort block against the note 'sorted on table', and low yield mean a fruit fault, so isolate the juice.",
+  "pick_press_delay": "pick_end is null; arrival 13:00 to cycle_start 04:20 is 15.3 h minimum, and the actual figure is higher but undetermined between level 2 and 3.",
+  "failed_checks": "Yield below band is the clearest failure; the null qa_signoff and the sort contradiction are weaker."
+ },
+ "request": "rec-F229-0016",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.008575
+}

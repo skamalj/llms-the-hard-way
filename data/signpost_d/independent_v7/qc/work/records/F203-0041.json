@@ -1,0 +1,122 @@
+{
+ "id": "F203-0041",
+ "family": "F203",
+ "state": {
+  "request": {
+   "submitted_on": "2025-03-10",
+   "need_by": "2025-04-01",
+   "scope": "whole_item"
+  },
+  "borrower_library": {
+   "agreement": {
+    "status": "active",
+    "expires_on": "2026-01-01"
+   },
+   "open_loans": [
+    {
+     "due_on": "2025-02-01",
+     "renewed_on": "2025-01-28",
+     "return_scan_on": null
+    },
+    {
+     "due_on": "2025-02-10",
+     "renewed_on": "2025-02-05",
+     "return_scan_on": null
+    }
+   ]
+  },
+  "patron": {
+   "member_id": "M41",
+   "verified_on": null
+  },
+  "item": {
+   "condition_grade": "worn",
+   "conservation_check": null,
+   "local_holds": 2
+  },
+  "holdings_network": {
+   "copies": [
+    {
+     "library_code": "NW",
+     "status": "lendable"
+    },
+    {
+     "library_code": "EA",
+     "status": "on_loan"
+    }
+   ],
+   "supplier_status": "in_print"
+  },
+  "logistics": {
+   "est_arrival": "2025-03-17"
+  }
+ },
+ "factors": {
+  "agreement_status": "active",
+  "borrower_overdue_count": 2,
+  "overdue_mitigated": true,
+  "patron_verification": "pending",
+  "item_condition": "worn",
+  "conservation_cleared": false,
+  "local_holds_queue": 2,
+  "network_other_copies": 1,
+  "print_status": "in_print",
+  "request_scope": "whole_item",
+  "copyright_declaration_present": false,
+  "need_by_slack_days": 15,
+  "need_by_missing": false
+ },
+ "factors_sampled": {
+  "agreement_status": "active",
+  "borrower_overdue_count": 4,
+  "overdue_mitigated": true,
+  "patron_verification": "pending",
+  "item_condition": "worn",
+  "conservation_cleared": false,
+  "local_holds_queue": 2,
+  "network_other_copies": 1,
+  "print_status": "in_print",
+  "request_scope": "whole_item",
+  "copyright_declaration_present": false,
+  "need_by_slack_days": 15,
+  "need_by_missing": false
+ },
+ "plan": {
+  "borrower_good_standing": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "disposition": {
+   "clarity": "clear",
+   "target": "redirect",
+   "second": null
+  },
+  "loan_restriction": {
+   "clarity": "clear",
+   "target": "standard_loan",
+   "second": null
+  },
+  "time_slack": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "replacement_difficulty": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  }
+ },
+ "target_words": 37,
+ "deciding": {
+  "borrower_good_standing": "Agreement active and overdue loans carry renewals, but patron verified_on is null, leaving some doubt.",
+  "disposition": "A lendable network copy at NW exists while the local copy is worn with no conservation check, so redirect is plain.",
+  "loan_restriction": "No restriction signal; whole item, standard terms.",
+  "time_slack": "Arrival 2025-03-17 against need-by 2025-04-01 is exactly 15 days, on the boundary between levels 3 and 2.",
+  "replacement_difficulty": "One lendable copy (NW) in the network, with the on_loan copy as a decoy; one lendable copy supports level 1."
+ },
+ "request": "rec-F203-0041",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.005432
+}

@@ -1,0 +1,123 @@
+{
+ "id": "F201-0111",
+ "family": "F201",
+ "state": {
+  "register_header": {
+   "drug": "ketamine",
+   "concentration_mg_ml": 100,
+   "witness_required": false,
+   "opening_balance_ml": 40
+  },
+  "entries": [
+   {
+    "entry_id": "E1",
+    "type": "receipt",
+    "qty_ml": 20,
+    "running_balance_ml": 60,
+    "signed_by": null
+   },
+   {
+    "entry_id": "E2",
+    "type": "use",
+    "qty_ml": 5,
+    "running_balance_ml": 55,
+    "signed_by": null
+   },
+   {
+    "entry_id": "E3",
+    "type": "use",
+    "qty_ml": 4,
+    "running_balance_ml": 51,
+    "signed_by": null
+   },
+   {
+    "entry_id": "E4",
+    "type": "use",
+    "qty_ml": 3,
+    "running_balance_ml": 48,
+    "signed_by": null
+   },
+   {
+    "entry_id": "E5",
+    "type": "use",
+    "qty_ml": 3,
+    "running_balance_ml": 45,
+    "signed_by": "S2"
+   }
+  ],
+  "stock_check": {
+   "count_date": "2024-05-31",
+   "counted_ml": 38.5,
+   "overfill_allowance_ml": 0.5
+  },
+  "clinical_records": null
+ },
+ "factors": {
+  "drug_profile": "ketamine_100mg_ml",
+  "arithmetic_slip_count": 0,
+  "unrecorded_admin": "none_visible",
+  "clinical_records_missing": true,
+  "disposal_state": "none_needed",
+  "unexplained_shortfall_pct": 10.0,
+  "variance_exception": "none",
+  "manufacturer_overfill": true,
+  "auth_gap_count": 4,
+  "count_out_of_order": false,
+  "unit_mismatch": false,
+  "locum_signatory": false,
+  "boundary_case": true
+ },
+ "factors_sampled": {
+  "drug_profile": "ketamine_100mg_ml",
+  "arithmetic_slip_count": 0,
+  "unrecorded_admin": "large_over_10pct",
+  "clinical_records_missing": true,
+  "disposal_state": "none_needed",
+  "unexplained_shortfall_pct": 14.76,
+  "variance_exception": "none",
+  "manufacturer_overfill": true,
+  "auth_gap_count": 5,
+  "count_out_of_order": false,
+  "unit_mismatch": true,
+  "locum_signatory": false,
+  "boundary_case": false
+ },
+ "plan": {
+  "unexplained_shortfall": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "line_disposition": {
+   "clarity": "contested",
+   "target": "correct_and_sign",
+   "second": "hold_pending"
+  },
+  "variance_cause": {
+   "clarity": "leaning",
+   "target": "no_discrepancy",
+   "second": null
+  },
+  "variance_size": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "auth_gaps": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 29,
+ "deciding": {
+  "unexplained_shortfall": "Register balance 45 vs counted 38.5; no exceptions, no disposals, and the only allowance is 0.5 ml overfill, so about 6 ml is unaccounted for.",
+  "line_disposition": "Clinical records are null (one missing confirmation) but four unsigned entries and a large gap make hold versus annotate-and-sign both arguable.",
+  "variance_cause": "Running balances are arithmetically consistent and no disposal exists; with clinical records null no counterpart can be matched, so the cause is not clearly shown.",
+  "variance_size": "(45-38.5-0.5)=6 ml over 60 ml handled (40 opening + 20 receipt) is exactly 10%, on the boundary between level 2 and level 3.",
+  "auth_gaps": "signed_by is null on E1-E4, four entries, with witness not required; this sits at the lower edge of level 3 and one count away from level 2."
+ },
+ "request": "rec-F201-0111",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.015791
+}

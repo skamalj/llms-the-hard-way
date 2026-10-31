@@ -1,0 +1,147 @@
+{
+ "id": "F236-0066",
+ "family": "F236",
+ "state": {
+  "changeover": {
+   "line": "L2",
+   "from_code": "BR-110",
+   "to_code": "SE-240",
+   "from_allergens": [
+    "wheat"
+   ],
+   "to_allergens": [
+    "wheat",
+    "sesame"
+   ]
+  },
+  "cleaning": {
+   "steps": [
+    {
+     "s": "dry",
+     "done": true,
+     "spec_min": 20,
+     "act_min": 20
+    },
+    {
+     "s": "wash",
+     "done": true,
+     "spec_min": 30,
+     "act_min": 22
+    }
+   ]
+  },
+  "verification": {
+   "swabs": [
+    {
+     "id": "S1",
+     "target": "sesame",
+     "ppm": 8,
+     "limit_ppm": 10,
+     "at": "2025-03-11T05:30"
+    }
+   ]
+  },
+  "production": {
+   "line": "L2",
+   "product_code": "SE-420",
+   "start": "2025-03-11T05:45",
+   "qty": 242.88,
+   "unit": "kg",
+   "pack": [
+    "wheat",
+    "sesame"
+   ]
+  },
+  "approvals": {
+   "qa": {
+    "signed_at": "2025-03-11T05:40"
+   },
+   "dev": [
+    {
+     "scope": "L2 wash duration",
+     "approved": "2025-03-11T04:30"
+    }
+   ]
+  },
+  "history": {
+   "passed": [
+    true,
+    false,
+    false,
+    true,
+    false,
+    true,
+    false,
+    false,
+    true,
+    true
+   ]
+  }
+ },
+ "factors": {
+  "allergen_transition": "adds_allergen",
+  "cleaning_completion": "duration_short",
+  "swab_outcome": "trace_below_limit",
+  "swab_timing_mismatch": false,
+  "cross_section_discrepancy": "product_code_mismatch",
+  "exposed_quantity_kg": 242.88,
+  "approved_deviation": true,
+  "label_precaution": false,
+  "dedicated_tooling": false,
+  "qa_signoff_state": "signed_before_start",
+  "line_failure_history": 5,
+  "boundary_value": false
+ },
+ "factors_sampled": {
+  "allergen_transition": "adds_allergen",
+  "cleaning_completion": "duration_short",
+  "swab_outcome": "trace_below_limit",
+  "swab_timing_mismatch": false,
+  "cross_section_discrepancy": "product_code_mismatch",
+  "exposed_quantity_kg": 242.88,
+  "approved_deviation": true,
+  "label_precaution": false,
+  "dedicated_tooling": false,
+  "qa_signoff_state": "signed_before_start",
+  "line_failure_history": 5,
+  "boundary_value": true
+ },
+ "plan": {
+  "swabs_cleared": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "line_disposition": {
+   "clarity": "leaning",
+   "target": "release_conditional",
+   "second": null
+  },
+  "worst_deficiency": {
+   "clarity": "leaning",
+   "target": "cleaning_shortfall",
+   "second": null
+  },
+  "exposed_product": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  },
+  "residue_evidence": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  }
+ },
+ "target_words": 99,
+ "deciding": {
+  "swabs_cleared": "The only swab (S1, 8 ppm against a 10 ppm limit) was taken at 05:30, before production start at 05:45.",
+  "line_disposition": "The swab was near the limit, the code mismatch is unresolved, and there is no may_contain label. Released with an added control such as a label or test is the leading answer.",
+  "worst_deficiency": "The wash ran 22 min against a 30 min spec. A deviation covers it, but the shortfall is still the worst issue, ahead of the product code mismatch (SE-240 vs SE-420).",
+  "exposed_product": "The swab passed before start, but 242.88 kg was produced under a mismatched product code. That leaves level 1 versus 2 open, with level 2 slightly favoured.",
+  "residue_evidence": "A reading of 8 ppm is above zero but below the 10 ppm limit, with no retest needed. That is trace evidence, though close to the limit."
+ },
+ "request": "rec-F236-0066",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.01358
+}

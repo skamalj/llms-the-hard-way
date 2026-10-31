@@ -1,0 +1,151 @@
+{
+ "id": "F224-0083",
+ "family": "F224",
+ "state": {
+  "request": {
+   "views": [
+    "BW_L"
+   ],
+   "ind": "PA_PAIN",
+   "risk": "moderate",
+   "date": "2024-04-09",
+   "prior": "2022-08-15",
+   "exceptions": [
+    {
+     "code": "EXC_CLIN",
+     "by": "D052"
+    }
+   ]
+  },
+  "exposures": [
+   {
+    "view": "BW_L",
+    "kV": 66,
+    "s": 0.2,
+    "dose": 0.85,
+    "t": "14:02"
+   },
+   {
+    "view": "BW_L",
+    "kV": 66,
+    "s": 0.2,
+    "dose": 0.85,
+    "t": "14:05",
+    "retake_of": 1
+   },
+   {
+    "view": "PA_26",
+    "kV": 66,
+    "s": 0.2,
+    "dose": 0.85,
+    "t": "14:08"
+   }
+  ],
+  "image_review": {
+   "grade": 2,
+   "faults": [
+    "FC_CONE_CUT"
+   ],
+   "sensor_err": "E12@14:05",
+   "second_grader": "done"
+  },
+  "equipment": {
+   "qa": "2023-01-10",
+   "int": 12,
+   "test": "pass",
+   "drl": {
+    "BW": 1.0,
+    "PA": 1.0
+   },
+   "console": [
+    {
+     "t": "14:02",
+     "kV": 66,
+     "s": 0.2
+    },
+    {
+     "t": "14:05",
+     "kV": 70,
+     "s": 0.22
+    },
+    {
+     "t": "14:08",
+     "kV": 66,
+     "s": 0.2
+    }
+   ]
+  },
+  "operator": {
+   "signoff": "2024-04-09T15:00",
+   "prior": 0
+  }
+ },
+ "factors": {
+  "indication_match": "mismatch",
+  "recall_interval_months": 20,
+  "dose_ratio_to_drl": 1.05,
+  "console_log_discrepancy": "setting_mismatch",
+  "retake_cause": "sensor_fault",
+  "equipment_qa_status": "overdue",
+  "approved_exception": true,
+  "patient_cooperation_flag": false,
+  "unrequested_exposure_count": 1,
+  "verbal_authorisation_logged": false,
+  "image_grade": "acceptable_minor_faults",
+  "audit_completeness": "complete",
+  "operator_prior_findings": 0
+ },
+ "factors_sampled": {
+  "indication_match": "mismatch",
+  "recall_interval_months": 20,
+  "dose_ratio_to_drl": 1.48,
+  "console_log_discrepancy": "setting_mismatch",
+  "retake_cause": "sensor_fault",
+  "equipment_qa_status": "overdue",
+  "approved_exception": true,
+  "patient_cooperation_flag": false,
+  "unrequested_exposure_count": 3,
+  "verbal_authorisation_logged": false,
+  "image_grade": "acceptable_minor_faults",
+  "audit_completeness": "complete",
+  "operator_prior_findings": 0
+ },
+ "plan": {
+  "justified": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "operator_retake": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "follow_up": {
+   "clarity": "leaning",
+   "target": "escalate_rpa",
+   "second": null
+  },
+  "dose_position": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  },
+  "unjustified_count": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  }
+ },
+ "target_words": 67,
+ "deciding": {
+  "justified": "Indication PA_PAIN does not fit the bitewing, but the 20-month interval is within the moderate-risk allowance. An approved exception EXC_CLIN (D052) is also on file.",
+  "operator_retake": "The retake at 14:05 carries both FC_CONE_CUT (operator technique) and sensor error E12@14:05 (equipment), so the cause is genuinely split.",
+  "follow_up": "The last QA was 2023-01-10 with a 12-month interval, so it is overdue at the April 2024 exposure. The console also disagrees with the exposure list at 14:05, which points to referral to the adviser.",
+  "dose_position": "The console at 14:05 shows 70 kV and 0.22 s against the logged 66 kV and 0.2 s, so the console governs. That scales the 0.85 mGy to about 1.05 against a reference of 1.0, right at the 100% boundary.",
+  "unjustified_count": "PA_26 is absent from views_requested and has no verbal auth. The retake repeats the requested BW_L, so the count is 1."
+ },
+ "request": "rec-F224-0081",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.014925
+}

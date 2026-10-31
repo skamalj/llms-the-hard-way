@@ -1,0 +1,145 @@
+{
+ "id": "F204-0036",
+ "family": "F204",
+ "state": {
+  "rx": {
+   "drug": "cefalexin",
+   "strength": {
+    "val": 250,
+    "unit": "mg",
+    "per_ml": 5
+   },
+   "form": "susp",
+   "dose": 5,
+   "freq_per_day": 3,
+   "qty": 150,
+   "days": 10
+  },
+  "patient": {
+   "pt_id": "P20931",
+   "supplies": [
+    {
+     "date": "2024-05-01",
+     "days_covered": 15
+    }
+   ],
+   "near_miss_count": 1
+  },
+  "dispensed": {
+   "product_name": "Cefalexin susp",
+   "strength": {
+    "val": 125,
+    "unit": "mg",
+    "per_ml": 5
+   },
+   "form": "susp",
+   "pack_size": 150,
+   "packs": 1,
+   "owing": null,
+   "expiry": "2024-05-20",
+   "req_warnings": [
+    9
+   ],
+   "high_risk": false
+  },
+  "label": {
+   "pt_id": "P20931",
+   "dose_qty": 5,
+   "freq_per_day": 3,
+   "warning_codes": [
+    9
+   ],
+   "qty_printed": 150
+  },
+  "check_log": {
+   "checked_at": "2024-05-16T09:10",
+   "clin_check": {
+    "by": "RPh",
+    "at": "2024-05-16T09:00"
+   },
+   "queries": [
+    {
+     "raised_at": "2024-05-16T08:20",
+     "field": "strength",
+     "status": "confirmed"
+    }
+   ],
+   "interventions": [
+    {
+     "code": "CL2",
+     "field": "strength",
+     "accepted": true,
+     "by": "RPh"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "strength_status": "mismatch_same_units_resolved",
+  "product_status": "exact",
+  "quantity_status": "exact",
+  "label_status": "correct",
+  "prescriber_query": "confirmed",
+  "pharmacist_intervention": true,
+  "clinical_check_signed": true,
+  "home_supply_days": 0,
+  "emergency_supply": false,
+  "short_expiry": true,
+  "prior_error_count": 1,
+  "high_risk_drug": false,
+  "boundary_case": true
+ },
+ "factors_sampled": {
+  "strength_status": "match_same_units",
+  "product_status": "exact",
+  "quantity_status": "short_undocumented",
+  "label_status": "correct",
+  "prescriber_query": "confirmed",
+  "pharmacist_intervention": true,
+  "clinical_check_signed": true,
+  "home_supply_days": 9,
+  "emergency_supply": true,
+  "short_expiry": false,
+  "prior_error_count": 1,
+  "high_risk_drug": false,
+  "boundary_case": true
+ },
+ "plan": {
+  "strength_differs": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "redispense",
+   "second": null
+  },
+  "error_category": {
+   "clarity": "clear",
+   "target": "product_error",
+   "second": null
+  },
+  "open_discrepancies": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "supply_urgency": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 105,
+ "deciding": {
+  "strength_differs": "Pack is 125 mg/5 mL against 250 mg/5 mL prescribed, so it differs, but the confirmed strength query and accepted strength intervention make it contestable.",
+  "next_step": "Batch expiry 2024-05-20 is before the 10-day course ends (about 2024-05-26) and nothing covers it, so re-pick; the resolved strength adds slight doubt.",
+  "error_category": "The short-dated batch is an unresolved product problem; no query or intervention covers expiry, and the label and quantity are fine.",
+  "open_discrepancies": "Strength is covered by a confirmed query and accepted intervention, leaving only the expiry; whether the strength still counts holds 0 against 1.",
+  "supply_urgency": "Last supply 2024-05-01 covering 15 days against checked_at 2024-05-16 sits on the exhaustion boundary: 0 days or 1 day left."
+ },
+ "request": "rec-F204-0036",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.014175
+}

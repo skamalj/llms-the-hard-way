@@ -1,0 +1,169 @@
+{
+ "id": "F230-0084",
+ "family": "F230",
+ "state": {
+  "prescriptions": [
+   {
+    "item_id": "A",
+    "drug": "tizanidine",
+    "strength_mg": 2,
+    "dose_units": 1,
+    "time_critical": null,
+    "changes": [
+     {
+      "effective": "2024-03-10",
+      "new_dose_units": 2,
+      "order_ref": "G-88",
+      "authorised_by_role": "GP"
+     }
+    ]
+   },
+   {
+    "item_id": "B",
+    "drug": "gabapentin",
+    "strength_mg": 100,
+    "dose_units": 1,
+    "time_critical": false
+   },
+   {
+    "item_id": "C",
+    "drug": "metformin",
+    "strength_mg": 500,
+    "dose_units": 1,
+    "time_critical": false
+   },
+   {
+    "item_id": "D",
+    "drug": "baclofen",
+    "strength_mg": 10,
+    "dose_units": 1,
+    "time_critical": false
+   }
+  ],
+  "administrations": [
+   {
+    "item_id": "A",
+    "scheduled": "08:00",
+    "given_at": "08:02",
+    "units_given": 2,
+    "strength_mg_used": 2,
+    "code": "G",
+    "initials": "PL"
+   },
+   {
+    "item_id": "B",
+    "scheduled": "08:00",
+    "given_at": null,
+    "units_given": 0,
+    "code": "R",
+    "initials": "PL"
+   },
+   {
+    "item_id": "C",
+    "scheduled": "08:00",
+    "given_at": "10:02",
+    "units_given": 1,
+    "code": "G",
+    "initials": "PL"
+   },
+   {
+    "item_id": "D",
+    "scheduled": "08:00",
+    "given_at": "08:05",
+    "units_given": 2,
+    "strength_mg_used": 5,
+    "code": "G",
+    "initials": "PL"
+   }
+  ],
+  "stock": {
+   "D": {
+    "opening": 30,
+    "received": 0,
+    "wasted": 0,
+    "returned": 0,
+    "closing": 28
+   }
+  },
+  "round": {
+   "date": "2024-03-09",
+   "open_queries": [
+    {
+     "type": "stock_recount_due",
+     "raised": "2024-03-09T09:30",
+     "item_id": "D"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "dose_mismatch_type": "wrong_quantity",
+  "prescription_change_documented": false,
+  "omission_count": 1,
+  "omission_reason_valid": false,
+  "late_minutes": 122,
+  "time_critical_affected": false,
+  "stock_variance": 0,
+  "stock_variance_explained": false,
+  "signature_gaps": 0,
+  "unit_expression_decoy": "equivalent_split",
+  "post_dose_obs_reassuring": true,
+  "pending_query": "stock_recount_due",
+  "prior_errors_30d": 1,
+  "item_count": 4
+ },
+ "factors_sampled": {
+  "dose_mismatch_type": "wrong_quantity",
+  "prescription_change_documented": false,
+  "omission_count": 1,
+  "omission_reason_valid": false,
+  "late_minutes": 122,
+  "time_critical_affected": false,
+  "stock_variance": 3,
+  "stock_variance_explained": false,
+  "signature_gaps": 0,
+  "unit_expression_decoy": "equivalent_split",
+  "post_dose_obs_reassuring": false,
+  "pending_query": "stock_recount_due",
+  "prior_errors_30d": 1,
+  "item_count": 10
+ },
+ "plan": {
+  "dose_mismatch": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "stock_reconciles": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "correct_and_close",
+   "second": null
+  },
+  "open_discrepancies": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "error_severity": {
+   "clarity": "balanced",
+   "target": "4",
+   "second": "3"
+  }
+ },
+ "target_words": 57,
+ "deciding": {
+  "dose_mismatch": "Item A given 2 units, but the change to 2 units takes effect 2024-03-10, after the round date 2024-03-09, so the dose in force was 1; the 2 x 5 mg on D is an equivalent split.",
+  "stock_reconciles": "D closing 28 = 30 - 2 signed, so counts match on paper; the recount query on D is still pending, leaving doubt.",
+  "next_step": "Mainly slips: A's early dose follows a dated order, and C is late, while stock matches; B's R code has no supporting reason.",
+  "open_discrepancies": "A (dose ahead of the effective date), B (unsupported R omission), C (122 min late), D (recount pending): four, or fewer if the recount clears D.",
+  "error_severity": "A's wrong quantity has a null time_critical flag and B is an unsupported omission of an ordinary drug, so the worst error is level 3 or level 4 depending on A's flag."
+ },
+ "request": "rec-F230-0081",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.016333
+}

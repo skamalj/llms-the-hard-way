@@ -1,0 +1,110 @@
+{
+ "id": "F216-0043",
+ "family": "F216",
+ "state": {
+  "storage": {
+   "unit": "F3",
+   "alarms_30d": 4
+  },
+  "temp_log": {
+   "int_min": 10,
+   "prod_out": [
+    [
+     "09:20",
+     "11:35"
+    ]
+   ]
+  },
+  "stock": [
+   {
+    "lot": "L7",
+    "tol": 180,
+    "open": 40,
+    "waste": 1,
+    "close": 20
+   }
+  ],
+  "administration": [
+   {
+    "t": "10:00",
+    "lot": "L7",
+    "n": 19
+   }
+  ],
+  "excursion_actions": {
+   "start": "09:20",
+   "end": "11:15",
+   "advice": "CLR",
+   "advice_at": "14:00",
+   "revised_expiry": null
+  }
+ },
+ "factors": {
+  "true_excursion_minutes": 135,
+  "log_source_discrepancy": "none",
+  "buffered_probe_in_range": false,
+  "planned_maintenance": false,
+  "stability_clearance": "cleared_full",
+  "doses_during_exposure": 19,
+  "stock_count_gap": 0,
+  "lot_id_mismatch": false,
+  "lots_beyond_tolerance": "none",
+  "freezing_reading": false,
+  "boundary_case": false,
+  "unit_alarm_history": 4,
+  "session_type": "fixed_clinic"
+ },
+ "factors_sampled": {
+  "true_excursion_minutes": 111,
+  "log_source_discrepancy": "none",
+  "buffered_probe_in_range": true,
+  "planned_maintenance": true,
+  "stability_clearance": "cleared_full",
+  "doses_during_exposure": 19,
+  "stock_count_gap": -1,
+  "lot_id_mismatch": true,
+  "lots_beyond_tolerance": "none",
+  "freezing_reading": false,
+  "boundary_case": false,
+  "unit_alarm_history": 4,
+  "session_type": "fixed_clinic"
+ },
+ "plan": {
+  "dosed_uncleared": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "stock_reconciles": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "stock_disposition": {
+   "clarity": "clear",
+   "target": "release",
+   "second": null
+  },
+  "excursion_duration": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  },
+  "followup_urgency": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  }
+ },
+ "target_words": 43,
+ "deciding": {
+  "dosed_uncleared": "19 doses at 10:00, after start 09:20 and before CLR advice at 14:00; later clearance leaves slight doubt.",
+  "stock_reconciles": "L7: 40 - 1 - 19 = 20 = close; lot matches.",
+  "stock_disposition": "Advice CLR (full) with revised_expiry null and within tol 180: release.",
+  "excursion_duration": "Logger out-of-range 09:20-11:35 = 135 min, over 120; staff end 11:15 (115 min) gives slight doubt.",
+  "followup_urgency": "Doses were given before clearance, but advice is now CLR full: action within 24 h vs same-day is balanced."
+ },
+ "request": "rec-F216-0041",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012295
+}

@@ -1,0 +1,134 @@
+{
+ "id": "F235-0043",
+ "family": "F235",
+ "state": {
+  "station": {
+   "station_id": "S-2208",
+   "river": "Wey",
+   "gauge_type": "bubbler",
+   "backup": {
+    "installed": false,
+    "status": null
+   },
+   "telemetry": {
+    "batt_v": 11.4,
+    "rssi_dbm": -108
+   }
+  },
+  "visit": {
+   "visit_id": "V-3050",
+   "type": "routine",
+   "visit_date": "2024-07-02",
+   "abort_reason": null
+  },
+  "checks": {
+   "pre": {
+    "board_m": [
+     1.034,
+     1.046
+    ],
+    "logger_m": 1.0,
+    "time": "13:00"
+   },
+   "post": null
+  },
+  "works": {
+   "tasks": [
+    {
+     "task": "control survey",
+     "status": "done"
+    },
+    {
+     "task": "sensor bench test",
+     "status": "done"
+    }
+   ],
+   "bench_test": {
+    "result_mm_error": 2,
+    "date": "2024-07-02"
+   },
+   "logger_gap_h": 33
+  },
+  "defects": [
+   {
+    "item": "intermittent primary dropouts",
+    "channel": "primary_stage",
+    "reporting": false,
+    "raised": "2024-07-02"
+   }
+  ],
+  "notes": {
+   "tech_note": "Survey shows bed raised at control.",
+   "supervisor_comment": "Temporary offset reference approved.",
+   "signed_off": "2024-07-03"
+  }
+ },
+ "factors": {
+  "pre_visit_offset_mm": 40.0,
+  "check_reading_spread_mm": 12.0,
+  "drift_cause": "channel_change",
+  "cause_evidence": "single_indicator",
+  "visit_completion": "partial",
+  "post_visit_check_logged": false,
+  "residual_defect_class": "primary_intermittent",
+  "backup_sensor_ok": false,
+  "benign_explanation": true,
+  "record_gap": "post_checks_null",
+  "logger_gap_hours": 33,
+  "telemetry_decoy": "both_low",
+  "note_tone": "neutral"
+ },
+ "factors_sampled": {
+  "pre_visit_offset_mm": 1.43,
+  "check_reading_spread_mm": 11.8,
+  "drift_cause": "sensor_fault",
+  "cause_evidence": "single_indicator",
+  "visit_completion": "partial",
+  "post_visit_check_logged": false,
+  "residual_defect_class": "cosmetic",
+  "backup_sensor_ok": false,
+  "benign_explanation": true,
+  "record_gap": "post_checks_null",
+  "logger_gap_hours": 33,
+  "telemetry_decoy": "both_low",
+  "note_tone": "neutral"
+ },
+ "plan": {
+  "sensor_fault_cause": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "visit_disposition": {
+   "clarity": "contested",
+   "target": "sign_off",
+   "second": "sign_off_noted"
+  },
+  "data_treatment": {
+   "clarity": "balanced",
+   "target": "keep_as_recorded",
+   "second": "mark_provisional"
+  },
+  "offset_size": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  },
+  "residual_defect": {
+   "clarity": "balanced",
+   "target": "4",
+   "second": "3"
+  }
+ },
+ "target_words": 71,
+ "deciding": {
+  "sensor_fault_cause": "Bench test error only 2 mm and survey shows bed raised at control, so the sensor is not the cause.",
+  "visit_disposition": "Post check is null and an intermittent primary defect is open, but supervisor approved the offset reference and signed off; closing with or without a noted point is arguable.",
+  "data_treatment": "Sensor in spec and bed change documented favour keeping values, but no post check and a 33 h gap argue for provisional.",
+  "offset_size": "Board mean 1.040 minus logger 1.000 is 40 mm, with 12 mm board spread, sitting at the 40 mm line.",
+  "residual_defect": "Primary dropouts listed with reporting false; intermittent nature leaves 'not reporting' versus 'faulty but reporting' in balance."
+ },
+ "request": "rec-F235-0041",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.008471
+}

@@ -1,0 +1,152 @@
+{
+ "id": "F201-0016",
+ "family": "F201",
+ "state": {
+  "register_header": {
+   "drug": "buprenorphine",
+   "concentration_mg_ml": 0.3,
+   "schedule": 3,
+   "witness_required": false,
+   "branch_id": "B2",
+   "opening_balance_ml": 20
+  },
+  "entries": [
+   {
+    "entry_id": "E1",
+    "date": "2025-03-04",
+    "type": "use",
+    "qty_ml": 2,
+    "patient_id": "P1",
+    "running_balance_ml": 18,
+    "signed_by": null,
+    "batch_no": "B101"
+   },
+   {
+    "entry_id": "E2",
+    "date": "2025-03-12",
+    "type": "use",
+    "qty_ml": 3,
+    "patient_id": "P2",
+    "running_balance_ml": 16,
+    "signed_by": "V4",
+    "batch_no": "B101"
+   },
+   {
+    "entry_id": "E3",
+    "date": "2025-03-20",
+    "type": "disposal",
+    "qty_ml": 1,
+    "patient_id": null,
+    "running_balance_ml": 14,
+    "signed_by": null,
+    "batch_no": "B101"
+   }
+  ],
+  "clinical_records": [
+   {
+    "patient_id": "P1",
+    "date": "2025-03-04",
+    "dose": 2,
+    "dose_unit": "ml"
+   },
+   {
+    "patient_id": "P2",
+    "date": "2025-03-12",
+    "dose": 3,
+    "dose_unit": "ml"
+   }
+  ],
+  "stock_check": {
+   "count_date": "2025-03-31",
+   "counted_ml": 14,
+   "overfill_allowance_ml": 0,
+   "batch_no": "B101"
+  },
+  "disposals": [
+   {
+    "batch_no": "B101",
+    "qty_ml": 1,
+    "register_entry_id": "E3",
+    "witness_id": "V9",
+    "denatured_date": "2025-03-20"
+   }
+  ],
+  "exceptions": [
+   {
+    "exception_id": "X1",
+    "batch_no": "B77",
+    "qty_ml": 2,
+    "valid_from": "2024-01-01",
+    "valid_to": "2024-12-31"
+   }
+  ]
+ },
+ "factors": {
+  "drug_profile": "buprenorphine_0.3mg_ml",
+  "arithmetic_slip_count": 1,
+  "unrecorded_admin": "none",
+  "clinical_records_missing": false,
+  "disposal_state": "witnessed_complete",
+  "unexplained_shortfall_pct": 0.0,
+  "variance_exception": "expired_or_other_batch",
+  "manufacturer_overfill": false,
+  "auth_gap_count": 2,
+  "count_out_of_order": false,
+  "unit_mismatch": false,
+  "locum_signatory": false,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "drug_profile": "buprenorphine_0.3mg_ml",
+  "arithmetic_slip_count": 1,
+  "unrecorded_admin": "none",
+  "clinical_records_missing": false,
+  "disposal_state": "witnessed_complete",
+  "unexplained_shortfall_pct": 0.74,
+  "variance_exception": "expired_or_other_batch",
+  "manufacturer_overfill": false,
+  "auth_gap_count": 0,
+  "count_out_of_order": false,
+  "unit_mismatch": false,
+  "locum_signatory": false,
+  "boundary_case": false
+ },
+ "plan": {
+  "unexplained_shortfall": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "line_disposition": {
+   "clarity": "clear",
+   "target": "hold_pending",
+   "second": null
+  },
+  "variance_cause": {
+   "clarity": "clear",
+   "target": "no_discrepancy",
+   "second": null
+  },
+  "variance_size": {
+   "clarity": "clear",
+   "target": "2",
+   "second": null
+  },
+  "auth_gaps": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  }
+ },
+ "target_words": 25,
+ "deciding": {
+  "unexplained_shortfall": "Counted 14 ml equals the recomputed balance (20-2-3-1); the only exception is a different, expired batch and is not needed.",
+  "line_disposition": "Balances reconcile, but E1 and E3 lack signed_by; the missing confirmations must arrive before the line closes.",
+  "variance_cause": "Count matches recomputed balance; E2 running balance 16 is a mid-line slip (should be 15) that self-corrects at E3, so no discrepancy remains.",
+  "variance_size": "No variance against count after the slip is recomputed; the expired exception is ignored. Placement is at the plan's level only loosely.",
+  "auth_gaps": "E1 and E3 have signed_by null (two gaps); E3 is a disposal with a witnessed disposal record, which makes one gap arguable."
+ },
+ "request": "rec-F201-0016",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.014093
+}

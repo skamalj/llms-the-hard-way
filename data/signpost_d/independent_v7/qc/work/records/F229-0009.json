@@ -1,0 +1,114 @@
+{
+ "id": "F229-0009",
+ "family": "F229",
+ "state": {
+  "lot": {
+   "lot_id": "L-1548",
+   "block": "B15",
+   "pick_end": null
+  },
+  "intake": {
+   "block_code": "B15",
+   "arrival_at": "2024-09-22T15:40",
+   "gross_kg": 4700,
+   "tare_kg": 700,
+   "net_kg": 4000,
+   "bins": [
+    1000,
+    1000,
+    1000,
+    1000
+   ],
+   "temp_c": 24,
+   "cold_room_in": null,
+   "cold_room_out": null
+  },
+  "sample": {
+   "sampled_at": "2024-09-22T15:55",
+   "rot_pct": 7.03,
+   "sort": null
+  },
+  "press": {
+   "programme": "whole_bunch_gentle",
+   "band_l_per_t": "550-620",
+   "cycle_start": "2024-09-23T08:00",
+   "cycle_end": null,
+   "juice_l": 2230,
+   "so2_mg_l": 40
+  },
+  "transfer": {
+   "lot_ref": "L-1584",
+   "tank_id": "T6",
+   "transferred_l": 2200,
+   "qa_signoff": "JS 12:10"
+  }
+ },
+ "factors": {
+  "weight_mismatch": "none",
+  "press_programme": "whole_bunch_gentle",
+  "yield_position": "inside_band",
+  "lot_id_drift": "transposed_digit_in_tank_log",
+  "missing_step": "press_end_null",
+  "out_of_order_timestamp": false,
+  "pick_to_press_hours": 16.33,
+  "pick_end_recorded": false,
+  "cold_held": false,
+  "rot_pct": 7.03,
+  "sorting_applied": false,
+  "note_signal": "none",
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "weight_mismatch": "none",
+  "press_programme": "whole_bunch_gentle",
+  "yield_position": "below_band",
+  "lot_id_drift": "transposed_digit_in_tank_log",
+  "missing_step": "press_end_null",
+  "out_of_order_timestamp": false,
+  "pick_to_press_hours": 17.18,
+  "pick_end_recorded": false,
+  "cold_held": false,
+  "rot_pct": 7.03,
+  "sorting_applied": false,
+  "note_signal": "none",
+  "boundary_case": false
+ },
+ "plan": {
+  "yield_consistent": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "chain_intact": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "release_decision": {
+   "clarity": "balanced",
+   "target": "hold",
+   "second": "segregate"
+  },
+  "pick_press_delay": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  },
+  "failed_checks": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  }
+ },
+ "target_words": 93,
+ "deciding": {
+  "yield_consistent": "2230 L from 4.0 t is about 558 L/t, just inside the 550-620 band, near the low edge.",
+  "chain_intact": "transfer.lot_ref L-1584 vs lot_id L-1548 is a possible transposition, but block, tank and volumes agree, so it may be a typo.",
+  "release_decision": "Null cycle_end is an open confirmation (hold), but 7.03% rot with no sort block and a warm overnight wait could justify segregation.",
+  "pick_press_delay": "pick_end is null; arrival 09-22 15:40 to cycle_start 09-23 08:00 is a 16.3 h lower bound, so overnight, though true pick_end is unrecorded.",
+  "failed_checks": "The null cycle_end is at most one failed check, and the lot_ref transposition might count or not, so 0 and 1 are both defensible."
+ },
+ "request": "rec-F229-0006",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.013346
+}

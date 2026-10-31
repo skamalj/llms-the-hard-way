@@ -1,0 +1,147 @@
+{
+ "id": "F236-0018",
+ "family": "F236",
+ "state": {
+  "changeover": {
+   "from_allergens": [
+    "soya"
+   ],
+   "to_allergens": [
+    "sesame"
+   ]
+  },
+  "cleaning": {
+   "steps": [
+    {
+     "s": "dry",
+     "done": false
+    },
+    {
+     "s": "wash",
+     "done": false
+    },
+    {
+     "s": "rinse",
+     "done": true
+    }
+   ]
+  },
+  "verification": {
+   "swabs": [
+    {
+     "id": "S1",
+     "ppm": 1.2,
+     "limit_ppm": 5,
+     "at": "2024-07-02T07:15"
+    }
+   ]
+  },
+  "production": {
+   "start_at": "2024-07-02T06:00",
+   "end_at": "2024-07-02T07:45",
+   "qty": 750,
+   "unit": "kg"
+  },
+  "approvals": {
+   "qa_signoff": {
+    "signed_at": "2024-07-02T05:50"
+   },
+   "deviations": [
+    {
+     "id": "D2",
+     "scope": "S1 timing",
+     "approved_at": "2024-07-02T05:45"
+    }
+   ]
+  },
+  "history": [
+   {
+    "verification_passed": false
+   },
+   {
+    "verification_passed": false
+   },
+   {
+    "verification_passed": false
+   },
+   {
+    "verification_passed": false
+   },
+   {
+    "verification_passed": false
+   },
+   {
+    "verification_passed": true
+   },
+   {
+    "verification_passed": true
+   }
+  ]
+ },
+ "factors": {
+  "allergen_transition": "swaps_allergen",
+  "cleaning_completion": "multiple_steps_skipped",
+  "swab_outcome": "trace_below_limit",
+  "swab_timing_mismatch": true,
+  "cross_section_discrepancy": "none",
+  "exposed_quantity_kg": 535.0,
+  "approved_deviation": true,
+  "label_precaution": false,
+  "dedicated_tooling": false,
+  "qa_signoff_state": "signed_before_start",
+  "line_failure_history": 5,
+  "boundary_value": false
+ },
+ "factors_sampled": {
+  "allergen_transition": "swaps_allergen",
+  "cleaning_completion": "multiple_steps_skipped",
+  "swab_outcome": "trace_below_limit",
+  "swab_timing_mismatch": true,
+  "cross_section_discrepancy": "none",
+  "exposed_quantity_kg": 746.7,
+  "approved_deviation": true,
+  "label_precaution": false,
+  "dedicated_tooling": false,
+  "qa_signoff_state": "signed_before_start",
+  "line_failure_history": 5,
+  "boundary_value": false
+ },
+ "plan": {
+  "swabs_cleared": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "line_disposition": {
+   "clarity": "balanced",
+   "target": "hold",
+   "second": "release_conditional"
+  },
+  "worst_deficiency": {
+   "clarity": "leaning",
+   "target": "cleaning_shortfall",
+   "second": null
+  },
+  "exposed_product": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "residue_evidence": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  }
+ },
+ "target_words": 43,
+ "deciding": {
+  "swabs_cleared": "Only swab S1 is under limit (1.2 vs 5), but timed 07:15 after the 06:00 start; deviation D2 for S1 timing was approved before start.",
+  "line_disposition": "Two cleaning steps not done and five failed changeovers suggest hold; the under-limit swab and deviation make a labelled conditional release defensible.",
+  "worst_deficiency": "Dry and wash steps have done=false; sign-off precedes start and the late swab is covered by a deviation.",
+  "exposed_product": "750 kg over 06:00-07:45 with first swab at 07:15, about 535 kg before verification, just over 500.",
+  "residue_evidence": "S1 reads 1.2 ppm against limit 5, a trace above zero though a single swab on a poorly cleaned line."
+ },
+ "request": "rec-F236-0016",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.015522
+}

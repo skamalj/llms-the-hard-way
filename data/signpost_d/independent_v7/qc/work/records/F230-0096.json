@@ -1,0 +1,144 @@
+{
+ "id": "F230-0096",
+ "family": "F230",
+ "state": {
+  "resident": {
+   "id": "A101",
+   "status": "home",
+   "weight_kg": 64
+  },
+  "prescriptions": [
+   {
+    "item_id": "i1",
+    "drug": "warfarin",
+    "strength_mg": 3,
+    "dose_units": 1,
+    "time_critical": true,
+    "changes": [
+     {
+      "effective": "2024-05-01",
+      "new_dose_units": 1,
+      "order_ref": "O77",
+      "authorised_by_role": "GP"
+     }
+    ]
+   },
+   {
+    "item_id": "i2",
+    "drug": "senna",
+    "strength_mg": 7.5,
+    "dose_units": 1,
+    "time_critical": false
+   }
+  ],
+  "administrations": [
+   {
+    "item_id": "i1",
+    "scheduled": "08:00",
+    "given_at": "08:42",
+    "units_given": 2,
+    "strength_mg_used": 3,
+    "code": "G"
+   },
+   {
+    "item_id": "i2",
+    "scheduled": "08:00",
+    "units_given": 0,
+    "code": "R"
+   }
+  ],
+  "stock": {
+   "i1": {
+    "opening": 30,
+    "received": 0,
+    "closing": 27,
+    "wasted": 0
+   }
+  },
+  "round": {
+   "open_queries": [
+    {
+     "type": "pharmacy",
+     "raised": "2024-06-02T09:10",
+     "item_id": "i1"
+    }
+   ],
+   "post_dose_obs": [
+    {
+     "type": "INR",
+     "value": 4.6
+    }
+   ]
+  }
+ },
+ "factors": {
+  "dose_mismatch_type": "wrong_quantity",
+  "prescription_change_documented": true,
+  "omission_count": 1,
+  "omission_reason_valid": false,
+  "late_minutes": 42,
+  "time_critical_affected": true,
+  "stock_variance": -2,
+  "stock_variance_explained": false,
+  "signature_gaps": 0,
+  "unit_expression_decoy": "equivalent_split",
+  "post_dose_obs_reassuring": false,
+  "pending_query": "pharmacy_query_open",
+  "prior_errors_30d": 0,
+  "item_count": 8
+ },
+ "factors_sampled": {
+  "dose_mismatch_type": "wrong_quantity",
+  "prescription_change_documented": true,
+  "omission_count": 1,
+  "omission_reason_valid": true,
+  "late_minutes": 42,
+  "time_critical_affected": true,
+  "stock_variance": -2,
+  "stock_variance_explained": true,
+  "signature_gaps": 0,
+  "unit_expression_decoy": "equivalent_split",
+  "post_dose_obs_reassuring": false,
+  "pending_query": "pharmacy_query_open",
+  "prior_errors_30d": 0,
+  "item_count": 8
+ },
+ "plan": {
+  "dose_mismatch": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "stock_reconciles": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "balanced",
+   "target": "report_incident",
+   "second": "hold"
+  },
+  "open_discrepancies": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  },
+  "error_severity": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 79,
+ "deciding": {
+  "dose_mismatch": "i1 units_given 2 against prescribed dose_units 1, same strength.",
+  "stock_reconciles": "i1 closing 27 vs expected 29 after 1 dose with no witnessed waste; only one item is shown.",
+  "next_step": "Confirmed wrong quantity with pharmacy query open on i1; incident report vs hold for query is balanced.",
+  "open_discrepancies": "Dose error, omission code R without support, and stock gap give several items unresolved; the record shows only two items.",
+  "error_severity": "i1 doubled (time_critical true) while 42 min late; could be rated dose or critical, with an unsupported R on i2."
+ },
+ "request": "rec-F230-0096",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.005355
+}

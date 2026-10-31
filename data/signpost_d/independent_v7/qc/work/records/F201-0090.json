@@ -1,0 +1,159 @@
+{
+ "id": "F201-0090",
+ "family": "F201",
+ "state": {
+  "register_header": {
+   "drug": "methadone",
+   "concentration_mg_ml": 10,
+   "schedule": 2,
+   "witness_required": true,
+   "branch_id": "B4",
+   "opening_balance_ml": 120
+  },
+  "entries": [
+   {
+    "entry_id": "E1",
+    "type": "receipt",
+    "qty_ml": 80,
+    "running_balance_ml": 200,
+    "signed_by": "S3",
+    "witness_id": "S2",
+    "batch_no": "M3"
+   },
+   {
+    "entry_id": "E2",
+    "date": "2024-05-06",
+    "type": "admin",
+    "qty_ml": 25,
+    "patient_id": "P1",
+    "running_balance_ml": 175,
+    "signed_by": "S3",
+    "witness_id": "S2"
+   },
+   {
+    "entry_id": "E3",
+    "date": "2024-05-14",
+    "type": "admin",
+    "qty_ml": 15,
+    "patient_id": "P2",
+    "running_balance_ml": 160,
+    "signed_by": "LOC-114",
+    "witness_id": "S2"
+   },
+   {
+    "entry_id": "E4",
+    "date": "2024-05-22",
+    "type": "admin",
+    "qty_ml": 20,
+    "patient_id": "P3",
+    "running_balance_ml": 140,
+    "signed_by": "S3",
+    "witness_id": "S2"
+   }
+  ],
+  "clinical_records": [
+   {
+    "patient_id": "P1",
+    "date": "2024-05-06",
+    "dose": 25,
+    "dose_unit": "ml"
+   },
+   {
+    "patient_id": "P2",
+    "date": "2024-05-14",
+    "dose": 15,
+    "dose_unit": "ml"
+   },
+   {
+    "patient_id": "P3",
+    "date": "2024-05-22",
+    "dose": 20,
+    "dose_unit": "ml"
+   }
+  ],
+  "stock_check": {
+   "count_date": "2024-05-31",
+   "counted_ml": 136,
+   "overfill_allowance_ml": 0.2
+  },
+  "disposals": [
+   {
+    "batch_no": "M3",
+    "qty_ml": 4,
+    "reason_code": "expired",
+    "removed_date": "2024-05-27",
+    "register_entry_id": null,
+    "witness_id": null,
+    "denatured_date": null
+   }
+  ]
+ },
+ "factors": {
+  "drug_profile": "methadone_10mg_ml",
+  "arithmetic_slip_count": 0,
+  "unrecorded_admin": "none",
+  "clinical_records_missing": false,
+  "disposal_state": "removed_unlogged",
+  "unexplained_shortfall_pct": 1.9,
+  "variance_exception": "none",
+  "manufacturer_overfill": true,
+  "auth_gap_count": 0,
+  "count_out_of_order": false,
+  "unit_mismatch": false,
+  "locum_signatory": true,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "drug_profile": "methadone_10mg_ml",
+  "arithmetic_slip_count": 2,
+  "unrecorded_admin": "none",
+  "clinical_records_missing": false,
+  "disposal_state": "removed_unlogged",
+  "unexplained_shortfall_pct": 4.37,
+  "variance_exception": "none",
+  "manufacturer_overfill": true,
+  "auth_gap_count": 4,
+  "count_out_of_order": false,
+  "unit_mismatch": false,
+  "locum_signatory": true,
+  "boundary_case": false
+ },
+ "plan": {
+  "unexplained_shortfall": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "line_disposition": {
+   "clarity": "contested",
+   "target": "sign_off",
+   "second": "hold_pending"
+  },
+  "variance_cause": {
+   "clarity": "clear",
+   "target": "undocumented_disposal",
+   "second": null
+  },
+  "variance_size": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  },
+  "auth_gaps": {
+   "clarity": "clear",
+   "target": "0",
+   "second": null
+  }
+ },
+ "target_words": 89,
+ "deciding": {
+  "unexplained_shortfall": "Register balance 140 ml vs counted 136; the 4 ml was removed per a disposals item with register_entry_id null and no matching entries line, so the shortfall is real and unlogged.",
+  "line_disposition": "All entries are authenticated, but the unlogged, unwitnessed 4 ml removal could be left to sign off or held for a missing confirmation.",
+  "variance_cause": "Disposals item of 4 ml has register_entry_id null and no entries line, equal to the whole count gap; there are no slips or unrecorded doses.",
+  "variance_size": "4 ml gap less 0.2 ml overfill allowance is 3.8 ml over 200 ml handled (120 opening + 80 receipt), 1.9%, just under the 2% boundary.",
+  "auth_gaps": "All four entries have signed_by and witness_id; the locum id LOC-114 is a valid signatory in a different format."
+ },
+ "request": "rec-F201-0086",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.018334
+}

@@ -1,0 +1,144 @@
+{
+ "id": "F213-0006",
+ "family": "F213",
+ "state": {
+  "pool": {
+   "type": "spa",
+   "test_interval_min": 60,
+   "opening": {
+    "open": "2024-05-10T09:00",
+    "close": "2024-05-10T13:00"
+   },
+   "limits": {
+    "free_cl_min": 3.0,
+    "free_cl_max": 5.0,
+    "combined_cl_max": 1.0,
+    "ph_min": 7.0,
+    "ph_max": 7.6
+   },
+   "tolerance": {
+    "free_cl": 0.5,
+    "ph": 0.2
+   },
+   "micro_due": "2024-05-20"
+  },
+  "manual_tests": [
+   {
+    "time": "2024-05-10T09:05",
+    "free_cl": 3.8,
+    "combined_cl": 0.3,
+    "ph": 7.3,
+    "kit_id": "K1"
+   },
+   {
+    "time": "2024-05-10T10:05",
+    "free_cl": 3.7,
+    "combined_cl": 0.3,
+    "ph": 7.3,
+    "kit_id": "K1"
+   },
+   {
+    "time": "2024-05-10T12:20",
+    "free_cl": 3.9,
+    "combined_cl": 0.4,
+    "ph": 7.2,
+    "kit_id": "K1"
+   }
+  ],
+  "plant": {
+   "controller_readings": [
+    {
+     "time": "2024-05-10T12:20",
+     "free_cl": 3.8,
+     "ph": 7.3
+    }
+   ],
+   "bather_count": 96
+  },
+  "equipment": {
+   "kits": [
+    {
+     "kit_id": "K1",
+     "cal_due": "2024-05-10"
+    }
+   ]
+  },
+  "actions": [],
+  "lab_sample": {
+   "sampled_on": "2024-05-02",
+   "result_on": "2024-05-06",
+   "status": "final",
+   "tvc_37": 4,
+   "coliforms": 0,
+   "pseudomonas": 0
+  }
+ },
+ "factors": {
+  "pool_type": "spa",
+  "test_coverage_gap": 1,
+  "boundary_interval": false,
+  "log_controller_discrepancy": "none",
+  "discrepancy_location": "free_chlorine",
+  "excursion_severity": "none",
+  "corrective_action_delay": "missing",
+  "retest_logged": true,
+  "dosing_event_explains": false,
+  "kit_calibration_status": "expires_on_day",
+  "lab_sample_state": "clear",
+  "out_of_order_entry": false,
+  "benign_noise": "high_bathers"
+ },
+ "factors_sampled": {
+  "pool_type": "spa",
+  "test_coverage_gap": 3,
+  "boundary_interval": false,
+  "log_controller_discrepancy": "large",
+  "discrepancy_location": "free_chlorine",
+  "excursion_severity": "none",
+  "corrective_action_delay": "missing",
+  "retest_logged": true,
+  "dosing_event_explains": false,
+  "kit_calibration_status": "expires_on_day",
+  "lab_sample_state": "clear",
+  "out_of_order_entry": false,
+  "benign_noise": "high_bathers"
+ },
+ "plan": {
+  "test_frequency_met": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "readings_reconcile": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "log_disposition": {
+   "clarity": "balanced",
+   "target": "accept_with_query",
+   "second": "hold_for_retest"
+  },
+  "action_delay": {
+   "clarity": "leaning",
+   "target": "0",
+   "second": null
+  },
+  "failed_checks": {
+   "clarity": "leaning",
+   "target": "0",
+   "second": null
+  }
+ },
+ "target_words": 79,
+ "deciding": {
+  "test_frequency_met": "Manual tests at 10:05 and 12:20 are 135 min apart against a 60 min interval, but the sparse entries leave room for a missed log.",
+  "readings_reconcile": "The controller at 12:20 shows 3.8 chlorine and pH 7.3 against manual 3.9 and 7.2, within tolerance.",
+  "log_disposition": "The 135 min gap needs an operator explanation. Water is in limits and the lab sample is final, so a hold is less likely.",
+  "action_delay": "All manual readings are inside pool.limits, so no action was needed and the empty actions list is fine.",
+  "failed_checks": "Only the testing-gap check is arguably failed. Kit calibration is due the same day, which is still valid."
+ },
+ "request": "rec-F213-0006",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.007037
+}

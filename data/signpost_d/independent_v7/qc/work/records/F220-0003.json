@@ -1,0 +1,124 @@
+{
+ "id": "F220-0003",
+ "family": "F220",
+ "state": {
+  "tray": {
+   "tray_id": "T-91",
+   "barcode": "770145",
+   "requested_for": "2025-06-10T11:00",
+   "request_note": "Next list."
+  },
+  "set_check": {
+   "lines": [
+    {
+     "cat_code": "E2",
+     "qty_expected": 3,
+     "qty_counted": 2
+    }
+   ],
+   "variances": [
+    {
+     "cat_code": "E2",
+     "reason": "one unit loaned",
+     "approved_by": "MR"
+    }
+   ],
+   "packer_note": "All present, checked twice."
+  },
+  "washer": {
+   "cycle_id": "W77",
+   "a0": 3000,
+   "alarms": [
+    "W-flow"
+   ],
+   "trays_processed": [
+    "770145"
+   ],
+   "rerun_cycle_id": "W78"
+  },
+  "steriliser_load": {
+   "load_id": "L31",
+   "printout": null,
+   "logger": null,
+   "bi": {
+    "result": "pass"
+   },
+   "ci_result": "pass",
+   "unload_condition": "damp, dried, retested",
+   "operator_comment": "Printer fault."
+  },
+  "release_label": {
+   "tray_barcode": "770145",
+   "load_id": "L31",
+   "wrap_condition": "intact"
+  }
+ },
+ "factors": {
+  "set_count_discrepancies": 1,
+  "substitution_documented": true,
+  "cycle_excursion": "printout_missing",
+  "independent_logger_confirms": false,
+  "bi_status": "pass",
+  "chemical_indicator": "pass",
+  "washer_record_state": "alarm_cleared_rerun",
+  "pack_integrity": "condensate_dried_retested",
+  "label_mismatch": "none",
+  "daily_test_state": "not_logged",
+  "theatre_urgency": "next_list",
+  "note_tone": "reassuring_unverified",
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "set_count_discrepancies": 4,
+  "substitution_documented": false,
+  "cycle_excursion": "none",
+  "independent_logger_confirms": false,
+  "bi_status": "pending",
+  "chemical_indicator": "pass",
+  "washer_record_state": "alarm_cleared_rerun",
+  "pack_integrity": "condensate_dried_retested",
+  "label_mismatch": "tray_barcode_differs",
+  "daily_test_state": "not_logged",
+  "theatre_urgency": "next_list",
+  "note_tone": "reassuring_unverified",
+  "boundary_case": false
+ },
+ "plan": {
+  "cycle_in_limits": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "disposition": {
+   "clarity": "balanced",
+   "target": "release",
+   "second": "reprocess"
+  },
+  "failure_stage": {
+   "clarity": "balanced",
+   "target": "pack_stage",
+   "second": "no_discrepancy"
+  },
+  "count_gaps": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "sterility_doubt": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 98,
+ "deciding": {
+  "cycle_in_limits": "Both printout and logger are null (printer fault), so there is no cycle data to show the hold was in band.",
+  "disposition": "BI and CI pass, the washer alarm was cleared by rerun W78 and the label matches. Release is favoured, but reprocess is defensible because there is no cycle data and the pack was damp.",
+  "failure_stage": "The washer barcode matches and the alarm was cleared by rerun W78. The one count line has an approved variance and the label matches, so no_discrepancy is plausible. Pack stage remains possible on the vague variance.",
+  "count_gaps": "Only E2 is short, and its variance is approved by MR, so zero unexplained. The one-line reason is thin, so one is defensible.",
+  "sterility_doubt": "BI and CI pass and the wrap is intact. The only gaps are the damp-dried-retested unload note and the missing printout, which makes it balanced between Assured and Minor."
+ },
+ "request": "rec-F220-0001",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.014655
+}

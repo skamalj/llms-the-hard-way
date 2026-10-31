@@ -1,0 +1,136 @@
+{
+ "id": "F240-0030",
+ "family": "F240",
+ "state": {
+  "asset": {
+   "inverter_id": "INV-6D",
+   "serial": "M8814",
+   "rated_ac_kw": 2000
+  },
+  "fault_event": {
+   "serial": "M8814",
+   "code": "F-ISO-02",
+   "fw_severity": 3,
+   "ts_start": "2024-06-25T10:00",
+   "ts_clear": "2024-06-25T11:00"
+  },
+  "telemetry": {
+   "exp_day_kwh": 10000,
+   "exp_window_kwh": 1500,
+   "act_window_kwh": 300,
+   "samples": [
+    {
+     "ts": "11:30",
+     "ac_kw": 40,
+     "exp_kw": 1800,
+     "limit_pct": 2
+    }
+   ]
+  },
+  "site_context": {
+   "maint_windows": [
+    {
+     "from": "2024-06-25",
+     "to": "2024-06-26",
+     "scope": "INV-6D"
+    }
+   ],
+   "neighbours": [
+    {
+     "inverter_id": "INV-6C",
+     "output_ratio": 0.6
+    }
+   ]
+  },
+  "history": {
+   "faults": [
+    {
+     "date": "2024-06-01",
+     "code": "F-ISO-02"
+    },
+    {
+     "date": "2024-06-09",
+     "code": "F-ISO-02"
+    },
+    {
+     "date": "2024-06-14",
+     "code": "F-ISO-02"
+    }
+   ],
+   "work_orders": [
+    {
+     "wo_id": "W63",
+     "opened": "2024-06-15",
+     "completed": "2024-06-20",
+     "retest_ok": true
+    }
+   ]
+  }
+ },
+ "factors": {
+  "fault_class": "insulation_resistance",
+  "log_telemetry_mismatch": "moderate_15_60min",
+  "grid_event_concurrent": false,
+  "maintenance_window_active": true,
+  "neighbour_cross_check": "neighbours_affected",
+  "repeat_count_30d": 3,
+  "last_repair_status": "completed_verified",
+  "current_limit_pct": 2.0,
+  "yield_loss_pct": 12.0,
+  "low_irradiance_window": false,
+  "serial_mismatch": false,
+  "boundary_placement": false
+ },
+ "factors_sampled": {
+  "fault_class": "insulation_resistance",
+  "log_telemetry_mismatch": "moderate_15_60min",
+  "grid_event_concurrent": false,
+  "maintenance_window_active": true,
+  "neighbour_cross_check": "neighbours_affected",
+  "repeat_count_30d": 3,
+  "last_repair_status": "completed_verified",
+  "current_limit_pct": 34.22,
+  "yield_loss_pct": 1.4,
+  "low_irradiance_window": false,
+  "serial_mismatch": false,
+  "boundary_placement": false
+ },
+ "plan": {
+  "genuine_defect": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "post_repair_repeat": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "close_log",
+   "second": null
+  },
+  "yield_loss": {
+   "clarity": "clear",
+   "target": "2",
+   "second": null
+  },
+  "capacity_unavailable": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  }
+ },
+ "target_words": 35,
+ "deciding": {
+  "genuine_defect": "Three earlier insulation faults point to hardware, but a maintenance window on INV-6D and neighbour ratio 0.6 offer external explanations.",
+  "post_repair_repeat": "All three matching faults (06-01, 06-09, 06-14) predate WO W63 completion on 2024-06-20 (retest_ok true); the 06-25 event is the one in question, which the maintenance window may explain.",
+  "next_step": "Fault cleared at 11:00 within a maintenance window on this inverter and the repair was verified, so closing the log is favoured.",
+  "yield_loss": "(1500-300)/10000 = 12%, within the material band.",
+  "capacity_unavailable": "Last sample ac_kw 40 of 2000 rated and limit_pct 2, just above zero: almost offline but still exporting."
+ },
+ "request": "rec-F240-0026",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012212
+}

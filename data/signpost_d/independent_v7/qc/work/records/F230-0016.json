@@ -1,0 +1,101 @@
+{
+ "id": "F230-0016",
+ "family": "F230",
+ "state": {
+  "prescriptions": [
+   {
+    "item_id": "A1",
+    "strength_mg": 5,
+    "dose_units": 1,
+    "time_critical": true
+   }
+  ],
+  "administrations": [
+   {
+    "item_id": "A1",
+    "scheduled": "2024-05-02T08:00",
+    "given_at": "2024-05-02T09:01",
+    "units_given": 1,
+    "strength_mg_used": 5,
+    "initials": null
+   }
+  ],
+  "stock": {
+   "A1": {
+    "opening": 20,
+    "closing": 18,
+    "wasted": 0
+   }
+  }
+ },
+ "factors": {
+  "dose_mismatch_type": "none",
+  "prescription_change_documented": false,
+  "omission_count": 0,
+  "omission_reason_valid": true,
+  "late_minutes": 61,
+  "time_critical_affected": true,
+  "stock_variance": -1,
+  "stock_variance_explained": false,
+  "signature_gaps": 1,
+  "unit_expression_decoy": "none_present",
+  "post_dose_obs_reassuring": false,
+  "pending_query": "none",
+  "prior_errors_30d": 4,
+  "item_count": 1
+ },
+ "factors_sampled": {
+  "dose_mismatch_type": "wrong_quantity",
+  "prescription_change_documented": false,
+  "omission_count": 1,
+  "omission_reason_valid": true,
+  "late_minutes": 92,
+  "time_critical_affected": true,
+  "stock_variance": 0,
+  "stock_variance_explained": false,
+  "signature_gaps": 2,
+  "unit_expression_decoy": "none_present",
+  "post_dose_obs_reassuring": false,
+  "pending_query": "pharmacy_query_open",
+  "prior_errors_30d": 4,
+  "item_count": 6
+ },
+ "plan": {
+  "dose_mismatch": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "stock_reconciles": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "balanced",
+   "target": "clinical_escalation",
+   "second": "sign_off"
+  },
+  "open_discrepancies": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  },
+  "error_severity": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  }
+ },
+ "target_words": 32,
+ "deciding": {
+  "dose_mismatch": "Units and strength match the prescription; only timing and initials are off, so no mismatch is likely.",
+  "stock_reconciles": "Opening 20 minus 1 signed gives 19, but closing is 18 with nothing wasted or returned.",
+  "next_step": "The time-critical item was 61 minutes late with initials missing and stock short by 1, so escalation and sign-off are both arguable.",
+  "open_discrepancies": "A1 carries the null initials and the stock gap. That is one item, though the timing issue could be counted separately.",
+  "error_severity": "Null initials point to documentation. Given_at is 61 minutes after scheduled, just over the 60-minute line, which could make it timing."
+ },
+ "request": "rec-F230-0016",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.008234
+}

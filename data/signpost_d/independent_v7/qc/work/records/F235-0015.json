@@ -1,0 +1,111 @@
+{
+ "id": "F235-0015",
+ "family": "F235",
+ "state": {
+  "station": {
+   "backup": {
+    "status": "reporting"
+   },
+   "telemetry": {
+    "rssi_dbm": -108
+   }
+  },
+  "checks": {
+   "pre": {
+    "board_m": [
+     1.1,
+     1.11
+    ],
+    "logger_m": 1.1
+   },
+   "post": null
+  },
+  "works": {
+   "tasks": [
+    {
+     "task": "clean stilling well",
+     "status": "done"
+    }
+   ],
+   "logger_gap_h": 2
+  },
+  "defects": [
+   {
+    "item": "primary sensor dropouts",
+    "channel": "primary_stage",
+    "reporting": false
+   }
+  ],
+  "notes": {
+   "tech_note": "Levels match, all fine."
+  }
+ },
+ "factors": {
+  "pre_visit_offset_mm": 5.0,
+  "check_reading_spread_mm": 10.0,
+  "drift_cause": "channel_change",
+  "cause_evidence": "none",
+  "visit_completion": "full",
+  "post_visit_check_logged": false,
+  "residual_defect_class": "primary_offline",
+  "backup_sensor_ok": true,
+  "benign_explanation": false,
+  "record_gap": "none",
+  "logger_gap_hours": 2,
+  "telemetry_decoy": "weak_signal",
+  "note_tone": "reassuring"
+ },
+ "factors_sampled": {
+  "pre_visit_offset_mm": 2.3,
+  "check_reading_spread_mm": 9.16,
+  "drift_cause": "channel_change",
+  "cause_evidence": "none",
+  "visit_completion": "full",
+  "post_visit_check_logged": false,
+  "residual_defect_class": "none",
+  "backup_sensor_ok": true,
+  "benign_explanation": false,
+  "record_gap": "none",
+  "logger_gap_hours": 2,
+  "telemetry_decoy": "weak_signal",
+  "note_tone": "reassuring"
+ },
+ "plan": {
+  "sensor_fault_cause": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "visit_disposition": {
+   "clarity": "clear",
+   "target": "hold",
+   "second": null
+  },
+  "data_treatment": {
+   "clarity": "clear",
+   "target": "mark_provisional",
+   "second": null
+  },
+  "offset_size": {
+   "clarity": "contested",
+   "target": "1",
+   "second": "0"
+  },
+  "residual_defect": {
+   "clarity": "balanced",
+   "target": "4",
+   "second": "3"
+  }
+ },
+ "target_words": 25,
+ "deciding": {
+  "sensor_fault_cause": "No transducer swap, bench test or sensor evidence; the only task is cleaning and the backup agrees, so a sensor fault is not supported.",
+  "visit_disposition": "post is null: the post-visit check is missing despite the cleaning task being done, so the record waits on that reading.",
+  "data_treatment": "Post check missing and no verified offset or cause, so values are kept but flagged provisional.",
+  "offset_size": "Board mean 1.105 minus logger 1.100 gives 5.0 mm, on the negligible/minor boundary with a 10 mm spread.",
+  "residual_defect": "Primary-stage dropout defect with reporting false, but logger_gap_h is only 2 h and the weak signal is a decoy, so not reporting (4) versus faulty-but-reporting (3) is balanced."
+ },
+ "request": "rec-F235-0011",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.008658
+}

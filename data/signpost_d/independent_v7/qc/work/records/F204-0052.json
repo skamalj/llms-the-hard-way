@@ -1,0 +1,116 @@
+{
+ "id": "F204-0052",
+ "family": "F204",
+ "state": {
+  "rx": {
+   "drug": "ramipril",
+   "strength": {
+    "val": 5,
+    "unit": "mg"
+   },
+   "qty": 28
+  },
+  "dispensed": {
+   "product_name": "Tritace",
+   "generic_name": "ramipril",
+   "strength": {
+    "val": 5,
+    "unit": "mg"
+   },
+   "pack_size": 14,
+   "packs": 1,
+   "owing": null
+  },
+  "label": {
+   "qty_printed": 14
+  },
+  "patient": {
+   "supplies": [
+    {
+     "date": "2025-03-10",
+     "days_covered": 5
+    }
+   ]
+  },
+  "check_log": {
+   "checked_at": "2025-03-13T10:00",
+   "queries": [
+    {
+     "field": "qty",
+     "status": "pending"
+    }
+   ],
+   "clin_check": {
+    "by": "AB"
+   }
+  }
+ },
+ "factors": {
+  "strength_status": "match_same_units",
+  "product_status": "generic_brand_equivalent",
+  "quantity_status": "short_undocumented",
+  "label_status": "correct",
+  "prescriber_query": "pending",
+  "pharmacist_intervention": false,
+  "clinical_check_signed": true,
+  "home_supply_days": "2 (last supply ends 2025-03-15 or 03-14 depending on counting)",
+  "emergency_supply": false,
+  "short_expiry": false,
+  "prior_error_count": 2,
+  "high_risk_drug": false,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "strength_status": "match_same_units",
+  "product_status": "generic_brand_equivalent",
+  "quantity_status": "exact",
+  "label_status": "warning_code_missing",
+  "prescriber_query": "none",
+  "pharmacist_intervention": false,
+  "clinical_check_signed": true,
+  "home_supply_days": 3,
+  "emergency_supply": true,
+  "short_expiry": false,
+  "prior_error_count": 2,
+  "high_risk_drug": false,
+  "boundary_case": false
+ },
+ "plan": {
+  "strength_differs": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "balanced",
+   "target": "hold_query",
+   "second": "redispense"
+  },
+  "error_category": {
+   "clarity": "clear",
+   "target": "quantity_only",
+   "second": null
+  },
+  "open_discrepancies": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "supply_urgency": {
+   "clarity": "contested",
+   "target": "2",
+   "second": "1"
+  }
+ },
+ "target_words": 25,
+ "deciding": {
+  "strength_differs": "Both 5 mg; Tritace generic_name is ramipril matching rx.drug.",
+  "next_step": "The qty query is pending, which points to hold, but owing is null and 14 of 28 supplied, so returning for redispense is also defensible.",
+  "error_category": "Only quantity differs: 1 pack of 14 against rx qty 28, with product and strength matching.",
+  "open_discrepancies": "The undocumented shortfall and the 14 printed on the label both trace to qty, a count of two or three depending on how the pending field is counted.",
+  "supply_urgency": "Last supply 2025-03-10 plus 5 days ends around 03-15 against a 03-13 check, so 1 or 2 days left."
+ },
+ "request": "rec-F204-0051",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012064
+}

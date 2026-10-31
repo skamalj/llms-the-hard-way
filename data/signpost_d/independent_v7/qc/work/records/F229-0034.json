@@ -1,0 +1,110 @@
+{
+ "id": "F229-0034",
+ "family": "F229",
+ "state": {
+  "lot": {
+   "lot_id": "L551",
+   "pick_end": null
+  },
+  "intake": {
+   "block_code": "C12",
+   "arrival_at": "2024-09-11T01:00",
+   "gross_kg": 5800,
+   "tare_kg": 2200,
+   "net_kg": 3600,
+   "bins": [
+    1200,
+    1180,
+    1190
+   ],
+   "temp_c": 5,
+   "cold_room_in": "2024-09-11T01:30",
+   "cold_room_out": "2024-09-11T14:00",
+   "driver_note": "Bin 3 reweighed, ticket amended."
+  },
+  "sample": {
+   "rot_pct": 6.75,
+   "sort": null
+  },
+  "press": {
+   "programme": "whole_bunch_gentle",
+   "band_l_per_t": "500-580",
+   "cycle_start": "2024-09-11T14:30",
+   "juice_l": 1690
+  },
+  "transfer": {
+   "lot_ref": "L551-B",
+   "tank_id": "T4",
+   "transferred_l": 1660,
+   "qa_signoff": "JT 16:20"
+  }
+ },
+ "factors": {
+  "weight_mismatch": "trivial_under_1pct",
+  "press_programme": "whole_bunch_gentle",
+  "yield_position": "below_band",
+  "lot_id_drift": "none",
+  "missing_step": "none",
+  "out_of_order_timestamp": false,
+  "pick_to_press_hours": "13.5 from arrival (lower bound)",
+  "pick_end_recorded": false,
+  "cold_held": true,
+  "rot_pct": 6.75,
+  "sorting_applied": false,
+  "note_signal": "explains_mismatch",
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "weight_mismatch": "trivial_under_1pct",
+  "press_programme": "whole_bunch_gentle",
+  "yield_position": "inside_band",
+  "lot_id_drift": "none",
+  "missing_step": "none",
+  "out_of_order_timestamp": false,
+  "pick_to_press_hours": 4.47,
+  "pick_end_recorded": false,
+  "cold_held": true,
+  "rot_pct": 6.75,
+  "sorting_applied": false,
+  "note_signal": "explains_mismatch",
+  "boundary_case": false
+ },
+ "plan": {
+  "yield_consistent": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "chain_intact": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "release_decision": {
+   "clarity": "clear",
+   "target": "segregate",
+   "second": null
+  },
+  "pick_press_delay": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  },
+  "failed_checks": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 35,
+ "deciding": {
+  "yield_consistent": "1690 L from 3600 kg is 469 L/t, below the 500-580 band. The bins sum to 3570 kg against a net of 3600 kg, a small gap the driver note explains.",
+  "chain_intact": "The transfer lot_ref L551-B has a suffix against lot L551. This may be drift or only a batch suffix.",
+  "release_decision": "Yield is clearly under band, and 6.75% rot went into the press with no sort block, so the juice should be isolated.",
+  "pick_press_delay": "pick_end is null. Arrival 01:00 to press 14:30 is 13.5 h at minimum, so the true delay could reach 16 h or more. Cold holding makes level 2 versus level 3 contested.",
+  "failed_checks": "The weight gap is trivial and explained, and the ids are ambiguous. Whether the low yield and the suffix count as failures is open."
+ },
+ "request": "rec-F229-0031",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.010164
+}

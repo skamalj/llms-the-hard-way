@@ -1,0 +1,123 @@
+{
+ "id": "F236-0037",
+ "family": "F236",
+ "state": {
+  "changeover": {
+   "line": "L1",
+   "from_allergens": [
+    "milk"
+   ],
+   "to_allergens": [
+    "soya"
+   ]
+  },
+  "cleaning": {
+   "steps": [
+    {
+     "id": "mixer",
+     "spec_min": 30,
+     "actual_min": 24,
+     "completed": true
+    }
+   ]
+  },
+  "verification": {
+   "swabs": [
+    {
+     "id": "S1",
+     "target": "milk",
+     "ppm": 4.9,
+     "limit_ppm": 5,
+     "t": "2024-06-03T05:50"
+    }
+   ]
+  },
+  "production": {
+   "line": "L1",
+   "start_at": "2024-06-03T06:00",
+   "qty": 420,
+   "unit": "kg",
+   "packaging_allergens": [
+    "soya",
+    "may_contain milk"
+   ]
+  },
+  "approvals": {
+   "qa_signoff": {
+    "signed_at": "2024-06-03T05:55"
+   },
+   "deviations": [
+    {
+     "scope": "mixer clean duration",
+     "approved_at": "2024-06-03T05:00"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "allergen_transition": "removes_allergen",
+  "cleaning_completion": "duration_short",
+  "swab_outcome": "reading_just_below_limit",
+  "swab_timing_mismatch": false,
+  "cross_section_discrepancy": "none",
+  "exposed_quantity_kg": 420.0,
+  "approved_deviation": true,
+  "label_precaution": true,
+  "dedicated_tooling": false,
+  "qa_signoff_state": "signed_before_start",
+  "line_failure_history": 1,
+  "boundary_value": false
+ },
+ "factors_sampled": {
+  "allergen_transition": "removes_allergen",
+  "cleaning_completion": "duration_short",
+  "swab_outcome": "positive_no_retest",
+  "swab_timing_mismatch": true,
+  "cross_section_discrepancy": "label_allergen_mismatch",
+  "exposed_quantity_kg": 504.62,
+  "approved_deviation": true,
+  "label_precaution": true,
+  "dedicated_tooling": false,
+  "qa_signoff_state": "signed_before_start",
+  "line_failure_history": 1,
+  "boundary_value": false
+ },
+ "plan": {
+  "swabs_cleared": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "line_disposition": {
+   "clarity": "clear",
+   "target": "release_conditional",
+   "second": null
+  },
+  "worst_deficiency": {
+   "clarity": "clear",
+   "target": "none",
+   "second": null
+  },
+  "exposed_product": {
+   "clarity": "clear",
+   "target": "2",
+   "second": null
+  },
+  "residue_evidence": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  }
+ },
+ "target_words": 46,
+ "deciding": {
+  "swabs_cleared": "The only milk swab reads 4.9 ppm against a 5 ppm limit at 05:50, before the 06:00 start.",
+  "line_disposition": "Swab passed and signoff precedes start; packaging carries a may_contain milk precaution, a added control, so release_conditional.",
+  "worst_deficiency": "The short mixer clean (24 of 30 min) is covered by an approved pre-start deviation; swabs, signoff and labels are consistent.",
+  "exposed_product": "Batch quantity is 420 kg, within 50 to 500 kg.",
+  "residue_evidence": "Reading 4.9 ppm is above zero and just under the 5 ppm limit, so trace, but near the limit boundary."
+ },
+ "request": "rec-F236-0036",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.010657
+}

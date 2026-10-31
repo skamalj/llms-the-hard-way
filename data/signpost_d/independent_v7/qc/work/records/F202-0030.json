@@ -1,0 +1,130 @@
+{
+ "id": "F202-0030",
+ "family": "F202",
+ "state": {
+  "patrol": {
+   "booked": [
+    55.0,
+    56.5
+   ],
+   "line_speed_mph": 100
+  },
+  "walk_trace": {
+   "walked": [
+    55.0,
+    56.29
+   ]
+  },
+  "defects": [
+   {
+    "id": "D1",
+    "type": "gauge_dev",
+    "category": "track_geometry",
+    "mi": 55.6,
+    "value": 6.6,
+    "unit": "mm",
+    "pri": "P3",
+    "photo": true
+   },
+   {
+    "id": "D2",
+    "type": "missing_fastening",
+    "category": "track_component",
+    "mi": 55.9,
+    "value": 4,
+    "unit": "count",
+    "pri": "P3",
+    "photo": true
+   }
+  ],
+  "site_context": {
+   "history": 2,
+   "geom_run": {
+    "date": "2024-05-28",
+    "exceedances": 0
+   }
+  },
+  "standards": {
+   "gauge_dev": {
+    "unit": "mm",
+    "monitor": 6,
+    "d7": 10,
+    "imm": 15
+   },
+   "missing_fastening": {
+    "unit": "count",
+    "monitor": 3,
+    "d7": 6,
+    "imm": 10
+   }
+  }
+ },
+ "factors": {
+  "measured_band": "monitor",
+  "worst_defect_category": "track_geometry",
+  "priority_vs_measurement": "match",
+  "unit_mismatch": false,
+  "location_mismatch": "none",
+  "coverage_gap_pct": 14.0,
+  "mitigation_present": false,
+  "mitigation_kind": "none",
+  "repeat_history": 2,
+  "photo_evidence": true,
+  "note_stance": "consistent",
+  "boundary_case": false,
+  "decoy_alarm": true
+ },
+ "factors_sampled": {
+  "measured_band": "monitor",
+  "worst_defect_category": "track_geometry",
+  "priority_vs_measurement": "overstated",
+  "unit_mismatch": false,
+  "location_mismatch": "none",
+  "coverage_gap_pct": 14.22,
+  "mitigation_present": false,
+  "mitigation_kind": "geometry_run_clear_recent",
+  "repeat_history": 2,
+  "photo_evidence": true,
+  "note_stance": "consistent",
+  "boundary_case": false,
+  "decoy_alarm": true
+ },
+ "plan": {
+  "priority_supported": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "monitor_next_patrol",
+   "second": null
+  },
+  "worst_category": {
+   "clarity": "balanced",
+   "target": "track_geometry",
+   "second": "track_component"
+  },
+  "discrepancy_size": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  },
+  "response_urgency": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 39,
+ "deciding": {
+  "priority_supported": "Gauge deviation 6.6 mm and 4 missing fastenings are both within the monitor band (6-10 and 3-6) and both are P3.",
+  "next_step": "Both defects are in the monitor band only, and the gap at 56.29-56.5 covers neither mi 55.6 nor mi 55.9. Recheck at the next patrol.",
+  "worst_category": "Both defects are in the monitor band, and the tie-break puts geometry first. The component count of 4 against its limit of 3 keeps track_component plausible.",
+  "discrepancy_size": "Gauge 6.6 against the 6 mm monitor limit is 10% over, and the fastening count is 33% over its limit, so level 1 and level 2 are both defensible.",
+  "response_urgency": "The record shows only monitor-band exceedances, so it supports level 1. The planned 3 versus 2 split could not be met here, because the monitor-only readings that fix next_step and priority rule out higher levels."
+ },
+ "request": "rec-F202-0026",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011787
+}

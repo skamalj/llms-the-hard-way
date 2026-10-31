@@ -1,0 +1,127 @@
+{
+ "id": "F230-0056",
+ "family": "F230",
+ "state": {
+  "resident": {
+   "id": "A101",
+   "status": "home"
+  },
+  "prescriptions": [
+   {
+    "item_id": "i1",
+    "drug": "warfarin",
+    "strength_mg": 3,
+    "dose_units": 1,
+    "time_critical": true,
+    "high_risk": true,
+    "changes": []
+   },
+   {
+    "item_id": "i2",
+    "drug": "x",
+    "strength_mg": 10,
+    "dose_units": 2
+   }
+  ],
+  "administrations": [
+   {
+    "item_id": "i1",
+    "scheduled": "08:00",
+    "given_at": "08:03",
+    "units_given": 1,
+    "strength_mg_used": 3,
+    "code": "G"
+   },
+   {
+    "item_id": "i2",
+    "units_given": 2,
+    "strength_mg_used": 5,
+    "code": "G"
+   }
+  ],
+  "stock": {
+   "i2": {
+    "opening": 30,
+    "closing": 27
+   }
+  },
+  "round": {
+   "open_queries": [
+    {
+     "type": "gp_callback",
+     "item_id": "i1"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "dose_mismatch_type": "none",
+  "prescription_change_documented": true,
+  "omission_count": 3,
+  "omission_reason_valid": true,
+  "late_minutes": 3,
+  "time_critical_affected": true,
+  "stock_variance": 1,
+  "stock_variance_explained": true,
+  "signature_gaps": 0,
+  "unit_expression_decoy": "equivalent_split",
+  "post_dose_obs_reassuring": false,
+  "pending_query": "gp_callback_awaited",
+  "prior_errors_30d": 4,
+  "item_count": 9
+ },
+ "factors_sampled": {
+  "dose_mismatch_type": "none",
+  "prescription_change_documented": true,
+  "omission_count": 3,
+  "omission_reason_valid": true,
+  "late_minutes": 3,
+  "time_critical_affected": false,
+  "stock_variance": 1,
+  "stock_variance_explained": true,
+  "signature_gaps": 0,
+  "unit_expression_decoy": "equivalent_split",
+  "post_dose_obs_reassuring": false,
+  "pending_query": "gp_callback_awaited",
+  "prior_errors_30d": 4,
+  "item_count": 9
+ },
+ "plan": {
+  "dose_mismatch": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "stock_reconciles": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "balanced",
+   "target": "clinical_escalation",
+   "second": "correct_and_close"
+  },
+  "open_discrepancies": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  },
+  "error_severity": {
+   "clarity": "contested",
+   "target": "4",
+   "second": "3"
+  }
+ },
+ "target_words": 69,
+ "deciding": {
+  "dose_mismatch": "Doses match; split units 2x5mg is equivalent.",
+  "stock_reconciles": "Variance of 1 is offset by a witnessed waste.",
+  "next_step": "Open gp_callback on a high-risk item points to escalation, though it could be a simple correction.",
+  "open_discrepancies": "Omissions on two or three items are valid but a query is open.",
+  "error_severity": "The affected high-risk item makes this level 4 versus 3."
+ },
+ "request": "rec-F230-0056",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.003408
+}

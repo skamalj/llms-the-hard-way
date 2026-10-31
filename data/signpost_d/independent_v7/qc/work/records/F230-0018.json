@@ -1,0 +1,111 @@
+{
+ "id": "F230-0018",
+ "family": "F230",
+ "state": {
+  "prescriptions": [
+   {
+    "item_id": "C1",
+    "strength_mg": 5,
+    "dose_units": 1,
+    "time_critical": true,
+    "high_risk": true
+   }
+  ],
+  "administrations": [
+   {
+    "item_id": "C1",
+    "scheduled": "2024-05-02T08:00",
+    "given_at": "2024-05-02T08:01",
+    "units_given": 1,
+    "strength_mg_used": 5,
+    "initials": "AB"
+   },
+   {
+    "item_id": "C1",
+    "scheduled": "2024-05-02T08:00",
+    "given_at": "2024-05-02T08:05",
+    "units_given": 1,
+    "strength_mg_used": 5,
+    "initials": "CD"
+   }
+  ],
+  "stock": {
+   "C1": {
+    "opening": 10,
+    "wasted": 1,
+    "wasted_witnessed": false,
+    "closing": 7
+   }
+  }
+ },
+ "factors": {
+  "dose_mismatch_type": "duplicate_entry",
+  "prescription_change_documented": false,
+  "omission_count": 0,
+  "omission_reason_valid": true,
+  "late_minutes": 1,
+  "time_critical_affected": true,
+  "stock_variance": 0,
+  "stock_variance_explained": false,
+  "signature_gaps": 0,
+  "unit_expression_decoy": "none_present",
+  "post_dose_obs_reassuring": false,
+  "pending_query": "none",
+  "prior_errors_30d": 2,
+  "item_count": 1
+ },
+ "factors_sampled": {
+  "dose_mismatch_type": "none",
+  "prescription_change_documented": false,
+  "omission_count": 1,
+  "omission_reason_valid": true,
+  "late_minutes": 1,
+  "time_critical_affected": false,
+  "stock_variance": -1,
+  "stock_variance_explained": true,
+  "signature_gaps": 2,
+  "unit_expression_decoy": "equivalent_split",
+  "post_dose_obs_reassuring": false,
+  "pending_query": "none",
+  "prior_errors_30d": 2,
+  "item_count": 9
+ },
+ "plan": {
+  "dose_mismatch": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "stock_reconciles": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "sign_off",
+   "second": null
+  },
+  "open_discrepancies": {
+   "clarity": "leaning",
+   "target": "0",
+   "second": null
+  },
+  "error_severity": {
+   "clarity": "leaning",
+   "target": "4",
+   "second": null
+  }
+ },
+ "target_words": 52,
+ "deciding": {
+  "dose_mismatch": "C1 has two entries for the same scheduled time. This is a duplicate, though the two signatures could be a recording repeat.",
+  "stock_reconciles": "10 minus 2 signed minus 1 wasted gives 7 and closing is 7. The waste was not witnessed, which leaves the result open.",
+  "next_step": "A duplicate on a time-critical, high-risk item points to escalation rather than sign-off.",
+  "open_discrepancies": "The duplicated item C1 is the only one in question.",
+  "error_severity": "A duplicate on an item flagged time_critical and high_risk puts this at critical."
+ },
+ "request": "rec-F230-0016",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.008234
+}

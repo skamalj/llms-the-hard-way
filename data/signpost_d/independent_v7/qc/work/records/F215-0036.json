@@ -1,0 +1,151 @@
+{
+ "id": "F215-0036",
+ "family": "F215",
+ "state": {
+  "bin": {
+   "bin_id": "S4",
+   "crop": "wheat",
+   "intake_date": "2024-08-02",
+   "intake_cond": "dried_cleaned",
+   "safe_mc_pct": 14.5,
+   "baseline_c": 14
+  },
+  "cable_readings": [
+   {
+    "cable_id": "C1",
+    "cal_due": "2025-06-01",
+    "fault": false,
+    "nodes": [
+     {
+      "depth_m": 1,
+      "temp_c": [
+       14.2,
+       14.3,
+       15.5
+      ]
+     },
+     {
+      "depth_m": 3,
+      "temp_c": [
+       14,
+       14.1,
+       14.1
+      ]
+     }
+    ]
+   },
+   {
+    "cable_id": "C2",
+    "cal_due": "2025-06-01",
+    "fault": false,
+    "nodes": [
+     {
+      "depth_m": 1,
+      "temp_c": [
+       14.1,
+       14.2,
+       14.2
+      ]
+     },
+     {
+      "depth_m": 3,
+      "temp_c": [
+       null,
+       null,
+       null
+      ]
+     }
+    ]
+   }
+  ],
+  "moisture": [
+   {
+    "sample_date": "2024-09-10",
+    "method": "lab",
+    "mc_pct": 13.2
+   }
+  ],
+  "environment": {
+   "ambient_c_7d_mean": 13,
+   "headspace_c": 14.5,
+   "co2_ppm": 520,
+   "reading_date": "2024-11-12"
+  },
+  "aeration": [],
+  "pest_checks": [
+   {
+    "check_date": "2024-11-05",
+    "traps_set": 6,
+    "insects_counted": 9
+   }
+  ]
+ },
+ "factors": {
+  "peak_excess_c": 1.5,
+  "rise_trend": "single_jump",
+  "second_cable_corroboration": false,
+  "sensor_fault_flag": false,
+  "ambient_warming": false,
+  "moisture_vs_limit": "well_below",
+  "moisture_sample_status": "overdue",
+  "aeration_running": false,
+  "co2_elevation": "normal",
+  "insect_trap_count": 9,
+  "missing_section": "cable_nodes_partial",
+  "date_order_anomaly": false,
+  "intake_condition": "dried_cleaned"
+ },
+ "factors_sampled": {
+  "peak_excess_c": 8.34,
+  "rise_trend": "single_jump",
+  "second_cable_corroboration": true,
+  "sensor_fault_flag": false,
+  "ambient_warming": false,
+  "moisture_vs_limit": "well_below",
+  "moisture_sample_status": "overdue",
+  "aeration_running": false,
+  "co2_elevation": "high",
+  "insect_trap_count": 9,
+  "missing_section": "cable_nodes_partial",
+  "date_order_anomaly": false,
+  "intake_condition": "dried_cleaned"
+ },
+ "plan": {
+  "hotspot_active": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "moisture_safe": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "next_action": {
+   "clarity": "balanced",
+   "target": "hold_recheck",
+   "second": "continue_monitoring"
+  },
+  "recurrence_count": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "temp_excess": {
+   "clarity": "leaning",
+   "target": "0",
+   "second": null
+  }
+ },
+ "target_words": 81,
+ "deciding": {
+  "hotspot_active": "Only C1's 1 m node jumps (14.3 to 15.5) while its 3 m node and C2 stay flat; no corroboration, CO2 normal.",
+  "moisture_safe": "Last sample 13.2% vs 14.5% limit, but dated 2024-09-10, 63 days before the reading date, so overdue.",
+  "next_action": "Overdue moisture sample and null C2 3 m nodes favour a recheck; flat temperatures and low traps leave continue_monitoring plausible.",
+  "recurrence_count": "No history field; a single pest check cannot separate level 3 from level 2, so it is held in balance.",
+  "temp_excess": "Peak valid 15.5 vs baseline 14 is 1.5 C, level 0; the null nodes leave slight doubt."
+ },
+ "request": "rec-F215-0036",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.00893
+}

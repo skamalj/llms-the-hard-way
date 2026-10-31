@@ -1,0 +1,131 @@
+{
+ "id": "F232-0015",
+ "family": "F232",
+ "state": {
+  "night_header": {
+   "allocated_hours": 3,
+   "eng_window": [
+    "00:30Z",
+    "01:30Z"
+   ]
+  },
+  "conditions": {
+   "closures": [
+    {
+     "start": "02:00Z",
+     "end": "06:01Z",
+     "reason": "weather",
+     "hum": 95,
+     "hum_lim": 85,
+     "cloud": 6,
+     "cloud_lim": 4
+    }
+   ]
+  },
+  "exposures": [
+   {
+    "t": "T1",
+    "f": "r",
+    "s": 5400,
+    "see": 0.9,
+    "qa": "pass"
+   },
+   {
+    "t": "T2",
+    "f": "g",
+    "s": 3600,
+    "see": 0.9,
+    "qa": "pass"
+   }
+  ],
+  "programme_request": {
+   "T1": {
+    "r": 5400
+   },
+   "T2": {
+    "g": 3600
+   }
+  },
+  "faults": [
+   {
+    "subsystem": "dome",
+    "start_utc": "00:40Z",
+    "end_utc": "01:10Z",
+    "cleared": true,
+    "retest_utc": "01:20Z"
+   }
+  ],
+  "notes": {
+   "observer_note": "T1, T2 complete.",
+   "night_assistant_note": "Loud grinding from dome drive ~00:40 during test."
+  }
+ },
+ "factors": {
+  "weather_loss_hours": 4.01,
+  "fault_overlap": "none",
+  "fault_resolution_state": "cleared_retested",
+  "maintenance_window": true,
+  "closure_reason_mismatch": "none",
+  "note_claim_discrepancy": "none",
+  "seeing_vs_limit": "well_within",
+  "seeing_exception_approved": false,
+  "usable_fraction": 0.83,
+  "qa_pending_count": 0,
+  "utc_date_rollover": false,
+  "assistant_note_tone": "alarmed_benign",
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "weather_loss_hours": 4.01,
+  "fault_overlap": "none",
+  "fault_resolution_state": "cleared_retested",
+  "maintenance_window": true,
+  "closure_reason_mismatch": "none",
+  "note_claim_discrepancy": "filter_missing",
+  "seeing_vs_limit": "well_within",
+  "seeing_exception_approved": false,
+  "usable_fraction": 0.43,
+  "qa_pending_count": 0,
+  "utc_date_rollover": false,
+  "assistant_note_tone": "alarmed_benign",
+  "boundary_case": false
+ },
+ "plan": {
+  "weather_only_loss": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "claims_supported": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "night_disposition": {
+   "clarity": "balanced",
+   "target": "hold",
+   "second": "reschedule_night"
+  },
+  "usable_share": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  },
+  "fault_followup": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  }
+ },
+ "target_words": 52,
+ "deciding": {
+  "weather_only_loss": "The only lost interval 02:00-06:01Z (4.01 h) is a weather closure with humidity 95 against 85 and cloud 6 against 4. The dome fault ended at 01:10Z, before it.",
+  "claims_supported": "T1 r 5400 s and T2 g 3600 s match the requested totals and filters exactly.",
+  "night_disposition": "All QA is complete, the fault is cleared and retested, and the loss is weather only. The plan's hold/reschedule split cannot be supported, and charge_partial fits.",
+  "usable_share": "Passing in-limit time is 9000 s of 10800 s (0.83), which is above 80% and no frames are pending.",
+  "fault_followup": "The dome fault was inside the eng_window and is cleared with retest at 01:20Z, so no open fault remains. The plan's level 3 cannot be supported."
+ },
+ "request": "rec-F232-0011",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.016611
+}

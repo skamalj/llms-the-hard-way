@@ -1,0 +1,156 @@
+{
+ "id": "F201-0096",
+ "family": "F201",
+ "state": {
+  "register_header": {
+   "drug": "fentanyl",
+   "strength": "50mcg/ml",
+   "concentration_mg_ml": 0.05,
+   "schedule": 2,
+   "witness_required": true,
+   "branch_id": "B2",
+   "page_id": "P14",
+   "period_start": "2024-05-01",
+   "period_end": "2024-05-31",
+   "opening_balance_ml": 20
+  },
+  "entries": [
+   {
+    "entry_id": "E1",
+    "date": "2024-05-02",
+    "type": "receipt",
+    "qty_ml": 20,
+    "running_balance_ml": 40,
+    "signed_by": "V11",
+    "witness_id": "V14",
+    "batch_no": "F7"
+   },
+   {
+    "entry_id": "E2",
+    "date": "2024-05-10",
+    "type": "admin",
+    "qty_ml": 5,
+    "patient_id": "P1",
+    "running_balance_ml": 35,
+    "signed_by": "V11",
+    "witness_id": "V14",
+    "batch_no": "F7"
+   },
+   {
+    "entry_id": "E3",
+    "date": "2024-05-15",
+    "type": "admin",
+    "qty_ml": 5,
+    "patient_id": "P2",
+    "running_balance_ml": 30,
+    "signed_by": "V12",
+    "witness_id": "V14",
+    "batch_no": "F7"
+   }
+  ],
+  "clinical_records": [
+   {
+    "patient_id": "P1",
+    "date": "2024-05-10",
+    "dose": 5,
+    "dose_unit": "ml"
+   },
+   {
+    "patient_id": "P2",
+    "date": "2024-05-15",
+    "dose": 5,
+    "dose_unit": "ml"
+   },
+   {
+    "patient_id": "P3",
+    "date": "2024-05-20",
+    "dose": 2,
+    "dose_unit": "ml"
+   },
+   {
+    "patient_id": "P4",
+    "date": "2024-05-25",
+    "dose": 2,
+    "dose_unit": "ml"
+   }
+  ],
+  "stock_check": {
+   "count_date": "2024-05-31",
+   "counted_ml": 26,
+   "counted_by": "V11",
+   "checked_by": "V14",
+   "batch_no": "F7",
+   "overfill_allowance_ml": 0
+  },
+  "disposals": [],
+  "exceptions": []
+ },
+ "factors": {
+  "drug_profile": "fentanyl_50mcg_ml",
+  "arithmetic_slip_count": 0,
+  "unrecorded_admin": "large_about_10pct",
+  "clinical_records_missing": false,
+  "disposal_state": "none_needed",
+  "unexplained_shortfall_pct": 10.0,
+  "variance_exception": "none",
+  "manufacturer_overfill": false,
+  "auth_gap_count": 0,
+  "count_out_of_order": false,
+  "unit_mismatch": false,
+  "locum_signatory": false,
+  "boundary_case": true
+ },
+ "factors_sampled": {
+  "drug_profile": "fentanyl_50mcg_ml",
+  "arithmetic_slip_count": 0,
+  "unrecorded_admin": "none",
+  "clinical_records_missing": false,
+  "disposal_state": "witnessed_complete",
+  "unexplained_shortfall_pct": 14.79,
+  "variance_exception": "valid_full_cover",
+  "manufacturer_overfill": false,
+  "auth_gap_count": 3,
+  "count_out_of_order": true,
+  "unit_mismatch": false,
+  "locum_signatory": false,
+  "boundary_case": false
+ },
+ "plan": {
+  "unexplained_shortfall": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "line_disposition": {
+   "clarity": "clear",
+   "target": "sign_off",
+   "second": null
+  },
+  "variance_cause": {
+   "clarity": "clear",
+   "target": "unrecorded_administration",
+   "second": null
+  },
+  "variance_size": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "auth_gaps": {
+   "clarity": "clear",
+   "target": "0",
+   "second": null
+  }
+ },
+ "target_words": 70,
+ "deciding": {
+  "unexplained_shortfall": "Register balance 30 ml vs counted 26 ml: a 4 ml shortfall, with no disposal or exception covering it.",
+  "line_disposition": "Plan's sign_off cannot hold against a 4 ml gap; the record shows count 26 vs balance 30, so the line does not reconcile.",
+  "variance_cause": "Clinical records P3 (2 ml, 05-20) and P4 (2 ml, 05-25) have no entries lines; together they equal the 4 ml gap.",
+  "variance_size": "4 ml over 40 ml handled (20 opening + 20 received) is exactly 10%, the boundary between Material and Major.",
+  "auth_gaps": "All three entries carry signed_by and witness_id, as required for a schedule 2 drug."
+ },
+ "request": "rec-F201-0096",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.016916
+}

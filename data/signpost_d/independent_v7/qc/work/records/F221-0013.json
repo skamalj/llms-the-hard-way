@@ -1,0 +1,162 @@
+{
+ "id": "F221-0013",
+ "family": "F221",
+ "state": {
+  "vehicle": {
+   "axle_config": "4-wheel",
+   "tyre_spec": {
+    "front_kpa": 800,
+    "rear_kpa": 800
+   },
+   "interval_days": 90,
+   "interval_km": 15000,
+   "odometer_km": 330000
+  },
+  "inspection": {
+   "date": "2024-06-10",
+   "odometer_km": 330000,
+   "inspector_id": "I31",
+   "signoff_at": "2024-06-10T16:20"
+  },
+  "brakes": {
+   "axles": [
+    {
+     "pos": "F",
+     "lining_mm": 9.9
+    },
+    {
+     "pos": "R",
+     "lining_mm": 8.42
+    }
+   ],
+   "test": {
+    "service_pct": 56,
+    "secondary_pct": 44,
+    "parking_pct": 31
+   }
+  },
+  "tyres": [
+   {
+    "pos": "FL",
+    "serial": "A1",
+    "date_code": "3517",
+    "min_tread_mm": 1.52,
+    "pressure_kpa": 689
+   },
+   {
+    "pos": "FR",
+    "serial": "A2",
+    "date_code": "1220",
+    "min_tread_mm": 6.1,
+    "pressure_kpa": 800
+   },
+   {
+    "pos": "RL",
+    "serial": "A3",
+    "date_code": "0922",
+    "min_tread_mm": 5.0,
+    "pressure_kpa": 795
+   }
+  ],
+  "defects": [
+   {
+    "id": "D9",
+    "comp": "RL tyre",
+    "carried": true,
+    "raised": "2024-03-12",
+    "status": "closed",
+    "rectified": "2024-03-20",
+    "tech": "T7"
+   }
+  ],
+  "history": {
+   "prev_date": "2024-03-12",
+   "prev_odometer_km": 315000,
+   "fitment_register": [
+    {
+     "pos": "FL",
+     "serial": "A1"
+    },
+    {
+     "pos": "FR",
+     "serial": "A2"
+    },
+    {
+     "pos": "RL",
+     "serial": "A3",
+     "removed_date": "2024-05-30"
+    },
+    {
+     "pos": "RR",
+     "serial": "A4"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "worst_tread_margin_mm": 0.52,
+  "worst_lining_margin_mm": 5.42,
+  "service_brake_efficiency_pct": 56.28,
+  "tyre_serial_mismatch": "register_shows_removed_tyre",
+  "odometer_conflict": "none",
+  "missing_element": "tyre_position_missing",
+  "carried_defects_open": 0,
+  "rectification_unverified": false,
+  "interval_status": "on_boundary",
+  "recheck_booked": false,
+  "pressure_deviation_pct": 13.86,
+  "tyre_age_years": 6.79
+ },
+ "factors_sampled": {
+  "worst_tread_margin_mm": 0.52,
+  "worst_lining_margin_mm": 5.42,
+  "service_brake_efficiency_pct": 56.28,
+  "tyre_serial_mismatch": "register_shows_removed_tyre",
+  "odometer_conflict": "none",
+  "missing_element": "tyre_position_missing",
+  "carried_defects_open": 2,
+  "rectification_unverified": false,
+  "interval_status": "km_overrun",
+  "recheck_booked": false,
+  "pressure_deviation_pct": 13.86,
+  "tyre_age_years": 6.79
+ },
+ "plan": {
+  "prior_defects_closed": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "within_interval": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "disposition": {
+   "clarity": "leaning",
+   "target": "off_road",
+   "second": null
+  },
+  "rectify_urgency": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  },
+  "failed_checks": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 38,
+ "deciding": {
+  "prior_defects_closed": "D9 is closed and signed by T7, dated after raising, but it concerns the RL tyre that the register shows removed while still on the sheet, which leaves some doubt.",
+  "within_interval": "Exactly 90 days since 2024-03-12 and exactly 15,000 km since 315,000 km, so both limits are met only on the boundary.",
+  "disposition": "RR tyre is missing from the sheet, RL is a removed serial, and FL tread is 1.52 mm at a pressure 13.9% below spec, which points to taking it off the road.",
+  "rectify_urgency": "FL min tread 1.52 mm gives about 0.5 mm margin, within 1 mm of the limit but not beyond it.",
+  "failed_checks": "A missing position, a removed tyre still listed and 13.9% pressure deviation are failed; the 6.8-year tyre age (date code 3517) and the boundary intervals may make a fourth."
+ },
+ "request": "rec-F221-0011",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.017957
+}

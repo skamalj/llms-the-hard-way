@@ -1,0 +1,150 @@
+{
+ "id": "F201-0047",
+ "family": "F201",
+ "state": {
+  "register_header": {
+   "drug": "methadone",
+   "strength": "10 mg/ml",
+   "concentration_mg_ml": 10,
+   "schedule": 2,
+   "witness_required": true,
+   "branch_id": "B1",
+   "opening_balance_ml": 50
+  },
+  "entries": [
+   {
+    "entry_id": "E1",
+    "date": "2024-05-03",
+    "type": "admin",
+    "qty_ml": 5,
+    "patient_id": "D1",
+    "running_balance_ml": 45,
+    "signed_by": "s1",
+    "witness_id": "w1",
+    "batch_no": "M3"
+   },
+   {
+    "entry_id": "E2",
+    "date": "2024-05-20",
+    "type": "admin",
+    "qty_ml": 4,
+    "patient_id": "D2",
+    "running_balance_ml": 41,
+    "signed_by": "s1",
+    "witness_id": null,
+    "batch_no": "M3"
+   }
+  ],
+  "clinical_records": [
+   {
+    "patient_id": "D1",
+    "date": "2024-05-03",
+    "dose": 5,
+    "dose_unit": "ml"
+   },
+   {
+    "patient_id": "D2",
+    "date": "2024-05-20",
+    "dose": 4,
+    "dose_unit": "ml"
+   },
+   {
+    "patient_id": "D3",
+    "date": "2024-05-14",
+    "dose": 2.5,
+    "dose_unit": "ml"
+   }
+  ],
+  "stock_check": {
+   "count_date": "2024-05-15",
+   "counted_ml": 35,
+   "batch_no": "M3",
+   "overfill_allowance_ml": 0
+  },
+  "disposals": [
+   {
+    "batch_no": "M3",
+    "qty_ml": 2,
+    "removed_date": "2024-05-10",
+    "register_entry_id": null,
+    "witness_id": "w1",
+    "denatured_date": "2024-05-10"
+   }
+  ],
+  "exceptions": [
+   {
+    "batch_no": "M3",
+    "qty_ml": 1,
+    "valid_to": "2024-06-30"
+   }
+  ]
+ },
+ "factors": {
+  "drug_profile": "methadone_10mg_ml",
+  "arithmetic_slip_count": 0,
+  "unrecorded_admin": "moderate_2_to_8pct",
+  "clinical_records_missing": false,
+  "disposal_state": "removed_unlogged",
+  "unexplained_shortfall_pct": 1.0,
+  "variance_exception": "valid_partial_cover",
+  "manufacturer_overfill": false,
+  "auth_gap_count": 1,
+  "count_out_of_order": true,
+  "unit_mismatch": false,
+  "locum_signatory": false,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "drug_profile": "methadone_10mg_ml",
+  "arithmetic_slip_count": 0,
+  "unrecorded_admin": "trivial_under_1pct",
+  "clinical_records_missing": false,
+  "disposal_state": "witnessed_complete",
+  "unexplained_shortfall_pct": 8.07,
+  "variance_exception": "valid_partial_cover",
+  "manufacturer_overfill": false,
+  "auth_gap_count": 4,
+  "count_out_of_order": true,
+  "unit_mismatch": false,
+  "locum_signatory": false,
+  "boundary_case": false
+ },
+ "plan": {
+  "unexplained_shortfall": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "line_disposition": {
+   "clarity": "clear",
+   "target": "correct_and_sign",
+   "second": null
+  },
+  "variance_cause": {
+   "clarity": "balanced",
+   "target": "unrecorded_administration",
+   "second": "undocumented_disposal"
+  },
+  "variance_size": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  },
+  "auth_gaps": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  }
+ },
+ "target_words": 40,
+ "deciding": {
+  "unexplained_shortfall": "Count 35 vs recomputed 41, exception covers 1; most of the rest is matched by D3 dose 2.5 and unlogged 2 ml removal, leaving about 0.5 ml with no counterpart.",
+  "line_disposition": "Plan says correct_and_sign, but the record shows an unlogged disposal (register_entry_id null), an unrecorded dose, and a count dated before the last entry, so the plan conflicts with the data.",
+  "variance_cause": "D3 2.5 ml dose with no entries line vs disposal 2 ml with null register_entry_id; near-equal sizes hold the two causes in balance.",
+  "variance_size": "41 - 35 - 1 exception = 5 ml on volume 50 = 10%, the boundary between material and major.",
+  "auth_gaps": "E2 witness_id null with witness_required true is one gap, but E2 is dated after the count date, which makes the register order unreliable and the gap count arguable between 0 and 1."
+ },
+ "request": "rec-F201-0046",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.013252
+}

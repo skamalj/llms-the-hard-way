@@ -1,0 +1,124 @@
+{
+ "id": "F235-0007",
+ "family": "F235",
+ "state": {
+  "station": {
+   "station_id": "S220",
+   "backup": {
+    "installed": true,
+    "status": "reporting"
+   },
+   "telemetry": {
+    "batt_v": 11.4
+   }
+  },
+  "visit": {
+   "type": "reactive",
+   "tasks_planned": 2
+  },
+  "checks": {
+   "pre": {
+    "board_m": [
+     1.32,
+     1.322
+    ],
+    "logger_m": 1.266
+   },
+   "post": null
+  },
+  "works": {
+   "tasks": [
+    {
+     "task": "swap transducer",
+     "status": "done"
+    },
+    {
+     "task": "repaint board",
+     "status": "not_started"
+    }
+   ],
+   "bench_test": {
+    "result_mm_error": 54
+   },
+   "logger_gap_h": 47
+  },
+  "defects": [
+   {
+    "item": "backup sensor conduit cracked, readings noisy",
+    "channel": "housing",
+    "reporting": true
+   }
+  ],
+  "notes": {
+   "tech_note": "Old sensor was reading low; all fine now."
+  }
+ },
+ "factors": {
+  "pre_visit_offset_mm": 55.0,
+  "check_reading_spread_mm": 2.0,
+  "drift_cause": "sensor_fault",
+  "cause_evidence": "single_indicator",
+  "visit_completion": "partial",
+  "post_visit_check_logged": false,
+  "residual_defect_class": "housing_with_backup_noise",
+  "backup_sensor_ok": true,
+  "benign_explanation": false,
+  "record_gap": "none",
+  "logger_gap_hours": 47,
+  "telemetry_decoy": "low_battery",
+  "note_tone": "reassuring"
+ },
+ "factors_sampled": {
+  "pre_visit_offset_mm": 24.99,
+  "check_reading_spread_mm": 1.72,
+  "drift_cause": "channel_change",
+  "cause_evidence": "corroborated",
+  "visit_completion": "partial",
+  "post_visit_check_logged": false,
+  "residual_defect_class": "cosmetic",
+  "backup_sensor_ok": true,
+  "benign_explanation": false,
+  "record_gap": "none",
+  "logger_gap_hours": 47,
+  "telemetry_decoy": "low_battery",
+  "note_tone": "reassuring"
+ },
+ "plan": {
+  "sensor_fault_cause": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "visit_disposition": {
+   "clarity": "clear",
+   "target": "sign_off_noted",
+   "second": null
+  },
+  "data_treatment": {
+   "clarity": "leaning",
+   "target": "apply_correction",
+   "second": null
+  },
+  "offset_size": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  },
+  "residual_defect": {
+   "clarity": "contested",
+   "target": "2",
+   "second": "1"
+  }
+ },
+ "target_words": 45,
+ "deciding": {
+  "sensor_fault_cause": "Transducer swapped and bench error 54 mm matches the offset, but no post check is logged to confirm.",
+  "visit_disposition": "Only the cosmetic repaint is not started, while the swap and bench test are done; close with a minor note.",
+  "data_treatment": "Bench error of 54 mm supports a correction, but the missing post check leaves some doubt.",
+  "offset_size": "Board mean 1.321 minus logger 1.266 is 55 mm, with a tight spread.",
+  "residual_defect": "The defect is on the housing channel, but the note that backup readings are noisy hints at secondary degradation."
+ },
+ "request": "rec-F235-0006",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011907
+}

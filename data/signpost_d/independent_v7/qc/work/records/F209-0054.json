@@ -1,0 +1,131 @@
+{
+ "id": "F209-0054",
+ "family": "F209",
+ "state": {
+  "unit": {
+   "asset_id": "CO-9014",
+   "type": "co2",
+   "capacity_kg": 5,
+   "manufacture_date": "2007-03-15",
+   "full_weight_kg": 12.0
+  },
+  "visit": {
+   "visit_date": "2025-05-20",
+   "tech_cert_expiry": "2026-03-01",
+   "service_type": "extended",
+   "checks": {
+    "weight_kg": 10.5,
+    "seal_ok": false,
+    "hose_ok": true,
+    "discharge_done": true,
+    "hydro_test_done": false
+   }
+  },
+  "tag": {
+   "tag_asset_id": "CO-9014",
+   "tag_service_date": "2025-05-18"
+  },
+  "history": [
+   {
+    "date": "2015-05-22",
+    "service_type": "overhaul",
+    "result": "pass"
+   },
+   {
+    "date": "2020-05-20",
+    "service_type": "extended",
+    "result": "pass"
+   },
+   {
+    "date": "2024-02-18",
+    "service_type": "basic",
+    "result": "pass"
+   }
+  ],
+  "register": {
+   "reg_capacity_kg": 4.5,
+   "zone_risk_class": "server_room",
+   "exemption": {
+    "approved": true,
+    "expires": "2026-01-01"
+   }
+  },
+  "remedial": [
+   {
+    "action_code": "RESEAL",
+    "raised": "2025-05-20",
+    "completed": "2025-05-20"
+   }
+  ]
+ },
+ "factors": {
+  "unit_type": "co2",
+  "unit_age_years": 18,
+  "service_level_gap": "matched",
+  "days_past_due": 91,
+  "deferral_approved": false,
+  "injected_mismatch_count": 2,
+  "physical_defect": "seal_broken",
+  "defect_rectified_on_visit": true,
+  "type_location_mismatch": false,
+  "location_exemption_on_file": true,
+  "record_gap": "none",
+  "technician_cert_status": "valid",
+  "out_of_order_dates": false,
+  "borderline_case": false
+ },
+ "factors_sampled": {
+  "unit_type": "co2",
+  "unit_age_years": 18,
+  "service_level_gap": "matched",
+  "days_past_due": 27,
+  "deferral_approved": false,
+  "injected_mismatch_count": 1,
+  "physical_defect": "seal_broken",
+  "defect_rectified_on_visit": true,
+  "type_location_mismatch": false,
+  "location_exemption_on_file": true,
+  "record_gap": "none",
+  "technician_cert_status": "valid",
+  "out_of_order_dates": false,
+  "borderline_case": false
+ },
+ "plan": {
+  "left_compliant": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "withdraw_unit",
+   "second": null
+  },
+  "service_level_due": {
+   "clarity": "balanced",
+   "target": "extended_service",
+   "second": "overhaul"
+  },
+  "visit_lateness": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "mismatch_count": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  }
+ },
+ "target_words": 89,
+ "deciding": {
+  "left_compliant": "The broken seal was fixed on the visit date, but CO2 weight 10.5 kg is 87.5% of the 12.0 kg full weight, below the 90% threshold, and the hydro test was not done.",
+  "next_step": "A CO2 unit below 90% of full weight is unsafe and must be withdrawn and replaced.",
+  "service_level_due": "The last extended service was 2020-05-20, so extended is due now; the last overhaul was 2015-05-22, just short of ten years, which keeps overhaul arguable.",
+  "visit_lateness": "Last basic 2024-02-18 plus 12 months gives 2025-02-18 as due; the visit on 2025-05-20 is 91 days later, one day over the 90-day line.",
+  "mismatch_count": "Tag date 05-18 vs visit 05-20 and register capacity 4.5 vs 5; the other counterparts agree."
+ },
+ "request": "rec-F209-0051",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.015227
+}

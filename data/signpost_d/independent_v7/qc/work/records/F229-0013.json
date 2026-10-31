@@ -1,0 +1,107 @@
+{
+ "id": "F229-0013",
+ "family": "F229",
+ "state": {
+  "lot": {
+   "lot_id": "L-0455",
+   "block_code": "C4",
+   "pick_end": null
+  },
+  "intake": {
+   "block_code": "C4",
+   "arrival_at": "2024-09-10T19:45",
+   "gross_kg": 3600,
+   "tare_kg": 600,
+   "net_kg": 3000,
+   "bins": [
+    1600,
+    1600
+   ],
+   "temp_c": 19,
+   "driver_note": "Bin 2 reweighed, ticket amended."
+  },
+  "sample": {
+   "rot_pct": 0.92
+  },
+  "press": {
+   "programme": "destemmed",
+   "band_l_per_t": "600-680",
+   "cycle_start": "2024-09-11T11:40",
+   "juice_l": 1950
+  },
+  "transfer": {
+   "lot_ref": "L-0455",
+   "tank_id": "T6",
+   "qa_signoff": null,
+   "qa_comment": "Awaiting reweigh confirmation."
+  }
+ },
+ "factors": {
+  "weight_mismatch": "large_over_5pct",
+  "press_programme": "destemmed_standard",
+  "yield_position": "just_on_edge",
+  "lot_id_drift": "none",
+  "missing_step": "qa_signoff_missing",
+  "out_of_order_timestamp": false,
+  "pick_to_press_hours": 15.9,
+  "pick_end_recorded": false,
+  "cold_held": false,
+  "rot_pct": 0.92,
+  "sorting_applied": false,
+  "note_signal": "explains_mismatch",
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "weight_mismatch": "large_over_5pct",
+  "press_programme": "destemmed_standard",
+  "yield_position": "just_on_edge",
+  "lot_id_drift": "block_code_differs_at_intake",
+  "missing_step": "none",
+  "out_of_order_timestamp": false,
+  "pick_to_press_hours": 18.35,
+  "pick_end_recorded": false,
+  "cold_held": false,
+  "rot_pct": 0.92,
+  "sorting_applied": false,
+  "note_signal": "explains_mismatch",
+  "boundary_case": false
+ },
+ "plan": {
+  "yield_consistent": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "chain_intact": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "release_decision": {
+   "clarity": "clear",
+   "target": "hold",
+   "second": null
+  },
+  "pick_press_delay": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "failed_checks": {
+   "clarity": "leaning",
+   "target": "0",
+   "second": null
+  }
+ },
+ "target_words": 45,
+ "deciding": {
+  "yield_consistent": "Net 3000 kg but bins sum to 3200 kg (6.7% gap); the ticket was not reconciled, so the yield cannot be confirmed.",
+  "chain_intact": "Block C4 and lot_ref L-0455 are consistent across sections.",
+  "release_decision": "qa_comment says awaiting reweigh confirmation and qa_signoff is null; the fault is unconfirmed so the juice stays settling.",
+  "pick_press_delay": "pick_end is null; arrival 19:45 to press 11:40 is 15.9 hours as a lower bound, so 16 hours or more is plausible.",
+  "failed_checks": "Only the weight reconciliation looks unresolved, and the amended-ticket note partly explains it; rot is low and ids match."
+ },
+ "request": "rec-F229-0011",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.009761
+}

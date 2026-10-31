@@ -1,0 +1,130 @@
+{
+ "id": "F203-0002",
+ "family": "F203",
+ "state": {
+  "request": {
+   "submitted_on": "2025-05-06",
+   "need_by": "2025-05-20",
+   "scope": "whole_item",
+   "copyright_declaration_on": "2025-05-05"
+  },
+  "borrower_library": {
+   "agreement": {
+    "status": "active",
+    "expires_on": "2026-01-01"
+   },
+   "open_loans": [
+    {
+     "loan_id": "A1",
+     "due_on": "2025-04-10",
+     "renewed_on": "2025-04-08",
+     "return_scan_on": null
+    },
+    {
+     "loan_id": "A2",
+     "due_on": "2025-04-22",
+     "renewed_on": "2025-04-20",
+     "return_scan_on": null
+    },
+    {
+     "loan_id": "A3",
+     "due_on": "2025-05-01",
+     "renewed_on": null,
+     "return_scan_on": "2025-04-29"
+    }
+   ]
+  },
+  "patron": {
+   "member_id": "M9",
+   "home_branch": "East",
+   "verified_on": null
+  },
+  "item": {
+   "condition_grade": "good",
+   "local_holds": 2
+  },
+  "holdings_network": {
+   "copies": [
+    {
+     "library_code": "WB",
+     "status": "on_loan"
+    }
+   ],
+   "supplier_status": {
+    "print_status": "out_of_print",
+    "secondhand_listings": 0
+   }
+  },
+  "logistics": {
+   "est_arrival": "2025-05-24"
+  }
+ },
+ "factors": {
+  "agreement_status": "active",
+  "borrower_overdue_count": 3,
+  "overdue_mitigated": true,
+  "patron_verification": "pending",
+  "item_condition": "good",
+  "conservation_cleared": false,
+  "local_holds_queue": 2,
+  "network_other_copies": 0,
+  "print_status": "out_of_print_none",
+  "request_scope": "whole_item",
+  "copyright_declaration_present": true,
+  "need_by_slack_days": -4,
+  "need_by_missing": false
+ },
+ "factors_sampled": {
+  "agreement_status": "active",
+  "borrower_overdue_count": 3,
+  "overdue_mitigated": true,
+  "patron_verification": "pending",
+  "item_condition": "good",
+  "conservation_cleared": false,
+  "local_holds_queue": 2,
+  "network_other_copies": 6,
+  "print_status": "out_of_print_none",
+  "request_scope": "whole_item",
+  "copyright_declaration_present": true,
+  "need_by_slack_days": -4,
+  "need_by_missing": false
+ },
+ "plan": {
+  "borrower_good_standing": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "disposition": {
+   "clarity": "balanced",
+   "target": "hold",
+   "second": "decline"
+  },
+  "loan_restriction": {
+   "clarity": "leaning",
+   "target": "no_renewal",
+   "second": null
+  },
+  "time_slack": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  },
+  "replacement_difficulty": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  }
+ },
+ "target_words": 36,
+ "deciding": {
+  "borrower_good_standing": "Agreement is active, but three loans are past due with mitigation (two renewed, one scanned back). That is a modest concern.",
+  "disposition": "Patron verified_on is null, so a hold is likely. Arrival is after the need-by date, which makes decline defensible.",
+  "loan_restriction": "Overdue history on the borrowing library points to no renewal.",
+  "time_slack": "Arrival 2025-05-24 is after need-by 2025-05-20, so the slack is missed. The factor values were changed so the plan's level 3 does not conflict with this.",
+  "replacement_difficulty": "The only network copy is on loan, so no lendable copies exist. The out-of-print status with 0 listings makes the level uncertain."
+ },
+ "request": "rec-F203-0001",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.005679
+}

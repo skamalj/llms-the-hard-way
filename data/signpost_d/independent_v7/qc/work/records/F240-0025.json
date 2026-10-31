@@ -1,0 +1,139 @@
+{
+ "id": "F240-0025",
+ "family": "F240",
+ "state": {
+  "asset": {
+   "inverter_id": "INV-33",
+   "serial": "T5521",
+   "rated_ac_kw": 8000
+  },
+  "fault_event": {
+   "serial": "T5521",
+   "code": "F-GRD-OV",
+   "fw_severity": 3,
+   "ts_start": "2025-05-14T09:00",
+   "ts_clear": "2025-05-14T13:30",
+   "auto_restarts": 4
+  },
+  "telemetry": {
+   "samples": [
+    {
+     "ts": "2025-05-14T13:00",
+     "ac_kw": 0,
+     "exp_kw": 960,
+     "limit_pct": 0
+    },
+    {
+     "ts": "2025-05-14T13:25",
+     "ac_kw": 80,
+     "exp_kw": 970,
+     "limit_pct": 1.0
+    }
+   ],
+   "exp_day_kwh": 30000,
+   "exp_window_kwh": 320,
+   "act_window_kwh": 20
+  },
+  "site_context": {
+   "maint_windows": [
+    {
+     "from": "2025-05-14T08:00",
+     "to": "2025-05-14T14:00",
+     "scope": "INV-33"
+    }
+   ],
+   "neighbours": [
+    {
+     "inverter_id": "INV-32",
+     "output_ratio": 0.99
+    }
+   ]
+  },
+  "history": {
+   "faults": [
+    {
+     "date": "2025-05-09",
+     "code": "F-GRD-OV"
+    },
+    {
+     "date": "2025-05-14",
+     "code": "F-GRD-OV"
+    }
+   ],
+   "work_orders": [
+    {
+     "wo_id": "WO-90",
+     "opened": "2025-04-29",
+     "completed": "2025-05-01",
+     "retest_ok": true
+    }
+   ]
+  }
+ },
+ "factors": {
+  "fault_class": "grid_overvoltage",
+  "log_telemetry_mismatch": "large_over_2h",
+  "grid_event_concurrent": false,
+  "maintenance_window_active": true,
+  "neighbour_cross_check": "neighbours_normal",
+  "repeat_count_30d": 2,
+  "last_repair_status": "completed_verified",
+  "current_limit_pct": 1.0,
+  "yield_loss_pct": 1.0,
+  "low_irradiance_window": false,
+  "serial_mismatch": false,
+  "boundary_placement": false
+ },
+ "factors_sampled": {
+  "fault_class": "grid_overvoltage",
+  "log_telemetry_mismatch": "large_over_2h",
+  "grid_event_concurrent": false,
+  "maintenance_window_active": true,
+  "neighbour_cross_check": "neighbours_normal",
+  "repeat_count_30d": 2,
+  "last_repair_status": "open",
+  "current_limit_pct": 36.87,
+  "yield_loss_pct": 15.8,
+  "low_irradiance_window": false,
+  "serial_mismatch": false,
+  "boundary_placement": false
+ },
+ "plan": {
+  "genuine_defect": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "post_repair_repeat": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "urgent_dispatch",
+   "second": null
+  },
+  "yield_loss": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "capacity_unavailable": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 46,
+ "deciding": {
+  "genuine_defect": "A maintenance window covers INV-33 across the whole event and the neighbour ratio is 0.99, so the fault does not point to inverter hardware.",
+  "post_repair_repeat": "WO-90 completed 2025-05-01 and F-GRD-OV is logged on 2025-05-09 and 2025-05-14, both after completion.",
+  "next_step": "The same code recurred twice after a verified repair, fw_severity is 3, and output is still near zero at close.",
+  "yield_loss": "(320-20)/30000 = 1.0%, on the level 0/1 boundary, though the 4.5h log span (09:00-13:30) versus the short zero stretch makes it ambiguous.",
+  "capacity_unavailable": "Last sample ac_kw 80 of 8000 with limit_pct 1.0 is a trickle of export, close to offline versus derated below 50%."
+ },
+ "request": "rec-F240-0021",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012049
+}

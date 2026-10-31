@@ -1,0 +1,302 @@
+{
+ "id": "F240",
+ "domain": "solar farm inverter fault logs",
+ "role": "Remote performance engineer at a solar O&M control centre, reviewing one inverter fault event record at a time",
+ "setting": "A utility-scale solar portfolio's monitoring platform raises a fault event record whenever a string or central inverter trips, derates or stops reporting. Each record bundles the asset register entry, the inverter's alarm log extract, SCADA telemetry for the event window, site context (grid, weather and maintenance schedules) and recent fault and repair history. The engineer checks whether the fault is a real inverter defect, whether it recurred after repair, how much yield was lost, how much capacity is still unavailable, and what to do next.",
+ "questions": {
+  "genuine_defect": {
+   "type": "noul",
+   "instructions": "Logged fault reflects a genuine inverter defect, not an external cause.",
+   "criteria": {
+    "true": "Evidence points to inverter hardware after grid and sensor checks.",
+    "false": "External cause, sensor artefact, or too little evidence of a defect."
+   }
+  },
+  "post_repair_repeat": {
+   "type": "noul",
+   "instructions": "Same fault has recurred on this inverter since its last completed repair.",
+   "criteria": {
+    "true": "Matching fault code logged after the repair completion date.",
+    "false": "No repeat after repair, or no completed repair on record."
+   }
+  },
+  "next_step": {
+   "type": "choice",
+   "instructions": "What next step should the engineer take for this fault?",
+   "criteria": {
+    "close_log": "Fault cleared with external or benign cause; no follow-up needed.",
+    "watch_list": "Fault cleared but cause unclear; recheck at next daily review.",
+    "hold_confirm": "One missing confirmation is needed before any further action is chosen.",
+    "scheduled_visit": "Defect likely but output tolerable; add to the planned site visit.",
+    "urgent_dispatch": "Defect likely with major output loss or safety risk; dispatch now."
+   }
+  },
+  "yield_loss": {
+   "type": "score",
+   "instructions": "What share of expected daily yield was lost to the fault?",
+   "criteria": [
+    "Negligible: under 1% of expected daily yield lost",
+    "Minor: 1% to under 5% of expected yield lost",
+    "Material: 5% to under 20% of expected yield lost",
+    "Severe: 20% or more of expected yield lost"
+   ]
+  },
+  "capacity_unavailable": {
+   "type": "score",
+   "instructions": "How much rated capacity remains unavailable when the log closes?",
+   "criteria": [
+    "Back at full rated output, no active limit",
+    "Derated, output limit at 50% to under 100%",
+    "Derated below 50% of rated but still exporting",
+    "Offline, exporting nothing at log close"
+   ]
+  }
+ },
+ "factors": [
+  {
+   "name": "fault_class",
+   "description": "Underlying fault type recorded by the inverter firmware; sets which other signals matter (e.g. grid overvoltage is often external, insulation and IGBT faults usually hardware).",
+   "kind": "categorical",
+   "values": [
+    "grid_overvoltage",
+    "insulation_resistance",
+    "igbt_overtemp",
+    "dc_ground_fault",
+    "comms_loss",
+    "fan_failure"
+   ],
+   "weights": [
+    0.2,
+    0.18,
+    0.15,
+    0.15,
+    0.17,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S7",
+    "S5"
+   ]
+  },
+  {
+   "name": "log_telemetry_mismatch",
+   "description": "Size of disagreement between fault start/clear times in the alarm log and the zero/low-output window visible in telemetry; drives whether the logged duration or the telemetry should be trusted for loss.",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "trivial_under_5min",
+    "moderate_15_60min",
+    "large_over_2h"
+   ],
+   "weights": [
+    0.35,
+    0.25,
+    0.25,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S6"
+   ]
+  },
+  {
+   "name": "grid_event_concurrent",
+   "description": "Whether the substation event list shows a grid voltage or frequency excursion overlapping the fault start; mitigates a defect reading.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S5"
+   ]
+  },
+  {
+   "name": "maintenance_window_active",
+   "description": "Whether a planned maintenance or isolation window covers the inverter during the fault; explains trips and zero output benignly.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.45,
+   "skills": [
+    "S3",
+    "S4"
+   ]
+  },
+  {
+   "name": "neighbour_cross_check",
+   "description": "Whether neighbouring inverters on the same feeder showed the same dip, did not, or have no data; agreement points to an external cause or sensor issue.",
+   "kind": "categorical",
+   "values": [
+    "neighbours_affected",
+    "neighbours_normal",
+    "no_neighbour_data"
+   ],
+   "weights": [
+    0.35,
+    0.45,
+    0.2
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S5",
+    "S4"
+   ]
+  },
+  {
+   "name": "repeat_count_30d",
+   "description": "Number of same-code faults on this inverter in the previous 30 days, listed in history; some fall before and some after the last repair.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 6,
+   "p_true": 0,
+   "skills": [
+    "S5",
+    "S6"
+   ]
+  },
+  {
+   "name": "last_repair_status",
+   "description": "State of the most recent work order: none, completed and verified by a retest, completed with no retest logged, or still open.",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "completed_verified",
+    "completed_unverified",
+    "open"
+   ],
+   "weights": [
+    0.25,
+    0.3,
+    0.25,
+    0.2
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S4",
+    "S5",
+    "S1"
+   ]
+  },
+  {
+   "name": "current_limit_pct",
+   "description": "Active power limit at log close as a percentage of rated AC output; 0 means offline, 100 means no limit.",
+   "kind": "number",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 100,
+   "p_true": 0,
+   "skills": [
+    "S4",
+    "S7"
+   ]
+  },
+  {
+   "name": "yield_loss_pct",
+   "description": "True lost energy as a share of the inverter's expected daily yield, derived from expected minus actual kWh in the event window.",
+   "kind": "number",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 35,
+   "p_true": 0,
+   "skills": [
+    "S4",
+    "S6",
+    "S1"
+   ]
+  },
+  {
+   "name": "low_irradiance_window",
+   "description": "Whether the fault occurred at dawn, dusk or under heavy cloud so plane-of-array irradiance was low; caps energy loss despite long duration.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.45,
+   "skills": [
+    "S3",
+    "S1"
+   ]
+  },
+  {
+   "name": "serial_mismatch",
+   "description": "Whether the inverter serial in the alarm log differs from the asset register, e.g. after an unregistered unit swap, making history attribution doubtful.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.15,
+   "skills": [
+    "S1",
+    "S6"
+   ]
+  },
+  {
+   "name": "boundary_placement",
+   "description": "Whether yield loss or current limit is placed exactly on a scale threshold (1%, 5%, 20%, 50%) or the repair completion time sits within minutes of a repeat fault.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.2,
+   "skills": [
+    "S6"
+   ]
+  }
+ ],
+ "sections": [
+  {
+   "name": "asset",
+   "description": "Asset register entry: inverter ID, serial, model, rated AC kW, block and feeder."
+  },
+  {
+   "name": "fault_event",
+   "description": "Alarm log extract: serial, fault code, firmware severity code, start and clear timestamps, auto-restart attempts."
+  },
+  {
+   "name": "telemetry",
+   "description": "SCADA samples for the window: AC kW, expected kW, irradiance, active limit, cumulative kWh."
+  },
+  {
+   "name": "site_context",
+   "description": "Substation grid events, maintenance windows, neighbouring inverter output ratios for the window."
+  },
+  {
+   "name": "history",
+   "description": "List of prior faults (date, code) in 30 days and recent work orders with status and retest flag."
+  }
+ ],
+ "rendering_notes": "asset: inverter_id, serial, model, rated_ac_kw, block, feeder. fault_event: serial (differs from asset.serial when serial_mismatch), code (from fault_class, e.g. 'F-ISO-02'), fw_severity (1-4, a real firmware field and a decoy: it is set independently of true impact), ts_start, ts_clear (null if not cleared), auto_restarts. telemetry: list of samples {ts, ac_kw, exp_kw, poa_wm2, limit_pct}, plus exp_day_kwh and act_window_kwh, exp_window_kwh; yield_loss_pct is never printed and must be computed as (exp_window_kwh - act_window_kwh)/exp_day_kwh; low_irradiance_window shows as low poa_wm2 values and small exp_kw. log_telemetry_mismatch shows as the zero-output stretch in samples starting or ending earlier/later than ts_start/ts_clear; for large mismatch the log duration would imply a very different loss. current_limit_pct appears only as the last sample's limit_pct and ac_kw versus asset.rated_ac_kw (offline shows ac_kw 0 and limit_pct 0). site_context: grid_events list {ts, type, magnitude_pu} overlapping ts_start when grid_event_concurrent, else unrelated or empty; maint_windows list {from, to, scope} covering the inverter ID when maintenance_window_active, with decoy windows for other blocks; neighbours list {inverter_id, output_ratio} with ratios below 0.8 when neighbours_affected, near 1.0 when normal, or null/empty when no data. history: faults list {date, code} with repeat_count_30d matching-code entries (others decoy codes), some dated before and some after the latest work order's completed date; work_orders list {wo_id, opened, completed (null if open), retest_ok (true/false/null)} reflecting last_repair_status. boundary_placement pushes computed loss or limit onto a threshold or puts a repeat fault minutes from completion. No field states defect verdict, recurrence, loss band, unavailability band or recommended action; no 'severity', 'risk', 'root_cause' or 'action' fields beyond fw_severity. Mitigations (grid event, maintenance window, affected neighbours, low irradiance) appear about equally with and without alarming signals; no free-text fields anywhere, all values numbers, ISO timestamps, booleans, codes or null.",
+ "skills": [
+  "S1",
+  "S3",
+  "S4",
+  "S5",
+  "S6",
+  "S7"
+ ],
+ "shared_scale": null,
+ "design_cost": 0.122816
+}

@@ -1,0 +1,159 @@
+{
+ "id": "F213-0092",
+ "family": "F213",
+ "state": {
+  "pool": {
+   "type": "competition",
+   "test_interval_min": 60,
+   "open": "2024-05-07T07:00",
+   "close": "2024-05-07T12:00",
+   "limits": {
+    "free_cl_min": 1.0,
+    "free_cl_max": 3.0,
+    "ph_min": 7.2,
+    "ph_max": 7.8
+   },
+   "tolerance": {
+    "free_cl": 0.3,
+    "ph": 0.2
+   },
+   "micro_due": "2024-05-03"
+  },
+  "manual_tests": [
+   {
+    "time": "2024-05-07T07:00",
+    "free_cl": 2.0,
+    "ph": 7.4,
+    "kit_id": "K2"
+   },
+   {
+    "time": "2024-05-07T08:40",
+    "free_cl": 4.2,
+    "ph": 7.5,
+    "kit_id": "K2"
+   },
+   {
+    "time": "2024-05-07T10:30",
+    "free_cl": 3.9,
+    "ph": 7.5,
+    "kit_id": "K2"
+   },
+   {
+    "time": "2024-05-07T11:00",
+    "free_cl": 2.4,
+    "ph": 7.4,
+    "kit_id": "K2"
+   }
+  ],
+  "plant": {
+   "controller_readings": [
+    {
+     "time": "2024-05-07T07:00",
+     "free_cl": 2.0,
+     "ph": 7.4
+    },
+    {
+     "time": "2024-05-07T08:45",
+     "free_cl": 3.4,
+     "ph": 7.5
+    },
+    {
+     "time": "2024-05-07T10:30",
+     "free_cl": 3.3,
+     "ph": 7.5
+    },
+    {
+     "time": "2024-05-07T11:00",
+     "free_cl": 2.4,
+     "ph": 7.4
+    }
+   ]
+  },
+  "equipment": {
+   "kits": [
+    {
+     "kit_id": "K2",
+     "cal_due": "2024-09-01",
+     "reagent_lot": "L22"
+    }
+   ]
+  },
+  "actions": [
+   {
+    "time": "2024-05-07T10:40",
+    "action_type": "dilution",
+    "reading_ref": "2024-05-07T08:40",
+    "retest_time": "2024-05-07T11:00"
+   }
+  ],
+  "lab_sample": null
+ },
+ "factors": {
+  "pool_type": "competition",
+  "test_coverage_gap": 2,
+  "boundary_interval": false,
+  "log_controller_discrepancy": "over_tolerance",
+  "discrepancy_location": "free_chlorine",
+  "excursion_severity": "serious",
+  "corrective_action_delay": "boundary_late",
+  "retest_logged": true,
+  "dosing_event_explains": false,
+  "kit_calibration_status": "in_date",
+  "lab_sample_state": "missing_when_due",
+  "out_of_order_entry": false,
+  "benign_noise": "reagent_change"
+ },
+ "factors_sampled": {
+  "pool_type": "competition",
+  "test_coverage_gap": 1,
+  "boundary_interval": true,
+  "log_controller_discrepancy": "within_tolerance",
+  "discrepancy_location": "free_chlorine",
+  "excursion_severity": "serious",
+  "corrective_action_delay": "prompt",
+  "retest_logged": true,
+  "dosing_event_explains": false,
+  "kit_calibration_status": "in_date",
+  "lab_sample_state": "missing_when_due",
+  "out_of_order_entry": false,
+  "benign_noise": "reagent_change"
+ },
+ "plan": {
+  "test_frequency_met": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "readings_reconcile": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "log_disposition": {
+   "clarity": "leaning",
+   "target": "hold_for_retest",
+   "second": null
+  },
+  "action_delay": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "failed_checks": {
+   "clarity": "contested",
+   "target": "2",
+   "second": "1"
+  }
+ },
+ "target_words": 59,
+ "deciding": {
+  "test_frequency_met": "Manual tests at 07:00, 08:40 and 10:30 leave gaps of 100 and 110 min against a 60 min interval.",
+  "readings_reconcile": "Manual free_cl 4.2 at 08:40 vs controller 3.4 at 08:45 differs by 0.8, well over the 0.3 tolerance.",
+  "log_disposition": "Retest at 11:00 is in limits, but lab_sample is null with micro_due 2024-05-03 passed, so a confirming result is outstanding.",
+  "action_delay": "Free_cl 4.2 at 08:40; first action logged 10:40, exactly 120 min later, on the 2 vs 3 boundary.",
+  "failed_checks": "Frequency, reconciliation and missing lab sample fail, while the late action and retest are arguable, so level 1 vs 2 is open."
+ },
+ "request": "rec-F213-0091",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011744
+}

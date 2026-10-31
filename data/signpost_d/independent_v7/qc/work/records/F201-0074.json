@@ -1,0 +1,113 @@
+{
+ "id": "F201-0074",
+ "family": "F201",
+ "state": {
+  "register_header": {
+   "drug": "fentanyl",
+   "schedule": 2,
+   "witness_required": true,
+   "opening_balance_ml": 100
+  },
+  "entries": [
+   {
+    "entry_id": 1,
+    "qty_ml": -6,
+    "running_balance_ml": 94,
+    "signed_by": "V3",
+    "witness_id": null
+   },
+   {
+    "entry_id": 2,
+    "qty_ml": -6,
+    "running_balance_ml": 88,
+    "signed_by": "V3",
+    "witness_id": null
+   }
+  ],
+  "clinical_records": [
+   {
+    "patient_id": "P4",
+    "dose": 2,
+    "dose_unit": "ml"
+   }
+  ],
+  "stock_check": {
+   "counted_ml": 87,
+   "overfill_allowance_ml": 1
+  },
+  "exceptions": [
+   {
+    "qty_ml": 2,
+    "valid_to": "2099-01-01"
+   }
+  ]
+ },
+ "factors": {
+  "drug_profile": "fentanyl_50mcg_ml",
+  "arithmetic_slip_count": 0,
+  "unrecorded_admin": "moderate_2_to_8pct",
+  "clinical_records_missing": false,
+  "disposal_state": "none_needed",
+  "unexplained_shortfall_pct": 0.0,
+  "variance_exception": "valid_partial_cover",
+  "manufacturer_overfill": true,
+  "auth_gap_count": 2,
+  "count_out_of_order": false,
+  "unit_mismatch": false,
+  "locum_signatory": false,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "drug_profile": "fentanyl_50mcg_ml",
+  "arithmetic_slip_count": 0,
+  "unrecorded_admin": "moderate_2_to_8pct",
+  "clinical_records_missing": false,
+  "disposal_state": "none_needed",
+  "unexplained_shortfall_pct": 3.15,
+  "variance_exception": "valid_partial_cover",
+  "manufacturer_overfill": true,
+  "auth_gap_count": 5,
+  "count_out_of_order": false,
+  "unit_mismatch": false,
+  "locum_signatory": false,
+  "boundary_case": false
+ },
+ "plan": {
+  "unexplained_shortfall": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "line_disposition": {
+   "clarity": "clear",
+   "target": "sign_off",
+   "second": null
+  },
+  "variance_cause": {
+   "clarity": "balanced",
+   "target": "no_discrepancy",
+   "second": "unrecorded_administration"
+  },
+  "variance_size": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  },
+  "auth_gaps": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  }
+ },
+ "target_words": 36,
+ "deciding": {
+  "unexplained_shortfall": "Count 87 plus 1 ml overfill allowance, with a 2 ml valid exception, covers the 88 balance; nothing unexplained.",
+  "line_disposition": "Reconciles, but both entries lack witness_id, so sign-off is unsupported without confirmation; weakly planned sign-off.",
+  "variance_cause": "P4 2 ml dose has no entry, but the exception and overfill also cover the gap.",
+  "variance_size": "Residual is at most 1 ml, near the nil/trace boundary.",
+  "auth_gaps": "Two entries have witness_id null while required, level 2 versus 1."
+ },
+ "request": "rec-F201-0071",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.005515
+}

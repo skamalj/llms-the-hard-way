@@ -1,0 +1,117 @@
+{
+ "id": "F204-0067",
+ "family": "F204",
+ "state": {
+  "rx": {
+   "drug": "ramipril",
+   "strength": {
+    "val": 5,
+    "unit": "mg"
+   },
+   "dose": 1,
+   "freq_per_day": 2
+  },
+  "patient": {
+   "pt_id": "P2203",
+   "supplies": [
+    {
+     "date": "2024-03-01",
+     "days_covered": 28
+    }
+   ]
+  },
+  "dispensed": {
+   "product_name": "ramipril",
+   "strength": {
+    "val": 5,
+    "unit": "mg"
+   },
+   "req_warnings": [
+    "C"
+   ]
+  },
+  "label": {
+   "pt_id": "P2208",
+   "dose_qty": 2,
+   "freq_per_day": 2,
+   "warning_codes": []
+  },
+  "check_log": {
+   "checked_at": "2024-03-25",
+   "queries": [
+    {
+     "field": "label.dose",
+     "status": "pending"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "strength_status": "match_same_units",
+  "product_status": "exact",
+  "quantity_status": "exact",
+  "label_status": "patient id, dose and warnings wrong",
+  "prescriber_query": "pending",
+  "pharmacist_intervention": false,
+  "clinical_check_signed": false,
+  "home_supply_days": 4,
+  "emergency_supply": false,
+  "short_expiry": false,
+  "prior_error_count": 4,
+  "high_risk_drug": false,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "strength_status": "match_same_units",
+  "product_status": "exact",
+  "quantity_status": "exact",
+  "label_status": "correct",
+  "prescriber_query": "confirmed",
+  "pharmacist_intervention": true,
+  "clinical_check_signed": true,
+  "home_supply_days": 3,
+  "emergency_supply": true,
+  "short_expiry": false,
+  "prior_error_count": 4,
+  "high_risk_drug": false,
+  "boundary_case": false
+ },
+ "plan": {
+  "strength_differs": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "balanced",
+   "target": "hold_query",
+   "second": "release"
+  },
+  "error_category": {
+   "clarity": "leaning",
+   "target": "label_error",
+   "second": null
+  },
+  "open_discrepancies": {
+   "clarity": "clear",
+   "target": "3",
+   "second": null
+  },
+  "supply_urgency": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  }
+ },
+ "target_words": 36,
+ "deciding": {
+  "strength_differs": "Both strengths are 5 mg in the same unit.",
+  "next_step": "A pending query on label.dose points to hold_query, but two other label faults (pt_id, warnings) are not covered by it, which keeps release or redispense plausible.",
+  "error_category": "The product is correct; label pt_id P2208 vs P2203, dose 2 vs 1 and missing warning C are all label faults.",
+  "open_discrepancies": "Three unresolved label fields: patient id, dose quantity, and empty warning_codes vs req C.",
+  "supply_urgency": "Supply of 2024-03-01 for 28 days ends 2024-03-29; checked 2024-03-25, leaving 4 days."
+ },
+ "request": "rec-F204-0066",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011247
+}

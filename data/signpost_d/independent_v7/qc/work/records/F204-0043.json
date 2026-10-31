@@ -1,0 +1,138 @@
+{
+ "id": "F204-0043",
+ "family": "F204",
+ "state": {
+  "rx": {
+   "drug": "digoxin",
+   "strength": {
+    "val": 0.5,
+    "unit": "mg"
+   },
+   "dose": 1,
+   "freq_per_day": 1,
+   "qty": 56
+  },
+  "patient": {
+   "pt_id": "P77302",
+   "supplies": [
+    {
+     "date": "2025-05-01",
+     "days_covered": 28
+    }
+   ],
+   "emergency_supplies": [
+    {
+     "date": "2025-05-29",
+     "days": 2
+    }
+   ],
+   "near_miss_count": 3
+  },
+  "dispensed": {
+   "product_name": "Lanoxin",
+   "generic_name": "digoxin",
+   "strength": {
+    "val": 250,
+    "unit": "mcg"
+   },
+   "pack_size": 28,
+   "packs": 1,
+   "owing": null
+  },
+  "label": {
+   "pt_id": "P77302",
+   "dose_qty": 1,
+   "freq_per_day": 2,
+   "qty_printed": 28
+  },
+  "check_log": {
+   "checked_at": "2025-05-30T11:15",
+   "clin_check": {
+    "by": "RPh3",
+    "at": "2025-05-30T11:00"
+   },
+   "queries": [
+    {
+     "field": "label.freq_per_day",
+     "status": "pending"
+    }
+   ],
+   "interventions": [
+    {
+     "code": "STR",
+     "field": "strength",
+     "accepted": true,
+     "by": "RPh3"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "strength_status": "mismatch_converted",
+  "product_status": "generic_brand_equivalent",
+  "quantity_status": "short_undocumented",
+  "label_status": "frequency_mismatch",
+  "prescriber_query": "pending",
+  "pharmacist_intervention": true,
+  "clinical_check_signed": true,
+  "home_supply_days": 0,
+  "emergency_supply": true,
+  "short_expiry": false,
+  "prior_error_count": 3,
+  "high_risk_drug": false,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "strength_status": "match_converted_units",
+  "product_status": "generic_brand_equivalent",
+  "quantity_status": "exact",
+  "label_status": "correct",
+  "prescriber_query": "pending",
+  "pharmacist_intervention": true,
+  "clinical_check_signed": true,
+  "home_supply_days": 8,
+  "emergency_supply": false,
+  "short_expiry": false,
+  "prior_error_count": 3,
+  "high_risk_drug": false,
+  "boundary_case": false
+ },
+ "plan": {
+  "strength_differs": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "balanced",
+   "target": "hold_query",
+   "second": "release_annotated"
+  },
+  "error_category": {
+   "clarity": "balanced",
+   "target": "label_error",
+   "second": "quantity_only"
+  },
+  "open_discrepancies": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  },
+  "supply_urgency": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 42,
+ "deciding": {
+  "strength_differs": "Rx 0.5 mg (500 mcg) against dispensed 250 mcg is unequal after conversion. The accepted strength intervention gives some doubt.",
+  "next_step": "The pending query on label.freq_per_day argues for hold. The accepted intervention and short quantity could instead support release with annotation.",
+  "error_category": "Label freq_per_day 2 against rx 1 competes with a quantity of 28 against 56 with owing null. The two are of similar weight.",
+  "open_discrepancies": "The label frequency and the short quantity are two open items. The intervened strength difference could count as a third.",
+  "supply_urgency": "The 28-day supply from 05-01 ended 05-28. A 2-day emergency supply from 05-29 ends 05-30, the check day, so 0 days remain, or 1 if today is counted."
+ },
+ "request": "rec-F204-0041",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.015225
+}

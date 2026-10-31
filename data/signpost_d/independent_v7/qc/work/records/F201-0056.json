@@ -1,0 +1,140 @@
+{
+ "id": "F201-0056",
+ "family": "F201",
+ "state": {
+  "register_header": {
+   "drug": "pentobarbital",
+   "conc_mg_ml": 200,
+   "schedule": 2,
+   "witness_required": true,
+   "opening_balance_ml": 100
+  },
+  "entries": [
+   {
+    "id": "E1",
+    "type": "use",
+    "qty_ml": 20,
+    "bal": 80,
+    "signed_by": "V1",
+    "witness_id": null
+   },
+   {
+    "id": "E2",
+    "type": "receipt",
+    "qty_ml": 100,
+    "bal": 180,
+    "signed_by": "V1",
+    "witness_id": "V2"
+   },
+   {
+    "id": "E3",
+    "type": "use",
+    "qty_ml": 15,
+    "bal": 160,
+    "signed_by": "V2",
+    "witness_id": null
+   },
+   {
+    "id": "E4",
+    "type": "use",
+    "qty_ml": 25,
+    "bal": 130,
+    "signed_by": "V1",
+    "witness_id": null
+   },
+   {
+    "id": "E5",
+    "type": "use",
+    "qty_ml": 10,
+    "bal": 115,
+    "signed_by": "V2",
+    "witness_id": "V1"
+   }
+  ],
+  "clinical_records": [
+   {
+    "patient_id": "P7",
+    "date": "2024-05-14",
+    "dose": 12,
+    "dose_unit": "ml"
+   },
+   {
+    "patient_id": "P8",
+    "date": "2024-05-20",
+    "dose": 10,
+    "dose_unit": "ml"
+   }
+  ],
+  "stock_check": {
+   "counted_ml": 103.44
+  }
+ },
+ "factors": {
+  "drug_profile": "pentobarbital_200mg_ml",
+  "arithmetic_slip_count": 3,
+  "unrecorded_admin": "large_over_10pct",
+  "clinical_records_missing": false,
+  "disposal_state": "none_needed",
+  "unexplained_shortfall_pct": 13.28,
+  "variance_exception": "none",
+  "manufacturer_overfill": false,
+  "auth_gap_count": 3,
+  "count_out_of_order": false,
+  "unit_mismatch": false,
+  "locum_signatory": false,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "drug_profile": "pentobarbital_200mg_ml",
+  "arithmetic_slip_count": 3,
+  "unrecorded_admin": "none",
+  "clinical_records_missing": false,
+  "disposal_state": "none_needed",
+  "unexplained_shortfall_pct": 13.28,
+  "variance_exception": "none",
+  "manufacturer_overfill": false,
+  "auth_gap_count": 1,
+  "count_out_of_order": false,
+  "unit_mismatch": false,
+  "locum_signatory": false,
+  "boundary_case": false
+ },
+ "plan": {
+  "unexplained_shortfall": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "line_disposition": {
+   "clarity": "balanced",
+   "target": "sign_off",
+   "second": "correct_and_sign"
+  },
+  "variance_cause": {
+   "clarity": "balanced",
+   "target": "unrecorded_administration",
+   "second": "no_discrepancy"
+  },
+  "variance_size": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  },
+  "auth_gaps": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  }
+ },
+ "target_words": 116,
+ "deciding": {
+  "unexplained_shortfall": "Recomputed closing from entries is 130 ml but counted is 103.44 ml (26.56 ml short). P7 and P8 doses total 22 ml and have no entries; the remaining 4.56 ml has no counterpart, so a shortfall is probable but partly explained.",
+  "line_disposition": "Running balances at E3, E4 and E5 do not follow from prior balance and qty (clerical slips), and no disposal or exception is involved. This leaves sign_off versus correct_and_sign in balance.",
+  "variance_cause": "The clinical doses for P7 and P8 (22 ml) have no register lines and match most of the gap. The balance slips net only 15 ml of recorded balance error, so unrecorded administration is the lead with no_discrepancy a defensible second.",
+  "variance_size": "26.56 ml against volume handled of 200 ml (opening 100 plus receipt 100) is 13.28%, above 10%, with no exceptions to reduce it.",
+  "auth_gaps": "witness_required is true and witness_id is null on E1, E3 and E4, giving three gaps. This is on the 2-3 versus 4+ boundary and the count of receipts or entries is debatable."
+ },
+ "request": "rec-F201-0056",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.016328
+}

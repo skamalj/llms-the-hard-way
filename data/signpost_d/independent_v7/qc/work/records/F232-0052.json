@@ -1,0 +1,153 @@
+{
+ "id": "F232-0052",
+ "family": "F232",
+ "state": {
+  "night_header": {
+   "date": "2025-06-11",
+   "alloc_h": 4,
+   "prog": "P08",
+   "twi_end": "2025-06-12T10:00"
+  },
+  "conditions": {
+   "closures": [
+    {
+     "s": "2025-06-12T04:10",
+     "e": "2025-06-12T05:10",
+     "reason": "weather"
+    }
+   ],
+   "limits": {
+    "hum": 85,
+    "wind": 50,
+    "cloud": 4
+   },
+   "hourly": [
+    {
+     "h": "04",
+     "hum": 92,
+     "wind": 35,
+     "cloud": 6
+    }
+   ]
+  },
+  "exposures": [
+   {
+    "tgt": "A",
+    "start_utc": "2025-06-12T02:00",
+    "exp_s": 3840,
+    "filt": "r",
+    "see": 1.0,
+    "qa": "pass"
+   },
+   {
+    "tgt": "A",
+    "start_utc": "2025-06-12T03:05",
+    "exp_s": 3840,
+    "filt": "r",
+    "see": 1.1,
+    "qa": "pass"
+   },
+   {
+    "tgt": "B",
+    "start_utc": "2025-06-12T05:15",
+    "exp_s": 3840,
+    "filt": "r",
+    "see": 1.0,
+    "qa": "pass"
+   }
+  ],
+  "programme_request": {
+   "A": {
+    "r": 7680
+   },
+   "B": {
+    "g": 3840,
+    "r": 3840
+   },
+   "max_seeing": 1.4
+  },
+  "faults": [
+   {
+    "sub": "shutter",
+    "start_utc": "2025-06-12T06:40",
+    "end_utc": null,
+    "cleared": false,
+    "retest_utc": null,
+    "workaround": "manual shutter reset between frames, unverified",
+    "ticket": "T-212"
+   }
+  ],
+  "notes": {
+   "observer_note": "A and B complete.",
+   "night_assistant_note": "Shutter stuck after last frame."
+  }
+ },
+ "factors": {
+  "weather_loss_hours": 1.0,
+  "fault_overlap": "none",
+  "fault_resolution_state": "open_weak_workaround",
+  "maintenance_window": false,
+  "closure_reason_mismatch": "none",
+  "note_claim_discrepancy": "filter_missing",
+  "seeing_vs_limit": "well_within",
+  "seeing_exception_approved": false,
+  "usable_fraction": 0.8,
+  "qa_pending_count": 0,
+  "utc_date_rollover": true,
+  "assistant_note_tone": "neutral",
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "weather_loss_hours": 2.63,
+  "fault_overlap": "minor_overlap",
+  "fault_resolution_state": "no_fault",
+  "maintenance_window": false,
+  "closure_reason_mismatch": "station_below_limits",
+  "note_claim_discrepancy": "short_small",
+  "seeing_vs_limit": "well_within",
+  "seeing_exception_approved": false,
+  "usable_fraction": 0.24,
+  "qa_pending_count": 0,
+  "utc_date_rollover": true,
+  "assistant_note_tone": "neutral",
+  "boundary_case": false
+ },
+ "plan": {
+  "weather_only_loss": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "claims_supported": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "night_disposition": {
+   "clarity": "balanced",
+   "target": "requeue_targets",
+   "second": "hold"
+  },
+  "usable_share": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "fault_followup": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 94,
+ "deciding": {
+  "weather_only_loss": "The only gap is the 04:10-05:10 weather closure, with hum 92 and cloud 6 above limits. The shutter fault starts at 06:40, well after the closure and after the last exposure, so it caused no lost time.",
+  "claims_supported": "Observer claims B complete, but B requires g and r and only r (3840 s) is logged with no g frames. This points to a missing filter, though the observer's claim may be loose.",
+  "night_disposition": "B lacks its g exposure, which favours requeueing B. The shutter fault is open, with a workaround and ticket T-212 unconfirmed, which supports waiting.",
+  "usable_share": "11520 s of passing in-limit exposure against 14400 s allocated is exactly 80%. This sits on the line between substantial and full.",
+  "fault_followup": "The shutter fault is open, cleared=false, with no retest. The workaround is 'manual reset, unverified', so it is unclear whether observing remains possible."
+ },
+ "request": "rec-F232-0051",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.015249
+}

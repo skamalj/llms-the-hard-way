@@ -1,0 +1,128 @@
+{
+ "id": "F211-0082",
+ "family": "F211",
+ "state": {
+  "vehicle": {
+   "callsign": "RRV7",
+   "odometer_km": 60120,
+   "service_due_km": 60000
+  },
+  "check": {
+   "shift_date": "2025-04-02",
+   "signer_grade": "trainee",
+   "sections_required": 4,
+   "sections_signed": [
+    "vehicle",
+    "clinical",
+    "drugs",
+    "consumables"
+   ],
+   "countersigned_by": null,
+   "crew_note": "Defib threw a scary error on start-up, cleared after battery reseat."
+  },
+  "defects": [
+   {
+    "item": "defibrillator",
+    "area": "clinical_equipment",
+    "desc": "Battery fault warning, spare battery carried but untested.",
+    "status": "open",
+    "substitute_on_board": true,
+    "deferral": null
+   }
+  ],
+  "stock": {
+   "lines": [
+    {
+     "item": "glucagon",
+     "expiry": "2025-04-09"
+    }
+   ]
+  },
+  "activity": {
+   "workshop_jobs": [
+    {
+     "date": "2025-04-01",
+     "job_note": "Defibrillator battery replaced."
+    }
+   ],
+   "prior_checks": [
+    {
+     "defects": [
+      "defibrillator"
+     ]
+    },
+    {
+     "defects": [
+      "defibrillator"
+     ]
+    }
+   ]
+  }
+ },
+ "factors": {
+  "checklist_completion": "all_signed_no_countersign",
+  "worst_defect_tier": "critical_with_substitute",
+  "defect_area": "clinical_equipment",
+  "deferral_authorised": false,
+  "deferral_invalid": false,
+  "workshop_return_recent": true,
+  "earliest_drug_expiry_days": 7,
+  "restock_in_progress": false,
+  "service_margin_km": -120,
+  "crew_note_tone": "alarming_benign",
+  "signed_after_mobilisation": false,
+  "repeat_defect_count": 2
+ },
+ "factors_sampled": {
+  "checklist_completion": "all_signed_countersigned",
+  "worst_defect_tier": "noncritical_equipment",
+  "defect_area": "clinical_equipment",
+  "deferral_authorised": true,
+  "deferral_invalid": false,
+  "workshop_return_recent": true,
+  "earliest_drug_expiry_days": 7,
+  "restock_in_progress": false,
+  "service_margin_km": -120,
+  "crew_note_tone": "alarming_benign",
+  "signed_after_mobilisation": false,
+  "repeat_defect_count": 2
+ },
+ "plan": {
+  "defects_controlled": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "readiness_status": {
+   "clarity": "clear",
+   "target": "release",
+   "second": null
+  },
+  "limiting_area": {
+   "clarity": "leaning",
+   "target": "no_limitation",
+   "second": null
+  },
+  "check_completeness": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  },
+  "defect_severity": {
+   "clarity": "contested",
+   "target": "4",
+   "second": "3"
+  }
+ },
+ "target_words": 49,
+ "deciding": {
+  "defects_controlled": "Defibrillator defect is open with deferral null; the recent battery job has no retest, so it is not resolved or validly deferred.",
+  "readiness_status": "Recent workshop battery replacement, a spare battery and a benign crew note favour release, though the open defect and negative service margin pull against it.",
+  "limiting_area": "The fault was just repaired and the note says it cleared, so little remains limiting; the open defect and overdue service leave some doubt.",
+  "check_completeness": "All 4 sections are signed but countersigned_by is null; the trainee signer grade gives some doubt that the sections are fully verified.",
+  "defect_severity": "Defibrillator is critical and open; substitute_on_board is true but the desc says the spare battery is untested, splitting level 3 and 4."
+ },
+ "request": "rec-F211-0081",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.010017
+}

@@ -1,0 +1,148 @@
+{
+ "id": "F201-0025",
+ "family": "F201",
+ "state": {
+  "register_header": {
+   "drug": "midazolam",
+   "concentration_mg_ml": 5,
+   "schedule": 4,
+   "witness_required": false,
+   "opening_balance_ml": 50
+  },
+  "entries": [
+   {
+    "entry_id": 1,
+    "type": "receipt",
+    "qty_ml": 50,
+    "running_balance_ml": 100,
+    "signed_by": "V1",
+    "batch_no": "M2"
+   },
+   {
+    "entry_id": 2,
+    "type": "use",
+    "qty_ml": 30,
+    "patient_id": "P1",
+    "running_balance_ml": 70,
+    "signed_by": "V1"
+   },
+   {
+    "entry_id": 3,
+    "type": "disposal",
+    "qty_ml": 10,
+    "running_balance_ml": 60,
+    "signed_by": "V1",
+    "witness_id": "V2"
+   },
+   {
+    "entry_id": 4,
+    "type": "use",
+    "qty_ml": 20,
+    "patient_id": "P2",
+    "running_balance_ml": 38,
+    "signed_by": "V1",
+    "witness_id": null
+   }
+  ],
+  "clinical_records": [
+   {
+    "patient_id": "P1",
+    "dose": 150,
+    "dose_unit": "mg"
+   },
+   {
+    "patient_id": "P2",
+    "dose": 100,
+    "dose_unit": "mg"
+   }
+  ],
+  "stock_check": {
+   "counted_ml": 38,
+   "batch_no": "M2"
+  },
+  "disposals": [
+   {
+    "batch_no": "M2",
+    "qty_ml": 10,
+    "register_entry_id": 3,
+    "witness_id": "V2",
+    "denatured_date": "2024-02-12"
+   }
+  ],
+  "exceptions": [
+   {
+    "batch_no": "M1",
+    "qty_ml": 2,
+    "valid_to": "2023-11-30"
+   }
+  ]
+ },
+ "factors": {
+  "drug_profile": "midazolam_5mg_ml",
+  "arithmetic_slip_count": 1,
+  "unrecorded_admin": "none",
+  "clinical_records_missing": false,
+  "disposal_state": "witnessed_complete",
+  "unexplained_shortfall_pct": 2.0,
+  "variance_exception": "expired_or_other_batch",
+  "manufacturer_overfill": false,
+  "auth_gap_count": 0,
+  "count_out_of_order": false,
+  "unit_mismatch": true,
+  "locum_signatory": false,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "drug_profile": "midazolam_5mg_ml",
+  "arithmetic_slip_count": 1,
+  "unrecorded_admin": "large_over_10pct",
+  "clinical_records_missing": false,
+  "disposal_state": "witnessed_complete",
+  "unexplained_shortfall_pct": 10.28,
+  "variance_exception": "expired_or_other_batch",
+  "manufacturer_overfill": false,
+  "auth_gap_count": 4,
+  "count_out_of_order": false,
+  "unit_mismatch": true,
+  "locum_signatory": false,
+  "boundary_case": false
+ },
+ "plan": {
+  "unexplained_shortfall": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "line_disposition": {
+   "clarity": "clear",
+   "target": "sign_off",
+   "second": null
+  },
+  "variance_cause": {
+   "clarity": "balanced",
+   "target": "arithmetic_slip",
+   "second": "no_discrepancy"
+  },
+  "variance_size": {
+   "clarity": "contested",
+   "target": "2",
+   "second": "1"
+  },
+  "auth_gaps": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 44,
+ "deciding": {
+  "unexplained_shortfall": "Entry 4 balance 38 should be 40 (60-20), and the count equals the written balance; the 2 ml gap against recomputed is a slip or a loss, and the exception is the wrong batch and expired.",
+  "line_disposition": "Doses (150 mg and 100 mg at 5 mg/ml) match entries, the disposal is witnessed and denatured, the count equals the written balance, and no signatures are missing.",
+  "variance_cause": "Only entry 4's running balance is miscalculated, while the count matches the written balance, so slip versus no real discrepancy is arguable.",
+  "variance_size": "2 ml against 100 ml handled is exactly at the 2% boundary between trace and material, with no valid exception to apply.",
+  "auth_gaps": "Entry 4 has witness_id null but witness_required is false, so it is not a gap; a reader might still count it, giving one."
+ },
+ "request": "rec-F201-0021",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011513
+}

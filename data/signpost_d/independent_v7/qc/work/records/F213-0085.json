@@ -1,0 +1,125 @@
+{
+ "id": "F213-0085",
+ "family": "F213",
+ "state": {
+  "pool": {
+   "type": "competition",
+   "test_interval_min": 60,
+   "opening": {
+    "open": "2024-09-17T09:00",
+    "close": "2024-09-17T11:00"
+   },
+   "limits": {
+    "free_cl_min": 1.0,
+    "free_cl_max": 3.0
+   },
+   "tolerance": {
+    "free_cl": 0.2
+   },
+   "micro_due": "2024-09-15"
+  },
+  "manual_tests": [
+   {
+    "time": "2024-09-17T09:00",
+    "free_cl": 2.0,
+    "kit_id": "K4"
+   },
+   {
+    "time": "2024-09-17T10:00",
+    "free_cl": 3.2,
+    "kit_id": "K4"
+   },
+   {
+    "time": "2024-09-17T11:00",
+    "free_cl": 2.8,
+    "kit_id": "K4"
+   }
+  ],
+  "plant": {
+   "controller_readings": [
+    {
+     "time": "2024-09-17T10:00",
+     "free_cl": 3.0
+    }
+   ]
+  },
+  "equipment": {
+   "kits": [
+    {
+     "kit_id": "K4",
+     "cal_due": "2025-03-01"
+    }
+   ]
+  },
+  "actions": [],
+  "lab_sample": null
+ },
+ "factors": {
+  "pool_type": "competition",
+  "test_coverage_gap": 0,
+  "boundary_interval": false,
+  "log_controller_discrepancy": "at_tolerance",
+  "discrepancy_location": "free_chlorine",
+  "excursion_severity": "marginal",
+  "corrective_action_delay": "missing",
+  "retest_logged": false,
+  "dosing_event_explains": false,
+  "kit_calibration_status": "in_date",
+  "lab_sample_state": "missing_when_due",
+  "out_of_order_entry": false,
+  "benign_noise": "none"
+ },
+ "factors_sampled": {
+  "pool_type": "competition",
+  "test_coverage_gap": 1,
+  "boundary_interval": false,
+  "log_controller_discrepancy": "none",
+  "discrepancy_location": "free_chlorine",
+  "excursion_severity": "none",
+  "corrective_action_delay": "prompt",
+  "retest_logged": false,
+  "dosing_event_explains": false,
+  "kit_calibration_status": "in_date",
+  "lab_sample_state": "missing_when_due",
+  "out_of_order_entry": false,
+  "benign_noise": "none"
+ },
+ "plan": {
+  "test_frequency_met": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "readings_reconcile": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "log_disposition": {
+   "clarity": "clear",
+   "target": "accept_with_query",
+   "second": null
+  },
+  "action_delay": {
+   "clarity": "clear",
+   "target": "3",
+   "second": null
+  },
+  "failed_checks": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  }
+ },
+ "target_words": 25,
+ "deciding": {
+  "test_frequency_met": "Tests at 09:00, 10:00, 11:00 cover the 60 min interval across opening hours.",
+  "readings_reconcile": "At 10:00 manual free_cl 3.2 vs controller 3.0, a 0.2 difference exactly equal to the 0.2 tolerance.",
+  "log_disposition": "lab_sample is null although micro_due 2024-09-15 has passed, and the water is only marginally out and back to 2.8, so a written query fits rather than closure.",
+  "action_delay": "Free_cl 3.2 at 10:00 exceeds the 3.0 maximum and the actions list is empty.",
+  "failed_checks": "The missing lab sample and the absent action fail; the free_cl match sitting at tolerance may or may not count, so one or two."
+ },
+ "request": "rec-F213-0081",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.013404
+}

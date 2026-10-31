@@ -1,0 +1,115 @@
+{
+ "id": "F229-0008",
+ "family": "F229",
+ "state": {
+  "lot": {
+   "lot_id": "L-0907",
+   "block": "B03",
+   "pick_end": "2024-09-18T16:00"
+  },
+  "intake": {
+   "block_code": "B3",
+   "gross_kg": 6900,
+   "tare_kg": 900,
+   "net_kg": 6000,
+   "bins": [
+    1500,
+    1500,
+    1500,
+    1500
+   ],
+   "temp_c": 5,
+   "cold_room_in": "2024-09-18T17:00",
+   "cold_room_out": "2024-09-19T08:00",
+   "driver_note": "Bin 4 reweighed, ticket amended."
+  },
+  "sample": {
+   "rot_pct": 3.06,
+   "sort": {
+    "rejected_kg": 90,
+    "post_sort_rot_pct": 1.5
+   }
+  },
+  "press": {
+   "programme": "destemmed_standard",
+   "band_l_per_t": "600-680",
+   "cycle_start": "2024-09-19T08:30",
+   "cycle_end": null,
+   "juice_l": 3700
+  },
+  "transfer": {
+   "lot_ref": "L-0907",
+   "tank_id": "T2",
+   "transferred_l": 3660,
+   "qa_signoff": "AB 13:00"
+  }
+ },
+ "factors": {
+  "weight_mismatch": "none",
+  "press_programme": "destemmed_standard",
+  "yield_position": "inside_band",
+  "lot_id_drift": "cosmetic_zero_padding_only",
+  "missing_step": "press_end_null",
+  "out_of_order_timestamp": false,
+  "pick_to_press_hours": 16.5,
+  "pick_end_recorded": true,
+  "cold_held": true,
+  "rot_pct": 3.06,
+  "sorting_applied": true,
+  "note_signal": "explains_mismatch",
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "weight_mismatch": "large_over_5pct",
+  "press_programme": "destemmed_standard",
+  "yield_position": "inside_band",
+  "lot_id_drift": "none",
+  "missing_step": "press_end_null",
+  "out_of_order_timestamp": true,
+  "pick_to_press_hours": 4.21,
+  "pick_end_recorded": true,
+  "cold_held": true,
+  "rot_pct": 3.06,
+  "sorting_applied": true,
+  "note_signal": "explains_mismatch",
+  "boundary_case": false
+ },
+ "plan": {
+  "yield_consistent": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "chain_intact": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "release_decision": {
+   "clarity": "leaning",
+   "target": "release",
+   "second": null
+  },
+  "pick_press_delay": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  },
+  "failed_checks": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  }
+ },
+ "target_words": 74,
+ "deciding": {
+  "yield_consistent": "3700 L from 6.0 t is about 617 L/t, inside the 600-680 band, and the null cycle_end leaves a little doubt.",
+  "chain_intact": "Lot block B03 vs intake block_code B3 differs only by zero padding; lot_ref and tank are consistent, so it is plausibly the same block.",
+  "release_decision": "Weights reconcile after the amended bin, sorting is recorded and QA signed off; only the null cycle_end is a minor gap.",
+  "pick_press_delay": "pick_end 16:00 to cycle_start 08:30 next day is 16.5 h, just over the 16 h overnight threshold.",
+  "failed_checks": "The null cycle_end is one failure; the B3 vs B03 block code might be counted as a second, so 1 and 2 are both defensible."
+ },
+ "request": "rec-F229-0006",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.013346
+}

@@ -1,0 +1,148 @@
+{
+ "id": "F236-0069",
+ "family": "F236",
+ "state": {
+  "changeover": {
+   "line": "L1",
+   "from_allergens": [
+    "sesame"
+   ],
+   "to_allergens": [
+    "soya"
+   ]
+  },
+  "cleaning": {
+   "steps": [
+    {
+     "s": "wash",
+     "done": true,
+     "spec_min": 30,
+     "act_min": 24
+    }
+   ],
+   "part_swap": true,
+   "set": "DT-1"
+  },
+  "verification": {
+   "swabs": [
+    {
+     "id": "S1",
+     "target": "sesame",
+     "ppm": 12,
+     "limit_ppm": 10,
+     "at": "05:00"
+    },
+    {
+     "id": "S2",
+     "retest_of": "S1",
+     "ppm": 0,
+     "limit_ppm": 10,
+     "at": "05:20"
+    }
+   ]
+  },
+  "production": {
+   "line": "L1",
+   "start": "05:30",
+   "qty": 52000,
+   "unit": "g",
+   "pack": [
+    "soya"
+   ],
+   "may_contain": [
+    "sesame"
+   ]
+  },
+  "approvals": {
+   "qa": {
+    "signed_at": "05:25"
+   },
+   "dev": [
+    {
+     "scope": "L1 wash duration",
+     "approved": "04:40"
+    }
+   ]
+  },
+  "history": {
+   "passed": [
+    true,
+    false,
+    true,
+    false,
+    true,
+    true,
+    false,
+    true,
+    true,
+    true
+   ]
+  }
+ },
+ "factors": {
+  "allergen_transition": "swaps_allergen",
+  "cleaning_completion": "duration_short",
+  "swab_outcome": "over_limit_retest_passed",
+  "swab_timing_mismatch": false,
+  "cross_section_discrepancy": "quantity_unit_mismatch",
+  "exposed_quantity_kg": 52.0,
+  "approved_deviation": true,
+  "label_precaution": true,
+  "dedicated_tooling": true,
+  "qa_signoff_state": "signed_before_start",
+  "line_failure_history": 3,
+  "boundary_value": false
+ },
+ "factors_sampled": {
+  "allergen_transition": "swaps_allergen",
+  "cleaning_completion": "duration_short",
+  "swab_outcome": "all_negative",
+  "swab_timing_mismatch": false,
+  "cross_section_discrepancy": "quantity_unit_mismatch",
+  "exposed_quantity_kg": 1172.9,
+  "approved_deviation": true,
+  "label_precaution": true,
+  "dedicated_tooling": true,
+  "qa_signoff_state": "signed_before_start",
+  "line_failure_history": 3,
+  "boundary_value": false
+ },
+ "plan": {
+  "swabs_cleared": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "line_disposition": {
+   "clarity": "leaning",
+   "target": "release_conditional",
+   "second": null
+  },
+  "worst_deficiency": {
+   "clarity": "clear",
+   "target": "none",
+   "second": null
+  },
+  "exposed_product": {
+   "clarity": "contested",
+   "target": "1",
+   "second": "2"
+  },
+  "residue_evidence": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 38,
+ "deciding": {
+  "swabs_cleared": "S1 read 12 ppm against a 10 ppm limit. The retest S2 read 0 ppm at 05:20, before the 05:30 start.",
+  "line_disposition": "The may_contain sesame label is already present, and the swabs passed after the retest. The release is conditional on that precaution.",
+  "worst_deficiency": "The short wash is covered by an approved deviation, the retest passed, and QA signed before start. The g unit is a format point only.",
+  "exposed_product": "Quantity is 52000 g, about 52 kg, right at the 50 kg boundary, so level 1 versus 2 is contested. The swabs also passed before start.",
+  "residue_evidence": "The reading of 12 ppm was over limit and the retest passed. That is cleared (level 2), though level 3 is arguable."
+ },
+ "request": "rec-F236-0066",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.01358
+}

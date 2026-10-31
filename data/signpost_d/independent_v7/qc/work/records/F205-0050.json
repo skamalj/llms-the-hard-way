@@ -1,0 +1,113 @@
+{
+ "id": "F205-0050",
+ "family": "F205",
+ "state": {
+  "flight": {
+   "no": "EK62",
+   "std": "2025-07-21T11:00Z",
+   "turn": "quick"
+  },
+  "times": {
+   "fuel_start": "2025-07-21T11:20Z",
+   "last_bag": "2025-07-21T11:45Z",
+   "off_blocks": "2025-07-21T12:09Z",
+   "delay_code": "FUEL",
+   "delay_min": 69
+  },
+  "load": {
+   "bags_count": 36,
+   "bags_kg": 480,
+   "fuel_kg": 4200,
+   "captain_accepted": true
+  },
+  "hold_log": [
+   {
+    "pos": "1",
+    "bags": 18,
+    "wt": 250,
+    "unit": "kg"
+   },
+   {
+    "pos": "2",
+    "bags": 16,
+    "wt": 230,
+    "unit": "kg"
+   }
+  ],
+  "services": {
+   "fuel": null
+  },
+  "remarks": [
+   {
+    "role": "ramp",
+    "msg": "Bowser arrived late; uplift slip to follow."
+   }
+  ]
+ },
+ "factors": {
+  "bag_mismatch_size": "trivial_1_2_bags",
+  "mismatch_location": "loadsheet_bags_vs_hold_log",
+  "missing_record": "fuel_record_null",
+  "milestone_out_of_order": false,
+  "delay_minutes": 69,
+  "delay_code_fit": "partially_supported",
+  "explanatory_remark": true,
+  "pending_signoff": false,
+  "dg_on_board": false,
+  "decoy_noise": "none",
+  "boundary_value": true,
+  "turn_type": "quick_turn"
+ },
+ "factors_sampled": {
+  "bag_mismatch_size": "trivial_1_2_bags",
+  "mismatch_location": "loadsheet_bags_vs_hold_log",
+  "missing_record": "fuel_record_null",
+  "milestone_out_of_order": false,
+  "delay_minutes": 69,
+  "delay_code_fit": "contradicted",
+  "explanatory_remark": true,
+  "pending_signoff": false,
+  "dg_on_board": false,
+  "decoy_noise": "none",
+  "boundary_value": false,
+  "turn_type": "quick_turn"
+ },
+ "plan": {
+  "load_reconciled": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "delay_code_supported": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "log_disposition": {
+   "clarity": "clear",
+   "target": "hold_confirm",
+   "second": null
+  },
+  "offblock_delay": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  },
+  "failed_checks": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 40,
+ "deciding": {
+  "load_reconciled": "Loadsheet shows 36 bags, hold entries 18+16=34, a difference of exactly 2. The weights match at 480 kg, so the 2 bags are borderline against tolerance.",
+  "delay_code_supported": "Code FUEL and fuel_start 20 min after STD plus the bowser remark support it, but services.fuel is null so uplift is not confirmed.",
+  "log_disposition": "services.fuel is null and the remark says the uplift slip is to follow. That one missing record must be confirmed.",
+  "offblock_delay": "Off-blocks 12:09 against STD 11:00 is 69 minutes, above 60.",
+  "failed_checks": "Null fuel record and a delay over 60 minutes fail. The 2-bag difference and the unconfirmed FUEL code are borderline, so the count is 3 or 4."
+ },
+ "request": "rec-F205-0046",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.01388
+}

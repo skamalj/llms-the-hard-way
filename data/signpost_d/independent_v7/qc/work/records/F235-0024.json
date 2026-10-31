@@ -1,0 +1,121 @@
+{
+ "id": "F235-0024",
+ "family": "F235",
+ "state": {
+  "station": {
+   "backup": {
+    "installed": true,
+    "status": "reporting"
+   },
+   "telemetry": {
+    "batt_v": 12.7,
+    "rssi_dbm": -106
+   }
+  },
+  "visit": {
+   "type": "reactive",
+   "tasks_planned": 3,
+   "abort_reason": "transducer output intermittent, crew recalled"
+  },
+  "checks": {
+   "pre": {
+    "board_m": [
+     1.201,
+     1.203
+    ],
+    "logger_m": 1.162
+   },
+   "post": {
+    "board_m": [
+     1.201,
+     1.203
+    ],
+    "logger_m": 1.16
+   }
+  },
+  "works": {
+   "tasks": [
+    {
+     "task": "swap transducer",
+     "status": "part_done"
+    },
+    {
+     "task": "bench test",
+     "status": "not_started"
+    }
+   ],
+   "logger_gap_h": 55
+  },
+  "notes": {
+   "supervisor_comment": "Temporary board offset reference approved last week."
+  }
+ },
+ "factors": {
+  "pre_visit_offset_mm": 40.0,
+  "check_reading_spread_mm": 2.16,
+  "drift_cause": "sensor_fault",
+  "cause_evidence": "single_indicator",
+  "visit_completion": "aborted",
+  "post_visit_check_logged": true,
+  "residual_defect_class": "primary_degraded",
+  "backup_sensor_ok": true,
+  "benign_explanation": true,
+  "record_gap": "defects_missing",
+  "logger_gap_hours": 55,
+  "telemetry_decoy": "weak_signal",
+  "note_tone": "neutral"
+ },
+ "factors_sampled": {
+  "pre_visit_offset_mm": 50.67,
+  "check_reading_spread_mm": 2.16,
+  "drift_cause": "no_drift",
+  "cause_evidence": "none",
+  "visit_completion": "aborted",
+  "post_visit_check_logged": true,
+  "residual_defect_class": "primary_degraded",
+  "backup_sensor_ok": true,
+  "benign_explanation": true,
+  "record_gap": "defects_missing",
+  "logger_gap_hours": 55,
+  "telemetry_decoy": "weak_signal",
+  "note_tone": "neutral"
+ },
+ "plan": {
+  "sensor_fault_cause": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "visit_disposition": {
+   "clarity": "leaning",
+   "target": "urgent_revisit",
+   "second": null
+  },
+  "data_treatment": {
+   "clarity": "leaning",
+   "target": "mark_provisional",
+   "second": null
+  },
+  "offset_size": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "residual_defect": {
+   "clarity": "balanced",
+   "target": "4",
+   "second": "3"
+  }
+ },
+ "target_words": 61,
+ "deciding": {
+  "sensor_fault_cause": "A part-done transducer swap and an intermittent output point to a sensor fault, but there is no bench test and an approved temporary offset reference offers another explanation.",
+  "visit_disposition": "The visit was aborted over an intermittent transducer, the offset persists after the visit, and the backup is reporting, so a crew is needed within days.",
+  "data_treatment": "The cause is unconfirmed and the offset persists in the post check, so values are flagged provisional.",
+  "offset_size": "Board mean 1.202 minus logger 1.162 gives 40 mm, exactly at the 40 mm boundary.",
+  "residual_defect": "The defects section is missing, and the abort reason says the transducer output is intermittent, which sits between faulty-but-reporting and not reporting."
+ },
+ "request": "rec-F235-0021",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.007067
+}

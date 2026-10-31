@@ -1,0 +1,122 @@
+{
+ "id": "F217-0024",
+ "family": "F217",
+ "state": {
+  "asset": {
+   "asset_id": "HS-02",
+   "swl_kg": 250,
+   "required_checks": [
+    "ROPE",
+    "BLK",
+    "TIE"
+   ]
+  },
+  "certification": {
+   "swl_kg": 250,
+   "expiry_date": "2026-01-31",
+   "discard_limits": {
+    "rope_dia_loss_pct": 10
+   }
+  },
+  "inspection": {
+   "checks": [
+    {
+     "code": "ROPE",
+     "result": "see defect"
+    },
+    {
+     "code": "BLK",
+     "result": "pass"
+    },
+    {
+     "code": "TIE",
+     "result": "pass"
+    }
+   ],
+   "defects": [
+    {
+     "comp": "rope",
+     "measured_pct": 10
+    }
+   ]
+  },
+  "load_plan": {
+   "getin_date": "2025-06-01",
+   "bar_weight_kg": 100,
+   "items": [
+    {
+     "desc": "flats",
+     "kg": 100
+    }
+   ]
+  }
+ },
+ "factors": {
+  "load_margin_ratio": 0.8,
+  "swl_discrepancy": "none",
+  "worst_defect": "discard",
+  "defect_in_note_only": false,
+  "checks_outstanding": 0,
+  "exam_status": "in_date",
+  "repair_status": "none_needed",
+  "mitigation_present": false,
+  "date_order_error": false,
+  "certificate_missing": false,
+  "boundary_case": false,
+  "decoy_note": "none",
+  "item_type": "hemp_set"
+ },
+ "factors_sampled": {
+  "load_margin_ratio": 1.27,
+  "swl_discrepancy": "none",
+  "worst_defect": "degraded",
+  "defect_in_note_only": false,
+  "checks_outstanding": 3,
+  "exam_status": "in_date",
+  "repair_status": "repaired_no_retest",
+  "mitigation_present": false,
+  "date_order_error": false,
+  "certificate_missing": false,
+  "boundary_case": false,
+  "decoy_note": "none",
+  "item_type": "hemp_set"
+ },
+ "plan": {
+  "load_within_swl": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "signoff": {
+   "clarity": "clear",
+   "target": "approve",
+   "second": null
+  },
+  "limiting_issue": {
+   "clarity": "clear",
+   "target": "overload",
+   "second": null
+  },
+  "defect_severity": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  },
+  "checklist_completion": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 41,
+ "deciding": {
+  "load_within_swl": "Load 200 kg against 250 kg SWL on both asset and certificate; the plan's overload premise was dropped because it contradicts this.",
+  "signoff": "Certificate valid to 2026-01-31, SWL consistent, all checks recorded and load within SWL; the rope defect at the discard limit is the only point against the planned approve.",
+  "limiting_issue": "Overload is not supported by any field (200 kg against 250 kg SWL); the planned overload could not be written without contradicting the load decision, so the rope loss at its limit is the only possible limiter.",
+  "defect_severity": "Rope loss measured at 10% equals the 10% discard limit; a reader could call it discard or still degraded.",
+  "checklist_completion": "All three codes have results, but ROPE reads 'see defect' instead of pass or fail, so one check may be read as not properly resolved."
+ },
+ "request": "rec-F217-0021",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.01138
+}

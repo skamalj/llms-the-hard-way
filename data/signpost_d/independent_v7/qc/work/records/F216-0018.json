@@ -1,0 +1,139 @@
+{
+ "id": "F216-0018",
+ "family": "F216",
+ "state": {
+  "session": {
+   "id": "SC48",
+   "session_type": "school_session",
+   "date": "2024-06-11",
+   "next_session_date": "2024-06-18"
+  },
+  "storage": {
+   "alarms_30d": 1
+  },
+  "temp_log": {
+   "cols": [
+    "t",
+    "air_c",
+    "product_c"
+   ],
+   "readings": [
+    [
+     "09:30",
+     8.9,
+     6.1
+    ],
+    [
+     "09:40",
+     9.3,
+     6.4
+    ],
+    [
+     "09:50",
+     9.1,
+     6.6
+    ]
+   ],
+   "manual_checks": [
+    {
+     "time": "09:40",
+     "current_c": 6.9
+    }
+   ]
+  },
+  "stock": {
+   "lots": [
+    {
+     "lot_no": "V5",
+     "tolerance_min_out": 120,
+     "opening": 30,
+     "wasted": 1,
+     "closing": 20
+    }
+   ]
+  },
+  "administration": [
+   {
+    "time": "09:45",
+    "lot_no": "V5",
+    "doses": 5
+   }
+  ],
+  "excursion_actions": {
+   "start": "09:35",
+   "quarantined": true,
+   "advice_requested_at": "09:55",
+   "advice_status": "CLR_SHORT",
+   "advice_received_at": "11:30",
+   "revised_expiry": "2024-07-31"
+  }
+ },
+ "factors": {
+  "true_excursion_minutes": 0,
+  "log_source_discrepancy": "minor_offset",
+  "buffered_probe_in_range": true,
+  "planned_maintenance": false,
+  "stability_clearance": "cleared_shortened",
+  "doses_during_exposure": 5,
+  "stock_count_gap": 4,
+  "lot_id_mismatch": false,
+  "lots_beyond_tolerance": "none",
+  "freezing_reading": false,
+  "boundary_case": true,
+  "unit_alarm_history": 1,
+  "session_type": "school_session"
+ },
+ "factors_sampled": {
+  "true_excursion_minutes": 189,
+  "log_source_discrepancy": "minor_offset",
+  "buffered_probe_in_range": false,
+  "planned_maintenance": false,
+  "stability_clearance": "requested_pending",
+  "doses_during_exposure": 5,
+  "stock_count_gap": 4,
+  "lot_id_mismatch": false,
+  "lots_beyond_tolerance": "some",
+  "freezing_reading": false,
+  "boundary_case": true,
+  "unit_alarm_history": 1,
+  "session_type": "school_session"
+ },
+ "plan": {
+  "dosed_uncleared": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "stock_reconciles": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "stock_disposition": {
+   "clarity": "clear",
+   "target": "release_restricted",
+   "second": null
+  },
+  "excursion_duration": {
+   "clarity": "clear",
+   "target": "0",
+   "second": null
+  },
+  "followup_urgency": {
+   "clarity": "clear",
+   "target": "1",
+   "second": null
+  }
+ },
+ "target_words": 72,
+ "deciding": {
+  "dosed_uncleared": "5 doses at 09:45, after excursion start 09:35 and before advice received at 11:30. Doubt: product_c stayed in range.",
+  "stock_reconciles": "V5: 30-1-5=24 but closing is 20, a gap of 4 doses.",
+  "stock_disposition": "Advice status CLR_SHORT with revised_expiry 2024-07-31 and quarantine, so restricted release.",
+  "excursion_duration": "All product_c readings are 6.1-6.6 (air spikes only), so no time outside 2-8.",
+  "followup_urgency": "Advice has already been received. Only the revised expiry needs applying before next_session_date 2024-06-18, a week away."
+ },
+ "request": "rec-F216-0016",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.014296
+}

@@ -1,0 +1,123 @@
+{
+ "id": "F236-0078",
+ "family": "F236",
+ "state": {
+  "changeover": {
+   "line_id": "L1",
+   "to_code": "BRD-08",
+   "from_allergens": [
+    "wheat"
+   ],
+   "to_allergens": [
+    "wheat"
+   ]
+  },
+  "cleaning": {
+   "steps": [
+    {
+     "completed": true,
+     "spec_min": 30,
+     "actual_min": 26
+    }
+   ]
+  },
+  "verification": {
+   "swabs": [
+    {
+     "id": "S1",
+     "reading": 3,
+     "limit_ppm": 10,
+     "at": "05:00"
+    }
+   ]
+  },
+  "production": {
+   "product_code": "BRD-80",
+   "start_at": "06:00",
+   "quantity": 48,
+   "unit": "kg"
+  },
+  "approvals": {
+   "qa_signoff": {
+    "signed_at": "05:45"
+   }
+  },
+  "history": [
+   {
+    "passed": false
+   },
+   {
+    "passed": false
+   },
+   {
+    "passed": true
+   }
+  ]
+ },
+ "factors": {
+  "allergen_transition": "same_allergen_set",
+  "cleaning_completion": "duration_short",
+  "swab_outcome": "trace_below_limit",
+  "swab_timing_mismatch": false,
+  "cross_section_discrepancy": "product_code_mismatch",
+  "exposed_quantity_kg": 48.0,
+  "approved_deviation": false,
+  "label_precaution": false,
+  "dedicated_tooling": false,
+  "qa_signoff_state": "signed_before_start",
+  "line_failure_history": 2,
+  "boundary_value": false
+ },
+ "factors_sampled": {
+  "allergen_transition": "same_allergen_set",
+  "cleaning_completion": "duration_short",
+  "swab_outcome": "all_negative",
+  "swab_timing_mismatch": false,
+  "cross_section_discrepancy": "product_code_mismatch",
+  "exposed_quantity_kg": 42.51,
+  "approved_deviation": false,
+  "label_precaution": false,
+  "dedicated_tooling": false,
+  "qa_signoff_state": "signed_before_start",
+  "line_failure_history": 2,
+  "boundary_value": false
+ },
+ "plan": {
+  "swabs_cleared": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "line_disposition": {
+   "clarity": "contested",
+   "target": "release",
+   "second": "reclean_quarantine"
+  },
+  "worst_deficiency": {
+   "clarity": "leaning",
+   "target": "none",
+   "second": null
+  },
+  "exposed_product": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  },
+  "residue_evidence": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  }
+ },
+ "target_words": 51,
+ "deciding": {
+  "swabs_cleared": "The only swab S1 read 3 ppm against a limit of 10 at 05:00, before the 06:00 start.",
+  "line_disposition": "Swab and sign-off are fine and the allergen set is unchanged. Against that, cleaning ran 26 of 30 minutes and the product code BRD-80 does not match to_code BRD-08, so release and reclean are both defensible.",
+  "worst_deficiency": "Cleaning was 4 minutes short and the product code does not match. Swabs are fine, so the deficiency is mild and none is slightly favoured.",
+  "exposed_product": "The 48 kg quantity sits just under the 50 kg boundary, and the swab is an hour before start. Level 1 versus level 2 is balanced.",
+  "residue_evidence": "The S1 reading of 3 ppm is above zero and below the limit of 10, which is trace."
+ },
+ "request": "rec-F236-0076",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012786
+}

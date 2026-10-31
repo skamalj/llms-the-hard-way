@@ -1,0 +1,136 @@
+{
+ "id": "F215-0073",
+ "family": "F215",
+ "state": {
+  "bin": {
+   "bin_id": "S07",
+   "crop": "oilseed rape",
+   "intake_date": "2024-07-28",
+   "intake_cond": "blended",
+   "safe_mc_pct": 8.0,
+   "baseline_c": 12.0,
+   "last_heat_log": "2024-03-09"
+  },
+  "cable_readings": [
+   {
+    "cable_id": "C1",
+    "cal_due": "2025-11-01",
+    "fault": false,
+    "nodes": [
+     {
+      "depth_m": 0.5,
+      "temp_c": [
+       14.0,
+       14.0,
+       14.0
+      ]
+     },
+     {
+      "depth_m": 3,
+      "temp_c": [
+       12.0,
+       12.1,
+       12.0
+      ]
+     }
+    ]
+   },
+   {
+    "cable_id": "C2",
+    "cal_due": "2024-12-01",
+    "fault": true,
+    "nodes": [
+     {
+      "depth_m": 2,
+      "temp_c": [
+       12.2,
+       12.3,
+       19.5
+      ]
+     }
+    ]
+   }
+  ],
+  "moisture": [
+   {
+    "sample_date": "2025-02-06",
+    "method": "lab",
+    "mc_pct": 7.9
+   }
+  ],
+  "environment": {
+   "ambient_c_7d_mean": 20,
+   "headspace_c": 24,
+   "co2_ppm": 900,
+   "reading_date": "2025-03-11"
+  }
+ },
+ "factors": {
+  "peak_excess_c": 2.0,
+  "rise_trend": "flat",
+  "second_cable_corroboration": false,
+  "sensor_fault_flag": true,
+  "ambient_warming": true,
+  "moisture_vs_limit": "within_0_5_pct",
+  "moisture_sample_status": "overdue",
+  "aeration_running": false,
+  "co2_elevation": "raised",
+  "insect_trap_count": 33,
+  "missing_section": "none",
+  "date_order_anomaly": false,
+  "intake_condition": "blended"
+ },
+ "factors_sampled": {
+  "peak_excess_c": 0.95,
+  "rise_trend": "flat",
+  "second_cable_corroboration": true,
+  "sensor_fault_flag": true,
+  "ambient_warming": true,
+  "moisture_vs_limit": "above",
+  "moisture_sample_status": "overdue",
+  "aeration_running": false,
+  "co2_elevation": "raised",
+  "insect_trap_count": 33,
+  "missing_section": "none",
+  "date_order_anomaly": false,
+  "intake_condition": "blended"
+ },
+ "plan": {
+  "hotspot_active": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "moisture_safe": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "next_action": {
+   "clarity": "clear",
+   "target": "aerate",
+   "second": null
+  },
+  "recurrence_count": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "temp_excess": {
+   "clarity": "contested",
+   "target": "1",
+   "second": "0"
+  }
+ },
+ "target_words": 41,
+ "deciding": {
+  "hotspot_active": "Valid C1 is flat, with only the 0.5 m node elevated while ambient is 20 C and headspace 24 C. The 19.5 C spike is on C2, which has fault=true and a lapsed cal_due, and no other cable corroborates it.",
+  "moisture_safe": "Lab mc_pct 7.9 is just under the 8.0 limit, but the sample is 33 days old, just past the 30-day overdue mark.",
+  "next_action": "The warm headspace, raised CO2 (900) and a single warm top layer suggest cooling the bin with the fans, which are not running.",
+  "recurrence_count": "last_heat_log 2024-03-09 is just outside 12 months of the 2025-03-11 reading date, so it sits at the boundary between level 0 and level 1.",
+  "temp_excess": "The hottest valid node is 14.0 against a baseline of 12.0, exactly 2.0 C, the boundary between levels 0 and 1; the 19.5 reading is faulty."
+ },
+ "request": "rec-F215-0071",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011524
+}

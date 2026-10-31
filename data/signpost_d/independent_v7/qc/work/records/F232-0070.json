@@ -1,0 +1,140 @@
+{
+ "id": "F232-0070",
+ "family": "F232",
+ "state": {
+  "night_header": {
+   "date": "2025-09-14",
+   "prog": "P52",
+   "alloc_h": 8,
+   "twilight": {
+    "eve": "2025-09-15T00:10",
+    "morn": "2025-09-15T08:10"
+   },
+   "eng_window": null
+  },
+  "conditions": {
+   "limits": {
+    "hum": 90,
+    "wind": 60,
+    "cloud": 4
+   },
+   "closures": [
+    {
+     "s": "2025-09-15T00:30",
+     "e": "2025-09-15T07:42",
+     "reason": "weather",
+     "hum": 96,
+     "wind": 70,
+     "cloud": 8
+    }
+   ]
+  },
+  "exposures": [
+   {
+    "t": "T1",
+    "f": "r",
+    "exp_s": 300,
+    "n": 1,
+    "see": 1.1,
+    "airmass": 2.1,
+    "qa": "pass",
+    "utc": "2025-09-15T00:15"
+   }
+  ],
+  "programme_request": {
+   "T1": {
+    "r": 330
+   },
+   "max_see": 1.5,
+   "max_airmass": 2.0,
+   "exception": {
+    "target_ids": [
+     "T1"
+    ],
+    "relaxed_see": 2.0
+   }
+  },
+  "faults": [
+   {
+    "sub": "dome shutter",
+    "start": "2025-09-15T00:40",
+    "end": "2025-09-15T07:55",
+    "cleared": true,
+    "retest": null,
+    "ticket": "TK-905"
+   }
+  ],
+  "notes": {
+   "obs": "T1 done in r.",
+   "na": "Shutter fault logged; weather poor."
+  }
+ },
+ "factors": {
+  "weather_loss_hours": 7.21,
+  "fault_overlap": "major_overlap",
+  "fault_resolution_state": "cleared_no_retest",
+  "maintenance_window": false,
+  "closure_reason_mismatch": "none",
+  "note_claim_discrepancy": "short_small",
+  "seeing_vs_limit": "well_within",
+  "seeing_exception_approved": true,
+  "usable_fraction": 0.01,
+  "qa_pending_count": 0,
+  "utc_date_rollover": true,
+  "assistant_note_tone": "neutral",
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "weather_loss_hours": 7.21,
+  "fault_overlap": "major_overlap",
+  "fault_resolution_state": "cleared_no_retest",
+  "maintenance_window": false,
+  "closure_reason_mismatch": "none",
+  "note_claim_discrepancy": "short_small",
+  "seeing_vs_limit": "well_within",
+  "seeing_exception_approved": true,
+  "usable_fraction": 0.92,
+  "qa_pending_count": 0,
+  "utc_date_rollover": true,
+  "assistant_note_tone": "neutral",
+  "boundary_case": false
+ },
+ "plan": {
+  "weather_only_loss": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "claims_supported": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "night_disposition": {
+   "clarity": "leaning",
+   "target": "reschedule_night",
+   "second": null
+  },
+  "usable_share": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "fault_followup": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  }
+ },
+ "target_words": 51,
+ "deciding": {
+  "weather_only_loss": "The 7.2 h weather closure is supported by station values above limits, but the shutter fault (00:40-07:55) covers nearly all of it and runs 13 minutes past the closure end; with both present the cause is split.",
+  "claims_supported": "Observer says T1 done, but the single frame gives 300 s against 330 s requested; the shortfall is small but the frame is also over the airmass limit.",
+  "night_disposition": "The shutter fault overlaps almost the whole 8 h allocation, so technical loss is plausibly over half; weather coincidence leaves some doubt.",
+  "usable_share": "The only passing frame is 300 s, under 2% of allocation, but its airmass 2.1 exceeds the 2.0 limit, so it may not count as in-constraint (level 0 or 1).",
+  "fault_followup": "The shutter fault is cleared with retest null; since the dome was closed for weather anyway, it may not count as science-affecting (level 1 or 0)."
+ },
+ "request": "rec-F232-0066",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.017748
+}

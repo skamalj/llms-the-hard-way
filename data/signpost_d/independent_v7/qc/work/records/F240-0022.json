@@ -1,0 +1,120 @@
+{
+ "id": "F240-0022",
+ "family": "F240",
+ "state": {
+  "fault_event": {
+   "code": "F-GRD-OV",
+   "fw_severity": 2,
+   "ts_start": "2025-05-02T18:20",
+   "ts_clear": null
+  },
+  "telemetry": {
+   "samples": [
+    {
+     "ts": "2025-05-02T18:40",
+     "ac_kw": 0,
+     "exp_kw": 12,
+     "limit_pct": 0
+    }
+   ],
+   "exp_day_kwh": 4000,
+   "exp_window_kwh": 30,
+   "act_window_kwh": 0
+  },
+  "site_context": {
+   "grid_events": [
+    {
+     "ts": "2025-05-02T18:19",
+     "type": "overvoltage",
+     "magnitude_pu": 1.12
+    }
+   ]
+  },
+  "history": {
+   "faults": [
+    {
+     "date": "2025-04-20",
+     "code": "F-GRD-OV"
+    },
+    {
+     "date": "2025-04-27",
+     "code": "F-GRD-OV"
+    }
+   ],
+   "work_orders": [
+    {
+     "wo_id": "W1",
+     "opened": "2025-04-28",
+     "completed": null,
+     "retest_ok": null
+    }
+   ]
+  }
+ },
+ "factors": {
+  "fault_class": "grid_overvoltage",
+  "log_telemetry_mismatch": "trivial_under_5min",
+  "grid_event_concurrent": true,
+  "maintenance_window_active": false,
+  "neighbour_cross_check": "no_neighbour_data",
+  "repeat_count_30d": 2,
+  "last_repair_status": "open",
+  "current_limit_pct": 0.0,
+  "yield_loss_pct": 0.75,
+  "low_irradiance_window": false,
+  "serial_mismatch": false,
+  "boundary_placement": false
+ },
+ "factors_sampled": {
+  "fault_class": "grid_overvoltage",
+  "log_telemetry_mismatch": "trivial_under_5min",
+  "grid_event_concurrent": true,
+  "maintenance_window_active": false,
+  "neighbour_cross_check": "neighbours_affected",
+  "repeat_count_30d": 2,
+  "last_repair_status": "open",
+  "current_limit_pct": 53.86,
+  "yield_loss_pct": 18.34,
+  "low_irradiance_window": false,
+  "serial_mismatch": false,
+  "boundary_placement": false
+ },
+ "plan": {
+  "genuine_defect": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "post_repair_repeat": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "balanced",
+   "target": "close_log",
+   "second": "urgent_dispatch"
+  },
+  "yield_loss": {
+   "clarity": "leaning",
+   "target": "0",
+   "second": null
+  },
+  "capacity_unavailable": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  }
+ },
+ "target_words": 25,
+ "deciding": {
+  "genuine_defect": "Two earlier same-code faults and an open work order favour a defect, but a 1.12 pu grid overvoltage event at ts_start leaves doubt.",
+  "post_repair_repeat": "The only work order has completed null, so no completed repair exists to repeat after.",
+  "next_step": "Grid event overlap supports closing, while ts_clear null with zero output and recurring faults support dispatch.",
+  "yield_loss": "(30-0)/4000 = 0.75%, under 1%, though the loss is still accruing with no clear.",
+  "capacity_unavailable": "Last sample ac_kw 0 and limit_pct 0 with ts_clear null indicate offline, though a grid trip may still reset."
+ },
+ "request": "rec-F240-0021",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012049
+}

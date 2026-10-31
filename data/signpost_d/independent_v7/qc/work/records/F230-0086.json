@@ -1,0 +1,124 @@
+{
+ "id": "F230-0086",
+ "family": "F230",
+ "state": {
+  "prescriptions": [
+   {
+    "item_id": "A",
+    "dose_units": 1,
+    "strength_mg": 50
+   },
+   {
+    "item_id": "B",
+    "dose_units": 1
+   },
+   {
+    "item_id": "C",
+    "dose_units": 2
+   },
+   {
+    "item_id": "D",
+    "dose_units": 1
+   }
+  ],
+  "administrations": [
+   {
+    "item_id": "A",
+    "units_given": 2,
+    "strength_mg_used": 50,
+    "initials": "KT"
+   },
+   {
+    "item_id": "B",
+    "units_given": 1,
+    "initials": null
+   }
+  ],
+  "stock": {
+   "A": {
+    "opening": 30,
+    "closing": 27,
+    "wasted": 1,
+    "wasted_witnessed": false
+   }
+  },
+  "round": {
+   "open_queries": [
+    {
+     "type": "pharmacy",
+     "item_id": "C"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "dose_mismatch_type": "wrong_quantity",
+  "prescription_change_documented": false,
+  "omission_count": 0,
+  "omission_reason_valid": true,
+  "late_minutes": 20,
+  "time_critical_affected": false,
+  "stock_variance": 1,
+  "stock_variance_explained": false,
+  "signature_gaps": 1,
+  "unit_expression_decoy": "matching_units",
+  "post_dose_obs_reassuring": true,
+  "pending_query": "pharmacy_query_open",
+  "prior_errors_30d": 1,
+  "item_count": 4
+ },
+ "factors_sampled": {
+  "dose_mismatch_type": "wrong_quantity",
+  "prescription_change_documented": false,
+  "omission_count": 3,
+  "omission_reason_valid": false,
+  "late_minutes": 88,
+  "time_critical_affected": true,
+  "stock_variance": 1,
+  "stock_variance_explained": true,
+  "signature_gaps": 2,
+  "unit_expression_decoy": "matching_units",
+  "post_dose_obs_reassuring": true,
+  "pending_query": "none",
+  "prior_errors_30d": 1,
+  "item_count": 4
+ },
+ "plan": {
+  "dose_mismatch": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "stock_reconciles": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "contested",
+   "target": "sign_off",
+   "second": "hold"
+  },
+  "open_discrepancies": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "error_severity": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 52,
+ "deciding": {
+  "dose_mismatch": "Item A given 2 units against a prescribed 1 at the same strength, no change entry.",
+  "stock_reconciles": "Item A closing 27 against expected 28 less the signed doses; the wasted 1 is not witnessed, so the gap stays doubtful.",
+  "next_step": "An open pharmacy query on item C, against an otherwise short and mostly complete record, splits sign off from hold.",
+  "open_discrepancies": "Item A dose, item A stock and item B missing initials, with item C query pending, put the count at the 3 to 4 boundary.",
+  "error_severity": "Only one null initials is certain; the other signals are ambiguous, which holds it between none and documentation."
+ },
+ "request": "rec-F230-0086",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.008305
+}

@@ -1,0 +1,146 @@
+{
+ "id": "F236-0036",
+ "family": "F236",
+ "state": {
+  "changeover": {
+   "line": "L2",
+   "from_allergens": [
+    "sesame",
+    "wheat"
+   ],
+   "to_allergens": [
+    "wheat"
+   ],
+   "end": "2024-05-06T05:00"
+  },
+  "cleaning": {
+   "steps": [
+    {
+     "id": "conveyor",
+     "completed": true
+    },
+    {
+     "id": "depositor",
+     "completed": false
+    }
+   ],
+   "part_swap": true,
+   "dedicated_set": "DS-4"
+  },
+  "verification": {
+   "swabs": [
+    {
+     "id": "S1",
+     "loc": "mixer",
+     "target": "sesame",
+     "ppm": 10,
+     "limit_ppm": 10,
+     "t": "2024-05-06T05:20"
+    }
+   ]
+  },
+  "production": {
+   "line": "L2",
+   "start_at": "2024-05-06T05:40",
+   "qty": 640000,
+   "unit": "g",
+   "held": false,
+   "packaging_allergens": [
+    "wheat"
+   ]
+  },
+  "approvals": {
+   "qa_signoff": {
+    "signer": "QA7",
+    "signed_at": "2024-05-06T05:30"
+   },
+   "deviations": [
+    {
+     "id": "D12",
+     "scope": "depositor step skipped",
+     "approved_at": "2024-05-06T04:50"
+    }
+   ]
+  },
+  "history": {
+   "verification_passed": [
+    false,
+    true,
+    false,
+    true,
+    false,
+    true,
+    true,
+    false,
+    true,
+    true
+   ]
+  }
+ },
+ "factors": {
+  "allergen_transition": "removes_allergen",
+  "cleaning_completion": "one_step_skipped",
+  "swab_outcome": "positive_no_retest",
+  "swab_timing_mismatch": false,
+  "cross_section_discrepancy": "quantity_unit_mismatch",
+  "exposed_quantity_kg": 640.0,
+  "approved_deviation": true,
+  "label_precaution": false,
+  "dedicated_tooling": true,
+  "qa_signoff_state": "signed_before_start",
+  "line_failure_history": 4,
+  "boundary_value": true
+ },
+ "factors_sampled": {
+  "allergen_transition": "removes_allergen",
+  "cleaning_completion": "one_step_skipped",
+  "swab_outcome": "positive_no_retest",
+  "swab_timing_mismatch": false,
+  "cross_section_discrepancy": "quantity_unit_mismatch",
+  "exposed_quantity_kg": 39.64,
+  "approved_deviation": true,
+  "label_precaution": false,
+  "dedicated_tooling": true,
+  "qa_signoff_state": "signed_before_start",
+  "line_failure_history": 4,
+  "boundary_value": true
+ },
+ "plan": {
+  "swabs_cleared": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "line_disposition": {
+   "clarity": "leaning",
+   "target": "hold",
+   "second": null
+  },
+  "worst_deficiency": {
+   "clarity": "leaning",
+   "target": "records_only",
+   "second": null
+  },
+  "exposed_product": {
+   "clarity": "clear",
+   "target": "3",
+   "second": null
+  },
+  "residue_evidence": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  }
+ },
+ "target_words": 93,
+ "deciding": {
+  "swabs_cleared": "Single sesame swab reads 10 ppm, exactly at the 10 ppm limit, with no retest; at-limit could be read as pass or fail.",
+  "line_disposition": "The at-limit swab has no retest, so the batch is held until a confirming retest is supplied.",
+  "worst_deficiency": "Skipped depositor step is covered by approved deviation D12; the visible issue is quantity given as 640000 g, a unit mismatch, which is paperwork.",
+  "exposed_product": "No passing swab exists, so the whole 640000 g (640 kg) batch was made before verified clean.",
+  "residue_evidence": "Reading is at the limit with no retest recorded, which fits persistent, though an at-limit pass is arguable."
+ },
+ "request": "rec-F236-0036",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.010657
+}

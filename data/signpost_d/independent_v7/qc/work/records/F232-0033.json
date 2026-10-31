@@ -1,0 +1,169 @@
+{
+ "id": "F232-0033",
+ "family": "F232",
+ "state": {
+  "night_header": {
+   "date": "2025-06-11",
+   "prog": "P31",
+   "alloc_h": 10,
+   "eng_window": [
+    "2025-06-11T01:00Z",
+    "2025-06-11T03:00Z"
+   ]
+  },
+  "conditions": {
+   "limits": {
+    "hum": 85,
+    "wind": 50,
+    "cloud": 4
+   },
+   "closures": [
+    {
+     "s": "2025-06-11T00:45Z",
+     "e": "2025-06-11T06:45Z",
+     "reason": "weather",
+     "max_hum": 58,
+     "max_wind": 20,
+     "max_cloud": 1
+    }
+   ]
+  },
+  "programme_request": {
+   "A": {
+    "r": 6000,
+    "i": 6000
+   },
+   "max_see": 1.5,
+   "exception": null
+  },
+  "exposures": [
+   {
+    "t": "A",
+    "f": "r",
+    "s": 6000,
+    "start": "2025-06-11T20:35Z",
+    "see": 1.1,
+    "qa": "pass"
+   },
+   {
+    "t": "A",
+    "f": "i",
+    "s": 5950,
+    "start": "2025-06-11T22:20Z",
+    "see": 1.2,
+    "qa": "pass"
+   },
+   {
+    "t": "B",
+    "f": "r",
+    "s": 300,
+    "see": 2.2,
+    "qa": "fail"
+   },
+   {
+    "t": "B",
+    "f": "r",
+    "s": 700,
+    "see": 1.3,
+    "qa": null
+   },
+   {
+    "t": "B",
+    "f": "r",
+    "s": 700,
+    "see": 1.3,
+    "qa": null
+   },
+   {
+    "t": "B",
+    "f": "r",
+    "s": 700,
+    "see": 1.4,
+    "qa": null
+   }
+  ],
+  "faults": [
+   {
+    "sub": "dome_shutter",
+    "start": "2025-06-11T01:20Z",
+    "end": null,
+    "cleared": false,
+    "retest": null,
+    "workaround": null,
+    "ticket": "T-5521"
+   }
+  ],
+  "notes": {
+   "observer": "A complete.",
+   "assistant": "Loud clunk from shutter about 01:20; would not open again."
+  }
+ },
+ "factors": {
+  "weather_loss_hours": 6.0,
+  "fault_overlap": "none",
+  "fault_resolution_state": "open_blocking",
+  "maintenance_window": true,
+  "closure_reason_mismatch": "station_below_limits",
+  "note_claim_discrepancy": "short_small",
+  "seeing_vs_limit": "exceeded",
+  "seeing_exception_approved": false,
+  "usable_fraction": 0.4,
+  "qa_pending_count": 3,
+  "utc_date_rollover": false,
+  "assistant_note_tone": "alarmed_real",
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "weather_loss_hours": 6.0,
+  "fault_overlap": "none",
+  "fault_resolution_state": "open_blocking",
+  "maintenance_window": true,
+  "closure_reason_mismatch": "station_below_limits",
+  "note_claim_discrepancy": "short_small",
+  "seeing_vs_limit": "exceeded",
+  "seeing_exception_approved": false,
+  "usable_fraction": 0.77,
+  "qa_pending_count": 3,
+  "utc_date_rollover": false,
+  "assistant_note_tone": "alarmed_real",
+  "boundary_case": false
+ },
+ "plan": {
+  "weather_only_loss": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "claims_supported": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "night_disposition": {
+   "clarity": "leaning",
+   "target": "hold",
+   "second": null
+  },
+  "usable_share": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  },
+  "fault_followup": {
+   "clarity": "clear",
+   "target": "3",
+   "second": null
+  }
+ },
+ "target_words": 61,
+ "deciding": {
+  "weather_only_loss": "The 6 h weather closure has all station values (humidity 58, wind 20, cloud 1) below limits, and an open shutter fault begins inside it, so the cause is not supported as weather.",
+  "claims_supported": "A is claimed complete; A i is 5950 s against 6000 s required, a small shortfall that reads as rounding.",
+  "night_disposition": "Three frames have qa null and the shutter ticket T-5521 is open, so charging waits on confirmation; the unsupported closure makes any other disposition doubtful.",
+  "usable_share": "QA-pass exposure is 6000+5950 = 11950 s of 36000 s (33%); the three pending 700 s frames would bring it to about 39%, so it sits just below the 40% line.",
+  "fault_followup": "The dome shutter fault is open (end null, cleared false, retest null) with workaround null, and the assistant note says the shutter would not open again, so the instrument cannot observe."
+ },
+ "request": "rec-F232-0031",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.023475
+}

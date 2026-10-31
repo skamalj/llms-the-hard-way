@@ -1,0 +1,131 @@
+{
+ "id": "F229-0049",
+ "family": "F229",
+ "state": {
+  "lot": {
+   "lot_id": "L-1005-02",
+   "block": "D3",
+   "variety": "Chardonnay",
+   "crew": "C1",
+   "pick_date": "2024-10-05",
+   "pick_start": "04:30",
+   "pick_end": "2024-10-05T07:30"
+  },
+  "intake": {
+   "ticket_no": "WB-5120",
+   "block_code": "D3",
+   "arrival_at": "2024-10-05T09:10",
+   "gross_kg": 7450,
+   "tare_kg": 1450,
+   "net_kg": 6000,
+   "bins": [
+    {
+     "id": 1,
+     "kg": 3000
+    },
+    {
+     "id": 2,
+     "kg": 3000
+    }
+   ],
+   "temp_c": 24,
+   "cold_room_in": null,
+   "cold_room_out": null
+  },
+  "sample": {
+   "sampled_at": "2024-10-05T09:35",
+   "brix": 21.8,
+   "ph": 3.3,
+   "ta_g_l": 7.4,
+   "rot_pct": 9.05,
+   "mog_pct": 0.8,
+   "sort": null
+  },
+  "press": {
+   "press_id": "P1",
+   "programme": "destemmed_standard",
+   "band_l_per_t": "600-680",
+   "cycle_start": "2024-10-05T15:36",
+   "cycle_end": "2024-10-05T19:20",
+   "free_run_l": 2600,
+   "press_fraction_l": 1440,
+   "juice_l": 4040,
+   "so2_mg_l": null
+  },
+  "transfer": {
+   "lot_ref": "L-1005-20",
+   "tank_id": "T3",
+   "transferred_l": 4000,
+   "transferred_at": "2024-10-05T19:50",
+   "qa_signoff": "RT 20:10"
+  }
+ },
+ "factors": {
+  "weight_mismatch": "none",
+  "press_programme": "destemmed_standard",
+  "yield_position": "inside_band_near_upper_edge",
+  "lot_id_drift": "transposed_digits_in_transfer_lot_ref",
+  "missing_step": "so2_addition_missing",
+  "out_of_order_timestamp": false,
+  "pick_to_press_hours": 8.1,
+  "pick_end_recorded": true,
+  "cold_held": false,
+  "rot_pct": 9.05,
+  "sorting_applied": false,
+  "note_signal": "none",
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "weight_mismatch": "none",
+  "press_programme": "destemmed_standard",
+  "yield_position": "above_band",
+  "lot_id_drift": "none",
+  "missing_step": "so2_addition_missing",
+  "out_of_order_timestamp": false,
+  "pick_to_press_hours": 28.43,
+  "pick_end_recorded": true,
+  "cold_held": false,
+  "rot_pct": 9.05,
+  "sorting_applied": false,
+  "note_signal": "none",
+  "boundary_case": false
+ },
+ "plan": {
+  "yield_consistent": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "chain_intact": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "release_decision": {
+   "clarity": "clear",
+   "target": "segregate",
+   "second": null
+  },
+  "pick_press_delay": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  },
+  "failed_checks": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  }
+ },
+ "target_words": 161,
+ "deciding": {
+  "yield_consistent": "6000 kg net against band 600-680 gives 3600-4080 L; juice_l 4040 is about 673 L/t, inside the band but near the top.",
+  "chain_intact": "transfer.lot_ref is L-1005-20 while lot_id is L-1005-02; the digits look transposed, so the id changed at the last stage.",
+  "release_decision": "Rot of 9.05% with sort null (no sorting), so2_mg_l null and a lot_ref mismatch show fruit and process faults, so the juice should be isolated.",
+  "pick_press_delay": "pick_end 07:30 to cycle_start 15:36 is 8.1 h, just over the 8 h boundary between level 1 and level 2.",
+  "failed_checks": "The missing SO2, the lot_ref mismatch and the unsorted rot of 9.05% each look like failed checks, which gives two or three."
+ },
+ "request": "rec-F229-0046",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.01255
+}

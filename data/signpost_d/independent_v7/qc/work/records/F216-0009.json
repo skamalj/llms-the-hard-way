@@ -1,0 +1,133 @@
+{
+ "id": "F216-0009",
+ "family": "F216",
+ "state": {
+  "session": {
+   "id": "SC-052",
+   "type": "school_session",
+   "date": "2024-09-17",
+   "start": "09:00",
+   "end": "11:00",
+   "next_session_date": "2024-09-18"
+  },
+  "storage": {
+   "unit": "CB7",
+   "probe": "product",
+   "alarms_30d": 2
+  },
+  "temp_log": {
+   "start": "10:30",
+   "int_min": 10,
+   "product_c": [
+    6.0,
+    6.9,
+    7.4,
+    8.1,
+    7.2,
+    6.5
+   ],
+   "manual_checks": []
+  },
+  "stock": {
+   "lots": [
+    {
+     "lot_no": "K4821",
+     "expiry": "2025-01-31",
+     "tol_min_out": 60,
+     "opening": 60,
+     "wasted": 2,
+     "closing": 32
+    }
+   ]
+  },
+  "administration": [
+   {
+    "t": "09:30",
+    "lot_no": "K4S21",
+    "n": 13
+   },
+   {
+    "t": "10:40",
+    "lot_no": "K4S21",
+    "n": 13
+   }
+  ],
+  "excursion_actions": {
+   "start": "11:00",
+   "end": "11:10",
+   "quarantined": true,
+   "advice_requested_at": "11:20",
+   "advice_status": "CLR_SHORT",
+   "advice_received_at": "13:30",
+   "revised_expiry": "2024-10-15"
+  }
+ },
+ "factors": {
+  "true_excursion_minutes": 10,
+  "log_source_discrepancy": "manual_checks_missing",
+  "buffered_probe_in_range": false,
+  "planned_maintenance": false,
+  "stability_clearance": "cleared_short",
+  "doses_during_exposure": 0,
+  "stock_count_gap": 0,
+  "lot_id_mismatch": true,
+  "lots_beyond_tolerance": "none",
+  "freezing_reading": false,
+  "boundary_case": false,
+  "unit_alarm_history": 2,
+  "session_type": "school_session"
+ },
+ "factors_sampled": {
+  "true_excursion_minutes": 86,
+  "log_source_discrepancy": "manual_checks_missing",
+  "buffered_probe_in_range": false,
+  "planned_maintenance": false,
+  "stability_clearance": "not_requested",
+  "doses_during_exposure": 26,
+  "stock_count_gap": -5,
+  "lot_id_mismatch": true,
+  "lots_beyond_tolerance": "none",
+  "freezing_reading": false,
+  "boundary_case": false,
+  "unit_alarm_history": 2,
+  "session_type": "school_session"
+ },
+ "plan": {
+  "dosed_uncleared": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "stock_reconciles": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "stock_disposition": {
+   "clarity": "leaning",
+   "target": "release_restricted",
+   "second": null
+  },
+  "excursion_duration": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "followup_urgency": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  }
+ },
+ "target_words": 45,
+ "deciding": {
+  "dosed_uncleared": "Both doses (09:30, 10:40) precede the excursion start at 11:00 and the session ended at 11:00; clearance arrived 13:30.",
+  "stock_reconciles": "Counts balance (60 - 2 - 26 = 32) but administration lot K4S21 differs by one character from stock lot K4821, which may be a typo or a real mismatch.",
+  "stock_disposition": "advice_status CLR_SHORT with revised_expiry 2024-10-15, shortening the lot's 2025-01-31 expiry, points to release_restricted; the lot-code mismatch is the residual doubt.",
+  "excursion_duration": "A single 10-minute reading of 8.1 at 11:00 is the only value outside 2-8, right at the none/brief boundary; manual_checks is empty so nothing corroborates it.",
+  "followup_urgency": "Next session is 2024-09-18, about a day away, and the revised expiry plus lot-code query need action; before the next session and within 24 hours are both plausible."
+ },
+ "request": "rec-F216-0006",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.017926
+}

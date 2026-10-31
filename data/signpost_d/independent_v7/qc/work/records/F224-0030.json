@@ -1,0 +1,138 @@
+{
+ "id": "F224-0030",
+ "family": "F224",
+ "state": {
+  "request": {
+   "views": [
+    "BW_R"
+   ],
+   "ind": "CAR_FU",
+   "risk": "low",
+   "prior": "2023-06-12",
+   "date": "2024-05-14",
+   "exc": [],
+   "verbal_auth": [],
+   "flags": []
+  },
+  "exposures": [
+   {
+    "v": "BW_R",
+    "t": "16:00",
+    "mGy": 1.02
+   },
+   {
+    "v": "BW_R",
+    "t": "16:02",
+    "mGy": 1.02,
+    "retake_of": 1
+   }
+  ],
+  "image_review": {
+   "grade": 1,
+   "faults": [
+    "FC_APEX_CLIPPED"
+   ],
+   "sensor_err": [],
+   "second_grader": "done"
+  },
+  "equipment": {
+   "qa": "2023-03-01",
+   "int": 12,
+   "test": "pass",
+   "service": [],
+   "drl": {
+    "BW_R": 1.0
+   },
+   "console": [
+    {
+     "t": "16:00",
+     "kV": 70,
+     "s": 0.16
+    },
+    {
+     "t": "16:02",
+     "kV": 70,
+     "s": 0.16
+    },
+    {
+     "t": "16:05",
+     "kV": 70,
+     "s": 0.16
+    }
+   ]
+  },
+  "operator": {
+   "id": "O8",
+   "signoff": "2024-05-14T17:00",
+   "prior_findings": 3
+  }
+ },
+ "factors": {
+  "indication_match": "match",
+  "recall_interval_months": 11,
+  "dose_ratio_to_drl": 1.02,
+  "console_log_discrepancy": "extra_console_exposure",
+  "retake_cause": "positioning",
+  "equipment_qa_status": "overdue",
+  "approved_exception": false,
+  "patient_cooperation_flag": false,
+  "unrequested_exposure_count": 0,
+  "verbal_authorisation_logged": false,
+  "image_grade": "diagnostic",
+  "audit_completeness": "complete",
+  "operator_prior_findings": 3
+ },
+ "factors_sampled": {
+  "indication_match": "match",
+  "recall_interval_months": 11,
+  "dose_ratio_to_drl": 1.14,
+  "console_log_discrepancy": "extra_console_exposure",
+  "retake_cause": "positioning",
+  "equipment_qa_status": "overdue",
+  "approved_exception": false,
+  "patient_cooperation_flag": false,
+  "unrequested_exposure_count": 2,
+  "verbal_authorisation_logged": false,
+  "image_grade": "diagnostic",
+  "audit_completeness": "complete",
+  "operator_prior_findings": 3
+ },
+ "plan": {
+  "justified": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "operator_retake": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "follow_up": {
+   "clarity": "leaning",
+   "target": "operator_feedback",
+   "second": null
+  },
+  "dose_position": {
+   "clarity": "contested",
+   "target": "1",
+   "second": "2"
+  },
+  "unjustified_count": {
+   "clarity": "clear",
+   "target": "1",
+   "second": null
+  }
+ },
+ "target_words": 79,
+ "deciding": {
+  "justified": "Low caries risk allows 24 months but the prior BW_R was 11 months earlier, with no exception, so the interval is too short.",
+  "operator_retake": "FC_APEX_CLIPPED on the retake points to positioning with no sensor error; QA last done 2023-03-01 on a 12-month interval is overdue, which keeps equipment plausible.",
+  "follow_up": "Interval breach, a clipped-apex retake and 3 prior findings point to operator_feedback; the overdue QA and extra console exposure leave some doubt.",
+  "dose_position": "Doses 1.02 mGy vs DRL 1.0, a ratio of 1.02, at the 100% boundary.",
+  "unjustified_count": "The console log has an exposure at 16:05 with no counterpart in the exposure list and no verbal_auth, giving exactly one."
+ },
+ "request": "rec-F224-0026",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.0162
+}

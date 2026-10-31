@@ -1,0 +1,147 @@
+{
+ "id": "F232-0041",
+ "family": "F232",
+ "state": {
+  "night_header": {
+   "date": "2025-03-04",
+   "prog": "P41",
+   "alloc_h": 8,
+   "eng_window": null
+  },
+  "conditions": {
+   "limits": {
+    "humidity_pct": 85
+   },
+   "closures": [
+    {
+     "start": "2025-03-05T02:30Z",
+     "end": "2025-03-05T03:45Z",
+     "reason": "weather",
+     "humidity_pct": 91
+    }
+   ]
+  },
+  "exposures": [
+   {
+    "target_id": "T1",
+    "start_utc": "2025-03-05T00:30Z",
+    "exptime_s": 1800,
+    "filter": "g",
+    "seeing_arcsec": 1.19,
+    "qa": "pass"
+   },
+   {
+    "target_id": "T1",
+    "start_utc": "2025-03-05T01:05Z",
+    "exptime_s": 1800,
+    "filter": "g",
+    "seeing_arcsec": 1.18,
+    "qa": "pass"
+   },
+   {
+    "target_id": "T1",
+    "start_utc": "2025-03-05T01:40Z",
+    "exptime_s": 1800,
+    "filter": "g",
+    "seeing_arcsec": 1.19,
+    "qa": null
+   }
+  ],
+  "programme_request": {
+   "targets": [
+    {
+     "target_id": "T1",
+     "filters": [
+      "g"
+     ],
+     "total_s": 5400,
+     "max_seeing_arcsec": 1.2
+    }
+   ],
+   "exception": null
+  },
+  "faults": [
+   {
+    "subsystem": "shutter",
+    "start_utc": "2025-03-05T03:44Z",
+    "end_utc": "2025-03-05T08:15Z",
+    "cleared": true,
+    "retest_utc": null,
+    "workaround": null,
+    "ticket_ref": "ENG-2207"
+   }
+  ],
+  "notes": {
+   "observer_note": "T1 complete.",
+   "night_assistant_note": "Loud grinding from shutter around 03:50, nothing worked after."
+  }
+ },
+ "factors": {
+  "weather_loss_hours": 1.25,
+  "fault_overlap": "minor",
+  "fault_resolution_state": "cleared_no_retest",
+  "maintenance_window": false,
+  "closure_reason_mismatch": "none",
+  "note_claim_discrepancy": "none",
+  "seeing_vs_limit": "near_boundary",
+  "seeing_exception_approved": false,
+  "usable_fraction": 0.13,
+  "qa_pending_count": 1,
+  "utc_date_rollover": true,
+  "assistant_note_tone": "alarmed_real",
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "weather_loss_hours": 4.22,
+  "fault_overlap": "none",
+  "fault_resolution_state": "no_fault",
+  "maintenance_window": true,
+  "closure_reason_mismatch": "none",
+  "note_claim_discrepancy": "none",
+  "seeing_vs_limit": "near_boundary",
+  "seeing_exception_approved": false,
+  "usable_fraction": 0.9,
+  "qa_pending_count": 1,
+  "utc_date_rollover": true,
+  "assistant_note_tone": "alarmed_real",
+  "boundary_case": false
+ },
+ "plan": {
+  "weather_only_loss": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "claims_supported": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "night_disposition": {
+   "clarity": "clear",
+   "target": "reschedule_night",
+   "second": null
+  },
+  "usable_share": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "fault_followup": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  }
+ },
+ "target_words": 125,
+ "deciding": {
+  "weather_only_loss": "Weather closure 02:30-03:45 has humidity 91 over limit 85, but the shutter fault starts 03:44 inside the closure's last minute and runs to 08:15, so later lost time is not weather.",
+  "claims_supported": "T1 g frames total 5400 s, matching the request; one frame has qa null, which leaves slight doubt.",
+  "night_disposition": "Shutter fault of about 4.5 h against 8 h allocation, cleared but with no workaround, exceeds half the allocation as technical loss.",
+  "usable_share": "Only 3600 s of qa-pass in-limit exposure against 28800 s allocated (about 13%), far below 40%.",
+  "fault_followup": "Shutter fault cleared true at 08:15 but retest_utc is null and no workaround is logged."
+ },
+ "request": "rec-F232-0041",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.016245
+}

@@ -1,0 +1,348 @@
+{
+ "id": "F233",
+ "domain": "medical tent logs at a marathon",
+ "role": "Medical tent shift lead at a city marathon, reviewing each runner encounter log before it is signed off and filed",
+ "setting": "Each record is the encounter log for one runner treated in a finish-line or course medical tent. It holds the runner's registration details, arrival and triage entry, timed observation sets, treatments given and the discharge entry. The shift lead checks the log for consistency and completeness, judges how unwell the runner was and what condition they presented with, and decides whether the log can be filed or needs follow-up.",
+ "questions": {
+  "heat_stroke_supported": {
+   "type": "noul",
+   "instructions": "The recorded observations support exertional heat stroke as working diagnosis.",
+   "criteria": null
+  },
+  "review_action": {
+   "type": "choice",
+   "instructions": "What is the highest action this log warrants at shift review?",
+   "criteria": {
+    "sign_off": "Log complete and consistent across sections; file without further action.",
+    "hold_for_query": "Entry missing, unsigned or conflicting; query treating clinician before filing.",
+    "recall_runner": "Runner left before release criteria met; arrange welfare contact today.",
+    "escalate_to_director": "Recorded care may have missed a critical condition; director reviews urgently."
+   }
+  },
+  "presentation_category": {
+   "type": "choice",
+   "instructions": "Which condition category best fits the runner's primary presentation?",
+   "criteria": {
+    "minor_skin": "Blisters, chafing or abrasions only, with normal vitals throughout.",
+    "musculoskeletal": "Cramp, strain or sprain without collapse or abnormal vitals.",
+    "postural_collapse": "Collapse at or after finish, normal core temperature and sodium.",
+    "heat_illness": "Core temperature 39.0°C or above, sodium normal or untested.",
+    "sodium_disturbance": "Point-of-care sodium below 135 mmol/L, whatever the temperature."
+   }
+  },
+  "obs_completeness": {
+   "type": "score",
+   "instructions": "How complete is the set of recorded observations for this stay?",
+   "criteria": [
+    "None: no observation set recorded during the stay.",
+    "Arrival only: one set on arrival, never repeated.",
+    "Partial: repeat sets logged but no pre-discharge set.",
+    "Complete: arrival, repeat and pre-discharge sets all logged."
+   ]
+  },
+  "worst_consciousness": {
+   "type": "score",
+   "instructions": "What was the worst level of consciousness recorded during the stay?",
+   "criteria": [
+    "Alert and oriented at every recorded check.",
+    "Alert but confused or disoriented at least once.",
+    "Responded only to voice or pain at least once.",
+    "Unresponsive at one or more recorded checks."
+   ]
+  }
+ },
+ "factors": [
+  {
+   "name": "presentation_type",
+   "description": "True underlying presentation driving the encounter; shapes vitals, sodium, temperature, treatments and the presenting complaint code, which may be vaguer than the true type.",
+   "kind": "categorical",
+   "values": [
+    "minor_skin",
+    "musculoskeletal",
+    "postural_collapse",
+    "heat_illness",
+    "sodium_disturbance"
+   ],
+   "weights": [
+    0.22,
+    0.22,
+    0.2,
+    0.24,
+    0.12
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S7",
+    "S1"
+   ]
+  },
+  {
+   "name": "heat_severity",
+   "description": "For heat presentations, peak core temperature band: below 39, 39.0 to 39.9, or 40.0 and above; non-heat cases mostly normal.",
+   "kind": "categorical",
+   "values": [
+    "normal",
+    "raised_39",
+    "critical_40_plus"
+   ],
+   "weights": [
+    0.55,
+    0.25,
+    0.2
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S5",
+    "S7"
+   ]
+  },
+  {
+   "name": "temp_site",
+   "description": "Site used for the peak temperature reading; tympanic and oral under-read after running, so a high tympanic value alone does not establish core temperature.",
+   "kind": "categorical",
+   "values": [
+    "rectal",
+    "tympanic",
+    "oral"
+   ],
+   "weights": [
+    0.5,
+    0.35,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S5",
+    "S6"
+   ]
+  },
+  {
+   "name": "worst_avpu",
+   "description": "Worst consciousness state actually recorded in any observation set, which may differ from the arrival triage entry.",
+   "kind": "categorical",
+   "values": [
+    "alert",
+    "confused",
+    "voice_or_pain",
+    "unresponsive"
+   ],
+   "weights": [
+    0.5,
+    0.25,
+    0.15,
+    0.1
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S7",
+    "S1",
+    "S6"
+   ]
+  },
+  {
+   "name": "obs_coverage",
+   "description": "Which observation phases were logged: none, arrival only, arrival plus repeats without pre-discharge, or full coverage.",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "arrival_only",
+    "no_predischarge",
+    "complete"
+   ],
+   "weights": [
+    0.08,
+    0.22,
+    0.3,
+    0.4
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S2",
+    "S4"
+   ]
+  },
+  {
+   "name": "cross_section_mismatch",
+   "description": "Unannounced disagreement between sections: none, trivial clock drift under five minutes, bib differs between runner and arrival, triage AVPU disagrees with first observation set, arrival temperature differs from first set, or treatment fluid volumes do not sum to discharge total.",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "trivial_time_drift",
+    "bib_mismatch",
+    "avpu_conflict",
+    "temp_conflict",
+    "fluid_total_mismatch"
+   ],
+   "weights": [
+    0.35,
+    0.15,
+    0.1,
+    0.14,
+    0.13,
+    0.13
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S6"
+   ]
+  },
+  {
+   "name": "early_departure",
+   "description": "Runner left before release criteria were met: discharge left_at precedes pre-discharge obs, disposition is self_discharged, or abnormal last vitals at departure.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.25,
+   "skills": [
+    "S2",
+    "S7"
+   ]
+  },
+  {
+   "name": "departure_mitigated",
+   "description": "Lowers concern about departure: runner accompanied by named companion, handed to ambulance crew, or advice sheet acknowledged; drawn independently of early_departure.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S4"
+   ]
+  },
+  {
+   "name": "sodium_tested",
+   "description": "Whether a point-of-care sodium was taken; when false sodium_mmol is null, so a sodium disturbance cannot be confirmed.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S2",
+    "S5"
+   ]
+  },
+  {
+   "name": "cooling_explains_temp",
+   "description": "Mitigation for a high reading: the high value was tympanic or taken mid-run, and a rectal reading on arrival or soon after was normal; or temperature normalised after documented ice-water immersion.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S5"
+   ]
+  },
+  {
+   "name": "out_of_order_care",
+   "description": "A timestamp shows care happened out of sequence: treatment given before arrived_at, or saline infusion logged before a low sodium result was noted.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.18,
+   "skills": [
+    "S2",
+    "S1"
+   ]
+  },
+  {
+   "name": "declared_condition",
+   "description": "Runner's registration lists a condition or medication that explains an abnormal sign, such as beta-blocker for low heart rate or diabetes for low glucose.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.3,
+   "skills": [
+    "S3"
+   ]
+  },
+  {
+   "name": "borderline_value",
+   "description": "A deciding value sits exactly on a threshold: temperature 39.0 or 40.0, sodium 135, or GCS 14 with AVPU alert.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.3,
+   "skills": [
+    "S6"
+   ]
+  },
+  {
+   "name": "discharge_signed",
+   "description": "Whether the discharge entry carries a clinician signature; when false signed_by is null or the discharge section is null.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.82,
+   "skills": [
+    "S2",
+    "S4"
+   ]
+  }
+ ],
+ "sections": [
+  {
+   "name": "runner",
+   "description": "Registration details: bib, age_band, sex, start_wave, declared medical_flags list and medications list."
+  },
+  {
+   "name": "arrival",
+   "description": "Tent entry: tent_id, bib, arrived_at, course_km, arrival_mode, complaint_code, triage_cat, avpu_on_arrival, temp_on_arrival_c."
+  },
+  {
+   "name": "observations",
+   "description": "List of timed sets: taken_at, phase, hr, sbp, rr, spo2, temp_c, temp_site, avpu, gcs, glucose_mmol, sodium_mmol."
+  },
+  {
+   "name": "treatment",
+   "description": "List of interventions: given_at, code, volume_ml, duration_min, by_role."
+  },
+  {
+   "name": "discharge",
+   "description": "Exit entry: left_at, disposition, accompanied, fluids_total_ml, release_checklist booleans, signed_by; may be null."
+  }
+ ],
+ "rendering_notes": "presentation_type shows indirectly through complaint_code (collapse, cramp, blister, unwell, confused), vitals, temp_c, sodium_mmol and treatment codes (dressing, stretch_massage, leg_elevation, ice_water_immersion, oral_fluids, iv_saline_0_9, hypertonic_saline); complaint_code is a decoy and is often vaguer than or different from the true category. heat_severity sets the peak temp_c in observations and temp_on_arrival_c; temp_site sits on each set. worst_avpu appears only in observations[].avpu and gcs; arrival.avpu_on_arrival and arrival.triage_cat (P1 to P3) are decoys that may disagree with it. obs_coverage controls which phase values (arrival, repeat, pre_discharge) appear in observations; the list may be empty. cross_section_mismatch is never flagged: compare runner.bib with arrival.bib, avpu_on_arrival with the first set, temp_on_arrival_c with the first temp_c, summed treatment volume_ml with discharge.fluids_total_ml, and timestamps across sections. early_departure shows via left_at against pre_discharge taken_at, disposition self_discharged, or abnormal final vitals; departure_mitigated via accompanied true, disposition ambulance_transfer, or release_checklist.advice_given true. sodium_tested false renders sodium_mmol null in every set. cooling_explains_temp renders a later or adjacent rectal reading below 38.5 or an immersion entry followed by normal temp. out_of_order_care shows only through given_at earlier than arrived_at or iv_saline_0_9 given_at after a low sodium taken_at. declared_condition appears in runner.medical_flags or medications. discharge_signed false renders signed_by null or discharge null. Heat stroke is supported only when a rectal temp_c of 40.0 or above coincides, in the same or adjacent set, with avpu other than alert; tympanic highs alone or merely possible cases are false. Review action is the highest applicable step. No field may state a diagnosis, completeness level, review action, worst consciousness summary, risk rating or mismatch flag; disposition and triage_cat are genuine system fields and do not answer any question.",
+ "skills": [
+  "S1",
+  "S2",
+  "S3",
+  "S4",
+  "S5",
+  "S6",
+  "S7"
+ ],
+ "shared_scale": null,
+ "design_cost": 0.203436
+}

@@ -1,0 +1,158 @@
+{
+ "id": "F201-0001",
+ "family": "F201",
+ "state": {
+  "register_header": {
+   "drug": "ketamine",
+   "mg_ml": 100,
+   "sched": 3,
+   "witness_required": true,
+   "branch_id": "B2",
+   "opening_balance_ml": 50
+  },
+  "entries": [
+   {
+    "id": "e1",
+    "type": "receipt",
+    "qty_ml": 50,
+    "bal": 100,
+    "signed_by": "VN2",
+    "witness_id": "VN3"
+   },
+   {
+    "id": "e2",
+    "type": "use",
+    "patient_id": "p1",
+    "qty_ml": 10,
+    "bal": 90,
+    "signed_by": "VN2",
+    "witness_id": null
+   },
+   {
+    "id": "e3",
+    "type": "use",
+    "patient_id": "p2",
+    "qty_ml": 5,
+    "bal": 86,
+    "signed_by": "VN2",
+    "witness_id": null
+   },
+   {
+    "id": "e4",
+    "type": "use",
+    "patient_id": "p3",
+    "qty_ml": 8,
+    "bal": 78,
+    "signed_by": "LOC-114",
+    "witness_id": null
+   },
+   {
+    "id": "e5",
+    "type": "disposal",
+    "qty_ml": 10,
+    "bal": 70,
+    "signed_by": "VN2",
+    "witness_id": null
+   }
+  ],
+  "clinical_records": [
+   {
+    "patient_id": "p1",
+    "dose": 10,
+    "dose_unit": "ml"
+   },
+   {
+    "patient_id": "p2",
+    "dose": 5,
+    "dose_unit": "ml"
+   },
+   {
+    "patient_id": "p3",
+    "dose": 8,
+    "dose_unit": "ml"
+   }
+  ],
+  "stock_check": {
+   "count_date": "2024-05-31",
+   "counted_ml": 64,
+   "overfill_allowance_ml": 1
+  },
+  "disposals": [
+   {
+    "qty_ml": 10,
+    "register_entry_id": "e5",
+    "witness_id": null,
+    "denatured_date": null
+   }
+  ],
+  "exceptions": []
+ },
+ "factors": {
+  "drug_profile": "ketamine_100mg_ml",
+  "arithmetic_slip_count": 2,
+  "unrecorded_admin": "none",
+  "clinical_records_missing": false,
+  "disposal_state": "entered_unwitnessed",
+  "unexplained_shortfall_pct": 2.0,
+  "variance_exception": "none",
+  "manufacturer_overfill": true,
+  "auth_gap_count": 4,
+  "count_out_of_order": false,
+  "unit_mismatch": false,
+  "locum_signatory": true,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "drug_profile": "ketamine_100mg_ml",
+  "arithmetic_slip_count": 2,
+  "unrecorded_admin": "none",
+  "clinical_records_missing": false,
+  "disposal_state": "entered_unwitnessed",
+  "unexplained_shortfall_pct": 6.61,
+  "variance_exception": "none",
+  "manufacturer_overfill": true,
+  "auth_gap_count": 0,
+  "count_out_of_order": false,
+  "unit_mismatch": false,
+  "locum_signatory": true,
+  "boundary_case": false
+ },
+ "plan": {
+  "unexplained_shortfall": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "line_disposition": {
+   "clarity": "leaning",
+   "target": "hold_pending",
+   "second": null
+  },
+  "variance_cause": {
+   "clarity": "balanced",
+   "target": "no_discrepancy",
+   "second": "arithmetic_slip"
+  },
+  "variance_size": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  },
+  "auth_gaps": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 82,
+ "deciding": {
+  "unexplained_shortfall": "Recomputed closing 67 ml (100-10-5-8-10) vs count 64 ml plus 1 ml overfill leaves 2 ml; doses and disposal are all accounted for and there is no exception, so a small residual remains.",
+  "line_disposition": "Disposal e5 is entered but witness_id is null and denatured_date is null: one missing confirmation. The residual is small and the entry gaps are signature-type, so hold.",
+  "variance_cause": "Balances at e3 (86 vs 85) and e5 (70 vs 68) are slips totalling 3 ml, but the residual after the count is only 2 ml. Both slip and no-discrepancy readings are defensible.",
+  "variance_size": "Residual 2 ml over volume of 100 ml (50 opening + 50 received) sits right at the 2% boundary between trace and material.",
+  "auth_gaps": "witness_required is true and witness_id is null on e2, e3, e4 and e5, which is 4 entries; the locum id on e4 is valid, but that entry is still unwitnessed. A count of 3 is arguable if the disposal entry is treated separately."
+ },
+ "request": "rec-F201-0001",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.015345
+}

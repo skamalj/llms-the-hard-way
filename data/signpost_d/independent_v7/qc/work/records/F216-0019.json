@@ -1,0 +1,156 @@
+{
+ "id": "F216-0019",
+ "family": "F216",
+ "state": {
+  "session": {
+   "id": "P310",
+   "session_type": "pharmacy",
+   "date": "2024-02-20",
+   "next_session_date": "2024-02-21"
+  },
+  "storage": {
+   "alarms_30d": 3,
+   "probe_config": "product"
+  },
+  "temp_log": {
+   "readings_10min": [
+    [
+     "10:50",
+     7.9
+    ],
+    [
+     "11:00",
+     8.3
+    ],
+    [
+     "11:10",
+     8.5
+    ],
+    [
+     "11:20",
+     8.7
+    ],
+    [
+     "11:30",
+     8.9
+    ],
+    [
+     "11:40",
+     8.8
+    ],
+    [
+     "11:50",
+     8.6
+    ],
+    [
+     "12:00",
+     8.5
+    ],
+    [
+     "12:10",
+     8.4
+    ],
+    [
+     "12:20",
+     7.8
+    ]
+   ]
+  },
+  "stock": {
+   "lots": [
+    {
+     "lot_no": "F19",
+     "opening": 50,
+     "wasted": 2,
+     "closing": 36
+    }
+   ]
+  },
+  "administration": [
+   {
+    "time": "10:45",
+    "lot_no": "F19",
+    "doses": 8
+   },
+   {
+    "time": "11:05",
+    "lot_no": "F19",
+    "doses": 4
+   }
+  ],
+  "excursion_actions": {
+   "start": "11:10",
+   "quarantined": true,
+   "advice_requested_at": "12:30",
+   "advice_status": "PEND"
+  }
+ },
+ "factors": {
+  "true_excursion_minutes": 80,
+  "log_source_discrepancy": "none",
+  "buffered_probe_in_range": false,
+  "planned_maintenance": false,
+  "stability_clearance": "requested_pending",
+  "doses_during_exposure": 4,
+  "stock_count_gap": 0,
+  "lot_id_mismatch": false,
+  "lots_beyond_tolerance": "none",
+  "freezing_reading": false,
+  "boundary_case": true,
+  "unit_alarm_history": 3,
+  "session_type": "pharmacy"
+ },
+ "factors_sampled": {
+  "true_excursion_minutes": 288,
+  "log_source_discrepancy": "none",
+  "buffered_probe_in_range": true,
+  "planned_maintenance": false,
+  "stability_clearance": "requested_pending",
+  "doses_during_exposure": 12,
+  "stock_count_gap": -3,
+  "lot_id_mismatch": false,
+  "lots_beyond_tolerance": "none",
+  "freezing_reading": false,
+  "boundary_case": true,
+  "unit_alarm_history": 3,
+  "session_type": "pharmacy"
+ },
+ "plan": {
+  "dosed_uncleared": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "stock_reconciles": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "stock_disposition": {
+   "clarity": "contested",
+   "target": "release",
+   "second": "discard_all"
+  },
+  "excursion_duration": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  },
+  "followup_urgency": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 73,
+ "deciding": {
+  "dosed_uncleared": "4 doses at 11:05 fall after the first logger reading above 8 (11:00) but before staff-entered start 11:10; advice PEND. Balanced between the two start times.",
+  "stock_reconciles": "F19: 50-2-(8+4)=36 matches closing; lot numbers match.",
+  "stock_disposition": "Product peaks at only 8.9 and no lot tolerance is given, but advice is still pending and the unit is quarantined. Release versus discard all is contested.",
+  "excursion_duration": "8 readings from 11:00 to 12:10 at 10-minute spacing are above 8.0, about 80 minutes, in the 30-120 band.",
+  "followup_urgency": "Advice is pending, 4 patients may have been dosed, and the next session is the following day. Same-day versus 24 hours is balanced."
+ },
+ "request": "rec-F216-0016",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.014296
+}

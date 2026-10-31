@@ -1,0 +1,117 @@
+{
+ "id": "F210-0007",
+ "family": "F210",
+ "state": {
+  "collection": {
+   "farm_id": "F-118",
+   "collected_at": "2024-06-03T06:40",
+   "compartment": 3,
+   "vat_l": 5000,
+   "meter_l": 4850,
+   "vat_temp_c": 7.2,
+   "last_milking_end": "2024-06-03T05:30"
+  },
+  "sample": {
+   "sample_id": "S-5520",
+   "compartment": 2,
+   "taken_at": "2024-06-03T06:42",
+   "seal_intact": true,
+   "arrival_temp_c": 4.0
+  },
+  "lab_results": {
+   "sample_id": "S-5520",
+   "scc_k_ml": 412,
+   "inhibitory": "neg",
+   "retest": {
+    "requested": true,
+    "result": 398
+   }
+  },
+  "farm_terms": {
+   "limits": {
+    "scc_k_ml": 400,
+    "vat_temp_c": 6
+   },
+   "breaches_90d": 2,
+   "treatment_register": [
+    {
+     "withdrawal_end": "2024-06-05",
+     "segregated": true
+    }
+   ]
+  },
+  "equipment": {
+   "tanker_meter_due": "2024-05-01"
+  }
+ },
+ "factors": {
+  "vat_temp_level": "high",
+  "recent_milking": true,
+  "mismatch_site": "compartment",
+  "mismatch_magnitude": "trivial",
+  "meter_calibration_overdue": true,
+  "lab_limit_breaches": 1,
+  "exception_covers_breach": false,
+  "inhibitory_status": "negative",
+  "treatment_withdrawal_active": true,
+  "retest_state": "cleared",
+  "sample_integrity": "intact",
+  "history_breaches_90d": 2,
+  "value_on_boundary": false,
+  "driver_sensory_flag": false
+ },
+ "factors_sampled": {
+  "vat_temp_level": "high",
+  "recent_milking": true,
+  "mismatch_site": "compartment",
+  "mismatch_magnitude": "trivial",
+  "meter_calibration_overdue": true,
+  "lab_limit_breaches": 2,
+  "exception_covers_breach": false,
+  "inhibitory_status": "negative",
+  "treatment_withdrawal_active": true,
+  "retest_state": "confirmed",
+  "sample_integrity": "intact",
+  "history_breaches_90d": 2,
+  "value_on_boundary": false,
+  "driver_sensory_flag": false
+ },
+ "plan": {
+  "temp_compliant": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "intake_disposition": {
+   "clarity": "leaning",
+   "target": "accept_full",
+   "second": null
+  },
+  "issue_source": {
+   "clarity": "clear",
+   "target": "collection_handling",
+   "second": null
+  },
+  "discrepancy_size": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  },
+  "unexplained_breaches": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  }
+ },
+ "target_words": 38,
+ "deciding": {
+  "temp_compliant": "vat_temp_c 7.2 is over 6 but milking ended 70 minutes before pick-up, so within the 2 h recent-milking window.",
+  "intake_disposition": "Initial scc 412 was over 400 but the retest result 398 is within limit; inhibitory neg, treated milk segregated.",
+  "issue_source": "sample compartment 2 vs collection compartment 3 shows a post-pick-up sampling/handling mix-up; seal intact and lab otherwise clean.",
+  "discrepancy_size": "vat_l 5000 vs meter_l 4850 is a 3% difference (meter calibration overdue), in the 2-10% band.",
+  "unexplained_breaches": "Original scc 412 exceeded limit 400 with no exception, but the retest 398 is below it; whether it counts is the balance."
+ },
+ "request": "rec-F210-0006",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.013002
+}

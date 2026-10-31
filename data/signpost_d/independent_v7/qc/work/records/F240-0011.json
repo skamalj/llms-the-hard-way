@@ -1,0 +1,115 @@
+{
+ "id": "F240-0011",
+ "family": "F240",
+ "state": {
+  "asset": {
+   "inverter_id": "INV-07",
+   "serial": "SN4471",
+   "rated_ac_kw": 1000
+  },
+  "fault_event": {
+   "serial": "SN4417",
+   "code": "F-ISO-01",
+   "ts_start": "2024-06-10T09:00:00Z",
+   "ts_clear": "2024-06-10T14:00:00Z"
+  },
+  "telemetry": {
+   "exp_day_kwh": 6000,
+   "exp_window_kwh": 2800,
+   "act_window_kwh": 774,
+   "last": {
+    "ac_kw": 1000,
+    "limit_pct": 100
+   }
+  },
+  "site_context": {
+   "neighbours": [
+    {
+     "inverter_id": "INV-06",
+     "output_ratio": 0.55
+    }
+   ]
+  },
+  "history": {
+   "faults": [
+    {
+     "date": "2024-06-04",
+     "code": "F-ISO-01"
+    }
+   ],
+   "work_orders": [
+    {
+     "wo_id": "W1",
+     "completed": "2024-06-02",
+     "retest_ok": true
+    }
+   ]
+  }
+ },
+ "factors": {
+  "fault_class": "insulation_resistance",
+  "log_telemetry_mismatch": "none",
+  "grid_event_concurrent": false,
+  "maintenance_window_active": false,
+  "neighbour_cross_check": "neighbours_affected",
+  "repeat_count_30d": 1,
+  "last_repair_status": "completed_verified",
+  "current_limit_pct": 100.0,
+  "yield_loss_pct": 33.76,
+  "low_irradiance_window": false,
+  "serial_mismatch": true,
+  "boundary_placement": true
+ },
+ "factors_sampled": {
+  "fault_class": "insulation_resistance",
+  "log_telemetry_mismatch": "none",
+  "grid_event_concurrent": false,
+  "maintenance_window_active": false,
+  "neighbour_cross_check": "neighbours_affected",
+  "repeat_count_30d": 1,
+  "last_repair_status": "completed_verified",
+  "current_limit_pct": 43.78,
+  "yield_loss_pct": 33.76,
+  "low_irradiance_window": false,
+  "serial_mismatch": true,
+  "boundary_placement": true
+ },
+ "plan": {
+  "genuine_defect": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "post_repair_repeat": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "hold_confirm",
+   "second": null
+  },
+  "yield_loss": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  },
+  "capacity_unavailable": {
+   "clarity": "leaning",
+   "target": "0",
+   "second": null
+  }
+ },
+ "target_words": 42,
+ "deciding": {
+  "genuine_defect": "Fault serial SN4417 differs from asset SN4471 and neighbours are at 0.55, so the log is unreliable and points to an external cause.",
+  "post_repair_repeat": "F-ISO-01 on 2024-06-04 is after the repair completed 2024-06-02, though the serial mismatch leaves some doubt.",
+  "next_step": "The serial mismatch needs confirming before any action, and the output is back to full.",
+  "yield_loss": "The computed loss is (2800-774)/6000 = 33.8%, but the serial mismatch and affected neighbours cast doubt on attributing it to the fault.",
+  "capacity_unavailable": "The last sample shows 1000 kW at 100% limit, so full output."
+ },
+ "request": "rec-F240-0011",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.00554
+}

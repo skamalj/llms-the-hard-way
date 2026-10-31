@@ -1,0 +1,149 @@
+{
+ "id": "F201-0070",
+ "family": "F201",
+ "state": {
+  "register_header": {
+   "drug": "pentobarbital",
+   "strength": "200mg/ml",
+   "concentration_mg_ml": 200,
+   "schedule": 2,
+   "witness_required": true,
+   "branch_id": "B5",
+   "page_id": "P05",
+   "period_start": "2024-05-01",
+   "period_end": "2024-05-31",
+   "opening_balance_ml": 20
+  },
+  "entries": [
+   {
+    "entry_id": "E1",
+    "date": "2024-05-06",
+    "type": "admin",
+    "qty_ml": 4,
+    "patient_id": "P501",
+    "running_balance_ml": 16,
+    "signed_by": "LOC-77",
+    "witness_id": "W1"
+   },
+   {
+    "entry_id": "E2",
+    "date": "2024-05-13",
+    "type": "admin",
+    "qty_ml": 4,
+    "patient_id": "P502",
+    "running_balance_ml": 12,
+    "signed_by": "S3",
+    "witness_id": null
+   },
+   {
+    "entry_id": "E3",
+    "date": "2024-05-20",
+    "type": "disposal",
+    "qty_ml": 2,
+    "patient_id": null,
+    "running_balance_ml": 10,
+    "signed_by": "S3",
+    "witness_id": "W1"
+   }
+  ],
+  "clinical_records": null,
+  "stock_check": {
+   "count_date": "2024-05-31",
+   "counted_ml": 7.4,
+   "counted_by": "S3",
+   "checked_by": "W1",
+   "batch_no": "N2",
+   "overfill_allowance_ml": 0.2
+  },
+  "disposals": [
+   {
+    "batch_no": "N2",
+    "qty_ml": 2,
+    "reason_code": "EXP",
+    "removed_date": "2024-05-20",
+    "register_entry_id": "E3",
+    "witness_id": "W1",
+    "denatured_date": "2024-05-21"
+   }
+  ],
+  "exceptions": [
+   {
+    "exception_id": "X5",
+    "batch_no": "N2",
+    "qty_ml": 0.4,
+    "reason_code": "SPILL",
+    "approved_by": "D1",
+    "valid_from": "2024-05-01",
+    "valid_to": "2024-06-30"
+   }
+  ]
+ },
+ "factors": {
+  "drug_profile": "pentobarbital_200mg_ml",
+  "arithmetic_slip_count": 0,
+  "unrecorded_admin": "none",
+  "clinical_records_missing": true,
+  "disposal_state": "witnessed_complete",
+  "unexplained_shortfall_pct": 13.0,
+  "variance_exception": "valid_partial_cover",
+  "manufacturer_overfill": true,
+  "auth_gap_count": 1,
+  "count_out_of_order": false,
+  "unit_mismatch": false,
+  "locum_signatory": true,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "drug_profile": "pentobarbital_200mg_ml",
+  "arithmetic_slip_count": 0,
+  "unrecorded_admin": "trivial_under_1pct",
+  "clinical_records_missing": true,
+  "disposal_state": "witnessed_complete",
+  "unexplained_shortfall_pct": 1.82,
+  "variance_exception": "valid_partial_cover",
+  "manufacturer_overfill": true,
+  "auth_gap_count": 4,
+  "count_out_of_order": false,
+  "unit_mismatch": false,
+  "locum_signatory": true,
+  "boundary_case": false
+ },
+ "plan": {
+  "unexplained_shortfall": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "line_disposition": {
+   "clarity": "clear",
+   "target": "correct_and_sign",
+   "second": null
+  },
+  "variance_cause": {
+   "clarity": "clear",
+   "target": "no_discrepancy",
+   "second": null
+  },
+  "variance_size": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  },
+  "auth_gaps": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  }
+ },
+ "target_words": 28,
+ "deciding": {
+  "unexplained_shortfall": "Recomputed 10 vs counted 7.4 leaves 2.6 ml; exception X5 covers only 0.4 and overfill 0.2, so about 2.0 ml has no counterpart.",
+  "line_disposition": "Plan wanted correct_and_sign, but a 2 ml residual loss plus missing clinical export cannot be fixed by annotation alone.",
+  "variance_cause": "Balances recompute, disposal is logged, exception covers only part, so the main remainder has no matching record: unexplained loss.",
+  "variance_size": "10 - 7.4 - 0.4 - 0.2 = 2.0 ml on 20 ml handled, exactly 10%, the boundary between Material and Major.",
+  "auth_gaps": "Only E2 witness null; LOC-77 on E1 is a valid locum signature, so exactly one gap."
+ },
+ "request": "rec-F201-0066",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.016511
+}

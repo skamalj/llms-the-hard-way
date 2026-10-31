@@ -1,0 +1,140 @@
+{
+ "id": "F213-0067",
+ "family": "F213",
+ "state": {
+  "pool": {
+   "type": "leisure",
+   "log_date": "2025-06-10",
+   "test_interval_min": 120,
+   "open": "08:00",
+   "close": "12:00",
+   "limits": {
+    "free_cl_max": 3
+   },
+   "tolerance": {
+    "free_cl": 0.2
+   },
+   "micro_due": "2025-06-09"
+  },
+  "manual_tests": [
+   {
+    "t": "08:00",
+    "free_cl": 2.0,
+    "kit_id": "K2"
+   },
+   {
+    "t": "10:00",
+    "free_cl": 3.2,
+    "kit_id": "K2"
+   },
+   {
+    "t": "12:00",
+    "free_cl": 2.6,
+    "kit_id": "K2"
+   }
+  ],
+  "plant": {
+   "controller_readings": [
+    {
+     "t": "10:15",
+     "free_cl": 3.0
+    }
+   ],
+   "dosing_events": [
+    {
+     "t": "09:45",
+     "type": "shock"
+    }
+   ]
+  },
+  "equipment": {
+   "kits": [
+    {
+     "kit_id": "K2",
+     "cal_due": "2025-05-20"
+    }
+   ]
+  },
+  "actions": [
+   {
+    "t": "12:00",
+    "reading_ref": "10:00",
+    "retest_time": null
+   }
+  ],
+  "lab_sample": {
+   "sampled_on": "2025-06-09",
+   "result_on": null,
+   "status": "pending",
+   "tvc_37": null
+  }
+ },
+ "factors": {
+  "pool_type": "leisure",
+  "test_coverage_gap": 1,
+  "boundary_interval": true,
+  "log_controller_discrepancy": "just_over",
+  "discrepancy_location": "timestamp_offset",
+  "excursion_severity": "marginal",
+  "corrective_action_delay": "borderline_120",
+  "retest_logged": false,
+  "dosing_event_explains": true,
+  "kit_calibration_status": "expired_before",
+  "lab_sample_state": "pending",
+  "out_of_order_entry": false,
+  "benign_noise": "none"
+ },
+ "factors_sampled": {
+  "pool_type": "leisure",
+  "test_coverage_gap": 1,
+  "boundary_interval": true,
+  "log_controller_discrepancy": "just_over",
+  "discrepancy_location": "timestamp_offset",
+  "excursion_severity": "none",
+  "corrective_action_delay": "prompt",
+  "retest_logged": false,
+  "dosing_event_explains": true,
+  "kit_calibration_status": "expired_before",
+  "lab_sample_state": "pending",
+  "out_of_order_entry": false,
+  "benign_noise": "none"
+ },
+ "plan": {
+  "test_frequency_met": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "readings_reconcile": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "log_disposition": {
+   "clarity": "clear",
+   "target": "hold_for_retest",
+   "second": null
+  },
+  "action_delay": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  },
+  "failed_checks": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 43,
+ "deciding": {
+  "test_frequency_met": "Tests at 08:00, 10:00, 12:00 are each exactly 120 min apart across opening hours.",
+  "readings_reconcile": "Controller 3.0 at 10:15 vs manual 3.2 at 10:00: difference equals the 0.2 tolerance, with a 15 min time offset.",
+  "log_disposition": "Lab sample result_on is null with status pending, so the outcome hinges on that pending result.",
+  "action_delay": "Free_cl 3.2 over max 3 at 10:00; action logged 12:00, exactly 120 min, at the 2 vs 3 boundary.",
+  "failed_checks": "Kit K2 cal_due 2025-05-20 is expired, the action is slow, the lab is pending, and the reconciliation sits on tolerance; counting these gives 2 or 3."
+ },
+ "request": "rec-F213-0066",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.010215
+}

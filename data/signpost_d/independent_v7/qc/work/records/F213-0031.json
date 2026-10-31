@@ -1,0 +1,149 @@
+{
+ "id": "F213-0031",
+ "family": "F213",
+ "state": {
+  "pool": {
+   "type": "teaching",
+   "test_interval_min": 120,
+   "opening": {
+    "open": "2025-05-02T08:00",
+    "close": "2025-05-02T12:00"
+   },
+   "limits": {
+    "free_cl_min": 1.0,
+    "combined_cl_max": 0.5
+   },
+   "tolerance": {
+    "free_cl": 0.3
+   },
+   "micro_due": "2025-05-09"
+  },
+  "manual_tests": [
+   {
+    "time": "2025-05-02T08:00",
+    "free_cl": 1.4,
+    "combined_cl": 0.2,
+    "temp_c": 28,
+    "kit_id": "K1"
+   },
+   {
+    "time": "2025-05-02T10:00",
+    "free_cl": 1.4,
+    "combined_cl": 0.54,
+    "temp_c": 32,
+    "kit_id": "K1"
+   },
+   {
+    "time": "2025-05-02T12:00",
+    "free_cl": 1.3,
+    "combined_cl": 0.3,
+    "temp_c": 29,
+    "kit_id": "K1"
+   }
+  ],
+  "plant": {
+   "controller_readings": [
+    {
+     "time": "2025-05-02T10:00",
+     "free_cl": 1.05,
+     "temp_c": 30
+    }
+   ],
+   "dosing_events": [
+    {
+     "time": "2025-05-02T09:30",
+     "type": "shock"
+    }
+   ]
+  },
+  "equipment": {
+   "kits": [
+    {
+     "kit_id": "K1",
+     "cal_due": "2025-04-30"
+    }
+   ]
+  },
+  "actions": [
+   {
+    "time": "2025-05-02T12:00",
+    "action_type": "dilution",
+    "reading_ref": "2025-05-02T10:00",
+    "retest_time": null
+   }
+  ],
+  "lab_sample": {
+   "sampled_on": "2025-05-01",
+   "result_on": null,
+   "status": "pending"
+  }
+ },
+ "factors": {
+  "pool_type": "teaching",
+  "test_coverage_gap": 0,
+  "boundary_interval": false,
+  "log_controller_discrepancy": "just_over",
+  "discrepancy_location": "free_chlorine",
+  "excursion_severity": "marginal",
+  "corrective_action_delay": "delayed",
+  "retest_logged": false,
+  "dosing_event_explains": true,
+  "kit_calibration_status": "expired_before",
+  "lab_sample_state": "pending",
+  "out_of_order_entry": false,
+  "benign_noise": "temp_swing"
+ },
+ "factors_sampled": {
+  "pool_type": "teaching",
+  "test_coverage_gap": 1,
+  "boundary_interval": false,
+  "log_controller_discrepancy": "large",
+  "discrepancy_location": "temperature",
+  "excursion_severity": "marginal",
+  "corrective_action_delay": "delayed",
+  "retest_logged": false,
+  "dosing_event_explains": true,
+  "kit_calibration_status": "expired_before",
+  "lab_sample_state": "pending",
+  "out_of_order_entry": false,
+  "benign_noise": "temp_swing"
+ },
+ "plan": {
+  "test_frequency_met": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "readings_reconcile": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "log_disposition": {
+   "clarity": "leaning",
+   "target": "accept",
+   "second": null
+  },
+  "action_delay": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  },
+  "failed_checks": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  }
+ },
+ "target_words": 49,
+ "deciding": {
+  "test_frequency_met": "Tests at 08:00, 10:00 and 12:00 cover the 120 minute interval across opening hours.",
+  "readings_reconcile": "At 10:00 manual free_cl 1.4 vs controller 1.05 is a 0.35 difference against a 0.3 tolerance, only just over.",
+  "log_disposition": "Marginal combined_cl at 10:00 explained by the 09:30 shock dose and action logged; leans accept despite pending lab sample.",
+  "action_delay": "Combined_cl 0.54 at 10:00; first action logged 12:00 referencing it, exactly 120 minutes, on the 2 and 3 boundary.",
+  "failed_checks": "Kit K1 cal_due 2025-04-30 expired, free_cl just over tolerance and 120 minute delay; no retest logged, giving two or three failures."
+ },
+ "request": "rec-F213-0031",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011746
+}

@@ -1,0 +1,169 @@
+{
+ "id": "F230-0070",
+ "family": "F230",
+ "state": {
+  "resident": {
+   "status": "resident"
+  },
+  "prescriptions": [
+   {
+    "item_id": "E1",
+    "drug": "insulin glargine",
+    "dose_units": 1,
+    "time_critical": true,
+    "high_risk": true
+   },
+   {
+    "item_id": "E2",
+    "drug": "paracetamol",
+    "dose_units": 2,
+    "time_critical": false
+   },
+   {
+    "item_id": "E3",
+    "drug": "lactulose",
+    "dose_units": 1,
+    "time_critical": false
+   },
+   {
+    "item_id": "E4",
+    "drug": "calcium",
+    "dose_units": 1,
+    "time_critical": false
+   }
+  ],
+  "administrations": [
+   {
+    "item_id": "E1",
+    "scheduled": "2025-06-03T08:00",
+    "given_at": "2025-06-03T08:02",
+    "units_given": 1,
+    "initials": "TS"
+   },
+   {
+    "item_id": "E1",
+    "scheduled": "2025-06-03T08:00",
+    "given_at": "2025-06-03T08:30",
+    "units_given": 1,
+    "initials": "TS"
+   },
+   {
+    "item_id": "E2",
+    "scheduled": "2025-06-03T08:00",
+    "given_at": "2025-06-03T08:10",
+    "units_given": 1,
+    "initials": "TS"
+   },
+   {
+    "item_id": "E3",
+    "scheduled": "2025-06-03T08:00",
+    "given_at": "2025-06-03T08:12",
+    "units_given": 1,
+    "initials": "TS"
+   },
+   {
+    "item_id": "E4",
+    "scheduled": "2025-06-03T08:00",
+    "given_at": "2025-06-03T09:00",
+    "units_given": 1,
+    "initials": "TS"
+   }
+  ],
+  "stock": [
+   {
+    "item_id": "E1",
+    "opening": 12,
+    "received": 0,
+    "wasted": 0,
+    "returned": 0,
+    "closing": 10
+   }
+  ],
+  "round": {
+   "date": "2025-06-03",
+   "open_queries": [
+    {
+     "type": "entry_confirmation",
+     "raised": "2025-06-03T09:40",
+     "item_id": "E1"
+    }
+   ],
+   "post_dose_obs": [
+    {
+     "type": "glucose",
+     "value": 5.8
+    }
+   ]
+  }
+ },
+ "factors": {
+  "dose_mismatch_type": "duplicate_entry",
+  "prescription_change_documented": false,
+  "omission_count": 0,
+  "omission_reason_valid": false,
+  "late_minutes": 60,
+  "time_critical_affected": true,
+  "stock_variance": 0,
+  "stock_variance_explained": false,
+  "signature_gaps": 0,
+  "unit_expression_decoy": "none_present",
+  "post_dose_obs_reassuring": true,
+  "pending_query": "entry_confirmation_on_E1",
+  "prior_errors_30d": 2,
+  "item_count": 4
+ },
+ "factors_sampled": {
+  "dose_mismatch_type": "none",
+  "prescription_change_documented": true,
+  "omission_count": 3,
+  "omission_reason_valid": true,
+  "late_minutes": 60,
+  "time_critical_affected": false,
+  "stock_variance": -1,
+  "stock_variance_explained": false,
+  "signature_gaps": 0,
+  "unit_expression_decoy": "none_present",
+  "post_dose_obs_reassuring": true,
+  "pending_query": "none",
+  "prior_errors_30d": 2,
+  "item_count": 4
+ },
+ "plan": {
+  "dose_mismatch": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "stock_reconciles": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "hold",
+   "second": null
+  },
+  "open_discrepancies": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  },
+  "error_severity": {
+   "clarity": "clear",
+   "target": "4",
+   "second": null
+  }
+ },
+ "target_words": 81,
+ "deciding": {
+  "dose_mismatch": "E1 has two entries for the same scheduled time, and E2 gave 1 unit against a 2 unit prescription.",
+  "stock_reconciles": "E1 opening 12, two entries signed, closing 10; other items have no stock rows.",
+  "next_step": "An open entry_confirmation query on E1 asks whether the second entry is real, so the outcome waits on its answer.",
+  "open_discrepancies": "E1 duplicate and E2 underdose are two items; E4 given exactly 60 minutes late sits on the boundary and could add a third.",
+  "error_severity": "E1 is flagged time_critical and high_risk and has a duplicate entry, so the worst error is critical level 4."
+ },
+ "request": "rec-F230-0066",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.014518
+}

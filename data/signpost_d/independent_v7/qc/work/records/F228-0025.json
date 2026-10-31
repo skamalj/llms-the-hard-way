@@ -1,0 +1,116 @@
+{
+ "id": "F228-0025",
+ "family": "F228",
+ "state": {
+  "booking_declaration": {
+   "vgm_kg": 20000,
+   "declared_tare_kg": 3200,
+   "declared_cargo_kg": 16800,
+   "submitted_at": "2025-07-09T20:00:00+02:00",
+   "amendments": []
+  },
+  "equipment": {
+   "csc_plate_tare_kg": 3600,
+   "csc_max_gross_kg": 30480
+  },
+  "cargo_lines": [
+   {
+    "packages": 30,
+    "gross_kg": 16800
+   }
+  ],
+  "terminal_weighing": {
+   "read_at": "2025-07-10T07:00:00Z",
+   "gross_reading_kg": 32400,
+   "tractor_tare_kg": 8000,
+   "chassis_tare_kg": 4000,
+   "chassis_registry_tare_kg": 4000,
+   "calibration_valid_to": "2025-12-31",
+   "reweigh": {
+    "status": "none"
+   }
+  },
+  "voyage_plan": {
+   "review_at": "2025-07-10T08:00:00Z",
+   "loading_start_at": "2025-07-10T10:03:00Z",
+   "deck_or_hold": "hold",
+   "tolerance_pct": 1.5
+  },
+  "shipper_profile": {
+   "method2_authorised": true,
+   "last_audit_on": "2025-02-10",
+   "last_audit_result": "pass",
+   "discrepancies_12m": 3
+  }
+ },
+ "factors": {
+  "gap_band": "2_to_5pct",
+  "gap_direction": "understated",
+  "gap_source": "tare",
+  "decoy_mismatch": "timestamp_offset_differs",
+  "scale_calibration_valid": true,
+  "amended_vgm_on_file": false,
+  "shipper_trusted": true,
+  "prior_discrepancies": 3,
+  "hours_to_loading": 2.05,
+  "reweigh_status": "none",
+  "stow_position": "below_deck",
+  "exceeds_csc_max": false,
+  "cargo_lines_missing": false,
+  "tolerance_pct": "1.5"
+ },
+ "factors_sampled": {
+  "gap_band": "2_to_5pct",
+  "gap_direction": "understated",
+  "gap_source": "weighing",
+  "decoy_mismatch": "timestamp_offset_differs",
+  "scale_calibration_valid": false,
+  "amended_vgm_on_file": true,
+  "shipper_trusted": true,
+  "prior_discrepancies": 3,
+  "hours_to_loading": -2.4,
+  "reweigh_status": "done_matches_declared",
+  "stow_position": "below_deck",
+  "exceeds_csc_max": true,
+  "cargo_lines_missing": false,
+  "tolerance_pct": "3"
+ },
+ "plan": {
+  "vgm_understated": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "disposition": {
+   "clarity": "balanced",
+   "target": "release",
+   "second": "amend_and_load"
+  },
+  "gap_source": {
+   "clarity": "clear",
+   "target": "tare_error",
+   "second": null
+  },
+  "gap_magnitude": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "time_pressure": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  }
+ },
+ "target_words": 40,
+ "deciding": {
+  "vgm_understated": "Terminal mass 32400-8000-4000=20400 vs 20000 is 2.0%, above tolerance 1.5%; calibration valid, no amendment.",
+  "disposition": "Valid reading beyond tolerance, under plate max, so amend_and_load; trusted shipper with a small gap makes release defensible.",
+  "gap_source": "declared_tare 3200 vs plate tare 3600 (400 kg), while cargo lines sum matches declared cargo 16800.",
+  "gap_magnitude": "400/20000 = 2.0%, exactly at the boundary between level 0 and level 1.",
+  "time_pressure": "Review 08:00 vs loading 10:03 is 2.05h, just over the 2h boundary between pressing and critical."
+ },
+ "request": "rec-F228-0021",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011047
+}

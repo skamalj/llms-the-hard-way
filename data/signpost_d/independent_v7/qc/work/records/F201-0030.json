@@ -1,0 +1,167 @@
+{
+ "id": "F201-0030",
+ "family": "F201",
+ "state": {
+  "register_header": {
+   "drug": "midazolam",
+   "concentration_mg_ml": 5,
+   "witness_required": true,
+   "opening_balance_ml": 20
+  },
+  "entries": [
+   {
+    "entry_id": "E1",
+    "type": "receipt",
+    "qty_ml": 20,
+    "running_balance_ml": 40,
+    "signed_by": "s5",
+    "witness_id": null,
+    "batch_no": "B3"
+   },
+   {
+    "entry_id": "E2",
+    "qty_ml": 3,
+    "patient_id": "P1",
+    "running_balance_ml": 37,
+    "signed_by": null,
+    "witness_id": "w1"
+   },
+   {
+    "entry_id": "E3",
+    "qty_ml": 2,
+    "patient_id": "P2",
+    "running_balance_ml": 34,
+    "signed_by": "s5",
+    "witness_id": null
+   },
+   {
+    "entry_id": "E4",
+    "qty_ml": 2,
+    "patient_id": "P3",
+    "running_balance_ml": 31,
+    "signed_by": null,
+    "witness_id": "w1"
+   },
+   {
+    "entry_id": "E5",
+    "qty_ml": 2,
+    "patient_id": "P4",
+    "running_balance_ml": 28,
+    "signed_by": "s5",
+    "witness_id": null
+   }
+  ],
+  "clinical_records": [
+   {
+    "patient_id": "P1",
+    "dose": 3,
+    "dose_unit": "ml"
+   },
+   {
+    "patient_id": "P2",
+    "dose": 2,
+    "dose_unit": "ml"
+   },
+   {
+    "patient_id": "P3",
+    "dose": 2,
+    "dose_unit": "ml"
+   },
+   {
+    "patient_id": "P4",
+    "dose": 2,
+    "dose_unit": "ml"
+   }
+  ],
+  "stock_check": {
+   "counted_ml": 25,
+   "batch_no": "B3",
+   "overfill_allowance_ml": 0.5
+  },
+  "disposals": [
+   {
+    "batch_no": "B3",
+    "qty_ml": 5,
+    "register_entry_id": null,
+    "witness_id": null
+   }
+  ],
+  "exceptions": [
+   {
+    "exception_id": "X2",
+    "batch_no": "B3",
+    "qty_ml": 1,
+    "valid_from": "2025-01-01",
+    "valid_to": "2025-12-31"
+   }
+  ]
+ },
+ "factors": {
+  "drug_profile": "midazolam_5mg_ml",
+  "arithmetic_slip_count": 3,
+  "unrecorded_admin": "none",
+  "clinical_records_missing": false,
+  "disposal_state": "removed_unlogged",
+  "unexplained_shortfall_pct": 11.25,
+  "variance_exception": "valid_partial_cover",
+  "manufacturer_overfill": true,
+  "auth_gap_count": 5,
+  "count_out_of_order": false,
+  "unit_mismatch": false,
+  "locum_signatory": false,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "drug_profile": "midazolam_5mg_ml",
+  "arithmetic_slip_count": 3,
+  "unrecorded_admin": "none",
+  "clinical_records_missing": false,
+  "disposal_state": "removed_unlogged",
+  "unexplained_shortfall_pct": 11.95,
+  "variance_exception": "valid_partial_cover",
+  "manufacturer_overfill": true,
+  "auth_gap_count": 5,
+  "count_out_of_order": false,
+  "unit_mismatch": false,
+  "locum_signatory": false,
+  "boundary_case": false
+ },
+ "plan": {
+  "unexplained_shortfall": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "line_disposition": {
+   "clarity": "balanced",
+   "target": "correct_and_sign",
+   "second": "sign_off"
+  },
+  "variance_cause": {
+   "clarity": "balanced",
+   "target": "no_discrepancy",
+   "second": "undocumented_disposal"
+  },
+  "variance_size": {
+   "clarity": "clear",
+   "target": "3",
+   "second": null
+  },
+  "auth_gaps": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  }
+ },
+ "target_words": 28,
+ "deciding": {
+  "unexplained_shortfall": "Recomputed closing 31 ml vs counted 25 ml; only 1 ml exception and 0.5 overfill apply, and the 5 ml disposal has no register entry, leaving 4.5 ml unmatched by any logged record.",
+  "line_disposition": "Stated balances 34, 31 and 28 contain slips, which are clerical, but the count gap persists after correction; the arguments split between annotating and closing.",
+  "variance_cause": "The disposals item with register_entry_id null and no entries line is 5 ml against a 4.5 ml residual, though a reader might treat the stock as reconciled given slips and the partial exception.",
+  "variance_size": "Remaining 6 minus 1 exception minus 0.5 overfill is 4.5 ml over 40 ml handled (20 opening + 20 receipt), about 11%, above 10%.",
+  "auth_gaps": "witness_required true; E1, E3 and E5 have null witness_id and E2 and E4 have null signed_by, giving 5 gaps."
+ },
+ "request": "rec-F201-0026",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.014902
+}

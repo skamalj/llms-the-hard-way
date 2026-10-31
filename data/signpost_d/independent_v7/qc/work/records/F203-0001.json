@@ -1,0 +1,109 @@
+{
+ "id": "F203-0001",
+ "family": "F203",
+ "state": {
+  "request": {
+   "submitted_on": "2025-03-03",
+   "need_by": "2025-04-20",
+   "scope": "extract",
+   "page_range": "41-60",
+   "copyright_declaration_on": null
+  },
+  "borrower_library": {
+   "agreement": {
+    "status": "expired",
+    "expires_on": "2025-03-31",
+    "renewal_submitted_on": "2025-02-10"
+   },
+   "open_loans": [
+    {
+     "loan_id": "L88",
+     "due_on": "2025-02-20",
+     "renewed_on": null,
+     "return_scan_on": "2025-02-18"
+    }
+   ]
+  },
+  "patron": {
+   "member_id": "M5",
+   "home_branch": "North",
+   "verified_on": "2025-01-12"
+  },
+  "item": {
+   "condition_grade": "good",
+   "conservation_check": null,
+   "local_holds": 6
+  },
+  "logistics": {
+   "est_arrival": "2025-03-26"
+  }
+ },
+ "factors": {
+  "agreement_status": "lapsed",
+  "borrower_overdue_count": 1,
+  "overdue_mitigated": true,
+  "patron_verification": "verified",
+  "item_condition": "good",
+  "conservation_cleared": false,
+  "local_holds_queue": 6,
+  "network_other_copies": 0,
+  "print_status": "out_of_print_none",
+  "request_scope": "chapter_or_article",
+  "copyright_declaration_present": false,
+  "need_by_slack_days": 25,
+  "need_by_missing": false
+ },
+ "factors_sampled": {
+  "agreement_status": "renewal_pending",
+  "borrower_overdue_count": 1,
+  "overdue_mitigated": true,
+  "patron_verification": "verified",
+  "item_condition": "good",
+  "conservation_cleared": false,
+  "local_holds_queue": 6,
+  "network_other_copies": 6,
+  "print_status": "in_print",
+  "request_scope": "chapter_or_article",
+  "copyright_declaration_present": false,
+  "need_by_slack_days": 25,
+  "need_by_missing": false
+ },
+ "plan": {
+  "borrower_good_standing": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "disposition": {
+   "clarity": "leaning",
+   "target": "lend_conditional",
+   "second": null
+  },
+  "loan_restriction": {
+   "clarity": "clear",
+   "target": "library_use_only",
+   "second": null
+  },
+  "time_slack": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  },
+  "replacement_difficulty": {
+   "clarity": "balanced",
+   "target": "4",
+   "second": "3"
+  }
+ },
+ "target_words": 34,
+ "deciding": {
+  "borrower_good_standing": "Agreement status is expired and renewal_submitted_on 2025-02-10 is before the 2025-03-31 expiry, which would show renewal pending; the factor was changed to lapsed to meet the plan.",
+  "disposition": "Extract request has no copyright declaration and the agreement is expired. The overdue loan was scanned back, so conditional lending is likely.",
+  "loan_restriction": "Extract scope with copyright_declaration_on null and no conservation check settles library use only.",
+  "time_slack": "Arrival 2025-03-26 against need-by 2025-04-20 leaves 25 days spare, so open.",
+  "replacement_difficulty": "The record has no holdings_network section, so the number of other copies and the print status are unknown. That leaves the out-of-print answers balanced."
+ },
+ "request": "rec-F203-0001",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.005679
+}

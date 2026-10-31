@@ -1,0 +1,132 @@
+{
+ "id": "F217-0054",
+ "family": "F217",
+ "state": {
+  "asset": {
+   "asset_id": "CW5",
+   "item_type": "counterweight_set",
+   "swl_kg": 1000,
+   "required_checks": [
+    "rope",
+    "arb",
+    "lock"
+   ]
+  },
+  "certification": {
+   "swl_kg": 1000,
+   "expiry_date": "2025-06-28",
+   "discard_limits": {
+    "rope_wear_pct": 10
+   }
+  },
+  "inspection": {
+   "checks": [
+    {
+     "c": "rope",
+     "r": "fail"
+    },
+    {
+     "c": "arb",
+     "r": "pass"
+    },
+    {
+     "c": "lock",
+     "r": "see WO"
+    }
+   ],
+   "defects": [
+    {
+     "part": "rope",
+     "measured_pct": 12
+    }
+   ]
+  },
+  "load_plan": {
+   "getin_date": "2025-07-02",
+   "bar_weight_kg": 380,
+   "items": [
+    {
+     "desc": "flats",
+     "kg": 200
+    }
+   ]
+  },
+  "maintenance": [
+   {
+    "wo_id": "W6",
+    "completed": "2025-05-10",
+    "retest_date": "2025-05-08",
+    "retest_result": "pass",
+    "note": "Rope replaced."
+   }
+  ]
+ },
+ "factors": {
+  "load_margin_ratio": 0.58,
+  "swl_discrepancy": "none",
+  "worst_defect": "beyond_discard_limit",
+  "defect_in_note_only": false,
+  "checks_outstanding": 0,
+  "exam_status": "lapsed",
+  "repair_status": "repaired_retested",
+  "mitigation_present": true,
+  "date_order_error": true,
+  "certificate_missing": false,
+  "boundary_case": false,
+  "decoy_note": "none",
+  "item_type": "counterweight_set"
+ },
+ "factors_sampled": {
+  "load_margin_ratio": 0.58,
+  "swl_discrepancy": "none",
+  "worst_defect": "cosmetic",
+  "defect_in_note_only": false,
+  "checks_outstanding": 2,
+  "exam_status": "in_date",
+  "repair_status": "repair_open",
+  "mitigation_present": false,
+  "date_order_error": true,
+  "certificate_missing": true,
+  "boundary_case": false,
+  "decoy_note": "none",
+  "item_type": "counterweight_set"
+ },
+ "plan": {
+  "load_within_swl": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "signoff": {
+   "clarity": "contested",
+   "target": "approve_conditional",
+   "second": "hold_pending"
+  },
+  "limiting_issue": {
+   "clarity": "leaning",
+   "target": "exam_lapsed",
+   "second": null
+  },
+  "defect_severity": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  },
+  "checklist_completion": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 58,
+ "deciding": {
+  "load_within_swl": "Load 380+200=580 kg against SWL 1000 kg.",
+  "signoff": "Rope replaced with passing retest allows conditional use, but retest_date 2025-05-08 precedes completed 2025-05-10 and the certificate expired before get-in, favouring hold.",
+  "limiting_issue": "expiry_date 2025-06-28 is before getin_date 2025-07-02; the rope defect has a repair WO, so wear is the rival.",
+  "defect_severity": "Rope measured_pct 12 exceeds discard limit 10, though replacement is recorded.",
+  "checklist_completion": "All three checks carry a result, but lock is 'see WO' rather than a pass/fail, so possibly one still lacking."
+ },
+ "request": "rec-F217-0051",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.010211
+}

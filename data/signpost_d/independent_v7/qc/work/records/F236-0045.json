@@ -1,0 +1,120 @@
+{
+ "id": "F236-0045",
+ "family": "F236",
+ "state": {
+  "changeover": {
+   "line": "L3",
+   "from_allergens": [
+    "tree nuts"
+   ],
+   "to_allergens": []
+  },
+  "cleaning": {
+   "steps": [
+    {
+     "id": "wash",
+     "completed": true,
+     "spec_min": 25,
+     "actual_min": 26
+    }
+   ],
+   "part_swap": true,
+   "dedicated_set": "DS2"
+  },
+  "verification": {
+   "swabs": [
+    {
+     "id": "S1",
+     "reading": 0,
+     "limit_ppm": 5,
+     "at": "09:10"
+    }
+   ]
+  },
+  "production": {
+   "line": "L3",
+   "start_at": "09:30",
+   "qty": 40,
+   "unit": "kg"
+  },
+  "approvals": {
+   "qa_signoff": {
+    "signed_at": "09:20"
+   }
+  },
+  "history": [
+   {
+    "ok": false
+   },
+   {
+    "ok": true
+   }
+  ]
+ },
+ "factors": {
+  "allergen_transition": "removes_allergen",
+  "cleaning_completion": "full",
+  "swab_outcome": "all_negative",
+  "swab_timing_mismatch": false,
+  "cross_section_discrepancy": "none",
+  "exposed_quantity_kg": 40.0,
+  "approved_deviation": false,
+  "label_precaution": false,
+  "dedicated_tooling": true,
+  "qa_signoff_state": "signed_before_start",
+  "line_failure_history": 1,
+  "boundary_value": false
+ },
+ "factors_sampled": {
+  "allergen_transition": "removes_allergen",
+  "cleaning_completion": "multiple_steps_skipped",
+  "swab_outcome": "positive_no_retest",
+  "swab_timing_mismatch": false,
+  "cross_section_discrepancy": "label_allergen_mismatch",
+  "exposed_quantity_kg": 234.31,
+  "approved_deviation": true,
+  "label_precaution": false,
+  "dedicated_tooling": true,
+  "qa_signoff_state": "signed_after_start",
+  "line_failure_history": 1,
+  "boundary_value": false
+ },
+ "plan": {
+  "swabs_cleared": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "line_disposition": {
+   "clarity": "clear",
+   "target": "release",
+   "second": null
+  },
+  "worst_deficiency": {
+   "clarity": "clear",
+   "target": "none",
+   "second": null
+  },
+  "exposed_product": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  },
+  "residue_evidence": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  }
+ },
+ "target_words": 62,
+ "deciding": {
+  "swabs_cleared": "The one swab reads 0 against limit 5 at 09:10, before the 09:30 start.",
+  "line_disposition": "All steps are complete, a dedicated set DS2 was used, the swab passed and sign-off was at 09:20, before start. Nothing remains to do, so release.",
+  "worst_deficiency": "Cleaning is complete, the swab passed, sign-off preceded start and the line and unit fields are consistent.",
+  "exposed_product": "Batch is 40 kg, under 50 kg, and it is the only quantity at issue. The swab came before start, so any exposure is at most small.",
+  "residue_evidence": "The swab reads 0 against limit 5, with no retest needed. Clean."
+ },
+ "request": "rec-F236-0041",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011984
+}

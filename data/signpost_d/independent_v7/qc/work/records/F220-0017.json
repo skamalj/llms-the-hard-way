@@ -1,0 +1,135 @@
+{
+ "id": "F220-0017",
+ "family": "F220",
+ "state": {
+  "tray": {
+   "tray_id": "T-2210",
+   "barcode": "55310284",
+   "requested_for": "2025-03-11T13:00"
+  },
+  "set_check": {
+   "lines": [
+    {
+     "cat_code": "FC10",
+     "qty_expected": 4,
+     "qty_counted": 2
+    },
+    {
+     "cat_code": "SC03",
+     "qty_expected": 2,
+     "qty_counted": 1
+    },
+    {
+     "cat_code": "NH07",
+     "qty_expected": 1,
+     "qty_counted": 0
+    }
+   ],
+   "variances": [],
+   "packer_note": "Counted once."
+  },
+  "washer": {
+   "cycle_id": "W6102",
+   "a0": 3000,
+   "alarms": [],
+   "trays_processed": [
+    "55310248"
+   ]
+  },
+  "steriliser_load": {
+   "load_id": "L88",
+   "cycle_start": "2025-03-11T23:50",
+   "printout": null,
+   "logger": null,
+   "daily_test": {
+    "date": "2025-03-11",
+    "results": [
+     {
+      "result": "fail",
+      "repair_ref": "R-31"
+     },
+     {
+      "result": "pass"
+     }
+    ]
+   },
+   "bi": null,
+   "ci_result": "pass",
+   "unload_condition": "dry, intact"
+  },
+  "release_label": {
+   "tray_barcode": "55310284",
+   "load_id": "L88",
+   "sterilised_date": "2025-03-12",
+   "wrap_condition": "intact"
+  }
+ },
+ "factors": {
+  "set_count_discrepancies": 3,
+  "substitution_documented": false,
+  "cycle_excursion": "none",
+  "independent_logger_confirms": false,
+  "bi_status": "missing",
+  "chemical_indicator": "pass",
+  "washer_record_state": "barcode_not_listed",
+  "pack_integrity": "intact",
+  "label_mismatch": "date_off_by_one_midnight",
+  "daily_test_state": "fail_then_repaired_pass",
+  "theatre_urgency": "next_list",
+  "note_tone": "neutral",
+  "boundary_case": true
+ },
+ "factors_sampled": {
+  "set_count_discrepancies": 3,
+  "substitution_documented": false,
+  "cycle_excursion": "none",
+  "independent_logger_confirms": false,
+  "bi_status": "missing",
+  "chemical_indicator": "pass",
+  "washer_record_state": "complete",
+  "pack_integrity": "wet_on_unload",
+  "label_mismatch": "date_off_by_one_midnight",
+  "daily_test_state": "fail_then_repaired_pass",
+  "theatre_urgency": "next_list",
+  "note_tone": "neutral",
+  "boundary_case": true
+ },
+ "plan": {
+  "cycle_in_limits": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "disposition": {
+   "clarity": "leaning",
+   "target": "reprocess",
+   "second": null
+  },
+  "failure_stage": {
+   "clarity": "contested",
+   "target": "wash_stage",
+   "second": "pack_stage"
+  },
+  "count_gaps": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "sterility_doubt": {
+   "clarity": "clear",
+   "target": "2",
+   "second": null
+  }
+ },
+ "target_words": 76,
+ "deciding": {
+  "cycle_in_limits": "Printout and logger are both null, so no cycle data exist to show it stayed in limits.",
+  "disposition": "Missing cycle data, missing BI, unreconciled counts and a washer barcode mismatch point to reprocessing, though a hold is conceivable.",
+  "failure_stage": "Washer lists 55310248 against tray 55310284 (transposed digits), while three count lines are also unexplained; wash and pack both defensible as earliest.",
+  "count_gaps": "Three short lines with no variances, but FC10 is 2 short, so four instruments are missing; 3 lines vs 4 instruments splits level 2 and 3.",
+  "sterility_doubt": "bi is null and CI passed with a dry, intact wrap and none failed, giving Doubtful (2)."
+ },
+ "request": "rec-F220-0016",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.013754
+}

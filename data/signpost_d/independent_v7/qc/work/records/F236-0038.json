@@ -1,0 +1,95 @@
+{
+ "id": "F236-0038",
+ "family": "F236",
+ "state": {
+  "cleaning": {
+   "steps": [
+    {
+     "id": "mixer",
+     "completed": false
+    }
+   ]
+  },
+  "verification": {
+   "swabs": [
+    {
+     "id": "S1",
+     "ppm": 5,
+     "limit_ppm": 5,
+     "t": "2024-07-02T06:05"
+    }
+   ]
+  },
+  "production": {
+   "start_at": "2024-07-02T06:00",
+   "qty": 50,
+   "unit": "kg"
+  }
+ },
+ "factors": {
+  "allergen_transition": "removes_allergen",
+  "cleaning_completion": "multiple_steps_skipped",
+  "swab_outcome": "reading_at_limit",
+  "swab_timing_mismatch": true,
+  "cross_section_discrepancy": "none",
+  "exposed_quantity_kg": 50.0,
+  "approved_deviation": false,
+  "label_precaution": false,
+  "dedicated_tooling": false,
+  "qa_signoff_state": "missing",
+  "line_failure_history": 4,
+  "boundary_value": true
+ },
+ "factors_sampled": {
+  "allergen_transition": "removes_allergen",
+  "cleaning_completion": "multiple_steps_skipped",
+  "swab_outcome": "all_negative",
+  "swab_timing_mismatch": true,
+  "cross_section_discrepancy": "label_allergen_mismatch",
+  "exposed_quantity_kg": 404.08,
+  "approved_deviation": true,
+  "label_precaution": false,
+  "dedicated_tooling": true,
+  "qa_signoff_state": "signed_before_start",
+  "line_failure_history": 4,
+  "boundary_value": true
+ },
+ "plan": {
+  "swabs_cleared": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "line_disposition": {
+   "clarity": "balanced",
+   "target": "release_conditional",
+   "second": "hold"
+  },
+  "worst_deficiency": {
+   "clarity": "balanced",
+   "target": "records_only",
+   "second": "release_breach"
+  },
+  "exposed_product": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  },
+  "residue_evidence": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 25,
+ "deciding": {
+  "swabs_cleared": "Swab reads 5 ppm, equal to the limit, and is timed 06:05, after the 06:00 start.",
+  "line_disposition": "At-limit swab taken after start, with a skipped mixer step, supports holding or releasing with a control.",
+  "worst_deficiency": "Swab timestamp is after production start (release breach), but the record is sparse, so records_only is also arguable.",
+  "exposed_product": "Quantity is exactly 50 kg, the boundary between levels 1 and 2.",
+  "residue_evidence": "Reading equals the limit with no retest, between cleared and persistent."
+ },
+ "request": "rec-F236-0036",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.010657
+}

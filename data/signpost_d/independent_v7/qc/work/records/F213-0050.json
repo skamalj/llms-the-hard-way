@@ -1,0 +1,154 @@
+{
+ "id": "F213-0050",
+ "family": "F213",
+ "state": {
+  "pool": {
+   "id": "TP-9",
+   "type": "teaching",
+   "test_interval_min": 120,
+   "opening": {
+    "open": "2024-09-03T08:00",
+    "close": "2024-09-03T14:00"
+   },
+   "limits": {
+    "free_cl_min": 1.0,
+    "free_cl_max": 3.0
+   },
+   "tolerance": {
+    "free_cl": 0.3
+   },
+   "micro_due": "2024-09-03"
+  },
+  "manual_tests": [
+   {
+    "t": "08:00",
+    "free_cl": 2.0,
+    "kit_id": "K5"
+   },
+   {
+    "t": "10:00",
+    "free_cl": 3.3,
+    "kit_id": "K5"
+   },
+   {
+    "t": "12:00",
+    "free_cl": 2.2,
+    "kit_id": "K5"
+   },
+   {
+    "t": "14:00",
+    "free_cl": 2.1,
+    "kit_id": "K5"
+   }
+  ],
+  "plant": {
+   "controller_readings": [
+    {
+     "t": "10:00",
+     "free_cl": 2.5
+    }
+   ],
+   "dosing_events": [
+    {
+     "t": "09:40",
+     "type": "shock"
+    }
+   ],
+   "backwash": [
+    "2024-09-03T07:30"
+   ]
+  },
+  "equipment": {
+   "kits": [
+    {
+     "kit_id": "K5",
+     "cal_due": "2024-12-01"
+    }
+   ]
+  },
+  "actions": [
+   {
+    "t": "11:00",
+    "action_type": "dilution",
+    "reading_ref": "10:00",
+    "retest_time": "12:00"
+   }
+  ],
+  "lab_sample": {
+   "sampled_on": "2024-09-03",
+   "result_on": null,
+   "status": "pending",
+   "tvc_37": null,
+   "coliforms": null,
+   "pseudomonas": null
+  }
+ },
+ "factors": {
+  "pool_type": "teaching",
+  "test_coverage_gap": 2,
+  "boundary_interval": false,
+  "log_controller_discrepancy": "none",
+  "discrepancy_location": "free_chlorine",
+  "excursion_severity": "marginal",
+  "corrective_action_delay": "delayed",
+  "retest_logged": true,
+  "dosing_event_explains": true,
+  "kit_calibration_status": "in_date",
+  "lab_sample_state": "pending",
+  "out_of_order_entry": false,
+  "benign_noise": "backwash"
+ },
+ "factors_sampled": {
+  "pool_type": "teaching",
+  "test_coverage_gap": 2,
+  "boundary_interval": false,
+  "log_controller_discrepancy": "none",
+  "discrepancy_location": "free_chlorine",
+  "excursion_severity": "marginal",
+  "corrective_action_delay": "delayed",
+  "retest_logged": true,
+  "dosing_event_explains": true,
+  "kit_calibration_status": "in_date",
+  "lab_sample_state": "pending",
+  "out_of_order_entry": false,
+  "benign_noise": "backwash"
+ },
+ "plan": {
+  "test_frequency_met": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "readings_reconcile": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "log_disposition": {
+   "clarity": "leaning",
+   "target": "accept",
+   "second": null
+  },
+  "action_delay": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  },
+  "failed_checks": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  }
+ },
+ "target_words": 82,
+ "deciding": {
+  "test_frequency_met": "Tests every 120 minutes from 08:00 to 14:00 with no spacing above the interval.",
+  "readings_reconcile": "10:00 manual 3.3 vs controller 2.5; 0.8 exceeds tolerance 0.3.",
+  "log_disposition": "Marginal 3.3 vs max 3.0 after shock, retested at 12:00 to 2.2; lab pending is only a minor doubt.",
+  "action_delay": "Action at 11:00 is 60 minutes after the 10:00 reading, with a shock dosing before it; the mismatch makes level 1 vs 2 arguable.",
+  "failed_checks": "Reconciliation fails; the unexplained controller mismatch and the pending lab could count as two or three."
+ },
+ "request": "rec-F213-0046",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.007397
+}

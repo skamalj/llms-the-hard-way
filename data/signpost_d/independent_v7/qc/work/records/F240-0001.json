@@ -1,0 +1,130 @@
+{
+ "id": "F240-0001",
+ "family": "F240",
+ "state": {
+  "asset": {
+   "inverter_id": "INV-3B",
+   "serial": "SN4471",
+   "rated_ac_kw": 1000
+  },
+  "fault_event": {
+   "serial": "SN4417",
+   "code": "F-COM-01",
+   "fw_severity": 2,
+   "ts_start": "2024-05-11T09:00:00Z",
+   "ts_clear": "2024-05-11T11:00:00Z",
+   "auto_restarts": 2
+  },
+  "telemetry": {
+   "exp_day_kwh": 3000,
+   "exp_window_kwh": 900,
+   "act_window_kwh": 520,
+   "samples": [
+    {
+     "ts": "2024-05-11T10:55:00Z",
+     "ac_kw": 420,
+     "exp_kw": 570,
+     "poa_wm2": 210,
+     "limit_pct": 74.2
+    }
+   ]
+  },
+  "site_context": {
+   "grid_events": [
+    {
+     "ts": "2024-05-11T08:58:00Z",
+     "type": "sag",
+     "magnitude_pu": 0.88
+    }
+   ],
+   "maint_windows": [
+    {
+     "from": "2024-05-11T08:00:00Z",
+     "to": "2024-05-11T12:00:00Z",
+     "scope": "INV-3B"
+    }
+   ],
+   "neighbours": [
+    {
+     "inverter_id": "INV-3A",
+     "output_ratio": 0.71
+    }
+   ]
+  },
+  "history": {
+   "faults": [
+    {
+     "date": "2024-05-02",
+     "code": "F-COM-01"
+    }
+   ],
+   "work_orders": []
+  }
+ },
+ "factors": {
+  "fault_class": "comms_loss",
+  "log_telemetry_mismatch": "none",
+  "grid_event_concurrent": true,
+  "maintenance_window_active": true,
+  "neighbour_cross_check": "neighbours_affected",
+  "repeat_count_30d": 1,
+  "last_repair_status": "none",
+  "current_limit_pct": 74.2,
+  "yield_loss_pct": 12.67,
+  "low_irradiance_window": true,
+  "serial_mismatch": true,
+  "boundary_placement": false
+ },
+ "factors_sampled": {
+  "fault_class": "comms_loss",
+  "log_telemetry_mismatch": "none",
+  "grid_event_concurrent": true,
+  "maintenance_window_active": true,
+  "neighbour_cross_check": "neighbours_affected",
+  "repeat_count_30d": 1,
+  "last_repair_status": "none",
+  "current_limit_pct": 74.2,
+  "yield_loss_pct": 12.67,
+  "low_irradiance_window": true,
+  "serial_mismatch": true,
+  "boundary_placement": false
+ },
+ "plan": {
+  "genuine_defect": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "post_repair_repeat": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "watch_list",
+   "second": null
+  },
+  "yield_loss": {
+   "clarity": "contested",
+   "target": "2",
+   "second": "1"
+  },
+  "capacity_unavailable": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  }
+ },
+ "target_words": 104,
+ "deciding": {
+  "genuine_defect": "Serial mismatch, concurrent grid sag, affected neighbour and maintenance window are mitigating; repeat comms fault is aggravating.",
+  "post_repair_repeat": "Contradictory: no work orders listed, yet history shows a prior matching code, so repeat is only weakly supported.",
+  "next_step": "Fault cleared at ts_clear with unclear cause and limit still 74.2, so recheck at next review.",
+  "yield_loss": "Loss (900-520)/3000=12.67% against mild low irradiance; the band is Material under the stated thresholds.",
+  "capacity_unavailable": "Last sample limit_pct 74.2 with ac_kw 420 of rated 1000 conflict, so output is partial and not offline."
+ },
+ "request": "rec-F240-0001",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.007011
+}

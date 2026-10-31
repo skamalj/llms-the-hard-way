@@ -1,0 +1,103 @@
+{
+ "id": "F210-0003",
+ "family": "F210",
+ "state": {
+  "collection": {
+   "collected_at": "2025-06-02T06:00",
+   "vat_l": 3000,
+   "meter_l": 2550,
+   "vat_temp_c": 6.1,
+   "last_milking_end": "2025-06-02T04:05"
+  },
+  "sample": {
+   "seal_intact": false
+  },
+  "lab_results": {
+   "bactoscan_kcfu_ml": 150,
+   "scc_k_ml": 450,
+   "inhibitory": "presumptive_pos",
+   "retest": {
+    "requested": true,
+    "result": null
+   }
+  },
+  "farm_terms": {
+   "limits": {
+    "temp_c": 6,
+    "bactoscan_kcfu_ml": 100,
+    "scc_k_ml": 400
+   },
+   "breaches_90d": 3
+  }
+ },
+ "factors": {
+  "vat_temp_level": "borderline",
+  "recent_milking": true,
+  "mismatch_site": "volume",
+  "mismatch_magnitude": "moderate",
+  "meter_calibration_overdue": false,
+  "lab_limit_breaches": 2,
+  "exception_covers_breach": false,
+  "inhibitory_status": "presumptive_positive",
+  "treatment_withdrawal_active": false,
+  "retest_state": "pending",
+  "sample_integrity": "seal_compromised",
+  "history_breaches_90d": 3,
+  "value_on_boundary": false,
+  "driver_sensory_flag": false
+ },
+ "factors_sampled": {
+  "vat_temp_level": "compliant",
+  "recent_milking": true,
+  "mismatch_site": "none",
+  "mismatch_magnitude": "trivial",
+  "meter_calibration_overdue": false,
+  "lab_limit_breaches": 3,
+  "exception_covers_breach": false,
+  "inhibitory_status": "presumptive_positive",
+  "treatment_withdrawal_active": false,
+  "retest_state": "pending",
+  "sample_integrity": "seal_compromised",
+  "history_breaches_90d": 3,
+  "value_on_boundary": false,
+  "driver_sensory_flag": false
+ },
+ "plan": {
+  "temp_compliant": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "intake_disposition": {
+   "clarity": "leaning",
+   "target": "hold_retest",
+   "second": null
+  },
+  "issue_source": {
+   "clarity": "contested",
+   "target": "recording_error",
+   "second": "collection_handling"
+  },
+  "discrepancy_size": {
+   "clarity": "clear",
+   "target": "2",
+   "second": null
+  },
+  "unexplained_breaches": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  }
+ },
+ "target_words": 25,
+ "deciding": {
+  "temp_compliant": "vat_temp_c 6.1 is just over the 6 limit, but milking ended 1h55 before collection, inside the 2 h window.",
+  "intake_disposition": "Inhibitory is presumptive_pos with a pending retest and a broken seal, so confirmation is needed before any decision.",
+  "issue_source": "The 450 litre volume gap could be a meter entry error, but seal_intact false points to handling after pick-up; neither is decisive.",
+  "discrepancy_size": "vat_l 3000 vs meter_l 2550 is a 15% difference.",
+  "unexplained_breaches": "bactoscan 150 and scc 450 exceed their limits with no exceptions, but the seal problem makes the results arguably less reliable."
+ },
+ "request": "rec-F210-0001",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.009447
+}

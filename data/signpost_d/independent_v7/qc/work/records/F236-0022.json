@@ -1,0 +1,133 @@
+{
+ "id": "F236-0022",
+ "family": "F236",
+ "state": {
+  "changeover": {
+   "line_id": "L2",
+   "from_allergens": [
+    "milk"
+   ],
+   "to_allergens": [
+    "milk",
+    "egg"
+   ]
+  },
+  "cleaning": {
+   "steps": [
+    {
+     "n": "wash",
+     "completed": true,
+     "spec_min": 30,
+     "actual_min": 25
+    }
+   ],
+   "part_swap": true,
+   "set_id": "DS-4"
+  },
+  "verification": {
+   "swabs": [
+    {
+     "id": "S1",
+     "ppm": 5,
+     "limit_ppm": 5,
+     "t": "2025-04-02T05:30"
+    },
+    {
+     "id": "S2",
+     "ppm": 0,
+     "limit_ppm": 5,
+     "t": "2025-04-02T05:58",
+     "retest_of": "S1"
+    }
+   ]
+  },
+  "production": {
+   "line_id": "L2",
+   "start_at": "2025-04-02T06:00",
+   "qty": 500,
+   "unit": "kg",
+   "packaging_allergens": [
+    "milk",
+    "egg"
+   ]
+  },
+  "approvals": {
+   "qa_signoff": {
+    "signed_at": "2025-04-02T05:50"
+   },
+   "deviations": [
+    {
+     "id": "D7",
+     "scope": "L2 wash duration",
+     "approved_at": "2025-04-02T05:00"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "allergen_transition": "adds_allergen",
+  "cleaning_completion": "duration_short",
+  "swab_outcome": "at_limit_retest_passed",
+  "swab_timing_mismatch": false,
+  "cross_section_discrepancy": "none",
+  "exposed_quantity_kg": 0.0,
+  "approved_deviation": true,
+  "label_precaution": false,
+  "dedicated_tooling": true,
+  "qa_signoff_state": "signed_before_start",
+  "line_failure_history": "not recorded",
+  "boundary_value": true
+ },
+ "factors_sampled": {
+  "allergen_transition": "adds_allergen",
+  "cleaning_completion": "duration_short",
+  "swab_outcome": "trace_below_limit",
+  "swab_timing_mismatch": true,
+  "cross_section_discrepancy": "line_id_mismatch",
+  "exposed_quantity_kg": 89.79,
+  "approved_deviation": true,
+  "label_precaution": true,
+  "dedicated_tooling": true,
+  "qa_signoff_state": "signed_after_start",
+  "line_failure_history": 4,
+  "boundary_value": true
+ },
+ "plan": {
+  "swabs_cleared": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "line_disposition": {
+   "clarity": "leaning",
+   "target": "release",
+   "second": null
+  },
+  "worst_deficiency": {
+   "clarity": "leaning",
+   "target": "none",
+   "second": null
+  },
+  "exposed_product": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "residue_evidence": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  }
+ },
+ "target_words": 48,
+ "deciding": {
+  "swabs_cleared": "S1 read 5 ppm at the 5 ppm limit; retest S2 read 0 ppm at 05:58, two minutes before start 06:00, so true narrowly.",
+  "line_disposition": "Retest passed before start, QA signed 05:50, and the short wash is covered by deviation D7 approved earlier, so release leads.",
+  "worst_deficiency": "The 25 vs 30 min wash is covered by deviation D7 for L2 wash duration approved before start; sign-off precedes start and identifiers match.",
+  "exposed_product": "Batch quantity is exactly 500 kg (boundary), but the retest passed just before start, so little or no product predates verification; levels 2 and 3 are not strongly supported.",
+  "residue_evidence": "S1 reading equals limit (5 of 5) and the retest S2 passed at 0, which is level 2; the retest timed so close to start leaves some doubt."
+ },
+ "request": "rec-F236-0021",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.017458
+}

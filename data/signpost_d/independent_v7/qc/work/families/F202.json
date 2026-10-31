@@ -1,0 +1,327 @@
+{
+ "id": "F202",
+ "domain": "railway track patrol inspection reports",
+ "role": "Track section manager reviewing each completed track patrol report before it is closed or actioned",
+ "setting": "A regional rail infrastructure maintainer runs foot patrols over its plain-line track. After each patrol, the patroller files a report listing the booked section, a GPS walk trace, defects found with measurements and an assigned priority, and a short free-text comment. The track section manager reviews one report at a time. They check the defects against the response limits in the local standard and the patrol against its booking. Using site context such as existing speed restrictions, recent repairs and defect history, they decide what happens next. All organisations, routes and people are invented.",
+ "questions": {
+  "priority_supported": {
+   "type": "noul",
+   "instructions": "Recorded measurements support the priority the patroller assigned to each defect.",
+   "criteria": {
+    "true": "Every defect's measurement falls within its assigned priority band.",
+    "false": "Any measurement missing, unit-mismatched or in another band."
+   }
+  },
+  "next_step": {
+   "type": "choice",
+   "instructions": "What should the reviewer do with this patrol report next?",
+   "criteria": {
+    "close_report": "No outstanding defect exceeds limits; report needs no follow-up.",
+    "monitor_next_patrol": "Outstanding defect within monitor band only; recheck at next patrol.",
+    "hold_query": "Decision hinges on one unconfirmed item; query patroller first.",
+    "raise_repair": "Confirmed outstanding defect beyond monitor band; book repair work."
+   }
+  },
+  "worst_category": {
+   "type": "choice",
+   "instructions": "Which category is the report's highest-band defect, by measurement?",
+   "criteria": {
+    "lineside": "Vegetation, drainage, fencing or cess condition outside the track.",
+    "track_component": "Fastenings, sleepers, ballast or joint components degraded or missing.",
+    "track_geometry": "Twist, gauge, top or line measured beyond tolerance.",
+    "rail_integrity": "Cracks, squats, breaks or head damage in the rail itself."
+   }
+  },
+  "discrepancy_size": {
+   "type": "score",
+   "instructions": "How far does the recorded value differ from the expected value?",
+   "criteria": [
+    "Matches expected value, or differs by under 2%",
+    "Differs from expected value by 2% to under 10%",
+    "Differs from expected value by 10% to under 25%",
+    "Differs from expected value by 25% or more"
+   ]
+  },
+  "response_urgency": {
+   "type": "score",
+   "instructions": "How soon must the worst outstanding confirmed defect be attended?",
+   "criteria": [
+    "No outstanding defect exceeds any listed response threshold",
+    "Exceeds monitor limit only; attend within 28 days",
+    "Exceeds seven-day limit but not the immediate limit",
+    "Exceeds immediate limit; attend within 36 hours"
+   ]
+  }
+ },
+ "factors": [
+  {
+   "name": "measured_band",
+   "description": "True response band of the worst defect, judged by its measurement against the standards table",
+   "kind": "categorical",
+   "values": [
+    "below_monitor",
+    "monitor",
+    "seven_day",
+    "immediate"
+   ],
+   "weights": [
+    0.2,
+    0.3,
+    0.3,
+    0.2
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S4",
+    "S7"
+   ]
+  },
+  {
+   "name": "worst_defect_category",
+   "description": "Category of the defect with the highest measured band",
+   "kind": "categorical",
+   "values": [
+    "lineside",
+    "track_component",
+    "track_geometry",
+    "rail_integrity"
+   ],
+   "weights": [
+    0.2,
+    0.3,
+    0.3,
+    0.2
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S7"
+   ]
+  },
+  {
+   "name": "priority_vs_measurement",
+   "description": "How the patroller's assigned priority relates to the measured band for at least one defect",
+   "kind": "categorical",
+   "values": [
+    "match",
+    "overstated",
+    "understated",
+    "measurement_missing"
+   ],
+   "weights": [
+    0.4,
+    0.2,
+    0.25,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S5"
+   ]
+  },
+  {
+   "name": "unit_mismatch",
+   "description": "A defect measurement is logged in a unit different from the standards table, e.g. inches vs mm or 1-in-N vs mm over base",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.2,
+   "skills": [
+    "S1"
+   ]
+  },
+  {
+   "name": "location_mismatch",
+   "description": "Difference between a defect's mileage and the walked range or the mileage quoted in the note",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "trivial",
+    "outside_walked_range"
+   ],
+   "weights": [
+    0.6,
+    0.25,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S4"
+   ]
+  },
+  {
+   "name": "coverage_gap_pct",
+   "description": "Percentage of booked mileage not covered by the GPS walk trace",
+   "kind": "number",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 40,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S4"
+   ]
+  },
+  {
+   "name": "mitigation_present",
+   "description": "Whether site context holds a fact that lowers concern about the worst defect",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3"
+   ]
+  },
+  {
+   "name": "mitigation_kind",
+   "description": "Form of mitigation when present",
+   "kind": "categorical",
+   "values": [
+    "repaired_since_signed_off",
+    "esr_already_imposed",
+    "inside_active_worksite",
+    "geometry_run_clear_recent"
+   ],
+   "weights": [
+    0.3,
+    0.25,
+    0.2,
+    0.25
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S6"
+   ]
+  },
+  {
+   "name": "repeat_history",
+   "description": "Count of earlier reports logging the same defect type within 0.05 miles",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 4,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S6"
+   ]
+  },
+  {
+   "name": "photo_evidence",
+   "description": "Whether the worst defect has a photo attached",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.6,
+   "skills": [
+    "S5"
+   ]
+  },
+  {
+   "name": "note_stance",
+   "description": "How the patroller's free-text comment relates to the structured entries",
+   "kind": "categorical",
+   "values": [
+    "consistent",
+    "softens",
+    "contradicts_entry"
+   ],
+   "weights": [
+    0.55,
+    0.25,
+    0.2
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S6"
+   ]
+  },
+  {
+   "name": "boundary_case",
+   "description": "Worst measurement sits exactly on a threshold in the standards table",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.2,
+   "skills": [
+    "S6"
+   ]
+  },
+  {
+   "name": "decoy_alarm",
+   "description": "Alarming but irrelevant context such as heavy rain, high line speed or a late-running train",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.45,
+   "skills": [
+    "S3"
+   ]
+  }
+ ],
+ "sections": [
+  {
+   "name": "patrol",
+   "description": "Patrol id, patroller id, date, ELR, booked start and end mileage, frequency, weather, line speed"
+  },
+  {
+   "name": "walk_trace",
+   "description": "GPS walked start and end mileage, gap list with mileages, duration in minutes"
+  },
+  {
+   "name": "defects",
+   "description": "List of defects: id, type, category, mileage, measurement, unit, assigned priority, photo flag"
+  },
+  {
+   "name": "site_context",
+   "description": "Active ESRs, worksites, recent repairs with sign-off, last geometry run, prior defect history"
+  },
+  {
+   "name": "standards",
+   "description": "Per defect type thresholds for monitor, seven-day and immediate bands with units"
+  },
+  {
+   "name": "remarks",
+   "description": "Patroller free-text comment, one to three sentences, and optional gang sign-off line"
+  }
+ ],
+ "rendering_notes": "Every record has 1 to 4 defect entries; the worst is the highest measured band against standards (ties broken rail_integrity > track_geometry > track_component > lineside). measured_band appears only as defects[].measurement compared with standards thresholds; boundary_case puts the value exactly on a threshold, and the table never says whether limits are inclusive. priority_vs_measurement shows in defects[].priority (P1 immediate, P2 seven-day, P3 monitor, P4 none) disagreeing with the band; measurement_missing sets measurement null. unit_mismatch logs the unit differently from standards[].unit and makes priority_supported false. location_mismatch shifts defects[].mileage against walk_trace start/end or the mileage quoted in remarks.comment. coverage_gap_pct shows only as walk_trace walked mileage or gaps against patrol booked mileage; a gap covering a defect's mileage, or an outside_walked_range location, means hold_query. Mitigation appears in site_context. repaired_since_signed_off: a repair entry at the defect mileage with a sign-off line in remarks; the defect is no longer outstanding, so urgency and next_step drop. esr_already_imposed: an ESR covering the mileage; urgency stays but monitor may be defensible over raise_repair (contested). inside_active_worksite: a possession covering it. geometry_run_clear_recent: a geometry run within 14 days showing no exceedance, contested against the patroller's measurement. The same alarming measurement appears with and without mitigation at about 50/50. repeat_history appears as site_context.history count and dates; 2 or more nudges monitor towards raise_repair. note_stance softens means the comment downplays a defect; contradicts_entry means the comment quotes a different value or mileage, which needs a query. Decoys: patrol.weather, patrol.line_speed_mph, late-train remarks, defects[].priority itself and photo_flag; none of these settles an answer alone. The record never states the band, urgency, category of the worst defect, a review outcome or a risk label; only the raw fields above appear.",
+ "skills": [
+  "S1",
+  "S3",
+  "S4",
+  "S5",
+  "S6",
+  "S7"
+ ],
+ "shared_scale": "discrepancy_size",
+ "design_cost": 0.144692
+}

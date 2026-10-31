@@ -1,0 +1,157 @@
+{
+ "id": "F201-0098",
+ "family": "F201",
+ "state": {
+  "register_header": {
+   "drug": "ketamine",
+   "strength": "100mg/ml",
+   "concentration_mg_ml": 100,
+   "schedule": 3,
+   "witness_required": false,
+   "branch_id": "B3",
+   "period_start": "2024-07-01",
+   "period_end": "2024-07-31",
+   "opening_balance_ml": 30
+  },
+  "entries": [
+   {
+    "entry_id": "E1",
+    "date": "2024-07-02",
+    "type": "receipt",
+    "qty_ml": 20,
+    "running_balance_ml": 50,
+    "signed_by": null,
+    "batch_no": "K1"
+   },
+   {
+    "entry_id": "E2",
+    "date": "2024-07-09",
+    "type": "admin",
+    "qty_ml": 10,
+    "patient_id": "P1",
+    "running_balance_ml": 40,
+    "signed_by": null,
+    "batch_no": "K1"
+   },
+   {
+    "entry_id": "E3",
+    "date": "2024-07-16",
+    "type": "admin",
+    "qty_ml": 9,
+    "patient_id": "P2",
+    "running_balance_ml": 31,
+    "signed_by": null,
+    "batch_no": "K1"
+   },
+   {
+    "entry_id": "E4",
+    "date": "2024-07-23",
+    "type": "admin",
+    "qty_ml": 8,
+    "patient_id": "P3",
+    "running_balance_ml": 23,
+    "signed_by": "S2",
+    "witness_id": null,
+    "batch_no": "K1"
+   }
+  ],
+  "clinical_records": [
+   {
+    "patient_id": "P1",
+    "date": "2024-07-09",
+    "dose": 10,
+    "dose_unit": "ml"
+   },
+   {
+    "patient_id": "P2",
+    "date": "2024-07-16",
+    "dose": 9,
+    "dose_unit": "ml"
+   },
+   {
+    "patient_id": "P3",
+    "date": "2024-07-23",
+    "dose": 8,
+    "dose_unit": "ml"
+   }
+  ],
+  "stock_check": {
+   "count_date": "2024-07-31",
+   "counted_ml": 22,
+   "counted_by": "S2",
+   "checked_by": "S3",
+   "batch_no": "K1",
+   "overfill_allowance_ml": 0
+  },
+  "disposals": [],
+  "exceptions": []
+ },
+ "factors": {
+  "drug_profile": "ketamine_100mg_ml",
+  "arithmetic_slip_count": 0,
+  "unrecorded_admin": "none",
+  "clinical_records_missing": false,
+  "disposal_state": "none_needed",
+  "unexplained_shortfall_pct": 2.0,
+  "variance_exception": "none",
+  "manufacturer_overfill": false,
+  "auth_gap_count": 3,
+  "count_out_of_order": false,
+  "unit_mismatch": false,
+  "locum_signatory": false,
+  "boundary_case": true
+ },
+ "factors_sampled": {
+  "drug_profile": "ketamine_100mg_ml",
+  "arithmetic_slip_count": 3,
+  "unrecorded_admin": "none",
+  "clinical_records_missing": false,
+  "disposal_state": "none_needed",
+  "unexplained_shortfall_pct": 12.82,
+  "variance_exception": "none",
+  "manufacturer_overfill": false,
+  "auth_gap_count": 0,
+  "count_out_of_order": true,
+  "unit_mismatch": false,
+  "locum_signatory": false,
+  "boundary_case": false
+ },
+ "plan": {
+  "unexplained_shortfall": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "line_disposition": {
+   "clarity": "clear",
+   "target": "sign_off",
+   "second": null
+  },
+  "variance_cause": {
+   "clarity": "balanced",
+   "target": "no_discrepancy",
+   "second": "unexplained_loss"
+  },
+  "variance_size": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  },
+  "auth_gaps": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 47,
+ "deciding": {
+  "unexplained_shortfall": "Clinical records match E2-E4 exactly; only a 1 ml gap (balance 23 vs count 22) remains, small but unmatched.",
+  "line_disposition": "Plan's sign_off is clear, but the record shows three unsigned entries; the 1 ml count gap also remains.",
+  "variance_cause": "Balances are arithmetically correct and doses match; the single 1 ml gap (23 vs 22) has no counterpart, so it could be rounding or a small loss.",
+  "variance_size": "1 ml over 50 ml handled (30 opening + 20 received) is 2.0%, the Trace/Material boundary.",
+  "auth_gaps": "signed_by null on E1, E2, E3 (three gaps); E4 has witness_id null but witness_required is false, so counting it as a fourth is debatable."
+ },
+ "request": "rec-F201-0096",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.016916
+}

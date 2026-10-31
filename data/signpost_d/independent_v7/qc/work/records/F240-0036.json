@@ -1,0 +1,144 @@
+{
+ "id": "F240-0036",
+ "family": "F240",
+ "state": {
+  "asset": {
+   "inverter_id": "INV-07",
+   "rated_ac_kw": 2500
+  },
+  "fault_event": {
+   "code": "F-ISO-01",
+   "fw_severity": 2,
+   "ts_start": "2024-05-10T09:00",
+   "ts_clear": "2024-05-10T12:30"
+  },
+  "telemetry": {
+   "samples": [
+    {
+     "ts": "2024-05-10T10:00",
+     "ac_kw": 0,
+     "exp_kw": 1500,
+     "limit_pct": 100
+    },
+    {
+     "ts": "2024-05-10T10:10",
+     "ac_kw": 1480,
+     "exp_kw": 1500,
+     "limit_pct": 99
+    }
+   ],
+   "exp_day_kwh": 12000,
+   "exp_window_kwh": 5000,
+   "act_window_kwh": 4880
+  },
+  "site_context": {
+   "grid_events": [
+    {
+     "ts": "2024-05-10T09:00",
+     "type": "sag",
+     "magnitude_pu": 0.85
+    }
+   ],
+   "maint_windows": [
+    {
+     "from": "2024-05-10T08:00",
+     "to": "2024-05-10T13:00",
+     "scope": "INV-07"
+    }
+   ],
+   "neighbours": [
+    {
+     "inverter_id": "INV-06",
+     "output_ratio": 0.7
+    }
+   ]
+  },
+  "history": {
+   "faults": [
+    {
+     "date": "2024-04-21",
+     "code": "F-ISO-01"
+    },
+    {
+     "date": "2024-04-28",
+     "code": "F-ISO-01"
+    },
+    {
+     "date": "2024-05-03",
+     "code": "F-ISO-01"
+    },
+    {
+     "date": "2024-05-08",
+     "code": "F-ISO-01"
+    }
+   ],
+   "work_orders": []
+  }
+ },
+ "factors": {
+  "fault_class": "insulation_resistance",
+  "log_telemetry_mismatch": "large_over_2h",
+  "grid_event_concurrent": true,
+  "maintenance_window_active": true,
+  "neighbour_cross_check": "neighbours_affected",
+  "repeat_count_30d": 4,
+  "last_repair_status": "none",
+  "current_limit_pct": 99.0,
+  "yield_loss_pct": 1.0,
+  "low_irradiance_window": false,
+  "serial_mismatch": false,
+  "boundary_placement": false
+ },
+ "factors_sampled": {
+  "fault_class": "insulation_resistance",
+  "log_telemetry_mismatch": "large_over_2h",
+  "grid_event_concurrent": true,
+  "maintenance_window_active": true,
+  "neighbour_cross_check": "neighbours_affected",
+  "repeat_count_30d": 4,
+  "last_repair_status": "none",
+  "current_limit_pct": 13.98,
+  "yield_loss_pct": 24.23,
+  "low_irradiance_window": false,
+  "serial_mismatch": false,
+  "boundary_placement": false
+ },
+ "plan": {
+  "genuine_defect": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "post_repair_repeat": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "hold_confirm",
+   "second": null
+  },
+  "yield_loss": {
+   "clarity": "contested",
+   "target": "1",
+   "second": "0"
+  },
+  "capacity_unavailable": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  }
+ },
+ "target_words": 48,
+ "deciding": {
+  "genuine_defect": "Four prior F-ISO-01 faults in 30 days point to hardware, but a concurrent 0.85 pu grid sag, a maintenance window covering INV-07 and neighbour output ratio 0.7 offer external explanations.",
+  "post_repair_repeat": "work_orders is empty, so no completed repair exists and no repeat after repair can occur.",
+  "next_step": "The log spans 09:00-12:30 but telemetry shows zero output only about 10:00-10:10, and the maintenance window covers the unit; this timing and cause must be confirmed before any other action.",
+  "yield_loss": "(5000-4880)/12000 = 1.0%, exactly at the boundary between negligible and minor.",
+  "capacity_unavailable": "The last sample shows limit_pct 99 with ac_kw 1480 against exp_kw 1500 and rated 2500, which is almost full output; whether a 99% limit counts as derated is open."
+ },
+ "request": "rec-F240-0036",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.016661
+}

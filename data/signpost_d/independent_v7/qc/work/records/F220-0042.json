@@ -1,0 +1,145 @@
+{
+ "id": "F220-0042",
+ "family": "F220",
+ "state": {
+  "tray": {
+   "tray_id": "T-2208",
+   "barcode": "4471902",
+   "requested_for": "2025-03-12T13:00",
+   "theatre": "Th5"
+  },
+  "set_check": {
+   "lines": [
+    {
+     "cat_code": "RT04",
+     "qty_expected": 2,
+     "qty_counted": 0
+    },
+    {
+     "cat_code": "SC07",
+     "qty_expected": 1,
+     "qty_counted": 0
+    },
+    {
+     "cat_code": "FC12",
+     "qty_expected": 2,
+     "qty_counted": 1
+    }
+   ],
+   "variances": [],
+   "packer_note": "All there, checked twice."
+  },
+  "washer": {
+   "cycle_id": "W31",
+   "a0": 3000,
+   "alarms": [],
+   "trays_processed": [
+    "4471982"
+   ],
+   "rerun_cycle_id": null
+  },
+  "steriliser_load": {
+   "load_id": "L88",
+   "cycle_date": "2025-03-12",
+   "printout": null,
+   "logger": {
+    "temp_min_c": 135.2,
+    "hold_s": 190
+   },
+   "daily_test": [
+    {
+     "time": "06:10",
+     "result": "fail",
+     "repair_ref": "R-318"
+    },
+    {
+     "time": "09:40",
+     "result": "pass"
+    }
+   ],
+   "bi": {
+    "lot": "B14",
+    "result": "pending",
+    "incubation_end": "2025-03-13T09:00"
+   },
+   "ci_result": "partial_change",
+   "unload_condition": "wrap torn at corner",
+   "operator_comment": "Fine to go."
+  },
+  "release_label": {
+   "tray_barcode": "4471902",
+   "load_id": "L88",
+   "sterilised_date": "2025-03-12",
+   "expiry_date": "2025-04-12",
+   "wrap_condition": "torn"
+  }
+ },
+ "factors": {
+  "set_count_discrepancies": 3,
+  "substitution_documented": false,
+  "cycle_excursion": "printout_missing",
+  "independent_logger_confirms": true,
+  "bi_status": "pending",
+  "chemical_indicator": "partial_change",
+  "washer_record_state": "barcode_not_listed",
+  "pack_integrity": "wrap_tear",
+  "label_mismatch": "none",
+  "daily_test_state": "fail_then_repaired_pass",
+  "theatre_urgency": "routine",
+  "note_tone": "reassuring_unverified",
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "set_count_discrepancies": 0,
+  "substitution_documented": false,
+  "cycle_excursion": "printout_missing",
+  "independent_logger_confirms": true,
+  "bi_status": "pending",
+  "chemical_indicator": "partial_change",
+  "washer_record_state": "complete",
+  "pack_integrity": "wrap_tear",
+  "label_mismatch": "tray_barcode_differs",
+  "daily_test_state": "fail_then_repaired_pass",
+  "theatre_urgency": "routine",
+  "note_tone": "reassuring_unverified",
+  "boundary_case": false
+ },
+ "plan": {
+  "cycle_in_limits": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "disposition": {
+   "clarity": "clear",
+   "target": "release",
+   "second": null
+  },
+  "failure_stage": {
+   "clarity": "balanced",
+   "target": "wash_stage",
+   "second": "steriliser_stage"
+  },
+  "count_gaps": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  },
+  "sterility_doubt": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  }
+ },
+ "target_words": 87,
+ "deciding": {
+  "cycle_in_limits": "printout is null, but the logger shows 135.2 C and a 190 s hold, so missing printout data and in-band logger values pull in opposite directions.",
+  "disposition": "Wrap is torn, CI is partial_change and BI is pending, so a release plan cannot be met; the record contradicts a clear release (plan conflict acknowledged).",
+  "failure_stage": "Washer trays_processed has 4471982, not tray barcode 4471902, which is the earliest issue; steriliser problems (torn wrap, BI pending) are the alternative.",
+  "count_gaps": "Three lines differ with no variances: RT04 short 2, SC07 short 1, FC12 short 1. That is three lines but four instruments, on the 3/4 boundary.",
+  "sterility_doubt": "unload_condition and label wrap_condition both show a torn wrap, with the CI only partial and the BI pending."
+ },
+ "request": "rec-F220-0041",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.01309
+}

@@ -1,0 +1,148 @@
+{
+ "id": "F213-0064",
+ "family": "F213",
+ "state": {
+  "pool": {
+   "type": "leisure",
+   "test_interval_min": 60,
+   "opening": {
+    "open": "2024-07-20T09:00",
+    "close": "2024-07-20T13:00"
+   },
+   "limits": {
+    "combined_cl_max": 0.5,
+    "ph_min": 7.2,
+    "ph_max": 7.8
+   },
+   "tolerance": {
+    "ph": 0.2
+   },
+   "micro_due": "2024-07-20"
+  },
+  "manual_tests": [
+   {
+    "time": "2024-07-20T09:00",
+    "combined_cl": 0.3,
+    "ph": 7.5
+   },
+   {
+    "time": "2024-07-20T10:00",
+    "combined_cl": 0.55,
+    "ph": 7.5
+   },
+   {
+    "time": "2024-07-20T11:05",
+    "combined_cl": 0.4,
+    "ph": 7.4
+   },
+   {
+    "time": "2024-07-20T12:05",
+    "combined_cl": 0.4,
+    "ph": 7.5
+   }
+  ],
+  "plant": {
+   "controller_readings": [
+    {
+     "time": "2024-07-20T10:00",
+     "ph": 7.6
+    }
+   ],
+   "dosing_events": [
+    {
+     "time": "2024-07-20T09:40",
+     "type": "shock"
+    }
+   ]
+  },
+  "equipment": {
+   "kits": [
+    {
+     "kit_id": "K3",
+     "cal_due": "2025-01-15",
+     "reagent_lot": "L12-new"
+    }
+   ]
+  },
+  "actions": [
+   {
+    "time": "2024-07-20T12:02",
+    "action_type": "dilution",
+    "reading_ref": "2024-07-20T10:00"
+   }
+  ],
+  "lab_sample": {
+   "sampled_on": "2024-07-20",
+   "result_on": null,
+   "status": "sent"
+  }
+ },
+ "factors": {
+  "pool_type": "leisure",
+  "test_coverage_gap": 1,
+  "boundary_interval": false,
+  "log_controller_discrepancy": "within_tolerance",
+  "discrepancy_location": "ph",
+  "excursion_severity": "marginal",
+  "corrective_action_delay": "delayed_about_120",
+  "retest_logged": false,
+  "dosing_event_explains": true,
+  "kit_calibration_status": "in_date",
+  "lab_sample_state": "pending",
+  "out_of_order_entry": false,
+  "benign_noise": "reagent_change"
+ },
+ "factors_sampled": {
+  "pool_type": "leisure",
+  "test_coverage_gap": 1,
+  "boundary_interval": false,
+  "log_controller_discrepancy": "just_over",
+  "discrepancy_location": "ph",
+  "excursion_severity": "none",
+  "corrective_action_delay": "prompt",
+  "retest_logged": false,
+  "dosing_event_explains": true,
+  "kit_calibration_status": "in_date",
+  "lab_sample_state": "pending",
+  "out_of_order_entry": false,
+  "benign_noise": "reagent_change"
+ },
+ "plan": {
+  "test_frequency_met": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "readings_reconcile": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "log_disposition": {
+   "clarity": "clear",
+   "target": "hold_for_retest",
+   "second": null
+  },
+  "action_delay": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "failed_checks": {
+   "clarity": "clear",
+   "target": "2",
+   "second": null
+  }
+ },
+ "target_words": 54,
+ "deciding": {
+  "test_frequency_met": "Tests at 10:00 and 11:05 are 65 min apart against a 60 min interval, only slightly over.",
+  "readings_reconcile": "Manual pH 7.5 against controller 7.6 at 10:00 differs by 0.1, inside the 0.2 tolerance.",
+  "log_disposition": "Lab sample has null result_on and no counts, and there is no retest_time in actions, so the outcome waits on pending results.",
+  "action_delay": "combined_cl 0.55 at 10:00 is over the 0.5 max; the action at 12:02 is 122 minutes later, just over the 120 minute boundary.",
+  "failed_checks": "Late test spacing, action over two hours after the excursion and no retest each fail, giving two or three failed checks."
+ },
+ "request": "rec-F213-0061",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012701
+}

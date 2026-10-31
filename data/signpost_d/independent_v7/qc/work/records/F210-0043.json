@@ -1,0 +1,124 @@
+{
+ "id": "F210-0043",
+ "family": "F210",
+ "state": {
+  "collection": {
+   "collected_at": "2024-07-09T05:50",
+   "vat_l": 3000,
+   "meter_l": 2100,
+   "vat_temp_c": 6.5,
+   "last_milking_end": "2024-07-08T23:30"
+  },
+  "sample": {
+   "sample_id": "S303",
+   "taken_at": "2024-07-09T05:52",
+   "seal_intact": true,
+   "arrival_temp_c": 4.5
+  },
+  "lab_results": {
+   "sample_id": "S303",
+   "scc_k_ml": 520,
+   "inhibitory": "neg",
+   "retest": null
+  },
+  "farm_terms": {
+   "limits": {
+    "vat_temp_c": 4.0,
+    "scc_k_ml": 400
+   },
+   "approved_exceptions": [
+    {
+     "parameter": "scc_k_ml",
+     "valid_from": "2024-07-01",
+     "valid_to": "2024-07-31"
+    }
+   ],
+   "treatment_register": [
+    {
+     "drug": "penicillin",
+     "withdrawal_end": "2024-07-12",
+     "segregated": true
+    }
+   ],
+   "breaches_90d": 2
+  },
+  "equipment": {
+   "vat_thermometer": {
+    "due": "2025-01-10"
+   },
+   "tanker_meter": {
+    "due": "2025-01-10"
+   }
+  }
+ },
+ "factors": {
+  "vat_temp_level": "high",
+  "recent_milking": false,
+  "mismatch_site": "volume",
+  "mismatch_magnitude": "large",
+  "meter_calibration_overdue": false,
+  "lab_limit_breaches": 1,
+  "exception_covers_breach": true,
+  "inhibitory_status": "negative",
+  "treatment_withdrawal_active": true,
+  "retest_state": "none",
+  "sample_integrity": "intact",
+  "history_breaches_90d": 2,
+  "value_on_boundary": false,
+  "driver_sensory_flag": false
+ },
+ "factors_sampled": {
+  "vat_temp_level": "high",
+  "recent_milking": true,
+  "mismatch_site": "volume",
+  "mismatch_magnitude": "large",
+  "meter_calibration_overdue": false,
+  "lab_limit_breaches": 0,
+  "exception_covers_breach": true,
+  "inhibitory_status": "negative",
+  "treatment_withdrawal_active": true,
+  "retest_state": "none",
+  "sample_integrity": "intact",
+  "history_breaches_90d": 2,
+  "value_on_boundary": false,
+  "driver_sensory_flag": false
+ },
+ "plan": {
+  "temp_compliant": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "intake_disposition": {
+   "clarity": "clear",
+   "target": "accept_deduction",
+   "second": null
+  },
+  "issue_source": {
+   "clarity": "leaning",
+   "target": "recording_error",
+   "second": null
+  },
+  "discrepancy_size": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  },
+  "unexplained_breaches": {
+   "clarity": "clear",
+   "target": "0",
+   "second": null
+  }
+ },
+ "target_words": 37,
+ "deciding": {
+  "temp_compliant": "vat_temp_c 6.5 vs 4.0 limit, and last_milking_end was over 6 h before collection, so not recent.",
+  "intake_disposition": "Vat temperature is over limit with no recent milking, no inhibitory issue, and the only lab breach is covered by an exception, so a price penalty applies without rejection.",
+  "issue_source": "vat_l 3000 vs meter_l 2100 with matching ids, intact seal and a current calibration; a mismatch of recorded volumes points to entry error, though the segregated treatment entry leaves some doubt.",
+  "discrepancy_size": "vat_l 3000 vs meter_l 2100 is a 30% difference, level 3, but the figure depends on which volume is expected.",
+  "unexplained_breaches": "scc 520 exceeds 400 but is covered by an approved exception spanning 2024-07-09, so no unexplained lab breach."
+ },
+ "request": "rec-F210-0041",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011859
+}

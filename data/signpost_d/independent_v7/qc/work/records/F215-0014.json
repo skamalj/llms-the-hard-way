@@ -1,0 +1,146 @@
+{
+ "id": "F215-0014",
+ "family": "F215",
+ "state": {
+  "bin": {
+   "bin_id": "S5",
+   "crop": "barley",
+   "safe_mc_pct": 15,
+   "baseline_c": 13,
+   "intake_date": "2024-08-05",
+   "intake_cond": "undried",
+   "prior_logs": [
+    "2024-03-06",
+    "2024-12-02"
+   ]
+  },
+  "cable_readings": [
+   {
+    "cable_id": "C1",
+    "cal_due": "2026-01-20",
+    "fault": false,
+    "nodes": [
+     {
+      "depth_m": 1.5,
+      "temp_c": [
+       16.5,
+       18.6,
+       20.8
+      ]
+     }
+    ]
+   },
+   {
+    "cable_id": "C2",
+    "cal_due": "2026-01-20",
+    "fault": false,
+    "nodes": [
+     {
+      "depth_m": 1.5,
+      "temp_c": [
+       15.2,
+       16.8,
+       18.5
+      ]
+     }
+    ]
+   }
+  ],
+  "moisture": [
+   {
+    "sample_date": "2025-03-03",
+    "method": "lab",
+    "mc_pct": 16.8
+   }
+  ],
+  "environment": {
+   "ambient_c_7d_mean": 6,
+   "headspace_c": 8,
+   "co2_ppm": 1100,
+   "reading_date": "2025-03-06"
+  },
+  "aeration": [
+   {
+    "start": "2025-02-20",
+    "end": "2025-02-21",
+    "fan_hours": 10,
+    "mode": "cool"
+   }
+  ],
+  "pest_checks": [
+   {
+    "check_date": "2025-03-04",
+    "traps_set": 6,
+    "insects_counted": 37
+   }
+  ]
+ },
+ "factors": {
+  "peak_excess_c": 7.8,
+  "rise_trend": "steady_climb",
+  "second_cable_corroboration": true,
+  "sensor_fault_flag": false,
+  "ambient_warming": false,
+  "moisture_vs_limit": "above",
+  "moisture_sample_status": "recent_lab",
+  "aeration_running": false,
+  "co2_elevation": "raised",
+  "insect_trap_count": 37,
+  "missing_section": "none",
+  "date_order_anomaly": false,
+  "intake_condition": "undried"
+ },
+ "factors_sampled": {
+  "peak_excess_c": 14.1,
+  "rise_trend": "steady_climb",
+  "second_cable_corroboration": false,
+  "sensor_fault_flag": false,
+  "ambient_warming": true,
+  "moisture_vs_limit": "well_below",
+  "moisture_sample_status": "recent_lab",
+  "aeration_running": false,
+  "co2_elevation": "raised",
+  "insect_trap_count": 37,
+  "missing_section": "none",
+  "date_order_anomaly": false,
+  "intake_condition": "undried"
+ },
+ "plan": {
+  "hotspot_active": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "moisture_safe": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "next_action": {
+   "clarity": "clear",
+   "target": "hold_recheck",
+   "second": null
+  },
+  "recurrence_count": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  },
+  "temp_excess": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  }
+ },
+ "target_words": 53,
+ "deciding": {
+  "hotspot_active": "Both valid cables rise steadily (C1 16.5 to 20.8, C2 15.2 to 18.5) with cold ambient and headspace and raised CO2.",
+  "moisture_safe": "Recent lab 16.8% above the 15% barley limit.",
+  "next_action": "Fans not running, moisture over limit and corroborated rise: resample and recheck cables before intervening.",
+  "recurrence_count": "prior_logs holds two entries, one dated exactly 12 months before the reading date, so 1 or 2 are both defensible.",
+  "temp_excess": "C1 peak 20.8 vs baseline 13 is 7.8, within 5 to 10."
+ },
+ "request": "rec-F215-0011",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.010532
+}

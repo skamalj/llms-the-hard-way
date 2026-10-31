@@ -1,0 +1,144 @@
+{
+ "id": "F210-0014",
+ "family": "F210",
+ "state": {
+  "collection": {
+   "farm_id": "F5561",
+   "route_id": "R14",
+   "tanker_id": "T08",
+   "compartment": "2",
+   "collected_at": "2024-09-09T08:05",
+   "vat_l": 6000,
+   "meter_l": 4300,
+   "vat_temp_c": null,
+   "last_milking_end": "2024-09-09T04:30",
+   "driver_checks": {
+    "smell_ok": false,
+    "appearance_ok": true,
+    "agitation_min": 12
+   }
+  },
+  "sample": {
+   "sample_id": "S7730",
+   "compartment": "3",
+   "taken_at": "2024-09-09T08:07",
+   "seal_no": "K55102",
+   "seal_intact": true,
+   "arrival_temp_c": 4.4,
+   "received_at": "2024-09-09T10:20"
+  },
+  "lab_results": {
+   "sample_id": "S7730",
+   "tested_at": "2024-09-09T14:00",
+   "bactoscan_kcfu_ml": 100,
+   "scc_k_ml": 350,
+   "thermoduric_cfu_ml": 800,
+   "fat_pct": 4.1,
+   "protein_pct": 3.4,
+   "inhibitory": "neg",
+   "retest": {
+    "requested": true,
+    "result": "neg"
+   }
+  },
+  "farm_terms": {
+   "limits": {
+    "bactoscan_kcfu_ml": 100,
+    "scc_k_ml": 400,
+    "thermoduric_cfu_ml": 1000,
+    "vat_temp_c": 6
+   },
+   "approved_exceptions": [
+    {
+     "param": "scc_k_ml",
+     "valid_from": "2024-01-01",
+     "valid_to": "2024-05-31"
+    }
+   ],
+   "treatment_register": [
+    {
+     "cow": "042",
+     "withdrawal_end": "2024-09-11",
+     "segregated": false
+    }
+   ],
+   "breaches_90d": 2
+  },
+  "equipment": {
+   "vat_thermometer_due": "2025-01-15",
+   "vat_dipstick_due": "2025-01-15",
+   "tanker_meter_due": "2025-02-01",
+   "last_cooling_service": "2024-03-12"
+  }
+ },
+ "factors": {
+  "vat_temp_level": "not_recorded",
+  "recent_milking": false,
+  "mismatch_site": "volume",
+  "mismatch_magnitude": "large",
+  "meter_calibration_overdue": false,
+  "lab_limit_breaches": 0,
+  "exception_covers_breach": false,
+  "inhibitory_status": "negative",
+  "treatment_withdrawal_active": true,
+  "retest_state": "confirmed",
+  "sample_integrity": "intact",
+  "history_breaches_90d": 2,
+  "value_on_boundary": true,
+  "driver_sensory_flag": true
+ },
+ "factors_sampled": {
+  "vat_temp_level": "compliant",
+  "recent_milking": false,
+  "mismatch_site": "volume",
+  "mismatch_magnitude": "trivial",
+  "meter_calibration_overdue": true,
+  "lab_limit_breaches": 0,
+  "exception_covers_breach": true,
+  "inhibitory_status": "negative",
+  "treatment_withdrawal_active": true,
+  "retest_state": "confirmed",
+  "sample_integrity": "intact",
+  "history_breaches_90d": 2,
+  "value_on_boundary": true,
+  "driver_sensory_flag": true
+ },
+ "plan": {
+  "temp_compliant": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "intake_disposition": {
+   "clarity": "balanced",
+   "target": "accept_full",
+   "second": "reject_load"
+  },
+  "issue_source": {
+   "clarity": "balanced",
+   "target": "farm_practice",
+   "second": "collection_handling"
+  },
+  "discrepancy_size": {
+   "clarity": "clear",
+   "target": "3",
+   "second": null
+  },
+  "unexplained_breaches": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 200,
+ "deciding": {
+  "temp_compliant": "vat_temp_c is null, so no vat temperature was recorded.",
+  "intake_disposition": "All results are within limits (bactoscan exactly 100) and the inhibitory test is negative, but an unsegregated treated cow and smell_ok false make rejection defensible.",
+  "issue_source": "The unsegregated treated cow in withdrawal points to farm practice; the compartment 2 against 3 difference points to collection handling.",
+  "discrepancy_size": "vat_l 6000 against meter_l 4300 is 28% of the vat figure and 40% of the meter figure, clearly over 25%.",
+  "unexplained_breaches": "Bactoscan 100 equals its limit, so it is not above it (level 0), though it is on the boundary (level 1); the SCC exception is expired and SCC is within limit anyway."
+ },
+ "request": "rec-F210-0011",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.01313
+}

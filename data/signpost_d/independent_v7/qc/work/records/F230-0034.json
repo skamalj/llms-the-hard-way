@@ -1,0 +1,131 @@
+{
+ "id": "F230-0034",
+ "family": "F230",
+ "state": {
+  "resident": {
+   "id": "D415",
+   "status": "home"
+  },
+  "prescriptions": [
+   {
+    "item_id": "p",
+    "strength_mg": 25,
+    "dose_units": 1,
+    "time_critical": false,
+    "high_risk": false
+   },
+   {
+    "item_id": "q",
+    "strength_mg": 10,
+    "dose_units": 1
+   }
+  ],
+  "administrations": [
+   {
+    "item_id": "p",
+    "scheduled": "08:00",
+    "given_at": "08:34",
+    "units_given": 2,
+    "strength_mg_used": 25,
+    "initials": "TR"
+   },
+   {
+    "item_id": "q",
+    "units_given": 1,
+    "strength_mg_used": 10,
+    "initials": "TR"
+   }
+  ],
+  "stock": {
+   "p": {
+    "opening": 28,
+    "closing": 26
+   }
+  },
+  "round": {
+   "open_queries": [
+    {
+     "type": "pharmacy",
+     "raised": "2024-05-02T09:00",
+     "item_id": "q"
+    }
+   ],
+   "post_dose_obs": [
+    {
+     "t": "sbp",
+     "v": 84
+    }
+   ]
+  }
+ },
+ "factors": {
+  "dose_mismatch_type": "wrong_quantity",
+  "prescription_change_documented": false,
+  "omission_count": 0,
+  "omission_reason_valid": true,
+  "late_minutes": 34,
+  "time_critical_affected": false,
+  "stock_variance": 0,
+  "stock_variance_explained": true,
+  "signature_gaps": 0,
+  "unit_expression_decoy": "matching_units",
+  "post_dose_obs_reassuring": false,
+  "pending_query": "pharmacy_query_open",
+  "prior_errors_30d": 0,
+  "item_count": 2
+ },
+ "factors_sampled": {
+  "dose_mismatch_type": "wrong_quantity",
+  "prescription_change_documented": false,
+  "omission_count": 2,
+  "omission_reason_valid": false,
+  "late_minutes": 34,
+  "time_critical_affected": false,
+  "stock_variance": 0,
+  "stock_variance_explained": true,
+  "signature_gaps": 0,
+  "unit_expression_decoy": "matching_units",
+  "post_dose_obs_reassuring": false,
+  "pending_query": "pharmacy_query_open",
+  "prior_errors_30d": 0,
+  "item_count": 7
+ },
+ "plan": {
+  "dose_mismatch": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "stock_reconciles": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "report_incident",
+   "second": null
+  },
+  "open_discrepancies": {
+   "clarity": "clear",
+   "target": "0",
+   "second": null
+  },
+  "error_severity": {
+   "clarity": "clear",
+   "target": "2",
+   "second": null
+  }
+ },
+ "target_words": 57,
+ "deciding": {
+  "dose_mismatch": "Item p given 2 units against prescribed 1 with no change entry.",
+  "stock_reconciles": "p 28-2=26 matches closing; q has no stock row, which leaves slight doubt.",
+  "next_step": "Ordinary drug p (not time-critical or high-risk) was double dosed, an error to report.",
+  "open_discrepancies": "The only open item is a pharmacy query on q, with p's error confirmed rather than unresolved: roughly one item, at most.",
+  "error_severity": "Ordinary drug duplicated, dose-level error; timing 34 min is within 60; low systolic reading adds concern."
+ },
+ "request": "rec-F230-0031",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.009022
+}

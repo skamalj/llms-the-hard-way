@@ -1,0 +1,149 @@
+{
+ "id": "F240-0047",
+ "family": "F240",
+ "state": {
+  "asset": {
+   "inverter_id": "INV-1-02",
+   "serial": "S210",
+   "rated_ac_kw": 1000,
+   "block": "BLK-1"
+  },
+  "fault_event": {
+   "serial": "S210",
+   "code": "F-FAN-01",
+   "fw_severity": 3,
+   "ts_start": "2025-06-03T10:00",
+   "ts_clear": null,
+   "auto_restarts": 0
+  },
+  "telemetry": {
+   "samples": [
+    {
+     "ts": "2025-06-03T10:00",
+     "ac_kw": 900,
+     "exp_kw": 900,
+     "limit_pct": 100
+    },
+    {
+     "ts": "2025-06-03T14:00",
+     "ac_kw": 520,
+     "exp_kw": 950,
+     "limit_pct": 52
+    }
+   ],
+   "exp_day_kwh": 5000,
+   "exp_window_kwh": 3800,
+   "act_window_kwh": 2800
+  },
+  "site_context": {
+   "grid_events": [],
+   "maint_windows": [
+    {
+     "from": "2025-06-03",
+     "to": "2025-06-04",
+     "scope": "BLK-4"
+    }
+   ],
+   "neighbours": [
+    {
+     "inverter_id": "INV-1-03",
+     "output_ratio": 0.99
+    }
+   ]
+  },
+  "history": {
+   "faults": [
+    {
+     "date": "2025-05-14",
+     "code": "F-FAN-01"
+    },
+    {
+     "date": "2025-05-21",
+     "code": "F-FAN-01"
+    },
+    {
+     "date": "2025-05-28",
+     "code": "F-FAN-01"
+    },
+    {
+     "date": "2025-06-03",
+     "code": "F-FAN-01"
+    }
+   ],
+   "work_orders": [
+    {
+     "wo_id": "W2",
+     "opened": "2025-05-30",
+     "completed": null,
+     "retest_ok": null
+    }
+   ]
+  }
+ },
+ "factors": {
+  "fault_class": "fan_failure",
+  "log_telemetry_mismatch": "none",
+  "grid_event_concurrent": false,
+  "maintenance_window_active": false,
+  "neighbour_cross_check": "neighbours_normal",
+  "repeat_count_30d": 4,
+  "last_repair_status": "open",
+  "current_limit_pct": 52.0,
+  "yield_loss_pct": 20.0,
+  "low_irradiance_window": false,
+  "serial_mismatch": false,
+  "boundary_placement": true
+ },
+ "factors_sampled": {
+  "fault_class": "fan_failure",
+  "log_telemetry_mismatch": "none",
+  "grid_event_concurrent": false,
+  "maintenance_window_active": true,
+  "neighbour_cross_check": "neighbours_normal",
+  "repeat_count_30d": 4,
+  "last_repair_status": "open",
+  "current_limit_pct": 78.71,
+  "yield_loss_pct": 31.35,
+  "low_irradiance_window": false,
+  "serial_mismatch": false,
+  "boundary_placement": true
+ },
+ "plan": {
+  "genuine_defect": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "post_repair_repeat": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "hold_confirm",
+   "second": null
+  },
+  "yield_loss": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  },
+  "capacity_unavailable": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  }
+ },
+ "target_words": 67,
+ "deciding": {
+  "genuine_defect": "Four F-FAN-01 faults in 30 days, neighbours at 0.99, no grid event; the only maintenance window is for BLK-4.",
+  "post_repair_repeat": "The only work order W2 is open with completed null, so no completed repair exists to repeat after.",
+  "next_step": "Repair work order is open with retest_ok null and the log is not cleared; that status needs confirming first.",
+  "yield_loss": "(3800-2800)/5000 = 20.0%, on the level 2/3 boundary.",
+  "capacity_unavailable": "Last sample limit_pct 52 and ac_kw 520 of 1000, just above the 50% boundary, so level 1 narrowly over level 2."
+ },
+ "request": "rec-F240-0046",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011636
+}

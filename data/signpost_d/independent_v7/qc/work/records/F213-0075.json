@@ -1,0 +1,143 @@
+{
+ "id": "F213-0075",
+ "family": "F213",
+ "state": {
+  "pool": {
+   "type": "spa",
+   "test_interval_min": 30,
+   "opening": {
+    "open": "2024-09-14T10:00",
+    "close": "2024-09-14T12:00"
+   },
+   "limits": {
+    "free_cl_min": 2.0,
+    "free_cl_max": 5.0,
+    "ph_min": 7.2,
+    "ph_max": 7.8
+   },
+   "tolerance": {
+    "free_cl": 0.3,
+    "ph": 0.2
+   },
+   "micro_due": "2024-10-01"
+  },
+  "manual_tests": [
+   {
+    "time": "2024-09-14T10:00",
+    "free_cl": 3.0,
+    "ph": 7.5,
+    "temp_c": 36.0,
+    "kit_id": "S1"
+   },
+   {
+    "time": "2024-09-14T10:30",
+    "free_cl": 3.0,
+    "ph": 8.4,
+    "temp_c": 38.5,
+    "kit_id": "S1"
+   },
+   {
+    "time": "2024-09-14T11:00",
+    "free_cl": 3.0,
+    "ph": 8.2,
+    "temp_c": 37.0,
+    "kit_id": "S1"
+   }
+  ],
+  "plant": {
+   "controller_readings": [
+    {
+     "time": "2024-09-14T10:30",
+     "free_cl": 3.0,
+     "ph": 8.4
+    }
+   ],
+   "dosing_events": []
+  },
+  "equipment": {
+   "kits": [
+    {
+     "kit_id": "S1",
+     "cal_due": "2024-09-14"
+    }
+   ]
+  },
+  "actions": [
+   {
+    "time": "2024-09-14T11:00",
+    "action_type": "ph_correction",
+    "reading_ref": "2024-09-14T10:30",
+    "retest_time": "2024-09-14T11:30"
+   }
+  ],
+  "lab_sample": null
+ },
+ "factors": {
+  "pool_type": "spa",
+  "test_coverage_gap": 1,
+  "boundary_interval": true,
+  "log_controller_discrepancy": "none",
+  "discrepancy_location": "free_chlorine",
+  "excursion_severity": "clear",
+  "corrective_action_delay": "boundary_30",
+  "retest_logged": false,
+  "dosing_event_explains": false,
+  "kit_calibration_status": "expires_on_day",
+  "lab_sample_state": "not_due",
+  "out_of_order_entry": true,
+  "benign_noise": "temp_swing"
+ },
+ "factors_sampled": {
+  "pool_type": "spa",
+  "test_coverage_gap": 3,
+  "boundary_interval": true,
+  "log_controller_discrepancy": "none",
+  "discrepancy_location": "free_chlorine",
+  "excursion_severity": "clear",
+  "corrective_action_delay": "delayed",
+  "retest_logged": true,
+  "dosing_event_explains": false,
+  "kit_calibration_status": "expires_on_day",
+  "lab_sample_state": "not_due",
+  "out_of_order_entry": true,
+  "benign_noise": "temp_swing"
+ },
+ "plan": {
+  "test_frequency_met": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "readings_reconcile": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "log_disposition": {
+   "clarity": "clear",
+   "target": "hold_for_retest",
+   "second": null
+  },
+  "action_delay": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  },
+  "failed_checks": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  }
+ },
+ "target_words": 39,
+ "deciding": {
+  "test_frequency_met": "Last manual test is 11:00 and nothing follows before the 12:00 close, a 60 min gap against a 30 min interval; earlier gaps are exactly 30 min.",
+  "readings_reconcile": "10:30 controller free_cl 3.0 and pH 8.4 are identical to the manual entry.",
+  "log_disposition": "pH 8.4 and 8.2 against max 7.8, retest stated for 11:30 with no matching test entry, so the outcome hinges on the confirming retest.",
+  "action_delay": "Action at 11:00 against the 10:30 reading is exactly 30 min, on the boundary of levels 1 and 2.",
+  "failed_checks": "The frequency gap and the missing retest fail; kit S1 expires on the log date but is not yet expired, and readings reconcile, giving two probable fails."
+ },
+ "request": "rec-F213-0071",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.013107
+}

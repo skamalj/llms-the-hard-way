@@ -1,0 +1,141 @@
+{
+ "id": "F230-0101",
+ "family": "F230",
+ "state": {
+  "resident": {
+   "id": "R-204",
+   "status": "in_home"
+  },
+  "prescriptions": [
+   {
+    "item_id": "a",
+    "drug": "apixaban",
+    "strength_mg": 5,
+    "dose_units": 1,
+    "high_risk": true,
+    "changes": [
+     {
+      "effective": "2024-05-14",
+      "new_dose_units": 0,
+      "order_ref": "V-02",
+      "authorised_by_role": "RN"
+     }
+    ]
+   },
+   {
+    "item_id": "b",
+    "drug": "sertraline",
+    "strength_mg": 50,
+    "dose_units": 1
+   }
+  ],
+  "administrations": [
+   {
+    "item_id": "a",
+    "scheduled": "08:00",
+    "units_given": 0,
+    "code": "W"
+   },
+   {
+    "item_id": "b",
+    "scheduled": "08:00",
+    "given_at": "08:15",
+    "units_given": 1,
+    "strength_mg_used": 50,
+    "initials": "KT"
+   }
+  ],
+  "stock": {
+   "a": {
+    "opening": 30,
+    "closing": 30
+   },
+   "b": {
+    "opening": 30,
+    "wasted": 1,
+    "wasted_witnessed": false,
+    "closing": 27
+   }
+  },
+  "round": {
+   "date": "2024-05-14",
+   "open_queries": [
+    {
+     "type": "gp_callback",
+     "raised": "2024-05-14T08:20",
+     "item_id": "a"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "dose_mismatch_type": "none",
+  "prescription_change_documented": true,
+  "omission_count": 1,
+  "omission_reason_valid": false,
+  "late_minutes": 15,
+  "time_critical_affected": false,
+  "stock_variance": -1,
+  "stock_variance_explained": false,
+  "signature_gaps": 0,
+  "unit_expression_decoy": "matching_units",
+  "post_dose_obs_reassuring": false,
+  "pending_query": "gp_callback_awaited",
+  "prior_errors_30d": 2,
+  "item_count": 2
+ },
+ "factors_sampled": {
+  "dose_mismatch_type": "none",
+  "prescription_change_documented": true,
+  "omission_count": 1,
+  "omission_reason_valid": true,
+  "late_minutes": 15,
+  "time_critical_affected": false,
+  "stock_variance": -2,
+  "stock_variance_explained": true,
+  "signature_gaps": 1,
+  "unit_expression_decoy": "matching_units",
+  "post_dose_obs_reassuring": false,
+  "pending_query": "gp_callback_awaited",
+  "prior_errors_30d": 2,
+  "item_count": 4
+ },
+ "plan": {
+  "dose_mismatch": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "stock_reconciles": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "next_step": {
+   "clarity": "balanced",
+   "target": "clinical_escalation",
+   "second": "sign_off"
+  },
+  "open_discrepancies": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  },
+  "error_severity": {
+   "clarity": "contested",
+   "target": "4",
+   "second": "3"
+  }
+ },
+ "target_words": 86,
+ "deciding": {
+  "dose_mismatch": "Item b given 1 unit at 50 mg matches the prescription; item a is a withheld dose coded W, so no wrong dose, though the withhold change took effect on the round date.",
+  "stock_reconciles": "Item b opening 30, 1 signed, 1 wasted unwitnessed, closing 27 leaves a gap of 1; item a is unchanged.",
+  "next_step": "Item a is high_risk and its W code rests on an RN-authorised withhold with a GP callback still open; if the order stands the round could close.",
+  "open_discrepancies": "Only item a is in doubt (withhold authority and open gp_callback); the item b stock gap is minor and could be counted as a second.",
+  "error_severity": "If the withhold is invalid, omitting a high_risk item is critical; a reader who treats the drug as ordinary would rate it a dose error."
+ },
+ "request": "rec-F230-0101",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.013117
+}

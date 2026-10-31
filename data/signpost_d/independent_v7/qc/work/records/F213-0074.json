@@ -1,0 +1,151 @@
+{
+ "id": "F213-0074",
+ "family": "F213",
+ "state": {
+  "pool": {
+   "type": "leisure",
+   "test_interval_min": 60,
+   "opening": {
+    "open": "2024-08-05T10:00",
+    "close": "2024-08-05T14:00"
+   },
+   "limits": {
+    "free_cl_min": 1.0,
+    "ph_max": 7.8
+   },
+   "tolerance": {
+    "free_cl": 0.3,
+    "ph": 0.2
+   },
+   "micro_due": "2024-08-30"
+  },
+  "manual_tests": [
+   {
+    "time": "2024-08-05T10:00",
+    "free_cl": 1.4,
+    "ph": 7.5,
+    "kit_id": "K9"
+   },
+   {
+    "time": "2024-08-05T11:00",
+    "free_cl": 0.4,
+    "ph": 7.5,
+    "kit_id": "K9"
+   },
+   {
+    "time": "2024-08-05T12:00",
+    "free_cl": 0.5,
+    "ph": 7.5,
+    "kit_id": "K9"
+   },
+   {
+    "time": "2024-08-05T13:30",
+    "free_cl": 0.5,
+    "ph": 7.5,
+    "kit_id": "K9"
+   }
+  ],
+  "plant": {
+   "controller_readings": [
+    {
+     "time": "2024-08-05T11:00",
+     "free_cl": 0.5,
+     "ph": 7.5,
+     "temp_c": 30.1
+    }
+   ],
+   "dosing_events": [
+    {
+     "time": "2024-08-05T12:10",
+     "type": "shock"
+    }
+   ],
+   "bather_count": 420
+  },
+  "equipment": {
+   "kits": [
+    {
+     "kit_id": "K1",
+     "cal_due": "2025-01-31"
+    }
+   ]
+  },
+  "actions": [
+   {
+    "time": "2024-08-05T13:00",
+    "action_type": "dose_increase",
+    "reading_ref": "2024-08-05T11:00",
+    "retest_time": "2024-08-05T13:45"
+   }
+  ],
+  "lab_sample": null
+ },
+ "factors": {
+  "pool_type": "leisure",
+  "test_coverage_gap": 1,
+  "boundary_interval": true,
+  "log_controller_discrepancy": "within_tolerance",
+  "discrepancy_location": "temperature",
+  "excursion_severity": "clear",
+  "corrective_action_delay": "delayed",
+  "retest_logged": false,
+  "dosing_event_explains": true,
+  "kit_calibration_status": "kit_unlisted",
+  "lab_sample_state": "not_due",
+  "out_of_order_entry": false,
+  "benign_noise": "high_bathers"
+ },
+ "factors_sampled": {
+  "pool_type": "leisure",
+  "test_coverage_gap": 2,
+  "boundary_interval": true,
+  "log_controller_discrepancy": "within_tolerance",
+  "discrepancy_location": "temperature",
+  "excursion_severity": "clear",
+  "corrective_action_delay": "prompt",
+  "retest_logged": true,
+  "dosing_event_explains": true,
+  "kit_calibration_status": "kit_unlisted",
+  "lab_sample_state": "not_due",
+  "out_of_order_entry": false,
+  "benign_noise": "high_bathers"
+ },
+ "plan": {
+  "test_frequency_met": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "readings_reconcile": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "log_disposition": {
+   "clarity": "leaning",
+   "target": "hold_for_retest",
+   "second": null
+  },
+  "action_delay": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "failed_checks": {
+   "clarity": "clear",
+   "target": "3",
+   "second": null
+  }
+ },
+ "target_words": 25,
+ "deciding": {
+  "test_frequency_met": "Gap 11:00 to 12:00 equals the 60 min interval but 12:00 to 13:30 is 90 min.",
+  "readings_reconcile": "11:00 controller free_cl 0.5 and pH 7.5 against manual 0.4 and 7.5, within tolerance.",
+  "log_disposition": "Free chlorine 0.4 to 0.5 against min 1.0 persists; a retest is stated for 13:45 but no entry follows it, so it hinges on that retest.",
+  "action_delay": "Action at 13:00 against the 11:00 reading is exactly 120 min, on the boundary of levels 2 and 3.",
+  "failed_checks": "Kit K9 is not in equipment, the 90 min gap, 120 min action delay, persistent low chlorine and missing retest give four or more fails."
+ },
+ "request": "rec-F213-0071",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.013107
+}

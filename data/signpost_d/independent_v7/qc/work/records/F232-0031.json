@@ -1,0 +1,175 @@
+{
+ "id": "F232-0031",
+ "family": "F232",
+ "state": {
+  "night_header": {
+   "date": "2025-03-04",
+   "prog": "P17",
+   "alloc_h": 12
+  },
+  "conditions": {
+   "limits": {
+    "hum": 85,
+    "wind": 50,
+    "cloud": 4
+   },
+   "closures": [
+    {
+     "s": "2025-03-05T04:15Z",
+     "e": "2025-03-05T09:20Z",
+     "reason": "weather",
+     "max_hum": 96,
+     "max_cloud": 8
+    }
+   ]
+  },
+  "programme_request": {
+   "A": {
+    "r": 7200,
+    "i": 7200
+   },
+   "B": {
+    "r": 3600,
+    "i": 3600
+   },
+   "max_see": 1.5,
+   "exception": null
+  },
+  "exposures": [
+   {
+    "id": 1,
+    "t": "A",
+    "f": "r",
+    "s": 7200,
+    "start": "2025-03-05T00:05Z",
+    "see": 0.9,
+    "qa": "pass"
+   },
+   {
+    "id": 2,
+    "t": "A",
+    "f": "i",
+    "s": 7180,
+    "start": "2025-03-05T02:10Z",
+    "see": 1.0,
+    "qa": "pass"
+   },
+   {
+    "id": 3,
+    "t": "B",
+    "f": "r",
+    "s": 3600,
+    "start": "2025-03-05T09:30Z",
+    "see": 1.1,
+    "qa": "pass"
+   },
+   {
+    "id": 4,
+    "t": "B",
+    "f": "r",
+    "s": 600,
+    "see": 1.1,
+    "qa": null
+   },
+   {
+    "id": 5,
+    "t": "B",
+    "f": "r",
+    "s": 600,
+    "see": 1.1,
+    "qa": null
+   },
+   {
+    "id": 6,
+    "t": "B",
+    "f": "r",
+    "s": 600,
+    "see": 1.2,
+    "qa": null
+   }
+  ],
+  "faults": [
+   {
+    "sub": "filter_wheel",
+    "start": "2025-03-05T09:25Z",
+    "end": null,
+    "cleared": false,
+    "retest": null,
+    "workaround": "manual wheel nudge; i slot unreliable",
+    "ticket": "T-4412"
+   }
+  ],
+  "notes": {
+   "observer": "A complete; B r done, i not reached.",
+   "assistant": "Wheel stuck after rain closure."
+  }
+ },
+ "factors": {
+  "weather_loss_hours": 5.09,
+  "fault_overlap": "none",
+  "fault_resolution_state": "open_workaround",
+  "maintenance_window": false,
+  "closure_reason_mismatch": "none",
+  "note_claim_discrepancy": "short_small",
+  "seeing_vs_limit": "well_within",
+  "seeing_exception_approved": false,
+  "usable_fraction": 0.42,
+  "qa_pending_count": 3,
+  "utc_date_rollover": true,
+  "assistant_note_tone": "neutral",
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "weather_loss_hours": 5.09,
+  "fault_overlap": "none",
+  "fault_resolution_state": "cleared_retested",
+  "maintenance_window": false,
+  "closure_reason_mismatch": "none",
+  "note_claim_discrepancy": "none",
+  "seeing_vs_limit": "well_within",
+  "seeing_exception_approved": false,
+  "usable_fraction": 0.97,
+  "qa_pending_count": 3,
+  "utc_date_rollover": true,
+  "assistant_note_tone": "neutral",
+  "boundary_case": false
+ },
+ "plan": {
+  "weather_only_loss": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "claims_supported": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "night_disposition": {
+   "clarity": "clear",
+   "target": "requeue_targets",
+   "second": null
+  },
+  "usable_share": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  },
+  "fault_followup": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  }
+ },
+ "target_words": 59,
+ "deciding": {
+  "weather_only_loss": "The only gap is the 04:15-09:20 weather closure (about 5.09 h) with humidity and cloud above limits; the fault starts after it ends and exposures continue.",
+  "claims_supported": "A is claimed complete; A i totals 7180 s against 7200 s required, which reads as rounding but is technically short.",
+  "night_disposition": "B has no i-band frames against a required 3600 s because of the filter wheel fault, so only B needs repeating; the weather loss is separate.",
+  "usable_share": "QA-pass exposure is 7200+7180+3600 = 17980 s of 43200 s allocated (about 41.6%), just above the 40% line, with 3 frames pending.",
+  "fault_followup": "The filter wheel fault is open with a retest of null; the workaround says i slot unreliable, so r work continues but i is not reliably usable."
+ },
+ "request": "rec-F232-0031",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.023475
+}

@@ -1,0 +1,149 @@
+{
+ "id": "F232-0030",
+ "family": "F232",
+ "state": {
+  "night_header": {
+   "date": "2025-06-30",
+   "alloc_h": 4
+  },
+  "conditions": {
+   "closures": [
+    {
+     "start": "2025-07-01T02:10",
+     "end": "2025-07-01T02:23",
+     "reason": "weather",
+     "hum": 91,
+     "limit": 80
+    }
+   ]
+  },
+  "exposures": [
+   {
+    "t": "T1",
+    "f": "r",
+    "s": 3600,
+    "see": 1.5,
+    "qa": "pass"
+   },
+   {
+    "t": "T2",
+    "f": "g",
+    "s": 4600,
+    "see": 1.6,
+    "qa": "pass"
+   },
+   {
+    "t": "T2",
+    "f": "r",
+    "s": 4600,
+    "see": 1.6,
+    "qa": "pass"
+   }
+  ],
+  "programme_request": {
+   "max_seeing": 1.5,
+   "exception": {
+    "target_ids": [
+     "T2"
+    ],
+    "relaxed_seeing": 1.7
+   },
+   "targets": [
+    {
+     "t": "T1",
+     "req": {
+      "r": 3600,
+      "g": 3600
+     }
+    },
+    {
+     "t": "T2",
+     "req": {
+      "g": 4600,
+      "r": 4600
+     }
+    }
+   ]
+  },
+  "faults": [
+   {
+    "sub": "shutter",
+    "cleared": true,
+    "retest": null,
+    "ticket": "F-77"
+   }
+  ],
+  "notes": {
+   "observer": "T1 complete.",
+   "assistant": "Shutter jammed once, cleared."
+  }
+ },
+ "factors": {
+  "weather_loss_hours": 0.21,
+  "fault_overlap": "none",
+  "fault_resolution_state": "cleared_no_retest",
+  "maintenance_window": false,
+  "closure_reason_mismatch": "none",
+  "note_claim_discrepancy": "short_large",
+  "seeing_vs_limit": "near_boundary",
+  "seeing_exception_approved": true,
+  "usable_fraction": 0.89,
+  "qa_pending_count": 0,
+  "utc_date_rollover": true,
+  "assistant_note_tone": "alarmed_real",
+  "boundary_case": true
+ },
+ "factors_sampled": {
+  "weather_loss_hours": 0.21,
+  "fault_overlap": "none",
+  "fault_resolution_state": "cleared_retested",
+  "maintenance_window": false,
+  "closure_reason_mismatch": "none",
+  "note_claim_discrepancy": "short_large",
+  "seeing_vs_limit": "near_boundary",
+  "seeing_exception_approved": true,
+  "usable_fraction": 0.89,
+  "qa_pending_count": 0,
+  "utc_date_rollover": true,
+  "assistant_note_tone": "alarmed_real",
+  "boundary_case": true
+ },
+ "plan": {
+  "weather_only_loss": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "claims_supported": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "night_disposition": {
+   "clarity": "balanced",
+   "target": "hold",
+   "second": "charge_partial"
+  },
+  "usable_share": {
+   "clarity": "clear",
+   "target": "3",
+   "second": null
+  },
+  "fault_followup": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  }
+ },
+ "target_words": 27,
+ "deciding": {
+  "weather_only_loss": "The only lost interval is a 13-minute weather closure with humidity 91 above the 80 limit; the shutter fault carries no time overlap.",
+  "claims_supported": "Observer claims T1 complete, but T1 has only r (3600 s) and no g frames against 3600 s g required.",
+  "night_disposition": "Shutter fault cleared with retest null and ticket F-77 awaiting confirmation favours hold; the small weather loss with data standing keeps charge_partial plausible.",
+  "usable_share": "Passing in-limit time is 12800 s of 14400 s (about 0.89) with T2 frames at 1.6 covered by the 1.7 exception.",
+  "fault_followup": "Shutter fault cleared=true but retest=null, with no workaround logged, so cleared-no-retest is the lean, with some doubt."
+ },
+ "request": "rec-F232-0026",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.017177
+}

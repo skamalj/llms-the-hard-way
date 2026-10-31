@@ -1,0 +1,146 @@
+{
+ "id": "F236-0016",
+ "family": "F236",
+ "state": {
+  "changeover": {
+   "line": "L2",
+   "from_allergens": [
+    "wheat"
+   ],
+   "to_allergens": [
+    "wheat",
+    "sesame"
+   ],
+   "start": "2024-05-06T04:00",
+   "end": "2024-05-06T05:40"
+  },
+  "cleaning": {
+   "steps": [
+    {
+     "s": "dry_clean",
+     "done": true,
+     "spec_min": 20,
+     "act_min": 22
+    },
+    {
+     "s": "wet_wash",
+     "done": true,
+     "spec_min": 30,
+     "act_min": 30
+    }
+   ]
+  },
+  "verification": {
+   "swabs": [
+    {
+     "id": "S1",
+     "target": "sesame",
+     "ppm": 5,
+     "limit_ppm": 5,
+     "at": "2024-05-06T05:58"
+    }
+   ]
+  },
+  "production": {
+   "line": "L2",
+   "code": "B210",
+   "batch": "B210-0611",
+   "start_at": "2024-05-06T06:00",
+   "qty": 868.21,
+   "unit": "kg"
+  },
+  "approvals": {
+   "qa_signoff": {
+    "by": "QA4",
+    "signed_at": "2024-05-06T05:55"
+   },
+   "deviations": [
+    {
+     "id": "DV7",
+     "scope": "S1 at-limit reading",
+     "approved_at": "2024-05-06T05:59"
+    }
+   ]
+  },
+  "history": [
+   {
+    "verification_passed": false
+   },
+   {
+    "verification_passed": false
+   },
+   {
+    "verification_passed": false
+   },
+   {
+    "verification_passed": true
+   }
+  ]
+ },
+ "factors": {
+  "allergen_transition": "adds_allergen",
+  "cleaning_completion": "full",
+  "swab_outcome": "at_limit_no_retest",
+  "swab_timing_mismatch": false,
+  "cross_section_discrepancy": "none",
+  "exposed_quantity_kg": 868.21,
+  "approved_deviation": true,
+  "label_precaution": false,
+  "dedicated_tooling": false,
+  "qa_signoff_state": "signed_before_start",
+  "line_failure_history": 3,
+  "boundary_value": true
+ },
+ "factors_sampled": {
+  "allergen_transition": "adds_allergen",
+  "cleaning_completion": "one_step_skipped",
+  "swab_outcome": "all_negative",
+  "swab_timing_mismatch": false,
+  "cross_section_discrepancy": "line_id_mismatch",
+  "exposed_quantity_kg": 868.21,
+  "approved_deviation": true,
+  "label_precaution": false,
+  "dedicated_tooling": false,
+  "qa_signoff_state": "signed_before_start",
+  "line_failure_history": 3,
+  "boundary_value": true
+ },
+ "plan": {
+  "swabs_cleared": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "line_disposition": {
+   "clarity": "balanced",
+   "target": "reclean_quarantine",
+   "second": "release"
+  },
+  "worst_deficiency": {
+   "clarity": "clear",
+   "target": "none",
+   "second": null
+  },
+  "exposed_product": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  },
+  "residue_evidence": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 115,
+ "deciding": {
+  "swabs_cleared": "Single swab S1 at 05:58 before the 06:00 start, but its reading equals the limit (5 ppm), so passing is arguable.",
+  "line_disposition": "At-limit reading with no retest and three failed changeovers in history argue for reclean; the approved deviation DV7 and sign-off before start argue for release.",
+  "worst_deficiency": "All cleaning steps are done at spec, identifiers match, sign-off precedes start and the at-limit swab is covered by an approved deviation.",
+  "exposed_product": "Swab was taken just before start (868 kg batch), so exposure is zero, unless the at-limit swab is not counted as verified clean.",
+  "residue_evidence": "Reading 5 equals limit 5 and no retest entry exists, which sits between the cleared and persistent levels."
+ },
+ "request": "rec-F236-0016",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.015522
+}

@@ -1,0 +1,132 @@
+{
+ "id": "F232-0004",
+ "family": "F232",
+ "state": {
+  "night_header": {
+   "date": "2025-09-08",
+   "alloc_h": 10
+  },
+  "conditions": {
+   "limits": {
+    "hum": 85
+   },
+   "closures": [
+    {
+     "s": "2025-09-08T23:10Z",
+     "e": "2025-09-09T06:00Z",
+     "reason": "weather",
+     "hum": 97
+    }
+   ]
+  },
+  "exposures": [
+   {
+    "t": "T1",
+    "x": 5700,
+    "utc": "2025-09-08T20:00Z",
+    "see": 2.4,
+    "qa": "fail"
+   },
+   {
+    "t": "T2",
+    "x": 5700,
+    "utc": "2025-09-08T21:35Z",
+    "see": 1.52,
+    "qa": "pass"
+   }
+  ],
+  "programme_request": [
+   {
+    "t": "T1",
+    "total_s": 5700,
+    "max_see": 1.5
+   },
+   {
+    "t": "T2",
+    "total_s": 9000,
+    "max_see": 1.5
+   }
+  ],
+  "faults": [
+   {
+    "sub": "guider",
+    "s": "2025-09-09T00:30Z",
+    "e": "2025-09-09T00:50Z",
+    "cleared": true,
+    "retest": "2025-09-09T01:00Z"
+   }
+  ],
+  "notes": {
+   "observer_note": "T1 and T2 complete.",
+   "night_assistant_note": "Guider lost lock, restarted."
+  }
+ },
+ "factors": {
+  "weather_loss_hours": 6.83,
+  "fault_overlap": "minor_overlap",
+  "fault_resolution_state": "cleared_retested",
+  "maintenance_window": false,
+  "closure_reason_mismatch": "none",
+  "note_claim_discrepancy": "short_large",
+  "seeing_vs_limit": "exceeded",
+  "seeing_exception_approved": false,
+  "usable_fraction": 0.0,
+  "qa_pending_count": 0,
+  "utc_date_rollover": false,
+  "assistant_note_tone": "neutral",
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "weather_loss_hours": 6.83,
+  "fault_overlap": "minor_overlap",
+  "fault_resolution_state": "cleared_retested",
+  "maintenance_window": false,
+  "closure_reason_mismatch": "none",
+  "note_claim_discrepancy": "short_small",
+  "seeing_vs_limit": "exceeded",
+  "seeing_exception_approved": false,
+  "usable_fraction": 0.63,
+  "qa_pending_count": 0,
+  "utc_date_rollover": false,
+  "assistant_note_tone": "alarmed_real",
+  "boundary_case": false
+ },
+ "plan": {
+  "weather_only_loss": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "claims_supported": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "night_disposition": {
+   "clarity": "contested",
+   "target": "requeue_targets",
+   "second": "reschedule_night"
+  },
+  "usable_share": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "fault_followup": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 25,
+ "deciding": {
+  "weather_only_loss": "The 23:10-06:00 weather closure (6.83h, humidity 97 against 85) covers all lost time; frames fill 20:00-23:10, and the guider fault at 00:30-00:50 lies inside the closure so it costs no extra time.",
+  "claims_supported": "Observer claims T2 complete, but T2 has 5700s against a required 9000s, a large shortfall, and T1's frame failed QA.",
+  "night_disposition": "Weather took 6.83h of 10h and T1 and T2 are both unfinished; repeating only those targets or asking for a new night are both defensible.",
+  "usable_share": "The T2 frame passes QA at seeing 1.52 against limit 1.5 with no exception, so it is outside constraints and usable time is near zero; a reader could still count it as low.",
+  "fault_followup": "The guider fault is cleared with a retest logged at 01:00Z during the closure; whether it was science-affecting is unclear."
+ },
+ "request": "rec-F232-0001",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.020087
+}

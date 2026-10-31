@@ -1,0 +1,129 @@
+{
+ "id": "F204-0070",
+ "family": "F204",
+ "state": {
+  "rx": {
+   "drug": "prednisolone",
+   "strength": {
+    "val": 5,
+    "unit": "mg"
+   },
+   "form": "tab",
+   "qty": 28
+  },
+  "patient": {
+   "pt_id": "P3350",
+   "supplies": [
+    {
+     "date": "2024-06-02",
+     "days_covered": 28
+    }
+   ],
+   "near_miss_count": 2
+  },
+  "dispensed": {
+   "product_name": "prednisolone",
+   "form": "tab",
+   "strength": {
+    "val": 2.5,
+    "unit": "mg"
+   },
+   "packs": 1,
+   "pack_size": 14,
+   "owing": {
+    "qty": 14,
+    "slip_no": "OW52"
+   },
+   "high_risk": true
+  },
+  "check_log": {
+   "checked_at": "2024-06-10",
+   "queries": [
+    {
+     "field": "strength",
+     "status": "confirmed"
+    }
+   ],
+   "interventions": [
+    {
+     "code": "SUB1",
+     "field": "strength",
+     "accepted": true,
+     "by": "LP"
+    }
+   ],
+   "clin_check": {
+    "by": "LP",
+    "at": "2024-06-10"
+   }
+  }
+ },
+ "factors": {
+  "strength_status": "mismatch_converted",
+  "product_status": "exact",
+  "quantity_status": "owing_documented",
+  "label_status": "correct",
+  "prescriber_query": "confirmed",
+  "pharmacist_intervention": false,
+  "clinical_check_signed": true,
+  "home_supply_days": 20,
+  "emergency_supply": false,
+  "short_expiry": false,
+  "prior_error_count": 2,
+  "high_risk_drug": true,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "strength_status": "match_same_units",
+  "product_status": "exact",
+  "quantity_status": "owing_documented",
+  "label_status": "correct",
+  "prescriber_query": "pending",
+  "pharmacist_intervention": true,
+  "clinical_check_signed": true,
+  "home_supply_days": 1,
+  "emergency_supply": true,
+  "short_expiry": false,
+  "prior_error_count": 2,
+  "high_risk_drug": true,
+  "boundary_case": false
+ },
+ "plan": {
+  "strength_differs": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "release",
+   "second": null
+  },
+  "error_category": {
+   "clarity": "balanced",
+   "target": "none_found",
+   "second": "product_error"
+  },
+  "open_discrepancies": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  },
+  "supply_urgency": {
+   "clarity": "clear",
+   "target": "0",
+   "second": null
+  }
+ },
+ "target_words": 54,
+ "deciding": {
+  "strength_differs": "Prescribed 5 mg, dispensed 2.5 mg in the same unit, so they differ.",
+  "next_step": "The strength query is confirmed, the intervention on strength is accepted, the clinical check is signed and the owing slip is present; nothing is pending.",
+  "error_category": "The 2.5 mg pack looks like a wrong strength, but the confirmed query and accepted intervention on the same field point to none_found; both readings are defensible.",
+  "open_discrepancies": "Strength is covered by the confirmed query and accepted intervention; the quantity shortfall is covered by slip OW52, so 1 or 2 depends on whether those are counted as resolved.",
+  "supply_urgency": "Supply of 2024-06-02 for 28 days runs to 2024-06-30; checked 2024-06-10, leaving 20 days."
+ },
+ "request": "rec-F204-0066",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011247
+}

@@ -1,0 +1,153 @@
+{
+ "id": "F224-0023",
+ "family": "F224",
+ "state": {
+  "request": {
+   "views": [
+    "BW"
+   ],
+   "ind": "C04",
+   "risk": "high",
+   "req_date": "2025-02-18",
+   "prior_bw": "2022-03-30",
+   "patient_flags": [
+    "SPECIAL_CARE"
+   ],
+   "exceptions": [
+    {
+     "code": "EX_PT_MOVE",
+     "approver": "D14"
+    }
+   ],
+   "verbal_auth": [
+    {
+     "view": "PA",
+     "t": "11:20"
+    }
+   ]
+  },
+  "exposures": [
+   {
+    "id": 1,
+    "view": "BW",
+    "dose": 1.05,
+    "t": "11:02"
+   },
+   {
+    "id": 2,
+    "view": "BW",
+    "dose": 1.05,
+    "t": "11:05",
+    "retake_of": 1
+   },
+   {
+    "id": 3,
+    "view": "PA",
+    "dose": 1.55,
+    "t": "11:24"
+   }
+  ],
+  "image_review": {
+   "grade": 1,
+   "faults": {
+    "1": [
+     "FC_BLUR"
+    ]
+   },
+   "sensor_errors": [],
+   "second_grader": "done"
+  },
+  "equipment": {
+   "last_qa": "2025-01-09",
+   "qa_months": 12,
+   "output_test": "pass",
+   "drl_ref": {
+    "BW": 1.0,
+    "PA": 1.5
+   },
+   "console_log": [
+    {
+     "t": "11:02"
+    },
+    {
+     "t": "11:05"
+    },
+    {
+     "t": "11:24"
+    }
+   ]
+  },
+  "operator": {
+   "signoff_at": "2025-02-18T12:00",
+   "prior_findings_12m": 2
+  }
+ },
+ "factors": {
+  "indication_match": "match",
+  "recall_interval_months": 35,
+  "dose_ratio_to_drl": 1.05,
+  "console_log_discrepancy": "none",
+  "retake_cause": "patient_movement",
+  "equipment_qa_status": "in_date",
+  "approved_exception": true,
+  "patient_cooperation_flag": true,
+  "unrequested_exposure_count": 1,
+  "verbal_authorisation_logged": true,
+  "image_grade": "diagnostic",
+  "audit_completeness": "complete",
+  "operator_prior_findings": 2
+ },
+ "factors_sampled": {
+  "indication_match": "match",
+  "recall_interval_months": 35,
+  "dose_ratio_to_drl": 0.72,
+  "console_log_discrepancy": "none",
+  "retake_cause": "patient_movement",
+  "equipment_qa_status": "failed_last_test",
+  "approved_exception": true,
+  "patient_cooperation_flag": false,
+  "unrequested_exposure_count": 1,
+  "verbal_authorisation_logged": true,
+  "image_grade": "diagnostic",
+  "audit_completeness": "complete",
+  "operator_prior_findings": 2
+ },
+ "plan": {
+  "justified": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "operator_retake": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "follow_up": {
+   "clarity": "clear",
+   "target": "close_record",
+   "second": null
+  },
+  "dose_position": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  },
+  "unjustified_count": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  }
+ },
+ "target_words": 71,
+ "deciding": {
+  "justified": "High risk, 35 months since prior BW, indication C04 matches BW, and an approved exception is on file.",
+  "operator_retake": "Retake follows FC_BLUR with a SPECIAL_CARE patient flag, no sensor errors, QA in date and an approved EX_PT_MOVE exception: patient cause.",
+  "follow_up": "Console matches the exposure list, signoff and second grader are complete, and the exception and verbal auth cover the extras, so everything is explained.",
+  "dose_position": "BW 1.05 against 1.0 and PA 1.55 against 1.5 are about 103-105%, just over the 100% boundary.",
+  "unjustified_count": "The one PA exposure not in views [BW] at 11:24 is covered by verbal auth for PA at 11:20; the retake is of a requested view; count is zero."
+ },
+ "request": "rec-F224-0021",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012999
+}

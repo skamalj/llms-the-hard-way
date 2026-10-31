@@ -1,0 +1,181 @@
+{
+ "id": "F216-0049",
+ "family": "F216",
+ "state": {
+  "session": {
+   "id": "PH-0412",
+   "type": "pharmacy",
+   "date": "2025-04-12",
+   "start": "10:30",
+   "end": "11:15",
+   "next": "2025-04-19"
+  },
+  "storage": {
+   "unit": "F2",
+   "probe": "product",
+   "last_cal": "2024-11-02",
+   "alarms_30d": 0,
+   "maintenance": [
+    {
+     "start": "2025-04-10T08:00",
+     "end": "2025-04-10T09:00",
+     "type": "defrost"
+    }
+   ]
+  },
+  "temp_log": {
+   "int_min": 10,
+   "readings": [
+    [
+     "10:30",
+     5.4
+    ],
+    [
+     "10:40",
+     7.1
+    ],
+    [
+     "10:50",
+     8.6
+    ],
+    [
+     "11:00",
+     8.8
+    ],
+    [
+     "11:10",
+     7.4
+    ],
+    [
+     "11:20",
+     7.2
+    ],
+    [
+     "12:00",
+     6.2
+    ],
+    [
+     "12:10",
+     5.9
+    ]
+   ],
+   "manual": [
+    {
+     "t": "10:30",
+     "min": 4.2,
+     "max": 6.0,
+     "cur": 5.5
+    },
+    {
+     "t": "11:35",
+     "min": 4.2,
+     "max": 9.2,
+     "cur": 7.0
+    }
+   ],
+   "gaps": [
+    [
+     "11:30",
+     "11:50"
+    ]
+   ]
+  },
+  "stock": [
+   {
+    "lot": "P5",
+    "product": "influenza",
+    "tol_min": 60,
+    "freeze_sens": true,
+    "open": 60,
+    "wasted": 2,
+    "close": 44
+   }
+  ],
+  "administration": [
+   {
+    "t": "10:35",
+    "lot": "P5",
+    "n": 8
+   },
+   {
+    "t": "10:45",
+    "lot": "P5",
+    "n": 6
+   }
+  ],
+  "excursion_actions": {
+   "start": "10:40",
+   "end": null,
+   "quarantined": false,
+   "advice_status": "NR"
+  }
+ },
+ "factors": {
+  "true_excursion_minutes": 25,
+  "log_source_discrepancy": "logger_gap",
+  "buffered_probe_in_range": false,
+  "planned_maintenance": false,
+  "stability_clearance": "not_requested",
+  "doses_during_exposure": 6,
+  "stock_count_gap": 0,
+  "lot_id_mismatch": false,
+  "lots_beyond_tolerance": "none",
+  "freezing_reading": false,
+  "boundary_case": false,
+  "unit_alarm_history": 0,
+  "session_type": "pharmacy"
+ },
+ "factors_sampled": {
+  "true_excursion_minutes": 178,
+  "log_source_discrepancy": "logger_gap",
+  "buffered_probe_in_range": false,
+  "planned_maintenance": true,
+  "stability_clearance": "not_requested",
+  "doses_during_exposure": 25,
+  "stock_count_gap": -1,
+  "lot_id_mismatch": false,
+  "lots_beyond_tolerance": "none",
+  "freezing_reading": false,
+  "boundary_case": false,
+  "unit_alarm_history": 0,
+  "session_type": "pharmacy"
+ },
+ "plan": {
+  "dosed_uncleared": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "stock_reconciles": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "stock_disposition": {
+   "clarity": "contested",
+   "target": "release",
+   "second": "release_restricted"
+  },
+  "excursion_duration": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  },
+  "followup_urgency": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 160,
+ "deciding": {
+  "dosed_uncleared": "Logger readings are in range (7.1) at 10:40 and first exceed 8 at 10:50, after both dose entries (10:35, 10:45). Staff entered the excursion start as 10:40, so the 10:45 dose is uncertain.",
+  "stock_reconciles": "Lot P5: 60 - 2 wasted - 14 given (8 + 6) = 44, which equals the closing count, and the lot number matches.",
+  "stock_disposition": "The excursion is short against tol_min 60 and no advice was requested, which favours release. The 20-minute logger gap with a manual max of 9.2 and an unreviewed freeze-sensitive influenza lot make a restricted release defensible.",
+  "excursion_duration": "Two logged readings (8.6 and 8.8 at 10:50 and 11:00) give about 20 minutes out of range. The 11:30-11:50 gap with a manual max of 9.2 could add more, so the total may cross 30 minutes.",
+  "followup_urgency": "The 10:45 dose falls after the staff-entered excursion start (10:40), and no advice has been requested. A same-day recall check and action within 24 hours are both defensible."
+ },
+ "request": "rec-F216-0046",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.01442
+}

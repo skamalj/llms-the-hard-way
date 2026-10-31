@@ -1,0 +1,148 @@
+{
+ "id": "F236-0019",
+ "family": "F236",
+ "state": {
+  "changeover": {
+   "line": "L5",
+   "from_allergens": [
+    "milk",
+    "wheat"
+   ],
+   "to_allergens": [
+    "tree_nuts",
+    "wheat"
+   ],
+   "start": "2024-09-10T03:30",
+   "end": "2024-09-10T05:10"
+  },
+  "cleaning": {
+   "steps": [
+    {
+     "s": "dry_clean",
+     "done": true,
+     "spec_min": 20,
+     "act_min": 24
+    },
+    {
+     "s": "wet_wash",
+     "done": true,
+     "spec_min": 40,
+     "act_min": 45
+    }
+   ],
+   "part_swap": true,
+   "tool_set": "DT-3"
+  },
+  "verification": {
+   "first_batch_ref": "C77-0412",
+   "swabs": [
+    {
+     "id": "S1",
+     "target": "tree_nuts",
+     "ppm": 7,
+     "limit_ppm": 5,
+     "at": "2024-09-10T05:20"
+    }
+   ],
+   "atp_rlu": [
+    38
+   ]
+  },
+  "production": {
+   "line": "L5",
+   "batch": "C77-0421",
+   "start_at": "2024-09-10T05:30",
+   "end_at": "2024-09-10T08:30",
+   "qty": 450.76,
+   "unit": "kg",
+   "packaging_allergens": [
+    "tree_nuts",
+    "wheat",
+    "may_contain:milk"
+   ]
+  },
+  "approvals": {
+   "qa_signoff": {
+    "signed_at": "2024-09-10T05:25"
+   },
+   "deviations": []
+  },
+  "history": [
+   {
+    "verification_passed": true
+   },
+   {
+    "verification_passed": true
+   },
+   {
+    "verification_passed": true
+   }
+  ]
+ },
+ "factors": {
+  "allergen_transition": "swaps_allergen",
+  "cleaning_completion": "full",
+  "swab_outcome": "over_limit_no_retest",
+  "swab_timing_mismatch": false,
+  "cross_section_discrepancy": "batch_id_mismatch",
+  "exposed_quantity_kg": 450.76,
+  "approved_deviation": false,
+  "label_precaution": true,
+  "dedicated_tooling": true,
+  "qa_signoff_state": "signed_before_start",
+  "line_failure_history": 0,
+  "boundary_value": false
+ },
+ "factors_sampled": {
+  "allergen_transition": "swaps_allergen",
+  "cleaning_completion": "full",
+  "swab_outcome": "all_negative",
+  "swab_timing_mismatch": false,
+  "cross_section_discrepancy": "batch_id_mismatch",
+  "exposed_quantity_kg": 450.76,
+  "approved_deviation": false,
+  "label_precaution": true,
+  "dedicated_tooling": true,
+  "qa_signoff_state": "signed_after_start",
+  "line_failure_history": 0,
+  "boundary_value": false
+ },
+ "plan": {
+  "swabs_cleared": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "line_disposition": {
+   "clarity": "clear",
+   "target": "hold",
+   "second": null
+  },
+  "worst_deficiency": {
+   "clarity": "clear",
+   "target": "none",
+   "second": null
+  },
+  "exposed_product": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  },
+  "residue_evidence": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  }
+ },
+ "target_words": 119,
+ "deciding": {
+  "swabs_cleared": "The only swab S1 reads 7 ppm against limit 5 and no retest entry exists.",
+  "line_disposition": "One confirmation is missing, a passing retest of S1; cleaning is complete, tooling is swapped, a may_contain label is present and history is clean, so hold fits.",
+  "worst_deficiency": "Cleaning is complete and sign-off precedes start, but S1 is over limit and verification.first_batch_ref differs from production.batch, so paperwork and swab issues compete.",
+  "exposed_product": "No passing swab exists, so the whole 450.76 kg batch is unverified, near the 500 kg boundary.",
+  "residue_evidence": "S1 is over limit (7 vs 5) and no retest is recorded, which could be read as persistent or merely not yet retested."
+ },
+ "request": "rec-F236-0016",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.015522
+}

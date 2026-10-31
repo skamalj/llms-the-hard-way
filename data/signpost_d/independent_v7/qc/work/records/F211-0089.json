@@ -1,0 +1,126 @@
+{
+ "id": "F211-0089",
+ "family": "F211",
+ "state": {
+  "vehicle": {
+   "callsign": "A09",
+   "odometer_km": 45105,
+   "service_due_km": 46000
+  },
+  "check": {
+   "shift_date": "2025-07-11",
+   "signed_at": "2025-07-11T07:50",
+   "sections_required": 3,
+   "sections_signed": [
+    "vehicle",
+    "clinical",
+    "drugs"
+   ],
+   "countersigned_by": null,
+   "crew_note": "Defib error on start-up, seems fine now."
+  },
+  "defects": [
+   {
+    "item": "defibrillator",
+    "area": "clinical_equipment",
+    "desc": "Start-up error code.",
+    "status": "open",
+    "substitute_on_board": null,
+    "deferral": null
+   }
+  ],
+  "stock": {
+   "lines": [
+    {
+     "item": "adrenaline",
+     "qty": 8,
+     "par_level": 8,
+     "expiry": "2025-07-13"
+    }
+   ]
+  },
+  "activity": {
+   "first_mobilised_at": "2025-07-11T07:20",
+   "workshop_jobs": [
+    {
+     "date": "2025-07-10",
+     "job_note": "Defibrillator battery replaced."
+    }
+   ],
+   "prior_checks": [
+    {
+     "date": "2025-07-08",
+     "defects": [
+      "defibrillator"
+     ]
+    }
+   ]
+  }
+ },
+ "factors": {
+  "checklist_completion": "all_signed_no_countersign",
+  "worst_defect_tier": "critical_no_substitute",
+  "defect_area": "clinical_equipment",
+  "deferral_authorised": false,
+  "deferral_invalid": false,
+  "workshop_return_recent": true,
+  "earliest_drug_expiry_days": 2,
+  "restock_in_progress": false,
+  "service_margin_km": 895,
+  "crew_note_tone": "alarming_benign",
+  "signed_after_mobilisation": true,
+  "repeat_defect_count": 1
+ },
+ "factors_sampled": {
+  "checklist_completion": "all_signed_countersigned",
+  "worst_defect_tier": "critical_no_substitute",
+  "defect_area": "clinical_equipment",
+  "deferral_authorised": false,
+  "deferral_invalid": false,
+  "workshop_return_recent": true,
+  "earliest_drug_expiry_days": 2,
+  "restock_in_progress": false,
+  "service_margin_km": 895,
+  "crew_note_tone": "alarming_benign",
+  "signed_after_mobilisation": true,
+  "repeat_defect_count": 1
+ },
+ "plan": {
+  "defects_controlled": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "readiness_status": {
+   "clarity": "balanced",
+   "target": "release_with_note",
+   "second": "hold"
+  },
+  "limiting_area": {
+   "clarity": "clear",
+   "target": "clinical_equipment",
+   "second": null
+  },
+  "check_completeness": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  },
+  "defect_severity": {
+   "clarity": "balanced",
+   "target": "4",
+   "second": "3"
+  }
+ },
+ "target_words": 49,
+ "deciding": {
+  "defects_controlled": "The defibrillator defect is open with no deferral. A battery replacement the day before is logged without any retest, so the defect may or may not be resolved.",
+  "readiness_status": "The recent battery job and the crew note that it is fine support release with a note. The open critical defect with no retest supports a hold.",
+  "limiting_area": "The only open item is the defibrillator (clinical_equipment). Drugs are at par and in date, and the service margin is 895 km.",
+  "check_completeness": "All 3 sections are signed and there is no countersignature (level 2), but signed_at (07:50) is after first mobilisation (07:20), which leaves level 1 plausible.",
+  "defect_severity": "The defibrillator is critical and open. substitute_on_board is null, so level 4 and level 3 are both plausible."
+ },
+ "request": "rec-F211-0086",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.013436
+}

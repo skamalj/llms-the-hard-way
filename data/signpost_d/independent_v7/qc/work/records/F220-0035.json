@@ -1,0 +1,122 @@
+{
+ "id": "F220-0035",
+ "family": "F220",
+ "state": {
+  "tray": {
+   "tray_id": "T-6015",
+   "barcode": "3340712",
+   "requested_for": "2025-06-04T09:00",
+   "request_note": "Next list."
+  },
+  "set_check": {
+   "lines": [
+    {
+     "cat_code": "D2",
+     "qty_expected": 2,
+     "qty_counted": 1
+    }
+   ],
+   "variances": [
+    {
+     "cat_code": "D2",
+     "reason": "sub per set note",
+     "approved_by": "R.Cole"
+    }
+   ],
+   "packer_note": "All there, checked twice."
+  },
+  "washer": {
+   "alarms": [],
+   "trays_processed": [
+    "3340721"
+   ]
+  },
+  "steriliser_load": {
+   "cycle_date": "2025-06-02",
+   "printout": {
+    "temp_min_c": 134.2,
+    "hold_s": 185,
+    "pressure_kpa": null
+   },
+   "logger": null,
+   "bi": {
+    "result": "pass"
+   },
+   "ci_result": "pass",
+   "unload_condition": "dry"
+  },
+  "release_label": {
+   "tray_barcode": "3340712",
+   "sterilised_date": "2025-06-03",
+   "wrap_condition": "intact"
+  }
+ },
+ "factors": {
+  "set_count_discrepancies": 1,
+  "substitution_documented": true,
+  "cycle_excursion": "pressure_missing",
+  "independent_logger_confirms": false,
+  "bi_status": "pass",
+  "chemical_indicator": "pass",
+  "washer_record_state": "barcode_not_listed",
+  "pack_integrity": "intact",
+  "label_mismatch": "date_off_by_one_midnight",
+  "daily_test_state": "pass_today",
+  "theatre_urgency": "next_list",
+  "note_tone": "reassuring_unverified",
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "set_count_discrepancies": 1,
+  "substitution_documented": true,
+  "cycle_excursion": "none",
+  "independent_logger_confirms": false,
+  "bi_status": "pending",
+  "chemical_indicator": "pass",
+  "washer_record_state": "complete",
+  "pack_integrity": "intact",
+  "label_mismatch": "date_off_by_one_midnight",
+  "daily_test_state": "pass_today",
+  "theatre_urgency": "next_list",
+  "note_tone": "reassuring_unverified",
+  "boundary_case": false
+ },
+ "plan": {
+  "cycle_in_limits": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "disposition": {
+   "clarity": "clear",
+   "target": "hold",
+   "second": null
+  },
+  "failure_stage": {
+   "clarity": "balanced",
+   "target": "pack_stage",
+   "second": "wash_stage"
+  },
+  "count_gaps": {
+   "clarity": "contested",
+   "target": "0",
+   "second": "1"
+  },
+  "sterility_doubt": {
+   "clarity": "clear",
+   "target": "1",
+   "second": null
+  }
+ },
+ "target_words": 49,
+ "deciding": {
+  "cycle_in_limits": "printout.pressure_kpa is null and logger is null; temperature and hold are in band, so missing data against in-band values leaves it balanced.",
+  "disposition": "The washer barcode 3340721 does not match tray 3340712 and the label date differs from cycle_date, so the tray is held for confirmation.",
+  "failure_stage": "The washer transposed barcode (wash stage) competes with the label date one day after cycle_date (pack stage); the washer is earlier, but the date mismatch is a known trivial midnight pattern.",
+  "count_gaps": "D2 is short by one but has a variance with approver R.Cole and a reason, so it is explained or not depending on how vague the reason is.",
+  "sterility_doubt": "BI and CI pass and the wrap is intact and dry; the only gap is the label date off by one day."
+ },
+ "request": "rec-F220-0031",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.014351
+}

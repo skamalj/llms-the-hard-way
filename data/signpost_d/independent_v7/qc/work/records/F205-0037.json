@@ -1,0 +1,112 @@
+{
+ "id": "F205-0037",
+ "family": "F205",
+ "state": {
+  "flight": {
+   "std": "2025-05-12T07:00",
+   "turn": "night_stop_departure"
+  },
+  "times": {
+   "doors_open": "06:05",
+   "boarding_start": "06:30",
+   "doors_closed": "06:50",
+   "last_bag": "06:52",
+   "off_blocks": "07:16",
+   "delay_code": "BAG",
+   "delay_min": 16
+  },
+  "load": {
+   "pax_total": 120,
+   "bags_count": 74,
+   "bags_kg": 1010,
+   "captain_accepted": true
+  },
+  "hold_log": [
+   {
+    "pos": 1,
+    "bag_count": 45,
+    "weight": 615,
+    "weight_unit": "kg"
+   },
+   {
+    "pos": 2,
+    "bag_count": 27,
+    "weight": 394,
+    "weight_unit": "kg"
+   }
+  ],
+  "remarks": [
+   {
+    "role": "ramp",
+    "time": "06:55",
+    "text": "2 late-checked bags loaded after doors closed, pax confirmed on board."
+   }
+  ]
+ },
+ "factors": {
+  "bag_mismatch_size": "small_2_bags",
+  "mismatch_location": "loadsheet_bags_vs_hold_log",
+  "missing_record": "none",
+  "milestone_out_of_order": true,
+  "delay_minutes": 16,
+  "delay_code_fit": "supported",
+  "explanatory_remark": true,
+  "pending_signoff": false,
+  "dg_on_board": false,
+  "decoy_noise": "rounding_within_tolerance",
+  "boundary_value": true,
+  "turn_type": "night_stop_departure"
+ },
+ "factors_sampled": {
+  "bag_mismatch_size": "none",
+  "mismatch_location": "loadsheet_bags_vs_hold_log",
+  "missing_record": "none",
+  "milestone_out_of_order": true,
+  "delay_minutes": 61,
+  "delay_code_fit": "supported",
+  "explanatory_remark": true,
+  "pending_signoff": true,
+  "dg_on_board": false,
+  "decoy_noise": "rounding_within_tolerance",
+  "boundary_value": false,
+  "turn_type": "night_stop_departure"
+ },
+ "plan": {
+  "load_reconciled": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "delay_code_supported": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "log_disposition": {
+   "clarity": "clear",
+   "target": "close_with_note",
+   "second": null
+  },
+  "offblock_delay": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  },
+  "failed_checks": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  }
+ },
+ "target_words": 67,
+ "deciding": {
+  "load_reconciled": "Loadsheet shows 74 bags but the hold entries sum to 72 (45+27). The weights 1009 against 1010 kg are within rounding. The bag difference of 2 is the only break, so the answer leans false.",
+  "delay_code_supported": "Code BAG and last_bag 06:52 is after doors_closed 06:50, so baggage did run late. But off_blocks is 24 minutes after last_bag, which leaves doubt.",
+  "log_disposition": "The remark explains the late bags that cause both the order break and the count difference. Signoff is present, so annotate and close.",
+  "offblock_delay": "Off-blocks 07:16 against STD 07:00 is 16 minutes, the level 1/2 boundary.",
+  "failed_checks": "Three checks look failed: bag count, last_bag after doors_closed, and off-blocks over 3 minutes late. The bag difference is only 2 with weights in tolerance, so two is also defensible."
+ },
+ "request": "rec-F205-0036",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.01
+}

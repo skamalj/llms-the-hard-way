@@ -1,0 +1,159 @@
+{
+ "id": "F213-0060",
+ "family": "F213",
+ "state": {
+  "pool": {
+   "type": "leisure",
+   "test_interval_min": 120,
+   "opening": {
+    "open": "2024-06-12T09:00",
+    "close": "2024-06-12T17:00"
+   },
+   "limits": {
+    "combined_cl_max": 0.5,
+    "ph_min": 7.2,
+    "ph_max": 7.8
+   },
+   "tolerance": {
+    "free_cl": 0.3,
+    "ph": 0.2
+   },
+   "micro_due": "2024-07-01"
+  },
+  "manual_tests": [
+   {
+    "time": "2024-06-12T09:00",
+    "combined_cl": 0.2,
+    "ph": 7.5,
+    "kit_id": "K2"
+   },
+   {
+    "time": "2024-06-12T11:00",
+    "combined_cl": 0.3,
+    "ph": 7.5,
+    "kit_id": "K2"
+   },
+   {
+    "time": "2024-06-12T13:05",
+    "combined_cl": 0.4,
+    "ph": 7.9,
+    "kit_id": "K2"
+   },
+   {
+    "time": "2024-06-12T17:00",
+    "combined_cl": 0.3,
+    "ph": 7.5,
+    "kit_id": "K2"
+   },
+   {
+    "time": "2024-06-12T15:00",
+    "combined_cl": 0.3,
+    "ph": 7.6,
+    "kit_id": "K2"
+   }
+  ],
+  "plant": {
+   "controller_readings": [
+    {
+     "time": "2024-06-12T11:00",
+     "ph": 7.5
+    },
+    {
+     "time": "2024-06-12T13:00",
+     "ph": 7.65
+    }
+   ],
+   "dosing_events": [
+    {
+     "time": "2024-06-12T12:45",
+     "type": "shock"
+    }
+   ]
+  },
+  "equipment": {
+   "kits": [
+    {
+     "kit_id": "K2",
+     "cal_due": "2025-03-01"
+    }
+   ]
+  },
+  "actions": [
+   {
+    "time": "2024-06-12T13:40",
+    "action_type": "acid_dose",
+    "reading_ref": "2024-06-12T13:05",
+    "retest_time": "2024-06-12T15:00"
+   }
+  ],
+  "lab_sample": null
+ },
+ "factors": {
+  "pool_type": "leisure",
+  "test_coverage_gap": 1,
+  "boundary_interval": false,
+  "log_controller_discrepancy": "just_over",
+  "discrepancy_location": "ph",
+  "excursion_severity": "marginal",
+  "corrective_action_delay": "near_30_min",
+  "retest_logged": true,
+  "dosing_event_explains": true,
+  "kit_calibration_status": "in_date",
+  "lab_sample_state": "not_due",
+  "out_of_order_entry": true,
+  "benign_noise": "none"
+ },
+ "factors_sampled": {
+  "pool_type": "leisure",
+  "test_coverage_gap": 3,
+  "boundary_interval": false,
+  "log_controller_discrepancy": "none",
+  "discrepancy_location": "ph",
+  "excursion_severity": "none",
+  "corrective_action_delay": "prompt",
+  "retest_logged": true,
+  "dosing_event_explains": true,
+  "kit_calibration_status": "in_date",
+  "lab_sample_state": "missing_when_due",
+  "out_of_order_entry": true,
+  "benign_noise": "none"
+ },
+ "plan": {
+  "test_frequency_met": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "readings_reconcile": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "log_disposition": {
+   "clarity": "leaning",
+   "target": "accept",
+   "second": null
+  },
+  "action_delay": {
+   "clarity": "contested",
+   "target": "2",
+   "second": "1"
+  },
+  "failed_checks": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  }
+ },
+ "target_words": 92,
+ "deciding": {
+  "test_frequency_met": "Sorted, 11:00 to 13:05 is 125 min against a 120 min interval, a slight overrun; the 15:00 entry is listed out of order.",
+  "readings_reconcile": "13:05 manual pH 7.9 vs controller 7.65 at 13:00, difference 0.25 against 0.2 tolerance; 11:00 agrees.",
+  "log_disposition": "pH excursion is marginal (7.9 vs 7.8), corrected and retested at 15:00 within limits; lab sample not yet due (micro_due 2024-07-01).",
+  "action_delay": "pH 7.9 at 13:05; acid dose at 13:40, 35 min later, just over the 30 min anchor.",
+  "failed_checks": "Borderline 125 min gap and 0.25 pH difference plus the slightly slow action; counts fall at two or three."
+ },
+ "request": "rec-F213-0056",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.014815
+}

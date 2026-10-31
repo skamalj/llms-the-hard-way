@@ -1,0 +1,316 @@
+{
+ "id": "F216",
+ "domain": "vaccination clinic cold-chain session logs",
+ "role": "Cold-chain lead pharmacist for a regional immunisation service, reviewing each completed vaccination session log before stock is released, quarantined or destroyed",
+ "setting": "After every vaccination session (fixed clinic, outreach coolbox run, school session or community pharmacy), the session's cold-chain log is exported from the clinic system and lands in the lead pharmacist's review queue. Each record combines the session header, the storage unit details, the temperature readings from the data logger and the manual checks, the stock movements by lot, the administration list, and any excursion actions taken. The pharmacist decides whether doses were given from compromised stock, whether stock reconciles, what happens to the remaining stock, how long it was out of range and how soon follow-up is needed. Nothing in the record states these answers; they must be worked out by comparing sections.",
+ "questions": {
+  "dosed_uncleared": {
+   "type": "noul",
+   "instructions": "Doses were given from stock while an excursion remained uncleared.",
+   "criteria": {
+    "true": "Administration times fall after excursion start, before any clearance.",
+    "false": "No doses during exposure, or clearance preceded use."
+   }
+  },
+  "stock_reconciles": {
+   "type": "noul",
+   "instructions": "Closing stock count reconciles with opening stock, doses given and wasted.",
+   "criteria": {
+    "true": "Counts balance per lot and lot numbers match.",
+    "false": "Count gap or lot mismatch between sections."
+   }
+  },
+  "stock_disposition": {
+   "type": "choice",
+   "instructions": "What should happen to the vaccine stock from this session?",
+   "criteria": {
+    "release": "No qualifying excursion; stock returns to normal use unchanged.",
+    "release_restricted": "Excursion cleared by manufacturer advice with shortened use-by date.",
+    "quarantine_hold": "Exposure unresolved; stock held pending stability advice or confirmation.",
+    "partial_discard": "Some lots exceed tolerance; destroy those, keep the rest.",
+    "discard_all": "Every lot in the unit exceeded tolerance; destroy all."
+   }
+  },
+  "excursion_duration": {
+   "type": "score",
+   "instructions": "How long did stock spend outside 2–8 °C in total?",
+   "criteria": [
+    "None: no product reading outside 2–8 °C",
+    "Brief: under 30 cumulative minutes outside range",
+    "Extended: 30 to 120 cumulative minutes outside range",
+    "Prolonged: over 120 cumulative minutes outside range"
+   ]
+  },
+  "followup_urgency": {
+   "type": "score",
+   "instructions": "How soon must follow-up action on this session be taken?",
+   "criteria": [
+    "Routine filing only; no further action needed",
+    "Action due before the next scheduled session",
+    "Action due within 24 hours of review",
+    "Same-day action; affected patients may need recall"
+   ]
+  }
+ },
+ "factors": [
+  {
+   "name": "true_excursion_minutes",
+   "description": "Actual cumulative minutes the product (buffered) probe was outside 2–8 °C. Never stated; must be summed from temp_log.readings intervals and cross-checked against manual checks.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 300,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S7"
+   ]
+  },
+  {
+   "name": "log_source_discrepancy",
+   "description": "How the data logger and manual check sheet disagree: none, a small calibration offset, missing manual checks, or a logger gap where only manual readings bound the excursion.",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "minor_offset",
+    "manual_checks_missing",
+    "logger_gap"
+   ],
+   "weights": [
+    0.4,
+    0.25,
+    0.15,
+    0.2
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S6"
+   ]
+  },
+  {
+   "name": "buffered_probe_in_range",
+   "description": "Mitigation: an air-probe spike appears, but the buffered product probe stayed within range throughout, so the alarm does not reflect product temperature.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S5"
+   ]
+  },
+  {
+   "name": "planned_maintenance",
+   "description": "Mitigation decoy: a scheduled defrost or unit relocation is recorded overlapping the alarm window, with stock moved to a validated backup unit or coolbox whose readings are present.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S1"
+   ]
+  },
+  {
+   "name": "stability_clearance",
+   "description": "Status of manufacturer or regional stability advice for the exposure: not requested, requested and pending, cleared with full expiry, cleared with shortened expiry, or refused.",
+   "kind": "categorical",
+   "values": [
+    "not_requested",
+    "requested_pending",
+    "cleared_full",
+    "cleared_shortened",
+    "refused"
+   ],
+   "weights": [
+    0.25,
+    0.2,
+    0.2,
+    0.2,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S4",
+    "S5"
+   ]
+  },
+  {
+   "name": "doses_during_exposure",
+   "description": "Number of administration entries timestamped between excursion start and clearance time (or session end if never cleared). Zero in many records.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 30,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S5",
+    "S7"
+   ]
+  },
+  {
+   "name": "stock_count_gap",
+   "description": "Opening minus administered minus wasted, compared with closing count, summed across lots. Zero means balanced; non-zero values range from one dose to several.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": -6,
+   "max": 6,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S5"
+   ]
+  },
+  {
+   "name": "lot_id_mismatch",
+   "description": "An administration entry cites a lot number absent from stock.lots, or differing by one character from a listed lot.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.2,
+   "skills": [
+    "S1",
+    "S5"
+   ]
+  },
+  {
+   "name": "lots_beyond_tolerance",
+   "description": "Which lots exceeded their product-specific excursion tolerance (lots stored on different shelves or in a coolbox see different exposure): none, some, or all.",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "some",
+    "all"
+   ],
+   "weights": [
+    0.5,
+    0.3,
+    0.2
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S4",
+    "S1"
+   ]
+  },
+  {
+   "name": "freezing_reading",
+   "description": "At least one product-probe reading at or below 0 °C, which voids tolerance for freeze-sensitive products regardless of duration.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.12,
+   "skills": [
+    "S1",
+    "S7"
+   ]
+  },
+  {
+   "name": "boundary_case",
+   "description": "Cumulative excursion falls within 3 minutes of 30 or 120, or the peak reading is exactly 8.0 °C, or logger and manual sources place the total on opposite sides of a threshold.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.2,
+   "skills": [
+    "S6"
+   ]
+  },
+  {
+   "name": "unit_alarm_history",
+   "description": "Count of alarms on this storage unit in the previous 30 days; a decoy for repeated faults that raises attention but does not itself decide disposition.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 5,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S7"
+   ]
+  },
+  {
+   "name": "session_type",
+   "description": "Kind of session, which changes how the record looks (coolbox outreach has transport legs and no fridge door events; pharmacy has a single fridge).",
+   "kind": "categorical",
+   "values": [
+    "fixed_clinic",
+    "outreach_coolbox",
+    "school_session",
+    "pharmacy"
+   ],
+   "weights": [
+    0.35,
+    0.25,
+    0.2,
+    0.2
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S7"
+   ]
+  }
+ ],
+ "sections": [
+  {
+   "name": "session",
+   "description": "Session id, site code, session_type, date, start and end times, next_session_date."
+  },
+  {
+   "name": "storage",
+   "description": "Unit id, unit_type, probe config, last_calibration date, alarms_30d count, maintenance entries with start and end times."
+  },
+  {
+   "name": "temp_log",
+   "description": "Logger readings list (time, air_c, product_c), manual_checks list (time, min_c, max_c, current_c), logger_gaps list."
+  },
+  {
+   "name": "stock",
+   "description": "Lots list with lot_no, product, shelf, expiry, tolerance_min_out, freeze_sensitive, opening, wasted, closing."
+  },
+  {
+   "name": "administration",
+   "description": "List of dose entries with time, lot_no and dose count."
+  },
+  {
+   "name": "excursion_actions",
+   "description": "Excursion start and end, quarantined boolean, advice_requested_at, advice_status code, advice_received_at, revised_expiry or null."
+  }
+ ],
+ "rendering_notes": "true_excursion_minutes is never stated: the reader sums intervals where temp_log.readings.product_c is outside 2.0–8.0, using the 5- or 10-minute logging interval; excursion_actions.start and end are entered by clinic staff and may disagree with the readings (S1). log_source_discrepancy: minor_offset shows manual current_c 0.3–0.6 °C off logger values; manual_checks_missing leaves required checks absent; logger_gap lists a gap in temp_log.logger_gaps, with only manual min_c/max_c bracketing it, so duration is uncertain (S6). buffered_probe_in_range: air_c spikes above 8 while product_c stays in range; when false, product_c follows the spike. If storage.probe_config is 'air_only', there is no product_c and air readings must be treated as product temperature. planned_maintenance: storage.maintenance lists a defrost or relocation overlapping the spike, and a backup unit id appears with its own readings; whether the backup readings were in range still has to be checked. stability_clearance appears only as excursion_actions.advice_status codes (NR, PEND, CLR, CLR_SHORT, REF) with timestamps; revised_expiry populated only for CLR_SHORT. doses_during_exposure is found by comparing administration times with excursion start and advice_received_at. stock_count_gap appears only through per-lot opening, wasted, closing and summed administration doses. lot_id_mismatch shows as an administration lot_no missing from stock.lots or one character different. lots_beyond_tolerance is shown via shelf positions and the coolbox leg each lot occupied against tolerance_min_out per lot. freezing_reading shows as a product_c value at or below 0.0 for a freeze_sensitive lot. Decoys: storage.alarms_30d, an old last_calibration date, air_c spikes with in-range product_c, maintenance entries that do not actually overlap, and wasted doses recorded for opened vials, which are legitimate. The record must never contain fields such as compromised, risk, severity, excursion_minutes_total, disposition, reconciled or urgency; it contains no free-text notes, only codes, numbers, timestamps, booleans and null for unknown values.",
+ "skills": [
+  "S1",
+  "S3",
+  "S4",
+  "S5",
+  "S6",
+  "S7"
+ ],
+ "shared_scale": null,
+ "design_cost": 0.141792
+}

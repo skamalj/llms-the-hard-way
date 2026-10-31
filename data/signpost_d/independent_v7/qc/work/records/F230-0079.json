@@ -1,0 +1,128 @@
+{
+ "id": "F230-0079",
+ "family": "F230",
+ "state": {
+  "prescriptions": [
+   {
+    "item_id": "i1",
+    "drug": "lactulose",
+    "dose_units": 1
+   },
+   {
+    "item_id": "i2",
+    "drug": "senna",
+    "dose_units": 1
+   },
+   {
+    "item_id": "i3",
+    "drug": "paracetamol",
+    "dose_units": 2
+   }
+  ],
+  "administrations": [
+   {
+    "item_id": "i1",
+    "scheduled": "2024-05-06T08:00",
+    "given_at": "2024-05-06T10:04",
+    "units_given": 1,
+    "initials": "JM"
+   },
+   {
+    "item_id": "i2",
+    "units_given": 1,
+    "initials": null
+   },
+   {
+    "item_id": "i3",
+    "units_given": 2,
+    "initials": "JM"
+   }
+  ],
+  "stock": {
+   "i3": {
+    "opening": 50,
+    "wasted": 3,
+    "wasted_witnessed": false,
+    "closing": 45
+   }
+  },
+  "round": {
+   "post_dose_obs": [
+    {
+     "type": "pulse",
+     "value": 44
+    }
+   ]
+  }
+ },
+ "factors": {
+  "dose_mismatch_type": "none",
+  "prescription_change_documented": false,
+  "omission_count": 0,
+  "omission_reason_valid": true,
+  "late_minutes": 124,
+  "time_critical_affected": false,
+  "stock_variance": 0,
+  "stock_variance_explained": false,
+  "signature_gaps": 1,
+  "unit_expression_decoy": "matching_units",
+  "post_dose_obs_reassuring": false,
+  "pending_query": "none",
+  "prior_errors_30d": 0,
+  "item_count": 3
+ },
+ "factors_sampled": {
+  "dose_mismatch_type": "wrong_strength",
+  "prescription_change_documented": false,
+  "omission_count": 3,
+  "omission_reason_valid": true,
+  "late_minutes": 124,
+  "time_critical_affected": false,
+  "stock_variance": -3,
+  "stock_variance_explained": true,
+  "signature_gaps": 1,
+  "unit_expression_decoy": "matching_units",
+  "post_dose_obs_reassuring": false,
+  "pending_query": "none",
+  "prior_errors_30d": 0,
+  "item_count": 7
+ },
+ "plan": {
+  "dose_mismatch": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "stock_reconciles": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "next_step": {
+   "clarity": "balanced",
+   "target": "correct_and_close",
+   "second": "clinical_escalation"
+  },
+  "open_discrepancies": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "error_severity": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  }
+ },
+ "target_words": 45,
+ "deciding": {
+  "dose_mismatch": "Units given match dose_units on all three items. Leaning false, with minor doubt because the prescription fields are sparse.",
+  "stock_reconciles": "i3 50 minus 2 signed minus 3 wasted gives 45, which matches, but the waste is wasted_witnessed false, so the count is balanced between accepted and doubtful.",
+  "next_step": "Slips such as a null initial on i2 and a count that matches but has unwitnessed waste favour correct_and_close, but the abnormal pulse of 44 after dosing keeps escalation plausible.",
+  "open_discrepancies": "The late dose on i1, the unsigned i2 and the unwitnessed waste on i3 give about three items, near the 2-3 and 4+ boundary.",
+  "error_severity": "The null initials on i2 mean documentation (level 1), while i1 given 124 minutes late would be timing (level 2)."
+ },
+ "request": "rec-F230-0076",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.013371
+}

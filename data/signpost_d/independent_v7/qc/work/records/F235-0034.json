@@ -1,0 +1,133 @@
+{
+ "id": "F235-0034",
+ "family": "F235",
+ "state": {
+  "station": {
+   "backup": {
+    "installed": true,
+    "status": "reporting"
+   },
+   "telemetry": {
+    "batt_v": 11.4,
+    "rssi_dbm": -104,
+    "last_tx": "2024-06-03T08:10"
+   }
+  },
+  "visit": {
+   "type": "routine",
+   "abort_reason": "lightning"
+  },
+  "checks": {
+   "pre": {
+    "board_m": [
+     1.35,
+     1.354
+    ],
+    "logger_m": 1.311
+   },
+   "post": {
+    "board_m": [
+     1.35,
+     1.353
+    ],
+    "logger_m": null,
+    "time": "2024-06-03T11:20"
+   }
+  },
+  "works": {
+   "tasks": [
+    {
+     "task": "control survey",
+     "status": "done"
+    },
+    {
+     "task": "replace transducer",
+     "status": "not_started"
+    }
+   ],
+   "bench_test": {
+    "result_mm_error": 1
+   },
+   "logger_gap_h": 36
+  },
+  "defects": [
+   {
+    "item": "primary sensor no output",
+    "channel": "primary_stage",
+    "reporting": false
+   }
+  ],
+  "notes": {
+   "tech_note": "Bed level up 40 mm per survey.",
+   "supervisor_comment": "Temporary offset reference approved; bubbler covering."
+  }
+ },
+ "factors": {
+  "pre_visit_offset_mm": 41.0,
+  "check_reading_spread_mm": 4.0,
+  "drift_cause": "channel_change",
+  "cause_evidence": "corroborated",
+  "visit_completion": "aborted",
+  "post_visit_check_logged": true,
+  "residual_defect_class": "primary_not_reporting",
+  "backup_sensor_ok": true,
+  "benign_explanation": true,
+  "record_gap": "none",
+  "logger_gap_hours": 36,
+  "telemetry_decoy": "both_low",
+  "note_tone": "neutral"
+ },
+ "factors_sampled": {
+  "pre_visit_offset_mm": 73.35,
+  "check_reading_spread_mm": 3.16,
+  "drift_cause": "channel_change",
+  "cause_evidence": "corroborated",
+  "visit_completion": "aborted",
+  "post_visit_check_logged": true,
+  "residual_defect_class": "none",
+  "backup_sensor_ok": true,
+  "benign_explanation": true,
+  "record_gap": "defects_missing",
+  "logger_gap_hours": 36,
+  "telemetry_decoy": "both_low",
+  "note_tone": "neutral"
+ },
+ "plan": {
+  "sensor_fault_cause": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "visit_disposition": {
+   "clarity": "clear",
+   "target": "sign_off_noted",
+   "second": null
+  },
+  "data_treatment": {
+   "clarity": "clear",
+   "target": "apply_correction",
+   "second": null
+  },
+  "offset_size": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "residual_defect": {
+   "clarity": "clear",
+   "target": "4",
+   "second": null
+  }
+ },
+ "target_words": 50,
+ "deciding": {
+  "sensor_fault_cause": "Bench test error 1 mm and a control survey showing bed level up 40 mm point to channel change; the later no-output defect adds some doubt.",
+  "visit_disposition": "Supervisor notes an approved temporary offset reference with the backup bubbler covering, so close with a noted point.",
+  "data_treatment": "Offset is explained by the surveyed bed change (40 mm) and matches the checks, so correction applies.",
+  "offset_size": "Board mean 1.352 minus logger 1.311 = 41 mm, just over the 40 mm boundary.",
+  "residual_defect": "Primary stage defect with reporting false and the post logger value null."
+ },
+ "request": "rec-F235-0031",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011654
+}

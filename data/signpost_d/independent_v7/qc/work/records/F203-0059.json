@@ -1,0 +1,119 @@
+{
+ "id": "F203-0059",
+ "family": "F203",
+ "state": {
+  "request": {
+   "submitted_on": "2025-04-02",
+   "need_by": "2025-04-20",
+   "scope": "whole_item"
+  },
+  "borrower_library": {
+   "agreement": {
+    "status": "expired",
+    "expires_on": "2025-04-01",
+    "renewal_submitted_on": "2025-03-20"
+   },
+   "open_loans": [
+    {
+     "due_on": "2025-03-10",
+     "return_scan_on": "2025-03-08"
+    },
+    {
+     "due_on": "2025-03-12",
+     "return_scan_on": "2025-03-09"
+    },
+    {
+     "due_on": "2025-03-15",
+     "return_scan_on": "2025-03-14"
+    }
+   ]
+  },
+  "item": {
+   "condition_grade": "good",
+   "local_holds": 4
+  },
+  "holdings_network": {
+   "copies": [
+    {
+     "library_code": "X",
+     "status": "on_loan"
+    }
+   ],
+   "supplier_status": {
+    "print_status": "out_of_print",
+    "secondhand_listings": 0
+   }
+  },
+  "logistics": {
+   "est_arrival": "2025-04-25"
+  }
+ },
+ "factors": {
+  "agreement_status": "renewal_pending",
+  "borrower_overdue_count": 3,
+  "overdue_mitigated": true,
+  "patron_verification": "verified",
+  "item_condition": "good",
+  "conservation_cleared": true,
+  "local_holds_queue": 4,
+  "network_other_copies": 0,
+  "print_status": "out_of_print_none_secondhand",
+  "request_scope": "whole_item",
+  "copyright_declaration_present": false,
+  "need_by_slack_days": -5,
+  "need_by_missing": false
+ },
+ "factors_sampled": {
+  "agreement_status": "renewal_pending",
+  "borrower_overdue_count": 3,
+  "overdue_mitigated": true,
+  "patron_verification": "verified",
+  "item_condition": "good",
+  "conservation_cleared": true,
+  "local_holds_queue": 4,
+  "network_other_copies": 0,
+  "print_status": "out_of_print_secondhand",
+  "request_scope": "whole_item",
+  "copyright_declaration_present": false,
+  "need_by_slack_days": 12,
+  "need_by_missing": false
+ },
+ "plan": {
+  "borrower_good_standing": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "disposition": {
+   "clarity": "clear",
+   "target": "hold",
+   "second": null
+  },
+  "loan_restriction": {
+   "clarity": "balanced",
+   "target": "copy_supplied",
+   "second": "no_renewal"
+  },
+  "time_slack": {
+   "clarity": "clear",
+   "target": "0",
+   "second": null
+  },
+  "replacement_difficulty": {
+   "clarity": "clear",
+   "target": "4",
+   "second": null
+  }
+ },
+ "target_words": 25,
+ "deciding": {
+  "borrower_good_standing": "Renewal submitted before expiry and overdue loans all carry return scans dated before due_on, with one residual doubt over the expired status.",
+  "disposition": "Agreement status is expired with a renewal pending, one unresolved record to confirm before deciding.",
+  "loan_restriction": "No other network copy and four local holds favour a supplied copy; a fixed no-renewal loan is also plausible.",
+  "time_slack": "est_arrival 2025-04-25 is after need_by 2025-04-20.",
+  "replacement_difficulty": "Only an on_loan entry in the network, out of print, secondhand_listings 0."
+ },
+ "request": "rec-F203-0056",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.0105
+}

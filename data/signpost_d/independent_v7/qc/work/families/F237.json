@@ -1,0 +1,335 @@
+{
+ "id": "F237",
+ "domain": "electrical installation test certificates",
+ "role": "Notification desk reviewer at a self-certification scheme for registered electrical contractors",
+ "setting": "Registered contractors upload electrical installation certificates for completed domestic work. Before the scheme lodges each job with the local building control body, a reviewer checks one certificate record at a time. They confirm that the schedule of test results, the board details, the instruments and the signatory's registration all belong together. They also check that testing happened in the right order and that every circuit was tested. The reviewer then decides whether to lodge, lodge with advice, hold for a query, or return the certificate for retest.",
+ "questions": {
+  "results_match_install": {
+   "type": "noul",
+   "instructions": "Test results correspond to the installation described on this certificate.",
+   "criteria": {
+    "true": "Board, circuits and devices agree across every section",
+    "false": "Circuit count, device ratings or board reference conflict"
+   }
+  },
+  "tested_before_signing": {
+   "type": "noul",
+   "instructions": "All testing was completed on or before the certificate signature date.",
+   "criteria": null
+  },
+  "submission_disposition": {
+   "type": "choice",
+   "instructions": "What should the scheme do with this certificate submission?",
+   "criteria": {
+    "lodge": "Notify building control now; no contractor contact needed",
+    "lodge_with_advice": "Notify now, and tell contractor about clerical errors only",
+    "hold_query": "Withhold notification until contractor supplies one missing confirmation",
+    "return_retest": "Reject certificate; installation must be retested and recertified"
+   }
+  },
+  "untested_circuits": {
+   "type": "score",
+   "instructions": "How many scheduled circuits lack a complete set of test results?",
+   "criteria": [
+    "None: every scheduled circuit has a full result set",
+    "One: exactly one circuit is missing a required result",
+    "Few: two or three circuits are missing results",
+    "Many: four or more circuits, or schedule absent"
+   ]
+  },
+  "failed_checks": {
+   "type": "score",
+   "instructions": "How many of the standard checks on this record failed?",
+   "criteria": [
+    "No standard checks failed",
+    "Exactly one standard check failed",
+    "Two or three standard checks failed",
+    "Four or more standard checks failed"
+   ]
+  }
+ },
+ "factors": [
+  {
+   "name": "install_type",
+   "description": "Kind of work certified; changes how many circuits and which tests are expected",
+   "kind": "categorical",
+   "values": [
+    "new_circuit",
+    "consumer_unit_change",
+    "extension",
+    "full_rewire"
+   ],
+   "weights": [
+    0.3,
+    0.3,
+    0.2,
+    0.2
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S7"
+   ]
+  },
+  {
+   "name": "board_ways_declared",
+   "description": "Number of circuits declared on the board summary in supply_and_board",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 2,
+   "max": 18,
+   "p_true": 0,
+   "skills": [
+    "S1"
+   ]
+  },
+  {
+   "name": "schedule_mismatch",
+   "description": "Whether and where the circuit schedule disagrees with the board summary or job description",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "ocpd_rating_differs",
+    "circuit_missing_from_schedule",
+    "extra_circuit_in_schedule",
+    "board_ref_differs"
+   ],
+   "weights": [
+    0.4,
+    0.18,
+    0.14,
+    0.14,
+    0.14
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S5"
+   ]
+  },
+  {
+   "name": "incomplete_circuits",
+   "description": "Count of scheduled circuits with one or more required readings null",
+   "kind": "categorical",
+   "values": [
+    "0",
+    "1",
+    "2",
+    "3",
+    "4_plus",
+    "schedule_null"
+   ],
+   "weights": [
+    0.38,
+    0.24,
+    0.14,
+    0.09,
+    0.09,
+    0.06
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S2",
+    "S4",
+    "S6"
+   ]
+  },
+  {
+   "name": "worst_zs_ratio",
+   "description": "Worst measured earth loop impedance divided by the maximum permitted for its device",
+   "kind": "number",
+   "values": [],
+   "weights": [],
+   "min": 0.4,
+   "max": 1.3,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S6"
+   ]
+  },
+  {
+   "name": "test_date_order",
+   "description": "How circuit test dates relate to the job signature and completion dates",
+   "kind": "categorical",
+   "values": [
+    "in_order",
+    "same_day_as_signature",
+    "after_signature_days",
+    "after_signature_weeks",
+    "test_date_missing"
+   ],
+   "weights": [
+    0.45,
+    0.17,
+    0.14,
+    0.12,
+    0.12
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S2",
+    "S5",
+    "S6"
+   ]
+  },
+  {
+   "name": "rcd_test_status",
+   "description": "State of RCD trip-time results on circuits needing additional protection",
+   "kind": "categorical",
+   "values": [
+    "all_within_limit",
+    "one_slow_trip",
+    "not_recorded",
+    "no_rcd_where_required"
+   ],
+   "weights": [
+    0.5,
+    0.18,
+    0.2,
+    0.12
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S2",
+    "S4"
+   ]
+  },
+  {
+   "name": "signatory_registration",
+   "description": "Signatory's scheme registration against the test date and work scope",
+   "kind": "categorical",
+   "values": [
+    "active_in_scope",
+    "active_out_of_scope",
+    "lapsed_before_test",
+    "reg_no_not_found"
+   ],
+   "weights": [
+    0.6,
+    0.14,
+    0.14,
+    0.12
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S4"
+   ]
+  },
+  {
+   "name": "instrument_calibration",
+   "description": "Calibration due date of the listed test instrument relative to the test date",
+   "kind": "categorical",
+   "values": [
+    "in_date",
+    "expired_under_30d",
+    "expired_over_30d",
+    "serial_not_on_schedule"
+   ],
+   "weights": [
+    0.55,
+    0.15,
+    0.15,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S6"
+   ]
+  },
+  {
+   "name": "retest_logged",
+   "description": "A remedial retest entry exists with a passing value for a failed or missing reading",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S4",
+    "S6"
+   ]
+  },
+  {
+   "name": "clerical_errors",
+   "description": "Count of harmless slips such as postcode format, client name spelling or swapped circuit descriptions",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 4,
+   "p_true": 0,
+   "skills": [
+    "S4",
+    "S7"
+   ]
+  },
+  {
+   "name": "days_to_upload",
+   "description": "Days between completion date and upload; a decoy that rarely changes the disposition",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 1,
+   "max": 75,
+   "p_true": 0,
+   "skills": [
+    "S7"
+   ]
+  }
+ ],
+ "sections": [
+  {
+   "name": "job",
+   "description": "Certificate reference, site address, install_type, completion_date, signed_date, upload_date, signatory_reg_no"
+  },
+  {
+   "name": "contractor",
+   "description": "Registration record: reg_no, status, scope_codes list, valid_from, valid_to"
+  },
+  {
+   "name": "supply_and_board",
+   "description": "Earthing system, ze_ohm, pfc_ka, board_ref, ways_used, main_switch_a, rcd devices list"
+  },
+  {
+   "name": "circuits",
+   "description": "List of circuits: no, board_ref, ocpd_type, ocpd_a, csa_mm2, zs_max_ohm, zs_ohm, ir_mohm, rcd_ms, tested_on"
+  },
+  {
+   "name": "instruments",
+   "description": "List of test instruments: serial, kind, cal_due date"
+  },
+  {
+   "name": "remedial_retests",
+   "description": "List of retest entries: circuit_no, reading, value, retested_on; null when none"
+  }
+ ],
+ "rendering_notes": "There are no free-text fields; every signal is a value, date or null. board_ways_declared appears as supply_and_board.ways_used. schedule_mismatch shows as the circuits list length differing from ways_used, one ocpd_a value differing from the matching rcd devices entry or board summary, or circuits[].board_ref differing from supply_and_board.board_ref. incomplete_circuits shows as nulls in zs_ohm, ir_mohm or rcd_ms; schedule_null sets circuits to null. worst_zs_ratio is never computed; the reviewer must compare zs_ohm with zs_max_ohm per row, and values near 1.0 are left for judgment. test_date_order is shown only through circuits[].tested_on compared with job.signed_date and completion_date, or as a null tested_on. rcd_test_status appears as rcd_ms values above 40, nulls, or an empty rcd devices list on circuits that need one. signatory_registration requires comparing job.signatory_reg_no and the test dates with contractor.reg_no, status, scope_codes and valid_to. instrument_calibration requires comparing instruments[].cal_due with tested_on, or finding a serial missing. retest_logged fills remedial_retests with a passing value dated after the original; it is null otherwise, with about half of the alarming readings mitigated this way. Decoys: clerical_errors (postcode spacing, name spelling, swapped circuit labels), days_to_upload, csa_mm2 and pfc_ka values that look unusual but are acceptable. Never include an overall pass/fail field, an outcome or recommendation field, a count of missing results, or any flag stating a mismatch or a late date.",
+ "skills": [
+  "S1",
+  "S2",
+  "S4",
+  "S5",
+  "S6",
+  "S7"
+ ],
+ "shared_scale": "failed_checks",
+ "design_cost": 0.13122
+}

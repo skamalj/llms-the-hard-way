@@ -1,0 +1,166 @@
+{
+ "id": "F236-0010",
+ "family": "F236",
+ "state": {
+  "changeover": {
+   "line": "L5",
+   "from_allergens": [
+    "tree_nuts",
+    "soya"
+   ],
+   "to_allergens": [
+    "soya"
+   ]
+  },
+  "cleaning": {
+   "steps": [
+    {
+     "n": 1,
+     "completed": true,
+     "spec_min": 30,
+     "actual_min": 18
+    }
+   ],
+   "part_swap": false
+  },
+  "verification": {
+   "swabs": [
+    {
+     "id": "S1",
+     "target": "tree_nuts",
+     "reading": 12,
+     "limit_ppm": 5,
+     "at": "2024-09-10T06:40"
+    },
+    {
+     "id": "S2",
+     "retest_of": "S1",
+     "target": "tree_nuts",
+     "reading": 9,
+     "limit_ppm": 5,
+     "at": "2024-09-10T06:55"
+    },
+    {
+     "id": "S3",
+     "retest_of": "S2",
+     "target": "tree_nuts",
+     "reading": 1,
+     "limit_ppm": 5,
+     "at": "2024-09-10T07:20"
+    }
+   ]
+  },
+  "production": {
+   "line": "L5",
+   "start_at": "2024-09-10T07:00",
+   "end_at": "2024-09-10T07:20",
+   "quantity": 12,
+   "unit": "kg",
+   "held": true
+  },
+  "approvals": {
+   "qa_signoff": {
+    "signed_at": "2024-09-10T06:58"
+   },
+   "deviations": []
+  },
+  "history": [
+   {
+    "passed": true
+   },
+   {
+    "passed": true
+   },
+   {
+    "passed": true
+   },
+   {
+    "passed": true
+   },
+   {
+    "passed": true
+   },
+   {
+    "passed": true
+   },
+   {
+    "passed": true
+   },
+   {
+    "passed": true
+   },
+   {
+    "passed": true
+   },
+   {
+    "passed": true
+   }
+  ]
+ },
+ "factors": {
+  "allergen_transition": "removes_allergen",
+  "cleaning_completion": "duration_short",
+  "swab_outcome": "positive_retest_fail_then_late_pass",
+  "swab_timing_mismatch": true,
+  "cross_section_discrepancy": "none",
+  "exposed_quantity_kg": 12.0,
+  "approved_deviation": false,
+  "label_precaution": false,
+  "dedicated_tooling": false,
+  "qa_signoff_state": "signed_before_start",
+  "line_failure_history": 0,
+  "boundary_value": false
+ },
+ "factors_sampled": {
+  "allergen_transition": "removes_allergen",
+  "cleaning_completion": "duration_short",
+  "swab_outcome": "positive_retest_fail",
+  "swab_timing_mismatch": true,
+  "cross_section_discrepancy": "none",
+  "exposed_quantity_kg": 234.85,
+  "approved_deviation": false,
+  "label_precaution": false,
+  "dedicated_tooling": false,
+  "qa_signoff_state": "signed_before_start",
+  "line_failure_history": 0,
+  "boundary_value": false
+ },
+ "plan": {
+  "swabs_cleared": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "line_disposition": {
+   "clarity": "leaning",
+   "target": "hold",
+   "second": null
+  },
+  "worst_deficiency": {
+   "clarity": "clear",
+   "target": "release_breach",
+   "second": null
+  },
+  "exposed_product": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "residue_evidence": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 77,
+ "deciding": {
+  "swabs_cleared": "S1 and S2 failed (12 and 9 vs 5 ppm) and the passing S3 is at 07:20, after start_at 07:00.",
+  "line_disposition": "Batch held:true with a late passing S3 and no deviation; hold is the natural answer, with recleaning a possible alternative.",
+  "worst_deficiency": "Production began at 07:00 before any swab passed (S3 at 07:20); sign-off at 06:58 came before the swabs passed.",
+  "exposed_product": "Only 12 kg made between 07:00 and 07:20 and the batch is held, so 0 versus 1 is balanced.",
+  "residue_evidence": "S1 and retest S2 both failed, and the S3 retest of S2 passed only after start, so failed versus passed retest is arguable."
+ },
+ "request": "rec-F236-0006",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.015068
+}

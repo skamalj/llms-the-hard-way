@@ -1,0 +1,124 @@
+{
+ "id": "F201-0039",
+ "family": "F201",
+ "state": {
+  "register_header": {
+   "drug": "fentanyl",
+   "concentration_mg_ml": 0.05,
+   "schedule": 2,
+   "witness_required": true,
+   "opening_balance_ml": 100
+  },
+  "entries": [
+   {
+    "entry_id": "E1",
+    "date": "2024-03-06",
+    "type": "admin",
+    "qty_ml": 30,
+    "patient_id": "P7",
+    "running_balance_ml": 70,
+    "signed_by": "LOC-4",
+    "witness_id": "W2"
+   },
+   {
+    "entry_id": "E2",
+    "date": "2024-03-19",
+    "type": "disposal",
+    "qty_ml": 10,
+    "running_balance_ml": 60,
+    "signed_by": "V5",
+    "witness_id": null
+   }
+  ],
+  "clinical_records": [
+   {
+    "patient_id": "P7",
+    "date": "2024-03-06",
+    "dose": 30,
+    "dose_unit": "ml"
+   }
+  ],
+  "stock_check": {
+   "count_date": "2024-03-31",
+   "counted_ml": 59,
+   "overfill_allowance_ml": 0.5
+  },
+  "disposals": [
+   {
+    "qty_ml": 10,
+    "reason_code": "expired",
+    "register_entry_id": "E2",
+    "witness_id": null,
+    "denatured_date": "2024-03-19"
+   }
+  ]
+ },
+ "factors": {
+  "drug_profile": "fentanyl_50mcg_ml",
+  "arithmetic_slip_count": 0,
+  "unrecorded_admin": "none",
+  "clinical_records_missing": false,
+  "disposal_state": "entered_unwitnessed",
+  "unexplained_shortfall_pct": 0.5,
+  "variance_exception": "none",
+  "manufacturer_overfill": true,
+  "auth_gap_count": 1,
+  "count_out_of_order": false,
+  "unit_mismatch": false,
+  "locum_signatory": true,
+  "boundary_case": true
+ },
+ "factors_sampled": {
+  "drug_profile": "fentanyl_50mcg_ml",
+  "arithmetic_slip_count": 0,
+  "unrecorded_admin": "none",
+  "clinical_records_missing": false,
+  "disposal_state": "removed_unlogged",
+  "unexplained_shortfall_pct": 14.22,
+  "variance_exception": "valid_partial_cover",
+  "manufacturer_overfill": true,
+  "auth_gap_count": 4,
+  "count_out_of_order": false,
+  "unit_mismatch": false,
+  "locum_signatory": true,
+  "boundary_case": true
+ },
+ "plan": {
+  "unexplained_shortfall": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "line_disposition": {
+   "clarity": "leaning",
+   "target": "hold_pending",
+   "second": null
+  },
+  "variance_cause": {
+   "clarity": "clear",
+   "target": "no_discrepancy",
+   "second": null
+  },
+  "variance_size": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  },
+  "auth_gaps": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  }
+ },
+ "target_words": 51,
+ "deciding": {
+  "unexplained_shortfall": "Recomputed 60 ml vs counted 59 ml; the 0.5 ml overfill and rounding leave a trivial residual, and every removal is logged, so no unexplained loss.",
+  "line_disposition": "Disposal E2 is entered but witness_id is null in both the entry and the disposal record; one missing confirmation, with the count reconciling.",
+  "variance_cause": "Dose P7 30 ml matches E1, the disposal is logged in E2, and the arithmetic is correct, so the count matches once adjustments are applied.",
+  "variance_size": "About 0.5 ml residual on 100 ml handled is 0.5%, below 2%.",
+  "auth_gaps": "E2 witness_id null with witness_required true is one clear gap; E1 witness W2 and signatory LOC-4 are valid, but the destruction record is arguably a second weakness."
+ },
+ "request": "rec-F201-0036",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.010743
+}

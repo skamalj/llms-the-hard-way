@@ -1,0 +1,141 @@
+{
+ "id": "F205-0002",
+ "family": "F205",
+ "state": {
+  "flight": {
+   "no": "NV208",
+   "reg": "D-ABNK",
+   "type": "B737-800",
+   "stand": "B4",
+   "sta": "2024-06-02T12:10:00Z",
+   "std": "2024-06-02T13:00:00Z",
+   "revised_std": "2024-06-02T13:50:00Z",
+   "turn": "transit_through"
+  },
+  "times": {
+   "on_blocks": "2024-06-02T12:08:00Z",
+   "doors_open": "2024-06-02T12:12:00Z",
+   "fuel_start": "2024-06-02T12:20:00Z",
+   "boarding_start": "2024-06-02T12:40:00Z",
+   "last_bag": "2024-06-02T13:20:00Z",
+   "doors_closed": "2024-06-02T13:28:00Z",
+   "off_blocks": "2024-06-02T14:05:00Z",
+   "delay_code": "catering",
+   "delay_min": 65
+  },
+  "load": {
+   "pax_total": 118,
+   "bags_count": 96,
+   "bags_kg": 1890,
+   "cargo_kg": 640,
+   "fuel_kg": 7200,
+   "captain_accepted": true,
+   "notoc": "N-5521"
+  },
+  "hold_log": [
+   {
+    "pos": "1",
+    "bags": 50,
+    "weight": 980,
+    "weight_unit": "kg",
+    "transfer": false
+   },
+   {
+    "pos": "4",
+    "bags": 46,
+    "weight": 910,
+    "weight_unit": "kg",
+    "transfer": false,
+    "dg": true
+   }
+  ],
+  "services": {
+   "fuel": {
+    "uplift_kg": 7200
+   },
+   "catering": {
+    "start": "2024-06-02T12:30:00Z",
+    "end": "2024-06-02T12:55:00Z"
+   },
+   "cleaning": {
+    "end": "2024-06-02T12:50:00Z"
+   },
+   "pushback": {
+    "start": "2024-06-02T14:03:00Z"
+   }
+  },
+  "remarks": [
+   {
+    "role": "loadmaster",
+    "t": "13:25",
+    "msg": "Boarding closed with 121 pax."
+   }
+  ]
+ },
+ "factors": {
+  "bag_mismatch_size": "moderate_3_9_bags",
+  "mismatch_location": "pax_count_vs_boarding_close",
+  "missing_record": "none",
+  "milestone_out_of_order": false,
+  "delay_minutes": 65,
+  "delay_code_fit": "ambiguous",
+  "explanatory_remark": false,
+  "pending_signoff": false,
+  "dg_on_board": true,
+  "decoy_noise": "revised_std_in_schedule",
+  "boundary_value": false,
+  "turn_type": "transit_through"
+ },
+ "factors_sampled": {
+  "bag_mismatch_size": "moderate_3_9_bags",
+  "mismatch_location": "pax_count_vs_boarding_close",
+  "missing_record": "none",
+  "milestone_out_of_order": false,
+  "delay_minutes": 34,
+  "delay_code_fit": "ambiguous",
+  "explanatory_remark": false,
+  "pending_signoff": false,
+  "dg_on_board": true,
+  "decoy_noise": "revised_std_in_schedule",
+  "boundary_value": false,
+  "turn_type": "transit_through"
+ },
+ "plan": {
+  "load_reconciled": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "delay_code_supported": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "log_disposition": {
+   "clarity": "balanced",
+   "target": "hold_confirm",
+   "second": "investigate"
+  },
+  "offblock_delay": {
+   "clarity": "clear",
+   "target": "3",
+   "second": null
+  },
+  "failed_checks": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 200,
+ "deciding": {
+  "load_reconciled": "Loadsheet 96 bags/1890 kg equals hold entries 50+46 bags and 980+910 kg.",
+  "delay_code_supported": "Code 'catering' but catering ended 12:55, before STD; the late milestones are last_bag at 13:20 and off-blocks 14:05, so the code is not well supported.",
+  "log_disposition": "Pax total 118 against 121 at boarding close needs confirming; notoc N-5521 is present for the dg entry, so whether to hold or investigate is open.",
+  "offblock_delay": "Off-blocks 14:05 against the original STD 13:00 is 65 min, over 60; the revised STD is a decoy.",
+  "failed_checks": "Pax 118 vs 121 is a small difference, and the code is questionable; there is no clear failed check, so zero or one is both defensible."
+ },
+ "request": "rec-F205-0001",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.006657
+}

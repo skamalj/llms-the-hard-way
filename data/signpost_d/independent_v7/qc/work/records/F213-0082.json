@@ -1,0 +1,136 @@
+{
+ "id": "F213-0082",
+ "family": "F213",
+ "state": {
+  "pool": {
+   "type": "leisure",
+   "test_interval_min": 120,
+   "opening": {
+    "open": "2024-06-03T09:00",
+    "close": "2024-06-03T13:00"
+   },
+   "limits": {
+    "free_cl_min": 1.0,
+    "free_cl_max": 3.0
+   },
+   "tolerance": {
+    "free_cl": 0.3
+   }
+  },
+  "manual_tests": [
+   {
+    "time": "2024-06-03T09:00",
+    "free_cl": 1.2,
+    "kit_id": "K3"
+   },
+   {
+    "time": "2024-06-03T11:00",
+    "free_cl": 0.95,
+    "kit_id": "K3"
+   },
+   {
+    "time": "2024-06-03T11:45",
+    "free_cl": 1.2,
+    "kit_id": "K3"
+   },
+   {
+    "time": "2024-06-03T13:00",
+    "free_cl": 1.3,
+    "kit_id": "K3"
+   }
+  ],
+  "plant": {
+   "controller_readings": [
+    {
+     "time": "2024-06-03T11:00",
+     "free_cl": 1.6
+    }
+   ]
+  },
+  "equipment": {
+   "kits": [
+    {
+     "kit_id": "K3",
+     "cal_due": "2025-01-15"
+    }
+   ]
+  },
+  "actions": [
+   {
+    "time": "2024-06-03T11:30",
+    "action_type": "dose",
+    "reading_ref": "2024-06-03T11:00",
+    "retest_time": "2024-06-03T11:45"
+   }
+  ],
+  "lab_sample": null
+ },
+ "factors": {
+  "pool_type": "leisure",
+  "test_coverage_gap": 0,
+  "boundary_interval": true,
+  "log_controller_discrepancy": "large",
+  "discrepancy_location": "free_chlorine",
+  "excursion_severity": "marginal",
+  "corrective_action_delay": "prompt",
+  "retest_logged": true,
+  "dosing_event_explains": false,
+  "kit_calibration_status": "in_date",
+  "lab_sample_state": "not_due",
+  "out_of_order_entry": false,
+  "benign_noise": "none"
+ },
+ "factors_sampled": {
+  "pool_type": "leisure",
+  "test_coverage_gap": 3,
+  "boundary_interval": true,
+  "log_controller_discrepancy": "within_tolerance",
+  "discrepancy_location": "temperature",
+  "excursion_severity": "marginal",
+  "corrective_action_delay": "missing",
+  "retest_logged": true,
+  "dosing_event_explains": false,
+  "kit_calibration_status": "in_date",
+  "lab_sample_state": "not_due",
+  "out_of_order_entry": false,
+  "benign_noise": "none"
+ },
+ "plan": {
+  "test_frequency_met": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "readings_reconcile": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "log_disposition": {
+   "clarity": "clear",
+   "target": "accept",
+   "second": null
+  },
+  "action_delay": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  },
+  "failed_checks": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 32,
+ "deciding": {
+  "test_frequency_met": "The 09:00 to 11:00 spacing is exactly 120 min, equal to the interval, so it can be read either way; all other spacings are shorter.",
+  "readings_reconcile": "Manual free_cl 0.95 at 11:00 vs controller 1.6 at the same time, a 0.65 difference against tolerance 0.3.",
+  "log_disposition": "Marginal low free_cl 0.95 vs min 1.0 was dosed and retested at 1.2 within limits; kit is in date and no lab sample is due, so the log is filed.",
+  "action_delay": "Reading at 11:00, action logged 11:30, exactly 30 min, on the boundary between prompt and delayed.",
+  "failed_checks": "Only the 11:00 controller mismatch and the exactly-120-min spacing could count as failures; everything else passes, so zero or one."
+ },
+ "request": "rec-F213-0081",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.013404
+}

@@ -1,0 +1,128 @@
+{
+ "id": "F236-0079",
+ "family": "F236",
+ "state": {
+  "changeover": {
+   "line_id": "L2",
+   "from_allergens": [
+    "wheat",
+    "egg"
+   ],
+   "to_allergens": [
+    "wheat"
+   ]
+  },
+  "verification": {
+   "swabs": [
+    {
+     "id": "S1",
+     "reading": 14,
+     "limit_ppm": 10,
+     "at": "05:10"
+    }
+   ]
+  },
+  "production": {
+   "line_id": "L2",
+   "start_at": "06:00",
+   "end_at": "11:00",
+   "quantity": 250,
+   "unit": "kg"
+  },
+  "approvals": {
+   "qa_signoff": {
+    "signed_at": "05:50"
+   },
+   "deviations": [
+    {
+     "id": "D7",
+     "scope": "S1",
+     "approved_at": "05:45"
+    }
+   ]
+  },
+  "history": [
+   {
+    "passed": false
+   },
+   {
+    "passed": false
+   },
+   {
+    "passed": false
+   },
+   {
+    "passed": false
+   },
+   {
+    "passed": true
+   }
+  ]
+ },
+ "factors": {
+  "allergen_transition": "removes_allergen",
+  "cleaning_completion": "full",
+  "swab_outcome": "over_limit_no_retest",
+  "swab_timing_mismatch": false,
+  "cross_section_discrepancy": "none",
+  "exposed_quantity_kg": 250.0,
+  "approved_deviation": true,
+  "label_precaution": false,
+  "dedicated_tooling": true,
+  "qa_signoff_state": "signed_before_start",
+  "line_failure_history": 4,
+  "boundary_value": false
+ },
+ "factors_sampled": {
+  "allergen_transition": "removes_allergen",
+  "cleaning_completion": "full",
+  "swab_outcome": "all_negative",
+  "swab_timing_mismatch": false,
+  "cross_section_discrepancy": "line_id_mismatch",
+  "exposed_quantity_kg": 247.42,
+  "approved_deviation": true,
+  "label_precaution": false,
+  "dedicated_tooling": true,
+  "qa_signoff_state": "signed_before_start",
+  "line_failure_history": 4,
+  "boundary_value": false
+ },
+ "plan": {
+  "swabs_cleared": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "line_disposition": {
+   "clarity": "clear",
+   "target": "release",
+   "second": null
+  },
+  "worst_deficiency": {
+   "clarity": "clear",
+   "target": "none",
+   "second": null
+  },
+  "exposed_product": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  },
+  "residue_evidence": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  }
+ },
+ "target_words": 28,
+ "deciding": {
+  "swabs_cleared": "S1 read 14 ppm against a limit of 10 and has no retest. Deviation D7 scoped to S1 was approved at 05:45, before start, so true and false are both defensible.",
+  "line_disposition": "Deviation D7 covers the S1 swab, approved before start, and sign-off at 05:50 precedes the 06:00 start. Line L2 matches in both sections, so release is the answer.",
+  "worst_deficiency": "The only issue, the over-limit S1, is covered by approved deviation D7 before start. Sign-off is in place and the line IDs are consistent, so no deficiency remains.",
+  "exposed_product": "A 250 kg batch runs 06:00-11:00. The swab was before start and no passing swab exists, so exposure is roughly 250 kg or less. The answer falls between level 2 and level 1.",
+  "residue_evidence": "S1 read 14 ppm against a limit of 10 and has no retest entry, which is persistent."
+ },
+ "request": "rec-F236-0076",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012786
+}

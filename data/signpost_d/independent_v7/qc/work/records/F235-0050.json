@@ -1,0 +1,102 @@
+{
+ "id": "F235-0050",
+ "family": "F235",
+ "state": {
+  "visit": {
+   "visit_date": "2024-06-11",
+   "abort_reason": "flood access"
+  },
+  "checks": {
+   "pre": {
+    "board_m": [
+     1.215,
+     1.217
+    ],
+    "logger_m": 1.201
+   },
+   "post": null
+  },
+  "works": {
+   "logger_gap_h": 65
+  },
+  "defects": [
+   {
+    "item": "primary stage spiking",
+    "channel": "primary_stage",
+    "reporting": true
+   }
+  ],
+  "notes": {
+   "tech_note": "Gravel bar building again.",
+   "signed_off": "2024-06-09"
+  }
+ },
+ "factors": {
+  "pre_visit_offset_mm": 15.0,
+  "check_reading_spread_mm": 2.0,
+  "drift_cause": "no_drift",
+  "cause_evidence": "single_indicator",
+  "visit_completion": "aborted",
+  "post_visit_check_logged": false,
+  "residual_defect_class": "primary_ambiguous",
+  "backup_sensor_ok": false,
+  "benign_explanation": true,
+  "record_gap": "signoff_before_visit",
+  "logger_gap_hours": 65,
+  "telemetry_decoy": "low_battery",
+  "note_tone": "neutral"
+ },
+ "factors_sampled": {
+  "pre_visit_offset_mm": 49.59,
+  "check_reading_spread_mm": 1.62,
+  "drift_cause": "no_drift",
+  "cause_evidence": "single_indicator",
+  "visit_completion": "aborted",
+  "post_visit_check_logged": true,
+  "residual_defect_class": "secondary_channel",
+  "backup_sensor_ok": false,
+  "benign_explanation": true,
+  "record_gap": "signoff_before_visit",
+  "logger_gap_hours": 65,
+  "telemetry_decoy": "low_battery",
+  "note_tone": "neutral"
+ },
+ "plan": {
+  "sensor_fault_cause": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "visit_disposition": {
+   "clarity": "clear",
+   "target": "hold",
+   "second": null
+  },
+  "data_treatment": {
+   "clarity": "balanced",
+   "target": "mark_provisional",
+   "second": "reject_period"
+  },
+  "offset_size": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  },
+  "residual_defect": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "4"
+  }
+ },
+ "target_words": 25,
+ "deciding": {
+  "sensor_fault_cause": "Tech note points to a gravel bar and no sensor swap or bench test appears, though spiking adds some doubt.",
+  "visit_disposition": "Aborted for flood access, post check null, and sign-off dated 2024-06-09 before the visit, so the record needs a missing confirmation.",
+  "data_treatment": "Spiking primary and a 65 h gap with no post check favour provisional, while the unverified offset keeps rejection plausible.",
+  "offset_size": "Board mean 1.216 minus logger 1.201 = 15 mm, exactly on the 1/2 boundary.",
+  "residual_defect": "Primary spiking with reporting true (level 3) against a 65 h logger gap suggesting no values (level 4)."
+ },
+ "request": "rec-F235-0046",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.008167
+}

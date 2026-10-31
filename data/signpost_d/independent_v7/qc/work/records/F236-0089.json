@@ -1,0 +1,160 @@
+{
+ "id": "F236-0089",
+ "family": "F236",
+ "state": {
+  "changeover": {
+   "line_id": "L4",
+   "from_allergens": [
+    "wheat"
+   ],
+   "to_allergens": [
+    "wheat",
+    "sesame"
+   ],
+   "to_code": "D30"
+  },
+  "cleaning": {
+   "steps": [
+    {
+     "n": 1,
+     "completed": true,
+     "spec_min": 20,
+     "actual_min": 21
+    },
+    {
+     "n": 2,
+     "completed": true,
+     "spec_min": 10,
+     "actual_min": 10
+    }
+   ],
+   "chemical": "QC-1",
+   "part_swap": false
+  },
+  "verification": {
+   "swabs": [
+    {
+     "id": "S1",
+     "target": "sesame",
+     "ppm": 18,
+     "limit_ppm": 10,
+     "at": "2024-07-02T06:20"
+    }
+   ],
+   "atp_rlu": [
+    85
+   ]
+  },
+  "production": {
+   "line_id": "L4",
+   "product_code": "D30-A",
+   "start_at": "2024-07-02T06:00",
+   "end_at": "2024-07-02T06:40",
+   "qty": 48,
+   "unit": "kg",
+   "packaging_allergens": [
+    "wheat",
+    "sesame"
+   ]
+  },
+  "approvals": {
+   "qa_signoff": {
+    "signer": "QA1",
+    "signed_at": "2024-07-02T05:50"
+   },
+   "deviations": []
+  },
+  "history": [
+   {
+    "d": "06-25",
+    "ok": false
+   },
+   {
+    "d": "06-18",
+    "ok": false
+   },
+   {
+    "d": "06-11",
+    "ok": true
+   },
+   {
+    "d": "06-04",
+    "ok": false
+   },
+   {
+    "d": "05-28",
+    "ok": false
+   },
+   {
+    "d": "05-21",
+    "ok": true
+   }
+  ]
+ },
+ "factors": {
+  "allergen_transition": "adds_allergen",
+  "cleaning_completion": "full",
+  "swab_outcome": "positive_no_retest",
+  "swab_timing_mismatch": true,
+  "cross_section_discrepancy": "product_code_mismatch",
+  "exposed_quantity_kg": 48.0,
+  "approved_deviation": false,
+  "label_precaution": false,
+  "dedicated_tooling": false,
+  "qa_signoff_state": "signed_before_start",
+  "line_failure_history": 4,
+  "boundary_value": false
+ },
+ "factors_sampled": {
+  "allergen_transition": "adds_allergen",
+  "cleaning_completion": "multiple_steps_skipped",
+  "swab_outcome": "trace_below_limit",
+  "swab_timing_mismatch": true,
+  "cross_section_discrepancy": "product_code_mismatch",
+  "exposed_quantity_kg": 496.8,
+  "approved_deviation": false,
+  "label_precaution": false,
+  "dedicated_tooling": false,
+  "qa_signoff_state": "missing",
+  "line_failure_history": 4,
+  "boundary_value": false
+ },
+ "plan": {
+  "swabs_cleared": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "line_disposition": {
+   "clarity": "clear",
+   "target": "release",
+   "second": null
+  },
+  "worst_deficiency": {
+   "clarity": "balanced",
+   "target": "records_only",
+   "second": "release_breach"
+  },
+  "exposed_product": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  },
+  "residue_evidence": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  }
+ },
+ "target_words": 81,
+ "deciding": {
+  "swabs_cleared": "The only swab, S1 at 06:20, is over limit (18 vs 10) and was taken after the 06:00 start. The target sesame is in the incoming product, so its requirement is arguable.",
+  "line_disposition": "Sesame is added by the incoming product and the label lists sesame. Cleaning is complete and QA signed before start, so no extra action is needed.",
+  "worst_deficiency": "production.product_code is D30-A against changeover to_code D30, a records mismatch. The sesame swab at 06:20 follows the 06:00 start, which could count as a release breach.",
+  "exposed_product": "The 48 kg trial batch ran 06:00-06:40, before the only swab at 06:20. That is under 50 kg, and level 0 is arguable since the sesame swab may not be required.",
+  "residue_evidence": "The sesame reading of 18 ppm exceeds the limit of 10 with no retest entry."
+ },
+ "request": "rec-F236-0086",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.01756
+}

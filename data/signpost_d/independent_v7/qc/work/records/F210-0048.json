@@ -1,0 +1,124 @@
+{
+ "id": "F210-0048",
+ "family": "F210",
+ "state": {
+  "collection": {
+   "collected_at": "2024-07-02T08:00",
+   "last_milking_end": "2024-07-01T18:00",
+   "vat_l": 4000,
+   "meter_l": 4120,
+   "vat_temp_c": 4.1
+  },
+  "sample": {
+   "sample_id": "S3",
+   "seal_intact": true,
+   "arrival_temp_c": 4.8
+  },
+  "lab_results": {
+   "sample_id": "S3",
+   "bactoscan_kcfu_ml": 60,
+   "scc_k_ml": 460,
+   "inhibitory": "presumptive_pos",
+   "retest": {
+    "requested": true,
+    "result": null
+   }
+  },
+  "farm_terms": {
+   "limits": {
+    "vat_temp_c": 6,
+    "bactoscan_kcfu_ml": 100,
+    "scc_k_ml": 400
+   },
+   "approved_exceptions": [
+    {
+     "param": "scc_k_ml",
+     "valid_from": "2024-06-01",
+     "valid_to": "2024-08-01",
+     "max_k_ml": 450
+    }
+   ],
+   "treatment_register": [
+    {
+     "drug": "cloxacillin",
+     "withdrawal_end": "2024-07-05",
+     "segregated": false
+    }
+   ],
+   "breaches_90d": 1
+  },
+  "equipment": {
+   "meter_due": "2024-05-15"
+  }
+ },
+ "factors": {
+  "vat_temp_level": "compliant",
+  "recent_milking": false,
+  "mismatch_site": "volume",
+  "mismatch_magnitude": "trivial",
+  "meter_calibration_overdue": true,
+  "lab_limit_breaches": 1,
+  "exception_covers_breach": true,
+  "inhibitory_status": "presumptive_positive",
+  "treatment_withdrawal_active": true,
+  "retest_state": "pending",
+  "sample_integrity": "intact",
+  "history_breaches_90d": 1,
+  "value_on_boundary": false,
+  "driver_sensory_flag": false
+ },
+ "factors_sampled": {
+  "vat_temp_level": "compliant",
+  "recent_milking": false,
+  "mismatch_site": "volume",
+  "mismatch_magnitude": "trivial",
+  "meter_calibration_overdue": true,
+  "lab_limit_breaches": 2,
+  "exception_covers_breach": true,
+  "inhibitory_status": "presumptive_positive",
+  "treatment_withdrawal_active": true,
+  "retest_state": "pending",
+  "sample_integrity": "intact",
+  "history_breaches_90d": 1,
+  "value_on_boundary": false,
+  "driver_sensory_flag": false
+ },
+ "plan": {
+  "temp_compliant": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "intake_disposition": {
+   "clarity": "leaning",
+   "target": "reject_load",
+   "second": null
+  },
+  "issue_source": {
+   "clarity": "leaning",
+   "target": "farm_practice",
+   "second": null
+  },
+  "discrepancy_size": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  },
+  "unexplained_breaches": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 104,
+ "deciding": {
+  "temp_compliant": "vat_temp_c 4.1 under the 6 limit.",
+  "intake_disposition": "Presumptive positive inhibitory with active withdrawal not segregated points to reject_load; the pending retest leaves some doubt (hold_retest).",
+  "issue_source": "Treatment register entry with withdrawal_end 2024-07-05 after collection and segregated false, while sample and temperature are sound; points to farm practice.",
+  "discrepancy_size": "Vat 4000 vs meter 4120 is a 3% gap, level 1.",
+  "unexplained_breaches": "scc 460 is over the 400 limit; the exception covers scc to a max of 450, so it is covered or one unexplained."
+ },
+ "request": "rec-F210-0046",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.009978
+}

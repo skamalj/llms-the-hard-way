@@ -1,0 +1,125 @@
+{
+ "id": "F240-0046",
+ "family": "F240",
+ "state": {
+  "asset": {
+   "inverter_id": "INV-3-07",
+   "serial": "S771",
+   "rated_ac_kw": 1000
+  },
+  "fault_event": {
+   "serial": "S771",
+   "code": "F-ISO-02",
+   "fw_severity": 2,
+   "ts_start": "2025-05-12T09:00",
+   "ts_clear": "2025-05-12T12:02",
+   "auto_restarts": 2
+  },
+  "telemetry": {
+   "samples": [
+    {
+     "ts": "2025-05-12T09:00",
+     "ac_kw": 0,
+     "exp_kw": 800,
+     "limit_pct": 0
+    },
+    {
+     "ts": "2025-05-12T12:05",
+     "ac_kw": 490,
+     "exp_kw": 900,
+     "limit_pct": 50
+    }
+   ],
+   "exp_day_kwh": 4000,
+   "exp_window_kwh": 1300,
+   "act_window_kwh": 500
+  },
+  "site_context": {
+   "grid_events": [],
+   "maint_windows": [],
+   "neighbours": null
+  },
+  "history": {
+   "faults": [
+    {
+     "date": "2025-05-02",
+     "code": "F-ISO-02"
+    }
+   ],
+   "work_orders": [
+    {
+     "wo_id": "W1",
+     "opened": "2025-04-28",
+     "completed": "2025-04-30",
+     "retest_ok": true
+    }
+   ]
+  }
+ },
+ "factors": {
+  "fault_class": "insulation_resistance",
+  "log_telemetry_mismatch": "trivial_under_5min",
+  "grid_event_concurrent": false,
+  "maintenance_window_active": false,
+  "neighbour_cross_check": "no_neighbour_data",
+  "repeat_count_30d": 1,
+  "last_repair_status": "completed_verified",
+  "current_limit_pct": 50.0,
+  "yield_loss_pct": 20.0,
+  "low_irradiance_window": false,
+  "serial_mismatch": false,
+  "boundary_placement": true
+ },
+ "factors_sampled": {
+  "fault_class": "insulation_resistance",
+  "log_telemetry_mismatch": "trivial_under_5min",
+  "grid_event_concurrent": false,
+  "maintenance_window_active": false,
+  "neighbour_cross_check": "no_neighbour_data",
+  "repeat_count_30d": 0,
+  "last_repair_status": "completed_verified",
+  "current_limit_pct": 63.11,
+  "yield_loss_pct": 0.24,
+  "low_irradiance_window": false,
+  "serial_mismatch": false,
+  "boundary_placement": false
+ },
+ "plan": {
+  "genuine_defect": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "post_repair_repeat": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "contested",
+   "target": "scheduled_visit",
+   "second": "watch_list"
+  },
+  "yield_loss": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "capacity_unavailable": {
+   "clarity": "contested",
+   "target": "2",
+   "second": "1"
+  }
+ },
+ "target_words": 63,
+ "deciding": {
+  "genuine_defect": "Insulation fault with no grid event, no maintenance window and neighbours null: no external cause shown, but no hardware confirmation either.",
+  "post_repair_repeat": "Work order completed 2025-04-30 with retest_ok true; the same F-ISO-02 is logged 2025-05-02.",
+  "next_step": "Cleared but still derated, with a verified repair that recurred and no neighbour data: scheduled visit versus watch list is open.",
+  "yield_loss": "(1300-500)/4000 = 20.0%, exactly on the level 2/3 boundary.",
+  "capacity_unavailable": "Last sample limit_pct 50 and ac_kw 490 of 1000 rated sit on the 50% boundary."
+ },
+ "request": "rec-F240-0046",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011636
+}

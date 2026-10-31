@@ -1,0 +1,134 @@
+{
+ "id": "F201-0013",
+ "family": "F201",
+ "state": {
+  "register_header": {
+   "drug": "buprenorphine",
+   "strength": "0.3mg/ml",
+   "concentration_mg_ml": 0.3,
+   "schedule": 3,
+   "witness_required": false,
+   "branch_id": "B3",
+   "page_id": "B22",
+   "period_start": "2024-05-01",
+   "period_end": "2024-05-31",
+   "opening_balance_ml": 40
+  },
+  "entries": [
+   {
+    "entry_id": "E1",
+    "date": "2024-05-06",
+    "type": "use",
+    "qty_ml": 3,
+    "patient_id": "P301",
+    "running_balance_ml": 37,
+    "signed_by": "S31",
+    "witness_id": null
+   },
+   {
+    "entry_id": "E2",
+    "date": "2024-05-14",
+    "type": "use",
+    "qty_ml": 2.5,
+    "patient_id": "P302",
+    "running_balance_ml": 34.5,
+    "signed_by": null,
+    "witness_id": null
+   },
+   {
+    "entry_id": "E3",
+    "date": "2024-05-21",
+    "type": "use",
+    "qty_ml": 4,
+    "patient_id": "P303",
+    "running_balance_ml": 30.5,
+    "signed_by": "S32",
+    "witness_id": null
+   }
+  ],
+  "clinical_records": [
+   {
+    "patient_id": "P309",
+    "date": "2024-05-18",
+    "dose": 1.5,
+    "dose_unit": "ml"
+   }
+  ],
+  "stock_check": {
+   "count_date": "2024-05-31",
+   "counted_ml": 28,
+   "counted_by": "S31",
+   "checked_by": "S32",
+   "batch_no": "BU45",
+   "overfill_allowance_ml": 2.2
+  }
+ },
+ "factors": {
+  "drug_profile": "buprenorphine_0.3mg_ml",
+  "arithmetic_slip_count": 0,
+  "unrecorded_admin": "small_1.5ml",
+  "clinical_records_missing": false,
+  "disposal_state": "none_needed",
+  "unexplained_shortfall_pct": 6.25,
+  "variance_exception": "none",
+  "manufacturer_overfill": true,
+  "auth_gap_count": 1,
+  "count_out_of_order": false,
+  "unit_mismatch": false,
+  "locum_signatory": false,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "drug_profile": "buprenorphine_0.3mg_ml",
+  "arithmetic_slip_count": 1,
+  "unrecorded_admin": "none",
+  "clinical_records_missing": false,
+  "disposal_state": "none_needed",
+  "unexplained_shortfall_pct": 11.94,
+  "variance_exception": "none",
+  "manufacturer_overfill": true,
+  "auth_gap_count": 5,
+  "count_out_of_order": false,
+  "unit_mismatch": false,
+  "locum_signatory": false,
+  "boundary_case": false
+ },
+ "plan": {
+  "unexplained_shortfall": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "line_disposition": {
+   "clarity": "leaning",
+   "target": "hold_pending",
+   "second": null
+  },
+  "variance_cause": {
+   "clarity": "leaning",
+   "target": "unrecorded_administration",
+   "second": null
+  },
+  "variance_size": {
+   "clarity": "contested",
+   "target": "0",
+   "second": "1"
+  },
+  "auth_gaps": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  }
+ },
+ "target_words": 34,
+ "deciding": {
+  "unexplained_shortfall": "Recomputed closing 30.5 ml vs counted 28 ml (2.5 ml short). P309 accounts for 1.5 ml, leaving 1 ml with no counterpart, and the overfill allowance of 2.2 ml also bears on how much of it counts as unexplained.",
+  "line_disposition": "E2 has signed_by null, a single missing confirmation. Balances recompute, and the gap is small and mostly explained, so the line is held for the signature.",
+  "variance_cause": "P309 on 2024-05-18 has a 1.5 ml dose with no entries line. It is the largest identifiable share of the gap, but the overfill allowance leaves some doubt.",
+  "variance_size": "2.5 ml short less 2.2 ml overfill leaves 0.3 ml against 40 ml handled, about 0.75%. That sits between Nil and Trace.",
+  "auth_gaps": "Only E2 has signed_by null. witness_required is false, so the null witness_id on every entry is not a gap."
+ },
+ "request": "rec-F201-0011",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.01745
+}

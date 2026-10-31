@@ -1,0 +1,300 @@
+{
+ "id": "F211",
+ "domain": "ambulance daily vehicle readiness checks",
+ "role": "Hub fleet readiness officer at a regional ambulance station, reviewing each vehicle's start-of-shift readiness check before the vehicle is placed on the dispatch rota",
+ "setting": "Every emergency ambulance and rapid response car gets a daily readiness check at shift start. The crew completes a sectioned checklist on a tablet: vehicle systems, clinical equipment, and drugs and consumables. They log defects with a short description, and a supervisor countersigns. The readiness officer opens one check record at a time. They compare it with the vehicle's service data, stock expiries, workshop job cards, dispatch mobilisation time and recent check history. They then decide whether the vehicle goes on the rota, with what restriction, and how complete and serious the open issues are. Alarming crew notes and defects are often offset by deferrals, substitutes carried or recent workshop work. Missing signatures or out-of-order timestamps are themselves evidence.",
+ "questions": {
+  "defects_controlled": {
+   "type": "noul",
+   "instructions": "All safety-critical defects recorded are resolved or validly deferred.",
+   "criteria": null
+  },
+  "readiness_status": {
+   "type": "choice",
+   "instructions": "What readiness status should this vehicle be given today?",
+   "criteria": {
+    "release": "Fully available; no open defects or restrictions affect deployment.",
+    "release_with_note": "Available for all work; minor open items logged for follow-up.",
+    "restricted": "Available only for non-emergency work until a known limitation clears.",
+    "hold": "Kept off the rota until one missing confirmation is recorded.",
+    "off_road": "Withdrawn from service pending repair, replacement or full re-check."
+   }
+  },
+  "limiting_area": {
+   "type": "choice",
+   "instructions": "Which area most limits this vehicle's readiness today?",
+   "criteria": {
+    "no_limitation": "Nothing open or missing reduces the vehicle's availability.",
+    "vehicle_systems": "Chassis, engine, lights, tyres or service interval drive the restriction.",
+    "clinical_equipment": "Medical devices such as defibrillator, suction or oxygen drive it.",
+    "stock_and_drugs": "Drug expiries or missing consumables are the deciding restriction."
+   }
+  },
+  "check_completeness": {
+   "type": "score",
+   "instructions": "How complete is today's readiness check record?",
+   "criteria": [
+    "Minimal: fewer than half of required sections signed",
+    "Partial: at least half signed, some still unsigned",
+    "Unverified: all sections signed, no supervisor countersignature",
+    "Complete: all sections signed and countersigned by supervisor"
+   ]
+  },
+  "defect_severity": {
+   "type": "score",
+   "instructions": "How serious is the worst open defect on the vehicle?",
+   "criteria": [
+    "No open defects recorded on this check",
+    "Only cosmetic or comfort items left open",
+    "Open defect limited to non-critical equipment or fittings",
+    "Critical item faulty, working substitute carried on board",
+    "Critical item faulty with no substitute on board"
+   ]
+  }
+ },
+ "factors": [
+  {
+   "name": "checklist_completion",
+   "description": "How far the crew got through the required checklist sections and whether a supervisor countersigned. It drives the completeness score directly and pushes the status towards hold when only the countersignature is missing.",
+   "kind": "categorical",
+   "values": [
+    "all_signed_countersigned",
+    "all_signed_no_countersign",
+    "half_or_more_signed",
+    "under_half_signed"
+   ],
+   "weights": [
+    0.4,
+    0.25,
+    0.22,
+    0.13
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S2",
+    "S4",
+    "S7"
+   ]
+  },
+  {
+   "name": "worst_defect_tier",
+   "description": "Criticality of the worst defect still open, inferred from the item named (for example defibrillator or brakes versus a locker latch) and whether a substitute is carried.",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "cosmetic",
+    "noncritical_equipment",
+    "critical_with_substitute",
+    "critical_no_substitute"
+   ],
+   "weights": [
+    0.22,
+    0.18,
+    0.22,
+    0.2,
+    0.18
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S4",
+    "S7"
+   ]
+  },
+  {
+   "name": "defect_area",
+   "description": "Which checklist area the worst open defect belongs to. Decides the limiting area unless a stock expiry or an overdue service outweighs it.",
+   "kind": "categorical",
+   "values": [
+    "vehicle_systems",
+    "clinical_equipment",
+    "stock_and_drugs"
+   ],
+   "weights": [
+    0.36,
+    0.38,
+    0.26
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S7"
+   ]
+  },
+  {
+   "name": "deferral_authorised",
+   "description": "Mitigation. The worst critical or non-critical defect carries a deferral with a named authoriser and a valid_until date. When genuine, it lets the vehicle run with restriction or a note rather than go off road.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S5"
+   ]
+  },
+  {
+   "name": "deferral_invalid",
+   "description": "When a deferral exists, it is undermined in one of two ways: either valid_until falls before the shift date, or authorised_at is later than the vehicle's first mobilisation. This makes the deferral evidence of disorder rather than control.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.22,
+   "skills": [
+    "S2",
+    "S5",
+    "S6"
+   ]
+  },
+  {
+   "name": "workshop_return_recent",
+   "description": "Mitigation. A workshop job card dated within the last 48 hours reports the logged defect item as repaired. The crew may have re-logged it from habit, but no post-repair test entry exists, so judges may split between release and hold.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.48,
+   "skills": [
+    "S3",
+    "S6",
+    "S4"
+   ]
+  },
+  {
+   "name": "earliest_drug_expiry_days",
+   "description": "Days from shift date to the earliest expiry among carried drugs and sterile consumables. Negative means already expired. Values of 0 to 2 sit on the boundary where a restock in progress may or may not suffice.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": -3,
+   "max": 30,
+   "p_true": 0,
+   "skills": [
+    "S6",
+    "S7"
+   ]
+  },
+  {
+   "name": "restock_in_progress",
+   "description": "Mitigation. A pharmacy restock request is raised with an ETA inside the shift for the expiring or short items. It offsets short-dated stock about half the time the issue appears.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S4"
+   ]
+  },
+  {
+   "name": "service_margin_km",
+   "description": "Kilometres remaining before the scheduled service: service_due_km minus odometer_km. Negative means overdue. Values near zero are boundary cases between a note and a restriction.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": -600,
+   "max": 2500,
+   "p_true": 0,
+   "skills": [
+    "S6",
+    "S7"
+   ]
+  },
+  {
+   "name": "crew_note_tone",
+   "description": "Character of the free-text crew note relative to the actual record. It may sound alarming while describing something benign, be matter-of-fact, understate a real problem, or be absent. It is a decoy whose wording must be checked against the structured fields.",
+   "kind": "categorical",
+   "values": [
+    "alarming_benign",
+    "matter_of_fact",
+    "understated_real",
+    "absent"
+   ],
+   "weights": [
+    0.25,
+    0.3,
+    0.2,
+    0.25
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S6"
+   ]
+  },
+  {
+   "name": "signed_after_mobilisation",
+   "description": "The check's signed_at timestamp is later than the vehicle's first dispatch mobilisation of the shift, showing the vehicle went out before its check was finished.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.15,
+   "skills": [
+    "S2",
+    "S5"
+   ]
+  },
+  {
+   "name": "repeat_defect_count",
+   "description": "Number of prior checks in the last 14 days logging the same defect item. Higher counts suggest an unresolved recurring fault even when today's entry looks minor.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 4,
+   "p_true": 0,
+   "skills": [
+    "S6",
+    "S7"
+   ]
+  }
+ ],
+ "sections": [
+  {
+   "name": "vehicle",
+   "description": "Callsign, registration, vehicle type, odometer_km, service_due_km, base station."
+  },
+  {
+   "name": "check",
+   "description": "Check id, shift_date, started_at, signed_at, signer grade, sections_required, sections_signed list, countersigned_by (null if absent), crew_note free text."
+  },
+  {
+   "name": "defects",
+   "description": "List of logged defects: item, area, desc free text, status, substitute_on_board, deferral object or null."
+  },
+  {
+   "name": "stock",
+   "description": "Drug and consumable lines with qty, par_level, expiry date; restock_request object or null."
+  },
+  {
+   "name": "activity",
+   "description": "First mobilisation time this shift, recent workshop job cards with job_note, and prior checks with defect items."
+  }
+ ],
+ "rendering_notes": "checklist_completion appears as check.sections_signed compared with check.sections_required, and check.countersigned_by set to a name or null. Under-half cases may also leave signed_at null. worst_defect_tier is never stated. It is inferred from defects[].item: critical items include defibrillator, suction unit, main oxygen, brakes, steering and blue lights; non-critical items include stretcher strap, spare torch and cab heater; cosmetic items include seat trim, locker latch and body scuff. It is also inferred from defects[].substitute_on_board and status open/closed. Closed defects stay in the list as decoys. defect_area appears as defects[].area. deferral_authorised appears as a defects[].deferral object {authorised_by, authorised_at, valid_until}, or null. deferral_invalid is shown only by comparison: valid_until before check.shift_date, or deferral.authorised_at after activity.first_mobilised_at. workshop_return_recent appears as an activity.workshop_jobs entry dated within 48 hours whose job_note says the same item was repaired, with no retest field. earliest_drug_expiry_days is rendered as an ISO expiry date in stock.lines, to be compared with check.shift_date. restock_in_progress appears as stock.restock_request with an eta inside the shift, or null. service_margin_km appears only as raw vehicle.odometer_km and vehicle.service_due_km. crew_note_tone shapes check.crew_note, for example 'Defib threw an error on start-up, sorted after battery reseat, self-test passed', or a terse note that downplays a real fault; it is null when absent. signed_after_mobilisation appears as check.signed_at later than activity.first_mobilised_at. repeat_defect_count appears as the number of activity.prior_checks entries listing the same item. Additional decoys: tyre pressures and fuel level are within normal range, and closed defects carry dramatic descriptions. No field may state readiness status, severity, limiting area, completeness level or whether defects are controlled. There must be no 'risk', 'priority' or 'fit_to_deploy' field. Free text is limited to check.crew_note, defects[].desc and activity.workshop_jobs[].job_note, each one sentence.",
+ "skills": [
+  "S2",
+  "S3",
+  "S4",
+  "S5",
+  "S6",
+  "S7"
+ ],
+ "shared_scale": null,
+ "design_cost": 0.158404
+}

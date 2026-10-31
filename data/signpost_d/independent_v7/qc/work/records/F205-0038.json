@@ -1,0 +1,135 @@
+{
+ "id": "F205-0038",
+ "family": "F205",
+ "state": {
+  "flight": {
+   "std": "2025-06-20T14:30",
+   "turn": "transit_through"
+  },
+  "times": {
+   "on_blocks": "13:20",
+   "fuel_start": "13:58",
+   "boarding_start": "14:10",
+   "doors_closed": "14:27",
+   "off_blocks": "14:34",
+   "delay_code": "FUEL",
+   "delay_min": 4
+  },
+  "load": {
+   "pax_total": 96,
+   "bags_count": 58,
+   "bags_kg": 790,
+   "fuel_kg": 5400,
+   "captain_accepted": true,
+   "notoc": true
+  },
+  "hold_log": [
+   {
+    "pos": 1,
+    "bag_count": 40,
+    "weight": 540,
+    "weight_unit": "kg"
+   },
+   {
+    "pos": 2,
+    "bag_count": 12,
+    "weight": 160,
+    "weight_unit": "kg"
+   },
+   {
+    "pos": 3,
+    "bag_count": 6,
+    "weight": 90,
+    "weight_unit": "kg",
+    "transfer": true
+   },
+   {
+    "pos": 4,
+    "cargo": true,
+    "dg": true,
+    "un": "UN3481"
+   }
+  ],
+  "services": {
+   "fuel": {
+    "uplift_kg": 5400
+   }
+  },
+  "remarks": [
+   {
+    "role": "ramp",
+    "text": "96 pax boarded."
+   },
+   {
+    "role": "ramp",
+    "text": "Bowser queued, fuel started late. Lithium batteries loaded per NOTOC."
+   }
+  ]
+ },
+ "factors": {
+  "bag_mismatch_size": "none",
+  "mismatch_location": "pax_count_vs_boarding_close",
+  "missing_record": "none",
+  "milestone_out_of_order": false,
+  "delay_minutes": 4,
+  "delay_code_fit": "supported",
+  "explanatory_remark": true,
+  "pending_signoff": false,
+  "dg_on_board": true,
+  "decoy_noise": "transfer_bags_listed_separately",
+  "boundary_value": true,
+  "turn_type": "transit_through"
+ },
+ "factors_sampled": {
+  "bag_mismatch_size": "none",
+  "mismatch_location": "pax_count_vs_boarding_close",
+  "missing_record": "none",
+  "milestone_out_of_order": false,
+  "delay_minutes": 112,
+  "delay_code_fit": "supported",
+  "explanatory_remark": true,
+  "pending_signoff": false,
+  "dg_on_board": true,
+  "decoy_noise": "transfer_bags_listed_separately",
+  "boundary_value": false,
+  "turn_type": "transit_through"
+ },
+ "plan": {
+  "load_reconciled": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "delay_code_supported": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "log_disposition": {
+   "clarity": "clear",
+   "target": "close_clean",
+   "second": null
+  },
+  "offblock_delay": {
+   "clarity": "contested",
+   "target": "0",
+   "second": "1"
+  },
+  "failed_checks": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  }
+ },
+ "target_words": 96,
+ "deciding": {
+  "load_reconciled": "Hold bags 40+12+6 (transfer listed separately) equal 58 and 790 kg, matching the loadsheet. Pax 96 equals the boarded remark. Only the separate transfer listing leaves slight doubt.",
+  "delay_code_supported": "Code FUEL, and fuel_start at 13:58 is late for a 14:30 departure; the remark confirms the bowser queue.",
+  "log_disposition": "Bags, pax, fuel (5400 kg uplift equals loadsheet), NOTOC for the dg entry and the captain acceptance are all present and match.",
+  "offblock_delay": "Off-blocks 14:34 against STD 14:30 is 4 minutes, one past the on-time limit of 3, so level 0 or 1 are both defensible.",
+  "failed_checks": "Only the on-time check clearly fails, and the transfer-bag listing might count as a second. Two or three is defensible."
+ },
+ "request": "rec-F205-0036",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.01
+}

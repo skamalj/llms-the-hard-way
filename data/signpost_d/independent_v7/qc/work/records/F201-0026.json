@@ -1,0 +1,156 @@
+{
+ "id": "F201-0026",
+ "family": "F201",
+ "state": {
+  "register_header": {
+   "drug": "buprenorphine",
+   "concentration_mg_ml": 0.3,
+   "schedule": "3",
+   "witness_required": true,
+   "branch_id": "BR2",
+   "opening_balance_ml": 100
+  },
+  "entries": [
+   {
+    "entry_id": "E1",
+    "type": "receipt",
+    "qty_ml": 50,
+    "running_balance_ml": 150,
+    "signed_by": "s12",
+    "witness_id": null
+   },
+   {
+    "entry_id": "E2",
+    "type": "admin",
+    "qty_ml": 2,
+    "patient_id": "P1",
+    "running_balance_ml": 148,
+    "signed_by": null,
+    "witness_id": "w4"
+   },
+   {
+    "entry_id": "E3",
+    "type": "admin",
+    "qty_ml": 3,
+    "patient_id": "P2",
+    "running_balance_ml": 145,
+    "signed_by": "s12",
+    "witness_id": null
+   },
+   {
+    "entry_id": "E4",
+    "type": "admin",
+    "qty_ml": 2,
+    "patient_id": "P3",
+    "running_balance_ml": 143,
+    "signed_by": null,
+    "witness_id": "w4"
+   },
+   {
+    "entry_id": "E5",
+    "type": "admin",
+    "qty_ml": 1.5,
+    "patient_id": "P4",
+    "running_balance_ml": 141.5,
+    "signed_by": "s12",
+    "witness_id": "w4"
+   }
+  ],
+  "clinical_records": [
+   {
+    "patient_id": "P1",
+    "dose": 2,
+    "dose_unit": "ml"
+   },
+   {
+    "patient_id": "P2",
+    "dose": 3,
+    "dose_unit": "ml"
+   },
+   {
+    "patient_id": "P3",
+    "dose": 2,
+    "dose_unit": "ml"
+   },
+   {
+    "patient_id": "P4",
+    "dose": 1.5,
+    "dose_unit": "ml"
+   }
+  ],
+  "stock_check": {
+   "counted_ml": 140,
+   "overfill_allowance_ml": 0.5
+  },
+  "disposals": [],
+  "exceptions": []
+ },
+ "factors": {
+  "drug_profile": "buprenorphine_0.3mg_ml",
+  "arithmetic_slip_count": 0,
+  "unrecorded_admin": "none",
+  "clinical_records_missing": false,
+  "disposal_state": "none_needed",
+  "unexplained_shortfall_pct": 0.7,
+  "variance_exception": "none",
+  "manufacturer_overfill": true,
+  "auth_gap_count": 4,
+  "count_out_of_order": false,
+  "unit_mismatch": false,
+  "locum_signatory": false,
+  "boundary_case": true
+ },
+ "factors_sampled": {
+  "drug_profile": "buprenorphine_0.3mg_ml",
+  "arithmetic_slip_count": 0,
+  "unrecorded_admin": "large_over_10pct",
+  "clinical_records_missing": false,
+  "disposal_state": "none_needed",
+  "unexplained_shortfall_pct": 13.55,
+  "variance_exception": "none",
+  "manufacturer_overfill": true,
+  "auth_gap_count": 4,
+  "count_out_of_order": false,
+  "unit_mismatch": false,
+  "locum_signatory": false,
+  "boundary_case": true
+ },
+ "plan": {
+  "unexplained_shortfall": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "line_disposition": {
+   "clarity": "leaning",
+   "target": "sign_off",
+   "second": null
+  },
+  "variance_cause": {
+   "clarity": "leaning",
+   "target": "no_discrepancy",
+   "second": null
+  },
+  "variance_size": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  },
+  "auth_gaps": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 96,
+ "deciding": {
+  "unexplained_shortfall": "Recomputed balance 141.5 vs counted 140 leaves 1.5 ml, of which 0.5 is overfill allowance; all clinical doses match entries, so only a trace gap remains.",
+  "line_disposition": "Arithmetic and clinical records reconcile with a trace residual, no disposals or exceptions, pointing toward closing the line; the authentication gaps are the doubt.",
+  "variance_cause": "Running balances are consistent and every clinical dose has an entry; the 1 ml residual after allowance is negligible.",
+  "variance_size": "Residual 1.0 ml after 0.5 overfill over 150 ml handled (100 opening + 50 receipt) is about 0.7%, under 2%.",
+  "auth_gaps": "witness_required true; E1 and E3 have null witness_id, E2 and E4 have null signed_by, giving 4 gaps, though a reader may count 3 given the receipt entry E1."
+ },
+ "request": "rec-F201-0026",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.014902
+}

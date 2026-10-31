@@ -1,0 +1,139 @@
+{
+ "id": "F224-0039",
+ "family": "F224",
+ "state": {
+  "request": {
+   "views": [
+    "BW_R"
+   ],
+   "indication": null,
+   "risk": "moderate",
+   "date": "2025-06-17",
+   "prior_same_view": "2024-01-15",
+   "exceptions": [
+    {
+     "code": "EX_CLIN",
+     "approver": "D09"
+    }
+   ],
+   "verbal_auth": [
+    {
+     "view": "PA_UL2",
+     "time": "09:26"
+    }
+   ],
+   "patient_flags": []
+  },
+  "exposures": [
+   {
+    "id": 1,
+    "view": "BW_R",
+    "ts": "09:20",
+    "dose_mGy": 0.62
+   },
+   {
+    "id": 2,
+    "view": "PA_UL1",
+    "ts": "09:24",
+    "dose_mGy": 0.4
+   },
+   {
+    "id": 3,
+    "view": "PA_UL2",
+    "ts": "09:26",
+    "dose_mGy": 0.4
+   },
+   {
+    "id": 4,
+    "view": "PA_UR1",
+    "ts": "09:29",
+    "dose_mGy": 0.4
+   }
+  ],
+  "image_review": {
+   "final_grade": 2,
+   "second_grader": "done"
+  },
+  "equipment": {
+   "last_qa": "2025-03-01",
+   "qa_interval_months": 12,
+   "last_output_test": "pass",
+   "drl_ref": {
+    "BW_R": 0.6,
+    "PA_UL1": 0.8
+   }
+  },
+  "operator": {
+   "signoff_at": null,
+   "prior_findings_12m": 4
+  }
+ },
+ "factors": {
+  "indication_match": "missing",
+  "recall_interval_months": 17,
+  "dose_ratio_to_drl": 1.03,
+  "console_log_discrepancy": "none",
+  "retake_cause": "no_retake",
+  "equipment_qa_status": "in_date",
+  "approved_exception": true,
+  "patient_cooperation_flag": false,
+  "unrequested_exposure_count": 3,
+  "verbal_authorisation_logged": true,
+  "image_grade": "diagnostic",
+  "audit_completeness": "operator_signoff_missing",
+  "operator_prior_findings": 4
+ },
+ "factors_sampled": {
+  "indication_match": "missing",
+  "recall_interval_months": 17,
+  "dose_ratio_to_drl": 0.44,
+  "console_log_discrepancy": "none",
+  "retake_cause": "no_retake",
+  "equipment_qa_status": "in_date",
+  "approved_exception": true,
+  "patient_cooperation_flag": false,
+  "unrequested_exposure_count": 0,
+  "verbal_authorisation_logged": true,
+  "image_grade": "diagnostic",
+  "audit_completeness": "operator_signoff_missing",
+  "operator_prior_findings": 4
+ },
+ "plan": {
+  "justified": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "operator_retake": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "follow_up": {
+   "clarity": "balanced",
+   "target": "hold_confirm",
+   "second": "close_record"
+  },
+  "dose_position": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  },
+  "unjustified_count": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 89,
+ "deciding": {
+  "justified": "request.indication is null, which weighs against it, while request.exceptions has EX_CLIN approved by D09 and the 17-month gap is within the moderate-risk 12 months; these hold it in balance.",
+  "operator_retake": "No exposure has retake_of set and there are no fault codes, so there was no retake.",
+  "follow_up": "operator.signoff_at is null, so one confirmation is outstanding, which favours hold_confirm; there are no equipment or console discrepancies, so closing is also defensible.",
+  "dose_position": "Exposure 1 gives 0.62 mGy against a BW_R reference of 0.6, a ratio of about 1.03, just over the 100% boundary.",
+  "unjustified_count": "PA_UL1, PA_UL2 and PA_UR1 are outside views_requested; the verbal auth for PA_UL2 at 09:26 is the same minute as that exposure, so it may or may not cover it, giving a count of 3 or 2."
+ },
+ "request": "rec-F224-0036",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.017447
+}

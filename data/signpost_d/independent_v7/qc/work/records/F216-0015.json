@@ -1,0 +1,169 @@
+{
+ "id": "F216-0015",
+ "family": "F216",
+ "state": {
+  "session": {
+   "id": "SC-7740",
+   "site": "SCH3",
+   "session_type": "school_session",
+   "date": "2025-09-16",
+   "start": "09:00",
+   "end": "11:30",
+   "next_session_date": "2025-09-17"
+  },
+  "storage": {
+   "unit": "CB-03",
+   "unit_type": "coolbox",
+   "probe_config": "air_and_product",
+   "last_calibration": "2025-06-02",
+   "alarms_30d": 1
+  },
+  "temp_log": {
+   "readings": [
+    [
+     "11:50",
+     7.2,
+     5.9
+    ],
+    [
+     "12:30",
+     9.6,
+     7.4
+    ],
+    [
+     "12:40",
+     10.4,
+     8.1
+    ],
+    [
+     "12:50",
+     9.8,
+     7.6
+    ],
+    [
+     "13:10",
+     6.9,
+     6.2
+    ]
+   ],
+   "manual_checks": [
+    {
+     "time": "12:40",
+     "min_c": 3.2,
+     "max_c": 7.9,
+     "current_c": 7.7
+    }
+   ],
+   "logger_gaps": []
+  },
+  "stock": {
+   "lots": [
+    {
+     "lot_no": "X2086",
+     "shelf": "lid",
+     "tolerance_min_out": 60,
+     "opening": 60,
+     "wasted": 2,
+     "closing": 31
+    },
+    {
+     "lot_no": "Y3190",
+     "shelf": "base",
+     "tolerance_min_out": 120,
+     "opening": 20,
+     "wasted": 0,
+     "closing": 20
+    }
+   ]
+  },
+  "administration": [
+   {
+    "time": "09:20",
+    "lot_no": "X2086",
+    "doses": 14
+   },
+   {
+    "time": "11:10",
+    "lot_no": "X2086",
+    "doses": 10
+   }
+  ],
+  "excursion_actions": {
+   "start": "12:35",
+   "end": "12:55",
+   "quarantined": true,
+   "advice_requested_at": "13:20",
+   "advice_status": "PEND",
+   "advice_received_at": null,
+   "revised_expiry": null
+  }
+ },
+ "factors": {
+  "true_excursion_minutes": 10,
+  "log_source_discrepancy": "minor_offset",
+  "buffered_probe_in_range": true,
+  "planned_maintenance": false,
+  "stability_clearance": "pending",
+  "doses_during_exposure": 0,
+  "stock_count_gap": 3,
+  "lot_id_mismatch": false,
+  "lots_beyond_tolerance": "none",
+  "freezing_reading": false,
+  "boundary_case": false,
+  "unit_alarm_history": 1,
+  "session_type": "school_session"
+ },
+ "factors_sampled": {
+  "true_excursion_minutes": 54,
+  "log_source_discrepancy": "minor_offset",
+  "buffered_probe_in_range": true,
+  "planned_maintenance": false,
+  "stability_clearance": "not_requested",
+  "doses_during_exposure": 24,
+  "stock_count_gap": 3,
+  "lot_id_mismatch": false,
+  "lots_beyond_tolerance": "some",
+  "freezing_reading": false,
+  "boundary_case": false,
+  "unit_alarm_history": 1,
+  "session_type": "school_session"
+ },
+ "plan": {
+  "dosed_uncleared": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "stock_reconciles": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "stock_disposition": {
+   "clarity": "leaning",
+   "target": "quarantine_hold",
+   "second": null
+  },
+  "excursion_duration": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "followup_urgency": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 167,
+ "deciding": {
+  "dosed_uncleared": "Last dose 11:10; excursion start 12:35, so no doses during exposure.",
+  "stock_reconciles": "X2086: 60-2-24=34 expected vs closing 31, gap of 3; Y3190 balances; wasted opened-vial doses could explain part, keeping this balanced.",
+  "stock_disposition": "Quarantined true, advice requested 13:20 with status PEND and nothing received, so exposure is unresolved; product barely above range keeps it from discard.",
+  "excursion_duration": "Air spikes to 10.4 but product_c exceeds 8.0 only once (8.1 at 12:40, one 10-min interval), while the manual current_c is 7.7 (0.4 lower), so none vs brief is balanced.",
+  "followup_urgency": "Advice still pending, next session 2025-09-17, and 24 doses of X2086 already given to pupils; no clearance yet, so same-day vs within 24 h is close."
+ },
+ "request": "rec-F216-0011",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.017698
+}

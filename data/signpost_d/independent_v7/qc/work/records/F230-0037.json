@@ -1,0 +1,168 @@
+{
+ "id": "F230-0037",
+ "family": "F230",
+ "state": {
+  "resident": {
+   "id": "R207",
+   "status": "home",
+   "weight_kg": 72,
+   "allergies": [
+    "penicillin"
+   ]
+  },
+  "prescriptions": [
+   {
+    "item_id": "a1",
+    "drug": "furosemide",
+    "strength_mg": 40,
+    "dose_units": 1,
+    "changes": [
+     {
+      "effective": "2024-03-09",
+      "new_dose_units": 2,
+      "order_ref": "GP-5521",
+      "authorised_by_role": "GP"
+     }
+    ]
+   },
+   {
+    "item_id": "a2",
+    "dose_units": 1
+   },
+   {
+    "item_id": "a3",
+    "dose_units": 1
+   }
+  ],
+  "administrations": [
+   {
+    "item_id": "a1",
+    "scheduled": "08:00",
+    "given_at": "08:45",
+    "units_given": 2,
+    "strength_mg_used": 40,
+    "code": "G",
+    "initials": "CD"
+   },
+   {
+    "item_id": "a2",
+    "scheduled": "08:00",
+    "given_at": "08:05",
+    "units_given": 1,
+    "code": "G",
+    "initials": "CD"
+   },
+   {
+    "item_id": "a3",
+    "scheduled": "08:00",
+    "given_at": "08:10",
+    "units_given": 1,
+    "code": "G",
+    "initials": "CD"
+   }
+  ],
+  "stock": {
+   "a1": {
+    "opening": 30,
+    "closing": 28
+   },
+   "a2": {
+    "opening": 20,
+    "closing": 19
+   },
+   "a3": {
+    "opening": 15,
+    "closing": 14
+   }
+  },
+  "round": {
+   "date": "2024-03-09",
+   "open_queries": [
+    {
+     "type": "gp_callback",
+     "raised": "2024-03-09T09:30",
+     "item_id": "a1"
+    }
+   ],
+   "post_dose_obs": [
+    {
+     "type": "pulse",
+     "value": 118
+    }
+   ]
+  },
+  "history": {
+   "errors_30d": 4
+  }
+ },
+ "factors": {
+  "dose_mismatch_type": "none",
+  "prescription_change_documented": true,
+  "omission_count": 0,
+  "omission_reason_valid": true,
+  "late_minutes": 45,
+  "time_critical_affected": false,
+  "stock_variance": 0,
+  "stock_variance_explained": false,
+  "signature_gaps": 0,
+  "unit_expression_decoy": "none_present",
+  "post_dose_obs_reassuring": false,
+  "pending_query": "gp_callback_awaited",
+  "prior_errors_30d": 4,
+  "item_count": 3
+ },
+ "factors_sampled": {
+  "dose_mismatch_type": "none",
+  "prescription_change_documented": true,
+  "omission_count": 3,
+  "omission_reason_valid": false,
+  "late_minutes": 68,
+  "time_critical_affected": false,
+  "stock_variance": 0,
+  "stock_variance_explained": false,
+  "signature_gaps": 0,
+  "unit_expression_decoy": "none_present",
+  "post_dose_obs_reassuring": false,
+  "pending_query": "gp_callback_awaited",
+  "prior_errors_30d": 4,
+  "item_count": 3
+ },
+ "plan": {
+  "dose_mismatch": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "stock_reconciles": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "contested",
+   "target": "clinical_escalation",
+   "second": "hold"
+  },
+  "open_discrepancies": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  },
+  "error_severity": {
+   "clarity": "contested",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 40,
+ "deciding": {
+  "dose_mismatch": "a1 prescription lists 1 unit but a change effective on the round date with order_ref GP-5521 sets 2, which was given; which dose was in force at 08:00 is unclear.",
+  "stock_reconciles": "All three closing counts equal opening minus signed units.",
+  "next_step": "GP callback on a1 is open (hold), while pulse 118 after the changed dose supports escalation.",
+  "open_discrepancies": "Only a1 has an open query; a2 and a3 are clean.",
+  "error_severity": "No omissions or signature gaps and 45 minutes late is under 60; only the open query on a1 might count as documentation."
+ },
+ "request": "rec-F230-0036",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.018861
+}

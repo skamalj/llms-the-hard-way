@@ -1,0 +1,163 @@
+{
+ "id": "F232-0011",
+ "family": "F232",
+ "state": {
+  "night_header": {
+   "date": "2031-03-04",
+   "programme_id": "P17",
+   "allocated_hours": 6,
+   "eng_window": null
+  },
+  "conditions": {
+   "limits": {
+    "hum": 85,
+    "wind": 50,
+    "cloud": 4
+   },
+   "closures": [
+    {
+     "start": "03:10Z",
+     "end": "05:32Z",
+     "reason": "weather",
+     "peak_hum": 88
+    }
+   ]
+  },
+  "exposures": [
+   {
+    "t": "T1",
+    "f": "r",
+    "s": 7200,
+    "see": 1.1,
+    "qa": "pass"
+   },
+   {
+    "t": "T1",
+    "f": "g",
+    "s": 6900,
+    "see": 1.1,
+    "qa": "pass"
+   },
+   {
+    "t": "T2",
+    "f": "r",
+    "s": 3600,
+    "see": 1.4,
+    "qa": "pass"
+   },
+   {
+    "t": "T3",
+    "f": "r",
+    "s": 900,
+    "see": 1.0,
+    "qa": null
+   }
+  ],
+  "programme_request": {
+   "T1": {
+    "f": [
+     "r",
+     "g"
+    ],
+    "s_each": 7200,
+    "max_see": 1.2
+   },
+   "T2": {
+    "f": [
+     "r"
+    ],
+    "s": 3600,
+    "max_see": 1.2
+   },
+   "exception": {
+    "target_ids": [
+     "T2"
+    ],
+    "relaxed_seeing_arcsec": 1.5
+   }
+  },
+  "faults": [
+   {
+    "subsystem": "filter_wheel",
+    "start_utc": "01:20Z",
+    "end_utc": null,
+    "cleared": false,
+    "retest_utc": null,
+    "workaround": "locked on r",
+    "ticket_ref": "T-5521"
+   }
+  ],
+  "notes": {
+   "observer_note": "T1, T2 complete.",
+   "night_assistant_note": "Loud clunk from filter wheel ~01:20."
+  }
+ },
+ "factors": {
+  "weather_loss_hours": 2.37,
+  "fault_overlap": "none",
+  "fault_resolution_state": "open_workaround",
+  "maintenance_window": false,
+  "closure_reason_mismatch": "none",
+  "note_claim_discrepancy": "small_short",
+  "seeing_vs_limit": "near_boundary",
+  "seeing_exception_approved": true,
+  "usable_fraction": 0.82,
+  "qa_pending_count": 1,
+  "utc_date_rollover": false,
+  "assistant_note_tone": "alarmed_real",
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "weather_loss_hours": 2.37,
+  "fault_overlap": "none",
+  "fault_resolution_state": "no_fault",
+  "maintenance_window": false,
+  "closure_reason_mismatch": "station_below_limits",
+  "note_claim_discrepancy": "none",
+  "seeing_vs_limit": "near_boundary",
+  "seeing_exception_approved": true,
+  "usable_fraction": 0.91,
+  "qa_pending_count": 1,
+  "utc_date_rollover": false,
+  "assistant_note_tone": "alarmed_benign",
+  "boundary_case": false
+ },
+ "plan": {
+  "weather_only_loss": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "claims_supported": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "night_disposition": {
+   "clarity": "leaning",
+   "target": "reschedule_night",
+   "second": null
+  },
+  "usable_share": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "fault_followup": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  }
+ },
+ "target_words": 77,
+ "deciding": {
+  "weather_only_loss": "The only lost interval (03:10-05:32Z, 2.37 h) is a weather closure with peak humidity 88 against limit 85, a marginal exceedance. The open filter-wheel fault began at 01:20Z and does not overlap it.",
+  "claims_supported": "T1 g totals 6900 s against 7200 s required, about 4% short, which could be rounding or a real gap. T2 meets its total.",
+  "night_disposition": "Loss is the weather closure only; the open filter-wheel fault did not stop observing, and the sole pending QA frame is T3, which is unclaimed. Nothing here shows technical loss above half the allocation, so the plan's reschedule_night cannot be supported.",
+  "usable_share": "Passing in-limit time is 17700 s of 21600 s (0.82), sitting on the 80% boundary. T2 seeing of 1.4 is covered by the 1.5 exception, and a 900 s frame is still pending.",
+  "fault_followup": "The filter_wheel fault is open (cleared false, retest null) with workaround 'locked on r', so observing continued."
+ },
+ "request": "rec-F232-0011",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.016611
+}

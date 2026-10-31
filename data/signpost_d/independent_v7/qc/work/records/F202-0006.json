@@ -1,0 +1,132 @@
+{
+ "id": "F202-0006",
+ "family": "F202",
+ "state": {
+  "patrol": {
+   "elr": "MVN2",
+   "booked": [
+    10.2,
+    12.0
+   ]
+  },
+  "walk_trace": {
+   "walked": [
+    10.2,
+    11.95
+   ]
+  },
+  "defects": [
+   {
+    "id": "D1",
+    "type": "rail_squat",
+    "cat": "rail_integrity",
+    "mi": 11.4,
+    "m": 0.4,
+    "u": "in",
+    "pri": "P1",
+    "photo": true
+   },
+   {
+    "id": "D2",
+    "type": "missing_clips",
+    "cat": "track_component",
+    "mi": 11.41,
+    "m": 10,
+    "u": "count",
+    "pri": "P1"
+   }
+  ],
+  "site_context": {
+   "esr": [
+    {
+     "mi": [
+      11.3,
+      11.6
+     ],
+     "mph": 20
+    }
+   ],
+   "history": 3
+  },
+  "standards": {
+   "rail_squat": {
+    "u": "mm",
+    "p2": 6,
+    "p1": 10
+   },
+   "missing_clips": {
+    "u": "count",
+    "p2": 6,
+    "p1": 10
+   }
+  }
+ },
+ "factors": {
+  "measured_band": "immediate",
+  "worst_defect_category": "rail_integrity",
+  "priority_vs_measurement": "match",
+  "unit_mismatch": true,
+  "location_mismatch": "trivial",
+  "coverage_gap_pct": 2.8,
+  "mitigation_present": true,
+  "mitigation_kind": "esr_already_imposed",
+  "repeat_history": 3,
+  "photo_evidence": true,
+  "note_stance": "consistent",
+  "boundary_case": false,
+  "decoy_alarm": true
+ },
+ "factors_sampled": {
+  "measured_band": "seven_day",
+  "worst_defect_category": "track_geometry",
+  "priority_vs_measurement": "match",
+  "unit_mismatch": true,
+  "location_mismatch": "trivial",
+  "coverage_gap_pct": 29.22,
+  "mitigation_present": true,
+  "mitigation_kind": "esr_already_imposed",
+  "repeat_history": 3,
+  "photo_evidence": true,
+  "note_stance": "consistent",
+  "boundary_case": false,
+  "decoy_alarm": true
+ },
+ "plan": {
+  "priority_supported": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "next_step": {
+   "clarity": "balanced",
+   "target": "close_report",
+   "second": "hold_query"
+  },
+  "worst_category": {
+   "clarity": "balanced",
+   "target": "rail_integrity",
+   "second": "track_component"
+  },
+  "discrepancy_size": {
+   "clarity": "contested",
+   "target": "2",
+   "second": "3"
+  },
+  "response_urgency": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 56,
+ "deciding": {
+  "priority_supported": "D1 is logged in inches while the standard is in mm (0.4 in is about 10.2 mm, right at the P1 limit), so the band is uncertain; D2 count 10 fits P1.",
+  "next_step": "An ESR covers the defects and the walk covers them, so closing is arguable, but the unit mismatch on D1 is an unconfirmed item that could justify a query.",
+  "worst_category": "D1 rail squat and D2 clips both sit at the P1 limit; the tie-break favours rail_integrity, but the component defect is equally plausible.",
+  "discrepancy_size": "D1 converts to about 10.2 mm against the 10 mm P1 limit, and D2 is 10 against 10, so the size of the difference depends on how the unit is read (level 2 vs 3).",
+  "response_urgency": "D1 at about 10.2 mm is just over the P1 limit of 10 after conversion, which gives level 3; the unit doubt and the ESR keep level 2 plausible."
+ },
+ "request": "rec-F202-0006",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.009532
+}

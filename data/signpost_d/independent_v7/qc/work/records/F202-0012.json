@@ -1,0 +1,125 @@
+{
+ "id": "F202-0012",
+ "family": "F202",
+ "state": {
+  "patrol": {
+   "date": "2024-05-02",
+   "elr": "BTL1"
+  },
+  "defects": [
+   {
+    "id": "D1",
+    "type": "cess_depth",
+    "cat": "lineside",
+    "mi": 3.21,
+    "meas": 150,
+    "unit": "mm",
+    "pri": "P1",
+    "photo": true
+   },
+   {
+    "id": "D2",
+    "type": "twist",
+    "cat": "track_geometry",
+    "mi": 3.2,
+    "meas": 6,
+    "unit": "mm/m",
+    "pri": "P1"
+   }
+  ],
+  "site_context": {
+   "repairs": [
+    {
+     "mi": 3.2,
+     "signed_off": "2024-05-02"
+    }
+   ],
+   "history": 2
+  },
+  "standards": [
+   {
+    "type": "cess_depth",
+    "unit": "cm",
+    "seven_day": 10,
+    "immediate": 15
+   },
+   {
+    "type": "twist",
+    "unit": "mm/m",
+    "seven_day": 4,
+    "immediate": 6
+   }
+  ],
+  "remarks": {
+   "comment": "Twist about 8 mm/m. Gang signed off repair here."
+  }
+ },
+ "factors": {
+  "measured_band": "immediate",
+  "worst_defect_category": "lineside",
+  "priority_vs_measurement": "match",
+  "unit_mismatch": true,
+  "location_mismatch": "trivial",
+  "coverage_gap_pct": 0.92,
+  "mitigation_present": true,
+  "mitigation_kind": "repaired_since_signed_off",
+  "repeat_history": 2,
+  "photo_evidence": true,
+  "note_stance": "consistent",
+  "boundary_case": true,
+  "decoy_alarm": true
+ },
+ "factors_sampled": {
+  "measured_band": "immediate",
+  "worst_defect_category": "track_component",
+  "priority_vs_measurement": "match",
+  "unit_mismatch": true,
+  "location_mismatch": "trivial",
+  "coverage_gap_pct": 0.92,
+  "mitigation_present": false,
+  "mitigation_kind": "repaired_since_signed_off",
+  "repeat_history": 2,
+  "photo_evidence": true,
+  "note_stance": "consistent",
+  "boundary_case": true,
+  "decoy_alarm": true
+ },
+ "plan": {
+  "priority_supported": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "balanced",
+   "target": "close_report",
+   "second": "raise_repair"
+  },
+  "worst_category": {
+   "clarity": "balanced",
+   "target": "lineside",
+   "second": "track_geometry"
+  },
+  "discrepancy_size": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "response_urgency": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  }
+ },
+ "target_words": 36,
+ "deciding": {
+  "priority_supported": "D1 is logged in mm while the standard for cess_depth is in cm, so its priority cannot be checked against the band.",
+  "next_step": "A repair at 3.2 was signed off on the patrol date, but the order is unclear; the cess defect at 3.21 has history 2 and was never repaired.",
+  "worst_category": "The cess depth unit mismatch leaves its band unclear, so lineside (150 mm = 15 cm, at the immediate limit) competes with twist 6 (also at the limit).",
+  "discrepancy_size": "Comment says twist about 8 against recorded 6: 25% of 8, on the 2/3 boundary.",
+  "response_urgency": "Twist 6 equals the immediate limit of 6 and the table does not say whether limits are inclusive, so seven-day or immediate."
+ },
+ "request": "rec-F202-0011",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.014386
+}

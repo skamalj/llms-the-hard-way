@@ -1,0 +1,144 @@
+{
+ "id": "F236-0051",
+ "family": "F236",
+ "state": {
+  "changeover": {
+   "line": "L2",
+   "from_allergens": [
+    "wheat",
+    "milk"
+   ],
+   "to_allergens": [
+    "wheat",
+    "milk"
+   ],
+   "next_batch": "L2-0471"
+  },
+  "cleaning": {
+   "steps": [
+    {
+     "id": "mixer_wash",
+     "completed": true,
+     "spec_min": 30,
+     "actual_min": 31
+    },
+    {
+     "id": "depositor_rinse",
+     "completed": false,
+     "spec_min": 20,
+     "actual_min": 0
+    }
+   ]
+  },
+  "verification": {
+   "swabs": [
+    {
+     "id": "S1",
+     "loc": "mixer",
+     "ppm": 0,
+     "limit_ppm": 5,
+     "at": "2025-03-11T06:40"
+    },
+    {
+     "id": "S2",
+     "loc": "depositor",
+     "ppm": 0.1,
+     "limit_ppm": 5,
+     "at": "2025-03-11T06:45"
+    }
+   ]
+  },
+  "production": {
+   "line": "L2",
+   "first_batch": "L2-0417",
+   "start_at": "2025-03-11T07:00",
+   "qty_kg": 500
+  },
+  "approvals": {
+   "qa_signoff": {
+    "signer": "QA4",
+    "signed_at": "2025-03-11T06:55"
+   }
+  },
+  "history": {
+   "passed": [
+    true,
+    false,
+    true,
+    false,
+    true,
+    true,
+    false,
+    true,
+    false,
+    true
+   ]
+  }
+ },
+ "factors": {
+  "allergen_transition": "same_allergen_set",
+  "cleaning_completion": "one_step_skipped",
+  "swab_outcome": "all_negative",
+  "swab_timing_mismatch": false,
+  "cross_section_discrepancy": "batch_id_mismatch",
+  "exposed_quantity_kg": 500.0,
+  "approved_deviation": false,
+  "label_precaution": false,
+  "dedicated_tooling": false,
+  "qa_signoff_state": "signed_before_start",
+  "line_failure_history": 4,
+  "boundary_value": true
+ },
+ "factors_sampled": {
+  "allergen_transition": "same_allergen_set",
+  "cleaning_completion": "full",
+  "swab_outcome": "all_negative",
+  "swab_timing_mismatch": false,
+  "cross_section_discrepancy": "batch_id_mismatch",
+  "exposed_quantity_kg": 1084.08,
+  "approved_deviation": false,
+  "label_precaution": false,
+  "dedicated_tooling": false,
+  "qa_signoff_state": "signed_before_start",
+  "line_failure_history": 4,
+  "boundary_value": false
+ },
+ "plan": {
+  "swabs_cleared": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "line_disposition": {
+   "clarity": "contested",
+   "target": "release_conditional",
+   "second": "hold"
+  },
+  "worst_deficiency": {
+   "clarity": "clear",
+   "target": "cleaning_shortfall",
+   "second": null
+  },
+  "exposed_product": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  },
+  "residue_evidence": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 63,
+ "deciding": {
+  "swabs_cleared": "Both swabs read at or near zero, under the 5 ppm limit, and were taken before the 07:00 start. The skipped depositor rinse and the batch ID mismatch leave some doubt.",
+  "line_disposition": "Skipped depositor_rinse with clean swabs and a pre-start sign-off. Release with a control or hold are both defensible. The next_batch ID differs from first_batch, and 4 of the last 10 changeovers failed.",
+  "worst_deficiency": "The depositor_rinse step has completed false and actual_min 0 against a spec of 20. Swabs and sign-off are timed before start, so there is no release breach.",
+  "exposed_product": "qty_kg is exactly 500, the boundary between levels 2 and 3. The skipped step leaves the line not fully verified.",
+  "residue_evidence": "S1 reads 0 and S2 reads 0.1 ppm against a 5 ppm limit. The 0.1 is a barely detectable reading, so level 0 or 1."
+ },
+ "request": "rec-F236-0051",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.016473
+}

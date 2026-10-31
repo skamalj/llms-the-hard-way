@@ -1,0 +1,160 @@
+{
+ "id": "F220-0004",
+ "family": "F220",
+ "state": {
+  "tray": {
+   "tray_id": "T-318",
+   "barcode": "990207",
+   "requested_for": "2025-07-08T08:00",
+   "request_note": "Routine."
+  },
+  "set_check": {
+   "lines": [
+    {
+     "cat_code": "F1",
+     "qty_expected": 2,
+     "qty_counted": 1
+    },
+    {
+     "cat_code": "F6",
+     "qty_expected": 4,
+     "qty_counted": 3
+    },
+    {
+     "cat_code": "F8",
+     "qty_expected": 1,
+     "qty_counted": 0
+    },
+    {
+     "cat_code": "Z02",
+     "qty_expected": 0,
+     "qty_counted": 1
+    }
+   ],
+   "variances": [
+    {
+     "cat_code": "F1",
+     "reason": "in repair",
+     "approved_by": "JT"
+    },
+    {
+     "cat_code": "F6",
+     "reason": "loaned",
+     "approved_by": "JT"
+    },
+    {
+     "cat_code": "Z02",
+     "reason": "substitute",
+     "approved_by": null
+    }
+   ],
+   "packer_note": "All fine."
+  },
+  "washer": {
+   "cycle_id": "W60",
+   "alarms": [
+    "W-temp"
+   ],
+   "trays_processed": [
+    "990207"
+   ],
+   "rerun_cycle_id": "W61"
+  },
+  "steriliser_load": {
+   "load_id": "L70",
+   "printout": {
+    "temp_min_c": 134.8,
+    "temp_max_c": 136.2,
+    "hold_s": 186,
+    "pressure_kpa": 215
+   },
+   "logger": {
+    "temp_min_c": 134.7,
+    "hold_s": 186
+   },
+   "daily_test": {
+    "date": "2025-07-08",
+    "result": "pass"
+   },
+   "bi": {
+    "result": "pass"
+   },
+   "ci_result": "fail",
+   "ci_retest": "pass",
+   "unload_condition": "damp, dried, retested"
+  },
+  "release_label": {
+   "tray_barcode": "990207",
+   "load_id": "L70",
+   "wrap_condition": "intact"
+  }
+ },
+ "factors": {
+  "set_count_discrepancies": 4,
+  "substitution_documented": true,
+  "cycle_excursion": "none",
+  "independent_logger_confirms": true,
+  "bi_status": "pass",
+  "chemical_indicator": "fail_retest_pass",
+  "washer_record_state": "alarm_cleared_rerun",
+  "pack_integrity": "condensate_dried_retested",
+  "label_mismatch": "none",
+  "daily_test_state": "pass_today",
+  "theatre_urgency": "routine",
+  "note_tone": "reassuring_unverified",
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "set_count_discrepancies": 1,
+  "substitution_documented": true,
+  "cycle_excursion": "pressure_fault",
+  "independent_logger_confirms": false,
+  "bi_status": "pass",
+  "chemical_indicator": "fail",
+  "washer_record_state": "alarm_cleared_rerun",
+  "pack_integrity": "condensate_dried_retested",
+  "label_mismatch": "expiry_inconsistent",
+  "daily_test_state": "pass_today",
+  "theatre_urgency": "routine",
+  "note_tone": "reassuring_unverified",
+  "boundary_case": false
+ },
+ "plan": {
+  "cycle_in_limits": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "disposition": {
+   "clarity": "balanced",
+   "target": "release",
+   "second": "reprocess"
+  },
+  "failure_stage": {
+   "clarity": "contested",
+   "target": "steriliser_stage",
+   "second": "wash_stage"
+  },
+  "count_gaps": {
+   "clarity": "contested",
+   "target": "2",
+   "second": "3"
+  },
+  "sterility_doubt": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 96,
+ "deciding": {
+  "cycle_in_limits": "Printout shows 134.8 to 136.2 C, a 186 s hold and 215 kPa, and the logger agrees at 134.7 C, so the cycle is in band.",
+  "disposition": "BI passes and the CI retest passes, but the first CI failed and the pack was damp then dried. Release is modestly favoured, with reprocess defensible.",
+  "failure_stage": "The washer alarm W-temp was cleared by rerun W61, while the CI first failed on the steriliser side. A reader could choose steriliser_stage or wash_stage.",
+  "count_gaps": "Four discrepant lines: F1 and F6 have approved variances, Z02 has a variance with null approver, and F8 has none. That gives two unexplained, or three on a stricter reading.",
+  "sterility_doubt": "The first CI result is fail with a retest pass, and the wrap was damp and dried. That puts it between Compromised and Doubtful."
+ },
+ "request": "rec-F220-0001",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.014655
+}

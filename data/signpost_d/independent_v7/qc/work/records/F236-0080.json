@@ -1,0 +1,141 @@
+{
+ "id": "F236-0080",
+ "family": "F236",
+ "state": {
+  "changeover": {
+   "line_id": "L5",
+   "from_allergens": [
+    "wheat",
+    "sesame"
+   ],
+   "to_allergens": [
+    "wheat",
+    "milk"
+   ]
+  },
+  "cleaning": {
+   "steps": [
+    {
+     "completed": true,
+     "spec_min": 40,
+     "actual_min": 42
+    }
+   ]
+  },
+  "verification": {
+   "swabs": [
+    {
+     "id": "S1",
+     "reading": 11,
+     "limit_ppm": 10,
+     "at": "05:00"
+    },
+    {
+     "id": "S2",
+     "reading": 2,
+     "limit_ppm": 10,
+     "at": "05:55",
+     "retest_of": "S1"
+    }
+   ]
+  },
+  "production": {
+   "start_at": "06:00",
+   "quantity": 600,
+   "unit": "g",
+   "packaging_allergens": [
+    "wheat",
+    "milk",
+    {
+     "may_contain": "sesame"
+    }
+   ],
+   "held": true
+  },
+  "approvals": {
+   "qa_signoff": {
+    "signed_at": "05:58"
+   }
+  },
+  "history": [
+   {
+    "passed": false
+   },
+   {
+    "passed": true
+   },
+   {
+    "passed": false
+   },
+   {
+    "passed": true
+   }
+  ]
+ },
+ "factors": {
+  "allergen_transition": "swaps_allergen",
+  "cleaning_completion": "full",
+  "swab_outcome": "over_limit_retest_pass_trace",
+  "swab_timing_mismatch": false,
+  "cross_section_discrepancy": "quantity_unit_mismatch",
+  "exposed_quantity_kg": 0.6,
+  "approved_deviation": false,
+  "label_precaution": true,
+  "dedicated_tooling": false,
+  "qa_signoff_state": "signed_before_start",
+  "line_failure_history": 2,
+  "boundary_value": false
+ },
+ "factors_sampled": {
+  "allergen_transition": "swaps_allergen",
+  "cleaning_completion": "full",
+  "swab_outcome": "positive_retest_pass",
+  "swab_timing_mismatch": false,
+  "cross_section_discrepancy": "quantity_unit_mismatch",
+  "exposed_quantity_kg": 1031.38,
+  "approved_deviation": false,
+  "label_precaution": true,
+  "dedicated_tooling": false,
+  "qa_signoff_state": "signed_before_start",
+  "line_failure_history": 2,
+  "boundary_value": false
+ },
+ "plan": {
+  "swabs_cleared": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "line_disposition": {
+   "clarity": "leaning",
+   "target": "hold",
+   "second": null
+  },
+  "worst_deficiency": {
+   "clarity": "contested",
+   "target": "records_only",
+   "second": "none"
+  },
+  "exposed_product": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  },
+  "residue_evidence": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  }
+ },
+ "target_words": 60,
+ "deciding": {
+  "swabs_cleared": "S1 read 11 against a limit of 10. Retest S2 read 2 at 05:55, before the 06:00 start, and passed.",
+  "line_disposition": "production.held is true and the quantity is given as 600 with unit g, which looks like a unit error needing confirmation. The batch is held until that is confirmed.",
+  "worst_deficiency": "The unit g for a 600 quantity is a paperwork mismatch. It may be a genuine 600 g or a slip for kg. Swabs and sign-off are in order, so records_only and none are both defensible.",
+  "exposed_product": "The retest passed at 05:55, five minutes before start, so almost nothing was made before verification. The unit is unclear, which keeps level 0 plausible against level 1.",
+  "residue_evidence": "S1 read 11 against a limit of 10 and the retest passed. The retest read 2, which is above zero but below the limit, so level 2 and level 1 are both plausible."
+ },
+ "request": "rec-F236-0076",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012786
+}

@@ -1,0 +1,130 @@
+{
+ "id": "F240-0008",
+ "family": "F240",
+ "state": {
+  "asset": {
+   "inverter_id": "INV-1-11",
+   "serial": "S118",
+   "rated_ac_kw": 500
+  },
+  "fault_event": {
+   "serial": "S181",
+   "code": "F-COM-05",
+   "fw_severity": 3,
+   "ts_start": "2024-08-05T06:00",
+   "ts_clear": "2024-08-05T08:30",
+   "auto_restarts": 4
+  },
+  "telemetry": {
+   "exp_day_kwh": 3000,
+   "exp_window_kwh": 40,
+   "act_window_kwh": 10,
+   "samples": [
+    {
+     "ts": "2024-08-05T07:30",
+     "ac_kw": 0,
+     "exp_kw": 20,
+     "poa_wm2": 60,
+     "limit_pct": 100
+    },
+    {
+     "ts": "2024-08-05T08:45",
+     "ac_kw": 35,
+     "exp_kw": 35,
+     "poa_wm2": 90,
+     "limit_pct": 100
+    }
+   ]
+  },
+  "site_context": {
+   "neighbours": [
+    {
+     "inverter_id": "INV-1-12",
+     "output_ratio": 1.0
+    }
+   ]
+  },
+  "history": {
+   "faults": [
+    {
+     "date": "2024-08-02T14:40",
+     "code": "F-COM-05"
+    }
+   ],
+   "work_orders": [
+    {
+     "wo_id": "WO-310",
+     "opened": "2024-08-01",
+     "completed": "2024-08-02T14:10",
+     "retest_ok": null
+    }
+   ]
+  }
+ },
+ "factors": {
+  "fault_class": "comms_loss",
+  "log_telemetry_mismatch": "large_over_2h",
+  "grid_event_concurrent": false,
+  "maintenance_window_active": false,
+  "neighbour_cross_check": "neighbours_normal",
+  "repeat_count_30d": 1,
+  "last_repair_status": "completed_unverified",
+  "current_limit_pct": 100.0,
+  "yield_loss_pct": 1.0,
+  "low_irradiance_window": true,
+  "serial_mismatch": true,
+  "boundary_placement": true
+ },
+ "factors_sampled": {
+  "fault_class": "comms_loss",
+  "log_telemetry_mismatch": "large_over_2h",
+  "grid_event_concurrent": true,
+  "maintenance_window_active": true,
+  "neighbour_cross_check": "neighbours_normal",
+  "repeat_count_30d": 1,
+  "last_repair_status": "completed_unverified",
+  "current_limit_pct": 5.42,
+  "yield_loss_pct": 23.0,
+  "low_irradiance_window": true,
+  "serial_mismatch": true,
+  "boundary_placement": true
+ },
+ "plan": {
+  "genuine_defect": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "post_repair_repeat": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "hold_confirm",
+   "second": null
+  },
+  "yield_loss": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "capacity_unavailable": {
+   "clarity": "clear",
+   "target": "0",
+   "second": null
+  }
+ },
+ "target_words": 48,
+ "deciding": {
+  "genuine_defect": "No grid event or maintenance window, neighbours at 1.0, fw_severity 3 and 4 auto_restarts favour a unit fault; the serial mismatch leaves some doubt.",
+  "post_repair_repeat": "Matching F-COM-05 at 14:40 on 2024-08-02, 30 minutes after WO-310 completed at 14:10, retest_ok null; the serial mismatch clouds attribution.",
+  "next_step": "fault_event.serial S181 differs from asset.serial S118, the one confirmation needed before choosing an action.",
+  "yield_loss": "(40-10)/3000 = 1.0% at low irradiance, on the negligible/minor boundary; the 2.5 h log span against a one-sample zero stretch adds ambiguity.",
+  "capacity_unavailable": "Last sample ac_kw 35 equals exp_kw 35 with limit_pct 100, so full output with no limit."
+ },
+ "request": "rec-F240-0006",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012222
+}

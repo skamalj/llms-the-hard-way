@@ -1,0 +1,145 @@
+{
+ "id": "F213-0078",
+ "family": "F213",
+ "state": {
+  "pool": {
+   "type": "leisure",
+   "test_interval_min": 60,
+   "opening": {
+    "open": "2025-08-12T09:00",
+    "close": "2025-08-12T12:00"
+   },
+   "limits": {
+    "free_cl_min": 1.0,
+    "free_cl_max": 3.0,
+    "ph_min": 7.2,
+    "ph_max": 7.8
+   },
+   "tolerance": {
+    "free_cl": 0.3,
+    "ph": 0.2
+   },
+   "micro_due": "2025-09-01"
+  },
+  "manual_tests": [
+   {
+    "time": "2025-08-12T09:00",
+    "free_cl": 1.0,
+    "ph": 7.4,
+    "kit_id": "K2"
+   },
+   {
+    "time": "2025-08-12T10:00",
+    "free_cl": 1.6,
+    "ph": 7.4,
+    "kit_id": "K2"
+   },
+   {
+    "time": "2025-08-12T11:00",
+    "free_cl": 1.7,
+    "ph": 7.5,
+    "kit_id": "K2"
+   }
+  ],
+  "plant": {
+   "controller_readings": [
+    {
+     "time": "2025-08-12T09:00",
+     "free_cl": 1.1,
+     "ph": 7.4
+    }
+   ],
+   "dosing_events": [
+    {
+     "time": "2025-08-12T09:10",
+     "type": "hypochlorite"
+    }
+   ]
+  },
+  "equipment": {
+   "kits": [
+    {
+     "kit_id": "K2",
+     "cal_due": "2025-08-12"
+    }
+   ]
+  },
+  "actions": [
+   {
+    "time": "2025-08-12T09:10",
+    "action_type": "dose_adjust",
+    "reading_ref": "2025-08-12T09:00",
+    "retest_time": null
+   }
+  ],
+  "lab_sample": null
+ },
+ "factors": {
+  "pool_type": "leisure",
+  "test_coverage_gap": 0,
+  "boundary_interval": true,
+  "log_controller_discrepancy": "none",
+  "discrepancy_location": "free_chlorine",
+  "excursion_severity": "none",
+  "corrective_action_delay": "prompt",
+  "retest_logged": false,
+  "dosing_event_explains": true,
+  "kit_calibration_status": "expires_on_day",
+  "lab_sample_state": "not_due",
+  "out_of_order_entry": false,
+  "benign_noise": "none"
+ },
+ "factors_sampled": {
+  "pool_type": "leisure",
+  "test_coverage_gap": 3,
+  "boundary_interval": true,
+  "log_controller_discrepancy": "none",
+  "discrepancy_location": "free_chlorine",
+  "excursion_severity": "none",
+  "corrective_action_delay": "prompt",
+  "retest_logged": false,
+  "dosing_event_explains": true,
+  "kit_calibration_status": "expires_on_day",
+  "lab_sample_state": "not_due",
+  "out_of_order_entry": false,
+  "benign_noise": "none"
+ },
+ "plan": {
+  "test_frequency_met": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "readings_reconcile": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "log_disposition": {
+   "clarity": "leaning",
+   "target": "accept",
+   "second": null
+  },
+  "action_delay": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "failed_checks": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  }
+ },
+ "target_words": 41,
+ "deciding": {
+  "test_frequency_met": "Tests at 09:00, 10:00 and 11:00: every gap equals exactly the 60 min interval, none over.",
+  "readings_reconcile": "Controller 1.1 and ph 7.4 against manual 1.0 and 7.4, within tolerance.",
+  "log_disposition": "All readings are within limits and the lab is not yet due; only the kit due on the log date is a small doubt.",
+  "action_delay": "Manual free_cl 1.0 equals the minimum, so arguably no excursion, and the dose adjustment came 10 min after the 09:00 reading.",
+  "failed_checks": "Kit due on the log date, no retest, and an action at a limit-edge reading: two or three checks arguably fail."
+ },
+ "request": "rec-F213-0076",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.013285
+}

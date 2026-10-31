@@ -1,0 +1,163 @@
+{
+ "id": "F213-0065",
+ "family": "F213",
+ "state": {
+  "pool": {
+   "type": "competition",
+   "test_interval_min": 60,
+   "opening": {
+    "open": "2024-08-14T07:00",
+    "close": "2024-08-14T11:00"
+   },
+   "limits": {
+    "free_cl_min": 1.0,
+    "free_cl_max": 3.0,
+    "ph_min": 7.2,
+    "ph_max": 7.8
+   },
+   "tolerance": {
+    "free_cl": 0.3,
+    "ph": 0.2
+   },
+   "micro_due": "2024-08-14"
+  },
+  "manual_tests": [
+   {
+    "time": "2024-08-14T07:05",
+    "free_cl": 2.4,
+    "ph": 7.5,
+    "kit_id": "K4"
+   },
+   {
+    "time": "2024-08-14T08:05",
+    "free_cl": 2.5,
+    "ph": 7.5,
+    "kit_id": "K4"
+   },
+   {
+    "time": "2024-08-14T09:10",
+    "free_cl": 3.0,
+    "ph": 7.4,
+    "kit_id": "K4"
+   },
+   {
+    "time": "2024-08-14T10:10",
+    "free_cl": 2.6,
+    "ph": 7.5,
+    "kit_id": "K4"
+   }
+  ],
+  "plant": {
+   "controller_readings": [
+    {
+     "time": "2024-08-14T09:10",
+     "free_cl": 3.1,
+     "ph": 7.4
+    },
+    {
+     "time": "2024-08-14T10:10",
+     "free_cl": 2.6,
+     "ph": 7.5
+    }
+   ],
+   "dosing_events": [
+    {
+     "time": "2024-08-14T08:50",
+     "type": "shock"
+    }
+   ]
+  },
+  "equipment": {
+   "kits": [
+    {
+     "kit_id": "K4",
+     "cal_due": "2025-03-01"
+    }
+   ]
+  },
+  "actions": [
+   {
+    "time": "2024-08-14T09:25",
+    "action_type": "dilution",
+    "reading_ref": "2024-08-14T09:10",
+    "retest_time": "2024-08-14T10:10"
+   }
+  ],
+  "lab_sample": {
+   "sampled_on": "2024-08-12",
+   "result_on": "2024-08-14",
+   "status": "complete",
+   "tvc_37": 12,
+   "coliforms": 0,
+   "pseudomonas": 0
+  }
+ },
+ "factors": {
+  "pool_type": "competition",
+  "test_coverage_gap": 1,
+  "boundary_interval": true,
+  "log_controller_discrepancy": "within_tolerance",
+  "discrepancy_location": "free_chlorine",
+  "excursion_severity": "at_limit",
+  "corrective_action_delay": "prompt",
+  "retest_logged": true,
+  "dosing_event_explains": true,
+  "kit_calibration_status": "in_date",
+  "lab_sample_state": "complete_low_counts",
+  "out_of_order_entry": false,
+  "benign_noise": "none"
+ },
+ "factors_sampled": {
+  "pool_type": "competition",
+  "test_coverage_gap": 2,
+  "boundary_interval": true,
+  "log_controller_discrepancy": "large",
+  "discrepancy_location": "free_chlorine",
+  "excursion_severity": "none",
+  "corrective_action_delay": "prompt",
+  "retest_logged": true,
+  "dosing_event_explains": true,
+  "kit_calibration_status": "in_date",
+  "lab_sample_state": "positive",
+  "out_of_order_entry": false,
+  "benign_noise": "none"
+ },
+ "plan": {
+  "test_frequency_met": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "readings_reconcile": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "log_disposition": {
+   "clarity": "leaning",
+   "target": "accept",
+   "second": null
+  },
+  "action_delay": {
+   "clarity": "contested",
+   "target": "0",
+   "second": "1"
+  },
+  "failed_checks": {
+   "clarity": "contested",
+   "target": "2",
+   "second": "1"
+  }
+ },
+ "target_words": 72,
+ "deciding": {
+  "test_frequency_met": "Tests at 08:05 and 09:10 are 65 min apart against a 60 min interval, while 09:10 to 10:10 is exactly 60, so spacing is near the boundary.",
+  "readings_reconcile": "Controller free_cl 3.1 against manual 3.0 at 09:10 and matching pH differ by 0.1 or less, inside tolerance.",
+  "log_disposition": "Lab result is complete with low counts and the retest at 10:10 is within limits, so the log is acceptable apart from the spacing.",
+  "action_delay": "Free chlorine 3.0 at 09:10 sits exactly at the 3.0 max, so an excursion is arguable; dilution was logged 15 min later.",
+  "failed_checks": "The 65 min test spacing is the only candidate failure, and whether the at-limit chlorine counts as a second is open."
+ },
+ "request": "rec-F213-0061",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012701
+}

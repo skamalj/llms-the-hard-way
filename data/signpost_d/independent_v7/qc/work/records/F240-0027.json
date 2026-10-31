@@ -1,0 +1,130 @@
+{
+ "id": "F240-0027",
+ "family": "F240",
+ "state": {
+  "asset": {
+   "inverter_id": "I-12",
+   "serial": "K5520",
+   "rated_ac_kw": 2500
+  },
+  "fault_event": {
+   "serial": "K5520",
+   "code": "F-ISO-02",
+   "fw_severity": 3,
+   "ts_start": "2024-07-04T05:50",
+   "ts_clear": null,
+   "auto_restarts": 3
+  },
+  "telemetry": {
+   "exp_day_kwh": 12000,
+   "exp_window_kwh": 140,
+   "act_window_kwh": 20,
+   "samples": [
+    {
+     "ts": "06:05",
+     "ac_kw": 0,
+     "exp_kw": 120,
+     "limit_pct": 0
+    },
+    {
+     "ts": "06:30",
+     "ac_kw": 23,
+     "exp_kw": 260,
+     "limit_pct": 0.92
+    }
+   ]
+  },
+  "site_context": {
+   "maint_windows": [
+    {
+     "from": "2024-07-04",
+     "to": "2024-07-05",
+     "scope": "BLK-2"
+    }
+   ],
+   "neighbours": [
+    {
+     "inverter_id": "I-7",
+     "output_ratio": 1.0
+    }
+   ]
+  },
+  "history": {
+   "faults": [],
+   "work_orders": [
+    {
+     "wo_id": "W22",
+     "opened": "2024-06-03",
+     "completed": null,
+     "retest_ok": null
+    }
+   ]
+  }
+ },
+ "factors": {
+  "fault_class": "insulation_resistance",
+  "log_telemetry_mismatch": "moderate_15_60min",
+  "grid_event_concurrent": false,
+  "maintenance_window_active": false,
+  "neighbour_cross_check": "neighbours_normal",
+  "repeat_count_30d": 0,
+  "last_repair_status": "open",
+  "current_limit_pct": 0.92,
+  "yield_loss_pct": 1.0,
+  "low_irradiance_window": false,
+  "serial_mismatch": false,
+  "boundary_placement": false
+ },
+ "factors_sampled": {
+  "fault_class": "insulation_resistance",
+  "log_telemetry_mismatch": "moderate_15_60min",
+  "grid_event_concurrent": false,
+  "maintenance_window_active": true,
+  "neighbour_cross_check": "neighbours_normal",
+  "repeat_count_30d": 0,
+  "last_repair_status": "open",
+  "current_limit_pct": 0.92,
+  "yield_loss_pct": 13.99,
+  "low_irradiance_window": false,
+  "serial_mismatch": false,
+  "boundary_placement": false
+ },
+ "plan": {
+  "genuine_defect": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "post_repair_repeat": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "balanced",
+   "target": "urgent_dispatch",
+   "second": "hold_confirm"
+  },
+  "yield_loss": {
+   "clarity": "contested",
+   "target": "1",
+   "second": "0"
+  },
+  "capacity_unavailable": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 39,
+ "deciding": {
+  "genuine_defect": "Insulation fault uncleared, neighbour ratio 1.0, no grid event, the maintenance window is for BLK-2 only: no external explanation.",
+  "post_repair_repeat": "Only work order W22 is open with completed null, and no prior faults are listed, so there is no completed repair to repeat after.",
+  "next_step": "Uncleared fault with the inverter near zero output suggests dispatch, but the open WO W22 with no retest leaves a confirmation gap (hold_confirm).",
+  "yield_loss": "(140-20)/12000 = 1.0%, exactly at the boundary between negligible and minor.",
+  "capacity_unavailable": "Last sample ac_kw 23 of 2500 and limit_pct 0.92, with ts_clear null: effectively offline but a trickle is still exported."
+ },
+ "request": "rec-F240-0026",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012212
+}

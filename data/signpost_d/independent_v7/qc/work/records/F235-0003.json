@@ -1,0 +1,148 @@
+{
+ "id": "F235-0003",
+ "family": "F235",
+ "state": {
+  "station": {
+   "station_id": "S2260",
+   "river": "Tarn",
+   "gauge_type": "radar",
+   "backup": {
+    "type": null,
+    "installed": false,
+    "last_value_m": null,
+    "status": null
+   },
+   "telemetry": {
+    "batt_v": 12.5,
+    "rssi_dbm": -109
+   }
+  },
+  "visit": {
+   "visit_id": "V-3015",
+   "type": "routine",
+   "visit_date": "2024-07-09",
+   "tasks_planned": 3,
+   "abort_reason": null
+  },
+  "checks": {
+   "pre": {
+    "board_m": [
+     0.402,
+     0.404
+    ],
+    "logger_m": 0.398,
+    "time": "13:20"
+   },
+   "post": null
+  },
+  "works": {
+   "tasks": [
+    {
+     "task": "bench test sensor",
+     "status": "done"
+    },
+    {
+     "task": "clean housing",
+     "status": "done"
+    },
+    {
+     "task": "repaint board",
+     "status": "done"
+    }
+   ],
+   "parts": null,
+   "bench_test": {
+    "result_mm_error": 2,
+    "date": "2024-07-09"
+   },
+   "logger_gap_h": 10
+  },
+  "defects": [
+   {
+    "item": "stage output noise about 3 mm",
+    "channel": "primary_stage",
+    "reporting": true,
+    "raised": "2024-07-09"
+   },
+   {
+    "item": "flaking paint on housing",
+    "channel": "housing",
+    "reporting": true,
+    "raised": "2024-07-09"
+   }
+  ],
+  "notes": {
+   "tech_note": "Output looks unstable, sensor may be failing.",
+   "supervisor_comment": "Reviewed, no further action requested.",
+   "signed_off": "2024-07-11"
+  }
+ },
+ "factors": {
+  "pre_visit_offset_mm": 5.0,
+  "check_reading_spread_mm": 2.0,
+  "drift_cause": "channel_change",
+  "cause_evidence": "none",
+  "visit_completion": "full",
+  "post_visit_check_logged": false,
+  "residual_defect_class": "primary_faulty_reporting",
+  "backup_sensor_ok": false,
+  "benign_explanation": false,
+  "record_gap": "none",
+  "logger_gap_hours": 10,
+  "telemetry_decoy": "weak_signal",
+  "note_tone": "alarming"
+ },
+ "factors_sampled": {
+  "pre_visit_offset_mm": 7.83,
+  "check_reading_spread_mm": 2.38,
+  "drift_cause": "sensor_fault",
+  "cause_evidence": "corroborated",
+  "visit_completion": "full",
+  "post_visit_check_logged": false,
+  "residual_defect_class": "cosmetic",
+  "backup_sensor_ok": false,
+  "benign_explanation": false,
+  "record_gap": "none",
+  "logger_gap_hours": 10,
+  "telemetry_decoy": "weak_signal",
+  "note_tone": "alarming"
+ },
+ "plan": {
+  "sensor_fault_cause": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "visit_disposition": {
+   "clarity": "leaning",
+   "target": "sign_off",
+   "second": null
+  },
+  "data_treatment": {
+   "clarity": "clear",
+   "target": "mark_provisional",
+   "second": null
+  },
+  "offset_size": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "residual_defect": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 124,
+ "deciding": {
+  "sensor_fault_cause": "Bench test error 2 mm is within spec and offset is small, but the technician reports unstable output and noise is logged on the primary sensor.",
+  "visit_disposition": "All three tasks done, sign-off dated after the visit, supervisor no action; the missing post check and the noise defect are the doubt.",
+  "data_treatment": "Post check is null, so offset is not verified after work and the primary noise defect is open: values stay but are flagged unverified.",
+  "offset_size": "Board mean 0.403 m minus logger 0.398 m is 5 mm, exactly at the 5 mm boundary between negligible and minor.",
+  "residual_defect": "Primary_stage noise of about 3 mm, still reporting: could count as a faulty primary sensor or a mildly degraded channel, with the bench test within spec."
+ },
+ "request": "rec-F235-0001",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.009871
+}

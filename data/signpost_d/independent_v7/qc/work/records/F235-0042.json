@@ -1,0 +1,143 @@
+{
+ "id": "F235-0042",
+ "family": "F235",
+ "state": {
+  "station": {
+   "station_id": "S-0937",
+   "river": "Aln",
+   "gauge_type": "pressure",
+   "backup": {
+    "installed": false,
+    "status": null
+   },
+   "telemetry": {
+    "batt_v": 12.8,
+    "rssi_dbm": -84
+   }
+  },
+  "visit": {
+   "visit_id": "V-1873",
+   "type": "reactive",
+   "visit_date": "2024-03-06",
+   "tasks_planned": 3,
+   "abort_reason": "access flooded"
+  },
+  "checks": {
+   "pre": {
+    "board_m": [
+     1.205,
+     1.217
+    ],
+    "logger_m": 1.178,
+    "time": "10:05"
+   },
+   "post": {
+    "board_m": [
+     1.209,
+     1.214
+    ],
+    "logger_m": null,
+    "time": "10:50"
+   }
+  },
+  "works": {
+   "tasks": [
+    {
+     "task": "sensor bench test",
+     "status": "not_started"
+    },
+    {
+     "task": "control survey",
+     "status": "not_started"
+    },
+    {
+     "task": "board check",
+     "status": "done"
+    }
+   ],
+   "bench_test": null,
+   "logger_gap_h": 74
+  },
+  "defects": [
+   {
+    "item": "transducer no output",
+    "channel": "primary_stage",
+    "reporting": false,
+    "raised": "2024-03-06"
+   }
+  ],
+  "notes": {
+   "tech_note": "Gravel bar building at control; transducer may also be sluggish.",
+   "supervisor_comment": "Temporary offset reference approved.",
+   "signed_off": "2024-03-05"
+  }
+ },
+ "factors": {
+  "pre_visit_offset_mm": 33.0,
+  "check_reading_spread_mm": 12.0,
+  "drift_cause": "sensor_fault",
+  "cause_evidence": "single_indicator",
+  "visit_completion": "aborted",
+  "post_visit_check_logged": true,
+  "residual_defect_class": "primary_not_reporting",
+  "backup_sensor_ok": false,
+  "benign_explanation": true,
+  "record_gap": "signoff_before_visit",
+  "logger_gap_hours": 74,
+  "telemetry_decoy": "normal",
+  "note_tone": "neutral"
+ },
+ "factors_sampled": {
+  "pre_visit_offset_mm": 37.31,
+  "check_reading_spread_mm": 11.86,
+  "drift_cause": "sensor_fault",
+  "cause_evidence": "single_indicator",
+  "visit_completion": "aborted",
+  "post_visit_check_logged": true,
+  "residual_defect_class": "primary_degraded",
+  "backup_sensor_ok": false,
+  "benign_explanation": true,
+  "record_gap": "signoff_before_visit",
+  "logger_gap_hours": 74,
+  "telemetry_decoy": "normal",
+  "note_tone": "neutral"
+ },
+ "plan": {
+  "sensor_fault_cause": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "visit_disposition": {
+   "clarity": "clear",
+   "target": "hold",
+   "second": null
+  },
+  "data_treatment": {
+   "clarity": "clear",
+   "target": "reject_period",
+   "second": null
+  },
+  "offset_size": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  },
+  "residual_defect": {
+   "clarity": "leaning",
+   "target": "4",
+   "second": null
+  }
+ },
+ "target_words": 109,
+ "deciding": {
+  "sensor_fault_cause": "Technician note offers gravel at control against sluggish transducer; bench test and survey not done, so cause is held in balance.",
+  "visit_disposition": "Visit aborted, signed_off 2024-03-05 predates visit_date 2024-03-06, tasks not started, so record must be held.",
+  "data_treatment": "74 h logger gap, primary transducer no output, and unresolved cause make the period unusable.",
+  "offset_size": "Board mean 1.211 minus logger 1.178 gives 33 mm, though board readings spread 12 mm.",
+  "residual_defect": "Primary_stage defect 'no output' with reporting false."
+ },
+ "request": "rec-F235-0041",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.008471
+}

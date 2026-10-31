@@ -1,0 +1,156 @@
+{
+ "id": "F240-0028",
+ "family": "F240",
+ "state": {
+  "asset": {
+   "inverter_id": "INV-9C",
+   "serial": "G1048",
+   "rated_ac_kw": 1250
+  },
+  "fault_event": {
+   "serial": "G1048",
+   "code": "F-GND-01",
+   "fw_severity": 2,
+   "ts_start": "2024-08-19T09:30",
+   "ts_clear": "2024-08-19T09:50",
+   "auto_restarts": 4
+  },
+  "telemetry": {
+   "exp_day_kwh": 9000,
+   "exp_window_kwh": 90,
+   "act_window_kwh": 30,
+   "samples": [
+    {
+     "ts": "06:40",
+     "ac_kw": 0,
+     "exp_kw": 60,
+     "poa_wm2": 95,
+     "limit_pct": 0
+    },
+    {
+     "ts": "08:30",
+     "ac_kw": 0,
+     "exp_kw": 150,
+     "poa_wm2": 120,
+     "limit_pct": 0
+    },
+    {
+     "ts": "10:00",
+     "ac_kw": 60,
+     "exp_kw": 190,
+     "poa_wm2": 140,
+     "limit_pct": 30
+    }
+   ]
+  },
+  "site_context": {
+   "grid_events": [],
+   "neighbours": [
+    {
+     "inverter_id": "INV-9B",
+     "output_ratio": 0.7
+    },
+    {
+     "inverter_id": "INV-9D",
+     "output_ratio": 0.75
+    }
+   ]
+  },
+  "history": {
+   "faults": [
+    {
+     "date": "2024-08-02",
+     "code": "F-GND-01"
+    },
+    {
+     "date": "2024-08-07",
+     "code": "F-GND-01"
+    },
+    {
+     "date": "2024-08-12",
+     "code": "F-GND-01"
+    }
+   ],
+   "work_orders": [
+    {
+     "wo_id": "W40",
+     "opened": "2024-08-09",
+     "completed": "2024-08-12",
+     "retest_ok": false
+    },
+    {
+     "wo_id": "W47",
+     "opened": "2024-08-13",
+     "completed": null,
+     "retest_ok": null
+    }
+   ]
+  }
+ },
+ "factors": {
+  "fault_class": "dc_ground_fault",
+  "log_telemetry_mismatch": "large_over_2h",
+  "grid_event_concurrent": false,
+  "maintenance_window_active": false,
+  "neighbour_cross_check": "neighbours_affected",
+  "repeat_count_30d": 3,
+  "last_repair_status": "open",
+  "current_limit_pct": 30.0,
+  "yield_loss_pct": 0.67,
+  "low_irradiance_window": true,
+  "serial_mismatch": false,
+  "boundary_placement": false
+ },
+ "factors_sampled": {
+  "fault_class": "dc_ground_fault",
+  "log_telemetry_mismatch": "large_over_2h",
+  "grid_event_concurrent": false,
+  "maintenance_window_active": false,
+  "neighbour_cross_check": "neighbours_affected",
+  "repeat_count_30d": 3,
+  "last_repair_status": "open",
+  "current_limit_pct": 0.38,
+  "yield_loss_pct": 1.21,
+  "low_irradiance_window": true,
+  "serial_mismatch": false,
+  "boundary_placement": false
+ },
+ "plan": {
+  "genuine_defect": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "post_repair_repeat": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "urgent_dispatch",
+   "second": null
+  },
+  "yield_loss": {
+   "clarity": "leaning",
+   "target": "0",
+   "second": null
+  },
+  "capacity_unavailable": {
+   "clarity": "clear",
+   "target": "2",
+   "second": null
+  }
+ },
+ "target_words": 79,
+ "deciding": {
+  "genuine_defect": "Three matching ground faults in 30 days and fw_severity 2 point to a defect; neighbours at 0.7 and 0.75 and low poa_wm2 point to an external cause.",
+  "post_repair_repeat": "WO W40 completed 2024-08-12 and a matching fault is dated 2024-08-12 (date only), so it cannot be placed before or after completion; retest_ok false.",
+  "next_step": "Repeated DC ground fault (3 in 30 days), a failed retest on W40 and a new open W47 make dispatch the likely choice.",
+  "yield_loss": "(90-30)/9000 = 0.67%, under the 1% line; the log duration of 20 min disagrees with the zero-output telemetry from 06:40 to 08:30.",
+  "capacity_unavailable": "Last sample limit_pct 30 with ac_kw 60 exporting: derated below 50% but not offline."
+ },
+ "request": "rec-F240-0026",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012212
+}

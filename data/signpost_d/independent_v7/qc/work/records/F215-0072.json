@@ -1,0 +1,145 @@
+{
+ "id": "F215-0072",
+ "family": "F215",
+ "state": {
+  "bin": {
+   "bin_id": "F03",
+   "crop": "barley",
+   "intake_date": "2024-08-02",
+   "intake_cond": "dried_cleaned",
+   "safe_mc_pct": 15.0,
+   "baseline_c": 12.0,
+   "heat_log_dates": [
+    "2024-03-11",
+    "2024-06-20",
+    "2024-09-02",
+    "2024-11-15",
+    "2025-01-28"
+   ]
+  },
+  "cable_readings": [
+   {
+    "cable_id": "C1",
+    "cal_due": "2025-08-01",
+    "fault": false,
+    "dates": [
+     "2025-02-25",
+     "2025-03-04",
+     "2025-03-11"
+    ],
+    "nodes": [
+     {
+      "depth_m": 2,
+      "temp_c": [
+       13.5,
+       15.2,
+       17.0
+      ]
+     }
+    ]
+   },
+   {
+    "cable_id": "C2",
+    "cal_due": "2025-08-01",
+    "fault": false,
+    "nodes": [
+     {
+      "depth_m": 2,
+      "temp_c": [
+       12.8,
+       13.9,
+       14.9
+      ]
+     }
+    ]
+   }
+  ],
+  "moisture": [
+   {
+    "sample_date": "2025-03-04",
+    "method": "lab",
+    "mc_pct": 14.6
+   }
+  ],
+  "environment": {
+   "ambient_c_7d_mean": 6.5,
+   "co2_ppm": 480,
+   "reading_date": "2025-03-11"
+  },
+  "pest_checks": [
+   {
+    "check_date": "2025-03-09",
+    "traps_set": 6,
+    "insects_counted": 38
+   }
+  ]
+ },
+ "factors": {
+  "peak_excess_c": 5.0,
+  "rise_trend": "steady_rise",
+  "second_cable_corroboration": true,
+  "sensor_fault_flag": false,
+  "ambient_warming": false,
+  "moisture_vs_limit": "within_0_5_pct",
+  "moisture_sample_status": "recent_lab",
+  "aeration_running": false,
+  "co2_elevation": "normal",
+  "insect_trap_count": 38,
+  "missing_section": "none",
+  "date_order_anomaly": false,
+  "intake_condition": "dried_cleaned"
+ },
+ "factors_sampled": {
+  "peak_excess_c": 0.16,
+  "rise_trend": "flat",
+  "second_cable_corroboration": false,
+  "sensor_fault_flag": false,
+  "ambient_warming": false,
+  "moisture_vs_limit": "above",
+  "moisture_sample_status": "recent_lab",
+  "aeration_running": false,
+  "co2_elevation": "normal",
+  "insect_trap_count": 38,
+  "missing_section": "none",
+  "date_order_anomaly": false,
+  "intake_condition": "dried_cleaned"
+ },
+ "plan": {
+  "hotspot_active": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "moisture_safe": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "next_action": {
+   "clarity": "leaning",
+   "target": "hold_recheck",
+   "second": null
+  },
+  "recurrence_count": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "temp_excess": {
+   "clarity": "contested",
+   "target": "1",
+   "second": "2"
+  }
+ },
+ "target_words": 58,
+ "deciding": {
+  "hotspot_active": "C1 rises 13.5, 15.2, 17.0 and neighbouring C2 rises 12.8, 13.9, 14.9 at the same depth, with ambient only 6.5 C. CO2 is normal, which leaves some doubt.",
+  "moisture_safe": "Recent lab mc_pct 14.6 is below safe_mc_pct 15.0.",
+  "next_action": "Valid readings are rising and corroborated but moisture is safe and CO2 is normal, so a recheck before intervening is favoured.",
+  "recurrence_count": "heat_log_dates lists five entries, the oldest (2024-03-11) one day inside 12 months of 2025-03-11, so 5 versus 4 counted logs is the question.",
+  "temp_excess": "The hottest valid node is 17.0 against a baseline of 12.0, exactly 5.0 C, the boundary between levels 1 and 2."
+ },
+ "request": "rec-F215-0071",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011524
+}

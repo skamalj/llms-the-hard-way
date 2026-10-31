@@ -1,0 +1,124 @@
+{
+ "id": "F205-0054",
+ "family": "F205",
+ "state": {
+  "flight": {
+   "no": "HB309",
+   "std": "2024-08-19T07:00",
+   "turn": "night_stop_departure"
+  },
+  "times": {
+   "fuel_start": "2024-08-19T06:05",
+   "doors_closed": "2024-08-19T06:52",
+   "off_blocks": "2024-08-19T08:00",
+   "delay_code": "FUEL",
+   "delay_min": 60
+  },
+  "load": {
+   "bags_count": 30,
+   "bags_kg": 420,
+   "cargo_kg": 1200,
+   "captain_accepted": true
+  },
+  "hold_log": [
+   {
+    "pos": 1,
+    "bag_count": 30,
+    "weight": 420,
+    "weight_unit": "kg"
+   },
+   {
+    "pos": 3,
+    "uld": "AKE1",
+    "weight": 700,
+    "weight_unit": "kg"
+   },
+   {
+    "pos": 4,
+    "uld": "AKE2",
+    "weight": 380,
+    "weight_unit": "kg"
+   }
+  ],
+  "services": {
+   "fuel": {
+    "start": "06:05",
+    "end": "06:30",
+    "uplift_kg": 4800
+   }
+  },
+  "remarks": [
+   {
+    "role": "cargo desk",
+    "t": "06:40",
+    "msg": "120 kg AWB offloaded from AKE2, shipper cancelled."
+   }
+  ]
+ },
+ "factors": {
+  "bag_mismatch_size": "none",
+  "mismatch_location": "cargo_weight_vs_uld_entries",
+  "missing_record": "none",
+  "milestone_out_of_order": false,
+  "delay_minutes": 60,
+  "delay_code_fit": "contradicted",
+  "explanatory_remark": true,
+  "pending_signoff": false,
+  "dg_on_board": false,
+  "decoy_noise": "none",
+  "boundary_value": true,
+  "turn_type": "night_stop_departure"
+ },
+ "factors_sampled": {
+  "bag_mismatch_size": "none",
+  "mismatch_location": "cargo_weight_vs_uld_entries",
+  "missing_record": "none",
+  "milestone_out_of_order": false,
+  "delay_minutes": 119,
+  "delay_code_fit": "supported",
+  "explanatory_remark": true,
+  "pending_signoff": false,
+  "dg_on_board": false,
+  "decoy_noise": "none",
+  "boundary_value": false,
+  "turn_type": "night_stop_departure"
+ },
+ "plan": {
+  "load_reconciled": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "delay_code_supported": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "log_disposition": {
+   "clarity": "clear",
+   "target": "close_with_note",
+   "second": null
+  },
+  "offblock_delay": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  },
+  "failed_checks": {
+   "clarity": "clear",
+   "target": "0",
+   "second": null
+  }
+ },
+ "target_words": 66,
+ "deciding": {
+  "load_reconciled": "cargo_kg 1200 vs ULD entries 700+380=1080; 120 kg difference, though bag count and weight match.",
+  "delay_code_supported": "Code FUEL but fuel ran 06:05-06:30 and doors_closed 06:52 was before std; fuelling does not account for a 60 min late departure.",
+  "log_disposition": "Cargo difference of 120 kg is fully explained by the cargo desk remark (AWB offloaded); annotate and close.",
+  "offblock_delay": "off_blocks 08:00 vs std 07:00 is exactly 60 min, the boundary between level 2 and level 3.",
+  "failed_checks": "The only difference is explained by the remark, and no other record or milestone problem shows, so no checks are counted as failed."
+ },
+ "request": "rec-F205-0051",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011092
+}

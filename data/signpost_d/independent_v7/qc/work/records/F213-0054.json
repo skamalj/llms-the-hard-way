@@ -1,0 +1,140 @@
+{
+ "id": "F213-0054",
+ "family": "F213",
+ "state": {
+  "pool": {
+   "type": "spa",
+   "test_interval_min": 60,
+   "open": "2024-05-14T09:00",
+   "close": "2024-05-14T10:00",
+   "limits": {
+    "free_cl_min": 2.0,
+    "free_cl_max": 5.0,
+    "ph_min": 7.2,
+    "ph_max": 7.8
+   },
+   "tolerance": {
+    "free_cl": 0.3,
+    "ph": 0.2
+   },
+   "micro_due": "2024-07-01"
+  },
+  "manual_tests": [
+   {
+    "time": "2024-05-14T09:00",
+    "free_cl": 3.0,
+    "ph": 7.5,
+    "temp_c": 36.5,
+    "kit_id": "K1"
+   },
+   {
+    "time": "2024-05-14T10:00",
+    "free_cl": 3.0,
+    "ph": 7.8,
+    "temp_c": 38.4,
+    "kit_id": "K1"
+   }
+  ],
+  "plant": {
+   "controller_readings": [
+    {
+     "time": "2024-05-14T09:15",
+     "free_cl": 3.1,
+     "ph": 7.5,
+     "temp_c": 36.6
+    },
+    {
+     "time": "2024-05-14T10:15",
+     "free_cl": 3.1,
+     "ph": 7.7,
+     "temp_c": 38.3
+    }
+   ]
+  },
+  "equipment": {
+   "kits": [
+    {
+     "kit_id": "K1",
+     "cal_due": "2024-12-01"
+    }
+   ]
+  },
+  "actions": [
+   {
+    "time": "2024-05-14T10:10",
+    "action_type": "ph_adjust",
+    "reading_ref": "2024-05-14T10:00",
+    "retest_time": null
+   }
+  ],
+  "lab_sample": null
+ },
+ "factors": {
+  "pool_type": "spa",
+  "test_coverage_gap": 0,
+  "boundary_interval": true,
+  "log_controller_discrepancy": "within_tolerance",
+  "discrepancy_location": "timestamp_offset",
+  "excursion_severity": "marginal",
+  "corrective_action_delay": "prompt",
+  "retest_logged": false,
+  "dosing_event_explains": false,
+  "kit_calibration_status": "in_date",
+  "lab_sample_state": "not_due",
+  "out_of_order_entry": false,
+  "benign_noise": "temp_swing"
+ },
+ "factors_sampled": {
+  "pool_type": "spa",
+  "test_coverage_gap": 2,
+  "boundary_interval": true,
+  "log_controller_discrepancy": "just_over",
+  "discrepancy_location": "timestamp_offset",
+  "excursion_severity": "marginal",
+  "corrective_action_delay": "prompt",
+  "retest_logged": false,
+  "dosing_event_explains": false,
+  "kit_calibration_status": "in_date",
+  "lab_sample_state": "not_due",
+  "out_of_order_entry": false,
+  "benign_noise": "temp_swing"
+ },
+ "plan": {
+  "test_frequency_met": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "readings_reconcile": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "log_disposition": {
+   "clarity": "clear",
+   "target": "hold_for_retest",
+   "second": null
+  },
+  "action_delay": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "failed_checks": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 51,
+ "deciding": {
+  "test_frequency_met": "Tests at 09:00 and 10:00 are exactly 60 minutes apart, equal to the interval, and cover the whole opening window.",
+  "readings_reconcile": "Controller values, though stamped 15 minutes later, are within 0.1 of the manual free_cl and pH, inside tolerance.",
+  "log_disposition": "pH 7.8 at 10:00 with a pH adjustment at 10:10 but retest_time is null and no later test confirms; micro is not yet due.",
+  "action_delay": "pH 7.8 equals ph_max so it may not be an excursion; the adjustment was 10 minutes after the 10:00 reading.",
+  "failed_checks": "All checks pass unless the pH at the limit and the missing retest are counted as one failure."
+ },
+ "request": "rec-F213-0051",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.015269
+}

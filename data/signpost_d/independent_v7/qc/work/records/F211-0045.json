@@ -1,0 +1,124 @@
+{
+ "id": "F211-0045",
+ "family": "F211",
+ "state": {
+  "vehicle": {
+   "callsign": "R12",
+   "odometer_km": 89744,
+   "service_due_km": 90000
+  },
+  "check": {
+   "shift_date": "2024-08-20",
+   "sections_required": 5,
+   "sections_signed": [
+    "vehicle",
+    "clinical",
+    "drugs"
+   ],
+   "countersigned_by": null
+  },
+  "defects": [
+   {
+    "item": "locker latch",
+    "area": "vehicle_systems",
+    "status": "open",
+    "deferral": {
+     "authorised_by": "Sup Bell",
+     "authorised_at": "2024-08-19T16:00",
+     "valid_until": "2024-08-27"
+    }
+   },
+   {
+    "item": "suction unit",
+    "area": "clinical_equipment",
+    "status": "closed"
+   }
+  ],
+  "stock": {
+   "lines": [
+    {
+     "item": "GTN spray",
+     "expiry": "2024-08-19"
+    }
+   ],
+   "restock_request": {
+    "eta": "2024-08-20T11:00"
+   }
+  },
+  "activity": {
+   "prior_checks": [
+    {
+     "defect_items": [
+      "locker latch"
+     ]
+    }
+   ]
+  }
+ },
+ "factors": {
+  "checklist_completion": "half_or_more_signed",
+  "worst_defect_tier": "cosmetic",
+  "defect_area": "vehicle_systems",
+  "deferral_authorised": true,
+  "deferral_invalid": false,
+  "workshop_return_recent": false,
+  "earliest_drug_expiry_days": -1,
+  "restock_in_progress": true,
+  "service_margin_km": 256,
+  "crew_note_tone": "absent",
+  "signed_after_mobilisation": false,
+  "repeat_defect_count": 1
+ },
+ "factors_sampled": {
+  "checklist_completion": "half_or_more_signed",
+  "worst_defect_tier": "noncritical_equipment",
+  "defect_area": "stock_and_drugs",
+  "deferral_authorised": true,
+  "deferral_invalid": false,
+  "workshop_return_recent": false,
+  "earliest_drug_expiry_days": -1,
+  "restock_in_progress": true,
+  "service_margin_km": 256,
+  "crew_note_tone": "absent",
+  "signed_after_mobilisation": false,
+  "repeat_defect_count": 1
+ },
+ "plan": {
+  "defects_controlled": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "readiness_status": {
+   "clarity": "balanced",
+   "target": "restricted",
+   "second": "release_with_note"
+  },
+  "limiting_area": {
+   "clarity": "balanced",
+   "target": "vehicle_systems",
+   "second": "clinical_equipment"
+  },
+  "check_completeness": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  },
+  "defect_severity": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  }
+ },
+ "target_words": 51,
+ "deciding": {
+  "defects_controlled": "No critical defect is open and the suction unit is closed, but GTN spray expired 08-19 with the restock only due 11:00 and 3 of 5 sections signed, leaving doubt.",
+  "readiness_status": "The cosmetic latch is deferred and a restock is due this shift, but expired GTN and only 256 km to service hold restricted against release_with_note.",
+  "limiting_area": "Only 256 km to service points to vehicle_systems, while the closed suction entry and expired GTN keep clinical_equipment arguable.",
+  "check_completeness": "3 of 5 sections signed with countersigned_by null puts it at level 1.",
+  "defect_severity": "The only open defect is a locker latch, a cosmetic item, with a valid deferral."
+ },
+ "request": "rec-F211-0041",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011105
+}

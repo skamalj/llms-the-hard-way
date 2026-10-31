@@ -1,0 +1,140 @@
+{
+ "id": "F230-0078",
+ "family": "F230",
+ "state": {
+  "resident": {
+   "id": "R230",
+   "status": "home"
+  },
+  "prescriptions": [
+   {
+    "item_id": "i1",
+    "drug": "amlodipine",
+    "strength_mg": 5,
+    "dose_units": 2,
+    "changes": [
+     {
+      "effective": "2024-05-06",
+      "new_dose_units": 1,
+      "order_ref": "O-31",
+      "authorised_by_role": "GP"
+     }
+    ]
+   },
+   {
+    "item_id": "i2",
+    "drug": "statin",
+    "strength_mg": 20,
+    "dose_units": 1,
+    "changes": [
+     {
+      "effective": "2024-05-05",
+      "withhold": true,
+      "order_ref": "W-12",
+      "authorised_by_role": "GP"
+     }
+    ]
+   }
+  ],
+  "administrations": [
+   {
+    "item_id": "i1",
+    "scheduled": "2024-05-06T08:00",
+    "given_at": "2024-05-06T08:08",
+    "units_given": 1,
+    "strength_mg_used": 5,
+    "initials": "TS"
+   },
+   {
+    "item_id": "i2",
+    "code": "W",
+    "units_given": 0,
+    "initials": "TS"
+   }
+  ],
+  "stock": {
+   "i1": {
+    "opening": 30,
+    "closing": 28
+   },
+   "i2": {
+    "opening": 20,
+    "closing": 20
+   }
+  },
+  "round": {
+   "date": "2024-05-06",
+   "open_queries": []
+  }
+ },
+ "factors": {
+  "dose_mismatch_type": "none",
+  "prescription_change_documented": true,
+  "omission_count": 1,
+  "omission_reason_valid": true,
+  "late_minutes": 8,
+  "time_critical_affected": false,
+  "stock_variance": -1,
+  "stock_variance_explained": false,
+  "signature_gaps": 0,
+  "unit_expression_decoy": "matching_units",
+  "post_dose_obs_reassuring": true,
+  "pending_query": "none",
+  "prior_errors_30d": 2,
+  "item_count": 2
+ },
+ "factors_sampled": {
+  "dose_mismatch_type": "none",
+  "prescription_change_documented": false,
+  "omission_count": 2,
+  "omission_reason_valid": true,
+  "late_minutes": 8,
+  "time_critical_affected": true,
+  "stock_variance": -1,
+  "stock_variance_explained": true,
+  "signature_gaps": 0,
+  "unit_expression_decoy": "matching_units",
+  "post_dose_obs_reassuring": true,
+  "pending_query": "pharmacy_query_open",
+  "prior_errors_30d": 2,
+  "item_count": 10
+ },
+ "plan": {
+  "dose_mismatch": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "stock_reconciles": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "correct_and_close",
+   "second": null
+  },
+  "open_discrepancies": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  },
+  "error_severity": {
+   "clarity": "clear",
+   "target": "0",
+   "second": null
+  }
+ },
+ "target_words": 55,
+ "deciding": {
+  "dose_mismatch": "i1 prescription lists dose_units 2, but a change to 1 unit with order_ref O-31 takes effect on the round date and 1 unit was given. Whether it was in force at 08:08 is unclear, so this is balanced.",
+  "stock_reconciles": "i1 opening 30 minus 1 signed should close at 29, but closing is 28 with no waste or return recorded.",
+  "next_step": "The only fault is the unexplained one-unit stock count on i1, which is a recording slip to annotate and close.",
+  "open_discrepancies": "The i1 stock gap is one item, but it is a count slip rather than a dose problem, so 0 or 1 is defensible.",
+  "error_severity": "The doses are correct and on time, and the i2 omission is covered by a withhold order_ref W-12, so there is no clinical error."
+ },
+ "request": "rec-F230-0076",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.013371
+}

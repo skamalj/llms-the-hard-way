@@ -1,0 +1,131 @@
+{
+ "id": "F204-0063",
+ "family": "F204",
+ "state": {
+  "rx": {
+   "drug": "levothyroxine",
+   "strength": {
+    "val": 100,
+    "unit": "mcg"
+   },
+   "dose": 1,
+   "freq_per_day": 1,
+   "qty": 28
+  },
+  "patient": {
+   "pt_id": "P7737",
+   "near_miss_count": 4,
+   "supplies": [
+    {
+     "date": "2025-06-01",
+     "days_covered": 23
+    }
+   ],
+   "emergency_supplies": [
+    {
+     "date": "2025-06-20",
+     "days": 5
+    }
+   ]
+  },
+  "dispensed": {
+   "strength": {
+    "val": 0.1,
+    "unit": "mg"
+   },
+   "pack_size": 28,
+   "packs": 1,
+   "req_warnings": [
+    5,
+    22
+   ],
+   "high_risk": true
+  },
+  "label": {
+   "pt_id": "P7731",
+   "dose_qty": 1,
+   "freq_per_day": 1,
+   "warning_codes": [
+    5
+   ],
+   "qty_printed": 28
+  },
+  "check_log": {
+   "checked_at": "2025-06-27",
+   "clin_check": {
+    "by": "RPh",
+    "at": "2025-06-27"
+   },
+   "queries": [],
+   "interventions": []
+  }
+ },
+ "factors": {
+  "strength_status": "match_converted_units",
+  "product_status": "exact",
+  "quantity_status": "exact",
+  "label_status": "patient_id_and_warning_wrong",
+  "prescriber_query": "none",
+  "pharmacist_intervention": false,
+  "clinical_check_signed": true,
+  "home_supply_days": 2,
+  "emergency_supply": true,
+  "short_expiry": false,
+  "prior_error_count": 4,
+  "high_risk_drug": true,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "strength_status": "match_converted_units",
+  "product_status": "exact",
+  "quantity_status": "short_undocumented",
+  "label_status": "correct",
+  "prescriber_query": "confirmed",
+  "pharmacist_intervention": false,
+  "clinical_check_signed": false,
+  "home_supply_days": 3,
+  "emergency_supply": true,
+  "short_expiry": true,
+  "prior_error_count": 4,
+  "high_risk_drug": true,
+  "boundary_case": false
+ },
+ "plan": {
+  "strength_differs": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "release",
+   "second": null
+  },
+  "error_category": {
+   "clarity": "leaning",
+   "target": "label_error",
+   "second": null
+  },
+  "open_discrepancies": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  },
+  "supply_urgency": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  }
+ },
+ "target_words": 34,
+ "deciding": {
+  "strength_differs": "100 mcg equals 0.1 mg once converted, so the strengths agree.",
+  "next_step": "No queries or interventions are logged and the clinical check is signed, but the label discrepancies mean the item should go back to the dispenser; release is not safe, which is why this plan answer is doubtful.",
+  "error_category": "Label pt_id P7731 differs from patient P7737 and warning 22 is missing, while product and quantity are correct.",
+  "open_discrepancies": "Two label fields differ and neither has a query or intervention logged: patient ID and warning codes.",
+  "supply_urgency": "23 days plus 5 emergency days from 2025-06-01 against a check on 2025-06-27 leaves 2 days."
+ },
+ "request": "rec-F204-0061",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.010687
+}

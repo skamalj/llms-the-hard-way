@@ -1,0 +1,140 @@
+{
+ "id": "F213-0004",
+ "family": "F213",
+ "state": {
+  "pool": {
+   "type": "teaching",
+   "test_interval_min": 60,
+   "opening": {
+    "open": "2025-06-03T09:00",
+    "close": "2025-06-03T12:00"
+   },
+   "limits": {
+    "free_cl_min": 1,
+    "free_cl_max": 3,
+    "ph_min": 7.2,
+    "ph_max": 7.8
+   },
+   "tolerance": {
+    "free_cl": 0.5,
+    "ph": 0.2
+   },
+   "micro_due": "2025-06-20"
+  },
+  "manual_tests": [
+   {
+    "time": "2025-06-03T09:00",
+    "free_cl": 1.8,
+    "ph": 7.5,
+    "temp_c": 30,
+    "kit_id": "K2"
+   },
+   {
+    "time": "2025-06-03T10:00",
+    "free_cl": 1.7,
+    "ph": 7.5,
+    "temp_c": 33,
+    "kit_id": "K2"
+   },
+   {
+    "time": "2025-06-03T11:30",
+    "free_cl": 1.6,
+    "ph": 7.4,
+    "temp_c": 31,
+    "kit_id": "K2"
+   }
+  ],
+  "plant": {
+   "controller_readings": [
+    {
+     "time": "2025-06-03T09:15",
+     "free_cl": 1.7,
+     "ph": 7.5
+    },
+    {
+     "time": "2025-06-03T11:45",
+     "free_cl": 1.6,
+     "ph": 7.4
+    }
+   ]
+  },
+  "equipment": {
+   "kits": [
+    {
+     "kit_id": "K2",
+     "cal_due": "2025-06-03"
+    }
+   ]
+  },
+  "actions": [],
+  "lab_sample": null
+ },
+ "factors": {
+  "pool_type": "teaching",
+  "test_coverage_gap": 1,
+  "boundary_interval": false,
+  "log_controller_discrepancy": "within_tolerance",
+  "discrepancy_location": "timestamp_offset",
+  "excursion_severity": "none",
+  "corrective_action_delay": "not_needed",
+  "retest_logged": false,
+  "dosing_event_explains": true,
+  "kit_calibration_status": "expires_on_day",
+  "lab_sample_state": "not_due",
+  "out_of_order_entry": false,
+  "benign_noise": "temp_swing"
+ },
+ "factors_sampled": {
+  "pool_type": "teaching",
+  "test_coverage_gap": 0,
+  "boundary_interval": false,
+  "log_controller_discrepancy": "within_tolerance",
+  "discrepancy_location": "timestamp_offset",
+  "excursion_severity": "clear",
+  "corrective_action_delay": "delayed",
+  "retest_logged": false,
+  "dosing_event_explains": true,
+  "kit_calibration_status": "expires_on_day",
+  "lab_sample_state": "missing_when_due",
+  "out_of_order_entry": false,
+  "benign_noise": "temp_swing"
+ },
+ "plan": {
+  "test_frequency_met": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "readings_reconcile": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "log_disposition": {
+   "clarity": "leaning",
+   "target": "accept",
+   "second": null
+  },
+  "action_delay": {
+   "clarity": "clear",
+   "target": "0",
+   "second": null
+  },
+  "failed_checks": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  }
+ },
+ "target_words": 42,
+ "deciding": {
+  "test_frequency_met": "Interval is 60 min but the tests at 10:00 and 11:30 are 90 min apart.",
+  "readings_reconcile": "Controller free_cl and pH are within 0.1 of the manual values; controller times are shifted 15 min.",
+  "log_disposition": "All chlorine and pH values are within limits and the lab sample is not due; only the test gap and the kit cal_due falling on the log date are open points.",
+  "action_delay": "Free_cl is 1.6 to 1.8 and pH 7.4 to 7.5, all within limits, so no action was needed and the actions list is empty.",
+  "failed_checks": "Failed: the 90 min test gap, and the kit calibration due on the log date may count as a second. Readings reconcile and water is within limits."
+ },
+ "request": "rec-F213-0001",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012625
+}

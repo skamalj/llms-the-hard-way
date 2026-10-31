@@ -1,0 +1,140 @@
+{
+ "id": "F204-0003",
+ "family": "F204",
+ "state": {
+  "rx": {
+   "drug": "levothyroxine",
+   "strength": {
+    "val": 100,
+    "unit": "mcg"
+   },
+   "form": "tab",
+   "dose": 1,
+   "freq_per_day": 1,
+   "qty": 56,
+   "days_intended": 56,
+   "issued": "2024-03-25"
+  },
+  "patient": {
+   "pt_id": "P7305",
+   "age": 58,
+   "supplies": [
+    {
+     "date": "2024-03-01",
+     "days_covered": 28
+    }
+   ],
+   "emergency_supplies": [
+    {
+     "date": "2024-03-27",
+     "days": 3
+    }
+   ],
+   "near_miss_count": 3
+  },
+  "dispensed": {
+   "product_name": "levothyroxine",
+   "strength": {
+    "val": 0.1,
+    "unit": "mg"
+   },
+   "form": "tab",
+   "pack_size": 28,
+   "packs": 1,
+   "owing": null,
+   "batch": "LT2291",
+   "expiry": "2025-09-30",
+   "high_risk": false
+  },
+  "label": {
+   "pt_id": "P7305",
+   "dose_qty": 1,
+   "freq_per_day": 2,
+   "qty_printed": 28
+  },
+  "check_log": {
+   "checked_at": "2024-03-30T09:15",
+   "clin_check": {
+    "by": "RPh",
+    "at": "2024-03-30T09:00"
+   },
+   "queries": [],
+   "interventions": [
+    {
+     "code": "PI4",
+     "field": "pack_note",
+     "accepted": true,
+     "by": "RPh"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "strength_status": "match_converted_units",
+  "product_status": "exact",
+  "quantity_status": "short_undocumented",
+  "label_status": "frequency_wrong",
+  "prescriber_query": "none",
+  "pharmacist_intervention": true,
+  "clinical_check_signed": true,
+  "home_supply_days": 2,
+  "emergency_supply": true,
+  "short_expiry": false,
+  "prior_error_count": 3,
+  "high_risk_drug": false,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "strength_status": "match_converted_units",
+  "product_status": "exact",
+  "quantity_status": "short_undocumented",
+  "label_status": "correct",
+  "prescriber_query": "none",
+  "pharmacist_intervention": true,
+  "clinical_check_signed": true,
+  "home_supply_days": 9,
+  "emergency_supply": true,
+  "short_expiry": false,
+  "prior_error_count": 3,
+  "high_risk_drug": false,
+  "boundary_case": false
+ },
+ "plan": {
+  "strength_differs": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "release_annotated",
+   "second": null
+  },
+  "error_category": {
+   "clarity": "balanced",
+   "target": "quantity_only",
+   "second": "label_error"
+  },
+  "open_discrepancies": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  },
+  "supply_urgency": {
+   "clarity": "contested",
+   "target": "2",
+   "second": "1"
+  }
+ },
+ "target_words": 146,
+ "deciding": {
+  "strength_differs": "rx 100 mcg equals 0.1 mg dispensed after conversion; the mixed units are the only source of doubt.",
+  "next_step": "Clinical check signed and an accepted intervention entry exist, but its field is pack_note, not label or quantity, so annotation is the leaning step while discrepancies remain.",
+  "error_category": "Quantity is short (1x28 against qty 56, owing null) and label freq_per_day 2 differs from rx 1, so quantity versus label is balanced.",
+  "open_discrepancies": "Two unresolved fields: quantity (28 supplied, 56 prescribed, no owing) and label frequency; the intervention covers neither.",
+  "supply_urgency": "Supply ended 2024-03-29; emergency entry of 3 days from 03-27 adds to about 04-01, leaving roughly 2 days at 03-30, though counting could give 3."
+ },
+ "request": "rec-F204-0001",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012438
+}

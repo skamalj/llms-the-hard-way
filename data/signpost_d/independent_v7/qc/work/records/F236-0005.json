@@ -1,0 +1,152 @@
+{
+ "id": "F236-0005",
+ "family": "F236",
+ "state": {
+  "changeover": {
+   "line_id": "L3",
+   "from_code": "NB-4",
+   "to_code": "NB-7",
+   "from_allergens": [
+    "soya",
+    "wheat"
+   ],
+   "to_allergens": [
+    "soya",
+    "wheat"
+   ]
+  },
+  "cleaning": {
+   "steps": [
+    {
+     "n": 1,
+     "completed": true,
+     "spec_min": 30,
+     "actual_min": 24
+    },
+    {
+     "n": 2,
+     "completed": true,
+     "spec_min": 15,
+     "actual_min": 15
+    }
+   ],
+   "part_swap": true,
+   "dedicated_set": "DS-2"
+  },
+  "verification": {
+   "swabs": [
+    {
+     "id": "S1",
+     "target": "soya",
+     "reading": 3,
+     "limit_ppm": 10,
+     "at": "2024-08-14T06:30:40"
+    }
+   ]
+  },
+  "production": {
+   "line_id": "L5",
+   "product_code": "NB-7",
+   "start_at": "2024-08-14T06:30:00",
+   "end_at": "2024-08-14T10:30:00",
+   "qty": 279.91,
+   "unit": "kg",
+   "packaging_allergens": [
+    "soya",
+    "wheat"
+   ],
+   "may_contain": [
+    "tree nuts"
+   ]
+  },
+  "approvals": {
+   "qa_signoff": {
+    "signed_at": "2024-08-14T06:20"
+   },
+   "deviations": []
+  },
+  "history": [
+   {
+    "verification_passed": false
+   },
+   {
+    "verification_passed": false
+   },
+   {
+    "verification_passed": false
+   },
+   {
+    "verification_passed": false
+   },
+   {
+    "verification_passed": true
+   }
+  ]
+ },
+ "factors": {
+  "allergen_transition": "same_allergen_set",
+  "cleaning_completion": "duration_short",
+  "swab_outcome": "trace_below_limit",
+  "swab_timing_mismatch": true,
+  "cross_section_discrepancy": "line_id_mismatch",
+  "exposed_quantity_kg": 3.5,
+  "approved_deviation": false,
+  "label_precaution": true,
+  "dedicated_tooling": true,
+  "qa_signoff_state": "signed_before_start",
+  "line_failure_history": 4,
+  "boundary_value": true
+ },
+ "factors_sampled": {
+  "allergen_transition": "same_allergen_set",
+  "cleaning_completion": "duration_short",
+  "swab_outcome": "positive_retest_pass",
+  "swab_timing_mismatch": false,
+  "cross_section_discrepancy": "line_id_mismatch",
+  "exposed_quantity_kg": 279.91,
+  "approved_deviation": false,
+  "label_precaution": true,
+  "dedicated_tooling": true,
+  "qa_signoff_state": "signed_before_start",
+  "line_failure_history": 4,
+  "boundary_value": true
+ },
+ "plan": {
+  "swabs_cleared": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "line_disposition": {
+   "clarity": "leaning",
+   "target": "release",
+   "second": null
+  },
+  "worst_deficiency": {
+   "clarity": "contested",
+   "target": "none",
+   "second": "release_breach"
+  },
+  "exposed_product": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  },
+  "residue_evidence": {
+   "clarity": "clear",
+   "target": "1",
+   "second": null
+  }
+ },
+ "target_words": 87,
+ "deciding": {
+  "swabs_cleared": "The only swab S1 is timed 06:30:40, forty seconds after the 06:30:00 start, so it is essentially at the start boundary.",
+  "line_disposition": "S1 at 3 ppm is under limit 10, QA signed before start, dedicated set and precautionary label; the short clean and line mismatch add doubt.",
+  "worst_deficiency": "The swab lands forty seconds after start, which could count as a release breach or be dismissed as negligible, with no deviation either way.",
+  "exposed_product": "Forty seconds into a 4 hour run of 279.91 kg is under 50 kg, but the batch total sits in the 50 to 500 kg band, so levels 1 and 2 are both arguable.",
+  "residue_evidence": "S1 reads 3 ppm, above zero and below limit 10, with no retest needed."
+ },
+ "request": "rec-F236-0001",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.014
+}

@@ -1,0 +1,159 @@
+{
+ "id": "F236-0027",
+ "family": "F236",
+ "state": {
+  "changeover": {
+   "line": "L1",
+   "from_code": "BR-20",
+   "to_code": "BR-21",
+   "from_allergens": [
+    "milk",
+    "wheat"
+   ],
+   "to_allergens": [
+    "wheat"
+   ]
+  },
+  "cleaning": {
+   "steps": [
+    {
+     "id": "strip",
+     "done": true,
+     "spec_min": 30,
+     "actual_min": 32
+    },
+    {
+     "id": "wash",
+     "done": true,
+     "spec_min": 20,
+     "actual_min": 20
+    }
+   ],
+   "part_swap": true,
+   "dedicated_set": "DT-2"
+  },
+  "verification": {
+   "swabs": [
+    {
+     "id": "S1",
+     "target": "milk",
+     "ppm": 0,
+     "limit_ppm": 5,
+     "at": "2025-05-12T06:50"
+    },
+    {
+     "id": "S2",
+     "target": "milk",
+     "ppm": 0,
+     "limit_ppm": 5,
+     "at": "2025-05-12T07:10"
+    }
+   ],
+   "atp_rlu": [
+    88
+   ]
+  },
+  "production": {
+   "line": "L3",
+   "product_code": "BR-21",
+   "start_at": "2025-05-12T07:00",
+   "end_at": "2025-05-12T07:25",
+   "qty": 30,
+   "unit": "kg",
+   "packaging_allergens": [
+    "wheat"
+   ]
+  },
+  "approvals": {
+   "qa_signoff": {
+    "by": "Q3",
+    "at": "2025-05-12T06:55"
+   },
+   "deviations": [
+    {
+     "id": "DV-3",
+     "scope": "L1 S2 post-start timing",
+     "approved_at": "2025-05-12T06:45"
+    }
+   ]
+  },
+  "history": [
+   false,
+   false,
+   false,
+   true,
+   true,
+   true,
+   true,
+   true,
+   true,
+   true
+  ]
+ },
+ "factors": {
+  "allergen_transition": "removes_allergen",
+  "cleaning_completion": "full",
+  "swab_outcome": "all_negative",
+  "swab_timing_mismatch": true,
+  "cross_section_discrepancy": "line_id_mismatch",
+  "exposed_quantity_kg": 30.0,
+  "approved_deviation": true,
+  "label_precaution": false,
+  "dedicated_tooling": true,
+  "qa_signoff_state": "signed_before_start",
+  "line_failure_history": 3,
+  "boundary_value": false
+ },
+ "factors_sampled": {
+  "allergen_transition": "removes_allergen",
+  "cleaning_completion": "duration_short",
+  "swab_outcome": "positive_retest_pass",
+  "swab_timing_mismatch": true,
+  "cross_section_discrepancy": "line_id_mismatch",
+  "exposed_quantity_kg": 558.64,
+  "approved_deviation": true,
+  "label_precaution": false,
+  "dedicated_tooling": true,
+  "qa_signoff_state": "signed_before_start",
+  "line_failure_history": 3,
+  "boundary_value": false
+ },
+ "plan": {
+  "swabs_cleared": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "line_disposition": {
+   "clarity": "contested",
+   "target": "release",
+   "second": "hold"
+  },
+  "worst_deficiency": {
+   "clarity": "clear",
+   "target": "records_only",
+   "second": null
+  },
+  "exposed_product": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  },
+  "residue_evidence": {
+   "clarity": "clear",
+   "target": "0",
+   "second": null
+  }
+ },
+ "target_words": 43,
+ "deciding": {
+  "swabs_cleared": "S2 is timed 07:10, after production start_at 07:00, so not every swab passed before production.",
+  "line_disposition": "Approved deviation DV-3 covers the late S2 and all readings are 0, favouring release; the production line_id L3 vs changeover L1 and the late swab support hold.",
+  "worst_deficiency": "Production line_id L3 differs from changeover L1; cleaning is complete, readings are 0, and sign-off precedes start, so only records are at fault.",
+  "exposed_product": "30 kg batch 07:00-07:25 with the last passing swab at 07:10, so under 50 kg; the line mismatch leaves some doubt.",
+  "residue_evidence": "Both milk swabs read 0 vs limit 5, with no retest needed."
+ },
+ "request": "rec-F236-0026",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012594
+}

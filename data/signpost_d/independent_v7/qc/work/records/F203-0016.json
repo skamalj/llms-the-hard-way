@@ -1,0 +1,120 @@
+{
+ "id": "F203-0016",
+ "family": "F203",
+ "state": {
+  "request": {
+   "submitted_on": "2025-03-10",
+   "need_by": "2025-04-10",
+   "scope": "whole_item"
+  },
+  "borrower_library": {
+   "agreement": {
+    "status": "active",
+    "expires_on": "2026-01-31"
+   },
+   "open_loans": [
+    {
+     "loan_id": "L1",
+     "due_on": "2025-02-20",
+     "renewed_on": null,
+     "return_scan_on": null
+    },
+    {
+     "loan_id": "L2",
+     "due_on": "2025-03-01",
+     "renewed_on": null,
+     "return_scan_on": null
+    }
+   ]
+  },
+  "patron": null,
+  "item": {
+   "condition_grade": "rebind_required",
+   "conservation_check": null,
+   "local_holds": 4
+  },
+  "holdings_network": {
+   "copies": [
+    {
+     "library_code": "NB",
+     "status": "on_loan"
+    }
+   ],
+   "supplier_status": {
+    "print_status": "out_of_print",
+    "secondhand_listings": 1
+   }
+  },
+  "logistics": {
+   "est_arrival": "2025-03-26"
+  }
+ },
+ "factors": {
+  "agreement_status": "active",
+  "borrower_overdue_count": 2,
+  "overdue_mitigated": false,
+  "patron_verification": "missing",
+  "item_condition": "rebind_required",
+  "conservation_cleared": false,
+  "local_holds_queue": 4,
+  "network_other_copies": 0,
+  "print_status": "out_of_print_secondhand_1",
+  "request_scope": "whole_item",
+  "copyright_declaration_present": false,
+  "need_by_slack_days": 15,
+  "need_by_missing": false
+ },
+ "factors_sampled": {
+  "agreement_status": "active",
+  "borrower_overdue_count": 2,
+  "overdue_mitigated": false,
+  "patron_verification": "missing",
+  "item_condition": "rebind_required",
+  "conservation_cleared": false,
+  "local_holds_queue": 4,
+  "network_other_copies": 5,
+  "print_status": "in_print",
+  "request_scope": "chapter_or_article",
+  "copyright_declaration_present": true,
+  "need_by_slack_days": 19,
+  "need_by_missing": true
+ },
+ "plan": {
+  "borrower_good_standing": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "disposition": {
+   "clarity": "leaning",
+   "target": "hold",
+   "second": null
+  },
+  "loan_restriction": {
+   "clarity": "clear",
+   "target": "library_use_only",
+   "second": null
+  },
+  "time_slack": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "replacement_difficulty": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "4"
+  }
+ },
+ "target_words": 36,
+ "deciding": {
+  "borrower_good_standing": "Agreement is active, but two open loans have due_on before submission with null return_scan_on and renewed_on; modest lean against good standing.",
+  "disposition": "patron section is null (unverified), a single missing record; no lendable network copy to redirect to; hold leaning.",
+  "loan_restriction": "condition_grade rebind_required with null conservation_check; whole-item scope, so library use only.",
+  "time_slack": "est_arrival 2025-03-26 vs need_by 2025-04-10 is 15 days, just over the 14-day boundary between Workable and Open.",
+  "replacement_difficulty": "No lendable network copy, out of print, with a single secondhand listing (1): marginal between level 3 and level 4."
+ },
+ "request": "rec-F203-0016",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.01183
+}

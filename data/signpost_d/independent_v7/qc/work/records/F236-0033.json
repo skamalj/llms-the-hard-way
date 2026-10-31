@@ -1,0 +1,165 @@
+{
+ "id": "F236-0033",
+ "family": "F236",
+ "state": {
+  "changeover": {
+   "line": "L3",
+   "from_allergens": [
+    "milk"
+   ],
+   "to_allergens": [
+    "wheat"
+   ]
+  },
+  "cleaning": {
+   "steps": [
+    {
+     "id": 1,
+     "completed": true
+    },
+    {
+     "id": 2,
+     "completed": false
+    },
+    {
+     "id": 3,
+     "completed": false
+    }
+   ]
+  },
+  "verification": {
+   "swabs": [
+    {
+     "id": "S1",
+     "target": "milk",
+     "ppm": 1,
+     "limit_ppm": 10,
+     "t": "2024-06-10T08:25"
+    }
+   ]
+  },
+  "production": {
+   "line_id": "L3",
+   "start_at": "2024-06-10T08:00",
+   "end_at": "2024-06-10T16:00",
+   "qty": 1030.07,
+   "unit": "kg",
+   "pack_allergens": [
+    "wheat"
+   ],
+   "may_contain": [
+    "milk"
+   ]
+  },
+  "approvals": {
+   "qa_signoff": {
+    "signed_at": "2024-06-10T07:50"
+   },
+   "deviations": [
+    {
+     "id": "D2",
+     "scope": "steps 2,3; S1 timing",
+     "approved_at": "2024-06-10T07:30"
+    }
+   ]
+  },
+  "history": [
+   {
+    "ok": false
+   },
+   {
+    "ok": true
+   },
+   {
+    "ok": false
+   },
+   {
+    "ok": false
+   },
+   {
+    "ok": true
+   },
+   {
+    "ok": false
+   },
+   {
+    "ok": true
+   },
+   {
+    "ok": true
+   },
+   {
+    "ok": false
+   },
+   {
+    "ok": true
+   }
+  ]
+ },
+ "factors": {
+  "allergen_transition": "swaps_allergen",
+  "cleaning_completion": "multiple_steps_skipped",
+  "swab_outcome": "trace_below_limit",
+  "swab_timing_mismatch": true,
+  "cross_section_discrepancy": "none",
+  "exposed_quantity_kg": 1030.07,
+  "approved_deviation": true,
+  "label_precaution": true,
+  "dedicated_tooling": false,
+  "qa_signoff_state": "signed_before_start",
+  "line_failure_history": 5,
+  "boundary_value": false
+ },
+ "factors_sampled": {
+  "allergen_transition": "swaps_allergen",
+  "cleaning_completion": "multiple_steps_skipped",
+  "swab_outcome": "trace_below_limit",
+  "swab_timing_mismatch": true,
+  "cross_section_discrepancy": "none",
+  "exposed_quantity_kg": 1030.07,
+  "approved_deviation": true,
+  "label_precaution": true,
+  "dedicated_tooling": false,
+  "qa_signoff_state": "signed_before_start",
+  "line_failure_history": 5,
+  "boundary_value": false
+ },
+ "plan": {
+  "swabs_cleared": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "line_disposition": {
+   "clarity": "clear",
+   "target": "release",
+   "second": null
+  },
+  "worst_deficiency": {
+   "clarity": "leaning",
+   "target": "release_breach",
+   "second": null
+  },
+  "exposed_product": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  },
+  "residue_evidence": {
+   "clarity": "contested",
+   "target": "1",
+   "second": "0"
+  }
+ },
+ "target_words": 26,
+ "deciding": {
+  "swabs_cleared": "S1 passes (1 vs 10 ppm) but is timed 08:25, after the 08:00 start. Deviation D2 covers S1 timing, so either reading is defensible.",
+  "line_disposition": "Skipped steps 2 and 3 and the S1 timing are covered by deviation D2 approved before start. The may_contain milk label is present and sign-off precedes start, so release.",
+  "worst_deficiency": "S1 was taken after production start, which is a release breach. Deviation D2 covers it, so some doubt remains.",
+  "exposed_product": "1030 kg over 8 h with the passing swab 25 min after start gives about 54 kg, close to the 50 kg boundary between levels 1 and 2.",
+  "residue_evidence": "The single reading of 1 ppm is above zero but far below the limit of 10. It could be read as trace (1) or as effectively negative (0)."
+ },
+ "request": "rec-F236-0031",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.01363
+}

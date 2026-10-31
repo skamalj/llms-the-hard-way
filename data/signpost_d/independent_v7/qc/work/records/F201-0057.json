@@ -1,0 +1,140 @@
+{
+ "id": "F201-0057",
+ "family": "F201",
+ "state": {
+  "register_header": {
+   "drug": "ketamine",
+   "conc_mg_ml": 100,
+   "witness_required": false,
+   "opening_balance_ml": 100
+  },
+  "entries": [
+   {
+    "id": "E1",
+    "qty_ml": 10,
+    "bal": 90,
+    "signed_by": null
+   },
+   {
+    "id": "E2",
+    "qty_ml": 5,
+    "bal": 85,
+    "signed_by": null
+   },
+   {
+    "id": "E3",
+    "qty_ml": 15,
+    "bal": 70,
+    "signed_by": null
+   },
+   {
+    "id": "E4",
+    "qty_ml": 8,
+    "bal": 62,
+    "signed_by": null
+   },
+   {
+    "id": "E5",
+    "qty_ml": 5,
+    "bal": 57,
+    "signed_by": "LOC-114",
+    "patient_id": "P2"
+   }
+  ],
+  "clinical_records": [
+   {
+    "patient_id": "P2",
+    "dose": 500,
+    "dose_unit": "mg"
+   }
+  ],
+  "stock_check": {
+   "counted_ml": 53,
+   "batch_no": "K41"
+  },
+  "disposals": [
+   {
+    "batch_no": "K41",
+    "qty_ml": 2,
+    "register_entry_id": null,
+    "witness_id": null
+   }
+  ],
+  "exceptions": [
+   {
+    "batch_no": "K41",
+    "qty_ml": 2,
+    "valid_from": "2024-01-01",
+    "valid_to": "2024-06-30"
+   }
+  ]
+ },
+ "factors": {
+  "drug_profile": "ketamine_100mg_ml",
+  "arithmetic_slip_count": 0,
+  "unrecorded_admin": "none",
+  "clinical_records_missing": false,
+  "disposal_state": "removed_unlogged",
+  "unexplained_shortfall_pct": 2.0,
+  "variance_exception": "valid_partial_cover",
+  "manufacturer_overfill": false,
+  "auth_gap_count": 4,
+  "count_out_of_order": false,
+  "unit_mismatch": true,
+  "locum_signatory": true,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "drug_profile": "ketamine_100mg_ml",
+  "arithmetic_slip_count": 0,
+  "unrecorded_admin": "large_over_10pct",
+  "clinical_records_missing": false,
+  "disposal_state": "none_needed",
+  "unexplained_shortfall_pct": 3.87,
+  "variance_exception": "valid_partial_cover",
+  "manufacturer_overfill": false,
+  "auth_gap_count": 3,
+  "count_out_of_order": false,
+  "unit_mismatch": true,
+  "locum_signatory": true,
+  "boundary_case": false
+ },
+ "plan": {
+  "unexplained_shortfall": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "line_disposition": {
+   "clarity": "leaning",
+   "target": "hold_pending",
+   "second": null
+  },
+  "variance_cause": {
+   "clarity": "balanced",
+   "target": "undocumented_disposal",
+   "second": "unexplained_loss"
+  },
+  "variance_size": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  },
+  "auth_gaps": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 56,
+ "deciding": {
+  "unexplained_shortfall": "Balances are consistent and the register closes at 57 ml against a count of 53 ml (4 ml short). A 2 ml disposal sits in that gap and a valid same-batch exception covers 2 ml, so the shortfall is accounted for.",
+  "line_disposition": "The disposal has register_entry_id null, so a register entry and confirmation must be supplied before the line can close. There is no other loss, so hold_pending leans over escalate.",
+  "variance_cause": "The disposal of 2 ml on batch K41 has no register entry and equals the remainder after the exception. Nothing else matches, so undocumented_disposal leads and unexplained_loss stays plausible.",
+  "variance_size": "Remaining variance is 4 ml less the 2 ml exception, which is 2 ml of 100 ml handled. That is exactly on the 2% boundary between trace and material.",
+  "auth_gaps": "Entries E1 to E4 have signed_by null, giving four gaps. E5 is signed by LOC-114, a valid locum id and not a gap. Four sits at the edge of the 2-3 band."
+ },
+ "request": "rec-F201-0056",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.016328
+}

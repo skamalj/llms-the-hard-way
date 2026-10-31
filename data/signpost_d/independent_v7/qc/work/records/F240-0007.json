@@ -1,0 +1,145 @@
+{
+ "id": "F240-0007",
+ "family": "F240",
+ "state": {
+  "asset": {
+   "inverter_id": "INV-4-02",
+   "serial": "S402",
+   "rated_ac_kw": 800
+  },
+  "fault_event": {
+   "serial": "S402",
+   "code": "F-GRD-01",
+   "fw_severity": 3,
+   "ts_start": "2024-07-12T12:00",
+   "ts_clear": "2024-07-12T12:25",
+   "auto_restarts": 2
+  },
+  "telemetry": {
+   "exp_day_kwh": 6000,
+   "exp_window_kwh": 400,
+   "act_window_kwh": 100,
+   "samples": [
+    {
+     "ts": "2024-07-12T12:30",
+     "ac_kw": 0,
+     "exp_kw": 700,
+     "limit_pct": 0
+    }
+   ]
+  },
+  "site_context": {
+   "grid_events": [
+    {
+     "ts": "2024-07-12T11:58",
+     "type": "overvoltage",
+     "magnitude_pu": 1.12
+    }
+   ],
+   "neighbours": [
+    {
+     "inverter_id": "INV-4-03",
+     "output_ratio": 0.4
+    }
+   ]
+  },
+  "history": {
+   "faults": [
+    {
+     "date": "2024-06-20",
+     "code": "F-GRD-01"
+    },
+    {
+     "date": "2024-06-24",
+     "code": "F-GRD-01"
+    },
+    {
+     "date": "2024-06-29",
+     "code": "F-GRD-01"
+    },
+    {
+     "date": "2024-07-02",
+     "code": "F-GRD-01"
+    },
+    {
+     "date": "2024-07-06",
+     "code": "F-GRD-01"
+    }
+   ],
+   "work_orders": [
+    {
+     "wo_id": "WO-702",
+     "opened": "2024-07-07",
+     "completed": "2024-07-09",
+     "retest_ok": null
+    }
+   ]
+  }
+ },
+ "factors": {
+  "fault_class": "grid_overvoltage",
+  "log_telemetry_mismatch": "none",
+  "grid_event_concurrent": true,
+  "maintenance_window_active": false,
+  "neighbour_cross_check": "neighbours_affected",
+  "repeat_count_30d": 5,
+  "last_repair_status": "completed_unverified",
+  "current_limit_pct": 0.0,
+  "yield_loss_pct": 5.0,
+  "low_irradiance_window": false,
+  "serial_mismatch": false,
+  "boundary_placement": true
+ },
+ "factors_sampled": {
+  "fault_class": "grid_overvoltage",
+  "log_telemetry_mismatch": "none",
+  "grid_event_concurrent": true,
+  "maintenance_window_active": false,
+  "neighbour_cross_check": "neighbours_affected",
+  "repeat_count_30d": 5,
+  "last_repair_status": "completed_unverified",
+  "current_limit_pct": 70.89,
+  "yield_loss_pct": 24.81,
+  "low_irradiance_window": false,
+  "serial_mismatch": false,
+  "boundary_placement": true
+ },
+ "plan": {
+  "genuine_defect": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "post_repair_repeat": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "close_log",
+   "second": null
+  },
+  "yield_loss": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  },
+  "capacity_unavailable": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  }
+ },
+ "target_words": 54,
+ "deciding": {
+  "genuine_defect": "Five prior matching faults in 30 days point to the unit, while a concurrent 1.12 pu grid overvoltage event and neighbour ratio 0.4 point outside it.",
+  "post_repair_repeat": "All five matching faults are dated before WO-702 completed on 2024-07-09; none after.",
+  "next_step": "Grid overvoltage event overlaps the start and a neighbour is also depressed, with the fault cleared at 12:25, so close_log is favoured over action on the inverter.",
+  "yield_loss": "(400-100)/6000 = 5.0%, on the minor/material boundary.",
+  "capacity_unavailable": "Last sample ac_kw 0 and limit_pct 0 means offline, though the clear time 5 minutes earlier leaves some doubt."
+ },
+ "request": "rec-F240-0006",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012222
+}

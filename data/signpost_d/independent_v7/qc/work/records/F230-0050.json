@@ -1,0 +1,158 @@
+{
+ "id": "F230-0050",
+ "family": "F230",
+ "state": {
+  "prescriptions": [
+   {
+    "item_id": "E1",
+    "drug": "levothyroxine",
+    "strength_mg": 10,
+    "dose_units": 1,
+    "time_critical": true,
+    "changes": [
+     {
+      "effective": "2025-09-20",
+      "new_dose_units": 1,
+      "order_ref": "GP-5521",
+      "authorised_by_role": "GP"
+     }
+    ]
+   },
+   {
+    "item_id": "E2",
+    "drug": "paracetamol",
+    "strength_mg": 500,
+    "dose_units": 2
+   },
+   {
+    "item_id": "E3",
+    "drug": "loratadine",
+    "strength_mg": 10,
+    "dose_units": 1
+   }
+  ],
+  "administrations": [
+   {
+    "item_id": "E1",
+    "scheduled": "07:00",
+    "given_at": "09:24",
+    "units_given": 1,
+    "strength_mg_used": 5,
+    "code": "G",
+    "initials": "RD"
+   },
+   {
+    "item_id": "E2",
+    "scheduled": "08:00",
+    "given_at": "08:04",
+    "units_given": 2,
+    "strength_mg_used": 500,
+    "code": "G",
+    "initials": null
+   },
+   {
+    "item_id": "E3",
+    "scheduled": "08:00",
+    "given_at": "08:06",
+    "units_given": 1,
+    "strength_mg_used": 10,
+    "code": "G",
+    "initials": "RD"
+   }
+  ],
+  "stock": {
+   "E3": {
+    "opening": 12,
+    "wasted": 2,
+    "wasted_witnessed": true,
+    "closing": 9
+   }
+  },
+  "round": {
+   "date": "2025-09-20",
+   "open_queries": [
+    {
+     "type": "gp_callback",
+     "raised": "2025-09-20T09:40",
+     "item_id": "E1"
+    }
+   ],
+   "post_dose_obs": [
+    {
+     "type": "hr",
+     "value": 68
+    }
+   ]
+  }
+ },
+ "factors": {
+  "dose_mismatch_type": "wrong_strength",
+  "prescription_change_documented": true,
+  "omission_count": 0,
+  "omission_reason_valid": true,
+  "late_minutes": 144,
+  "time_critical_affected": true,
+  "stock_variance": -2,
+  "stock_variance_explained": true,
+  "signature_gaps": 1,
+  "unit_expression_decoy": "matching_units",
+  "post_dose_obs_reassuring": true,
+  "pending_query": "gp_callback_awaited",
+  "prior_errors_30d": 4,
+  "item_count": 3
+ },
+ "factors_sampled": {
+  "dose_mismatch_type": "wrong_strength",
+  "prescription_change_documented": true,
+  "omission_count": 0,
+  "omission_reason_valid": true,
+  "late_minutes": 144,
+  "time_critical_affected": true,
+  "stock_variance": -2,
+  "stock_variance_explained": true,
+  "signature_gaps": 2,
+  "unit_expression_decoy": "matching_units",
+  "post_dose_obs_reassuring": true,
+  "pending_query": "gp_callback_awaited",
+  "prior_errors_30d": 4,
+  "item_count": 3
+ },
+ "plan": {
+  "dose_mismatch": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "stock_reconciles": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "hold",
+   "second": null
+  },
+  "open_discrepancies": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  },
+  "error_severity": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  }
+ },
+ "target_words": 51,
+ "deciding": {
+  "dose_mismatch": "E1 used 5 mg against 10 mg prescribed. A GP change exists (GP-5521) but it only states units, so it does not clearly cover the strength.",
+  "stock_reconciles": "E3 12-1 given-2 wasted (witnessed)=9 matches closing.",
+  "next_step": "A GP callback on E1 is open, so waiting for it is the leaning step.",
+  "open_discrepancies": "E1 (strength, 144 min late, query open) is clearly unresolved. E2 null initials is a minor slip, so one or two items are defensible.",
+  "error_severity": "E2 null initials points to documentation (1) and E1 at 144 min late points to timing (2). The strength question on E1 pushes the case higher, so this plan is only partly met."
+ },
+ "request": "rec-F230-0046",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.01538
+}

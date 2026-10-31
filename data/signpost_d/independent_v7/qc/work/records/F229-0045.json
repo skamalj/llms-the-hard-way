@@ -1,0 +1,117 @@
+{
+ "id": "F229-0045",
+ "family": "F229",
+ "state": {
+  "lot": {
+   "lot_id": "L-0815",
+   "block": "B21",
+   "variety": "Chardonnay",
+   "pick_end": "2024-09-27T16:00"
+  },
+  "intake": {
+   "ticket_no": "T930",
+   "block_code": "B12",
+   "arrival_at": "2024-09-27T17:05",
+   "gross_kg": 15500,
+   "tare_kg": 4500,
+   "net_kg": 11000,
+   "bins": [
+    5400,
+    5600
+   ],
+   "temp_c": 5,
+   "cold_room_in": "17:30",
+   "cold_room_out": "06:50"
+  },
+  "sample": {
+   "rot_pct": 9.54,
+   "sort": {
+    "sorted": true,
+    "rejected_kg": 600,
+    "post_sort_rot_pct": 2.1
+   }
+  },
+  "press": {
+   "programme": "destemmed_standard",
+   "band_l_per_t": "600-680",
+   "cycle_start": "2024-09-28T07:54",
+   "cycle_end": "2024-09-28T12:40",
+   "juice_l": 7150,
+   "so2_mg_l": 40
+  },
+  "transfer": {
+   "lot_ref": "L-0815",
+   "tank_id": "T08",
+   "transferred_l": 7080,
+   "qa_signoff": "RT 2024-09-28T14:10"
+  }
+ },
+ "factors": {
+  "weight_mismatch": "none",
+  "press_programme": "destemmed_standard",
+  "yield_position": "inside_band",
+  "lot_id_drift": "block_code_differs_at_intake",
+  "missing_step": "none",
+  "out_of_order_timestamp": false,
+  "pick_to_press_hours": 15.9,
+  "pick_end_recorded": true,
+  "cold_held": true,
+  "rot_pct": 9.54,
+  "sorting_applied": true,
+  "note_signal": "none",
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "weight_mismatch": "none",
+  "press_programme": "destemmed_standard",
+  "yield_position": "inside_band",
+  "lot_id_drift": "block_code_differs_at_intake",
+  "missing_step": "none",
+  "out_of_order_timestamp": false,
+  "pick_to_press_hours": 10.92,
+  "pick_end_recorded": true,
+  "cold_held": true,
+  "rot_pct": 9.54,
+  "sorting_applied": true,
+  "note_signal": "none",
+  "boundary_case": false
+ },
+ "plan": {
+  "yield_consistent": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "chain_intact": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "release_decision": {
+   "clarity": "clear",
+   "target": "release_corrected",
+   "second": null
+  },
+  "pick_press_delay": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "failed_checks": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 116,
+ "deciding": {
+  "yield_consistent": "Weights reconcile (15500-4500=11000, bins sum to 11000); 7150 l is 650 l/t, inside 600-680.",
+  "chain_intact": "lot.block B21 against intake.block_code B12 looks like a transposition, while lot_id L-0815 carries through to the transfer.",
+  "release_decision": "The only discrepancy is the clerical block code mismatch; weights, yield, SO2 and QA signoff are all fine, so fix the record and release.",
+  "pick_press_delay": "pick_end 16:00 to cycle_start 07:54 next day is 15.9 h, just under the 16 h line between levels 2 and 3.",
+  "failed_checks": "The block mismatch fails; high raw rot of 9.54% (reduced by sorting) and the delay near 16 h may or may not count, so two to four failures are defensible."
+ },
+ "request": "rec-F229-0041",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.009375
+}

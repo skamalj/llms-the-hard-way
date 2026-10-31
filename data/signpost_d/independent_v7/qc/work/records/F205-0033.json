@@ -1,0 +1,100 @@
+{
+ "id": "F205-0033",
+ "family": "F205",
+ "state": {
+  "flight": {
+   "std": "2025-05-02T14:00Z"
+  },
+  "times": {
+   "last_bag": "2025-05-02T14:20Z",
+   "doors_closed": "2025-05-02T15:45Z",
+   "off_blocks": "2025-05-02T15:52Z",
+   "delay_code": "baggage",
+   "delay_min": 112
+  },
+  "load": {
+   "bags_count": 64
+  },
+  "hold_log": [
+   {
+    "pos": "1",
+    "bag_count": 40
+   },
+   {
+    "pos": "2",
+    "bag_count": 18
+   },
+   {
+    "pos": "T",
+    "bag_count": 6,
+    "transfer": true
+   }
+  ]
+ },
+ "factors": {
+  "bag_mismatch_size": "none",
+  "mismatch_location": "loadsheet_bags_vs_hold_log",
+  "missing_record": "none",
+  "milestone_out_of_order": false,
+  "delay_minutes": 112,
+  "delay_code_fit": "ambiguous",
+  "explanatory_remark": false,
+  "pending_signoff": false,
+  "dg_on_board": false,
+  "decoy_noise": "transfer_bags_listed_separately",
+  "boundary_value": false,
+  "turn_type": "full_turn"
+ },
+ "factors_sampled": {
+  "bag_mismatch_size": "none",
+  "mismatch_location": "loadsheet_bags_vs_hold_log",
+  "missing_record": "none",
+  "milestone_out_of_order": true,
+  "delay_minutes": 112,
+  "delay_code_fit": "ambiguous",
+  "explanatory_remark": false,
+  "pending_signoff": false,
+  "dg_on_board": false,
+  "decoy_noise": "transfer_bags_listed_separately",
+  "boundary_value": false,
+  "turn_type": "full_turn"
+ },
+ "plan": {
+  "load_reconciled": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "delay_code_supported": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "log_disposition": {
+   "clarity": "leaning",
+   "target": "close_clean",
+   "second": null
+  },
+  "offblock_delay": {
+   "clarity": "clear",
+   "target": "3",
+   "second": null
+  },
+  "failed_checks": {
+   "clarity": "clear",
+   "target": "1",
+   "second": null
+  }
+ },
+ "target_words": 36,
+ "deciding": {
+  "load_reconciled": "Loadsheet 64 bags = 40+18+6 transfer bags in the hold log.",
+  "delay_code_supported": "Code baggage; last_bag was 20 minutes after STD, which partly fits, but doors_closed is 105 minutes after STD, so it only partly accounts for a 112-minute delay.",
+  "log_disposition": "Loads and records reconcile; the only soft point is the partial delay attribution, leaning close clean.",
+  "offblock_delay": "Off-blocks 15:52 vs STD 14:00 is 112 minutes, well over 60.",
+  "failed_checks": "Only the delay attribution is doubtful; load, milestones and records pass."
+ },
+ "request": "rec-F205-0031",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.010346
+}

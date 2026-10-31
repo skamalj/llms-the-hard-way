@@ -1,0 +1,146 @@
+{
+ "id": "F204-0044",
+ "family": "F204",
+ "state": {
+  "rx": {
+   "drug": "paracetamol",
+   "form": "susp",
+   "strength": {
+    "val": 250,
+    "unit": "mg",
+    "per_ml": 5
+   },
+   "dose": 5,
+   "freq_per_day": 4,
+   "qty": 200
+  },
+  "patient": {
+   "pt_id": "P31960",
+   "supplies": [
+    {
+     "date": "2025-02-10",
+     "days_covered": 14
+    }
+   ],
+   "emergency_supplies": [
+    {
+     "date": "2025-02-24",
+     "days": 2
+    }
+   ],
+   "near_miss_count": 4
+  },
+  "dispensed": {
+   "product_name": "Disprol",
+   "generic_name": "paracetamol",
+   "form": "susp",
+   "strength": {
+    "val": 240,
+    "unit": "mg",
+    "per_ml": 5
+   },
+   "pack_size": 100,
+   "packs": 1,
+   "owing": {
+    "qty": 100,
+    "slip_no": "OW-5521"
+   },
+   "req_warnings": [
+    "W3",
+    "W7"
+   ]
+  },
+  "label": {
+   "pt_id": "P31960",
+   "dose_qty": 5,
+   "freq_per_day": 4,
+   "warning_codes": [
+    "W3"
+   ],
+   "qty_printed": 100
+  },
+  "check_log": {
+   "checked_at": "2025-02-25T14:20",
+   "clin_check": {
+    "by": "RPh2",
+    "at": "2025-02-25T14:05"
+   },
+   "queries": [
+    {
+     "raised_at": "2025-02-25T14:10",
+     "field": "label.warning_codes",
+     "status": "pending"
+    }
+   ],
+   "interventions": []
+  }
+ },
+ "factors": {
+  "strength_status": "mismatch_converted",
+  "product_status": "generic_brand_equivalent",
+  "quantity_status": "owing_documented",
+  "label_status": "warning_missing",
+  "prescriber_query": "pending",
+  "pharmacist_intervention": false,
+  "clinical_check_signed": true,
+  "home_supply_days": 0,
+  "emergency_supply": true,
+  "short_expiry": false,
+  "prior_error_count": 4,
+  "high_risk_drug": false,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "strength_status": "match_same_units",
+  "product_status": "generic_brand_equivalent",
+  "quantity_status": "short_undocumented",
+  "label_status": "correct",
+  "prescriber_query": "none",
+  "pharmacist_intervention": false,
+  "clinical_check_signed": true,
+  "home_supply_days": 11,
+  "emergency_supply": false,
+  "short_expiry": false,
+  "prior_error_count": 4,
+  "high_risk_drug": false,
+  "boundary_case": false
+ },
+ "plan": {
+  "strength_differs": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "next_step": {
+   "clarity": "contested",
+   "target": "hold_query",
+   "second": "release_annotated"
+  },
+  "error_category": {
+   "clarity": "leaning",
+   "target": "label_error",
+   "second": null
+  },
+  "open_discrepancies": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  },
+  "supply_urgency": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 52,
+ "deciding": {
+  "strength_differs": "Rx 250 mg/5 ml against dispensed 240 mg/5 ml is a small gap that could be a labelled rounding or a real difference.",
+  "next_step": "A pending query on label.warning_codes argues for hold. The documented owing slip OW-5521 argues for release with annotation.",
+  "error_category": "The label carries W3 only while the dispensed req_warnings are W3 and W7. Quantity is documented as owing, and the product is the same generic.",
+  "open_discrepancies": "The missing W7 warning on the label is the one open item. The owing slip documents the quantity, but the small strength gap could make it two.",
+  "supply_urgency": "The 14-day supply from 02-10 ended 02-23. A 2-day emergency supply from 02-24 ends 02-25, the check day, so 0 days remain, or 1 if today is counted."
+ },
+ "request": "rec-F204-0041",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.015225
+}

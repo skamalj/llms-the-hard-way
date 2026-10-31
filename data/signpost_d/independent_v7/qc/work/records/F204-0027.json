@@ -1,0 +1,128 @@
+{
+ "id": "F204-0027",
+ "family": "F204",
+ "state": {
+  "rx": {
+   "drug": "digoxin",
+   "str": {
+    "val": 125,
+    "unit": "mcg"
+   },
+   "qty": 28
+  },
+  "patient": {
+   "sup": [
+    {
+     "date": "2024-05-01",
+     "days_covered": 28
+    }
+   ],
+   "emerg": [
+    {
+     "date": "2024-05-20",
+     "days": 10
+    }
+   ]
+  },
+  "dispensed": {
+   "name": "Lanoxin",
+   "generic": "digoxin",
+   "str": {
+    "val": 0.25,
+    "unit": "mg"
+   },
+   "packs": 1,
+   "pack_size": 28,
+   "warn": [
+    "W2",
+    "W5"
+   ]
+  },
+  "label": {
+   "warn": [
+    "W2"
+   ],
+   "qty": 28
+  },
+  "check_log": {
+   "at": "2024-05-30",
+   "clin": {
+    "by": "RP"
+   },
+   "q": [
+    {
+     "field": "product",
+     "status": "pending"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "strength_status": "differs_after_conversion",
+  "product_status": "generic_brand_equivalent",
+  "quantity_status": "exact",
+  "label_status": "warning_code_missing",
+  "prescriber_query": "pending",
+  "pharmacist_intervention": true,
+  "clinical_check_signed": true,
+  "home_supply_days": 2,
+  "emergency_supply": true,
+  "short_expiry": false,
+  "prior_error_count": 2,
+  "high_risk_drug": true,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "strength_status": "match_same_units",
+  "product_status": "generic_brand_equivalent",
+  "quantity_status": "exact",
+  "label_status": "warning_code_missing",
+  "prescriber_query": "pending",
+  "pharmacist_intervention": true,
+  "clinical_check_signed": true,
+  "home_supply_days": 10,
+  "emergency_supply": true,
+  "short_expiry": false,
+  "prior_error_count": 2,
+  "high_risk_drug": true,
+  "boundary_case": false
+ },
+ "plan": {
+  "strength_differs": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "release_annotated",
+   "second": null
+  },
+  "error_category": {
+   "clarity": "balanced",
+   "target": "label_error",
+   "second": "product_error"
+  },
+  "open_discrepancies": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  },
+  "supply_urgency": {
+   "clarity": "contested",
+   "target": "2",
+   "second": "3"
+  }
+ },
+ "target_words": 25,
+ "deciding": {
+  "strength_differs": "125 mcg prescribed vs 0.25 mg (250 mcg) dispensed; this may be a pack-strength entry error.",
+  "next_step": "The pending query is on the product/strength field, though the label warning gap could mean redispense.",
+  "error_category": "The label lacks W5, while the strength mismatch could be product error.",
+  "open_discrepancies": "Two unresolved fields: strength and label warnings.",
+  "supply_urgency": "The 28-day supply ended 05-29; emergency days ran to 05-30, so zero or one day is left, which is hard to call."
+ },
+ "request": "rec-F204-0026",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.005248
+}

@@ -1,0 +1,158 @@
+{
+ "id": "F213-0018",
+ "family": "F213",
+ "state": {
+  "pool": {
+   "type": "teaching",
+   "test_interval_min": 60,
+   "opening": {
+    "open": "2024-05-21T09:00",
+    "close": "2024-05-21T11:30"
+   },
+   "limits": {
+    "free_cl_min": 1.0,
+    "free_cl_max": 3.0,
+    "combined_cl_max": 0.5,
+    "ph_min": 7.2,
+    "ph_max": 7.8
+   },
+   "tolerance": {
+    "free_cl": 0.3,
+    "ph": 0.2
+   },
+   "micro_due": "2024-05-25"
+  },
+  "manual_tests": [
+   {
+    "time": "2024-05-21T09:00",
+    "free_cl": 1.4,
+    "ph": 7.4,
+    "kit_id": "K3"
+   },
+   {
+    "time": "2024-05-21T10:00",
+    "free_cl": 0.4,
+    "ph": 7.4,
+    "kit_id": "K3"
+   },
+   {
+    "time": "2024-05-21T11:00",
+    "free_cl": 0.5,
+    "ph": 7.4,
+    "kit_id": "K3"
+   }
+  ],
+  "plant": {
+   "controller_readings": [
+    {
+     "time": "2024-05-21T09:00",
+     "free_cl": 1.4,
+     "ph": 7.4
+    },
+    {
+     "time": "2024-05-21T10:00",
+     "free_cl": 1.1,
+     "ph": 7.4
+    }
+   ],
+   "dosing_events": [],
+   "backwash": [
+    "2024-05-21T09:40"
+   ],
+   "bather_count": 30
+  },
+  "equipment": {
+   "kits": [
+    {
+     "kit_id": "K3",
+     "cal_due": "2025-02-01",
+     "reagent_lot": "L40"
+    }
+   ]
+  },
+  "actions": [
+   {
+    "time": "2024-05-21T11:15",
+    "action_type": "dose",
+    "reading_ref": "2024-05-21T10:00",
+    "retest_time": null
+   }
+  ],
+  "lab_sample": {
+   "sampled_on": "2024-05-20",
+   "result_on": null,
+   "status": "sent",
+   "tvc_37": null,
+   "coliforms": null,
+   "pseudomonas": null
+  }
+ },
+ "factors": {
+  "pool_type": "teaching",
+  "test_coverage_gap": 0,
+  "boundary_interval": true,
+  "log_controller_discrepancy": "exceeds_tolerance",
+  "discrepancy_location": "free_chlorine",
+  "excursion_severity": "clear",
+  "corrective_action_delay": "delayed_75_min",
+  "retest_logged": false,
+  "dosing_event_explains": false,
+  "kit_calibration_status": "in_date",
+  "lab_sample_state": "pending",
+  "out_of_order_entry": false,
+  "benign_noise": "backwash"
+ },
+ "factors_sampled": {
+  "pool_type": "teaching",
+  "test_coverage_gap": 0,
+  "boundary_interval": true,
+  "log_controller_discrepancy": "within_tolerance",
+  "discrepancy_location": "free_chlorine",
+  "excursion_severity": "marginal",
+  "corrective_action_delay": "delayed",
+  "retest_logged": false,
+  "dosing_event_explains": true,
+  "kit_calibration_status": "in_date",
+  "lab_sample_state": "pending",
+  "out_of_order_entry": false,
+  "benign_noise": "backwash"
+ },
+ "plan": {
+  "test_frequency_met": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "readings_reconcile": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "log_disposition": {
+   "clarity": "clear",
+   "target": "require_closure",
+   "second": null
+  },
+  "action_delay": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  },
+  "failed_checks": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 111,
+ "deciding": {
+  "test_frequency_met": "Tests at 09:00, 10:00 and 11:00 are each exactly 60 minutes apart; close at 11:30 leaves the boundary slightly open.",
+  "readings_reconcile": "Manual free chlorine at 10:00 is 0.4 against controller 1.1, a 0.7 difference vs 0.3 tolerance.",
+  "log_disposition": "Free chlorine 0.4 and 0.5 (min 1.0) at 10:00 and 11:00, dosed late with no retest, so unsafe water stays unresolved.",
+  "action_delay": "Action at 11:15 for the 10:00 reading is 75 minutes later, inside the 30 to 120 band.",
+  "failed_checks": "Mismatch with controller, late action, no retest and a pending sample could be counted as two to three or four failures, depending on which are counted."
+ },
+ "request": "rec-F213-0016",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.014268
+}

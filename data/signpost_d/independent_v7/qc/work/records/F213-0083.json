@@ -1,0 +1,155 @@
+{
+ "id": "F213-0083",
+ "family": "F213",
+ "state": {
+  "pool": {
+   "type": "teaching",
+   "test_interval_min": 60,
+   "opening": {
+    "open": "2024-07-09T09:00",
+    "close": "2024-07-09T12:00"
+   },
+   "limits": {
+    "free_cl_min": 1.0,
+    "free_cl_max": 3.0
+   },
+   "tolerance": {
+    "free_cl": 0.2
+   },
+   "micro_due": "2024-07-08"
+  },
+  "manual_tests": [
+   {
+    "time": "2024-07-09T09:00",
+    "free_cl": 2.0,
+    "temp_c": 28.0,
+    "kit_id": "K2"
+   },
+   {
+    "time": "2024-07-09T11:20",
+    "free_cl": 3.0,
+    "temp_c": 28.0,
+    "kit_id": "K2"
+   },
+   {
+    "time": "2024-07-09T10:00",
+    "free_cl": 2.0,
+    "temp_c": 28.0,
+    "kit_id": "K2"
+   },
+   {
+    "time": "2024-07-09T11:40",
+    "free_cl": 2.6,
+    "temp_c": 28.0,
+    "kit_id": "K2"
+   }
+  ],
+  "plant": {
+   "controller_readings": [
+    {
+     "time": "2024-07-09T11:20",
+     "free_cl": 2.8,
+     "temp_c": 31.5
+    }
+   ],
+   "dosing_events": [
+    {
+     "time": "2024-07-09T11:05",
+     "type": "shock"
+    }
+   ]
+  },
+  "equipment": {
+   "kits": [
+    {
+     "kit_id": "K2",
+     "cal_due": "2025-02-01"
+    }
+   ]
+  },
+  "actions": [
+   {
+    "time": "2024-07-09T11:30",
+    "action_type": "dilution",
+    "reading_ref": "2024-07-09T11:20",
+    "retest_time": "2024-07-09T11:40"
+   }
+  ],
+  "lab_sample": {
+   "sampled_on": "2024-07-08",
+   "result_on": null,
+   "status": "pending",
+   "tvc_37": null,
+   "coliforms": null,
+   "pseudomonas": null
+  }
+ },
+ "factors": {
+  "pool_type": "teaching",
+  "test_coverage_gap": 1,
+  "boundary_interval": false,
+  "log_controller_discrepancy": "within_tolerance",
+  "discrepancy_location": "temperature",
+  "excursion_severity": "marginal",
+  "corrective_action_delay": "prompt",
+  "retest_logged": true,
+  "dosing_event_explains": true,
+  "kit_calibration_status": "in_date",
+  "lab_sample_state": "pending",
+  "out_of_order_entry": true,
+  "benign_noise": "none"
+ },
+ "factors_sampled": {
+  "pool_type": "teaching",
+  "test_coverage_gap": 1,
+  "boundary_interval": false,
+  "log_controller_discrepancy": "large",
+  "discrepancy_location": "temperature",
+  "excursion_severity": "marginal",
+  "corrective_action_delay": "prompt",
+  "retest_logged": true,
+  "dosing_event_explains": true,
+  "kit_calibration_status": "in_date",
+  "lab_sample_state": "clear",
+  "out_of_order_entry": true,
+  "benign_noise": "none"
+ },
+ "plan": {
+  "test_frequency_met": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "readings_reconcile": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "log_disposition": {
+   "clarity": "clear",
+   "target": "hold_for_retest",
+   "second": null
+  },
+  "action_delay": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "failed_checks": {
+   "clarity": "clear",
+   "target": "1",
+   "second": null
+  }
+ },
+ "target_words": 25,
+ "deciding": {
+  "test_frequency_met": "Tests at 10:00 and 11:20 are 80 min apart against a 60 min interval, though the entries are listed out of order.",
+  "readings_reconcile": "Free_cl 3.0 manual vs 2.8 controller at 11:20 is exactly the 0.2 tolerance; the 3.5 C temperature difference does not count.",
+  "log_disposition": "Lab sample taken 2024-07-08 has null result_on and a pending status, and the retest at 11:40 is within limits, so the outcome hangs on the lab result.",
+  "action_delay": "Free_cl 3.0 sits exactly at the 3.0 maximum, not clearly outside; action was logged 10 min later, so none needed or prompt are both defensible.",
+  "failed_checks": "Only the 80 min spacing fails; readings reconcile, the kit is in date and the lab result is pending rather than missing."
+ },
+ "request": "rec-F213-0081",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.013404
+}

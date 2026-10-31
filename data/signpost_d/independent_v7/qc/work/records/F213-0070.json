@@ -1,0 +1,121 @@
+{
+ "id": "F213-0070",
+ "family": "F213",
+ "state": {
+  "pool": {
+   "type": "competition",
+   "log_date": "2025-06-10",
+   "test_interval_min": 60,
+   "limits": {
+    "ph_max": 7.8
+   }
+  },
+  "manual_tests": [
+   {
+    "t": "08:00",
+    "ph": 7.9,
+    "kit_id": "K1"
+   },
+   {
+    "t": "10:00",
+    "ph": 8.6,
+    "kit_id": "K1"
+   }
+  ],
+  "plant": {
+   "controller_readings": [
+    {
+     "t": "08:00",
+     "ph": 7.9
+    },
+    {
+     "t": "10:00",
+     "ph": 8.6
+    }
+   ]
+  },
+  "equipment": {
+   "kits": [
+    {
+     "kit_id": "K1",
+     "cal_due": "2025-05-01"
+    }
+   ]
+  },
+  "actions": [],
+  "lab_sample": {
+   "sampled_on": "2025-06-08",
+   "result_on": "2025-06-10",
+   "tvc_37": 420,
+   "coliforms": 2
+  }
+ },
+ "factors": {
+  "pool_type": "competition",
+  "test_coverage_gap": 1,
+  "boundary_interval": false,
+  "log_controller_discrepancy": "none",
+  "discrepancy_location": "ph",
+  "excursion_severity": "clear",
+  "corrective_action_delay": "missing",
+  "retest_logged": false,
+  "dosing_event_explains": false,
+  "kit_calibration_status": "expired_before",
+  "lab_sample_state": "positive",
+  "out_of_order_entry": false,
+  "benign_noise": "temp_swing"
+ },
+ "factors_sampled": {
+  "pool_type": "competition",
+  "test_coverage_gap": 0,
+  "boundary_interval": true,
+  "log_controller_discrepancy": "none",
+  "discrepancy_location": "ph",
+  "excursion_severity": "clear",
+  "corrective_action_delay": "missing",
+  "retest_logged": false,
+  "dosing_event_explains": false,
+  "kit_calibration_status": "in_date",
+  "lab_sample_state": "positive",
+  "out_of_order_entry": false,
+  "benign_noise": "temp_swing"
+ },
+ "plan": {
+  "test_frequency_met": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "readings_reconcile": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "log_disposition": {
+   "clarity": "balanced",
+   "target": "accept_with_query",
+   "second": "hold_for_retest"
+  },
+  "action_delay": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  },
+  "failed_checks": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  }
+ },
+ "target_words": 29,
+ "deciding": {
+  "test_frequency_met": "Manual tests at 08:00 and 10:00 are 120 min apart against a 60 min interval.",
+  "readings_reconcile": "Controller pH equals manual pH at 08:00 (7.9) and 10:00 (8.6).",
+  "log_disposition": "pH 8.6 and coliforms 2 with an empty actions list could mean a query or a confirming retest and recheck.",
+  "action_delay": "pH 8.6 is above max 7.8 and the actions list is empty.",
+  "failed_checks": "Frequency, excursion action, expired kit K1 (cal_due 2025-05-01) and positive lab counts fail; reconciliation passes."
+ },
+ "request": "rec-F213-0066",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.010215
+}

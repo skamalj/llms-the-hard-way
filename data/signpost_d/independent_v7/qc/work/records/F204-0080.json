@@ -1,0 +1,138 @@
+{
+ "id": "F204-0080",
+ "family": "F204",
+ "state": {
+  "rx": {
+   "drug": "warfarin",
+   "strength": {
+    "val": 3,
+    "unit": "mg"
+   },
+   "form": "tab",
+   "dose": 1,
+   "freq_per_day": 1,
+   "qty": 28
+  },
+  "patient": {
+   "pt_id": "P55102",
+   "supplies": [
+    {
+     "date": "2024-08-01",
+     "days_covered": 7
+    }
+   ],
+   "emergency_supplies": [
+    {
+     "date": "2024-08-05",
+     "days": 3
+    }
+   ],
+   "near_miss_count": 3
+  },
+  "dispensed": {
+   "product_name": "warfarin",
+   "strength": {
+    "val": 5,
+    "unit": "mg"
+   },
+   "form": "tab",
+   "packs": 1,
+   "pack_size": 28,
+   "req_warnings": [
+    "W10"
+   ],
+   "high_risk": true,
+   "expiry": "2026-01-31"
+  },
+  "label": {
+   "pt_id": "P55102",
+   "dose_qty": 1,
+   "freq_per_day": 1,
+   "warning_codes": [
+    "W10"
+   ],
+   "qty_printed": 28
+  },
+  "check_log": {
+   "checked_at": "2024-08-06",
+   "clin_check": {
+    "by": "NB",
+    "at": "2024-08-06"
+   },
+   "queries": [
+    {
+     "field": "strength",
+     "status": "confirmed"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "strength_status": "mismatch_same_units",
+  "product_status": "exact",
+  "quantity_status": "exact",
+  "label_status": "correct",
+  "prescriber_query": "confirmed",
+  "pharmacist_intervention": false,
+  "clinical_check_signed": true,
+  "home_supply_days": 4,
+  "emergency_supply": true,
+  "short_expiry": false,
+  "prior_error_count": 3,
+  "high_risk_drug": true,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "strength_status": "match_same_units",
+  "product_status": "exact",
+  "quantity_status": "exact",
+  "label_status": "warning_code_missing",
+  "prescriber_query": "pending",
+  "pharmacist_intervention": false,
+  "clinical_check_signed": true,
+  "home_supply_days": 9,
+  "emergency_supply": true,
+  "short_expiry": false,
+  "prior_error_count": 3,
+  "high_risk_drug": true,
+  "boundary_case": false
+ },
+ "plan": {
+  "strength_differs": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "release_annotated",
+   "second": null
+  },
+  "error_category": {
+   "clarity": "clear",
+   "target": "none_found",
+   "second": null
+  },
+  "open_discrepancies": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "supply_urgency": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  }
+ },
+ "target_words": 61,
+ "deciding": {
+  "strength_differs": "rx 3 mg vs dispensed 5 mg, same unit; the prescriber query on strength was confirmed, which leaves a little doubt.",
+  "next_step": "Strength query confirmed and clinical check signed; release once the confirmation is annotated.",
+  "error_category": "The only difference (strength) has a confirmed query; product name, form, quantity 28, label and warnings all agree.",
+  "open_discrepancies": "Strength difference is covered by the confirmed query, so 0, but a reader might still count it as 1.",
+  "supply_urgency": "7 days from 08-01 plus 3 emergency days gives 10 days to 08-10; checked 08-06 leaves about 4 days."
+ },
+ "request": "rec-F204-0076",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.015752
+}

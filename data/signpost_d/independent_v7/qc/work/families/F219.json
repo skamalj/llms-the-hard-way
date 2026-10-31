@@ -1,0 +1,316 @@
+{
+ "id": "F219",
+ "domain": "fishing vessel catch landing declarations",
+ "role": "Port catch verification officer at a fisheries monitoring centre, reviewing one vessel landing declaration at a time against port weighing, logbook, satellite tracking and quota records before the catch is released for first sale",
+ "setting": "A coastal fisheries authority requires every licensed vessel to lodge a landing declaration after each trip. The officer sees the declaration together with the vessel's licence and inspection history, the trip logbook and tracking summary, the port weighing record, the stock-by-stock quota ledger and the dispatch schedule for the catch. The officer must decide whether the figures hold, how the landing sits against quota, how late the paperwork was, how urgently the catch must be checked and what happens next.",
+ "questions": {
+  "within_tolerance": {
+   "type": "noul",
+   "instructions": "Every declared species weight is within 10% of its port-weighed weight.",
+   "criteria": null
+  },
+  "disposition": {
+   "type": "choice",
+   "instructions": "What should happen to this landing declaration next?",
+   "criteria": {
+    "clear_release": "Accept the declaration as filed and release catch for sale.",
+    "amend_and_release": "Vessel corrects declared figures; catch released once amendment lodged.",
+    "hold_for_document": "Keep catch in port until one outstanding confirmation arrives.",
+    "reinspect_catch": "Inspector re-weighs or physically examines the catch before release.",
+    "refer_infringement": "Pass the file to enforcement for suspected infringement proceedings."
+   }
+  },
+  "quota_standing": {
+   "type": "choice",
+   "instructions": "How does this landing stand against the vessel's quota allocation?",
+   "criteria": {
+    "within_allocation": "Landing fits inside remaining base quota plus approved swaps.",
+    "covered_by_banked": "Exceeds base and approved swaps; banked carry-over covers the excess.",
+    "swap_pending": "Excess is covered only by a swap still awaiting approval.",
+    "uncovered_overrun": "Excess exceeds base, banked and all swap quota combined."
+   }
+  },
+  "submission_lateness": {
+   "type": "score",
+   "instructions": "How late was the landing declaration lodged after landing completed?",
+   "criteria": [
+    "Prompt: lodged under 24 hours after landing completion",
+    "Late: lodged 24 hours or more, under 72",
+    "Overdue: lodged 72 hours or more after landing",
+    "Outstanding: no declaration lodged by time of review"
+   ]
+  },
+  "dispatch_urgency": {
+   "type": "score",
+   "instructions": "How urgently must this catch be checked before onward dispatch?",
+   "criteria": [
+    "Catch held in port store beyond 72 hours",
+    "Dispatch scheduled between 24 and 72 hours away",
+    "Dispatch scheduled between 6 and 24 hours away",
+    "Dispatch scheduled under 6 hours from review",
+    "Catch already dispatched before review began"
+   ]
+  }
+ },
+ "factors": [
+  {
+   "name": "max_species_variance_pct",
+   "description": "Largest absolute percentage gap between a declared species weight and its port-weighed weight; clustered values between 8 and 12 create boundary cases around the 10% margin",
+   "kind": "number",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 35,
+   "p_true": 0,
+   "skills": [
+    "S5",
+    "S6",
+    "S7"
+   ]
+  },
+  {
+   "name": "weighing_status",
+   "description": "Whether port weighing covers every declared species, only some of them, or is missing entirely",
+   "kind": "categorical",
+   "values": [
+    "complete",
+    "partial",
+    "absent"
+   ],
+   "weights": [
+    0.6,
+    0.25,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S2",
+    "S4",
+    "S5"
+   ]
+  },
+  {
+   "name": "undeclared_species_present",
+   "description": "Port weighing records a species line that does not appear in the declaration",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.15,
+   "skills": [
+    "S5",
+    "S7"
+   ]
+  },
+  {
+   "name": "ice_basis_explains_variance",
+   "description": "Mitigation: weighing done on gross basis with no ice deduction applied, so a positive variance is attributable to ice rather than under-declaration",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S6"
+   ]
+  },
+  {
+   "name": "quota_headroom_pct",
+   "description": "Remaining base quota for the main stock minus the landed weight, as a percentage of the landing; negative means the landing exceeds base quota",
+   "kind": "number",
+   "values": [],
+   "weights": [],
+   "min": -40,
+   "max": 60,
+   "p_true": 0,
+   "skills": [
+    "S4",
+    "S6",
+    "S7"
+   ]
+  },
+  {
+   "name": "banked_kg",
+   "description": "Carry-over quota banked from the previous year for the main stock, which may or may not cover a base overrun",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 2500,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S6"
+   ]
+  },
+  {
+   "name": "swap_status",
+   "description": "State of any inbound quota swap for the main stock: none, requested but unapproved, or approved",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "requested",
+    "approved"
+   ],
+   "weights": [
+    0.4,
+    0.3,
+    0.3
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S4"
+   ]
+  },
+  {
+   "name": "declaration_submitted",
+   "description": "Whether a declaration has been lodged at all; when false the declaration section is null",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.9,
+   "skills": [
+    "S2",
+    "S5"
+   ]
+  },
+  {
+   "name": "submission_delay_hours",
+   "description": "Hours between landing completion and declaration lodgement, with values clustered near 24 and 72",
+   "kind": "number",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 120,
+   "p_true": 0,
+   "skills": [
+    "S6",
+    "S7"
+   ]
+  },
+  {
+   "name": "hours_to_dispatch",
+   "description": "Hours from review time until the catch leaves port; negative means already dispatched",
+   "kind": "number",
+   "values": [],
+   "weights": [],
+   "min": -12,
+   "max": 96,
+   "p_true": 0,
+   "skills": [
+    "S7",
+    "S2"
+   ]
+  },
+  {
+   "name": "vms_area_status",
+   "description": "Whether tracking positions agree with logbook catch areas, disagree with a logged transponder outage, or disagree with no explanation",
+   "kind": "categorical",
+   "values": [
+    "consistent",
+    "mismatch_explained",
+    "mismatch_unexplained"
+   ],
+   "weights": [
+    0.7,
+    0.15,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S5",
+    "S6"
+   ]
+  },
+  {
+   "name": "date_sequence_error",
+   "description": "Recorded timestamps are out of order, such as landing completion before port arrival or a haul ending after arrival",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.1,
+   "skills": [
+    "S2"
+   ]
+  },
+  {
+   "name": "prior_infringements_24m",
+   "description": "Count of confirmed infringements in the past 24 months; context and decoy, never decisive alone",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 4,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S6"
+   ]
+  },
+  {
+   "name": "recent_clean_inspection",
+   "description": "Mitigation: a physical inspection within the last 90 days found no issues",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3"
+   ]
+  }
+ ],
+ "sections": [
+  {
+   "name": "vessel",
+   "description": "Vessel identity, licence, size, infringement count and last inspection outcome"
+  },
+  {
+   "name": "trip",
+   "description": "Departure and arrival times, logbook hauls with areas, tracking summary"
+  },
+  {
+   "name": "declaration",
+   "description": "Lodgement time, landing completion time and declared species lines; null if not lodged"
+  },
+  {
+   "name": "port_weighing",
+   "description": "Weighing status, weigh basis, ice deduction flag and weighed species lines"
+  },
+  {
+   "name": "quota_position",
+   "description": "Per-stock base remaining, banked carry-over and swap entries with status"
+  },
+  {
+   "name": "dispatch",
+   "description": "Storage location, scheduled onward departure and actual departure time"
+  }
+ ],
+ "rendering_notes": "vessel: {vessel_id, flag, length_m, licence_ref, infringements_24m (prior_infringements_24m), last_inspection: {date, result} where recent_clean_inspection gives a date within 90 days of review and result 'no_issues', otherwise an older date or result 'issues_found'}. trip: {departed_at, arrived_at, hauls: [{haul_no, area, haul_end}], vms: {areas_visited: [..], outage_logged: bool}}; vms_area_status shows only by comparing hauls[].area with vms.areas_visited, with outage_logged true for mismatch_explained and false for the other two. date_sequence_error places landing_completed_at before arrived_at or a haul_end after arrived_at. declaration: null when declaration_submitted is false; otherwise {submitted_at, landing_completed_at, lines: [{species, kg, area, presentation}]}; submission_delay_hours is only derivable as submitted_at minus landing_completed_at (when declaration is null, landing_completed_at moves to port_weighing.landing_completed_at). port_weighing: null when weighing_status is absent; otherwise {status: 'complete'|'partial', weigh_basis: 'net'|'gross', ice_deduction_applied: bool, lines: [{species, kg}]}; partial omits one or more declared species; max_species_variance_pct is realised only through paired kg values, never as a percentage field; undeclared_species_present adds an extra weighed species; ice_basis_explains_variance sets weigh_basis 'gross' with ice_deduction_applied false and weighed kg above declared. Within_tolerance is true only when weighing is complete, no undeclared species appear and every pair is within 10% on the recorded figures; partial or absent weighing makes it false because the claim is unsupported. quota_position: {stocks: [{stock, base_remaining_kg, banked_kg, swaps: [{swap_ref, kg, status}]}]}; quota_headroom_pct is derived against summed declared (or weighed) kg for that stock; the officer must add approved swaps, then banked, then pending swaps to place the landing; set cases where banked exactly matches the excess, or where a swap is approved with a date after landing, to produce contested judgments. dispatch: {storage: 'port_cold_store'|'quay'|'vehicle', scheduled_departure, departed_at (null unless already gone)}; hours_to_dispatch is computed from a review_at timestamp in the record header versus scheduled_departure or departed_at. Disposition guidance: clear_release when nothing is unresolved; amend_and_release when variance is explained by ice basis or is a clerical figure error with no other issue; hold_for_document when exactly one confirmation is outstanding (pending swap, partial weighing, unlodged declaration, explained VMS gap awaiting outage report); reinspect_catch when unexplained variance over 10% or an undeclared species exists and catch is still in port; refer_infringement for uncovered overrun, unexplained VMS mismatch alongside other issues, date sequence error with discrepancies, or dispatched catch with unresolved variance. Prior infringements and a clean recent inspection shift borderline cases only. Decoys: flag, length_m, presentation codes, haul counts, storage type and infringement count. Never include fields such as variance_pct, within_tolerance, quota_status, late_flag, urgency or recommended_action; no free-text notes anywhere.",
+ "skills": [
+  "S2",
+  "S3",
+  "S4",
+  "S5",
+  "S6",
+  "S7"
+ ],
+ "shared_scale": null,
+ "design_cost": 0.1975
+}

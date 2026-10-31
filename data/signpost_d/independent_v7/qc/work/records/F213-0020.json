@@ -1,0 +1,154 @@
+{
+ "id": "F213-0020",
+ "family": "F213",
+ "state": {
+  "pool": {
+   "type": "teaching",
+   "test_interval_min": 30,
+   "opening": {
+    "open": "2024-08-14T14:00",
+    "close": "2024-08-14T15:30"
+   },
+   "limits": {
+    "free_cl_min": 1.0,
+    "free_cl_max": 5.0,
+    "combined_cl_max": 0.5,
+    "ph_min": 7.2,
+    "ph_max": 7.8
+   },
+   "tolerance": {
+    "free_cl": 0.3,
+    "ph": 0.2
+   },
+   "micro_due": "2024-09-01"
+  },
+  "manual_tests": [
+   {
+    "time": "2024-08-14T14:00",
+    "free_cl": 4.4,
+    "ph": 7.5,
+    "kit_id": "K4"
+   },
+   {
+    "time": "2024-08-14T14:30",
+    "free_cl": 5.4,
+    "ph": 7.5,
+    "kit_id": "K4"
+   },
+   {
+    "time": "2024-08-14T15:00",
+    "free_cl": 4.7,
+    "ph": 7.5,
+    "kit_id": "K4"
+   },
+   {
+    "time": "2024-08-14T15:30",
+    "free_cl": 4.5,
+    "ph": 7.5,
+    "kit_id": "K4"
+   }
+  ],
+  "plant": {
+   "controller_readings": [
+    {
+     "time": "2024-08-14T14:12",
+     "free_cl": 3.6,
+     "ph": 7.5
+    },
+    {
+     "time": "2024-08-14T14:42",
+     "free_cl": 4.9,
+     "ph": 7.5
+    }
+   ],
+   "dosing_events": [],
+   "bather_count": 88
+  },
+  "equipment": {
+   "kits": [
+    {
+     "kit_id": "K4",
+     "cal_due": "2025-04-01",
+     "reagent_lot": "L8"
+    }
+   ]
+  },
+  "actions": [
+   {
+    "time": "2024-08-14T15:00",
+    "action_type": "dilution",
+    "reading_ref": "2024-08-14T14:30",
+    "retest_time": "2024-08-14T15:00"
+   }
+  ],
+  "lab_sample": null
+ },
+ "factors": {
+  "pool_type": "teaching",
+  "test_coverage_gap": 0,
+  "boundary_interval": true,
+  "log_controller_discrepancy": "exceeds_tolerance",
+  "discrepancy_location": "free_chlorine",
+  "excursion_severity": "marginal",
+  "corrective_action_delay": "30_min_boundary",
+  "retest_logged": true,
+  "dosing_event_explains": false,
+  "kit_calibration_status": "in_date",
+  "lab_sample_state": "not_due",
+  "out_of_order_entry": false,
+  "benign_noise": "high_bathers"
+ },
+ "factors_sampled": {
+  "pool_type": "teaching",
+  "test_coverage_gap": 0,
+  "boundary_interval": true,
+  "log_controller_discrepancy": "none",
+  "discrepancy_location": "timestamp_offset",
+  "excursion_severity": "none",
+  "corrective_action_delay": "delayed",
+  "retest_logged": true,
+  "dosing_event_explains": false,
+  "kit_calibration_status": "in_date",
+  "lab_sample_state": "missing_when_due",
+  "out_of_order_entry": false,
+  "benign_noise": "high_bathers"
+ },
+ "plan": {
+  "test_frequency_met": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "readings_reconcile": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "log_disposition": {
+   "clarity": "leaning",
+   "target": "accept_with_query",
+   "second": null
+  },
+  "action_delay": {
+   "clarity": "contested",
+   "target": "2",
+   "second": "1"
+  },
+  "failed_checks": {
+   "clarity": "contested",
+   "target": "1",
+   "second": "0"
+  }
+ },
+ "target_words": 89,
+ "deciding": {
+  "test_frequency_met": "Every gap is exactly 30 minutes, equal to the interval, with the last test at close; no gap exceeds it but there is no margin.",
+  "readings_reconcile": "Manual 4.4 vs controller 3.6 and manual 5.4 vs nearest controller 4.9 differ by 0.8 and 0.5 against a 0.3 tolerance.",
+  "log_disposition": "Excursion was actioned and retested within limits, the sample is not yet due, but the manual and controller mismatch needs an operator explanation.",
+  "action_delay": "Free chlorine 5.4 at 14:30 (max 5.0); action at 15:00 is exactly 30 minutes later, on the prompt/delayed boundary.",
+  "failed_checks": "Only the controller mismatch clearly fails; the borderline frequency and 30 minute action may or may not be counted."
+ },
+ "request": "rec-F213-0016",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.014268
+}

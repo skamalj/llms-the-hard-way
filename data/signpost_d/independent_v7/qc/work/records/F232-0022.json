@@ -1,0 +1,137 @@
+{
+ "id": "F232-0022",
+ "family": "F232",
+ "state": {
+  "night_header": {
+   "date": "2025-05-12",
+   "alloc_h": 8,
+   "eng_window": [
+    "22:00",
+    "22:40"
+   ]
+  },
+  "conditions": {
+   "closures": [
+    {
+     "s": "23:10",
+     "e": "05:00",
+     "reason": "weather"
+    }
+   ],
+   "hourly": "hum 93, wind 62, cloud 7 during closure; limits 85/50/3"
+  },
+  "exposures": [
+   {
+    "tgt": "T3",
+    "filt": "r",
+    "exp_s": 900,
+    "seeing": 1.0,
+    "qa": "pass"
+   },
+   {
+    "tgt": "T3",
+    "filt": "V",
+    "exp_s": 300,
+    "seeing": 1.1,
+    "qa": "pass"
+   }
+  ],
+  "programme_request": {
+   "T3": {
+    "filters": [
+     "g",
+     "r"
+    ],
+    "total_s": 1200
+   }
+  },
+  "faults": [
+   {
+    "sub": "dome",
+    "start": "22:05",
+    "end": "22:30",
+    "cleared": true,
+    "retest": null
+   },
+   {
+    "sub": "filter wheel",
+    "start": "04:30",
+    "end": null,
+    "cleared": false,
+    "workaround": "use slot 2 V filter, untested"
+   }
+  ],
+  "notes": {
+   "observer": "T3 done.",
+   "assistant": "Loud grinding from dome drive 22:10."
+  }
+ },
+ "factors": {
+  "weather_loss_hours": 5.8,
+  "fault_overlap": "minor_overlap",
+  "fault_resolution_state": "open_workaround",
+  "maintenance_window": true,
+  "closure_reason_mismatch": "none",
+  "note_claim_discrepancy": "filter_missing",
+  "seeing_vs_limit": "well_within",
+  "seeing_exception_approved": false,
+  "usable_fraction": 0.1,
+  "qa_pending_count": 0,
+  "utc_date_rollover": false,
+  "assistant_note_tone": "alarmed_benign",
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "weather_loss_hours": 5.8,
+  "fault_overlap": "minor_overlap",
+  "fault_resolution_state": "cleared_no_retest",
+  "maintenance_window": true,
+  "closure_reason_mismatch": "none",
+  "note_claim_discrepancy": "filter_missing",
+  "seeing_vs_limit": "well_within",
+  "seeing_exception_approved": false,
+  "usable_fraction": 0.81,
+  "qa_pending_count": 0,
+  "utc_date_rollover": false,
+  "assistant_note_tone": "alarmed_benign",
+  "boundary_case": false
+ },
+ "plan": {
+  "weather_only_loss": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "claims_supported": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "night_disposition": {
+   "clarity": "leaning",
+   "target": "charge_partial",
+   "second": null
+  },
+  "usable_share": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  },
+  "fault_followup": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 54,
+ "deciding": {
+  "weather_only_loss": "The 23:10-05:00 closure is backed by station values above limits; the dome fault at 22:05-22:30 lies inside eng_window and explains the grinding note.",
+  "claims_supported": "T3 requires g and r, but the log holds r 900 s plus V 300 s and no g. V may be a substitute, which keeps both answers plausible.",
+  "night_disposition": "Weather accounts for most of the lost time, and the completed frames passed QA, so the loss is returned to the pool.",
+  "usable_share": "Only 1200 s of qa-pass exposure against 8 h allocation, about 4%, which is below 40%.",
+  "fault_followup": "Filter wheel fault is open at 04:30 with only an untested workaround. It is unclear whether observing is really possible, so level 2 and level 3 stay close."
+ },
+ "request": "rec-F232-0021",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.01228
+}

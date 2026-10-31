@@ -1,0 +1,146 @@
+{
+ "id": "F224-0024",
+ "family": "F224",
+ "state": {
+  "request": {
+   "views": [
+    "BW"
+   ],
+   "ind": "C02",
+   "risk": "low",
+   "req_date": "2025-04-22",
+   "prior_bw": "2023-10-20",
+   "exceptions": [],
+   "verbal_auth": []
+  },
+  "exposures": [
+   {
+    "id": 1,
+    "view": "BW",
+    "kV": 70,
+    "s": 0.16,
+    "dose": 1.09,
+    "t": "14:02"
+   },
+   {
+    "id": 2,
+    "view": "PA",
+    "kV": 70,
+    "s": 0.2,
+    "dose": 1.2,
+    "t": "14:05"
+   },
+   {
+    "id": 3,
+    "view": "PA",
+    "kV": 70,
+    "s": 0.2,
+    "dose": 1.2,
+    "t": "14:07"
+   }
+  ],
+  "image_review": {
+   "grade": 2,
+   "sensor_errors": [],
+   "second_grader": "done"
+  },
+  "equipment": {
+   "last_qa": "2025-03-01",
+   "qa_months": 12,
+   "output_test": "pass",
+   "drl_ref": {
+    "BW": 1.0,
+    "PA": 1.5
+   },
+   "console_log": [
+    {
+     "t": "14:02",
+     "kV": 70,
+     "s": 0.22
+    },
+    {
+     "t": "14:05",
+     "kV": 70,
+     "s": 0.2
+    },
+    {
+     "t": "14:07",
+     "kV": 70,
+     "s": 0.2
+    }
+   ]
+  },
+  "operator": {
+   "signoff_at": "2025-04-22T15:00",
+   "prior_findings_12m": 3
+  }
+ },
+ "factors": {
+  "indication_match": "match",
+  "recall_interval_months": 18,
+  "dose_ratio_to_drl": 1.5,
+  "console_log_discrepancy": "setting_mismatch",
+  "retake_cause": "no_retake",
+  "equipment_qa_status": "in_date",
+  "approved_exception": false,
+  "patient_cooperation_flag": false,
+  "unrequested_exposure_count": 2,
+  "verbal_authorisation_logged": false,
+  "image_grade": "acceptable_minor_faults",
+  "audit_completeness": "complete",
+  "operator_prior_findings": 3
+ },
+ "factors_sampled": {
+  "indication_match": "match",
+  "recall_interval_months": 18,
+  "dose_ratio_to_drl": 1.6,
+  "console_log_discrepancy": "setting_mismatch",
+  "retake_cause": "no_retake",
+  "equipment_qa_status": "in_date",
+  "approved_exception": false,
+  "patient_cooperation_flag": false,
+  "unrequested_exposure_count": 2,
+  "verbal_authorisation_logged": false,
+  "image_grade": "acceptable_minor_faults",
+  "audit_completeness": "complete",
+  "operator_prior_findings": 3
+ },
+ "plan": {
+  "justified": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "operator_retake": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "follow_up": {
+   "clarity": "balanced",
+   "target": "log_trend",
+   "second": "escalate_rpa"
+  },
+  "dose_position": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  },
+  "unjustified_count": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 65,
+ "deciding": {
+  "justified": "Low risk allows 24 months, but prior BW 2023-10-20 to 2025-04-22 is about 18 months, too short; the indication matches, which leaves some doubt.",
+  "operator_retake": "No exposure has a retake_of reference, so there was no retake.",
+  "follow_up": "Console BW time 0.22 s against 0.16 s logged is a setting mismatch; a trend log is defensible, but the raised dose and operator history (3 findings) make escalation plausible.",
+  "dose_position": "Console governs: 1.09 x 0.22/0.16 is about 1.50 against reference 1.0, right at the 150% boundary.",
+  "unjustified_count": "Two PA exposures are not in views [BW] with no verbal auth or exception; the BW at 18 months is arguably also unjustified, so it is two or three."
+ },
+ "request": "rec-F224-0021",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012999
+}

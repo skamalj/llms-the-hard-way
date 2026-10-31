@@ -1,0 +1,134 @@
+{
+ "id": "F220-0028",
+ "family": "F220",
+ "state": {
+  "tray": {
+   "barcode": "3003310"
+  },
+  "set_check": {
+   "lines": [
+    {
+     "cat_code": "F2",
+     "qty_expected": 3,
+     "qty_counted": 2
+    },
+    {
+     "cat_code": "H9",
+     "qty_expected": 2,
+     "qty_counted": 1
+    },
+    {
+     "cat_code": "H9B",
+     "qty_expected": 0,
+     "qty_counted": 1
+    }
+   ],
+   "variances": []
+  },
+  "washer": {
+   "cycle_id": "W91",
+   "alarms": [
+    "LOW_DOSING"
+   ],
+   "rerun_cycle_id": "W91R",
+   "trays_processed": [
+    "3003310"
+   ]
+  },
+  "steriliser_load": {
+   "cycle_date": "2025-04-09T23:48",
+   "printout": {
+    "temp_min_c": 133.9,
+    "hold_s": 186,
+    "pressure_kpa": 208
+   },
+   "logger": {
+    "temp_min_c": 134.5,
+    "hold_s": 190
+   },
+   "daily_test": {
+    "date": "2025-04-09",
+    "result": "pass"
+   },
+   "bi": {
+    "result": "pending",
+    "incubation_end": "2025-04-10T09:00"
+   },
+   "ci_result": "pass",
+   "unload_condition": "dry"
+  },
+  "release_label": {
+   "tray_barcode": "3003310",
+   "sterilised_date": "2025-04-10",
+   "wrap_condition": "intact"
+  }
+ },
+ "factors": {
+  "set_count_discrepancies": 3,
+  "substitution_documented": false,
+  "cycle_excursion": "brief_temp_dip",
+  "independent_logger_confirms": true,
+  "bi_status": "pending",
+  "chemical_indicator": "pass",
+  "washer_record_state": "alarm_cleared_rerun",
+  "pack_integrity": "intact",
+  "label_mismatch": "date_off_by_one_midnight",
+  "daily_test_state": "pass_today",
+  "theatre_urgency": "next_list",
+  "note_tone": "neutral",
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "set_count_discrepancies": 3,
+  "substitution_documented": false,
+  "cycle_excursion": "brief_temp_dip",
+  "independent_logger_confirms": true,
+  "bi_status": "not_required",
+  "chemical_indicator": "pass",
+  "washer_record_state": "alarm_no_rerun",
+  "pack_integrity": "wet_on_unload",
+  "label_mismatch": "date_off_by_one_midnight",
+  "daily_test_state": "pass_today",
+  "theatre_urgency": "next_list",
+  "note_tone": "neutral",
+  "boundary_case": false
+ },
+ "plan": {
+  "cycle_in_limits": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "disposition": {
+   "clarity": "leaning",
+   "target": "hold",
+   "second": null
+  },
+  "failure_stage": {
+   "clarity": "leaning",
+   "target": "pack_stage",
+   "second": null
+  },
+  "count_gaps": {
+   "clarity": "contested",
+   "target": "2",
+   "second": "3"
+  },
+  "sterility_doubt": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  }
+ },
+ "target_words": 67,
+ "deciding": {
+  "cycle_in_limits": "Printout min 133.9 is just below band, but the logger reads 134.5 and 190 s in band, so true is favoured with some doubt.",
+  "disposition": "Pending BI plus three unexplained count lines and no variances favour hold.",
+  "failure_stage": "The washer alarm has a rerun W91R, so the earliest open issues are the count lines and the midnight label date (cycle 23:48 on 04-09, label 04-10).",
+  "count_gaps": "F2 and H9 are short, and H9B is an off-list extra that may or may not be counted as the third; this holds 2 versus 3 in balance.",
+  "sterility_doubt": "The BI is pending with a future incubation_end; CI passed and the pack is intact and dry."
+ },
+ "request": "rec-F220-0026",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011091
+}

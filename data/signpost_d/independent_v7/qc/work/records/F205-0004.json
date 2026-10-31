@@ -1,0 +1,107 @@
+{
+ "id": "F205-0004",
+ "family": "F205",
+ "state": {
+  "flight": {
+   "no": "KT903",
+   "reg": "OY-KTB",
+   "type": "ATR72",
+   "std": "2024-08-21T09:30:00Z",
+   "turn": "quick_turn"
+  },
+  "times": {
+   "on_blocks": "2024-08-21T08:50:00Z",
+   "last_bag": "2024-08-21T09:12:00Z",
+   "doors_closed": "2024-08-21T09:20:00Z",
+   "off_blocks": "2024-08-21T09:32:00Z",
+   "delay_code": "cargo_late",
+   "delay_min": 106
+  },
+  "load": {
+   "pax_total": 58,
+   "bags_count": 40,
+   "cargo_kg": 900,
+   "fuel_kg": 1800,
+   "captain_accepted": null
+  },
+  "hold_log": [
+   {
+    "pos": "1",
+    "bags": 40,
+    "cargo_kg": 720
+   }
+  ],
+  "services": {
+   "fuel": {
+    "uplift_kg": 1800
+   },
+   "pushback": null
+  }
+ },
+ "factors": {
+  "bag_mismatch_size": "trivial_1_2_bags",
+  "mismatch_location": "cargo_weight_vs_uld_entries",
+  "missing_record": "none",
+  "milestone_out_of_order": false,
+  "delay_minutes": 2,
+  "delay_code_fit": "contradicted",
+  "explanatory_remark": false,
+  "pending_signoff": true,
+  "dg_on_board": false,
+  "decoy_noise": "none",
+  "boundary_value": false,
+  "turn_type": "quick_turn"
+ },
+ "factors_sampled": {
+  "bag_mismatch_size": "trivial_1_2_bags",
+  "mismatch_location": "cargo_weight_vs_uld_entries",
+  "missing_record": "none",
+  "milestone_out_of_order": false,
+  "delay_minutes": 106,
+  "delay_code_fit": "contradicted",
+  "explanatory_remark": false,
+  "pending_signoff": true,
+  "dg_on_board": false,
+  "decoy_noise": "none",
+  "boundary_value": false,
+  "turn_type": "quick_turn"
+ },
+ "plan": {
+  "load_reconciled": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "delay_code_supported": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "log_disposition": {
+   "clarity": "clear",
+   "target": "hold_confirm",
+   "second": null
+  },
+  "offblock_delay": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "failed_checks": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 92,
+ "deciding": {
+  "load_reconciled": "Loadsheet cargo 900 kg against ULD entry 720 kg; 180 kg gap.",
+  "delay_code_supported": "Code 'cargo_late' and delay_min 106, but last_bag at 09:12 and off-blocks 09:32 against STD 09:30 show about 2 min, so the code is contradicted.",
+  "log_disposition": "captain_accepted is null, which must be confirmed before closing.",
+  "offblock_delay": "Off-blocks 09:32 against STD 09:30 is 2 min, but the stated delay_min of 106 leaves a split between level 0 and level 1.",
+  "failed_checks": "Cargo mismatch, unsupported delay code, missing captain acceptance and null pushback record; three or four failures are both defensible."
+ },
+ "request": "rec-F205-0001",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.006657
+}

@@ -1,0 +1,119 @@
+{
+ "id": "F205-0044",
+ "family": "F205",
+ "state": {
+  "flight": {
+   "no": "TB330",
+   "reg": "D-ABQK",
+   "std": "2025-07-03T11:00",
+   "revised_std": "2025-07-03T11:40",
+   "turn": "quick"
+  },
+  "times": {
+   "on_blocks": "2025-07-03T09:58",
+   "fuel_start": "2025-07-03T10:20",
+   "boarding_start": "2025-07-03T10:45",
+   "doors_closed": "2025-07-03T11:48",
+   "off_blocks": "2025-07-03T11:55",
+   "delay_code": "fuelling",
+   "delay_min": 55
+  },
+  "load": {
+   "pax_total": 132,
+   "bags_count": 101,
+   "bags_kg": 1412,
+   "fuel_kg": 6500,
+   "captain_accepted": true,
+   "notoc": null
+  },
+  "hold_log": [
+   {
+    "pos": "1",
+    "bags": 55,
+    "kg": 760,
+    "dg": false
+   },
+   {
+    "pos": "2",
+    "bags": 46,
+    "kg": 636,
+    "dg": false
+   }
+  ],
+  "services": {
+   "fuel": {
+    "uplift_kg": 6490,
+    "end": "2025-07-03T10:52"
+   },
+   "pushback": {
+    "done": true
+   }
+  }
+ },
+ "factors": {
+  "bag_mismatch_size": "none",
+  "mismatch_location": "hold_weight_vs_loadsheet_kg",
+  "missing_record": "none",
+  "milestone_out_of_order": false,
+  "delay_minutes": 55,
+  "delay_code_fit": "weakly_supported",
+  "explanatory_remark": false,
+  "pending_signoff": false,
+  "dg_on_board": false,
+  "decoy_noise": "revised_std_in_schedule",
+  "boundary_value": false,
+  "turn_type": "quick_turn"
+ },
+ "factors_sampled": {
+  "bag_mismatch_size": "none",
+  "mismatch_location": "fuel_uplift_vs_loadsheet_fuel",
+  "missing_record": "notoc_missing",
+  "milestone_out_of_order": false,
+  "delay_minutes": 102,
+  "delay_code_fit": "contradicted",
+  "explanatory_remark": true,
+  "pending_signoff": false,
+  "dg_on_board": true,
+  "decoy_noise": "revised_std_in_schedule",
+  "boundary_value": false,
+  "turn_type": "quick_turn"
+ },
+ "plan": {
+  "load_reconciled": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "delay_code_supported": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "log_disposition": {
+   "clarity": "clear",
+   "target": "close_clean",
+   "second": null
+  },
+  "offblock_delay": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  },
+  "failed_checks": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 83,
+ "deciding": {
+  "load_reconciled": "Bags 55+46=101 match, but hold kg 760+636=1396 vs loadsheet 1412 is about 1.1% apart, a slight overrun of tolerance.",
+  "delay_code_supported": "Fuelling ended 10:52, yet boarding_start 10:45 and doors_closed 11:48 point to other activity; the code is only loosely supported.",
+  "log_disposition": "Counts match, captain accepted, no dg flags so a null notoc is irrelevant, fuel 6490 vs 6500 is close; nothing needs action.",
+  "offblock_delay": "Off-blocks 11:55 vs original STD 11:00 is 55 minutes; the revised_std 11:40 is a decoy.",
+  "failed_checks": "Kg tolerance, 55-minute delay, the weakly supported code and the fuel difference could together make 2 or 3 or more failures."
+ },
+ "request": "rec-F205-0041",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011346
+}

@@ -1,0 +1,144 @@
+{
+ "id": "F201-0054",
+ "family": "F201",
+ "state": {
+  "register_header": {
+   "drug": "midazolam",
+   "concentration_mg_ml": 5,
+   "witness_required": false,
+   "opening_balance_ml": 100
+  },
+  "entries": [
+   {
+    "entry_id": 1,
+    "type": "use",
+    "qty_ml": 10,
+    "running_balance_ml": 90,
+    "signed_by": "V2"
+   },
+   {
+    "entry_id": 2,
+    "type": "use",
+    "qty_ml": 8,
+    "running_balance_ml": 77,
+    "signed_by": null
+   },
+   {
+    "entry_id": 3,
+    "type": "use",
+    "qty_ml": 6,
+    "running_balance_ml": 71,
+    "signed_by": null
+   },
+   {
+    "entry_id": 4,
+    "type": "use",
+    "qty_ml": 4,
+    "running_balance_ml": 66,
+    "signed_by": null
+   },
+   {
+    "entry_id": 5,
+    "type": "use",
+    "qty_ml": 2,
+    "running_balance_ml": 64,
+    "signed_by": "LK-88"
+   }
+  ],
+  "clinical_records": [
+   {
+    "patient_id": "P4",
+    "dose": 50,
+    "dose_unit": "mg"
+   }
+  ],
+  "stock_check": {
+   "counted_ml": 66,
+   "batch_no": "M5",
+   "overfill_allowance_ml": 0.5
+  },
+  "disposals": [
+   {
+    "batch_no": "M5",
+    "qty_ml": 2,
+    "register_entry_id": null,
+    "witness_id": null
+   }
+  ],
+  "exceptions": [
+   {
+    "batch_no": "M5",
+    "qty_ml": 1.5,
+    "valid_to": "2025-12-31"
+   }
+  ]
+ },
+ "factors": {
+  "drug_profile": "midazolam_5mg_ml",
+  "arithmetic_slip_count": 2,
+  "unrecorded_admin": "none",
+  "clinical_records_missing": false,
+  "disposal_state": "removed_unlogged",
+  "unexplained_shortfall_pct": 2.0,
+  "variance_exception": "valid_partial_cover",
+  "manufacturer_overfill": true,
+  "auth_gap_count": 4,
+  "count_out_of_order": false,
+  "unit_mismatch": true,
+  "locum_signatory": true,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "drug_profile": "midazolam_5mg_ml",
+  "arithmetic_slip_count": 2,
+  "unrecorded_admin": "none",
+  "clinical_records_missing": false,
+  "disposal_state": "removed_unlogged",
+  "unexplained_shortfall_pct": 14.6,
+  "variance_exception": "valid_partial_cover",
+  "manufacturer_overfill": true,
+  "auth_gap_count": 3,
+  "count_out_of_order": false,
+  "unit_mismatch": true,
+  "locum_signatory": true,
+  "boundary_case": false
+ },
+ "plan": {
+  "unexplained_shortfall": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "line_disposition": {
+   "clarity": "clear",
+   "target": "hold_pending",
+   "second": null
+  },
+  "variance_cause": {
+   "clarity": "clear",
+   "target": "arithmetic_slip",
+   "second": null
+  },
+  "variance_size": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  },
+  "auth_gaps": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  }
+ },
+ "target_words": 68,
+ "deciding": {
+  "unexplained_shortfall": "Recomputed balance 70 ml vs counted 66 ml; exception 1.5 ml and overfill 0.5 ml leave about 2 ml, partly an unlogged 2 ml removal.",
+  "line_disposition": "Missing signatures and the unlogged disposal need confirmation before closure, while the small remaining variance does not point to a loss report.",
+  "variance_cause": "Entries 2 (77 vs 82) and 4 (66 vs 67) have balances inconsistent with the previous balance, a 6 ml written-vs-recomputed gap, the largest item.",
+  "variance_size": "Remaining 70-66-1.5-0.5 = 2 ml on 100 ml handled, right at the 2% boundary between trace and material.",
+  "auth_gaps": "signed_by null on entries 2, 3 and 4 plus the disposal... plainly four or more gaps; LK-88 locum entry 5 is signed and valid."
+ },
+ "request": "rec-F201-0051",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012855
+}

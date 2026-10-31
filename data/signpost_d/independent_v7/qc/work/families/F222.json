@@ -1,0 +1,331 @@
+{
+ "id": "F222",
+ "domain": "research ethics application screening",
+ "role": "Research ethics screening officer at a university research ethics office, checking each incoming application before it is allocated to reviewers",
+ "setting": "Applications for research involving human participants reach the ethics office as structured records assembled from the online submission form, uploaded consent materials and the office's attachment tracker. The screening officer reviews one application at a time. For each one they compare the protocol against the consent materials and data management plan, check required attachments and history, gauge residual participant risk and time pressure, and decide how the application proceeds. Applications range from anonymous staff surveys to clinical-adjacent studies with vulnerable groups. The office has no free-text notes in the screening view, only structured fields.",
+ "questions": {
+  "procedures_disclosed": {
+   "type": "noul",
+   "instructions": "Every procedure in the protocol is described in the participant information sheet.",
+   "criteria": null
+  },
+  "retention_within_consent": {
+   "type": "noul",
+   "instructions": "Planned data retention and storage stay within what participants consented to.",
+   "criteria": {
+    "true": "Duration and location within consent terms, or approved exception filed.",
+    "false": "Retention or storage exceeds consent terms with no exception filed."
+   }
+  },
+  "screening_disposition": {
+   "type": "choice",
+   "instructions": "Which screening disposition should this application receive now?",
+   "criteria": {
+    "accept_for_review": "Nothing outstanding; forward to reviewers unchanged.",
+    "minor_query": "No blocking items; one non-blocking discrepancy flagged while forwarding.",
+    "hold_confirmation": "Exactly one blocking item awaits confirmation before forwarding.",
+    "return_revision": "Two or more blocking items, or a required section missing.",
+    "decline_ineligible": "Data collection already began before approval; cannot be screened."
+   }
+  },
+  "screening_urgency": {
+   "type": "score",
+   "instructions": "How urgent is screening, judged by days until recruitment starts?",
+   "criteria": [
+    "Recruitment begins more than 60 days after screening",
+    "Recruitment begins 31 to 60 days after screening",
+    "Recruitment begins 8 to 30 days after screening",
+    "Recruitment begins within 7 days or date passed"
+   ]
+  },
+  "residual_risk": {
+   "type": "score",
+   "instructions": "What residual risk do the study procedures pose to participants?",
+   "criteria": [
+    "Minimal: no risk elements listed in protocol or participants",
+    "Low: risk elements present, each has a documented safeguard",
+    "Moderate: exactly one non-invasive risk element lacks a safeguard",
+    "High: two or more unsafeguarded elements, none invasive or deceptive",
+    "Critical: an invasive or deceptive procedure lacks a safeguard"
+   ]
+  }
+ },
+ "factors": [
+  {
+   "name": "procedure_sheet_mismatch",
+   "description": "How the protocol procedure list compares with procedures_described in the consent materials: identical, a trivial naming difference for the same procedure, one procedure absent from the sheet, or several absent",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "trivial_naming",
+    "one_missing",
+    "several_missing"
+   ],
+   "weights": [
+    0.4,
+    0.2,
+    0.28,
+    0.12
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S5",
+    "S6"
+   ]
+  },
+  {
+   "name": "retention_conflict",
+   "description": "Whether data_management retention or storage departs from what consent_materials states: none, retention longer than consented, or storage location not named in consent",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "retention_longer",
+    "storage_differs"
+   ],
+   "weights": [
+    0.45,
+    0.33,
+    0.22
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S5"
+   ]
+  },
+  {
+   "name": "retention_exception_filed",
+   "description": "Whether an approved data-retention exception reference exists and matches an attachment with status approved; mitigates a retention conflict",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S5"
+   ]
+  },
+  {
+   "name": "risk_element_count",
+   "description": "Number of risk elements in the study (identifiable data, sensitive topic, vulnerable group, physical measurement, deception), spread across protocol and participants sections",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 4,
+   "p_true": 0,
+   "skills": [
+    "S7",
+    "S4"
+   ]
+  },
+  {
+   "name": "unsafeguarded_count",
+   "description": "How many of the non-invasive risk elements have no safeguard_ref or a safeguard_ref pointing to a missing or unapproved attachment; capped at risk_element_count",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 3,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S4",
+    "S6"
+   ]
+  },
+  {
+   "name": "invasive_or_deceptive",
+   "description": "Whether the protocol includes an invasive procedure (blood sample, biopsy, drug administration) or deception with debrief",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.25,
+   "skills": [
+    "S7"
+   ]
+  },
+  {
+   "name": "invasive_safeguard_present",
+   "description": "Whether the invasive or deceptive procedure has a documented safeguard (clinician present, debrief protocol attached and approved); about half of alarming procedures carry it",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3"
+   ]
+  },
+  {
+   "name": "days_to_start",
+   "description": "Days between screening date and planned recruitment start in participants section; negative means the date has passed",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": -10,
+   "max": 120,
+   "p_true": 0,
+   "skills": [
+    "S4",
+    "S6",
+    "S7"
+   ]
+  },
+  {
+   "name": "start_date_conflict",
+   "description": "Whether the recruitment start in participants differs from the planned start in application: none, a shift staying within the same urgency band, or a shift crossing a band boundary",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "within_band",
+    "crosses_band"
+   ],
+   "weights": [
+    0.6,
+    0.25,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S6"
+   ]
+  },
+  {
+   "name": "attachment_blockers",
+   "description": "Count of required attachments that are missing, unsigned or expired (supervisor declaration, sponsor letter, ethics training certificate, gatekeeper permission)",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 3,
+   "p_true": 0,
+   "skills": [
+    "S4",
+    "S7"
+   ]
+  },
+  {
+   "name": "blocker_confirmed_elsewhere",
+   "description": "Whether an apparently missing or expired attachment is superseded by a later history event (renewed certificate logged, letter received) so it no longer blocks",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S1"
+   ]
+  },
+  {
+   "name": "section_missing",
+   "description": "Whether one required top-level section (consent_materials or data_management) is absent or null",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.1,
+   "skills": [
+    "S4"
+   ]
+  },
+  {
+   "name": "collection_started",
+   "description": "Whether history shows data collection events dated before screening, indicating the study began without approval; a pilot under a separate approved reference is the benign look-alike",
+   "kind": "categorical",
+   "values": [
+    "no",
+    "pilot_under_other_approval",
+    "yes"
+   ],
+   "weights": [
+    0.84,
+    0.1,
+    0.06
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S7",
+    "S5"
+   ]
+  },
+  {
+   "name": "decoy_noise",
+   "description": "Alarming-looking but irrelevant fields: high prior resubmission count, international collaborator flag, large sample size, student applicant",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "one_decoy",
+    "two_decoys"
+   ],
+   "weights": [
+    0.35,
+    0.4,
+    0.25
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S7"
+   ]
+  }
+ ],
+ "sections": [
+  {
+   "name": "application",
+   "description": "Reference, application type, applicant role, department, submitted_on, screened_on, planned_start, prior_submissions, collaborator flags"
+  },
+  {
+   "name": "protocol",
+   "description": "Design, list of procedures with codes, and risk_elements each with type and safeguard_ref"
+  },
+  {
+   "name": "participants",
+   "description": "Participant groups with age ranges, vulnerability flags, target_n, recruitment_start and recruitment route"
+  },
+  {
+   "name": "consent_materials",
+   "description": "PIS and consent form versions, procedures_described list, retention_stated_months, storage_stated, withdrawal terms"
+  },
+  {
+   "name": "data_management",
+   "description": "Identifiable flag, retention_months, storage_location, exception_ref, anonymisation_point"
+  },
+  {
+   "name": "attachments_history",
+   "description": "Attachments list with code, status, signed and expires_on; dated history events such as received, renewed, data_collected"
+  }
+ ],
+ "rendering_notes": "No free-text fields; all values structured. procedure_sheet_mismatch: protocol.procedures is a list of {code, name}; consent_materials.procedures_described is a list of names. trivial_naming uses a synonym of the same procedure (e.g. 'semi-structured interview' vs 'interview, semi-structured'; 'saliva swab' vs 'buccal swab'); one_missing or several_missing drop names from the sheet. Lists are reordered so mismatches sit at varied positions. retention_conflict: data_management.retention_months exceeds consent_materials.retention_stated_months, or data_management.storage_location (e.g. 'external_cloud_eu') is not the consent storage_stated value (e.g. 'university_server'). retention_exception_filed: data_management.exception_ref is non-null and matches an attachments_history entry with code DRX and status 'approved'; a decoy variant has exception_ref set but the attachment status 'pending' or a different reference, which does not mitigate. risk_element_count: protocol.risk_elements list entries plus participants.groups vulnerability flags (under_18, lacks_capacity, patients, prisoners); data_management.identifiable true counts as an element. unsafeguarded_count: elements whose safeguard_ref is null or points to an attachment that is missing or not approved. invasive_or_deceptive appears as a procedure code (BLD, BIO, IMP, DEC) in protocol; invasive_safeguard_present as a safeguard_ref to an approved attachment (CLN or DBF). days_to_start: computed from application.screened_on and participants.recruitment_start, never stated as a number. start_date_conflict: application.planned_start differs from participants.recruitment_start; crosses_band places the two dates in different urgency bands so judges may split, and boundary values (exactly 30, 31, 60, 61, 7 or 8 days) are deliberately frequent. attachment_blockers: attachments with status 'missing', signed false, or expires_on before screened_on. blocker_confirmed_elsewhere: a later history event (e.g. 'training_renewed', 'sponsor_letter_received') dated on or before screened_on cancels one blocker. Blocking items for disposition are unresolved attachment blockers, procedures missing from the sheet, and unexcused retention conflicts; trivial naming differences and within-band date shifts are non-blocking. section_missing: consent_materials or data_management is null. collection_started 'yes': a history event 'data_collected' dated before screened_on with no approval reference; 'pilot_under_other_approval' shows the same event carrying an approval_ref to a different approved study, which is benign. decline_ineligible takes precedence over other dispositions. Decoys: application.prior_submissions of 3 or more, intl_collaborator true, target_n in the thousands, applicant_role 'pgr_student'; none affect any answer. The record never contains fields such as risk_tier, urgency, disposition, complete or consistent, and never summarises mismatch counts.",
+ "skills": [
+  "S1",
+  "S3",
+  "S4",
+  "S5",
+  "S6",
+  "S7"
+ ],
+ "shared_scale": null,
+ "design_cost": 0.172376
+}

@@ -1,0 +1,153 @@
+{
+ "id": "F236-0026",
+ "family": "F236",
+ "state": {
+  "changeover": {
+   "line": "L2",
+   "from_code": "BR-12",
+   "to_code": "BR-31",
+   "from_allergens": [
+    "wheat",
+    "sesame"
+   ],
+   "to_allergens": [
+    "wheat"
+   ]
+  },
+  "cleaning": {
+   "steps": [
+    {
+     "id": "strip",
+     "done": true
+    },
+    {
+     "id": "wash",
+     "done": true
+    }
+   ],
+   "part_swap": true,
+   "dedicated_set": "DT-4"
+  },
+  "verification": {
+   "swabs": [
+    {
+     "id": "S1",
+     "target": "sesame",
+     "ppm": 14,
+     "limit_ppm": 10,
+     "at": "2025-03-04T07:40"
+    },
+    {
+     "id": "S2",
+     "target": "sesame",
+     "ppm": 0,
+     "limit_ppm": 10,
+     "at": "2025-03-04T08:10"
+    }
+   ]
+  },
+  "production": {
+   "line": "L2",
+   "product_code": "BR-32",
+   "start_at": "2025-03-04T07:50",
+   "end_at": "2025-03-04T08:40",
+   "qty": 44,
+   "unit": "kg",
+   "packaging_allergens": [
+    "wheat",
+    "may_contain:sesame"
+   ]
+  },
+  "approvals": {
+   "qa_signoff": {
+    "by": "Q7",
+    "at": "2025-03-04T07:45"
+   },
+   "deviations": [
+    {
+     "id": "DV-9",
+     "scope": "L2 S1 retest waiver",
+     "approved_at": "2025-03-04T07:30"
+    }
+   ]
+  },
+  "history": [
+   false,
+   false,
+   false,
+   false,
+   true,
+   true,
+   true,
+   true,
+   true,
+   true
+  ]
+ },
+ "factors": {
+  "allergen_transition": "removes_allergen",
+  "cleaning_completion": "full",
+  "swab_outcome": "over_limit_no_retest",
+  "swab_timing_mismatch": true,
+  "cross_section_discrepancy": "product_code_mismatch",
+  "exposed_quantity_kg": 18.0,
+  "approved_deviation": true,
+  "label_precaution": true,
+  "dedicated_tooling": true,
+  "qa_signoff_state": "signed_before_start",
+  "line_failure_history": 4,
+  "boundary_value": false
+ },
+ "factors_sampled": {
+  "allergen_transition": "removes_allergen",
+  "cleaning_completion": "full",
+  "swab_outcome": "all_negative",
+  "swab_timing_mismatch": true,
+  "cross_section_discrepancy": "product_code_mismatch",
+  "exposed_quantity_kg": 482.42,
+  "approved_deviation": true,
+  "label_precaution": true,
+  "dedicated_tooling": true,
+  "qa_signoff_state": "signed_before_start",
+  "line_failure_history": 4,
+  "boundary_value": false
+ },
+ "plan": {
+  "swabs_cleared": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "line_disposition": {
+   "clarity": "leaning",
+   "target": "release_conditional",
+   "second": null
+  },
+  "worst_deficiency": {
+   "clarity": "contested",
+   "target": "records_only",
+   "second": "cleaning_shortfall"
+  },
+  "exposed_product": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  },
+  "residue_evidence": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  }
+ },
+ "target_words": 45,
+ "deciding": {
+  "swabs_cleared": "S1 sesame 14 ppm vs limit 10 has no retest, and S2 is timed after start; but DV-9 waives the S1 retest, so true is only modestly favoured.",
+  "line_disposition": "Released under an added control: may_contain:sesame on packaging, with a waiver covering the missing retest.",
+  "worst_deficiency": "Production product_code BR-32 differs from to_code BR-31 (records) versus the over-limit S1 swab (cleaning); both defensible.",
+  "exposed_product": "44 kg batch 07:50-08:40, last passing swab 08:10, so under 50 kg exposed.",
+  "residue_evidence": "S1 over limit (14 vs 10) and no retest entry, though S2 is negative and the waiver adds doubt."
+ },
+ "request": "rec-F236-0026",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012594
+}

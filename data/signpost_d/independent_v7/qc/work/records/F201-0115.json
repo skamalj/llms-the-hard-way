@@ -1,0 +1,154 @@
+{
+ "id": "F201-0115",
+ "family": "F201",
+ "state": {
+  "register_header": {
+   "drug": "buprenorphine",
+   "concentration_mg_ml": 0.3,
+   "witness_required": false,
+   "opening_balance_ml": 20
+  },
+  "entries": [
+   {
+    "entry_id": "E1",
+    "date": "2024-03-01",
+    "type": "receipt",
+    "qty_ml": 10,
+    "running_balance_ml": 30,
+    "signed_by": "S1"
+   },
+   {
+    "entry_id": "E2",
+    "date": "2024-03-04",
+    "type": "use",
+    "qty_ml": 2,
+    "patient_id": "P1",
+    "running_balance_ml": 29,
+    "signed_by": "S1"
+   },
+   {
+    "entry_id": "E3",
+    "date": "2024-03-09",
+    "type": "use",
+    "qty_ml": 1,
+    "patient_id": "P2",
+    "running_balance_ml": 27,
+    "signed_by": null
+   },
+   {
+    "entry_id": "E4",
+    "date": "2024-03-15",
+    "type": "use",
+    "qty_ml": 1,
+    "patient_id": "P3",
+    "running_balance_ml": 25,
+    "signed_by": "LK-204"
+   }
+  ],
+  "clinical_records": [
+   {
+    "patient_id": "P1",
+    "date": "2024-03-04",
+    "dose": 600,
+    "dose_unit": "mcg"
+   },
+   {
+    "patient_id": "P2",
+    "date": "2024-03-09",
+    "dose": 300,
+    "dose_unit": "mcg"
+   },
+   {
+    "patient_id": "P3",
+    "date": "2024-03-15",
+    "dose": 300,
+    "dose_unit": "mcg"
+   }
+  ],
+  "stock_check": {
+   "count_date": "2024-03-31",
+   "counted_ml": 25.6,
+   "batch_no": "B2",
+   "overfill_allowance_ml": 0
+  },
+  "disposals": [
+   {
+    "batch_no": "B2",
+    "qty_ml": 0.3,
+    "reason_code": "spillage",
+    "removed_date": "2024-03-20",
+    "register_entry_id": "E5",
+    "witness_id": null,
+    "denatured_date": null
+   }
+  ]
+ },
+ "factors": {
+  "drug_profile": "buprenorphine_0.3mg_ml",
+  "arithmetic_slip_count": 3,
+  "unrecorded_admin": "none",
+  "clinical_records_missing": false,
+  "disposal_state": "entered_unwitnessed",
+  "unexplained_shortfall_pct": 0.33,
+  "variance_exception": "none",
+  "manufacturer_overfill": false,
+  "auth_gap_count": 1,
+  "count_out_of_order": false,
+  "unit_mismatch": true,
+  "locum_signatory": true,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "drug_profile": "buprenorphine_0.3mg_ml",
+  "arithmetic_slip_count": 3,
+  "unrecorded_admin": "none",
+  "clinical_records_missing": false,
+  "disposal_state": "entered_unwitnessed",
+  "unexplained_shortfall_pct": 13.68,
+  "variance_exception": "none",
+  "manufacturer_overfill": false,
+  "auth_gap_count": 4,
+  "count_out_of_order": false,
+  "unit_mismatch": true,
+  "locum_signatory": true,
+  "boundary_case": false
+ },
+ "plan": {
+  "unexplained_shortfall": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "line_disposition": {
+   "clarity": "balanced",
+   "target": "hold_pending",
+   "second": "correct_and_sign"
+  },
+  "variance_cause": {
+   "clarity": "leaning",
+   "target": "undocumented_disposal",
+   "second": null
+  },
+  "variance_size": {
+   "clarity": "contested",
+   "target": "0",
+   "second": "1"
+  },
+  "auth_gaps": {
+   "clarity": "contested",
+   "target": "1",
+   "second": "2"
+  }
+ },
+ "target_words": 45,
+ "deciding": {
+  "unexplained_shortfall": "Recomputed balance 26 vs counted 25.6; the 0.3 ml spillage disposal covers most of it, leaving 0.1 ml, so the shortfall is mostly but not fully explained.",
+  "line_disposition": "Three balance slips are clerical, but the disposal lacks a witness and denaturing date and E3 is unsigned, so hold and correct_and_sign are both defensible.",
+  "variance_cause": "The 0.3 ml disposal points to E5, which does not appear in entries, so the largest shortfall piece is a removal without a register line; the three slips net to only 1 ml of shown balance and do not change the count comparison.",
+  "variance_size": "After the 0.3 ml disposal 0.1 ml remains on 30 ml handled (about 0.3%), nil or trace depending on whether the disposal counts as documented.",
+  "auth_gaps": "Only E3 has signed_by null; the null witness on the disposal is not a gap since witness_required is false, though a reader might count it, and LK-204 is a valid locum."
+ },
+ "request": "rec-F201-0111",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.015791
+}

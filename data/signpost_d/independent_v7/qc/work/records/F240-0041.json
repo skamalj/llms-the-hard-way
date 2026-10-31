@@ -1,0 +1,140 @@
+{
+ "id": "F240-0041",
+ "family": "F240",
+ "state": {
+  "asset": {
+   "inverter_id": "INV-B4-07",
+   "serial": "SN55120",
+   "model": "CP-2000",
+   "rated_ac_kw": 2000,
+   "block": "B4",
+   "feeder": "F2"
+  },
+  "fault_event": {
+   "serial": "SN55120",
+   "code": "F-GND-01",
+   "fw_severity": 2,
+   "ts_start": "2024-06-11T09:40:00Z",
+   "ts_clear": "2024-06-11T13:05:00Z",
+   "auto_restarts": 2
+  },
+  "telemetry": {
+   "samples": [
+    {
+     "ts": "2024-06-11T07:10:00Z",
+     "ac_kw": 0,
+     "exp_kw": 610,
+     "poa_wm2": 540,
+     "limit_pct": 0
+    },
+    {
+     "ts": "2024-06-11T13:10:00Z",
+     "ac_kw": 760,
+     "exp_kw": 1650,
+     "poa_wm2": 890,
+     "limit_pct": 38
+    }
+   ],
+   "exp_day_kwh": 12000,
+   "exp_window_kwh": 5200,
+   "act_window_kwh": 2764
+  },
+  "site_context": {
+   "grid_events": [],
+   "maint_windows": [
+    {
+     "from": "2024-06-11T08:00:00Z",
+     "to": "2024-06-11T12:00:00Z",
+     "scope": "B2"
+    }
+   ],
+   "neighbours": null
+  },
+  "history": {
+   "faults": [
+    {
+     "date": "2024-06-03",
+     "code": "F-COM-04"
+    },
+    {
+     "date": "2024-06-10",
+     "code": "F-GND-01"
+    }
+   ],
+   "work_orders": [
+    {
+     "wo_id": "WO-8812",
+     "opened": "2024-06-08",
+     "completed": null,
+     "retest_ok": null
+    }
+   ]
+  }
+ },
+ "factors": {
+  "fault_class": "dc_ground_fault",
+  "log_telemetry_mismatch": "large_over_2h",
+  "grid_event_concurrent": false,
+  "maintenance_window_active": false,
+  "neighbour_cross_check": "no_neighbour_data",
+  "repeat_count_30d": 1,
+  "last_repair_status": "open",
+  "current_limit_pct": 38.0,
+  "yield_loss_pct": 20.3,
+  "low_irradiance_window": false,
+  "serial_mismatch": false,
+  "boundary_placement": true
+ },
+ "factors_sampled": {
+  "fault_class": "dc_ground_fault",
+  "log_telemetry_mismatch": "large_over_2h",
+  "grid_event_concurrent": false,
+  "maintenance_window_active": false,
+  "neighbour_cross_check": "no_neighbour_data",
+  "repeat_count_30d": 0,
+  "last_repair_status": "open",
+  "current_limit_pct": 93.7,
+  "yield_loss_pct": 23.15,
+  "low_irradiance_window": false,
+  "serial_mismatch": false,
+  "boundary_placement": true
+ },
+ "plan": {
+  "genuine_defect": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "post_repair_repeat": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "next_step": {
+   "clarity": "balanced",
+   "target": "hold_confirm",
+   "second": "watch_list"
+  },
+  "yield_loss": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  },
+  "capacity_unavailable": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  }
+ },
+ "target_words": 136,
+ "deciding": {
+  "genuine_defect": "Ground fault code with no grid event and serials matching favours hardware, but no neighbour data and the zero-output stretch starting 2.5h before ts_start keep it open.",
+  "post_repair_repeat": "Work order WO-8812 is open (completed null), so no completed repair exists; the F-GND-01 on 06-10 falls after its open date, which keeps a repeat reading plausible.",
+  "next_step": "Cleared log but unreliable timing, open work order and no neighbour data hold hold_confirm and watch_list in balance.",
+  "yield_loss": "(5200-2764)/12000 = 20.3%, right at the 20% boundary between material and severe.",
+  "capacity_unavailable": "Last sample ac_kw 760 of 2000 rated with limit_pct 38 means derated below 50% but exporting."
+ },
+ "request": "rec-F240-0041",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.017446
+}

@@ -1,0 +1,140 @@
+{
+ "id": "F235-0008",
+ "family": "F235",
+ "state": {
+  "station": {
+   "station_id": "S305",
+   "river": "Aln",
+   "gauge_type": "float",
+   "backup": {
+    "installed": true,
+    "status": "reporting"
+   },
+   "telemetry": {
+    "batt_v": 12.7,
+    "rssi_dbm": -81
+   }
+  },
+  "visit": {
+   "visit_id": "V8841",
+   "type": "routine",
+   "visit_date": "2024-06-03",
+   "tasks_planned": 3,
+   "abort_reason": null
+  },
+  "checks": {
+   "pre": {
+    "board_m": [
+     0.812,
+     0.814
+    ],
+    "logger_m": 0.804,
+    "time": "09:10"
+   },
+   "post": {
+    "board_m": [
+     0.81,
+     0.811
+    ],
+    "logger_m": 0.803,
+    "time": "11:20"
+   }
+  },
+  "works": {
+   "tasks": [
+    {
+     "task": "clean stilling well",
+     "status": "done"
+    },
+    {
+     "task": "battery check",
+     "status": "done"
+    },
+    {
+     "task": "download logger",
+     "status": "done"
+    }
+   ],
+   "parts": null,
+   "bench_test": {
+    "result_mm_error": 1,
+    "date": "2024-06-03"
+   },
+   "logger_gap_h": 49
+  },
+  "defects": [],
+  "notes": {
+   "tech_note": "Lid latch a bit stiff, otherwise tidy.",
+   "supervisor_comment": "Logger offset is the approved temporary reference until the board resurvey.",
+   "signed_off": "2024-06-05"
+  }
+ },
+ "factors": {
+  "pre_visit_offset_mm": 9.0,
+  "check_reading_spread_mm": 2.0,
+  "drift_cause": "no_drift",
+  "cause_evidence": "single_indicator",
+  "visit_completion": "full",
+  "post_visit_check_logged": true,
+  "residual_defect_class": "none",
+  "backup_sensor_ok": true,
+  "benign_explanation": true,
+  "record_gap": "none",
+  "logger_gap_hours": 49,
+  "telemetry_decoy": "normal",
+  "note_tone": "neutral"
+ },
+ "factors_sampled": {
+  "pre_visit_offset_mm": 23.23,
+  "check_reading_spread_mm": 1.28,
+  "drift_cause": "no_drift",
+  "cause_evidence": "single_indicator",
+  "visit_completion": "full",
+  "post_visit_check_logged": true,
+  "residual_defect_class": "secondary_channel",
+  "backup_sensor_ok": true,
+  "benign_explanation": true,
+  "record_gap": "none",
+  "logger_gap_hours": 49,
+  "telemetry_decoy": "normal",
+  "note_tone": "neutral"
+ },
+ "plan": {
+  "sensor_fault_cause": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "visit_disposition": {
+   "clarity": "balanced",
+   "target": "sign_off",
+   "second": "hold"
+  },
+  "data_treatment": {
+   "clarity": "clear",
+   "target": "mark_provisional",
+   "second": null
+  },
+  "offset_size": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  },
+  "residual_defect": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 108,
+ "deciding": {
+  "sensor_fault_cause": "Bench test error is 1 mm, within spec, and the supervisor explains the offset as an approved temporary reference.",
+  "visit_disposition": "All tasks are done and the post check is logged with no defects, but the persisting 8 mm offset and the stiff latch in the note leave a hold plausible.",
+  "data_treatment": "The offset persists after the visit, tied to a temporary reference rather than a verified correction, so the data stay provisional.",
+  "offset_size": "Board mean 0.813 minus logger 0.804 is 9 mm.",
+  "residual_defect": "The defects list is empty, but the technician's note of a stiff lid latch could count as a housing defect."
+ },
+ "request": "rec-F235-0006",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011907
+}

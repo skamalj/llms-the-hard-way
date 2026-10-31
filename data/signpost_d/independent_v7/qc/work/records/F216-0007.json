@@ -1,0 +1,146 @@
+{
+ "id": "F216-0007",
+ "family": "F216",
+ "state": {
+  "session": {
+   "id": "PH-207",
+   "type": "pharmacy",
+   "date": "2024-06-03",
+   "start": "10:30",
+   "end": "13:00",
+   "next_session_date": "2024-06-03",
+   "next_start": "16:00"
+  },
+  "storage": {
+   "unit": "F3",
+   "probe": "product",
+   "last_calibration": "2023-02-10",
+   "alarms_30d": 2
+  },
+  "temp_log": {
+   "start": "11:00",
+   "int_min": 5,
+   "product_c": [
+    6.0,
+    7.5,
+    8.3,
+    8.6,
+    8.8,
+    8.5,
+    8.4,
+    8.2,
+    7.6,
+    6.5
+   ],
+   "manual_checks": [
+    {
+     "t": "11:30",
+     "min": 5.9,
+     "max": 8.8,
+     "cur": 8.0
+    }
+   ]
+  },
+  "stock": {
+   "lots": [
+    {
+     "lot_no": "B7710",
+     "expiry": "2025-03-31",
+     "tol_min_out": 60,
+     "opening": 12,
+     "wasted": 1,
+     "closing": 4
+    }
+   ]
+  },
+  "administration": [
+   {
+    "t": "10:50",
+    "lot_no": "B7710",
+    "n": 3
+   },
+   {
+    "t": "12:05",
+    "lot_no": "B7710",
+    "n": 5
+   }
+  ],
+  "excursion_actions": {
+   "start": "11:10",
+   "end": "11:40",
+   "quarantined": true,
+   "advice_requested_at": "11:20",
+   "advice_status": "CLR",
+   "advice_received_at": "11:50",
+   "revised_expiry": null
+  }
+ },
+ "factors": {
+  "true_excursion_minutes": 30,
+  "log_source_discrepancy": "minor_offset",
+  "buffered_probe_in_range": false,
+  "planned_maintenance": false,
+  "stability_clearance": "cleared_full",
+  "doses_during_exposure": 0,
+  "stock_count_gap": 1,
+  "lot_id_mismatch": false,
+  "lots_beyond_tolerance": "none",
+  "freezing_reading": false,
+  "boundary_case": false,
+  "unit_alarm_history": 2,
+  "session_type": "pharmacy"
+ },
+ "factors_sampled": {
+  "true_excursion_minutes": 83,
+  "log_source_discrepancy": "minor_offset",
+  "buffered_probe_in_range": false,
+  "planned_maintenance": false,
+  "stability_clearance": "cleared_full",
+  "doses_during_exposure": 1,
+  "stock_count_gap": 1,
+  "lot_id_mismatch": false,
+  "lots_beyond_tolerance": "some",
+  "freezing_reading": false,
+  "boundary_case": false,
+  "unit_alarm_history": 2,
+  "session_type": "pharmacy"
+ },
+ "plan": {
+  "dosed_uncleared": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "stock_reconciles": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "stock_disposition": {
+   "clarity": "clear",
+   "target": "release",
+   "second": null
+  },
+  "excursion_duration": {
+   "clarity": "contested",
+   "target": "2",
+   "second": "1"
+  },
+  "followup_urgency": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  }
+ },
+ "target_words": 47,
+ "deciding": {
+  "dosed_uncleared": "Doses at 10:50 (before excursion start 11:10) and 12:05 (after CLR received 11:50); none fall inside the uncleared window.",
+  "stock_reconciles": "Opening 12 - wasted 1 - administered 8 = 3, but closing is 4; a one-dose surplus, small enough that a count slip or wastage entry could explain it.",
+  "stock_disposition": "advice_status CLR with advice_received_at 11:50 and revised_expiry null: full clearance, no shortened use-by, so stock returns to normal use.",
+  "excursion_duration": "Six 5-minute readings (8.3-8.8) from 11:10 to 11:35 sum to exactly 30 minutes, the boundary between brief and extended; manual cur 8.0 vs logger 8.4 adds slight source uncertainty.",
+  "followup_urgency": "next_session_date equals the session date with next_start 16:00, so the stock count discrepancy and cleared excursion need to be handled the same day; leaning rather than certain since the excursion was cleared."
+ },
+ "request": "rec-F216-0006",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.017926
+}

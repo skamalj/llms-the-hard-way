@@ -1,0 +1,149 @@
+{
+ "id": "F224-0028",
+ "family": "F224",
+ "state": {
+  "request": {
+   "views": [
+    "BW_L"
+   ],
+   "ind": null,
+   "risk": "high",
+   "prior": "2024-01-08",
+   "date": "2024-07-10",
+   "exc": [],
+   "verbal_auth": [],
+   "flags": []
+  },
+  "exposures": [
+   {
+    "v": "BW_L",
+    "t": "09:30",
+    "kV": 60,
+    "s": 0.2,
+    "mGy": 2.04
+   },
+   {
+    "v": "BW_L",
+    "t": "09:33",
+    "kV": 60,
+    "s": 0.2,
+    "mGy": 2.04,
+    "retake_of": 1
+   },
+   {
+    "v": "PA_21",
+    "t": "09:36",
+    "mGy": 2.04
+   },
+   {
+    "v": "PA_22",
+    "t": "09:38",
+    "mGy": 2.04
+   }
+  ],
+  "image_review": {
+   "grade": 3,
+   "faults": [
+    "FC_OVER_DENSE"
+   ],
+   "sensor_err": [],
+   "second_grader": "done"
+  },
+  "equipment": {
+   "qa": "2023-05-02",
+   "int": 12,
+   "test": "pass",
+   "service": [],
+   "drl": {
+    "BW_L": 2.0,
+    "PA_21": 2.0,
+    "PA_22": 2.0
+   },
+   "console": [
+    {
+     "t": "09:31",
+     "kV": 60,
+     "s": 0.2
+    },
+    {
+     "t": "09:33",
+     "kV": 60,
+     "s": 0.2
+    }
+   ]
+  },
+  "operator": {
+   "id": "O2",
+   "signoff": null,
+   "prior_findings": 3
+  }
+ },
+ "factors": {
+  "indication_match": "missing",
+  "recall_interval_months": 6,
+  "dose_ratio_to_drl": 1.02,
+  "console_log_discrepancy": "timestamp_drift",
+  "retake_cause": "exposure_setting",
+  "equipment_qa_status": "overdue",
+  "approved_exception": false,
+  "patient_cooperation_flag": false,
+  "unrequested_exposure_count": 2,
+  "verbal_authorisation_logged": false,
+  "image_grade": "non_diagnostic",
+  "audit_completeness": "operator_signoff_missing",
+  "operator_prior_findings": 3
+ },
+ "factors_sampled": {
+  "indication_match": "missing",
+  "recall_interval_months": 6,
+  "dose_ratio_to_drl": 1.83,
+  "console_log_discrepancy": "timestamp_drift",
+  "retake_cause": "exposure_setting",
+  "equipment_qa_status": "overdue",
+  "approved_exception": false,
+  "patient_cooperation_flag": false,
+  "unrequested_exposure_count": 2,
+  "verbal_authorisation_logged": false,
+  "image_grade": "non_diagnostic",
+  "audit_completeness": "operator_signoff_missing",
+  "operator_prior_findings": 3
+ },
+ "plan": {
+  "justified": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "operator_retake": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "follow_up": {
+   "clarity": "contested",
+   "target": "hold_confirm",
+   "second": "operator_feedback"
+  },
+  "dose_position": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  },
+  "unjustified_count": {
+   "clarity": "clear",
+   "target": "3",
+   "second": null
+  }
+ },
+ "target_words": 131,
+ "deciding": {
+  "justified": "request.ind is null; the 6-month interval fits high risk, so the missing indication tips it to false with some doubt.",
+  "operator_retake": "Retake of BW_L with FC_OVER_DENSE at an unchanged 0.2 s points to a setting error, but QA last done 2023-05-02 with a 12-month interval is overdue, which holds equipment cause open.",
+  "follow_up": "operator.signoff is null, so a missing sign-off supports hold_confirm; 3 prior findings and an over-dense retake support operator_feedback.",
+  "dose_position": "All doses 2.04 mGy against DRL 2.0, a ratio of 1.02, right at the 100% boundary.",
+  "unjustified_count": "With no indication code, BW_L and its retake lack justified requests; PA_21 and PA_22 are unrequested with no verbal_auth or exception, giving four."
+ },
+ "request": "rec-F224-0026",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.0162
+}

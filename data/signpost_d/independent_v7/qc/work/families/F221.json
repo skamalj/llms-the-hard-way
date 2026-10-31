@@ -1,0 +1,303 @@
+{
+ "id": "F221",
+ "domain": "bus fleet brake and tyre inspections",
+ "role": "Depot maintenance controller who reviews each completed brake and tyre inspection sheet before signing a bus back into passenger service",
+ "setting": "A regional bus operator's depot engineering office. Fitters complete periodic brake and tyre inspections on single and double-deck buses, and the electronic sheet arrives with the vehicle record, the tyre fitment register and the open defect history. The controller checks one record at a time. The checks are whether the measurements, serials, odometer readings and dates agree across sections, whether earlier defects were properly closed, whether the inspection fell within its interval, and what to do with the vehicle next. Figures near a limit, missing tests and unverified repairs are routine. Many sheets need a recheck or one confirmation rather than a clean pass or a vehicle-off-road decision.",
+ "questions": {
+  "prior_defects_closed": {
+   "type": "noul",
+   "instructions": "Every defect carried from the previous inspection has a valid rectification entry.",
+   "criteria": {
+    "true": "All carried defects closed, dated after raising, signed",
+    "false": "Any carried defect open, unsigned or rectified before raised"
+   }
+  },
+  "within_interval": {
+   "type": "noul",
+   "instructions": "Inspection was done within both the day and mileage interval.",
+   "criteria": null
+  },
+  "disposition": {
+   "type": "choice",
+   "instructions": "What should happen to this vehicle after reviewing the inspection?",
+   "criteria": {
+    "release": "Record complete, all readings above advisory thresholds, nothing open",
+    "release_conditional": "Advisory readings within legal limits; return to service with recheck booked",
+    "hold_confirm": "One missing test, reading or sign-off needed before release",
+    "off_road": "Reading beyond legal limit or safety-critical defect still open"
+   }
+  },
+  "rectify_urgency": {
+   "type": "score",
+   "instructions": "How soon must the worst brake or tyre item be rectified?",
+   "criteria": [
+    "None due: every reading above fleet advisory threshold",
+    "Next inspection: worst reading below advisory, over 1 mm margin",
+    "Within seven days: worst reading within 1 mm of limit",
+    "Immediate: worst reading at or beyond legal limit"
+   ]
+  },
+  "failed_checks": {
+   "type": "score",
+   "instructions": "How many of the standard checks on this record failed?",
+   "criteria": [
+    "No standard checks failed",
+    "Exactly one standard check failed",
+    "Two or three standard checks failed",
+    "Four or more standard checks failed"
+   ]
+  }
+ },
+ "factors": [
+  {
+   "name": "worst_tread_margin_mm",
+   "description": "Margin of the most worn tyre's minimum tread depth above the 1.0 mm legal minimum. The fleet advisory threshold is 3.0 mm, i.e. a 2.0 mm margin.",
+   "kind": "number",
+   "values": [],
+   "weights": [],
+   "min": -0.4,
+   "max": 5.0,
+   "p_true": 0,
+   "skills": [
+    "S4",
+    "S6",
+    "S7"
+   ]
+  },
+  {
+   "name": "worst_lining_margin_mm",
+   "description": "Margin of the thinnest brake pad or lining above the 3.0 mm minimum. The advisory point is 5.0 mm.",
+   "kind": "number",
+   "values": [],
+   "weights": [],
+   "min": -0.5,
+   "max": 6.0,
+   "p_true": 0,
+   "skills": [
+    "S4",
+    "S7"
+   ]
+  },
+  {
+   "name": "service_brake_efficiency_pct",
+   "description": "Roller-brake test service brake efficiency against the 50% requirement. Values from 50 to 52 sit on the boundary.",
+   "kind": "number",
+   "values": [],
+   "weights": [],
+   "min": 44,
+   "max": 68,
+   "p_true": 0,
+   "skills": [
+    "S6",
+    "S7"
+   ]
+  },
+  {
+   "name": "tyre_serial_mismatch",
+   "description": "Disagreement between tyre serials on the inspection sheet and the fitment register.",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "two_positions_transposed",
+    "one_serial_unregistered",
+    "register_shows_removed_tyre"
+   ],
+   "weights": [
+    0.55,
+    0.17,
+    0.16,
+    0.12
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S6"
+   ]
+  },
+  {
+   "name": "odometer_conflict",
+   "description": "Agreement between the odometer on the inspection header and the vehicle record and previous inspection.",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "minor_under_50km",
+    "major_over_500km",
+    "lower_than_previous"
+   ],
+   "weights": [
+    0.55,
+    0.2,
+    0.13,
+    0.12
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S2"
+   ]
+  },
+  {
+   "name": "missing_element",
+   "description": "A required part of the record that is absent or null.",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "brake_test_null",
+    "tyre_position_missing",
+    "inspector_signoff_null"
+   ],
+   "weights": [
+    0.58,
+    0.15,
+    0.15,
+    0.12
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S2",
+    "S4"
+   ]
+  },
+  {
+   "name": "carried_defects_open",
+   "description": "Number of defects from the previous inspection still shown open, with no rectification entry.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 3,
+   "p_true": 0,
+   "skills": [
+    "S2",
+    "S5"
+   ]
+  },
+  {
+   "name": "rectification_unverified",
+   "description": "A carried defect has a rectification entry, but it is dated before the defect was raised or has a null technician id.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.3,
+   "skills": [
+    "S2",
+    "S5",
+    "S6"
+   ]
+  },
+  {
+   "name": "interval_status",
+   "description": "Whether the inspection fell inside the vehicle's day and km interval since the previous inspection.",
+   "kind": "categorical",
+   "values": [
+    "within",
+    "days_overrun",
+    "km_overrun",
+    "both_overrun",
+    "on_boundary"
+   ],
+   "weights": [
+    0.5,
+    0.14,
+    0.14,
+    0.08,
+    0.14
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S2",
+    "S5",
+    "S6"
+   ]
+  },
+  {
+   "name": "recheck_booked",
+   "description": "Mitigation: a dated recheck slot or a reserved replacement tyre or pad set is logged for advisory items.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S4",
+    "S6"
+   ]
+  },
+  {
+   "name": "pressure_deviation_pct",
+   "description": "Largest deviation of a recorded cold pressure from the axle specification in the vehicle record.",
+   "kind": "number",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 22,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S4"
+   ]
+  },
+  {
+   "name": "tyre_age_years",
+   "description": "Age of the oldest fitted tyre, derived from its date code against the inspection date. Steer tyres over 10 years are not permitted.",
+   "kind": "number",
+   "values": [],
+   "weights": [],
+   "min": 0.5,
+   "max": 11.5,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S6"
+   ]
+  }
+ ],
+ "sections": [
+  {
+   "name": "vehicle",
+   "description": "Fleet number, registration, model, axle layout, tyre size and pressure spec, inspection interval, recorded odometer."
+  },
+  {
+   "name": "inspection",
+   "description": "Inspection id, date, depot bay, inspector id, odometer, sign-off timestamp."
+  },
+  {
+   "name": "brakes",
+   "description": "Per-axle pad or lining thickness, disc state, roller test efficiencies (service, secondary, parking)."
+  },
+  {
+   "name": "tyres",
+   "description": "List by wheel position: serial, date code, min tread mm, cold pressure kPa, retread flag."
+  },
+  {
+   "name": "defects",
+   "description": "Carried and new defect list: id, raised date, component, category, status, rectified date, technician id."
+  },
+  {
+   "name": "history",
+   "description": "Previous inspection date and odometer, tyre fitment register by position, booked recheck slots and reserved parts."
+  }
+ ],
+ "rendering_notes": "worst_tread_margin_mm appears only as tyres[].min_tread_mm, which is the margin plus 1.0. The legal and advisory limits are never printed, and other positions get plausible higher values. worst_lining_margin_mm appears as brakes.axles[].lining_mm, which is the margin plus 3.0. service_brake_efficiency_pct appears as brakes.test.service_pct. secondary_pct and parking_pct are always comfortably passing decoys. When missing_element is brake_test_null, brakes.test is null, and rectify_urgency then rests on the measured items. tyre_serial_mismatch is shown by comparing tyres[].serial and position against history.fitment_register[]. A transposition swaps two positions' serials. An unregistered serial is absent from the register. A removed tyre is marked removed_date in the register yet still appears on the sheet. odometer_conflict is a difference between inspection.odometer_km and vehicle.odometer_km, or inspection.odometer_km below history.prev_odometer_km. tyre_position_missing drops one expected position given vehicle.axle_config, e.g. 5 entries for a 6-wheel layout. inspector_signoff_null sets inspection.signoff_at and inspector_id to null. carried_defects_open appears as defects[] entries with carried true, status open and rectified_date null. rectification_unverified gives a closed carried defect a rectified_date earlier than raised_date or a null technician_id. interval_status must be computed from inspection.date minus history.prev_date against vehicle.interval_days, and the odometer gap against vehicle.interval_km. on_boundary lands exactly on, or within 1 of, a limit. recheck_booked appears as history.rechecks[] with a future date, or history.reserved_parts[] matching the advisory component. pressure_deviation_pct is shown by comparing tyres[].pressure_kpa with vehicle.tyre_spec front and rear kPa. tyre_age_years is derived from tyres[].date_code (week and year) against inspection.date. Decoys: tyre brand differences, retread flags on rear positions, body or interior defects in defects[] with category cosmetic, new minor defects already closed same day, bay number and inspector grade. No record may contain fields such as fit_for_service, urgency, risk, pass/fail summaries, overdue flags, mismatch flags or computed margins. Every answer must be inferred by comparing values across sections.",
+ "skills": [
+  "S1",
+  "S2",
+  "S4",
+  "S5",
+  "S6",
+  "S7"
+ ],
+ "shared_scale": "failed_checks",
+ "design_cost": 0.11596
+}

@@ -1,0 +1,136 @@
+{
+ "id": "F220-0015",
+ "family": "F220",
+ "state": {
+  "tray": {
+   "tray_id": "T5",
+   "barcode": "B5",
+   "request_note": "On-call list needs this set within the hour."
+  },
+  "set_check": {
+   "lines": [
+    {
+     "cat_code": "F1",
+     "qty_expected": 2,
+     "qty_counted": 1
+    },
+    {
+     "cat_code": "F2",
+     "qty_expected": 1,
+     "qty_counted": 0
+    },
+    {
+     "cat_code": "F3",
+     "qty_expected": 3,
+     "qty_counted": 2
+    },
+    {
+     "cat_code": "F6",
+     "qty_expected": 0,
+     "qty_counted": 1
+    },
+    {
+     "cat_code": "F7",
+     "qty_expected": 2,
+     "qty_counted": 3
+    }
+   ],
+   "variances": [
+    {
+     "cat_code": "F7",
+     "reason": "alt",
+     "approved_by": "M. Hale"
+    }
+   ]
+  },
+  "washer": {
+   "cycle_id": "W5",
+   "alarms": [],
+   "trays_processed": [
+    "B5"
+   ]
+  },
+  "steriliser_load": {
+   "load_id": "L5",
+   "printout": {
+    "temp_min_c": 134.8,
+    "hold_s": 190
+   },
+   "logger": null,
+   "daily_test": null,
+   "bi": {
+    "result": "pass"
+   },
+   "ci_result": "pass",
+   "unload_condition": "dry"
+  }
+ },
+ "factors": {
+  "set_count_discrepancies": 5,
+  "substitution_documented": true,
+  "cycle_excursion": "none",
+  "independent_logger_confirms": false,
+  "bi_status": "pass",
+  "chemical_indicator": "pass",
+  "washer_record_state": "complete",
+  "pack_integrity": "intact",
+  "label_mismatch": "none",
+  "daily_test_state": "not_logged",
+  "theatre_urgency": "emergency_on_call",
+  "note_tone": "neutral",
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "set_count_discrepancies": 1,
+  "substitution_documented": false,
+  "cycle_excursion": "none",
+  "independent_logger_confirms": true,
+  "bi_status": "pending",
+  "chemical_indicator": "not_read",
+  "washer_record_state": "no_record",
+  "pack_integrity": "intact",
+  "label_mismatch": "date_off_by_one_midnight",
+  "daily_test_state": "not_logged",
+  "theatre_urgency": "emergency_on_call",
+  "note_tone": "neutral",
+  "boundary_case": false
+ },
+ "plan": {
+  "cycle_in_limits": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "disposition": {
+   "clarity": "contested",
+   "target": "release",
+   "second": "release_annotated"
+  },
+  "failure_stage": {
+   "clarity": "leaning",
+   "target": "no_discrepancy",
+   "second": null
+  },
+  "count_gaps": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "sterility_doubt": {
+   "clarity": "leaning",
+   "target": "0",
+   "second": null
+  }
+ },
+ "target_words": 42,
+ "deciding": {
+  "cycle_in_limits": "Printout is in band (134.8 C, 190 s) but logger is null and daily_test is null, leaving it in balance.",
+  "disposition": "BI and CI pass, dry wrap and a complete washer record support release; the approved F7 variance could warrant an annotated release.",
+  "failure_stage": "Washer lists B5 with no alarms and the steriliser indicators all pass; the only item is the count, which has one approved variance.",
+  "count_gaps": "Five discrepant lines (F1,F2,F3,F6,F7) with one approved variance (F7) leave four, at the 3/4 boundary.",
+  "sterility_doubt": "BI and CI pass, load dry and wrap intact; no label or record gap beyond the missing daily test."
+ },
+ "request": "rec-F220-0011",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.010891
+}

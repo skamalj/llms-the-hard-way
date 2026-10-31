@@ -1,0 +1,131 @@
+{
+ "id": "F240-0014",
+ "family": "F240",
+ "state": {
+  "asset": {
+   "inverter_id": "INV-21",
+   "serial": "SN88",
+   "rated_ac_kw": 1000
+  },
+  "fault_event": {
+   "serial": "SN88",
+   "code": "F-OV-02",
+   "ts_start": "2024-07-02T10:00:00Z",
+   "ts_clear": "2024-07-02T13:00:00Z"
+  },
+  "telemetry": {
+   "samples": [
+    {
+     "ts": "2024-07-02T10:03:00Z",
+     "ac_kw": 0
+    },
+    {
+     "ts": "2024-07-02T13:02:00Z",
+     "ac_kw": 364,
+     "limit_pct": 36
+    }
+   ],
+   "exp_day_kwh": 5000,
+   "exp_window_kwh": 1500,
+   "act_window_kwh": 1273
+  },
+  "site_context": {
+   "grid_events": [
+    {
+     "ts": "2024-07-02T09:59:00Z",
+     "type": "overvoltage",
+     "magnitude_pu": 1.12
+    }
+   ],
+   "neighbours": [
+    {
+     "output_ratio": 0.7
+    }
+   ]
+  },
+  "history": {
+   "faults": [
+    {
+     "date": "2024-06-20",
+     "code": "F-OV-02"
+    },
+    {
+     "date": "2024-06-28",
+     "code": "F-OV-02"
+    }
+   ],
+   "work_orders": [
+    {
+     "completed": "2024-06-27",
+     "retest_ok": true
+    }
+   ]
+  }
+ },
+ "factors": {
+  "fault_class": "grid_overvoltage",
+  "log_telemetry_mismatch": "trivial_under_5min",
+  "grid_event_concurrent": true,
+  "maintenance_window_active": false,
+  "neighbour_cross_check": "neighbours_affected",
+  "repeat_count_30d": 2,
+  "last_repair_status": "completed_verified",
+  "current_limit_pct": 36.0,
+  "yield_loss_pct": 4.54,
+  "low_irradiance_window": false,
+  "serial_mismatch": false,
+  "boundary_placement": false
+ },
+ "factors_sampled": {
+  "fault_class": "grid_overvoltage",
+  "log_telemetry_mismatch": "trivial_under_5min",
+  "grid_event_concurrent": true,
+  "maintenance_window_active": false,
+  "neighbour_cross_check": "neighbours_affected",
+  "repeat_count_30d": 2,
+  "last_repair_status": "completed_verified",
+  "current_limit_pct": 36.43,
+  "yield_loss_pct": 4.54,
+  "low_irradiance_window": false,
+  "serial_mismatch": false,
+  "boundary_placement": false
+ },
+ "plan": {
+  "genuine_defect": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "post_repair_repeat": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "close_log",
+   "second": null
+  },
+  "yield_loss": {
+   "clarity": "contested",
+   "target": "2",
+   "second": "3"
+  },
+  "capacity_unavailable": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  }
+ },
+ "target_words": 71,
+ "deciding": {
+  "genuine_defect": "Not clear from the record. The grid overvoltage event and affected neighbours point externally, which conflicts with the plan.",
+  "post_repair_repeat": "F-OV-02 on 2024-06-28 is a day after the repair completed 2024-06-27, but the grid event leaves doubt.",
+  "next_step": "A concurrent grid event supports close_log. This conflicts with the plan's defect call.",
+  "yield_loss": "The computed loss is (1500-1273)/5000 = 4.54%, near the 5% boundary.",
+  "capacity_unavailable": "The last sample shows 364 kW at a 36% limit, below 50% but still exporting."
+ },
+ "request": "rec-F240-0011",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.00554
+}

@@ -1,0 +1,117 @@
+{
+ "id": "F220-0014",
+ "family": "F220",
+ "state": {
+  "tray": {
+   "tray_id": "T4",
+   "barcode": "B4"
+  },
+  "set_check": {
+   "lines": [
+    {
+     "cat_code": "E2",
+     "qty_expected": 2,
+     "qty_counted": 1
+    }
+   ],
+   "variances": [
+    {
+     "cat_code": "E2",
+     "reason": "in repair",
+     "approved_by": null
+    }
+   ]
+  },
+  "washer": {
+   "cycle_id": "W4",
+   "alarms": [],
+   "trays_processed": [
+    "B4"
+   ]
+  },
+  "steriliser_load": {
+   "load_id": "L4",
+   "printout": {
+    "temp_min_c": 134.6,
+    "hold_s": 182
+   },
+   "logger": null,
+   "daily_test": {
+    "result": "pass"
+   },
+   "bi": {
+    "result": "pass"
+   },
+   "ci_result": "pass",
+   "unload_condition": "dry"
+  }
+ },
+ "factors": {
+  "set_count_discrepancies": 1,
+  "substitution_documented": true,
+  "cycle_excursion": "none",
+  "independent_logger_confirms": false,
+  "bi_status": "pass",
+  "chemical_indicator": "pass",
+  "washer_record_state": "complete",
+  "pack_integrity": "intact",
+  "label_mismatch": "none",
+  "daily_test_state": "pass_today",
+  "theatre_urgency": "next_list",
+  "note_tone": "neutral",
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "set_count_discrepancies": 1,
+  "substitution_documented": true,
+  "cycle_excursion": "short_hold",
+  "independent_logger_confirms": false,
+  "bi_status": "pending",
+  "chemical_indicator": "pass",
+  "washer_record_state": "complete",
+  "pack_integrity": "wet_on_unload",
+  "label_mismatch": "tray_barcode_differs",
+  "daily_test_state": "pass_today",
+  "theatre_urgency": "next_list",
+  "note_tone": "neutral",
+  "boundary_case": false
+ },
+ "plan": {
+  "cycle_in_limits": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "disposition": {
+   "clarity": "contested",
+   "target": "hold",
+   "second": "reprocess"
+  },
+  "failure_stage": {
+   "clarity": "balanced",
+   "target": "no_discrepancy",
+   "second": "pack_stage"
+  },
+  "count_gaps": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  },
+  "sterility_doubt": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 38,
+ "deciding": {
+  "cycle_in_limits": "Printout shows 134.6 C and 182 s in band, but logger is null so there is no independent confirmation.",
+  "disposition": "Everything passes except the E2 variance with approved_by null; hold for approval and reprocess are both defensible.",
+  "failure_stage": "Washer and steriliser are clean; only the E2 variance lacks approval, which may or may not count as a pack-stage discrepancy.",
+  "count_gaps": "E2 is one short and its variance has approved_by null, so exactly one unexplained.",
+  "sterility_doubt": "BI, CI and daily test pass with a dry load; the lack of a logger is the only possible minor gap."
+ },
+ "request": "rec-F220-0011",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.010891
+}

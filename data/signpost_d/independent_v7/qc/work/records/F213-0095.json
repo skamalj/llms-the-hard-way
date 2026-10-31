@@ -1,0 +1,139 @@
+{
+ "id": "F213-0095",
+ "family": "F213",
+ "state": {
+  "pool": {
+   "type": "competition",
+   "test_interval_min": 60,
+   "open": "2024-05-10T08:00",
+   "close": "2024-05-10T11:00",
+   "limits": {
+    "free_cl_min": 1.0,
+    "free_cl_max": 3.0
+   },
+   "tolerance": {
+    "free_cl": 0.3
+   },
+   "micro_due": "2024-05-12"
+  },
+  "manual_tests": [
+   {
+    "time": "2024-05-10T08:00",
+    "free_cl": 2.0,
+    "temp_c": 27.5,
+    "kit_id": "K5"
+   },
+   {
+    "time": "2024-05-10T09:00",
+    "free_cl": 3.2,
+    "temp_c": 29.8,
+    "kit_id": "K5"
+   },
+   {
+    "time": "2024-05-10T10:00",
+    "free_cl": 2.6,
+    "temp_c": 28.0,
+    "kit_id": "K5"
+   }
+  ],
+  "plant": {
+   "controller_readings": [
+    {
+     "time": "2024-05-10T09:00",
+     "free_cl": 2.9
+    }
+   ]
+  },
+  "equipment": {
+   "kits": [
+    {
+     "kit_id": "K5",
+     "cal_due": "2024-10-01"
+    }
+   ]
+  },
+  "actions": [
+   {
+    "time": "2024-05-10T09:32",
+    "action_type": "dose_reduce",
+    "reading_ref": "2024-05-10T09:00"
+   }
+  ],
+  "lab_sample": {
+   "sampled_on": "2024-05-09",
+   "result_on": null,
+   "status": "pending",
+   "tvc_37": null,
+   "coliforms": null,
+   "pseudomonas": null
+  }
+ },
+ "factors": {
+  "pool_type": "competition",
+  "test_coverage_gap": 0,
+  "boundary_interval": true,
+  "log_controller_discrepancy": "at_tolerance",
+  "discrepancy_location": "free_chlorine",
+  "excursion_severity": "marginal",
+  "corrective_action_delay": "boundary_32_min",
+  "retest_logged": false,
+  "dosing_event_explains": false,
+  "kit_calibration_status": "in_date",
+  "lab_sample_state": "pending",
+  "out_of_order_entry": false,
+  "benign_noise": "temp_swing"
+ },
+ "factors_sampled": {
+  "pool_type": "competition",
+  "test_coverage_gap": 3,
+  "boundary_interval": true,
+  "log_controller_discrepancy": "none",
+  "discrepancy_location": "free_chlorine",
+  "excursion_severity": "serious",
+  "corrective_action_delay": "prompt",
+  "retest_logged": false,
+  "dosing_event_explains": false,
+  "kit_calibration_status": "kit_unlisted",
+  "lab_sample_state": "pending",
+  "out_of_order_entry": false,
+  "benign_noise": "temp_swing"
+ },
+ "plan": {
+  "test_frequency_met": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "readings_reconcile": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "log_disposition": {
+   "clarity": "balanced",
+   "target": "accept_with_query",
+   "second": "accept"
+  },
+  "action_delay": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  },
+  "failed_checks": {
+   "clarity": "leaning",
+   "target": "0",
+   "second": null
+  }
+ },
+ "target_words": 44,
+ "deciding": {
+  "test_frequency_met": "Tests at 08:00, 09:00, 10:00 are exactly 60 min apart, equal to the interval, with no longer gap.",
+  "readings_reconcile": "Manual free_cl 3.2 vs controller 2.9 at 09:00 differs by 0.3, equal to the tolerance.",
+  "log_disposition": "Pending lab sample (result_on null, micro_due 2024-05-12) and no retest after the marginal 3.2 reading versus otherwise clean log.",
+  "action_delay": "Free_cl 3.2 at 09:00 over max 3.0; action logged 09:32, 32 min later, just past the 30 min boundary.",
+  "failed_checks": "Kit in date, spacing met, readings within tolerance; only borderline items remain, so most likely none failed."
+ },
+ "request": "rec-F213-0091",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011744
+}

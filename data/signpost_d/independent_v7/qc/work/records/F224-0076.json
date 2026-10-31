@@ -1,0 +1,133 @@
+{
+ "id": "F224-0076",
+ "family": "F224",
+ "state": {
+  "request": {
+   "views": [
+    "BW_R",
+    "PA_16"
+   ],
+   "ind": "C02",
+   "risk": "low",
+   "date": "2024-05-10",
+   "prior_bw": "2023-07-08"
+  },
+  "exposures": [
+   {
+    "id": 1,
+    "v": "BW_R",
+    "t": "09:20",
+    "mGy": 1.2
+   },
+   {
+    "id": 2,
+    "v": "PA_16",
+    "t": "09:21",
+    "mGy": 1.2
+   },
+   {
+    "id": 3,
+    "v": "PA_16",
+    "t": "09:23",
+    "mGy": 1.2,
+    "retake_of": 2
+   }
+  ],
+  "image_review": {
+   "grade": 2,
+   "faults": {
+    "2": [
+     "FC_APEX_CLIPPED"
+    ]
+   },
+   "sensor_err": [
+    {
+     "t": "09:23",
+     "code": "S14"
+    }
+   ],
+   "second_grader": "pending"
+  },
+  "equipment": {
+   "qa": "2024-03-01",
+   "int_m": 6,
+   "test": "pass",
+   "drl": {
+    "BW_R": 1.5,
+    "PA_16": 1.5
+   }
+  },
+  "operator": {
+   "signoff": "2024-05-10T10:00",
+   "prior_12m": 3
+  }
+ },
+ "factors": {
+  "indication_match": "partial_match",
+  "recall_interval_months": 10,
+  "dose_ratio_to_drl": 0.8,
+  "console_log_discrepancy": "none",
+  "retake_cause": "positioning",
+  "equipment_qa_status": "in_date",
+  "approved_exception": false,
+  "patient_cooperation_flag": false,
+  "unrequested_exposure_count": 0,
+  "verbal_authorisation_logged": false,
+  "image_grade": "acceptable_minor_faults",
+  "audit_completeness": "grading_pending",
+  "operator_prior_findings": 3
+ },
+ "factors_sampled": {
+  "indication_match": "partial_match",
+  "recall_interval_months": 10,
+  "dose_ratio_to_drl": 0.69,
+  "console_log_discrepancy": "none",
+  "retake_cause": "sensor_fault",
+  "equipment_qa_status": "failed_last_test",
+  "approved_exception": false,
+  "patient_cooperation_flag": false,
+  "unrequested_exposure_count": 0,
+  "verbal_authorisation_logged": false,
+  "image_grade": "acceptable_minor_faults",
+  "audit_completeness": "complete",
+  "operator_prior_findings": 3
+ },
+ "plan": {
+  "justified": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "operator_retake": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "follow_up": {
+   "clarity": "clear",
+   "target": "hold_confirm",
+   "second": null
+  },
+  "dose_position": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  },
+  "unjustified_count": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 67,
+ "deciding": {
+  "justified": "Low caries risk allows 24 months, but the prior bitewing was 10 months before the request; the interval is too short and the indication is only partial.",
+  "operator_retake": "The retake of PA_16 follows FC_APEX_CLIPPED (technique), but sensor error S14 is logged at the retake timestamp, holding it in balance; QA is in date and passed.",
+  "follow_up": "image_review.second_grader is pending, the single open confirmation; operator sign-off is present and the equipment is in date.",
+  "dose_position": "Doses of 1.2 mGy against DRL 1.5 give a ratio of 0.8, with no console discrepancy; it is near the 75% boundary, so some doubt remains.",
+  "unjustified_count": "The request fails on interval, so all three exposures lack justification; whether the retake exposure counts separately holds 3 against 2 in balance."
+ },
+ "request": "rec-F224-0076",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.015511
+}

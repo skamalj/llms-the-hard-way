@@ -1,0 +1,147 @@
+{
+ "id": "F213-0005",
+ "family": "F213",
+ "state": {
+  "pool": {
+   "type": "leisure",
+   "test_interval_min": 60,
+   "opening": {
+    "open": "2025-07-15T10:00",
+    "close": "2025-07-15T13:00"
+   },
+   "limits": {
+    "free_cl_min": 1,
+    "free_cl_max": 3,
+    "combined_cl_max": 0.5,
+    "ph_min": 7.2,
+    "ph_max": 7.8
+   },
+   "tolerance": {
+    "free_cl": 0.5,
+    "ph": 0.2
+   },
+   "micro_due": "2025-07-29"
+  },
+  "manual_tests": [
+   {
+    "time": "2025-07-15T10:00",
+    "free_cl": 0.3,
+    "combined_cl": 0.3,
+    "ph": 7.5,
+    "kit_id": "K5"
+   },
+   {
+    "time": "2025-07-15T11:00",
+    "free_cl": 0.3,
+    "ph": 7.5,
+    "kit_id": "K5"
+   },
+   {
+    "time": "2025-07-15T12:00",
+    "free_cl": 0.4,
+    "ph": 7.4,
+    "kit_id": "K5"
+   },
+   {
+    "time": "2025-07-15T13:00",
+    "free_cl": 0.3,
+    "ph": 7.5,
+    "kit_id": "K5"
+   }
+  ],
+  "plant": {
+   "controller_readings": [
+    {
+     "time": "2025-07-15T10:00",
+     "free_cl": 0.5,
+     "ph": 7.5
+    },
+    {
+     "time": "2025-07-15T12:00",
+     "free_cl": 0.5,
+     "ph": 7.4
+    }
+   ],
+   "dosing_events": [],
+   "bather_count": 140
+  },
+  "equipment": {
+   "kits": [
+    {
+     "kit_id": "K5",
+     "cal_due": "2025-12-01"
+    }
+   ]
+  },
+  "actions": [],
+  "lab_sample": null
+ },
+ "factors": {
+  "pool_type": "leisure",
+  "test_coverage_gap": 0,
+  "boundary_interval": true,
+  "log_controller_discrepancy": "within_tolerance",
+  "discrepancy_location": "free_chlorine",
+  "excursion_severity": "serious",
+  "corrective_action_delay": "missing",
+  "retest_logged": false,
+  "dosing_event_explains": false,
+  "kit_calibration_status": "in_date",
+  "lab_sample_state": "not_due",
+  "out_of_order_entry": false,
+  "benign_noise": "none"
+ },
+ "factors_sampled": {
+  "pool_type": "leisure",
+  "test_coverage_gap": 2,
+  "boundary_interval": true,
+  "log_controller_discrepancy": "large",
+  "discrepancy_location": "free_chlorine",
+  "excursion_severity": "serious",
+  "corrective_action_delay": "prompt",
+  "retest_logged": false,
+  "dosing_event_explains": false,
+  "kit_calibration_status": "in_date",
+  "lab_sample_state": "not_due",
+  "out_of_order_entry": false,
+  "benign_noise": "none"
+ },
+ "plan": {
+  "test_frequency_met": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "readings_reconcile": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "log_disposition": {
+   "clarity": "clear",
+   "target": "require_closure",
+   "second": null
+  },
+  "action_delay": {
+   "clarity": "clear",
+   "target": "3",
+   "second": null
+  },
+  "failed_checks": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  }
+ },
+ "target_words": 85,
+ "deciding": {
+  "test_frequency_met": "Tests at 10:00, 11:00, 12:00 and 13:00 are each exactly 60 min apart, equal to the interval, so no interval is missed.",
+  "readings_reconcile": "Controller free_cl is 0.5 against manual 0.3 and 0.4, a difference of 0.2 or less within the 0.5 tolerance; pH matches.",
+  "log_disposition": "Free_cl is 0.3 to 0.4 against a minimum of 1 for the whole day, the actions list is empty and there is no dosing or retest, so the unsafe water is unresolved.",
+  "action_delay": "Free_cl 0.3 at 10:00 is far below the 1 minimum and actions is empty, so no action was ever logged.",
+  "failed_checks": "The one clear failure is the unresolved chlorine excursion with no action; frequency, reconciliation, kit and lab pass. Treating the excursion and the missing action as separate failures would be defensible but is arguably the same issue."
+ },
+ "request": "rec-F213-0001",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012625
+}

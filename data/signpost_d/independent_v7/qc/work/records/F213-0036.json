@@ -1,0 +1,139 @@
+{
+ "id": "F213-0036",
+ "family": "F213",
+ "state": {
+  "pool": {
+   "type": "competition",
+   "test_interval_min": 120,
+   "opening": {
+    "open": "2024-05-14T06:00",
+    "close": "2024-05-14T12:00"
+   },
+   "limits": {
+    "free_cl_min": 1.0,
+    "free_cl_max": 3.0,
+    "ph_min": 7.2,
+    "ph_max": 7.8
+   },
+   "tolerance": {
+    "free_cl": 0.3,
+    "ph": 0.2
+   },
+   "micro_due": "2024-05-10"
+  },
+  "manual_tests": [
+   {
+    "time": "2024-05-14T06:00",
+    "free_cl": 1.8,
+    "ph": 7.4,
+    "kit_id": "K1"
+   },
+   {
+    "time": "2024-05-14T10:00",
+    "free_cl": 0.4,
+    "ph": 7.5,
+    "kit_id": "K1"
+   },
+   {
+    "time": "2024-05-14T08:00",
+    "free_cl": 1.7,
+    "ph": 7.4,
+    "kit_id": "K1"
+   },
+   {
+    "time": "2024-05-14T11:30",
+    "free_cl": 1.6,
+    "ph": 7.4,
+    "kit_id": "K1"
+   }
+  ],
+  "plant": {
+   "controller_readings": [
+    {
+     "time": "2024-05-14T10:00",
+     "free_cl": 0.5,
+     "ph": 7.5
+    }
+   ],
+   "bather_count": 410
+  },
+  "equipment": {
+   "kits": [
+    {
+     "kit_id": "K1",
+     "cal_due": "2024-09-01"
+    }
+   ]
+  },
+  "actions": [],
+  "lab_sample": null
+ },
+ "factors": {
+  "pool_type": "competition",
+  "test_coverage_gap": 0,
+  "boundary_interval": true,
+  "log_controller_discrepancy": "none",
+  "discrepancy_location": "free_chlorine",
+  "excursion_severity": "serious",
+  "corrective_action_delay": "none logged",
+  "retest_logged": true,
+  "dosing_event_explains": false,
+  "kit_calibration_status": "in_date",
+  "lab_sample_state": "missing_when_due",
+  "out_of_order_entry": true,
+  "benign_noise": "high_bathers"
+ },
+ "factors_sampled": {
+  "pool_type": "competition",
+  "test_coverage_gap": 1,
+  "boundary_interval": true,
+  "log_controller_discrepancy": "none",
+  "discrepancy_location": "free_chlorine",
+  "excursion_severity": "serious",
+  "corrective_action_delay": "prompt",
+  "retest_logged": true,
+  "dosing_event_explains": false,
+  "kit_calibration_status": "in_date",
+  "lab_sample_state": "missing_when_due",
+  "out_of_order_entry": true,
+  "benign_noise": "high_bathers"
+ },
+ "plan": {
+  "test_frequency_met": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "readings_reconcile": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "log_disposition": {
+   "clarity": "clear",
+   "target": "accept_with_query",
+   "second": null
+  },
+  "action_delay": {
+   "clarity": "clear",
+   "target": "3",
+   "second": null
+  },
+  "failed_checks": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 68,
+ "deciding": {
+  "test_frequency_met": "Tests at 06:00, 08:00, 10:00 and 11:30, with gaps of at most 120 min, the interval; the 08:00 entry is only listed out of order.",
+  "readings_reconcile": "Controller 10:00 free_cl 0.5 vs manual 0.4, within the 0.3 tolerance; only one controller reading exists to compare.",
+  "log_disposition": "Lab sample is null though micro_due 2024-05-10 has passed; water is otherwise acceptable, so the operator needs to explain.",
+  "action_delay": "Free_cl 0.4 at 10:00 is below the 1.0 minimum, and the actions list is empty.",
+  "failed_checks": "Failed: the missing lab sample, the low chlorine, the missing corrective action and the out-of-order entry (arguably). Three or four failures hold it in balance."
+ },
+ "request": "rec-F213-0036",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.005798
+}

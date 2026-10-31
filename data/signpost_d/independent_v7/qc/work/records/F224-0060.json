@@ -1,0 +1,161 @@
+{
+ "id": "F224-0060",
+ "family": "F224",
+ "state": {
+  "request": {
+   "views": [
+    "BW_R"
+   ],
+   "ind": "C1",
+   "risk": "high",
+   "date": "2024-02-15",
+   "prior": "2023-10-20",
+   "exc": [],
+   "verbal_auth": [
+    {
+     "t": "15:10",
+     "view": "PA_21"
+    }
+   ],
+   "patient_flags": []
+  },
+  "exposures": [
+   {
+    "id": 1,
+    "view": "BW_R",
+    "t": "15:00",
+    "kV": 65,
+    "s": 0.12,
+    "mGy": 0.6,
+    "retake_of": null
+   },
+   {
+    "id": 2,
+    "view": "BW_R",
+    "t": "15:02",
+    "kV": 65,
+    "s": 0.12,
+    "mGy": 0.6,
+    "retake_of": 1
+   },
+   {
+    "id": 3,
+    "view": "PA_21",
+    "t": "15:10",
+    "kV": 70,
+    "s": 0.2,
+    "mGy": 1.5,
+    "retake_of": null
+   }
+  ],
+  "image_review": {
+   "grade": 2,
+   "faults": {
+    "1": [
+     "FC_CONE_CUT"
+    ]
+   },
+   "sensor_errors": [],
+   "second_grader": "done"
+  },
+  "equipment": {
+   "last_qa": "2023-12-05",
+   "qa_months": 6,
+   "output_test": "pass",
+   "drl_ref": {
+    "BW_R": 1.0,
+    "PA_21": 1.0
+   },
+   "console_log": [
+    {
+     "t": "15:00",
+     "kV": 65,
+     "s": 0.12
+    },
+    {
+     "t": "15:02",
+     "kV": 65,
+     "s": 0.12
+    },
+    {
+     "t": "15:10",
+     "kV": 70,
+     "s": 0.2
+    }
+   ]
+  },
+  "operator": {
+   "id": "OP9",
+   "signoff_at": null,
+   "prior_findings_12m": 5
+  }
+ },
+ "factors": {
+  "indication_match": "partial_match",
+  "recall_interval_months": 4,
+  "dose_ratio_to_drl": 1.5,
+  "console_log_discrepancy": "none",
+  "retake_cause": "positioning",
+  "equipment_qa_status": "in_date",
+  "approved_exception": false,
+  "patient_cooperation_flag": false,
+  "unrequested_exposure_count": 1,
+  "verbal_authorisation_logged": true,
+  "image_grade": "diagnostic",
+  "audit_completeness": "operator_signoff_missing",
+  "operator_prior_findings": 5
+ },
+ "factors_sampled": {
+  "indication_match": "partial_match",
+  "recall_interval_months": 20,
+  "dose_ratio_to_drl": 0.63,
+  "console_log_discrepancy": "none",
+  "retake_cause": "no_retake",
+  "equipment_qa_status": "in_date",
+  "approved_exception": true,
+  "patient_cooperation_flag": false,
+  "unrequested_exposure_count": 3,
+  "verbal_authorisation_logged": false,
+  "image_grade": "diagnostic",
+  "audit_completeness": "operator_signoff_missing",
+  "operator_prior_findings": 5
+ },
+ "plan": {
+  "justified": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "operator_retake": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "follow_up": {
+   "clarity": "balanced",
+   "target": "log_trend",
+   "second": "operator_feedback"
+  },
+  "dose_position": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  },
+  "unjustified_count": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 61,
+ "deciding": {
+  "justified": "Prior view was 4 months before the request for a high-risk patient (6 months minimum), with no exception and only a partly fitting indication.",
+  "operator_retake": "Retake follows FC_CONE_CUT with empty sensor_errors, empty patient_flags and in-date QA with passing output test; the doubt is that the operator may not be the only factor.",
+  "follow_up": "Sign-off missing and 5 prior findings with a cone-cut retake favour feedback, while the uncertain extra exposure is only trend-level.",
+  "dose_position": "PA_21 logged at 1.5 mGy against DRL 1.0, exactly on the 150% boundary, with console settings matching the list.",
+  "unjustified_count": "BW_R matches the request; PA_21 verbal auth at 15:10 is the same minute as the exposure, so it may or may not cover it, giving zero or one."
+ },
+ "request": "rec-F224-0056",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.015799
+}
