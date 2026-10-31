@@ -166,3 +166,7 @@ API cost of the pilot run: about $22.42 ({"claude-sonnet-5-5": 15.48, "claude-ha
 ## Licence
 
 Released to the Signpost-D team without restriction (CC0).
+
+## Pilot 2 (R24)
+
+A second pilot built for R24 is in `pilot_v3b.jsonl` (ids `F101-0001` onward): eight new families with one-dimensional, anchored scales, and its own `stats_v3b.json`, `qc/families_v3b.json`, `qc/shared_scales_v3b.json` and `qc/work_v3b/`. See `README_pilot_v3b.md`. Pilot 1 above is unchanged and kept for evaluation only.
