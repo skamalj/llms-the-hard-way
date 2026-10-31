@@ -1,0 +1,202 @@
+{
+ "id": "F006-0009",
+ "family": "F006",
+ "state": {
+  "station": {
+   "id": "SYN-0231",
+   "logger_serial": "L-40117",
+   "tier": "synoptic",
+   "lat": 47.21,
+   "lon": 8.44,
+   "elev_m": 512,
+   "units": {
+    "air_temp": "C",
+    "pressure": "hPa",
+    "rain": "mm"
+   },
+   "obs_date": "2024-05-14"
+  },
+  "observations": {
+   "air_temp": {
+    "unit": "C",
+    "n": 24,
+    "min": 9.8,
+    "max": 21.9,
+    "mean": 15.6
+   },
+   "pressure": {
+    "unit": "hPa",
+    "n": 24,
+    "min": 951.2,
+    "max": 954.0,
+    "mean": 952.5
+   },
+   "rain": {
+    "unit": "mm",
+    "hourly": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0.2,
+     0.4,
+     0.2,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "total": 0.8
+   }
+  },
+  "auto_qc": {
+   "flagged_days_30d": 0,
+   "tests": [
+    {
+     "el": "air_temp",
+     "test": "spatial_consistency",
+     "tested": 24,
+     "failed": 11,
+     "first_fail_utc": "03:00"
+    },
+    {
+     "el": "pressure",
+     "test": "step_change",
+     "tested": 24,
+     "failed": 0
+    }
+   ]
+  },
+  "neighbours": [
+   {
+    "km": 14,
+    "dz_m": 40,
+    "dT": 1.5,
+    "dRH": 1,
+    "dP": 0.2,
+    "dRain": 0.0
+   },
+   {
+    "km": 22,
+    "dz_m": -30,
+    "dT": 1.7,
+    "dRH": 2,
+    "dP": 0.3,
+    "dRain": 0.2
+   },
+   {
+    "km": 31,
+    "dz_m": 60,
+    "dT": 1.4,
+    "dRH": 1,
+    "dP": 0.1,
+    "dRain": 0.0
+   }
+  ],
+  "maintenance": {
+   "visits": [
+    {
+     "start": "2024-05-02T08:00Z",
+     "end": "2024-05-02T10:30Z",
+     "actions": [
+      "REPLACE_BATTERY"
+     ]
+    }
+   ],
+   "last_cal": {
+    "air_temp": "2024-03-05",
+    "pressure": "2024-03-05"
+   },
+   "ref_check": {
+    "el": "pressure",
+    "date": "2024-05-02",
+    "pass": true,
+    "offset": 0.1
+   },
+   "ticket": {
+    "status": "closed"
+   }
+  },
+  "transmission": {
+   "expected": 136,
+   "received": 127,
+   "decoded": 127,
+   "logger_serial_reported": "L-40171",
+   "clock_offset_s": 3,
+   "batt_v_min": 12.1
+  }
+ },
+ "factors": {
+  "sensor_fault_type": "temp_drift",
+  "fault_severity": 0.48,
+  "cross_section_mismatch": "logger_id_mismatch",
+  "benign_explanation_present": false,
+  "maintenance_window_active": false,
+  "days_since_calibration": 70,
+  "data_completeness_pct": 93.38,
+  "neighbour_agreement": "strong",
+  "prior_flag_count_30d": 0,
+  "recent_successful_check": true,
+  "repair_state": "repair_completed",
+  "boundary_case": false,
+  "station_tier": "synoptic"
+ },
+ "factors_sampled": {
+  "sensor_fault_type": "pressure_spikes",
+  "fault_severity": 0.48,
+  "cross_section_mismatch": "logger_id_mismatch",
+  "benign_explanation_present": false,
+  "maintenance_window_active": true,
+  "days_since_calibration": 70,
+  "data_completeness_pct": 93.38,
+  "neighbour_agreement": "strong",
+  "prior_flag_count_30d": 0,
+  "recent_successful_check": true,
+  "repair_state": "repair_completed",
+  "boundary_case": false,
+  "station_tier": "synoptic"
+ },
+ "plan": {
+  "rain_total_bad": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "temp_drift": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "release_action": {
+   "clarity": "contested",
+   "target": "accept_flagged",
+   "second": "withhold_partial"
+  },
+  "visit_urgency": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "user_confidence": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "4"
+  }
+ },
+ "target_words": 128,
+ "model": "claude-sonnet-5-5",
+ "cost": 0.029864
+}

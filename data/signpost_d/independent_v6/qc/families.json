@@ -1,0 +1,2677 @@
+{
+ "F001": {
+  "id": "F001",
+  "domain": "clinical laboratory sample receipt",
+  "role": "Specimen reception officer in a hospital pathology laboratory",
+  "setting": "A hospital pathology laboratory's specimen reception bench receives sample consignments from wards, outpatient clinics and community GP surgeries. For each consignment the officer opens one receipt record. The record holds the electronic request, the containers as scanned, the courier transport log, the matching entry from the laboratory patient index and the reception checklist. The officer decides whether the samples can enter analysis, what is wrong with them, how urgent that is and how far results could be trusted.",
+  "questions": {
+   "same_patient": {
+    "type": "noul",
+    "instructions": "Specimen labels and request form clearly identify the same patient.",
+    "criteria": null
+   },
+   "disposition": {
+    "type": "choice",
+    "instructions": "What should reception do with this sample consignment now?",
+    "criteria": {
+     "accept": "Book in and release all specimens to analysis unchanged.",
+     "accept_flagged": "Book in but attach a caveat comment to results.",
+     "hold_query": "Keep specimens stored while one detail is confirmed with requester.",
+     "reject": "Refuse the specimens and request a fresh collection."
+    }
+   },
+   "main_problem": {
+    "type": "choice",
+    "instructions": "Which category best describes the main problem with this receipt?",
+    "criteria": {
+     "no_problem": "Consignment meets every receipt criterion without any exception.",
+     "request_incomplete": "Request form lacks required details or is entirely absent.",
+     "labelling_error": "Identifiers disagree between labels, form or patient index.",
+     "container_mismatch": "Containers received do not suit or cover the tests requested.",
+     "integrity_breach": "Temperature, delay or haemolysis threatens the specimen's analytical validity."
+    }
+   },
+   "time_pressure": {
+    "type": "score",
+    "instructions": "How time-critical is resolving this consignment before specimens degrade?",
+    "criteria": [
+     "Routine: no time pressure on processing or any query",
+     "Same shift: resolve within normal working hours today",
+     "Prompt: stability window closes within a few hours",
+     "Immediate: specimen or urgent clinical result at imminent risk"
+    ]
+   },
+   "result_doubt": {
+    "type": "score",
+    "instructions": "How likely is this consignment to produce unreliable results?",
+    "criteria": [
+     "Results expected to be fully reliable throughout",
+     "Minor doubt affecting at most one requested test",
+     "Substantial doubt over several of the requested tests",
+     "Results probably invalid if specimens are processed"
+    ]
+   }
+  },
+  "factors": [
+   {
+    "name": "id_mismatch",
+    "description": "Severity of identifier disagreement between the request, container labels and patient index: none, a trivial formatting difference, one field genuinely different, or a different patient number.",
+    "kind": "categorical",
+    "values": [
+     "none",
+     "trivial_format",
+     "one_field",
+     "wrong_mrn"
+    ],
+    "weights": [
+     0.4,
+     0.2,
+     0.25,
+     0.15
+    ],
+    "min": 0,
+    "max": 0,
+    "p_true": 0,
+    "skills": [
+     "S1",
+     "S5",
+     "S6"
+    ]
+   },
+   {
+    "name": "mismatch_location",
+    "description": "Where any identifier disagreement sits: request against label, label against patient index, or between two containers in the same consignment.",
+    "kind": "categorical",
+    "values": [
+     "request_vs_label",
+     "label_vs_index",
+     "between_containers"
+    ],
+    "weights": [
+     0.4,
+     0.3,
+     0.3
+    ],
+    "min": 0,
+    "max": 0,
+    "p_true": 0,
+    "skills": [
+     "S1"
+    ]
+   },
+   {
+    "name": "container_fit",
+    "description": "How the containers received correspond to the tests requested: matched, an unrequested extra container, a test with no suitable tube, or a wrong tube type for one test.",
+    "kind": "categorical",
+    "values": [
+     "matched",
+     "extra_container",
+     "missing_tube",
+     "wrong_tube_type"
+    ],
+    "weights": [
+     0.45,
+     0.15,
+     0.2,
+     0.2
+    ],
+    "min": 0,
+    "max": 0,
+    "p_true": 0,
+    "skills": [
+     "S1",
+     "S2",
+     "S4"
+    ]
+   },
+   {
+    "name": "temp_excursion_min",
+    "description": "Minutes the transport logger spent outside the required temperature band; zero for most consignments.",
+    "kind": "integer",
+    "values": [],
+    "weights": [],
+    "min": 0,
+    "max": 180,
+    "p_true": 0,
+    "skills": [
+     "S3",
+     "S4",
+     "S6"
+    ]
+   },
+   {
+    "name": "tests_tolerant",
+    "description": "Whether the requested analytes are robust to the observed excursion or delay, which mitigates an alarming logger reading.",
+    "kind": "boolean",
+    "values": [],
+    "weights": [],
+    "min": 0,
+    "max": 0,
+    "p_true": 0.5,
+    "skills": [
+     "S3",
+     "S6"
+    ]
+   },
+   {
+    "name": "transit_hours",
+    "description": "Hours between recorded collection and receipt at the bench.",
+    "kind": "number",
+    "values": [],
+    "weights": [],
+    "min": 0.3,
+    "max": 30,
+    "p_true": 0,
+    "skills": [
+     "S3",
+     "S4"
+    ]
+   },
+   {
+    "name": "collection_time_state",
+    "description": "Whether the collection time is recorded normally, missing, or recorded later than dispatch or receipt, which is out of order.",
+    "kind": "categorical",
+    "values": [
+     "recorded",
+     "missing",
+     "after_dispatch"
+    ],
+    "weights": [
+     0.65,
+     0.2,
+     0.15
+    ],
+    "min": 0,
+    "max": 0,
+    "p_true": 0,
+    "skills": [
+     "S2",
+     "S1"
+    ]
+   },
+   {
+    "name": "request_state",
+    "description": "Completeness of the electronic request: complete, missing requester, missing clinical details, or the whole request section null.",
+    "kind": "categorical",
+    "values": [
+     "complete",
+     "no_requester",
+     "no_clinical_details",
+     "request_null"
+    ],
+    "weights": [
+     0.6,
+     0.15,
+     0.15,
+     0.1
+    ],
+    "min": 0,
+    "max": 0,
+    "p_true": 0,
+    "skills": [
+     "S2",
+     "S4"
+    ]
+   },
+   {
+    "name": "checks_state",
+    "description": "Progress of the reception checklist: all checks done, some done, or not yet started.",
+    "kind": "categorical",
+    "values": [
+     "complete",
+     "partial",
+     "not_started"
+    ],
+    "weights": [
+     0.5,
+     0.35,
+     0.15
+    ],
+    "min": 0,
+    "max": 0,
+    "p_true": 0,
+    "skills": [
+     "S2",
+     "S4"
+    ]
+   },
+   {
+    "name": "irreplaceable_or_approved",
+    "description": "Whether the specimen is irreplaceable, such as CSF or a biopsy fluid, or carries a consultant-approved acceptance despite a defect. Either mitigates rejection.",
+    "kind": "boolean",
+    "values": [],
+    "weights": [],
+    "min": 0,
+    "max": 0,
+    "p_true": 0.5,
+    "skills": [
+     "S3",
+     "S6"
+    ]
+   },
+   {
+    "name": "haemolysis_index",
+    "description": "Analyser-style haemolysis index on the primary serum or plasma tube. Higher values threaten potassium, LDH and similar analytes.",
+    "kind": "integer",
+    "values": [],
+    "weights": [],
+    "min": 0,
+    "max": 400,
+    "p_true": 0,
+    "skills": [
+     "S3",
+     "S4",
+     "S6"
+    ]
+   },
+   {
+    "name": "priority",
+    "description": "Clinical priority stated on the request, which shapes time pressure but does not by itself decide disposition.",
+    "kind": "categorical",
+    "values": [
+     "routine",
+     "urgent",
+     "critical"
+    ],
+    "weights": [
+     0.6,
+     0.3,
+     0.1
+    ],
+    "min": 0,
+    "max": 0,
+    "p_true": 0,
+    "skills": [
+     "S7"
+    ]
+   },
+   {
+    "name": "prior_rejections_90d",
+    "description": "Count of this requesting location's consignments rejected in the last 90 days. It acts as a history signal of source reliability.",
+    "kind": "integer",
+    "values": [],
+    "weights": [],
+    "min": 0,
+    "max": 6,
+    "p_true": 0,
+    "skills": [
+     "S3",
+     "S6",
+     "S7"
+    ]
+   },
+   {
+    "name": "note_slant",
+    "description": "Character of the free-text notes: neutral, alarming wording with a benign explanation, or reassuring wording that glosses over a real defect.",
+    "kind": "categorical",
+    "values": [
+     "neutral",
+     "alarming_benign",
+     "reassuring_misleading"
+    ],
+    "weights": [
+     0.5,
+     0.25,
+     0.25
+    ],
+    "min": 0,
+    "max": 0,
+    "p_true": 0,
+    "skills": [
+     "S1",
+     "S3",
+     "S5",
+     "S6"
+    ]
+   }
+  ],
+  "sections": [
+   {
+    "name": "request",
+    "description": "Electronic order: req_id, mrn, surname, dob, tests list, requester, priority, clinical_note."
+   },
+   {
+    "name": "specimens",
+    "description": "List of scanned containers: container_id, tube_type, label_mrn, label_surname, label_dob, collected_at, volume_ml, hi_index."
+   },
+   {
+    "name": "transport",
+    "description": "Courier log: courier_ref, dispatched_at, received_at, logger_min_c, logger_max_c, mins_out_of_range, packaging_intact, courier_note."
+   },
+   {
+    "name": "patient_index",
+    "description": "Laboratory master index entry: mrn, surname, dob, sex, prior_samples, loc_rejections_90d."
+   },
+   {
+    "name": "reception",
+    "description": "Checklist and exceptions: received_by, checks_done list, checks_pending list, deviation_ref, irreplaceable, discrepancy_note."
+   }
+  ],
+  "rendering_notes": "id_mismatch and mismatch_location appear only as differing values in request.mrn/surname/dob, specimens[].label_*, and patient_index fields. Examples are trivial_format such as 'O'Neill' against 'ONEILL' or a dob written differently but equal, one_field such as a different surname letter or dob day, and wrong_mrn as a different number. The mismatch is never announced. container_fit shows as specimens[].tube_type compared against request.tests, for example a K test with only an EDTA tube or an HbA1c with no EDTA tube; extra containers are a decoy. temp_excursion_min sets transport.mins_out_of_range and the logger min/max. tests_tolerant is shown only through which analytes are in request.tests, never as a flag. transit_hours is derivable from specimens[].collected_at against transport.received_at. collection_time_state is either collected_at null or collected_at later than dispatched_at. request_state nulls request.requester or request.clinical_note, or sets request to null entirely. checks_state fills reception.checks_done and checks_pending. irreplaceable_or_approved sets reception.irreplaceable true or a non-null reception.deviation_ref with consultant initials; it sits near 0.5 so defects appear with and without mitigation. haemolysis_index is specimens[].hi_index on the serum tube. priority is request.priority. prior_rejections_90d is patient_index.loc_rejections_90d. note_slant governs the three free-text fields: request.clinical_note, transport.courier_note and reception.discrepancy_note. Each is one sentence. Alarming_benign examples are 'Box arrived warm, logger shows brief door-open only'. Reassuring_misleading examples are 'All labels checked on ward' while a label differs. Decoys include an extra unused container, packaging_intact true alongside a real excursion, high prior_samples counts, and critical priority on a clean consignment. No field states acceptance, the problem category, urgency or result reliability; a reception status field never carries values like 'reject' or 'accepted'. Mix all three ISO datetime fields so ordering errors must be noticed by comparison.",
+  "skills": [
+   "S1",
+   "S2",
+   "S3",
+   "S4",
+   "S5",
+   "S6",
+   "S7"
+  ],
+  "shared_scale": null
+ },
+ "F002": {
+  "id": "F002",
+  "domain": "building maintenance work orders",
+  "role": "Facilities maintenance supervisor reviewing reactive work orders submitted for close-out on a mixed-use estate",
+  "setting": "Each record is one reactive maintenance work order that a technician or contractor has marked ready for closure. The supervisor checks the order against the asset register, labour bookings, stores issues, completion readings and recent history before deciding whether it can close, what happens to the asset, and how much risk remains. The records contain no free-text notes. Everything must be inferred from codes, quantities, dates, readings, flags and counts that sometimes disagree between sections.",
+  "questions": {
+   "fault_resolved": {
+    "type": "noul",
+    "instructions": "The recorded work fully resolved the reported fault on this asset.",
+    "criteria": {
+     "true": "Completion, parts, readings and sign-off all support resolution",
+     "false": "Resolution missing, partial, unverified or contradicted elsewhere"
+    }
+   },
+   "closure_disposition": {
+    "type": "choice",
+    "instructions": "What should happen to this work order at review?",
+    "criteria": {
+     "close": "Close the order; work verified and records consistent",
+     "close_with_followup": "Close now and raise a linked follow-up order",
+     "hold": "Keep open pending one specific confirmation or record",
+     "reopen": "Return to trade; work inadequate or records unreliable"
+    }
+   },
+   "asset_action": {
+    "type": "choice",
+    "instructions": "What should happen to the asset after this order?",
+    "criteria": {
+     "no_action": "Leave asset on its normal planned maintenance cycle",
+     "monitor": "Add extra inspections before the next planned visit",
+     "planned_repair": "Schedule a further repair within the planned works programme",
+     "replace": "Raise a request to replace the asset entirely"
+    }
+   },
+   "time_pressure": {
+    "type": "score",
+    "instructions": "How soon must someone act on this record?",
+    "criteria": [
+     "No deadline; can wait for routine handling",
+     "Should be handled within the normal cycle",
+     "Needs action within the next working day",
+     "Requires action immediately, ahead of anything else queued"
+    ]
+   },
+   "residual_risk": {
+    "type": "score",
+    "instructions": "How much risk remains if the order closes as recorded?",
+    "criteria": [
+     "Negligible; nothing left that could cause harm",
+     "Minor loose ends with no safety bearing",
+     "Fault could recur or degrade service noticeably",
+     "Safety, statutory or major service exposure remains"
+    ]
+   }
+  },
+  "factors": [
+   {
+    "name": "work_completion_state",
+    "description": "True state of the work behind the order: fully done, temporary fix only, awaiting parts, or marked complete without supporting evidence",
+    "kind": "categorical",
+    "values": [
+     "complete",
+     "temporary_fix",
+     "awaiting_parts",
+     "claimed_unverified"
+    ],
+    "weights": [
+     0.4,
+     0.2,
+     0.2,
+     0.2
+    ],
+    "min": 0,
+    "max": 0,
+    "p_true": 0,
+    "skills": [
+     "S4",
+     "S5",
+     "S7"
+    ]
+   },
+   {
+    "name": "cross_section_mismatch",
+    "description": "Severity of disagreement between corresponding values in different sections, never flagged by the record itself",
+    "kind": "categorical",
+    "values": [
+     "none",
+     "trivial",
+     "moderate",
+     "major"
+    ],
+    "weights": [
+     0.3,
+     0.25,
+     0.28,
+     0.17
+    ],
+    "min": 0,
+    "max": 0,
+    "p_true": 0,
+    "skills": [
+     "S1",
+     "S6"
+    ]
+   },
+   {
+    "name": "mismatch_location",
+    "description": "Where the mismatch sits when one exists: stores quantities, labour dates against completion, asset identifier, or reading units and values",
+    "kind": "categorical",
+    "values": [
+     "materials_qty",
+     "labour_vs_completion_dates",
+     "asset_identifier",
+     "reading_units"
+    ],
+    "weights": [
+     0.3,
+     0.25,
+     0.2,
+     0.25
+    ],
+    "min": 0,
+    "max": 0,
+    "p_true": 0,
+    "skills": [
+     "S1"
+    ]
+   },
+   {
+    "name": "post_test_result",
+    "description": "Outcome of the functional test recorded at completion",
+    "kind": "categorical",
+    "values": [
+     "passed",
+     "failed",
+     "not_recorded"
+    ],
+    "weights": [
+     0.55,
+     0.2,
+     0.25
+    ],
+    "min": 0,
+    "max": 0,
+    "p_true": 0,
+    "skills": [
+     "S5",
+     "S3",
+     "S4"
+    ]
+   },
+   {
+    "name": "repeat_fault_count",
+    "description": "Number of prior orders on the same asset with the same fault code in the last 12 months",
+    "kind": "integer",
+    "values": [],
+    "weights": [],
+    "min": 0,
+    "max": 5,
+    "p_true": 0,
+    "skills": [
+     "S7",
+     "S6",
+     "S3"
+    ]
+   },
+   {
+    "name": "mitigation_present",
+    "description": "Whether a field exists that lowers concern about the most alarming signal in the record",
+    "kind": "boolean",
+    "values": [],
+    "weights": [],
+    "min": 0,
+    "max": 0,
+    "p_true": 0.5,
+    "skills": [
+     "S3"
+    ]
+   },
+   {
+    "name": "mitigation_type",
+    "description": "Form the mitigation takes when present: a linked replacement already approved, an approved temporary concession, a recent passed planned inspection, or remaining warranty with contractor recall",
+    "kind": "categorical",
+    "values": [
+     "linked_replacement_order",
+     "approved_concession",
+     "recent_ppm_pass",
+     "warranty_recall_booked"
+    ],
+    "weights": [
+     0.25,
+     0.25,
+     0.25,
+     0.25
+    ],
+    "min": 0,
+    "max": 0,
+    "p_true": 0,
+    "skills": [
+     "S3"
+    ]
+   },
+   {
+    "name": "asset_criticality",
+    "description": "How much depends on the asset, from low-impact amenity to statutory life-safety plant",
+    "kind": "categorical",
+    "values": [
+     "low",
+     "medium",
+     "high",
+     "life_safety"
+    ],
+    "weights": [
+     0.3,
+     0.3,
+     0.25,
+     0.15
+    ],
+    "min": 0,
+    "max": 0,
+    "p_true": 0,
+    "skills": [
+     "S7",
+     "S3"
+    ]
+   },
+   {
+    "name": "life_consumed_ratio",
+    "description": "Asset age divided by expected service life; above 1.0 means beyond design life",
+    "kind": "number",
+    "values": [],
+    "weights": [],
+    "min": 0.1,
+    "max": 1.6,
+    "p_true": 0,
+    "skills": [
+     "S7",
+     "S6"
+    ]
+   },
+   {
+    "name": "condition_after",
+    "description": "Condition grade recorded after the work, 1 very good to 5 very poor",
+    "kind": "integer",
+    "values": [],
+    "weights": [],
+    "min": 1,
+    "max": 5,
+    "p_true": 0,
+    "skills": [
+     "S4",
+     "S6",
+     "S1"
+    ]
+   },
+   {
+    "name": "signoff_present",
+    "description": "Whether the completion carries a named sign-off and, for permit-controlled work, a closed permit reference",
+    "kind": "boolean",
+    "values": [],
+    "weights": [],
+    "min": 0,
+    "max": 0,
+    "p_true": 0.72,
+    "skills": [
+     "S4",
+     "S5"
+    ]
+   },
+   {
+    "name": "balanced_signals",
+    "description": "Whether the record is deliberately set on a boundary (condition 3, life ratio near 1.0, one minor gap alongside a strong pass) so judges may split",
+    "kind": "boolean",
+    "values": [],
+    "weights": [],
+    "min": 0,
+    "max": 0,
+    "p_true": 0.2,
+    "skills": [
+     "S6"
+    ]
+   }
+  ],
+  "sections": [
+   {
+    "name": "order",
+    "description": "Order header: wo_id, asset_id, site, location code, fault_code, priority, raised_at, target_by, trade"
+   },
+   {
+    "name": "asset",
+    "description": "Asset register extract: asset_id, type, criticality_class, install_date, design_life_yrs, warranty_until, statutory_regime"
+   },
+   {
+    "name": "labour",
+    "description": "List of time bookings: tech_id, date, hours, task_code, visit_status"
+   },
+   {
+    "name": "materials",
+    "description": "List of stores lines: part_no, compatible_types, qty_issued, qty_fitted, qty_returned, uom"
+   },
+   {
+    "name": "completion",
+    "description": "Close-out block: marked_complete_at, test_result, reading_before, reading_after, reading_uom, condition_grade, signoff_by, permit_ref, permit_closed, concession_ref, linked_wo"
+   },
+   {
+    "name": "history",
+    "description": "Twelve-month history: orders_12m, same_fault_12m, last_ppm_date, last_ppm_result, open_linked_orders"
+   }
+  ],
+  "rendering_notes": "work_completion_state appears indirectly. complete has labour visit_status all 'done' and qty_fitted matching issued. temporary_fix has task_code TMP or MAKE_SAFE on the last booking and condition_grade 3-4. awaiting_parts has qty_fitted below qty_issued, or qty_issued 0 against a requested part, and a final visit_status 'parts_req'. claimed_unverified has marked_complete_at set but test_result null or reading_after null. cross_section_mismatch and mismatch_location produce silent disagreements. materials_qty: qty_fitted exceeds qty_issued minus qty_returned, or a part's compatible_types excludes asset.type. labour_vs_completion_dates: a booking dated after marked_complete_at, by hours (trivial) or days (moderate/major). asset_identifier: order.asset_id differs from asset.asset_id by a transposed character (trivial-looking but major) or by a different site prefix. reading_units: reading_uom differs from the unit implied by the asset type (bar vs kPa, °C vs °F), so the values look wrong until converted. Trivial cases are rounding of 0.25 h or 1 unit. Records with none must show fully consistent values. post_test_result maps to completion.test_result as 'pass', 'fail' or null. repeat_fault_count maps to history.same_fault_12m, with orders_12m always at least that value. mitigation_present/mitigation_type pair with the most alarming signal, about half the time each. linked_replacement_order fills completion.linked_wo and history.open_linked_orders. approved_concession fills concession_ref alongside a failed test or temporary fix. recent_ppm_pass sets last_ppm_date within 30 days of raised_at with last_ppm_result 'pass'. warranty_recall_booked sets warranty_until after raised_at plus a linked_wo with trade 'contractor'. The same alarm must appear without mitigation equally often. asset_criticality maps to asset.criticality_class plus statutory_regime (non-null for life_safety). life_consumed_ratio is derived from install_date, raised_at and design_life_yrs and is never shown as a ratio. condition_after maps to completion.condition_grade. signoff_present controls signoff_by and permit_closed; permit_ref may exist with permit_closed false. Decoys: priority and target_by look urgent but do not decide the closure; orders_12m is high on busy assets without repeat faults; reading_before shows alarming values that the work has since corrected; a returned part looks like a shortfall but reconciles. balanced_signals sets condition_grade 3, a life ratio of 0.95-1.05, or a single trivial gap next to a pass. The record must never contain fields such as resolved, risk, recommended_action, disposition or replace_flag, nor any free-text note, comment or description field.",
+  "skills": [
+   "S1",
+   "S3",
+   "S4",
+   "S5",
+   "S6",
+   "S7"
+  ],
+  "shared_scale": "time_pressure"
+ },
+ "F003": {
+  "id": "F003",
+  "domain": "municipal street-works permit applications",
+  "role": "Street works permit officer at a local highway authority, reviewing one utility or contractor permit application at a time",
+  "setting": "A municipal highway authority runs a permit scheme for works in the public highway. Promoters such as water, gas, telecoms and electricity undertakers, plus private contractors, submit applications to occupy streets. Each application arrives as a structured record covering proposed dates, location, works detail, traffic management, coordination with other bookings and the promoter's compliance standing. The officer decides whether the stated clash with other works is real and which permit category truly applies. They also decide what to do with the application, how disruptive the works would be and how much scrutiny it needs before a decision.",
+  "questions": {
+   "genuine_clash": {
+    "type": "noul",
+    "instructions": "The proposed occupation genuinely clashes with other booked works nearby.",
+    "criteria": null
+   },
+   "disposition": {
+    "type": "choice",
+    "instructions": "What should the officer do with this permit application?",
+    "criteria": {
+     "grant": "Issue the permit as applied for without any changes.",
+     "grant_conditions": "Issue the permit with added conditions on hours or layout.",
+     "request_info": "Hold the application pending missing documents or one confirmation.",
+     "propose_changes": "Return with alternative dates or methods for promoter acceptance.",
+     "refuse": "Reject the application outright in its submitted form."
+    }
+   },
+   "true_category": {
+    "type": "choice",
+    "instructions": "Which permit category do the works actually fall into?",
+    "criteria": {
+     "minor": "Short works of three days or fewer, limited excavation.",
+     "standard": "Planned works lasting between four and ten days.",
+     "major": "Planned works over ten days or needing a full closure.",
+     "immediate": "Emergency or urgent works that must start without advance notice."
+    }
+   },
+   "disruption_level": {
+    "type": "score",
+    "instructions": "How much traffic disruption would the works likely cause?",
+    "criteria": [
+     "Low: footway or quiet street, negligible effect on traffic",
+     "Moderate: some delay, managed by shuttle or off-peak hours",
+     "High: significant queues expected on a busy or sensitive route",
+     "Severe: closure or peak-hour working on a strategic route"
+    ]
+   },
+   "scrutiny_needed": {
+    "type": "score",
+    "instructions": "How much officer scrutiny does this application need before deciding?",
+    "criteria": [
+     "Routine check only, nothing unusual in the record",
+     "Light review of a single minor point",
+     "Careful review of several interacting details",
+     "Detailed scrutiny including checks against other bookings",
+     "Escalate to senior officer or coordination meeting"
+    ]
+   }
+  },
+  "factors": [
+   {
+    "name": "section_gap",
+    "description": "Which required part of the application is absent or null. Absence counts as evidence and usually pushes the disposition toward request_info or refuse.",
+    "kind": "categorical",
+    "values": [
+     "complete",
+     "tm_plan_null",
+     "reinstatement_missing",
+     "insurance_expired_or_null",
+     "accreditation_missing"
+    ],
+    "weights": [
+     0.55,
+     0.15,
+     0.1,
+     0.1,
+     0.1
+    ],
+    "min": 0,
+    "max": 0,
+    "p_true": 0,
+    "skills": [
+     "S2",
+     "S4",
+     "S7"
+    ]
+   },
+   {
+    "name": "date_out_of_order",
+    "description": "A sequencing anomaly in the dates. Examples are a traffic management drawing dated after the proposed start, an excavation start before the notice was submitted, or an end date before the start.",
+    "kind": "categorical",
+    "values": [
+     "none",
+     "drawing_after_start",
+     "start_before_submission",
+     "consultation_after_start"
+    ],
+    "weights": [
+     0.75,
+     0.1,
+     0.08,
+     0.07
+    ],
+    "min": 0,
+    "max": 0,
+    "p_true": 0,
+    "skills": [
+     "S2",
+     "S5"
+    ]
+   },
+   {
+    "name": "duration_days",
+    "description": "Planned duration of occupation in working days. The officer compares it with the claimed category thresholds of three and ten days.",
+    "kind": "integer",
+    "values": [],
+    "weights": [],
+    "min": 1,
+    "max": 45,
+    "p_true": 0,
+    "skills": [
+     "S6",
+     "S7"
+    ]
+   },
+   {
+    "name": "category_claim",
+    "description": "How the category the promoter claims relates to what the duration, excavation and closure imply.",
+    "kind": "categorical",
+    "values": [
+     "consistent",
+     "understated",
+     "overstated",
+     "immediate_unjustified",
+     "immediate_justified"
+    ],
+    "weights": [
+     0.45,
+     0.2,
+     0.1,
+     0.12,
+     0.13
+    ],
+    "min": 0,
+    "max": 0,
+    "p_true": 0,
+    "skills": [
+     "S5",
+     "S6",
+     "S7"
+    ]
+   },
+   {
+    "name": "notice_lead_days",
+    "description": "Days between submission and proposed start. The officer compares this with the notice required for the true category rather than the claimed one.",
+    "kind": "integer",
+    "values": [],
+    "weights": [],
+    "min": 0,
+    "max": 90,
+    "p_true": 0,
+    "skills": [
+     "S2",
+     "S4",
+     "S7"
+    ]
+   },
+   {
+    "name": "booking_overlap",
+    "description": "Whether another booked occupation shares the street or an adjoining street segment within the proposed date window.",
+    "kind": "boolean",
+    "values": [],
+    "weights": [],
+    "min": 0,
+    "max": 0,
+    "p_true": 0.45,
+    "skills": [
+     "S5",
+     "S7"
+    ]
+   },
+   {
+    "name": "collaboration_agreed",
+    "description": "Mitigation for an overlap. Either a recorded collaborative works agreement or a shared trench reference with the other promoter, or the overlapping booking is footway-only on the opposite side.",
+    "kind": "boolean",
+    "values": [],
+    "weights": [],
+    "min": 0,
+    "max": 0,
+    "p_true": 0.5,
+    "skills": [
+     "S3",
+     "S5",
+     "S6"
+    ]
+   },
+   {
+    "name": "road_sensitivity",
+    "description": "Traffic importance of the street, shown through road category and traffic-sensitive time windows.",
+    "kind": "categorical",
+    "values": [
+     "residential",
+     "local_distributor",
+     "main_distributor",
+     "strategic_route"
+    ],
+    "weights": [
+     0.3,
+     0.3,
+     0.25,
+     0.15
+    ],
+    "min": 0,
+    "max": 0,
+    "p_true": 0,
+    "skills": [
+     "S7",
+     "S6"
+    ]
+   },
+   {
+    "name": "occupation_type",
+    "description": "How much carriageway the works take up, from footway-only to full road closure.",
+    "kind": "categorical",
+    "values": [
+     "footway_only",
+     "shuttle_signals",
+     "lane_closure",
+     "full_closure"
+    ],
+    "weights": [
+     0.3,
+     0.3,
+     0.25,
+     0.15
+    ],
+    "min": 0,
+    "max": 0,
+    "p_true": 0,
+    "skills": [
+     "S7",
+     "S4"
+    ]
+   },
+   {
+    "name": "off_peak_working",
+    "description": "Mitigation for disruption. Working hours avoid the street's traffic-sensitive windows, or night working is approved.",
+    "kind": "boolean",
+    "values": [],
+    "weights": [],
+    "min": 0,
+    "max": 0,
+    "p_true": 0.5,
+    "skills": [
+     "S3",
+     "S4"
+    ]
+   },
+   {
+    "name": "restriction_status",
+    "description": "Whether a recent-resurfacing restriction covers the street. If one is active, the record shows whether an approved exemption is on file.",
+    "kind": "categorical",
+    "values": [
+     "none",
+     "active_no_exemption",
+     "active_exemption_approved"
+    ],
+    "weights": [
+     0.6,
+     0.2,
+     0.2
+    ],
+    "min": 0,
+    "max": 0,
+    "p_true": 0,
+    "skills": [
+     "S3",
+     "S5"
+    ]
+   },
+   {
+    "name": "promoter_fpn_count",
+    "description": "Fixed penalty notices issued to the promoter in the last twelve months. A high count is alarming but is often offset by recent passed inspections.",
+    "kind": "integer",
+    "values": [],
+    "weights": [],
+    "min": 0,
+    "max": 9,
+    "p_true": 0,
+    "skills": [
+     "S3",
+     "S6"
+    ]
+   },
+   {
+    "name": "recent_inspections_passed",
+    "description": "Mitigation for a poor penalty history. The promoter's last few sample inspections on this authority's network were all passed.",
+    "kind": "boolean",
+    "values": [],
+    "weights": [],
+    "min": 0,
+    "max": 0,
+    "p_true": 0.5,
+    "skills": [
+     "S3"
+    ]
+   },
+   {
+    "name": "boundary_case",
+    "description": "When true, signals are placed in balance on purpose. Duration sits exactly on 3 or 10 days, notice lead equals the requirement minus one day, or an overlap ends the day the new works begin. This leaves judges split.",
+    "kind": "boolean",
+    "values": [],
+    "weights": [],
+    "min": 0,
+    "max": 0,
+    "p_true": 0.25,
+    "skills": [
+     "S6",
+     "S4"
+    ]
+   }
+  ],
+  "sections": [
+   {
+    "name": "application",
+    "description": "Reference, promoter id and type, claimed category, submission date, proposed start and end dates."
+   },
+   {
+    "name": "location",
+    "description": "Street id, road category, traffic-sensitive windows, resurfacing restriction and exemption reference."
+   },
+   {
+    "name": "works",
+    "description": "Excavation flag, trench length and depth, duration, working hours, reinstatement spec."
+   },
+   {
+    "name": "traffic_mgmt",
+    "description": "Plan reference and date, occupation type, signals, diversion route; may be null."
+   },
+   {
+    "name": "coordination",
+    "description": "List of other bookings on the street or adjoining segments with dates, and any collaboration reference."
+   },
+   {
+    "name": "compliance",
+    "description": "Insurance expiry, operative accreditation, FPN count over twelve months, recent inspection results."
+   }
+  ],
+  "rendering_notes": "application holds ref, promoter_id, promoter_type, cat_claimed (minor/standard/major/immediate), submitted (ISO date), start, end. notice_lead_days is never a field; the reader derives it from submitted and start. date_out_of_order shows only through dates: traffic_mgmt.plan_date after application.start, application.start before application.submitted, or works.consult_date after start. duration_days appears as works.dur_days and must agree with start and end. category_claim shows as a mismatch between cat_claimed and dur_days, works.excavation, and traffic_mgmt.occupation. For immediate_justified, works.fault_ref is filled with a fault_logged timestamp shortly before submission; for immediate_unjustified, fault_ref is null. location has street_id, road_cat (residential/local_distributor/main_distributor/strategic), ts_windows (list of time ranges or empty), restriction_until (date or null) and exemption_ref (string or null). works.hours gives start and end times, and off_peak_working is inferred by comparing them with ts_windows; a night_approval boolean may also appear. coordination.bookings is a list of objects (ref, promoter_id, start, end, segment, side, occupation). booking_overlap is inferred from dates and segment, never flagged. collaboration_agreed appears as coordination.collab_ref, or an overlapping booking marked side opposite with occupation footway_only. section_gap renders as traffic_mgmt: null, works.reinstatement: null, compliance.insurance_expiry before start or null, or compliance.accreditation: null. compliance.fpn_12m is an integer and compliance.inspections is a list of recent results (date, outcome) where recent_inspections_passed means all pass. Decoys: bookings on unrelated segments or with non-overlapping dates; a high fpn_12m alongside clean inspections; a restriction_until date already in the past; ts_windows present but works.hours outside them; promoter_type 'emergency_capable' even when the works are planned; trench_length large on a footway-only job. Never include fields stating clash, true category, disruption, risk, recommended decision or scrutiny level. There are no free-text note fields; all values are codes, numbers, dates, booleans or null.",
+  "skills": [
+   "S2",
+   "S3",
+   "S4",
+   "S5",
+   "S6",
+   "S7"
+  ],
+  "shared_scale": null
+ },
+ "F004": {
+  "id": "F004",
+  "domain": "staff rosters checked against timesheets",
+  "role": "Payroll rota auditor for a regional residential care group, checking each employee's pay-period roster against their submitted timesheet before payroll runs",
+  "setting": "A care group operating several homes rosters care assistants, nurses and kitchen staff weekly. At the end of each fortnightly pay period, staff submit timesheets. The auditor opens one employee-period record at a time and compares it with three other sources: the published roster, door-fob clock events and any manager approvals. The auditor then decides whether the timesheet can be paid, corrected, held or escalated, how much pay is at stake and how quickly it must be settled before the payroll cut-off.",
+  "questions": {
+   "overclaim_supported": {
+    "type": "noul",
+    "instructions": "The timesheet claims more paid time than the evidence supports.",
+    "criteria": {
+     "true": "Excess claimed time lacks roster, clock or approval support.",
+     "false": "Claimed time is matched or explained by evidence."
+    }
+   },
+   "disposition": {
+    "type": "choice",
+    "instructions": "What should happen to this timesheet before payroll processing?",
+    "criteria": {
+     "approve": "Pay the timesheet exactly as submitted by the employee.",
+     "approve_adjusted": "Pay after correcting hours to match the supported evidence.",
+     "hold_query": "Withhold payment pending one confirmation from manager or employee.",
+     "escalate": "Refer to payroll lead for investigation of possible overclaiming."
+    }
+   },
+   "variance_category": {
+    "type": "choice",
+    "instructions": "Which category best describes the main roster-timesheet difference?",
+    "criteria": {
+     "no_difference": "Roster, timesheet and clock records agree within tolerance.",
+     "approved_change": "Difference arises from a documented swap, overtime or extension.",
+     "recording_error": "Difference reflects a keying, date or code slip.",
+     "unsupported_claim": "Extra time claimed with no corroborating record at all."
+    }
+   },
+   "pay_impact": {
+    "type": "score",
+    "instructions": "How large is the pay impact of the unresolved differences?",
+    "criteria": [
+     "No pay effect after reconciling all records",
+     "Small effect, well under one hour's pay",
+     "Moderate effect, roughly one shift's pay or less",
+     "Large effect, more than one shift's pay"
+    ]
+   },
+   "resolution_urgency": {
+    "type": "score",
+    "instructions": "How urgently must this record be resolved before the payroll cut-off?",
+    "criteria": [
+     "Routine: can wait for the next scheduled review",
+     "Soon: resolve within the current pay cycle",
+     "Priority: resolve before this cycle's cut-off date",
+     "Immediate: act today to avoid incorrect payment"
+    ]
+   }
+  },
+  "factors": [
+   {
+    "name": "variance_pattern",
+    "description": "Underlying shape of the difference between rostered and claimed time: none, minute-level rounding, one shift overrun, overruns on several shifts, or a claimed shift absent from the roster entirely.",
+    "kind": "categorical",
+    "values": [
+     "none",
+     "rounding",
+     "single_overrun",
+     "multi_overrun",
+     "phantom_shift"
+    ],
+    "weights": [
+     0.2,
+     0.2,
+     0.25,
+     0.2,
+     0.15
+    ],
+    "min": 0,
+    "max": 0,
+    "p_true": 0,
+    "skills": [
+     "S1",
+     "S7"
+    ]
+   },
+   {
+    "name": "variance_location",
+    "description": "Where the mismatch sits when one exists: start/end times, unpaid break minutes, a date shifted by one day, the home site code, or the pay grade code on the entry.",
+    "kind": "categorical",
+    "values": [
+     "shift_times",
+     "break_mins",
+     "date_shift",
+     "site_code",
+     "grade_code"
+    ],
+    "weights": [
+     0.35,
+     0.2,
+     0.15,
+     0.15,
+     0.15
+    ],
+    "min": 0,
+    "max": 0,
+    "p_true": 0,
+    "skills": [
+     "S1"
+    ]
+   },
+   {
+    "name": "approval_on_file",
+    "description": "Mitigating factor: whether a manager approval record (overtime, shift swap or extension) exists covering the date of the alarming difference.",
+    "kind": "boolean",
+    "values": [],
+    "weights": [],
+    "min": 0,
+    "max": 0,
+    "p_true": 0.5,
+    "skills": [
+     "S3"
+    ]
+   },
+   {
+    "name": "approval_completeness",
+    "description": "When an approval exists, whether it is fully signed, still awaiting the manager's sign-off, or covers only part of the extra time claimed.",
+    "kind": "categorical",
+    "values": [
+     "signed_full",
+     "pending_signoff",
+     "covers_part"
+    ],
+    "weights": [
+     0.5,
+     0.25,
+     0.25
+    ],
+    "min": 0,
+    "max": 0,
+    "p_true": 0,
+    "skills": [
+     "S4",
+     "S6"
+    ]
+   },
+   {
+    "name": "clock_corroboration",
+    "description": "How far fob clock events back up the timesheet: they match fully, cover only some shifts, are missing for the disputed shift, or show the employee leaving earlier than claimed.",
+    "kind": "categorical",
+    "values": [
+     "full",
+     "partial",
+     "missing",
+     "contradicts"
+    ],
+    "weights": [
+     0.35,
+     0.25,
+     0.2,
+     0.2
+    ],
+    "min": 0,
+    "max": 0,
+    "p_true": 0,
+    "skills": [
+     "S1",
+     "S3",
+     "S5"
+    ]
+   },
+   {
+    "name": "note_explanation",
+    "description": "Content of the employee's free-text note on the timesheet: absent, a plausible benign reason (handover ran late, covered sickness), vague, or a reason contradicted by other sections.",
+    "kind": "categorical",
+    "values": [
+     "none",
+     "benign_plausible",
+     "vague",
+     "contradicted"
+    ],
+    "weights": [
+     0.3,
+     0.3,
+     0.2,
+     0.2
+    ],
+    "min": 0,
+    "max": 0,
+    "p_true": 0,
+    "skills": [
+     "S3",
+     "S6"
+    ]
+   },
+   {
+    "name": "rate_premium",
+    "description": "Pay premium band applying to the disputed shift, which scales the pay impact of any unsupported time.",
+    "kind": "categorical",
+    "values": [
+     "standard",
+     "night",
+     "weekend",
+     "bank_holiday"
+    ],
+    "weights": [
+     0.45,
+     0.2,
+     0.2,
+     0.15
+    ],
+    "min": 0,
+    "max": 0,
+    "p_true": 0,
+    "skills": [
+     "S1",
+     "S7"
+    ]
+   },
+   {
+    "name": "variance_minutes",
+    "description": "Total minutes by which claimed time differs from supported time across the period before any approvals are applied.",
+    "kind": "integer",
+    "values": [],
+    "weights": [],
+    "min": 0,
+    "max": 720,
+    "p_true": 0,
+    "skills": [
+     "S1",
+     "S4"
+    ]
+   },
+   {
+    "name": "near_tolerance",
+    "description": "Whether the net unsupported variance lands within a few minutes either side of the period tolerance, leaving pay-or-query judgement open.",
+    "kind": "boolean",
+    "values": [],
+    "weights": [],
+    "min": 0,
+    "max": 0,
+    "p_true": 0.25,
+    "skills": [
+     "S6"
+    ]
+   },
+   {
+    "name": "prior_queries",
+    "description": "Count of timesheet queries raised for this employee in the previous six pay periods.",
+    "kind": "integer",
+    "values": [],
+    "weights": [],
+    "min": 0,
+    "max": 5,
+    "p_true": 0,
+    "skills": [
+     "S6",
+     "S7"
+    ]
+   },
+   {
+    "name": "days_to_cutoff",
+    "description": "Working days remaining before the payroll cut-off for this period.",
+    "kind": "integer",
+    "values": [],
+    "weights": [],
+    "min": 0,
+    "max": 9,
+    "p_true": 0,
+    "skills": [
+     "S7"
+    ]
+   },
+   {
+    "name": "staff_type",
+    "description": "Employment basis: permanent contract, internal bank staff or external agency worker, affecting rate and how overclaims are pursued.",
+    "kind": "categorical",
+    "values": [
+     "permanent",
+     "bank",
+     "agency"
+    ],
+    "weights": [
+     0.55,
+     0.3,
+     0.15
+    ],
+    "min": 0,
+    "max": 0,
+    "p_true": 0,
+    "skills": [
+     "S7"
+    ]
+   },
+   {
+    "name": "decoy_leave_entry",
+    "description": "Whether the record contains an annual leave or training day that looks like a mismatch but correctly appears in both roster and timesheet under a non-worked code.",
+    "kind": "boolean",
+    "values": [],
+    "weights": [],
+    "min": 0,
+    "max": 0,
+    "p_true": 0.4,
+    "skills": [
+     "S1"
+    ]
+   }
+  ],
+  "sections": [
+   {
+    "name": "employee",
+    "description": "Staff ID, role, grade code, home site code, staff type and contracted weekly hours."
+   },
+   {
+    "name": "roster",
+    "description": "List of published shifts with date, site, start, end, break minutes and shift code."
+   },
+   {
+    "name": "timesheet",
+    "description": "List of claimed entries mirroring roster fields, plus submitted date and a short free-text note."
+   },
+   {
+    "name": "clock_events",
+    "description": "List of fob in/out events with timestamp, door site and device ID; may be sparse."
+   },
+   {
+    "name": "approvals",
+    "description": "List of manager approvals with type, date covered, minutes approved, approver and signed flag."
+   },
+   {
+    "name": "payroll",
+    "description": "Period start/end, cut-off date, variance tolerance minutes, rate band table and prior query count."
+   }
+  ],
+  "rendering_notes": "variance_pattern and variance_minutes never appear as fields. They emerge only by comparing timesheet entries with roster shifts: later end times or fewer break minutes for overruns, and a timesheet entry with no roster row for phantom_shift. Rounding shows as 1-7 minute differences. variance_location decides which field differs: times, break_mins, date (one day off with matching times), site (timesheet site differs from roster and clock door site) or grade_code (timesheet grade differs from employee.grade). approval_on_file adds an approvals row whose date matches the disputed entry. approval_completeness sets signed:false for pending_signoff, or minutes_approved below the claimed excess for covers_part. clock_corroboration controls clock_events: full gives in/out pairs within minutes of the claim; partial omits some shifts; missing omits the disputed day; contradicts shows an out event well before the claimed end. note_explanation renders timesheet.note as one or two plain sentences, or null. A contradicted note cites something the data refutes, for example covering a colleague on a date when the roster shows that colleague's site was not short. rate_premium appears as the shift_code (N, WE, BH) and the payroll rate table, never as a computed amount. near_tolerance places the net unsupported minutes within about 5 of payroll.tolerance_mins. prior_queries is payroll.prior_queries_6p. days_to_cutoff is shown only through payroll.cutoff_date against a record-level review_date. Decoys: decoy_leave_entry adds an AL or TRN row in both roster and timesheet with zero worked minutes. Device IDs and approver names vary and are irrelevant. Contracted hours may differ from rostered hours legitimately. The record must never contain a status, risk, variance total, overclaim flag, recommended action or urgency field. Alarming signals (late end times, missing clocks, phantom shifts) appear with and without approvals or benign notes in roughly equal measure.",
+  "skills": [
+   "S1",
+   "S3",
+   "S4",
+   "S5",
+   "S6",
+   "S7"
+  ],
+  "shared_scale": null
+ },
+ "F005": {
+  "id": "F005",
+  "domain": "refrigerated food deliveries to schools (temperature and timing)",
+  "role": "School meals cold-chain compliance officer at a local authority catering service, reviewing one chilled or frozen delivery drop to one school kitchen at a time",
+  "setting": "A council-run school meals service receives chilled and frozen deliveries from contracted distributors into primary and secondary school kitchens. Each drop produces a record combining the distributor's manifest, the vehicle's temperature logger extract, the kitchen's goods-in receipt with probe readings, and what the kitchen did with the stock at lunch service. The officer reviews each record after the fact, often the same day, to decide whether stock was safe, what to do with anything still on site, and how serious the drop was. Limits used are 8.0 C for chilled and -15.0 C for frozen at receipt, with the logger expected to stay at or below 5.0 C for chilled loads.",
+  "questions": {
+   "cold_chain_breach": {
+    "type": "noul",
+    "instructions": "Chilled or frozen goods exceeded safe temperature limits during this delivery.",
+    "criteria": {
+     "true": "Logger or probe evidence shows a genuine limit exceedance.",
+     "false": "Readings stay within limits or exceedance is unproven."
+    }
+   },
+   "qty_reconciled": {
+    "type": "noul",
+    "instructions": "Delivered quantities and units match the manifest on every line.",
+    "criteria": null
+   },
+   "stock_disposition": {
+    "type": "choice",
+    "instructions": "What should happen to the chilled stock from this delivery?",
+    "criteria": {
+     "accept": "Stock released for normal use under its stated dates.",
+     "accept_conditional": "Stock usable only with shortened use window or priority use.",
+     "quarantine_hold": "Stock held aside until one outstanding check is confirmed.",
+     "reject_discard": "Stock discarded or returned to distributor as unfit."
+    }
+   },
+   "food_safety_risk": {
+    "type": "score",
+    "instructions": "How serious is the food safety risk from this delivery?",
+    "criteria": [
+     "Negligible: readings and timings comfortably within all limits",
+     "Minor: brief or marginal deviation with no likely harm",
+     "Significant: sustained deviation needing quarantine or shortened use",
+     "Severe: unsafe stock likely served or about to be"
+    ]
+   },
+   "attention_needed": {
+    "type": "score",
+    "instructions": "How much reviewer effort does this record realistically require?",
+    "criteria": [
+     "Can pass through without any human look",
+     "A brief check of key fields suffices",
+     "Needs careful reading and some follow-up questions",
+     "Demands thorough examination and input from specialists"
+    ]
+   }
+  },
+  "factors": [
+   {
+    "name": "logger_peak_temp_c",
+    "description": "Highest air temperature recorded by the vehicle logger for the chilled compartment between departure and arrival.",
+    "kind": "number",
+    "values": [],
+    "weights": [],
+    "min": 1.5,
+    "max": 12.5,
+    "p_true": 0,
+    "skills": [
+     "S5",
+     "S6",
+     "S7"
+    ]
+   },
+   {
+    "name": "minutes_above_limit",
+    "description": "Cumulative minutes the logger recorded above 5.0 C for the chilled compartment; short spikes during door openings are normal.",
+    "kind": "integer",
+    "values": [],
+    "weights": [],
+    "min": 0,
+    "max": 95,
+    "p_true": 0,
+    "skills": [
+     "S5",
+     "S6"
+    ]
+   },
+   {
+    "name": "probe_logger_agreement",
+    "description": "How the kitchen's goods-in probe reading compares with the logger reading at the arrival timestamp.",
+    "kind": "categorical",
+    "values": [
+     "agree",
+     "probe_slightly_lower",
+     "probe_slightly_higher",
+     "probe_much_higher",
+     "probe_much_lower"
+    ],
+    "weights": [
+     0.4,
+     0.15,
+     0.15,
+     0.18,
+     0.12
+    ],
+    "min": 0,
+    "max": 0,
+    "p_true": 0,
+    "skills": [
+     "S1",
+     "S5",
+     "S6"
+    ]
+   },
+   {
+    "name": "qty_mismatch",
+    "description": "Discrepancy between manifest lines and received lines: none, a one-unit difference, an unannounced substitution, a short line, or a manifest line absent from receipt.",
+    "kind": "categorical",
+    "values": [
+     "none",
+     "trivial_one_unit",
+     "substitution",
+     "short_line",
+     "missing_line"
+    ],
+    "weights": [
+     0.38,
+     0.17,
+     0.15,
+     0.18,
+     0.12
+    ],
+    "min": 0,
+    "max": 0,
+    "p_true": 0,
+    "skills": [
+     "S1",
+     "S4"
+    ]
+   },
+   {
+    "name": "unit_or_date_conflict",
+    "description": "Conflict between manifest and receipt on unit of measure or use-by date, including a use-by falling before the scheduled service date.",
+    "kind": "categorical",
+    "values": [
+     "none",
+     "unit_kg_vs_each",
+     "use_by_differs",
+     "use_by_before_service"
+    ],
+    "weights": [
+     0.55,
+     0.15,
+     0.15,
+     0.15
+    ],
+    "min": 0,
+    "max": 0,
+    "p_true": 0,
+    "skills": [
+     "S1",
+     "S6"
+    ]
+   },
+   {
+    "name": "receipt_state",
+    "description": "Completeness and ordering of the goods-in receipt: complete, probe reading not taken, signed timestamp earlier than vehicle arrival, or receipt section null.",
+    "kind": "categorical",
+    "values": [
+     "complete",
+     "probe_not_taken",
+     "signed_before_arrival",
+     "receipt_null"
+    ],
+    "weights": [
+     0.55,
+     0.17,
+     0.14,
+     0.14
+    ],
+    "min": 0,
+    "max": 0,
+    "p_true": 0,
+    "skills": [
+     "S2",
+     "S4"
+    ]
+   },
+   {
+    "name": "arrival_offset_min",
+    "description": "Minutes between scheduled window end and actual arrival; negative means early, large positive values squeeze the gap before lunch service.",
+    "kind": "integer",
+    "values": [],
+    "weights": [],
+    "min": -25,
+    "max": 130,
+    "p_true": 0,
+    "skills": [
+     "S6",
+     "S7"
+    ]
+   },
+   {
+    "name": "served_before_check",
+    "description": "Whether items from the delivery were issued to lunch service before the receipt check or recheck was recorded.",
+    "kind": "boolean",
+    "values": [],
+    "weights": [],
+    "min": 0,
+    "max": 0,
+    "p_true": 0.25,
+    "skills": [
+     "S2",
+     "S7"
+    ]
+   },
+   {
+    "name": "core_recheck_ok",
+    "description": "Mitigation: a core-temperature recheck of product after receipt came back within limit. Sampled near 0.5 so alarming logger readings appear with and without it.",
+    "kind": "boolean",
+    "values": [],
+    "weights": [],
+    "min": 0,
+    "max": 0,
+    "p_true": 0.5,
+    "skills": [
+     "S4",
+     "S5",
+     "S6"
+    ]
+   },
+   {
+    "name": "logger_gap",
+    "description": "Whether the logger extract has a missing segment or a null summary, leaving part of the journey unevidenced.",
+    "kind": "boolean",
+    "values": [],
+    "weights": [],
+    "min": 0,
+    "max": 0,
+    "p_true": 0.2,
+    "skills": [
+     "S2",
+     "S5"
+    ]
+   },
+   {
+    "name": "boundary_reading",
+    "description": "Whether the decisive reading sits exactly on a limit (8.0 C probe, 5.0 C logger peak, -15.0 C frozen) where the scale is ambiguous.",
+    "kind": "boolean",
+    "values": [],
+    "weights": [],
+    "min": 0,
+    "max": 0,
+    "p_true": 0.2,
+    "skills": [
+     "S6"
+    ]
+   },
+   {
+    "name": "door_open_events",
+    "description": "Count of compartment door openings logged on the route; high counts explain spikes but are often a decoy.",
+    "kind": "integer",
+    "values": [],
+    "weights": [],
+    "min": 0,
+    "max": 14,
+    "p_true": 0,
+    "skills": [
+     "S6",
+     "S7"
+    ]
+   },
+   {
+    "name": "route_excursion_history",
+    "description": "Number of logged temperature excursions on this distributor route in the previous 60 days.",
+    "kind": "integer",
+    "values": [],
+    "weights": [],
+    "min": 0,
+    "max": 7,
+    "p_true": 0,
+    "skills": [
+     "S7",
+     "S6"
+    ]
+   }
+  ],
+  "sections": [
+   {
+    "name": "drop",
+    "description": "Identifiers, school, route, scheduled window, actual arrival time and planned service time."
+   },
+   {
+    "name": "manifest",
+    "description": "Distributor's list of lines with sku, description, temp class, qty, unit and use-by."
+   },
+   {
+    "name": "logger",
+    "description": "Vehicle logger extract: departure, arrival, peak, minutes above limit, door events, segments."
+   },
+   {
+    "name": "receipt",
+    "description": "Kitchen goods-in record: received lines, probe readings, recheck, signer and signed timestamp; may be null."
+   },
+   {
+    "name": "usage",
+    "description": "What the kitchen did with stock: issued to service, held, discarded, with timestamps."
+   },
+   {
+    "name": "route_history",
+    "description": "Recent excursion count and last excursion date for the distributor route."
+   }
+  ],
+  "rendering_notes": "drop: drop_id, school_id, route_id, window_start, window_end, arrived_at, service_at (ISO datetimes); arrival_offset_min is shown only indirectly via arrived_at against window_end and service_at. manifest.lines[]: sku, desc, temp_class (chilled|frozen), qty, unit, use_by. receipt.lines[]: sku, qty_recv, unit, use_by_label; qty_mismatch appears only by comparing these with manifest lines (a missing sku, a different sku in the same position for substitution, lower qty_recv, or off-by-one); unit_or_date_conflict appears as unit 'kg' vs 'each' or a differing use_by_label, or a use_by earlier than drop.service_at date. logger: departed_at, arrived_at, peak_c, mins_above_5c, door_events, segments[] with start, end, max_c; logger_gap renders as a segment with max_c null or a time hole between segments, or peak_c null. Logger arrived_at may differ by a few minutes from drop.arrived_at as a harmless decoy. receipt: probe_c (null when probe_not_taken), probe_at, recheck {core_c, at} or null, signed_by (staff code), signed_at; signed_before_arrival renders as signed_at earlier than logger.arrived_at; receipt_null renders the whole receipt section as null. probe_logger_agreement shows as probe_c against the segment max_c covering probe_at. boundary_reading renders the decisive value exactly at 8.0, 5.0 or -15.0. core_recheck_ok renders as recheck.core_c within limit after a high probe or logger peak; when false, recheck is null or above limit. usage.events[]: sku, action (issued|held|discarded), at; served_before_check renders as an issued event timestamped before probe_at or before recheck.at. route_history: excursions_60d, last_excursion_on (null if none). Decoys: door_events high with a benign trace, high route history on a clean drop, early arrival, minor logger/drop clock skew, frozen lines with very low readings. Never include fields stating breach, risk, disposition, reconciliation status or pass/fail; no free-text notes, all values are codes, numbers, timestamps, booleans or null.",
+  "skills": [
+   "S1",
+   "S2",
+   "S4",
+   "S5",
+   "S6",
+   "S7"
+  ],
+  "shared_scale": "attention_needed"
+ },
+ "F006": {
+  "id": "F006",
+  "domain": "automatic weather-station data quality review",
+  "role": "Network data quality analyst at a national meteorological service, reviewing one automatic weather station's 24-hour data batch at a time before it is released to the climate archive and forecast feeds",
+  "setting": "Each record is a single station-day assembled by the ingest system: station metadata, summarised observations per element, automated quality-control test results, comparisons with nearby stations, the maintenance and calibration log, and logger transmission statistics. The analyst decides whether the day's data can be released, whether specific suspected faults are real, how urgently a technician is needed and how far users can trust the day. Records contain no free-text fields; every signal is a number, date, flag, identifier, unit code or list entry.",
+  "questions": {
+   "rain_total_bad": {
+    "type": "noul",
+    "instructions": "The day's rainfall total is erroneous and should not be published.",
+    "criteria": null
+   },
+   "temp_drift": {
+    "type": "noul",
+    "instructions": "A drifting temperature sensor accounts for the gap with neighbours.",
+    "criteria": {
+     "true": "Offset grows steadily since calibration and nothing else explains it",
+     "false": "Gap absent, transient, or explained by weather, siting or maintenance"
+    }
+   },
+   "release_action": {
+    "type": "choice",
+    "instructions": "What should be done with this station-day's data before archiving?",
+    "criteria": {
+     "accept": "Release all elements to the archive without added quality flags.",
+     "accept_flagged": "Release all elements but attach suspect flags to affected values.",
+     "hold": "Keep the day pending one confirmation before deciding release.",
+     "withhold_partial": "Release sound elements and withhold the faulty ones only.",
+     "reject_day": "Withhold the whole station-day from archive and downstream products."
+    }
+   },
+   "visit_urgency": {
+    "type": "score",
+    "instructions": "How urgently does the station need a technician site visit?",
+    "criteria": [
+     "No visit needed beyond the routine schedule",
+     "Inspect the issue at the next routine visit",
+     "Arrange a dedicated visit within the coming fortnight",
+     "Send a technician within forty-eight hours"
+    ]
+   },
+   "user_confidence": {
+    "type": "score",
+    "instructions": "How much confidence can downstream users place in this station-day?",
+    "criteria": [
+     "Unusable: most elements fail checks or are missing",
+     "Poor: several elements doubtful, fit for limited use only",
+     "Fair: usable with caution for some elements",
+     "Good: minor flagged issues, broadly fit for use",
+     "Excellent: all elements complete, consistent and independently verified"
+    ]
+   }
+  },
+  "factors": [
+   {
+    "name": "sensor_fault_type",
+    "description": "The underlying instrument problem, if any, affecting the station-day; never named in the record, only visible through test counts, neighbour deltas and value patterns.",
+    "kind": "categorical",
+    "values": [
+     "none",
+     "temp_drift",
+     "rain_gauge_blockage",
+     "humidity_stuck_high",
+     "wind_vane_stuck",
+     "pressure_spikes"
+    ],
+    "weights": [
+     0.25,
+     0.18,
+     0.18,
+     0.13,
+     0.13,
+     0.13
+    ],
+    "min": 0,
+    "max": 0,
+    "p_true": 0,
+    "skills": [
+     "S7",
+     "S1",
+     "S5"
+    ]
+   },
+   {
+    "name": "fault_severity",
+    "description": "How strongly the fault distorts readings, from barely detectable to gross; drives size of neighbour deltas and number of failed QC hours.",
+    "kind": "number",
+    "values": [],
+    "weights": [],
+    "min": 0,
+    "max": 1,
+    "p_true": 0,
+    "skills": [
+     "S4",
+     "S6",
+     "S7"
+    ]
+   },
+   {
+    "name": "cross_section_mismatch",
+    "description": "An unannounced inconsistency between corresponding values in different sections, ranging from trivial rounding to a large gap.",
+    "kind": "categorical",
+    "values": [
+     "none",
+     "trivial_rounding",
+     "unit_mismatch",
+     "timestamp_offset",
+     "logger_id_mismatch",
+     "obs_count_gap",
+     "rain_sum_gap"
+    ],
+    "weights": [
+     0.22,
+     0.16,
+     0.12,
+     0.13,
+     0.1,
+     0.14,
+     0.13
+    ],
+    "min": 0,
+    "max": 0,
+    "p_true": 0,
+    "skills": [
+     "S1"
+    ]
+   },
+   {
+    "name": "benign_explanation_present",
+    "description": "Whether a natural cause accounts for the alarming pattern, such as a local convective cell seen by one neighbour, snowmelt in the gauge, fog or frost on the vane.",
+    "kind": "boolean",
+    "values": [],
+    "weights": [],
+    "min": 0,
+    "max": 0,
+    "p_true": 0.5,
+    "skills": [
+     "S3",
+     "S5",
+     "S6"
+    ]
+   },
+   {
+    "name": "maintenance_window_active",
+    "description": "Whether a logged maintenance or cleaning visit overlaps the hours where QC tests failed, making failures expected artefacts.",
+    "kind": "boolean",
+    "values": [],
+    "weights": [],
+    "min": 0,
+    "max": 0,
+    "p_true": 0.5,
+    "skills": [
+     "S3",
+     "S1"
+    ]
+   },
+   {
+    "name": "days_since_calibration",
+    "description": "Days between the last recorded calibration of the temperature and humidity probe and the observation date; long gaps make drift plausible but not proven.",
+    "kind": "integer",
+    "values": [],
+    "weights": [],
+    "min": 3,
+    "max": 900,
+    "p_true": 0,
+    "skills": [
+     "S1",
+     "S5",
+     "S6"
+    ]
+   },
+   {
+    "name": "data_completeness_pct",
+    "description": "Share of expected hourly messages actually received and decoded for the day.",
+    "kind": "number",
+    "values": [],
+    "weights": [],
+    "min": 55,
+    "max": 100,
+    "p_true": 0,
+    "skills": [
+     "S4",
+     "S1"
+    ]
+   },
+   {
+    "name": "neighbour_agreement",
+    "description": "How well nearby stations corroborate this station's readings once distance and elevation are allowed for.",
+    "kind": "categorical",
+    "values": [
+     "strong",
+     "moderate",
+     "weak",
+     "no_usable_neighbours"
+    ],
+    "weights": [
+     0.3,
+     0.3,
+     0.25,
+     0.15
+    ],
+    "min": 0,
+    "max": 0,
+    "p_true": 0,
+    "skills": [
+     "S6",
+     "S3",
+     "S5"
+    ]
+   },
+   {
+    "name": "prior_flag_count_30d",
+    "description": "Number of station-days in the previous thirty days that received suspect flags for any element.",
+    "kind": "integer",
+    "values": [],
+    "weights": [],
+    "min": 0,
+    "max": 12,
+    "p_true": 0,
+    "skills": [
+     "S6",
+     "S7"
+    ]
+   },
+   {
+    "name": "recent_successful_check",
+    "description": "Whether a field comparison against a travelling reference instrument passed within the last few weeks.",
+    "kind": "boolean",
+    "values": [],
+    "weights": [],
+    "min": 0,
+    "max": 0,
+    "p_true": 0.5,
+    "skills": [
+     "S3",
+     "S5"
+    ]
+   },
+   {
+    "name": "repair_state",
+    "description": "Status of any open work on the station: no ticket, ticket raised, repair partly done, or repair completed.",
+    "kind": "categorical",
+    "values": [
+     "no_ticket",
+     "ticket_open",
+     "repair_partial",
+     "repair_completed"
+    ],
+    "weights": [
+     0.4,
+     0.22,
+     0.2,
+     0.18
+    ],
+    "min": 0,
+    "max": 0,
+    "p_true": 0,
+    "skills": [
+     "S4",
+     "S3",
+     "S7"
+    ]
+   },
+   {
+    "name": "boundary_case",
+    "description": "Whether a decisive value sits on a QC threshold, such as a neighbour delta exactly at tolerance or completeness at the release cut-off.",
+    "kind": "boolean",
+    "values": [],
+    "weights": [],
+    "min": 0,
+    "max": 0,
+    "p_true": 0.25,
+    "skills": [
+     "S6",
+     "S4"
+    ]
+   },
+   {
+    "name": "station_tier",
+    "description": "Network role of the station, setting how much downstream impact bad data would have.",
+    "kind": "categorical",
+    "values": [
+     "climate_reference",
+     "synoptic",
+     "hydrology_support",
+     "secondary_local"
+    ],
+    "weights": [
+     0.2,
+     0.35,
+     0.2,
+     0.25
+    ],
+    "min": 0,
+    "max": 0,
+    "p_true": 0,
+    "skills": [
+     "S3",
+     "S7"
+    ]
+   }
+  ],
+  "sections": [
+   {
+    "name": "station",
+    "description": "Station identifier, logger serial, tier code, coordinates, elevation, configured element units and observation date."
+   },
+   {
+    "name": "observations",
+    "description": "Per-element daily summary: unit, hourly value count, min, max, mean, plus a 24-entry hourly rainfall list and daily total."
+   },
+   {
+    "name": "auto_qc",
+    "description": "List of automated tests per element with hours tested, hours failed and first failure time in UTC."
+   },
+   {
+    "name": "neighbours",
+    "description": "Up to four nearby stations with distance, elevation difference and daily deltas for temperature, humidity, pressure and rainfall."
+   },
+   {
+    "name": "maintenance",
+    "description": "Visit list with start and end times and action codes, last calibration dates per sensor, reference check results and open ticket status."
+   },
+   {
+    "name": "transmission",
+    "description": "Expected and received message counts, decoded count, logger serial reported, clock offset seconds and battery voltage minimum."
+   }
+  ],
+  "rendering_notes": "sensor_fault_type appears only indirectly: temp_drift as temperature neighbour deltas all of one sign and larger than humidity or pressure deltas, with auto_qc 'spatial_consistency' failures for air_temp; rain_gauge_blockage as hourly rainfall list of zeros while neighbours report rain, possibly followed by a burst hour, with 'neighbour_precip' failures; humidity_stuck_high as rh min and max both near 100 with 'flatline' failures; wind_vane_stuck as wind_dir min equal to max; pressure_spikes as 'step_change' failures on pressure with plausible mean. fault_severity scales the delta magnitudes and failed-hour counts. cross_section_mismatch is placed in one of: observations unit versus station configured unit (e.g. hPa vs kPa, mm vs inches), first failure time in auto_qc versus maintenance visit time shifted by a local-time offset, station logger_serial versus transmission logger_serial_reported, observations hourly count versus transmission decoded count, or sum of the hourly rainfall list versus the stated daily total; trivial_rounding gives differences of 0.1 mm or one count; 'none' records reconcile fully. benign_explanation_present shows as one neighbour with a matching rainfall burst or a large delta only at one sheltered neighbour, or sub-zero minimum temperature alongside frozen-vane symptoms; it must never be labelled as an explanation. maintenance_window_active shows as a visit whose start and end bracket the failed hours, with action codes like CLEAN_GAUGE or SWAP_PROBE. days_since_calibration is rendered as a last_cal date in maintenance against the station observation date. data_completeness_pct appears as received and decoded counts against expected in transmission. neighbour_agreement is expressed through number of neighbours and spread of their deltas; no_usable_neighbours gives an empty list or neighbours over 60 km or 400 m higher. prior_flag_count_30d appears as flagged_days_30d in auto_qc. recent_successful_check appears as a ref_check entry with date and a pass boolean and offset value. repair_state appears as ticket status and a list of completed action codes, partial meaning some actions done and others pending. boundary_case puts a delta or completeness value exactly at the threshold implied by test tolerances listed in auto_qc. station_tier appears as a tier code in station. Decoys: low battery voltage minima that never coincide with failures, a single range-test failure within tolerance, a high flagged_days_30d driven by an already completed repair, a long calibration gap on an element that is healthy, and clock offsets of a few seconds. No record may contain fields such as verdict, fault_type, severity, release_status, confidence or recommended_action; auto_qc reports test-level counts only and never an overall pass or fail for the day. No free-text fields are used anywhere.",
+  "skills": [
+   "S1",
+   "S3",
+   "S4",
+   "S5",
+   "S6",
+   "S7"
+  ],
+  "shared_scale": null
+ },
+ "F007": {
+  "id": "F007",
+  "domain": "home-care visit logs reviewed by a care coordinator",
+  "role": "Home-care coordinator reviewing each submitted carer visit log for a domiciliary care branch",
+  "setting": "A domiciliary care branch where carers record each home visit on a mobile app. The coordinator reviews one visit log at a time against the client's care plan, recent visit history and the carer's notes. For each log they decide whether the visit was delivered as planned, whether it shows the client declining, what to do with the log and how urgently it needs attention. Logs vary widely: short visits, unsigned medication records, odd check-out times, changed observations and brief free-text notes. Alarming signals often come with benign explanations recorded elsewhere in the log.",
+  "questions": {
+   "delivered_in_full": {
+    "type": "noul",
+    "instructions": "The visit delivered the care plan in full for this slot.",
+    "criteria": {
+     "true": "Planned tasks done, time and attendance adequately met",
+     "false": "Tasks, time, staffing or records fall short"
+    }
+   },
+   "client_decline": {
+    "type": "noul",
+    "instructions": "The log evidences a new decline in the client's condition.",
+    "criteria": {
+     "true": "Unexplained worsening shown against baseline or history",
+     "false": "Stable, explained, or decline merely possible"
+    }
+   },
+   "next_step": {
+    "type": "choice",
+    "instructions": "What should the coordinator do with this visit log next?",
+    "criteria": {
+     "accept_log": "File the log as complete with no further action",
+     "hold_confirm": "Keep the log open pending one specific confirmation",
+     "query_carer": "Return the log to the carer to correct or explain gaps",
+     "escalate_clinical": "Refer to the nurse or GP liaison for welfare review"
+    }
+   },
+   "consequence_if_wrong": {
+    "type": "score",
+    "instructions": "How serious would the harm be if this decision were wrong?",
+    "criteria": [
+     "Negligible effect, easily corrected later on",
+     "Minor inconvenience or a small avoidable cost",
+     "Noticeable harm, costly or slow to reverse",
+     "Severe or lasting harm to people or property"
+    ]
+   },
+   "follow_up_urgency": {
+    "type": "score",
+    "instructions": "How urgently does this visit need coordinator follow-up attention?",
+    "criteria": [
+     "No follow-up needed beyond routine filing",
+     "Review within the week at routine check",
+     "Follow up before the client's next visit",
+     "Act today; client welfare may be at risk"
+    ]
+   }
+  },
+  "factors": [
+   {
+    "name": "duration_shortfall_min",
+    "description": "Minutes the actual visit fell short of the planned duration; zero means on time or over.",
+    "kind": "integer",
+    "values": [],
+    "weights": [],
+    "min": 0,
+    "max": 40,
+    "p_true": 0,
+    "skills": [
+     "S3",
+     "S4",
+     "S7"
+    ]
+   },
+   {
+    "name": "shortfall_explained",
+    "description": "Whether a short visit has a benign recorded reason, such as client asking to finish early or family taking over a task.",
+    "kind": "boolean",
+    "values": [],
+    "weights": [],
+    "min": 0,
+    "max": 0,
+    "p_true": 0.5,
+    "skills": [
+     "S3"
+    ]
+   },
+   {
+    "name": "task_completion",
+    "description": "Completion state of the planned tasks for the slot.",
+    "kind": "categorical",
+    "values": [
+     "all_done",
+     "partial",
+     "key_task_missed"
+    ],
+    "weights": [
+     0.5,
+     0.3,
+     0.2
+    ],
+    "min": 0,
+    "max": 0,
+    "p_true": 0,
+    "skills": [
+     "S4",
+     "S7"
+    ]
+   },
+   {
+    "name": "medication_record",
+    "description": "State of the medication administration entry for the visit.",
+    "kind": "categorical",
+    "values": [
+     "given_signed",
+     "declined_documented",
+     "not_signed",
+     "section_null"
+    ],
+    "weights": [
+     0.45,
+     0.2,
+     0.2,
+     0.15
+    ],
+    "min": 0,
+    "max": 0,
+    "p_true": 0,
+    "skills": [
+     "S2",
+     "S3"
+    ]
+   },
+   {
+    "name": "attendance_anomaly",
+    "description": "Problems with electronic check-in and check-out records.",
+    "kind": "categorical",
+    "values": [
+     "none",
+     "missing_checkout",
+     "checkout_before_checkin",
+     "location_mismatch"
+    ],
+    "weights": [
+     0.6,
+     0.15,
+     0.1,
+     0.15
+    ],
+    "min": 0,
+    "max": 0,
+    "p_true": 0,
+    "skills": [
+     "S2"
+    ]
+   },
+   {
+    "name": "anomaly_mitigated",
+    "description": "Whether an attendance anomaly has a benign explanation, e.g. approved alternative address, app outage logged, or manual time sheet countersigned.",
+    "kind": "boolean",
+    "values": [],
+    "weights": [],
+    "min": 0,
+    "max": 0,
+    "p_true": 0.5,
+    "skills": [
+     "S3"
+    ]
+   },
+   {
+    "name": "observation_change",
+    "description": "Size of change in recorded observations (fluid intake, food, skin, mobility, weight) against the care-plan baseline.",
+    "kind": "categorical",
+    "values": [
+     "stable",
+     "mild_change",
+     "notable_change"
+    ],
+    "weights": [
+     0.5,
+     0.3,
+     0.2
+    ],
+    "min": 0,
+    "max": 0,
+    "p_true": 0,
+    "skills": [
+     "S5",
+     "S6"
+    ]
+   },
+   {
+    "name": "change_explained",
+    "description": "Whether an observed change has a known cause already in hand, e.g. GP aware, planned medication change, recent hospital discharge plan.",
+    "kind": "boolean",
+    "values": [],
+    "weights": [],
+    "min": 0,
+    "max": 0,
+    "p_true": 0.5,
+    "skills": [
+     "S3",
+     "S5"
+    ]
+   },
+   {
+    "name": "prior_concerns_30d",
+    "description": "Count of welfare concerns raised on this client in the last 30 days of visit history.",
+    "kind": "integer",
+    "values": [],
+    "weights": [],
+    "min": 0,
+    "max": 4,
+    "p_true": 0,
+    "skills": [
+     "S5",
+     "S6"
+    ]
+   },
+   {
+    "name": "carer_note_tone",
+    "description": "What the carer's free-text note conveys about the visit.",
+    "kind": "categorical",
+    "values": [
+     "routine",
+     "ambiguous",
+     "explicit_concern"
+    ],
+    "weights": [
+     0.5,
+     0.3,
+     0.2
+    ],
+    "min": 0,
+    "max": 0,
+    "p_true": 0,
+    "skills": [
+     "S5",
+     "S6"
+    ]
+   },
+   {
+    "name": "double_up_status",
+    "description": "Whether the care plan requires two carers and whether the second carer was recorded.",
+    "kind": "categorical",
+    "values": [
+     "not_required",
+     "required_present",
+     "required_absent"
+    ],
+    "weights": [
+     0.55,
+     0.3,
+     0.15
+    ],
+    "min": 0,
+    "max": 0,
+    "p_true": 0,
+    "skills": [
+     "S2",
+     "S3"
+    ]
+   },
+   {
+    "name": "boundary_case",
+    "description": "Whether key values sit exactly on thresholds the policy leaves open, e.g. shortfall equal to the tolerance or one more prior concern than the review trigger.",
+    "kind": "boolean",
+    "values": [],
+    "weights": [],
+    "min": 0,
+    "max": 0,
+    "p_true": 0.25,
+    "skills": [
+     "S6"
+    ]
+   },
+   {
+    "name": "client_message",
+    "description": "Short message from the client or family attached to the visit.",
+    "kind": "categorical",
+    "values": [
+     "none",
+     "thanks",
+     "minor_gripe",
+     "complaint"
+    ],
+    "weights": [
+     0.55,
+     0.2,
+     0.15,
+     0.1
+    ],
+    "min": 0,
+    "max": 0,
+    "p_true": 0,
+    "skills": [
+     "S3",
+     "S6"
+    ]
+   }
+  ],
+  "sections": [
+   {
+    "name": "visit",
+    "description": "Visit ID, client ref, carer refs, planned and actual check-in/out times, location check."
+   },
+   {
+    "name": "plan",
+    "description": "Care-plan extract: planned minutes, required tasks, carers_required, baselines, late tolerance."
+   },
+   {
+    "name": "tasks",
+    "description": "List of tasks with status, and medication entry with signature and reason."
+   },
+   {
+    "name": "observations",
+    "description": "This visit's fluid, food, skin, mobility and weight readings."
+   },
+   {
+    "name": "notes",
+    "description": "Short free text: carer_note and optional client_msg."
+   },
+   {
+    "name": "history",
+    "description": "Recent visits summary and dated concerns raised in the last 30 days."
+   }
+  ],
+  "rendering_notes": "duration_shortfall_min shows only indirectly: visit.actual_in/actual_out timestamps versus plan.planned_min; never print the shortfall. shortfall_explained appears as tasks[].status 'client_declined' with a reason line, or a notes.carer_note sentence like 'Daughter arrived and took over lunch', or visit.early_finish_reason; absent otherwise. task_completion appears as tasks[] entries with status done/not_done/partial against plan.required_tasks; key_task_missed means a plan-required task (e.g. pressure-area check) is missing from the list entirely or marked not_done. medication_record: tasks.medication with signed true/false, outcome 'given'/'declined' and a reason string; section_null renders tasks.medication as null while plan lists meds_due true. attendance_anomaly: visit.actual_out null (missing_checkout), actual_out earlier than actual_in (checkout_before_checkin), or visit.loc_check 'outside_radius' (location_mismatch). anomaly_mitigated renders as visit.alt_address_approved true, visit.manual_timesheet 'countersigned', or history entry 'app outage logged' on that date; present about half the time when an anomaly exists. observation_change: observations values compared with plan.baselines (e.g. fluid_ml 600 vs baseline 1400, mobility 'hoist' vs baseline 'frame'); no field states 'decline'. change_explained: history entry such as 'GP reviewed diuretic dose 2024-05-02' or plan.notes 'post-discharge, expect reduced mobility'. prior_concerns_30d: count of history.concerns[] with dates in last 30 days. carer_note_tone drives notes.carer_note wording (one or two sentences): routine ('Settled, ate well'), ambiguous ('Seemed a bit quieter than usual'), explicit ('Found on floor by bed, says not hurt'). double_up_status: plan.carers_required 1 or 2 versus count of visit.carer_refs; required_absent may be mitigated by a note that family member assisted with hoist under agreed plan. boundary_case sets shortfall equal to plan.late_tolerance_min or prior concerns equal to the trigger count. client_message renders notes.client_msg (null when none). Decoys: carer names and refs, mileage_km, travel_min between visits, app_version, rounding of timestamps to the minute, 'thanks' messages on poor visits, complaints about carer punctuality on otherwise complete visits, observations slightly off baseline within normal variation. Records must never contain fields like 'status: incomplete', 'risk', 'urgency', 'decline: yes' or a recommended action; all answers must be inferred by comparing sections.",
+  "skills": [
+   "S2",
+   "S3",
+   "S4",
+   "S5",
+   "S6",
+   "S7"
+  ],
+  "shared_scale": "consequence_if_wrong"
+ },
+ "F008": {
+  "id": "F008",
+  "domain": "moderation of school exam marking",
+  "role": "Senior coursework moderator at an awarding body, reviewing one centre's moderation sample for one component at a time",
+  "setting": "Schools mark their own candidates' coursework or non-exam assessment and submit marks plus a sample of work. The moderator re-marks the sample, compares their marks with the centre's marks and the submitted mark sheet, and decides whether the centre's marks stand, need adjusting or need more evidence before results are issued.",
+  "questions": {
+   "outside_tolerance": {
+    "type": "noul",
+    "instructions": "Centre marking is systematically outside the component's moderation tolerance.",
+    "criteria": {
+     "true": "Most sampled differences exceed tolerance in one direction",
+     "false": "Differences within tolerance, isolated or not systematic"
+    }
+   },
+   "clerical_cause": {
+    "type": "noul",
+    "instructions": "The main discrepancy is a clerical transcription error, not marking judgement.",
+    "criteria": {
+     "true": "Mark sheet entries clearly differ from marked work",
+     "false": "No transcription mismatch explains the differences"
+    }
+   },
+   "centre_outcome": {
+    "type": "choice",
+    "instructions": "What should happen to the centre's marks for this component?",
+    "criteria": {
+     "accept_as_submitted": "Centre marks stand unchanged with no further comment",
+     "accept_with_feedback": "Marks stand but centre receives written guidance on marking",
+     "hold_for_evidence": "Pause decision until missing work or clarification arrives",
+     "apply_adjustment": "Scale or shift centre marks using the moderated differences",
+     "refer_for_remark": "Return to centre for full re-marking of the cohort"
+    }
+   },
+   "deviation_severity": {
+    "type": "score",
+    "instructions": "How severe is the marking deviation shown in this sample?",
+    "criteria": [
+     "Negligible: differences sit comfortably inside the tolerance band",
+     "Minor: small drift on a few isolated candidates",
+     "Moderate: consistent drift close to the tolerance boundary",
+     "Serious: large systematic deviation or broken rank order"
+    ]
+   },
+   "follow_up_urgency": {
+    "type": "score",
+    "instructions": "How urgently does this centre need follow-up before results day?",
+    "criteria": [
+     "No follow-up needed before results are issued",
+     "Routine follow-up within the normal moderation cycle",
+     "Priority follow-up needed within the next few days",
+     "Immediate action needed to protect the results deadline"
+    ]
+   }
+  },
+  "factors": [
+   {
+    "name": "drift_pattern",
+    "description": "Shape of the difference between centre marks and moderator marks across the sample",
+    "kind": "categorical",
+    "values": [
+     "none",
+     "lenient_uniform",
+     "harsh_uniform",
+     "lenient_top_end",
+     "erratic"
+    ],
+    "weights": [
+     0.25,
+     0.25,
+     0.15,
+     0.2,
+     0.15
+    ],
+    "min": 0,
+    "max": 0,
+    "p_true": 0,
+    "skills": [
+     "S1",
+     "S7"
+    ]
+   },
+   {
+    "name": "drift_vs_tolerance",
+    "description": "Typical size of the centre-moderator difference as a multiple of the tolerance; values near 1.0 sit on the boundary",
+    "kind": "number",
+    "values": [],
+    "weights": [],
+    "min": 0,
+    "max": 2.5,
+    "p_true": 0,
+    "skills": [
+     "S1",
+     "S6",
+     "S4"
+    ]
+   },
+   {
+    "name": "transcription_mismatch",
+    "description": "Kind of mismatch between the centre mark recorded on the work and the mark on the submitted mark sheet",
+    "kind": "categorical",
+    "values": [
+     "none",
+     "digit_swap",
+     "total_miscopied",
+     "candidate_id_swap",
+     "several"
+    ],
+    "weights": [
+     0.45,
+     0.15,
+     0.15,
+     0.1,
+     0.15
+    ],
+    "min": 0,
+    "max": 0,
+    "p_true": 0,
+    "skills": [
+     "S1",
+     "S5"
+    ]
+   },
+   {
+    "name": "sample_completeness",
+    "description": "Whether all requested sample work arrived and is usable",
+    "kind": "categorical",
+    "values": [
+     "complete",
+     "one_script_missing",
+     "work_incomplete",
+     "replacement_requested"
+    ],
+    "weights": [
+     0.55,
+     0.15,
+     0.15,
+     0.15
+    ],
+    "min": 0,
+    "max": 0,
+    "p_true": 0,
+    "skills": [
+     "S4",
+     "S1"
+    ]
+   },
+   {
+    "name": "special_consideration_present",
+    "description": "Candidates with the largest gaps have approved access arrangements or special consideration that legitimately affect marking evidence",
+    "kind": "boolean",
+    "values": [],
+    "weights": [],
+    "min": 0,
+    "max": 0,
+    "p_true": 0.5,
+    "skills": [
+     "S3"
+    ]
+   },
+   {
+    "name": "internal_standardisation_done",
+    "description": "Centre recorded a completed internal standardisation exercise with cross-marking before submission",
+    "kind": "boolean",
+    "values": [],
+    "weights": [],
+    "min": 0,
+    "max": 0,
+    "p_true": 0.5,
+    "skills": [
+     "S3",
+     "S6"
+    ]
+   },
+   {
+    "name": "rank_order_preserved",
+    "description": "Whether the moderator's ordering of candidates matches the centre's ordering",
+    "kind": "boolean",
+    "values": [],
+    "weights": [],
+    "min": 0,
+    "max": 0,
+    "p_true": 0.7,
+    "skills": [
+     "S1",
+     "S6"
+    ]
+   },
+   {
+    "name": "centre_history",
+    "description": "Prior moderation outcomes for this centre on this or similar components",
+    "kind": "categorical",
+    "values": [
+     "clean",
+     "adjusted_once",
+     "adjusted_repeatedly",
+     "new_centre"
+    ],
+    "weights": [
+     0.4,
+     0.25,
+     0.15,
+     0.2
+    ],
+    "min": 0,
+    "max": 0,
+    "p_true": 0,
+    "skills": [
+     "S3",
+     "S6"
+    ]
+   },
+   {
+    "name": "second_check",
+    "description": "Status of a second moderator's review of the sample",
+    "kind": "categorical",
+    "values": [
+     "not_requested",
+     "agreed",
+     "disagreed",
+     "pending"
+    ],
+    "weights": [
+     0.4,
+     0.3,
+     0.15,
+     0.15
+    ],
+    "min": 0,
+    "max": 0,
+    "p_true": 0,
+    "skills": [
+     "S6",
+     "S4"
+    ]
+   },
+   {
+    "name": "days_to_results",
+    "description": "Days remaining until the marks must be locked for results",
+    "kind": "integer",
+    "values": [],
+    "weights": [],
+    "min": 1,
+    "max": 40,
+    "p_true": 0,
+    "skills": [
+     "S7"
+    ]
+   },
+   {
+    "name": "cohort_size",
+    "description": "Number of entered candidates, which sets the expected sample size",
+    "kind": "integer",
+    "values": [],
+    "weights": [],
+    "min": 6,
+    "max": 240,
+    "p_true": 0,
+    "skills": [
+     "S1"
+    ]
+   },
+   {
+    "name": "late_submission",
+    "description": "Decoy: sample arrived after the request date but within the grace period",
+    "kind": "boolean",
+    "values": [],
+    "weights": [],
+    "min": 0,
+    "max": 0,
+    "p_true": 0.3,
+    "skills": [
+     "S3"
+    ]
+   }
+  ],
+  "sections": [
+   {
+    "name": "centre",
+    "description": "Centre identifier, type, entry count, internal standardisation record and contact status"
+   },
+   {
+    "name": "component",
+    "description": "Component code, maximum mark, tolerance in marks, and sample size rule"
+   },
+   {
+    "name": "mark_sheet",
+    "description": "Submitted list of candidate numbers with centre marks and submission date"
+   },
+   {
+    "name": "sample",
+    "description": "Moderated candidates with mark on work, moderator mark, access flags and receipt status"
+   },
+   {
+    "name": "moderation",
+    "description": "Moderator identifier, review dates, second check status and marks lock date"
+   },
+   {
+    "name": "history",
+    "description": "Previous series outcomes for the centre with adjustment counts and sizes"
+   }
+  ],
+  "rendering_notes": "drift_pattern and drift_vs_tolerance appear only as numbers: each sample entry has mark_on_work and moderator_mark, and component.tolerance_marks gives the band; the reader must compute differences, direction and consistency (lenient_top_end shows larger positive gaps for the highest-marked candidates only; erratic mixes signs). Values near 1.0 put several gaps exactly at or one mark around tolerance. rank_order_preserved is shown only by the relative ordering of mark_on_work versus moderator_mark. transcription_mismatch appears as mark_sheet.entries[].centre_mark differing from sample[].mark_on_work for the same cand_no (digit_swap e.g. 47 vs 74, total_miscopied off by a component subtotal, candidate_id_swap with two cand_no values exchanged); never flagged. sample_completeness shows as sample[].received false, sample[].pages_received less than pages_expected, or sample[].replacement_for set to a cand_no; also the sample count can fall short of component.sample_rule given centre.entries (cohort_size), and mark_sheet entry count may differ slightly from centre.entries. special_consideration_present shows as sample[].access_arrangement true with an sc_ref code on the candidates with the largest gaps (decoy version: flag on candidates with small gaps). internal_standardisation_done is centre.internal_std {completed: true/false, date, markers: n}, null when not recorded. centre_history is history.series[] with adjusted booleans and adjustment_marks; new_centre gives an empty list. second_check is moderation.second_check {status, moderator_id, date}. days_to_results is implied by moderation.marks_lock_date minus moderation.review_date. late_submission shows as mark_sheet.submitted_on after moderation.sample_requested_by; it is a decoy and does not by itself change any answer. Decoys also include component.max_mark, moderator_id, centre.type and annotation counts. The record must never contain fields such as within_tolerance, adjustment_required, severity, clerical_error or recommended_action; all answers come from comparing values across sections. No free-text fields.",
+  "skills": [
+   "S1",
+   "S3",
+   "S4",
+   "S5",
+   "S6",
+   "S7"
+  ],
+  "shared_scale": null
+ }
+}
