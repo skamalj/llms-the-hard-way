@@ -1,0 +1,134 @@
+{
+ "id": "F338-0092",
+ "family": "F338",
+ "state": {
+  "site": {
+   "id": "S-SO2-207",
+   "pollutant": "SO2",
+   "tier": "standard",
+   "service_interval_days": 30,
+   "approved_interval_days": 30
+  },
+  "visit": {
+   "id": "V-5530",
+   "date": "2024-06-18",
+   "start": "09:00",
+   "end": "10:15",
+   "sequence_status": "partial",
+   "maintenance_window": false
+  },
+  "reference": {
+   "standard_id": "CYL-77304",
+   "conc": 400,
+   "unit": "ppb",
+   "cert_expiry": "2025-07-04"
+  },
+  "checks": [
+   {
+    "type": "as_found_zero",
+    "ref_id": "CYL-77304",
+    "ref_conc": 0,
+    "unit": "ppb",
+    "reading": 1.7,
+    "tol": 2.0,
+    "ts": "2024-06-18T08:55"
+   },
+   {
+    "type": "as_left_zero",
+    "ref_id": "CYL-77304",
+    "ref_conc": 0,
+    "unit": "ppb",
+    "reading": 0.3,
+    "tol": 2.0,
+    "ts": "2024-06-18T10:05"
+   }
+  ],
+  "history": {
+   "last_visit_date": "2024-05-17",
+   "results": [
+    "pass",
+    "pass",
+    "fail",
+    "pass"
+   ],
+   "autochecks": [
+    {
+     "d": "2024-06-14",
+     "result": "pass"
+    }
+   ]
+  },
+  "instrument": {
+   "temp_min": 12,
+   "temp_max": 34.5
+  }
+ },
+ "factors": {
+  "pollutant": "SO2",
+  "as_found_ratio": 0.85,
+  "as_left_status": "all_pass",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 381,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "enclosure_temp_excursion",
+  "days_since_last_visit": 32,
+  "visit_completeness": "zero_only",
+  "prior_fail_count": 1,
+  "timestamp_mismatch": "minutes_outside",
+  "site_priority": "standard"
+ },
+ "factors_sampled": {
+  "pollutant": "SO2",
+  "as_found_ratio": 0.85,
+  "as_left_status": "all_pass",
+  "cylinder_id_mismatch": "transposed_digit",
+  "cert_expiry_offset_days": 381,
+  "unit_mismatch": true,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "enclosure_temp_excursion",
+  "days_since_last_visit": 32,
+  "visit_completeness": "zero_only",
+  "prior_fail_count": 1,
+  "timestamp_mismatch": "minutes_outside",
+  "site_priority": "standard"
+ },
+ "plan": {
+  "data_accepted": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "reference_valid": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "balanced",
+   "target": "hold",
+   "second": "recalibrate"
+  },
+  "flag_extent": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  },
+  "return_urgency": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  }
+ },
+ "target_words": 93,
+ "deciding": {
+  "data_accepted": "Zero points pass (as-found 1.7 vs tol 2.0) and autochecks pass, but no span check exists and enclosure max 34.5 is hot, so it is balanced.",
+  "reference_valid": "Every check ref_id equals reference.standard_id CYL-77304, units are ppb everywhere and cert_expiry 2025-07-04 is well after the visit.",
+  "next_step": "sequence_status partial with only zero checks and a missing span confirmation favours hold, but the missing check set could justify a repeat on site.",
+  "flag_extent": "Without a span check, drift across the 32 days since 2024-05-17 cannot be excluded, and the 34.5 enclosure maximum implies the whole interval is flagged.",
+  "return_urgency": "Span was never verified and the enclosure was above 30, so a return within one to two days is leaning, though the zero passes leave doubt."
+ },
+ "request": "rec-F338-0091",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012993
+}

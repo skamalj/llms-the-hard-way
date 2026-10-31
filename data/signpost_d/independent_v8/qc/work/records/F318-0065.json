@@ -1,0 +1,196 @@
+{
+ "id": "F318-0065",
+ "family": "F318",
+ "state": {
+  "work_order": {
+   "lock_id": "L05",
+   "visit_type": "planned_repair",
+   "tasks": [
+    {
+     "task_id": 1,
+     "asset_ref": "G1"
+    },
+    {
+     "task_id": 2,
+     "asset_ref": "G2"
+    },
+    {
+     "task_id": 3,
+     "asset_ref": "P1"
+    },
+    {
+     "task_id": 4,
+     "asset_ref": "P2"
+    },
+    {
+     "task_id": 5,
+     "asset_ref": "SILL"
+    },
+    {
+     "task_id": 6,
+     "asset_ref": "BAL"
+    },
+    {
+     "task_id": 7,
+     "asset_ref": "CH"
+    }
+   ],
+   "nav_notice": {
+    "in_force": false
+   }
+  },
+  "visit_log": {
+   "arrived": "2025-04-08T08:00",
+   "departed": "2025-04-08T14:00",
+   "crew_size": 2,
+   "timesheet_hours": 10.91,
+   "task_status": [
+    {
+     "task_id": 1,
+     "status": "done"
+    },
+    {
+     "task_id": 2,
+     "status": "done"
+    },
+    {
+     "task_id": 3,
+     "status": "done"
+    },
+    {
+     "task_id": 4,
+     "status": "done"
+    },
+    {
+     "task_id": 5,
+     "status": "done"
+    },
+    {
+     "task_id": 6,
+     "status": "not_started",
+     "deferral_ref": null,
+     "deferral_due": null
+    },
+    {
+     "task_id": 7,
+     "status": "not_started",
+     "deferral_ref": null,
+     "deferral_due": null
+    }
+   ]
+  },
+  "materials": {
+   "issued": [
+    {
+     "part_no": "R3",
+     "task_id": 1,
+     "qty": 8
+    }
+   ],
+   "returned": [],
+   "fitted": [
+    {
+     "part_no": "R3",
+     "task_id": 1,
+     "qty": 8
+    }
+   ]
+  },
+  "checks": {
+   "post_checks": [
+    {
+     "asset_ref": "G1",
+     "result": "pass"
+    },
+    {
+     "asset_ref": "G2",
+     "result": "pass"
+    },
+    {
+     "asset_ref": "P1",
+     "result": "pass"
+    },
+    {
+     "asset_ref": "SILL",
+     "result": "pass"
+    }
+   ],
+   "leakage_ls": 6.9,
+   "leakage_limit_ls": 3.0,
+   "river_level_m": 4.4,
+   "flood_marker_m": 3.9
+  },
+  "asset_history": {
+   "prior_visits": [],
+   "open_defects": []
+  }
+ },
+ "factors": {
+  "visit_type": "planned_repair",
+  "tasks_ordered": 7,
+  "completion_state": "some_outstanding",
+  "parts_qty_mismatch": "none",
+  "hours_gap": 1.09,
+  "asset_ref_mismatch": false,
+  "post_check_result": "passed",
+  "leakage_ratio": 2.31,
+  "leakage_mitigation": true,
+  "navigation_notice_in_force": false,
+  "deferral_approved": false,
+  "prior_same_defect": 0,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "visit_type": "planned_repair",
+  "tasks_ordered": 7,
+  "completion_state": "some_outstanding",
+  "parts_qty_mismatch": "none",
+  "hours_gap": 1.09,
+  "asset_ref_mismatch": false,
+  "post_check_result": "passed",
+  "leakage_ratio": 2.31,
+  "leakage_mitigation": true,
+  "navigation_notice_in_force": false,
+  "deferral_approved": false,
+  "prior_same_defect": 0,
+  "boundary_case": false
+ },
+ "plan": {
+  "safe_to_reopen": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "record_disposition": {
+   "clarity": "contested",
+   "target": "close_visit",
+   "second": "hold_query"
+  },
+  "return_urgency": {
+   "clarity": "clear",
+   "target": "within_month",
+   "second": null
+  },
+  "affected_scope": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  },
+  "section_mismatches": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  }
+ },
+ "target_words": 94,
+ "deciding": {
+  "safe_to_reopen": "Checks pass, no open defects or notice, but tasks 6 and 7 not started and leakage 6.9 is over the 3.0 limit, partly explained by river 4.4 above marker 3.9.",
+  "record_disposition": "Two tasks not_started with null deferral refs could justify a hold, while passing checks and no open defects support closing as logged.",
+  "return_urgency": "Outstanding tasks 6 and 7 are non-restricting with no prior defects or open defects, so extra attendance within a month fits.",
+  "affected_scope": "Seven tasks across the lock with no nav notice; likely six to twenty units or users, with some doubt.",
+  "section_mismatches": "Tasks 6 and 7 not started with no deferral ref, and timesheet 10.91 vs 12 expected; three mismatches."
+ },
+ "request": "rec-F318-0061",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012092
+}

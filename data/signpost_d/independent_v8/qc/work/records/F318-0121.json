@@ -1,0 +1,134 @@
+{
+ "id": "F318-0121",
+ "family": "F318",
+ "state": {
+  "work_order": {
+   "wo_id": "WO-4410",
+   "visit_type": "routine_inspection",
+   "tasks": [
+    {
+     "task_id": "T1",
+     "asset_ref": "TG-1"
+    },
+    {
+     "task_id": "T2",
+     "asset_ref": "BG-2"
+    },
+    {
+     "task_id": "T3",
+     "asset_ref": "PD-1"
+    },
+    {
+     "task_id": "T4",
+     "asset_ref": "PD-2"
+    },
+    {
+     "task_id": "T5",
+     "asset_ref": "CH-1"
+    },
+    {
+     "task_id": "T6",
+     "asset_ref": "WL-1"
+    },
+    {
+     "task_id": "T7",
+     "asset_ref": "SL-1"
+    }
+   ],
+   "nav_notice": {
+    "in_force": true,
+    "to": "2025-03-01",
+    "scope_assets": [
+     "TG-1"
+    ]
+   }
+  },
+  "visit_log": {
+   "crew_size": 2,
+   "timesheet_hours": 8.1,
+   "task_status": "all done"
+  },
+  "checks": {
+   "leakage_ls": 13,
+   "leakage_limit_ls": 9,
+   "river_level_m": 1.1,
+   "flood_marker_m": 2.0
+  },
+  "asset_history": {
+   "prior_visits": [
+    {
+     "asset_ref": "TG-1",
+     "defect_code": "LK"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "visit_type": "routine_inspection",
+  "tasks_ordered": 7,
+  "completion_state": "all_done",
+  "parts_qty_mismatch": "trivial",
+  "hours_gap": 1.01,
+  "asset_ref_mismatch": false,
+  "post_check_result": "passed",
+  "leakage_ratio": 1.44,
+  "leakage_mitigation": false,
+  "navigation_notice_in_force": true,
+  "deferral_approved": false,
+  "prior_same_defect": 1,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "visit_type": "routine_inspection",
+  "tasks_ordered": 7,
+  "completion_state": "all_done",
+  "parts_qty_mismatch": "trivial",
+  "hours_gap": 1.01,
+  "asset_ref_mismatch": false,
+  "post_check_result": "passed",
+  "leakage_ratio": 1.44,
+  "leakage_mitigation": false,
+  "navigation_notice_in_force": true,
+  "deferral_approved": false,
+  "prior_same_defect": 1,
+  "boundary_case": false
+ },
+ "plan": {
+  "safe_to_reopen": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "record_disposition": {
+   "clarity": "balanced",
+   "target": "close_visit",
+   "second": "reopen_revisit"
+  },
+  "return_urgency": {
+   "clarity": "clear",
+   "target": "next_scheduled",
+   "second": null
+  },
+  "affected_scope": {
+   "clarity": "contested",
+   "target": "2",
+   "second": "3"
+  },
+  "section_mismatches": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  }
+ },
+ "target_words": 52,
+ "deciding": {
+  "safe_to_reopen": "Leakage 13 vs limit 9 with no mitigation and a nav notice in force, against the checks otherwise passing.",
+  "record_disposition": "All tasks done but leakage is over limit, so closing as logged competes with sending the crew back.",
+  "return_urgency": "No deferrals, all work complete, so the next scheduled cycle suffices.",
+  "affected_scope": "A lock's navigation users sit near the 20-user boundary between levels 2 and 3.",
+  "section_mismatches": "Over-limit leakage and the hours gap are each arguably unexplained, giving one or two."
+ },
+ "request": "rec-F318-0121",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.006889
+}

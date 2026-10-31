@@ -1,0 +1,116 @@
+{
+ "id": "F302-0106",
+ "family": "F302",
+ "state": {
+  "consent": {
+   "signed": "2024-03-11",
+   "form": "v3",
+   "current": "v3",
+   "reconsent": [
+    "v2>v3"
+   ]
+  },
+  "visit": {
+   "date": "2024-03-12",
+   "review": "2024-03-25",
+   "window_days": 14
+  },
+  "labs": [
+   {
+    "code": "ALT",
+    "value": 40,
+    "collected": "2024-03-09",
+    "threshold_format": "<="
+   }
+  ],
+  "eligibility": {
+   "criteria": [
+    {
+     "code": "ALT",
+     "operator": "lt",
+     "recorded_value": 40,
+     "met": true
+    }
+   ],
+   "signoff": {
+    "signed": true,
+    "date": "2024-03-08"
+   },
+   "queries": [
+    {
+     "status": "open",
+     "items": [
+      "labs.collected",
+      "consent.signed"
+     ]
+    }
+   ]
+  }
+ },
+ "factors": {
+  "lab_reconciliation": "identical",
+  "consent_status": "superseded_reconsented",
+  "window_days_remaining": 0,
+  "collection_date_mismatch": "before_consent",
+  "prohibited_conmed": false,
+  "washout_completed": false,
+  "out_of_range_lab": false,
+  "valid_repeat_on_file": "none",
+  "boundary_value": true,
+  "identifier_mismatch": "none",
+  "investigator_signoff": "signed_before_results",
+  "open_query_count": 1
+ },
+ "factors_sampled": {
+  "lab_reconciliation": "identical",
+  "consent_status": "superseded_reconsented",
+  "window_days_remaining": -5,
+  "collection_date_mismatch": "before_consent",
+  "prohibited_conmed": true,
+  "washout_completed": false,
+  "out_of_range_lab": true,
+  "valid_repeat_on_file": "none",
+  "boundary_value": true,
+  "identifier_mismatch": "none",
+  "investigator_signoff": "signed_before_results",
+  "open_query_count": 1
+ },
+ "plan": {
+  "eligibility_proven": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "next_step": {
+   "clarity": "balanced",
+   "target": "hold_query",
+   "second": "release"
+  },
+  "primary_issue": {
+   "clarity": "balanced",
+   "target": "documentation",
+   "second": "clinical_value"
+  },
+  "affected_scope": {
+   "clarity": "clear",
+   "target": "1",
+   "second": null
+  },
+  "window_left": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 29,
+ "deciding": {
+  "eligibility_proven": "ALT 40 sits at the threshold (operator lt vs format <=) and the lab was collected before consent, so proof is doubtful; the values do match.",
+  "next_step": "One open query on collection date and consent date; a single site response could resolve it, but release is arguable.",
+  "primary_issue": "Lab collected 2024-03-09 predates consent signed 2024-03-11 and sign-off predates the result (documentation); the boundary ALT value is the clinical_value alternative.",
+  "affected_scope": "The open query names two items (lab collection and consent date), so two units are affected.",
+  "window_left": "Consent 03-11 plus 14 days closes 03-25, the review date; closed versus one day left is arguable."
+ },
+ "request": "rec-F302-0106",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.009847
+}

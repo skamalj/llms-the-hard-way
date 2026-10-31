@@ -1,0 +1,117 @@
+{
+ "id": "F302-0121",
+ "family": "F302",
+ "state": {
+  "subject": {
+   "screening_no": "S-0412",
+   "initials": "KL"
+  },
+  "consent": {
+   "form_version": "3.0",
+   "current_version": "3.0",
+   "signed_date": "2024-03-01",
+   "initials": "KL"
+  },
+  "visit": {
+   "visit_date": "2024-03-04",
+   "review_date": "2024-03-10",
+   "window_days": 20
+  },
+  "labs": [
+   {
+    "test": "ALT",
+    "value": 30,
+    "unit": "U/L",
+    "threshold": 120,
+    "collected": "2024-03-04",
+    "requisition_screening_no": "S-0421",
+    "batch_subjects": 8
+   }
+  ],
+  "eligibility": {
+   "criteria": [
+    {
+     "test": "ALT",
+     "recorded_value": 30,
+     "unit": "U/L",
+     "met": true
+    }
+   ],
+   "signoff": {
+    "signed": true,
+    "date": "2024-03-08"
+   },
+   "queries": [
+    {
+     "status": "open"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "lab_reconciliation": "identical",
+  "consent_status": "current_ok",
+  "window_days_remaining": 11,
+  "collection_date_mismatch": "none",
+  "prohibited_conmed": false,
+  "washout_completed": true,
+  "out_of_range_lab": false,
+  "valid_repeat_on_file": "none",
+  "boundary_value": false,
+  "identifier_mismatch": "screening_no_differs",
+  "investigator_signoff": "signed_after_results",
+  "open_query_count": 1
+ },
+ "factors_sampled": {
+  "lab_reconciliation": "identical",
+  "consent_status": "current_ok",
+  "window_days_remaining": 16,
+  "collection_date_mismatch": "none",
+  "prohibited_conmed": true,
+  "washout_completed": false,
+  "out_of_range_lab": false,
+  "valid_repeat_on_file": "repeat_exceeds_allowance",
+  "boundary_value": false,
+  "identifier_mismatch": "screening_no_differs",
+  "investigator_signoff": "signed_after_results",
+  "open_query_count": 1
+ },
+ "plan": {
+  "eligibility_proven": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "balanced",
+   "target": "release",
+   "second": "rescreen"
+  },
+  "primary_issue": {
+   "clarity": "leaning",
+   "target": "documentation",
+   "second": null
+  },
+  "affected_scope": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  },
+  "window_left": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 25,
+ "deciding": {
+  "eligibility_proven": "ALT 30 matches the recorded value and is well under the threshold; the only doubt is the lab requisition number.",
+  "next_step": "One open query and a mismatched requisition number could justify a rescreen, but values are clean and the window is open, so release is only modestly favoured.",
+  "primary_issue": "Lab requisition_screening_no S-0421 differs from subject screening_no S-0412, an identifier defect.",
+  "affected_scope": "labs.batch_subjects is 8, which is in the six-to-twenty range.",
+  "window_left": "Signed 2024-03-01 plus 20 days gives 03-21, which is 11 days after review on 03-10, just above the 10-day boundary."
+ },
+ "request": "rec-F302-0121",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.007888
+}

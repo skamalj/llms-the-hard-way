@@ -1,0 +1,165 @@
+{
+ "id": "F324-0104",
+ "family": "F324",
+ "state": {
+  "zone": {
+   "id": "Z9",
+   "dripper_count": 90,
+   "rate_lph": 2,
+   "spec_bar": 2.0
+  },
+  "schedule": {
+   "date": "2024-05-20",
+   "cycles": [
+    {
+     "t": "08:00",
+     "ml": 100,
+     "s": 200
+    },
+    {
+     "t": "11:00",
+     "ml": 100,
+     "s": 200
+    },
+    {
+     "t": "14:00",
+     "ml": 100,
+     "s": 200
+    },
+    {
+     "t": "17:00",
+     "ml": 100,
+     "s": 200
+    }
+   ],
+   "drain_pct": [
+    18,
+    28
+   ],
+   "overrides": []
+  },
+  "controller_log": {
+   "cycles": [
+    {
+     "t": "08:00",
+     "open_s": 200,
+     "l": 7.6,
+     "bar": null
+    },
+    {
+     "t": "11:00",
+     "open_s": 200,
+     "l": 8.1,
+     "bar": 1.9
+    },
+    {
+     "t": "14:00",
+     "open_s": 200,
+     "l": 8.2,
+     "bar": null
+    },
+    {
+     "t": "17:00",
+     "open_s": 200,
+     "l": 8.3,
+     "bar": null
+    }
+   ],
+   "daily_total_l": 33.4,
+   "meter_total_l": 32.2
+  },
+  "drainage": {
+   "drain_pct": [
+    3.5,
+    2.4,
+    2.5
+   ]
+  },
+  "sensors": {
+   "meter_last_calibrated": "2023-04-22"
+  },
+  "maintenance": {
+   "windows": [
+    {
+     "type": "flush",
+     "start": "2024-05-20T07:30",
+     "end": "2024-05-20T08:30"
+    }
+   ],
+   "alarms": [
+    {
+     "code": "EC_HI",
+     "t": "07:50",
+     "acknowledged": true,
+     "cleared": true
+    }
+   ]
+  }
+ },
+ "factors": {
+  "delivery_shortfall_pct": 10.6,
+  "mismatch_location": "cycle_sum_vs_total",
+  "fault_cause": "low_supply_pressure",
+  "approved_override": false,
+  "maintenance_window_active": true,
+  "drain_offset_points": -15.2,
+  "off_tolerance_cycles": 1,
+  "meter_calibration_age_days": 394,
+  "confirmation_pending": false,
+  "pressure_state": "partly_missing",
+  "benign_alarm_decoy": "ec_spike_in_flush",
+  "recent_work_orders": 0
+ },
+ "factors_sampled": {
+  "delivery_shortfall_pct": 4.89,
+  "mismatch_location": "cycle_sum_vs_total",
+  "fault_cause": "low_supply_pressure",
+  "approved_override": true,
+  "maintenance_window_active": true,
+  "drain_offset_points": -2.36,
+  "off_tolerance_cycles": 2,
+  "meter_calibration_age_days": 394,
+  "confirmation_pending": false,
+  "pressure_state": "partly_missing",
+  "benign_alarm_decoy": "ec_spike_in_flush",
+  "recent_work_orders": 0
+ },
+ "plan": {
+  "under_dosed": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "emitter_clogging": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "next_action": {
+   "clarity": "balanced",
+   "target": "sign_off",
+   "second": "adjust_schedule"
+  },
+  "drain_deviation": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "off_plan_cycles": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  }
+ },
+ "target_words": 75,
+ "deciding": {
+  "under_dosed": "Meter 32.2 L of 36 L planned is 89% with no override, and the daily_total of 33.4 L (93%) is the only doubt.",
+  "emitter_clogging": "Valve open_s is the full 200 and the one pressure reading of 1.9 is near the 2.0 spec, with low drain pointing to clogging, but three of four pressure readings are null so low supply cannot be excluded.",
+  "next_action": "The deviation is modest with the 08:00 cycle inside the flush window and the EC alarm cleared, so signing off is defensible; the unexplained 10% shortfall and 3 L-per-cycle gaps could instead justify a dose change.",
+  "drain_deviation": "Mean drain 2.8 against band minimum 18 is about 15.2 points under, on the 15-point boundary between marked and severe.",
+  "off_plan_cycles": "The 08:00 cycle at 7.6 L is about 16% under plan but sits inside the flush window, and the 11:00 cycle at 8.1 L is exactly 10% under, so one or none."
+ },
+ "request": "rec-F324-0101",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.018178
+}

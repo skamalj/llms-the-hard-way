@@ -1,0 +1,142 @@
+{
+ "id": "F338-0107",
+ "family": "F338",
+ "state": {
+  "site": {
+   "pol": "SO2",
+   "tier": "compliance"
+  },
+  "visit": {
+   "date": "2024-09-12",
+   "start": "09:00",
+   "end": "11:30",
+   "seq": "complete"
+  },
+  "reference": {
+   "id": "C-208",
+   "conc": 400,
+   "unit": "ppb",
+   "exp": "2025-07-07"
+  },
+  "checks": [
+   {
+    "t": "as_found_span",
+    "ref_id": "C-208",
+    "ref": 400,
+    "u": "ppb",
+    "rd": 1128,
+    "tol": 20,
+    "ts": "2024-09-12T09:10"
+   },
+   {
+    "t": "as_left_zero",
+    "ref_id": "C-208",
+    "ref": 0,
+    "u": "ppb",
+    "rd": 1,
+    "tol": 5,
+    "ts": "2024-09-12T10:30"
+   },
+   {
+    "t": "as_left_span",
+    "ref_id": "C-208",
+    "ref": 400,
+    "u": "ppb",
+    "rd": 431,
+    "tol": 20,
+    "ts": "2024-09-13T10:40"
+   }
+  ],
+  "history": {
+   "last_visit": "2024-05-29",
+   "results": [
+    "pass",
+    "fail",
+    "pass",
+    "fail"
+   ],
+   "autochecks": [
+    {
+     "d": "2024-08-20",
+     "r": "pass"
+    },
+    {
+     "d": "2024-08-24",
+     "r": "fail"
+    },
+    {
+     "d": "2024-09-10",
+     "r": "fail"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "pollutant": "SO2",
+  "as_found_ratio": 2.82,
+  "as_left_status": "one_point_fail",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 298,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": false,
+  "drift_explanation": "none",
+  "days_since_last_visit": 106,
+  "visit_completeness": "complete",
+  "prior_fail_count": 2,
+  "timestamp_mismatch": "different_day",
+  "site_priority": "compliance"
+ },
+ "factors_sampled": {
+  "pollutant": "SO2",
+  "as_found_ratio": 2.82,
+  "as_left_status": "one_point_fail",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 298,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "none",
+  "days_since_last_visit": 106,
+  "visit_completeness": "complete",
+  "prior_fail_count": 2,
+  "timestamp_mismatch": "different_day",
+  "site_priority": "compliance"
+ },
+ "plan": {
+  "data_accepted": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "reference_valid": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "balanced",
+   "target": "close_flagged",
+   "second": "recalibrate"
+  },
+  "flag_extent": {
+   "clarity": "clear",
+   "target": "2",
+   "second": null
+  },
+  "return_urgency": {
+   "clarity": "balanced",
+   "target": "4",
+   "second": "3"
+  }
+ },
+ "target_words": 62,
+ "deciding": {
+  "data_accepted": "As-found span reads 1128 against 400 (tol 20) and autochecks fail from 2024-08-24, but as-left evidence is partly offset by a mis-dated span point.",
+  "reference_valid": "ref_ids match C-208, units are ppb, and expiry 2025-07-07 is well after the visit; the only doubt is the unrelated off-date timestamp.",
+  "next_step": "All check types are present and the as-left zero passes, but the as-left span reads 431 against 400 (tol 20), so recalibration is defensible against flagging.",
+  "flag_extent": "Autocheck last passed 2024-08-20 and failed from 2024-08-24, so about 19 days before the visit are affected (8-30 days).",
+  "return_urgency": "Compliance-tier site with a failed as-left span and a large as-found error; same-day versus within-two-days return is a close call."
+ },
+ "request": "rec-F338-0106",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011254
+}

@@ -1,0 +1,128 @@
+{
+ "id": "F333-0064",
+ "family": "F333",
+ "state": {
+  "room": {
+   "room_id": "D108",
+   "next_occupancy_date": "2024-09-05"
+  },
+  "tenancy": {
+   "start_date": "2023-09-01",
+   "end_date": "2024-08-31",
+   "key_return_date": "2024-08-30"
+  },
+  "checkin_inventory": {
+   "signed_date": "2023-09-01",
+   "signed_by_resident": true,
+   "items": [
+    {
+     "item_code": "SHWR",
+     "grade": "good"
+    },
+    {
+     "item_code": "DOOR",
+     "grade": "good"
+    }
+   ]
+  },
+  "checkout_inspection": {
+   "inspection_type": "checkout",
+   "inspection_date": "2024-08-31",
+   "items": [
+    {
+     "item_code": "SHWR",
+     "grade": "good",
+     "defect_category": "broken_fitting",
+     "photo_refs": [
+      "p1"
+     ]
+    },
+    {
+     "item_code": "DOOR",
+     "grade": "good",
+     "photo_refs": []
+    }
+   ]
+  },
+  "proposed_charges": {
+   "lines": [
+    {
+     "item_code": "SHWR",
+     "reason_code": "DMG",
+     "qty": 1,
+     "unit_rate": 24.9,
+     "line_total": 24.9
+    }
+   ],
+   "summary_total": 24.9
+  }
+ },
+ "factors": {
+  "inspection_type": "checkout",
+  "checkin_inventory_state": "complete",
+  "prior_damage_on_charged_item": "none",
+  "charge_discrepancy": "boundary_25",
+  "worst_defect_tier": "functional",
+  "true_cause": "no_defect",
+  "predating_works_order": false,
+  "safety_fault_remedied": false,
+  "photo_coverage": "half_or_less",
+  "tenancy_months": 12,
+  "date_out_of_order": false,
+  "deposit_dispute_lodged": false,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "inspection_type": "checkout",
+  "checkin_inventory_state": "signed_late",
+  "prior_damage_on_charged_item": "none",
+  "charge_discrepancy": "large_over_100",
+  "worst_defect_tier": "safety",
+  "true_cause": "fair_wear",
+  "predating_works_order": true,
+  "safety_fault_remedied": false,
+  "photo_coverage": "half_or_less",
+  "tenancy_months": 12,
+  "date_out_of_order": false,
+  "deposit_dispute_lodged": false,
+  "boundary_case": false
+ },
+ "plan": {
+  "checkin_clean": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "disposition": {
+   "clarity": "clear",
+   "target": "approve_as_drafted",
+   "second": null
+  },
+  "main_cause": {
+   "clarity": "balanced",
+   "target": "no_defect",
+   "second": "resident_damage"
+  },
+  "defect_severity": {
+   "clarity": "contested",
+   "target": "1",
+   "second": "2"
+  },
+  "charge_gap": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  }
+ },
+ "target_words": 72,
+ "deciding": {
+  "checkin_clean": "Charged SHWR is good in a complete inventory signed on the start date.",
+  "disposition": "Inspection and tenancy dates are in order, the charge line has a rate and photo reference, and the totals agree, so it can be released.",
+  "main_cause": "Both items are good at check-in and checkout, which supports no_defect, but the broken_fitting category on SHWR leaves resident_damage plausible.",
+  "defect_severity": "broken_fitting on the shower is functional (level 1); whether it stops normal use of the room (level 2) is open, with no works order or hot-water failure recorded.",
+  "charge_gap": "SHWR is graded good at checkout, so the line is not evidenced; its 24.90 total sits just under the 25.00 boundary between levels 1 and 2."
+ },
+ "request": "rec-F333-0061",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.015065
+}

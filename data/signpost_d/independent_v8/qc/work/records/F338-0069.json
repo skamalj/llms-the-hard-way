@@ -1,0 +1,140 @@
+{
+ "id": "F338-0069",
+ "family": "F338",
+ "state": {
+  "site": {
+   "pollutant": "CO",
+   "tier": "compliance",
+   "service_interval_days": 90,
+   "approved_interval_days": 90
+  },
+  "visit": {
+   "date": "2024-11-12",
+   "start": "13:00",
+   "end": "14:00",
+   "sequence_status": "partial",
+   "maintenance_window": false
+  },
+  "reference": {
+   "standard_id": "CO-20418",
+   "conc": 10,
+   "unit": "ppm",
+   "cert_no": "CAL-3380",
+   "cert_expiry": "2025-10-12"
+  },
+  "checks": [
+   {
+    "phase": "as_found",
+    "type": "zero",
+    "ref_id": "CO-20418",
+    "ref_conc": 0,
+    "unit": "ppmv",
+    "reading": 0.4,
+    "tol": 0.5,
+    "ts": "2024-11-12T13:10"
+   },
+   {
+    "phase": "as_left",
+    "type": "zero",
+    "ref_id": "CO-20418",
+    "ref_conc": 0,
+    "unit": "ppmv",
+    "reading": 0.55,
+    "tol": 0.5,
+    "ts": "2024-11-12T13:45"
+   }
+  ],
+  "history": {
+   "last_visit_date": "2024-07-30",
+   "results": [
+    "pass",
+    "pass",
+    "fail",
+    "pass",
+    "pass"
+   ],
+   "autochecks": [
+    {
+     "d": "2024-11-03",
+     "result": "pass"
+    },
+    {
+     "d": "2024-11-08",
+     "result": "pass"
+    }
+   ]
+  },
+  "instrument": {
+   "enclosure_temp_min": 15,
+   "enclosure_temp_max": 26
+  }
+ },
+ "factors": {
+  "pollutant": "CO",
+  "as_found_ratio": 0.8,
+  "as_left_status": "one_point_fail",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 334,
+  "unit_mismatch": true,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "none",
+  "days_since_last_visit": 105,
+  "visit_completeness": "zero_only",
+  "prior_fail_count": 1,
+  "timestamp_mismatch": "none",
+  "site_priority": "compliance"
+ },
+ "factors_sampled": {
+  "pollutant": "CO",
+  "as_found_ratio": 2.96,
+  "as_left_status": "one_point_fail",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 334,
+  "unit_mismatch": true,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "none",
+  "days_since_last_visit": 105,
+  "visit_completeness": "zero_only",
+  "prior_fail_count": 1,
+  "timestamp_mismatch": "none",
+  "site_priority": "compliance"
+ },
+ "plan": {
+  "data_accepted": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "reference_valid": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "next_step": {
+   "clarity": "balanced",
+   "target": "close_visit",
+   "second": "recalibrate"
+  },
+  "flag_extent": {
+   "clarity": "contested",
+   "target": "1",
+   "second": "2"
+  },
+  "return_urgency": {
+   "clarity": "balanced",
+   "target": "4",
+   "second": "3"
+  }
+ },
+ "target_words": 81,
+ "deciding": {
+  "data_accepted": "As-found zero 0.4 is within tol 0.5 and autochecks pass up to 2024-11-08, but only a zero point was checked.",
+  "reference_valid": "ids match and the certificate runs to 2025-10-12, but check unit label ppmv differs from reference ppm with an unchanged figure, which may be only a label difference.",
+  "next_step": "As-found was within tolerance so closing is reasonable, but the single as-left zero 0.55 exceeds tol 0.5 by a small margin, which could justify repeating on site.",
+  "flag_extent": "As-found in tolerance and autochecks passing leave little to flag, yet the span was never checked over 105 days, so 1-7 or 8-30 days are both defensible.",
+  "return_urgency": "A slightly failed as-left zero on a compliance site leaves a same-day return versus 1-2 days both defensible, with no deadline field."
+ },
+ "request": "rec-F338-0066",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.01342
+}

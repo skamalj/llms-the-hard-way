@@ -1,0 +1,135 @@
+{
+ "id": "F338-0105",
+ "family": "F338",
+ "state": {
+  "site": {
+   "id": "N502",
+   "pollutant": "NO2",
+   "tier": "standard",
+   "service_interval_days": 60
+  },
+  "visit": {
+   "date": "2025-10-15",
+   "start": "08:30",
+   "end": "11:00",
+   "sequence_status": "complete",
+   "maintenance_window": true
+  },
+  "reference": {
+   "standard_id": "CYL9184",
+   "unit": "ug/m3",
+   "cert_expiry": "2026-10-12"
+  },
+  "checks": [
+   {
+    "type": "as_found_span",
+    "ref_id": "CYL9184",
+    "ref_conc": 100,
+    "unit": "ppb",
+    "reading": 137,
+    "tol": 10,
+    "ts": "2025-10-15T08:50"
+   },
+   {
+    "type": "as_left_span",
+    "ref_id": "CYL9184",
+    "ref_conc": 100,
+    "unit": "ppb",
+    "reading": 100.8,
+    "tol": 10,
+    "ts": "2025-10-16T10:05"
+   }
+  ],
+  "history": {
+   "last_visit_date": "2025-08-28",
+   "results": [
+    {
+     "d": "2025-02-11",
+     "r": "fail"
+    },
+    {
+     "d": "2025-08-28",
+     "r": "pass"
+    }
+   ],
+   "autochecks": [
+    {
+     "d": "2025-09-02",
+     "r": "fail"
+    },
+    {
+     "d": "2025-09-20",
+     "r": "pass"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "pollutant": "NO2",
+  "as_found_ratio": 3.69,
+  "as_left_status": "all_pass",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": -362,
+  "unit_mismatch": true,
+  "interim_autocheck_pass": false,
+  "drift_explanation": "maintenance_window",
+  "days_since_last_visit": 48,
+  "visit_completeness": "complete",
+  "prior_fail_count": 1,
+  "timestamp_mismatch": "different_day",
+  "site_priority": "standard"
+ },
+ "factors_sampled": {
+  "pollutant": "NO2",
+  "as_found_ratio": 3.69,
+  "as_left_status": "all_pass",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 362,
+  "unit_mismatch": true,
+  "interim_autocheck_pass": false,
+  "drift_explanation": "maintenance_window",
+  "days_since_last_visit": 48,
+  "visit_completeness": "complete",
+  "prior_fail_count": 1,
+  "timestamp_mismatch": "different_day",
+  "site_priority": "standard"
+ },
+ "plan": {
+  "data_accepted": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "reference_valid": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "recalibrate",
+   "second": null
+  },
+  "flag_extent": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "return_urgency": {
+   "clarity": "balanced",
+   "target": "4",
+   "second": "3"
+  }
+ },
+ "target_words": 48,
+ "deciding": {
+  "data_accepted": "As-found span reads 137 vs 100 with tol 10, a deviation of 37 (about 3.7 times tolerance), so data since the last visit cannot be accepted as is.",
+  "reference_valid": "Checks are in ppb while reference.unit is ug/m3 with the unconverted 100 figure, against a matching id and a valid expiry 2026-10-12; balanced.",
+  "next_step": "The as-left point is stamped 2025-10-16, outside the visit date and window, and uses mismatched units, so the passing as-left is not reliable and the calibration must be repeated.",
+  "flag_extent": "visit.maintenance_window is true, which explains the as-found drift and supports no flagging, while the autocheck fail on 2025-09-02 and the large deviation could justify up to 7 days.",
+  "return_urgency": "The unreliable as-left result leaves the analyser unverified, so a same-day return versus a return within 1-2 days is a close call; the maintenance window leaves some room."
+ },
+ "request": "rec-F338-0101",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011284
+}

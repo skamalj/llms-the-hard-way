@@ -1,0 +1,143 @@
+{
+ "id": "F333-0070",
+ "family": "F333",
+ "state": {
+  "room": {
+   "rate_card_ref": "RC24"
+  },
+  "tenancy": {
+   "start_date": "2024-05-01",
+   "end_date": "2024-06-01"
+  },
+  "checkin_inventory": {
+   "signed_date": "2024-04-30",
+   "items": [
+    {
+     "item_code": "SH1",
+     "grade": "good"
+    },
+    {
+     "item_code": "CH2",
+     "grade": "good"
+    }
+   ]
+  },
+  "checkout_inspection": {
+   "inspection_type": "checkout",
+   "inspection_date": "2024-06-01",
+   "items": [
+    {
+     "item_code": "SH1",
+     "grade": "fair",
+     "defect_category": "no_hot_water",
+     "photo_refs": [
+      "c1"
+     ]
+    },
+    {
+     "item_code": "CH2",
+     "grade": "fair",
+     "defect_category": "scuff",
+     "photo_refs": []
+    }
+   ]
+  },
+  "proposed_charges": {
+   "lines": [
+    {
+     "item_code": "SH1",
+     "qty": 1,
+     "unit_rate": 120,
+     "line_total": 120
+    },
+    {
+     "item_code": "CH2",
+     "qty": 1,
+     "unit_rate": 50,
+     "line_total": 50
+    }
+   ],
+   "summary_total": 170,
+   "rate_card_ref": "RC24"
+  },
+  "works_orders": [
+   {
+    "wo_id": "W5",
+    "raised_date": "2024-05-20",
+    "location": "shower",
+    "category": "plumbing",
+    "status": "completed",
+    "completed_date": "2024-06-01",
+    "retest_passed": true
+   }
+  ]
+ },
+ "factors": {
+  "inspection_type": "checkout",
+  "checkin_inventory_state": "complete",
+  "prior_damage_on_charged_item": "none",
+  "charge_discrepancy": "medium_25_to_100",
+  "worst_defect_tier": "habitability",
+  "true_cause": "fair_wear",
+  "predating_works_order": false,
+  "safety_fault_remedied": true,
+  "photo_coverage": "all_but_one",
+  "tenancy_months": 1,
+  "date_out_of_order": false,
+  "deposit_dispute_lodged": false,
+  "boundary_case": true
+ },
+ "factors_sampled": {
+  "inspection_type": "checkout",
+  "checkin_inventory_state": "complete",
+  "prior_damage_on_charged_item": "none",
+  "charge_discrepancy": "medium_25_to_100",
+  "worst_defect_tier": "functional",
+  "true_cause": "building_fault",
+  "predating_works_order": false,
+  "safety_fault_remedied": true,
+  "photo_coverage": "all_but_one",
+  "tenancy_months": 1,
+  "date_out_of_order": false,
+  "deposit_dispute_lodged": false,
+  "boundary_case": false
+ },
+ "plan": {
+  "checkin_clean": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "disposition": {
+   "clarity": "contested",
+   "target": "approve_as_drafted",
+   "second": "order_reinspection"
+  },
+  "main_cause": {
+   "clarity": "leaning",
+   "target": "fair_wear",
+   "second": null
+  },
+  "defect_severity": {
+   "clarity": "clear",
+   "target": "2",
+   "second": null
+  },
+  "charge_gap": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 80,
+ "deciding": {
+  "checkin_clean": "Both items good at check-in, but the inventory was signed one day before start and grades are fair at checkout.",
+  "disposition": "CH2 has no photo while the charges otherwise match; approving versus revisiting is contested.",
+  "main_cause": "Both items drop one grade good to fair; W5 plumbing order raised mid-tenancy adds doubt.",
+  "defect_severity": "SH1 defect_category no_hot_water, which stops normal use.",
+  "charge_gap": "Charges of 170 versus evidenced 120 or 0 (SH1 tied to W5, CH2 unphotographed) gives gaps of 50 to 170 around the £100 boundary."
+ },
+ "request": "rec-F333-0066",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.00569
+}

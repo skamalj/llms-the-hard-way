@@ -1,0 +1,134 @@
+{
+ "id": "F338-0091",
+ "family": "F338",
+ "state": {
+  "site": {
+   "id": "S-CO-114",
+   "pollutant": "CO",
+   "tier": "compliance",
+   "service_interval_days": 90,
+   "approved_interval_days": 90
+  },
+  "visit": {
+   "id": "V-2291",
+   "date": "2024-05-14",
+   "start": "09:10",
+   "end": "10:40",
+   "sequence_status": "complete",
+   "maintenance_window": false
+  },
+  "reference": {
+   "standard_id": "CYL-48215",
+   "conc": 40.0,
+   "unit": "ppm",
+   "cert_expiry": "2024-05-10"
+  },
+  "checks": [
+   {
+    "type": "as_found_span",
+    "ref_id": "CYL-48215",
+    "ref_conc": 40.0,
+    "unit": "ppm",
+    "reading": 41.2,
+    "tol": 1.0,
+    "ts": "2024-05-14T09:20"
+   },
+   {
+    "type": "as_left_span",
+    "ref_id": "CYL-48215",
+    "ref_conc": 40.0,
+    "unit": "ppm",
+    "reading": 40.1,
+    "tol": 1.0,
+    "ts": "2024-05-14T10:47"
+   }
+  ],
+  "history": {
+   "last_visit_date": "2024-02-20",
+   "results": [
+    "pass",
+    "fail",
+    "pass",
+    "fail"
+   ],
+   "autochecks": [
+    {
+     "d": "2024-05-09",
+     "result": "pass"
+    }
+   ]
+  },
+  "instrument": {
+   "temp_min": 15,
+   "temp_max": 26
+  }
+ },
+ "factors": {
+  "pollutant": "CO",
+  "as_found_ratio": 1.2,
+  "as_left_status": "all_pass",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": -4,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "none",
+  "days_since_last_visit": 84,
+  "visit_completeness": "complete",
+  "prior_fail_count": 2,
+  "timestamp_mismatch": "minutes_outside",
+  "site_priority": "compliance"
+ },
+ "factors_sampled": {
+  "pollutant": "CO",
+  "as_found_ratio": 2.39,
+  "as_left_status": "all_pass",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": -37,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "none",
+  "days_since_last_visit": 84,
+  "visit_completeness": "complete",
+  "prior_fail_count": 2,
+  "timestamp_mismatch": "minutes_outside",
+  "site_priority": "compliance"
+ },
+ "plan": {
+  "data_accepted": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "reference_valid": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "close_flagged",
+   "second": null
+  },
+  "flag_extent": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "return_urgency": {
+   "clarity": "contested",
+   "target": "4",
+   "second": "3"
+  }
+ },
+ "target_words": 92,
+ "deciding": {
+  "data_accepted": "As-found span deviates 1.2 against tol 1.0, only marginally over, autochecks pass to 2024-05-09 and all as-left points pass.",
+  "reference_valid": "reference.cert_expiry 2024-05-10 is four days before visit.date 2024-05-14, while ids and units match; the short lapse leaves some doubt.",
+  "next_step": "Sequence complete and as-left span within tol after a slight as-found excess, so it is acceptable after adjustment but a small slice of prior data is flagged.",
+  "flag_extent": "The as-found excess is slight (1.2 vs 1.0 tol) and autochecks passed until days before the visit, so zero or a few days is arguable, held by 84 days since last visit and two past fails.",
+  "return_urgency": "Compliance site with a standard that expired four days before the visit holds same-day against next-day return; the as-left pass pulls toward the lower option."
+ },
+ "request": "rec-F338-0091",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012993
+}

@@ -1,0 +1,124 @@
+{
+ "id": "F338-0085",
+ "family": "F338",
+ "state": {
+  "site": {
+   "pollutant": "O3",
+   "tier": "compliance",
+   "service_interval_days": 90
+  },
+  "visit": {
+   "date": "2025-09-15",
+   "sequence_status": "complete"
+  },
+  "reference": {
+   "standard_id": "OZ-771",
+   "unit": "ppb",
+   "cert_expiry": "2026-01-17"
+  },
+  "checks": [
+   {
+    "phase": "as_found",
+    "type": "span",
+    "ref_id": "OZ-771",
+    "unit": "ppb",
+    "ref_conc": 90,
+    "reading": 92.1,
+    "tol": 2.5
+   },
+   {
+    "phase": "as_left",
+    "type": "span",
+    "ref_id": "OZ-771",
+    "unit": "ppb",
+    "ref_conc": 90,
+    "reading": 90.1,
+    "tol": 2.5
+   }
+  ],
+  "history": {
+   "last_visit_date": "2025-06-02",
+   "results": [
+    "pass",
+    "fail",
+    "pass",
+    "fail",
+    "fail"
+   ],
+   "autochecks": [
+    {
+     "d": "2025-09-10",
+     "r": "pass"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "pollutant": "O3",
+  "as_found_ratio": 0.84,
+  "as_left_status": "all_pass",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 124,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "none",
+  "days_since_last_visit": 105,
+  "visit_completeness": "complete",
+  "prior_fail_count": 3,
+  "timestamp_mismatch": "none",
+  "site_priority": "compliance"
+ },
+ "factors_sampled": {
+  "pollutant": "O3",
+  "as_found_ratio": 0.84,
+  "as_left_status": "all_pass",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 124,
+  "unit_mismatch": true,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "none",
+  "days_since_last_visit": 105,
+  "visit_completeness": "complete",
+  "prior_fail_count": 3,
+  "timestamp_mismatch": "none",
+  "site_priority": "compliance"
+ },
+ "plan": {
+  "data_accepted": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "reference_valid": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "close_visit",
+   "second": null
+  },
+  "flag_extent": {
+   "clarity": "contested",
+   "target": "2",
+   "second": "3"
+  },
+  "return_urgency": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  }
+ },
+ "target_words": 43,
+ "deciding": {
+  "data_accepted": "As-found error is 2.1 against tolerance 2.5, which is within tolerance. Autochecks pass, but the interval of 105 days exceeds 90 with no extension, which leaves some doubt.",
+  "reference_valid": "The ref_id matches standard_id, units are ppb and the certificate is valid to 2026-01-17.",
+  "next_step": "The as-left passes and the sequence is complete, so the visit can close. The overlong interval and the history of fails leave some doubt.",
+  "flag_extent": "The visit came 105 days after the last against a 90-day interval, so the overrun is 15 days. Since the as-found passes, flagging only the overrun (8-30 days) is defensible, while a reader worried about the full interval could flag more than 30 days.",
+  "return_urgency": "It is a compliance-tier site with 3 fails in history and an overdue interval, which argues for a return within 1-2 days. The clean as-left makes this uncertain."
+ },
+ "request": "rec-F338-0081",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.00981
+}

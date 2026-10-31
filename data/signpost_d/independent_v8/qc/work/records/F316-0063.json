@@ -1,0 +1,136 @@
+{
+ "id": "F316-0063",
+ "family": "F316",
+ "state": {
+  "run_header": {
+   "run_date": "2025-01-21",
+   "reviewed_at": "2025-01-21T02:50"
+  },
+  "plan": [
+   {
+    "section_code": "A9-01",
+    "length_km": 11,
+    "width_m": 7,
+    "priority": "P1",
+    "planned_rate_gm2": 20,
+    "forecast_zone": "Z1"
+   },
+   {
+    "section_code": "B9-06",
+    "length_km": 3,
+    "width_m": 7,
+    "priority": "P1",
+    "planned_rate_gm2": 20,
+    "forecast_zone": "Z2"
+   },
+   {
+    "section_code": "S9-04",
+    "length_km": 2,
+    "width_m": 6,
+    "priority": "secondary",
+    "planned_rate_gm2": 20,
+    "forecast_zone": "Z2"
+   }
+  ],
+  "forecast": {
+   "Z1": {
+    "freeze_time": "2025-01-21T05:30"
+   },
+   "Z2": {
+    "freeze_time": "2025-01-21T14:20"
+   }
+  },
+  "telematics": {
+   "segments": [
+    {
+     "section_code": "B9-6",
+     "spread_on": true,
+     "end": "2025-01-21T02:30",
+     "logged_rate_gm2": 20
+    },
+    {
+     "section_code": "A9-01",
+     "spread_on": true,
+     "end": "2025-01-21T02:40",
+     "logged_rate_gm2": 10
+    }
+   ]
+  },
+  "materials": {
+   "loaded_t": 1.45,
+   "returned_t": 0.12,
+   "weighbridge_ticket": "WB331"
+  },
+  "notes": {
+   "depot_note": "Rerun booked 05:00, same route."
+  }
+ },
+ "factors": {
+  "missed_extent": "over_10km (11 km under-rate)",
+  "missed_section_mitigated": false,
+  "salt_gap": "over_10pct (about 12%)",
+  "rate_exception_approved": false,
+  "finish_vs_freeze_min": "170 (before freeze)",
+  "hours_to_freeze_untreated": 11.5,
+  "forecast_revised": "none",
+  "crosscheck_mismatch": "section_code",
+  "driver_note_type": "blank",
+  "follow_up_run_scheduled": true,
+  "pending_confirmation": false,
+  "gps_dropouts": 0,
+  "nonpriority_untreated": true
+ },
+ "factors_sampled": {
+  "missed_extent": "over_10km",
+  "missed_section_mitigated": true,
+  "salt_gap": "over_10pct",
+  "rate_exception_approved": false,
+  "finish_vs_freeze_min": 170,
+  "hours_to_freeze_untreated": 11.52,
+  "forecast_revised": "none",
+  "crosscheck_mismatch": "section_code",
+  "driver_note_type": "blank",
+  "follow_up_run_scheduled": true,
+  "pending_confirmation": false,
+  "gps_dropouts": 0,
+  "nonpriority_untreated": true
+ },
+ "plan": {
+  "treated_before_freeze": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "salt_reconciles": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "follow_up": {
+   "clarity": "balanced",
+   "target": "hold",
+   "second": "sign_off"
+  },
+  "deficient_length": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  },
+  "freeze_proximity": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  }
+ },
+ "target_words": 45,
+ "deciding": {
+  "treated_before_freeze": "A9-01 ended 02:40, 170 minutes before the 05:30 Z1 freeze, and the telematics code B9-6 probably is B9-06 (ended 02:30, before Z2 freeze 14:20). The code mismatch leaves doubt whether B9-06 was treated.",
+  "salt_reconciles": "If B9-6 counts, expected is 0.77 t plus 0.42 t, 1.19 t, against net 1.33 t, about 12% over. If it does not count, the gap is far larger.",
+  "follow_up": "The depot note books a rerun at 05:00. Whether to hold sign-off turns on the B9-6 versus B9-06 code and the borderline salt gap.",
+  "deficient_length": "A9-01 is 11 km of P1 logged at 10 against a planned 20 with no rate exception, so over 10 km is undertreated whatever happens to B9-06.",
+  "freeze_proximity": "If B9-6 is not B9-06, the untreated section is in Z2 and freezes at 14:20, 11.5 hours after the 02:50 review, which is level 1. If it matches, nothing is untreated."
+ },
+ "request": "rec-F316-0061",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.017095
+}

@@ -1,0 +1,168 @@
+{
+ "id": "F318-0072",
+ "family": "F318",
+ "state": {
+  "work_order": {
+   "visit_type": "planned_repair",
+   "tasks": [
+    {
+     "task_id": 1,
+     "asset_ref": "GATE-N"
+    },
+    {
+     "task_id": 2,
+     "asset_ref": "PAD-A"
+    },
+    {
+     "task_id": 3,
+     "asset_ref": "PAD-B"
+    },
+    {
+     "task_id": 4,
+     "asset_ref": "SILL"
+    },
+    {
+     "task_id": 5,
+     "asset_ref": "BYW"
+    },
+    {
+     "task_id": 6,
+     "asset_ref": "CULV"
+    },
+    {
+     "task_id": 7,
+     "asset_ref": "RACK"
+    },
+    {
+     "task_id": 8,
+     "asset_ref": "GATE-S"
+    }
+   ],
+   "nav_notice": {
+    "in_force": true,
+    "to": "2025-05-01",
+    "scope_assets": [
+     "GATE-N"
+    ]
+   }
+  },
+  "visit_log": {
+   "arrived": "2025-04-10T08:00",
+   "departed": "2025-04-10T16:00",
+   "crew_size": 2,
+   "timesheet_hours": 15.6,
+   "task_status": [
+    {
+     "task_id": 1,
+     "status": "done",
+     "deferral_ref": "DEF-77",
+     "deferral_due": "2025-06-01"
+    }
+   ]
+  },
+  "materials": {
+   "issued": [
+    {
+     "part_no": "B-5",
+     "qty": 10
+    }
+   ],
+   "fitted": [
+    {
+     "part_no": "B-5",
+     "qty": 10
+    }
+   ]
+  },
+  "checks": {
+   "post_checks": [
+    {
+     "asset_ref": "GATE-S",
+     "result": "pass_advisory"
+    }
+   ],
+   "leakage_ls": 6.6,
+   "leakage_limit_ls": 4
+  },
+  "asset_history": {
+   "prior_visits": [
+    {
+     "asset_ref": "GATE-N",
+     "defect_code": "LK"
+    },
+    {
+     "asset_ref": "GATE-N",
+     "defect_code": "LK"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "visit_type": "planned_repair",
+  "tasks_ordered": 8,
+  "completion_state": "all_done",
+  "parts_qty_mismatch": "trivial",
+  "hours_gap": 0.4,
+  "asset_ref_mismatch": true,
+  "post_check_result": "passed_advisory",
+  "leakage_ratio": 1.65,
+  "leakage_mitigation": false,
+  "navigation_notice_in_force": true,
+  "deferral_approved": true,
+  "prior_same_defect": 2,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "visit_type": "planned_repair",
+  "tasks_ordered": 8,
+  "completion_state": "all_done",
+  "parts_qty_mismatch": "trivial",
+  "hours_gap": 0.4,
+  "asset_ref_mismatch": true,
+  "post_check_result": "passed_advisory",
+  "leakage_ratio": 1.65,
+  "leakage_mitigation": false,
+  "navigation_notice_in_force": true,
+  "deferral_approved": true,
+  "prior_same_defect": 2,
+  "boundary_case": false
+ },
+ "plan": {
+  "safe_to_reopen": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "record_disposition": {
+   "clarity": "leaning",
+   "target": "hold_query",
+   "second": null
+  },
+  "return_urgency": {
+   "clarity": "clear",
+   "target": "next_scheduled",
+   "second": null
+  },
+  "affected_scope": {
+   "clarity": "clear",
+   "target": "0",
+   "second": null
+  },
+  "section_mismatches": {
+   "clarity": "contested",
+   "target": "2",
+   "second": "1"
+  }
+ },
+ "target_words": 42,
+ "deciding": {
+  "safe_to_reopen": "Leakage 6.6 vs limit 4 unmitigated, notice in force on GATE-N, and the only post-check is on a different asset.",
+  "record_disposition": "One specific point for the crew: post-check asset GATE-S does not match the tasked assets; the rest reconciles.",
+  "return_urgency": "Deferral has ref DEF-77 due 2025-06-01, so existing cover; no extra attendance.",
+  "affected_scope": "One lock with one gate asset concerned, so one unit.",
+  "section_mismatches": "Asset ref mismatch between tasks and the post-check is unexplained; the timesheet 15.6h vs 16h is minor, so one or two."
+ },
+ "request": "rec-F318-0071",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.007518
+}

@@ -1,0 +1,119 @@
+{
+ "id": "F338-0109",
+ "family": "F338",
+ "state": {
+  "site": {
+   "pol": "CO",
+   "tier": "standard",
+   "svc_days": 30,
+   "approved_days": 60
+  },
+  "visit": {
+   "date": "2024-11-05",
+   "start": "10:00",
+   "end": "12:00",
+   "seq": "complete"
+  },
+  "reference": {
+   "id": "K-33",
+   "conc": 40,
+   "unit": "ppm",
+   "exp": "2025-08-05"
+  },
+  "checks": [
+   {
+    "t": "as_found_span",
+    "ref_id": "K-33",
+    "ref": 40,
+    "u": "ppm",
+    "rd": 41.6,
+    "tol": 2,
+    "ts": "2024-11-05T10:20"
+   },
+   {
+    "t": "as_left_span",
+    "ref_id": "K-33",
+    "ref": 40,
+    "u": "ppm",
+    "rd": 40.1,
+    "tol": 2,
+    "ts": "2024-11-05T12:05"
+   }
+  ],
+  "history": {
+   "last_visit": "2024-09-17",
+   "results": [
+    "pass",
+    "pass"
+   ]
+  }
+ },
+ "factors": {
+  "pollutant": "CO",
+  "as_found_ratio": 1.04,
+  "as_left_status": "all_pass",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 273,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "approved_extended_interval",
+  "days_since_last_visit": 49,
+  "visit_completeness": "complete",
+  "prior_fail_count": 0,
+  "timestamp_mismatch": "minutes_outside",
+  "site_priority": "standard"
+ },
+ "factors_sampled": {
+  "pollutant": "CO",
+  "as_found_ratio": 1.04,
+  "as_left_status": "all_pass",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 273,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "approved_extended_interval",
+  "days_since_last_visit": 49,
+  "visit_completeness": "complete",
+  "prior_fail_count": 0,
+  "timestamp_mismatch": "minutes_outside",
+  "site_priority": "standard"
+ },
+ "plan": {
+  "data_accepted": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "reference_valid": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "balanced",
+   "target": "close_visit",
+   "second": "withdraw"
+  },
+  "flag_extent": {
+   "clarity": "leaning",
+   "target": "0",
+   "second": null
+  },
+  "return_urgency": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "4"
+  }
+ },
+ "target_words": 43,
+ "deciding": {
+  "data_accepted": "As-found 41.6 vs 40 (tol 2) and as-left pass, with approved 60-day interval covering the 49 days; the as-left timestamp 12:05 falls after visit end 12:00.",
+  "reference_valid": "ref_ids match K-33, units are ppm throughout, and expiry 2025-08-05 is far after the visit.",
+  "next_step": "As-found and as-left pass and there are no fails in history, so closing is favoured; the minor timestamp slip leaves some room for doubt.",
+  "flag_extent": "As-found is within tolerance and the interval is approved, so no prior data needs flagging.",
+  "return_urgency": "Nothing in the record forces a return; the only irregularity is the as-left timestamp 5 minutes after visit end, so urgent versus immediate is a weak judgement."
+ },
+ "request": "rec-F338-0106",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011254
+}

@@ -1,0 +1,125 @@
+{
+ "id": "F338-0101",
+ "family": "F338",
+ "state": {
+  "site": {
+   "id": "N114",
+   "pollutant": "NO2",
+   "tier": "indicative",
+   "service_interval_days": 120
+  },
+  "visit": {
+   "date": "2025-03-10",
+   "start": "09:00",
+   "end": "11:30",
+   "sequence_status": "partial",
+   "maintenance_window": false
+  },
+  "reference": {
+   "standard_id": "CYL4471",
+   "unit": "ppb",
+   "cert_expiry": "2024-03-09"
+  },
+  "checks": [
+   {
+    "type": "as_found_zero",
+    "ref_id": "CYL4471",
+    "ref_conc": 0,
+    "unit": "ppb",
+    "reading": 1,
+    "tol": 5,
+    "ts": "2025-03-10T09:20"
+   },
+   {
+    "type": "as_found_span",
+    "ref_id": "CYL4471",
+    "ref_conc": 200,
+    "unit": "ppb",
+    "reading": 205,
+    "tol": 10,
+    "ts": "2025-03-10T09:50"
+   }
+  ],
+  "history": {
+   "last_visit_date": "2024-11-12",
+   "autochecks": [
+    {
+     "d": "2025-03-05",
+     "r": "pass"
+    }
+   ]
+  },
+  "instrument": {
+   "enclosure_temp_max": 36,
+   "enclosure_temp_min": 12
+  }
+ },
+ "factors": {
+  "pollutant": "NO2",
+  "as_found_ratio": 0.5,
+  "as_left_status": "not_recorded",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 366,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "enclosure_temp_excursion",
+  "days_since_last_visit": 118,
+  "visit_completeness": "multipoint_missing",
+  "prior_fail_count": 0,
+  "timestamp_mismatch": "none",
+  "site_priority": "indicative"
+ },
+ "factors_sampled": {
+  "pollutant": "NO2",
+  "as_found_ratio": 3.66,
+  "as_left_status": "not_recorded",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 366,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": false,
+  "drift_explanation": "enclosure_temp_excursion",
+  "days_since_last_visit": 118,
+  "visit_completeness": "multipoint_missing",
+  "prior_fail_count": 0,
+  "timestamp_mismatch": "none",
+  "site_priority": "indicative"
+ },
+ "plan": {
+  "data_accepted": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "reference_valid": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "balanced",
+   "target": "close_visit",
+   "second": "close_flagged"
+  },
+  "flag_extent": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "return_urgency": {
+   "clarity": "contested",
+   "target": "2",
+   "second": "1"
+  }
+ },
+ "target_words": 45,
+ "deciding": {
+  "data_accepted": "As-found zero (1 vs tol 5) and span (205 vs 200, tol 10) are within tolerance and autochecks pass to 2025-03-05.",
+  "reference_valid": "reference.cert_expiry 2024-03-09 is a year before visit.date 2025-03-10, so the certificate is expired.",
+  "next_step": "As-found is fine so closing is plausible, but as_left is absent, the sequence is partial and the reference is expired, which could justify flagging; balanced.",
+  "flag_extent": "118 days since last visit and an expired reference, with a temperature max of 36, put the flagged span near the 30-day boundary between level 2 and level 3.",
+  "return_urgency": "Missing as_left and multipoint on an indicative-tier site: a prompt return within 3-7 days versus a planned extra visit in 8-30 days both defensible."
+ },
+ "request": "rec-F338-0101",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011284
+}

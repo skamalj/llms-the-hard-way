@@ -1,0 +1,171 @@
+{
+ "id": "F318-0119",
+ "family": "F318",
+ "state": {
+  "work_order": {
+   "visit_type": "planned_repair",
+   "bookings_7d": 21,
+   "tasks": [
+    {
+     "task_id": "T1",
+     "asset_ref": "G1"
+    },
+    {
+     "task_id": "T2",
+     "asset_ref": "G2"
+    },
+    {
+     "task_id": "T3",
+     "asset_ref": "G3"
+    },
+    {
+     "task_id": "T4",
+     "asset_ref": "G4"
+    },
+    {
+     "task_id": "T5",
+     "asset_ref": "P1"
+    }
+   ],
+   "nav_notice": {
+    "in_force": false
+   }
+  },
+  "visit_log": {
+   "arrived": "2025-03-05T07:30",
+   "departed": "2025-03-05T11:30",
+   "crew_size": 3,
+   "timesheet_hours": 15.45,
+   "task_status": [
+    {
+     "task_id": "T1",
+     "status": "done"
+    },
+    {
+     "task_id": "T2",
+     "status": "done"
+    },
+    {
+     "task_id": "T3",
+     "status": "done"
+    },
+    {
+     "task_id": "T4",
+     "status": "done"
+    },
+    {
+     "task_id": "T5",
+     "status": "done"
+    }
+   ]
+  },
+  "checks": {
+   "post_checks": [
+    {
+     "asset_ref": "G1",
+     "result": "pass"
+    },
+    {
+     "asset_ref": "G2",
+     "result": "pass"
+    },
+    {
+     "asset_ref": "G3",
+     "result": "pass"
+    },
+    {
+     "asset_ref": "G4A",
+     "result": "pass"
+    }
+   ],
+   "leakage_ls": 5.7,
+   "leakage_limit_ls": 10,
+   "river_level_m": 2.4,
+   "flood_marker_m": 3.0,
+   "gauge_cal_due": "2025-09-01"
+  },
+  "asset_history": {
+   "prior_visits": [
+    {
+     "date": "2024-06-12",
+     "asset_ref": "G4",
+     "defect_code": "PD4"
+    },
+    {
+     "date": "2024-11-20",
+     "asset_ref": "G4",
+     "defect_code": "PD4"
+    }
+   ],
+   "open_defects": []
+  }
+ },
+ "factors": {
+  "visit_type": "planned_repair",
+  "tasks_ordered": 5,
+  "completion_state": "all_done",
+  "parts_qty_mismatch": "none",
+  "hours_gap": 3.45,
+  "asset_ref_mismatch": true,
+  "post_check_result": "passed",
+  "leakage_ratio": 0.57,
+  "leakage_mitigation": false,
+  "navigation_notice_in_force": false,
+  "deferral_approved": false,
+  "prior_same_defect": 2,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "visit_type": "planned_repair",
+  "tasks_ordered": 5,
+  "completion_state": "all_done",
+  "parts_qty_mismatch": "none",
+  "hours_gap": 3.45,
+  "asset_ref_mismatch": true,
+  "post_check_result": "failed",
+  "leakage_ratio": 0.57,
+  "leakage_mitigation": false,
+  "navigation_notice_in_force": false,
+  "deferral_approved": false,
+  "prior_same_defect": 2,
+  "boundary_case": false
+ },
+ "plan": {
+  "safe_to_reopen": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "record_disposition": {
+   "clarity": "clear",
+   "target": "reopen_revisit",
+   "second": null
+  },
+  "return_urgency": {
+   "clarity": "balanced",
+   "target": "next_scheduled",
+   "second": "immediate"
+  },
+  "affected_scope": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "section_mismatches": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  }
+ },
+ "target_words": 70,
+ "deciding": {
+  "safe_to_reopen": "No open defects, no failed check, and leakage 5.7 against a limit of 10 with no notice, so the lock can reopen.",
+  "record_disposition": "Timesheet 15.45 h vs a 12 h span, G4 vs G4A check ref, and no check for P1 mean the claimed work cannot be accepted as logged, so a return is needed.",
+  "return_urgency": "Leakage and checks are fine, favouring the next cycle, but T4 and T5 work is unverified and G4 has two prior PD4 defects, so an immediate return is arguable.",
+  "affected_scope": "bookings_7d is 21, just over the twenty boundary.",
+  "section_mismatches": "Timesheet 15.45 h vs 12 h span and G4 vs G4A are two clear mismatches; the missing P1 post check is a third that could be read either way."
+ },
+ "request": "rec-F318-0116",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.017141
+}

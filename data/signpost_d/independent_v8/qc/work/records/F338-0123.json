@@ -1,0 +1,115 @@
+{
+ "id": "F338-0123",
+ "family": "F338",
+ "state": {
+  "site": {
+   "pollutant": "O3",
+   "tier": "compliance"
+  },
+  "visit": {
+   "date": "2024-03-11",
+   "sequence_status": "partial"
+  },
+  "reference": {
+   "standard_id": "CYL-3302",
+   "conc": 90,
+   "unit": "ppb",
+   "cert_expiry": "2024-11-02"
+  },
+  "checks": [
+   {
+    "type": "as_found_span",
+    "ref_id": "CYL-3302",
+    "ref_conc": 90,
+    "unit": "ppb",
+    "reading": 87,
+    "tol": 5
+   },
+   {
+    "type": "as_left_span",
+    "ref_id": "CYL-3302",
+    "ref_conc": 90,
+    "unit": "ppb",
+    "reading": 89.6,
+    "tol": 5
+   }
+  ],
+  "history": {
+   "last_visit_date": "2023-12-14",
+   "results": [
+    "fail",
+    "pass",
+    "fail",
+    "fail"
+   ]
+  }
+ },
+ "factors": {
+  "pollutant": "O3",
+  "as_found_ratio": 0.6,
+  "as_left_status": "all_pass",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 236,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "none",
+  "days_since_last_visit": 88,
+  "visit_completeness": "multipoint_missing",
+  "prior_fail_count": 3,
+  "timestamp_mismatch": "none",
+  "site_priority": "compliance"
+ },
+ "factors_sampled": {
+  "pollutant": "O3",
+  "as_found_ratio": 1.02,
+  "as_left_status": "all_pass",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 236,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "none",
+  "days_since_last_visit": 88,
+  "visit_completeness": "multipoint_missing",
+  "prior_fail_count": 3,
+  "timestamp_mismatch": "none",
+  "site_priority": "compliance"
+ },
+ "plan": {
+  "data_accepted": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "reference_valid": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "recalibrate",
+   "second": null
+  },
+  "flag_extent": {
+   "clarity": "contested",
+   "target": "1",
+   "second": "2"
+  },
+  "return_urgency": {
+   "clarity": "contested",
+   "target": "1",
+   "second": "0"
+  }
+ },
+ "target_words": 37,
+ "deciding": {
+  "data_accepted": "As-found span deviation is 3 ppb against tolerance 5, so the earlier data stayed in tolerance.",
+  "reference_valid": "Standard id, unit and expiry agree, but no certificate number is given, so the certificate record cannot be confirmed in full.",
+  "next_step": "Visit is partial: only span points exist, with no zero or precision check, so the calibration is incomplete and must be repeated.",
+  "flag_extent": "Three prior fails in history against passing as-found data: a week of flagging or a few weeks are both defensible.",
+  "return_urgency": "Compliance site with an incomplete visit suggests an extra visit in 8-30 days, but passing as-found data allows waiting for the routine visit."
+ },
+ "request": "rec-F338-0121",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012542
+}

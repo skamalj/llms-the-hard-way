@@ -1,0 +1,161 @@
+{
+ "id": "F318-0111",
+ "family": "F318",
+ "state": {
+  "work_order": {
+   "wo_id": "WO-4471",
+   "visit_type": "planned_repair",
+   "tasks": [
+    {
+     "task_id": 1,
+     "asset_ref": "PAD-N"
+    },
+    {
+     "task_id": 2,
+     "asset_ref": "PAD-S"
+    },
+    {
+     "task_id": 3,
+     "asset_ref": "GATE-U"
+    },
+    {
+     "task_id": 4,
+     "asset_ref": "GATE-L"
+    },
+    {
+     "task_id": 5,
+     "asset_ref": "BAL-1"
+    },
+    {
+     "task_id": 6,
+     "asset_ref": "BAL-2"
+    },
+    {
+     "task_id": 7,
+     "asset_ref": "SILL"
+    }
+   ],
+   "nav_notice": {
+    "in_force": true,
+    "to": "2025-03-20",
+    "scope_assets": [
+     "GATE-L"
+    ]
+   }
+  },
+  "visit_log": {
+   "crew_size": 3,
+   "arrived": "2025-03-10T08:00",
+   "departed": "2025-03-10T15:00",
+   "timesheet_hours": 17.5,
+   "task_status": [
+    {
+     "task_id": 4,
+     "status": "done",
+     "deferral_ref": "DEF-88",
+     "deferral_due": "2025-04-02"
+    }
+   ]
+  },
+  "checks": {
+   "post_checks": [
+    {
+     "asset_ref": "GATE-L",
+     "result": "pass_advisory"
+    }
+   ],
+   "leakage_ls": 41.4,
+   "leakage_limit_ls": 30,
+   "river_level_m": 1.1,
+   "flood_marker_m": 1.6
+  },
+  "asset_history": {
+   "prior_visits": [
+    {
+     "asset_ref": "GATE-L",
+     "defect_code": "LK2"
+    },
+    {
+     "asset_ref": "GATE-L",
+     "defect_code": "LK2"
+    },
+    {
+     "asset_ref": "GATE-L",
+     "defect_code": "LK2"
+    },
+    {
+     "asset_ref": "GATE-L",
+     "defect_code": "LK2"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "visit_type": "planned_repair",
+  "tasks_ordered": 7,
+  "completion_state": "all_done",
+  "parts_qty_mismatch": "none",
+  "hours_gap": 3.51,
+  "asset_ref_mismatch": false,
+  "post_check_result": "passed_advisory",
+  "leakage_ratio": 1.38,
+  "leakage_mitigation": false,
+  "navigation_notice_in_force": true,
+  "deferral_approved": true,
+  "prior_same_defect": 4,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "visit_type": "planned_repair",
+  "tasks_ordered": 7,
+  "completion_state": "all_done",
+  "parts_qty_mismatch": "none",
+  "hours_gap": 3.51,
+  "asset_ref_mismatch": false,
+  "post_check_result": "passed_advisory",
+  "leakage_ratio": 1.38,
+  "leakage_mitigation": false,
+  "navigation_notice_in_force": true,
+  "deferral_approved": true,
+  "prior_same_defect": 4,
+  "boundary_case": false
+ },
+ "plan": {
+  "safe_to_reopen": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "record_disposition": {
+   "clarity": "clear",
+   "target": "hold_query",
+   "second": null
+  },
+  "return_urgency": {
+   "clarity": "clear",
+   "target": "within_month",
+   "second": null
+  },
+  "affected_scope": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  },
+  "section_mismatches": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 71,
+ "deciding": {
+  "safe_to_reopen": "Gate check is pass_advisory, but leakage 41.4 exceeds the 30 limit with no mitigation, and a nav notice is still in force.",
+  "record_disposition": "Hours 17.5 against 21 span-hours leaves a 3.5 gap, and a deferral is attached to a task logged done, so one point needs crew confirmation.",
+  "return_urgency": "Deferral ref DEF-88 is due 2025-04-02, within about 28 days, and the notice covers the gate, so non-restricting outstanding work needs a visit within the month.",
+  "affected_scope": "Seven tasks across the lock's assets and a nav notice affect navigation users, which sits near the 20-unit boundary between levels 2 and 3.",
+  "section_mismatches": "The hours gap, the done status with a deferral, and the leakage over limit may each count as a mismatch, so three is defensible; excluding the deferral gives two."
+ },
+ "request": "rec-F318-0111",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.006773
+}

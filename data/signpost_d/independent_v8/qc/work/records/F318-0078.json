@@ -1,0 +1,160 @@
+{
+ "id": "F318-0078",
+ "family": "F318",
+ "state": {
+  "work_order": {
+   "wo_id": "WS-71",
+   "visit_type": "winter_stoppage",
+   "tasks": [
+    {
+     "task_id": "t1",
+     "asset_ref": "G1"
+    },
+    {
+     "task_id": "t2",
+     "asset_ref": "G2"
+    }
+   ],
+   "nav_notice": {
+    "in_force": true,
+    "to": "2025-03-01",
+    "scope_assets": [
+     "G1"
+    ]
+   }
+  },
+  "visit_log": {
+   "arrived": "2025-02-10T08:00",
+   "departed": "2025-02-10T12:00",
+   "crew_size": 2,
+   "timesheet_hours": 5.9,
+   "task_status": [
+    {
+     "task_id": "t1",
+     "status": "done"
+    },
+    {
+     "task_id": "t2",
+     "status": "not_started",
+     "deferral_ref": null
+    }
+   ]
+  },
+  "materials": {
+   "issued": [
+    {
+     "part_no": "B2",
+     "task_id": "t1",
+     "qty": 6
+    }
+   ],
+   "returned": [],
+   "fitted": [
+    {
+     "part_no": "B2",
+     "task_id": "t1",
+     "qty": 5
+    }
+   ]
+  },
+  "checks": {
+   "post_checks": [
+    {
+     "asset_ref": "G1",
+     "result": "pass_advisory"
+    }
+   ],
+   "leakage_ls": 20.4,
+   "leakage_limit_ls": 20,
+   "river_level_m": 2.8,
+   "flood_marker_m": 3.0
+  },
+  "asset_history": {
+   "prior_visits": [
+    {
+     "date": "2023-12-01",
+     "asset_ref": "G1",
+     "defect_code": "GL1"
+    },
+    {
+     "date": "2024-05-03",
+     "asset_ref": "G1",
+     "defect_code": "GL1"
+    },
+    {
+     "date": "2024-10-09",
+     "asset_ref": "G1",
+     "defect_code": "GL1"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "visit_type": "winter_stoppage",
+  "tasks_ordered": 2,
+  "completion_state": "some_outstanding",
+  "parts_qty_mismatch": "trivial",
+  "hours_gap": 2.1,
+  "asset_ref_mismatch": false,
+  "post_check_result": "passed_advisory",
+  "leakage_ratio": 1.02,
+  "leakage_mitigation": false,
+  "navigation_notice_in_force": true,
+  "deferral_approved": false,
+  "prior_same_defect": 3,
+  "boundary_case": true
+ },
+ "factors_sampled": {
+  "visit_type": "winter_stoppage",
+  "tasks_ordered": 2,
+  "completion_state": "some_outstanding",
+  "parts_qty_mismatch": "trivial",
+  "hours_gap": 2.1,
+  "asset_ref_mismatch": false,
+  "post_check_result": "passed_advisory",
+  "leakage_ratio": 2.06,
+  "leakage_mitigation": false,
+  "navigation_notice_in_force": true,
+  "deferral_approved": false,
+  "prior_same_defect": 3,
+  "boundary_case": true
+ },
+ "plan": {
+  "safe_to_reopen": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "record_disposition": {
+   "clarity": "balanced",
+   "target": "hold_query",
+   "second": "close_visit"
+  },
+  "return_urgency": {
+   "clarity": "balanced",
+   "target": "next_scheduled",
+   "second": "within_week"
+  },
+  "affected_scope": {
+   "clarity": "contested",
+   "target": "0",
+   "second": "1"
+  },
+  "section_mismatches": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  }
+ },
+ "target_words": 34,
+ "deciding": {
+  "safe_to_reopen": "Leakage 20.4 is just over limit 20 with no mitigation, and G1 has an advisory result. Against that, the G1 nav notice runs to 2025-03-01, which covers the restriction.",
+  "record_disposition": "t2 is not_started with a null deferral_ref, and hours are short of crew time, which supports a query. The visit still has a pass_advisory check and a marginal leakage reading, so closing is also defensible.",
+  "return_urgency": "The G1 nav notice restricts navigation until 2025-03-01, so the next scheduled visit may suffice. Three prior GL1 visits and leakage over limit support a return within the week.",
+  "affected_scope": "The notice scope is G1 only, but t2 on G2 is also outstanding. This sits between one unit and two.",
+  "section_mismatches": "Timesheet 5.9h against 4h x 2 = 8h is unexplained. B2 issued 6, fitted 5, none returned could be pack rounding or a second mismatch."
+ },
+ "request": "rec-F318-0076",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.014218
+}

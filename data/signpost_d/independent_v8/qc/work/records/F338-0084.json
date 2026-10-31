@@ -1,0 +1,131 @@
+{
+ "id": "F338-0084",
+ "family": "F338",
+ "state": {
+  "site": {
+   "pollutant": "SO2",
+   "tier": "standard",
+   "service_interval_days": 30
+  },
+  "visit": {
+   "date": "2025-07-30",
+   "start": "10:00",
+   "end": "11:50",
+   "sequence_status": "complete"
+  },
+  "reference": {
+   "standard_id": "SO-3302",
+   "conc": 50,
+   "unit": "ppb",
+   "cert_expiry": "2025-09-17"
+  },
+  "checks": [
+   {
+    "phase": "as_found",
+    "type": "span",
+    "ref_id": "SO-3302",
+    "unit": "ppb",
+    "ref_conc": 50,
+    "reading": 52.1,
+    "tol": 2.5,
+    "ts": "2025-07-30T10:20"
+   },
+   {
+    "phase": "as_left",
+    "type": "span",
+    "ref_id": "SO-3302",
+    "unit": "ppb",
+    "ref_conc": 50,
+    "reading": 50.2,
+    "tol": 2.5,
+    "ts": "2025-07-30T11:20"
+   }
+  ],
+  "history": {
+   "last_visit_date": "2025-06-30",
+   "results": [
+    "pass",
+    "fail",
+    "pass"
+   ],
+   "autochecks": [
+    {
+     "d": "2025-07-22",
+     "r": "fail"
+    },
+    {
+     "d": "2025-07-27",
+     "r": "pass"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "pollutant": "SO2",
+  "as_found_ratio": 0.84,
+  "as_left_status": "all_pass",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 49,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": false,
+  "drift_explanation": "none",
+  "days_since_last_visit": 30,
+  "visit_completeness": "complete",
+  "prior_fail_count": 1,
+  "timestamp_mismatch": "none",
+  "site_priority": "standard"
+ },
+ "factors_sampled": {
+  "pollutant": "SO2",
+  "as_found_ratio": 0.84,
+  "as_left_status": "all_pass",
+  "cylinder_id_mismatch": "different_standard",
+  "cert_expiry_offset_days": 49,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": false,
+  "drift_explanation": "none",
+  "days_since_last_visit": 30,
+  "visit_completeness": "aborted_power",
+  "prior_fail_count": 1,
+  "timestamp_mismatch": "none",
+  "site_priority": "standard"
+ },
+ "plan": {
+  "data_accepted": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "reference_valid": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "close_visit",
+   "second": null
+  },
+  "flag_extent": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  },
+  "return_urgency": {
+   "clarity": "leaning",
+   "target": "0",
+   "second": null
+  }
+ },
+ "target_words": 60,
+ "deciding": {
+  "data_accepted": "As-found span error is 2.1 against tolerance 2.5, so it is inside tolerance, but only just. An autocheck failed on 2025-07-22 and passed again on 07-27, so the last week may be doubtful.",
+  "reference_valid": "The ref_id matches standard_id on both points, units are ppb, and the certificate is valid until 2025-09-17.",
+  "next_step": "The sequence is complete, the as-found is within tolerance and the as-left is 0.2 from the reference. The visit can close.",
+  "flag_extent": "The failed autocheck on 07-22 is 8 days before the visit, right on the boundary between 1-7 and 8-30 days. The later pass and the in-tolerance as-found argue for a short flag.",
+  "return_urgency": "The as-left is clean, the certificate is valid for 49 more days and the interval is on schedule. The only doubt is the one failed autocheck, so routine scheduling is likely."
+ },
+ "request": "rec-F338-0081",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.00981
+}

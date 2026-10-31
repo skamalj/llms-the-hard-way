@@ -1,0 +1,101 @@
+{
+ "id": "F324-0083",
+ "family": "F324",
+ "state": {
+  "zone": {
+   "dripper_count": 100
+  },
+  "schedule": {
+   "ml_per_dripper": [
+    100,
+    100,
+    0.1,
+    100
+   ],
+   "drain_target_pct": [
+    20,
+    30
+   ]
+  },
+  "controller_log": {
+   "delivered_l": [
+    8.95,
+    8.95,
+    9.0,
+    8.95
+   ],
+   "daily_total_l": 35.85
+  },
+  "drainage": {
+   "drain_pct": [
+    19.5
+   ]
+  }
+ },
+ "factors": {
+  "delivery_shortfall_pct": 10.4,
+  "mismatch_location": "unit_mismatch",
+  "fault_cause": "none",
+  "approved_override": false,
+  "maintenance_window_active": false,
+  "drain_offset_points": 0.5,
+  "off_tolerance_cycles": "3 or 4",
+  "meter_calibration_age_days": 201,
+  "confirmation_pending": false,
+  "pressure_state": "normal",
+  "benign_alarm_decoy": "ec_spike_in_flush",
+  "recent_work_orders": 0
+ },
+ "factors_sampled": {
+  "delivery_shortfall_pct": 28.72,
+  "mismatch_location": "unit_mismatch",
+  "fault_cause": "none",
+  "approved_override": false,
+  "maintenance_window_active": false,
+  "drain_offset_points": 16.83,
+  "off_tolerance_cycles": 5,
+  "meter_calibration_age_days": 201,
+  "confirmation_pending": false,
+  "pressure_state": "normal",
+  "benign_alarm_decoy": "ec_spike_in_flush",
+  "recent_work_orders": 0
+ },
+ "plan": {
+  "under_dosed": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "emitter_clogging": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "next_action": {
+   "clarity": "balanced",
+   "target": "adjust_schedule",
+   "second": "dispatch_repair"
+  },
+  "drain_deviation": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  },
+  "off_plan_cycles": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  }
+ },
+ "target_words": 26,
+ "deciding": {
+  "under_dosed": "The total of 35.85 L against 40 L planned is 89.6%, right at the 90% line, and no override is listed. The third cycle's plan of 0.1 looks like litres entered where mL was expected (a unit mismatch), which distorts a naive reading.",
+  "emitter_clogging": "No pressure, valve-open or per-dripper evidence is present. The delivery is uniformly slightly low and one drain sample is just under the band, so clogging is unsupported but not excluded.",
+  "next_action": "Delivery is uniformly about 10% low with no hardware evidence, which fits a dose change. The persistent shortfall with no pressure data makes a repair visit conceivable.",
+  "drain_deviation": "A single drain sample of 19.5% against a 20-30% band is 0.5 points below. That is at the edge of the band.",
+  "off_plan_cycles": "Cycles of 8.95 L are 10.5% under the 10 L plan (three cycles). The 9.0 L cycle is exactly 10% off and, since the unit-mismatched plan is unreadable, it counts or not. That gives 3 or 4 cycles."
+ },
+ "request": "rec-F324-0081",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.015356
+}

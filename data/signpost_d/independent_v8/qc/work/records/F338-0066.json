@@ -1,0 +1,148 @@
+{
+ "id": "F338-0066",
+ "family": "F338",
+ "state": {
+  "site": {
+   "id": "S114",
+   "pollutant": "NO2",
+   "tier": "indicative",
+   "service_interval_days": 90,
+   "approved_interval_days": 90
+  },
+  "visit": {
+   "id": "V8841",
+   "date": "2024-06-18",
+   "start": "09:10",
+   "end": "10:05",
+   "sequence_status": "partial",
+   "maintenance_window": false
+  },
+  "reference": {
+   "standard_id": "CYL-4471",
+   "conc": 400,
+   "unit": "ppb",
+   "cert_expiry": "2025-07-15"
+  },
+  "checks": [
+   {
+    "phase": "as_found",
+    "type": "zero",
+    "ref_id": "CYL-4471",
+    "ref_conc": 0,
+    "unit": "ppb",
+    "reading": 5.4,
+    "tol": 5,
+    "ts": "2024-06-18T09:20"
+   },
+   {
+    "phase": "as_left",
+    "type": "zero",
+    "ref_id": "CYL-4471",
+    "ref_conc": 0,
+    "unit": "ppb",
+    "reading": 4.6,
+    "tol": 5,
+    "ts": "2024-06-18T10:09"
+   }
+  ],
+  "history": {
+   "last_visit_date": "2024-02-22",
+   "last_outcome": "pass",
+   "results": [
+    "pass",
+    "fail",
+    "pass",
+    "pass",
+    "fail",
+    "pass"
+   ],
+   "autochecks": [
+    {
+     "d": "2024-05-02",
+     "result": "fail"
+    },
+    {
+     "d": "2024-05-03",
+     "result": "fail"
+    },
+    {
+     "d": "2024-05-20",
+     "result": "pass"
+    }
+   ]
+  },
+  "instrument": {
+   "serial": "N2-0381",
+   "enclosure_temp_min": 14,
+   "enclosure_temp_max": 27
+  }
+ },
+ "factors": {
+  "pollutant": "NO2",
+  "as_found_ratio": 1.08,
+  "as_left_status": "marginal",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 392,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": false,
+  "drift_explanation": "none",
+  "days_since_last_visit": 117,
+  "visit_completeness": "zero_only",
+  "prior_fail_count": 2,
+  "timestamp_mismatch": "minutes_outside",
+  "site_priority": "indicative"
+ },
+ "factors_sampled": {
+  "pollutant": "NO2",
+  "as_found_ratio": 1.62,
+  "as_left_status": "marginal",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 392,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": false,
+  "drift_explanation": "none",
+  "days_since_last_visit": 117,
+  "visit_completeness": "zero_only",
+  "prior_fail_count": 2,
+  "timestamp_mismatch": "minutes_outside",
+  "site_priority": "indicative"
+ },
+ "plan": {
+  "data_accepted": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "reference_valid": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "hold",
+   "second": null
+  },
+  "flag_extent": {
+   "clarity": "clear",
+   "target": "0",
+   "second": null
+  },
+  "return_urgency": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  }
+ },
+ "target_words": 98,
+ "deciding": {
+  "data_accepted": "As-found zero reading 5.4 vs tol 5 is just over, and autochecks show early fails then a gap; against that, as-left zero 4.6 is inside tolerance.",
+  "reference_valid": "ref_id matches standard_id, units match, cert expiry 2025-07-15 is a year after the visit; only a lone zero-point use leaves slight doubt.",
+  "next_step": "Sequence partial with only zero points, and the as-left zero ts 10:09 is after visit end 10:05, so one confirmation is outstanding.",
+  "flag_extent": "The only as-found deviation is a marginal 0.4 over on a zero point, so no prior days need flagging.",
+  "return_urgency": "Partial sequence with no span point but marginal as-left and an autocheck gap: a return in 3-7 days or within 1-2 days are both defensible, with no deadline field."
+ },
+ "request": "rec-F338-0066",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.01342
+}

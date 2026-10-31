@@ -1,0 +1,179 @@
+{
+ "id": "F338-0106",
+ "family": "F338",
+ "state": {
+  "site": {
+   "id": "N-114",
+   "pol": "O3",
+   "tier": "standard",
+   "svc_days": 90
+  },
+  "visit": {
+   "date": "2024-06-10",
+   "start": "08:30",
+   "end": "10:45",
+   "seq": "complete",
+   "maint": false,
+   "tech": "T22"
+  },
+  "reference": {
+   "std_id": "CYL-4471",
+   "conc": 80,
+   "unit": "ppb",
+   "cert": "C-90311",
+   "exp": "2024-12-27"
+  },
+  "checks": [
+   {
+    "t": "as_found_zero",
+    "ref_id": "CYL-4471",
+    "ref": 0,
+    "u": "ppb",
+    "rd": 1.0,
+    "tol": 3,
+    "ts": "2024-06-10T08:40"
+   },
+   {
+    "t": "as_found_span",
+    "ref_id": "CYL-4471",
+    "ref": 80,
+    "u": "ppb",
+    "rd": 77.6,
+    "tol": 4,
+    "ts": "2024-06-10T08:55"
+   },
+   {
+    "t": "as_left_zero",
+    "ref_id": "CYL-4471",
+    "ref": 0,
+    "u": "ppb",
+    "rd": 0.2,
+    "tol": 3,
+    "ts": "2024-06-10T09:50"
+   },
+   {
+    "t": "as_left_span",
+    "ref_id": "CYL-4471",
+    "ref": 80,
+    "u": "ppb",
+    "rd": 80.3,
+    "tol": 4,
+    "ts": "2024-06-10T10:10"
+   }
+  ],
+  "history": {
+   "last_visit": "2024-04-26",
+   "last_outcome": "pass",
+   "results": [
+    "pass",
+    "pass",
+    "fail",
+    "pass",
+    "pass",
+    "fail",
+    "pass",
+    "pass",
+    "pass",
+    "fail",
+    "pass",
+    "pass"
+   ],
+   "autochecks": [
+    {
+     "d": "2024-05-01",
+     "r": "fail"
+    },
+    {
+     "d": "2024-05-02",
+     "r": "fail"
+    },
+    {
+     "d": "2024-05-03",
+     "r": "fail"
+    },
+    {
+     "d": "2024-05-18",
+     "r": "pass"
+    },
+    {
+     "d": "2024-06-05",
+     "r": "pass"
+    }
+   ]
+  },
+  "instrument": {
+   "sn": "A771",
+   "fw": "3.2.1",
+   "temp_min": 12,
+   "temp_max": 34
+  }
+ },
+ "factors": {
+  "pollutant": "O3",
+  "as_found_ratio": 0.97,
+  "as_left_status": "all_pass",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 200,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": false,
+  "drift_explanation": "enclosure_temp_excursion",
+  "days_since_last_visit": 45,
+  "visit_completeness": "complete",
+  "prior_fail_count": 3,
+  "timestamp_mismatch": "none",
+  "site_priority": "standard"
+ },
+ "factors_sampled": {
+  "pollutant": "O3",
+  "as_found_ratio": 0.77,
+  "as_left_status": "all_pass",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 200,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": false,
+  "drift_explanation": "enclosure_temp_excursion",
+  "days_since_last_visit": 45,
+  "visit_completeness": "multipoint_missing",
+  "prior_fail_count": 3,
+  "timestamp_mismatch": "none",
+  "site_priority": "standard"
+ },
+ "plan": {
+  "data_accepted": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "reference_valid": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "close_visit",
+   "second": null
+  },
+  "flag_extent": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  },
+  "return_urgency": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  }
+ },
+ "target_words": 180,
+ "deciding": {
+  "data_accepted": "As-found zero and span are inside tolerance and as-left passes, but early autocheck fails (May 1-3) followed by a gap leave some doubt.",
+  "reference_valid": "Check ref_ids match reference std_id, units are ppb throughout, and the certificate expires 2024-12-27, after the visit.",
+  "next_step": "Both as-found and as-left points pass and all point types are present; only the early autocheck gap is a minor doubt.",
+  "flag_extent": "Autocheck fails start May 1 and the next pass is May 18, so roughly two weeks of data are in doubt (8-30 days).",
+  "return_urgency": "Everything passes and the temp max of 34 explains the autocheck problems, but 3 prior fails and the autocheck gap could justify an extra visit within a month."
+ },
+ "request": "rec-F338-0106",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011254
+}

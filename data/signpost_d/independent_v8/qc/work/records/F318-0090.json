@@ -1,0 +1,155 @@
+{
+ "id": "F318-0090",
+ "family": "F318",
+ "state": {
+  "work_order": {
+   "lock_id": "L44",
+   "visit_type": "routine_inspection",
+   "tasks": [
+    {
+     "task_id": "T1",
+     "asset_ref": "G1"
+    },
+    {
+     "task_id": "T2",
+     "asset_ref": "P1"
+    },
+    {
+     "task_id": "T3",
+     "asset_ref": "G1"
+    }
+   ],
+   "nav_notice": {
+    "in_force": false
+   }
+  },
+  "visit_log": {
+   "arrived": "2025-02-11T09:00",
+   "departed": "2025-02-11T11:00",
+   "crew_size": 3,
+   "timesheet_hours": 2.47,
+   "task_status": "T1-T3 done"
+  },
+  "materials": {
+   "issued": [
+    {
+     "part_no": "P8",
+     "task_id": "T2",
+     "qty": 6
+    }
+   ],
+   "returned": [],
+   "fitted": [
+    {
+     "part_no": "P8",
+     "task_id": "T2",
+     "qty": 3
+    }
+   ]
+  },
+  "checks": {
+   "post_checks": [
+    {
+     "asset_ref": "G1",
+     "result": "fail"
+    }
+   ],
+   "leakage_ls": 30.4,
+   "leakage_limit_ls": 20,
+   "river_level_m": 3.1,
+   "flood_marker_m": 2.8
+  },
+  "asset_history": {
+   "prior_visits": [
+    {
+     "date": "2024-03-01",
+     "asset_ref": "G1",
+     "defect_code": "SEEP"
+    },
+    {
+     "date": "2024-06-01",
+     "asset_ref": "G1",
+     "defect_code": "SEEP"
+    },
+    {
+     "date": "2024-09-01",
+     "asset_ref": "G1",
+     "defect_code": "SEEP"
+    },
+    {
+     "date": "2024-12-01",
+     "asset_ref": "G1",
+     "defect_code": "SEEP"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "visit_type": "routine_inspection",
+  "tasks_ordered": 3,
+  "completion_state": "all_done",
+  "parts_qty_mismatch": "moderate",
+  "hours_gap": 3.53,
+  "asset_ref_mismatch": false,
+  "post_check_result": "failed",
+  "leakage_ratio": 1.52,
+  "leakage_mitigation": true,
+  "navigation_notice_in_force": false,
+  "deferral_approved": false,
+  "prior_same_defect": 4,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "visit_type": "routine_inspection",
+  "tasks_ordered": 3,
+  "completion_state": "all_done",
+  "parts_qty_mismatch": "moderate",
+  "hours_gap": 3.53,
+  "asset_ref_mismatch": false,
+  "post_check_result": "failed",
+  "leakage_ratio": 1.52,
+  "leakage_mitigation": true,
+  "navigation_notice_in_force": false,
+  "deferral_approved": false,
+  "prior_same_defect": 4,
+  "boundary_case": false
+ },
+ "plan": {
+  "safe_to_reopen": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "record_disposition": {
+   "clarity": "leaning",
+   "target": "close_visit",
+   "second": null
+  },
+  "return_urgency": {
+   "clarity": "clear",
+   "target": "next_scheduled",
+   "second": null
+  },
+  "affected_scope": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  },
+  "section_mismatches": {
+   "clarity": "clear",
+   "target": "3",
+   "second": null
+  }
+ },
+ "target_words": 26,
+ "deciding": {
+  "safe_to_reopen": "The G1 post-check is a fail with leakage 30.4 against 20. The river at 3.1 is above flood marker 2.8, which softens the leakage.",
+  "record_disposition": "All three tasks are logged done with no deferrals, and the issues are explained by flood conditions. The failed check gives some doubt.",
+  "return_urgency": "The high river level above the flood marker accounts for the leakage, and no deferral or notice is present, so the next scheduled visit suffices.",
+  "affected_scope": "Four previous SEEP visits on G1 show a recurring fault at a lock that carries heavy traffic, likely over 20 boats.",
+  "section_mismatches": "Three unexplained issues: P8 fitted 3 against issued 6 with no return, timesheet 2.47h against 2h x 3 = 6h, and tasks reported done against a failed G1 check."
+ },
+ "request": "rec-F318-0086",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011867
+}

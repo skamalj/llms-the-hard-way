@@ -1,0 +1,142 @@
+{
+ "id": "F324-0087",
+ "family": "F324",
+ "state": {
+  "zone": {
+   "dripper_count": 100,
+   "dripper_rate_lph": 1.8
+  },
+  "schedule": {
+   "cycles": [
+    {
+     "planned_ml_per_dripper": 50
+    },
+    {
+     "planned_ml_per_dripper": 50
+    },
+    {
+     "planned_ml_per_dripper": 50
+    }
+   ],
+   "drain_target_pct": {
+    "min": 25,
+    "max": 35
+   },
+   "overrides": []
+  },
+  "controller_log": {
+   "cycles": [
+    {
+     "valve_open_s": 100,
+     "delivered_l": 5.0,
+     "line_pressure_bar": 2.0
+    },
+    {
+     "valve_open_s": 100,
+     "delivered_l": 5.0,
+     "line_pressure_bar": 2.0
+    },
+    {
+     "valve_open_s": 100,
+     "delivered_l": 4.46,
+     "line_pressure_bar": 2.0
+    }
+   ],
+   "daily_total_l": 14.46,
+   "meter_total_l": 13.1
+  },
+  "drainage": {
+   "drain_pct": [
+    9.5,
+    10.1
+   ],
+   "catch_test": {
+    "ordered": true,
+    "result": null
+   }
+  },
+  "sensors": {
+   "log_date": "2025-03-14",
+   "meter_last_calibrated": "2024-06-30"
+  },
+  "maintenance": {
+   "windows": [],
+   "recent_work_orders": [
+    {
+     "id": "WO-210",
+     "closed": "2025-02-02"
+    },
+    {
+     "id": "WO-188",
+     "closed": "2024-11-20"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "delivery_shortfall_pct": 12.67,
+  "mismatch_location": "meter_vs_controller",
+  "fault_cause": "emitter_clogging",
+  "approved_override": false,
+  "maintenance_window_active": false,
+  "drain_offset_points": -15.2,
+  "off_tolerance_cycles": 1,
+  "meter_calibration_age_days": 257,
+  "confirmation_pending": true,
+  "pressure_state": "normal",
+  "benign_alarm_decoy": "none",
+  "recent_work_orders": 2
+ },
+ "factors_sampled": {
+  "delivery_shortfall_pct": 3.72,
+  "mismatch_location": "meter_vs_controller",
+  "fault_cause": "schedule_entry_error",
+  "approved_override": false,
+  "maintenance_window_active": false,
+  "drain_offset_points": -4.92,
+  "off_tolerance_cycles": 1,
+  "meter_calibration_age_days": 257,
+  "confirmation_pending": true,
+  "pressure_state": "low",
+  "benign_alarm_decoy": "none",
+  "recent_work_orders": 2
+ },
+ "plan": {
+  "under_dosed": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "emitter_clogging": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "next_action": {
+   "clarity": "leaning",
+   "target": "hold_for_check",
+   "second": null
+  },
+  "drain_deviation": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "off_plan_cycles": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  }
+ },
+ "target_words": 52,
+ "deciding": {
+  "under_dosed": "Meter total 13.1 L is 87% of the 15 L plan and no override exists. The controller total of 14.46 L is 96%, and the meter is 257 days since calibration.",
+  "emitter_clogging": "Pressure is normal and valve time is full, but the drop is only in cycle 3 and the meter and controller disagree. The pending catch test leaves both answers open, with low drain pointing to clogging.",
+  "next_action": "catch_test is ordered with a null result, and the meter and controller totals disagree, so a decision waits on verification.",
+  "drain_deviation": "Drain mean is 9.8% against a 25-35 band, 15.2 points below, right at the 15-point boundary between marked and severe.",
+  "off_plan_cycles": "Only cycle 3 is off plan, at 4.46 L vs 5 L (10.8% low). Cycles 1 and 2 are exact, and the one cycle is only just over the limit."
+ },
+ "request": "rec-F324-0086",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.01774
+}

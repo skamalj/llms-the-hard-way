@@ -1,0 +1,140 @@
+{
+ "id": "F324-0132",
+ "family": "F324",
+ "state": {
+  "zone": {
+   "dripper_count": 400,
+   "dripper_rate_lph": 2.0
+  },
+  "schedule": {
+   "starts": [
+    "06:00",
+    "09:00",
+    "12:00",
+    "15:00"
+   ],
+   "planned_ml_per_dripper": [
+    250,
+    250,
+    250,
+    250
+   ],
+   "planned_valve_s": 120,
+   "drain_target_pct": {
+    "min": 15,
+    "max": 25
+   },
+   "overrides": []
+  },
+  "controller_log": {
+   "date": "2025-03-12",
+   "valve_open_s": [
+    120,
+    120,
+    120,
+    120
+   ],
+   "delivered_l": [
+    87.0,
+    89.8,
+    90.6,
+    90.6
+   ],
+   "line_pressure_bar": [
+    2.0,
+    2.0,
+    2.0,
+    2.0
+   ],
+   "spec_bar": 2.0,
+   "daily_total_l": 358.0,
+   "meter_total_l": 358.2
+  },
+  "drainage": {
+   "drain_pct": [
+    25.4,
+    25.6,
+    25.5
+   ]
+  },
+  "sensors": {
+   "meter_last_calibrated": "2025-02-10"
+  },
+  "maintenance": {
+   "windows": [
+    {
+     "type": "flush",
+     "start": "2025-03-05T09:00",
+     "end": "2025-03-05T09:30"
+    }
+   ],
+   "recent_work_orders": []
+  }
+ },
+ "factors": {
+  "delivery_shortfall_pct": 10.5,
+  "mismatch_location": "none",
+  "fault_cause": "none",
+  "approved_override": false,
+  "maintenance_window_active": false,
+  "drain_offset_points": 0.5,
+  "off_tolerance_cycles": 2,
+  "meter_calibration_age_days": 30,
+  "confirmation_pending": false,
+  "pressure_state": "normal",
+  "benign_alarm_decoy": "none",
+  "recent_work_orders": 0
+ },
+ "factors_sampled": {
+  "delivery_shortfall_pct": 30.5,
+  "mismatch_location": "none",
+  "fault_cause": "none",
+  "approved_override": false,
+  "maintenance_window_active": false,
+  "drain_offset_points": 3.74,
+  "off_tolerance_cycles": 6,
+  "meter_calibration_age_days": 30,
+  "confirmation_pending": false,
+  "pressure_state": "normal",
+  "benign_alarm_decoy": "none",
+  "recent_work_orders": 0
+ },
+ "plan": {
+  "under_dosed": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "emitter_clogging": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "next_action": {
+   "clarity": "leaning",
+   "target": "sign_off",
+   "second": null
+  },
+  "drain_deviation": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "off_plan_cycles": {
+   "clarity": "contested",
+   "target": "1",
+   "second": "2"
+  }
+ },
+ "target_words": 111,
+ "deciding": {
+  "under_dosed": "daily_total_l 358.0 against 400 L plan (400 x 250 mL x 4) is 89.5%, just under the 90% line, and overrides is empty.",
+  "emitter_clogging": "Pressure is at spec and valve_open_s is full on every cycle; the shortfall is marginal and drain is at the top of band, not low.",
+  "next_action": "Everything reconciles (meter 358.2 vs total 358.0), pressure and valve are normal, and drain is at the band edge; only the marginal shortfall gives doubt.",
+  "drain_deviation": "Drain samples 25.4, 25.6, 25.5 have mean 25.5 against a max of 25, so 0.5 above band, at the 0/1 boundary.",
+  "off_plan_cycles": "Against 100 L plan, cycle 1 at 87.0 L is 13% off, cycle 2 at 89.8 L is 10.2% off (barely over), and cycles 3 and 4 are at 9.4%, so the count is 1 or 2."
+ },
+ "request": "rec-F324-0131",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.014612
+}

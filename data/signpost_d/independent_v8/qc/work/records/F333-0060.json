@@ -1,0 +1,139 @@
+{
+ "id": "F333-0060",
+ "family": "F333",
+ "state": {
+  "tenancy": {
+   "start_date": "2024-09-02",
+   "end_date": "2025-03-02"
+  },
+  "checkin_inventory": {
+   "signed_date": "2024-09-01",
+   "items": [
+    {
+     "item_code": "TAP",
+     "location": "bath",
+     "grade": null
+    },
+    {
+     "item_code": "SEAL",
+     "location": "bath",
+     "grade": "good"
+    }
+   ]
+  },
+  "checkout_inspection": {
+   "inspection_type": "checkout",
+   "items": [
+    {
+     "item_code": "TAP",
+     "location": "bath",
+     "grade": "fair",
+     "defect_category": "scuff",
+     "photo_refs": [
+      "p1"
+     ]
+    },
+    {
+     "item_code": "SEAL",
+     "location": "bath",
+     "grade": "good",
+     "photo_refs": [
+      "p2"
+     ]
+    }
+   ]
+  },
+  "proposed_charges": {
+   "lines": [
+    {
+     "item_code": "SEAL",
+     "reason_code": "DMG",
+     "qty": 1,
+     "unit_rate": 105,
+     "line_total": 105
+    }
+   ],
+   "summary_total": 105
+  },
+  "works_orders": [
+   {
+    "wo_id": "W77",
+    "raised_date": "2024-08-20",
+    "location": "bath",
+    "category": "plumbing",
+    "priority_code": "P3",
+    "status": "open",
+    "completed_date": null,
+    "retest_passed": null
+   }
+  ]
+ },
+ "factors": {
+  "inspection_type": "checkout",
+  "checkin_inventory_state": "partial",
+  "prior_damage_on_charged_item": "none",
+  "charge_discrepancy": "item_graded_good",
+  "worst_defect_tier": "cosmetic",
+  "true_cause": "building_fault",
+  "predating_works_order": true,
+  "safety_fault_remedied": false,
+  "photo_coverage": "full",
+  "tenancy_months": 6,
+  "date_out_of_order": false,
+  "deposit_dispute_lodged": false,
+  "boundary_case": true
+ },
+ "factors_sampled": {
+  "inspection_type": "checkout",
+  "checkin_inventory_state": "partial",
+  "prior_damage_on_charged_item": "none",
+  "charge_discrepancy": "none",
+  "worst_defect_tier": "functional",
+  "true_cause": "no_defect",
+  "predating_works_order": true,
+  "safety_fault_remedied": false,
+  "photo_coverage": "full",
+  "tenancy_months": 6,
+  "date_out_of_order": false,
+  "deposit_dispute_lodged": false,
+  "boundary_case": true
+ },
+ "plan": {
+  "checkin_clean": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "disposition": {
+   "clarity": "balanced",
+   "target": "hold_for_evidence",
+   "second": "order_reinspection"
+  },
+  "main_cause": {
+   "clarity": "contested",
+   "target": "building_fault",
+   "second": "no_defect"
+  },
+  "defect_severity": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "charge_gap": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 43,
+ "deciding": {
+  "checkin_clean": "The only charged item, SEAL, is graded good at check-in. The TAP null grade is not a charged item, so true is leading.",
+  "disposition": "The TAP check-in grade is null, which is exactly one missing grade and suggests a hold. The charged SEAL line is for an item graded good, which could instead justify revisiting the room.",
+  "main_cause": "Open plumbing work order W77, raised before the tenancy in the bath, fits the TAP finding. The TAP check-in grade is null, and the SEAL is unchanged, so no_defect is also defensible.",
+  "defect_severity": "The only defect_category is a scuff on the TAP, which is cosmetic. The open plumbing order leaves some chance it is a functional issue.",
+  "charge_gap": "The £105 SEAL line is on an item graded good at checkout and check-in, so evidenced is about £0. The gap of £105 sits just over the £100 boundary."
+ },
+ "request": "rec-F333-0056",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012665
+}

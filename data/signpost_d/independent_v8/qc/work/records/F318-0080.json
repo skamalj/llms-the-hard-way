@@ -1,0 +1,167 @@
+{
+ "id": "F318-0080",
+ "family": "F318",
+ "state": {
+  "work_order": {
+   "wo_id": "WS-1530",
+   "visit_type": "winter_stoppage",
+   "tasks": [
+    {
+     "task_id": "t1",
+     "asset_ref": "G4"
+    },
+    {
+     "task_id": "t2",
+     "asset_ref": "G4"
+    },
+    {
+     "task_id": "t3",
+     "asset_ref": "G4"
+    }
+   ],
+   "nav_notice": {
+    "in_force": false
+   }
+  },
+  "visit_log": {
+   "arrived": "2025-02-03T08:00",
+   "departed": "2025-02-03T12:00",
+   "crew_size": 2,
+   "timesheet_hours": 8,
+   "task_status": [
+    {
+     "task_id": "t1",
+     "status": "done"
+    },
+    {
+     "task_id": "t2",
+     "status": "done"
+    },
+    {
+     "task_id": "t3",
+     "status": "deferred",
+     "deferral_ref": "D-55",
+     "deferral_due": "2025-02-20"
+    }
+   ]
+  },
+  "materials": {
+   "issued": [
+    {
+     "part_no": "H8",
+     "task_id": "t1",
+     "qty": 20
+    }
+   ],
+   "returned": [],
+   "fitted": [
+    {
+     "part_no": "H8",
+     "task_id": "t1",
+     "qty": 8
+    }
+   ]
+  },
+  "checks": {
+   "post_checks": [],
+   "leakage_ls": 18,
+   "leakage_limit_ls": 20,
+   "river_level_m": 2.6,
+   "flood_marker_m": 3.0
+  },
+  "asset_history": {
+   "prior_visits": [
+    {
+     "date": "2024-01-15",
+     "asset_ref": "G4",
+     "defect_code": "GS4"
+    },
+    {
+     "date": "2024-06-11",
+     "asset_ref": "G4",
+     "defect_code": "GS4"
+    },
+    {
+     "date": "2024-11-05",
+     "asset_ref": "G4",
+     "defect_code": "GS4"
+    }
+   ],
+   "open_defects": [
+    {
+     "defect_code": "GS4",
+     "asset_ref": "G4",
+     "raised": "2025-01-28"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "visit_type": "winter_stoppage",
+  "tasks_ordered": 3,
+  "completion_state": "one_deferred",
+  "parts_qty_mismatch": "large",
+  "hours_gap": 0.0,
+  "asset_ref_mismatch": false,
+  "post_check_result": "not_logged",
+  "leakage_ratio": 0.9,
+  "leakage_mitigation": false,
+  "navigation_notice_in_force": false,
+  "deferral_approved": true,
+  "prior_same_defect": 3,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "visit_type": "winter_stoppage",
+  "tasks_ordered": 3,
+  "completion_state": "all_done",
+  "parts_qty_mismatch": "large",
+  "hours_gap": 2.57,
+  "asset_ref_mismatch": false,
+  "post_check_result": "not_logged",
+  "leakage_ratio": 1.5,
+  "leakage_mitigation": false,
+  "navigation_notice_in_force": false,
+  "deferral_approved": true,
+  "prior_same_defect": 3,
+  "boundary_case": false
+ },
+ "plan": {
+  "safe_to_reopen": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "record_disposition": {
+   "clarity": "leaning",
+   "target": "close_with_followup",
+   "second": null
+  },
+  "return_urgency": {
+   "clarity": "clear",
+   "target": "within_month",
+   "second": null
+  },
+  "affected_scope": {
+   "clarity": "clear",
+   "target": "0",
+   "second": null
+  },
+  "section_mismatches": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  }
+ },
+ "target_words": 55,
+ "deciding": {
+  "safe_to_reopen": "post_checks is empty and open defect GS4 on G4 remains, with t3 deferred. No nav notice restricts the asset, which leaves some doubt.",
+  "record_disposition": "Work is largely done and the deferral D-55 is approved, so closing with a follow-up job for t3 fits. The unreturned H8 quantity leaves some room to query.",
+  "return_urgency": "D-55 is approved with due date 2025-02-20, 17 days after the visit, covering non-restricting outstanding work. Leakage is within limit.",
+  "affected_scope": "All three tasks and the open defect are on the single asset G4.",
+  "section_mismatches": "H8 issued 20, none returned, 8 fitted is the one unexplained mismatch. Hours are consistent (4h x 2 = 8h), refs match, and the missing check follows from the deferral. The empty post_checks could be counted as a second mismatch."
+ },
+ "request": "rec-F318-0076",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.014218
+}

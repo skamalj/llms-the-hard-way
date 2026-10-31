@@ -1,0 +1,122 @@
+{
+ "id": "F324-0134",
+ "family": "F324",
+ "state": {
+  "zone": {
+   "dripper_count": 300
+  },
+  "schedule": {
+   "dripper_count_assumed": 330,
+   "planned_ml_per_dripper": [
+    200,
+    200,
+    200,
+    200
+   ],
+   "planned_valve_s": 120,
+   "drain_target_pct": {
+    "min": 20,
+    "max": 30
+   },
+   "overrides": []
+  },
+  "controller_log": {
+   "date": "2025-07-09",
+   "valve_open_s": [
+    120,
+    120,
+    120,
+    120
+   ],
+   "delivered_l": [
+    45,
+    46,
+    47,
+    57.5
+   ],
+   "line_pressure_bar": 2.0,
+   "spec_bar": 2.0,
+   "daily_total_l": 195.5
+  },
+  "drainage": {
+   "drain_pct": [
+    5,
+    6,
+    4
+   ]
+  },
+  "sensors": {
+   "meter_last_calibrated": "2025-07-04",
+   "moisture_spike": {
+    "t": "11:10",
+    "prev_event": "hand_water 11:00"
+   }
+  }
+ },
+ "factors": {
+  "delivery_shortfall_pct": 18.5,
+  "mismatch_location": "dripper_count_mismatch",
+  "fault_cause": "emitter_clogging",
+  "approved_override": false,
+  "maintenance_window_active": false,
+  "drain_offset_points": -15.0,
+  "off_tolerance_cycles": 3,
+  "meter_calibration_age_days": 5,
+  "confirmation_pending": false,
+  "pressure_state": "normal",
+  "benign_alarm_decoy": "post_handwater_moisture",
+  "recent_work_orders": 0
+ },
+ "factors_sampled": {
+  "delivery_shortfall_pct": 18.43,
+  "mismatch_location": "dripper_count_mismatch",
+  "fault_cause": "emitter_clogging",
+  "approved_override": true,
+  "maintenance_window_active": false,
+  "drain_offset_points": 9.14,
+  "off_tolerance_cycles": 4,
+  "meter_calibration_age_days": 5,
+  "confirmation_pending": false,
+  "pressure_state": "normal",
+  "benign_alarm_decoy": "post_handwater_moisture",
+  "recent_work_orders": 0
+ },
+ "plan": {
+  "under_dosed": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "emitter_clogging": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "next_action": {
+   "clarity": "contested",
+   "target": "sign_off",
+   "second": "dispatch_repair"
+  },
+  "drain_deviation": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "off_plan_cycles": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  }
+ },
+ "target_words": 41,
+ "deciding": {
+  "under_dosed": "Overrides is empty and 195.5 L against 240 L (300 drippers) is about 18% under, but schedule assumes 330 drippers, which makes the expected volume uncertain.",
+  "emitter_clogging": "Pressure is at spec and valve_open_s is full, with low delivery and low drain pointing to clogging, but the dripper count mismatch muddies the per-dripper figures.",
+  "next_action": "The shortfall, low drain and normal pressure suggest a physical emitter problem, but the dripper_count mismatch of 300 vs 330 and the moisture spike after hand watering leave sign-off defensible.",
+  "drain_deviation": "Drain samples 5, 6, 4 have mean 5 against band minimum 20, so 15 points below, at the 2/3 boundary.",
+  "off_plan_cycles": "Against 60 L plan per cycle, three cycles (45, 46, 47 L) are more than 10% under and the fourth (57.5 L) is within tolerance."
+ },
+ "request": "rec-F324-0131",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.014612
+}

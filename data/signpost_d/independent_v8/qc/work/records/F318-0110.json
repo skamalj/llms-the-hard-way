@@ -1,0 +1,178 @@
+{
+ "id": "F318-0110",
+ "family": "F318",
+ "state": {
+  "work_order": {
+   "visit_type": "planned_repair",
+   "tasks": [
+    {
+     "task_id": "T1",
+     "asset_ref": "GATE-1"
+    },
+    {
+     "task_id": "T2",
+     "asset_ref": "PADDLE-2"
+    },
+    {
+     "task_id": "T3",
+     "asset_ref": "SILL-1"
+    }
+   ],
+   "nav_notice": {
+    "in_force": false,
+    "bookings_7d": 21
+   }
+  },
+  "visit_log": {
+   "arrived": "2025-05-20T07:30",
+   "departed": "2025-05-20T13:30",
+   "crew_size": 2,
+   "timesheet_hours": 8.08,
+   "task_status": [
+    {
+     "task_id": "T1",
+     "status": "done"
+    },
+    {
+     "task_id": "T2",
+     "status": "temp_fix",
+     "deferral_ref": null,
+     "deferral_due": null
+    },
+    {
+     "task_id": "T3",
+     "status": "done"
+    }
+   ]
+  },
+  "materials": {
+   "issued": [
+    {
+     "part_no": "P3",
+     "task_id": "T2",
+     "qty": 4
+    }
+   ],
+   "returned": [
+    {
+     "part_no": "P3",
+     "qty": 0
+    }
+   ],
+   "fitted": [
+    {
+     "part_no": "P3",
+     "task_id": "T2",
+     "qty": 3
+    }
+   ]
+  },
+  "checks": {
+   "post_checks": [],
+   "leakage_ls": 2.5,
+   "leakage_limit_ls": 4.0,
+   "river_level_m": 2.1,
+   "flood_marker_m": 1.9,
+   "gauge_cal_due": "2026-03-01"
+  },
+  "asset_history": {
+   "prior_visits": [
+    {
+     "date": "2023-11-02",
+     "asset_ref": "PADDLE-2",
+     "defect_code": "D21"
+    },
+    {
+     "date": "2024-04-18",
+     "asset_ref": "PADDLE-2",
+     "defect_code": "D21"
+    },
+    {
+     "date": "2024-12-05",
+     "asset_ref": "PADDLE-2",
+     "defect_code": "D21"
+    },
+    {
+     "date": "2025-03-09",
+     "asset_ref": "PADDLE-2",
+     "defect_code": "D21"
+    }
+   ],
+   "open_defects": [
+    {
+     "defect_code": "D21",
+     "asset_ref": "PADDLE-2",
+     "raised": "2025-03-09"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "visit_type": "planned_repair",
+  "tasks_ordered": 3,
+  "completion_state": "temporary_fix",
+  "parts_qty_mismatch": "moderate",
+  "hours_gap": 3.92,
+  "asset_ref_mismatch": false,
+  "post_check_result": "not_logged",
+  "leakage_ratio": 0.63,
+  "leakage_mitigation": true,
+  "navigation_notice_in_force": false,
+  "deferral_approved": false,
+  "prior_same_defect": 4,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "visit_type": "planned_repair",
+  "tasks_ordered": 6,
+  "completion_state": "temporary_fix",
+  "parts_qty_mismatch": "moderate",
+  "hours_gap": 3.92,
+  "asset_ref_mismatch": false,
+  "post_check_result": "not_logged",
+  "leakage_ratio": 0.63,
+  "leakage_mitigation": true,
+  "navigation_notice_in_force": false,
+  "deferral_approved": false,
+  "prior_same_defect": 4,
+  "boundary_case": false
+ },
+ "plan": {
+  "safe_to_reopen": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "record_disposition": {
+   "clarity": "leaning",
+   "target": "hold_query",
+   "second": null
+  },
+  "return_urgency": {
+   "clarity": "contested",
+   "target": "next_scheduled",
+   "second": "immediate"
+  },
+  "affected_scope": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "section_mismatches": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  }
+ },
+ "target_words": 49,
+ "deciding": {
+  "safe_to_reopen": "Leakage 2.5 vs 4.0 limit is comfortably within it, but post_checks is empty and PADDLE-2 holds only a temp_fix with D21 open, so doubt remains.",
+  "record_disposition": "No post-check logged and a temp_fix with no deferral ref leave specific points for the crew to confirm; the other tasks are done, so a query hold is favoured over reopening.",
+  "return_urgency": "Low leakage and a lock open without notice suggest next cycle, but a temporary fix on a paddle with four prior D21 visits, no deferral, and no check could justify urgent return.",
+  "affected_scope": "bookings_7d is 21, just over the twenty boundary, so level 3 with level 2 close behind.",
+  "section_mismatches": "P3 fitted 3 vs issued 4 returned 0 is one mismatch; timesheet 8.08 vs 12 expected hours is a second, though the gap could be read as tolerable or the unlogged check as a third."
+ },
+ "request": "rec-F318-0106",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.013642
+}

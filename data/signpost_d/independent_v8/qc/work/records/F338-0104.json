@@ -1,0 +1,148 @@
+{
+ "id": "F338-0104",
+ "family": "F338",
+ "state": {
+  "site": {
+   "id": "N415",
+   "pollutant": "NO2",
+   "tier": "standard",
+   "service_interval_days": 90,
+   "approved_interval_days": 120
+  },
+  "visit": {
+   "date": "2025-08-20",
+   "start": "09:30",
+   "end": "12:30",
+   "sequence_status": "complete",
+   "maintenance_window": false
+  },
+  "reference": {
+   "standard_id": "CYL6012",
+   "unit": "ppb",
+   "cert_expiry": "2024-08-22"
+  },
+  "checks": [
+   {
+    "type": "as_found_span",
+    "ref_id": "CYL6012",
+    "ref_conc": 200,
+    "unit": "ppb",
+    "reading": 201.9,
+    "tol": 10,
+    "ts": "2025-08-20T10:00"
+   },
+   {
+    "type": "as_left_span",
+    "ref_id": "CYL6012",
+    "ref_conc": 200,
+    "unit": "ppb",
+    "reading": 199.5,
+    "tol": 10,
+    "ts": "2025-08-20T12:00"
+   }
+  ],
+  "history": {
+   "last_visit_date": "2025-04-27",
+   "results": [
+    {
+     "d": "2024-09-03",
+     "r": "fail"
+    },
+    {
+     "d": "2024-11-05",
+     "r": "fail"
+    },
+    {
+     "d": "2025-01-14",
+     "r": "pass"
+    },
+    {
+     "d": "2025-02-25",
+     "r": "fail"
+    },
+    {
+     "d": "2025-04-27",
+     "r": "fail"
+    }
+   ],
+   "autochecks": [
+    {
+     "d": "2025-08-17",
+     "r": "pass"
+    }
+   ]
+  },
+  "instrument": {
+   "serial": "A7731",
+   "enclosure_temp_max": 28
+  }
+ },
+ "factors": {
+  "pollutant": "NO2",
+  "as_found_ratio": 0.19,
+  "as_left_status": "all_pass",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 363,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "approved_extended_interval",
+  "days_since_last_visit": 115,
+  "visit_completeness": "complete",
+  "prior_fail_count": 4,
+  "timestamp_mismatch": "none",
+  "site_priority": "standard"
+ },
+ "factors_sampled": {
+  "pollutant": "NO2",
+  "as_found_ratio": 0.19,
+  "as_left_status": "all_pass",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 363,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "approved_extended_interval",
+  "days_since_last_visit": 115,
+  "visit_completeness": "complete",
+  "prior_fail_count": 4,
+  "timestamp_mismatch": "different_day",
+  "site_priority": "standard"
+ },
+ "plan": {
+  "data_accepted": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "reference_valid": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "withdraw",
+   "second": null
+  },
+  "flag_extent": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  },
+  "return_urgency": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  }
+ },
+ "target_words": 63,
+ "deciding": {
+  "data_accepted": "As-found span 201.9 vs 200 (tol 10) is in tolerance, autochecks pass and the interval is approved, so data since the last visit stand.",
+  "reference_valid": "reference.cert_expiry 2024-08-22 is about a year before visit.date 2025-08-20; the certificate is expired.",
+  "next_step": "Four fail entries in history.results across twelve months show a repeatedly failing analyser, pointing to workshop repair (withdraw).",
+  "flag_extent": "115 days since last visit with an expired reference puts the flagged span near the 30-day boundary between level 2 and level 3, though the checks and autochecks are good.",
+  "return_urgency": "Withdrawal is already handled by the workshop path and the interval was approved, so routine is plausible, but the fail history supports a planned visit in 8-30 days."
+ },
+ "request": "rec-F338-0101",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011284
+}

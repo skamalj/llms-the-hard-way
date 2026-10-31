@@ -1,0 +1,143 @@
+{
+ "id": "F318-0088",
+ "family": "F318",
+ "state": {
+  "work_order": {
+   "lock_id": "L07",
+   "visit_type": "routine_inspection",
+   "tasks": [
+    {
+     "task_id": "T1",
+     "asset_ref": "A1"
+    },
+    {
+     "task_id": "T2",
+     "asset_ref": "A2"
+    },
+    {
+     "task_id": "T3",
+     "asset_ref": "A3"
+    },
+    {
+     "task_id": "T4",
+     "asset_ref": "A4"
+    },
+    {
+     "task_id": "T5",
+     "asset_ref": "A5"
+    },
+    {
+     "task_id": "T6",
+     "asset_ref": "A6"
+    },
+    {
+     "task_id": "T7",
+     "asset_ref": "A7"
+    },
+    {
+     "task_id": "T8",
+     "asset_ref": "A8"
+    }
+   ],
+   "nav_notice": {
+    "in_force": false
+   }
+  },
+  "visit_log": {
+   "arrived": "2025-04-09T08:00",
+   "departed": "2025-04-09T12:00",
+   "crew_size": 2,
+   "timesheet_hours": 5.23,
+   "task_status": "T1-T8 done"
+  },
+  "checks": {
+   "post_checks": "A1-A8 pass",
+   "leakage_ls": 13.8,
+   "leakage_limit_ls": 20
+  },
+  "asset_history": {
+   "prior_visits": [
+    {
+     "date": "2024-11-05",
+     "asset_ref": "A3",
+     "defect_code": "LEAK"
+    }
+   ],
+   "open_defects": [
+    {
+     "defect_code": "LEAK",
+     "asset_ref": "A3",
+     "raised": "2024-11-05"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "visit_type": "routine_inspection",
+  "tasks_ordered": 8,
+  "completion_state": "all_done",
+  "parts_qty_mismatch": "none",
+  "hours_gap": 2.77,
+  "asset_ref_mismatch": false,
+  "post_check_result": "passed",
+  "leakage_ratio": 0.69,
+  "leakage_mitigation": false,
+  "navigation_notice_in_force": false,
+  "deferral_approved": true,
+  "prior_same_defect": 1,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "visit_type": "routine_inspection",
+  "tasks_ordered": 8,
+  "completion_state": "all_done",
+  "parts_qty_mismatch": "none",
+  "hours_gap": 2.77,
+  "asset_ref_mismatch": false,
+  "post_check_result": "passed",
+  "leakage_ratio": 0.69,
+  "leakage_mitigation": false,
+  "navigation_notice_in_force": false,
+  "deferral_approved": true,
+  "prior_same_defect": 1,
+  "boundary_case": false
+ },
+ "plan": {
+  "safe_to_reopen": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "record_disposition": {
+   "clarity": "leaning",
+   "target": "reopen_revisit",
+   "second": null
+  },
+  "return_urgency": {
+   "clarity": "clear",
+   "target": "within_month",
+   "second": null
+  },
+  "affected_scope": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "section_mismatches": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  }
+ },
+ "target_words": 36,
+ "deciding": {
+  "safe_to_reopen": "All eight checks pass and leakage 13.8 against 20 is within the limit. The LEAK defect on A3 is still on open_defects even though A3 was reported done.",
+  "record_disposition": "The timesheet of 5.23h against 4h x 2 = 8h suggests the work was less thorough than logged. The LEAK defect on A3 remains open, which supports sending the crew back.",
+  "return_urgency": "Leakage is at 0.69 of the limit with no nav notice, and the open LEAK on A3 has no restriction attached, so non-restricting outstanding work fits within a month.",
+  "affected_scope": "A single lock with no notice; the number of boaters affected is near the 20 boundary.",
+  "section_mismatches": "The one candidate is the 2.77h timesheet shortfall, which might be counted or ignored as tolerance. Parts and asset refs are consistent."
+ },
+ "request": "rec-F318-0086",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011867
+}

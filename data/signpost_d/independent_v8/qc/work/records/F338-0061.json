@@ -1,0 +1,151 @@
+{
+ "id": "F338-0061",
+ "family": "F338",
+ "state": {
+  "site": {
+   "id": "S-114",
+   "pollutant": "O3",
+   "tier": "standard",
+   "service_interval_days": 42,
+   "approved_interval_days": 42
+  },
+  "visit": {
+   "id": "V-8821",
+   "date": "2024-05-14",
+   "start": "09:10",
+   "end": "10:40",
+   "sequence_status": "partial",
+   "maint_window": true
+  },
+  "reference": {
+   "standard_id": "CYL-40718",
+   "conc": 80,
+   "unit": "ppb",
+   "cert_expiry": "2024-10-17"
+  },
+  "checks": [
+   {
+    "type": "as_found_zero",
+    "ref_id": "CYL-40718",
+    "ref_conc": 0,
+    "unit": "ppb",
+    "reading": 1.0,
+    "tol": 2,
+    "ts": "2024-05-14T09:15"
+   },
+   {
+    "type": "as_found_span",
+    "ref_id": "CYL-40718",
+    "ref_conc": 80,
+    "unit": "ppb",
+    "reading": 77,
+    "tol": 4,
+    "ts": "2024-05-14T09:30"
+   },
+   {
+    "type": "as_left_span",
+    "ref_id": "CYL-40718",
+    "ref_conc": 80,
+    "unit": "ppb",
+    "reading": 74,
+    "tol": 4,
+    "ts": "2024-05-14T10:48"
+   }
+  ],
+  "history": {
+   "last_visit": "2024-03-31",
+   "results": [
+    "pass",
+    "pass",
+    "pass"
+   ],
+   "autochecks": [
+    {
+     "d": "2024-04-02",
+     "r": "fail"
+    },
+    {
+     "d": "2024-04-03",
+     "r": "fail"
+    },
+    {
+     "d": "2024-04-20",
+     "r": "pass"
+    }
+   ]
+  },
+  "instrument": {
+   "serial": "A-5521",
+   "temp_min": 14,
+   "temp_max": 27
+  }
+ },
+ "factors": {
+  "pollutant": "O3",
+  "as_found_ratio": 1.96,
+  "as_left_status": "one_point_fail",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 156,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": false,
+  "drift_explanation": "maintenance_window",
+  "days_since_last_visit": 44,
+  "visit_completeness": "multipoint_missing",
+  "prior_fail_count": 0,
+  "timestamp_mismatch": "minutes_outside",
+  "site_priority": "standard"
+ },
+ "factors_sampled": {
+  "pollutant": "O3",
+  "as_found_ratio": 1.96,
+  "as_left_status": "one_point_fail",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 156,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": false,
+  "drift_explanation": "maintenance_window",
+  "days_since_last_visit": 44,
+  "visit_completeness": "multipoint_missing",
+  "prior_fail_count": 0,
+  "timestamp_mismatch": "minutes_outside",
+  "site_priority": "standard"
+ },
+ "plan": {
+  "data_accepted": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "reference_valid": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "contested",
+   "target": "close_flagged",
+   "second": "withdraw"
+  },
+  "flag_extent": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  },
+  "return_urgency": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  }
+ },
+ "target_words": 83,
+ "deciding": {
+  "data_accepted": "As-found zero and span are within tolerance; a maintenance window is flagged; early autocheck fails are the doubt.",
+  "reference_valid": "IDs, unit and expiry agree, but the as-left check timestamp 10:48 falls after visit end 10:40, which casts doubt.",
+  "next_step": "As-left span is 6 ppb off against tol 4 and the sequence is partial: close_flagged versus withdraw both defensible.",
+  "flag_extent": "Autocheck fails in early April and 44 days since the last visit leave 1-7 days versus 8-30 days open.",
+  "return_urgency": "Standard tier with a failed as-left point; a return in 3-7 days versus an extra visit in 8-30 days is balanced."
+ },
+ "request": "rec-F338-0061",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.006891
+}

@@ -1,0 +1,111 @@
+{
+ "id": "F318-0114",
+ "family": "F318",
+ "state": {
+  "work_order": {
+   "wo_id": "WO-615",
+   "visit_type": "routine_inspection",
+   "tasks": 5,
+   "nav_notice": {
+    "in_force": false
+   }
+  },
+  "visit_log": {
+   "crew_size": 2,
+   "timesheet_hours": 13.9,
+   "arrived": "2025-06-03T08:00",
+   "departed": "2025-06-03T16:00",
+   "task_status": [
+    {
+     "task_id": 5,
+     "status": "not_started",
+     "deferral_ref": null,
+     "deferral_due": null
+    }
+   ]
+  },
+  "checks": {
+   "post_checks": [
+    {
+     "asset_ref": "GATE-U",
+     "result": "pass"
+    }
+   ],
+   "leakage_ls": 59,
+   "leakage_limit_ls": 30,
+   "river_level_m": 2.3,
+   "flood_marker_m": 1.8
+  },
+  "asset_history": {
+   "prior_visits": []
+  }
+ },
+ "factors": {
+  "visit_type": "routine_inspection",
+  "tasks_ordered": 5,
+  "completion_state": "some_outstanding",
+  "parts_qty_mismatch": "none",
+  "hours_gap": 2.1,
+  "asset_ref_mismatch": false,
+  "post_check_result": "passed",
+  "leakage_ratio": 1.97,
+  "leakage_mitigation": true,
+  "navigation_notice_in_force": false,
+  "deferral_approved": false,
+  "prior_same_defect": 0,
+  "boundary_case": true
+ },
+ "factors_sampled": {
+  "visit_type": "routine_inspection",
+  "tasks_ordered": 5,
+  "completion_state": "some_outstanding",
+  "parts_qty_mismatch": "none",
+  "hours_gap": 2.1,
+  "asset_ref_mismatch": false,
+  "post_check_result": "passed",
+  "leakage_ratio": 1.97,
+  "leakage_mitigation": true,
+  "navigation_notice_in_force": false,
+  "deferral_approved": false,
+  "prior_same_defect": 0,
+  "boundary_case": true
+ },
+ "plan": {
+  "safe_to_reopen": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "record_disposition": {
+   "clarity": "clear",
+   "target": "hold_query",
+   "second": null
+  },
+  "return_urgency": {
+   "clarity": "balanced",
+   "target": "next_scheduled",
+   "second": "within_week"
+  },
+  "affected_scope": {
+   "clarity": "clear",
+   "target": "2",
+   "second": null
+  },
+  "section_mismatches": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  }
+ },
+ "target_words": 50,
+ "deciding": {
+  "safe_to_reopen": "The post-check passes, no notice is in force, and the river level 2.3 is above the 1.8 flood marker, which explains the leakage.",
+  "record_disposition": "Task 5 is not_started with null deferral ref, so the crew must confirm this point.",
+  "return_urgency": "High leakage is mitigated by flood level and there is no prior history, but the unstarted task with no deferral could justify a return within a week.",
+  "affected_scope": "Five ordered tasks with unrestricted navigation and leakage affect a lock-wide user group clearly in the six-to-twenty range.",
+  "section_mismatches": "Hours 13.9 against 16 span-hours is an unexplained gap, and the unstarted task has no deferral, giving about two."
+ },
+ "request": "rec-F318-0111",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.006773
+}

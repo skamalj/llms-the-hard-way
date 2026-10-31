@@ -1,0 +1,142 @@
+{
+ "id": "F338-0117",
+ "family": "F338",
+ "state": {
+  "site": {
+   "pollutant": "NO2",
+   "tier": "compliance",
+   "service_interval_days": 60,
+   "approved_interval_days": 60
+  },
+  "visit": {
+   "date": "2024-06-20",
+   "start": "09:00",
+   "end": "11:00",
+   "sequence_status": "complete",
+   "maintenance_window": false
+  },
+  "reference": {
+   "standard_id": "C-2290",
+   "unit": "ppb",
+   "cert_expiry": "2024-06-06"
+  },
+  "checks": [
+   {
+    "t": "as_found",
+    "type": "span",
+    "ref_id": "C-2290",
+    "ref_conc": 100,
+    "unit": "ppb",
+    "reading": 108.2,
+    "tol": 4,
+    "ts": "2024-06-20T09:15"
+   },
+   {
+    "t": "as_left",
+    "type": "zero",
+    "ref_id": "C-2290",
+    "ref_conc": 0,
+    "unit": "ppb",
+    "reading": 0.4,
+    "tol": 3,
+    "ts": "2024-06-20T10:30"
+   },
+   {
+    "t": "as_left",
+    "type": "span",
+    "ref_id": "C-2290",
+    "ref_conc": 100,
+    "unit": "ppb",
+    "reading": 100.5,
+    "tol": 4,
+    "ts": "2024-06-20T11:07"
+   }
+  ],
+  "history": {
+   "last_visit_date": "2024-04-25",
+   "results": [
+    "pass",
+    "pass",
+    "pass"
+   ],
+   "autochecks": [
+    {
+     "d": "2024-06-16",
+     "r": "pass"
+    }
+   ]
+  },
+  "instrument": {
+   "temp_min": 12,
+   "temp_max": 34
+  }
+ },
+ "factors": {
+  "pollutant": "NO2",
+  "as_found_ratio": 2.06,
+  "as_left_status": "all_pass",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": -14,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "enclosure_temp_excursion",
+  "days_since_last_visit": 56,
+  "visit_completeness": "complete",
+  "prior_fail_count": 0,
+  "timestamp_mismatch": "minutes_outside",
+  "site_priority": "compliance"
+ },
+ "factors_sampled": {
+  "pollutant": "NO2",
+  "as_found_ratio": 2.06,
+  "as_left_status": "all_pass",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": -14,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "enclosure_temp_excursion",
+  "days_since_last_visit": 56,
+  "visit_completeness": "complete",
+  "prior_fail_count": 0,
+  "timestamp_mismatch": "minutes_outside",
+  "site_priority": "compliance"
+ },
+ "plan": {
+  "data_accepted": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "reference_valid": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "close_visit",
+   "second": null
+  },
+  "flag_extent": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  },
+  "return_urgency": {
+   "clarity": "balanced",
+   "target": "4",
+   "second": "3"
+  }
+ },
+ "target_words": 50,
+ "deciding": {
+  "data_accepted": "As-left points are all within tolerance, autochecks pass, no prior fails, and the enclosure max of 34 explains the as-found drift of 8.2 against tol 4.",
+  "reference_valid": "cert_expiry 2024-06-06 is 14 days before the visit date, while ids and units match, so the expiry disagreement is the only doubt.",
+  "next_step": "Sequence complete, all as-left points within tolerance, temperature excursion explains drift, so the visit can close.",
+  "flag_extent": "56 days since last visit with a temperature excursion and expired certificate, so flagged data could cover about a week or several weeks.",
+  "return_urgency": "An expired reference on a compliance site could need a repeat the same day or within two days, while as-left results are good."
+ },
+ "request": "rec-F338-0116",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011178
+}

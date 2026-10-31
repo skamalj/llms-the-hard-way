@@ -1,0 +1,126 @@
+{
+ "id": "F318-0086",
+ "family": "F318",
+ "state": {
+  "work_order": {
+   "wo_id": "WO-4417",
+   "lock_id": "L12",
+   "visit_type": "planned_repair",
+   "tasks": [
+    {
+     "task_id": "T1",
+     "asset_ref": "PADDLE-N"
+    },
+    {
+     "task_id": "T2",
+     "asset_ref": "GATE-N"
+    }
+   ],
+   "nav_notice": {
+    "in_force": false
+   }
+  },
+  "visit_log": {
+   "arrived": "2025-03-04T08:00",
+   "departed": "2025-03-04T12:00",
+   "crew_size": 2,
+   "timesheet_hours": 7.52,
+   "task_status": [
+    {
+     "task_id": "T1",
+     "status": "done",
+     "deferral_ref": null,
+     "deferral_due": null
+    },
+    {
+     "task_id": "T2",
+     "status": "temp_fix",
+     "deferral_ref": "DF-209",
+     "deferral_due": "2025-03-10"
+    }
+   ]
+  },
+  "checks": {
+   "post_checks": [
+    {
+     "asset_ref": "PADDLE-N",
+     "result": "pass"
+    },
+    {
+     "asset_ref": "GATE-N",
+     "result": "pass"
+    }
+   ],
+   "leakage_ls": 14,
+   "leakage_limit_ls": 20
+  }
+ },
+ "factors": {
+  "visit_type": "planned_repair",
+  "tasks_ordered": 2,
+  "completion_state": "temporary_fix",
+  "parts_qty_mismatch": "none",
+  "hours_gap": 0.48,
+  "asset_ref_mismatch": false,
+  "post_check_result": "passed",
+  "leakage_ratio": 0.7,
+  "leakage_mitigation": false,
+  "navigation_notice_in_force": false,
+  "deferral_approved": true,
+  "prior_same_defect": 0,
+  "boundary_case": true
+ },
+ "factors_sampled": {
+  "visit_type": "planned_repair",
+  "tasks_ordered": 2,
+  "completion_state": "temporary_fix",
+  "parts_qty_mismatch": "none",
+  "hours_gap": 0.48,
+  "asset_ref_mismatch": false,
+  "post_check_result": "passed",
+  "leakage_ratio": 0.7,
+  "leakage_mitigation": false,
+  "navigation_notice_in_force": false,
+  "deferral_approved": true,
+  "prior_same_defect": 0,
+  "boundary_case": true
+ },
+ "plan": {
+  "safe_to_reopen": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "record_disposition": {
+   "clarity": "balanced",
+   "target": "close_with_followup",
+   "second": "hold_query"
+  },
+  "return_urgency": {
+   "clarity": "clear",
+   "target": "within_week",
+   "second": null
+  },
+  "affected_scope": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  },
+  "section_mismatches": {
+   "clarity": "contested",
+   "target": "1",
+   "second": "0"
+  }
+ },
+ "target_words": 51,
+ "deciding": {
+  "safe_to_reopen": "Both post_checks pass, leakage 14 against limit 20 (0.7), no nav notice; the temp fix on GATE-N has passed its check.",
+  "record_disposition": "T2 is a temp_fix with an approved deferral DF-209, which supports closing with a follow-up job. Timesheet 7.52h against 8h is a small gap, which could justify a hold query.",
+  "return_urgency": "T2 temp_fix has deferral_ref DF-209 due 2025-03-10, 6 days after the visit, so a return within 7 days is needed.",
+  "affected_scope": "A single lock on a navigation with no notice scope given; the number of boats affected sits between 6-20 and over 20.",
+  "section_mismatches": "Timesheet 7.52h against 4h x 2 crew = 8h; a 0.48h shortfall is at the tolerance boundary, so it may count as one mismatch or none. Parts and asset refs agree."
+ },
+ "request": "rec-F318-0086",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011867
+}

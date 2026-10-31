@@ -1,0 +1,128 @@
+{
+ "id": "F318-0073",
+ "family": "F318",
+ "state": {
+  "work_order": {
+   "visit_type": "winter_stoppage",
+   "tasks": [
+    {
+     "task_id": 1,
+     "asset_ref": "GATE-N"
+    },
+    {
+     "task_id": 2,
+     "asset_ref": "PAD-A"
+    },
+    {
+     "task_id": 3,
+     "asset_ref": "SILL"
+    },
+    {
+     "task_id": 4,
+     "asset_ref": "RACK"
+    },
+    {
+     "task_id": 5,
+     "asset_ref": "BYW"
+    }
+   ],
+   "nav_notice": {
+    "in_force": true,
+    "scope_assets": [
+     "RACK"
+    ],
+    "to": "2025-02-01"
+   }
+  },
+  "visit_log": {
+   "task_status": [
+    {
+     "task_id": 1,
+     "status": "done"
+    },
+    {
+     "task_id": 4,
+     "status": "not_started"
+    }
+   ]
+  },
+  "checks": {
+   "post_checks": [
+    {
+     "asset_ref": "GATE-N",
+     "result": "pass_advisory"
+    }
+   ],
+   "leakage_ls": 5,
+   "leakage_limit_ls": 6
+  }
+ },
+ "factors": {
+  "visit_type": "winter_stoppage",
+  "tasks_ordered": 5,
+  "completion_state": "some_outstanding",
+  "parts_qty_mismatch": "none",
+  "hours_gap": 0.6,
+  "asset_ref_mismatch": false,
+  "post_check_result": "passed_advisory",
+  "leakage_ratio": 0.83,
+  "leakage_mitigation": false,
+  "navigation_notice_in_force": true,
+  "deferral_approved": false,
+  "prior_same_defect": 0,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "visit_type": "winter_stoppage",
+  "tasks_ordered": 5,
+  "completion_state": "some_outstanding",
+  "parts_qty_mismatch": "none",
+  "hours_gap": 0.6,
+  "asset_ref_mismatch": false,
+  "post_check_result": "passed_advisory",
+  "leakage_ratio": 0.83,
+  "leakage_mitigation": false,
+  "navigation_notice_in_force": true,
+  "deferral_approved": false,
+  "prior_same_defect": 0,
+  "boundary_case": false
+ },
+ "plan": {
+  "safe_to_reopen": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "record_disposition": {
+   "clarity": "balanced",
+   "target": "hold_query",
+   "second": "close_with_followup"
+  },
+  "return_urgency": {
+   "clarity": "clear",
+   "target": "next_scheduled",
+   "second": null
+  },
+  "affected_scope": {
+   "clarity": "clear",
+   "target": "2",
+   "second": null
+  },
+  "section_mismatches": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 25,
+ "deciding": {
+  "safe_to_reopen": "Leakage within limit and advisory pass, but RACK is under notice and not started.",
+  "record_disposition": "Outstanding RACK task could be queried or turned into a follow-up.",
+  "return_urgency": "Winter stoppage, leakage within limit, so next scheduled cycle.",
+  "affected_scope": "Winter stoppage affects a whole canal stretch, many boaters.",
+  "section_mismatches": "Task statuses missing for three tasks, with no materials or hours sections; two or three mismatches."
+ },
+ "request": "rec-F318-0071",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.007518
+}

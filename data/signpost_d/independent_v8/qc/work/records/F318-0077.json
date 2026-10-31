@@ -1,0 +1,168 @@
+{
+ "id": "F318-0077",
+ "family": "F318",
+ "state": {
+  "work_order": {
+   "wo_id": "RC-209",
+   "visit_type": "reactive_callout",
+   "tasks": [
+    {
+     "task_id": "t1",
+     "asset_ref": "G1",
+     "qty_planned": 2
+    },
+    {
+     "task_id": "t2",
+     "asset_ref": "G2",
+     "qty_planned": 1
+    }
+   ],
+   "nav_notice": {
+    "in_force": false
+   }
+  },
+  "visit_log": {
+   "arrived": "2025-05-06T09:00",
+   "departed": "2025-05-06T12:00",
+   "crew_size": 2,
+   "timesheet_hours": 6,
+   "task_status": [
+    {
+     "task_id": "t1",
+     "status": "done"
+    },
+    {
+     "task_id": "t2",
+     "status": "done"
+    }
+   ]
+  },
+  "materials": {
+   "issued": [
+    {
+     "part_no": "S5",
+     "task_id": "t1",
+     "qty": 4
+    }
+   ],
+   "returned": [],
+   "fitted": [
+    {
+     "part_no": "S5",
+     "task_id": "t1",
+     "qty": 3
+    }
+   ]
+  },
+  "checks": {
+   "post_checks": [
+    {
+     "asset_ref": "G1",
+     "result": "pass"
+    },
+    {
+     "asset_ref": "G2",
+     "result": "pass_advisory"
+    }
+   ],
+   "leakage_ls": 6.6,
+   "leakage_limit_ls": 20,
+   "river_level_m": 3.3,
+   "flood_marker_m": 3.0
+  },
+  "asset_history": {
+   "prior_visits": [
+    {
+     "date": "2024-02-01",
+     "asset_ref": "G2",
+     "defect_code": "GP2"
+    },
+    {
+     "date": "2024-08-12",
+     "asset_ref": "G2",
+     "defect_code": "GP2"
+    },
+    {
+     "date": "2025-01-20",
+     "asset_ref": "G2",
+     "defect_code": "GP2"
+    }
+   ],
+   "open_defects": [
+    {
+     "defect_code": "GP2",
+     "asset_ref": "G2",
+     "raised": "2025-05-05"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "visit_type": "reactive_callout",
+  "tasks_ordered": 2,
+  "completion_state": "all_done",
+  "parts_qty_mismatch": "small, unreturned single unit",
+  "hours_gap": 0.0,
+  "asset_ref_mismatch": false,
+  "post_check_result": "passed_advisory",
+  "leakage_ratio": 0.33,
+  "leakage_mitigation": true,
+  "navigation_notice_in_force": false,
+  "deferral_approved": false,
+  "prior_same_defect": 3,
+  "boundary_case": true
+ },
+ "factors_sampled": {
+  "visit_type": "reactive_callout",
+  "tasks_ordered": 8,
+  "completion_state": "all_done",
+  "parts_qty_mismatch": "trivial",
+  "hours_gap": 0.06,
+  "asset_ref_mismatch": false,
+  "post_check_result": "passed_advisory",
+  "leakage_ratio": 0.33,
+  "leakage_mitigation": true,
+  "navigation_notice_in_force": false,
+  "deferral_approved": false,
+  "prior_same_defect": 3,
+  "boundary_case": true
+ },
+ "plan": {
+  "safe_to_reopen": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "record_disposition": {
+   "clarity": "clear",
+   "target": "close_visit",
+   "second": null
+  },
+  "return_urgency": {
+   "clarity": "leaning",
+   "target": "within_week",
+   "second": null
+  },
+  "affected_scope": {
+   "clarity": "contested",
+   "target": "1",
+   "second": "0"
+  },
+  "section_mismatches": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  }
+ },
+ "target_words": 83,
+ "deciding": {
+  "safe_to_reopen": "Both post_checks are pass or pass_advisory, leakage 6.6 against limit 20, no nav notice, and all tasks done.",
+  "record_disposition": "Work is complete and the checks pass, so it closes as logged. The one-unit S5 gap does not block closure.",
+  "return_urgency": "An advisory result on G2 with open defect GP2 raised 2025-05-05 and three prior GP2 visits points to a return within the week. Nothing shows an uncovered unsafe condition, which leaves some doubt.",
+  "affected_scope": "Two tasks on two assets (G1, G2), but only G2 carries the advisory and open defect. This sits at the boundary between one unit and two.",
+  "section_mismatches": "S5 issued 4, none returned, 3 fitted, with no explanation. Hours are consistent (3h x 2 = 6h) and asset refs match. One mismatch, though the unit could be read as pack rounding."
+ },
+ "request": "rec-F318-0076",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.014218
+}

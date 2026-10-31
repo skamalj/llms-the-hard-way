@@ -1,0 +1,181 @@
+{
+ "id": "F318-0063",
+ "family": "F318",
+ "state": {
+  "work_order": {
+   "lock_id": "L22",
+   "visit_type": "reactive_callout",
+   "tasks": [
+    {
+     "task_id": 1,
+     "asset_ref": "G1"
+    },
+    {
+     "task_id": 2,
+     "asset_ref": "G2"
+    },
+    {
+     "task_id": 3,
+     "asset_ref": "P1"
+    },
+    {
+     "task_id": 4,
+     "asset_ref": "P2"
+    }
+   ],
+   "nav_notice": {
+    "in_force": true,
+    "to": "2025-09-30",
+    "scope_assets": [
+     "G1",
+     "G2",
+     "P1",
+     "P2"
+    ]
+   }
+  },
+  "visit_log": {
+   "arrived": "2025-09-02T10:00",
+   "departed": "2025-09-02T14:00",
+   "crew_size": 2,
+   "timesheet_hours": 8,
+   "task_status": [
+    {
+     "task_id": 1,
+     "status": "done"
+    },
+    {
+     "task_id": 2,
+     "status": "done"
+    },
+    {
+     "task_id": 3,
+     "status": "done"
+    },
+    {
+     "task_id": 4,
+     "status": "done"
+    }
+   ]
+  },
+  "materials": {
+   "issued": [
+    {
+     "part_no": "K2",
+     "task_id": 1,
+     "qty": 4
+    }
+   ],
+   "returned": [],
+   "fitted": [
+    {
+     "part_no": "K2",
+     "task_id": 1,
+     "qty": 4
+    }
+   ]
+  },
+  "checks": {
+   "post_checks": [
+    {
+     "asset_ref": "G1",
+     "result": "pass_advisory"
+    },
+    {
+     "asset_ref": "G2",
+     "result": "pass"
+    },
+    {
+     "asset_ref": "P1",
+     "result": "pass"
+    },
+    {
+     "asset_ref": "P2",
+     "result": "pass"
+    }
+   ],
+   "leakage_ls": 4.8,
+   "leakage_limit_ls": 3.0,
+   "river_level_m": 4.2,
+   "flood_marker_m": 3.8
+  },
+  "asset_history": {
+   "prior_visits": [
+    {
+     "date": "2025-03-01",
+     "asset_ref": "G1",
+     "defect_code": "D-SEEP"
+    }
+   ],
+   "open_defects": []
+  }
+ },
+ "factors": {
+  "visit_type": "reactive_callout",
+  "tasks_ordered": 4,
+  "completion_state": "all_done",
+  "parts_qty_mismatch": "none",
+  "hours_gap": 0.0,
+  "asset_ref_mismatch": false,
+  "post_check_result": "passed_advisory",
+  "leakage_ratio": 1.6,
+  "leakage_mitigation": true,
+  "navigation_notice_in_force": true,
+  "deferral_approved": false,
+  "prior_same_defect": 1,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "visit_type": "reactive_callout",
+  "tasks_ordered": 4,
+  "completion_state": "all_done",
+  "parts_qty_mismatch": "trivial",
+  "hours_gap": 0.5,
+  "asset_ref_mismatch": false,
+  "post_check_result": "passed_advisory",
+  "leakage_ratio": 1.6,
+  "leakage_mitigation": true,
+  "navigation_notice_in_force": true,
+  "deferral_approved": true,
+  "prior_same_defect": 1,
+  "boundary_case": false
+ },
+ "plan": {
+  "safe_to_reopen": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "record_disposition": {
+   "clarity": "clear",
+   "target": "hold_query",
+   "second": null
+  },
+  "return_urgency": {
+   "clarity": "clear",
+   "target": "next_scheduled",
+   "second": null
+  },
+  "affected_scope": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  },
+  "section_mismatches": {
+   "clarity": "clear",
+   "target": "0",
+   "second": null
+  }
+ },
+ "target_words": 26,
+ "deciding": {
+  "safe_to_reopen": "Nav notice in force to 2025-09-30 covering all assets, G1 advisory check and leakage 4.8 over the 3.0 limit, though high river level 4.2 over 3.8 partly explains it.",
+  "record_disposition": "Everything reconciles but leakage is 1.6 times the limit with an advisory on G1; closure is held for the crew to confirm that reading.",
+  "return_urgency": "All tasks done, no open defects, and the notice already restricts navigation; next scheduled inspection suffices.",
+  "affected_scope": "Notice covers four assets and the whole lock's boat traffic, so likely six to twenty units or users.",
+  "section_mismatches": "Parts issued 4 and fitted 4; timesheet 8 equals 4h x 2 crew; task and check asset refs match; no mismatches."
+ },
+ "request": "rec-F318-0061",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012092
+}

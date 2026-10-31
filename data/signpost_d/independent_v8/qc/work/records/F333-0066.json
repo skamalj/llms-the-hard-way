@@ -1,0 +1,128 @@
+{
+ "id": "F333-0066",
+ "family": "F333",
+ "state": {
+  "tenancy": {
+   "start_date": "2024-01-08",
+   "end_date": "2024-03-08"
+  },
+  "checkin_inventory": {
+   "signed_date": "2024-01-05",
+   "items": [
+    {
+     "item_code": "SD1",
+     "grade": "good"
+    },
+    {
+     "item_code": "WL2",
+     "grade": null
+    }
+   ]
+  },
+  "checkout_inspection": {
+   "inspection_type": "checkout",
+   "inspection_date": "2024-03-08",
+   "items": [
+    {
+     "item_code": "SD1",
+     "grade": "damaged",
+     "defect_category": "smoke_detector_fail",
+     "photo_refs": [
+      "p1"
+     ]
+    },
+    {
+     "item_code": "WL2",
+     "grade": "fair",
+     "defect_category": "stain",
+     "photo_refs": []
+    }
+   ]
+  },
+  "proposed_charges": {
+   "lines": [
+    {
+     "item_code": "SD1",
+     "qty": 1,
+     "unit_rate": 60,
+     "line_total": 60
+    },
+    {
+     "item_code": "WL2",
+     "qty": 1,
+     "unit_rate": 30,
+     "line_total": 30
+    }
+   ],
+   "summary_total": 90
+  }
+ },
+ "factors": {
+  "inspection_type": "checkout",
+  "checkin_inventory_state": "complete",
+  "prior_damage_on_charged_item": "none",
+  "charge_discrepancy": "small_under_25",
+  "worst_defect_tier": "safety",
+  "true_cause": "resident_damage",
+  "predating_works_order": false,
+  "safety_fault_remedied": false,
+  "photo_coverage": "half_or_less",
+  "tenancy_months": 2,
+  "date_out_of_order": false,
+  "deposit_dispute_lodged": false,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "inspection_type": "checkout",
+  "checkin_inventory_state": "partial",
+  "prior_damage_on_charged_item": "two_or_more",
+  "charge_discrepancy": "small_under_25",
+  "worst_defect_tier": "habitability",
+  "true_cause": "fair_wear",
+  "predating_works_order": true,
+  "safety_fault_remedied": true,
+  "photo_coverage": "half_or_less",
+  "tenancy_months": 2,
+  "date_out_of_order": false,
+  "deposit_dispute_lodged": false,
+  "boundary_case": false
+ },
+ "plan": {
+  "checkin_clean": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "disposition": {
+   "clarity": "balanced",
+   "target": "approve_as_drafted",
+   "second": "adjust_and_approve"
+  },
+  "main_cause": {
+   "clarity": "leaning",
+   "target": "resident_damage",
+   "second": null
+  },
+  "defect_severity": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  },
+  "charge_gap": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 44,
+ "deciding": {
+  "checkin_clean": "SD1 good at check-in; WL2 charged but grade null, so only SD1 is confirmed.",
+  "disposition": "Lines match items, but WL2 has no photo; approve vs small adjustment is near-balanced.",
+  "main_cause": "SD1 good to damaged within two months, no works order listed.",
+  "defect_severity": "SD1 defect_category smoke_detector_fail.",
+  "charge_gap": "WL2 line is unphotographed, so evidenced total is either 60 or 90; gap is 30 or 0, sits at the £25 boundary."
+ },
+ "request": "rec-F333-0066",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.00569
+}

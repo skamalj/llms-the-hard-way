@@ -1,0 +1,132 @@
+{
+ "id": "F302-0119",
+ "family": "F302",
+ "state": {
+  "subject": {
+   "scr_no": "S-340"
+  },
+  "consent": {
+   "form_version": "3.0",
+   "current_version": "3.0",
+   "signed_date": "2025-05-01"
+  },
+  "visit": {
+   "visit_date": "2025-05-20",
+   "review_date": "2025-06-01",
+   "window_days": 35
+  },
+  "labs": [
+   {
+    "test": "CREAT",
+    "value": 1.46,
+    "unit": "mg/dL",
+    "threshold": 1.5,
+    "threshold_format": "<=",
+    "collected": "2025-05-02",
+    "valid_days": 14,
+    "repeat": true
+   }
+  ],
+  "conmeds": {
+   "prohibited_classes": [
+    "systemic_steroid"
+   ],
+   "washout_days": 14,
+   "items": [
+    {
+     "class": "systemic_steroid",
+     "stop": "2025-03-01"
+    }
+   ]
+  },
+  "eligibility": {
+   "criteria": [
+    {
+     "id": "I4",
+     "operator": "lt",
+     "recorded_value": 1.5,
+     "met": true
+    }
+   ],
+   "signoff": {
+    "signed": true,
+    "date": "2025-05-22"
+   },
+   "queries": [
+    {
+     "status": "open",
+     "topic": "lab source unsigned"
+    },
+    {
+     "status": "closed"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "lab_reconciliation": "rounding_minor",
+  "consent_status": "current_ok",
+  "window_days_remaining": 4,
+  "collection_date_mismatch": "outside_validity",
+  "prohibited_conmed": true,
+  "washout_completed": true,
+  "out_of_range_lab": false,
+  "valid_repeat_on_file": "valid_repeat_in_range",
+  "boundary_value": true,
+  "identifier_mismatch": "none",
+  "investigator_signoff": "signed_after_results",
+  "open_query_count": 1
+ },
+ "factors_sampled": {
+  "lab_reconciliation": "rounding_minor",
+  "consent_status": "current_ok",
+  "window_days_remaining": 8,
+  "collection_date_mismatch": "outside_validity",
+  "prohibited_conmed": true,
+  "washout_completed": true,
+  "out_of_range_lab": false,
+  "valid_repeat_on_file": "valid_repeat_in_range",
+  "boundary_value": true,
+  "identifier_mismatch": "none",
+  "investigator_signoff": "signed_after_results",
+  "open_query_count": 2
+ },
+ "plan": {
+  "eligibility_proven": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "hold_query",
+   "second": null
+  },
+  "primary_issue": {
+   "clarity": "balanced",
+   "target": "documentation",
+   "second": "timing_window"
+  },
+  "affected_scope": {
+   "clarity": "leaning",
+   "target": "0",
+   "second": null
+  },
+  "window_left": {
+   "clarity": "contested",
+   "target": "2",
+   "second": "1"
+  }
+ },
+ "target_words": 70,
+ "deciding": {
+  "eligibility_proven": "Lab collected 2025-05-02 is 18 days before the 2025-05-20 visit, beyond valid_days 14, so the criterion is not supported by valid data; an open query exists.",
+  "next_step": "The single open query (lab source unsigned) is the one confirmable gap; steroid washout is complete and no value crosses.",
+  "primary_issue": "Open query on unsigned lab source (documentation) against a lab outside its validity window (timing); both fit.",
+  "affected_scope": "Only this subject's record carries the issue; nothing lists other subjects.",
+  "window_left": "Signed 2025-05-01 + 35 = 2025-06-05; review 2025-06-01 leaves 4 days, at the 3/4-day boundary."
+ },
+ "request": "rec-F302-0116",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.01173
+}

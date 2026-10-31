@@ -1,0 +1,112 @@
+{
+ "id": "F338-0132",
+ "family": "F338",
+ "state": {
+  "site": {
+   "pol": "CO",
+   "tier": "indicative",
+   "svc_days": 60
+  },
+  "visit": {
+   "date": "2024-05-10",
+   "start": "10:00",
+   "end": "11:00",
+   "seq": "complete"
+  },
+  "reference": {
+   "std_id": "CY70452",
+   "exp": "2024-12-31",
+   "unit": "ppm"
+  },
+  "checks": [
+   {
+    "t": "as_found_zero",
+    "ref_id": "CY70542",
+    "rd": 0.8,
+    "tol": 0.5,
+    "ts": "2024-05-10T10:10"
+   },
+   {
+    "t": "as_left_zero",
+    "ref_id": "CY70542",
+    "rd": 0.1,
+    "tol": 0.5,
+    "ts": "2024-05-10T10:50"
+   }
+  ],
+  "history": {
+   "last": "2024-03-18",
+   "res": [
+    "pass"
+   ]
+  }
+ },
+ "factors": {
+  "pollutant": "CO",
+  "as_found_ratio": 3.41,
+  "as_left_status": "all_pass",
+  "cylinder_id_mismatch": "transposed_digit",
+  "cert_expiry_offset_days": 235,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "none",
+  "days_since_last_visit": 53,
+  "visit_completeness": "zero_only",
+  "prior_fail_count": 0,
+  "timestamp_mismatch": "none",
+  "site_priority": "indicative"
+ },
+ "factors_sampled": {
+  "pollutant": "CO",
+  "as_found_ratio": 3.41,
+  "as_left_status": "all_pass",
+  "cylinder_id_mismatch": "transposed_digit",
+  "cert_expiry_offset_days": 235,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "none",
+  "days_since_last_visit": 53,
+  "visit_completeness": "zero_only",
+  "prior_fail_count": 0,
+  "timestamp_mismatch": "none",
+  "site_priority": "indicative"
+ },
+ "plan": {
+  "data_accepted": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "reference_valid": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "close_visit",
+   "second": null
+  },
+  "flag_extent": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  },
+  "return_urgency": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  }
+ },
+ "target_words": 46,
+ "deciding": {
+  "data_accepted": "As-found zero 0.8 vs tolerance 0.5 is out, but as-left is in tolerance and history is clean.",
+  "reference_valid": "Check ref_id CY70542 differs from standard CY70452 by transposed digits; expiry is in date.",
+  "next_step": "As-left passes and the site is only indicative, so closing is favoured despite the zero-only checks.",
+  "flag_extent": "Failed as-found zero over 53 days; the flag could cover about a month or the full interval.",
+  "return_urgency": "Possible reference ID error with indicative tier; return in 3-7 days or within 1-2 days both defensible."
+ },
+ "request": "rec-F338-0131",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.006448
+}

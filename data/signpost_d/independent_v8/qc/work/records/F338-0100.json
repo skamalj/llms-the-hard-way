@@ -1,0 +1,110 @@
+{
+ "id": "F338-0100",
+ "family": "F338",
+ "state": {
+  "site": {
+   "pollutant": "CO",
+   "tier": "compliance"
+  },
+  "visit": {
+   "date": "2024-09-03",
+   "sequence_status": "partial"
+  },
+  "reference": {
+   "standard_id": "CO-8821",
+   "unit": "ppm",
+   "cert_expiry": "2025-02-08"
+  },
+  "checks": [
+   {
+    "type": "span",
+    "stage": "as_found",
+    "ref_id": "CO-8281",
+    "ref_conc": 40,
+    "reading": 41.6,
+    "tol": 1,
+    "unit": "ppm"
+   }
+  ],
+  "history": {
+   "last_visit_date": "2024-07-24",
+   "autochecks": [
+    {
+     "d": "2024-08-01",
+     "r": "fail"
+    }
+   ]
+  },
+  "instrument": {
+   "temp_max": 36
+  }
+ },
+ "factors": {
+  "pollutant": "CO",
+  "as_found_ratio": 1.6,
+  "as_left_status": "not_recorded",
+  "cylinder_id_mismatch": "transposed_digit",
+  "cert_expiry_offset_days": 158,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": false,
+  "drift_explanation": "enclosure_temp_excursion",
+  "days_since_last_visit": 41,
+  "visit_completeness": "multipoint_missing",
+  "prior_fail_count": 0,
+  "timestamp_mismatch": "none",
+  "site_priority": "compliance"
+ },
+ "factors_sampled": {
+  "pollutant": "CO",
+  "as_found_ratio": 1.6,
+  "as_left_status": "all_pass",
+  "cylinder_id_mismatch": "transposed_digit",
+  "cert_expiry_offset_days": 158,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": false,
+  "drift_explanation": "enclosure_temp_excursion",
+  "days_since_last_visit": 41,
+  "visit_completeness": "multipoint_missing",
+  "prior_fail_count": 3,
+  "timestamp_mismatch": "none",
+  "site_priority": "compliance"
+ },
+ "plan": {
+  "data_accepted": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "reference_valid": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "hold",
+   "second": null
+  },
+  "flag_extent": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  },
+  "return_urgency": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  }
+ },
+ "target_words": 32,
+ "deciding": {
+  "data_accepted": "The as-found span is 41.6 vs 40 with tol 1, so it is out of tolerance, and an autocheck failed on 2024-08-01 with no later passes. The data cannot be accepted.",
+  "reference_valid": "The check ref_id CO-8281 differs from the standard CO-8821 by transposed digits, probably a typo. The certificate is in date and units agree, so true is likely with doubt.",
+  "next_step": "The sequence is partial with a single span point and no as-left. The transposed ID needs confirming, so the record is held for that one confirmation.",
+  "flag_extent": "Over 41 days there is a failed autocheck on 2024-08-01 and a heat excursion (36). Flagging probably covers only the last few days, but some doubt remains.",
+  "return_urgency": "The visit is incomplete but the ID confirmation may settle it. An extra visit within 8-30 days is likely sufficient, although a compliance-tier site could justify sooner."
+ },
+ "request": "rec-F338-0096",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.006426
+}

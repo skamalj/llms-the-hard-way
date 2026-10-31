@@ -1,0 +1,152 @@
+{
+ "id": "F318-0105",
+ "family": "F318",
+ "state": {
+  "work_order": {
+   "visit_type": "reactive_callout",
+   "tasks": [
+    {
+     "task_id": 1,
+     "asset_ref": "GT-1"
+    },
+    {
+     "task_id": 2,
+     "asset_ref": "GT-2"
+    },
+    {
+     "task_id": 3,
+     "asset_ref": "PD-1"
+    },
+    {
+     "task_id": 4,
+     "asset_ref": "PD-2"
+    },
+    {
+     "task_id": 5,
+     "asset_ref": "PD-3"
+    },
+    {
+     "task_id": 6,
+     "asset_ref": "PD-4"
+    },
+    {
+     "task_id": 7,
+     "asset_ref": "GT-3"
+    }
+   ],
+   "nav_notice": {
+    "in_force": false
+   }
+  },
+  "visit_log": {
+   "arrived": "2025-06-02T07:00",
+   "departed": "2025-06-02T11:00",
+   "crew_size": 3,
+   "timesheet_hours": 8.32,
+   "task_status": [
+    {
+     "task_id": 1,
+     "status": "done",
+     "deferral_ref": "DF-9",
+     "deferral_due": "2025-06-30"
+    }
+   ]
+  },
+  "checks": {
+   "post_checks": [],
+   "leakage_ls": 5.9,
+   "leakage_limit_ls": 5,
+   "river_level_m": 2,
+   "flood_marker_m": 3,
+   "gauge_cal_due": "2025-09-01"
+  },
+  "asset_history": {
+   "prior_visits": [
+    {
+     "asset_ref": "GT-1",
+     "defect_code": "SEAL"
+    },
+    {
+     "asset_ref": "GT-1",
+     "defect_code": "SEAL"
+    },
+    {
+     "asset_ref": "GT-1",
+     "defect_code": "SEAL"
+    },
+    {
+     "asset_ref": "GT-1",
+     "defect_code": "SEAL"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "visit_type": "reactive_callout",
+  "tasks_ordered": 7,
+  "completion_state": "all_done",
+  "parts_qty_mismatch": "none",
+  "hours_gap": 3.68,
+  "asset_ref_mismatch": false,
+  "post_check_result": "not_logged",
+  "leakage_ratio": 1.18,
+  "leakage_mitigation": false,
+  "navigation_notice_in_force": false,
+  "deferral_approved": true,
+  "prior_same_defect": 4,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "visit_type": "reactive_callout",
+  "tasks_ordered": 7,
+  "completion_state": "all_done",
+  "parts_qty_mismatch": "none",
+  "hours_gap": 3.68,
+  "asset_ref_mismatch": false,
+  "post_check_result": "not_logged",
+  "leakage_ratio": 1.18,
+  "leakage_mitigation": false,
+  "navigation_notice_in_force": false,
+  "deferral_approved": true,
+  "prior_same_defect": 4,
+  "boundary_case": false
+ },
+ "plan": {
+  "safe_to_reopen": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "record_disposition": {
+   "clarity": "balanced",
+   "target": "close_visit",
+   "second": "reopen_revisit"
+  },
+  "return_urgency": {
+   "clarity": "clear",
+   "target": "immediate",
+   "second": null
+  },
+  "affected_scope": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  },
+  "section_mismatches": {
+   "clarity": "clear",
+   "target": "2",
+   "second": null
+  }
+ },
+ "target_words": 82,
+ "deciding": {
+  "safe_to_reopen": "Tasks done, but post_checks empty and leakage 5.9 over limit; leaning true is weak but taken from done status.",
+  "record_disposition": "Task status shows only one of seven tasks logged and no checks; close or revisit both defensible.",
+  "return_urgency": "Leakage over limit, no checks, no notice and no mitigating river level mean an uncovered unsafe condition.",
+  "affected_scope": "Single lock with seven tasks and four repeat GT-1 defects; a few units.",
+  "section_mismatches": "Timesheet 8.32 against 12 hours span and the empty post_checks against seven done tasks give two unexplained mismatches."
+ },
+ "request": "rec-F318-0101",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.006384
+}

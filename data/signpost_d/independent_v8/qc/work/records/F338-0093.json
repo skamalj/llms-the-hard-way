@@ -1,0 +1,152 @@
+{
+ "id": "F338-0093",
+ "family": "F338",
+ "state": {
+  "site": {
+   "id": "S-NO2-052",
+   "pollutant": "NO2",
+   "tier": "standard",
+   "service_interval_days": 30,
+   "approved_interval_days": 60
+  },
+  "visit": {
+   "id": "V-8814",
+   "date": "2024-09-12",
+   "start": "08:30",
+   "end": "10:20",
+   "sequence_status": "partial",
+   "maintenance_window": false
+  },
+  "reference": {
+   "standard_id": "CYL-30851",
+   "conc": 200,
+   "unit": "ppb",
+   "cert_expiry": "2025-10-05"
+  },
+  "checks": [
+   {
+    "type": "as_found_zero",
+    "ref_id": "CYL-30851",
+    "ref_conc": 0,
+    "unit": "ppb",
+    "reading": 0.8,
+    "tol": 2.0,
+    "ts": "2024-09-12T08:45"
+   },
+   {
+    "type": "as_found_span",
+    "ref_id": "CYL-30851",
+    "ref_conc": 200,
+    "unit": "ppb",
+    "reading": 247.2,
+    "tol": 20,
+    "ts": "2024-09-12T08:58"
+   },
+   {
+    "type": "as_left_span",
+    "ref_id": "CYL-30581",
+    "ref_conc": 200,
+    "unit": "ppb",
+    "reading": 218.5,
+    "tol": 20,
+    "ts": "2024-09-12T09:50"
+   },
+   {
+    "type": "as_left_zero",
+    "ref_id": "CYL-30851",
+    "ref_conc": 0,
+    "unit": "ppb",
+    "reading": 0.6,
+    "tol": 2.0,
+    "ts": "2024-09-12T10:02"
+   }
+  ],
+  "history": {
+   "last_visit_date": "2024-07-29",
+   "results": [
+    "fail",
+    "pass",
+    "fail",
+    "pass"
+   ],
+   "autochecks": [
+    {
+     "d": "2024-09-08",
+     "result": "pass"
+    }
+   ]
+  },
+  "instrument": {
+   "temp_min": 14,
+   "temp_max": 27
+  }
+ },
+ "factors": {
+  "pollutant": "NO2",
+  "as_found_ratio": 2.36,
+  "as_left_status": "marginal",
+  "cylinder_id_mismatch": "transposed_digit",
+  "cert_expiry_offset_days": 388,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "approved_extended_interval",
+  "days_since_last_visit": 45,
+  "visit_completeness": "multipoint_missing",
+  "prior_fail_count": 2,
+  "timestamp_mismatch": "none",
+  "site_priority": "standard"
+ },
+ "factors_sampled": {
+  "pollutant": "NO2",
+  "as_found_ratio": 2.36,
+  "as_left_status": "marginal",
+  "cylinder_id_mismatch": "transposed_digit",
+  "cert_expiry_offset_days": 388,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "approved_extended_interval",
+  "days_since_last_visit": 18,
+  "visit_completeness": "multipoint_missing",
+  "prior_fail_count": 2,
+  "timestamp_mismatch": "none",
+  "site_priority": "standard"
+ },
+ "plan": {
+  "data_accepted": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "reference_valid": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "hold",
+   "second": null
+  },
+  "flag_extent": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "return_urgency": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 151,
+ "deciding": {
+  "data_accepted": "As-found span 47.2 off against tol 20 (2.36x) but approved_interval_days 60 over service interval 30 covers the 45 days and autochecks pass; both readings are defensible.",
+  "reference_valid": "The as-left span ref_id CYL-30581 differs from reference.standard_id CYL-30851 by a transposed digit, while three other checks match and the certificate is in date.",
+  "next_step": "No precision or multipoint check is present, one confirmation outstanding together with the as-left span cylinder id, which favours hold.",
+  "flag_extent": "The as-found span failure over 45 days since 2024-07-29 could mean flagging everything (over 30) or only the later part, the extension of the interval keeping both open.",
+  "return_urgency": "As-left span at 18.5 of 20 tol is marginal and the multipoint check is missing, so a return in one to two days versus three to seven days is split."
+ },
+ "request": "rec-F338-0091",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012993
+}

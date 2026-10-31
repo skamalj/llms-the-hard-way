@@ -1,0 +1,157 @@
+{
+ "id": "F324-0102",
+ "family": "F324",
+ "state": {
+  "zone": {
+   "id": "Z7",
+   "dripper_count": 150,
+   "rate_lph": 2,
+   "spec_bar": 2.0
+  },
+  "schedule": {
+   "date": "2024-09-10",
+   "dripper_count_assumed": 160,
+   "cycles": [
+    {
+     "t": "07:00",
+     "ml": 100,
+     "s": 240
+    },
+    {
+     "t": "11:00",
+     "ml": 100,
+     "s": 240
+    },
+    {
+     "t": "15:00",
+     "ml": 100,
+     "s": 240
+    }
+   ],
+   "drain_pct": [
+    25,
+    35
+   ],
+   "overrides": [
+    {
+     "approved_by_role": "head_grower",
+     "reduction_pct": 30
+    }
+   ]
+  },
+  "controller_log": {
+   "cycles": [
+    {
+     "open_s": 240,
+     "l": 11.0,
+     "bar": 2.0
+    },
+    {
+     "open_s": 240,
+     "l": 10.8,
+     "bar": 2.0
+    },
+    {
+     "open_s": 240,
+     "l": 9.5,
+     "bar": 2.0
+    }
+   ],
+   "daily_total_l": 31.3,
+   "meter_total_l": 31.3
+  },
+  "drainage": {
+   "drain_pct": [
+    10.5,
+    9.0,
+    9.3
+   ],
+   "catch_test": {
+    "ordered": false,
+    "result": null
+   }
+  },
+  "sensors": {
+   "meter_last_calibrated": "2023-09-15",
+   "sensor_status": "ok"
+  },
+  "maintenance": {
+   "alarms": [
+    {
+     "code": "TANK_LO",
+     "acknowledged": true,
+     "cleared": true
+    }
+   ],
+   "wo_closed": [
+    "2024-07-02"
+   ]
+  }
+ },
+ "factors": {
+  "delivery_shortfall_pct": 34.73,
+  "mismatch_location": "dripper_count_mismatch",
+  "fault_cause": "none",
+  "approved_override": true,
+  "maintenance_window_active": false,
+  "drain_offset_points": -15.4,
+  "off_tolerance_cycles": 1,
+  "meter_calibration_age_days": 361,
+  "confirmation_pending": false,
+  "pressure_state": "normal",
+  "benign_alarm_decoy": "tank_alarm_cleared",
+  "recent_work_orders": 1
+ },
+ "factors_sampled": {
+  "delivery_shortfall_pct": 34.73,
+  "mismatch_location": "dripper_count_mismatch",
+  "fault_cause": "sensor_drift",
+  "approved_override": true,
+  "maintenance_window_active": false,
+  "drain_offset_points": -19.59,
+  "off_tolerance_cycles": 1,
+  "meter_calibration_age_days": 361,
+  "confirmation_pending": false,
+  "pressure_state": "low",
+  "benign_alarm_decoy": "tank_alarm_cleared",
+  "recent_work_orders": 1
+ },
+ "plan": {
+  "under_dosed": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "emitter_clogging": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "next_action": {
+   "clarity": "clear",
+   "target": "sign_off",
+   "second": null
+  },
+  "drain_deviation": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "off_plan_cycles": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 87,
+ "deciding": {
+  "under_dosed": "Metered 31.3 L is about 65% of the 48 L planned, but the schedule carries an approved 30% reduction (head_grower) and the daily total equals the meter total.",
+  "emitter_clogging": "Pressure is at the 2.0 bar spec, valves are fully open and drain is low, which could be blockage; but the reduction and the 150 vs 160 dripper count could also explain it.",
+  "next_action": "Delivery tracks the approved reduction, controller and meter agree at 31.3 L, pressure is normal and the alarm is acknowledged and cleared.",
+  "drain_deviation": "Mean drain 9.6 against band minimum 25 is about 15.4 points under, right at the 15-point boundary between marked and severe.",
+  "off_plan_cycles": "The 9.5 L cycle is 10% or more under a 10.5 L reduced plan only under some dripper counts (150 vs assumed 160), and the other cycles are close; zero or one."
+ },
+ "request": "rec-F324-0101",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.018178
+}

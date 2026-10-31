@@ -1,0 +1,177 @@
+{
+ "id": "F324-0079",
+ "family": "F324",
+ "state": {
+  "zone": {
+   "id": "Z15",
+   "drippers": 160,
+   "rate_lph": 2.0,
+   "spec_bar": 1.5
+  },
+  "schedule": {
+   "plan_open_s": 180,
+   "cycles": [
+    {
+     "t": "07:00",
+     "ml": 100
+    },
+    {
+     "t": "10:00",
+     "ml": 100
+    },
+    {
+     "t": "13:00",
+     "ml": 100
+    },
+    {
+     "t": "16:00",
+     "ml": 100
+    }
+   ],
+   "drain_pct_band": [
+    20,
+    30
+   ],
+   "overrides": [
+    {
+     "approved_by_role": "agronomist",
+     "reduction_pct": 20,
+     "date": "2025-09-18"
+    }
+   ]
+  },
+  "controller_log": {
+   "date": "2025-09-18",
+   "cycles": [
+    {
+     "t": "07:00",
+     "open_s": 180,
+     "l": 14.6,
+     "bar": 1.35
+    },
+    {
+     "t": "10:00",
+     "open_s": 180,
+     "l": 11.4,
+     "bar": 1.3
+    },
+    {
+     "t": "13:00",
+     "open_s": 180,
+     "l": 11.3,
+     "bar": 1.3
+    },
+    {
+     "t": "16:00",
+     "open_s": 180,
+     "l": 11.2,
+     "bar": 1.25
+    }
+   ],
+   "daily_total_l": 48.5,
+   "meter_total_l": 48.6
+  },
+  "drainage": {
+   "drain_pct": [
+    17.6,
+    16.4
+   ],
+   "catch_test": {
+    "ordered": true,
+    "result": 1.1
+   }
+  },
+  "sensors": {
+   "meter_last_calibrated": "2024-12-26",
+   "ec": [
+    {
+     "t": "14:30",
+     "v": 4.9
+    }
+   ]
+  },
+  "maintenance": {
+   "windows": [
+    {
+     "type": "flush",
+     "start": "2025-09-18T14:20",
+     "end": "2025-09-18T14:40"
+    }
+   ],
+   "alarms": [
+    {
+     "code": "EC_HI",
+     "acknowledged": true,
+     "cleared": true
+    }
+   ],
+   "recent_work_orders": []
+  }
+ },
+ "factors": {
+  "delivery_shortfall_pct": 24.3,
+  "mismatch_location": "none",
+  "fault_cause": "low_supply_pressure",
+  "approved_override": true,
+  "maintenance_window_active": false,
+  "drain_offset_points": "3.0 below band",
+  "off_tolerance_cycles": 3,
+  "meter_calibration_age_days": 266,
+  "confirmation_pending": false,
+  "pressure_state": "normal",
+  "benign_alarm_decoy": "ec_spike_in_flush",
+  "recent_work_orders": 0
+ },
+ "factors_sampled": {
+  "delivery_shortfall_pct": 24.28,
+  "mismatch_location": "none",
+  "fault_cause": "low_supply_pressure",
+  "approved_override": true,
+  "maintenance_window_active": false,
+  "drain_offset_points": 13.19,
+  "off_tolerance_cycles": 3,
+  "meter_calibration_age_days": 266,
+  "confirmation_pending": true,
+  "pressure_state": "normal",
+  "benign_alarm_decoy": "ec_spike_in_flush",
+  "recent_work_orders": 0
+ },
+ "plan": {
+  "under_dosed": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "emitter_clogging": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "next_action": {
+   "clarity": "clear",
+   "target": "dispatch_repair",
+   "second": null
+  },
+  "drain_deviation": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  },
+  "off_plan_cycles": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  }
+ },
+ "target_words": 76,
+ "deciding": {
+  "under_dosed": "Metered 48.5 L against 64 L planned, but an approved 20% reduction (agronomist, dated today) leaves about 4% net shortfall, so it is probably not under-dosed.",
+  "emitter_clogging": "Line pressure is 1.25 to 1.35 bar against 1.5 spec, which could explain low flow. The catch test of 1.1 lph against 2.0 rated is lower than a modest pressure drop would suggest, so both readings stay open.",
+  "next_action": "The completed catch test (1.1 lph), sub-spec pressure on every cycle and full valve time confirm a hardware fault, so a repair dispatch follows; there are no recent work orders.",
+  "drain_deviation": "Mean drain is 17.0% against a band minimum of 20, so 3 points below, which is slight.",
+  "off_plan_cycles": "Three cycles (11.4, 11.3, 11.2 L vs 16 L) are over 10% short and the 07:00 cycle (14.6 L) is 8.75% short. The approved reduction muddies which plan applies."
+ },
+ "request": "rec-F324-0076",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.024979
+}

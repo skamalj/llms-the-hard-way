@@ -1,0 +1,148 @@
+{
+ "id": "F318-0101",
+ "family": "F318",
+ "state": {
+  "work_order": {
+   "wo_id": "WO-4410",
+   "visit_type": "planned_repair",
+   "tasks": [
+    {
+     "task_id": 1,
+     "asset_ref": "PD-3"
+    },
+    {
+     "task_id": 2,
+     "asset_ref": "PD-4"
+    },
+    {
+     "task_id": 3,
+     "asset_ref": "GT-1"
+    },
+    {
+     "task_id": 4,
+     "asset_ref": "GT-2"
+    }
+   ],
+   "nav_notice": {
+    "in_force": false
+   }
+  },
+  "visit_log": {
+   "crew_size": 3,
+   "task_status": [
+    {
+     "task_id": 1,
+     "status": "done"
+    },
+    {
+     "task_id": 2,
+     "status": "done"
+    },
+    {
+     "task_id": 3,
+     "status": "done"
+    },
+    {
+     "task_id": 4,
+     "status": "deferred",
+     "deferral_ref": "DF-221",
+     "deferral_due": "2025-06-20"
+    }
+   ]
+  },
+  "checks": {
+   "leakage_ls": 6,
+   "leakage_limit_ls": 5,
+   "river_level_m": 3.4,
+   "flood_marker_m": 3.1
+  },
+  "asset_history": {
+   "prior_visits": [
+    {
+     "asset_ref": "GT-2",
+     "defect_code": "SEAL"
+    },
+    {
+     "asset_ref": "GT-2",
+     "defect_code": "SEAL"
+    },
+    {
+     "asset_ref": "GT-2",
+     "defect_code": "SEAL"
+    },
+    {
+     "asset_ref": "GT-2",
+     "defect_code": "SEAL"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "visit_type": "planned_repair",
+  "tasks_ordered": 4,
+  "completion_state": "some_outstanding",
+  "parts_qty_mismatch": "none",
+  "hours_gap": 2.76,
+  "asset_ref_mismatch": false,
+  "post_check_result": "passed",
+  "leakage_ratio": 1.2,
+  "leakage_mitigation": true,
+  "navigation_notice_in_force": false,
+  "deferral_approved": true,
+  "prior_same_defect": 4,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "visit_type": "planned_repair",
+  "tasks_ordered": 4,
+  "completion_state": "some_outstanding",
+  "parts_qty_mismatch": "none",
+  "hours_gap": 2.76,
+  "asset_ref_mismatch": false,
+  "post_check_result": "passed",
+  "leakage_ratio": 1.2,
+  "leakage_mitigation": true,
+  "navigation_notice_in_force": false,
+  "deferral_approved": true,
+  "prior_same_defect": 4,
+  "boundary_case": false
+ },
+ "plan": {
+  "safe_to_reopen": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "record_disposition": {
+   "clarity": "clear",
+   "target": "close_visit",
+   "second": null
+  },
+  "return_urgency": {
+   "clarity": "contested",
+   "target": "within_week",
+   "second": "within_month"
+  },
+  "affected_scope": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  },
+  "section_mismatches": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 35,
+ "deciding": {
+  "safe_to_reopen": "Leakage 6 vs limit 5 exceeds limit and task 4 is still deferred, so not clear for unrestricted navigation.",
+  "record_disposition": "Deferral has ref and due date, parts not in conflict, so close as logged.",
+  "return_urgency": "Deferred task due 2025-06-20 with over-limit leakage and four prior seal defects; week and month both defensible.",
+  "affected_scope": "Single lock with a gate task deferred and four prior repeats; affects a few units.",
+  "section_mismatches": "Hours gap 2.76 is modest and may be a timing difference; otherwise sections agree, so zero or one."
+ },
+ "request": "rec-F318-0101",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.006384
+}

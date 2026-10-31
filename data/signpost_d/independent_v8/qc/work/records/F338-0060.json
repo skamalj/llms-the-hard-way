@@ -1,0 +1,156 @@
+{
+ "id": "F338-0060",
+ "family": "F338",
+ "state": {
+  "site": {
+   "id": "N40",
+   "pol": "NO2",
+   "tier": "standard",
+   "int_d": 120
+  },
+  "visit": {
+   "date": "2024-07-08",
+   "start": "13:00",
+   "end": "15:20",
+   "seq": "complete",
+   "maint": false
+  },
+  "reference": {
+   "std_id": "C3350",
+   "conc": 200,
+   "unit": "ppb",
+   "cert_no": null,
+   "cert_exp": "2025-01-04"
+  },
+  "checks": [
+   {
+    "t": "af_span",
+    "ref_id": "C3350",
+    "ref": 200,
+    "u": "ppb",
+    "rd": 201,
+    "tol": 5,
+    "ts": "13:20"
+   },
+   {
+    "t": "al_zero",
+    "ref_id": "C3350",
+    "ref": 0,
+    "u": "ppb",
+    "rd": 1,
+    "tol": 5,
+    "ts": "14:30"
+   },
+   {
+    "t": "al_span",
+    "ref_id": "C3350",
+    "ref": 200,
+    "u": "ppb",
+    "rd": 199,
+    "tol": 5,
+    "ts": "14:50"
+   }
+  ],
+  "history": {
+   "last": "2024-03-16",
+   "res": [
+    "fail",
+    "fail",
+    "pass",
+    "fail",
+    "fail"
+   ],
+   "auto": [
+    {
+     "d": "2024-03-20",
+     "r": "fail"
+    },
+    {
+     "d": "2024-03-27",
+     "r": "fail"
+    },
+    {
+     "d": "2024-04-10",
+     "r": "fail"
+    },
+    {
+     "d": "2024-07-01",
+     "r": "pass"
+    },
+    {
+     "d": "2024-07-05",
+     "r": "pass"
+    }
+   ],
+   "next_due": "2024-07-14"
+  }
+ },
+ "factors": {
+  "pollutant": "NO2",
+  "as_found_ratio": 0.2,
+  "as_left_status": "all_pass",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 180,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": false,
+  "drift_explanation": "none",
+  "days_since_last_visit": 114,
+  "visit_completeness": "complete",
+  "prior_fail_count": 4,
+  "timestamp_mismatch": "none",
+  "site_priority": "standard"
+ },
+ "factors_sampled": {
+  "pollutant": "NO2",
+  "as_found_ratio": 0.2,
+  "as_left_status": "one_point_fail",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 180,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": false,
+  "drift_explanation": "none",
+  "days_since_last_visit": 114,
+  "visit_completeness": "complete",
+  "prior_fail_count": 4,
+  "timestamp_mismatch": "none",
+  "site_priority": "standard"
+ },
+ "plan": {
+  "data_accepted": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "reference_valid": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "close_flagged",
+   "second": null
+  },
+  "flag_extent": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  },
+  "return_urgency": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  }
+ },
+ "target_words": 69,
+ "deciding": {
+  "data_accepted": "Autocheck failures on 03-20, 03-27 and 04-10 followed by no entries until 07-01, plus 4 prior fails, mean the interval data cannot stand unflagged.",
+  "reference_valid": "Identifier, units and expiry (2025-01-04) are fine, but cert_no is null, so the certificate record cannot be fully confirmed.",
+  "next_step": "The as-found and all as-left points are within tolerance so the calibration is acceptable, but the failed and missing autochecks mean prior data must be flagged.",
+  "flag_extent": "Failures start four days after the last visit and no passing autocheck appears until 07-01, so more than 30 days are affected; the gap leaves slight doubt about the exact extent.",
+  "return_urgency": "history.next_due is 2024-07-14, six days after the visit, and the as-left points pass, so a prompt return in 3-7 days is favoured over routine."
+ },
+ "request": "rec-F338-0056",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.013785
+}

@@ -1,0 +1,134 @@
+{
+ "id": "F338-0129",
+ "family": "F338",
+ "state": {
+  "site": {
+   "pol": "O3",
+   "tier": "standard",
+   "interval_days": 90
+  },
+  "visit": {
+   "date": "2025-08-12",
+   "start": "10:00",
+   "end": "12:30",
+   "seq": "complete",
+   "maint_window": true
+  },
+  "reference": {
+   "id": "C-7710",
+   "conc": 80,
+   "unit": "ppb",
+   "cert_expiry": "2025-10-02"
+  },
+  "checks": [
+   {
+    "t": "as_found",
+    "type": "span",
+    "ref_id": "C-7710",
+    "ref": 80,
+    "unit": "ppm",
+    "read": 84,
+    "tol": 8,
+    "ts": "2025-08-12T10:20"
+   },
+   {
+    "t": "as_left",
+    "type": "span",
+    "ref_id": "C-7710",
+    "ref": 80,
+    "unit": "ppm",
+    "read": 87,
+    "tol": 8,
+    "ts": "2025-08-12T11:50"
+   }
+  ],
+  "history": {
+   "last": "2025-07-17",
+   "results": [
+    "fail",
+    "fail",
+    "pass",
+    "fail",
+    "fail"
+   ],
+   "autochecks": [
+    {
+     "d": "2025-07-25",
+     "r": "pass"
+    },
+    {
+     "d": "2025-08-09",
+     "r": "pass"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "pollutant": "O3",
+  "as_found_ratio": 0.5,
+  "as_left_status": "marginal",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 51,
+  "unit_mismatch": true,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "maintenance_window",
+  "days_since_last_visit": 26,
+  "visit_completeness": "complete",
+  "prior_fail_count": 4,
+  "timestamp_mismatch": "none",
+  "site_priority": "standard"
+ },
+ "factors_sampled": {
+  "pollutant": "O3",
+  "as_found_ratio": 3.22,
+  "as_left_status": "marginal",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 51,
+  "unit_mismatch": true,
+  "interim_autocheck_pass": false,
+  "drift_explanation": "maintenance_window",
+  "days_since_last_visit": 26,
+  "visit_completeness": "complete",
+  "prior_fail_count": 4,
+  "timestamp_mismatch": "none",
+  "site_priority": "standard"
+ },
+ "plan": {
+  "data_accepted": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "reference_valid": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "withdraw",
+   "second": null
+  },
+  "flag_extent": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "return_urgency": {
+   "clarity": "contested",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 73,
+ "deciding": {
+  "data_accepted": "The as-found deviation is 4 against tol 8, the autochecks pass up to 2025-08-09, and the maintenance window flag explains drift, so data stands.",
+  "reference_valid": "The check units are ppm while reference.unit is ppb, with the ref_conc of 80 unconverted. The id and expiry agree, so a mere labelling slip is still plausible.",
+  "next_step": "Four fails in history.results and a marginal as-left (7 vs 8 tol) point to a recurring fault needing workshop repair. The passing autochecks leave some doubt.",
+  "flag_extent": "The frequent history fails could mean the problem predates the last visit, giving more than 30 days. Only 26 days have passed since that visit, and autochecks have passed since 2025-07-25, so 8-30 is plausible.",
+  "return_urgency": "The unit is withdrawn and the passing autochecks leave no urgency, so routine fits. A planned extra visit in 8-30 days is equally defensible."
+ },
+ "request": "rec-F338-0126",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.0108
+}

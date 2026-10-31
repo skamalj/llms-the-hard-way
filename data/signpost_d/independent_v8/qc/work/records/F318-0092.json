@@ -1,0 +1,169 @@
+{
+ "id": "F318-0092",
+ "family": "F318",
+ "state": {
+  "work_order": {
+   "wo_id": "WO-8820",
+   "lock_id": "L07",
+   "visit_type": "planned_repair",
+   "tasks": [
+    {
+     "task_id": "T1",
+     "asset_ref": "GT-E"
+    },
+    {
+     "task_id": "T2",
+     "asset_ref": "GT-E"
+    },
+    {
+     "task_id": "T3",
+     "asset_ref": "GT-E"
+    },
+    {
+     "task_id": "T4",
+     "asset_ref": "GT-E"
+    },
+    {
+     "task_id": "T5",
+     "asset_ref": "GT-E"
+    }
+   ],
+   "nav_notice": {
+    "in_force": true,
+    "from": "2024-05-01",
+    "to": "2024-05-20",
+    "scope_assets": [
+     "GT-E"
+    ]
+   }
+  },
+  "visit_log": {
+   "arrived": "2024-05-08T09:00",
+   "departed": "2024-05-08T12:00",
+   "crew_size": 2,
+   "timesheet_hours": 6.61,
+   "task_status": [
+    {
+     "task_id": "T1",
+     "status": "done"
+    },
+    {
+     "task_id": "T2",
+     "status": "done"
+    },
+    {
+     "task_id": "T3",
+     "status": "done"
+    },
+    {
+     "task_id": "T4",
+     "status": "done"
+    },
+    {
+     "task_id": "T5",
+     "status": "temp_fix",
+     "deferral_ref": null,
+     "deferral_due": null
+    }
+   ]
+  },
+  "materials": {
+   "issued": [
+    {
+     "part_no": "SEAL-9",
+     "task_id": "T5",
+     "qty": 6
+    }
+   ],
+   "returned": [],
+   "fitted": [
+    {
+     "part_no": "SEAL-9",
+     "task_id": "T5",
+     "qty": 4
+    }
+   ]
+  },
+  "checks": {
+   "post_checks": [
+    {
+     "asset_ref": "GT-E",
+     "result": "pass"
+    }
+   ],
+   "leakage_ls": 15.3,
+   "leakage_limit_ls": 10,
+   "river_level_m": 1.2,
+   "flood_marker_m": 1.8,
+   "gauge_cal_due": "2025-01-01"
+  }
+ },
+ "factors": {
+  "visit_type": "planned_repair",
+  "tasks_ordered": 5,
+  "completion_state": "temporary_fix",
+  "parts_qty_mismatch": "moderate",
+  "hours_gap": 0.61,
+  "asset_ref_mismatch": false,
+  "post_check_result": "passed",
+  "leakage_ratio": 1.53,
+  "leakage_mitigation": false,
+  "navigation_notice_in_force": true,
+  "deferral_approved": false,
+  "prior_same_defect": 1,
+  "boundary_case": true
+ },
+ "factors_sampled": {
+  "visit_type": "planned_repair",
+  "tasks_ordered": 5,
+  "completion_state": "temporary_fix",
+  "parts_qty_mismatch": "moderate",
+  "hours_gap": 0.61,
+  "asset_ref_mismatch": false,
+  "post_check_result": "passed",
+  "leakage_ratio": 1.53,
+  "leakage_mitigation": false,
+  "navigation_notice_in_force": false,
+  "deferral_approved": false,
+  "prior_same_defect": 1,
+  "boundary_case": true
+ },
+ "plan": {
+  "safe_to_reopen": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "record_disposition": {
+   "clarity": "balanced",
+   "target": "close_with_followup",
+   "second": "hold_query"
+  },
+  "return_urgency": {
+   "clarity": "clear",
+   "target": "within_week",
+   "second": null
+  },
+  "affected_scope": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "section_mismatches": {
+   "clarity": "contested",
+   "target": "1",
+   "second": "2"
+  }
+ },
+ "target_words": 52,
+ "deciding": {
+  "safe_to_reopen": "Leakage is 15.3 against a limit of 10, with river below the flood marker and gauge calibration in date, so nothing explains it. T5 is only a temp_fix and the nav notice is still in force on GT-E.",
+  "record_disposition": "The SEAL-9 gap (issued 6, returned 0, fitted 4) and the unreferenced temp_fix could be closed with a follow-up job, or held for a crew query. Both are defensible.",
+  "return_urgency": "T5 is a temp_fix with no deferral ref or due date, and the nav notice still restricts GT-E, so a return within 7 days is needed.",
+  "affected_scope": "Every task and the nav notice concern the single asset GT-E. One lock gate is level 0, though a reader might count the gate's two leaves.",
+  "section_mismatches": "The SEAL-9 quantity mismatch is one. The 0.61h timesheet excess over the 6h span is small and may or may not count as a second."
+ },
+ "request": "rec-F318-0091",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.015276
+}

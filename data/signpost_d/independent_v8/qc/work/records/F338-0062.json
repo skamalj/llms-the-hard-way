@@ -1,0 +1,137 @@
+{
+ "id": "F338-0062",
+ "family": "F338",
+ "state": {
+  "site": {
+   "id": "S-207",
+   "pollutant": "O3",
+   "tier": "standard",
+   "service_interval_days": 56,
+   "approved_interval_days": 56
+  },
+  "visit": {
+   "id": "V-9034",
+   "date": "2024-06-20",
+   "start": "13:00",
+   "end": "14:00",
+   "sequence_status": "aborted",
+   "maint_window": true
+  },
+  "reference": {
+   "standard_id": "CYL-22061",
+   "conc": 80,
+   "unit": "ppb",
+   "cert_expiry": "2024-09-08"
+  },
+  "checks": [
+   {
+    "type": "as_found_span",
+    "ref_id": "CYL-22061",
+    "ref_conc": 80,
+    "unit": "ppb",
+    "reading": 71,
+    "tol": 4,
+    "ts": "2024-06-20T13:20"
+   },
+   {
+    "type": "as_left_span",
+    "ref_id": "CYL-22061",
+    "ref_conc": 80,
+    "unit": "ppb",
+    "reading": null,
+    "tol": 4,
+    "ts": "2024-06-20T14:05"
+   }
+  ],
+  "history": {
+   "last_visit": "2024-04-24",
+   "results": [
+    "pass",
+    "fail"
+   ],
+   "autochecks": [
+    {
+     "d": "2024-05-01",
+     "r": "fail"
+    },
+    {
+     "d": "2024-05-02",
+     "r": "fail"
+    }
+   ]
+  },
+  "instrument": {
+   "serial": "A-7710",
+   "temp_min": 12,
+   "temp_max": 29
+  }
+ },
+ "factors": {
+  "pollutant": "O3",
+  "as_found_ratio": 1.5,
+  "as_left_status": "one_point_fail",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 80,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": false,
+  "drift_explanation": "maintenance_window",
+  "days_since_last_visit": 57,
+  "visit_completeness": "aborted_power",
+  "prior_fail_count": 1,
+  "timestamp_mismatch": "minutes_outside",
+  "site_priority": "standard"
+ },
+ "factors_sampled": {
+  "pollutant": "O3",
+  "as_found_ratio": 1.5,
+  "as_left_status": "one_point_fail",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 80,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": false,
+  "drift_explanation": "maintenance_window",
+  "days_since_last_visit": 57,
+  "visit_completeness": "aborted_power",
+  "prior_fail_count": 1,
+  "timestamp_mismatch": "minutes_outside",
+  "site_priority": "standard"
+ },
+ "plan": {
+  "data_accepted": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "reference_valid": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "recalibrate",
+   "second": null
+  },
+  "flag_extent": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  },
+  "return_urgency": {
+   "clarity": "balanced",
+   "target": "4",
+   "second": "3"
+  }
+ },
+ "target_words": 59,
+ "deciding": {
+  "data_accepted": "As-found span 71 vs 80 exceeds tol 4 and autochecks failed in May.",
+  "reference_valid": "The reference conc 80, ID, unit and expiry agree, with certificate details present, so it is valid. The planned false answer is not supported by any field: expiry 2024-09-08 is after visit and no mismatch exists.",
+  "next_step": "Sequence aborted and as-left reading is null, so calibration is incomplete.",
+  "flag_extent": "Failed autochecks in early May with 57 days since last visit point to 8-30 days.",
+  "return_urgency": "The aborted visit leaves the analyser uncalibrated; same-day versus 1-2 day return is balanced."
+ },
+ "request": "rec-F338-0061",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.006891
+}

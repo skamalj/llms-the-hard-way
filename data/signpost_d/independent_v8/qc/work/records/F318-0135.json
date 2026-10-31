@@ -1,0 +1,196 @@
+{
+ "id": "F318-0135",
+ "family": "F318",
+ "state": {
+  "work_order": {
+   "wo_id": "WO-6117",
+   "lock_id": "L30",
+   "visit_type": "reactive_callout",
+   "tasks": [
+    {
+     "task_id": "T1",
+     "asset_ref": "D1"
+    },
+    {
+     "task_id": "T2",
+     "asset_ref": "D2"
+    },
+    {
+     "task_id": "T3",
+     "asset_ref": "D3"
+    },
+    {
+     "task_id": "T4",
+     "asset_ref": "D4"
+    },
+    {
+     "task_id": "T5",
+     "asset_ref": "D5"
+    },
+    {
+     "task_id": "T6",
+     "asset_ref": "D6"
+    }
+   ],
+   "nav_notice": {
+    "in_force": false
+   }
+  },
+  "visit_log": {
+   "arrived": "2025-04-08T10:00",
+   "departed": "2025-04-08T13:00",
+   "crew_size": 2,
+   "timesheet_hours": 6.5,
+   "task_status": [
+    {
+     "task_id": "T1",
+     "status": "done"
+    },
+    {
+     "task_id": "T2",
+     "status": "done"
+    },
+    {
+     "task_id": "T3",
+     "status": "done"
+    },
+    {
+     "task_id": "T4",
+     "status": "done"
+    },
+    {
+     "task_id": "T5",
+     "status": "done"
+    },
+    {
+     "task_id": "T6",
+     "status": "done"
+    }
+   ]
+  },
+  "checks": {
+   "post_checks": [
+    {
+     "asset_ref": "D1",
+     "result": "pass"
+    },
+    {
+     "asset_ref": "D2",
+     "result": "pass"
+    },
+    {
+     "asset_ref": "D3",
+     "result": "pass"
+    },
+    {
+     "asset_ref": "D4",
+     "result": "pass"
+    },
+    {
+     "asset_ref": "D5",
+     "result": "pass"
+    },
+    {
+     "asset_ref": "D6",
+     "result": "pass"
+    }
+   ],
+   "leakage_ls": 9.5,
+   "leakage_limit_ls": 10
+  },
+  "asset_history": {
+   "prior_visits": [
+    {
+     "date": "2024-05-01",
+     "asset_ref": "D6",
+     "defect_code": "SILL-WEAR"
+    },
+    {
+     "date": "2024-09-01",
+     "asset_ref": "D6",
+     "defect_code": "SILL-WEAR"
+    },
+    {
+     "date": "2025-01-05",
+     "asset_ref": "D6",
+     "defect_code": "SILL-WEAR"
+    }
+   ],
+   "open_defects": [
+    {
+     "defect_code": "SILL-WEAR",
+     "asset_ref": "D6",
+     "raised": "2025-04-08"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "visit_type": "reactive_callout",
+  "tasks_ordered": 6,
+  "completion_state": "all_done",
+  "parts_qty_mismatch": "none",
+  "hours_gap": 1.08,
+  "asset_ref_mismatch": false,
+  "post_check_result": "passed",
+  "leakage_ratio": 0.95,
+  "leakage_mitigation": false,
+  "navigation_notice_in_force": false,
+  "deferral_approved": false,
+  "prior_same_defect": 3,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "visit_type": "reactive_callout",
+  "tasks_ordered": 6,
+  "completion_state": "all_done",
+  "parts_qty_mismatch": "none",
+  "hours_gap": 1.42,
+  "asset_ref_mismatch": false,
+  "post_check_result": "passed",
+  "leakage_ratio": 1.67,
+  "leakage_mitigation": false,
+  "navigation_notice_in_force": false,
+  "deferral_approved": false,
+  "prior_same_defect": 3,
+  "boundary_case": false
+ },
+ "plan": {
+  "safe_to_reopen": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "record_disposition": {
+   "clarity": "clear",
+   "target": "close_with_followup",
+   "second": null
+  },
+  "return_urgency": {
+   "clarity": "leaning",
+   "target": "within_month",
+   "second": null
+  },
+  "affected_scope": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "section_mismatches": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 61,
+ "deciding": {
+  "safe_to_reopen": "All six checks pass and leakage 9.5 is under limit 10, but a new SILL-WEAR defect on D6 is open.",
+  "record_disposition": "All tasks done and checks pass, with a minor open SILL-WEAR on D6 (third recurrence) needing a separate follow-up job.",
+  "return_urgency": "Leakage within limit, no restriction; the recurring non-restricting SILL-WEAR on D6 calls for extra attendance within 28 days.",
+  "affected_scope": "The open defect is on one asset, D6, so it affects one unit; a related adjacent asset could make it two.",
+  "section_mismatches": "Timesheet 6.5 h vs 6 h (3 h x 2) is a small overage that may or may not be counted; everything else reconciles."
+ },
+ "request": "rec-F318-0131",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.01483
+}

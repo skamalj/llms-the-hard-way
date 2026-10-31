@@ -1,0 +1,148 @@
+{
+ "id": "F324-0084",
+ "family": "F324",
+ "state": {
+  "zone": {
+   "dripper_count": 100,
+   "valve_id": "V21"
+  },
+  "schedule": {
+   "dripper_count_assumed": 98,
+   "ml_per_dripper": [
+    100,
+    100,
+    100,
+    100
+   ],
+   "valve_s": 500,
+   "drain_target_pct": [
+    15,
+    25
+   ],
+   "overrides": [
+    {
+     "approved_by_role": "head_grower",
+     "reduction_pct": 25
+    }
+   ]
+  },
+  "controller_log": {
+   "date": "2025-04-20",
+   "valve_open_s": [
+    500,
+    500,
+    500,
+    500
+   ],
+   "delivered_l": [
+    7.4,
+    7.6,
+    8.5,
+    6.6
+   ],
+   "line_pressure_bar": [
+    1.6,
+    1.6,
+    1.7,
+    1.6
+   ],
+   "spec_bar": 2.0,
+   "daily_total_l": 30.1,
+   "meter_total_l": 30.0
+  },
+  "drainage": {
+   "drain_pct": [
+    14.0,
+    15.0
+   ],
+   "catch_test": {
+    "ordered": false,
+    "result": null
+   }
+  },
+  "sensors": {
+   "meter_last_calibrated": "2024-04-14"
+  },
+  "maintenance": {
+   "alarms": [
+    {
+     "code": "TANK_LOW",
+     "acknowledged": true,
+     "cleared": true
+    }
+   ],
+   "recent_work_orders": [
+    {
+     "id": "WO-190",
+     "closed": "2025-01-08"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "delivery_shortfall_pct": 0.3,
+  "mismatch_location": "dripper_count_mismatch",
+  "fault_cause": "low_supply_pressure",
+  "approved_override": true,
+  "maintenance_window_active": false,
+  "drain_offset_points": 0.5,
+  "off_tolerance_cycles": 2,
+  "meter_calibration_age_days": 371,
+  "confirmation_pending": false,
+  "pressure_state": "low",
+  "benign_alarm_decoy": "tank_alarm_cleared",
+  "recent_work_orders": 1
+ },
+ "factors_sampled": {
+  "delivery_shortfall_pct": 25.75,
+  "mismatch_location": "dripper_count_mismatch",
+  "fault_cause": "sensor_drift",
+  "approved_override": true,
+  "maintenance_window_active": false,
+  "drain_offset_points": 9.25,
+  "off_tolerance_cycles": 2,
+  "meter_calibration_age_days": 371,
+  "confirmation_pending": false,
+  "pressure_state": "low",
+  "benign_alarm_decoy": "tank_alarm_cleared",
+  "recent_work_orders": 1
+ },
+ "plan": {
+  "under_dosed": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "emitter_clogging": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "next_action": {
+   "clarity": "balanced",
+   "target": "adjust_schedule",
+   "second": "dispatch_repair"
+  },
+  "drain_deviation": {
+   "clarity": "contested",
+   "target": "0",
+   "second": "1"
+  },
+  "off_plan_cycles": {
+   "clarity": "clear",
+   "target": "2",
+   "second": null
+  }
+ },
+ "target_words": 82,
+ "deciding": {
+  "under_dosed": "Approved 25% reduction gives 30 L; delivered and metered are 30.1 and 30.0 L. That is within 10% of the reduced plan, so not under-dosed. The assumed count of 98 versus the zone's 100 is a trivial difference.",
+  "emitter_clogging": "There is no shortfall against the reduced plan to explain. Line pressure of 1.6 bar is below the 2.0 spec, which accounts for the readings, and valve time is full.",
+  "next_action": "Cycle volumes are uneven and supply pressure is under spec, which fits a setpoint change. A persistent low-pressure fault could instead warrant a physical check.",
+  "drain_deviation": "Mean drain is 14.5% against a 15-25% band, 0.5 points below the edge. This is a rounding-level miss, so in band or slight are both arguable.",
+  "off_plan_cycles": "Against 7.5 L reduced plan, 8.5 L (13% over) and 6.6 L (12% under) are off; 7.4 and 7.6 L are within 2%. That is exactly two cycles."
+ },
+ "request": "rec-F324-0081",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.015356
+}

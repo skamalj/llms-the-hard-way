@@ -1,0 +1,140 @@
+{
+ "id": "F302-0108",
+ "family": "F302",
+ "state": {
+  "subject": {
+   "screening_no": "S-3318",
+   "initials": "RTB"
+  },
+  "consent": {
+   "form": "v1",
+   "current": "v1",
+   "signed": "2024-06-01",
+   "initials": "RTB"
+  },
+  "visit": {
+   "date": "2024-06-03",
+   "review": "2024-06-13",
+   "window_days": 10
+  },
+  "labs": {
+   "max_repeats": 1,
+   "items": [
+    {
+     "code": "eGFR",
+     "value": 72,
+     "unit": "mL/min",
+     "threshold": 60,
+     "flag": "H",
+     "collected": "2024-06-03",
+     "valid_days": 7,
+     "repeat": false,
+     "requisition_screening_no": "S-3318"
+    }
+   ]
+  },
+  "eligibility": {
+   "criteria": [
+    {
+     "code": "eGFR",
+     "operator": "gt",
+     "recorded_value": 72,
+     "unit": "mL/min",
+     "met": true
+    }
+   ],
+   "signoff": {
+    "signed": true,
+    "date": "2024-06-05"
+   },
+   "queries": [
+    {
+     "status": "open",
+     "item": "criteria.eGFR"
+    },
+    {
+     "status": "closed"
+    }
+   ]
+  },
+  "conmeds": {
+   "prohibited_classes": [
+    "anticoagulant"
+   ],
+   "washout_days": 7,
+   "items": [
+    {
+     "class": "antihypertensive",
+     "start": "2023-01-10",
+     "stop": null
+    }
+   ]
+  }
+ },
+ "factors": {
+  "lab_reconciliation": "identical",
+  "consent_status": "current_ok",
+  "window_days_remaining": -2,
+  "collection_date_mismatch": "within_window",
+  "prohibited_conmed": false,
+  "washout_completed": false,
+  "out_of_range_lab": false,
+  "valid_repeat_on_file": "none",
+  "boundary_value": false,
+  "identifier_mismatch": "none",
+  "investigator_signoff": "signed_after_results",
+  "open_query_count": 1
+ },
+ "factors_sampled": {
+  "lab_reconciliation": "identical",
+  "consent_status": "current_ok",
+  "window_days_remaining": 4,
+  "collection_date_mismatch": "within_window",
+  "prohibited_conmed": false,
+  "washout_completed": false,
+  "out_of_range_lab": true,
+  "valid_repeat_on_file": "none",
+  "boundary_value": false,
+  "identifier_mismatch": "screening_no_differs",
+  "investigator_signoff": "signed_after_results",
+  "open_query_count": 1
+ },
+ "plan": {
+  "eligibility_proven": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "hold_query",
+   "second": null
+  },
+  "primary_issue": {
+   "clarity": "clear",
+   "target": "no_issue",
+   "second": null
+  },
+  "affected_scope": {
+   "clarity": "contested",
+   "target": "0",
+   "second": "1"
+  },
+  "window_left": {
+   "clarity": "clear",
+   "target": "0",
+   "second": null
+  }
+ },
+ "target_words": 97,
+ "deciding": {
+  "eligibility_proven": "eGFR 72 against threshold 60 reconciles, the H flag is only a reference-range decoy, and sign-off follows the lab; one open query on the eGFR criterion keeps proof short of certain.",
+  "next_step": "Exactly one open query (item criteria.eGFR) is the single confirmable gap.",
+  "primary_issue": "Consent, identifiers, labs and conmeds all reconcile; the only open item is a query.",
+  "affected_scope": "A single subject and a single query item, but whether a lone query counts as one or two units is arguable.",
+  "window_left": "Consent 06-01 plus 10 days closes 06-11; review 06-13 is after it, so the window is closed."
+ },
+ "request": "rec-F302-0106",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.009847
+}

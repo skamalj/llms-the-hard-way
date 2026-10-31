@@ -1,0 +1,179 @@
+{
+ "id": "F318-0107",
+ "family": "F318",
+ "state": {
+  "work_order": {
+   "visit_type": "routine_inspection",
+   "tasks": [
+    {
+     "task_id": "T1",
+     "asset_ref": "GATE-1"
+    },
+    {
+     "task_id": "T2",
+     "asset_ref": "GATE-2"
+    },
+    {
+     "task_id": "T3",
+     "asset_ref": "PADDLE-1"
+    },
+    {
+     "task_id": "T4",
+     "asset_ref": "SILL-1"
+    }
+   ],
+   "nav_notice": {
+    "in_force": false,
+    "bookings_7d": 5
+   }
+  },
+  "visit_log": {
+   "arrived": "2025-03-12T09:00",
+   "departed": "2025-03-12T13:00",
+   "crew_size": 3,
+   "timesheet_hours": 9.43,
+   "task_status": [
+    {
+     "task_id": "T1",
+     "status": "done"
+    },
+    {
+     "task_id": "T2",
+     "status": "done"
+    },
+    {
+     "task_id": "T3",
+     "status": "done"
+    },
+    {
+     "task_id": "T4",
+     "status": "done"
+    }
+   ]
+  },
+  "materials": {
+   "issued": [
+    {
+     "part_no": "B5",
+     "task_id": "T2",
+     "qty": 25
+    }
+   ],
+   "returned": [],
+   "fitted": [
+    {
+     "part_no": "B5",
+     "task_id": "T2",
+     "qty": 24
+    }
+   ]
+  },
+  "checks": {
+   "post_checks": [
+    {
+     "asset_ref": "GATE-1",
+     "result": "pass",
+     "checked_at": "2025-03-12T12:20"
+    },
+    {
+     "asset_ref": "GATE-2",
+     "result": "pass",
+     "checked_at": "2025-03-12T12:30"
+    },
+    {
+     "asset_ref": "PADDLE-1",
+     "result": "pass",
+     "checked_at": "2025-03-12T12:40"
+    },
+    {
+     "asset_ref": "SILL-1",
+     "result": "pass",
+     "checked_at": "2025-03-12T12:50"
+    }
+   ],
+   "leakage_ls": 6.96,
+   "leakage_limit_ls": 4.0,
+   "river_level_m": 2.4,
+   "flood_marker_m": 2.0,
+   "gauge_cal_due": "2025-11-01"
+  },
+  "asset_history": {
+   "prior_visits": [
+    {
+     "date": "2022-05-02",
+     "asset_ref": "SILL-1",
+     "defect_code": "D04"
+    }
+   ],
+   "open_defects": []
+  }
+ },
+ "factors": {
+  "visit_type": "routine_inspection",
+  "tasks_ordered": 4,
+  "completion_state": "all_done",
+  "parts_qty_mismatch": "trivial",
+  "hours_gap": 2.57,
+  "asset_ref_mismatch": false,
+  "post_check_result": "passed",
+  "leakage_ratio": 1.74,
+  "leakage_mitigation": true,
+  "navigation_notice_in_force": false,
+  "deferral_approved": false,
+  "prior_same_defect": 1,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "visit_type": "routine_inspection",
+  "tasks_ordered": 7,
+  "completion_state": "none_done",
+  "parts_qty_mismatch": "trivial",
+  "hours_gap": 2.57,
+  "asset_ref_mismatch": false,
+  "post_check_result": "failed",
+  "leakage_ratio": 1.74,
+  "leakage_mitigation": true,
+  "navigation_notice_in_force": false,
+  "deferral_approved": true,
+  "prior_same_defect": 1,
+  "boundary_case": false
+ },
+ "plan": {
+  "safe_to_reopen": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "record_disposition": {
+   "clarity": "clear",
+   "target": "close_visit",
+   "second": null
+  },
+  "return_urgency": {
+   "clarity": "leaning",
+   "target": "next_scheduled",
+   "second": null
+  },
+  "affected_scope": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  },
+  "section_mismatches": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  }
+ },
+ "target_words": 78,
+ "deciding": {
+  "safe_to_reopen": "All four checks pass and no open defects; leakage 6.96 vs 4.0 is over limit but river 2.4 m is above the 2.0 m flood marker, which explains it.",
+  "record_disposition": "All tasks done, checks pass, open_defects empty; only a 1-unit bolt rounding difference and the hours gap, so close as logged.",
+  "return_urgency": "No open defects and the high leakage is explained by high river level; no restriction in force, so the next cycle suffices, with slight doubt over the leakage.",
+  "affected_scope": "bookings_7d is 5, at the top of the two-to-five band and next to six, so level 1 or 2 are both defensible.",
+  "section_mismatches": "Timesheet 9.43 h vs 12 expected is one unexplained mismatch; the B5 fitted 24 vs issued 25 with no return is pack-rounding that might be counted as a second."
+ },
+ "request": "rec-F318-0106",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.013642
+}

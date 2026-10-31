@@ -1,0 +1,128 @@
+{
+ "id": "F302-0061",
+ "family": "F302",
+ "state": {
+  "consent": {
+   "form_version": "3.0",
+   "current_version": "3.0",
+   "signed_date": "2025-03-03"
+  },
+  "visit": {
+   "visit_date": "2025-03-04",
+   "review_date": "2025-03-14",
+   "window_days": 14
+  },
+  "labs": [
+   {
+    "test": "ALT",
+    "value": 40,
+    "unit": "U/L",
+    "threshold": 40,
+    "threshold_format": "<=",
+    "collected": "2025-02-10",
+    "valid_days": 30,
+    "repeat": true
+   }
+  ],
+  "eligibility": {
+   "criteria": [
+    {
+     "id": "E3",
+     "operator": "lt",
+     "recorded_value": 40,
+     "unit": "U/L",
+     "met": true
+    }
+   ],
+   "signoff": {
+    "signed": false
+   },
+   "queries": [
+    {
+     "status": "open"
+    },
+    {
+     "status": "open"
+    }
+   ]
+  },
+  "conmeds": {
+   "prohibited_classes": [
+    "steroid"
+   ],
+   "washout_days": 14,
+   "items": [
+    {
+     "class": "steroid",
+     "stop": "2025-02-01"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "lab_reconciliation": "threshold_crossing",
+  "consent_status": "current_ok",
+  "window_days_remaining": 3,
+  "collection_date_mismatch": "outside_validity",
+  "prohibited_conmed": true,
+  "washout_completed": true,
+  "out_of_range_lab": false,
+  "valid_repeat_on_file": "valid_repeat_in_range",
+  "boundary_value": true,
+  "identifier_mismatch": "none",
+  "investigator_signoff": "unsigned",
+  "open_query_count": 2
+ },
+ "factors_sampled": {
+  "lab_reconciliation": "threshold_crossing",
+  "consent_status": "current_ok",
+  "window_days_remaining": 8,
+  "collection_date_mismatch": "outside_validity",
+  "prohibited_conmed": true,
+  "washout_completed": true,
+  "out_of_range_lab": false,
+  "valid_repeat_on_file": "valid_repeat_in_range",
+  "boundary_value": true,
+  "identifier_mismatch": "none",
+  "investigator_signoff": "unsigned",
+  "open_query_count": 2
+ },
+ "plan": {
+  "eligibility_proven": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "rescreen",
+   "second": null
+  },
+  "primary_issue": {
+   "clarity": "balanced",
+   "target": "no_issue",
+   "second": "clinical_value"
+  },
+  "affected_scope": {
+   "clarity": "contested",
+   "target": "1",
+   "second": "0"
+  },
+  "window_left": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  }
+ },
+ "target_words": 69,
+ "deciding": {
+  "eligibility_proven": "ALT collected 2025-02-10 with 30-day validity is expired at the visit, signoff is unsigned, 2 queries are open, and the value equals the threshold under operator lt.",
+  "next_step": "The expired lab is a repeatable defect pointing to rescreen, but the open queries leave some doubt that a query could suffice.",
+  "primary_issue": "The boundary ALT (40 under lt versus <=) is a clinical-value conflict, but the lab is stale and washout is complete, so no_issue stays plausible.",
+  "affected_scope": "One subject record is affected, but the two open queries could be read as touching a second unit.",
+  "window_left": "Signed 03-03 plus 14 days closes 03-17; review 03-14 leaves 3 days, at the edge of the 4-10 band."
+ },
+ "request": "rec-F302-0061",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.008307
+}

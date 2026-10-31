@@ -1,0 +1,127 @@
+{
+ "id": "F333-0067",
+ "family": "F333",
+ "state": {
+  "tenancy": {
+   "start_date": "2024-09-02",
+   "end_date": "2024-10-02",
+   "deposit_dispute_lodged": true
+  },
+  "checkin_inventory": null,
+  "checkout_inspection": {
+   "inspection_type": "checkout",
+   "inspection_date": "2024-10-02",
+   "items": [
+    {
+     "item_code": "DR1",
+     "grade": "damaged",
+     "defect_category": "fire_door_closer",
+     "photo_refs": [
+      "p7"
+     ]
+    },
+    {
+     "item_code": "DK3",
+     "grade": "good",
+     "photo_refs": [
+      "p8"
+     ]
+    }
+   ]
+  },
+  "proposed_charges": {
+   "lines": [
+    {
+     "item_code": "DR1",
+     "qty": 1,
+     "unit_rate": 45,
+     "line_total": 45
+    },
+    {
+     "item_code": "DK3",
+     "qty": 1,
+     "unit_rate": 20,
+     "line_total": 20
+    }
+   ],
+   "summary_total": 65
+  },
+  "works_orders": [
+   {
+    "wo_id": "W9",
+    "raised_date": "2024-08-20",
+    "location": "bathroom",
+    "category": "plumbing",
+    "status": "completed"
+   }
+  ]
+ },
+ "factors": {
+  "inspection_type": "checkout",
+  "checkin_inventory_state": "missing",
+  "prior_damage_on_charged_item": "none",
+  "charge_discrepancy": "small_under_25",
+  "worst_defect_tier": "safety",
+  "true_cause": "resident_damage",
+  "predating_works_order": false,
+  "safety_fault_remedied": false,
+  "photo_coverage": "full",
+  "tenancy_months": 1,
+  "date_out_of_order": false,
+  "deposit_dispute_lodged": true,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "inspection_type": "checkout",
+  "checkin_inventory_state": "missing",
+  "prior_damage_on_charged_item": "none",
+  "charge_discrepancy": "large_over_100",
+  "worst_defect_tier": "functional",
+  "true_cause": "resident_damage",
+  "predating_works_order": true,
+  "safety_fault_remedied": true,
+  "photo_coverage": "full",
+  "tenancy_months": 1,
+  "date_out_of_order": false,
+  "deposit_dispute_lodged": true,
+  "boundary_case": false
+ },
+ "plan": {
+  "checkin_clean": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "disposition": {
+   "clarity": "clear",
+   "target": "hold_for_evidence",
+   "second": null
+  },
+  "main_cause": {
+   "clarity": "leaning",
+   "target": "resident_damage",
+   "second": null
+  },
+  "defect_severity": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  },
+  "charge_gap": {
+   "clarity": "contested",
+   "target": "1",
+   "second": "0"
+  }
+ },
+ "target_words": 87,
+ "deciding": {
+  "checkin_clean": "checkin_inventory is null so cleanliness is unproven, but one-month tenancy makes prior damage plausibly absent.",
+  "disposition": "Single missing item: the check-in inventory is null; checkout is complete and photographed.",
+  "main_cause": "Only works order is for bathroom plumbing, unrelated to the door; short tenancy.",
+  "defect_severity": "DR1 defect_category fire_door_closer.",
+  "charge_gap": "DK3 charged but graded good at checkout, a £20 line without support; without check-in baseline, DR1 is also unproven, so gap is 20 or 0."
+ },
+ "request": "rec-F333-0066",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.00569
+}

@@ -1,0 +1,149 @@
+{
+ "id": "F324-0122",
+ "family": "F324",
+ "state": {
+  "zone": {
+   "zone_id": "G2-C1",
+   "dripper_count": 300
+  },
+  "schedule": {
+   "cycles": [
+    {
+     "start": "06:00",
+     "planned_ml_per_dripper": 100
+    },
+    {
+     "start": "09:00",
+     "planned_ml_per_dripper": 100
+    },
+    {
+     "start": "12:00",
+     "planned_ml_per_dripper": 100
+    },
+    {
+     "start": "15:00",
+     "planned_ml_per_dripper": 100
+    }
+   ],
+   "drain_target_pct": {
+    "min": 25,
+    "max": 35
+   },
+   "overrides": [
+    {
+     "approved_by_role": "head_grower",
+     "reduction_pct": 10
+    }
+   ]
+  },
+  "controller_log": {
+   "cycles": [
+    {
+     "delivered_l": 26.9
+    },
+    {
+     "delivered_l": 27.4
+    },
+    {
+     "delivered_l": 27.4
+    },
+    {
+     "delivered_l": 27.5
+    }
+   ],
+   "daily_total_l": 109.2,
+   "meter_total_l": 109.9
+  },
+  "drainage": {
+   "drain_pct": [
+    19.6,
+    20.2,
+    20.0
+   ]
+  },
+  "sensors": {
+   "handwater_at": "06:00",
+   "moist_spike_at": "06:10"
+  },
+  "maintenance": {
+   "alarms": [
+    {
+     "code": "MOIST_HI",
+     "acknowledged": true,
+     "cleared": true
+    }
+   ],
+   "recent_work_orders": [
+    "2025-04-02",
+    "2025-02-11",
+    "2024-12-05"
+   ]
+  }
+ },
+ "factors": {
+  "delivery_shortfall_pct": 8.96,
+  "mismatch_location": "meter_vs_controller",
+  "fault_cause": "none",
+  "approved_override": true,
+  "maintenance_window_active": false,
+  "drain_offset_points": -5.07,
+  "off_tolerance_cycles": 1,
+  "meter_calibration_age_days": 365,
+  "confirmation_pending": false,
+  "pressure_state": "normal",
+  "benign_alarm_decoy": "post_handwater_moisture",
+  "recent_work_orders": 3
+ },
+ "factors_sampled": {
+  "delivery_shortfall_pct": 8.96,
+  "mismatch_location": "meter_vs_controller",
+  "fault_cause": "valve_fault",
+  "approved_override": true,
+  "maintenance_window_active": false,
+  "drain_offset_points": 14.92,
+  "off_tolerance_cycles": 6,
+  "meter_calibration_age_days": 365,
+  "confirmation_pending": true,
+  "pressure_state": "normal",
+  "benign_alarm_decoy": "post_handwater_moisture",
+  "recent_work_orders": 3
+ },
+ "plan": {
+  "under_dosed": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "emitter_clogging": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "next_action": {
+   "clarity": "leaning",
+   "target": "adjust_schedule",
+   "second": null
+  },
+  "drain_deviation": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  },
+  "off_plan_cycles": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 58,
+ "deciding": {
+  "under_dosed": "Delivered 109.2 L vs planned 120 L is within 10%, and an approved 10% reduction is listed.",
+  "emitter_clogging": "No material shortfall once the approved reduction is applied; the meter agrees with the controller within 1%, so there is nothing to explain.",
+  "next_action": "Delivery is explained by the override but drain sits below band, which points to a setpoint or schedule change rather than hardware or sign-off.",
+  "drain_deviation": "Drain mean about 19.9% vs band 25-35 is 5.07 points under, at the boundary between levels 1 and 2.",
+  "off_plan_cycles": "Against 30 L planned per cycle, 26.9 L is 10.3% under while the others are 8.3-9.1% under, so at most one cycle is just past tolerance."
+ },
+ "request": "rec-F324-0121",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.014522
+}

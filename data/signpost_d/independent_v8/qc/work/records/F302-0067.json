@@ -1,0 +1,120 @@
+{
+ "id": "F302-0067",
+ "family": "F302",
+ "state": {
+  "subject": {
+   "screening_no": "S-0412",
+   "initials": "KLM",
+   "site": "14"
+  },
+  "consent": {
+   "form_version": "v2",
+   "current_version": "v2",
+   "signed_date": "2025-04-03",
+   "initials": "KLM"
+  },
+  "visit": {
+   "visit_date": "2025-04-01",
+   "review_date": "2025-04-16",
+   "window_days": 14,
+   "procedures": {
+    "ECG": "2025-04-01",
+    "vitals": "2025-04-01",
+    "MRI": "2025-04-01",
+    "spirometry": "2025-04-01",
+    "biopsy": "2025-04-02",
+    "DEXA": "2025-04-02"
+   }
+  },
+  "labs": [
+   {
+    "test": "CREAT",
+    "value": 1.0,
+    "unit": "mg/dL",
+    "collected": "2025-04-01",
+    "requisition_screening_no": "S-0412"
+   }
+  ],
+  "eligibility": {
+   "criteria": [
+    {
+     "id": "E2",
+     "recorded_value": 88,
+     "unit": "umol/L",
+     "met": true
+    }
+   ],
+   "signoff": {
+    "signed": true,
+    "date": "2025-04-04"
+   },
+   "queries": []
+  }
+ },
+ "factors": {
+  "lab_reconciliation": "unit_only",
+  "consent_status": "signed_after_procedures",
+  "window_days_remaining": 1,
+  "collection_date_mismatch": "within_window",
+  "prohibited_conmed": false,
+  "washout_completed": true,
+  "out_of_range_lab": false,
+  "valid_repeat_on_file": "none",
+  "boundary_value": false,
+  "identifier_mismatch": "none",
+  "investigator_signoff": "signed_after_results",
+  "open_query_count": 0
+ },
+ "factors_sampled": {
+  "lab_reconciliation": "unit_only",
+  "consent_status": "current_ok",
+  "window_days_remaining": -1,
+  "collection_date_mismatch": "within_window",
+  "prohibited_conmed": false,
+  "washout_completed": true,
+  "out_of_range_lab": true,
+  "valid_repeat_on_file": "none",
+  "boundary_value": false,
+  "identifier_mismatch": "none",
+  "investigator_signoff": "unsigned",
+  "open_query_count": 0
+ },
+ "plan": {
+  "eligibility_proven": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "rescreen",
+   "second": null
+  },
+  "primary_issue": {
+   "clarity": "clear",
+   "target": "documentation",
+   "second": null
+  },
+  "affected_scope": {
+   "clarity": "clear",
+   "target": "2",
+   "second": null
+  },
+  "window_left": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  }
+ },
+ "target_words": 82,
+ "deciding": {
+  "eligibility_proven": "Creatinine 1.0 mg/dL matches 88 umol/L, so the values reconcile; the consent timing leaves some doubt.",
+  "next_step": "Consent was signed 04-03 after six procedures dated 04-01 and 04-02, so the visit cannot be fixed by one query and a new screening is needed.",
+  "primary_issue": "Consent signed_date is later than every procedure date, which is a consent defect and outranks other issue types.",
+  "affected_scope": "Six procedures predate consent, which falls in the 6-20 band.",
+  "window_left": "Counting from consent 04-03 plus 14 days gives 04-17 against review 04-16, so 1 day left; counted from the 04-01 visit the window is already closed."
+ },
+ "request": "rec-F302-0066",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011482
+}

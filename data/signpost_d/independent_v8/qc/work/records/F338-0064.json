@@ -1,0 +1,158 @@
+{
+ "id": "F338-0064",
+ "family": "F338",
+ "state": {
+  "site": {
+   "id": "S-052",
+   "pollutant": "SO2",
+   "tier": "indicative",
+   "service_interval_days": 28,
+   "approved_interval_days": 28
+  },
+  "visit": {
+   "id": "V-6640",
+   "date": "2024-08-12",
+   "start": "10:00",
+   "end": "11:30",
+   "sequence_status": "partial",
+   "maint_window": false
+  },
+  "reference": {
+   "standard_id": "CYL-70412",
+   "conc": 50,
+   "unit": "ppb",
+   "cert_expiry": "2025-06-03"
+  },
+  "checks": [
+   {
+    "type": "as_found_zero",
+    "ref_id": "CYL-70412",
+    "ref_conc": 0,
+    "unit": "ppb",
+    "reading": 0.5,
+    "tol": 1,
+    "ts": "2024-08-11T10:10"
+   },
+   {
+    "type": "as_found_span",
+    "ref_id": "CYL-70412",
+    "ref_conc": 50,
+    "unit": "ppb",
+    "reading": 43,
+    "tol": 2.5,
+    "ts": "2024-08-11T10:25"
+   },
+   {
+    "type": "as_left_zero",
+    "ref_id": "CYL-70412",
+    "ref_conc": 0,
+    "unit": "ppb",
+    "reading": 0.2,
+    "tol": 1,
+    "ts": "2024-08-11T11:00"
+   },
+   {
+    "type": "as_left_span",
+    "ref_id": "CYL-70412",
+    "ref_conc": 50,
+    "unit": "ppb",
+    "reading": 50,
+    "tol": 2.5,
+    "ts": "2024-08-11T11:10"
+   }
+  ],
+  "history": {
+   "last_visit": "2024-07-26",
+   "results": [
+    "pass",
+    "fail",
+    "pass",
+    "fail"
+   ],
+   "autochecks": [
+    {
+     "d": "2024-08-01",
+     "r": "pass"
+    },
+    {
+     "d": "2024-08-08",
+     "r": "pass"
+    }
+   ]
+  },
+  "instrument": {
+   "serial": "A-2087",
+   "temp_min": 15,
+   "temp_max": 26,
+   "firmware": "3.2.1"
+  }
+ },
+ "factors": {
+  "pollutant": "SO2",
+  "as_found_ratio": 2.54,
+  "as_left_status": "all_pass",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 295,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "none",
+  "days_since_last_visit": 17,
+  "visit_completeness": "multipoint_missing",
+  "prior_fail_count": 2,
+  "timestamp_mismatch": "different_day",
+  "site_priority": "indicative"
+ },
+ "factors_sampled": {
+  "pollutant": "SO2",
+  "as_found_ratio": 2.54,
+  "as_left_status": "all_pass",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 295,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "none",
+  "days_since_last_visit": 17,
+  "visit_completeness": "multipoint_missing",
+  "prior_fail_count": 2,
+  "timestamp_mismatch": "different_day",
+  "site_priority": "indicative"
+ },
+ "plan": {
+  "data_accepted": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "reference_valid": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "close_flagged",
+   "second": null
+  },
+  "flag_extent": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "return_urgency": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "4"
+  }
+ },
+ "target_words": 120,
+ "deciding": {
+  "data_accepted": "Plan true; as-left all in tolerance.",
+  "reference_valid": "ID, unit and expiry agree, but check timestamps are on 2024-08-11, not the visit date, which gives some doubt.",
+  "next_step": "As-left points pass after adjustment while as-found span 43 vs 50 exceeds tol 2.5, so prior data needs flagging.",
+  "flag_extent": "Span drift of 7 ppb with 17 days since last visit, two prior fails; over thirty days versus 8-30 days is balanced.",
+  "return_urgency": "Indicative tier, multipoint missing and timestamps off; 1-2 days versus same-day is balanced."
+ },
+ "request": "rec-F338-0061",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.006891
+}

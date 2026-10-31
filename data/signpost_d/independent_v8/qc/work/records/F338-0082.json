@@ -1,0 +1,131 @@
+{
+ "id": "F338-0082",
+ "family": "F338",
+ "state": {
+  "site": {
+   "id": "S207",
+   "pollutant": "CO",
+   "tier": "standard",
+   "service_interval_days": 30,
+   "approved_interval_days": 45
+  },
+  "visit": {
+   "date": "2025-05-12",
+   "start": "08:00",
+   "end": "09:30",
+   "sequence_status": "complete"
+  },
+  "reference": {
+   "standard_id": "C-908",
+   "conc": 40,
+   "unit": "ppm",
+   "cert_expiry": "2026-03-04"
+  },
+  "checks": [
+   {
+    "phase": "as_found",
+    "type": "span",
+    "ref_id": "C-908",
+    "unit": "ppm",
+    "ref_conc": 40,
+    "reading": 40.1,
+    "tol": 2,
+    "ts": "2025-05-12T08:20"
+   },
+   {
+    "phase": "as_left",
+    "type": "span",
+    "ref_id": "C-908",
+    "unit": "ppm",
+    "ref_conc": 40,
+    "reading": 40,
+    "tol": 2,
+    "ts": "2025-05-12T09:00"
+   }
+  ],
+  "history": {
+   "last_visit_date": "2025-04-10",
+   "results": [
+    "pass",
+    "fail",
+    "fail",
+    "pass",
+    "fail"
+   ],
+   "autochecks": [
+    {
+     "d": "2025-05-08",
+     "r": "pass"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "pollutant": "CO",
+  "as_found_ratio": 0.12,
+  "as_left_status": "all_pass",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 296,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "approved_extended_interval",
+  "days_since_last_visit": 32,
+  "visit_completeness": "complete",
+  "prior_fail_count": 3,
+  "timestamp_mismatch": "none",
+  "site_priority": "standard"
+ },
+ "factors_sampled": {
+  "pollutant": "CO",
+  "as_found_ratio": 0.12,
+  "as_left_status": "not_recorded",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 296,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "approved_extended_interval",
+  "days_since_last_visit": 32,
+  "visit_completeness": "complete",
+  "prior_fail_count": 3,
+  "timestamp_mismatch": "none",
+  "site_priority": "standard"
+ },
+ "plan": {
+  "data_accepted": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "reference_valid": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "close_flagged",
+   "second": null
+  },
+  "flag_extent": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  },
+  "return_urgency": {
+   "clarity": "leaning",
+   "target": "4",
+   "second": null
+  }
+ },
+ "target_words": 49,
+ "deciding": {
+  "data_accepted": "As-found span error is 0.1 against tolerance 2, and autochecks passed. The visit is 32 days after the last against a 30-day interval, but the 45-day approved interval covers that.",
+  "reference_valid": "The ref_id matches standard_id and units are ppm. The certificate is in date until 2026-03-04, but no certificate number is given.",
+  "next_step": "The as-left span passes and the visit is complete. The history holds 3 fails, so some prior data is likely flagged and the record closes flagged.",
+  "flag_extent": "The as-found error is tiny and the autochecks passed, so no flagging is needed. The 3 fails in history and the slightly overlong interval could justify a short flag of 1-7 days.",
+  "return_urgency": "The as-left passes and nothing in the record shows an open fault. The case for a same-day return rests only on the repeated fails in history, so this is a weak lean."
+ },
+ "request": "rec-F338-0081",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.00981
+}

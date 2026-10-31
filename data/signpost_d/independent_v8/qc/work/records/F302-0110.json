@@ -1,0 +1,139 @@
+{
+ "id": "F302-0110",
+ "family": "F302",
+ "state": {
+  "consent": {
+   "signed": "2024-08-01",
+   "reconsent": [
+    "v1>v2"
+   ]
+  },
+  "visit": {
+   "date": "2024-08-02",
+   "review": "2024-08-05",
+   "window_days": 15
+  },
+  "labs": {
+   "max_repeats": 1,
+   "items": [
+    {
+     "code": "ALT",
+     "value": 120,
+     "threshold": 100,
+     "collected": "2024-07-10",
+     "valid_days": 14,
+     "repeat": false
+    },
+    {
+     "code": "ALT",
+     "value": 80,
+     "threshold": 100,
+     "collected": "2024-08-02",
+     "repeat": true
+    }
+   ]
+  },
+  "eligibility": {
+   "criteria": [
+    {
+     "code": "ALT",
+     "recorded_value": 80,
+     "met": true
+    }
+   ],
+   "signoff": {
+    "signed": true,
+    "date": "2024-08-04"
+   },
+   "queries": [
+    {
+     "status": "open"
+    },
+    {
+     "status": "open"
+    },
+    {
+     "status": "open"
+    }
+   ]
+  },
+  "conmeds": {
+   "washout_days": 14,
+   "prohibited_classes": [
+    "statin"
+   ],
+   "items": [
+    {
+     "class": "statin",
+     "stop": "2024-07-01"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "lab_reconciliation": "threshold_crossing",
+  "consent_status": "superseded_reconsented",
+  "window_days_remaining": 11,
+  "collection_date_mismatch": "outside_validity",
+  "prohibited_conmed": true,
+  "washout_completed": true,
+  "out_of_range_lab": true,
+  "valid_repeat_on_file": "valid_repeat_in_range",
+  "boundary_value": false,
+  "identifier_mismatch": "none",
+  "investigator_signoff": "signed_after_results",
+  "open_query_count": 3
+ },
+ "factors_sampled": {
+  "lab_reconciliation": "threshold_crossing",
+  "consent_status": "superseded_reconsented",
+  "window_days_remaining": 8,
+  "collection_date_mismatch": "outside_validity",
+  "prohibited_conmed": true,
+  "washout_completed": true,
+  "out_of_range_lab": true,
+  "valid_repeat_on_file": "valid_repeat_in_range",
+  "boundary_value": false,
+  "identifier_mismatch": "none",
+  "investigator_signoff": "signed_after_results",
+  "open_query_count": 3
+ },
+ "plan": {
+  "eligibility_proven": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "hold_query",
+   "second": null
+  },
+  "primary_issue": {
+   "clarity": "clear",
+   "target": "clinical_value",
+   "second": null
+  },
+  "affected_scope": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "window_left": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 32,
+ "deciding": {
+  "eligibility_proven": "Original ALT 120 exceeds 100 and was collected outside its validity, but a repeat of 80 is on file within max_repeats 1; the three open queries add doubt.",
+  "next_step": "Three open queries on a repeat that appears valid point to a site response rather than a rescreen or fail.",
+  "primary_issue": "The ALT 120 versus threshold 100 conflict dominates; consent was re-consented and the statin washout was completed.",
+  "affected_scope": "Issue concerns one subject's ALT; whether the three queries expand it to two or more units is unclear, so level 0 versus 1.",
+  "window_left": "Consent 08-01 plus 15 days closes 08-16; review 08-05 leaves 11 days, one past the level-3 boundary of 10."
+ },
+ "request": "rec-F302-0106",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.009847
+}

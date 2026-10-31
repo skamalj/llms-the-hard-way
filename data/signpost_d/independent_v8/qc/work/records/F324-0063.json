@@ -1,0 +1,110 @@
+{
+ "id": "F324-0063",
+ "family": "F324",
+ "state": {
+  "zone": {
+   "drippers": 100
+  },
+  "schedule": {
+   "assumed_drippers": 90,
+   "ml": 200,
+   "cycles": 5,
+   "drain_pct": [
+    20,
+    30
+   ],
+   "overrides": []
+  },
+  "controller_log": {
+   "cycles_l": [
+    16.6,
+    16.6,
+    16.6,
+    17.9,
+    18.9
+   ],
+   "open_s_pct": 100,
+   "bar": 2.1,
+   "spec_bar": 2.0
+  },
+  "drainage": {
+   "drain_pct": [
+    2,
+    3
+   ]
+  },
+  "sensors": {
+   "log_date": "2024-03-20",
+   "meter_last_calibrated": "2023-12-17"
+  },
+  "maintenance": {
+   "recent_work_orders": []
+  }
+ },
+ "factors": {
+  "delivery_shortfall_pct": 13.4,
+  "mismatch_location": "dripper_count_mismatch",
+  "fault_cause": "emitter_clogging",
+  "approved_override": false,
+  "maintenance_window_active": false,
+  "drain_offset_points": -17.5,
+  "off_tolerance_cycles": 4,
+  "meter_calibration_age_days": 94,
+  "confirmation_pending": false,
+  "pressure_state": "normal",
+  "benign_alarm_decoy": "none",
+  "recent_work_orders": 0
+ },
+ "factors_sampled": {
+  "delivery_shortfall_pct": 15.06,
+  "mismatch_location": "dripper_count_mismatch",
+  "fault_cause": "none",
+  "approved_override": true,
+  "maintenance_window_active": false,
+  "drain_offset_points": 6.43,
+  "off_tolerance_cycles": 3,
+  "meter_calibration_age_days": 94,
+  "confirmation_pending": true,
+  "pressure_state": "normal",
+  "benign_alarm_decoy": "none",
+  "recent_work_orders": 0
+ },
+ "plan": {
+  "under_dosed": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "emitter_clogging": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "next_action": {
+   "clarity": "leaning",
+   "target": "dispatch_repair",
+   "second": null
+  },
+  "drain_deviation": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  },
+  "off_plan_cycles": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 37,
+ "deciding": {
+  "under_dosed": "86.6 L against 100 L planned for 100 drippers is about 13% short, with no override. The assumed count of 90 means part of the gap could be a set-up error.",
+  "emitter_clogging": "Pressure is normal and the valves are fully open, but per-dripper delivery is low and drain is very low. The count mismatch gives a plausible alternative explanation.",
+  "next_action": "Normal pressure, full valve opening, no pending test and near-zero drain make a physical emitter fault the likely reading. The count mismatch leaves some doubt.",
+  "drain_deviation": "Mean drain is 2.5% against a 20-30 band, so it is about 17.5 points under, which is over 15.",
+  "off_plan_cycles": "Three cycles at 16.6 L are about 17% under the 20 L plan. The 17.9 L cycle is 10.5% under, and the 18.9 L cycle is within tolerance. Whether the 17.9 L cycle counts decides between two and three."
+ },
+ "request": "rec-F324-0061",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.013341
+}

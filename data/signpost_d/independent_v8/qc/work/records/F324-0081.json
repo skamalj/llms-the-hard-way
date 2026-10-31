@@ -1,0 +1,141 @@
+{
+ "id": "F324-0081",
+ "family": "F324",
+ "state": {
+  "zone": {
+   "dripper_count": 100
+  },
+  "schedule": {
+   "ml_per_dripper": [
+    100,
+    100,
+    100,
+    100
+   ],
+   "valve_s": 600,
+   "drain_target_pct": [
+    20,
+    30
+   ],
+   "overrides": [
+    {
+     "approved_by_role": "head_grower",
+     "reduction_pct": 20
+    }
+   ]
+  },
+  "controller_log": {
+   "date": "2025-03-12",
+   "valve_open_s": [
+    600,
+    600,
+    600,
+    600
+   ],
+   "delivered_l": [
+    6.9,
+    7.0,
+    7.1,
+    7.3
+   ],
+   "line_pressure_bar": [
+    2.1,
+    2.0,
+    2.1,
+    2.0
+   ],
+   "spec_bar": 2.0,
+   "daily_total_l": 28.3,
+   "meter_total_l": 28.3
+  },
+  "drainage": {
+   "drain_pct": [
+    5.0,
+    4.6
+   ],
+   "catch_test": {
+    "ordered": false,
+    "result": null
+   }
+  },
+  "sensors": {
+   "meter_last_calibrated": "2024-11-17"
+  },
+  "maintenance": {
+   "alarms": [
+    {
+     "code": "TANK_LOW",
+     "acknowledged": true,
+     "cleared": true
+    }
+   ],
+   "recent_work_orders": []
+  }
+ },
+ "factors": {
+  "delivery_shortfall_pct": 29.25,
+  "mismatch_location": "none",
+  "fault_cause": "emitter_clogging",
+  "approved_override": true,
+  "maintenance_window_active": false,
+  "drain_offset_points": 15.2,
+  "off_tolerance_cycles": "3 or 4 depending on whether the approved reduction is applied",
+  "meter_calibration_age_days": 115,
+  "confirmation_pending": false,
+  "pressure_state": "normal",
+  "benign_alarm_decoy": "tank_alarm_cleared",
+  "recent_work_orders": 0
+ },
+ "factors_sampled": {
+  "delivery_shortfall_pct": 30.27,
+  "mismatch_location": "none",
+  "fault_cause": "low_supply_pressure",
+  "approved_override": true,
+  "maintenance_window_active": false,
+  "drain_offset_points": 15.18,
+  "off_tolerance_cycles": 4,
+  "meter_calibration_age_days": 115,
+  "confirmation_pending": true,
+  "pressure_state": "normal",
+  "benign_alarm_decoy": "tank_alarm_cleared",
+  "recent_work_orders": 0
+ },
+ "plan": {
+  "under_dosed": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "emitter_clogging": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "next_action": {
+   "clarity": "leaning",
+   "target": "sign_off",
+   "second": null
+  },
+  "drain_deviation": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  },
+  "off_plan_cycles": {
+   "clarity": "contested",
+   "target": "2",
+   "second": "3"
+  }
+ },
+ "target_words": 55,
+ "deciding": {
+  "under_dosed": "Metered 28.3 L against 40 L raw plan is 71%, but an approved 20% reduction gives 32 L, so 88%. This sits close to the 90% line and both readings are defensible.",
+  "emitter_clogging": "Pressure is at spec (2.0-2.1 bar) and valve_open_s is the full 600 s, yet delivered is only 6.9-7.3 L per cycle (about 0.07 L per dripper) and drain is about 5%. That is low flow with normal pressure.",
+  "next_action": "Meter and controller totals match, no catch test is pending, and the reduction is approved. This leans toward sign-off, with doubt left by the low drain and the delivered volume still under the reduced plan.",
+  "drain_deviation": "Mean drain is 4.8% against a 20-30% band, so it is 15.2 points below. That is right at the 15-point line between marked and severe.",
+  "off_plan_cycles": "Against the 8 L reduced plan, delivered of 6.9, 7.0 and 7.1 L are more than 10% off and 7.3 L is within it (3 cycles). Against the raw 10 L plan all four are off. The count is 3 or 4, which straddles the level 2/3 boundary."
+ },
+ "request": "rec-F324-0081",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.015356
+}

@@ -1,0 +1,110 @@
+{
+ "id": "F338-0133",
+ "family": "F338",
+ "state": {
+  "site": {
+   "pol": "O3",
+   "tier": "compliance",
+   "svc_days": 60,
+   "appr_days": 90
+  },
+  "visit": {
+   "date": "2024-08-12",
+   "seq": "partial",
+   "mw": false
+  },
+  "reference": {
+   "std_id": "CY30871",
+   "exp": "2025-07-24",
+   "unit": "ppb"
+  },
+  "checks": [
+   {
+    "t": "as_found_zero",
+    "ref_id": "CY30871",
+    "ref": 0,
+    "rd": 9,
+    "tol": 5,
+    "unit": "ppb"
+   }
+  ],
+  "history": {
+   "last": "2024-05-28",
+   "res": [
+    "fail",
+    "pass",
+    "fail",
+    "fail",
+    "fail"
+   ]
+  }
+ },
+ "factors": {
+  "pollutant": "O3",
+  "as_found_ratio": 1.76,
+  "as_left_status": "not_recorded",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 346,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "approved_extended_interval",
+  "days_since_last_visit": 76,
+  "visit_completeness": "zero_only",
+  "prior_fail_count": 4,
+  "timestamp_mismatch": "none",
+  "site_priority": "compliance"
+ },
+ "factors_sampled": {
+  "pollutant": "O3",
+  "as_found_ratio": 1.76,
+  "as_left_status": "not_recorded",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 346,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "approved_extended_interval",
+  "days_since_last_visit": 76,
+  "visit_completeness": "zero_only",
+  "prior_fail_count": 4,
+  "timestamp_mismatch": "none",
+  "site_priority": "compliance"
+ },
+ "plan": {
+  "data_accepted": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "reference_valid": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "close_flagged",
+   "second": null
+  },
+  "flag_extent": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "return_urgency": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 50,
+ "deciding": {
+  "data_accepted": "Zero 9 vs tol 5 out, no as-left; but the interval was extended to 90 days so the drift is explained.",
+  "reference_valid": "ID and unit are fine, but the only evidence is one zero point; the cert number is missing from the reference.",
+  "next_step": "Sequence partial with no as-left points, yet the prior data needs flagging on the extended interval.",
+  "flag_extent": "76 days since the last visit with 4 prior fails; flagging 30+ days vs 8-30 days is borderline.",
+  "return_urgency": "Compliance site but extension approved; routine vs a planned extra visit is open."
+ },
+ "request": "rec-F338-0131",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.006448
+}

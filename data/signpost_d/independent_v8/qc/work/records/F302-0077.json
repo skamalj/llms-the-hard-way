@@ -1,0 +1,139 @@
+{
+ "id": "F302-0077",
+ "family": "F302",
+ "state": {
+  "subject": {
+   "screening_no": "S207-031",
+   "initials": "AL"
+  },
+  "consent": {
+   "initials": "AL",
+   "form_version": "3.0",
+   "current_version": "3.0",
+   "signed_date": "2025-04-01"
+  },
+  "visit": {
+   "visit_date": "2025-04-01",
+   "review_date": "2025-04-18",
+   "window_days": 28
+  },
+  "labs": {
+   "max_repeats": 2,
+   "items": [
+    {
+     "test": "CREAT",
+     "value": 106,
+     "unit": "umol/L",
+     "collected": "2025-04-01",
+     "valid_days": 14,
+     "repeat": false,
+     "requisition_screening_no": "S207-031"
+    },
+    {
+     "test": "CREAT",
+     "value": 98,
+     "unit": "umol/L",
+     "collected": "2025-04-10",
+     "valid_days": 14,
+     "repeat": true,
+     "requisition_screening_no": "S207-031"
+    }
+   ]
+  },
+  "eligibility": {
+   "criteria": [
+    {
+     "id": "I5",
+     "operator": "lt",
+     "limit": 1.5,
+     "recorded_value": 1.2,
+     "unit": "mg/dL",
+     "met": true
+    }
+   ],
+   "signoff": {
+    "signed": true,
+    "date": "2025-04-03"
+   },
+   "queries": [
+    {
+     "id": "Q1",
+     "status": "open"
+    }
+   ]
+  },
+  "conmeds": {
+   "prohibited_classes": [
+    "steroid"
+   ],
+   "washout_days": 14,
+   "items": []
+  }
+ },
+ "factors": {
+  "lab_reconciliation": "unit_only",
+  "consent_status": "current_ok",
+  "window_days_remaining": 11,
+  "collection_date_mismatch": "within_window",
+  "prohibited_conmed": false,
+  "washout_completed": true,
+  "out_of_range_lab": false,
+  "valid_repeat_on_file": "valid_repeat_in_range",
+  "boundary_value": false,
+  "identifier_mismatch": "none",
+  "investigator_signoff": "signed_before_results",
+  "open_query_count": 1
+ },
+ "factors_sampled": {
+  "lab_reconciliation": "unit_only",
+  "consent_status": "current_ok",
+  "window_days_remaining": 7,
+  "collection_date_mismatch": "within_window",
+  "prohibited_conmed": false,
+  "washout_completed": false,
+  "out_of_range_lab": false,
+  "valid_repeat_on_file": "valid_repeat_in_range",
+  "boundary_value": false,
+  "identifier_mismatch": "none",
+  "investigator_signoff": "signed_before_results",
+  "open_query_count": 1
+ },
+ "plan": {
+  "eligibility_proven": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "contested",
+   "target": "release",
+   "second": "rescreen"
+  },
+  "primary_issue": {
+   "clarity": "balanced",
+   "target": "clinical_value",
+   "second": "timing_window"
+  },
+  "affected_scope": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  },
+  "window_left": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 100,
+ "deciding": {
+  "eligibility_proven": "Labs are in umol/L but the criterion is recorded in mg/dL, an open query exists, and sign-off 2025-04-03 predates the repeat collected 2025-04-10.",
+  "next_step": "A valid in-range repeat (98 umol/L) supports release, but the open unit query and the expired first lab (14-day validity) make rescreen defensible.",
+  "primary_issue": "Unit-mismatched creatinine criterion is the main conflict; the first lab being past valid_days is a competing timing signal.",
+  "affected_scope": "One subject, but the repeat/validity handling may affect a handful of site subjects sharing the same lab run; two to five versus six to twenty is balanced.",
+  "window_left": "Consent 2025-04-01 plus 28 days is 2025-04-29; review 2025-04-18 leaves 11 days, one day past the ten-day anchor."
+ },
+ "request": "rec-F302-0076",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.009666
+}

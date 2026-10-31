@@ -1,0 +1,182 @@
+{
+ "id": "F318-0098",
+ "family": "F318",
+ "state": {
+  "work_order": {
+   "lock_id": "L08",
+   "visit_type": "planned_repair",
+   "tasks": [
+    {
+     "task_id": "T1",
+     "asset_ref": "TG-1"
+    },
+    {
+     "task_id": "T2",
+     "asset_ref": "TG-2"
+    },
+    {
+     "task_id": "T3",
+     "asset_ref": "SL-1"
+    },
+    {
+     "task_id": "T4",
+     "asset_ref": "BM-2"
+    }
+   ],
+   "nav_notice": {
+    "in_force": true,
+    "to": "2025-09-30",
+    "scope_assets": [
+     "SL-3"
+    ]
+   },
+   "passages_7d": 22
+  },
+  "visit_log": {
+   "arrived": "2025-08-12T08:00",
+   "departed": "2025-08-12T11:00",
+   "crew_size": 2,
+   "timesheet_hours": 6.3,
+   "task_status": [
+    {
+     "task_id": "T1",
+     "status": "done"
+    },
+    {
+     "task_id": "T2",
+     "status": "done"
+    },
+    {
+     "task_id": "T3",
+     "status": "done"
+    },
+    {
+     "task_id": "T4",
+     "status": "done"
+    }
+   ]
+  },
+  "checks": {
+   "post_checks": [
+    {
+     "asset_ref": "TG-1",
+     "result": "pass"
+    },
+    {
+     "asset_ref": "TG-2",
+     "result": "pass"
+    },
+    {
+     "asset_ref": "SL-1",
+     "result": "pass"
+    },
+    {
+     "asset_ref": "BM-2",
+     "result": "pass"
+    }
+   ],
+   "leakage_ls": 8.9,
+   "leakage_limit_ls": 8,
+   "river_level_m": 2.9,
+   "flood_marker_m": 2.7
+  },
+  "asset_history": {
+   "prior_visits": [
+    {
+     "date": "2023-04-01",
+     "asset_ref": "SL-3",
+     "defect_code": "D12"
+    },
+    {
+     "date": "2023-09-10",
+     "asset_ref": "SL-3",
+     "defect_code": "D12"
+    },
+    {
+     "date": "2024-02-05",
+     "asset_ref": "SL-3",
+     "defect_code": "D12"
+    },
+    {
+     "date": "2024-07-19",
+     "asset_ref": "SL-3",
+     "defect_code": "D12"
+    }
+   ],
+   "open_defects": [
+    {
+     "defect_code": "D12",
+     "asset_ref": "SL-3"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "visit_type": "planned_repair",
+  "tasks_ordered": 4,
+  "completion_state": "all_done",
+  "parts_qty_mismatch": "none",
+  "hours_gap": 0.3,
+  "asset_ref_mismatch": false,
+  "post_check_result": "passed",
+  "leakage_ratio": 1.11,
+  "leakage_mitigation": true,
+  "navigation_notice_in_force": true,
+  "deferral_approved": false,
+  "prior_same_defect": 4,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "visit_type": "planned_repair",
+  "tasks_ordered": 4,
+  "completion_state": "all_done",
+  "parts_qty_mismatch": "none",
+  "hours_gap": 1.26,
+  "asset_ref_mismatch": false,
+  "post_check_result": "passed",
+  "leakage_ratio": 1.11,
+  "leakage_mitigation": true,
+  "navigation_notice_in_force": true,
+  "deferral_approved": false,
+  "prior_same_defect": 4,
+  "boundary_case": false
+ },
+ "plan": {
+  "safe_to_reopen": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "record_disposition": {
+   "clarity": "clear",
+   "target": "close_visit",
+   "second": null
+  },
+  "return_urgency": {
+   "clarity": "clear",
+   "target": "within_month",
+   "second": null
+  },
+  "affected_scope": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "section_mismatches": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 39,
+ "deciding": {
+  "safe_to_reopen": "All four checks pass and leakage 8.9 vs 8 is mitigated by river 2.9 above 2.7; the open D12 on SL-3 under notice leaves some doubt.",
+  "record_disposition": "All four tasks done, checks pass for every task asset, and no materials section to contradict, so it closes as logged.",
+  "return_urgency": "Open D12 on SL-3 is covered by the notice to 2025-09-30 and is non-restricting for the ordered work; repeated four times, so revisit within a month.",
+  "affected_scope": "passages_7d 22 sits just above the twenty boundary.",
+  "section_mismatches": "Timesheet 6.3 vs 2x3=6 hours is a trivial gap; everything else matches."
+ },
+ "request": "rec-F318-0096",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011833
+}

@@ -1,0 +1,138 @@
+{
+ "id": "F338-0079",
+ "family": "F338",
+ "state": {
+  "site": {
+   "id": "S301",
+   "pollutant": "NO2",
+   "tier": "compliance",
+   "service_interval_days": 90,
+   "approved_interval_days": 90
+  },
+  "visit": {
+   "id": "V5018",
+   "date": "2024-07-16",
+   "start": "09:00",
+   "end": "10:30",
+   "sequence_status": "complete",
+   "maintenance_window": false
+  },
+  "reference": {
+   "standard_id": "NX-61120",
+   "conc": 100.0,
+   "unit": "ppb",
+   "cert_no": null,
+   "cert_expiry": "2024-12-06"
+  },
+  "checks": [
+   {
+    "type": "as_found_span",
+    "ref_id": "NX-61120",
+    "ref_conc": 100.0,
+    "unit": "ppb",
+    "reading": 112.6,
+    "tol": 5.0,
+    "ts": "2024-07-16T09:15"
+   },
+   {
+    "type": "as_left_span",
+    "ref_id": "NX-61120",
+    "ref_conc": 100.0,
+    "unit": "ppb",
+    "reading": 109.0,
+    "tol": 5.0,
+    "ts": "2024-07-16T10:44"
+   }
+  ],
+  "history": {
+   "last_visit_date": "2024-04-11",
+   "results": [
+    "pass",
+    "pass",
+    "pass"
+   ],
+   "autochecks": [
+    {
+     "d": "2024-07-01",
+     "r": "pass"
+    },
+    {
+     "d": "2024-07-08",
+     "r": "pass"
+    },
+    {
+     "d": "2024-07-12",
+     "r": "fail"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "pollutant": "NO2",
+  "as_found_ratio": 2.52,
+  "as_left_status": "one_point_fail",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 143,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "none",
+  "days_since_last_visit": 96,
+  "visit_completeness": "complete",
+  "prior_fail_count": 0,
+  "timestamp_mismatch": "minutes_outside",
+  "site_priority": "compliance"
+ },
+ "factors_sampled": {
+  "pollutant": "NO2",
+  "as_found_ratio": 2.52,
+  "as_left_status": "all_pass",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 143,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "none",
+  "days_since_last_visit": 96,
+  "visit_completeness": "complete",
+  "prior_fail_count": 0,
+  "timestamp_mismatch": "minutes_outside",
+  "site_priority": "compliance"
+ },
+ "plan": {
+  "data_accepted": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "reference_valid": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "recalibrate",
+   "second": null
+  },
+  "flag_extent": {
+   "clarity": "clear",
+   "target": "1",
+   "second": null
+  },
+  "return_urgency": {
+   "clarity": "contested",
+   "target": "1",
+   "second": "0"
+  }
+ },
+ "target_words": 56,
+ "deciding": {
+  "data_accepted": "As-found error 12.6 ppb vs tol 5.0 argues against acceptance, but autochecks passed until 07-12 and history is clean.",
+  "reference_valid": "ID and unit match and expiry 2024-12-06 is in date, but cert_no is null and the as-left ts 10:44 falls after visit end 10:30.",
+  "next_step": "As-left span 109.0 vs 100.0 is 9 ppb against tol 5.0, a clear fail, so repeat calibration on site.",
+  "flag_extent": "Autochecks passed on 07-08 and the first fail is 07-12, four days before the visit, so only the last few days are affected.",
+  "return_urgency": "Compliance site, but the as-left fail needs a repeat; the recalibration may be done soon or at the routine next visit, so both are defensible."
+ },
+ "request": "rec-F338-0076",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.014335
+}

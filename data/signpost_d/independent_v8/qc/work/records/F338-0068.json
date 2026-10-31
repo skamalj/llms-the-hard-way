@@ -1,0 +1,157 @@
+{
+ "id": "F338-0068",
+ "family": "F338",
+ "state": {
+  "site": {
+   "pollutant": "CO",
+   "tier": "compliance",
+   "service_interval_days": 90,
+   "approved_interval_days": 90
+  },
+  "visit": {
+   "date": "2024-08-20",
+   "start": "08:30",
+   "end": "10:10",
+   "sequence_status": "complete",
+   "maintenance_window": true
+  },
+  "reference": {
+   "standard_id": "CO-55372",
+   "conc": 40,
+   "unit": "ppm",
+   "cert_no": "UKAS-7781",
+   "cert_expiry": "2025-03-24"
+  },
+  "checks": [
+   {
+    "phase": "as_found",
+    "type": "span",
+    "ref_id": "CO-55732",
+    "ref_conc": 40,
+    "unit": "ppm",
+    "reading": 45.8,
+    "tol": 2,
+    "ts": "2024-08-20T08:45"
+   },
+   {
+    "phase": "as_left",
+    "type": "zero",
+    "ref_id": "CO-55732",
+    "ref_conc": 0,
+    "unit": "ppm",
+    "reading": 0.1,
+    "tol": 2,
+    "ts": "2024-08-20T09:20"
+   },
+   {
+    "phase": "as_left",
+    "type": "span",
+    "ref_id": "CO-55732",
+    "ref_conc": 40,
+    "unit": "ppm",
+    "reading": 40.2,
+    "tol": 2,
+    "ts": "2024-08-20T09:40"
+   },
+   {
+    "phase": "as_left",
+    "type": "precision",
+    "ref_id": "CO-55732",
+    "ref_conc": 20,
+    "unit": "ppm",
+    "reading": 20.1,
+    "tol": 2,
+    "ts": "2024-08-20T09:55"
+   }
+  ],
+  "history": {
+   "last_visit_date": "2024-05-19",
+   "results": [
+    "pass",
+    "fail",
+    "pass",
+    "pass",
+    "fail",
+    "pass"
+   ],
+   "autochecks": [
+    {
+     "d": "2024-08-12",
+     "result": "pass"
+    },
+    {
+     "d": "2024-08-16",
+     "result": "pass"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "pollutant": "CO",
+  "as_found_ratio": 2.92,
+  "as_left_status": "all_pass",
+  "cylinder_id_mismatch": "transposed_digit",
+  "cert_expiry_offset_days": 216,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "maintenance_window",
+  "days_since_last_visit": 93,
+  "visit_completeness": "complete",
+  "prior_fail_count": 2,
+  "timestamp_mismatch": "none",
+  "site_priority": "compliance"
+ },
+ "factors_sampled": {
+  "pollutant": "CO",
+  "as_found_ratio": 2.92,
+  "as_left_status": "all_pass",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 216,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "maintenance_window",
+  "days_since_last_visit": 93,
+  "visit_completeness": "complete",
+  "prior_fail_count": 2,
+  "timestamp_mismatch": "none",
+  "site_priority": "compliance"
+ },
+ "plan": {
+  "data_accepted": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "reference_valid": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "contested",
+   "target": "close_flagged",
+   "second": "withdraw"
+  },
+  "flag_extent": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  },
+  "return_urgency": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  }
+ },
+ "target_words": 73,
+ "deciding": {
+  "data_accepted": "As-found span 45.8 vs 40 with tol 2 is far out, but autochecks passed up to 2024-08-16 and the maintenance window flag offers an explanation.",
+  "reference_valid": "reference.standard_id CO-55372 differs from checks ref_id CO-55732 (transposed digits), though a certificate number and expiry are present, so a typo remains possible.",
+  "next_step": "All as-left points pass and drift has a maintenance explanation, favouring close with flags, but an as-found error of nearly three times tolerance on a compliance site makes withdrawal arguable.",
+  "flag_extent": "93 days since last visit with autochecks passing until mid-August suggests the drift arose partway through the interval, plausibly 8-30 days.",
+  "return_urgency": "All as-left points pass on a compliance site, so a planned extra visit in 8-30 days or a prompt return in 3-7 days are both reasonable."
+ },
+ "request": "rec-F338-0066",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.01342
+}

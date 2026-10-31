@@ -1,0 +1,105 @@
+{
+ "id": "F318-0122",
+ "family": "F318",
+ "state": {
+  "work_order": {
+   "wo_id": "W-218",
+   "visit_type": "planned_repair",
+   "tasks": 8,
+   "nav_notice": {
+    "in_force": true,
+    "to": "2025-06-01"
+   }
+  },
+  "visit_log": {
+   "task_status": [
+    {
+     "task_id": "T4",
+     "status": "temp_fix",
+     "deferral_ref": "DF-77",
+     "deferral_due": "2025-06-20"
+    }
+   ]
+  },
+  "checks": {
+   "post_checks": [
+    {
+     "asset_ref": "BG-2",
+     "result": "fail"
+    }
+   ],
+   "leakage_ls": 8,
+   "leakage_limit_ls": 8,
+   "river_level_m": 2.4,
+   "flood_marker_m": 2.0
+  }
+ },
+ "factors": {
+  "visit_type": "planned_repair",
+  "tasks_ordered": 8,
+  "completion_state": "temporary_fix",
+  "parts_qty_mismatch": "none",
+  "hours_gap": 2.31,
+  "asset_ref_mismatch": false,
+  "post_check_result": "failed",
+  "leakage_ratio": 1.0,
+  "leakage_mitigation": true,
+  "navigation_notice_in_force": true,
+  "deferral_approved": true,
+  "prior_same_defect": 1,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "visit_type": "planned_repair",
+  "tasks_ordered": 8,
+  "completion_state": "temporary_fix",
+  "parts_qty_mismatch": "none",
+  "hours_gap": 2.31,
+  "asset_ref_mismatch": false,
+  "post_check_result": "failed",
+  "leakage_ratio": 1.0,
+  "leakage_mitigation": true,
+  "navigation_notice_in_force": true,
+  "deferral_approved": true,
+  "prior_same_defect": 1,
+  "boundary_case": false
+ },
+ "plan": {
+  "safe_to_reopen": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "record_disposition": {
+   "clarity": "contested",
+   "target": "close_with_followup",
+   "second": "close_visit"
+  },
+  "return_urgency": {
+   "clarity": "balanced",
+   "target": "next_scheduled",
+   "second": "within_week"
+  },
+  "affected_scope": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  },
+  "section_mismatches": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  }
+ },
+ "target_words": 34,
+ "deciding": {
+  "safe_to_reopen": "Leakage equals limit; the fail is on BG-2 though; reviewers settle on true per plan.",
+  "record_disposition": "Temp fix with approved deferral DF-77 supports follow-up, but closing as logged is also defensible.",
+  "return_urgency": "Deferral due 2025-06-20 supports next scheduled, the failed check argues for within a week.",
+  "affected_scope": "Navigation users sit near the 20-user boundary between levels 2 and 3.",
+  "section_mismatches": "Hours gap and failed check are not clearly explained; two or three counts both plausible."
+ },
+ "request": "rec-F318-0121",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.006889
+}

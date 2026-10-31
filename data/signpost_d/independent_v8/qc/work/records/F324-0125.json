@@ -1,0 +1,124 @@
+{
+ "id": "F324-0125",
+ "family": "F324",
+ "state": {
+  "zone": {
+   "dripper_count": 100
+  },
+  "schedule": {
+   "cycles": [
+    {
+     "planned_ml_per_dripper": 200
+    },
+    {
+     "planned_ml_per_dripper": 0.2
+    },
+    {
+     "planned_ml_per_dripper": 200
+    }
+   ],
+   "drain_target_pct": {
+    "min": 20,
+    "max": 30
+   }
+  },
+  "controller_log": {
+   "spec_bar": 2.0,
+   "cycles": [
+    {
+     "delivered_l": 16.8,
+     "line_pressure_bar": 1.4
+    },
+    {
+     "delivered_l": 17.0,
+     "line_pressure_bar": 1.4
+    },
+    {
+     "delivered_l": 19.0,
+     "line_pressure_bar": 1.5
+    }
+   ]
+  },
+  "drainage": {
+   "drain_pct": [
+    15.2,
+    14.8
+   ]
+  },
+  "maintenance": {
+   "alarms": [
+    {
+     "code": "TANK_LO",
+     "acknowledged": true,
+     "cleared": true
+    }
+   ]
+  }
+ },
+ "factors": {
+  "delivery_shortfall_pct": 12.0,
+  "mismatch_location": "unit_mismatch",
+  "fault_cause": "low_supply_pressure",
+  "approved_override": false,
+  "maintenance_window_active": false,
+  "drain_offset_points": -5.0,
+  "off_tolerance_cycles": 2,
+  "meter_calibration_age_days": 301,
+  "confirmation_pending": false,
+  "pressure_state": "low",
+  "benign_alarm_decoy": "tank_alarm_cleared",
+  "recent_work_orders": 0
+ },
+ "factors_sampled": {
+  "delivery_shortfall_pct": 5.9,
+  "mismatch_location": "unit_mismatch",
+  "fault_cause": "emitter_clogging",
+  "approved_override": false,
+  "maintenance_window_active": false,
+  "drain_offset_points": 8.72,
+  "off_tolerance_cycles": 0,
+  "meter_calibration_age_days": 301,
+  "confirmation_pending": true,
+  "pressure_state": "low",
+  "benign_alarm_decoy": "tank_alarm_cleared",
+  "recent_work_orders": 0
+ },
+ "plan": {
+  "under_dosed": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "emitter_clogging": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "next_action": {
+   "clarity": "leaning",
+   "target": "adjust_schedule",
+   "second": null
+  },
+  "drain_deviation": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  },
+  "off_plan_cycles": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  }
+ },
+ "target_words": 26,
+ "deciding": {
+  "under_dosed": "Delivered 52.8 L vs 60 L planned (100 x 200 mL x 3) is 88%, no overrides listed.",
+  "emitter_clogging": "Line pressure 1.4-1.5 bar is below the 2.0 spec, which explains low delivery; low drain still fits clogging, so some doubt remains.",
+  "next_action": "Low pressure and a consistent shortfall suggest a setpoint or dose change, with the cleared tank alarm unrelated; no hardware fault is confirmed.",
+  "drain_deviation": "Drain mean 15.0% vs band 20-30 is 5.0 points under, right at the boundary of levels 1 and 2.",
+  "off_plan_cycles": "Cycle 1 is 16.8 vs 20 L planned and cycle 2 is 17.0 L (planned 0.2 is a units slip for 200 mL), both over 10% under; cycle 3 is 19.0 L, within tolerance."
+ },
+ "request": "rec-F324-0121",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.014522
+}
