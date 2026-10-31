@@ -1,0 +1,300 @@
+{
+ "id": "F105",
+ "domain": "hotel housekeeping room turnovers",
+ "role": "Housekeeping floor supervisor reviewing each completed room turnover before the room is released back to sale",
+ "setting": "A mid-size city hotel where every checkout room passes through a turnover record: attendant cleaning steps, supervisor inspection, linen and minibar counts, maintenance work orders and the next booked arrival. The supervisor reviews one turnover record at a time at a stated review timestamp and decides whether the room can be released, needs a recheck, or must come off sale.",
+ "questions": {
+  "bed_setup_match": {
+   "type": "noul",
+   "instructions": "Prepared bed setup matches what the next booked arrival requires.",
+   "criteria": {
+    "true": "Bed type, count and cot match the arrival booking.",
+    "false": "Any bed or cot difference, or no arrival data."
+   }
+  },
+  "blocking_defect": {
+   "type": "noul",
+   "instructions": "An open maintenance defect prevents the room being sold tonight.",
+   "criteria": null
+  },
+  "room_disposition": {
+   "type": "choice",
+   "instructions": "What status should the room be given after this review?",
+   "criteria": {
+    "release_inspected": "All checks pass; release room to sale as inspected.",
+    "release_followup": "Guest-ready now; non-blocking gap logged for later correction.",
+    "hold_recheck": "Keep off sale until one recheck or confirmation is logged.",
+    "out_of_order": "Remove from sale until an unresolved defect is repaired."
+   }
+  },
+  "arrival_slack": {
+   "type": "score",
+   "instructions": "How much time remains before the next guest is due?",
+   "criteria": [
+    "Overdue: arrival time already passed, room not yet released",
+    "Tight: under 60 minutes until expected arrival",
+    "Moderate: 60 to 240 minutes until expected arrival",
+    "Ample: over 240 minutes, or no arrival booked"
+   ]
+  },
+  "open_items": {
+   "type": "score",
+   "instructions": "How many required items on this record remain unresolved?",
+   "criteria": [
+    "No required items remain unresolved",
+    "One or two required items remain unresolved",
+    "Three to five required items remain unresolved",
+    "Six or more required items remain unresolved"
+   ]
+  }
+ },
+ "factors": [
+  {
+   "name": "checklist_completion",
+   "description": "How many attendant checklist steps are marked done; partial means one or several steps left with done=false or null timestamp",
+   "kind": "categorical",
+   "values": [
+    "full",
+    "one_step_open",
+    "several_steps_open"
+   ],
+   "weights": [
+    0.55,
+    0.3,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S2",
+    "S4",
+    "S7"
+   ]
+  },
+  {
+   "name": "step_order_anomaly",
+   "description": "Inspection start timestamp precedes the attendant clean end timestamp, showing inspection logged before cleaning finished",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.2,
+   "skills": [
+    "S2",
+    "S5"
+   ]
+  },
+  {
+   "name": "bed_config_mismatch",
+   "description": "Difference between beds made up in turnover and bed type, guest count or cot request in the arrival booking",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "cot_missing",
+    "twin_vs_double",
+    "extra_bed_missing"
+   ],
+   "weights": [
+    0.55,
+    0.15,
+    0.18,
+    0.12
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S5",
+    "S6"
+   ]
+  },
+  {
+   "name": "arrival_info_present",
+   "description": "Whether the next arrival section is populated; when false it is null, leaving bed match unverifiable and slack contested",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.85,
+   "skills": [
+    "S2",
+    "S5",
+    "S6"
+   ]
+  },
+  {
+   "name": "arrival_slack_minutes",
+   "description": "Minutes between review timestamp and arrival eta; negative means arrival time already passed",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": -90,
+   "max": 600,
+   "p_true": 0,
+   "skills": [
+    "S6",
+    "S7"
+   ]
+  },
+  {
+   "name": "linen_count_gap",
+   "description": "Difference between linen pieces issued for the room and soiled pieces returned to laundry",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 6,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S4"
+   ]
+  },
+  {
+   "name": "minibar_mismatch",
+   "description": "Disagreement between minibar items consumed, items posted to folio and items restocked",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "consumed_not_restocked",
+    "restocked_count_off",
+    "posted_not_consumed"
+   ],
+   "weights": [
+    0.6,
+    0.18,
+    0.12,
+    0.1
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S4"
+   ]
+  },
+  {
+   "name": "maintenance_defect",
+   "description": "Severity of the most serious defect noted by attendant or inspector and linked work order",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "cosmetic",
+    "functional_minor",
+    "utility_or_safety"
+   ],
+   "weights": [
+    0.45,
+    0.2,
+    0.2,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S5",
+    "S6",
+    "S7"
+   ]
+  },
+  {
+   "name": "defect_mitigated",
+   "description": "Whether the defect's work order shows a closed status with engineer sign-off or a logged temporary fix",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S5",
+    "S6"
+   ]
+  },
+  {
+   "name": "inspection_fail_pending",
+   "description": "Inspector failed at least one item and the re-clean or recheck entry is not yet logged",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.3,
+   "skills": [
+    "S2",
+    "S4"
+   ]
+  },
+  {
+   "name": "pms_status_mismatch",
+   "description": "Room status in the property system differs from housekeeping status implied by turnover and inspection timestamps",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.25,
+   "skills": [
+    "S1",
+    "S2"
+   ]
+  },
+  {
+   "name": "priority_flag_decoy",
+   "description": "VIP or early check-in flag on the arrival, which raises apparent urgency but does not change the slack minutes",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.3,
+   "skills": [
+    "S6",
+    "S7"
+   ]
+  }
+ ],
+ "sections": [
+  {
+   "name": "room",
+   "description": "room_no, room_type, floor, pms_status, review_at timestamp"
+  },
+  {
+   "name": "arrival",
+   "description": "next booking: booking_ref, eta, adults, children, bed_pref, cot_req, flags; null when unavailable"
+  },
+  {
+   "name": "turnover",
+   "description": "attendant_id, clean_start, clean_end, checklist list of step, done, done_at; beds_made list of bed type and cot"
+  },
+  {
+   "name": "inspection",
+   "description": "inspector_id, insp_start, insp_end, items list of area, result, recheck_at"
+  },
+  {
+   "name": "supplies",
+   "description": "linen issued and returned counts by item; minibar consumed, posted and restocked counts by sku"
+  },
+  {
+   "name": "maintenance",
+   "description": "work_orders list of wo_id, area, category, opened_at, status, closed_at, signoff, temp_fix"
+  }
+ ],
+ "rendering_notes": "checklist_completion shows as turnover.checklist entries with done=false or done_at null. step_order_anomaly shows only by comparing inspection.insp_start with turnover.clean_end. bed_config_mismatch appears by comparing turnover.beds_made with arrival.bed_pref, adults+children and cot_req; never flagged. arrival_info_present=false renders arrival as null. arrival_slack_minutes is derived as arrival.eta minus room.review_at; no slack field exists. linen_count_gap appears as differing supplies.linen issued vs returned counts per item; small gaps of 1 are decoys that rarely matter. minibar_mismatch is spread across consumed, posted and restocked counts for the same sku. maintenance_defect appears as work_orders.category (e.g. paint_scuff, tv_remote, no_hot_water, smoke_detector) and inspection items with result=fail; defect_mitigated shows as status=closed with signoff, or temp_fix=true, independent of severity. inspection_fail_pending is an item with result=fail and recheck_at null. pms_status_mismatch shows as room.pms_status (e.g. VI or OOO) inconsistent with timestamps. priority_flag_decoy appears in arrival.flags as vip or early_ci. Records never contain fields stating readiness, risk, disposition, slack band or whether a defect blocks sale; pms_status is a real system code and may itself be wrong. Timestamps ISO 8601, counts as integers, unknowns null.",
+ "skills": [
+  "S1",
+  "S2",
+  "S4",
+  "S5",
+  "S6",
+  "S7"
+ ],
+ "shared_scale": "open_items",
+ "design_cost": 0.110768
+}

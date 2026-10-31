@@ -1,0 +1,313 @@
+{
+ "id": "F104",
+ "domain": "primary school admission applications",
+ "role": "Local authority school admissions officer reviewing reception-year applications",
+ "setting": "A council admissions team processes applications for reception places at oversubscribed community primary schools. The officer opens one application at a time, compares the declared address and priority claims against council tax, GP, nursery and school roll extracts, and decides how the application proceeds and where it ranks.",
+ "questions": {
+  "address_confirmed": {
+   "type": "noul",
+   "instructions": "Stated home address is confirmed as the child's main residence.",
+   "criteria": {
+    "true": "Address checks agree, or differences are documented and explained.",
+    "false": "Address unverified, contradicted, or only possibly correct."
+   }
+  },
+  "disposition": {
+   "type": "choice",
+   "instructions": "What should happen next with this application?",
+   "criteria": {
+    "process_now": "All checks agree; rank the application without contacting the family.",
+    "hold_for_document": "Exactly one item is missing or stale; one document resolves it.",
+    "residency_inquiry": "Address conflicts lack explanation; home visit or tenancy check required.",
+    "refer_fraud": "Records show another address held concurrently; refer for fraud review."
+   }
+  },
+  "priority_category": {
+   "type": "choice",
+   "instructions": "Under which oversubscription criterion should this application be ranked?",
+   "criteria": {
+    "looked_after": "Highest supported criterion: child looked after, confirmed by an authority.",
+    "medical_social": "Highest supported criterion: current professional letter naming this school.",
+    "sibling": "Highest supported criterion: sibling on roll at the start date.",
+    "distance_only": "No higher criterion supported; ranked purely by home-to-school distance."
+   }
+  },
+  "unexplained_discrepancies": {
+   "type": "score",
+   "instructions": "How many cross-section discrepancies remain without an accepted explanation?",
+   "criteria": [
+    "No unexplained discrepancies between any sections",
+    "Exactly one unexplained discrepancy between sections",
+    "Exactly two unexplained discrepancies between sections",
+    "Three or more unexplained discrepancies between sections"
+   ]
+  },
+  "priority_support": {
+   "type": "score",
+   "instructions": "How well do official records support the claimed priority?",
+   "criteria": [
+    "Contradicted: an official record conflicts with the claim",
+    "Unconfirmed: nothing conflicts, but nothing confirms it",
+    "Single source: one record confirms, none conflicts",
+    "Corroborated: two or more records confirm, none conflict"
+   ]
+  }
+ },
+ "factors": [
+  {
+   "name": "address_mismatch",
+   "description": "Where the declared address differs from addresses held in check extracts, from none through trivial typo to a different council area.",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "postcode_typo",
+    "house_number",
+    "different_postcode",
+    "different_council_area"
+   ],
+   "weights": [
+    0.35,
+    0.15,
+    0.15,
+    0.2,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S5",
+    "S7"
+   ]
+  },
+  {
+   "name": "recent_move_evidenced",
+   "description": "Family moved recently and a tenancy or completion document dated after the older records explains why those records show a previous address.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S5"
+   ]
+  },
+  {
+   "name": "concurrent_property",
+   "description": "A council tax or electoral extract shows liability at a second address with dates overlapping the declared residence period.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.15,
+   "skills": [
+    "S1",
+    "S6",
+    "S7"
+   ]
+  },
+  {
+   "name": "claimed_priority",
+   "description": "Highest oversubscription criterion the parent ticks on the form.",
+   "kind": "categorical",
+   "values": [
+    "looked_after",
+    "medical_social",
+    "sibling",
+    "none"
+   ],
+   "weights": [
+    0.08,
+    0.17,
+    0.4,
+    0.35
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S7",
+    "S1"
+   ]
+  },
+  {
+   "name": "sibling_record_match",
+   "description": "How the named sibling compares with the school roll extract: exact match, date of birth off, surname differs with parental responsibility shown, sibling leaves before start, or no record.",
+   "kind": "categorical",
+   "values": [
+    "exact",
+    "dob_mismatch",
+    "surname_differs_explained",
+    "leaves_before_start",
+    "no_record"
+   ],
+   "weights": [
+    0.4,
+    0.15,
+    0.15,
+    0.15,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S3",
+    "S5"
+   ]
+  },
+  {
+   "name": "medical_letter_state",
+   "description": "State of professional supporting letter for a medical or social claim: absent, names this school, generic about schools, or dated beyond the validity window.",
+   "kind": "categorical",
+   "values": [
+    "absent",
+    "names_school",
+    "generic",
+    "expired"
+   ],
+   "weights": [
+    0.25,
+    0.35,
+    0.25,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S4",
+    "S5",
+    "S6"
+   ]
+  },
+  {
+   "name": "looked_after_confirmation",
+   "description": "Evidence state for a looked-after claim: confirmed by the placing authority, claimed only, or covered by a previous order reference.",
+   "kind": "categorical",
+   "values": [
+    "confirmed_by_authority",
+    "claimed_only",
+    "previous_order_ref"
+   ],
+   "weights": [
+    0.45,
+    0.3,
+    0.25
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S5"
+   ]
+  },
+  {
+   "name": "documents_outstanding",
+   "description": "Number of requested proof documents not yet received by the check date.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 3,
+   "p_true": 0,
+   "skills": [
+    "S4",
+    "S7"
+   ]
+  },
+  {
+   "name": "proof_staleness_days",
+   "description": "Age in days of the newest proof-of-address document at the check date; the policy window is 90 days.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 5,
+   "max": 200,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S4",
+    "S6"
+   ]
+  },
+  {
+   "name": "boundary_case",
+   "description": "One signal sits on a rule boundary, such as proof exactly 90 or 91 days old or a tenancy starting in closing-date week, leaving judges split.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.2,
+   "skills": [
+    "S6"
+   ]
+  },
+  {
+   "name": "dob_year_group_mismatch",
+   "description": "Child's date of birth places them in a different cohort from the requested entry year.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.12,
+   "skills": [
+    "S1"
+   ]
+  },
+  {
+   "name": "age_exception_approved",
+   "description": "A recorded deferred or out-of-cohort entry approval that explains a date-of-birth and year-group mismatch.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3"
+   ]
+  }
+ ],
+ "sections": [
+  {
+   "name": "application",
+   "description": "Reference, received and closing dates, requested entry year, ranked school preferences and computed distances."
+  },
+  {
+   "name": "child",
+   "description": "Child's name, date of birth, looked-after status field, current nursery and any entry-exception reference."
+  },
+  {
+   "name": "home_address",
+   "description": "Declared address, postcode, date moved in, tenure type and list of submitted proof documents with dates."
+  },
+  {
+   "name": "priority_claims",
+   "description": "Ticked criteria with sibling details, medical or social letter metadata and looked-after order references."
+  },
+  {
+   "name": "checks",
+   "description": "Raw extracts from council tax, GP registration, nursery register and school roll, plus outstanding document requests."
+  }
+ ],
+ "rendering_notes": "address_mismatch appears only by comparing home_address.postcode and house_no with checks.council_tax.postcode, checks.gp_reg.postcode and checks.nursery_reg.postcode; the mismatch may sit in any one or several of these. recent_move_evidenced shows as home_address.moved_in date plus a proof_docs entry of type tenancy_agreement or completion_statement dated after the older extract dates; when false, moved_in is recent but no such document exists. concurrent_property shows as checks.council_tax.liabilities listing a second address with liable_from/liable_to overlapping moved_in onwards. claimed_priority maps to priority_claims.criteria_ticked (list). sibling_record_match shows by comparing priority_claims.sibling (name, dob, surname) with checks.school_roll entries (dob, surname, expected_leave_date); surname_differs_explained includes priority_claims.sibling.parental_responsibility_ref non-null; leaves_before_start shows expected_leave_date before application.entry_date. medical_letter_state shows as priority_claims.medical_letter {issued, author_role, school_named: urn or null}, null when absent; expired means issued over 12 months before closing_date. looked_after_confirmation shows as child.la_status plus checks.placing_authority_confirm (boolean or null) and priority_claims.order_ref. documents_outstanding is the length of checks.outstanding_requests. proof_staleness_days is derived from the latest proof_docs date against checks.checked_on. boundary_case sets the staleness to 90 or 91 days or moved_in within closing-date week. dob_year_group_mismatch shows as child.dob versus application.entry_year; age_exception_approved shows as child.entry_exception_ref non-null with an approved_on date. Decoys: application.preferences order and distance_km values, child.nursery_name, home_address.tenure_type, late_flag on time records, and extra school_roll rows for unrelated children. No field states verification outcomes, priority category, discrepancy counts or recommended action; checks hold raw values only, never matched/verified flags or risk labels. Missing extracts are null, not omitted silently.",
+ "skills": [
+  "S1",
+  "S3",
+  "S4",
+  "S5",
+  "S6",
+  "S7"
+ ],
+ "shared_scale": null,
+ "design_cost": 0.133612
+}

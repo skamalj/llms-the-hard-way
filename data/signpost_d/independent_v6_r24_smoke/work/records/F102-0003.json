@@ -1,0 +1,106 @@
+{
+ "id": "F102-0003",
+ "family": "F102",
+ "state": {
+  "asset": {
+   "lift_id": "L-114",
+   "drive": "traction_geared"
+  },
+  "visit": {
+   "lift_id": "L-141",
+   "type": "routine",
+   "arrive": "09:00",
+   "depart": "10:30",
+   "outage_end": "11:10"
+  },
+  "checks": [
+   {
+    "code": "DOOR_LOCK",
+    "result": "fail",
+    "reading": 6,
+    "limit": 6,
+    "retest": "pass",
+    "retest_at": "10:50"
+   }
+  ],
+  "parts": [
+   {
+    "component": "roller",
+    "qty_fitted": 4,
+    "qty_issued": 2,
+    "status": "fitted"
+   }
+  ],
+  "faults": [
+   {
+    "code": "PWR_LOSS",
+    "component": "roller",
+    "prior_90d": 2
+   }
+  ],
+  "handover": {
+   "returned_to_service": true,
+   "test_runs": 1
+  }
+ },
+ "factors": {
+  "lift_type": "traction_geared",
+  "visit_type": "routine",
+  "mismatch_n": 4,
+  "mismatch_location": "asset_ids",
+  "mismatch_magnitude": "trivial",
+  "safety_check_fail": true,
+  "mitigation_present": true,
+  "work_completion": "complete",
+  "fault_origin": "wear_component",
+  "prior_occurrences": 2,
+  "boundary_reading": true,
+  "documentation_gap": "none",
+  "decoy_alarm": false
+ },
+ "factors_sampled": {
+  "lift_type": "traction_geared",
+  "visit_type": "routine",
+  "mismatch_n": 0,
+  "mismatch_location": "asset_ids",
+  "mismatch_magnitude": "trivial",
+  "safety_check_fail": true,
+  "mitigation_present": true,
+  "work_completion": "complete",
+  "fault_origin": "none",
+  "prior_occurrences": 2,
+  "boundary_reading": true,
+  "documentation_gap": "none",
+  "decoy_alarm": false
+ },
+ "plan": {
+  "fit_for_service": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "log_disposition": {
+   "clarity": "balanced",
+   "target": "reject_revisit",
+   "second": "hold_query"
+  },
+  "fault_category": {
+   "clarity": "balanced",
+   "target": "wear_component",
+   "second": "external_cause"
+  },
+  "action_due": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "mismatch_count": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  }
+ },
+ "target_words": 37,
+ "model": "claude-sonnet-5-5",
+ "cost": 0.019986
+}

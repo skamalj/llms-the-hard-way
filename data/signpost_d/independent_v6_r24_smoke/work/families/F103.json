@@ -1,0 +1,334 @@
+{
+ "id": "F103",
+ "domain": "drinking-water quality sampling at treatment works",
+ "role": "Water quality compliance scientist at a treatment works laboratory, signing off individual final-water sample records",
+ "setting": "Each record is one compliance or operational sample taken at a drinking-water treatment works. It covers the sampling event, chain of custody, laboratory results against prescribed limits, the works' own online monitoring and maintenance log at the time of sampling, and recent sampling history at the same point. The scientist decides whether the result reflects a genuine water quality failure and what should happen next. They also judge where any anomaly most likely arose, how far results exceed their limits, and how complete the record is.",
+ "questions": {
+  "genuine_failure": {
+   "type": "noul",
+   "instructions": "Record shows a genuine water quality failure, not a sampling artefact.",
+   "criteria": null
+  },
+  "disposition": {
+   "type": "choice",
+   "instructions": "What should the reviewer do with this sample record next?",
+   "criteria": {
+    "accept": "Result valid and compliant; file with no further action.",
+    "accept_with_note": "Result usable but minor record gap needs annotating before filing.",
+    "hold": "One outstanding confirmation, such as QC or resample, before finalising.",
+    "resample": "Result unreliable from handling or lab fault; repeat sampling needed.",
+    "escalate": "Credible failure needing operations response and regulator notification."
+   }
+  },
+  "anomaly_source": {
+   "type": "choice",
+   "instructions": "Which source most likely explains any anomaly in this record?",
+   "criteria": {
+    "no_anomaly": "All results compliant and record free of handling irregularities.",
+    "sampling_transit": "Fault arises at the tap, during custody or in transit.",
+    "laboratory": "Fault arises in analysis, the QC batch or lab reporting.",
+    "treatment_process": "Result reflects real water quality leaving the treatment process."
+   }
+  },
+  "exceedance_severity": {
+   "type": "score",
+   "instructions": "How far does the worst result exceed its limit?",
+   "criteria": [
+    "Compliant: every parameter at or below its limit",
+    "Marginal: worst result over limit by 10% or less",
+    "Clear: more than 10% to 100% over limit, or coliforms detected",
+    "Gross: more than double the limit, or E. coli detected"
+   ]
+  },
+  "record_gaps": {
+   "type": "score",
+   "instructions": "How many mandatory record elements are missing or out of order?",
+   "criteria": [
+    "No mandatory elements missing or out of order",
+    "Exactly one element missing or out of order",
+    "Exactly two elements missing or out of order",
+    "Exactly three elements missing or out of order",
+    "Four or more elements missing or out of order"
+   ]
+  }
+ },
+ "factors": [
+  {
+   "name": "exceedance_profile",
+   "description": "The true worst-case result relative to prescribed limits. It ranges from fully compliant, through marginal, clear and gross chemical exceedances (turbidity, aluminium, iron, nitrite, THMs), to coliform or E. coli detections.",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "marginal_chem",
+    "clear_chem",
+    "gross_chem",
+    "coliform_detect",
+    "ecoli_detect"
+   ],
+   "weights": [
+    0.35,
+    0.15,
+    0.15,
+    0.08,
+    0.17,
+    0.1
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S4",
+    "S7"
+   ]
+  },
+  {
+   "name": "online_corroboration",
+   "description": "Whether the works' online monitors at the sampling time agree with the grab result. Examples of agreement are a turbidity spike or low free chlorine. The monitors may instead show nothing unusual or flatly contradict the result.",
+   "kind": "categorical",
+   "values": [
+    "corroborates",
+    "neutral",
+    "contradicts"
+   ],
+   "weights": [
+    0.35,
+    0.35,
+    0.3
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S5",
+    "S6"
+   ]
+  },
+  {
+   "name": "benign_explanation",
+   "description": "A mitigating context logged elsewhere in the record. Options are an approved maintenance window with a permitted deviation covering the sample time, or a known tap fault already logged against the sample point. Present in about half of records regardless of exceedance.",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "approved_maintenance_window",
+    "known_tap_fault_logged"
+   ],
+   "weights": [
+    0.5,
+    0.3,
+    0.2
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S6"
+   ]
+  },
+  {
+   "name": "tap_handling_issue",
+   "description": "Whether the sampler's own record shows poor tap practice. Examples are the tap not flamed or disinfected, a hose attached, or a tap replaced within the last 48 hours.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.3,
+   "skills": [
+    "S3",
+    "S6"
+   ]
+  },
+  {
+   "name": "transit_hours",
+   "description": "Hours from sampled_at to lab received_at. Microbiological samples over 24 hours, or with a receipt temperature above 8 °C, are compromised.",
+   "kind": "number",
+   "values": [],
+   "weights": [],
+   "min": 0.5,
+   "max": 30,
+   "p_true": 0,
+   "skills": [
+    "S2",
+    "S3"
+   ]
+  },
+  {
+   "name": "lab_qc_status",
+   "description": "State of the analytical QC batch containing the sample: passed, a control failed, or QC not yet reviewed.",
+   "kind": "categorical",
+   "values": [
+    "passed",
+    "control_failed",
+    "pending"
+   ],
+   "weights": [
+    0.6,
+    0.15,
+    0.25
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S2",
+    "S4"
+   ]
+  },
+  {
+   "name": "missing_elements",
+   "description": "Count of mandatory record elements that are null, absent, or chronologically out of order. Elements include sampler id, seal number, received timestamp, receipt temperature, lab batch id, received_at not after sampled_at, and analysed_at not after received_at.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 5,
+   "p_true": 0,
+   "skills": [
+    "S2",
+    "S4"
+   ]
+  },
+  {
+   "name": "resample_state",
+   "description": "Progress of any confirmatory resample at the same point: not requested, requested but not yet taken, taken with result awaited, taken and clear, or taken and failed.",
+   "kind": "categorical",
+   "values": [
+    "not_requested",
+    "requested_not_taken",
+    "taken_awaiting_result",
+    "result_clear",
+    "result_fail"
+   ],
+   "weights": [
+    0.35,
+    0.15,
+    0.2,
+    0.18,
+    0.12
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S2",
+    "S4",
+    "S5"
+   ]
+  },
+  {
+   "name": "prior_failures_90d",
+   "description": "Number of failed results at the same sample point in the previous 90 days. It raises concern when recent, but some entries relate to different parameters or to points elsewhere on the works.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 4,
+   "p_true": 0,
+   "skills": [
+    "S6",
+    "S7"
+   ]
+  },
+  {
+   "name": "sampler_accreditation",
+   "description": "Accreditation status of the sampler on the sampling date: certified, certificate lapsed before the sample date, or trainee under named supervision.",
+   "kind": "categorical",
+   "values": [
+    "certified",
+    "lapsed",
+    "trainee_supervised"
+   ],
+   "weights": [
+    0.7,
+    0.12,
+    0.18
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S2",
+    "S3"
+   ]
+  },
+  {
+   "name": "sample_purpose",
+   "description": "Purpose of the sample point: regulatory compliance, operational process control, or a one-off investigative point. Investigative and operational points carry lower notification impact.",
+   "kind": "categorical",
+   "values": [
+    "regulatory",
+    "operational",
+    "investigative"
+   ],
+   "weights": [
+    0.6,
+    0.25,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S7"
+   ]
+  },
+  {
+   "name": "free_text_signal",
+   "description": "What the free-text fields convey. They may be routine wording only, or flag a concern such as discoloured water or a tap that spluttered. The sampler note may also be null.",
+   "kind": "categorical",
+   "values": [
+    "routine",
+    "flags_concern",
+    "note_null"
+   ],
+   "weights": [
+    0.55,
+    0.3,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S2",
+    "S6"
+   ]
+  }
+ ],
+ "sections": [
+  {
+   "name": "sample",
+   "description": "Sampling event: ids, works and point codes, point purpose, timestamp, sampler, tap condition and sampler note."
+  },
+  {
+   "name": "custody",
+   "description": "Chain of custody: seal number, courier, received_at, receipt temperature; may be null or absent."
+  },
+  {
+   "name": "results",
+   "description": "List of parameter results with value, unit, limit and analysed_at, plus lab batch and analyst comment."
+  },
+  {
+   "name": "works_context",
+   "description": "Online monitor readings at sampling time and maintenance log entries with permit references and deviations."
+  },
+  {
+   "name": "history",
+   "description": "Prior results at the same point over 90 days and confirmatory resample status."
+  }
+ ],
+ "rendering_notes": "sample: {sample_id, works_code, point_id, point_purpose (regulatory|operational|investigative), sampled_at ISO datetime, sampler {id or null, accreditation, cert_expiry date, supervisor_id or null}, tap {flamed bool, hose_attached bool, last_replaced date}, note (one-sentence free text or null)}. custody: {seal_no, courier, received_at, receipt_temp_c}. Whole section may be absent or null when missing_elements is high. results: {lab {batch_id, qc_status (passed|control_failed|pending), analyst_comment one sentence}, items [{param, value, unit, limit, method, analysed_at}]}. works_context: {online_at_sample {turbidity_ntu, free_cl_mg_l, ph}, maintenance_log [{permit_ref, stream, activity, start, end, approved_deviation bool}]}. history: {prior_90d [{date, point_id, param, value, limit}], resample {state, requested_at, sampled_at, outcome or null}}.\n\nFactor mapping:\n- exceedance_profile appears only as value against limit in results.items. Microbiological limits are 0, given as counts per 100 ml. No exceedance flag, ratio or pass/fail field is ever shown.\n- online_corroboration appears as works_context.online_at_sample readings compared with the grab result.\n- benign_explanation appears as a maintenance_log entry whose start/end window covers sampled_at with approved_deviation true. Alternatively it appears as a prior_90d or log entry referencing a tap fault at the same point_id.\n- tap_handling_issue appears through sample.tap fields.\n- transit_hours is derived from received_at minus sampled_at and is never stated directly. Receipt temperature sits alongside it.\n- missing_elements renders as null fields, an absent custody section (absent custody counts as seal, received_at and temperature missing), or reversed timestamps.\n- resample_state appears in history.resample.\n- prior_failures_90d appears as entries in history.prior_90d exceeding their limit.\n- sampler_accreditation is shown by comparing cert_expiry with sampled_at, plus supervisor_id.\n- free_text_signal sets the wording of sample.note and lab.analyst_comment.\n\nDecoys:\n- Maintenance entries on a different stream or with windows ending before sampled_at.\n- Prior failures at other point_ids or for unrelated parameters.\n- cert_expiry falling just after the sample date, so still valid.\n- Analyst comments describing routine dilution or reruns that passed.\n- Online chlorine slightly low but within the normal band.\n\nNever include fields that state severity, cause, genuineness, disposition or a gap count. Free text describes observations only and never conclusions such as 'failure confirmed' or 'resample needed'.",
+ "skills": [
+  "S2",
+  "S3",
+  "S4",
+  "S5",
+  "S6",
+  "S7"
+ ],
+ "shared_scale": null,
+ "design_cost": 0.177664
+}

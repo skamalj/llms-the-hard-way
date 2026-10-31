@@ -1,0 +1,2650 @@
+{
+ "F101": {
+  "id": "F101",
+  "domain": "hospital blood bank stock and issue checks",
+  "role": "Blood bank biomedical scientist performing the final pre-issue check on a single allocated blood component",
+  "setting": "A hospital transfusion laboratory where each record is one allocated red cell or platelet unit awaiting issue to a named patient. Before dispatch, the scientist reconciles the patient record, the clinical request, the unit label, the pre-transfusion testing and the unit's storage movements, then decides whether the unit can go, must wait, must be swapped or must be withdrawn.",
+  "questions": {
+   "sample_valid": {
+    "type": "noul",
+    "instructions": "The patient's group and screen sample is valid for this issue.",
+    "criteria": null
+   },
+   "issue_action": {
+    "type": "choice",
+    "instructions": "What should happen next with this issue request?",
+    "criteria": {
+     "issue_now": "All checks reconcile; dispatch the unit to the ward.",
+     "hold_pending": "A missing step or confirmation blocks issue; keep unit reserved.",
+     "reselect_unit": "Unit is sound but unsuitable for this patient; allocate another.",
+     "quarantine_unit": "Unit integrity or expiry fails; withdraw it from issuable stock."
+    }
+   },
+   "discrepancy_type": {
+    "type": "choice",
+    "instructions": "Which category best describes the most serious discrepancy found?",
+    "criteria": {
+     "none": "Patient, request, testing, unit and storage sections fully reconcile.",
+     "identity_labelling": "Patient identifiers differ between request, sample record or unit tag.",
+     "compatibility": "Group, crossmatch or antibody result does not support this unit.",
+     "special_requirement": "Required irradiation or CMV-negative status is not met by unit.",
+     "storage_integrity": "Expiry, temperature log, inspection or out-of-storage time is compromised."
+    }
+   },
+   "issue_urgency": {
+    "type": "score",
+    "instructions": "How soon must the unit reach the patient?",
+    "criteria": [
+     "Routine: required more than 24 hours after the check",
+     "Scheduled: required between 4 and 24 hours away",
+     "Urgent: required between 1 and 4 hours away",
+     "Emergency: required within 60 minutes of the check"
+    ]
+   },
+   "storage_exposure": {
+    "type": "score",
+    "instructions": "How long has the unit been out of controlled storage?",
+    "criteria": [
+     "Never left controlled storage since receipt into stock",
+     "Under 30 minutes in total outside controlled storage",
+     "30 to 60 minutes in total outside storage",
+     "More than 60 minutes in total outside storage"
+    ]
+   }
+  },
+  "factors": [
+   {
+    "name": "sample_age_hours",
+    "description": "Hours between sample collection and the issue check; validity limit is 72 hours, or 7 days when recent transfusion and pregnancy are confirmed absent.",
+    "kind": "number",
+    "values": [],
+    "weights": [],
+    "min": 2,
+    "max": 190,
+    "p_true": 0,
+    "skills": [
+     "S1",
+     "S2",
+     "S5",
+     "S6"
+    ]
+   },
+   {
+    "name": "transfusion_pregnancy_history",
+    "description": "Whether the patient has been transfused or pregnant in the last three months; confirmed absence extends sample validity, unknown leaves only the 72-hour window.",
+    "kind": "categorical",
+    "values": [
+     "none_confirmed",
+     "recent_yes",
+     "unknown_null"
+    ],
+    "weights": [
+     0.45,
+     0.35,
+     0.2
+    ],
+    "min": 0,
+    "max": 0,
+    "p_true": 0,
+    "skills": [
+     "S2",
+     "S3",
+     "S5",
+     "S6"
+    ]
+   },
+   {
+    "name": "identity_mismatch",
+    "description": "Kind of disagreement between patient identifiers across patient, request, sample and unit tag.",
+    "kind": "categorical",
+    "values": [
+     "none",
+     "format_only",
+     "name_spelling",
+     "dob_mismatch",
+     "mrn_mismatch"
+    ],
+    "weights": [
+     0.55,
+     0.2,
+     0.1,
+     0.1,
+     0.05
+    ],
+    "min": 0,
+    "max": 0,
+    "p_true": 0,
+    "skills": [
+     "S1",
+     "S6"
+    ]
+   },
+   {
+    "name": "sample_record_state",
+    "description": "Completeness and ordering of the sample record's collection and receipt details.",
+    "kind": "categorical",
+    "values": [
+     "complete",
+     "received_before_collected",
+     "collector_id_missing"
+    ],
+    "weights": [
+     0.78,
+     0.1,
+     0.12
+    ],
+    "min": 0,
+    "max": 0,
+    "p_true": 0,
+    "skills": [
+     "S2",
+     "S5"
+    ]
+   },
+   {
+    "name": "abo_rh_relation",
+    "description": "Relationship between patient group and unit group.",
+    "kind": "categorical",
+    "values": [
+     "identical",
+     "compatible_non_identical",
+     "rhd_pos_to_neg_female_under_50",
+     "abo_incompatible"
+    ],
+    "weights": [
+     0.6,
+     0.27,
+     0.08,
+     0.05
+    ],
+    "min": 0,
+    "max": 0,
+    "p_true": 0,
+    "skills": [
+     "S1",
+     "S3",
+     "S6"
+    ]
+   },
+   {
+    "name": "special_req_status",
+    "description": "Whether flagged irradiation or CMV-negative requirements are carried through to request and unit.",
+    "kind": "categorical",
+    "values": [
+     "none_required",
+     "met",
+     "irradiation_missing",
+     "cmv_neg_missing",
+     "on_patient_record_only"
+    ],
+    "weights": [
+     0.5,
+     0.25,
+     0.11,
+     0.07,
+     0.07
+    ],
+    "min": 0,
+    "max": 0,
+    "p_true": 0,
+    "skills": [
+     "S1",
+     "S2"
+    ]
+   },
+   {
+    "name": "crossmatch_state",
+    "description": "State of compatibility testing for this unit.",
+    "kind": "categorical",
+    "values": [
+     "electronic_eligible",
+     "serological_compatible",
+     "serological_pending",
+     "not_done",
+     "electronic_used_despite_antibody"
+    ],
+    "weights": [
+     0.4,
+     0.28,
+     0.14,
+     0.1,
+     0.08
+    ],
+    "min": 0,
+    "max": 0,
+    "p_true": 0,
+    "skills": [
+     "S2",
+     "S4",
+     "S1"
+    ]
+   },
+   {
+    "name": "unit_expiry_margin_hours",
+    "description": "Hours from the required-by time to unit expiry; negative means the unit expires before it is needed.",
+    "kind": "number",
+    "values": [],
+    "weights": [],
+    "min": -18,
+    "max": 840,
+    "p_true": 0,
+    "skills": [
+     "S1",
+     "S2"
+    ]
+   },
+   {
+    "name": "visual_inspection",
+    "description": "Result of the pre-issue visual check of the bag.",
+    "kind": "categorical",
+    "values": [
+     "passed",
+     "not_recorded",
+     "haemolysis_flag_cleared_by_senior",
+     "failed_haemolysis"
+    ],
+    "weights": [
+     0.72,
+     0.13,
+     0.08,
+     0.07
+    ],
+    "min": 0,
+    "max": 0,
+    "p_true": 0,
+    "skills": [
+     "S2",
+     "S3",
+     "S4"
+    ]
+   },
+   {
+    "name": "out_of_storage_minutes",
+    "description": "Total minutes the unit spent outside a fridge or validated container across its movements.",
+    "kind": "integer",
+    "values": [],
+    "weights": [],
+    "min": 0,
+    "max": 110,
+    "p_true": 0,
+    "skills": [
+     "S1",
+     "S4",
+     "S6"
+    ]
+   },
+   {
+    "name": "validated_transport_box",
+    "description": "Whether one of the out-of-fridge movements was inside a validated transport box, which does not count as exposure.",
+    "kind": "boolean",
+    "values": [],
+    "weights": [],
+    "min": 0,
+    "max": 0,
+    "p_true": 0.5,
+    "skills": [
+     "S3",
+     "S6"
+    ]
+   },
+   {
+    "name": "temp_log_status",
+    "description": "Condition of the storage temperature log covering the unit's time in stock.",
+    "kind": "categorical",
+    "values": [
+     "complete",
+     "gap",
+     "missing",
+     "alarm_acknowledged_in_range"
+    ],
+    "weights": [
+     0.6,
+     0.17,
+     0.1,
+     0.13
+    ],
+    "min": 0,
+    "max": 0,
+    "p_true": 0,
+    "skills": [
+     "S2",
+     "S3",
+     "S4"
+    ]
+   },
+   {
+    "name": "time_to_required_minutes",
+    "description": "Minutes between the check and the request's required-by time.",
+    "kind": "integer",
+    "values": [],
+    "weights": [],
+    "min": 15,
+    "max": 2880,
+    "p_true": 0,
+    "skills": [
+     "S1",
+     "S6",
+     "S7"
+    ]
+   },
+   {
+    "name": "priority_code_stale",
+    "description": "Whether the request's priority code disagrees with the actual required-by window, e.g. raised as urgent then rescheduled.",
+    "kind": "boolean",
+    "values": [],
+    "weights": [],
+    "min": 0,
+    "max": 0,
+    "p_true": 0.3,
+    "skills": [
+     "S6",
+     "S7"
+    ]
+   }
+  ],
+  "sections": [
+   {
+    "name": "patient",
+    "description": "Identifiers, ABO/RhD group, sex, age, antibody history, special requirement flags, transfusion and pregnancy history."
+   },
+   {
+    "name": "request",
+    "description": "Requesting ward, patient identifiers as entered, component, units, priority code, requested and required-by timestamps, special requirements ticked."
+   },
+   {
+    "name": "unit",
+    "description": "Donation number, component, group, expiry, irradiated and CMV-negative attributes, compatibility tag identifiers, visual inspection entry."
+   },
+   {
+    "name": "pretransfusion_testing",
+    "description": "Sample record with identifiers, collection and receipt times, collector, antibody screen and crossmatch method and result."
+   },
+   {
+    "name": "storage_movements",
+    "description": "Temperature log summary and list of removals and returns with timestamps and container type."
+   }
+  ],
+  "rendering_notes": "Check time is a top-level-free timestamp inside request.checked_at. sample_age_hours appears only via pretransfusion_testing.sample.collected_at versus request.checked_at. transfusion_pregnancy_history fills patient.transfused_last_3m and patient.pregnant_last_3m (both null when unknown_null; pregnancy null or false for males). received_before_collected sets sample.received_at earlier than collected_at; collector_id_missing sets sample.collected_by to null. identity_mismatch is placed in one varied location (request.patient, sample, or unit.compat_tag) as an altered mrn, dob or surname; format_only differs only by spaces, hyphens or case and is a decoy. abo_rh_relation shows only through patient.abo_rhd versus unit.group, with patient.sex and age needed to spot the RhD case; compatible_non_identical is a decoy. special_req_status compares patient.special_reqs, request.special_reqs and unit.irradiated/unit.cmv_negative; on_patient_record_only means the request omits a flag the patient has and the unit lacks it. crossmatch_state appears via testing.antibody_screen, testing.crossmatch.method and testing.crossmatch.result (null when pending, whole crossmatch object null when not_done); electronic_used_despite_antibody shows a positive screen or patient.antibody_history entry alongside method electronic. unit_expiry_margin_hours shows only via unit.expires_at versus request.required_by. visual_inspection fills unit.inspection {result, by, at}; not_recorded makes it null; cleared haemolysis shows result flagged plus a cleared_by senior entry. out_of_storage_minutes is split across 1-3 entries in storage_movements.moves as removed_at/returned_at pairs; when validated_transport_box is true one move has container validated_box and its duration must be excluded, which is a decoy that looks like long exposure. temp_log_status fills storage_movements.temp_log {coverage_from, coverage_to, readings_out_of_range, alarm_ack}; gap shows coverage not spanning the unit's stock time, missing makes temp_log null. time_to_required_minutes is visible only as request.required_by versus request.checked_at; request.priority is a plausible real field but when priority_code_stale is true it contradicts the window and must not decide urgency. Precedence for discrepancy_type when several apply: compatibility, then identity_labelling, then special_requirement, then storage_integrity. Never include fields such as sample_valid, total_minutes_out, discrepancy, action, urgency_level or any summary verdict; no free-text notes.",
+  "skills": [
+   "S1",
+   "S2",
+   "S3",
+   "S4",
+   "S5",
+   "S6",
+   "S7"
+  ],
+  "shared_scale": null
+ },
+ "F102": {
+  "id": "F102",
+  "domain": "passenger lift service visit logs",
+  "role": "Maintenance contract compliance reviewer at a lift servicing firm, auditing each technician's submitted visit log before it is filed against the client contract.",
+  "setting": "A regional lift maintenance contractor services passenger lifts in offices, flats and hospitals. Technicians submit a structured visit log from a handheld device after every routine service, breakdown callout, repair return or post-entrapment attendance. The reviewer opens one log at a time. The reviewer compares the asset record, visit timings, check results, parts issued, controller fault history and departure handover, then decides whether the lift was evidenced safe, what to do with the log, what the visit's main fault category was, and how many values disagree across sections.",
+  "questions": {
+   "fit_for_service": {
+    "type": "noul",
+    "instructions": "Lift was demonstrably safe to return to passenger service.",
+    "criteria": {
+     "true": "Safety checks pass or retest, and a test run is logged.",
+     "false": "Safety item failed unretested, or the evidence is missing."
+    }
+   },
+   "log_disposition": {
+    "type": "choice",
+    "instructions": "What should happen to this visit log now?",
+    "criteria": {
+     "accept": "Log consistent and complete; file without any further action.",
+     "accept_followup": "Log sound, but non-safety work remains booked for later.",
+     "hold_query": "One missing item or mismatch needs technician confirmation first.",
+     "reject_revisit": "Safety work unfinished or log unreliable; send an engineer back."
+    }
+   },
+   "fault_category": {
+    "type": "choice",
+    "instructions": "Which category best describes the main fault this visit addressed?",
+    "criteria": {
+     "no_fault_found": "No fault confirmed; routine visit or fault not reproduced.",
+     "wear_component": "Fault traced to a worn part such as rollers or contacts.",
+     "safety_circuit": "Fault in an interlock, brake, governor or other safety device.",
+     "external_cause": "Fault caused by building power, water ingress or passenger misuse."
+    }
+   },
+   "action_due": {
+    "type": "score",
+    "instructions": "How soon must the next action on this record take place?",
+    "criteria": [
+     "No action needed within the next 30 days",
+     "Action needed within 8 to 30 days",
+     "Action needed within 1 to 7 days",
+     "Action needed today or already overdue"
+    ]
+   },
+   "mismatch_count": {
+    "type": "score",
+    "instructions": "How many values disagree between sections of this visit log?",
+    "criteria": [
+     "No values disagree between any two sections",
+     "Exactly one value disagrees between sections",
+     "Two or three values disagree between sections",
+     "Four or more values disagree between sections"
+    ]
+   }
+  },
+  "factors": [
+   {
+    "name": "lift_type",
+    "description": "Drive type of the lift. Decides which checks apply; for example, the governor test is not applicable on some hydraulic units.",
+    "kind": "categorical",
+    "values": [
+     "traction_geared",
+     "traction_mrl",
+     "hydraulic",
+     "platform"
+    ],
+    "weights": [
+     0.3,
+     0.35,
+     0.25,
+     0.1
+    ],
+    "min": 0,
+    "max": 0,
+    "p_true": 0,
+    "skills": [
+     "S7",
+     "S3"
+    ]
+   },
+   {
+    "name": "visit_type",
+    "description": "Reason for attendance. Shapes which checks and fault entries are expected.",
+    "kind": "categorical",
+    "values": [
+     "routine",
+     "breakdown_callout",
+     "repair_return",
+     "post_entrapment"
+    ],
+    "weights": [
+     0.4,
+     0.3,
+     0.2,
+     0.1
+    ],
+    "min": 0,
+    "max": 0,
+    "p_true": 0,
+    "skills": [
+     "S7"
+    ]
+   },
+   {
+    "name": "mismatch_n",
+    "description": "Number of injected disagreements between corresponding values in different sections. Never flagged in the record.",
+    "kind": "integer",
+    "values": [],
+    "weights": [],
+    "min": 0,
+    "max": 5,
+    "p_true": 0,
+    "skills": [
+     "S1"
+    ]
+   },
+   {
+    "name": "mismatch_location",
+    "description": "Where the injected mismatches sit.",
+    "kind": "categorical",
+    "values": [
+     "parts_vs_checks",
+     "asset_ids",
+     "times_vs_outage",
+     "faults_vs_checks",
+     "mixed"
+    ],
+    "weights": [
+     0.22,
+     0.15,
+     0.2,
+     0.18,
+     0.25
+    ],
+    "min": 0,
+    "max": 0,
+    "p_true": 0,
+    "skills": [
+     "S1"
+    ]
+   },
+   {
+    "name": "mismatch_magnitude",
+    "description": "Size of each mismatch. Trivial means a one-minute clock skew or rounding of a 0.5 mm reading. Moderate means a quantity off by one or a time off by 20 minutes. Large means a wrong lift id, or a part fitted to a component never checked.",
+    "kind": "categorical",
+    "values": [
+     "trivial",
+     "moderate",
+     "large"
+    ],
+    "weights": [
+     0.35,
+     0.4,
+     0.25
+    ],
+    "min": 0,
+    "max": 0,
+    "p_true": 0,
+    "skills": [
+     "S1",
+     "S6"
+    ]
+   },
+   {
+    "name": "safety_check_fail",
+    "description": "A safety-critical check is recorded as fail or out of tolerance on first test. Covers the door interlock, brake, overspeed governor, alarm line and door reversal.",
+    "kind": "boolean",
+    "values": [],
+    "weights": [],
+    "min": 0,
+    "max": 0,
+    "p_true": 0.35,
+    "skills": [
+     "S3",
+     "S5"
+    ]
+   },
+   {
+    "name": "mitigation_present",
+    "description": "A field that lowers concern about an alarming signal. Examples: a later retest pass with a timestamp, isolation applied with the lift held out of service, an approved concession reference, or the check marked not applicable for this lift type.",
+    "kind": "boolean",
+    "values": [],
+    "weights": [],
+    "min": 0,
+    "max": 0,
+    "p_true": 0.5,
+    "skills": [
+     "S3",
+     "S5"
+    ]
+   },
+   {
+    "name": "work_completion",
+    "description": "How far the logged work got: finished, part awaited, time ran out, or not started.",
+    "kind": "categorical",
+    "values": [
+     "complete",
+     "partial_parts_awaited",
+     "partial_time",
+     "not_started"
+    ],
+    "weights": [
+     0.5,
+     0.22,
+     0.18,
+     0.1
+    ],
+    "min": 0,
+    "max": 0,
+    "p_true": 0,
+    "skills": [
+     "S4"
+    ]
+   },
+   {
+    "name": "fault_origin",
+    "description": "The true main cause the visit addressed. It is exactly one per record, inferred from controller codes, failed checks and the components on the parts issued.",
+    "kind": "categorical",
+    "values": [
+     "none",
+     "wear",
+     "safety_circuit",
+     "building_supply"
+    ],
+    "weights": [
+     0.3,
+     0.3,
+     0.22,
+     0.18
+    ],
+    "min": 0,
+    "max": 0,
+    "p_true": 0,
+    "skills": [
+     "S7",
+     "S6"
+    ]
+   },
+   {
+    "name": "prior_occurrences",
+    "description": "Times the same fault code appeared in the prior 90 days. Repeats suggest an unresolved root cause.",
+    "kind": "integer",
+    "values": [],
+    "weights": [],
+    "min": 0,
+    "max": 4,
+    "p_true": 0,
+    "skills": [
+     "S3",
+     "S6"
+    ]
+   },
+   {
+    "name": "boundary_reading",
+    "description": "A measured value sits exactly on its tolerance limit, such as levelling at 10 mm against a 10 mm limit. This leaves the pass or fail call open.",
+    "kind": "boolean",
+    "values": [],
+    "weights": [],
+    "min": 0,
+    "max": 0,
+    "p_true": 0.25,
+    "skills": [
+     "S6",
+     "S5"
+    ]
+   },
+   {
+    "name": "documentation_gap",
+    "description": "A single missing piece of evidence: no customer sign-off, no parts section at all, or no test run recorded.",
+    "kind": "categorical",
+    "values": [
+     "none",
+     "missing_signoff",
+     "missing_parts",
+     "missing_test_run"
+    ],
+    "weights": [
+     0.55,
+     0.15,
+     0.15,
+     0.15
+    ],
+    "min": 0,
+    "max": 0,
+    "p_true": 0,
+    "skills": [
+     "S4",
+     "S1",
+     "S5"
+    ]
+   },
+   {
+    "name": "decoy_alarm",
+    "description": "An alarming-looking but benign field. Examples: a high count of nuisance door-obstruction codes, a thorough examination date that is old but still in date, or a long outage that matches a booked modernisation window.",
+    "kind": "boolean",
+    "values": [],
+    "weights": [],
+    "min": 0,
+    "max": 0,
+    "p_true": 0.4,
+    "skills": [
+     "S3"
+    ]
+   }
+  ],
+  "sections": [
+   {
+    "name": "asset",
+    "description": "Lift id, site ref, drive type, rated load kg, floors served, last thorough examination date and next due date."
+   },
+   {
+    "name": "visit",
+    "description": "Visit id, lift id echoed, visit type, technician id, date, arrive and depart times, outage start and end, booked window ref."
+   },
+   {
+    "name": "checks",
+    "description": "List of check items with code, result pass/fail/na, reading, limit, unit, tested_at, and optional retest result and time."
+   },
+   {
+    "name": "parts",
+    "description": "List of parts fitted with part code, component, qty fitted, qty issued from van stock, and status fitted or on order."
+   },
+   {
+    "name": "faults",
+    "description": "Controller fault log entries with code, component, count since last visit, prior_90d count, cleared boolean."
+   },
+   {
+    "name": "handover",
+    "description": "Departure state: returned_to_service, isolation_applied, test_runs count, concession ref, signoff_present, followup_booked date."
+   }
+  ],
+  "rendering_notes": "Rendering by factor:\n- lift_type: shown in asset.drive. Some checks render as na; for example, the governor check is na on hydraulic lifts and is not a failure.\n- visit_type: shown in visit.type. post_entrapment visits should carry door and alarm checks.\n- mismatch_n, mismatch_location and mismatch_magnitude: rendered by altering one side of a corresponding pair. Pairs include asset.lift_id vs visit.lift_id, visit.depart vs visit.outage_end vs handover returned_to_service, parts.qty_fitted vs qty_issued, parts.component vs the checks or faults components, and checks.tested_at outside the arrive/depart span. Trivial mismatches still count toward mismatch_count. Mismatches are never labelled.\n- safety_check_fail: a checks item with result fail or a reading beyond its limit.\n- mitigation_present: a checks retest pass with a later timestamp, handover.isolation_applied true with returned_to_service false, a handover.concession_ref, or na justified by drive type. With the same failure and no mitigation, fit_for_service is false. A retest timestamp after visit.depart is itself a mismatch, and the mitigation does not count.\n- work_completion: parts status on_order, unchecked items with null results, or test_runs 0.\n- fault_origin: inferred only from fault codes, failed checks and part components. There is no cause field. Building_supply shows as power-loss or pit-water codes with clean device checks.\n- prior_occurrences: shown in faults.prior_90d.\n- boundary_reading: a reading equal to its limit.\n- documentation_gap: signoff_present false, a parts list absent (null) despite a wear fault, or test_runs null.\n- decoy_alarm: a high count on the door-obstruction code with cleared true, an old but in-date examination, or a long outage matching visit.booked_window.\n\nAnswer rules:\n- fit_for_service is true only when there are no unretested safety fails, test_runs is at least 1, returned_to_service is true and the lift id is consistent.\n- log_disposition: reject_revisit for unresolved safety or large mismatches; hold_query for exactly one gap or one unexplained moderate mismatch; accept_followup for safe logs with non-safety parts awaited; accept otherwise. Boundary readings and repeat codes create contested cases.\n\nNo field states a risk level, disposition, category or mismatch total; all are derived by comparison. No free-text fields.",
+  "skills": [
+   "S1",
+   "S3",
+   "S4",
+   "S5",
+   "S6",
+   "S7"
+  ],
+  "shared_scale": "action_due"
+ },
+ "F103": {
+  "id": "F103",
+  "domain": "drinking-water quality sampling at treatment works",
+  "role": "Water quality compliance scientist at a treatment works laboratory, signing off individual final-water sample records",
+  "setting": "Each record is one compliance or operational sample taken at a drinking-water treatment works. It covers the sampling event, chain of custody, laboratory results against prescribed limits, the works' own online monitoring and maintenance log at the time of sampling, and recent sampling history at the same point. The scientist decides whether the result reflects a genuine water quality failure and what should happen next. They also judge where any anomaly most likely arose, how far results exceed their limits, and how complete the record is.",
+  "questions": {
+   "genuine_failure": {
+    "type": "noul",
+    "instructions": "Record shows a genuine water quality failure, not a sampling artefact.",
+    "criteria": null
+   },
+   "disposition": {
+    "type": "choice",
+    "instructions": "What should the reviewer do with this sample record next?",
+    "criteria": {
+     "accept": "Result valid and compliant; file with no further action.",
+     "accept_with_note": "Result usable but minor record gap needs annotating before filing.",
+     "hold": "One outstanding confirmation, such as QC or resample, before finalising.",
+     "resample": "Result unreliable from handling or lab fault; repeat sampling needed.",
+     "escalate": "Credible failure needing operations response and regulator notification."
+    }
+   },
+   "anomaly_source": {
+    "type": "choice",
+    "instructions": "Which source most likely explains any anomaly in this record?",
+    "criteria": {
+     "no_anomaly": "All results compliant and record free of handling irregularities.",
+     "sampling_transit": "Fault arises at the tap, during custody or in transit.",
+     "laboratory": "Fault arises in analysis, the QC batch or lab reporting.",
+     "treatment_process": "Result reflects real water quality leaving the treatment process."
+    }
+   },
+   "exceedance_severity": {
+    "type": "score",
+    "instructions": "How far does the worst result exceed its limit?",
+    "criteria": [
+     "Compliant: every parameter at or below its limit",
+     "Marginal: worst result over limit by 10% or less",
+     "Clear: more than 10% to 100% over limit, or coliforms detected",
+     "Gross: more than double the limit, or E. coli detected"
+    ]
+   },
+   "record_gaps": {
+    "type": "score",
+    "instructions": "How many mandatory record elements are missing or out of order?",
+    "criteria": [
+     "No mandatory elements missing or out of order",
+     "Exactly one element missing or out of order",
+     "Exactly two elements missing or out of order",
+     "Exactly three elements missing or out of order",
+     "Four or more elements missing or out of order"
+    ]
+   }
+  },
+  "factors": [
+   {
+    "name": "exceedance_profile",
+    "description": "The true worst-case result relative to prescribed limits. It ranges from fully compliant, through marginal, clear and gross chemical exceedances (turbidity, aluminium, iron, nitrite, THMs), to coliform or E. coli detections.",
+    "kind": "categorical",
+    "values": [
+     "none",
+     "marginal_chem",
+     "clear_chem",
+     "gross_chem",
+     "coliform_detect",
+     "ecoli_detect"
+    ],
+    "weights": [
+     0.35,
+     0.15,
+     0.15,
+     0.08,
+     0.17,
+     0.1
+    ],
+    "min": 0,
+    "max": 0,
+    "p_true": 0,
+    "skills": [
+     "S4",
+     "S7"
+    ]
+   },
+   {
+    "name": "online_corroboration",
+    "description": "Whether the works' online monitors at the sampling time agree with the grab result. Examples of agreement are a turbidity spike or low free chlorine. The monitors may instead show nothing unusual or flatly contradict the result.",
+    "kind": "categorical",
+    "values": [
+     "corroborates",
+     "neutral",
+     "contradicts"
+    ],
+    "weights": [
+     0.35,
+     0.35,
+     0.3
+    ],
+    "min": 0,
+    "max": 0,
+    "p_true": 0,
+    "skills": [
+     "S3",
+     "S5",
+     "S6"
+    ]
+   },
+   {
+    "name": "benign_explanation",
+    "description": "A mitigating context logged elsewhere in the record. Options are an approved maintenance window with a permitted deviation covering the sample time, or a known tap fault already logged against the sample point. Present in about half of records regardless of exceedance.",
+    "kind": "categorical",
+    "values": [
+     "none",
+     "approved_maintenance_window",
+     "known_tap_fault_logged"
+    ],
+    "weights": [
+     0.5,
+     0.3,
+     0.2
+    ],
+    "min": 0,
+    "max": 0,
+    "p_true": 0,
+    "skills": [
+     "S3",
+     "S6"
+    ]
+   },
+   {
+    "name": "tap_handling_issue",
+    "description": "Whether the sampler's own record shows poor tap practice. Examples are the tap not flamed or disinfected, a hose attached, or a tap replaced within the last 48 hours.",
+    "kind": "boolean",
+    "values": [],
+    "weights": [],
+    "min": 0,
+    "max": 0,
+    "p_true": 0.3,
+    "skills": [
+     "S3",
+     "S6"
+    ]
+   },
+   {
+    "name": "transit_hours",
+    "description": "Hours from sampled_at to lab received_at. Microbiological samples over 24 hours, or with a receipt temperature above 8 °C, are compromised.",
+    "kind": "number",
+    "values": [],
+    "weights": [],
+    "min": 0.5,
+    "max": 30,
+    "p_true": 0,
+    "skills": [
+     "S2",
+     "S3"
+    ]
+   },
+   {
+    "name": "lab_qc_status",
+    "description": "State of the analytical QC batch containing the sample: passed, a control failed, or QC not yet reviewed.",
+    "kind": "categorical",
+    "values": [
+     "passed",
+     "control_failed",
+     "pending"
+    ],
+    "weights": [
+     0.6,
+     0.15,
+     0.25
+    ],
+    "min": 0,
+    "max": 0,
+    "p_true": 0,
+    "skills": [
+     "S2",
+     "S4"
+    ]
+   },
+   {
+    "name": "missing_elements",
+    "description": "Count of mandatory record elements that are null, absent, or chronologically out of order. Elements include sampler id, seal number, received timestamp, receipt temperature, lab batch id, received_at not after sampled_at, and analysed_at not after received_at.",
+    "kind": "integer",
+    "values": [],
+    "weights": [],
+    "min": 0,
+    "max": 5,
+    "p_true": 0,
+    "skills": [
+     "S2",
+     "S4"
+    ]
+   },
+   {
+    "name": "resample_state",
+    "description": "Progress of any confirmatory resample at the same point: not requested, requested but not yet taken, taken with result awaited, taken and clear, or taken and failed.",
+    "kind": "categorical",
+    "values": [
+     "not_requested",
+     "requested_not_taken",
+     "taken_awaiting_result",
+     "result_clear",
+     "result_fail"
+    ],
+    "weights": [
+     0.35,
+     0.15,
+     0.2,
+     0.18,
+     0.12
+    ],
+    "min": 0,
+    "max": 0,
+    "p_true": 0,
+    "skills": [
+     "S2",
+     "S4",
+     "S5"
+    ]
+   },
+   {
+    "name": "prior_failures_90d",
+    "description": "Number of failed results at the same sample point in the previous 90 days. It raises concern when recent, but some entries relate to different parameters or to points elsewhere on the works.",
+    "kind": "integer",
+    "values": [],
+    "weights": [],
+    "min": 0,
+    "max": 4,
+    "p_true": 0,
+    "skills": [
+     "S6",
+     "S7"
+    ]
+   },
+   {
+    "name": "sampler_accreditation",
+    "description": "Accreditation status of the sampler on the sampling date: certified, certificate lapsed before the sample date, or trainee under named supervision.",
+    "kind": "categorical",
+    "values": [
+     "certified",
+     "lapsed",
+     "trainee_supervised"
+    ],
+    "weights": [
+     0.7,
+     0.12,
+     0.18
+    ],
+    "min": 0,
+    "max": 0,
+    "p_true": 0,
+    "skills": [
+     "S2",
+     "S3"
+    ]
+   },
+   {
+    "name": "sample_purpose",
+    "description": "Purpose of the sample point: regulatory compliance, operational process control, or a one-off investigative point. Investigative and operational points carry lower notification impact.",
+    "kind": "categorical",
+    "values": [
+     "regulatory",
+     "operational",
+     "investigative"
+    ],
+    "weights": [
+     0.6,
+     0.25,
+     0.15
+    ],
+    "min": 0,
+    "max": 0,
+    "p_true": 0,
+    "skills": [
+     "S3",
+     "S7"
+    ]
+   },
+   {
+    "name": "free_text_signal",
+    "description": "What the free-text fields convey. They may be routine wording only, or flag a concern such as discoloured water or a tap that spluttered. The sampler note may also be null.",
+    "kind": "categorical",
+    "values": [
+     "routine",
+     "flags_concern",
+     "note_null"
+    ],
+    "weights": [
+     0.55,
+     0.3,
+     0.15
+    ],
+    "min": 0,
+    "max": 0,
+    "p_true": 0,
+    "skills": [
+     "S2",
+     "S6"
+    ]
+   }
+  ],
+  "sections": [
+   {
+    "name": "sample",
+    "description": "Sampling event: ids, works and point codes, point purpose, timestamp, sampler, tap condition and sampler note."
+   },
+   {
+    "name": "custody",
+    "description": "Chain of custody: seal number, courier, received_at, receipt temperature; may be null or absent."
+   },
+   {
+    "name": "results",
+    "description": "List of parameter results with value, unit, limit and analysed_at, plus lab batch and analyst comment."
+   },
+   {
+    "name": "works_context",
+    "description": "Online monitor readings at sampling time and maintenance log entries with permit references and deviations."
+   },
+   {
+    "name": "history",
+    "description": "Prior results at the same point over 90 days and confirmatory resample status."
+   }
+  ],
+  "rendering_notes": "sample: {sample_id, works_code, point_id, point_purpose (regulatory|operational|investigative), sampled_at ISO datetime, sampler {id or null, accreditation, cert_expiry date, supervisor_id or null}, tap {flamed bool, hose_attached bool, last_replaced date}, note (one-sentence free text or null)}. custody: {seal_no, courier, received_at, receipt_temp_c}. Whole section may be absent or null when missing_elements is high. results: {lab {batch_id, qc_status (passed|control_failed|pending), analyst_comment one sentence}, items [{param, value, unit, limit, method, analysed_at}]}. works_context: {online_at_sample {turbidity_ntu, free_cl_mg_l, ph}, maintenance_log [{permit_ref, stream, activity, start, end, approved_deviation bool}]}. history: {prior_90d [{date, point_id, param, value, limit}], resample {state, requested_at, sampled_at, outcome or null}}.\n\nFactor mapping:\n- exceedance_profile appears only as value against limit in results.items. Microbiological limits are 0, given as counts per 100 ml. No exceedance flag, ratio or pass/fail field is ever shown.\n- online_corroboration appears as works_context.online_at_sample readings compared with the grab result.\n- benign_explanation appears as a maintenance_log entry whose start/end window covers sampled_at with approved_deviation true. Alternatively it appears as a prior_90d or log entry referencing a tap fault at the same point_id.\n- tap_handling_issue appears through sample.tap fields.\n- transit_hours is derived from received_at minus sampled_at and is never stated directly. Receipt temperature sits alongside it.\n- missing_elements renders as null fields, an absent custody section (absent custody counts as seal, received_at and temperature missing), or reversed timestamps.\n- resample_state appears in history.resample.\n- prior_failures_90d appears as entries in history.prior_90d exceeding their limit.\n- sampler_accreditation is shown by comparing cert_expiry with sampled_at, plus supervisor_id.\n- free_text_signal sets the wording of sample.note and lab.analyst_comment.\n\nDecoys:\n- Maintenance entries on a different stream or with windows ending before sampled_at.\n- Prior failures at other point_ids or for unrelated parameters.\n- cert_expiry falling just after the sample date, so still valid.\n- Analyst comments describing routine dilution or reruns that passed.\n- Online chlorine slightly low but within the normal band.\n\nNever include fields that state severity, cause, genuineness, disposition or a gap count. Free text describes observations only and never conclusions such as 'failure confirmed' or 'resample needed'.",
+  "skills": [
+   "S2",
+   "S3",
+   "S4",
+   "S5",
+   "S6",
+   "S7"
+  ],
+  "shared_scale": null
+ },
+ "F104": {
+  "id": "F104",
+  "domain": "primary school admission applications",
+  "role": "Local authority school admissions officer reviewing reception-year applications",
+  "setting": "A council admissions team processes applications for reception places at oversubscribed community primary schools. The officer opens one application at a time, compares the declared address and priority claims against council tax, GP, nursery and school roll extracts, and decides how the application proceeds and where it ranks.",
+  "questions": {
+   "address_confirmed": {
+    "type": "noul",
+    "instructions": "Stated home address is confirmed as the child's main residence.",
+    "criteria": {
+     "true": "Address checks agree, or differences are documented and explained.",
+     "false": "Address unverified, contradicted, or only possibly correct."
+    }
+   },
+   "disposition": {
+    "type": "choice",
+    "instructions": "What should happen next with this application?",
+    "criteria": {
+     "process_now": "All checks agree; rank the application without contacting the family.",
+     "hold_for_document": "Exactly one item is missing or stale; one document resolves it.",
+     "residency_inquiry": "Address conflicts lack explanation; home visit or tenancy check required.",
+     "refer_fraud": "Records show another address held concurrently; refer for fraud review."
+    }
+   },
+   "priority_category": {
+    "type": "choice",
+    "instructions": "Under which oversubscription criterion should this application be ranked?",
+    "criteria": {
+     "looked_after": "Highest supported criterion: child looked after, confirmed by an authority.",
+     "medical_social": "Highest supported criterion: current professional letter naming this school.",
+     "sibling": "Highest supported criterion: sibling on roll at the start date.",
+     "distance_only": "No higher criterion supported; ranked purely by home-to-school distance."
+    }
+   },
+   "unexplained_discrepancies": {
+    "type": "score",
+    "instructions": "How many cross-section discrepancies remain without an accepted explanation?",
+    "criteria": [
+     "No unexplained discrepancies between any sections",
+     "Exactly one unexplained discrepancy between sections",
+     "Exactly two unexplained discrepancies between sections",
+     "Three or more unexplained discrepancies between sections"
+    ]
+   },
+   "priority_support": {
+    "type": "score",
+    "instructions": "How well do official records support the claimed priority?",
+    "criteria": [
+     "Contradicted: an official record conflicts with the claim",
+     "Unconfirmed: nothing conflicts, but nothing confirms it",
+     "Single source: one record confirms, none conflicts",
+     "Corroborated: two or more records confirm, none conflict"
+    ]
+   }
+  },
+  "factors": [
+   {
+    "name": "address_mismatch",
+    "description": "Where the declared address differs from addresses held in check extracts, from none through trivial typo to a different council area.",
+    "kind": "categorical",
+    "values": [
+     "none",
+     "postcode_typo",
+     "house_number",
+     "different_postcode",
+     "different_council_area"
+    ],
+    "weights": [
+     0.35,
+     0.15,
+     0.15,
+     0.2,
+     0.15
+    ],
+    "min": 0,
+    "max": 0,
+    "p_true": 0,
+    "skills": [
+     "S1",
+     "S5",
+     "S7"
+    ]
+   },
+   {
+    "name": "recent_move_evidenced",
+    "description": "Family moved recently and a tenancy or completion document dated after the older records explains why those records show a previous address.",
+    "kind": "boolean",
+    "values": [],
+    "weights": [],
+    "min": 0,
+    "max": 0,
+    "p_true": 0.5,
+    "skills": [
+     "S3",
+     "S5"
+    ]
+   },
+   {
+    "name": "concurrent_property",
+    "description": "A council tax or electoral extract shows liability at a second address with dates overlapping the declared residence period.",
+    "kind": "boolean",
+    "values": [],
+    "weights": [],
+    "min": 0,
+    "max": 0,
+    "p_true": 0.15,
+    "skills": [
+     "S1",
+     "S6",
+     "S7"
+    ]
+   },
+   {
+    "name": "claimed_priority",
+    "description": "Highest oversubscription criterion the parent ticks on the form.",
+    "kind": "categorical",
+    "values": [
+     "looked_after",
+     "medical_social",
+     "sibling",
+     "none"
+    ],
+    "weights": [
+     0.08,
+     0.17,
+     0.4,
+     0.35
+    ],
+    "min": 0,
+    "max": 0,
+    "p_true": 0,
+    "skills": [
+     "S7",
+     "S1"
+    ]
+   },
+   {
+    "name": "sibling_record_match",
+    "description": "How the named sibling compares with the school roll extract: exact match, date of birth off, surname differs with parental responsibility shown, sibling leaves before start, or no record.",
+    "kind": "categorical",
+    "values": [
+     "exact",
+     "dob_mismatch",
+     "surname_differs_explained",
+     "leaves_before_start",
+     "no_record"
+    ],
+    "weights": [
+     0.4,
+     0.15,
+     0.15,
+     0.15,
+     0.15
+    ],
+    "min": 0,
+    "max": 0,
+    "p_true": 0,
+    "skills": [
+     "S1",
+     "S3",
+     "S5"
+    ]
+   },
+   {
+    "name": "medical_letter_state",
+    "description": "State of professional supporting letter for a medical or social claim: absent, names this school, generic about schools, or dated beyond the validity window.",
+    "kind": "categorical",
+    "values": [
+     "absent",
+     "names_school",
+     "generic",
+     "expired"
+    ],
+    "weights": [
+     0.25,
+     0.35,
+     0.25,
+     0.15
+    ],
+    "min": 0,
+    "max": 0,
+    "p_true": 0,
+    "skills": [
+     "S4",
+     "S5",
+     "S6"
+    ]
+   },
+   {
+    "name": "looked_after_confirmation",
+    "description": "Evidence state for a looked-after claim: confirmed by the placing authority, claimed only, or covered by a previous order reference.",
+    "kind": "categorical",
+    "values": [
+     "confirmed_by_authority",
+     "claimed_only",
+     "previous_order_ref"
+    ],
+    "weights": [
+     0.45,
+     0.3,
+     0.25
+    ],
+    "min": 0,
+    "max": 0,
+    "p_true": 0,
+    "skills": [
+     "S3",
+     "S5"
+    ]
+   },
+   {
+    "name": "documents_outstanding",
+    "description": "Number of requested proof documents not yet received by the check date.",
+    "kind": "integer",
+    "values": [],
+    "weights": [],
+    "min": 0,
+    "max": 3,
+    "p_true": 0,
+    "skills": [
+     "S4",
+     "S7"
+    ]
+   },
+   {
+    "name": "proof_staleness_days",
+    "description": "Age in days of the newest proof-of-address document at the check date; the policy window is 90 days.",
+    "kind": "integer",
+    "values": [],
+    "weights": [],
+    "min": 5,
+    "max": 200,
+    "p_true": 0,
+    "skills": [
+     "S1",
+     "S4",
+     "S6"
+    ]
+   },
+   {
+    "name": "boundary_case",
+    "description": "One signal sits on a rule boundary, such as proof exactly 90 or 91 days old or a tenancy starting in closing-date week, leaving judges split.",
+    "kind": "boolean",
+    "values": [],
+    "weights": [],
+    "min": 0,
+    "max": 0,
+    "p_true": 0.2,
+    "skills": [
+     "S6"
+    ]
+   },
+   {
+    "name": "dob_year_group_mismatch",
+    "description": "Child's date of birth places them in a different cohort from the requested entry year.",
+    "kind": "boolean",
+    "values": [],
+    "weights": [],
+    "min": 0,
+    "max": 0,
+    "p_true": 0.12,
+    "skills": [
+     "S1"
+    ]
+   },
+   {
+    "name": "age_exception_approved",
+    "description": "A recorded deferred or out-of-cohort entry approval that explains a date-of-birth and year-group mismatch.",
+    "kind": "boolean",
+    "values": [],
+    "weights": [],
+    "min": 0,
+    "max": 0,
+    "p_true": 0.5,
+    "skills": [
+     "S3"
+    ]
+   }
+  ],
+  "sections": [
+   {
+    "name": "application",
+    "description": "Reference, received and closing dates, requested entry year, ranked school preferences and computed distances."
+   },
+   {
+    "name": "child",
+    "description": "Child's name, date of birth, looked-after status field, current nursery and any entry-exception reference."
+   },
+   {
+    "name": "home_address",
+    "description": "Declared address, postcode, date moved in, tenure type and list of submitted proof documents with dates."
+   },
+   {
+    "name": "priority_claims",
+    "description": "Ticked criteria with sibling details, medical or social letter metadata and looked-after order references."
+   },
+   {
+    "name": "checks",
+    "description": "Raw extracts from council tax, GP registration, nursery register and school roll, plus outstanding document requests."
+   }
+  ],
+  "rendering_notes": "address_mismatch appears only by comparing home_address.postcode and house_no with checks.council_tax.postcode, checks.gp_reg.postcode and checks.nursery_reg.postcode; the mismatch may sit in any one or several of these. recent_move_evidenced shows as home_address.moved_in date plus a proof_docs entry of type tenancy_agreement or completion_statement dated after the older extract dates; when false, moved_in is recent but no such document exists. concurrent_property shows as checks.council_tax.liabilities listing a second address with liable_from/liable_to overlapping moved_in onwards. claimed_priority maps to priority_claims.criteria_ticked (list). sibling_record_match shows by comparing priority_claims.sibling (name, dob, surname) with checks.school_roll entries (dob, surname, expected_leave_date); surname_differs_explained includes priority_claims.sibling.parental_responsibility_ref non-null; leaves_before_start shows expected_leave_date before application.entry_date. medical_letter_state shows as priority_claims.medical_letter {issued, author_role, school_named: urn or null}, null when absent; expired means issued over 12 months before closing_date. looked_after_confirmation shows as child.la_status plus checks.placing_authority_confirm (boolean or null) and priority_claims.order_ref. documents_outstanding is the length of checks.outstanding_requests. proof_staleness_days is derived from the latest proof_docs date against checks.checked_on. boundary_case sets the staleness to 90 or 91 days or moved_in within closing-date week. dob_year_group_mismatch shows as child.dob versus application.entry_year; age_exception_approved shows as child.entry_exception_ref non-null with an approved_on date. Decoys: application.preferences order and distance_km values, child.nursery_name, home_address.tenure_type, late_flag on time records, and extra school_roll rows for unrelated children. No field states verification outcomes, priority category, discrepancy counts or recommended action; checks hold raw values only, never matched/verified flags or risk labels. Missing extracts are null, not omitted silently.",
+  "skills": [
+   "S1",
+   "S3",
+   "S4",
+   "S5",
+   "S6",
+   "S7"
+  ],
+  "shared_scale": null
+ },
+ "F105": {
+  "id": "F105",
+  "domain": "hotel housekeeping room turnovers",
+  "role": "Housekeeping floor supervisor reviewing each completed room turnover before the room is released back to sale",
+  "setting": "A mid-size city hotel where every checkout room passes through a turnover record: attendant cleaning steps, supervisor inspection, linen and minibar counts, maintenance work orders and the next booked arrival. The supervisor reviews one turnover record at a time at a stated review timestamp and decides whether the room can be released, needs a recheck, or must come off sale.",
+  "questions": {
+   "bed_setup_match": {
+    "type": "noul",
+    "instructions": "Prepared bed setup matches what the next booked arrival requires.",
+    "criteria": {
+     "true": "Bed type, count and cot match the arrival booking.",
+     "false": "Any bed or cot difference, or no arrival data."
+    }
+   },
+   "blocking_defect": {
+    "type": "noul",
+    "instructions": "An open maintenance defect prevents the room being sold tonight.",
+    "criteria": null
+   },
+   "room_disposition": {
+    "type": "choice",
+    "instructions": "What status should the room be given after this review?",
+    "criteria": {
+     "release_inspected": "All checks pass; release room to sale as inspected.",
+     "release_followup": "Guest-ready now; non-blocking gap logged for later correction.",
+     "hold_recheck": "Keep off sale until one recheck or confirmation is logged.",
+     "out_of_order": "Remove from sale until an unresolved defect is repaired."
+    }
+   },
+   "arrival_slack": {
+    "type": "score",
+    "instructions": "How much time remains before the next guest is due?",
+    "criteria": [
+     "Overdue: arrival time already passed, room not yet released",
+     "Tight: under 60 minutes until expected arrival",
+     "Moderate: 60 to 240 minutes until expected arrival",
+     "Ample: over 240 minutes, or no arrival booked"
+    ]
+   },
+   "open_items": {
+    "type": "score",
+    "instructions": "How many required items on this record remain unresolved?",
+    "criteria": [
+     "No required items remain unresolved",
+     "One or two required items remain unresolved",
+     "Three to five required items remain unresolved",
+     "Six or more required items remain unresolved"
+    ]
+   }
+  },
+  "factors": [
+   {
+    "name": "checklist_completion",
+    "description": "How many attendant checklist steps are marked done; partial means one or several steps left with done=false or null timestamp",
+    "kind": "categorical",
+    "values": [
+     "full",
+     "one_step_open",
+     "several_steps_open"
+    ],
+    "weights": [
+     0.55,
+     0.3,
+     0.15
+    ],
+    "min": 0,
+    "max": 0,
+    "p_true": 0,
+    "skills": [
+     "S2",
+     "S4",
+     "S7"
+    ]
+   },
+   {
+    "name": "step_order_anomaly",
+    "description": "Inspection start timestamp precedes the attendant clean end timestamp, showing inspection logged before cleaning finished",
+    "kind": "boolean",
+    "values": [],
+    "weights": [],
+    "min": 0,
+    "max": 0,
+    "p_true": 0.2,
+    "skills": [
+     "S2",
+     "S5"
+    ]
+   },
+   {
+    "name": "bed_config_mismatch",
+    "description": "Difference between beds made up in turnover and bed type, guest count or cot request in the arrival booking",
+    "kind": "categorical",
+    "values": [
+     "none",
+     "cot_missing",
+     "twin_vs_double",
+     "extra_bed_missing"
+    ],
+    "weights": [
+     0.55,
+     0.15,
+     0.18,
+     0.12
+    ],
+    "min": 0,
+    "max": 0,
+    "p_true": 0,
+    "skills": [
+     "S1",
+     "S5",
+     "S6"
+    ]
+   },
+   {
+    "name": "arrival_info_present",
+    "description": "Whether the next arrival section is populated; when false it is null, leaving bed match unverifiable and slack contested",
+    "kind": "boolean",
+    "values": [],
+    "weights": [],
+    "min": 0,
+    "max": 0,
+    "p_true": 0.85,
+    "skills": [
+     "S2",
+     "S5",
+     "S6"
+    ]
+   },
+   {
+    "name": "arrival_slack_minutes",
+    "description": "Minutes between review timestamp and arrival eta; negative means arrival time already passed",
+    "kind": "integer",
+    "values": [],
+    "weights": [],
+    "min": -90,
+    "max": 600,
+    "p_true": 0,
+    "skills": [
+     "S6",
+     "S7"
+    ]
+   },
+   {
+    "name": "linen_count_gap",
+    "description": "Difference between linen pieces issued for the room and soiled pieces returned to laundry",
+    "kind": "integer",
+    "values": [],
+    "weights": [],
+    "min": 0,
+    "max": 6,
+    "p_true": 0,
+    "skills": [
+     "S1",
+     "S4"
+    ]
+   },
+   {
+    "name": "minibar_mismatch",
+    "description": "Disagreement between minibar items consumed, items posted to folio and items restocked",
+    "kind": "categorical",
+    "values": [
+     "none",
+     "consumed_not_restocked",
+     "restocked_count_off",
+     "posted_not_consumed"
+    ],
+    "weights": [
+     0.6,
+     0.18,
+     0.12,
+     0.1
+    ],
+    "min": 0,
+    "max": 0,
+    "p_true": 0,
+    "skills": [
+     "S1",
+     "S4"
+    ]
+   },
+   {
+    "name": "maintenance_defect",
+    "description": "Severity of the most serious defect noted by attendant or inspector and linked work order",
+    "kind": "categorical",
+    "values": [
+     "none",
+     "cosmetic",
+     "functional_minor",
+     "utility_or_safety"
+    ],
+    "weights": [
+     0.45,
+     0.2,
+     0.2,
+     0.15
+    ],
+    "min": 0,
+    "max": 0,
+    "p_true": 0,
+    "skills": [
+     "S5",
+     "S6",
+     "S7"
+    ]
+   },
+   {
+    "name": "defect_mitigated",
+    "description": "Whether the defect's work order shows a closed status with engineer sign-off or a logged temporary fix",
+    "kind": "boolean",
+    "values": [],
+    "weights": [],
+    "min": 0,
+    "max": 0,
+    "p_true": 0.5,
+    "skills": [
+     "S5",
+     "S6"
+    ]
+   },
+   {
+    "name": "inspection_fail_pending",
+    "description": "Inspector failed at least one item and the re-clean or recheck entry is not yet logged",
+    "kind": "boolean",
+    "values": [],
+    "weights": [],
+    "min": 0,
+    "max": 0,
+    "p_true": 0.3,
+    "skills": [
+     "S2",
+     "S4"
+    ]
+   },
+   {
+    "name": "pms_status_mismatch",
+    "description": "Room status in the property system differs from housekeeping status implied by turnover and inspection timestamps",
+    "kind": "boolean",
+    "values": [],
+    "weights": [],
+    "min": 0,
+    "max": 0,
+    "p_true": 0.25,
+    "skills": [
+     "S1",
+     "S2"
+    ]
+   },
+   {
+    "name": "priority_flag_decoy",
+    "description": "VIP or early check-in flag on the arrival, which raises apparent urgency but does not change the slack minutes",
+    "kind": "boolean",
+    "values": [],
+    "weights": [],
+    "min": 0,
+    "max": 0,
+    "p_true": 0.3,
+    "skills": [
+     "S6",
+     "S7"
+    ]
+   }
+  ],
+  "sections": [
+   {
+    "name": "room",
+    "description": "room_no, room_type, floor, pms_status, review_at timestamp"
+   },
+   {
+    "name": "arrival",
+    "description": "next booking: booking_ref, eta, adults, children, bed_pref, cot_req, flags; null when unavailable"
+   },
+   {
+    "name": "turnover",
+    "description": "attendant_id, clean_start, clean_end, checklist list of step, done, done_at; beds_made list of bed type and cot"
+   },
+   {
+    "name": "inspection",
+    "description": "inspector_id, insp_start, insp_end, items list of area, result, recheck_at"
+   },
+   {
+    "name": "supplies",
+    "description": "linen issued and returned counts by item; minibar consumed, posted and restocked counts by sku"
+   },
+   {
+    "name": "maintenance",
+    "description": "work_orders list of wo_id, area, category, opened_at, status, closed_at, signoff, temp_fix"
+   }
+  ],
+  "rendering_notes": "checklist_completion shows as turnover.checklist entries with done=false or done_at null. step_order_anomaly shows only by comparing inspection.insp_start with turnover.clean_end. bed_config_mismatch appears by comparing turnover.beds_made with arrival.bed_pref, adults+children and cot_req; never flagged. arrival_info_present=false renders arrival as null. arrival_slack_minutes is derived as arrival.eta minus room.review_at; no slack field exists. linen_count_gap appears as differing supplies.linen issued vs returned counts per item; small gaps of 1 are decoys that rarely matter. minibar_mismatch is spread across consumed, posted and restocked counts for the same sku. maintenance_defect appears as work_orders.category (e.g. paint_scuff, tv_remote, no_hot_water, smoke_detector) and inspection items with result=fail; defect_mitigated shows as status=closed with signoff, or temp_fix=true, independent of severity. inspection_fail_pending is an item with result=fail and recheck_at null. pms_status_mismatch shows as room.pms_status (e.g. VI or OOO) inconsistent with timestamps. priority_flag_decoy appears in arrival.flags as vip or early_ci. Records never contain fields stating readiness, risk, disposition, slack band or whether a defect blocks sale; pms_status is a real system code and may itself be wrong. Timestamps ISO 8601, counts as integers, unknowns null.",
+  "skills": [
+   "S1",
+   "S2",
+   "S4",
+   "S5",
+   "S6",
+   "S7"
+  ],
+  "shared_scale": "open_items"
+ },
+ "F106": {
+  "id": "F106",
+  "domain": "warehouse cycle counts against the stock system",
+  "role": "Inventory control analyst at a regional distribution centre, reviewing each cycle count variance before any stock adjustment posts to the warehouse management system",
+  "setting": "A multi-temperature distribution centre runs daily blind cycle counts by bin location. When a count differs from the book quantity, the system raises a variance record. The record holds the count task and policy limits, a system snapshot taken at task release, the individual count lines, stock movements posted around the count, the location's recent count history and short free-text notes from the counter and shift supervisor. The analyst decides whether the difference is real, whether it has been independently confirmed, what happens next, how much money is genuinely unexplained and how soon it will hurt an outbound order.",
+  "questions": {
+   "variance_real": {
+    "type": "noul",
+    "instructions": "The book-to-count difference survives reconciliation of movements and units.",
+    "criteria": null
+   },
+   "recount_confirms": {
+    "type": "noul",
+    "instructions": "An independent recount confirms the first count within tolerance.",
+    "criteria": {
+     "true": "Different counter's recount matches first count within tolerance.",
+     "false": "No recount, same counter, in progress, or counts disagree."
+    }
+   },
+   "disposition": {
+    "type": "choice",
+    "instructions": "What should happen to this count before any adjustment posts?",
+    "criteria": {
+     "close_no_change": "Difference explained by timing or units; book quantity stands unchanged.",
+     "post_adjustment": "Verified difference below value limit, no repeat; post as counted.",
+     "hold_confirm": "Exactly one outstanding check, such as a recount, would settle it.",
+     "full_recount": "Count lines conflict or are unusable; fresh location count required.",
+     "escalate": "Verified difference over value limit, or third variance in 90 days."
+    }
+   },
+   "variance_value": {
+    "type": "score",
+    "instructions": "How large is the unexplained variance value after reconciling movements?",
+    "criteria": [
+     "Under £50 unexplained at standard cost",
+     "£50 to £499 unexplained at standard cost",
+     "£500 to £4,999 unexplained at standard cost",
+     "£5,000 or more unexplained at standard cost"
+    ]
+   },
+   "service_urgency": {
+    "type": "score",
+    "instructions": "How soon will the stock difference affect an outbound order?",
+    "criteria": [
+     "None: no open allocation exceeds counted quantity",
+     "Distant: shortfall hits allocation shipping over 7 days out",
+     "Near: shortfall hits allocation shipping in 48h–7 days",
+     "Imminent: shortfall hits allocation shipping within 48 hours",
+     "Live: released pick already short against this location"
+    ]
+   }
+  },
+  "factors": [
+   {
+    "name": "true_variance",
+    "description": "The actual physical difference between bin contents and book once timing and unit effects are removed",
+    "kind": "categorical",
+    "values": [
+     "none",
+     "small_shortage",
+     "large_shortage",
+     "overage"
+    ],
+    "weights": [
+     0.3,
+     0.3,
+     0.2,
+     0.2
+    ],
+    "min": 0,
+    "max": 0,
+    "p_true": 0,
+    "skills": [
+     "S1",
+     "S7"
+    ]
+   },
+   {
+    "name": "timing_artefact",
+    "description": "Movements posted between the snapshot and the count time explain part or all of the apparent difference",
+    "kind": "categorical",
+    "values": [
+     "none",
+     "partial",
+     "full"
+    ],
+    "weights": [
+     0.5,
+     0.25,
+     0.25
+    ],
+    "min": 0,
+    "max": 0,
+    "p_true": 0,
+    "skills": [
+     "S1",
+     "S4"
+    ]
+   },
+   {
+    "name": "uom_mismatch",
+    "description": "Count lines recorded in a different unit of measure from the book quantity, inflating or shrinking the raw difference",
+    "kind": "categorical",
+    "values": [
+     "none",
+     "case_vs_each",
+     "inner_vs_each"
+    ],
+    "weights": [
+     0.65,
+     0.2,
+     0.15
+    ],
+    "min": 0,
+    "max": 0,
+    "p_true": 0,
+    "skills": [
+     "S1"
+    ]
+   },
+   {
+    "name": "recount_status",
+    "description": "State of any second count on the location",
+    "kind": "categorical",
+    "values": [
+     "none",
+     "same_counter",
+     "independent_agree",
+     "independent_disagree",
+     "in_progress"
+    ],
+    "weights": [
+     0.25,
+     0.15,
+     0.3,
+     0.15,
+     0.15
+    ],
+    "min": 0,
+    "max": 0,
+    "p_true": 0,
+    "skills": [
+     "S4",
+     "S5"
+    ]
+   },
+   {
+    "name": "mitigation_present",
+    "description": "A benign explanation exists elsewhere in the record for an alarming shortage or overage",
+    "kind": "boolean",
+    "values": [],
+    "weights": [],
+    "min": 0,
+    "max": 0,
+    "p_true": 0.5,
+    "skills": [
+     "S3"
+    ]
+   },
+   {
+    "name": "mitigation_kind",
+    "description": "Form the mitigation takes when present: open putaway task, quarantine transfer pending, matching overage in an adjacent bin, or approved write-off reference",
+    "kind": "categorical",
+    "values": [
+     "open_putaway",
+     "quarantine_pending",
+     "adjacent_overage",
+     "approved_writeoff"
+    ],
+    "weights": [
+     0.3,
+     0.25,
+     0.3,
+     0.15
+    ],
+    "min": 0,
+    "max": 0,
+    "p_true": 0,
+    "skills": [
+     "S3",
+     "S1"
+    ]
+   },
+   {
+    "name": "unit_cost",
+    "description": "Standard cost per each in pounds, driving the value of any difference",
+    "kind": "number",
+    "values": [],
+    "weights": [],
+    "min": 0.4,
+    "max": 420,
+    "p_true": 0,
+    "skills": [
+     "S1",
+     "S7"
+    ]
+   },
+   {
+    "name": "prior_variances_90d",
+    "description": "Number of earlier posted variances on the same location and SKU in the past 90 days",
+    "kind": "integer",
+    "values": [],
+    "weights": [],
+    "min": 0,
+    "max": 4,
+    "p_true": 0,
+    "skills": [
+     "S3",
+     "S6",
+     "S7"
+    ]
+   },
+   {
+    "name": "allocation_timing",
+    "description": "Whether open order demand on the location exceeds the counted quantity, and when it ships",
+    "kind": "categorical",
+    "values": [
+     "no_shortfall",
+     "over_7d",
+     "48h_to_7d",
+     "under_48h",
+     "released_short"
+    ],
+    "weights": [
+     0.35,
+     0.2,
+     0.18,
+     0.15,
+     0.12
+    ],
+    "min": 0,
+    "max": 0,
+    "p_true": 0,
+    "skills": [
+     "S7",
+     "S4"
+    ]
+   },
+   {
+    "name": "boundary_case",
+    "description": "Reconciled value or quantity lands within a few units or pounds of a policy limit or scale threshold",
+    "kind": "boolean",
+    "values": [],
+    "weights": [],
+    "min": 0,
+    "max": 0,
+    "p_true": 0.2,
+    "skills": [
+     "S6"
+    ]
+   },
+   {
+    "name": "alarming_note",
+    "description": "Counter or supervisor note uses alarming wording such as suspected theft, independent of the facts",
+    "kind": "boolean",
+    "values": [],
+    "weights": [],
+    "min": 0,
+    "max": 0,
+    "p_true": 0.35,
+    "skills": [
+     "S3",
+     "S5",
+     "S6"
+    ]
+   },
+   {
+    "name": "blind_count",
+    "description": "Whether the counter saw the book quantity before counting, weakening trust in an agreeing count",
+    "kind": "boolean",
+    "values": [],
+    "weights": [],
+    "min": 0,
+    "max": 0,
+    "p_true": 0.75,
+    "skills": [
+     "S5",
+     "S6"
+    ]
+   }
+  ],
+  "sections": [
+   {
+    "name": "count_task",
+    "description": "Task id, location, SKU, count date, counter id, blind flag and policy limits tolerance_pct and value_limit_gbp"
+   },
+   {
+    "name": "system_snapshot",
+    "description": "Book quantity, book UOM, pack sizes, standard cost, snapshot timestamp and open allocations with ship dates"
+   },
+   {
+    "name": "count_lines",
+    "description": "List of count attempts with attempt number, counter id, quantity, UOM and timestamp"
+   },
+   {
+    "name": "movements",
+    "description": "Transactions on the location or SKU around the count: type, quantity, UOM, posted time, linked task or reference"
+   },
+   {
+    "name": "location_history",
+    "description": "Prior counts and posted adjustments on this location and SKU over 90 days, plus adjacent bin results"
+   },
+   {
+    "name": "notes",
+    "description": "Up to three one-sentence free-text fields: counter_note, supervisor_note, linked_ref_note"
+   }
+  ],
+  "rendering_notes": "true_variance is never stated; it emerges only after the analyst converts count_lines quantities into the book UOM using system_snapshot.pack_each_per_case or pack_each_per_inner, then subtracts or adds movements whose posted_at falls between system_snapshot.taken_at and the count line timestamp. timing_artefact shows as such movements (picks, putaways, transfers) in movements; for 'full' they net the whole raw difference, for 'partial' only some; decoy movements posted before the snapshot or after the count must be ignored. uom_mismatch appears as count_lines[].uom differing from system_snapshot.book_uom without comment. recount_status shows as a second count_lines entry: same counter_id (same_counter), different counter_id agreeing or disagreeing within count_task.tolerance_pct, or a line with qty null and status 'assigned' (in_progress); none means a single line. mitigation_present with mitigation_kind renders as an open putaway task in movements with status 'open', a quarantine transfer reference in linked_ref_note, an equal and opposite overage in location_history.adjacent_bins, or a write-off approval id in movements; it appears with the same alarming shortages about half the time, and an adjacent overage only mitigates if SKU and quantity actually match. unit_cost is system_snapshot.std_cost_each; variance_value must be computed from reconciled eaches times cost, never from the raw difference. prior_variances_90d is the count of entries in location_history.adjustments with posted true and date within 90 days of count date; some entries are unposted or outside the window as decoys. allocation_timing is shown only through system_snapshot.open_allocations (qty, ship_by datetime, pick_status) compared with the reconciled counted quantity and the count date. boundary_case places reconciled values within about 3% of £50, £500, £5,000, value_limit_gbp or the tolerance band so judges may split. alarming_note puts wording like 'looks like stock walked' in counter_note or supervisor_note regardless of facts; notes may also be bland when the variance is real. blind_count is count_task.blind true or false; a non-blind agreeing recount is weaker evidence. No field may state the verdict, the disposition, a severity, a risk rating or a reconciled variance; the system only shows raw counted quantity, book quantity and a raw_diff that is deliberately unreconciled. Some records have no mismatch at all across sections.",
+  "skills": [
+   "S1",
+   "S3",
+   "S4",
+   "S5",
+   "S6",
+   "S7"
+  ],
+  "shared_scale": null
+ },
+ "F107": {
+  "id": "F107",
+  "domain": "laboratory instrument calibration records",
+  "role": "Metrology release reviewer at a contract analytical laboratory, signing off one instrument calibration record at a time before the instrument returns to routine testing",
+  "setting": "Each record is one calibration event for one bench instrument (balance, pipette, pH meter, thermometer, HPLC detector or pressure gauge). It was performed in-house or by an external calibration provider. The reviewer checks four things: the readings against tolerance, the reference standard's validity, the environmental conditions and the sign-off sequence. They then decide whether the instrument goes back into use and whether earlier results need an impact assessment.",
+  "questions": {
+   "ref_traceable": {
+    "type": "noul",
+    "instructions": "The reference standard was within its calibration on the test date.",
+    "criteria": {
+     "true": "Standard certificate validity covers the recorded test date.",
+     "false": "Standard expired, unrecorded, or validity starts after test."
+    }
+   },
+   "prior_impact": {
+    "type": "noul",
+    "instructions": "As-found error likely compromised results reported since the previous calibration.",
+    "criteria": {
+     "true": "As-found out of tolerance, reportable use, no interim check.",
+     "false": "Within tolerance, unused, or interim check confirmed earlier results."
+    }
+   },
+   "disposition": {
+    "type": "choice",
+    "instructions": "What disposition should the instrument receive after this review?",
+    "criteria": {
+     "release": "All checks complete; return to service without any restrictions.",
+     "release_restricted": "Return to service only within the range where points passed.",
+     "hold": "Keep out of service until one missing item is supplied.",
+     "withdraw": "Remove from service; as-left failure or broken traceability needs recalibration."
+    }
+   },
+   "check_age": {
+    "type": "score",
+    "instructions": "How long since this record's key details were last verified?",
+    "criteria": [
+     "Last verified within the past 7 days",
+     "Last verified between 8 and 30 days ago",
+     "Last verified between 31 and 90 days ago",
+     "Last verified over 90 days ago, or never"
+    ]
+   },
+   "found_deviation": {
+    "type": "score",
+    "instructions": "How large was the worst as-found deviation relative to tolerance?",
+    "criteria": [
+     "Worst as-found error at most half the tolerance",
+     "Above half the tolerance, still within the limit",
+     "Beyond tolerance, less than twice the limit",
+     "At or beyond twice the tolerance limit"
+    ]
+   }
+  },
+  "factors": [
+   {
+    "name": "instrument_class",
+    "description": "Type of instrument calibrated. It changes the units, the number of test points and the tolerance style (absolute or percentage), so the same questions apply across very different records.",
+    "kind": "categorical",
+    "values": [
+     "analytical_balance",
+     "piston_pipette",
+     "ph_meter",
+     "digital_thermometer",
+     "hplc_uv_detector",
+     "pressure_gauge"
+    ],
+    "weights": [
+     0.2,
+     0.2,
+     0.15,
+     0.15,
+     0.15,
+     0.15
+    ],
+    "min": 0,
+    "max": 0,
+    "p_true": 0,
+    "skills": [
+     "S7"
+    ]
+   },
+   {
+    "name": "as_found_ratio",
+    "description": "Worst as-found error divided by that point's tolerance, across all test points. Values cluster near the 0.5, 1.0 and 2.0 boundaries in some records.",
+    "kind": "number",
+    "values": [],
+    "weights": [],
+    "min": 0.05,
+    "max": 2.6,
+    "p_true": 0,
+    "skills": [
+     "S4",
+     "S6"
+    ]
+   },
+   {
+    "name": "as_left_state",
+    "description": "Outcome after any adjustment. Either every point passes, one point stays out, the instrument was adjusted but the after-adjustment readings were never taken, or the after-adjustment block is null.",
+    "kind": "categorical",
+    "values": [
+     "all_within",
+     "one_point_out",
+     "adjusted_not_retested",
+     "as_left_missing"
+    ],
+    "weights": [
+     0.5,
+     0.2,
+     0.15,
+     0.15
+    ],
+    "min": 0,
+    "max": 0,
+    "p_true": 0,
+    "skills": [
+     "S2",
+     "S4"
+    ]
+   },
+   {
+    "name": "failing_point_outside_use_range",
+    "description": "Whether any failing as-left point lies outside the operating range the laboratory declares for this instrument. If so, use within the passed range remains defensible.",
+    "kind": "boolean",
+    "values": [],
+    "weights": [],
+    "min": 0,
+    "max": 0,
+    "p_true": 0.5,
+    "skills": [
+     "S3",
+     "S4",
+     "S6"
+    ]
+   },
+   {
+    "name": "ref_std_validity",
+    "description": "How the reference standard's certificate dates relate to the test date. The certificate may be valid, may have expired before the test, may expire on the test date itself, may have a validity start after the test (a sequence error), or the standard may not be recorded at all.",
+    "kind": "categorical",
+    "values": [
+     "valid",
+     "expired_before_test",
+     "expires_on_test_date",
+     "issued_after_test",
+     "not_recorded"
+    ],
+    "weights": [
+     0.55,
+     0.12,
+     0.1,
+     0.08,
+     0.15
+    ],
+    "min": 0,
+    "max": 0,
+    "p_true": 0,
+    "skills": [
+     "S2",
+     "S5",
+     "S6"
+    ]
+   },
+   {
+    "name": "reportable_use_since_last",
+    "description": "Whether the usage log shows reportable sample runs between the previous calibration and this one.",
+    "kind": "boolean",
+    "values": [],
+    "weights": [],
+    "min": 0,
+    "max": 0,
+    "p_true": 0.6,
+    "skills": [
+     "S5"
+    ]
+   },
+   {
+    "name": "interim_check_passed",
+    "description": "Whether a documented intermediate check (for example a check weight or buffer verification) passed after the last reportable run. This mitigates an out-of-tolerance as-found reading.",
+    "kind": "boolean",
+    "values": [],
+    "weights": [],
+    "min": 0,
+    "max": 0,
+    "p_true": 0.5,
+    "skills": [
+     "S3",
+     "S5"
+    ]
+   },
+   {
+    "name": "pending_item",
+    "description": "A single outstanding item that blocks release when everything else is fine. It may be a missing second signature, a missing environmental log, or an external certificate not yet attached.",
+    "kind": "categorical",
+    "values": [
+     "none",
+     "second_signature_missing",
+     "env_log_missing",
+     "provider_cert_missing"
+    ],
+    "weights": [
+     0.55,
+     0.15,
+     0.15,
+     0.15
+    ],
+    "min": 0,
+    "max": 0,
+    "p_true": 0,
+    "skills": [
+     "S2",
+     "S4"
+    ]
+   },
+   {
+    "name": "env_condition",
+    "description": "Ambient conditions during the calibration. They were either within limits, outside limits with a documented correction applied, or outside limits with no correction.",
+    "kind": "categorical",
+    "values": [
+     "within_limits",
+     "excursion_corrected",
+     "excursion_uncorrected"
+    ],
+    "weights": [
+     0.6,
+     0.2,
+     0.2
+    ],
+    "min": 0,
+    "max": 0,
+    "p_true": 0,
+    "skills": [
+     "S3",
+     "S6"
+    ]
+   },
+   {
+    "name": "sequence_error",
+    "description": "Whether the approval timestamp precedes the performed date, or the adjustment date precedes the as-found reading date. Either shows steps recorded out of order.",
+    "kind": "boolean",
+    "values": [],
+    "weights": [],
+    "min": 0,
+    "max": 0,
+    "p_true": 0.18,
+    "skills": [
+     "S2"
+    ]
+   },
+   {
+    "name": "prior_oot_count",
+    "description": "Number of earlier out-of-tolerance findings in the instrument's history list. This is mostly a decoy that tempts reviewers to over-escalate.",
+    "kind": "integer",
+    "values": [],
+    "weights": [],
+    "min": 0,
+    "max": 4,
+    "p_true": 0,
+    "skills": [
+     "S3",
+     "S6"
+    ]
+   },
+   {
+    "name": "days_since_verified",
+    "description": "Days between the review date and the latest verification of the record's key details: the performed date, or the most recent interim check if later. This feeds the shared check_age scale.",
+    "kind": "integer",
+    "values": [],
+    "weights": [],
+    "min": 0,
+    "max": 900,
+    "p_true": 0,
+    "skills": [
+     "S7"
+    ]
+   }
+  ],
+  "sections": [
+   {
+    "name": "instrument",
+    "description": "Asset ID, class, model, location, declared operating range, calibration interval in days."
+   },
+   {
+    "name": "standards",
+    "description": "List of reference standards used, each with ID, certificate number, valid_from and valid_to."
+   },
+   {
+    "name": "environment",
+    "description": "Recorded temperature and humidity, limits, correction_applied flag, or null if not logged."
+   },
+   {
+    "name": "readings",
+    "description": "Test points with nominal, as_found, as_left, tolerance and unit; adjustment record with date."
+   },
+   {
+    "name": "history",
+    "description": "Previous calibration date, prior out-of-tolerance events, usage runs since last, interim checks."
+   },
+   {
+    "name": "approval",
+    "description": "Performed_by, performed_date, reviewed_by, second_signoff, approved_at timestamp, provider certificate ref."
+   }
+  ],
+  "rendering_notes": "as_found_ratio is never stated. It must be computed per point as abs(as_found - nominal) / tolerance in readings.points, and the worst point decides found_deviation. as_left_state shows in the as_left values: points within or beyond tolerance, readings.adjustment.performed=true with as_left equal to as_found or null, or the whole as_left array null. failing_point_outside_use_range shows only by comparing the failing point's nominal with instrument.use_range_min and instrument.use_range_max. ref_std_validity shows only through standards[].valid_from and valid_to against approval.performed_date. For not_recorded, the standards list is empty or null. reportable_use_since_last shows as history.usage_runs_since_last (0 versus a positive count with reportable=true). interim_check_passed shows as a history.interim_checks entry dated after the last run with result 'pass'. If the check is absent, failed, or dated before the last run, it does not mitigate. pending_item shows as approval.second_signoff null, environment null, or approval.provider_cert_ref null on an external calibration. env_condition shows as readings in the environment section compared with its limits, plus the correction_applied boolean. sequence_error shows as approval.approved_at earlier than performed_date, or readings.adjustment.date earlier than readings.as_found_date. prior_oot_count is a list of dated history.oot_events. It is a decoy: it never decides any question by itself. days_since_verified is derived from performed_date or the latest interim check date relative to review_date. Further decoys: manufacturer and model, the number of test points, many near-boundary passing points, and a large as-found error on a point outside the use range. Records never contain an overall result, pass/fail verdict, risk rating, disposition, impact flag or traceability status field. Every answer must be inferred by comparing fields across sections. Use ISO dates, numbers as numbers and null for unknowns. There are no free-text fields.",
+  "skills": [
+   "S2",
+   "S3",
+   "S4",
+   "S5",
+   "S6",
+   "S7"
+  ],
+  "shared_scale": "check_age"
+ },
+ "F108": {
+  "id": "F108",
+  "domain": "wildlife survey records submitted by field volunteers",
+  "role": "County species records verifier at a regional biological records centre",
+  "setting": "Volunteers submit wildlife survey visits through an online recording portal. Each submission covers one visit to one site and lists the species observed, any attached media, the conditions recorded and the observer's recording profile. The verifier opens one submission at a time and decides whether it can enter the county database. To do this they reconcile counts, grid references, dates and taxon codes across sections and weigh the evidence against local record history. They also check the visit against the stated survey method's limits.",
+  "questions": {
+   "id_supported": {
+    "type": "noul",
+    "instructions": "Identification of the principal species is supported by attached evidence.",
+    "criteria": {
+     "true": "Photo, audio or specimen clearly matches the listed taxon.",
+     "false": "Evidence absent, ambiguous, or points to another taxon."
+    }
+   },
+   "protocol_met": {
+    "type": "noul",
+    "instructions": "Visit conditions met the stated survey method's weather and timing limits.",
+    "criteria": {
+     "true": "Temperature, wind, cloud and visit times all within limits.",
+     "false": "At least one condition outside limits or unrecorded."
+    }
+   },
+   "verification_action": {
+    "type": "choice",
+    "instructions": "What should the verifier do with this submission?",
+    "criteria": {
+     "accept": "All checks consistent; record enters database at submitted resolution.",
+     "accept_downgraded": "Accepted, but taxon or grid reference reduced to coarser level.",
+     "query_observer": "Held pending one specific confirmation obtainable from the submitter.",
+     "refer_panel": "Rarity or conflicting evidence needs specialist taxon panel review.",
+     "reject": "Evidence contradicts identification or core fields cannot be reconciled."
+    }
+   },
+   "local_rarity": {
+    "type": "score",
+    "instructions": "How unusual is the principal species for this location?",
+    "criteria": [
+     "Routine: recorded within 10 km in past five years",
+     "Uncommon: last record within 10 km over five years ago",
+     "Notable: none within 10 km, inside national range",
+     "Exceptional: outside the species' documented national range"
+    ]
+   },
+   "discrepancy_count": {
+    "type": "score",
+    "instructions": "How many cross-section discrepancies does the submission contain?",
+    "criteria": [
+     "No mismatches between any record sections",
+     "Exactly one mismatch between record sections",
+     "Two or three mismatches between sections",
+     "Four or more mismatches between sections"
+    ]
+   }
+  },
+  "factors": [
+   {
+    "name": "evidence_type",
+    "description": "Strongest form of supporting evidence attached for the principal species.",
+    "kind": "categorical",
+    "values": [
+     "none",
+     "poor_photo",
+     "clear_photo",
+     "audio_with_sonogram",
+     "specimen_retained"
+    ],
+    "weights": [
+     0.22,
+     0.2,
+     0.3,
+     0.15,
+     0.13
+    ],
+    "min": 0,
+    "max": 0,
+    "p_true": 0,
+    "skills": [
+     "S5",
+     "S3",
+     "S7"
+    ]
+   },
+   {
+    "name": "evidence_taxon_match",
+    "description": "Whether the taxon labelled on the media agrees with the taxon code listed in observations.",
+    "kind": "categorical",
+    "values": [
+     "matches",
+     "ambiguous_congener",
+     "different_taxon"
+    ],
+    "weights": [
+     0.62,
+     0.26,
+     0.12
+    ],
+    "min": 0,
+    "max": 0,
+    "p_true": 0,
+    "skills": [
+     "S1",
+     "S5",
+     "S6"
+    ]
+   },
+   {
+    "name": "rarity_tier",
+    "description": "True local status of the principal species, expressed through nearest prior record distance, last record year and range flag.",
+    "kind": "categorical",
+    "values": [
+     "routine",
+     "uncommon",
+     "notable",
+     "exceptional"
+    ],
+    "weights": [
+     0.38,
+     0.27,
+     0.22,
+     0.13
+    ],
+    "min": 0,
+    "max": 0,
+    "p_true": 0,
+    "skills": [
+     "S7",
+     "S4",
+     "S6"
+    ]
+   },
+   {
+    "name": "observer_accredited",
+    "description": "Observer holds current accreditation for the taxon group concerned; a mitigating signal for weak evidence or rarity.",
+    "kind": "boolean",
+    "values": [],
+    "weights": [],
+    "min": 0,
+    "max": 0,
+    "p_true": 0.5,
+    "skills": [
+     "S3",
+     "S6"
+    ]
+   },
+   {
+    "name": "mismatch_count",
+    "description": "Number of genuine cross-section discrepancies planted in the record.",
+    "kind": "integer",
+    "values": [],
+    "weights": [],
+    "min": 0,
+    "max": 5,
+    "p_true": 0,
+    "skills": [
+     "S1",
+     "S4"
+    ]
+   },
+   {
+    "name": "mismatch_magnitude",
+    "description": "Size of the largest planted discrepancy, from rounding-level to clearly incompatible values.",
+    "kind": "categorical",
+    "values": [
+     "trivial",
+     "moderate",
+     "large"
+    ],
+    "weights": [
+     0.4,
+     0.38,
+     0.22
+    ],
+    "min": 0,
+    "max": 0,
+    "p_true": 0,
+    "skills": [
+     "S1",
+     "S6",
+     "S3"
+    ]
+   },
+   {
+    "name": "mismatch_site",
+    "description": "Primary location of the first planted discrepancy; further mismatches are drawn from the remaining locations.",
+    "kind": "categorical",
+    "values": [
+     "total_vs_tally_sum",
+     "grid_ref_vs_gps_centroid",
+     "visit_date_vs_media_date",
+     "taxon_code_vs_media_label",
+     "life_stage_vs_month"
+    ],
+    "weights": [
+     0.24,
+     0.22,
+     0.2,
+     0.18,
+     0.16
+    ],
+    "min": 0,
+    "max": 0,
+    "p_true": 0,
+    "skills": [
+     "S1"
+    ]
+   },
+   {
+    "name": "weather_compliance",
+    "description": "How recorded conditions compare with the method's temperature, wind and cloud limits.",
+    "kind": "categorical",
+    "values": [
+     "all_within",
+     "on_boundary",
+     "one_outside",
+     "unrecorded"
+    ],
+    "weights": [
+     0.45,
+     0.2,
+     0.22,
+     0.13
+    ],
+    "min": 0,
+    "max": 0,
+    "p_true": 0,
+    "skills": [
+     "S5",
+     "S6",
+     "S4"
+    ]
+   },
+   {
+    "name": "visit_window",
+    "description": "Visit start and end times relative to the method's permitted time window.",
+    "kind": "categorical",
+    "values": [
+     "within",
+     "edge_under_15min",
+     "outside"
+    ],
+    "weights": [
+     0.6,
+     0.22,
+     0.18
+    ],
+    "min": 0,
+    "max": 0,
+    "p_true": 0,
+    "skills": [
+     "S5",
+     "S6"
+    ]
+   },
+   {
+    "name": "corroborating_record",
+    "description": "Another observer logged the same taxon at the same site within seven days; mitigates rarity and weak evidence.",
+    "kind": "boolean",
+    "values": [],
+    "weights": [],
+    "min": 0,
+    "max": 0,
+    "p_true": 0.5,
+    "skills": [
+     "S3"
+    ]
+   },
+   {
+    "name": "prior_rejections",
+    "description": "Count of this observer's earlier submissions rejected in the last three years.",
+    "kind": "integer",
+    "values": [],
+    "weights": [],
+    "min": 0,
+    "max": 6,
+    "p_true": 0,
+    "skills": [
+     "S3",
+     "S6"
+    ]
+   },
+   {
+    "name": "extra_media_held",
+    "description": "Observer has flagged further unattached media held offline, making a single query resolvable.",
+    "kind": "boolean",
+    "values": [],
+    "weights": [],
+    "min": 0,
+    "max": 0,
+    "p_true": 0.4,
+    "skills": [
+     "S4",
+     "S3"
+    ]
+   },
+   {
+    "name": "season_fit",
+    "description": "Whether the visit month and recorded life stage fit the species' known phenology.",
+    "kind": "categorical",
+    "values": [
+     "in_season",
+     "shoulder",
+     "out_of_season"
+    ],
+    "weights": [
+     0.6,
+     0.25,
+     0.15
+    ],
+    "min": 0,
+    "max": 0,
+    "p_true": 0,
+    "skills": [
+     "S6",
+     "S1",
+     "S3"
+    ]
+   }
+  ],
+  "sections": [
+   {
+    "name": "survey",
+    "description": "Visit metadata: submission_id, site_ref, grid_ref, grid_precision_m, visit_date, start_time, end_time, method_code."
+   },
+   {
+    "name": "observer",
+    "description": "Recorder profile: observer_id, taxon_groups_accredited list, records_submitted, records_rejected_3y, media_held_offline flag."
+   },
+   {
+    "name": "observations",
+    "description": "List of entries with taxon_code, tally list per transect section, total_count, life_stage, detection_mode, plus is_principal flag."
+   },
+   {
+    "name": "evidence",
+    "description": "Media list (media_id, kind, label_taxon, capture_date, quality_px or sonogram flag), specimen_ref, gps_track centroid and point count."
+   },
+   {
+    "name": "site_context",
+    "description": "Local history: habitat_code, nearest_prior_km, last_prior_year, in_national_range, recent_nearby_records list with observer_id and date."
+   },
+   {
+    "name": "conditions",
+    "description": "Recorded weather and method limits: temp_c, wind_beaufort, cloud_oktas, plus method_limits object with min_temp_c, max_wind, window_start, window_end."
+   }
+  ],
+  "rendering_notes": "evidence_type sets evidence.media kinds and quality_px (poor_photo under 800 px), sonogram flag for audio, or specimen_ref non-null; none gives an empty media list and null specimen_ref. evidence_taxon_match sets media[].label_taxon equal to, a congener of, or a different genus from the principal observations taxon_code. rarity_tier appears only through site_context.nearest_prior_km (under or over 10), last_prior_year relative to visit_date (within or beyond five years) and in_national_range; there is never a rarity field. observer_accredited shows as the principal taxon's group being present or absent in observer.taxon_groups_accredited. Each mismatch is planted unannounced, as follows. total_vs_tally_sum: total_count differs from the sum of the tally list. grid_ref_vs_gps_centroid: survey.grid_ref is offset from evidence.gps_track centroid; trivial means within grid_precision_m, large means over 1 km. visit_date_vs_media_date: capture_date differs from visit_date by 1 to 30 days. taxon_code_vs_media_label: overlaps evidence_taxon_match and should be counted once. life_stage_vs_month: for example larva recorded in a month when only adults occur. Mismatches are counted by section pair, and some records have zero. weather_compliance and visit_window are shown by comparing conditions values and survey times with conditions.method_limits. on_boundary places a value exactly at a limit, so whether limits are inclusive is left open; unrecorded gives null values. corroborating_record adds an entry to site_context.recent_nearby_records with a different observer_id, the same taxon and a date within seven days; when false, that list holds other taxa or older dates. prior_rejections shows in observer.records_rejected_3y beside records_submitted, so the rate matters, not the raw count. extra_media_held sets observer.media_held_offline true. season_fit is inferred from visit_date month against life_stage. Decoys: non-principal observation entries carrying their own harmless count differences rounded identically, habitat_code, cloud_oktas when the method sets no cloud limit, gps_track point count, and a high records_submitted total that says nothing about accuracy. The record never contains verification_status, confidence, rarity, risk, protocol_ok or recommended_action fields; every answer must be derived by comparing fields.",
+  "skills": [
+   "S1",
+   "S3",
+   "S4",
+   "S5",
+   "S6",
+   "S7"
+  ],
+  "shared_scale": null
+ }
+}

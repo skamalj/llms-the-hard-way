@@ -1,0 +1,378 @@
+{
+ "id": "F101",
+ "domain": "hospital blood bank stock and issue checks",
+ "role": "Blood bank biomedical scientist performing the final pre-issue check on a single allocated blood component",
+ "setting": "A hospital transfusion laboratory where each record is one allocated red cell or platelet unit awaiting issue to a named patient. Before dispatch, the scientist reconciles the patient record, the clinical request, the unit label, the pre-transfusion testing and the unit's storage movements, then decides whether the unit can go, must wait, must be swapped or must be withdrawn.",
+ "questions": {
+  "sample_valid": {
+   "type": "noul",
+   "instructions": "The patient's group and screen sample is valid for this issue.",
+   "criteria": null
+  },
+  "issue_action": {
+   "type": "choice",
+   "instructions": "What should happen next with this issue request?",
+   "criteria": {
+    "issue_now": "All checks reconcile; dispatch the unit to the ward.",
+    "hold_pending": "A missing step or confirmation blocks issue; keep unit reserved.",
+    "reselect_unit": "Unit is sound but unsuitable for this patient; allocate another.",
+    "quarantine_unit": "Unit integrity or expiry fails; withdraw it from issuable stock."
+   }
+  },
+  "discrepancy_type": {
+   "type": "choice",
+   "instructions": "Which category best describes the most serious discrepancy found?",
+   "criteria": {
+    "none": "Patient, request, testing, unit and storage sections fully reconcile.",
+    "identity_labelling": "Patient identifiers differ between request, sample record or unit tag.",
+    "compatibility": "Group, crossmatch or antibody result does not support this unit.",
+    "special_requirement": "Required irradiation or CMV-negative status is not met by unit.",
+    "storage_integrity": "Expiry, temperature log, inspection or out-of-storage time is compromised."
+   }
+  },
+  "issue_urgency": {
+   "type": "score",
+   "instructions": "How soon must the unit reach the patient?",
+   "criteria": [
+    "Routine: required more than 24 hours after the check",
+    "Scheduled: required between 4 and 24 hours away",
+    "Urgent: required between 1 and 4 hours away",
+    "Emergency: required within 60 minutes of the check"
+   ]
+  },
+  "storage_exposure": {
+   "type": "score",
+   "instructions": "How long has the unit been out of controlled storage?",
+   "criteria": [
+    "Never left controlled storage since receipt into stock",
+    "Under 30 minutes in total outside controlled storage",
+    "30 to 60 minutes in total outside storage",
+    "More than 60 minutes in total outside storage"
+   ]
+  }
+ },
+ "factors": [
+  {
+   "name": "sample_age_hours",
+   "description": "Hours between sample collection and the issue check; validity limit is 72 hours, or 7 days when recent transfusion and pregnancy are confirmed absent.",
+   "kind": "number",
+   "values": [],
+   "weights": [],
+   "min": 2,
+   "max": 190,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S2",
+    "S5",
+    "S6"
+   ]
+  },
+  {
+   "name": "transfusion_pregnancy_history",
+   "description": "Whether the patient has been transfused or pregnant in the last three months; confirmed absence extends sample validity, unknown leaves only the 72-hour window.",
+   "kind": "categorical",
+   "values": [
+    "none_confirmed",
+    "recent_yes",
+    "unknown_null"
+   ],
+   "weights": [
+    0.45,
+    0.35,
+    0.2
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S2",
+    "S3",
+    "S5",
+    "S6"
+   ]
+  },
+  {
+   "name": "identity_mismatch",
+   "description": "Kind of disagreement between patient identifiers across patient, request, sample and unit tag.",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "format_only",
+    "name_spelling",
+    "dob_mismatch",
+    "mrn_mismatch"
+   ],
+   "weights": [
+    0.55,
+    0.2,
+    0.1,
+    0.1,
+    0.05
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S6"
+   ]
+  },
+  {
+   "name": "sample_record_state",
+   "description": "Completeness and ordering of the sample record's collection and receipt details.",
+   "kind": "categorical",
+   "values": [
+    "complete",
+    "received_before_collected",
+    "collector_id_missing"
+   ],
+   "weights": [
+    0.78,
+    0.1,
+    0.12
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S2",
+    "S5"
+   ]
+  },
+  {
+   "name": "abo_rh_relation",
+   "description": "Relationship between patient group and unit group.",
+   "kind": "categorical",
+   "values": [
+    "identical",
+    "compatible_non_identical",
+    "rhd_pos_to_neg_female_under_50",
+    "abo_incompatible"
+   ],
+   "weights": [
+    0.6,
+    0.27,
+    0.08,
+    0.05
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S3",
+    "S6"
+   ]
+  },
+  {
+   "name": "special_req_status",
+   "description": "Whether flagged irradiation or CMV-negative requirements are carried through to request and unit.",
+   "kind": "categorical",
+   "values": [
+    "none_required",
+    "met",
+    "irradiation_missing",
+    "cmv_neg_missing",
+    "on_patient_record_only"
+   ],
+   "weights": [
+    0.5,
+    0.25,
+    0.11,
+    0.07,
+    0.07
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S2"
+   ]
+  },
+  {
+   "name": "crossmatch_state",
+   "description": "State of compatibility testing for this unit.",
+   "kind": "categorical",
+   "values": [
+    "electronic_eligible",
+    "serological_compatible",
+    "serological_pending",
+    "not_done",
+    "electronic_used_despite_antibody"
+   ],
+   "weights": [
+    0.4,
+    0.28,
+    0.14,
+    0.1,
+    0.08
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S2",
+    "S4",
+    "S1"
+   ]
+  },
+  {
+   "name": "unit_expiry_margin_hours",
+   "description": "Hours from the required-by time to unit expiry; negative means the unit expires before it is needed.",
+   "kind": "number",
+   "values": [],
+   "weights": [],
+   "min": -18,
+   "max": 840,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S2"
+   ]
+  },
+  {
+   "name": "visual_inspection",
+   "description": "Result of the pre-issue visual check of the bag.",
+   "kind": "categorical",
+   "values": [
+    "passed",
+    "not_recorded",
+    "haemolysis_flag_cleared_by_senior",
+    "failed_haemolysis"
+   ],
+   "weights": [
+    0.72,
+    0.13,
+    0.08,
+    0.07
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S2",
+    "S3",
+    "S4"
+   ]
+  },
+  {
+   "name": "out_of_storage_minutes",
+   "description": "Total minutes the unit spent outside a fridge or validated container across its movements.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 110,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S4",
+    "S6"
+   ]
+  },
+  {
+   "name": "validated_transport_box",
+   "description": "Whether one of the out-of-fridge movements was inside a validated transport box, which does not count as exposure.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S6"
+   ]
+  },
+  {
+   "name": "temp_log_status",
+   "description": "Condition of the storage temperature log covering the unit's time in stock.",
+   "kind": "categorical",
+   "values": [
+    "complete",
+    "gap",
+    "missing",
+    "alarm_acknowledged_in_range"
+   ],
+   "weights": [
+    0.6,
+    0.17,
+    0.1,
+    0.13
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S2",
+    "S3",
+    "S4"
+   ]
+  },
+  {
+   "name": "time_to_required_minutes",
+   "description": "Minutes between the check and the request's required-by time.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 15,
+   "max": 2880,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S6",
+    "S7"
+   ]
+  },
+  {
+   "name": "priority_code_stale",
+   "description": "Whether the request's priority code disagrees with the actual required-by window, e.g. raised as urgent then rescheduled.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.3,
+   "skills": [
+    "S6",
+    "S7"
+   ]
+  }
+ ],
+ "sections": [
+  {
+   "name": "patient",
+   "description": "Identifiers, ABO/RhD group, sex, age, antibody history, special requirement flags, transfusion and pregnancy history."
+  },
+  {
+   "name": "request",
+   "description": "Requesting ward, patient identifiers as entered, component, units, priority code, requested and required-by timestamps, special requirements ticked."
+  },
+  {
+   "name": "unit",
+   "description": "Donation number, component, group, expiry, irradiated and CMV-negative attributes, compatibility tag identifiers, visual inspection entry."
+  },
+  {
+   "name": "pretransfusion_testing",
+   "description": "Sample record with identifiers, collection and receipt times, collector, antibody screen and crossmatch method and result."
+  },
+  {
+   "name": "storage_movements",
+   "description": "Temperature log summary and list of removals and returns with timestamps and container type."
+  }
+ ],
+ "rendering_notes": "Check time is a top-level-free timestamp inside request.checked_at. sample_age_hours appears only via pretransfusion_testing.sample.collected_at versus request.checked_at. transfusion_pregnancy_history fills patient.transfused_last_3m and patient.pregnant_last_3m (both null when unknown_null; pregnancy null or false for males). received_before_collected sets sample.received_at earlier than collected_at; collector_id_missing sets sample.collected_by to null. identity_mismatch is placed in one varied location (request.patient, sample, or unit.compat_tag) as an altered mrn, dob or surname; format_only differs only by spaces, hyphens or case and is a decoy. abo_rh_relation shows only through patient.abo_rhd versus unit.group, with patient.sex and age needed to spot the RhD case; compatible_non_identical is a decoy. special_req_status compares patient.special_reqs, request.special_reqs and unit.irradiated/unit.cmv_negative; on_patient_record_only means the request omits a flag the patient has and the unit lacks it. crossmatch_state appears via testing.antibody_screen, testing.crossmatch.method and testing.crossmatch.result (null when pending, whole crossmatch object null when not_done); electronic_used_despite_antibody shows a positive screen or patient.antibody_history entry alongside method electronic. unit_expiry_margin_hours shows only via unit.expires_at versus request.required_by. visual_inspection fills unit.inspection {result, by, at}; not_recorded makes it null; cleared haemolysis shows result flagged plus a cleared_by senior entry. out_of_storage_minutes is split across 1-3 entries in storage_movements.moves as removed_at/returned_at pairs; when validated_transport_box is true one move has container validated_box and its duration must be excluded, which is a decoy that looks like long exposure. temp_log_status fills storage_movements.temp_log {coverage_from, coverage_to, readings_out_of_range, alarm_ack}; gap shows coverage not spanning the unit's stock time, missing makes temp_log null. time_to_required_minutes is visible only as request.required_by versus request.checked_at; request.priority is a plausible real field but when priority_code_stale is true it contradicts the window and must not decide urgency. Precedence for discrepancy_type when several apply: compatibility, then identity_labelling, then special_requirement, then storage_integrity. Never include fields such as sample_valid, total_minutes_out, discrepancy, action, urgency_level or any summary verdict; no free-text notes.",
+ "skills": [
+  "S1",
+  "S2",
+  "S3",
+  "S4",
+  "S5",
+  "S6",
+  "S7"
+ ],
+ "shared_scale": null,
+ "design_cost": 0.162908
+}
