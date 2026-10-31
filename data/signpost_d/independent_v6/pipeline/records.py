@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import json
 import math
+import os
 import random
 import re
 
@@ -27,6 +28,19 @@ CLARITY_TEXT = {
 # Intended top-answer position (R22.4.3)
 POSITION = {"score": {"lowest": 0.13, "middle": 0.62, "highest": 0.25}, "choice": {"first": 0.20, "middle": 0.65, "last": 0.15}}
 NOUL_TRUE = 0.475
+
+PROFILE = os.environ.get("SIGNPOST_PROFILE", "v3")
+if PROFILE == "v3b":
+    # R24: measured gold in pilot 1 came out about one band softer than planned and bunched on middle levels, so pilot 2
+    # plans more clear and leaning questions, more ends of the scale, and more planned-true statements. The delivered gold
+    # is still only the judges' measured mean.
+    CLARITY = {
+        "noul": {"balanced": 0.30, "leaning": 0.35, "clear": 0.35},
+        "choice": {"contested": 0.10, "balanced": 0.30, "leaning": 0.35, "clear": 0.25},
+        "score": {"contested": 0.10, "balanced": 0.40, "leaning": 0.35, "clear": 0.15},
+    }
+    POSITION = {"score": {"lowest": 0.18, "middle": 0.50, "highest": 0.32}, "choice": {"first": 0.22, "middle": 0.62, "last": 0.16}}
+    NOUL_TRUE = 0.56
 
 
 def options_of(q: dict) -> list:
@@ -79,6 +93,9 @@ def sample_plan(fam: dict, rng: random.Random) -> dict:
 
 def target_words(rng: random.Random) -> int:
     # lognormal with median about 70, p10 about 35, p90 about 160 (R22.2.2), capped at 300
+    if PROFILE == "v3b":
+        # pilot 1 records ran about 1.7 times their target, so pilot 2 aims lower and checks more tightly
+        return int(min(220, max(25, math.exp(rng.gauss(math.log(55), 0.5)))))
     return int(min(300, max(25, math.exp(rng.gauss(math.log(70), 0.6)))))
 
 
@@ -95,7 +112,8 @@ Rules:
 - The top-level keys are only the family's listed sections (a section may be left out, or null, when it is absent or not yet done); never add other top-level keys.
 - The record never states an answer to any decision ("risk": "high", "action": "hold") unless a real system would show such a field. Deciding signals are indirect: a value against its counterpart in another section, a flag, a missing or null section, a count in history, a short note.
 - Express every factor value faithfully in the record (directly or through the fields that imply it). Add a few realistic fields that decide nothing.
-- For a statement planned true, the record must actually support it; for one planned false, the record must undermine it or leave it unsupported.
+- For a statement planned true, the record must actually support it with direct, explicit evidence that a sceptical reviewer accepts (the confirming field is present and unambiguous); for one planned false, the record must undermine it or leave it unsupported.
+- Each score level and choice option states a checkable condition. For a "clear" or "leaning" decision, place the record squarely inside the planned level's or option's condition and well away from its neighbours' anchors. For "balanced" or "contested", put the deciding value at or near the anchor between the two planned answers.
 - Low and lowest levels, first options and "no problem" outcomes are often the plan: then the record is genuinely clean on that point.
 - For a "clear" or "leaning" decision on a scale or a choice, include the field a real system would show that places the case on the planned level or option (a deadline or due time, a stated limit or threshold, a count, a measured value, a status), and leave out extra alarms that would fit a different level. One decisive signal reads more clearly than several competing ones.
 - For a "clear" decision make the deciding signal unmistakable. For "leaning", give one answer the weight of evidence with a real reason for doubt. For "balanced" and "contested", put signals in genuine balance (an aggravating and a mitigating signal of similar weight, or a value near a boundary the question leaves open) so that the planned answers are both defensible. Never resolve a planned contest with a decisive extra field.
@@ -200,7 +218,8 @@ def check_record(state, fam: dict | None = None, n_words: int | None = None) -> 
     w = record_words(state)
     if w > 320:
         return f"{w} words (maximum 320)"
-    if n_words is not None and w > max(2 * n_words, n_words + 60):
+    loose = (1.6, 35) if PROFILE == "v3b" else (2, 60)
+    if n_words is not None and w > max(loose[0] * n_words, n_words + loose[1]):
         return f"{w} words against a target of about {n_words}"
     return None
 

@@ -19,7 +19,10 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import design  # noqa: E402
 import records as R  # noqa: E402
 
-OUT_FILE = "pilot_v3.jsonl"
+PROFILE = os.environ.get("SIGNPOST_PROFILE", "v3")
+OUT_FILE = "pilot_v3b.jsonl" if PROFILE == "v3b" else "pilot_v3.jsonl"
+STATS_FILE = "stats_v3b.json" if PROFILE == "v3b" else "stats.json"
+QC_SUFFIX = "_v3b" if PROFILE == "v3b" else ""
 TARGETS = {  # R22.4.3
     "noul": {"bins": {"<0.5": (0, 0), "0.5-0.7": (.30, .40), "0.7-0.9": (.28, .38), ">=0.9": (.27, .37)}, "mean_top": (.75, .81), "entropy": (.40, .50)},
     "choice": {"bins": {"<0.5": (.15, .25), "0.5-0.7": (.38, .50), "0.7-0.9": (.17, .27), ">=0.9": (.10, .18)}, "mean_top": (.62, .68), "entropy": (.75, .92)},
@@ -132,8 +135,15 @@ def loss(c):
     return L
 
 
+def near_dup(a: dict, b: dict) -> bool:
+    keys = set(a) & set(b)
+    allk = set(a) | set(b)
+    return bool(allk) and sum(a[k] == b[k] for k in keys) / len(allk) > 0.5
+
+
 def select(fams, cands, keep):
     contrib = {fid: [contributions(fams[fid], r) for r in rs] for fid, rs in cands.items()}
+    leaves = {fid: [dict(leaf_values(r["state"])) for r in rs] for fid, rs in cands.items()}
     chosen = {fid: [] for fid in cands}
     total = collections.Counter()
     remaining = {fid: list(range(len(rs))) for fid, rs in cands.items()}
@@ -143,6 +153,8 @@ def select(fams, cands, keep):
             if len(chosen[fid]) >= keep:
                 continue
             for i in idxs:
+                if PROFILE == "v3b" and any(near_dup(leaves[fid][i], leaves[fid][j]) for j in chosen[fid]):
+                    continue  # R24: no near-duplicate pairs within a family
                 L = loss(total + contrib[fid][i])
                 if best is None or L < best[0]:
                     best = (L, fid, i)
@@ -320,11 +332,11 @@ def main():
                                  "judgments": {n: [{o: round(v, 4) for o, v in j.items()} for j in qi["judgments"]] for n, qi in r["q"].items()},
                                  "judge_setup": judge_setup, "contested": {n: qi["contested"] for n, qi in r["q"].items()}}}
                 fh.write(json.dumps(case, ensure_ascii=False) + "\n")
-    json.dump(stats, open(os.path.join(args.out, "stats.json"), "w"), indent=2)
-    json.dump({fid: {k: v for k, v in f.items() if k != "design_cost"} for fid, f in fams.items()}, open(os.path.join(args.out, "qc", "families.json"), "w"), indent=1, ensure_ascii=False)
+    json.dump(stats, open(os.path.join(args.out, STATS_FILE), "w"), indent=2)
+    json.dump({fid: {k: v for k, v in f.items() if k != "design_cost"} for fid, f in fams.items()}, open(os.path.join(args.out, "qc", f"families{QC_SUFFIX}.json"), "w"), indent=1, ensure_ascii=False)
     scales = os.path.join(args.work, "scales.json")
     if os.path.exists(scales):
-        json.dump(json.load(open(scales))["scales"], open(os.path.join(args.out, "qc", "shared_scales.json"), "w"), indent=1, ensure_ascii=False)
+        json.dump(json.load(open(scales))["scales"], open(os.path.join(args.out, "qc", f"shared_scales{QC_SUFFIX}.json"), "w"), indent=1, ensure_ascii=False)
     print(json.dumps({"records": stats["records"], "checks": f"{stats['checks_passed']}/{stats['checks_total']}",
                       "failed": [c["check"] + f" = {c['value']} (target {c['target']})" for c in stats["checks"] if not c["pass"]],
                       "by_type": stats["by_type"], "contested": stats["contested_share"], "cost": stats.get("api_cost_usd")}, indent=1))

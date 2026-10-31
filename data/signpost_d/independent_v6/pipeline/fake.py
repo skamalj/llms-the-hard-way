@@ -15,7 +15,7 @@ def fake_call(model, system, user, schema, tag):
                                 "levels": ["very little attention needed at all", "some attention needed this week", "prompt attention needed today", "immediate attention needed right now"]} for i in range(3)]})
     if tag.startswith("family"):
         fid = tag.split()[1]
-        slot = next(s for s in design.SLOTS if s["id"] == fid)
+        slot = next(s for s in design.SLOTS + design.SLOTS_B if s["id"] == fid)
         shared = {"name": "x"} if slot["shared"] is not None else None
         qs = []
         for k, p in enumerate(design.question_plan(slot, shared)):

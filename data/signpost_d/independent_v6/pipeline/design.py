@@ -5,6 +5,7 @@ option and level counts, which noul question has bare yes/no criteria, and wheth
 """
 from __future__ import annotations
 
+import os
 import re
 
 SKILLS = {
@@ -30,6 +31,35 @@ SLOTS = [
 ]
 ALWAYS_SKILLS = ["S4", "S5", "S6", "S7"]
 
+# R24 pilot 2 (SIGNPOST_PROFILE=v3b): eight fresh families in new domains, same type, option and level structure as pilot 1
+SLOTS_B = [
+    {"id": "F101", "domain": "hospital blood bank stock and issue checks", "skills": ["S1", "S2", "S3"], "types": [1, 2, 2], "choice_options": [4, 5], "score_levels": [4, 4], "null_noul": [0], "shared": None, "named_levels": [True, False]},
+    {"id": "F102", "domain": "passenger lift service visit logs", "skills": ["S1", "S3"], "types": [1, 2, 2], "choice_options": [4, 4], "score_levels": [4, 4], "null_noul": [], "shared": 0, "named_levels": [False, False]},
+    {"id": "F103", "domain": "drinking-water quality sampling at treatment works", "skills": ["S2", "S3"], "types": [1, 2, 2], "choice_options": [5, 4], "score_levels": [4, 5], "null_noul": [0], "shared": None, "named_levels": [True, False]},
+    {"id": "F104", "domain": "primary school admission applications", "skills": ["S1", "S3"], "types": [1, 2, 2], "choice_options": [4, 4], "score_levels": [4, 4], "null_noul": [], "shared": None, "named_levels": [False, True]},
+    {"id": "F105", "domain": "hotel housekeeping room turnovers", "skills": ["S1", "S2"], "types": [2, 1, 2], "choice_options": [4], "score_levels": [4, 4], "null_noul": [1], "shared": 1, "named_levels": [True, False]},
+    {"id": "F106", "domain": "warehouse cycle counts against the stock system", "skills": ["S1", "S3"], "types": [2, 1, 2], "choice_options": [5], "score_levels": [4, 5], "null_noul": [0], "shared": None, "named_levels": [False, True]},
+    {"id": "F107", "domain": "laboratory instrument calibration records", "skills": ["S2", "S3"], "types": [2, 1, 2], "choice_options": [4], "score_levels": [4, 4], "null_noul": [], "shared": 0, "named_levels": [False, False]},
+    {"id": "F108", "domain": "wildlife survey records submitted by field volunteers", "skills": ["S1", "S3"], "types": [2, 1, 2], "choice_options": [5], "score_levels": [4, 4], "null_noul": [], "shared": None, "named_levels": [True, False]},
+]
+
+PROFILE = os.environ.get("SIGNPOST_PROFILE", "v3")
+if PROFILE == "v3b":
+    SLOTS = SLOTS_B
+
+ANCHOR_RULES = """
+ONE DIMENSION, ANCHORED (these rules decide whether the family is usable)
+- Every score question rates exactly ONE quantity. Never blend two criteria (for example severity and certainty, or size and number of problems) in one scale.
+- Each level is a distinct, observable condition a reader can check in the record, such as a count, a size, a time or a state ("one discrepancy, under 5% of value"; "fault cleared, retest not yet logged"). It is not a feeling ("moderate concern").
+- Neighbouring levels are separated by a checkable anchor: a threshold, a count, or the presence or absence of one thing. A record that meets a level's condition cannot also meet its neighbour's.
+- Choice options differ along ONE clear axis (for example how much action, or which single cause). Each description says what makes that option apply. Two options must never both fit the same facts.
+- A true/false statement is one specific, checkable claim.
+"""
+
+SCALES_USER_B = """Define three generic score scales that can be used, worded identically, by decision settings in very different domains (care, maintenance, sampling, admissions, stock, field surveys). Each rates exactly ONE quantity, for example how soon action is due, or how many open items remain. Each has a short snake_case name, an instruction that is a question of 5 to 14 words ending in "?", and exactly 4 levels from lowest to highest. Each level is a plain description of 4 to 10 words (no "Name:" prefix) stating a checkable condition, with neighbouring levels separated by a clear anchor (a time window, a count). Word them freshly.
+
+Return only the JSON."""
+
 EXCLUDED = re.compile(r"\b(ai agent|agent run|automated job|support ticket|helpdesk|help desk|customer support|customer service|live chat|invoice|purchase order|accounts payable|goods[- ]received|vendor bill|security alert|intrusion|access anomal|phishing|malware)\b", re.I)
 
 DESIGN_SYSTEM = """You design decision settings for a training set of structured records. Each setting (a "family") is one role in one domain making the same five decisions about many different records. Everything you write is invented and worded freshly by you: no real organisations or people, no wording copied from anywhere.
@@ -54,6 +84,7 @@ Rules for all questions:
 - True/false with criteria: "true" and "false" descriptions of 3 to 12 words each. Where asked for bare yes/no, leave both descriptions empty.
 - Each question has a short snake_case name (one to three words), unique within the family.
 
+{anchor_rules}
 LATENT FACTORS (8 to 14)
 Define the hidden factors that vary between records and decide the answers. Each factor has a name, a description, and how it is sampled:
 - "categorical" with values and weights, "integer" with min and max, "number" with min and max, or "boolean" with p_true.

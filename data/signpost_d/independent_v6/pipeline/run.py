@@ -51,7 +51,7 @@ def stage_scales(work):
     if os.path.exists(out):
         return "skip"
     for _ in range(3):
-        r = call("opus", design.SCALES_SYSTEM, design.SCALES_USER, design.SCALES_SCHEMA, effort="high", tag="scales")
+        r = call("opus", design.SCALES_SYSTEM, design.SCALES_USER_B if design.PROFILE == "v3b" else design.SCALES_USER, design.SCALES_SCHEMA, effort="high", tag="scales")
         if not r["ok"]:
             continue
         sc = r["data"]["scales"]
@@ -80,7 +80,8 @@ def do_family(work, slot, scales):
     plan = design.question_plan(slot, shared)
     text_note = "About a third of settings use 1 to 3 short free-text fields (a note, an evidence line, or a few one-sentence messages inside the JSON); this one should" + ("" if int(slot["id"][1:]) % 3 == 1 else " not") + " include such fields."
     skills = "\n".join(f"- {k}: {design.SKILLS[k]}" for k in sorted(set(slot["skills"] + design.ALWAYS_SKILLS)))
-    user = design.DESIGN_USER.format(fid=slot["id"], domain=slot["domain"], text_note=text_note, question_plan=design.plan_text(plan), skills=skills)
+    user = design.DESIGN_USER.format(fid=slot["id"], domain=slot["domain"], text_note=text_note, question_plan=design.plan_text(plan), skills=skills,
+                                     anchor_rules=design.ANCHOR_RULES if design.PROFILE == "v3b" else "")
     if shared:
         user += f'\n\nNote: this family also uses a shared score scale, added separately, named "{shared["name"]}" ({shared["instructions"]}). Do not write it among your questions, and do not duplicate it.'
     reasons = []
