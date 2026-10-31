@@ -1,0 +1,127 @@
+{
+ "id": "F304-0034",
+ "family": "F304",
+ "state": {
+  "request": {
+   "ref": "T4452",
+   "appt_type": "dialysis",
+   "appt_time": "2025-06-03T10:00",
+   "pickup": "08:15",
+   "vehicle_class": "standard",
+   "crew_requested": "single",
+   "mobility_booked": "assisted_walk",
+   "equipment": []
+  },
+  "patient": {
+   "mobility_assessed": "assisted_walk",
+   "assessed_on": "2025-05-20",
+   "weight_kg": 158,
+   "oxygen_lpm": 0,
+   "monitoring": null,
+   "own_transport_available": false,
+   "exemption": null
+  },
+  "journey": {
+   "window_start": "08:18",
+   "window_end": "08:30",
+   "est_duration_min": 89,
+   "late_tolerance_min": 10,
+   "reslot_same_day": true
+  },
+  "history": [
+   {
+    "date": "2025-03-02",
+    "outcome": "aborted",
+    "reason": "clinic cancelled"
+   },
+   {
+    "date": "2025-03-16",
+    "outcome": "aborted",
+    "reason": "patient refused"
+   },
+   {
+    "date": "2025-04-06",
+    "outcome": "aborted",
+    "reason": "weather"
+   },
+   {
+    "date": "2025-04-27",
+    "outcome": "aborted",
+    "reason": "unit closed"
+   }
+  ],
+  "notes": {
+   "control_note": "Afternoon chair only if free."
+  }
+ },
+ "factors": {
+  "mobility_alignment": "matches",
+  "secondary_discrepancy": "time_trivial",
+  "eligibility_concern": false,
+  "eligibility_exception": false,
+  "clinical_support": "near_bariatric_weight",
+  "crew_request_gap": "under_one_step",
+  "buffer_minutes": 1.0,
+  "duration_estimate_split": false,
+  "late_tolerance": true,
+  "appointment_type": "dialysis",
+  "same_day_reslot": true,
+  "confirmation_pending": false,
+  "prior_aborts": 4,
+  "aborts_related": false
+ },
+ "factors_sampled": {
+  "mobility_alignment": "matches",
+  "secondary_discrepancy": "time_trivial",
+  "eligibility_concern": false,
+  "eligibility_exception": false,
+  "clinical_support": "transfer_assist",
+  "crew_request_gap": "under_one_step",
+  "buffer_minutes": 137.41,
+  "duration_estimate_split": true,
+  "late_tolerance": true,
+  "appointment_type": "theatre_transfer",
+  "same_day_reslot": false,
+  "confirmation_pending": false,
+  "prior_aborts": 4,
+  "aborts_related": false
+ },
+ "plan": {
+  "vehicle_fit": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "disposition": {
+   "clarity": "contested",
+   "target": "amend_confirm",
+   "second": "confirm"
+  },
+  "crew_config": {
+   "clarity": "balanced",
+   "target": "single_crew",
+   "second": "specialist_team"
+  },
+  "time_pressure": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  },
+  "delay_impact": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  }
+ },
+ "target_words": 54,
+ "deciding": {
+  "vehicle_fit": "Mobility and standard vehicle match the recent assessment, but weight 158 kg with no equipment listed leaves some doubt.",
+  "disposition": "Pickup 08:15 vs window_start 08:18 is a 3-minute trivial variance; sending as submitted or tidying first are both defensible.",
+  "crew_config": "Assisted walk, no oxygen or monitoring, supports single crew; weight 158 kg is just under the 160 kg limit, so specialist is a stretch alternative.",
+  "time_pressure": "Window end 08:30 plus 89 min against 10:00 leaves 1 min, right at the boundary between arriving on time and running late.",
+  "delay_impact": "Dialysis with reslot_same_day true and late_tolerance_min 10, but the note says the afternoon chair is only available if free."
+ },
+ "request": "rec-F304-0031",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012636
+}

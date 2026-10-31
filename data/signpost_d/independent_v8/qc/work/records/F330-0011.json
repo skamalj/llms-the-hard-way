@@ -1,0 +1,134 @@
+{
+ "id": "F330-0011",
+ "family": "F330",
+ "state": {
+  "request": {
+   "req_id": "EX-1041",
+   "emp_ref": "E5521",
+   "grade": "G4",
+   "cost_centre": "CC210",
+   "trip_ref": "T7731",
+   "requested_total": 500.4,
+   "ccy": "GBP",
+   "payroll_cutoff": "2025-03-25"
+  },
+  "lines": [
+   {
+    "line_no": 1,
+    "date": "2025-03-11",
+    "category": "rail",
+    "cost_centre": "CC210",
+    "amount": 580.5,
+    "ccy": "EUR",
+    "fx_rate": 0.862,
+    "amount_gbp": 500.4,
+    "receipt_attached": true
+   }
+  ],
+  "policy": {
+   "rule_id": "RAIL-G4",
+   "grade_band": "G4",
+   "cap_gbp": 500,
+   "cap_unit": "trip",
+   "units": 1,
+   "reviewer_limit_gbp": 250
+  },
+  "travel": {
+   "trip_ref": "T7731",
+   "depart": "2025-03-10",
+   "return": "2025-03-13",
+   "booked_on": "2025-02-18",
+   "disruption": null,
+   "alt_check": null,
+   "client_recharge": {
+    "billable": false,
+    "client_code": null
+   }
+  },
+  "approvals": {
+   "line_mgr": {
+    "approved": null
+   },
+   "pre_approval": {
+    "ref": "PA-88",
+    "trip_ref": "T7731",
+    "max_gbp": 150,
+    "valid_to": "2025-03-31"
+   }
+  },
+  "history": {
+   "exceptions_12m": 3,
+   "approved_12m": 2,
+   "declined_12m": 1,
+   "last_exception_on": "2024-11-02"
+  }
+ },
+ "factors": {
+  "breach_type": "late_booking_premium",
+  "true_excess_pct": 0.08,
+  "amount_mismatch": "rounding",
+  "reference_mismatch": "none",
+  "pre_approval_state": "valid_matching",
+  "external_disruption": false,
+  "compliant_option": "not_checked",
+  "missing_item": "line_manager_approval",
+  "excess_vs_authority": "well_within",
+  "client_rechargeable": false,
+  "prior_exceptions_12m": 3,
+  "booking_lead_days": 20,
+  "employee_grade": "G4"
+ },
+ "factors_sampled": {
+  "breach_type": "late_booking_premium",
+  "true_excess_pct": 46.2,
+  "amount_mismatch": "rounding",
+  "reference_mismatch": "two_of_above",
+  "pre_approval_state": "valid_matching",
+  "external_disruption": false,
+  "compliant_option": "not_checked",
+  "missing_item": "none",
+  "excess_vs_authority": "near_limit",
+  "client_rechargeable": false,
+  "prior_exceptions_12m": 3,
+  "booking_lead_days": 20,
+  "employee_grade": "G4"
+ },
+ "plan": {
+  "preapproval_covers": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "outside_control": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "excess_disposition": {
+   "clarity": "clear",
+   "target": "hold_for_info",
+   "second": null
+  },
+  "excess_size": {
+   "clarity": "contested",
+   "target": "0",
+   "second": "1"
+  },
+  "discrepancy_count": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 135,
+ "deciding": {
+  "preapproval_covers": "pre_approval trip_ref matches travel, valid_to 2025-03-31 is after depart, max_gbp 150 far exceeds the 0.40 excess; line_mgr approval is null, which leaves some doubt.",
+  "outside_control": "disruption null and alt_check null: no documented cause, but no compliant option shown to exist either.",
+  "excess_disposition": "approvals.line_mgr.approved is null: one named approval missing, everything else is in order.",
+  "excess_size": "Line 500.40 GBP against cap 500 x 1: excess 0.40, of which about 0.01 is fx rounding, so level 0 or 1 are both defensible.",
+  "discrepancy_count": "580.5 x 0.862 = 500.391 vs amount_gbp 500.40, a rounding-only difference; all refs, dates and cost centres agree."
+ },
+ "request": "rec-F330-0011",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.01697
+}

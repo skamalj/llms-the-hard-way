@@ -1,0 +1,118 @@
+{
+ "id": "F338-0002",
+ "family": "F338",
+ "state": {
+  "site": {
+   "pollutant": "CO",
+   "tier": "standard",
+   "service_interval_days": 90
+  },
+  "visit": {
+   "date": "2024-03-15",
+   "sequence_status": "aborted",
+   "abort_cause": "power"
+  },
+  "reference": {
+   "standard_id": "CYL-70518",
+   "unit": "ppm",
+   "cert_expiry": "2024-10-19"
+  },
+  "checks": [
+   {
+    "phase": "as_found",
+    "type": "span",
+    "ref_id": "CYL-70581",
+    "ref_conc": 40,
+    "unit": "ppm",
+    "reading": 43.1,
+    "tol": 2.0
+   },
+   {
+    "phase": "as_left",
+    "type": "span",
+    "reading": null
+   }
+  ],
+  "history": {
+   "last_visit_date": "2024-01-11",
+   "results": [
+    "pass",
+    "pass"
+   ],
+   "autochecks": [
+    {
+     "d": "2024-01-20",
+     "r": "fail"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "pollutant": "CO",
+  "as_found_ratio": 1.8,
+  "as_left_status": "marginal",
+  "cylinder_id_mismatch": "transposed_digit",
+  "cert_expiry_offset_days": 218,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": false,
+  "drift_explanation": "none",
+  "days_since_last_visit": 64,
+  "visit_completeness": "aborted_power",
+  "prior_fail_count": 0,
+  "timestamp_mismatch": "none",
+  "site_priority": "standard"
+ },
+ "factors_sampled": {
+  "pollutant": "CO",
+  "as_found_ratio": 1.8,
+  "as_left_status": "marginal",
+  "cylinder_id_mismatch": "transposed_digit",
+  "cert_expiry_offset_days": 218,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": false,
+  "drift_explanation": "none",
+  "days_since_last_visit": 64,
+  "visit_completeness": "aborted_power",
+  "prior_fail_count": 0,
+  "timestamp_mismatch": "none",
+  "site_priority": "standard"
+ },
+ "plan": {
+  "data_accepted": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "reference_valid": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "withdraw",
+   "second": null
+  },
+  "flag_extent": {
+   "clarity": "leaning",
+   "target": "0",
+   "second": null
+  },
+  "return_urgency": {
+   "clarity": "contested",
+   "target": "1",
+   "second": "2"
+  }
+ },
+ "target_words": 34,
+ "deciding": {
+  "data_accepted": "As-found span error 3.1 ppm vs tol 2.0 and the as-left reading is null, so data cannot be accepted as-is.",
+  "reference_valid": "Check ref_id CYL-70581 transposes digits of standard_id CYL-70518; the cert expiry is fine and the record lacks a certified concentration.",
+  "next_step": "Visit aborted with power cause and as-left is null while as-found drifted; the analyser is withdrawn from the site.",
+  "flag_extent": "Last visit 2024-01-11 vs visit 03-15 gives 64 days, but history has no fails and the only autocheck fail is from 01-20; hence mild doubt for 0.",
+  "return_urgency": "Aborted visit with no as-left on a standard site; the return timing between 8-30 days and 3-7 days is open."
+ },
+ "request": "rec-F338-0001",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.005738
+}

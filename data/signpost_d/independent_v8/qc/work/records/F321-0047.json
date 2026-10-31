@@ -1,0 +1,151 @@
+{
+ "id": "F321-0047",
+ "family": "F321",
+ "state": {
+  "permit": {
+   "id": "P2",
+   "site_id": "S208",
+   "window_start": "2024-06-11T07:00",
+   "window_end": "2024-06-11T15:00",
+   "scoped_tasks": [
+    {
+     "task_code": "RAD-RPL-11",
+     "equipment_ref": "RAD11"
+    },
+    {
+     "task_code": "FDR-TST-04",
+     "equipment_ref": "FDR4"
+    }
+   ],
+   "landlord_notice_date": "2024-06-04"
+  },
+  "attendance": {
+   "events": [
+    {
+     "badge_id": "B2",
+     "type": "in",
+     "ts": "2024-06-11T07:10"
+    },
+    {
+     "badge_id": "B5",
+     "type": "in",
+     "ts": "2024-06-11T07:10"
+    },
+    {
+     "badge_id": "B2",
+     "type": "out",
+     "ts": "2024-06-11T14:20"
+    },
+    {
+     "badge_id": "B5",
+     "type": "out",
+     "ts": "2024-06-11T14:20"
+    }
+   ]
+  },
+  "personnel": [
+   {
+    "engineer_id": "E2",
+    "badge_id": "B2",
+    "role": "climber",
+    "height_cert_expiry": "2026-01-31"
+   },
+   {
+    "engineer_id": "E5",
+    "badge_id": "B5",
+    "role": "tech",
+    "height_cert_expiry": null
+   }
+  ],
+  "works": [
+   {
+    "task_code": "RAD-RPL-11",
+    "equipment_ref": "RAD11",
+    "status": "complete",
+    "started_at": "2024-06-11T08:00",
+    "completed_at": "2024-06-11T11:00"
+   },
+   {
+    "task_code": "FDR-TST-04",
+    "equipment_ref": "FDR4",
+    "status": "complete",
+    "started_at": null,
+    "completed_at": "2024-06-11T13:30"
+   }
+  ],
+  "closeout": {
+   "signout_at": "2024-06-11T14:20",
+   "key_status": "returned",
+   "photos_required": 3,
+   "photos_uploaded": 3,
+   "variation_ref": "VAR-2291",
+   "pending_days": 31
+  }
+ },
+ "factors": {
+  "scope_mismatch": "none",
+  "window_deviation": "within",
+  "cert_status": "cert_record_null_for_non_climber",
+  "scoped_task_count": 2,
+  "completion_fraction": 1.0,
+  "signout_missing": false,
+  "key_return": "returned",
+  "photo_shortfall": 0,
+  "badge_id_mismatch": false,
+  "variation_approved": true,
+  "landlord_notice": "given_in_time",
+  "weather_hold_logged": false
+ },
+ "factors_sampled": {
+  "scope_mismatch": "none",
+  "window_deviation": "within",
+  "cert_status": "cert_record_null",
+  "scoped_task_count": 6,
+  "completion_fraction": 0.77,
+  "signout_missing": false,
+  "key_return": "returned_late",
+  "photo_shortfall": 1,
+  "badge_id_mismatch": true,
+  "variation_approved": true,
+  "landlord_notice": "given_late",
+  "weather_hold_logged": false
+ },
+ "plan": {
+  "within_scope": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "certs_in_date": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "closeout_action": {
+   "clarity": "clear",
+   "target": "close_visit",
+   "second": null
+  },
+  "scope_completion": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  },
+  "pending_age": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 25,
+ "deciding": {
+  "within_scope": "Works task codes and equipment refs match the permit exactly, but closeout.variation_ref VAR-2291 exists with no matching extra task, which leaves some doubt.",
+  "certs_in_date": "The climber E2 has an expiry of 2026-01-31. E5, role tech, has a null height_cert_expiry, so it is unclear whether E5 climbed.",
+  "closeout_action": "Sign-out is present, the key is returned, photos are 3 of 3, badges match and both scoped tasks are complete, so nothing is left to hold or refer.",
+  "scope_completion": "Both scoped tasks show status complete, but FDR-TST-04 has a null started_at, so whether it was really signed off is arguable.",
+  "pending_age": "pending_days is 31, just past the 30-day boundary between level 2 and level 3."
+ },
+ "request": "rec-F321-0046",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.015902
+}

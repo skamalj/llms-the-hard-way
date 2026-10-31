@@ -1,0 +1,141 @@
+{
+ "id": "F303-0034",
+ "family": "F303",
+ "state": {
+  "order": {
+   "prescription": {
+    "modality": "concentrator",
+    "flow_lpm": 2,
+    "hours_per_day": 8
+   },
+   "items_ordered": [
+    {
+     "sku": "OC5",
+     "qty": 1
+    },
+    {
+     "sku": "ZD300",
+     "qty": 2
+    }
+   ]
+  },
+  "visit": {
+   "arrived_at": "10:00",
+   "items_left": [
+    {
+     "sku": "OC5",
+     "qty": 1
+    },
+    {
+     "sku": "ZD300",
+     "qty": 1
+    },
+    {
+     "sku": "CD460",
+     "qty": 1
+    }
+   ],
+   "install_checks": {
+    "flow_verified": true,
+    "alarm_tested": null,
+    "training_given": true,
+    "completed_at": "09:30"
+   }
+  },
+  "site_assessment": {
+   "hazards": [
+    {
+     "code": "HEAT",
+     "status": "open"
+    },
+    {
+     "code": "SMOKE",
+     "status": "open"
+    },
+    {
+     "code": "TUBE",
+     "status": "resolved_on_visit",
+     "fix": null
+    }
+   ]
+  },
+  "equipment": {
+   "concentrator": {
+    "flow_setting_lpm": 4
+   }
+  },
+  "supply_plan": {
+   "next_delivery_date": "2025-05-09"
+  }
+ },
+ "factors": {
+  "rx_alignment": "flow_mismatch",
+  "items_shortfall": "one_short",
+  "setup_state": "test_not_logged",
+  "supply_hours": 283.41,
+  "concentrator_fault": false,
+  "fault_mitigated": false,
+  "hazards_found": 3,
+  "hazard_mitigation": true,
+  "hazard_status_missing": false,
+  "handover_gap": false,
+  "timeline_out_of_order": true,
+  "next_delivery": "booked_in_time",
+  "dependency_level": "nocturnal",
+  "billing_hold": false
+ },
+ "factors_sampled": {
+  "rx_alignment": "exact",
+  "items_shortfall": "none",
+  "setup_state": "test_not_logged",
+  "supply_hours": 283.41,
+  "concentrator_fault": false,
+  "fault_mitigated": false,
+  "hazards_found": 2,
+  "hazard_mitigation": false,
+  "hazard_status_missing": false,
+  "handover_gap": false,
+  "timeline_out_of_order": true,
+  "next_delivery": "booked_in_time",
+  "dependency_level": "nocturnal",
+  "billing_hold": false
+ },
+ "plan": {
+  "rx_match": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "chase_paperwork",
+   "second": null
+  },
+  "fulfilment": {
+   "clarity": "balanced",
+   "target": "items_short",
+   "second": "setup_incomplete"
+  },
+  "supply_runway": {
+   "clarity": "clear",
+   "target": "3",
+   "second": null
+  },
+  "open_hazards": {
+   "clarity": "contested",
+   "target": "2",
+   "second": "3"
+  }
+ },
+ "target_words": 32,
+ "deciding": {
+  "rx_match": "Rx flow 2 lpm but concentrator flow_setting_lpm is 4.",
+  "next_step": "completed_at 09:30 is before arrived_at 10:00 and alarm_tested is null, record problems that can be fixed by chasing documentation.",
+  "fulfilment": "ZD300 ordered qty 2 but 1 left plus a CD460 substitute: short or substituted, while alarm_tested is null (setup unfinished).",
+  "supply_runway": "Concentrator installed with no fault and flow_verified true.",
+  "open_hazards": "HEAT and SMOKE open; TUBE says resolved_on_visit but fix is null, so it may still be open."
+ },
+ "request": "rec-F303-0031",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.01485
+}

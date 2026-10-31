@@ -1,0 +1,145 @@
+{
+ "id": "F314-0008",
+ "family": "F314",
+ "state": {
+  "property": {
+   "inventory": [
+    {
+     "id": "A1",
+     "type": "boiler",
+     "serial": "S100"
+    },
+    {
+     "id": "A2",
+     "type": "fire",
+     "serial": "F2"
+    },
+    {
+     "id": "A3",
+     "type": "hob",
+     "owned_by": "tenant"
+    }
+   ]
+  },
+  "tenancy": {
+   "review_date": "2025-08-17"
+  },
+  "certificate": {
+   "inspection_date": "2024-09-01",
+   "engineer_licence": "G200",
+   "overall_outcome": "pass"
+  },
+  "appliance_checks": [
+   {
+    "id": "A1",
+    "type": "boiler",
+    "serial": "S100",
+    "flue_type": "room-sealed",
+    "analyser": {
+     "ratio": 0.0005,
+     "threshold": 0.001
+    },
+    "defect_class": null
+   },
+   {
+    "id": "A2",
+    "type": "fire",
+    "serial": "F9",
+    "flue_type": "open",
+    "defect_class": "AR",
+    "isolation": {
+     "supply_off": false,
+     "capped": true,
+     "label_code": "AR",
+     "acknowledged_by_role": "tenant"
+    }
+   }
+  ],
+  "engineer": {
+   "licence_no": "G201",
+   "valid_to": "2026-01-01",
+   "categories": [
+    "room-sealed"
+   ]
+  },
+  "history": {
+   "remedials": [
+    {
+     "appliance_id": "A1",
+     "completed_on": "2025-03-01",
+     "engineer_licence": "G200"
+    }
+   ],
+   "renewal_booking": {
+    "date": "2025-08-25",
+    "status": "confirmed"
+   }
+  }
+ },
+ "factors": {
+  "inventory_mismatch": "serial_mismatch",
+  "tenant_owned_appliance": true,
+  "date_misalignment": "none",
+  "days_to_true_expiry": 15,
+  "renewal_booked": true,
+  "engineer_status": "licence_mismatch_category_missing",
+  "worst_defect_class": "at_risk",
+  "defect_isolated": false,
+  "remedial_completed": false,
+  "combustion_reading": "normal",
+  "prior_defect_count": 2,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "inventory_mismatch": "serial_mismatch",
+  "tenant_owned_appliance": true,
+  "date_misalignment": "none",
+  "days_to_true_expiry": 39,
+  "renewal_booked": true,
+  "engineer_status": "category_missing",
+  "worst_defect_class": "at_risk",
+  "defect_isolated": true,
+  "remedial_completed": true,
+  "combustion_reading": "normal",
+  "prior_defect_count": 2,
+  "boundary_case": false
+ },
+ "plan": {
+  "covers_all_appliances": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "engineer_valid": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "emergency_isolation",
+   "second": null
+  },
+  "renewal_urgency": {
+   "clarity": "clear",
+   "target": "2",
+   "second": null
+  },
+  "open_hazard": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  }
+ },
+ "target_words": 93,
+ "deciding": {
+  "covers_all_appliances": "Fire A2 serial is F9 against inventory F2; the tenant-owned hob gap is excused, so the certificate likely does not cover the listed fire.",
+  "engineer_valid": "Certificate licence G200 differs from engineer licence_no G201, and categories omit the open-flue fire that was checked.",
+  "next_step": "At-risk defect on A2 with supply_off false, appliance still in service; remedial listed is for A1 only.",
+  "renewal_urgency": "Inspection 2024-09-01 gives expiry 2025-09-01; review 2025-08-17 is 15 days before, so level 2 even with a booking.",
+  "open_hazard": "AR defect on A2 open, with capped true and a label but supply_off false and only tenant acknowledgement, so contained versus live is balanced."
+ },
+ "request": "rec-F314-0006",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011136
+}

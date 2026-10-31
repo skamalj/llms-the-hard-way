@@ -1,0 +1,160 @@
+{
+ "id": "F303-0033",
+ "family": "F303",
+ "state": {
+  "order": {
+   "prescription": {
+    "modality": "concentrator",
+    "flow_lpm": 2,
+    "hours_per_day": 8
+   },
+   "items_ordered": [
+    {
+     "sku": "OC5",
+     "qty": 1
+    },
+    {
+     "sku": "HX2300",
+     "qty": 1
+    },
+    {
+     "sku": "CD460",
+     "qty": 1
+    }
+   ]
+  },
+  "visit": {
+   "items_left": [
+    {
+     "sku": "OC5",
+     "qty": 1,
+     "serial": "C71"
+    },
+    {
+     "sku": "HX2300",
+     "qty": 1
+    },
+    {
+     "sku": "CD460",
+     "qty": 1
+    }
+   ],
+   "install_checks": {
+    "flow_verified": true,
+    "alarm_tested": true,
+    "training_given": true,
+    "completed_at": "10:40"
+   }
+  },
+  "site_assessment": {
+   "hazards": [
+    {
+     "code": "HEAT",
+     "status": "open",
+     "fix": null
+    },
+    {
+     "code": "SMOKE",
+     "status": "open",
+     "fix": "alarm_fitted"
+    }
+   ]
+  },
+  "equipment": {
+   "concentrator": {
+    "serial": "C71",
+    "flow_setting_lpm": 2
+   },
+   "fault_log": [
+    {
+     "code": "LOW_PURITY",
+     "at": "10:30",
+     "retest_passed": null
+    }
+   ],
+   "cylinders_on_site": [
+    {
+     "size": "HX 2300 L",
+     "fill_pct": 100
+    },
+    {
+     "size": "CD 460 L",
+     "fill_pct": 100
+    }
+   ]
+  },
+  "supply_plan": {
+   "next_delivery_date": "2025-06-12"
+  }
+ },
+ "factors": {
+  "rx_alignment": "exact",
+  "items_shortfall": "none",
+  "setup_state": "all_logged",
+  "supply_hours": 23.0,
+  "concentrator_fault": true,
+  "fault_mitigated": false,
+  "hazards_found": 2,
+  "hazard_mitigation": true,
+  "hazard_status_missing": false,
+  "handover_gap": false,
+  "timeline_out_of_order": false,
+  "next_delivery": "booked_in_time",
+  "dependency_level": "ambulatory",
+  "billing_hold": false
+ },
+ "factors_sampled": {
+  "rx_alignment": "flow_mismatch",
+  "items_shortfall": "one_short",
+  "setup_state": "all_logged",
+  "supply_hours": 268.6,
+  "concentrator_fault": true,
+  "fault_mitigated": false,
+  "hazards_found": 2,
+  "hazard_mitigation": false,
+  "hazard_status_missing": false,
+  "handover_gap": false,
+  "timeline_out_of_order": false,
+  "next_delivery": "booked_in_time",
+  "dependency_level": "ambulatory",
+  "billing_hold": false
+ },
+ "plan": {
+  "rx_match": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "close_record",
+   "second": null
+  },
+  "fulfilment": {
+   "clarity": "leaning",
+   "target": "setup_incomplete",
+   "second": null
+  },
+  "supply_runway": {
+   "clarity": "clear",
+   "target": "1",
+   "second": null
+  },
+  "open_hazards": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  }
+ },
+ "target_words": 52,
+ "deciding": {
+  "rx_match": "Concentrator OC5 left, flow_setting_lpm 2 equals Rx 2 lpm.",
+  "next_step": "All items left and every check logged true, next delivery booked; the only doubts are the unretested LOW_PURITY entry and a hazard.",
+  "fulfilment": "All items left and checks true, but the LOW_PURITY fault has retest_passed null, so setup may not be finished.",
+  "supply_runway": "Faulty concentrator does not count; HX 2300 L plus CD 460 L at 100% = 2760 L; at 120 L/h that is 23 h.",
+  "open_hazards": "HEAT open with no fix; SMOKE is open but carries fix alarm_fitted, so it may already be resolved."
+ },
+ "request": "rec-F303-0031",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.01485
+}

@@ -1,0 +1,133 @@
+{
+ "id": "F325-0055",
+ "family": "F325",
+ "state": {
+  "pen": {
+   "pen_id": "P1",
+   "stage": "smolt",
+   "limits": {
+    "do_min_mg_l": 6.0
+   }
+  },
+  "check": {
+   "pen_id": "P1",
+   "sampled_at": "2025-08-03T10:00",
+   "sampler_id": "S2",
+   "depth_profile": [
+    {
+     "depth_m": 3,
+     "do_mg_l": 4.8
+    }
+   ],
+   "readings": {
+    "do_mg_l": 4.8,
+    "do_unit": "mg/L"
+   }
+  },
+  "instrument": {
+   "last_cal": "2025-06-20",
+   "cal_result": "pass",
+   "cal_due": "2025-07-31",
+   "logger_do_mg_l": 6.1
+  },
+  "history": [
+   {
+    "lo_do": 5.6,
+    "in_limits": false
+   },
+   {
+    "lo_do": 5.9,
+    "in_limits": false
+   },
+   {
+    "lo_do": 5.7,
+    "in_limits": false
+   },
+   {
+    "lo_do": 6.3,
+    "in_limits": true
+   },
+   {
+    "lo_do": 6.4,
+    "in_limits": true
+   },
+   {
+    "lo_do": 6.2,
+    "in_limits": true
+   }
+  ],
+  "notes": {
+   "sampler": "Repeat 11:15 on spare probe: 6.1.",
+   "signoff": "J.T.",
+   "signoff_at": "2025-08-03T11:30"
+  }
+ },
+ "factors": {
+  "stock_stage": "smolt",
+  "true_do_margin": -1.19,
+  "primary_cause": "instrument",
+  "cross_section_mismatch": "none",
+  "calibration_state": "overdue",
+  "logger_alarm_raised": false,
+  "mitigation_present": true,
+  "mitigation_kind": "passed_repeat_check",
+  "history_out_of_range": 3,
+  "missing_required": 0,
+  "date_order_fault": false,
+  "boundary_case": false,
+  "note_tone": "neutral"
+ },
+ "factors_sampled": {
+  "stock_stage": "smolt",
+  "true_do_margin": -1.19,
+  "primary_cause": "none",
+  "cross_section_mismatch": "large_transcription",
+  "calibration_state": "overdue",
+  "logger_alarm_raised": false,
+  "mitigation_present": true,
+  "mitigation_kind": "passed_repeat_check",
+  "history_out_of_range": 6,
+  "missing_required": 2,
+  "date_order_fault": false,
+  "boundary_case": false,
+  "note_tone": "neutral"
+ },
+ "plan": {
+  "genuine_do_breach": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "next_step": {
+   "clarity": "balanced",
+   "target": "reduce_feeding",
+   "second": "resample_first"
+  },
+  "deviation_cause": {
+   "clarity": "clear",
+   "target": "instrument_fault",
+   "second": null
+  },
+  "persistence": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "evidence_completeness": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  }
+ },
+ "target_words": 38,
+ "deciding": {
+  "genuine_do_breach": "The probe reads 4.8 mg/L but the logger reads 6.1 and the spare-probe repeat 6.1, with the probe past cal_due 2025-07-31. That favours no breach, yet the history shows a recent run below limit.",
+  "next_step": "A passed repeat on the spare probe and a three-check run of recent out-of-range days make a feed cut defensible, while the unresolved probe/logger gap makes a full resample equally defensible.",
+  "deviation_cause": "cal_due 2025-07-31 is before sampled_at 2025-08-03, and the probe differs from the logger by 1.3 mg/L, which is over the 1 mg/L gap.",
+  "persistence": "Three history checks are out of range; the discredited probe reading may or may not count as a fourth.",
+  "evidence_completeness": "All fields and the sign-off are present and correctly dated; the only doubt is whether the overdue probe counts as an invalid element, giving level 2 or 3."
+ },
+ "request": "rec-F325-0051",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012167
+}

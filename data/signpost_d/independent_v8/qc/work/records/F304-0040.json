@@ -1,0 +1,117 @@
+{
+ "id": "F304-0040",
+ "family": "F304",
+ "state": {
+  "request": {
+   "appt_type": "theatre_transfer",
+   "appt_time": "2025-08-12T14:00",
+   "vehicle_class": "clinical_ambulance",
+   "crew_requested": "specialist_team",
+   "mobility_booked": "stretcher",
+   "equipment": [
+    "monitor"
+   ]
+  },
+  "patient": {
+   "mobility_assessed": "stretcher",
+   "assessed_on": "2025-08-10",
+   "monitoring": "cardiac",
+   "oxygen_lpm": 0,
+   "weight_kg": 90,
+   "fit_to_travel_signed": null,
+   "exemption": null
+  },
+  "journey": {
+   "window_end": "2025-08-12T11:50",
+   "est_duration_min": 38,
+   "manual_est_min": 42,
+   "late_tolerance_min": 10,
+   "destination": {
+    "reslot_same_day": false
+   }
+  },
+  "history": [
+   {
+    "outcome": "aborted",
+    "reason": "clinic cancelled"
+   },
+   {
+    "outcome": "aborted",
+    "reason": "clinic cancelled"
+   }
+  ],
+  "notes": {
+   "ward_note": "Needs portable suction; fit-to-travel form awaited."
+  }
+ },
+ "factors": {
+  "mobility_alignment": "matches",
+  "secondary_discrepancy": "equipment_unlisted",
+  "eligibility_concern": false,
+  "eligibility_exception": false,
+  "clinical_support": "cardiac_monitoring",
+  "crew_request_gap": "over_one_step",
+  "buffer_minutes": 92.0,
+  "duration_estimate_split": true,
+  "late_tolerance": true,
+  "appointment_type": "theatre_transfer",
+  "same_day_reslot": false,
+  "confirmation_pending": true,
+  "prior_aborts": 2,
+  "aborts_related": false
+ },
+ "factors_sampled": {
+  "mobility_alignment": "missing",
+  "secondary_discrepancy": "equipment_unlisted",
+  "eligibility_concern": false,
+  "eligibility_exception": false,
+  "clinical_support": "cardiac_monitoring",
+  "crew_request_gap": "over_one_step",
+  "buffer_minutes": 149.21,
+  "duration_estimate_split": true,
+  "late_tolerance": true,
+  "appointment_type": "theatre_transfer",
+  "same_day_reslot": false,
+  "confirmation_pending": true,
+  "prior_aborts": 2,
+  "aborts_related": false
+ },
+ "plan": {
+  "vehicle_fit": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "disposition": {
+   "clarity": "leaning",
+   "target": "hold",
+   "second": null
+  },
+  "crew_config": {
+   "clarity": "leaning",
+   "target": "clinical_escort",
+   "second": null
+  },
+  "time_pressure": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  },
+  "delay_impact": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 52,
+ "deciding": {
+  "vehicle_fit": "Stretcher booked and assessed 2 days before; the clinical ambulance with monitor fits.",
+  "disposition": "fit_to_travel_signed is null and the ward note says the form is awaited, so hold; the unlisted suction unit adds some doubt over the right fix.",
+  "crew_config": "Cardiac monitoring, no oxygen and weight 90 kg point to clinical_escort, though specialist_team is what was requested.",
+  "time_pressure": "Window end 11:50 against 14:00 leaves 92 min with the 38 min estimate and 88 min with manual_est_min 42, straddling the 90 min boundary.",
+  "delay_impact": "Theatre transfer with reslot_same_day false suggests level 3, but the 10 min tolerance leaves level 2 defensible."
+ },
+ "request": "rec-F304-0036",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.01213
+}

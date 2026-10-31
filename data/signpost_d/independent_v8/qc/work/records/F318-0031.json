@@ -1,0 +1,196 @@
+{
+ "id": "F318-0031",
+ "family": "F318",
+ "state": {
+  "work_order": {
+   "wo_id": "WO-5521",
+   "lock_id": "L14",
+   "visit_type": "winter_stoppage",
+   "tasks": [
+    {
+     "task_id": "T1",
+     "asset_ref": "A1"
+    },
+    {
+     "task_id": "T2",
+     "asset_ref": "A2"
+    },
+    {
+     "task_id": "T3",
+     "asset_ref": "A3"
+    },
+    {
+     "task_id": "T4",
+     "asset_ref": "A4"
+    },
+    {
+     "task_id": "T5",
+     "asset_ref": "A5"
+    },
+    {
+     "task_id": "T6",
+     "asset_ref": "A6"
+    }
+   ],
+   "nav_notice": {
+    "in_force": false
+   }
+  },
+  "visit_log": {
+   "arrived": "2025-01-14T08:00",
+   "departed": "2025-01-14T12:00",
+   "crew_size": 2,
+   "timesheet_hours": 9.2,
+   "task_status": [
+    {
+     "task_id": "T1",
+     "status": "done"
+    },
+    {
+     "task_id": "T2",
+     "status": "done"
+    },
+    {
+     "task_id": "T3",
+     "status": "done"
+    },
+    {
+     "task_id": "T4",
+     "status": "done"
+    },
+    {
+     "task_id": "T5",
+     "status": "done"
+    },
+    {
+     "task_id": "T6",
+     "status": "not_started",
+     "deferral_ref": null,
+     "deferral_due": null
+    }
+   ]
+  },
+  "materials": {
+   "issued": [
+    {
+     "part_no": "P7",
+     "task_id": "T2",
+     "qty": 10
+    }
+   ],
+   "returned": [
+    {
+     "part_no": "P7",
+     "qty": 2
+    }
+   ],
+   "fitted": [
+    {
+     "part_no": "P7",
+     "task_id": "T2",
+     "qty": 6
+    }
+   ]
+  },
+  "checks": {
+   "post_checks": [
+    {
+     "asset_ref": "A1",
+     "result": "pass"
+    },
+    {
+     "asset_ref": "A2",
+     "result": "pass"
+    },
+    {
+     "asset_ref": "A3",
+     "result": "pass"
+    },
+    {
+     "asset_ref": "A4",
+     "result": "pass"
+    },
+    {
+     "asset_ref": "A5",
+     "result": "pass"
+    }
+   ],
+   "leakage_ls": 46,
+   "leakage_limit_ls": 25,
+   "river_level_m": 3.4,
+   "flood_marker_m": 3.1
+  },
+  "asset_history": {
+   "prior_visits": [],
+   "open_defects": []
+  }
+ },
+ "factors": {
+  "visit_type": "winter_stoppage",
+  "tasks_ordered": 6,
+  "completion_state": "some_outstanding",
+  "parts_qty_mismatch": "moderate",
+  "hours_gap": 0.15,
+  "asset_ref_mismatch": false,
+  "post_check_result": "passed",
+  "leakage_ratio": 1.84,
+  "leakage_mitigation": true,
+  "navigation_notice_in_force": false,
+  "deferral_approved": false,
+  "prior_same_defect": 0,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "visit_type": "winter_stoppage",
+  "tasks_ordered": 6,
+  "completion_state": "some_outstanding",
+  "parts_qty_mismatch": "moderate",
+  "hours_gap": 0.15,
+  "asset_ref_mismatch": false,
+  "post_check_result": "passed",
+  "leakage_ratio": 1.84,
+  "leakage_mitigation": true,
+  "navigation_notice_in_force": false,
+  "deferral_approved": false,
+  "prior_same_defect": 0,
+  "boundary_case": false
+ },
+ "plan": {
+  "safe_to_reopen": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "record_disposition": {
+   "clarity": "balanced",
+   "target": "close_with_followup",
+   "second": "hold_query"
+  },
+  "return_urgency": {
+   "clarity": "balanced",
+   "target": "next_scheduled",
+   "second": "within_month"
+  },
+  "affected_scope": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  },
+  "section_mismatches": {
+   "clarity": "contested",
+   "target": "2",
+   "second": "1"
+  }
+ },
+ "target_words": 38,
+ "deciding": {
+  "safe_to_reopen": "All post_checks A1-A5 pass and open_defects is empty. Leakage 46 vs limit 25 is explained by river_level_m 3.4 above flood_marker_m 3.1.",
+  "record_disposition": "T6 is not_started with no deferral ref, so a follow-up job is the lead answer. The P7 shortfall (issued 10 minus returned 2 is 8, fitted 6) could instead justify holding for a crew query.",
+  "return_urgency": "Nothing restricts navigation and checks pass, so the next scheduled visit is the lead answer. The unstarted T6 with no due date keeps within_month plausible.",
+  "affected_scope": "Six assets A1-A6 are in the work order, sitting on the boundary between the two-to-five band and the six-to-twenty band.",
+  "section_mismatches": "The P7 quantity gap is clearly unexplained. The T6 not_started with null deferral_ref may count as a second one, and the timesheet 9.2 vs 8 crew-hours is slight. Count is one or two."
+ },
+ "request": "rec-F318-0031",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.016177
+}

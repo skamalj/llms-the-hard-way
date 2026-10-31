@@ -1,0 +1,117 @@
+{
+ "id": "F317-0044",
+ "family": "F317",
+ "state": {
+  "vehicle": {
+   "fleet_no": 2290,
+   "odometer_km": 50000
+  },
+  "exam": {
+   "due_at_km": 49800,
+   "opened_at": "2025-06-02",
+   "items": [
+    {
+     "item_code": "B1",
+     "signed_by": "u4",
+     "signed_at": "2025-06-03"
+    },
+    {
+     "item_code": "B2",
+     "signed_by": "u9",
+     "signed_at": "2025-06-01"
+    }
+   ]
+  },
+  "defects": [
+   {
+    "defect_id": "D-5",
+    "subsystem": "brakes",
+    "safety_critical": false,
+    "status": "open"
+   }
+  ],
+  "concessions": [
+   {
+    "conc_id": "C-2",
+    "fleet_no": 2290,
+    "defect_ref": "D-5",
+    "restriction_code": "OFFPEAK_ONLY",
+    "valid_until": "2025-06-30"
+   }
+  ],
+  "release": {
+   "duty_type": "off_peak",
+   "depart_at": "2025-06-05T06:00"
+  }
+ },
+ "factors": {
+  "km_to_exam_due": -200,
+  "odometer_disagreement": "none",
+  "exam_signed_fraction": 1.0,
+  "exam_record_missing": false,
+  "worst_defect_subsystem": "brakes",
+  "worst_defect_state": "open_no_wo",
+  "worst_defect_safety_critical": false,
+  "retest_out_of_order": false,
+  "concession_present": true,
+  "concession_flaw": "none",
+  "wo_crossref_mismatch": "none",
+  "planned_duty_type": "off_peak",
+  "recent_brake_test_pass": false,
+  "balanced_signals": true
+ },
+ "factors_sampled": {
+  "km_to_exam_due": -142,
+  "odometer_disagreement": "none",
+  "exam_signed_fraction": 0.71,
+  "exam_record_missing": false,
+  "worst_defect_subsystem": "none",
+  "worst_defect_state": "closed_retested",
+  "worst_defect_safety_critical": false,
+  "retest_out_of_order": true,
+  "concession_present": false,
+  "concession_flaw": "none",
+  "wo_crossref_mismatch": "none",
+  "planned_duty_type": "off_peak",
+  "recent_brake_test_pass": false,
+  "balanced_signals": false
+ },
+ "plan": {
+  "sc_defects_cleared": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "release_decision": {
+   "clarity": "balanced",
+   "target": "release_restricted",
+   "second": "withdraw"
+  },
+  "worst_subsystem": {
+   "clarity": "leaning",
+   "target": "brakes",
+   "second": null
+  },
+  "exam_completion": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "exam_mileage": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 34,
+ "deciding": {
+  "sc_defects_cleared": "The only defect D-5 is not safety-critical, so no safety-critical defect exists.",
+  "release_decision": "Valid concession C-2 with OFFPEAK_ONLY matching D-5 and off_peak duty supports restricted release; an open brakes defect with no work order and a 200 km overrun support withdraw.",
+  "worst_subsystem": "D-5 on brakes is the only open defect, although it is not safety-critical.",
+  "exam_completion": "Both items are signed with timestamps, but B2 signed_at 06-01 predates exam opened_at 06-02.",
+  "exam_mileage": "Odometer 50000 less due 49800 is exactly 200 km past due, on the boundary between levels 2 and 3."
+ },
+ "request": "rec-F317-0041",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012266
+}

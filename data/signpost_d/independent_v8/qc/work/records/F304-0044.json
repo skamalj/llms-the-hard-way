@@ -1,0 +1,120 @@
+{
+ "id": "F304-0044",
+ "family": "F304",
+ "state": {
+  "request": {
+   "appt_type": "inter_site_transfer",
+   "appt_time": "14:00",
+   "vehicle_class": "car",
+   "crew_requested": "single",
+   "mobility_booked": "seated",
+   "equipment": [],
+   "pickup": "Ward 7 North"
+  },
+  "patient": {
+   "mobility_assessed": "wheelchair",
+   "assessed_on": "2024-09-14",
+   "oxygen_lpm": 2,
+   "monitoring": null,
+   "own_transport_available": false,
+   "current_location": "Ward 9 Annex"
+  },
+  "journey": {
+   "window_end": "11:40",
+   "est_duration_min": 45,
+   "manual_est_min": 65,
+   "late_tolerance_min": 0,
+   "destination": {
+    "reslot_same_day": false
+   }
+  },
+  "history": [
+   {
+    "outcome": "aborted",
+    "reason": "vehicle lacked oxygen"
+   },
+   {
+    "outcome": "aborted",
+    "reason": "wheelchair not accommodated"
+   },
+   {
+    "outcome": "aborted",
+    "reason": "vehicle lacked oxygen"
+   },
+   {
+    "outcome": "aborted",
+    "reason": "seat unsuitable"
+   }
+  ]
+ },
+ "factors": {
+  "mobility_alignment": "stale",
+  "secondary_discrepancy": "address_material",
+  "eligibility_concern": false,
+  "eligibility_exception": false,
+  "clinical_support": "low_flow_oxygen",
+  "crew_request_gap": "under_one_step",
+  "buffer_minutes": "95 (75 with manual estimate)",
+  "duration_estimate_split": true,
+  "late_tolerance": false,
+  "appointment_type": "inter_site_transfer",
+  "same_day_reslot": false,
+  "confirmation_pending": false,
+  "prior_aborts": 4,
+  "aborts_related": true
+ },
+ "factors_sampled": {
+  "mobility_alignment": "stale",
+  "secondary_discrepancy": "address_material",
+  "eligibility_concern": false,
+  "eligibility_exception": true,
+  "clinical_support": "none",
+  "crew_request_gap": "under_one_step",
+  "buffer_minutes": 124.34,
+  "duration_estimate_split": true,
+  "late_tolerance": false,
+  "appointment_type": "dialysis",
+  "same_day_reslot": true,
+  "confirmation_pending": false,
+  "prior_aborts": 4,
+  "aborts_related": true
+ },
+ "plan": {
+  "vehicle_fit": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "disposition": {
+   "clarity": "leaning",
+   "target": "amend_confirm",
+   "second": null
+  },
+  "crew_config": {
+   "clarity": "leaning",
+   "target": "clinical_escort",
+   "second": null
+  },
+  "time_pressure": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "delay_impact": {
+   "clarity": "clear",
+   "target": "3",
+   "second": null
+  }
+ },
+ "target_words": 58,
+ "deciding": {
+  "vehicle_fit": "Assessment dated 2024-09-14 is stale and says wheelchair against car/seated; one booking-consistent reading remains plausible.",
+  "disposition": "Pickup Ward 7 North versus current_location Ward 9 Annex is a correctable conflict; nothing pending.",
+  "crew_config": "oxygen_lpm 2, no cardiac monitoring, weight not near limit; single crew requested.",
+  "time_pressure": "11:40 plus 45 min leaves 95 min (level 0), but manual_est_min 65 leaves 75 (level 1).",
+  "delay_impact": "Inter-site transfer with reslot_same_day false and no late tolerance."
+ },
+ "request": "rec-F304-0041",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.008819
+}

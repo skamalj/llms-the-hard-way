@@ -1,0 +1,118 @@
+{
+ "id": "F314-0018",
+ "family": "F314",
+ "state": {
+  "property": {
+   "inv": [
+    "B1",
+    "H1"
+   ]
+  },
+  "tenancy": {
+   "review": "2025-06-02"
+  },
+  "certificate": {
+   "insp": "2024-08-01",
+   "issue": "2024-07-30",
+   "expiry": "2025-08-01",
+   "lic": "G9"
+  },
+  "engineer": {
+   "lic": "G9",
+   "valid_to": "2026-01-01",
+   "cat": [
+    "boiler",
+    "hob"
+   ]
+  },
+  "appliance_checks": [
+   {
+    "id": "B1",
+    "ratio": 0.008,
+    "thr": 0.008,
+    "defect": "AR",
+    "iso": {
+     "label": "X1",
+     "supply_off": null
+    }
+   },
+   {
+    "id": "H1",
+    "sn": null
+   }
+  ],
+  "history": {
+   "B1_prior_defects": 4,
+   "booking": {
+    "date": "2025-07-15",
+    "status": "booked"
+   }
+  }
+ },
+ "factors": {
+  "inventory_mismatch": "none",
+  "tenant_owned_appliance": false,
+  "date_misalignment": "issued_before_inspection",
+  "days_to_true_expiry": 60,
+  "renewal_booked": true,
+  "engineer_status": "active_matching",
+  "worst_defect_class": "AR",
+  "defect_isolated": false,
+  "remedial_completed": false,
+  "combustion_reading": "borderline",
+  "prior_defect_count": 4,
+  "boundary_case": true
+ },
+ "factors_sampled": {
+  "inventory_mismatch": "none",
+  "tenant_owned_appliance": false,
+  "date_misalignment": "issued_before_inspection",
+  "days_to_true_expiry": -17,
+  "renewal_booked": true,
+  "engineer_status": "category_missing",
+  "worst_defect_class": "ncs",
+  "defect_isolated": true,
+  "remedial_completed": false,
+  "combustion_reading": "borderline",
+  "prior_defect_count": 4,
+  "boundary_case": true
+ },
+ "plan": {
+  "covers_all_appliances": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "engineer_valid": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "balanced",
+   "target": "hold",
+   "second": "reinspect"
+  },
+  "renewal_urgency": {
+   "clarity": "contested",
+   "target": "1",
+   "second": "0"
+  },
+  "open_hazard": {
+   "clarity": "contested",
+   "target": "4",
+   "second": "3"
+  }
+ },
+ "target_words": 25,
+ "deciding": {
+  "covers_all_appliances": "Both inventory ids appear in the checks, but H1 has a null serial and no readings.",
+  "engineer_valid": "Licence G9 matches on both sections, valid_to is 2026-01-01, and the categories cover boiler and hob.",
+  "next_step": "The null H1 serial is a single missing detail, so hold fits; the open AR defect and the early issue date make reinspect plausible.",
+  "renewal_urgency": "Review 2025-06-02 to expiry 2025-08-01 is exactly 60 days, the boundary between levels 0 and 1.",
+  "open_hazard": "B1 is AR with ratio equal to threshold, and the label X1 has supply_off null, so it may still be in service; level 3 or level 4."
+ },
+ "request": "rec-F314-0016",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.018406
+}

@@ -1,0 +1,117 @@
+{
+ "id": "F337-0033",
+ "family": "F337",
+ "state": {
+  "station": {
+   "channels": [
+    {
+     "cha": "BHZ",
+     "sensor_serial": "K9",
+     "response_epoch_start": "2024-01-20"
+    }
+   ]
+  },
+  "acquisition": {
+   "day": "2024-06-11",
+   "completeness_pct": 90.0,
+   "gaps": [
+    {
+     "cha": "BHZ",
+     "start": "05:00",
+     "end": "05:02"
+    }
+   ]
+  },
+  "qc_metrics": [
+   {
+    "cha": "BHZ",
+    "psd_dev_db": 4.5,
+    "cal_pulse": {
+     "date": "2024-01-10",
+     "result": "pass"
+    }
+   }
+  ],
+  "maintenance_log": [
+   {
+    "action": "sensor_swap",
+    "date": "2024-01-20",
+    "sensor_serial_installed": "K9"
+   },
+   {
+    "action": "outage",
+    "outage_start": "05:00",
+    "outage_end": "05:00"
+   }
+  ],
+  "operator_notes": [
+   "Quarry blasting 14:00-14:30."
+  ]
+ },
+ "factors": {
+  "sensor_metadata_state": "no_swap",
+  "maintenance_log_present": true,
+  "gap_coverage": "some_unlogged",
+  "true_usable_fraction": 0.97,
+  "completeness_summary_drift": 0.29,
+  "timing_quality": "locked",
+  "calibration_status": "predates_swap",
+  "noise_excess_db": 4.5,
+  "benign_noise_cause_logged": true,
+  "operator_note_consistency": "consistent",
+  "dead_channels": 0,
+  "boundary_case": true
+ },
+ "factors_sampled": {
+  "sensor_metadata_state": "no_swap",
+  "maintenance_log_present": true,
+  "gap_coverage": "some_unlogged",
+  "true_usable_fraction": 0.84,
+  "completeness_summary_drift": 0.29,
+  "timing_quality": "locked",
+  "calibration_status": "predates_swap",
+  "noise_excess_db": 4.55,
+  "benign_noise_cause_logged": true,
+  "operator_note_consistency": "consistent",
+  "dead_channels": 2,
+  "boundary_case": true
+ },
+ "plan": {
+  "response_valid": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "gaps_explained": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "disposition": {
+   "clarity": "leaning",
+   "target": "release",
+   "second": null
+  },
+  "usable_fraction": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  },
+  "pending_age": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 58,
+ "deciding": {
+  "response_valid": "Serial and epoch match the swap, but the cal pulse 2024-01-10 predates the swap, so the response is unverified.",
+  "gaps_explained": "Gap ends 05:02, about 2 minutes past the logged outage; boundary overlap.",
+  "disposition": "No major fault remains; noise is explained by blasting and the gap is trivial.",
+  "usable_fraction": "A 2-minute gap on 1 channel-day gives about 99.9%; completeness_pct 90 is a stale summary, so level 2 stays plausible.",
+  "pending_age": "Day 2024-06-11 with no decision timestamp; under 24 hours and one to seven days both plausible."
+ },
+ "request": "rec-F337-0031",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.005277
+}

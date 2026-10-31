@@ -1,0 +1,101 @@
+{
+ "id": "F315-0035",
+ "family": "F315",
+ "state": {
+  "report": {
+   "received_at": "2025-11-12",
+   "source": "public_web",
+   "units_reported": [
+    "U40",
+    "U41",
+    "U42",
+    "U43"
+   ]
+  },
+  "cms": {
+   "status_code": "OK",
+   "last_comms_at": "2025-11-10"
+  },
+  "history": [
+   {
+    "completed": "2025-09-13"
+   }
+  ],
+  "job": {
+   "stage": "RECT",
+   "completed_at": "2025-11-11"
+  },
+  "supply": {
+   "dno_incident_ref": null,
+   "feeder_units_dark": 4
+  }
+ },
+ "factors": {
+  "dark_unit_count": 4,
+  "dno_incident_logged": false,
+  "cms_state": "normal_burning",
+  "days_since_last_repair": 60,
+  "last_repair_state": "completed",
+  "hazard_observed": "none",
+  "hazard_made_safe": false,
+  "site_category": "junction_or_crossing",
+  "planned_works_active": false,
+  "current_job_stage": "rectified_unconfirmed",
+  "dates_out_of_order": false,
+  "duplicate_of_open_job": false,
+  "report_source": "public_web"
+ },
+ "factors_sampled": {
+  "dark_unit_count": 4,
+  "dno_incident_logged": false,
+  "cms_state": "normal_burning",
+  "days_since_last_repair": 391,
+  "last_repair_state": "completed",
+  "hazard_observed": "door_missing",
+  "hazard_made_safe": false,
+  "site_category": "junction_or_crossing",
+  "planned_works_active": false,
+  "current_job_stage": "rectified_confirmed",
+  "dates_out_of_order": false,
+  "duplicate_of_open_job": false,
+  "report_source": "public_web"
+ },
+ "plan": {
+  "supply_side_fault": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "repeat_failure": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "next_action": {
+   "clarity": "balanced",
+   "target": "routine_repair",
+   "second": "close_report"
+  },
+  "source_support": {
+   "clarity": "contested",
+   "target": "0",
+   "second": "1"
+  },
+  "repair_progress": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  }
+ },
+ "target_words": 25,
+ "deciding": {
+  "supply_side_fault": "feeder_units_dark 4 favours supply, but dno_incident_ref is null.",
+  "repeat_failure": "History completed 2025-09-13 is 60 days before the 2025-11-12 report, inside 84 days.",
+  "next_action": "cms OK dated 2025-11-10 and job RECT 2025-11-11 could support closing the report, but four dark units reported at a junction suggest dispatch.",
+  "source_support": "A single public web report with a null DNO reference; the cms OK reading contradicts it, so the count could be zero or one.",
+  "repair_progress": "job RECT completed_at 2025-11-11 is after the last cms reading 2025-11-10, so there is no confirmation, and it is unclear whether the fix is genuine."
+ },
+ "request": "rec-F315-0031",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.009523
+}

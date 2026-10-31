@@ -1,0 +1,131 @@
+{
+ "id": "F317-0045",
+ "family": "F317",
+ "state": {
+  "vehicle": {
+   "fleet_no": 4412,
+   "odometer_km": 22200
+  },
+  "exam": {
+   "due_at_km": 22000,
+   "items": [
+    {
+     "item_code": "S1",
+     "signed_by": "u3",
+     "signed_at": "2025-07-01T08:00"
+    },
+    {
+     "item_code": "S2",
+     "result": "pass",
+     "signed_by": null,
+     "signed_at": null
+    },
+    {
+     "item_code": "S3",
+     "result": null,
+     "signed_by": null,
+     "signed_at": null
+    },
+    {
+     "item_code": "S4",
+     "result": null,
+     "signed_by": null,
+     "signed_at": null
+    }
+   ]
+  },
+  "defects": [
+   {
+    "defect_id": "D-71",
+    "subsystem": "saloon_doors",
+    "safety_critical": true,
+    "status": "closed",
+    "retest_at": null
+   },
+   {
+    "defect_id": "D-72",
+    "subsystem": "brakes",
+    "safety_critical": false,
+    "status": "closed",
+    "retest_at": null
+   }
+  ],
+  "release": {
+   "duty_type": "depot_shunt",
+   "depart_at": "2025-07-02T10:00",
+   "odo_reading_km": 22205,
+   "brake_test_at": "2025-07-02T08:00",
+   "brake_test_result": "pass"
+  }
+ },
+ "factors": {
+  "km_to_exam_due": -200,
+  "odometer_disagreement": "trivial",
+  "exam_signed_fraction": 0.25,
+  "exam_record_missing": false,
+  "worst_defect_subsystem": "brakes",
+  "worst_defect_state": "closed_no_retest",
+  "worst_defect_safety_critical": false,
+  "retest_out_of_order": false,
+  "concession_present": false,
+  "concession_flaw": "none",
+  "wo_crossref_mismatch": "none",
+  "planned_duty_type": "depot_shunt",
+  "recent_brake_test_pass": true,
+  "balanced_signals": false
+ },
+ "factors_sampled": {
+  "km_to_exam_due": 859,
+  "odometer_disagreement": "trivial",
+  "exam_signed_fraction": 0.11,
+  "exam_record_missing": false,
+  "worst_defect_subsystem": "saloon_doors",
+  "worst_defect_state": "open_no_wo",
+  "worst_defect_safety_critical": true,
+  "retest_out_of_order": false,
+  "concession_present": true,
+  "concession_flaw": "none",
+  "wo_crossref_mismatch": "none",
+  "planned_duty_type": "depot_shunt",
+  "recent_brake_test_pass": false,
+  "balanced_signals": false
+ },
+ "plan": {
+  "sc_defects_cleared": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "release_decision": {
+   "clarity": "clear",
+   "target": "release",
+   "second": null
+  },
+  "worst_subsystem": {
+   "clarity": "leaning",
+   "target": "brakes",
+   "second": null
+  },
+  "exam_completion": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  },
+  "exam_mileage": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 43,
+ "deciding": {
+  "sc_defects_cleared": "Safety-critical door defect D-71 is closed with retest_at null, so it is not properly retested.",
+  "release_decision": "Duty is depot_shunt with a brake test pass two hours before departure, so the tram stays inside the depot and is cleared to run.",
+  "worst_subsystem": "D-72 on brakes is closed with retest_at null (awaiting retest) and is the only non-safety-critical pending defect; the door defect is the other unconfirmed item.",
+  "exam_completion": "Only S1 is signed with a timestamp; S2 has a result but no sign-off, which keeps level 0 conceivable.",
+  "exam_mileage": "Vehicle odo 22200 less due 22000 is 200 km over, while release odo 22205 gives 205 km, straddling the 200 km boundary."
+ },
+ "request": "rec-F317-0041",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012266
+}

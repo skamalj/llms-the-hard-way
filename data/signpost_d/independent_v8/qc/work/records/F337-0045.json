@@ -1,0 +1,120 @@
+{
+ "id": "F337-0045",
+ "family": "F337",
+ "state": {
+  "station": {
+   "net": "XQ",
+   "sta": "HLCK",
+   "channels": [
+    {
+     "cha": "BHZ",
+     "sensor_serial": "R5521",
+     "response_epoch_start": "2020-09-01"
+    },
+    {
+     "cha": "BHN",
+     "sensor_serial": "R5521",
+     "response_epoch_start": "2020-09-01"
+    },
+    {
+     "cha": "BHE",
+     "sensor_serial": "R5521",
+     "response_epoch_start": "2020-09-01"
+    }
+   ]
+  },
+  "acquisition": {
+   "day": "2024-08-20",
+   "channel_hours_expected": 72,
+   "gaps": [
+    {
+     "cha": "BHE",
+     "start": "22:00",
+     "end": "22:12"
+    }
+   ],
+   "completeness_pct": 99.9,
+   "gps_lock_pct": 97,
+   "packet_age_h": 25
+  },
+  "qc_metrics": {
+   "psd_dev_db": 19.65,
+   "dead": false,
+   "clipped_minutes": 420,
+   "cal_pulse": {
+    "date": "2024-08-01",
+    "result": "pass"
+   }
+  },
+  "maintenance_log": null,
+  "operator_notes": [
+   "Road grading 09:00-11:00 near sensor."
+  ]
+ },
+ "factors": {
+  "sensor_metadata_state": "no_swap",
+  "maintenance_log_present": false,
+  "gap_coverage": "minor_overrun",
+  "true_usable_fraction": 0.9,
+  "completeness_summary_drift": 0.9,
+  "timing_quality": "locked",
+  "calibration_status": "passed",
+  "noise_excess_db": 19.65,
+  "benign_noise_cause_logged": true,
+  "operator_note_consistency": "consistent",
+  "dead_channels": 0,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "sensor_metadata_state": "no_swap",
+  "maintenance_log_present": false,
+  "gap_coverage": "minor_overrun",
+  "true_usable_fraction": 0.31,
+  "completeness_summary_drift": 3.44,
+  "timing_quality": "locked",
+  "calibration_status": "passed",
+  "noise_excess_db": 19.65,
+  "benign_noise_cause_logged": true,
+  "operator_note_consistency": "absent",
+  "dead_channels": 2,
+  "boundary_case": false
+ },
+ "plan": {
+  "response_valid": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "gaps_explained": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "disposition": {
+   "clarity": "contested",
+   "target": "release",
+   "second": "release_flagged"
+  },
+  "usable_fraction": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  },
+  "pending_age": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 58,
+ "deciding": {
+  "response_valid": "Serials and epoch are consistent and the cal passed, but the null maintenance_log leaves any swap unconfirmable.",
+  "gaps_explained": "The 12-minute BHE gap has no outage or visit to overlap because maintenance_log is null.",
+  "disposition": "Faults are confined to clipping and one short gap with noise explained by road grading; release as is or release flagged are both defensible.",
+  "usable_fraction": "420 clipped minutes (7 h) plus a 0.2 h gap in 72 ch-h gives about 90.0%, on the 90% boundary.",
+  "pending_age": "packet_age_h is 25, just past the 24-hour boundary."
+ },
+ "request": "rec-F337-0041",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.009463
+}

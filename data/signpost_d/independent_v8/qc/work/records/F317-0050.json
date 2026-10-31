@@ -1,0 +1,122 @@
+{
+ "id": "F317-0050",
+ "family": "F317",
+ "state": {
+  "vehicle": {
+   "fleet_no": 905,
+   "odometer_km": 25272
+  },
+  "exam": {
+   "due_at_km": 26000,
+   "items": [
+    {
+     "c": "A",
+     "signed_by": "t1",
+     "signed_at": "2025-08-01T05:00"
+    },
+    {
+     "c": "B",
+     "signed_by": "t1",
+     "signed_at": "2025-08-01T05:10"
+    },
+    {
+     "c": "C",
+     "result": "ok",
+     "signed_by": null,
+     "signed_at": null
+    }
+   ]
+  },
+  "defects": [
+   {
+    "defect_id": "D5",
+    "subsystem": "pantograph",
+    "safety_critical": true,
+    "status": "open"
+   }
+  ],
+  "concessions": [
+   {
+    "conc_id": "C2",
+    "fleet_no": 906,
+    "defect_ref": "D5",
+    "valid_until": "2025-08-31"
+   }
+  ],
+  "release": {
+   "duty_type": "off_peak",
+   "depart_at": "2025-08-01T09:00",
+   "odo_reading_km": 25275
+  }
+ },
+ "factors": {
+  "km_to_exam_due": 725,
+  "odometer_disagreement": "trivial",
+  "exam_signed_fraction": 0.67,
+  "exam_record_missing": false,
+  "worst_defect_subsystem": "pantograph",
+  "worst_defect_state": "open_wo_in_progress",
+  "worst_defect_safety_critical": true,
+  "retest_out_of_order": false,
+  "concession_present": true,
+  "concession_flaw": "wrong_fleet_no",
+  "wo_crossref_mismatch": "none",
+  "planned_duty_type": "off_peak",
+  "recent_brake_test_pass": false,
+  "balanced_signals": false
+ },
+ "factors_sampled": {
+  "km_to_exam_due": 728,
+  "odometer_disagreement": "trivial",
+  "exam_signed_fraction": 0.71,
+  "exam_record_missing": false,
+  "worst_defect_subsystem": "none",
+  "worst_defect_state": "open_wo_in_progress",
+  "worst_defect_safety_critical": true,
+  "retest_out_of_order": false,
+  "concession_present": true,
+  "concession_flaw": "wrong_fleet_no",
+  "wo_crossref_mismatch": "none",
+  "planned_duty_type": "off_peak",
+  "recent_brake_test_pass": false,
+  "balanced_signals": false
+ },
+ "plan": {
+  "sc_defects_cleared": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "release_decision": {
+   "clarity": "leaning",
+   "target": "hold",
+   "second": null
+  },
+  "worst_subsystem": {
+   "clarity": "leaning",
+   "target": "pantograph",
+   "second": null
+  },
+  "exam_completion": {
+   "clarity": "contested",
+   "target": "2",
+   "second": "1"
+  },
+  "exam_mileage": {
+   "clarity": "contested",
+   "target": "2",
+   "second": "1"
+  }
+ },
+ "target_words": 30,
+ "deciding": {
+  "sc_defects_cleared": "D5 is safety-critical and open; the concession does not close it.",
+  "release_decision": "Concession C2 is for fleet 906, so it is invalid, and no brake test is recorded; one confirmation missing points to hold.",
+  "worst_subsystem": "D5 pantograph is the only open defect.",
+  "exam_completion": "2 of 3 items signed with timestamps, item C result only; level 2 versus level 1 is contested.",
+  "exam_mileage": "Due 26000 minus release reading 25275 gives 725 km, which is over 500, so the level is contested."
+ },
+ "request": "rec-F317-0046",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.006329
+}

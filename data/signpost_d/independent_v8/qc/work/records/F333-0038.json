@@ -1,0 +1,170 @@
+{
+ "id": "F333-0038",
+ "family": "F333",
+ "state": {
+  "room": {
+   "room_id": "A108",
+   "block": "A",
+   "room_type": "studio",
+   "floor": 1,
+   "next_occupancy_date": "2024-07-01",
+   "rate_card_ref": "RC24"
+  },
+  "tenancy": {
+   "resident_ref": "R553",
+   "start_date": "2023-11-20",
+   "end_date": "2024-06-20",
+   "key_return_date": "2024-06-20",
+   "deposit_held": 420,
+   "deposit_dispute_lodged": false
+  },
+  "checkin_inventory": {
+   "signed_date": "2023-11-18",
+   "signed_by_resident": true,
+   "items": [
+    {
+     "item_code": "HEATER",
+     "location": "wall",
+     "grade": "fair"
+    },
+    {
+     "item_code": "FIRE_DOOR",
+     "location": "entry",
+     "grade": "fair"
+    },
+    {
+     "item_code": "BED_FRAME",
+     "location": "bed",
+     "grade": null
+    }
+   ]
+  },
+  "checkout_inspection": {
+   "inspection_type": "checkout",
+   "inspection_date": "2024-06-20",
+   "inspector_id": "I3",
+   "items": [
+    {
+     "item_code": "HEATER",
+     "location": "wall",
+     "grade": "fair",
+     "defect_category": "heater_fail",
+     "photo_refs": [
+      "p1"
+     ]
+    },
+    {
+     "item_code": "FIRE_DOOR",
+     "location": "entry",
+     "grade": "fair",
+     "defect_category": "fire_door_closer",
+     "photo_refs": [
+      "p2"
+     ]
+    },
+    {
+     "item_code": "BED_FRAME",
+     "location": "bed",
+     "grade": "fair",
+     "defect_category": "scuff",
+     "photo_refs": [
+      "p3"
+     ]
+    }
+   ]
+  },
+  "proposed_charges": {
+   "lines": [
+    {
+     "item_code": "BED_FRAME",
+     "reason_code": "DMG",
+     "qty": 1,
+     "unit_rate": 18,
+     "line_total": 18.01
+    }
+   ],
+   "summary_total": 18.01,
+   "rate_card_ref": "RC24"
+  },
+  "works_orders": [
+   {
+    "wo_id": "W120",
+    "raised_date": "2024-02-14",
+    "location": "kitchenette",
+    "category": "plumbing",
+    "priority_code": "P2",
+    "status": "completed",
+    "completed_date": "2024-02-15",
+    "retest_passed": true
+   }
+  ]
+ },
+ "factors": {
+  "inspection_type": "checkout",
+  "checkin_inventory_state": "partial",
+  "prior_damage_on_charged_item": "none",
+  "charge_discrepancy": "line_total differs from qty times unit_rate by 0.01",
+  "worst_defect_tier": "habitability",
+  "true_cause": "no_defect",
+  "predating_works_order": false,
+  "safety_fault_remedied": false,
+  "photo_coverage": "full",
+  "tenancy_months": 7,
+  "date_out_of_order": false,
+  "deposit_dispute_lodged": false,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "inspection_type": "checkout",
+  "checkin_inventory_state": "complete",
+  "prior_damage_on_charged_item": "none",
+  "charge_discrepancy": "small_under_25",
+  "worst_defect_tier": "cosmetic",
+  "true_cause": "prior_occupant",
+  "predating_works_order": false,
+  "safety_fault_remedied": false,
+  "photo_coverage": "half_or_less",
+  "tenancy_months": 7,
+  "date_out_of_order": false,
+  "deposit_dispute_lodged": false,
+  "boundary_case": false
+ },
+ "plan": {
+  "checkin_clean": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "disposition": {
+   "clarity": "leaning",
+   "target": "hold_for_evidence",
+   "second": null
+  },
+  "main_cause": {
+   "clarity": "leaning",
+   "target": "no_defect",
+   "second": null
+  },
+  "defect_severity": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  },
+  "charge_gap": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  }
+ },
+ "target_words": 141,
+ "deciding": {
+  "checkin_clean": "Charged item BED_FRAME has a null grade at check-in, so undamaged is not shown, though it is not shown damaged either.",
+  "disposition": "Exactly one thing is missing: the BED_FRAME check-in grade. Checkout is complete with photos on every item.",
+  "main_cause": "HEATER and FIRE_DOOR have the same grade at check-in and checkout, and no works order matches them. The null BED_FRAME grade leaves some doubt.",
+  "defect_severity": "heater_fail (habitability) is the clear defect, while fire_door_closer on FIRE_DOOR is a safety category at an unchanged fair grade, so levels 2 and 3 are both plausible.",
+  "charge_gap": "Line_total of 18.01 is not qty times unit_rate (18.00), and BED_FRAME has no check-in baseline. The gap is either 0.01 or nil."
+ },
+ "request": "rec-F333-0036",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.014474
+}

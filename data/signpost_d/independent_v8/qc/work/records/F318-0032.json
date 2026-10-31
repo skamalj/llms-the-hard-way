@@ -1,0 +1,178 @@
+{
+ "id": "F318-0032",
+ "family": "F318",
+ "state": {
+  "work_order": {
+   "lock_id": "L31",
+   "visit_type": "reactive_callout",
+   "tasks": [
+    {
+     "task_id": "T1",
+     "asset_ref": "G1"
+    },
+    {
+     "task_id": "T2",
+     "asset_ref": "G2"
+    },
+    {
+     "task_id": "T3",
+     "asset_ref": "G3"
+    },
+    {
+     "task_id": "T4",
+     "asset_ref": "G4"
+    }
+   ],
+   "nav_notice": {
+    "in_force": false
+   }
+  },
+  "visit_log": {
+   "arrived": "2025-03-02T09:00",
+   "departed": "2025-03-02T11:00",
+   "crew_size": 2,
+   "timesheet_hours": 7.8,
+   "task_status": [
+    {
+     "task_id": "T1",
+     "status": "done"
+    },
+    {
+     "task_id": "T2",
+     "status": "done"
+    },
+    {
+     "task_id": "T3",
+     "status": "deferred",
+     "deferral_ref": "DR-88",
+     "deferral_due": "2025-03-29"
+    },
+    {
+     "task_id": "T4",
+     "status": "done"
+    }
+   ]
+  },
+  "materials": {
+   "issued": [
+    {
+     "part_no": "P3",
+     "task_id": "T2",
+     "qty": 6
+    }
+   ],
+   "returned": [],
+   "fitted": [
+    {
+     "part_no": "P3",
+     "task_id": "T2",
+     "qty": 3
+    }
+   ]
+  },
+  "checks": {
+   "post_checks": [
+    {
+     "asset_ref": "G1",
+     "result": "pass"
+    },
+    {
+     "asset_ref": "G3",
+     "result": "fail"
+    },
+    {
+     "asset_ref": "G5",
+     "result": "pass"
+    }
+   ],
+   "leakage_ls": 17,
+   "leakage_limit_ls": 20,
+   "river_level_m": 2.1,
+   "flood_marker_m": 3.0
+  },
+  "asset_history": {
+   "prior_visits": [
+    {
+     "date": "2024-06-10",
+     "asset_ref": "G3",
+     "defect_code": "SL2"
+    }
+   ],
+   "open_defects": [
+    {
+     "defect_code": "SL2",
+     "asset_ref": "G3",
+     "raised": "2025-03-02"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "visit_type": "reactive_callout",
+  "tasks_ordered": 4,
+  "completion_state": "some_outstanding",
+  "parts_qty_mismatch": "moderate",
+  "hours_gap": 0.95,
+  "asset_ref_mismatch": true,
+  "post_check_result": "failed",
+  "leakage_ratio": 0.85,
+  "leakage_mitigation": false,
+  "navigation_notice_in_force": false,
+  "deferral_approved": true,
+  "prior_same_defect": 1,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "visit_type": "reactive_callout",
+  "tasks_ordered": 4,
+  "completion_state": "some_outstanding",
+  "parts_qty_mismatch": "trivial",
+  "hours_gap": 0.95,
+  "asset_ref_mismatch": false,
+  "post_check_result": "failed",
+  "leakage_ratio": 0.85,
+  "leakage_mitigation": false,
+  "navigation_notice_in_force": false,
+  "deferral_approved": true,
+  "prior_same_defect": 1,
+  "boundary_case": false
+ },
+ "plan": {
+  "safe_to_reopen": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "record_disposition": {
+   "clarity": "clear",
+   "target": "hold_query",
+   "second": null
+  },
+  "return_urgency": {
+   "clarity": "contested",
+   "target": "next_scheduled",
+   "second": "within_month"
+  },
+  "affected_scope": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "section_mismatches": {
+   "clarity": "clear",
+   "target": "3",
+   "second": null
+  }
+ },
+ "target_words": 30,
+ "deciding": {
+  "safe_to_reopen": "G3 post-check is fail and defect SL2 is open on G3. Leakage 17 of 20 is within limit, and the deferral DR-88 leaves some doubt, so false is leaning.",
+  "record_disposition": "Several specific points need crew confirmation: the G2 task has a check on G5, hours are inflated, and P3 fitted does not match issue. A hold for query is clear.",
+  "return_urgency": "Deferral DR-88 is due 2025-03-29, 27 days out, just inside the 28-day window. The failed G3 check is already covered by the deferral, so next_scheduled and within_month are both defensible.",
+  "affected_scope": "A callout on a main lock gate set with four tasks across G1-G4 and a prior SL2 on G3 gives no clear count. More than twenty is slightly favoured over six to twenty.",
+  "section_mismatches": "Three unexplained: timesheet 7.8 vs 4 crew-hours, T2 asset G2 vs checked G5, and P3 fitted 3 vs issued 6 with nothing returned. The deferral is explained."
+ },
+ "request": "rec-F318-0031",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.016177
+}

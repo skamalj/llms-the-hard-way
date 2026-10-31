@@ -1,0 +1,99 @@
+{
+ "id": "F315-0043",
+ "family": "F315",
+ "state": {
+  "report": {
+   "source": "public_web",
+   "received_at": "2024-07-02",
+   "fault_code": "DOOR",
+   "units_reported": [
+    "B7",
+    "B8"
+   ]
+  },
+  "cms": {
+   "status_code": "LF"
+  },
+  "history": [
+   {
+    "completed": "2024-04-23"
+   }
+  ],
+  "job": {
+   "stage": "ATT",
+   "attended_at": "2024-07-02T10:00",
+   "made_safe": false
+  },
+  "supply": {
+   "feeder_units_dark": 2
+  }
+ },
+ "factors": {
+  "dark_unit_count": 2,
+  "dno_incident_logged": false,
+  "cms_state": "lamp_fail",
+  "days_since_last_repair": 70,
+  "last_repair_state": "completed",
+  "hazard_observed": "door_missing",
+  "hazard_made_safe": false,
+  "site_category": "junction_or_crossing",
+  "planned_works_active": false,
+  "current_job_stage": "ATT",
+  "dates_out_of_order": false,
+  "duplicate_of_open_job": false,
+  "report_source": "public_web"
+ },
+ "factors_sampled": {
+  "dark_unit_count": 2,
+  "dno_incident_logged": false,
+  "cms_state": "lamp_fail",
+  "days_since_last_repair": 238,
+  "last_repair_state": "completed",
+  "hazard_observed": "door_missing",
+  "hazard_made_safe": false,
+  "site_category": "junction_or_crossing",
+  "planned_works_active": true,
+  "current_job_stage": "rectified_confirmed",
+  "dates_out_of_order": false,
+  "duplicate_of_open_job": false,
+  "report_source": "public_web"
+ },
+ "plan": {
+  "supply_side_fault": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "repeat_failure": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "next_action": {
+   "clarity": "clear",
+   "target": "urgent_make_safe",
+   "second": null
+  },
+  "source_support": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  },
+  "repair_progress": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  }
+ },
+ "target_words": 30,
+ "deciding": {
+  "supply_side_fault": "cms status LF means a lamp failure, feeder_units_dark is 2 and no DNO incident is logged. That is a unit fault.",
+  "repeat_failure": "history completed 2024-04-23 is 70 days before the 2024-07-02 report, inside 84 days. Only the completed date is given, with no outcome.",
+  "next_action": "fault_code DOOR with job.made_safe false means the hazard is not yet made safe. The site is a junction, so urgent attendance is needed.",
+  "source_support": "The public web report is backed only by the cms LF reading, so one independent source. The public report's reliability makes level 0 arguable.",
+  "repair_progress": "Stage ATT with attended_at set and no completed_at, so the crew attended and the fault is unresolved."
+ },
+ "request": "rec-F315-0041",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.009599
+}

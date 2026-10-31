@@ -1,0 +1,109 @@
+{
+ "id": "F302-0035",
+ "family": "F302",
+ "state": {
+  "consent": {
+   "form_version": "2.0",
+   "current_version": "2.0",
+   "signed_date": "2025-06-02"
+  },
+  "visit": {
+   "visit_date": "2025-06-04",
+   "review_date": "2025-06-14",
+   "window_days": 14
+  },
+  "labs": {
+   "items": [
+    {
+     "test": "bilirubin",
+     "value": 1.5,
+     "unit": "mg/dL",
+     "threshold": 1.5,
+     "threshold_format": "<=",
+     "collected": "2025-06-04"
+    }
+   ]
+  },
+  "eligibility": {
+   "criteria": [
+    {
+     "id": "E2",
+     "operator": "lt",
+     "recorded_value": 1.5,
+     "met": true
+    }
+   ],
+   "signoff": {
+    "signed": true,
+    "date": "2025-06-09"
+   },
+   "queries": []
+  }
+ },
+ "factors": {
+  "lab_reconciliation": "threshold_crossing",
+  "consent_status": "current_ok",
+  "window_days_remaining": 2,
+  "collection_date_mismatch": "within_window",
+  "prohibited_conmed": false,
+  "washout_completed": true,
+  "out_of_range_lab": false,
+  "valid_repeat_on_file": "none",
+  "boundary_value": true,
+  "identifier_mismatch": "none",
+  "investigator_signoff": "signed_after_results",
+  "open_query_count": 0
+ },
+ "factors_sampled": {
+  "lab_reconciliation": "threshold_crossing",
+  "consent_status": "superseded_only",
+  "window_days_remaining": 16,
+  "collection_date_mismatch": "within_window",
+  "prohibited_conmed": false,
+  "washout_completed": true,
+  "out_of_range_lab": false,
+  "valid_repeat_on_file": "none",
+  "boundary_value": true,
+  "identifier_mismatch": "initials_transposed",
+  "investigator_signoff": "signed_after_results",
+  "open_query_count": 2
+ },
+ "plan": {
+  "eligibility_proven": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "release",
+   "second": null
+  },
+  "primary_issue": {
+   "clarity": "balanced",
+   "target": "clinical_value",
+   "second": "no_issue"
+  },
+  "affected_scope": {
+   "clarity": "clear",
+   "target": "3",
+   "second": null
+  },
+  "window_left": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  }
+ },
+ "target_words": 43,
+ "deciding": {
+  "eligibility_proven": "Bilirubin 1.5 equals the threshold, but criterion E2 uses operator lt, which excludes equality, while the lab shows <=. The site met flag is true despite this, so it is not proven.",
+  "next_step": "Signed sign-off, no queries and clean consent leave no administrative gap, so the record could be released; the boundary reading is not resolved here.",
+  "primary_issue": "Documentation is clean. The boundary value (1.5 against lt versus <=) can be read as a clinical conflict or as no issue.",
+  "affected_scope": "No field shows any wider group, so the scope would be a single subject; this does not match the plan's broad scope.",
+  "window_left": "2025-06-02 plus 14 days minus 2025-06-14 gives 2 days, within one to three."
+ },
+ "request": "rec-F302-0031",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.010529
+}

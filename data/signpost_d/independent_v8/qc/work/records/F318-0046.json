@@ -1,0 +1,141 @@
+{
+ "id": "F318-0046",
+ "family": "F318",
+ "state": {
+  "work_order": {
+   "wo_id": "W-4410",
+   "visit_type": "reactive_callout",
+   "tasks": [
+    {
+     "task_id": 1,
+     "asset_ref": "PAD-N"
+    },
+    {
+     "task_id": 2,
+     "asset_ref": "GATE-S"
+    }
+   ]
+  },
+  "visit_log": {
+   "arrived": "2025-03-04T08:00",
+   "departed": "2025-03-04T10:00",
+   "crew_size": 2,
+   "timesheet_hours": 4.8,
+   "task_status": [
+    {
+     "task_id": 1,
+     "status": "done"
+    },
+    {
+     "task_id": 2,
+     "status": "temp_fix",
+     "deferral_ref": null,
+     "deferral_due": null
+    }
+   ]
+  },
+  "materials": {
+   "issued": [
+    {
+     "part_no": "P7",
+     "task_id": 1,
+     "qty": 2
+    }
+   ],
+   "fitted": [
+    {
+     "part_no": "P7",
+     "task_id": 1,
+     "qty": 2
+    },
+    {
+     "part_no": "S3",
+     "task_id": 2,
+     "qty": 1
+    }
+   ]
+  },
+  "checks": {
+   "post_checks": [
+    {
+     "asset_ref": "PAD-N",
+     "result": "pass"
+    },
+    {
+     "asset_ref": "GATE-N",
+     "result": "pass"
+    }
+   ],
+   "leakage_ls": 12,
+   "leakage_limit_ls": 12
+  }
+ },
+ "factors": {
+  "visit_type": "reactive_callout",
+  "tasks_ordered": 2,
+  "completion_state": "temporary_fix",
+  "parts_qty_mismatch": "fitted part with no issue line",
+  "hours_gap": 0.8,
+  "asset_ref_mismatch": true,
+  "post_check_result": "passed",
+  "leakage_ratio": 1.0,
+  "leakage_mitigation": false,
+  "navigation_notice_in_force": false,
+  "deferral_approved": false,
+  "prior_same_defect": 0,
+  "boundary_case": true
+ },
+ "factors_sampled": {
+  "visit_type": "reactive_callout",
+  "tasks_ordered": 2,
+  "completion_state": "temporary_fix",
+  "parts_qty_mismatch": "none",
+  "hours_gap": 0.8,
+  "asset_ref_mismatch": false,
+  "post_check_result": "failed",
+  "leakage_ratio": 1.71,
+  "leakage_mitigation": false,
+  "navigation_notice_in_force": false,
+  "deferral_approved": false,
+  "prior_same_defect": 0,
+  "boundary_case": true
+ },
+ "plan": {
+  "safe_to_reopen": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "record_disposition": {
+   "clarity": "clear",
+   "target": "close_visit",
+   "second": null
+  },
+  "return_urgency": {
+   "clarity": "contested",
+   "target": "within_month",
+   "second": "within_week"
+  },
+  "affected_scope": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  },
+  "section_mismatches": {
+   "clarity": "clear",
+   "target": "3",
+   "second": null
+  }
+ },
+ "target_words": 28,
+ "deciding": {
+  "safe_to_reopen": "Both post-checks pass and leakage 12 equals limit 12 exactly (boundary), but task 2 is only a temp_fix and the check asset differs from the task asset, leaving some doubt.",
+  "record_disposition": "Ordered tasks are logged as done or temp_fix, no open defects or notice, and the checks pass, so closing as logged is the settled outcome.",
+  "return_urgency": "Task 2 is a temp_fix with null deferral_ref and due date: it supports a month return (no restriction, leakage at limit) or a week return because the fix is unapproved.",
+  "affected_scope": "Two tasks on two assets at one lock, which points to the two-to-five band.",
+  "section_mismatches": "Three unexplained mismatches: timesheet 4.8h versus 2h x 2 crew = 4h, task asset GATE-S versus check asset GATE-N, and part S3 fitted with no issue line."
+ },
+ "request": "rec-F318-0046",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.014361
+}

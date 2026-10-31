@@ -1,0 +1,149 @@
+{
+ "id": "F333-0007",
+ "family": "F333",
+ "state": {
+  "tenancy": {
+   "start_date": "2024-01-08",
+   "end_date": "2024-05-10"
+  },
+  "checkin_inventory": {
+   "signed_date": "2024-01-08",
+   "items": [
+    {
+     "item_code": "CHR",
+     "grade": "fair"
+    },
+    {
+     "item_code": "LMP",
+     "grade": "fair"
+    }
+   ]
+  },
+  "checkout_inspection": {
+   "inspection_type": "checkout",
+   "inspection_date": "2024-05-10",
+   "items": [
+    {
+     "item_code": "CHR",
+     "grade": "damaged",
+     "photo_refs": [
+      "p1"
+     ]
+    },
+    {
+     "item_code": "LMP",
+     "grade": "damaged",
+     "photo_refs": [
+      "p2"
+     ]
+    },
+    {
+     "item_code": "SMK",
+     "grade": "damaged",
+     "defect_category": "smoke_detector_fail",
+     "photo_refs": [
+      "p3"
+     ]
+    }
+   ]
+  },
+  "proposed_charges": {
+   "lines": [
+    {
+     "item_code": "CHR",
+     "reason_code": "WEAR",
+     "qty": 1,
+     "unit_rate": 25,
+     "line_total": 25
+    },
+    {
+     "item_code": "LMP",
+     "reason_code": "WEAR",
+     "qty": 1,
+     "unit_rate": 20,
+     "line_total": 20
+    }
+   ],
+   "summary_total": 45
+  },
+  "works_orders": [
+   {
+    "wo_id": "W7",
+    "raised_date": "2024-01-02",
+    "location": "ceiling",
+    "category": "smoke_detector_fail",
+    "status": "completed",
+    "completed_date": "2024-05-10",
+    "retest_passed": true
+   }
+  ]
+ },
+ "factors": {
+  "inspection_type": "checkout",
+  "checkin_inventory_state": "complete",
+  "prior_damage_on_charged_item": "two_or_more",
+  "charge_discrepancy": "none",
+  "worst_defect_tier": "safety",
+  "true_cause": "fair_wear",
+  "predating_works_order": true,
+  "safety_fault_remedied": true,
+  "photo_coverage": "full",
+  "tenancy_months": 4,
+  "date_out_of_order": false,
+  "deposit_dispute_lodged": false,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "inspection_type": "checkout",
+  "checkin_inventory_state": "complete",
+  "prior_damage_on_charged_item": "two_or_more",
+  "charge_discrepancy": "none",
+  "worst_defect_tier": "functional",
+  "true_cause": "prior_occupant",
+  "predating_works_order": true,
+  "safety_fault_remedied": true,
+  "photo_coverage": "full",
+  "tenancy_months": 4,
+  "date_out_of_order": false,
+  "deposit_dispute_lodged": false,
+  "boundary_case": false
+ },
+ "plan": {
+  "checkin_clean": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "disposition": {
+   "clarity": "clear",
+   "target": "adjust_and_approve",
+   "second": null
+  },
+  "main_cause": {
+   "clarity": "clear",
+   "target": "fair_wear",
+   "second": null
+  },
+  "defect_severity": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "charge_gap": {
+   "clarity": "contested",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 34,
+ "deciding": {
+  "checkin_clean": "Both charged items CHR and LMP were graded fair at check-in.",
+  "disposition": "Both charged items were already fair at check-in, so the lines need adjusting; all grades, photos and dates are present to do so.",
+  "main_cause": "Charged items drop one step (fair to damaged) over a 4-month tenancy with no related works order.",
+  "defect_severity": "smoke_detector_fail is a safety defect, but works order W7 was completed on the inspection date with retest passed, which pulls toward habitability.",
+  "charge_gap": "Lines 25+20 equal summary_total 45 and both items are worse at checkout with photos, so the gap is nil, though the prior fair grade leaves room to argue a small reduction."
+ },
+ "request": "rec-F333-0006",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.010594
+}

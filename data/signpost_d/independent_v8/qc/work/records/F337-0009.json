@@ -1,0 +1,106 @@
+{
+ "id": "F337-0009",
+ "family": "F337",
+ "state": {
+  "station": {
+   "channels": [
+    {
+     "cha": "HHZ",
+     "sensor_serial": "S218",
+     "response_epoch_start": "2019-06-01"
+    }
+   ]
+  },
+  "acquisition": {
+   "day": "2024-01-15",
+   "run": "2024-03-20",
+   "channel_hours_expected": 72,
+   "completeness_pct": 99.4,
+   "gaps": [
+    {
+     "cha": "HHN",
+     "start": "00:00",
+     "end": "01:05"
+    }
+   ]
+  },
+  "maintenance_log": [
+   {
+    "date": "2024-01-10",
+    "action": "visit",
+    "note": "sensor re-leveled, no swap"
+   },
+   {
+    "action": "outage",
+    "outage_start": "2024-01-15T00:00",
+    "outage_end": "2024-01-15T01:05"
+   }
+  ]
+ },
+ "factors": {
+  "sensor_metadata_state": "no_swap",
+  "maintenance_log_present": true,
+  "gap_coverage": "all_logged",
+  "true_usable_fraction": 0.985,
+  "completeness_summary_drift": 0.87,
+  "timing_quality": "locked",
+  "calibration_status": "passed",
+  "noise_excess_db": 1.5,
+  "benign_noise_cause_logged": false,
+  "operator_note_consistency": "absent",
+  "dead_channels": 0,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "sensor_metadata_state": "no_swap",
+  "maintenance_log_present": false,
+  "gap_coverage": "all_logged",
+  "true_usable_fraction": 0.71,
+  "completeness_summary_drift": 0.87,
+  "timing_quality": "locked",
+  "calibration_status": "passed",
+  "noise_excess_db": 24.03,
+  "benign_noise_cause_logged": false,
+  "operator_note_consistency": "contradicts_data",
+  "dead_channels": 3,
+  "boundary_case": false
+ },
+ "plan": {
+  "response_valid": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "gaps_explained": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "disposition": {
+   "clarity": "clear",
+   "target": "release",
+   "second": null
+  },
+  "usable_fraction": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  },
+  "pending_age": {
+   "clarity": "clear",
+   "target": "3",
+   "second": null
+  }
+ },
+ "target_words": 32,
+ "deciding": {
+  "response_valid": "No sensor_swap is logged and the 2019 epoch stands, but the recent re-level visit leaves some doubt about the old response.",
+  "gaps_explained": "The HHN gap 00:00-01:05 matches the logged outage window exactly.",
+  "disposition": "The only gap is logged and short; there are no dead channels, no noise excess and no unresolved conflict.",
+  "usable_fraction": "A 65-minute gap removes about 1.08 of 72 channel-hours, about 98.5%, near the 99% boundary.",
+  "pending_age": "Day 2024-01-15 against run 2024-03-20 is 65 days, well over thirty."
+ },
+ "request": "rec-F337-0006",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011958
+}

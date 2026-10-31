@@ -1,0 +1,137 @@
+{
+ "id": "F330-0010",
+ "family": "F330",
+ "state": {
+  "request": {
+   "emp_ref": "E90",
+   "grade": "G4",
+   "cost_centre": "CC-500",
+   "trip_ref": "T-70",
+   "requested_total": 236
+  },
+  "lines": [
+   {
+    "date": "2024-03-10",
+    "amount_gbp": 59,
+    "cost_centre": "CC-500"
+   },
+   {
+    "date": "2024-03-11",
+    "amount_gbp": 59,
+    "cost_centre": "CC-510"
+   },
+   {
+    "date": "2024-03-09",
+    "amount_gbp": 59,
+    "cost_centre": "CC-510"
+   },
+   {
+    "date": "2024-03-14",
+    "amount_gbp": 59,
+    "cost_centre": "CC-500"
+   }
+  ],
+  "policy": {
+   "cap_gbp": 50,
+   "cap_unit": "day",
+   "units": 4,
+   "reviewer_limit_gbp": 150
+  },
+  "travel": {
+   "trip_ref": "T-17",
+   "depart": "2024-03-10",
+   "return": "2024-03-13",
+   "booked_on": "2024-03-01",
+   "disruption": null,
+   "alt_check": {
+    "options_seen": 3,
+    "compliant_found": false
+   },
+   "client_recharge": {
+    "billable": false
+   }
+  },
+  "approvals": {
+   "line_mgr": {
+    "approved": true
+   },
+   "pre_approval": {
+    "ref": "PA-2",
+    "trip_ref": "T-17",
+    "max_gbp": 60,
+    "valid_to": "2024-03-20"
+   }
+  },
+  "history": {
+   "exceptions_12m": 0
+  }
+ },
+ "factors": {
+  "breach_type": "meal_over_per_diem",
+  "true_excess_pct": 18.0,
+  "amount_mismatch": "none",
+  "reference_mismatch": "trip_ref_dates_and_cost_centres",
+  "pre_approval_state": "valid_covers_travel_trip",
+  "external_disruption": false,
+  "compliant_option": "none_available",
+  "missing_item": "none",
+  "excess_vs_authority": "well_within",
+  "client_rechargeable": false,
+  "prior_exceptions_12m": 0,
+  "booking_lead_days": 9,
+  "employee_grade": "G4"
+ },
+ "factors_sampled": {
+  "breach_type": "meal_over_per_diem",
+  "true_excess_pct": 18.04,
+  "amount_mismatch": "none",
+  "reference_mismatch": "trip_ref_differs",
+  "pre_approval_state": "absent",
+  "external_disruption": false,
+  "compliant_option": "none_available",
+  "missing_item": "none",
+  "excess_vs_authority": "well_within",
+  "client_rechargeable": false,
+  "prior_exceptions_12m": 0,
+  "booking_lead_days": 9,
+  "employee_grade": "G4"
+ },
+ "plan": {
+  "preapproval_covers": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "outside_control": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "excess_disposition": {
+   "clarity": "leaning",
+   "target": "decline_excess",
+   "second": null
+  },
+  "excess_size": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  },
+  "discrepancy_count": {
+   "clarity": "leaning",
+   "target": "4",
+   "second": null
+  }
+ },
+ "target_words": 75,
+ "deciding": {
+  "preapproval_covers": "pre_approval T-17 matches travel, valid_to after depart, max_gbp 60 above the 36 excess; request trip_ref T-70 differs",
+  "outside_control": "alt_check options_seen 3, compliant_found false, so no compliant option was available",
+  "excess_disposition": "five reference problems and no disruption point to reimbursing to the cap only, though excess is small and pre-approved",
+  "excess_size": "line sum 236 against cap 50x4=200 gives 18%",
+  "discrepancy_count": "trip_ref T-70 vs T-17 (request vs travel and pre-approval), lines 3 and 4 dates outside 03-10 to 03-13, and cost_centre CC-510 on lines 2 and 3 give five"
+ },
+ "request": "rec-F330-0006",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011339
+}

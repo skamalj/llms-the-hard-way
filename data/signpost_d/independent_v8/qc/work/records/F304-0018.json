@@ -1,0 +1,112 @@
+{
+ "id": "F304-0018",
+ "family": "F304",
+ "state": {
+  "request": {
+   "ref": "T3307",
+   "appt_type": "theatre_transfer",
+   "appt_time": "2025-05-20T14:00",
+   "vehicle_class": "car",
+   "crew_requested": 1,
+   "mobility_booked": "walking",
+   "equipment": []
+  },
+  "patient": {
+   "mobility_assessed": "walking_aid",
+   "assessed_on": "2025-05-12",
+   "oxygen_lpm": 0,
+   "monitoring": null,
+   "weight_kg": 90,
+   "own_transport_available": false,
+   "exemption": null
+  },
+  "journey": {
+   "window_end": "13:10",
+   "est_duration_min": 65,
+   "late_tolerance_min": 0,
+   "destination": {
+    "reslot_same_day": false
+   }
+  },
+  "history": [
+   {
+    "date": "2025-04-30",
+    "outcome": "aborted",
+    "reason": "pt unable to manage vehicle step"
+   }
+  ],
+  "notes": {
+   "ward_note": "Theatre list brought forward to 13:30."
+  }
+ },
+ "factors": {
+  "mobility_alignment": "understated",
+  "secondary_discrepancy": "time_material",
+  "eligibility_concern": false,
+  "eligibility_exception": false,
+  "clinical_support": "none",
+  "crew_request_gap": "correct",
+  "buffer_minutes": -15.0,
+  "duration_estimate_split": false,
+  "late_tolerance": false,
+  "appointment_type": "theatre_transfer",
+  "same_day_reslot": false,
+  "confirmation_pending": false,
+  "prior_aborts": 1,
+  "aborts_related": true
+ },
+ "factors_sampled": {
+  "mobility_alignment": "understated",
+  "secondary_discrepancy": "time_material",
+  "eligibility_concern": false,
+  "eligibility_exception": false,
+  "clinical_support": "cardiac_monitoring",
+  "crew_request_gap": "correct",
+  "buffer_minutes": 37.24,
+  "duration_estimate_split": false,
+  "late_tolerance": true,
+  "appointment_type": "outpatient",
+  "same_day_reslot": false,
+  "confirmation_pending": false,
+  "prior_aborts": 1,
+  "aborts_related": true
+ },
+ "plan": {
+  "vehicle_fit": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "disposition": {
+   "clarity": "clear",
+   "target": "amend_confirm",
+   "second": null
+  },
+  "crew_config": {
+   "clarity": "balanced",
+   "target": "single_crew",
+   "second": "double_crew"
+  },
+  "time_pressure": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  },
+  "delay_impact": {
+   "clarity": "clear",
+   "target": "3",
+   "second": null
+  }
+ },
+ "target_words": 32,
+ "deciding": {
+  "vehicle_fit": "Booked walking against assessed walking_aid on a recent assessment, with a car; a modest understatement that still probably fits, though the earlier abort over the vehicle step adds doubt.",
+  "disposition": "The request time of 14:00 conflicts with the ward note of a 13:30 theatre time, a correctable discrepancy over 20 minutes. No exemption issue and nothing pending.",
+  "crew_config": "Oxygen 0 and monitoring null point to single crew, but the walking aid and the abort over the vehicle step make a double crew plausible.",
+  "time_pressure": "Window end 13:10 plus 65 min arrives 14:15 against a 14:00 appointment, and the 13:30 note makes it worse.",
+  "delay_impact": "Theatre transfer slot, reslot_same_day false and late_tolerance 0, so a lost slot with no alternative."
+ },
+ "request": "rec-F304-0016",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.013204
+}

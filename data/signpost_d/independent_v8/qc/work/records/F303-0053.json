@@ -1,0 +1,152 @@
+{
+ "id": "F303-0053",
+ "family": "F303",
+ "state": {
+  "order": {
+   "id": "O-7129",
+   "prescription": {
+    "modality": "stationary_concentrator",
+    "flow_lpm": 2,
+    "hours_per_day": 24,
+    "rx_expiry": "2026-02-10"
+   },
+   "items_ordered": [
+    {
+     "sku": "POC-3",
+     "qty": 1
+    }
+   ],
+   "account": {
+    "billing_hold": true,
+    "arrears_gbp": 88
+   }
+  },
+  "visit": {
+   "visit_date": "2025-05-20",
+   "arrived_at": "10:00",
+   "departed_at": "10:50",
+   "items_left": [
+    {
+     "sku": "POC-3",
+     "qty": 1,
+     "serial": "P3-2290"
+    }
+   ],
+   "install_checks": {
+    "flow_verified": true,
+    "alarm_tested": true,
+    "training_given": true,
+    "completed_at": "10:40"
+   },
+   "patient_signature": "on_file",
+   "handover_at": "10:45"
+  },
+  "site_assessment": {
+   "assessed_at": "10:05",
+   "hazards": [
+    {
+     "code": "SMOKING_IN_ROOM",
+     "status": "open",
+     "fix": null
+    },
+    {
+     "code": "GAS_HOB_NEAR",
+     "status": "open",
+     "fix": null
+    },
+    {
+     "code": "NO_SIGN",
+     "status": "open",
+     "fix": null
+    },
+    {
+     "code": "CYL_STORAGE",
+     "status": "resolved_on_visit",
+     "fix": "cylinder_relocated"
+    }
+   ]
+  },
+  "equipment": {
+   "concentrator": {
+    "serial": "P3-2290",
+    "flow_setting_lpm": 2
+   },
+   "fault_log": [],
+   "cylinders_on_site": []
+  },
+  "supply_plan": {
+   "next_delivery_date": "2025-05-27",
+   "route_day": "Tue"
+  }
+ },
+ "factors": {
+  "rx_alignment": "modality_mismatch",
+  "items_shortfall": "none",
+  "setup_state": "all_logged",
+  "supply_hours": "concentrator installed and flow verified, no unresolved fault (ample)",
+  "concentrator_fault": false,
+  "fault_mitigated": false,
+  "hazards_found": 4,
+  "hazard_mitigation": false,
+  "hazard_status_missing": false,
+  "handover_gap": false,
+  "timeline_out_of_order": false,
+  "next_delivery": "booked_too_late",
+  "dependency_level": "continuous",
+  "billing_hold": true
+ },
+ "factors_sampled": {
+  "rx_alignment": "modality_mismatch",
+  "items_shortfall": "none",
+  "setup_state": "all_logged",
+  "supply_hours": 171.81,
+  "concentrator_fault": true,
+  "fault_mitigated": false,
+  "hazards_found": 2,
+  "hazard_mitigation": true,
+  "hazard_status_missing": false,
+  "handover_gap": false,
+  "timeline_out_of_order": false,
+  "next_delivery": "booked_too_late",
+  "dependency_level": "continuous",
+  "billing_hold": true
+ },
+ "plan": {
+  "rx_match": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "urgent_dispatch",
+   "second": null
+  },
+  "fulfilment": {
+   "clarity": "contested",
+   "target": "fully_complete",
+   "second": "items_short"
+  },
+  "supply_runway": {
+   "clarity": "clear",
+   "target": "3",
+   "second": null
+  },
+  "open_hazards": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  }
+ },
+ "target_words": 93,
+ "deciding": {
+  "rx_match": "Rx modality is stationary_concentrator but the delivered item is a POC-3 portable unit; the flow of 2 lpm matches.",
+  "next_step": "Three open hazards include smoking in the room and a gas hob near the oxygen. The next delivery is a week away.",
+  "fulfilment": "The ordered POC-3 was left and all checks are logged, so it is fully complete. A reader could say the stationary Rx item was not delivered, which is short.",
+  "supply_runway": "The installed concentrator has flow_verified true and an empty fault_log.",
+  "open_hazards": "Three hazards are open and CYL_STORAGE is resolved_on_visit with cylinder_relocated."
+ },
+ "request": "rec-F303-0051",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.017494
+}

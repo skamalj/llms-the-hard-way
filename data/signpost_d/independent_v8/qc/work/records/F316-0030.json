@@ -1,0 +1,140 @@
+{
+ "id": "F316-0030",
+ "family": "F316",
+ "state": {
+  "run_header": {
+   "reviewed_at": "2025-03-02T04:00"
+  },
+  "plan": [
+   {
+    "section_code": "A30-04",
+    "length_km": 6,
+    "width_m": 7,
+    "priority": "P1",
+    "planned_rate_gm2": 20,
+    "forecast_zone": "Z1"
+   },
+   {
+    "section_code": "A30-07",
+    "length_km": 1.5,
+    "width_m": 7,
+    "priority": "P1",
+    "planned_rate_gm2": 20,
+    "forecast_zone": "Z2"
+   }
+  ],
+  "forecast": {
+   "Z1": {
+    "freeze_time": "2025-03-02T07:00"
+   },
+   "Z2": {
+    "freeze_time": "2025-03-02T10:00"
+   },
+   "revisions": [
+    {
+     "issued_at": "2025-03-01T23:30",
+     "zone": "Z1",
+     "freeze_time": "2025-03-02T05:00"
+    }
+   ]
+  },
+  "telematics": {
+   "segments": [
+    {
+     "section_code": "A30-07",
+     "end": "2025-03-02T02:20",
+     "spread_on": true,
+     "logged_rate_gm2": 17.5
+    },
+    {
+     "section_code": "A30-4",
+     "end": "2025-03-02T02:46",
+     "spread_on": true,
+     "logged_rate_gm2": 20
+    }
+   ]
+  },
+  "materials": {
+   "loaded_t": 1.1,
+   "returned_t": 0.15,
+   "weighbridge_ticket": "WB31",
+   "rate_exception": {
+    "approved_by": "Area mgr",
+    "reduced_rate_gm2": 18,
+    "reason": "stock"
+   }
+  },
+  "notes": {
+   "driver_note": "",
+   "depot_note": "Run R2 booked 06:00."
+  }
+ },
+ "factors": {
+  "missed_extent": "1.5km_marginally_below_reduced_rate",
+  "missed_section_mitigated": false,
+  "salt_gap": "3_to_10pct",
+  "rate_exception_approved": true,
+  "finish_vs_freeze_min": 134,
+  "hours_to_freeze_untreated": 6.0,
+  "forecast_revised": "colder",
+  "crosscheck_mismatch": "section_code",
+  "driver_note_type": "blank",
+  "follow_up_run_scheduled": true,
+  "pending_confirmation": false,
+  "gps_dropouts": 0,
+  "nonpriority_untreated": false
+ },
+ "factors_sampled": {
+  "missed_extent": "none",
+  "missed_section_mitigated": false,
+  "salt_gap": "3_to_10pct",
+  "rate_exception_approved": true,
+  "finish_vs_freeze_min": 134,
+  "hours_to_freeze_untreated": 0.66,
+  "forecast_revised": "colder",
+  "crosscheck_mismatch": "section_code",
+  "driver_note_type": "blank",
+  "follow_up_run_scheduled": true,
+  "pending_confirmation": false,
+  "gps_dropouts": 4,
+  "nonpriority_untreated": false
+ },
+ "plan": {
+  "treated_before_freeze": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "salt_reconciles": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "follow_up": {
+   "clarity": "leaning",
+   "target": "sign_off_noted",
+   "second": null
+  },
+  "deficient_length": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "freeze_proximity": {
+   "clarity": "contested",
+   "target": "1",
+   "second": "2"
+  }
+ },
+ "target_words": 60,
+ "deciding": {
+  "treated_before_freeze": "Both P1 sections are logged spread_on true; the last end 02:46 is 134 minutes before the revised Z1 freeze of 05:00, and A30-07 ended 02:20 before its Z2 freeze at 10:00.",
+  "salt_reconciles": "Net 0.95 t against about 1.03 t expected using the approved reduced 18 g/m2 on A30-07, about 8% under and within 10%, but close enough to the limit to be arguable.",
+  "follow_up": "The telematics code A30-4 against plan A30-04 is a minor discrepancy for the depot to correct; the coverage and salt otherwise hold, and a run is booked.",
+  "deficient_length": "A30-07 (1.5 km, P1) is logged at 17.5 against the approved reduced 18 g/m2, so it is only marginally below, and it may or may not count as affected.",
+  "freeze_proximity": "If A30-07 counts as untreated, Z2 freezes at 10:00 and reviewed_at is 04:00, which gives 6.0 hours, on the boundary between levels 1 and 2."
+ },
+ "request": "rec-F316-0026",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.018597
+}

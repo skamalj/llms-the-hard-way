@@ -1,0 +1,122 @@
+{
+ "id": "F304-0004",
+ "family": "F304",
+ "state": {
+  "request": {
+   "appt_type": "dialysis transfer",
+   "appt_time": "13:30",
+   "vehicle_class": "wheelchair_car",
+   "crew_requested": 2,
+   "mobility_booked": "wheelchair",
+   "equipment": [
+    "portable O2"
+   ]
+  },
+  "patient": {
+   "mobility_assessed": "wheelchair",
+   "assessed_on": "2024-04-20",
+   "oxygen_lpm": 2,
+   "monitoring": null,
+   "weight_kg": 88
+  },
+  "journey": {
+   "window_end": "10:40",
+   "est_duration_min": 40,
+   "late_tolerance_min": 10,
+   "destination": {
+    "reslot_same_day": false
+   }
+  },
+  "history": [
+   {
+    "o": "aborted",
+    "r": "no answer"
+   },
+   {
+    "o": "aborted",
+    "r": "no answer"
+   },
+   {
+    "o": "aborted",
+    "r": "clinic closed"
+   },
+   {
+    "o": "aborted",
+    "r": "weather"
+   }
+  ],
+  "notes": {
+   "ward_note": "Oxygen for exertion only, off at rest."
+  }
+ },
+ "factors": {
+  "mobility_alignment": "stale (assessment about 40 days old, values agree)",
+  "secondary_discrepancy": "none",
+  "eligibility_concern": false,
+  "eligibility_exception": false,
+  "clinical_support": "low_flow_oxygen (2 lpm, exertion only)",
+  "crew_request_gap": "correct",
+  "buffer_minutes": 110.0,
+  "duration_estimate_split": false,
+  "late_tolerance": true,
+  "appointment_type": "dialysis transfer",
+  "same_day_reslot": false,
+  "confirmation_pending": false,
+  "prior_aborts": 4,
+  "aborts_related": false
+ },
+ "factors_sampled": {
+  "mobility_alignment": "stale",
+  "secondary_discrepancy": "time_trivial",
+  "eligibility_concern": false,
+  "eligibility_exception": false,
+  "clinical_support": "low_flow_oxygen",
+  "crew_request_gap": "correct",
+  "buffer_minutes": 49.76,
+  "duration_estimate_split": true,
+  "late_tolerance": true,
+  "appointment_type": "outpatient",
+  "same_day_reslot": false,
+  "confirmation_pending": true,
+  "prior_aborts": 4,
+  "aborts_related": false
+ },
+ "plan": {
+  "vehicle_fit": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "disposition": {
+   "clarity": "clear",
+   "target": "confirm",
+   "second": null
+  },
+  "crew_config": {
+   "clarity": "balanced",
+   "target": "double_crew",
+   "second": "clinical_escort"
+  },
+  "time_pressure": {
+   "clarity": "leaning",
+   "target": "0",
+   "second": null
+  },
+  "delay_impact": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 74,
+ "deciding": {
+  "vehicle_fit": "Booked wheelchair_car matches assessed wheelchair with portable O2 listed, but assessed_on 2024-04-20 is about 40 days old.",
+  "disposition": "No discrepancy between sections, no null fields or pending items, no eligibility concern, so dispatch as submitted.",
+  "crew_config": "Wheelchair with oxygen 2 lpm used only on exertion gives double_crew, though oxygen 2 could mean clinical_escort.",
+  "time_pressure": "window_end 10:40 plus 40 min is 11:20 against appt 13:30, 130 minutes spare.",
+  "delay_impact": "Dialysis transfer with reslot_same_day false means a lost session (2) or lost transfer slot (3)."
+ },
+ "request": "rec-F304-0001",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.010229
+}

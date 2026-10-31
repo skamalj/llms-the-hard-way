@@ -1,0 +1,158 @@
+{
+ "id": "F338-0024",
+ "family": "F338",
+ "state": {
+  "site": {
+   "pollutant": "O3",
+   "tier": "compliance",
+   "service_interval_days": 60,
+   "approved_interval_days": 60
+  },
+  "visit": {
+   "date": "2025-09-16",
+   "start": "09:00",
+   "end": "11:45",
+   "sequence_status": "complete",
+   "maintenance_window": false
+  },
+  "reference": {
+   "standard_id": "CYL-7733",
+   "conc": 100,
+   "unit": "ppb",
+   "cert_expiry": "2025-09-13"
+  },
+  "checks": [
+   {
+    "type": "as_found_zero",
+    "ref_id": "CYL-7733",
+    "ref_conc": 0,
+    "unit": "ppb",
+    "reading": 0.8,
+    "tol": 2,
+    "ts": "2025-09-16T09:15"
+   },
+   {
+    "type": "as_found_span",
+    "ref_id": "CYL-7733",
+    "ref_conc": 100,
+    "unit": "ppb",
+    "reading": 112.4,
+    "tol": 4,
+    "ts": "2025-09-16T09:40"
+   },
+   {
+    "type": "as_found_precision",
+    "ref_id": "CYL-7733",
+    "ref_conc": 50,
+    "unit": "ppb",
+    "reading": 52.1,
+    "tol": 3,
+    "ts": "2025-09-16T10:00"
+   },
+   {
+    "type": "as_left_zero",
+    "ref_id": "CYL-7733",
+    "ref_conc": 0,
+    "unit": "ppb",
+    "reading": 0.2,
+    "tol": 2,
+    "ts": "2025-09-16T10:40"
+   },
+   {
+    "type": "as_left_span",
+    "ref_id": "CYL-7733",
+    "ref_conc": 100,
+    "unit": "ppb",
+    "reading": 100.3,
+    "tol": 4,
+    "ts": "2025-09-16T11:10"
+   }
+  ],
+  "history": {
+   "last_visit_date": "2025-08-02",
+   "results": [
+    "pass",
+    "fail",
+    "pass"
+   ],
+   "autochecks": [
+    {
+     "d": "2025-09-12",
+     "r": "pass"
+    }
+   ]
+  },
+  "instrument": {
+   "enclosure_temp_min": 14,
+   "enclosure_temp_max": 27
+  }
+ },
+ "factors": {
+  "pollutant": "O3",
+  "as_found_ratio": 3.09,
+  "as_left_status": "all_pass",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": -3,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "none",
+  "days_since_last_visit": 45,
+  "visit_completeness": "complete",
+  "prior_fail_count": 1,
+  "timestamp_mismatch": "none",
+  "site_priority": "compliance"
+ },
+ "factors_sampled": {
+  "pollutant": "O3",
+  "as_found_ratio": 3.09,
+  "as_left_status": "all_pass",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 95,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "none",
+  "days_since_last_visit": 15,
+  "visit_completeness": "complete",
+  "prior_fail_count": 1,
+  "timestamp_mismatch": "none",
+  "site_priority": "compliance"
+ },
+ "plan": {
+  "data_accepted": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "reference_valid": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "hold",
+   "second": null
+  },
+  "flag_extent": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "return_urgency": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 111,
+ "deciding": {
+  "data_accepted": "Autochecks passed through 2025-09-12 and as-left points are within tolerance, though the as-found span error 12.4 vs tol 4 and no drift explanation leave some doubt.",
+  "reference_valid": "reference cert_expiry 2025-09-13 is before visit date 2025-09-16, so the standard was out of date at use.",
+  "next_step": "Checks are complete and as-left pass, but the expired certificate means exactly one document, a valid or extended certificate, is outstanding: hold.",
+  "flag_extent": "45 days since the last visit with an unexplained as-found span error over 3x tol; flagging all 45 days (over 30) versus about 8 to 30 days is balanced.",
+  "return_urgency": "As-left readings pass and autochecks are fine, so routine is likely; compliance tier and the large as-found error make a planned extra visit plausible."
+ },
+ "request": "rec-F338-0021",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.009952
+}

@@ -1,0 +1,131 @@
+{
+ "id": "F338-0021",
+ "family": "F338",
+ "state": {
+  "site": {
+   "pollutant": "SO2",
+   "tier": "compliance",
+   "service_interval_days": 90,
+   "approved_interval_days": 90
+  },
+  "visit": {
+   "date": "2025-05-20",
+   "start": "09:00",
+   "end": "11:30",
+   "sequence_status": "partial",
+   "maintenance_window": false
+  },
+  "reference": {
+   "standard_id": "CYL-4471",
+   "conc": 400,
+   "unit": "ppb",
+   "cert_expiry": "2026-03-28"
+  },
+  "checks": [
+   {
+    "type": "as_found_span",
+    "ref_id": "CYL-4471",
+    "ref_conc": 400,
+    "unit": "ppb",
+    "reading": 408.8,
+    "tol": 4,
+    "ts": "2025-05-20T09:20"
+   },
+   {
+    "type": "as_left_span",
+    "ref_id": "CYL-4471",
+    "ref_conc": 400,
+    "unit": "ppb",
+    "reading": 400.9,
+    "tol": 4,
+    "ts": "2025-05-20T10:40"
+   }
+  ],
+  "history": {
+   "last_visit_date": "2025-01-23",
+   "results": [
+    "pass",
+    "fail",
+    "pass"
+   ],
+   "autochecks": [
+    {
+     "d": "2025-05-16",
+     "r": "pass"
+    }
+   ]
+  },
+  "instrument": {
+   "enclosure_temp_min": 8,
+   "enclosure_temp_max": 34
+  }
+ },
+ "factors": {
+  "pollutant": "SO2",
+  "as_found_ratio": 2.21,
+  "as_left_status": "all_pass",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 296,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "enclosure_temp_excursion",
+  "days_since_last_visit": 117,
+  "visit_completeness": "multipoint_missing",
+  "prior_fail_count": 1,
+  "timestamp_mismatch": "none",
+  "site_priority": "compliance"
+ },
+ "factors_sampled": {
+  "pollutant": "SO2",
+  "as_found_ratio": 2.21,
+  "as_left_status": "all_pass",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 296,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "enclosure_temp_excursion",
+  "days_since_last_visit": 117,
+  "visit_completeness": "multipoint_missing",
+  "prior_fail_count": 1,
+  "timestamp_mismatch": "none",
+  "site_priority": "compliance"
+ },
+ "plan": {
+  "data_accepted": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "reference_valid": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "recalibrate",
+   "second": null
+  },
+  "flag_extent": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  },
+  "return_urgency": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 61,
+ "deciding": {
+  "data_accepted": "As-found span error is 8.8 against tol 4 (over twice tolerance), but enclosure_temp_max 34 and passing autochecks up to 4 days before the visit offer a drift explanation; held in balance.",
+  "reference_valid": "Check ref_id matches standard_id, units are ppb throughout, and cert_expiry 2026-03-28 is far after the visit date.",
+  "next_step": "sequence_status is partial and only span points are in checks (no zero or precision/multipoint), so calibration is incomplete and a repeat on site is needed.",
+  "flag_extent": "The last visit was 117 days ago, but the temperature excursion and passing autochecks suggest the drift affected only a limited stretch, so roughly 8 to 30 days.",
+  "return_urgency": "Compliance-tier site with an incomplete calibration and a large as-found error; a return within 1 to 2 days versus 3 to 7 days is balanced because autochecks recently passed."
+ },
+ "request": "rec-F338-0021",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.009952
+}

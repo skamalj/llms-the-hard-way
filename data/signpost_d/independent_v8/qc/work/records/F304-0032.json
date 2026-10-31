@@ -1,0 +1,105 @@
+{
+ "id": "F304-0032",
+ "family": "F304",
+ "state": {
+  "request": {
+   "ref": "T2210",
+   "appt_type": "chemotherapy",
+   "appt_time": "2025-04-10T10:00",
+   "vehicle_class": "car",
+   "crew_requested": "single",
+   "mobility_booked": "walking",
+   "equipment": []
+  },
+  "patient": {
+   "mobility_assessed": "walking",
+   "assessed_on": "2024-12-20",
+   "weight_kg": 70,
+   "oxygen_lpm": 0,
+   "monitoring": null,
+   "own_transport_available": true,
+   "exemption": {
+    "code": "E3",
+    "approved_by": "Dr Rao",
+    "approved_on": "2025-02-01"
+   }
+  },
+  "journey": {
+   "window_end": "08:00",
+   "est_duration_min": 20,
+   "late_tolerance_min": 15,
+   "reslot_same_day": true
+  },
+  "history": []
+ },
+ "factors": {
+  "mobility_alignment": "borderline_age",
+  "secondary_discrepancy": "none",
+  "eligibility_concern": true,
+  "eligibility_exception": true,
+  "clinical_support": "none",
+  "crew_request_gap": "under_one_step",
+  "buffer_minutes": 100.0,
+  "duration_estimate_split": false,
+  "late_tolerance": true,
+  "appointment_type": "chemotherapy",
+  "same_day_reslot": true,
+  "confirmation_pending": false,
+  "prior_aborts": 0,
+  "aborts_related": false
+ },
+ "factors_sampled": {
+  "mobility_alignment": "stale",
+  "secondary_discrepancy": "equipment_unlisted",
+  "eligibility_concern": true,
+  "eligibility_exception": true,
+  "clinical_support": "none",
+  "crew_request_gap": "under_one_step",
+  "buffer_minutes": 31.05,
+  "duration_estimate_split": false,
+  "late_tolerance": true,
+  "appointment_type": "chemotherapy",
+  "same_day_reslot": true,
+  "confirmation_pending": false,
+  "prior_aborts": 0,
+  "aborts_related": true
+ },
+ "plan": {
+  "vehicle_fit": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "disposition": {
+   "clarity": "leaning",
+   "target": "confirm",
+   "second": null
+  },
+  "crew_config": {
+   "clarity": "clear",
+   "target": "single_crew",
+   "second": null
+  },
+  "time_pressure": {
+   "clarity": "leaning",
+   "target": "0",
+   "second": null
+  },
+  "delay_impact": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  }
+ },
+ "target_words": 54,
+ "deciding": {
+  "vehicle_fit": "Booked walking/car matches assessed walking, but the assessment is about 110 days old, so currency is arguable.",
+  "disposition": "own_transport_available true is covered by exemption E3 with approver and date; no discrepancies, no pending items, no aborts.",
+  "crew_config": "Walking, oxygen_lpm 0, monitoring null.",
+  "time_pressure": "Window end 08:00 plus 20 min against a 10:00 appointment leaves about 100 min, with no manual estimate.",
+  "delay_impact": "Chemotherapy with reslot_same_day true and late_tolerance_min 15; treatment is involved, so a lost session is also plausible."
+ },
+ "request": "rec-F304-0031",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012636
+}

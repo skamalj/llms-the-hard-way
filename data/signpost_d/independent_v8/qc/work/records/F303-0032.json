@@ -1,0 +1,151 @@
+{
+ "id": "F303-0032",
+ "family": "F303",
+ "state": {
+  "order": {
+   "prescription": {
+    "modality": "cylinder",
+    "flow_lpm": 2,
+    "hours_per_day": 8,
+    "rx_expiry": "2026-02-28"
+   },
+   "items_ordered": [
+    {
+     "sku": "CD460",
+     "qty": 3
+    }
+   ]
+  },
+  "visit": {
+   "visit_date": "2025-04-02",
+   "items_left": [
+    {
+     "sku": "CD460",
+     "qty": 3
+    }
+   ],
+   "install_checks": {
+    "flow_verified": true,
+    "alarm_tested": true,
+    "training_given": true,
+    "completed_at": "14:20"
+   },
+   "patient_signature": null,
+   "handover_at": "14:25"
+  },
+  "site_assessment": {
+   "hazards": [
+    {
+     "code": "HEAT",
+     "status": "open",
+     "fix": null
+    },
+    {
+     "code": "SMOKE",
+     "status": "open",
+     "fix": null
+    },
+    {
+     "code": "BLOCKED_EXIT",
+     "status": "resolved_on_visit",
+     "fix": "cylinder_relocated"
+    },
+    {
+     "code": "TUBING",
+     "status": "resolved_on_visit",
+     "fix": null
+    }
+   ]
+  },
+  "equipment": {
+   "flow_setting_lpm": 2.5,
+   "cylinders_on_site": [
+    {
+     "size": "CD 460 L",
+     "fill_pct": 100
+    },
+    {
+     "size": "CD 460 L",
+     "fill_pct": 100
+    },
+    {
+     "size": "CD 460 L",
+     "fill_pct": 100
+    }
+   ]
+  },
+  "supply_plan": {
+   "next_delivery_date": "2025-04-03"
+  }
+ },
+ "factors": {
+  "rx_alignment": "flow_mismatch",
+  "items_shortfall": "none",
+  "setup_state": "all_logged",
+  "supply_hours": 11.5,
+  "concentrator_fault": false,
+  "fault_mitigated": false,
+  "hazards_found": 4,
+  "hazard_mitigation": true,
+  "hazard_status_missing": false,
+  "handover_gap": true,
+  "timeline_out_of_order": false,
+  "next_delivery": "booked_in_time",
+  "dependency_level": "ambulatory",
+  "billing_hold": false
+ },
+ "factors_sampled": {
+  "rx_alignment": "exact",
+  "items_shortfall": "none",
+  "setup_state": "all_logged",
+  "supply_hours": 19.2,
+  "concentrator_fault": false,
+  "fault_mitigated": false,
+  "hazards_found": 5,
+  "hazard_mitigation": false,
+  "hazard_status_missing": false,
+  "handover_gap": false,
+  "timeline_out_of_order": false,
+  "next_delivery": "booked_in_time",
+  "dependency_level": "ambulatory",
+  "billing_hold": false
+ },
+ "plan": {
+  "rx_match": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "balanced",
+   "target": "book_revisit",
+   "second": "chase_paperwork"
+  },
+  "fulfilment": {
+   "clarity": "clear",
+   "target": "fully_complete",
+   "second": null
+  },
+  "supply_runway": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "open_hazards": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  }
+ },
+ "target_words": 51,
+ "deciding": {
+  "rx_match": "Rx is 2 lpm but flow_setting_lpm is 2.5, a small deviation that leans to no match.",
+  "next_step": "patient_signature is null (paperwork) while two open hazards and a flow setting off the Rx could justify a return visit.",
+  "fulfilment": "3 of 3 CD460 left and flow_verified, alarm_tested, training_given all true with completed_at.",
+  "supply_runway": "3 x CD 460 L at 100% = 1380 L; at 2 lpm (120 L/h) that is 11.5 h, just under the 12 h boundary.",
+  "open_hazards": "Two hazards open; TUBING is marked resolved_on_visit with fix null, which could be open, making three."
+ },
+ "request": "rec-F303-0031",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.01485
+}

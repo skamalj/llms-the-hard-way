@@ -1,0 +1,133 @@
+{
+ "id": "F311-0021",
+ "family": "F311",
+ "state": {
+  "station": {
+   "code": "W07-12",
+   "ward": "Inner Isles",
+   "election_date": "2024-05-02",
+   "distance_km": 38,
+   "transport": "boat",
+   "po_tenure_yrs": 6,
+   "prior_query_count": 2
+  },
+  "timeline": {
+   "scheduled_close_at": "2024-05-02T22:00",
+   "poll_closed_at": "2024-05-02T22:00",
+   "queue_at_close": false,
+   "queue_count": 0,
+   "box_departed_at": "2024-05-02T22:35",
+   "box_received_at": "2024-05-03T00:30"
+  },
+  "ballot_account": {
+   "received": 500,
+   "issued": 430,
+   "spoilt": 4,
+   "tendered": 2,
+   "unused": 63,
+   "expected_in_box": 430
+  },
+  "seals_and_packets": {
+   "seal_at_close": "B4417",
+   "replacement_seals": [],
+   "agent_objection_at_sealing": true,
+   "postal_handin_count": 0,
+   "required_items": [
+    {
+     "item": "ballot_account",
+     "present": true,
+     "signed": null
+    },
+    {
+     "item": "seal_log",
+     "present": false,
+     "signed": false
+    },
+    {
+     "item": "spoilt_packet_label",
+     "present": false,
+     "signed": false
+    },
+    {
+     "item": "unused_packet_label",
+     "present": true,
+     "signed": true
+    }
+   ]
+  },
+  "verification": {
+   "seal_on_arrival": "B4417",
+   "ballots_counted": 430,
+   "counterfoils_counted": 430,
+   "account_total_transcribed": 430
+  }
+ },
+ "factors": {
+  "raw_variance": 0,
+  "postal_handin_recorded": false,
+  "clerical_slip": true,
+  "missing_items": 3,
+  "ballot_account_null": false,
+  "seal_mismatch": false,
+  "seal_replacement_witnessed": false,
+  "transit_gap_min": 150,
+  "remote_station": true,
+  "close_status": "on_time",
+  "agent_objection": true,
+  "prior_queries": 2,
+  "po_first_time": false
+ },
+ "factors_sampled": {
+  "raw_variance": 6,
+  "postal_handin_recorded": false,
+  "clerical_slip": false,
+  "missing_items": 3,
+  "ballot_account_null": false,
+  "seal_mismatch": false,
+  "seal_replacement_witnessed": false,
+  "transit_gap_min": 193,
+  "remote_station": true,
+  "close_status": "on_time",
+  "agent_objection": true,
+  "prior_queries": 2,
+  "po_first_time": false
+ },
+ "plan": {
+  "custody_unbroken": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "box_disposition": {
+   "clarity": "balanced",
+   "target": "accept",
+   "second": "recount_box"
+  },
+  "figure_problem": {
+   "clarity": "clear",
+   "target": "arithmetic_slip",
+   "second": null
+  },
+  "unexplained_gap": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  },
+  "paperwork_shortfall": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 199,
+ "deciding": {
+  "custody_unbroken": "seal_at_close B4417 equals seal_on_arrival B4417, close time recorded, and 150 min transit from a boat station is within the 180 min remote limit; the agent objection has no detail.",
+  "box_disposition": "Counts match expected 430 and custody holds, favouring accept; the account lines summing to 499 against 500 received and the unsigned account leave some doubt about a hidden one-paper gap, so recount stays plausible.",
+  "figure_problem": "Account lines sum to 499 against 500 received while expected, counted, counterfoil and transcribed figures all equal 430, so this is a clerical slip only.",
+  "unexplained_gap": "Counted equals expected (0), but the one-paper shortfall in the account lines could hide a gap of one, holding level 0 and level 1 in balance.",
+  "paperwork_shortfall": "seal_log and spoilt_packet_label are absent, and ballot_account is present with signed null, so whether it counts as unsigned decides between two and three items."
+ },
+ "request": "rec-F311-0021",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.010434
+}

@@ -1,0 +1,144 @@
+{
+ "id": "F330-0006",
+ "family": "F330",
+ "state": {
+  "request": {
+   "req_id": "X101",
+   "emp_ref": "E55",
+   "grade": "G6",
+   "cost_centre": "CC-210",
+   "trip_ref": "T-81",
+   "requested_total": 600.6,
+   "ccy": "GBP",
+   "payroll_cutoff": "2024-05-25"
+  },
+  "lines": [
+   {
+    "line_no": 1,
+    "date": "2024-05-07",
+    "category": "entertainment",
+    "cost_centre": "CC-210",
+    "amount": 600.6,
+    "ccy": "GBP",
+    "fx_rate": 1,
+    "amount_gbp": 600.6,
+    "receipt_attached": true
+   }
+  ],
+  "policy": {
+   "rule_id": "ENT-1",
+   "grade_band": "G6",
+   "cap_gbp": 150,
+   "cap_unit": "per_head",
+   "units": 4,
+   "reviewer_limit_gbp": 250
+  },
+  "travel": {
+   "trip_ref": "T-81",
+   "depart": "2024-05-06",
+   "return": "2024-05-08",
+   "booked_on": "2024-04-29",
+   "disruption": {
+    "code": "FLT-CXL",
+    "source": "airline_notice",
+    "logged_on": "2024-05-06"
+   },
+   "alt_check": null,
+   "client_recharge": {
+    "billable": true,
+    "client_code": "CL-7"
+   }
+  },
+  "approvals": {
+   "line_mgr": {
+    "approved": true
+   },
+   "pre_approval": {
+    "ref": "PA-9",
+    "trip_ref": "T-81",
+    "max_gbp": 50,
+    "valid_to": "2024-05-10"
+   },
+   "attendees": [
+    "a",
+    "b",
+    "c",
+    "d"
+   ]
+  },
+  "history": {
+   "exceptions_12m": 5,
+   "approved_12m": 1,
+   "declined_12m": 4,
+   "last_exception_on": "2024-03-02"
+  }
+ },
+ "factors": {
+  "breach_type": "client_entertainment_over_limit",
+  "true_excess_pct": 0.1,
+  "amount_mismatch": "none",
+  "reference_mismatch": "none",
+  "pre_approval_state": "valid_covers",
+  "external_disruption": true,
+  "compliant_option": "not_checked",
+  "missing_item": "none",
+  "excess_vs_authority": "well_within",
+  "client_rechargeable": true,
+  "prior_exceptions_12m": 5,
+  "booking_lead_days": 7,
+  "employee_grade": "G6"
+ },
+ "factors_sampled": {
+  "breach_type": "client_entertainment_over_limit",
+  "true_excess_pct": 97.85,
+  "amount_mismatch": "none",
+  "reference_mismatch": "none",
+  "pre_approval_state": "max_below_excess",
+  "external_disruption": true,
+  "compliant_option": "not_checked",
+  "missing_item": "none",
+  "excess_vs_authority": "above_limit",
+  "client_rechargeable": true,
+  "prior_exceptions_12m": 5,
+  "booking_lead_days": 7,
+  "employee_grade": "G6"
+ },
+ "plan": {
+  "preapproval_covers": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "outside_control": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "excess_disposition": {
+   "clarity": "clear",
+   "target": "decline_excess",
+   "second": null
+  },
+  "excess_size": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  },
+  "discrepancy_count": {
+   "clarity": "leaning",
+   "target": "0",
+   "second": null
+  }
+ },
+ "target_words": 130,
+ "deciding": {
+  "preapproval_covers": "pre_approval trip_ref matches T-81, valid_to after depart, max_gbp 50 exceeds the 0.60 excess",
+  "outside_control": "travel.disruption FLT-CXL from airline_notice is logged",
+  "excess_disposition": "excess is a trivial 0.60 over the 600 cap and history shows 4 of 5 exceptions declined, so reimburse to cap",
+  "excess_size": "line sum 600.60 against cap 150x4=600 sits right at the 0/1 boundary",
+  "discrepancy_count": "total, trip_ref, cost_centres and dates all agree; one line and a single fx of 1 leave little room for doubt"
+ },
+ "request": "rec-F330-0006",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011339
+}

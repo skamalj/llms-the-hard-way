@@ -1,0 +1,128 @@
+{
+ "id": "F314-0013",
+ "family": "F314",
+ "state": {
+  "property": {
+   "inventory": [
+    {
+     "id": "A1",
+     "type": "boiler"
+    },
+    {
+     "id": "A2",
+     "type": "cooker"
+    },
+    {
+     "id": "A3",
+     "type": "fire",
+     "owned_by": "tenant"
+    }
+   ]
+  },
+  "tenancy": {
+   "review_date": "2025-03-11"
+  },
+  "certificate": {
+   "inspection_date": "2024-03-14",
+   "expiry_date": "2025-04-20",
+   "engineer_licence": "G9"
+  },
+  "appliance_checks": [
+   {
+    "appliance_id": "A1",
+    "defect_class": "AR",
+    "isolation": {
+     "supply_off": true
+    }
+   },
+   {
+    "appliance_id": "A2",
+    "defect_class": "NCS"
+   }
+  ],
+  "engineer": {
+   "licence_no": "G9",
+   "valid_to": "2026-01-01",
+   "categories": [
+    "BOI",
+    "COOK"
+   ]
+  },
+  "history": {
+   "prior_defects": 3,
+   "remedials": [
+    {
+     "appliance_id": "A1",
+     "completed_on": "2024-03-20",
+     "engineer_licence": null
+    }
+   ]
+  }
+ },
+ "factors": {
+  "inventory_mismatch": "missing_from_cert",
+  "tenant_owned_appliance": true,
+  "date_misalignment": "expiry_miscomputed",
+  "days_to_true_expiry": 3,
+  "renewal_booked": false,
+  "engineer_status": "active_matching",
+  "worst_defect_class": "at_risk",
+  "defect_isolated": true,
+  "remedial_completed": true,
+  "combustion_reading": "normal",
+  "prior_defect_count": 3,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "inventory_mismatch": "missing_from_cert",
+  "tenant_owned_appliance": true,
+  "date_misalignment": "expiry_miscomputed",
+  "days_to_true_expiry": 3,
+  "renewal_booked": false,
+  "engineer_status": "active_matching",
+  "worst_defect_class": "at_risk",
+  "defect_isolated": true,
+  "remedial_completed": true,
+  "combustion_reading": "normal",
+  "prior_defect_count": 3,
+  "boundary_case": false
+ },
+ "plan": {
+  "covers_all_appliances": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "engineer_valid": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "reinspect",
+   "second": null
+  },
+  "renewal_urgency": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  },
+  "open_hazard": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  }
+ },
+ "target_words": 28,
+ "deciding": {
+  "covers_all_appliances": "Only A3 is missing from checks and it is tenant-owned, so the gap is excused; the landlord appliances A1 and A2 are covered.",
+  "engineer_valid": "Licence G9 matches in both sections, valid_to 2026-01-01 is after inspection, and categories BOI and COOK cover the checked appliances.",
+  "next_step": "The printed expiry 2025-04-20 is over a month past the true 12-month date, true expiry is days away, and there is an open defect: more than one gap.",
+  "renewal_urgency": "True expiry 2025-03-14 is 3 days after review (level 2), but the printed expiry would suggest about 40 days (level 1).",
+  "open_hazard": "A1 AR is isolated and has a later remedial, but the remedial has a null licence so closure is doubtful (level 2); A2 NCS is open regardless (level 1)."
+ },
+ "request": "rec-F314-0011",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.013553
+}

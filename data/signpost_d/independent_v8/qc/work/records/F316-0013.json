@@ -1,0 +1,151 @@
+{
+ "id": "F316-0013",
+ "family": "F316",
+ "state": {
+  "run_header": {
+   "run_id": "G3317",
+   "reviewed_at": "2025-01-20T21:57"
+  },
+  "plan": [
+   {
+    "section_code": "U-01",
+    "length_km": 8,
+    "width_m": 7,
+    "priority": "P1",
+    "planned_rate_gm2": 20,
+    "forecast_zone": "Z1"
+   },
+   {
+    "section_code": "U-02",
+    "length_km": 6.2,
+    "width_m": 7,
+    "priority": "P1",
+    "planned_rate_gm2": 20,
+    "forecast_zone": "Z2"
+   },
+   {
+    "section_code": "U-03",
+    "length_km": 4.0,
+    "width_m": 7,
+    "priority": "P2",
+    "planned_rate_gm2": 20,
+    "forecast_zone": "Z2"
+   }
+  ],
+  "forecast": {
+   "zones": [
+    {
+     "zone": "Z1",
+     "freeze_time": "2025-01-20T22:30"
+    },
+    {
+     "zone": "Z2",
+     "freeze_time": "2025-01-20T21:40"
+    }
+   ],
+   "revisions": []
+  },
+  "telematics": {
+   "segments": [
+    {
+     "section_code": "U-01",
+     "end": "20:33",
+     "spread_on": true,
+     "logged_rate_gm2": 20
+    }
+   ],
+   "dropouts": [
+    {
+     "start": "18:40",
+     "end": "19:05",
+     "nearest_section": "U-02"
+    },
+    {
+     "start": "19:10",
+     "end": "19:30",
+     "nearest_section": "U-03"
+    }
+   ]
+  },
+  "materials": {
+   "loaded_t": 1.6,
+   "returned_t": 0.45,
+   "weighbridge_ticket": null,
+   "rate_exception": null
+  },
+  "notes": {
+   "driver_note": "",
+   "depot_note": "Run R2 booked 23:30 same route.",
+   "closures": [],
+   "partner_cover": []
+  }
+ },
+ "factors": {
+  "missed_extent": "over_10km",
+  "missed_section_mitigated": false,
+  "salt_gap": "figure_missing",
+  "rate_exception_approved": false,
+  "finish_vs_freeze_min": 117,
+  "hours_to_freeze_untreated": -0.29,
+  "forecast_revised": "none",
+  "crosscheck_mismatch": "none",
+  "driver_note_type": "blank",
+  "follow_up_run_scheduled": true,
+  "pending_confirmation": false,
+  "gps_dropouts": 2,
+  "nonpriority_untreated": false
+ },
+ "factors_sampled": {
+  "missed_extent": "over_10km",
+  "missed_section_mitigated": false,
+  "salt_gap": "figure_missing",
+  "rate_exception_approved": false,
+  "finish_vs_freeze_min": 117,
+  "hours_to_freeze_untreated": -0.29,
+  "forecast_revised": "none",
+  "crosscheck_mismatch": "none",
+  "driver_note_type": "blank",
+  "follow_up_run_scheduled": true,
+  "pending_confirmation": false,
+  "gps_dropouts": 2,
+  "nonpriority_untreated": false
+ },
+ "plan": {
+  "treated_before_freeze": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "salt_reconciles": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "follow_up": {
+   "clarity": "clear",
+   "target": "partial_retreat",
+   "second": null
+  },
+  "deficient_length": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  },
+  "freeze_proximity": {
+   "clarity": "clear",
+   "target": "3",
+   "second": null
+  }
+ },
+ "target_words": 84,
+ "deciding": {
+  "treated_before_freeze": "U-02 and U-03 have no telematics segments, only GPS dropouts, and the Z2 freeze at 21:40 has already passed. Dropouts leave coverage unproven rather than proven missing.",
+  "salt_reconciles": "Net 1.15 t against expected 1.12 t for U-01 alone (within 3%), but weighbridge_ticket is null so the tonnage is unconfirmed.",
+  "follow_up": "U-01 is fully logged and treated before freeze; U-02 and U-03 have no segments, so re-treating just those named sections fits.",
+  "deficient_length": "U-02 (6.2 km) plus U-03 (4.0 km) is 10.2 km, just over the 10 km line, and both rest on dropouts only.",
+  "freeze_proximity": "Z2 freeze 21:40 is 17 minutes before the 21:57 review, so the untreated U-02 is already frozen."
+ },
+ "request": "rec-F316-0011",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.027626
+}

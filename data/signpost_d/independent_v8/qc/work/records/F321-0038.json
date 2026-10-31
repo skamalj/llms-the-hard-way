@@ -1,0 +1,118 @@
+{
+ "id": "F321-0038",
+ "family": "F321",
+ "state": {
+  "permit": {
+   "window_start": "2025-03-09T08:00",
+   "scoped_tasks": [
+    {
+     "task_code": "ANT-ALN-01",
+     "equipment_ref": "A5"
+    },
+    {
+     "task_code": "CAB-INS-02",
+     "equipment_ref": "C2"
+    }
+   ]
+  },
+  "attendance": [
+   {
+    "badge_id": "B9",
+    "event": "in"
+   }
+  ],
+  "personnel": [
+   {
+    "badge_id": "B8",
+    "height_cert_expiry": "2025-03-09"
+   }
+  ],
+  "works": [
+   {
+    "task_code": "ANT-ALN-01",
+    "equipment_ref": "A5",
+    "status": "complete",
+    "completed_at": "2025-03-09T11:00"
+   },
+   {
+    "task_code": "CAB-INS-02",
+    "equipment_ref": "C2",
+    "status": "complete",
+    "completed_at": null
+   }
+  ],
+  "closeout": {
+   "key_status": "returned",
+   "photos_required": 5,
+   "photos_uploaded": 5,
+   "submitted_at": "2025-03-10T09:00",
+   "pulled_at": "2025-03-11T09:00"
+  }
+ },
+ "factors": {
+  "scope_mismatch": "none",
+  "window_deviation": "within",
+  "cert_status": "expires_on_visit_date",
+  "scoped_task_count": 2,
+  "completion_fraction": 1.0,
+  "signout_missing": false,
+  "key_return": "returned",
+  "photo_shortfall": 0,
+  "badge_id_mismatch": true,
+  "variation_approved": false,
+  "landlord_notice": "not_required",
+  "weather_hold_logged": true
+ },
+ "factors_sampled": {
+  "scope_mismatch": "none",
+  "window_deviation": "within",
+  "cert_status": "expired_before_visit",
+  "scoped_task_count": 2,
+  "completion_fraction": 0.17,
+  "signout_missing": false,
+  "key_return": "returned_late",
+  "photo_shortfall": 0,
+  "badge_id_mismatch": true,
+  "variation_approved": false,
+  "landlord_notice": "not_required",
+  "weather_hold_logged": true
+ },
+ "plan": {
+  "within_scope": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "certs_in_date": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "closeout_action": {
+   "clarity": "clear",
+   "target": "hold_confirm",
+   "second": null
+  },
+  "scope_completion": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "pending_age": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 38,
+ "deciding": {
+  "within_scope": "Both logged codes and equipment refs match permit scoped_tasks; no extra items.",
+  "certs_in_date": "Cert expiry equals the visit date, but the gate badge B9 is not in personnel, so the climber's cert is uncertain.",
+  "closeout_action": "Only gap is the gate badge B9 absent from personnel (B8); keys and photos 5/5 complete and works match.",
+  "scope_completion": "Both tasks status complete, but CAB-INS-02 has null completed_at, leaving slight doubt.",
+  "pending_age": "submitted_at 2025-03-10T09:00 versus pulled_at 2025-03-11T09:00 is exactly 24 hours, the boundary of levels 0 and 1."
+ },
+ "request": "rec-F321-0036",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.010168
+}

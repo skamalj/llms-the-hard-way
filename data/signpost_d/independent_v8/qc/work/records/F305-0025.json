@@ -1,0 +1,133 @@
+{
+ "id": "F305-0025",
+ "family": "F305",
+ "state": {
+  "session": {
+   "date": "2024-02-19",
+   "needle_on": "2024-02-19T09:00",
+   "washback": "2024-02-19T13:14",
+   "review_ts": "2024-02-27T03:00"
+  },
+  "prescription": {
+   "duration_min": 240,
+   "qb_ml_min": 350
+  },
+  "machine": {
+   "qb_actual": 280,
+   "uf_removed_ml": 1950,
+   "washback_ml": 150,
+   "alarms": [
+    {
+     "code": "QB_REDUCED",
+     "reason": "ART_PRESSURE_HIGH"
+    },
+    {
+     "code": "PUMP_STOP",
+     "t": "10:30"
+    },
+    {
+     "code": "PUMP_RESUME",
+     "t": "10:54"
+    }
+   ]
+  },
+  "observations": {
+   "pre_kg": 90.0,
+   "post_kg": 88.5
+  },
+  "checks": [
+   {
+    "code": "ID_VERIFY",
+    "done": true,
+    "ts": "2024-02-19T08:40"
+   },
+   {
+    "code": "ACCESS_CHECK",
+    "done": true,
+    "ts": "2024-02-19T08:45"
+   }
+  ],
+  "history": [
+   {
+    "rx": 240,
+    "eff": 205
+   },
+   {
+    "rx": 240,
+    "eff": 210
+   },
+   {
+    "rx": 240,
+    "eff": 200
+   }
+  ]
+ },
+ "factors": {
+  "time_shortfall_min": 10,
+  "machine_pause_min": 24,
+  "uf_weight_gap_kg": 0.3,
+  "post_weight_missing": false,
+  "missing_check": "machine_disinfection",
+  "check_logged_after_start": false,
+  "prescription_mismatch": "none",
+  "mismatch_magnitude": "trivial",
+  "hypotension_episodes": 0,
+  "hypotension_mitigated": false,
+  "circuit_clotted": false,
+  "prior_short_sessions": 3,
+  "documented_flow_reduction": true
+ },
+ "factors_sampled": {
+  "time_shortfall_min": 49,
+  "machine_pause_min": 24,
+  "uf_weight_gap_kg": 1.09,
+  "post_weight_missing": true,
+  "missing_check": "machine_disinfection",
+  "check_logged_after_start": false,
+  "prescription_mismatch": "heparin_dose",
+  "mismatch_magnitude": "trivial",
+  "hypotension_episodes": 0,
+  "hypotension_mitigated": true,
+  "circuit_clotted": false,
+  "prior_short_sessions": 1,
+  "documented_flow_reduction": true
+ },
+ "plan": {
+  "uf_reconciles": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "checks_before_start": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "log_disposition": {
+   "clarity": "clear",
+   "target": "refer_prescriber",
+   "second": null
+  },
+  "time_shortfall": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  },
+  "pending_age": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  }
+ },
+ "target_words": 28,
+ "deciding": {
+  "uf_reconciles": "Net UF 1950-150=1800 ml against 1.5 kg loss (90.0-88.5); gap 0.3 kg, within 0.5.",
+  "checks_before_start": "The checklist has only ID_VERIFY and ACCESS_CHECK; the machine disinfection entry is absent, so not all mandatory checks are documented.",
+  "log_disposition": "Three history sessions with eff well below rx (205, 210, 200 of 240) are repeated short sessions needing nephrologist review, which outranks the missing check; QB reduction is documented and acceptable.",
+  "time_shortfall": "Clock 254 min minus 24 min pause gives 230 effective against 240: 10 short.",
+  "pending_age": "review_ts 2024-02-27 03:00 is about 7 days 14 hours after washback, close to the 8-day boundary."
+ },
+ "request": "rec-F305-0021",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.010919
+}

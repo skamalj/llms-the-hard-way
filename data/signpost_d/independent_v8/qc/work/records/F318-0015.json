@@ -1,0 +1,141 @@
+{
+ "id": "F318-0015",
+ "family": "F318",
+ "state": {
+  "work_order": {
+   "visit_type": "winter_stoppage",
+   "tasks": [
+    {
+     "task_id": 1,
+     "asset_ref": "GT-2"
+    },
+    {
+     "task_id": 2,
+     "asset_ref": "SL-1"
+    }
+   ],
+   "nav_notice": {
+    "in_force": true,
+    "to": "2025-03-15",
+    "scope_assets": [
+     "SL-1"
+    ]
+   },
+   "booked_passages_7d": 4
+  },
+  "visit_log": {
+   "arrived": "2025-01-27T08:00",
+   "departed": "2025-01-27T12:00",
+   "crew_size": 2,
+   "timesheet_hours": 6.45,
+   "task_status": [
+    {
+     "task_id": 1,
+     "status": "done"
+    },
+    {
+     "task_id": 2,
+     "status": "deferred",
+     "deferral_ref": "DF-77",
+     "deferral_due": "2025-03-01"
+    }
+   ]
+  },
+  "checks": {
+   "post_checks": [
+    {
+     "asset_ref": "GT-2",
+     "result": "pass"
+    },
+    {
+     "asset_ref": "SL-1",
+     "result": "pass"
+    }
+   ],
+   "leakage_ls": 10,
+   "leakage_limit_ls": 5,
+   "river_level_m": 2.1,
+   "flood_marker_m": 1.8
+  },
+  "asset_history": {
+   "prior_visits": [
+    {
+     "asset_ref": "SL-1",
+     "defect_code": "SL3"
+    },
+    {
+     "asset_ref": "SL-1",
+     "defect_code": "SL3"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "visit_type": "winter_stoppage",
+  "tasks_ordered": 2,
+  "completion_state": "some_outstanding",
+  "parts_qty_mismatch": "none",
+  "hours_gap": 1.55,
+  "asset_ref_mismatch": false,
+  "post_check_result": "passed",
+  "leakage_ratio": 2.0,
+  "leakage_mitigation": true,
+  "navigation_notice_in_force": true,
+  "deferral_approved": true,
+  "prior_same_defect": 2,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "visit_type": "winter_stoppage",
+  "tasks_ordered": 2,
+  "completion_state": "some_outstanding",
+  "parts_qty_mismatch": "none",
+  "hours_gap": 1.55,
+  "asset_ref_mismatch": false,
+  "post_check_result": "passed",
+  "leakage_ratio": 2.0,
+  "leakage_mitigation": true,
+  "navigation_notice_in_force": true,
+  "deferral_approved": true,
+  "prior_same_defect": 2,
+  "boundary_case": false
+ },
+ "plan": {
+  "safe_to_reopen": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "record_disposition": {
+   "clarity": "clear",
+   "target": "close_with_followup",
+   "second": null
+  },
+  "return_urgency": {
+   "clarity": "leaning",
+   "target": "immediate",
+   "second": null
+  },
+  "affected_scope": {
+   "clarity": "contested",
+   "target": "1",
+   "second": "2"
+  },
+  "section_mismatches": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  }
+ },
+ "target_words": 30,
+ "deciding": {
+  "safe_to_reopen": "Checks pass and a nav notice covers SL-1, but leakage is twice the limit; river_level_m 2.1 above flood_marker_m 1.8 partly explains it, though the task 2 deferral is still open.",
+  "record_disposition": "Task 2 is deferred with ref DF-77 and due date 2025-03-01, both checks pass and the records reconcile, so the visit closes with a follow-up job.",
+  "return_urgency": "Leakage is twice the limit, which leans towards immediate attendance, but the flood level and the nav notice covering SL-1 leave doubt.",
+  "affected_scope": "booked_passages_7d is 4, near the top of level 1, and the nav notice and flooding could push it to level 2.",
+  "section_mismatches": "The timesheet is 6.45 h against an 8 h span-times-crew figure, a 1.55 h gap with no explanation; the leakage against the passed checks could be read as a second."
+ },
+ "request": "rec-F318-0011",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.010812
+}

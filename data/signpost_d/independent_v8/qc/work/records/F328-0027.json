@@ -1,0 +1,137 @@
+{
+ "id": "F328-0027",
+ "family": "F328",
+ "state": {
+  "report_meta": {
+   "driver_id": "D204",
+   "period": "2025-03-03/09"
+  },
+  "vehicle_device": {
+   "odo_start": 31200,
+   "odo_end": 31506
+  },
+  "trips": [
+   {
+    "start": "2025-03-04T05:30",
+    "end": "07:50",
+    "card": "D204",
+    "gps_km": 120
+   },
+   {
+    "start": "2025-03-04T07:56",
+    "end": "10:05",
+    "card": "D204",
+    "gps_km": 168
+   }
+  ],
+  "events": [
+   {
+    "t": "2025-03-04T06:40",
+    "type": "speed",
+    "mph": 67,
+    "limit": 50,
+    "map_ver": "23.4",
+    "seg": "M62"
+   },
+   {
+    "t": "2025-03-04T09:05",
+    "type": "harsh",
+    "tag": "congestion"
+   },
+   {
+    "t": "2025-03-04T09:40",
+    "type": "harsh",
+    "tag": "congestion"
+   }
+  ],
+  "tacho_summary": {
+   "card": "D204",
+   "drive": "05:30-10:05",
+   "second_driver": "D311"
+  },
+  "notes_history": {
+   "supervisor_note": "M62 limit raised to 55 in February.",
+   "limit_updates": [
+    {
+     "seg": "M62",
+     "limit": 55,
+     "date": "2025-02-01"
+    }
+   ],
+   "coaching": [
+    {
+     "date": "2025-03-25",
+     "status": "scheduled"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "driver_assignment": "second_driver_on_shift",
+  "raw_speed_excess_pct": 34.0,
+  "speed_mitigation": "map_limit_outdated",
+  "harsh_event_count": 2,
+  "harsh_context_logged": true,
+  "device_health": "ok",
+  "telematics_stint_hours": 4.58,
+  "tacho_break_reconciles": false,
+  "prior_coaching_count": 0,
+  "coaching_status": "scheduled",
+  "boundary_value": false,
+  "note_content": "benign_explanation_supported",
+  "distance_discrepancy_pct": 6.25
+ },
+ "factors_sampled": {
+  "driver_assignment": "second_driver_on_shift",
+  "raw_speed_excess_pct": 2.39,
+  "speed_mitigation": "none",
+  "harsh_event_count": 2,
+  "harsh_context_logged": true,
+  "device_health": "ok",
+  "telematics_stint_hours": 1.52,
+  "tacho_break_reconciles": false,
+  "prior_coaching_count": 0,
+  "coaching_status": "scheduled",
+  "boundary_value": false,
+  "note_content": "benign_explanation_supported",
+  "distance_discrepancy_pct": 6.27
+ },
+ "plan": {
+  "driver_attributed": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "follow_up": {
+   "clarity": "leaning",
+   "target": "coaching",
+   "second": null
+  },
+  "worst_event_cause": {
+   "clarity": "clear",
+   "target": "map_data",
+   "second": null
+  },
+  "speed_excess": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "hours_exposure": {
+   "clarity": "contested",
+   "target": "2",
+   "second": "1"
+  }
+ },
+ "target_words": 25,
+ "deciding": {
+  "driver_attributed": "Both trips and the tacho card are D204, but tacho lists second_driver D311 with no times, leaving doubt about who drove at 06:40.",
+  "follow_up": "Speed over the updated limit and a 4.58 h stint point to a breach, with only scheduled coaching; the second-driver ambiguity leaves some doubt.",
+  "worst_event_cause": "Event at map_ver 23.4 shows limit 50 while limit_updates give 55 for M62 dated 2025-02-01, before the event.",
+  "speed_excess": "67 mph is 34% over the old 50 but 21.8% over the updated 55, so the level 3 vs level 2 call depends on how the update is applied.",
+  "hours_exposure": "Trips 05:30-10:05 with a 6-minute gap and a single tacho drive block give about 4.58 h, just past 4.5 h, with second_driver D311 given no times."
+ },
+ "request": "rec-F328-0026",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.022907
+}

@@ -1,0 +1,127 @@
+{
+ "id": "F315-0016",
+ "family": "F315",
+ "state": {
+  "report": {
+   "ref": "FR-5521",
+   "received_at": "2025-03-12T02:10",
+   "source": "cms_auto",
+   "fault_code": "CABLE",
+   "units_reported": [
+    "L101",
+    "L102",
+    "L103",
+    "L104",
+    "L105",
+    "L106",
+    "L107"
+   ]
+  },
+  "asset": {
+   "unit_id": "L104",
+   "site_category": "main_road",
+   "planned_works": {
+    "window_start": "2025-03-03",
+    "window_end": "2025-03-21",
+    "work_type": "resurfacing"
+   }
+  },
+  "cms": {
+   "node_id": "N104",
+   "status_code": "NC",
+   "last_comms_at": "2025-03-09T18:00"
+  },
+  "history": [
+   {
+    "job_ref": "J8801",
+    "raised": "2024-12-20",
+    "attended": "2024-12-23",
+    "completed": null,
+    "outcome_code": "PART"
+   }
+  ],
+  "job": {
+   "job_ref": "J9120",
+   "stage": "RECT",
+   "attended_at": "2025-03-11T09:00",
+   "completed_at": "2025-03-11T11:30",
+   "hazard_code": "CABLE",
+   "made_safe": true,
+   "isolated_at": "2025-03-11T09:20"
+  },
+  "supply": {
+   "dno_incident_ref": null,
+   "dno_status": null,
+   "feeder_units_dark": 7,
+   "feeder_id": "F12"
+  }
+ },
+ "factors": {
+  "dark_unit_count": 7,
+  "dno_incident_logged": false,
+  "cms_state": "no_comms",
+  "days_since_last_repair": 79,
+  "last_repair_state": "attended_not_completed",
+  "hazard_observed": "column_damaged",
+  "hazard_made_safe": true,
+  "site_category": "main_road",
+  "planned_works_active": true,
+  "current_job_stage": "rectified_unconfirmed",
+  "dates_out_of_order": false,
+  "duplicate_of_open_job": false,
+  "report_source": "cms_auto"
+ },
+ "factors_sampled": {
+  "dark_unit_count": 7,
+  "dno_incident_logged": false,
+  "cms_state": "no_comms",
+  "days_since_last_repair": 79,
+  "last_repair_state": "attended_not_completed",
+  "hazard_observed": "column_damaged",
+  "hazard_made_safe": true,
+  "site_category": "main_road",
+  "planned_works_active": true,
+  "current_job_stage": "rectified_unconfirmed",
+  "dates_out_of_order": false,
+  "duplicate_of_open_job": false,
+  "report_source": "cms_auto"
+ },
+ "plan": {
+  "supply_side_fault": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "repeat_failure": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "next_action": {
+   "clarity": "contested",
+   "target": "routine_repair",
+   "second": "close_report"
+  },
+  "source_support": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "repair_progress": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 86,
+ "deciding": {
+  "supply_side_fault": "feeder_units_dark 7 and seven ids listed, but dno_incident_ref null and roadworks window active could mean cable damage.",
+  "repeat_failure": "Prior job J8801 attended 2024-12-23 (79 days before) with completed null; no completed repair, yet attended work sits inside the window.",
+  "next_action": "Job at RECT with made_safe true, but cms NC gives no confirmation; routine repair versus closing on the recorded fix is split.",
+  "source_support": "CMS, feeder count, job card and history roughly agree, but the CMS is stale (NC) and the report is itself auto-generated from it.",
+  "repair_progress": "Current job attended and RECT recorded, but history job J8801 never completed and no confirmation; ambiguous between 0 and 1."
+ },
+ "request": "rec-F315-0016",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.00598
+}

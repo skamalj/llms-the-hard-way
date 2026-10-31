@@ -1,0 +1,136 @@
+{
+ "id": "F317-0022",
+ "family": "F317",
+ "state": {
+  "vehicle": {
+   "fleet_no": "T3050",
+   "odometer_km": 30200
+  },
+  "exam": {
+   "exam_id": "EX-12",
+   "due_at_km": 30000,
+   "items": [
+    {
+     "item_code": "A1",
+     "result": "ok",
+     "signed_by": "u3",
+     "signed_at": "2025-05-02T05:10"
+    },
+    {
+     "item_code": "A2",
+     "result": "ok",
+     "signed_by": "u3",
+     "signed_at": "2025-05-02T05:40"
+    }
+   ]
+  },
+  "defects": [
+   {
+    "defect_id": "D-8",
+    "subsystem": "brakes",
+    "safety_critical": true,
+    "status": "closed",
+    "closed_at": "2025-05-01T10:00",
+    "retest_at": "2025-05-01T08:00",
+    "retest_result": "pass"
+   }
+  ],
+  "work_orders": [
+   {
+    "wo_id": "W-5",
+    "defect_ref": "D-8",
+    "subsystem": "running_gear",
+    "completed_at": "2025-05-01T09:00",
+    "status": "closed"
+   }
+  ],
+  "concessions": [
+   {
+    "conc_id": "C-2",
+    "fleet_no": "T3050",
+    "defect_ref": "D-8",
+    "restriction_code": "SPD40",
+    "valid_from": "2025-05-01",
+    "valid_until": "2025-06-01"
+   }
+  ],
+  "release": {
+   "duty_id": "PK-3",
+   "duty_type": "peak_diagram",
+   "depart_at": "2025-05-02T07:00",
+   "odo_reading_km": 30200,
+   "brake_test_at": "2025-05-02T06:00",
+   "brake_test_result": "pass"
+  }
+ },
+ "factors": {
+  "km_to_exam_due": -200,
+  "odometer_disagreement": "none",
+  "exam_signed_fraction": 1.0,
+  "exam_record_missing": false,
+  "worst_defect_subsystem": "none",
+  "worst_defect_state": "closed_retested",
+  "worst_defect_safety_critical": true,
+  "retest_out_of_order": true,
+  "concession_present": true,
+  "concession_flaw": "none",
+  "wo_crossref_mismatch": "subsystem_differs",
+  "planned_duty_type": "peak_diagram",
+  "recent_brake_test_pass": true,
+  "balanced_signals": false
+ },
+ "factors_sampled": {
+  "km_to_exam_due": 255,
+  "odometer_disagreement": "none",
+  "exam_signed_fraction": 0.83,
+  "exam_record_missing": false,
+  "worst_defect_subsystem": "brakes",
+  "worst_defect_state": "open_no_wo",
+  "worst_defect_safety_critical": true,
+  "retest_out_of_order": false,
+  "concession_present": false,
+  "concession_flaw": "wrong_defect_ref",
+  "wo_crossref_mismatch": "subsystem_differs",
+  "planned_duty_type": "peak_diagram",
+  "recent_brake_test_pass": true,
+  "balanced_signals": false
+ },
+ "plan": {
+  "sc_defects_cleared": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "release_decision": {
+   "clarity": "clear",
+   "target": "release_restricted",
+   "second": null
+  },
+  "worst_subsystem": {
+   "clarity": "clear",
+   "target": "none",
+   "second": null
+  },
+  "exam_completion": {
+   "clarity": "clear",
+   "target": "3",
+   "second": null
+  },
+  "exam_mileage": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  }
+ },
+ "target_words": 42,
+ "deciding": {
+  "sc_defects_cleared": "D-8 is closed with retest pass, but retest_at (08:00) precedes WO completed_at (09:00) and the WO subsystem differs, so the retest is doubtful.",
+  "release_decision": "A concession valid through depart_at covers D-8 with restriction SPD40, and the brake test passed within 24h, so release with restriction.",
+  "worst_subsystem": "The only defect D-8 is closed with a retest result, so nothing is open or awaiting retest.",
+  "exam_completion": "Both exam items carry signed_by and signed_at.",
+  "exam_mileage": "Odometer 30200 against due 30000 is exactly 200 km past due, on the boundary between levels 2 and 3."
+ },
+ "request": "rec-F317-0021",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.015131
+}

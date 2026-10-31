@@ -1,0 +1,117 @@
+{
+ "id": "F304-0026",
+ "family": "F304",
+ "state": {
+  "request": {
+   "ref": "T-4417",
+   "appt_type": "inter_site_transfer",
+   "appt_time": "2025-03-04T14:00",
+   "vehicle_class": "sedan",
+   "crew_requested": "double",
+   "mobility_booked": "walking",
+   "equipment": [
+    "o2 2lpm"
+   ],
+   "dest": "SITEB-MRI"
+  },
+  "patient": {
+   "mobility_assessed": "wheelchair",
+   "assessed_on": "2025-03-02",
+   "weight_kg": 74,
+   "oxygen_lpm": 2,
+   "monitoring": null,
+   "exemption": {
+    "code": "E2",
+    "approved_by": "DrKhan",
+    "approved_on": "2025-01-10"
+   }
+  },
+  "journey": {
+   "window_end": "11:50",
+   "est_duration_min": 40,
+   "late_tolerance_min": 10,
+   "destination": {
+    "code": "SITEC-MRI",
+    "reslot_same_day": false
+   }
+  },
+  "history": [
+   {
+    "date": "2025-02-20",
+    "outcome": "aborted",
+    "vehicle_class": "sedan",
+    "reason": "wheelchair needed"
+   }
+  ]
+ },
+ "factors": {
+  "mobility_alignment": "understated",
+  "secondary_discrepancy": "address_material",
+  "eligibility_concern": false,
+  "eligibility_exception": true,
+  "clinical_support": "low_flow_oxygen",
+  "crew_request_gap": "under_one_step",
+  "buffer_minutes": 90.0,
+  "duration_estimate_split": false,
+  "late_tolerance": true,
+  "appointment_type": "inter_site_transfer",
+  "same_day_reslot": false,
+  "confirmation_pending": false,
+  "prior_aborts": 1,
+  "aborts_related": true
+ },
+ "factors_sampled": {
+  "mobility_alignment": "understated",
+  "secondary_discrepancy": "address_material",
+  "eligibility_concern": false,
+  "eligibility_exception": true,
+  "clinical_support": "none",
+  "crew_request_gap": "under_one_step",
+  "buffer_minutes": 58.68,
+  "duration_estimate_split": false,
+  "late_tolerance": true,
+  "appointment_type": "dialysis",
+  "same_day_reslot": false,
+  "confirmation_pending": false,
+  "prior_aborts": 1,
+  "aborts_related": true
+ },
+ "plan": {
+  "vehicle_fit": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "disposition": {
+   "clarity": "clear",
+   "target": "amend_confirm",
+   "second": null
+  },
+  "crew_config": {
+   "clarity": "leaning",
+   "target": "clinical_escort",
+   "second": null
+  },
+  "time_pressure": {
+   "clarity": "contested",
+   "target": "0",
+   "second": "1"
+  },
+  "delay_impact": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  }
+ },
+ "target_words": 66,
+ "deciding": {
+  "vehicle_fit": "Booked walking/sedan against recent wheelchair assessment; prior abort for wheelchair needed.",
+  "disposition": "Destination SITEB-MRI vs SITEC-MRI is a correctable conflict; nothing pending, exemption on file.",
+  "crew_config": "oxygen_lpm 2 with weight 74 implies clinical escort; booked double crew.",
+  "time_pressure": "Window end 11:50 plus 40 min journey leaves 90 min before 14:00, at the 0/1 boundary.",
+  "delay_impact": "Inter-site transfer slot with no same-day reslot; only 10 min tolerance gives some doubt."
+ },
+ "request": "rec-F304-0026",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.0103
+}

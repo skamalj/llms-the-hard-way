@@ -1,0 +1,117 @@
+{
+ "id": "F315-0015",
+ "family": "F315",
+ "state": {
+  "report": {
+   "ref": "FR-7010",
+   "received_at": "2025-05-20T06:45",
+   "source": "public_web",
+   "fault_code": "KNOCK",
+   "units_reported": [
+    "D1",
+    "D2",
+    "D3",
+    "D4",
+    "D5",
+    "D6",
+    "D7"
+   ]
+  },
+  "asset": {
+   "site_category": "residential",
+   "planned_works": {
+    "window_start": "2025-05-12",
+    "window_end": "2025-06-06",
+    "work_type": "cabling"
+   }
+  },
+  "cms": {
+   "status_code": "LF"
+  },
+  "history": [
+   {
+    "job_ref": "J-512",
+    "completed": "2025-02-11"
+   }
+  ],
+  "job": {
+   "stage": "ATT",
+   "attended_at": "2025-05-20T09:15",
+   "made_safe": true,
+   "isolated_at": "2025-05-20T09:30"
+  },
+  "supply": {
+   "dno_incident_ref": "DNO-2290",
+   "dno_status": "open",
+   "feeder_units_dark": 7
+  }
+ },
+ "factors": {
+  "dark_unit_count": 7,
+  "dno_incident_logged": true,
+  "cms_state": "lamp_fail",
+  "days_since_last_repair": 98,
+  "last_repair_state": "completed",
+  "hazard_observed": "column_damaged",
+  "hazard_made_safe": true,
+  "site_category": "residential",
+  "planned_works_active": true,
+  "current_job_stage": "attended_unresolved",
+  "dates_out_of_order": false,
+  "duplicate_of_open_job": false,
+  "report_source": "public_web"
+ },
+ "factors_sampled": {
+  "dark_unit_count": 7,
+  "dno_incident_logged": true,
+  "cms_state": "lamp_fail",
+  "days_since_last_repair": 98,
+  "last_repair_state": "completed",
+  "hazard_observed": "column_damaged",
+  "hazard_made_safe": true,
+  "site_category": "residential",
+  "planned_works_active": true,
+  "current_job_stage": "attended_unresolved",
+  "dates_out_of_order": false,
+  "duplicate_of_open_job": false,
+  "report_source": "public_web"
+ },
+ "plan": {
+  "supply_side_fault": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "repeat_failure": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "next_action": {
+   "clarity": "balanced",
+   "target": "close_report",
+   "second": "routine_repair"
+  },
+  "source_support": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "repair_progress": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 71,
+ "deciding": {
+  "supply_side_fault": "Open DNO-2290 and 7 dark units point to supply, but the KNOCK column damage and planned cabling works pull the other way.",
+  "repeat_failure": "J-512 completed 2025-02-11, 98 days before the report, just outside 84 days; borderline against the window.",
+  "next_action": "Made safe with isolation, open DNO incident supports close; unit fault and planned works leave routine_repair defensible.",
+  "source_support": "Public report, CMS LF, DNO incident and job all present; the damage corroboration is thin, so support level is debatable.",
+  "repair_progress": "Job ATT with attendance and make-safe but no completed_at; whether that counts as crew visit is debatable."
+ },
+ "request": "rec-F315-0011",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.005806
+}

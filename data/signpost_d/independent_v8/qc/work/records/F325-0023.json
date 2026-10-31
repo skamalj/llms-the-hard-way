@@ -1,0 +1,112 @@
+{
+ "id": "F325-0023",
+ "family": "F325",
+ "state": {
+  "pen": {
+   "pen_id": "S02",
+   "stage": "smolt",
+   "limits": {
+    "do_min_mg_l": 7.0
+   }
+  },
+  "check": {
+   "pen_id": "S03",
+   "sampler_id": "T2",
+   "readings": {
+    "do_mg_l": 3.0
+   }
+  },
+  "instrument": {
+   "cal_result": "fail",
+   "logger_do_mg_l": 8.1
+  },
+  "history": [
+   {
+    "in_limits": false
+   },
+   {
+    "in_limits": false
+   },
+   {
+    "in_limits": false
+   },
+   {
+    "in_limits": false
+   },
+   {
+    "in_limits": true
+   },
+   {
+    "in_limits": true
+   }
+  ]
+ },
+ "factors": {
+  "stock_stage": "smolt",
+  "true_do_margin": 1.1,
+  "primary_cause": "instrument",
+  "cross_section_mismatch": "pen_id_mismatch",
+  "calibration_state": "failed",
+  "logger_alarm_raised": false,
+  "mitigation_present": false,
+  "mitigation_kind": "none",
+  "history_out_of_range": 4,
+  "missing_required": 0,
+  "date_order_fault": false,
+  "boundary_case": false,
+  "note_tone": "consistent_concern"
+ },
+ "factors_sampled": {
+  "stock_stage": "smolt",
+  "true_do_margin": -4.0,
+  "primary_cause": "husbandry",
+  "cross_section_mismatch": "pen_id_mismatch",
+  "calibration_state": "failed",
+  "logger_alarm_raised": false,
+  "mitigation_present": false,
+  "mitigation_kind": "aeration_running",
+  "history_out_of_range": 0,
+  "missing_required": 0,
+  "date_order_fault": false,
+  "boundary_case": false,
+  "note_tone": "consistent_concern"
+ },
+ "plan": {
+  "genuine_do_breach": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "next_step": {
+   "clarity": "contested",
+   "target": "file_routine",
+   "second": "resample_first"
+  },
+  "deviation_cause": {
+   "clarity": "clear",
+   "target": "instrument_fault",
+   "second": null
+  },
+  "persistence": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "evidence_completeness": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 42,
+ "deciding": {
+  "genuine_do_breach": "Probe 3.0 with failed cal vs logger 8.1; history shows past lows.",
+  "next_step": "Routine fits logger 8.1; failed probe and pen id S03 vs S02 argue resample.",
+  "deviation_cause": "cal_result fail and 5 mg/L probe-logger gap.",
+  "persistence": "Four history checks out of limits; whether current counts shifts it between 4 and 5 vs lower levels.",
+  "evidence_completeness": "All sections present, but failed calibration and pen id mismatch are a debatable invalidity."
+ },
+ "request": "rec-F325-0021",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.00512
+}

@@ -1,0 +1,131 @@
+{
+ "id": "F333-0034",
+ "family": "F333",
+ "state": {
+  "tenancy": {
+   "start_date": "2025-09-01",
+   "end_date": "2025-11-01"
+  },
+  "checkin_inventory": {
+   "signed_date": "2025-09-01",
+   "signed_by_resident": true,
+   "items": [
+    {
+     "item_code": "WALL",
+     "grade": "good"
+    },
+    {
+     "item_code": "DESK",
+     "grade": "fair"
+    }
+   ]
+  },
+  "checkout_inspection": {
+   "inspection_type": "checkout",
+   "inspection_date": "2025-11-01",
+   "items": [
+    {
+     "item_code": "WALL",
+     "grade": "good",
+     "photo_refs": [
+      "p1"
+     ]
+    },
+    {
+     "item_code": "DESK",
+     "grade": "fair",
+     "defect_category": "scuff",
+     "photo_refs": []
+    }
+   ]
+  },
+  "proposed_charges": {
+   "lines": [
+    {
+     "item_code": "WALL",
+     "qty": 1,
+     "unit_rate": 100.5,
+     "line_total": 100.5
+    }
+   ],
+   "summary_total": 100.5
+  },
+  "works_orders": [
+   {
+    "wo_id": "W3",
+    "raised_date": "2025-08-20",
+    "location": "wall",
+    "category": "plaster",
+    "status": "open"
+   }
+  ]
+ },
+ "factors": {
+  "inspection_type": "checkout",
+  "checkin_inventory_state": "complete",
+  "prior_damage_on_charged_item": "none",
+  "charge_discrepancy": "large_over_100",
+  "worst_defect_tier": "cosmetic",
+  "true_cause": "no_defect",
+  "predating_works_order": true,
+  "safety_fault_remedied": false,
+  "photo_coverage": "all_but_one",
+  "tenancy_months": 2,
+  "date_out_of_order": false,
+  "deposit_dispute_lodged": false,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "inspection_type": "checkout",
+  "checkin_inventory_state": "complete",
+  "prior_damage_on_charged_item": "one_item",
+  "charge_discrepancy": "medium_25_to_100",
+  "worst_defect_tier": "cosmetic",
+  "true_cause": "fair_wear",
+  "predating_works_order": true,
+  "safety_fault_remedied": false,
+  "photo_coverage": "full",
+  "tenancy_months": 2,
+  "date_out_of_order": false,
+  "deposit_dispute_lodged": false,
+  "boundary_case": false
+ },
+ "plan": {
+  "checkin_clean": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "disposition": {
+   "clarity": "clear",
+   "target": "hold_for_evidence",
+   "second": null
+  },
+  "main_cause": {
+   "clarity": "leaning",
+   "target": "no_defect",
+   "second": null
+  },
+  "defect_severity": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "charge_gap": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 44,
+ "deciding": {
+  "checkin_clean": "The charged item WALL is graded good at check-in, but a predating plaster works order on the wall adds a little doubt.",
+  "disposition": "Exactly one photo list is empty (DESK) and everything else is complete, so one item of evidence must be obtained.",
+  "main_cause": "WALL and DESK have the same grade at checkin and checkout (good and fair), so there is no change, though the DESK scuff leaves slight doubt.",
+  "defect_severity": "The only defect category is a scuff on DESK, which is cosmetic; the unresolved plaster works order on the wall could suggest something functional.",
+  "charge_gap": "The one line of 100.50 is on WALL, graded good at both points, so the gap is about 100.50, just over the 100 boundary; the 2/3 split rests on that edge."
+ },
+ "request": "rec-F333-0031",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011191
+}

@@ -1,0 +1,130 @@
+{
+ "id": "F302-0051",
+ "family": "F302",
+ "state": {
+  "subject": {
+   "scr": "S101",
+   "ini": "KM"
+  },
+  "consent": {
+   "form": "v2",
+   "current": "v3",
+   "signed": "2024-05-02",
+   "reconsent": [
+    {
+     "v": "v3",
+     "date": "2024-05-06"
+    }
+   ]
+  },
+  "visit": {
+   "date": "2024-05-21",
+   "review": "2024-05-21",
+   "window_days": 21
+  },
+  "labs": [
+   {
+    "test": "eGFR",
+    "value": 72,
+    "unit": "mL/min",
+    "threshold": ">=60",
+    "collected": "2024-05-03",
+    "valid_days": 14,
+    "batch_n": 20
+   }
+  ],
+  "eligibility": {
+   "criteria": [
+    {
+     "id": "I3",
+     "recorded_value": 72,
+     "unit": "mL/min",
+     "met": true
+    }
+   ],
+   "signoff": {
+    "signed": true,
+    "date": "2024-05-21"
+   },
+   "queries": []
+  },
+  "conmeds": {
+   "prohibited_classes": [
+    "steroid"
+   ],
+   "washout_days": 14,
+   "items": [
+    {
+     "class": "steroid",
+     "stop": "2024-04-01"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "lab_reconciliation": "identical",
+  "consent_status": "superseded_reconsented",
+  "window_days_remaining": 2,
+  "collection_date_mismatch": "outside_validity",
+  "prohibited_conmed": true,
+  "washout_completed": true,
+  "out_of_range_lab": false,
+  "valid_repeat_on_file": "none",
+  "boundary_value": false,
+  "identifier_mismatch": "none",
+  "investigator_signoff": "signed_after_results",
+  "open_query_count": 0
+ },
+ "factors_sampled": {
+  "lab_reconciliation": "threshold_crossing",
+  "consent_status": "superseded_reconsented",
+  "window_days_remaining": 0,
+  "collection_date_mismatch": "within_window",
+  "prohibited_conmed": true,
+  "washout_completed": true,
+  "out_of_range_lab": true,
+  "valid_repeat_on_file": "repeat_exceeds_allowance",
+  "boundary_value": false,
+  "identifier_mismatch": "none",
+  "investigator_signoff": "signed_after_results",
+  "open_query_count": 0
+ },
+ "plan": {
+  "eligibility_proven": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "next_step": {
+   "clarity": "balanced",
+   "target": "rescreen",
+   "second": "hold_query"
+  },
+  "primary_issue": {
+   "clarity": "leaning",
+   "target": "timing_window",
+   "second": null
+  },
+  "affected_scope": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  },
+  "window_left": {
+   "clarity": "clear",
+   "target": "1",
+   "second": null
+  }
+ },
+ "target_words": 73,
+ "deciding": {
+  "eligibility_proven": "eGFR values match, but the lab was collected 2024-05-03, 18 days before the visit, beyond valid_days 14. Sign-off is on file, so a reviewer could still accept it.",
+  "next_step": "The stale lab needs a repeat. With 2 days left, a single site response (hold_query) is plausible, but a new screening (rescreen) is also defensible.",
+  "primary_issue": "Lab collection date is outside valid_days. Consent v2 was re-consented to v3 and the steroid was stopped well before washout, so the only real problem is timing.",
+  "affected_scope": "labs[].batch_n is 20, exactly at the boundary between 6-20 and more than 20.",
+  "window_left": "Consent signed 2024-05-02 plus 21 days gives 2024-05-23; review is 2024-05-21, so 2 days remain."
+ },
+ "request": "rec-F302-0051",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.01302
+}

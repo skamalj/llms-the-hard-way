@@ -1,0 +1,131 @@
+{
+ "id": "F338-0011",
+ "family": "F338",
+ "state": {
+  "site": {
+   "pollutant": "SO2",
+   "tier": "standard",
+   "service_interval_days": 90,
+   "approved_interval_days": 120
+  },
+  "visit": {
+   "date": "2024-06-10",
+   "start": "09:00",
+   "end": "10:30",
+   "sequence_status": "partial",
+   "maint_window": false
+  },
+  "reference": {
+   "standard_id": "C4417",
+   "conc": 400,
+   "unit": "ppb",
+   "cert_no": null,
+   "cert_expiry": null
+  },
+  "checks": [
+   {
+    "phase": "as_found",
+    "type": "zero",
+    "ref_id": "C4417",
+    "ref_conc": 0,
+    "unit": "ppb",
+    "reading": 1.05,
+    "tol": 5,
+    "ts": "2024-06-10T09:20"
+   },
+   {
+    "phase": "as_left",
+    "type": "zero",
+    "ref_id": "C4417",
+    "ref_conc": 0,
+    "unit": "ppb",
+    "reading": 0.2,
+    "tol": 5,
+    "ts": "2024-06-10T10:05"
+   }
+  ],
+  "history": {
+   "last_visit_date": "2024-03-01",
+   "results": [
+    "fail",
+    "pass",
+    "fail",
+    "fail"
+   ],
+   "autochecks": [
+    {
+     "d": "2024-06-06",
+     "r": "pass"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "pollutant": "SO2",
+  "as_found_ratio": 0.21,
+  "as_left_status": "all_pass",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": "absent (certificate details null)",
+  "unit_mismatch": false,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "approved_extended_interval",
+  "days_since_last_visit": 101,
+  "visit_completeness": "zero_only",
+  "prior_fail_count": 3,
+  "timestamp_mismatch": "none",
+  "site_priority": "standard"
+ },
+ "factors_sampled": {
+  "pollutant": "SO2",
+  "as_found_ratio": 0.21,
+  "as_left_status": "all_pass",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 230,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "approved_extended_interval",
+  "days_since_last_visit": 101,
+  "visit_completeness": "zero_only",
+  "prior_fail_count": 3,
+  "timestamp_mismatch": "none",
+  "site_priority": "standard"
+ },
+ "plan": {
+  "data_accepted": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "reference_valid": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "balanced",
+   "target": "withdraw",
+   "second": "hold"
+  },
+  "flag_extent": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "return_urgency": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  }
+ },
+ "target_words": 46,
+ "deciding": {
+  "data_accepted": "Only zero points exist and the standard has no certificate details. Passing autochecks and the approved 120-day interval (101 days elapsed) keep acceptance plausible.",
+  "reference_valid": "reference.cert_no and cert_expiry are null, so certification and expiry cannot be confirmed. The ID and unit are consistent.",
+  "next_step": "The partial sequence has no span check and the certificate is missing, which points to a hold. Three fails in the 12-month results keep withdrawal arguable.",
+  "flag_extent": "101 days since the last visit with no span point to bound drift. The approved interval mitigates this, so flagging 8-30 days remains arguable against over 30.",
+  "return_urgency": "Span was never checked and the reference is unverified on a standard-tier site. This points to a prompt return within 1-2 days, though the passing autochecks give some doubt."
+ },
+ "request": "rec-F338-0011",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.009665
+}

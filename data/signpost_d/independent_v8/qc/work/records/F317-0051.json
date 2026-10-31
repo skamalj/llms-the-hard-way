@@ -1,0 +1,147 @@
+{
+ "id": "F317-0051",
+ "family": "F317",
+ "state": {
+  "vehicle": {
+   "fleet_no": 2114,
+   "class": "T3",
+   "odometer_km": 48330,
+   "last_exam_date": "2024-03-02"
+  },
+  "exam": {
+   "exam_id": "E91",
+   "exam_type": "G3",
+   "due_at_km": 48000,
+   "items": [
+    {
+     "item_code": "B1",
+     "result": "pass",
+     "signed_by": null,
+     "signed_at": null
+    },
+    {
+     "item_code": "D2",
+     "result": "pass",
+     "signed_by": null,
+     "signed_at": null
+    },
+    {
+     "item_code": "P1",
+     "result": null,
+     "signed_by": null,
+     "signed_at": null
+    }
+   ]
+  },
+  "defects": [
+   {
+    "defect_id": "D501",
+    "fleet_no": 2114,
+    "subsystem": "brakes",
+    "safety_critical": true,
+    "raised_at": "2024-05-02",
+    "status": "closed",
+    "closed_at": "2024-05-04",
+    "retest_at": "2024-05-04",
+    "retest_result": "pass"
+   }
+  ],
+  "work_orders": [
+   {
+    "wo_id": "W77",
+    "defect_ref": "D509",
+    "subsystem": "brakes",
+    "completed_at": "2024-05-03",
+    "status": "done"
+   }
+  ],
+  "concessions": [
+   {
+    "conc_id": "C12",
+    "fleet_no": 2114,
+    "defect_ref": "D501",
+    "restriction_code": "R2",
+    "valid_from": "2024-05-01",
+    "valid_until": "2024-07-01"
+   }
+  ],
+  "release": {
+   "duty_id": "U8",
+   "duty_type": "peak_diagram",
+   "depart_at": "2024-06-10T05:00",
+   "odo_reading_km": 48334,
+   "brake_test_at": "2024-06-10T03:30",
+   "brake_test_result": "pass"
+  }
+ },
+ "factors": {
+  "km_to_exam_due": -330,
+  "odometer_disagreement": "trivial",
+  "exam_signed_fraction": 0.0,
+  "exam_record_missing": false,
+  "worst_defect_subsystem": "none",
+  "worst_defect_state": "closed_retested",
+  "worst_defect_safety_critical": true,
+  "retest_out_of_order": false,
+  "concession_present": true,
+  "concession_flaw": "none",
+  "wo_crossref_mismatch": "defect_ref_unknown",
+  "planned_duty_type": "peak_diagram",
+  "recent_brake_test_pass": true,
+  "balanced_signals": false
+ },
+ "factors_sampled": {
+  "km_to_exam_due": -330,
+  "odometer_disagreement": "trivial",
+  "exam_signed_fraction": 0.19,
+  "exam_record_missing": false,
+  "worst_defect_subsystem": "none",
+  "worst_defect_state": "closed_retested",
+  "worst_defect_safety_critical": true,
+  "retest_out_of_order": false,
+  "concession_present": true,
+  "concession_flaw": "none",
+  "wo_crossref_mismatch": "defect_ref_unknown",
+  "planned_duty_type": "peak_diagram",
+  "recent_brake_test_pass": true,
+  "balanced_signals": false
+ },
+ "plan": {
+  "sc_defects_cleared": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "release_decision": {
+   "clarity": "balanced",
+   "target": "hold",
+   "second": "withdraw"
+  },
+  "worst_subsystem": {
+   "clarity": "clear",
+   "target": "none",
+   "second": null
+  },
+  "exam_completion": {
+   "clarity": "leaning",
+   "target": "0",
+   "second": null
+  },
+  "exam_mileage": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  }
+ },
+ "target_words": 70,
+ "deciding": {
+  "sc_defects_cleared": "D501 is safety-critical, closed and retested pass, but the only work order references D509, which is absent from defects, so the repair link is unconfirmed.",
+  "release_decision": "Odometer is about 330 km past due (points to withdraw) against a valid concession, passed brake test and a closed retested defect (points to a hold for a missing confirmation).",
+  "worst_subsystem": "The only defect is closed with a pass retest; nothing is open or awaiting retest.",
+  "exam_completion": "All three exam items have null signed_by and signed_at; two passes without sign-off are decoys.",
+  "exam_mileage": "Release reading 48334 and odometer 48330 against due_at_km 48000 mean about 330 km past due; the 4 km gap is trivial."
+ },
+ "request": "rec-F317-0051",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.014219
+}

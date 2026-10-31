@@ -1,0 +1,160 @@
+{
+ "id": "F337-0050",
+ "family": "F337",
+ "state": {
+  "station": {
+   "net": "XK",
+   "sta": "RDG4",
+   "digitiser": "DQ-330",
+   "channels": [
+    {
+     "cha": "BHZ",
+     "sensor_serial": "M3081",
+     "gain_counts_per_ms": 1.25,
+     "azimuth_deg": 0,
+     "response_epoch_start": "2022-08-16"
+    },
+    {
+     "cha": "BHN",
+     "sensor_serial": "M3081",
+     "gain_counts_per_ms": 1.25,
+     "azimuth_deg": 0,
+     "response_epoch_start": "2022-08-16"
+    },
+    {
+     "cha": "BHE",
+     "sensor_serial": "M3081",
+     "gain_counts_per_ms": 1.25,
+     "azimuth_deg": 90,
+     "response_epoch_start": "2022-08-16"
+    }
+   ]
+  },
+  "acquisition": {
+   "day": "2025-05-14",
+   "queued_at": "2025-05-15T04:00",
+   "as_of": "2025-06-14T12:00",
+   "channel_hours_expected": 72,
+   "completeness_pct": 99.9,
+   "gps_lock_pct": 99,
+   "gaps": [
+    {
+     "cha": "BHN",
+     "start": "2025-05-14T11:00",
+     "end": "2025-05-14T11:30"
+    }
+   ]
+  },
+  "qc_metrics": [
+   {
+    "cha": "BHZ",
+    "psd_dev_db": 1.6,
+    "dead": false,
+    "spikes": 2,
+    "cal_pulse": {
+     "date": "2025-05-02",
+     "result": "fail"
+    }
+   },
+   {
+    "cha": "BHN",
+    "psd_dev_db": 1.9,
+    "dead": false,
+    "spikes": 1,
+    "cal_pulse": {
+     "date": "2025-05-02",
+     "result": "fail"
+    }
+   },
+   {
+    "cha": "BHE",
+    "psd_dev_db": 22.5,
+    "dead": false,
+    "spikes": 4,
+    "cal_pulse": {
+     "date": "2025-05-02",
+     "result": "pass"
+    }
+   }
+  ],
+  "maintenance_log": [
+   {
+    "action": "sensor_swap",
+    "date": "2022-08-16",
+    "sensor_serial_installed": "M3081"
+   },
+   {
+    "action": "outage",
+    "outage_start": "2025-05-14T11:00",
+    "outage_end": "2025-05-14T11:30"
+   }
+  ],
+  "operator_notes": null
+ },
+ "factors": {
+  "sensor_metadata_state": "no_swap",
+  "maintenance_log_present": true,
+  "gap_coverage": "all_logged",
+  "true_usable_fraction": 0.993,
+  "completeness_summary_drift": 3.72,
+  "timing_quality": "locked",
+  "calibration_status": "failed",
+  "noise_excess_db": 22.54,
+  "benign_noise_cause_logged": false,
+  "operator_note_consistency": "absent",
+  "dead_channels": 0,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "sensor_metadata_state": "no_swap",
+  "maintenance_log_present": true,
+  "gap_coverage": "all_logged",
+  "true_usable_fraction": 0.47,
+  "completeness_summary_drift": 3.72,
+  "timing_quality": "locked",
+  "calibration_status": "passed",
+  "noise_excess_db": 22.54,
+  "benign_noise_cause_logged": false,
+  "operator_note_consistency": "absent",
+  "dead_channels": 2,
+  "boundary_case": false
+ },
+ "plan": {
+  "response_valid": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "gaps_explained": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "disposition": {
+   "clarity": "leaning",
+   "target": "quarantine",
+   "second": null
+  },
+  "usable_fraction": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "pending_age": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 144,
+ "deciding": {
+  "response_valid": "All channels carry M3081 with epoch 2022-08-16, matching the latest logged swap; failing cal pulses on two channels leave slight doubt.",
+  "gaps_explained": "The single BHN gap 11:00-11:30 matches the logged outage exactly.",
+  "disposition": "Cal pulses failed on BHZ and BHN and BHE has 22.5 dB noise with no cause logged, favouring withholding; BHE's passing pulse and clean timing give some doubt.",
+  "usable_fraction": "Only 0.5 h of 72 is gapped, no dead channels and no clipping, about 99.3% usable, near the 99% boundary.",
+  "pending_age": "queued_at 2025-05-15T04:00 to as_of 2025-06-14T12:00 is about 30.3 days, just over thirty."
+ },
+ "request": "rec-F337-0046",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.013929
+}

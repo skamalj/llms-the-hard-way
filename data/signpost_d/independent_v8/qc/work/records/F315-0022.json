@@ -1,0 +1,116 @@
+{
+ "id": "F315-0022",
+ "family": "F315",
+ "state": {
+  "report": {
+   "ref": "F-3307",
+   "received_at": "2025-03-12T22:15",
+   "source": "police",
+   "fault_code": "DOOR",
+   "units_reported": [
+    "U502",
+    "U503"
+   ]
+  },
+  "asset": {
+   "unit_id": "U502",
+   "site_category": "residential",
+   "install_year": 2001,
+   "planned_works": null
+  },
+  "cms": null,
+  "history": [
+   {
+    "job_ref": "J-640",
+    "raised": "2025-01-08",
+    "attended": "2025-01-10",
+    "completed": "2025-01-11",
+    "outcome_code": "FIXED"
+   }
+  ],
+  "job": {
+   "job_ref": "J-912",
+   "stage": "RECT",
+   "attended_at": "2025-03-13T09:00",
+   "completed_at": "2025-03-13T09:40",
+   "hazard_code": "DOOR",
+   "made_safe": false,
+   "isolated_at": null,
+   "linked_job_ref": null
+  },
+  "supply": {
+   "dno_incident_ref": null,
+   "dno_status": null,
+   "feeder_units_dark": 2,
+   "feeder_id": "FD-31"
+  }
+ },
+ "factors": {
+  "dark_unit_count": 2,
+  "dno_incident_logged": false,
+  "cms_state": "section_null",
+  "days_since_last_repair": 60,
+  "last_repair_state": "completed",
+  "hazard_observed": "door_missing",
+  "hazard_made_safe": false,
+  "site_category": "residential",
+  "planned_works_active": false,
+  "current_job_stage": "rectified_unconfirmed",
+  "dates_out_of_order": false,
+  "duplicate_of_open_job": false,
+  "report_source": "police"
+ },
+ "factors_sampled": {
+  "dark_unit_count": 2,
+  "dno_incident_logged": false,
+  "cms_state": "section_null",
+  "days_since_last_repair": 96,
+  "last_repair_state": "attended_not_completed",
+  "hazard_observed": "door_missing",
+  "hazard_made_safe": false,
+  "site_category": "residential",
+  "planned_works_active": false,
+  "current_job_stage": "not_attended",
+  "dates_out_of_order": false,
+  "duplicate_of_open_job": false,
+  "report_source": "police"
+ },
+ "plan": {
+  "supply_side_fault": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "repeat_failure": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "next_action": {
+   "clarity": "contested",
+   "target": "routine_repair",
+   "second": "urgent_make_safe"
+  },
+  "source_support": {
+   "clarity": "contested",
+   "target": "0",
+   "second": "1"
+  },
+  "repair_progress": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  }
+ },
+ "target_words": 96,
+ "deciding": {
+  "supply_side_fault": "supply feeder_units_dark is 2 on one feeder with no DNO incident ref; two adjacent units dark hints supply but is below three.",
+  "repeat_failure": "history J-640 completed 2025-01-11, 60 days before received_at 2025-03-12; FIXED outcome.",
+  "next_action": "job RECT with completed_at, yet hazard_code DOOR with made_safe false and isolated_at null; routine versus urgent.",
+  "source_support": "only the police report speaks; cms is null; the supply dark count is a single figure with no incident, so 0 versus 1.",
+  "repair_progress": "job RECT with attended_at and completed_at but no cms or scout confirmation; the unresolved door hazard could mean the fault is still present, so 2 versus 1."
+ },
+ "request": "rec-F315-0021",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.008512
+}

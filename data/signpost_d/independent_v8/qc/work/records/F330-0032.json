@@ -1,0 +1,134 @@
+{
+ "id": "F330-0032",
+ "family": "F330",
+ "state": {
+  "request": {
+   "req_id": "X-2290",
+   "grade": "G5",
+   "cost_centre": "CC340",
+   "trip_ref": "T-5010",
+   "requested_total": 539.4,
+   "ccy": "GBP"
+  },
+  "lines": [
+   {
+    "line_no": 1,
+    "date": "2025-03-12",
+    "category": "mileage",
+    "cost_centre": "CC330",
+    "amount": 539.4,
+    "ccy": "GBP",
+    "fx_rate": 1,
+    "amount_gbp": 539.4,
+    "receipt_attached": true
+   }
+  ],
+  "policy": {
+   "grade_band": "G5",
+   "cap_gbp": 400,
+   "cap_unit": "trip",
+   "units": 1,
+   "reviewer_limit_gbp": 500
+  },
+  "travel": {
+   "trip_ref": "T-5001",
+   "depart": "2025-03-10",
+   "return": "2025-03-14",
+   "booked_on": "2025-01-23",
+   "disruption": null,
+   "alt_check": {
+    "options_seen": 1,
+    "compliant_found": false
+   },
+   "client_recharge": {
+    "billable": false,
+    "client_code": null
+   }
+  },
+  "approvals": {
+   "line_mgr": {
+    "approved": true
+   },
+   "pre_approval": {
+    "ref": "PA-31",
+    "trip_ref": "T-5001",
+    "max_gbp": 150,
+    "valid_to": "2025-03-31"
+   }
+  },
+  "history": {
+   "exceptions_12m": 6,
+   "approved_12m": 1,
+   "declined_12m": 5,
+   "last_exception_on": "2025-02-03"
+  }
+ },
+ "factors": {
+  "breach_type": "mileage_over_rate",
+  "true_excess_pct": 34.85,
+  "amount_mismatch": "none",
+  "reference_mismatch": "trip_ref_differs_and_cost_centre_differs",
+  "pre_approval_state": "valid_matching",
+  "external_disruption": false,
+  "compliant_option": "none_available",
+  "missing_item": "none",
+  "excess_vs_authority": "well_within",
+  "client_rechargeable": false,
+  "prior_exceptions_12m": 6,
+  "booking_lead_days": 46,
+  "employee_grade": "G5"
+ },
+ "factors_sampled": {
+  "breach_type": "mileage_over_rate",
+  "true_excess_pct": 34.85,
+  "amount_mismatch": "none",
+  "reference_mismatch": "two_of_above",
+  "pre_approval_state": "valid_matching",
+  "external_disruption": false,
+  "compliant_option": "available",
+  "missing_item": "none",
+  "excess_vs_authority": "well_within",
+  "client_rechargeable": false,
+  "prior_exceptions_12m": 6,
+  "booking_lead_days": 46,
+  "employee_grade": "G5"
+ },
+ "plan": {
+  "preapproval_covers": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "outside_control": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "excess_disposition": {
+   "clarity": "clear",
+   "target": "decline_excess",
+   "second": null
+  },
+  "excess_size": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  },
+  "discrepancy_count": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  }
+ },
+ "target_words": 74,
+ "deciding": {
+  "preapproval_covers": "pre_approval trip_ref T-5001 matches travel and max_gbp 150 just exceeds the 139.4 excess, but request.trip_ref T-5010 differs.",
+  "outside_control": "No disruption, alt_check shows compliant_found false but options_seen only 1.",
+  "excess_disposition": "History shows 5 of 6 exceptions declined and the claim has reference mismatches, with no disruption or recharge, so cap only.",
+  "excess_size": "Line 539.4 against cap 400 is 34.85% over.",
+  "discrepancy_count": "Request trip_ref T-5010 vs travel T-5001, and request cost_centre CC340 vs line CC330; totals and dates agree."
+ },
+ "request": "rec-F330-0031",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.015404
+}

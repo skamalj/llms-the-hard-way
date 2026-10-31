@@ -1,0 +1,187 @@
+{
+ "id": "F324-0009",
+ "family": "F324",
+ "state": {
+  "zone": {
+   "id": "G9-3",
+   "dripper_count": 100,
+   "rate_lph": 2.0
+  },
+  "schedule": {
+   "dur_s": 540,
+   "cycles": [
+    {
+     "t": "06:00",
+     "ml": 300
+    },
+    {
+     "t": "08:00",
+     "ml": 300
+    },
+    {
+     "t": "10:00",
+     "ml": 300
+    },
+    {
+     "t": "12:00",
+     "ml": 300
+    },
+    {
+     "t": "14:00",
+     "ml": 300
+    },
+    {
+     "t": "16:00",
+     "ml": 300
+    }
+   ],
+   "drain_target_pct": [
+    20,
+    30
+   ],
+   "overrides": []
+  },
+  "controller_log": {
+   "spec_bar": 2.0,
+   "cycles": [
+    {
+     "open_s": 540,
+     "l": 26.6,
+     "bar": 2.1
+    },
+    {
+     "open_s": 540,
+     "l": 26.9,
+     "bar": 2.0
+    },
+    {
+     "open_s": 540,
+     "l": 27.1,
+     "bar": 2.1
+    },
+    {
+     "open_s": 540,
+     "l": 27.1,
+     "bar": 2.1
+    },
+    {
+     "open_s": 540,
+     "l": 27.1,
+     "bar": 2.0
+    },
+    {
+     "open_s": 540,
+     "l": 27.1,
+     "bar": 2.1
+    }
+   ],
+   "daily_total_l": 161.9,
+   "meter_total_l": 157.4
+  },
+  "drainage": {
+   "drain_pct": [
+    12.4,
+    12.9
+   ],
+   "catch_test": {
+    "ordered": true,
+    "result_lph": null
+   }
+  },
+  "sensors": {
+   "log_date": "2025-09-18",
+   "meter_last_calibrated": "2025-09-05",
+   "events": [
+    {
+     "t": "05:30",
+     "type": "hand_water"
+    },
+    {
+     "t": "05:50",
+     "moisture_spike": true
+    }
+   ]
+  },
+  "maintenance": {
+   "windows": [
+    {
+     "type": "filter_clean",
+     "zone": "G3-1",
+     "date": "2025-09-18"
+    }
+   ],
+   "alarms": [],
+   "recent_work_orders": [
+    "2025-08-30",
+    "2025-07-12",
+    "2025-04-03"
+   ]
+  }
+ },
+ "factors": {
+  "delivery_shortfall_pct": 10.1,
+  "mismatch_location": "meter_vs_controller",
+  "fault_cause": "emitter_clogging",
+  "approved_override": false,
+  "maintenance_window_active": false,
+  "drain_offset_points": -7.35,
+  "off_tolerance_cycles": 2,
+  "meter_calibration_age_days": 13,
+  "confirmation_pending": true,
+  "pressure_state": "normal",
+  "benign_alarm_decoy": "post_handwater_moisture",
+  "recent_work_orders": 3
+ },
+ "factors_sampled": {
+  "delivery_shortfall_pct": 32.95,
+  "mismatch_location": "meter_vs_controller",
+  "fault_cause": "low_supply_pressure",
+  "approved_override": false,
+  "maintenance_window_active": false,
+  "drain_offset_points": 1.99,
+  "off_tolerance_cycles": 5,
+  "meter_calibration_age_days": 13,
+  "confirmation_pending": false,
+  "pressure_state": "low",
+  "benign_alarm_decoy": "post_handwater_moisture",
+  "recent_work_orders": 3
+ },
+ "plan": {
+  "under_dosed": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "emitter_clogging": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "next_action": {
+   "clarity": "clear",
+   "target": "hold_for_check",
+   "second": null
+  },
+  "drain_deviation": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  },
+  "off_plan_cycles": {
+   "clarity": "contested",
+   "target": "1",
+   "second": "2"
+  }
+ },
+ "target_words": 94,
+ "deciding": {
+  "under_dosed": "Controller total is 161.9 L against 180 L planned (about 10% short) and the meter reads 157.4 L (about 12.6% short). No override is listed, and the shortfall is only just past the 90% line.",
+  "emitter_clogging": "Pressure is 2.0-2.1 bar against a 2.0 spec and the valves were open the full 540 s. Delivered volume per dripper is low and drain is low. The only maintenance window is for a different zone.",
+  "next_action": "The catch test is ordered with result null, so the suspected emitter fault is unconfirmed, and the meter and controller totals disagree by 4.5 L. The decision waits on that manual check.",
+  "drain_deviation": "Drain samples 12.4 and 12.9 average 12.65 against a 20-30 band, which is about 7.4 points below the minimum.",
+  "off_plan_cycles": "Cycle 1 at 26.6 L against 30 L is 11.3% under. Cycle 2 at 26.9 L is 10.3% under and borderline. Cycles 3 to 6 are 9.7% under."
+ },
+ "request": "rec-F324-0006",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.017297
+}

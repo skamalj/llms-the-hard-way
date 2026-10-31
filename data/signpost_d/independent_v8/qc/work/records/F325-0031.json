@@ -1,0 +1,145 @@
+{
+ "id": "F325-0031",
+ "family": "F325",
+ "state": {
+  "pen": {
+   "pen_id": "P4",
+   "stage": "smolt",
+   "limits": {
+    "do_min_mg_l": 6.5
+   }
+  },
+  "check": {
+   "pen_id": "P4",
+   "sampled_at": "2025-05-12T09:10",
+   "sampler_id": "S7",
+   "depth_profile": [
+    {
+     "depth_m": 1,
+     "do_mg_l": 6.9
+    },
+    {
+     "depth_m": 5,
+     "do_mg_l": 5.56
+    }
+   ],
+   "readings": {
+    "do_mg_l": 5.56,
+    "do_unit": "mg/L"
+   }
+  },
+  "instrument": {
+   "last_cal": "2025-05-13",
+   "cal_result": "pass",
+   "cal_due": "2025-06-13",
+   "logger_do_mg_l": 5.7,
+   "logger_flags": [
+    "LOW_DO"
+   ]
+  },
+  "conditions": {
+   "treatment_window": {
+    "approved_by": "vet_2",
+    "expected_do_dip_mg_l": 0.5
+   }
+  },
+  "history": [
+   {
+    "min_do": 7.2,
+    "in_limits": true
+   },
+   {
+    "min_do": 7.0,
+    "in_limits": true
+   },
+   {
+    "min_do": 7.4,
+    "in_limits": true
+   },
+   {
+    "min_do": 6.9,
+    "in_limits": true
+   },
+   {
+    "min_do": 7.1,
+    "in_limits": true
+   },
+   {
+    "min_do": 7.3,
+    "in_limits": true
+   }
+  ],
+  "notes": {
+   "sampler": "Fish a bit jumpy, probably nothing.",
+   "signoff": "M.R."
+  }
+ },
+ "factors": {
+  "stock_stage": "smolt",
+  "true_do_margin": -0.94,
+  "primary_cause": "husbandry",
+  "cross_section_mismatch": "none",
+  "calibration_state": "current",
+  "logger_alarm_raised": true,
+  "mitigation_present": true,
+  "mitigation_kind": "approved_treatment_window",
+  "history_out_of_range": 0,
+  "missing_required": 0,
+  "date_order_fault": true,
+  "boundary_case": false,
+  "note_tone": "alarming_benign"
+ },
+ "factors_sampled": {
+  "stock_stage": "smolt",
+  "true_do_margin": -0.94,
+  "primary_cause": "instrument",
+  "cross_section_mismatch": "large_transcription",
+  "calibration_state": "current",
+  "logger_alarm_raised": true,
+  "mitigation_present": true,
+  "mitigation_kind": "approved_treatment_window",
+  "history_out_of_range": 7,
+  "missing_required": 0,
+  "date_order_fault": true,
+  "boundary_case": false,
+  "note_tone": "alarming_benign"
+ },
+ "plan": {
+  "genuine_do_breach": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "balanced",
+   "target": "start_oxygenation",
+   "second": "resample_first"
+  },
+  "deviation_cause": {
+   "clarity": "clear",
+   "target": "no_deviation",
+   "second": null
+  },
+  "persistence": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  },
+  "evidence_completeness": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  }
+ },
+ "target_words": 85,
+ "deciding": {
+  "genuine_do_breach": "Probe 5.56 and logger 5.7 both sit below the 6.5 limit, which supports a real breach. The treatment window's expected dip of 0.5 is smaller than the shortfall, and last_cal being dated after sampling leaves a little doubt.",
+  "next_step": "Probe and logger agree on a low reading, which favours oxygenation. The impossible last_cal date (after sampling) keeps resample_first plausible.",
+  "deviation_cause": "Oxygen is low and the treatment window expects only a 0.5 dip, so the recorded deviation is not explained by any instrument or recording fault. The planned no_deviation answer could not be met together with the breach plan, so the record points to a treatment/husbandry deviation.",
+  "persistence": "All six history checks are in limits and the current check is below limit. It is level 1 if the current check counts and level 0 if only history counts.",
+  "evidence_completeness": "Only one element is invalid: last_cal (2025-05-13) is later than sampled_at (2025-05-12). Everything else is present."
+ },
+ "request": "rec-F325-0031",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011178
+}

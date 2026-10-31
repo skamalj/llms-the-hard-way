@@ -1,0 +1,115 @@
+{
+ "id": "F305-0006",
+ "family": "F305",
+ "state": {
+  "session": {
+   "date": "2025-03-11",
+   "needle_on": "08:00",
+   "washback": "12:05"
+  },
+  "prescription": {
+   "duration_min": 240,
+   "qb_ml_min": 350,
+   "target_uf_ml": 2000
+  },
+  "machine": {
+   "qb": 360,
+   "uf_removed_ml": 2000,
+   "washback_ml": 200,
+   "alarms": [
+    {
+     "c": "PUMP_STOP",
+     "t": "09:00"
+    },
+    {
+     "c": "PUMP_RESUME",
+     "t": "09:15"
+    }
+   ]
+  },
+  "observations": {
+   "pre_kg": 72.0,
+   "post_kg": 70.1,
+   "bp": [
+    "08:00 120",
+    "10:00 84",
+    "11:00 86"
+   ]
+  },
+  "checks": [
+   {
+    "c": "dialyser_prime",
+    "done": true,
+    "t": "07:50"
+   }
+  ]
+ },
+ "factors": {
+  "time_shortfall_min": 29,
+  "machine_pause_min": 15,
+  "uf_weight_gap_kg": 0.09,
+  "post_weight_missing": false,
+  "missing_check": "water_chlorine_test",
+  "check_logged_after_start": false,
+  "prescription_mismatch": "blood_flow",
+  "mismatch_magnitude": "trivial",
+  "hypotension_episodes": 0,
+  "hypotension_mitigated": false,
+  "circuit_clotted": false,
+  "prior_short_sessions": 1,
+  "documented_flow_reduction": false
+ },
+ "factors_sampled": {
+  "time_shortfall_min": 29,
+  "machine_pause_min": 15,
+  "uf_weight_gap_kg": 0.09,
+  "post_weight_missing": false,
+  "missing_check": "water_chlorine_test",
+  "check_logged_after_start": false,
+  "prescription_mismatch": "blood_flow",
+  "mismatch_magnitude": "trivial",
+  "hypotension_episodes": 1,
+  "hypotension_mitigated": false,
+  "circuit_clotted": false,
+  "prior_short_sessions": 1,
+  "documented_flow_reduction": false
+ },
+ "plan": {
+  "uf_reconciles": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "checks_before_start": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "log_disposition": {
+   "clarity": "clear",
+   "target": "hold_query",
+   "second": null
+  },
+  "time_shortfall": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "pending_age": {
+   "clarity": "contested",
+   "target": "1",
+   "second": "0"
+  }
+ },
+ "target_words": 34,
+ "deciding": {
+  "uf_reconciles": "UF 2000 minus washback 200 is 1800 ml, against a 1.9 kg weight loss: a gap of about 0.1 kg.",
+  "checks_before_start": "The checklist shows only one entry, timed before the start.",
+  "log_disposition": "The only open item is the absent chlorine test entry; no clinical finding.",
+  "time_shortfall": "Needle-on to washback is 245 min and the pause is 15 min, so effective time is 230 against 240: a 10 minute gap, which sits between levels 0 and 1.",
+  "pending_age": "The session date is the only age signal, and it sits near the 24 hour boundary."
+ },
+ "request": "rec-F305-0006",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.00639
+}

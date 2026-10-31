@@ -1,0 +1,121 @@
+{
+ "id": "F314-0032",
+ "family": "F314",
+ "state": {
+  "property": {
+   "inventory": [
+    {
+     "id": "A1",
+     "type": "boiler"
+    }
+   ]
+  },
+  "tenancy": {
+   "review_date": "2025-03-10"
+  },
+  "certificate": {
+   "inspection_date": "2024-03-01",
+   "expiry_date": "2025-03-01",
+   "engineer_licence": "G2"
+  },
+  "appliance_checks": [
+   {
+    "appliance_id": "A1",
+    "defect_class": "AR",
+    "isolation": {
+     "supply_off": true
+    }
+   },
+   {
+    "appliance_id": "A9",
+    "defect_class": "NCS"
+   }
+  ],
+  "engineer": {
+   "licence_no": "G2",
+   "valid_to": "2024-03-01",
+   "categories": [
+    "boiler"
+   ]
+  },
+  "history": {
+   "remedials": [
+    {
+     "appliance_id": "A1",
+     "completed_on": "2024-03-15",
+     "engineer_licence": "G5"
+    }
+   ],
+   "renewal_booking": {
+    "date": "2025-03-20",
+    "status": "booked"
+   }
+  }
+ },
+ "factors": {
+  "inventory_mismatch": "extra_on_cert",
+  "tenant_owned_appliance": false,
+  "date_misalignment": "none",
+  "days_to_true_expiry": -9,
+  "renewal_booked": true,
+  "engineer_status": "active_matching",
+  "worst_defect_class": "AR",
+  "defect_isolated": true,
+  "remedial_completed": true,
+  "combustion_reading": "normal",
+  "prior_defect_count": 3,
+  "boundary_case": true
+ },
+ "factors_sampled": {
+  "inventory_mismatch": "extra_on_cert",
+  "tenant_owned_appliance": true,
+  "date_misalignment": "none",
+  "days_to_true_expiry": 73,
+  "renewal_booked": true,
+  "engineer_status": "active_matching",
+  "worst_defect_class": "immediately_dangerous",
+  "defect_isolated": false,
+  "remedial_completed": true,
+  "combustion_reading": "normal",
+  "prior_defect_count": 3,
+  "boundary_case": false
+ },
+ "plan": {
+  "covers_all_appliances": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "engineer_valid": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "accept",
+   "second": null
+  },
+  "renewal_urgency": {
+   "clarity": "clear",
+   "target": "3",
+   "second": null
+  },
+  "open_hazard": {
+   "clarity": "contested",
+   "target": "1",
+   "second": "2"
+  }
+ },
+ "target_words": 41,
+ "deciding": {
+  "covers_all_appliances": "appliance_checks includes A9, which is not in property.inventory, so the checks do not match the listed appliances.",
+  "engineer_valid": "Licence matches and categories cover the boiler, but engineer.valid_to equals inspection_date, the last day of registration.",
+  "next_step": "Licence numbers match, a remedial is logged against A1 and a renewal is booked; the reconciling fields lead to filing.",
+  "renewal_urgency": "Expiry 2025-03-01 is before review_date 2025-03-10, so true expiry has passed.",
+  "open_hazard": "A9 is NCS and open (level 1); A1 is AR but isolated (supply_off true) with a remedial after inspection by a different licence G5, so it may or may not be closed (level 2)."
+ },
+ "request": "rec-F314-0031",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.010763
+}

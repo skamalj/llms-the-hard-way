@@ -1,0 +1,157 @@
+{
+ "id": "F333-0029",
+ "family": "F333",
+ "state": {
+  "room": {
+   "room_id": "D21-208",
+   "rate_card_ref": "RC24"
+  },
+  "tenancy": {
+   "start_date": "2023-09-01",
+   "end_date": "2024-08-15",
+   "deposit_dispute_lodged": true
+  },
+  "checkin_inventory": {
+   "signed_date": "2023-09-01",
+   "items": [
+    {
+     "item_code": "HEAT",
+     "grade": "fair"
+    },
+    {
+     "item_code": "DOOR",
+     "grade": "damaged"
+    },
+    {
+     "item_code": "LAMP",
+     "grade": "good"
+    }
+   ]
+  },
+  "checkout_inspection": {
+   "inspection_type": "mid_term",
+   "inspection_date": "2024-06-10",
+   "items": [
+    {
+     "item_code": "HEAT",
+     "grade": "damaged",
+     "defect_category": "heater_fail",
+     "photo_refs": [
+      "p6"
+     ]
+    },
+    {
+     "item_code": "DOOR",
+     "grade": "damaged",
+     "defect_category": "scuff",
+     "photo_refs": [
+      "p7"
+     ]
+    },
+    {
+     "item_code": "LAMP",
+     "grade": null,
+     "photo_refs": [
+      "p8"
+     ]
+    }
+   ]
+  },
+  "proposed_charges": {
+   "lines": [
+    {
+     "item_code": "HEAT",
+     "qty": 1,
+     "unit_rate": 40,
+     "line_total": 40
+    },
+    {
+     "item_code": "DOOR",
+     "qty": 1,
+     "unit_rate": 100.5,
+     "line_total": 100.5
+    }
+   ],
+   "summary_total": 140.5,
+   "rate_card_ref": "RC24"
+  },
+  "works_orders": [
+   {
+    "wo_id": "W2",
+    "raised_date": "2023-08-20",
+    "location": "bathroom",
+    "category": "tap",
+    "priority_code": "P3",
+    "status": "completed"
+   }
+  ]
+ },
+ "factors": {
+  "inspection_type": "mid_term",
+  "checkin_inventory_state": "complete",
+  "prior_damage_on_charged_item": "one_item",
+  "charge_discrepancy": "medium_25_to_100",
+  "worst_defect_tier": "habitability",
+  "true_cause": "fair_wear",
+  "predating_works_order": false,
+  "safety_fault_remedied": false,
+  "photo_coverage": "full",
+  "tenancy_months": 11,
+  "date_out_of_order": false,
+  "deposit_dispute_lodged": true,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "inspection_type": "mid_term",
+  "checkin_inventory_state": "complete",
+  "prior_damage_on_charged_item": "one_item",
+  "charge_discrepancy": "small_under_25",
+  "worst_defect_tier": "cosmetic",
+  "true_cause": "no_defect",
+  "predating_works_order": true,
+  "safety_fault_remedied": false,
+  "photo_coverage": "full",
+  "tenancy_months": 11,
+  "date_out_of_order": false,
+  "deposit_dispute_lodged": true,
+  "boundary_case": false
+ },
+ "plan": {
+  "checkin_clean": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "disposition": {
+   "clarity": "clear",
+   "target": "hold_for_evidence",
+   "second": null
+  },
+  "main_cause": {
+   "clarity": "leaning",
+   "target": "fair_wear",
+   "second": null
+  },
+  "defect_severity": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  },
+  "charge_gap": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 54,
+ "deciding": {
+  "checkin_clean": "Charged DOOR was graded damaged at check-in, so not every charged item was undamaged.",
+  "disposition": "Exactly one gap: LAMP has a null checkout grade while all other grades, dates and photos are present.",
+  "main_cause": "HEAT drops one step (fair to damaged) over about 11 months with no same-location works order, consistent with wear; the dispute and DOOR carryover add slight doubt.",
+  "defect_severity": "heater_fail on HEAT stops normal heating (level 2) but the room remains usable, leaving level 1 arguable.",
+  "charge_gap": "DOOR 100.50 was already damaged at check-in so is not evidenced; only HEAT 40 is, giving a gap of 100.50 against a 100.00 boundary."
+ },
+ "request": "rec-F333-0026",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.013368
+}

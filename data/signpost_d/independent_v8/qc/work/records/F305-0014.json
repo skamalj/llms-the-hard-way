@@ -1,0 +1,112 @@
+{
+ "id": "F305-0014",
+ "family": "F305",
+ "state": {
+  "session": {
+   "needle_on": "2025-02-10T07:00",
+   "washback": "2025-02-10T10:51",
+   "review_ts": "2025-02-13T09:00"
+  },
+  "prescription": {
+   "duration_min": 240
+  },
+  "machine": {
+   "uf_removed_ml": 2000,
+   "washback_ml": 200,
+   "alarms": [
+    {
+     "event": "PUMP_STOP",
+     "t": "2025-02-10T08:30"
+    },
+    {
+     "event": "PUMP_RESUME",
+     "t": "2025-02-10T08:52"
+    }
+   ]
+  },
+  "observations": {
+   "pre_kg": 70.0,
+   "post_kg": 68.45
+  },
+  "checks": [
+   {
+    "code": "chlorine",
+    "done": true,
+    "t": "2025-02-10T06:40"
+   },
+   {
+    "code": "alarm_test",
+    "done": true,
+    "t": "2025-02-10T06:50"
+   }
+  ]
+ },
+ "factors": {
+  "time_shortfall_min": 31,
+  "machine_pause_min": 22,
+  "uf_weight_gap_kg": 0.25,
+  "post_weight_missing": false,
+  "missing_check": "none",
+  "check_logged_after_start": false,
+  "prescription_mismatch": "none",
+  "mismatch_magnitude": "trivial",
+  "hypotension_episodes": 0,
+  "hypotension_mitigated": false,
+  "circuit_clotted": false,
+  "prior_short_sessions": 0,
+  "documented_flow_reduction": false
+ },
+ "factors_sampled": {
+  "time_shortfall_min": 44,
+  "machine_pause_min": 22,
+  "uf_weight_gap_kg": 0.15,
+  "post_weight_missing": false,
+  "missing_check": "none",
+  "check_logged_after_start": false,
+  "prescription_mismatch": "none",
+  "mismatch_magnitude": "trivial",
+  "hypotension_episodes": 2,
+  "hypotension_mitigated": false,
+  "circuit_clotted": false,
+  "prior_short_sessions": 2,
+  "documented_flow_reduction": false
+ },
+ "plan": {
+  "uf_reconciles": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "checks_before_start": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "log_disposition": {
+   "clarity": "leaning",
+   "target": "sign_off",
+   "second": null
+  },
+  "time_shortfall": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  },
+  "pending_age": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  }
+ },
+ "target_words": 39,
+ "deciding": {
+  "uf_reconciles": "Net UF 2000-200=1800 ml against weight change 1.55 kg gives a gap of 0.25 kg, within 0.5.",
+  "checks_before_start": "Both checks are done at 06:40 and 06:50, before needle_on 07:00.",
+  "log_disposition": "No mismatch, hypotension, missing check or missing value; only the time shortfall gives some doubt about sign_off.",
+  "time_shortfall": "Clock 231 min minus a 22 min pause gives 209 effective vs 240, 31 short, just over the level 2/3 boundary.",
+  "pending_age": "Washback 2025-02-10T10:51 to review_ts 2025-02-13T09:00 is about 3 days, level 1."
+ },
+ "request": "rec-F305-0011",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.015305
+}

@@ -1,0 +1,117 @@
+{
+ "id": "F304-0012",
+ "family": "F304",
+ "state": {
+  "request": {
+   "ref": "T2201",
+   "appt_type": "dialysis",
+   "appt_time": "2025-04-10T10:00",
+   "vehicle_class": "car",
+   "crew_requested": "single",
+   "mobility_booked": "walking",
+   "equipment": []
+  },
+  "patient": {
+   "mobility_assessed": "walking",
+   "assessed_on": "2025-03-02",
+   "weight_kg": 74,
+   "oxygen_lpm": 0,
+   "monitoring": null,
+   "own_transport_available": false,
+   "exemption": null
+  },
+  "journey": {
+   "window_end": "08:31",
+   "est_duration_min": 60,
+   "late_tolerance_min": 0,
+   "destination": {
+    "reslot_same_day": true
+   }
+  },
+  "history": [
+   {
+    "date": "2025-03-15",
+    "outcome": "aborted",
+    "reason": "ward bed delay"
+   },
+   {
+    "date": "2025-02-20",
+    "outcome": "aborted",
+    "reason": "clinic cancelled"
+   }
+  ],
+  "notes": {
+   "control_note": "Afternoon chair only if one frees up."
+  }
+ },
+ "factors": {
+  "mobility_alignment": "matches (assessment about 5 weeks old)",
+  "secondary_discrepancy": "none",
+  "eligibility_concern": false,
+  "eligibility_exception": false,
+  "clinical_support": "none",
+  "crew_request_gap": "correct",
+  "buffer_minutes": 29.0,
+  "duration_estimate_split": false,
+  "late_tolerance": false,
+  "appointment_type": "dialysis",
+  "same_day_reslot": true,
+  "confirmation_pending": false,
+  "prior_aborts": 2,
+  "aborts_related": false
+ },
+ "factors_sampled": {
+  "mobility_alignment": "stale",
+  "secondary_discrepancy": "time_material",
+  "eligibility_concern": true,
+  "eligibility_exception": false,
+  "clinical_support": "cardiac_monitoring",
+  "crew_request_gap": "correct",
+  "buffer_minutes": -0.92,
+  "duration_estimate_split": false,
+  "late_tolerance": false,
+  "appointment_type": "discharge",
+  "same_day_reslot": false,
+  "confirmation_pending": false,
+  "prior_aborts": 4,
+  "aborts_related": false
+ },
+ "plan": {
+  "vehicle_fit": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "disposition": {
+   "clarity": "clear",
+   "target": "confirm",
+   "second": null
+  },
+  "crew_config": {
+   "clarity": "leaning",
+   "target": "single_crew",
+   "second": null
+  },
+  "time_pressure": {
+   "clarity": "contested",
+   "target": "2",
+   "second": "1"
+  },
+  "delay_impact": {
+   "clarity": "contested",
+   "target": "1",
+   "second": "2"
+  }
+ },
+ "target_words": 57,
+ "deciding": {
+  "vehicle_fit": "Car and walking agree with mobility_assessed walking, but the assessment dates from 2025-03-02, about five weeks before the appointment, which leaves some doubt.",
+  "disposition": "Request and patient values agree, there is no discrepancy, no null confirmation field and no eligibility concern; the aborts have unrelated reasons.",
+  "crew_config": "Walking patient, oxygen_lpm 0 and monitoring null point to single crew; the assessment age leaves slight doubt.",
+  "time_pressure": "Appt 10:00 less window_end 08:31 is 89 min, minus est 60 leaves 29 min, one minute under the 30 min boundary.",
+  "delay_impact": "Dialysis has reslot_same_day true, but the control_note says an afternoon chair depends on availability, which holds it between moderate and high."
+ },
+ "request": "rec-F304-0011",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012558
+}

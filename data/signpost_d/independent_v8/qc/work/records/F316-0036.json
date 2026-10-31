@@ -1,0 +1,138 @@
+{
+ "id": "F316-0036",
+ "family": "F316",
+ "state": {
+  "run_header": {
+   "run_id": "G114",
+   "run_type": "precautionary",
+   "reviewed_at": "2025-01-14T01:30"
+  },
+  "plan": [
+   {
+    "section_code": "B2-01",
+    "length_km": 12,
+    "width_m": 7,
+    "priority": "P1",
+    "planned_rate_gm2": 20,
+    "forecast_zone": "Z1"
+   },
+   {
+    "section_code": "B2-02",
+    "length_km": 5,
+    "width_m": 7,
+    "priority": "P1",
+    "planned_rate_gm2": 20,
+    "forecast_zone": "Z2"
+   }
+  ],
+  "forecast": {
+   "Z1": {
+    "freeze_time": "07:00"
+   },
+   "Z2": {
+    "freeze_time": "02:20"
+   }
+  },
+  "telematics": {
+   "segments": [
+    {
+     "section_code": "B2-01",
+     "end": "00:40",
+     "spread_on": true,
+     "logged_rate_gm2": 10
+    },
+    {
+     "section_code": "B2-02",
+     "end": "01:12",
+     "spread_on": true,
+     "logged_rate_gm2": 20
+    }
+   ],
+   "dropouts": [
+    {
+     "nearest_section": "B2-01"
+    },
+    {
+     "nearest_section": "B2-02"
+    }
+   ]
+  },
+  "materials": {
+   "loaded_t": 2.4,
+   "returned_t": 0.7,
+   "weighbridge_ticket": "W881"
+  },
+  "notes": {
+   "driver_note": "Run completed.",
+   "depot_note": "Run R2 booked 04:00 same route"
+  }
+ },
+ "factors": {
+  "missed_extent": "over_10km",
+  "missed_section_mitigated": false,
+  "salt_gap": "over_10pct",
+  "rate_exception_approved": false,
+  "finish_vs_freeze_min": 68,
+  "hours_to_freeze_untreated": 5.5,
+  "forecast_revised": "none",
+  "crosscheck_mismatch": "none",
+  "driver_note_type": "routine",
+  "follow_up_run_scheduled": true,
+  "pending_confirmation": false,
+  "gps_dropouts": 2,
+  "nonpriority_untreated": false
+ },
+ "factors_sampled": {
+  "missed_extent": "over_10km",
+  "missed_section_mitigated": true,
+  "salt_gap": "over_10pct",
+  "rate_exception_approved": false,
+  "finish_vs_freeze_min": 68,
+  "hours_to_freeze_untreated": 8.07,
+  "forecast_revised": "none",
+  "crosscheck_mismatch": "none",
+  "driver_note_type": "routine",
+  "follow_up_run_scheduled": true,
+  "pending_confirmation": false,
+  "gps_dropouts": 2,
+  "nonpriority_untreated": false
+ },
+ "plan": {
+  "treated_before_freeze": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "salt_reconciles": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "follow_up": {
+   "clarity": "leaning",
+   "target": "sign_off",
+   "second": null
+  },
+  "deficient_length": {
+   "clarity": "clear",
+   "target": "3",
+   "second": null
+  },
+  "freeze_proximity": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  }
+ },
+ "target_words": 45,
+ "deciding": {
+  "treated_before_freeze": "Both P1 sections logged spread_on true and the last ended 68 min before the Z2 freeze, but B2-01 was spread at 10 against 20 planned, so it is arguably not properly treated.",
+  "salt_reconciles": "Expected tonnage from logged rates is about 1.54 t; net usage is 1.7 t (2.4 loaded minus 0.7 returned), roughly 10.4% over, right at the 10% line.",
+  "follow_up": "Depot note books run R2 on the same route at 04:00, so the log can reasonably be accepted with the shortfall covered, though the large undertreatment leaves some doubt.",
+  "deficient_length": "B2-01 is 12 km of P1 logged at 10 g/m2 against 20 planned, which is over 10 km undertreated.",
+  "freeze_proximity": "Review is at 01:30 and Z1, holding the undertreated B2-01, freezes at 07:00, which is 5.5 h away."
+ },
+ "request": "rec-F316-0036",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.018725
+}

@@ -1,0 +1,114 @@
+{
+ "id": "F315-0042",
+ "family": "F315",
+ "state": {
+  "report": {
+   "ref": "F202",
+   "received_at": "2024-06-10T21:30",
+   "source": "police",
+   "units_reported": [
+    "C4",
+    "C5",
+    "C6"
+   ]
+  },
+  "asset": {
+   "unit_id": "C5",
+   "site_category": "residential",
+   "planned_works": null
+  },
+  "cms": {
+   "status_code": "NC",
+   "last_comms_at": "2024-06-03T04:00"
+  },
+  "history": [
+   {
+    "job_ref": "J90",
+    "raised": "2024-03-12",
+    "attended": "2024-03-15",
+    "completed": "2024-03-18",
+    "outcome_code": "LAMP"
+   }
+  ],
+  "job": {
+   "job_ref": "J140",
+   "stage": "RAISED",
+   "attended_at": "2024-06-10T09:40",
+   "completed_at": null,
+   "hazard_code": null
+  },
+  "supply": {
+   "dno_incident_ref": null,
+   "feeder_units_dark": 6,
+   "feeder_id": "FD2"
+  }
+ },
+ "factors": {
+  "dark_unit_count": 6,
+  "dno_incident_logged": false,
+  "cms_state": "no_comms",
+  "days_since_last_repair": 84,
+  "last_repair_state": "completed",
+  "hazard_observed": "none",
+  "hazard_made_safe": false,
+  "site_category": "residential",
+  "planned_works_active": false,
+  "current_job_stage": "RAISED",
+  "dates_out_of_order": false,
+  "duplicate_of_open_job": false,
+  "report_source": "police"
+ },
+ "factors_sampled": {
+  "dark_unit_count": 6,
+  "dno_incident_logged": false,
+  "cms_state": "no_comms",
+  "days_since_last_repair": 136,
+  "last_repair_state": "completed",
+  "hazard_observed": "none",
+  "hazard_made_safe": false,
+  "site_category": "junction_or_crossing",
+  "planned_works_active": false,
+  "current_job_stage": "rectified_unconfirmed",
+  "dates_out_of_order": false,
+  "duplicate_of_open_job": false,
+  "report_source": "police"
+ },
+ "plan": {
+  "supply_side_fault": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "repeat_failure": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "next_action": {
+   "clarity": "clear",
+   "target": "routine_repair",
+   "second": null
+  },
+  "source_support": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  },
+  "repair_progress": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 60,
+ "deciding": {
+  "supply_side_fault": "feeder_units_dark is 6 against only three reported ids, which points to the supply. There is no DNO incident ref, so this stays modest.",
+  "repeat_failure": "history J90 completed 2024-03-18, exactly 84 days before the 2024-06-10 report. That sits on the boundary of the window.",
+  "next_action": "There is no hazard_code, the site is residential and the job is open. The fault is a plain outage that needs a standard dispatch.",
+  "source_support": "The police report and the feeder count agree, giving about two sources. CMS is NC and stale, so it confirms nothing and one source remains arguable.",
+  "repair_progress": "Stage RAISED with completed_at null and an old CMS reading. A stray attended_at of 2024-06-10T09:40 makes a crew visit arguable, holding levels 0 and 1 in balance."
+ },
+ "request": "rec-F315-0041",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.009599
+}

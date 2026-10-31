@@ -1,0 +1,189 @@
+{
+ "id": "F305-0055",
+ "family": "F305",
+ "state": {
+  "session": {
+   "date": "2025-05-20",
+   "needle_on": "2025-05-20T13:00",
+   "washback": "2025-05-20T17:23",
+   "review_on": "2025-06-05"
+  },
+  "prescription": {
+   "duration_min": 240,
+   "heparin_units": 2000
+  },
+  "machine": {
+   "heparin_units": 2050,
+   "uf_removed_ml": 2900,
+   "washback_ml": 250,
+   "alarms": [
+    [
+     "PUMP_STOP",
+     "15:00"
+    ],
+    [
+     "PUMP_RESUME",
+     "15:10"
+    ],
+    [
+     "PUMP_STOP",
+     "16:00"
+    ],
+    [
+     "PUMP_RESUME",
+     "16:15"
+    ]
+   ]
+  },
+  "observations": {
+   "pre_kg": 90.0,
+   "post_kg": 88.5,
+   "bp": [
+    [
+     "13:40",
+     86
+    ],
+    [
+     "13:50",
+     102
+    ],
+    [
+     "14:30",
+     84
+    ],
+    [
+     "14:40",
+     98
+    ],
+    [
+     "15:30",
+     88
+    ],
+    [
+     "15:40",
+     100
+    ],
+    [
+     "16:30",
+     85
+    ],
+    [
+     "16:40",
+     97
+    ]
+   ],
+   "interventions": [
+    [
+     "13:41",
+     150
+    ],
+    [
+     "14:31",
+     150
+    ],
+    [
+     "15:31",
+     150
+    ],
+    [
+     "16:31",
+     150
+    ]
+   ]
+  },
+  "checks": [
+   {
+    "c": "ID",
+    "done": true,
+    "t": "12:50"
+   },
+   {
+    "c": "ACCESS",
+    "done": true,
+    "t": "13:04"
+   }
+  ],
+  "history": [
+   {
+    "prescribed_min": 240,
+    "effective_min": 215
+   },
+   {
+    "prescribed_min": 240,
+    "effective_min": 220
+   },
+   {
+    "prescribed_min": 240,
+    "effective_min": 240
+   }
+  ]
+ },
+ "factors": {
+  "time_shortfall_min": 2,
+  "machine_pause_min": 25,
+  "uf_weight_gap_kg": 0.55,
+  "post_weight_missing": false,
+  "missing_check": "none",
+  "check_logged_after_start": true,
+  "prescription_mismatch": "heparin_dose",
+  "mismatch_magnitude": "trivial",
+  "hypotension_episodes": 4,
+  "hypotension_mitigated": true,
+  "circuit_clotted": false,
+  "prior_short_sessions": 2,
+  "documented_flow_reduction": false
+ },
+ "factors_sampled": {
+  "time_shortfall_min": 38,
+  "machine_pause_min": 25,
+  "uf_weight_gap_kg": 1.01,
+  "post_weight_missing": false,
+  "missing_check": "none",
+  "check_logged_after_start": false,
+  "prescription_mismatch": "heparin_dose",
+  "mismatch_magnitude": "trivial",
+  "hypotension_episodes": 4,
+  "hypotension_mitigated": true,
+  "circuit_clotted": false,
+  "prior_short_sessions": 2,
+  "documented_flow_reduction": false
+ },
+ "plan": {
+  "uf_reconciles": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "checks_before_start": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "log_disposition": {
+   "clarity": "contested",
+   "target": "refer_prescriber",
+   "second": "sign_off"
+  },
+  "time_shortfall": {
+   "clarity": "clear",
+   "target": "0",
+   "second": null
+  },
+  "pending_age": {
+   "clarity": "clear",
+   "target": "2",
+   "second": null
+  }
+ },
+ "target_words": 76,
+ "deciding": {
+  "uf_reconciles": "Net UF 2900-250-600 saline=2050 ml against 1.5 kg loss gives a 0.55 kg gap, just over the limit.",
+  "checks_before_start": "ACCESS check is stamped 13:04, after needle_on at 13:00, though ID was before.",
+  "log_disposition": "Four hypotensive readings all treated with saline and recovered, two short sessions in history, heparin 2050 vs 2000 and a late check; referral and sign-off both defensible.",
+  "time_shortfall": "Clock 263 min minus pauses 10+15=25 gives 238 effective against 240, within 5 minutes.",
+  "pending_age": "Session on 2025-05-20 and review_on 2025-06-05 is 16 days, within eight to thirty."
+ },
+ "request": "rec-F305-0051",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011793
+}

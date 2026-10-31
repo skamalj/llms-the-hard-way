@@ -1,0 +1,127 @@
+{
+ "id": "F333-0053",
+ "family": "F333",
+ "state": {
+  "tenancy": {
+   "start_date": "2025-01-06",
+   "end_date": "2025-04-06",
+   "deposit_dispute_lodged": true
+  },
+  "checkin_inventory": {
+   "signed_date": "2025-01-06",
+   "items": [
+    {
+     "item_code": "SKT3",
+     "location": "desk",
+     "grade": "fair"
+    }
+   ]
+  },
+  "checkout_inspection": {
+   "inspection_type": "checkout",
+   "inspection_date": "2025-04-06",
+   "items": [
+    {
+     "item_code": "SKT3",
+     "location": "desk",
+     "grade": "damaged",
+     "defect_category": "socket_scorched",
+     "photo_refs": [
+      "p7"
+     ]
+    }
+   ]
+  },
+  "proposed_charges": {
+   "lines": [
+    {
+     "item_code": "SKT3",
+     "reason_code": "DMG",
+     "qty": 1,
+     "unit_rate": 85,
+     "line_total": 85
+    }
+   ],
+   "summary_total": 260
+  },
+  "works_orders": [
+   {
+    "wo_id": "W9",
+    "raised_date": "2025-03-20",
+    "location": "desk",
+    "category": "electrics",
+    "status": "completed",
+    "completed_date": "2025-04-06",
+    "retest_passed": true
+   }
+  ]
+ },
+ "factors": {
+  "inspection_type": "checkout",
+  "checkin_inventory_state": "complete",
+  "prior_damage_on_charged_item": "one_item",
+  "charge_discrepancy": "large_over_100",
+  "worst_defect_tier": "safety",
+  "true_cause": "resident_damage",
+  "predating_works_order": false,
+  "safety_fault_remedied": true,
+  "photo_coverage": "full",
+  "tenancy_months": 3,
+  "date_out_of_order": false,
+  "deposit_dispute_lodged": true,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "inspection_type": "checkout",
+  "checkin_inventory_state": "complete",
+  "prior_damage_on_charged_item": "none",
+  "charge_discrepancy": "large_over_100",
+  "worst_defect_tier": "cosmetic",
+  "true_cause": "resident_damage",
+  "predating_works_order": true,
+  "safety_fault_remedied": true,
+  "photo_coverage": "full",
+  "tenancy_months": 3,
+  "date_out_of_order": false,
+  "deposit_dispute_lodged": true,
+  "boundary_case": false
+ },
+ "plan": {
+  "checkin_clean": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "disposition": {
+   "clarity": "balanced",
+   "target": "approve_as_drafted",
+   "second": "order_reinspection"
+  },
+  "main_cause": {
+   "clarity": "contested",
+   "target": "resident_damage",
+   "second": "prior_occupant"
+  },
+  "defect_severity": {
+   "clarity": "contested",
+   "target": "2",
+   "second": "3"
+  },
+  "charge_gap": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  }
+ },
+ "target_words": 59,
+ "deciding": {
+  "checkin_clean": "Charged SKT3 was graded fair at check-in, so not every charged item was undamaged.",
+  "disposition": "Inspection is complete and photographed, supporting release; the lodged dispute and same-day completed electrics work order give some reason to revisit.",
+  "main_cause": "SKT3 fair to damaged over 3 months fits new damage, but it was already fair at check-in and an electrics work order exists.",
+  "defect_severity": "socket_scorched is an electrics safety defect (level 3), but the work order was completed and retested on inspection date, which pulls toward level 2.",
+  "charge_gap": "Evidenced line total 85 against summary_total 260: difference 175, above 100."
+ },
+ "request": "rec-F333-0051",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.013569
+}

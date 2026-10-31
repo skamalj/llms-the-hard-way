@@ -1,0 +1,148 @@
+{
+ "id": "F303-0052",
+ "family": "F303",
+ "state": {
+  "order": {
+   "id": "O-2260",
+   "prescription": {
+    "modality": "concentrator",
+    "flow_lpm": 1.5,
+    "hours_per_day": 8,
+    "rx_expiry": "2026-01-15"
+   },
+   "items_ordered": [
+    {
+     "sku": "CONC-3",
+     "qty": 1
+    }
+   ],
+   "account": {
+    "billing_hold": true,
+    "arrears_gbp": 142.5
+   }
+  },
+  "visit": {
+   "id": "V-5532",
+   "visit_date": "2025-07-02",
+   "arrived_at": "14:10",
+   "departed_at": "14:25",
+   "items_left": [],
+   "install_checks": null,
+   "patient_signature": "on_file",
+   "handover_at": "14:24"
+  },
+  "site_assessment": {
+   "assessed_at": "14:15",
+   "hazards": [
+    {
+     "code": "HEAT_SRC",
+     "status": "open",
+     "fix": null
+    },
+    {
+     "code": "NO_SIGN",
+     "status": "open",
+     "fix": null
+    },
+    {
+     "code": "CYL_STORAGE",
+     "status": "resolved_on_visit",
+     "fix": null
+    }
+   ]
+  },
+  "equipment": {
+   "concentrator": {
+    "serial": "C3-7741",
+    "flow_setting_lpm": 1.5
+   },
+   "fault_log": [
+    {
+     "code": "HIGH_PRESSURE",
+     "date": "2025-06-30",
+     "retest_passed": false
+    }
+   ],
+   "cylinders_on_site": [
+    {
+     "size": "HX 2300 L",
+     "fill_pct": 95
+    }
+   ]
+  },
+  "supply_plan": {
+   "next_delivery_date": "2025-07-04",
+   "route_day": "Fri"
+  }
+ },
+ "factors": {
+  "rx_alignment": "exact",
+  "items_shortfall": "nothing_left",
+  "setup_state": "checks_null",
+  "supply_hours": "about 24 usage hours (73 calendar hours), cylinder only since the concentrator is faulty",
+  "concentrator_fault": true,
+  "fault_mitigated": false,
+  "hazards_found": 3,
+  "hazard_mitigation": false,
+  "hazard_status_missing": false,
+  "handover_gap": false,
+  "timeline_out_of_order": false,
+  "next_delivery": "booked_in_time",
+  "dependency_level": "nocturnal",
+  "billing_hold": true
+ },
+ "factors_sampled": {
+  "rx_alignment": "exact",
+  "items_shortfall": "nothing_left",
+  "setup_state": "all_logged",
+  "supply_hours": 171.85,
+  "concentrator_fault": true,
+  "fault_mitigated": false,
+  "hazards_found": 2,
+  "hazard_mitigation": true,
+  "hazard_status_missing": false,
+  "handover_gap": false,
+  "timeline_out_of_order": false,
+  "next_delivery": "booked_in_time",
+  "dependency_level": "nocturnal",
+  "billing_hold": true
+ },
+ "plan": {
+  "rx_match": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "book_revisit",
+   "second": null
+  },
+  "fulfilment": {
+   "clarity": "clear",
+   "target": "nothing_delivered",
+   "second": null
+  },
+  "supply_runway": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  },
+  "open_hazards": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  }
+ },
+ "target_words": 71,
+ "deciding": {
+  "rx_match": "The installed concentrator setting of 1.5 lpm matches the Rx, but nothing was delivered and the unit has an unresolved HIGH_PRESSURE fault.",
+  "next_step": "Replacement CONC-3 was not left, install_checks is null and the fault is open. A return visit is likely, with a next delivery already booked two days out.",
+  "fulfilment": "items_left is empty.",
+  "supply_runway": "The concentrator has an unresolved fault, so only one HX 2300 L cylinder at 95% counts. At 1.5 lpm for 8 h/day that is about 24 usage hours or about 73 calendar hours, split across levels 1 and 2.",
+  "open_hazards": "Two hazards are open with no fix. CYL_STORAGE is resolved_on_visit but has no fix code, so it may still be open (two or three)."
+ },
+ "request": "rec-F303-0051",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.017494
+}

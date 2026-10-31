@@ -1,0 +1,165 @@
+{
+ "id": "F303-0028",
+ "family": "F303",
+ "state": {
+  "order": {
+   "prescription": {
+    "modality": "concentrator",
+    "flow_lpm": 2,
+    "hours_per_day": 24,
+    "rx_expiry": "2025-04-30"
+   },
+   "items_ordered": [
+    {
+     "sku": "CONC5",
+     "qty": 1
+    }
+   ],
+   "account": {
+    "billing_hold": false
+   }
+  },
+  "visit": {
+   "visit_id": "V3150",
+   "visit_date": "2025-05-12",
+   "arrived_at": "2025-05-12T14:10",
+   "departed_at": "2025-05-12T14:30",
+   "items_left": [],
+   "install_checks": {
+    "flow_verified": true,
+    "alarm_tested": true,
+    "training_given": true,
+    "completed_at": "2025-05-12T13:40"
+   },
+   "patient_signature": true,
+   "handover_at": "2025-05-12T14:25"
+  },
+  "site_assessment": {
+   "assessed_at": "2025-05-12T14:15",
+   "hazards": [
+    {
+     "code": "SMOKING",
+     "status": "open",
+     "fix": null
+    },
+    {
+     "code": "HEAT_SRC",
+     "status": "open",
+     "fix": null
+    },
+    {
+     "code": "CYL_UNSECURED",
+     "status": "open",
+     "fix": null
+    },
+    {
+     "code": "NO_SIGNAGE",
+     "status": "open",
+     "fix": "firebreak_fitted"
+    }
+   ]
+  },
+  "equipment": {
+   "concentrator": {
+    "serial": "C5-087",
+    "flow_setting_lpm": 2
+   },
+   "fault_log": [],
+   "cylinders_on_site": [
+    {
+     "size": "HX 2300 L",
+     "fill_pct": 100
+    },
+    {
+     "size": "HX 2300 L",
+     "fill_pct": 100
+    },
+    {
+     "size": "HX 2300 L",
+     "fill_pct": 100
+    },
+    {
+     "size": "HX 2300 L",
+     "fill_pct": 100
+    },
+    {
+     "size": "HX 2300 L",
+     "fill_pct": 50
+    }
+   ]
+  },
+  "supply_plan": {
+   "next_delivery_date": "2025-05-15"
+  }
+ },
+ "factors": {
+  "rx_alignment": "rx_expired",
+  "items_shortfall": "nothing_left",
+  "setup_state": "all_logged",
+  "supply_hours": "about 86 hours of cylinder supply plus installed unfaulted concentrator",
+  "concentrator_fault": false,
+  "fault_mitigated": false,
+  "hazards_found": 4,
+  "hazard_mitigation": false,
+  "hazard_status_missing": false,
+  "handover_gap": false,
+  "timeline_out_of_order": true,
+  "next_delivery": "booked_in_time",
+  "dependency_level": "continuous",
+  "billing_hold": false
+ },
+ "factors_sampled": {
+  "rx_alignment": "rx_expired",
+  "items_shortfall": "none",
+  "setup_state": "all_logged",
+  "supply_hours": 87.39,
+  "concentrator_fault": false,
+  "fault_mitigated": false,
+  "hazards_found": 3,
+  "hazard_mitigation": false,
+  "hazard_status_missing": false,
+  "handover_gap": false,
+  "timeline_out_of_order": true,
+  "next_delivery": "booked_in_time",
+  "dependency_level": "continuous",
+  "billing_hold": false
+ },
+ "plan": {
+  "rx_match": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "hold_confirm",
+   "second": null
+  },
+  "fulfilment": {
+   "clarity": "leaning",
+   "target": "nothing_delivered",
+   "second": null
+  },
+  "supply_runway": {
+   "clarity": "contested",
+   "target": "2",
+   "second": "3"
+  },
+  "open_hazards": {
+   "clarity": "balanced",
+   "target": "4",
+   "second": "3"
+  }
+ },
+ "target_words": 119,
+ "deciding": {
+  "rx_match": "Concentrator modality with flow_setting 2 lpm matches the prescription; rx_expiry 2025-04-30 is before the visit date, which only adds some doubt.",
+  "next_step": "Install completed_at 13:40 precedes arrived_at 14:10 and the prescription is expired, so one fact needs confirming before closing.",
+  "fulfilment": "items_left is empty against the ordered CONC5, so nothing was delivered, though checks are logged.",
+  "supply_runway": "Cylinders hold about 10350 L, roughly 86 hours at 2 lpm continuous, and an unfaulted concentrator is installed; level 2 vs 3 is contested.",
+  "open_hazards": "All four hazards are status open; NO_SIGNAGE carries fix firebreak_fitted, so 3 or 4 open is arguable."
+ },
+ "request": "rec-F303-0026",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.013915
+}

@@ -1,0 +1,122 @@
+{
+ "id": "F330-0004",
+ "family": "F330",
+ "state": {
+  "request": {
+   "grade": "G4",
+   "cost_centre": "CC55",
+   "trip_ref": "T-12",
+   "requested_total": 546
+  },
+  "lines": [
+   {
+    "date": "2025-09-15",
+    "category": "air",
+    "cost_centre": "CC55",
+    "amount": 700,
+    "ccy": "USD",
+    "fx_rate": 0.78,
+    "amount_gbp": 560,
+    "receipt_attached": true
+   }
+  ],
+  "policy": {
+   "cap_gbp": 500,
+   "cap_unit": "trip",
+   "units": 1,
+   "reviewer_limit_gbp": 250
+  },
+  "travel": {
+   "trip_ref": "T-12",
+   "depart": "2025-09-15",
+   "return": "2025-09-19",
+   "booked_on": "2025-07-29",
+   "disruption": null,
+   "alt_check": {
+    "options_seen": 2,
+    "compliant_found": false
+   }
+  },
+  "approvals": {
+   "line_mgr": {
+    "approved": null
+   },
+   "pre_approval": {
+    "trip_ref": "T-12",
+    "max_gbp": 100,
+    "valid_to": "2025-09-30"
+   }
+  },
+  "history": {
+   "exceptions_12m": 6
+  }
+ },
+ "factors": {
+  "breach_type": "airfare_class_upgrade",
+  "true_excess_pct": 12.0,
+  "amount_mismatch": "fx_rate_stale",
+  "reference_mismatch": "none",
+  "pre_approval_state": "valid_matching",
+  "external_disruption": false,
+  "compliant_option": "none_available",
+  "missing_item": "line_manager_approval",
+  "excess_vs_authority": "well_within",
+  "client_rechargeable": false,
+  "prior_exceptions_12m": 6,
+  "booking_lead_days": 48,
+  "employee_grade": "G4"
+ },
+ "factors_sampled": {
+  "breach_type": "airfare_class_upgrade",
+  "true_excess_pct": 113.17,
+  "amount_mismatch": "fx_rate_stale",
+  "reference_mismatch": "two_of_above",
+  "pre_approval_state": "max_below_excess",
+  "external_disruption": false,
+  "compliant_option": "available",
+  "missing_item": "line_manager_approval",
+  "excess_vs_authority": "well_within",
+  "client_rechargeable": false,
+  "prior_exceptions_12m": 6,
+  "booking_lead_days": 48,
+  "employee_grade": "G4"
+ },
+ "plan": {
+  "preapproval_covers": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "outside_control": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "excess_disposition": {
+   "clarity": "clear",
+   "target": "hold_for_info",
+   "second": null
+  },
+  "excess_size": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  },
+  "discrepancy_count": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  }
+ },
+ "target_words": 49,
+ "deciding": {
+  "preapproval_covers": "Pre-approval trip_ref T-12 matches, valid_to 09-30 is after departure, and max_gbp 100 exceeds the excess of 60.",
+  "outside_control": "alt_check shows no compliant option found after 2 seen, though no disruption is logged.",
+  "excess_disposition": "line_mgr.approved is null, the single missing approval, so the claim waits on it.",
+  "excess_size": "Line amount_gbp 560 vs cap 500 gives 12%, but 700x0.78=546 gives 9.2%, straddling the 10% boundary.",
+  "discrepancy_count": "Line fx 700x0.78=546 vs amount_gbp 560 is one; requested_total 546 vs line sum 560 is arguably a second stemming from it."
+ },
+ "request": "rec-F330-0001",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.015116
+}

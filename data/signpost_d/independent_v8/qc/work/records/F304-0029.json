@@ -1,0 +1,119 @@
+{
+ "id": "F304-0029",
+ "family": "F304",
+ "state": {
+  "request": {
+   "appt_type": "inter_site_transfer",
+   "appt_time": "16:00",
+   "vehicle_class": "car",
+   "crew_requested": "single",
+   "mobility_booked": "walking"
+  },
+  "patient": {
+   "mobility_assessed": "walking",
+   "assessed_on": "2025-03-04",
+   "oxygen_lpm": 0,
+   "monitoring": null,
+   "exemption": {
+    "code": "E1",
+    "approved_by": "DrVale",
+    "approved_on": "2025-02-11"
+   }
+  },
+  "journey": {
+   "window_end": "15:20",
+   "est_duration_min": 42,
+   "late_tolerance_min": 10,
+   "destination": {
+    "reslot_same_day": false
+   }
+  },
+  "history": [
+   {
+    "outcome": "aborted",
+    "reason": "patient refused"
+   },
+   {
+    "outcome": "aborted",
+    "reason": "weather"
+   },
+   {
+    "outcome": "aborted",
+    "reason": "bed unavailable"
+   }
+  ],
+  "notes": {
+   "control_note": "Receiving unit chair for treatment; no later slot."
+  }
+ },
+ "factors": {
+  "mobility_alignment": "matches",
+  "secondary_discrepancy": "none",
+  "eligibility_concern": false,
+  "eligibility_exception": true,
+  "clinical_support": "none",
+  "crew_request_gap": "correct",
+  "buffer_minutes": -2.0,
+  "duration_estimate_split": false,
+  "late_tolerance": true,
+  "appointment_type": "inter_site_transfer",
+  "same_day_reslot": false,
+  "confirmation_pending": false,
+  "prior_aborts": 3,
+  "aborts_related": false
+ },
+ "factors_sampled": {
+  "mobility_alignment": "stale",
+  "secondary_discrepancy": "time_material",
+  "eligibility_concern": true,
+  "eligibility_exception": true,
+  "clinical_support": "cardiac_monitoring",
+  "crew_request_gap": "over_one_step",
+  "buffer_minutes": -11.21,
+  "duration_estimate_split": true,
+  "late_tolerance": true,
+  "appointment_type": "discharge",
+  "same_day_reslot": false,
+  "confirmation_pending": true,
+  "prior_aborts": 3,
+  "aborts_related": false
+ },
+ "plan": {
+  "vehicle_fit": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "disposition": {
+   "clarity": "leaning",
+   "target": "confirm",
+   "second": null
+  },
+  "crew_config": {
+   "clarity": "clear",
+   "target": "single_crew",
+   "second": null
+  },
+  "time_pressure": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  },
+  "delay_impact": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  }
+ },
+ "target_words": 64,
+ "deciding": {
+  "vehicle_fit": "Walking/car matches same-week assessment, no equipment.",
+  "disposition": "No conflicts or pending items; three unrelated aborts leave minor doubt.",
+  "crew_config": "oxygen 0, no monitoring, walking patient: single crew.",
+  "time_pressure": "Window end 15:20 plus 42 min is 2 min past 16:00; 10 min tolerance makes late vs just-on-time arguable.",
+  "delay_impact": "Transfer to treatment chair with no later slot and no reslot; treatment loss vs transfer slot loss balanced."
+ },
+ "request": "rec-F304-0026",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.0103
+}

@@ -1,0 +1,149 @@
+{
+ "id": "F317-0030",
+ "family": "F317",
+ "state": {
+  "vehicle": {
+   "fleet_no": "T2650",
+   "class": "E",
+   "odometer_km": 29995,
+   "last_exam_type": "A",
+   "last_exam_date": "2025-02-01"
+  },
+  "exam": {
+   "exam_id": "EX540",
+   "exam_type": "B",
+   "due_at_km": 30500,
+   "opened_at": "2025-07-07",
+   "items": [
+    {
+     "item_code": "BR01",
+     "result": null,
+     "signed_by": "u31",
+     "signed_at": null
+    },
+    {
+     "item_code": "DR02",
+     "result": null,
+     "signed_by": null,
+     "signed_at": null
+    },
+    {
+     "item_code": "PN03",
+     "result": null,
+     "signed_by": null,
+     "signed_at": null
+    },
+    {
+     "item_code": "RG04",
+     "result": null,
+     "signed_by": null,
+     "signed_at": null
+    }
+   ]
+  },
+  "defects": [
+   {
+    "defect_id": "D12",
+    "subsystem": "pantograph",
+    "safety_critical": false,
+    "raised_at": "2025-07-05",
+    "status": "open",
+    "closed_at": null,
+    "retest_at": null,
+    "retest_result": null
+   }
+  ],
+  "work_orders": [
+   {
+    "wo_id": "W20",
+    "defect_ref": "D12",
+    "subsystem": "pantograph",
+    "opened_at": "2025-07-06",
+    "completed_at": null,
+    "status": "in_progress",
+    "parts": [
+     "collector_head"
+    ]
+   }
+  ],
+  "concessions": [],
+  "release": {
+   "duty_id": "O05",
+   "duty_type": "off_peak",
+   "depart_at": "2025-07-09T09:00",
+   "odo_reading_km": 30003,
+   "brake_test_at": null,
+   "brake_test_result": null
+  }
+ },
+ "factors": {
+  "km_to_exam_due": 497,
+  "odometer_disagreement": "small",
+  "exam_signed_fraction": 0.0,
+  "exam_record_missing": false,
+  "worst_defect_subsystem": "pantograph",
+  "worst_defect_state": "open_wo_in_progress",
+  "worst_defect_safety_critical": false,
+  "retest_out_of_order": false,
+  "concession_present": false,
+  "concession_flaw": "none",
+  "wo_crossref_mismatch": "none",
+  "planned_duty_type": "off_peak",
+  "recent_brake_test_pass": false,
+  "balanced_signals": false
+ },
+ "factors_sampled": {
+  "km_to_exam_due": 461,
+  "odometer_disagreement": "none",
+  "exam_signed_fraction": 0.25,
+  "exam_record_missing": false,
+  "worst_defect_subsystem": "running_gear",
+  "worst_defect_state": "open_wo_in_progress",
+  "worst_defect_safety_critical": false,
+  "retest_out_of_order": false,
+  "concession_present": false,
+  "concession_flaw": "none",
+  "wo_crossref_mismatch": "none",
+  "planned_duty_type": "off_peak",
+  "recent_brake_test_pass": false,
+  "balanced_signals": false
+ },
+ "plan": {
+  "sc_defects_cleared": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "release_decision": {
+   "clarity": "clear",
+   "target": "withdraw",
+   "second": null
+  },
+  "worst_subsystem": {
+   "clarity": "leaning",
+   "target": "pantograph",
+   "second": null
+  },
+  "exam_completion": {
+   "clarity": "contested",
+   "target": "0",
+   "second": "1"
+  },
+  "exam_mileage": {
+   "clarity": "contested",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 85,
+ "deciding": {
+  "sc_defects_cleared": "The only defect D12 has safety_critical false; no safety-critical defects exist.",
+  "release_decision": "Pantograph defect D12 open with WO W20 in progress awaiting collector head, no brake test and no concession, so tram needs repair before running.",
+  "worst_subsystem": "D12 pantograph is the only unresolved defect; minor doubt as it is non-critical.",
+  "exam_completion": "No item has a signed_at; BR01 has a signer but null timestamp, so level 0 vs 1.",
+  "exam_mileage": "Due 30500; vehicle odo 29995 (505 left) vs release odo 30003 (497 left), straddling the 500 km boundary."
+ },
+ "request": "rec-F317-0026",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.013879
+}

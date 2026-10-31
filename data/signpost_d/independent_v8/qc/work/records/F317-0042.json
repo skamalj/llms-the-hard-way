@@ -1,0 +1,160 @@
+{
+ "id": "F317-0042",
+ "family": "F317",
+ "state": {
+  "vehicle": {
+   "fleet_no": 1807,
+   "odometer_km": 29995
+  },
+  "exam": {
+   "exam_id": "E-5530",
+   "exam_type": "C",
+   "due_at_km": 29800,
+   "opened_at": "2025-04-01T07:00",
+   "items": [
+    {
+     "item_code": "RG-01",
+     "result": "pass",
+     "signed_by": "u5",
+     "signed_at": "2025-04-01T06:30"
+    },
+    {
+     "item_code": "RG-02",
+     "result": "pass",
+     "signed_by": null,
+     "signed_at": null
+    },
+    {
+     "item_code": "DR-01",
+     "result": "pass",
+     "signed_by": null,
+     "signed_at": null
+    },
+    {
+     "item_code": "PN-01",
+     "result": "pass",
+     "signed_by": null,
+     "signed_at": null
+    },
+    {
+     "item_code": "BR-01",
+     "result": null,
+     "signed_by": null,
+     "signed_at": null
+    }
+   ]
+  },
+  "defects": [
+   {
+    "defect_id": "D-40",
+    "subsystem": "saloon_doors",
+    "safety_critical": true,
+    "status": "closed",
+    "closed_at": "2025-03-01",
+    "retest_at": "2025-03-02",
+    "retest_result": "pass"
+   },
+   {
+    "defect_id": "D-47",
+    "subsystem": "running_gear",
+    "safety_critical": false,
+    "status": "closed",
+    "closed_at": "2025-03-05",
+    "retest_at": null,
+    "retest_result": null
+   }
+  ],
+  "work_orders": [
+   {
+    "wo_id": "WO-12",
+    "defect_ref": "D-47",
+    "subsystem": "running_gear",
+    "completed_at": "2025-03-05",
+    "status": "complete"
+   },
+   {
+    "wo_id": "WO-13",
+    "defect_ref": "D-52",
+    "subsystem": "saloon_doors",
+    "status": "complete"
+   }
+  ],
+  "release": {
+   "duty_type": "off_peak",
+   "depart_at": "2025-04-02T09:00",
+   "odo_reading_km": 30004,
+   "brake_test_at": "2025-04-02T06:10",
+   "brake_test_result": "pass"
+  }
+ },
+ "factors": {
+  "km_to_exam_due": -204,
+  "odometer_disagreement": "trivial",
+  "exam_signed_fraction": 0.2,
+  "exam_record_missing": false,
+  "worst_defect_subsystem": "running_gear",
+  "worst_defect_state": "closed_no_retest",
+  "worst_defect_safety_critical": false,
+  "retest_out_of_order": false,
+  "concession_present": false,
+  "concession_flaw": "none",
+  "wo_crossref_mismatch": "defect_ref_unknown",
+  "planned_duty_type": "off_peak",
+  "recent_brake_test_pass": true,
+  "balanced_signals": true
+ },
+ "factors_sampled": {
+  "km_to_exam_due": 409,
+  "odometer_disagreement": "none",
+  "exam_signed_fraction": 0.94,
+  "exam_record_missing": false,
+  "worst_defect_subsystem": "saloon_doors",
+  "worst_defect_state": "closed_retested",
+  "worst_defect_safety_critical": true,
+  "retest_out_of_order": false,
+  "concession_present": false,
+  "concession_flaw": "none",
+  "wo_crossref_mismatch": "defect_ref_unknown",
+  "planned_duty_type": "off_peak",
+  "recent_brake_test_pass": true,
+  "balanced_signals": false
+ },
+ "plan": {
+  "sc_defects_cleared": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "release_decision": {
+   "clarity": "contested",
+   "target": "release",
+   "second": "withdraw"
+  },
+  "worst_subsystem": {
+   "clarity": "balanced",
+   "target": "none",
+   "second": "running_gear"
+  },
+  "exam_completion": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  },
+  "exam_mileage": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  }
+ },
+ "target_words": 90,
+ "deciding": {
+  "sc_defects_cleared": "The only safety-critical defect D-40 is closed with a pass retest on 03-02 after closure on 03-01 in order.",
+  "release_decision": "Recent brake test pass, off_peak duty and no open defects favour release; overrun of about 200 km with one signed exam item favours withdraw.",
+  "worst_subsystem": "D-47 on running_gear is closed with retest_at null, so it may count as awaiting retest, or nothing may be unresolved.",
+  "exam_completion": "Only RG-01 carries signed_by and signed_at, and that signed_at is before exam opened_at; the other items have no sign-off.",
+  "exam_mileage": "Due 29800 against vehicle odo 29995 is 195 km over, but release odo 30004 gives 204 km over, straddling the 200 km line."
+ },
+ "request": "rec-F317-0041",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012266
+}

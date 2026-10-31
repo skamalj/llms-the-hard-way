@@ -1,0 +1,148 @@
+{
+ "id": "F328-0055",
+ "family": "F328",
+ "state": {
+  "report_meta": {
+   "id": "W22-B",
+   "veh": "YK70 WPD",
+   "driver_id": "D412",
+   "period": "2024-05-27/2024-06-02"
+  },
+  "vehicle_device": {
+   "health_flags": [],
+   "last_cal": "2024-04-11",
+   "odo_start": 33000,
+   "odo_end": 33200
+  },
+  "trips": [
+   {
+    "id": "T1",
+    "start": "05-28T07:00",
+    "end": "05-28T09:54",
+    "gps_km": 150,
+    "driver_card": "D412",
+    "ign_min": 185
+   },
+   {
+    "id": "T2",
+    "start": "05-28T11:00",
+    "end": "05-28T11:20",
+    "gps_km": 13.4,
+    "driver_card": "D412"
+   }
+  ],
+  "events": [
+   {
+    "t": "05-28T08:20",
+    "type": "speed",
+    "seg": "A-road seg 9",
+    "recorded_mph": 61,
+    "posted_limit_mph": 55,
+    "map_ver": "M24.1"
+   },
+   {
+    "t": "05-28T07:45",
+    "type": "harsh_brake"
+   },
+   {
+    "t": "05-28T09:00",
+    "type": "harsh_corner"
+   }
+  ],
+  "tacho_summary": {
+   "cards": [
+    {
+     "card": "D412",
+     "drive": [
+      [
+       "07:00",
+       "09:54"
+      ],
+      [
+       "11:00",
+       "11:20"
+      ]
+     ]
+    }
+   ]
+  },
+  "notes_history": {
+   "limit_updates": [
+    {
+     "seg": "A-road seg 9",
+     "limit_mph": 60,
+     "date": "2024-05-29"
+    }
+   ],
+   "coaching": []
+  }
+ },
+ "factors": {
+  "driver_assignment": "match",
+  "raw_speed_excess_pct": 10.9,
+  "speed_mitigation": "none",
+  "harsh_event_count": 2,
+  "harsh_context_logged": false,
+  "device_health": "ok",
+  "telematics_stint_hours": 2.9,
+  "tacho_break_reconciles": false,
+  "prior_coaching_count": 0,
+  "coaching_status": "none",
+  "boundary_value": false,
+  "note_content": "none",
+  "distance_discrepancy_pct": 18.3
+ },
+ "factors_sampled": {
+  "driver_assignment": "match",
+  "raw_speed_excess_pct": 14.63,
+  "speed_mitigation": "map_limit_outdated",
+  "harsh_event_count": 7,
+  "harsh_context_logged": false,
+  "device_health": "ok",
+  "telematics_stint_hours": 2.64,
+  "tacho_break_reconciles": true,
+  "prior_coaching_count": 4,
+  "coaching_status": "none",
+  "boundary_value": false,
+  "note_content": "none",
+  "distance_discrepancy_pct": 18.3
+ },
+ "plan": {
+  "driver_attributed": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "follow_up": {
+   "clarity": "leaning",
+   "target": "hold_verify",
+   "second": null
+  },
+  "worst_event_cause": {
+   "clarity": "leaning",
+   "target": "driver_choice",
+   "second": null
+  },
+  "speed_excess": {
+   "clarity": "contested",
+   "target": "2",
+   "second": "1"
+  },
+  "hours_exposure": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 72,
+ "deciding": {
+  "driver_attributed": "Trips T1 and T2 and the tacho entries all carry D412 at the 08:20 event time, with no card gap.",
+  "follow_up": "The excess is about 11% over 55, but a 60 mph limit update for the same segment is dated the day after the event, so whether it applies needs verifying; there is no prior coaching.",
+  "worst_event_cause": "No roadworks tag, no fault and no limit update dated before the event, but the later update leaves slight doubt about the posted limit.",
+  "speed_excess": "61 against 55 mph is 10.9% over, just above the 10% line; the later 60 mph update would cut it to under 2%, so levels 2 and 1 are both defensible.",
+  "hours_exposure": "T1 runs 2h54 with 185 min ignition-on, near the 3 h line, and the first break comes after 09:54."
+ },
+ "request": "rec-F328-0051",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.017725
+}

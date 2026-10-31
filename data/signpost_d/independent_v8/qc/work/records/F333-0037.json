@@ -1,0 +1,147 @@
+{
+ "id": "F333-0037",
+ "family": "F333",
+ "state": {
+  "room": {
+   "room_id": "C031",
+   "block": "C",
+   "rate_card_ref": "RC24"
+  },
+  "tenancy": {
+   "start_date": "2024-01-08",
+   "end_date": "2024-04-12",
+   "deposit_dispute_lodged": false
+  },
+  "checkin_inventory": {
+   "signed_date": "2024-01-06",
+   "signed_by_resident": true,
+   "items": [
+    {
+     "item_code": "DOOR",
+     "location": "entry",
+     "grade": "good"
+    },
+    {
+     "item_code": "WARD_HINGE",
+     "location": "wardrobe",
+     "grade": "good"
+    }
+   ]
+  },
+  "checkout_inspection": {
+   "inspection_type": "checkout",
+   "inspection_date": "2024-04-12",
+   "inspector_id": null,
+   "items": [
+    {
+     "item_code": "DOOR",
+     "location": "entry",
+     "grade": "good",
+     "defect_category": "scuff",
+     "photo_refs": [
+      "p1"
+     ]
+    },
+    {
+     "item_code": "WARD_HINGE",
+     "location": "wardrobe",
+     "grade": "good",
+     "defect_category": "broken_fitting",
+     "photo_refs": []
+    }
+   ]
+  },
+  "proposed_charges": {
+   "lines": [
+    {
+     "item_code": "WARD_HINGE",
+     "reason_code": "DMG",
+     "qty": 1,
+     "unit_rate": 0.01,
+     "line_total": 0.01
+    }
+   ],
+   "summary_total": 0.01,
+   "rate_card_ref": "RC24"
+  },
+  "works_orders": [
+   {
+    "wo_id": "W41",
+    "raised_date": "2024-01-02",
+    "location": "wardrobe",
+    "category": "fabric",
+    "status": "completed",
+    "completed_date": "2024-01-05",
+    "retest_passed": true
+   }
+  ]
+ },
+ "factors": {
+  "inspection_type": "checkout",
+  "checkin_inventory_state": "complete",
+  "prior_damage_on_charged_item": "none",
+  "charge_discrepancy": "line for item graded good at checkout, 0.01",
+  "worst_defect_tier": "functional",
+  "true_cause": "no_defect",
+  "predating_works_order": true,
+  "safety_fault_remedied": false,
+  "photo_coverage": "all_but_one",
+  "tenancy_months": 3,
+  "date_out_of_order": false,
+  "deposit_dispute_lodged": false,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "inspection_type": "checkout",
+  "checkin_inventory_state": "complete",
+  "prior_damage_on_charged_item": "none",
+  "charge_discrepancy": "medium_25_to_100",
+  "worst_defect_tier": "cosmetic",
+  "true_cause": "resident_damage",
+  "predating_works_order": true,
+  "safety_fault_remedied": false,
+  "photo_coverage": "full",
+  "tenancy_months": 3,
+  "date_out_of_order": false,
+  "deposit_dispute_lodged": false,
+  "boundary_case": false
+ },
+ "plan": {
+  "checkin_clean": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "disposition": {
+   "clarity": "contested",
+   "target": "order_reinspection",
+   "second": "hold_for_evidence"
+  },
+  "main_cause": {
+   "clarity": "clear",
+   "target": "no_defect",
+   "second": null
+  },
+  "defect_severity": {
+   "clarity": "contested",
+   "target": "1",
+   "second": "0"
+  },
+  "charge_gap": {
+   "clarity": "contested",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 41,
+ "deciding": {
+  "checkin_clean": "The charged item WARD_HINGE was graded good at check-in in a complete, signed inventory.",
+  "disposition": "Inspector_id is null and one checkout item has empty photo_refs. That is two gaps (a reinspection signal), but a reader could treat it as a single evidence fix.",
+  "main_cause": "Every checkout grade equals its check-in grade (good/good).",
+  "defect_severity": "Scuff on the door is cosmetic, but the wardrobe hinge carries broken_fitting at grade good, so levels 0 and 1 are both defensible.",
+  "charge_gap": "Proposed total is 0.01 against nothing evidenced (the item is graded good); the gap sits at the 0 / 0.01 edge."
+ },
+ "request": "rec-F333-0036",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.014474
+}

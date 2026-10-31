@@ -1,0 +1,135 @@
+{
+ "id": "F305-0029",
+ "family": "F305",
+ "state": {
+  "session": {
+   "date": "2025-03-01",
+   "needle_on": "08:00",
+   "washback": "11:34",
+   "review_date": "2025-04-01"
+  },
+  "prescription": {
+   "duration_min": 240,
+   "qb_ml_min": 300
+  },
+  "machine": {
+   "qb_actual": 250,
+   "uf_removed_ml": 1800,
+   "washback_ml": 250,
+   "alarms": [
+    {
+     "c": "PUMP_STOP",
+     "t": "09:00"
+    },
+    {
+     "c": "PUMP_RESUME",
+     "t": "09:05"
+    },
+    {
+     "c": "QB_REDUCED",
+     "code": "ART_PRESSURE_HIGH",
+     "t": "09:20"
+    }
+   ]
+  },
+  "observations": {
+   "pre_kg": 70.0,
+   "post_kg": 68.9
+  },
+  "checks": [
+   {
+    "k": "machine_disinfection",
+    "done": true,
+    "t": "07:40"
+   },
+   {
+    "k": "conductivity",
+    "done": true,
+    "t": "07:50"
+   },
+   {
+    "k": "access_check",
+    "done": true,
+    "t": "07:59"
+   }
+  ],
+  "history": [
+   {
+    "p": 240,
+    "e": 240
+   },
+   {
+    "p": 240,
+    "e": 200
+   }
+  ]
+ },
+ "factors": {
+  "time_shortfall_min": 31,
+  "machine_pause_min": 5,
+  "uf_weight_gap_kg": 0.45,
+  "post_weight_missing": false,
+  "missing_check": "none",
+  "check_logged_after_start": false,
+  "prescription_mismatch": "none",
+  "mismatch_magnitude": "trivial",
+  "hypotension_episodes": 0,
+  "hypotension_mitigated": false,
+  "circuit_clotted": false,
+  "prior_short_sessions": 1,
+  "documented_flow_reduction": true
+ },
+ "factors_sampled": {
+  "time_shortfall_min": 32,
+  "machine_pause_min": 5,
+  "uf_weight_gap_kg": 0.09,
+  "post_weight_missing": false,
+  "missing_check": "machine_disinfection",
+  "check_logged_after_start": false,
+  "prescription_mismatch": "dialysate_k",
+  "mismatch_magnitude": "clinically_relevant",
+  "hypotension_episodes": 4,
+  "hypotension_mitigated": true,
+  "circuit_clotted": false,
+  "prior_short_sessions": 1,
+  "documented_flow_reduction": true
+ },
+ "plan": {
+  "uf_reconciles": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "checks_before_start": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "log_disposition": {
+   "clarity": "contested",
+   "target": "refer_prescriber",
+   "second": "hold_query"
+  },
+  "time_shortfall": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "pending_age": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 29,
+ "deciding": {
+  "uf_reconciles": "Net UF 1800-250=1550 ml vs 1.1 kg loss (70.0 to 68.9): gap 0.45 kg, just inside 0.5.",
+  "checks_before_start": "Access check at 07:59, one minute before needle_on 08:00; earlier checks are clearly before. Only minute resolution, so a thin margin.",
+  "log_disposition": "Effective time about 31 min short points to nephrologist referral; but with no other finding, the thin 07:59 check margin makes a hold query to the treating nurse plausible.",
+  "time_shortfall": "Clock 214 min minus 5 min pause (09:00-09:05) = 209 effective vs 240, short 31; clock alone gives 26.",
+  "pending_age": "Session 2025-03-01 vs review_date 2025-04-01 = 31 days, one day past the 30-day boundary."
+ },
+ "request": "rec-F305-0026",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.0147
+}

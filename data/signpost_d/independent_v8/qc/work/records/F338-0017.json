@@ -1,0 +1,145 @@
+{
+ "id": "F338-0017",
+ "family": "F338",
+ "state": {
+  "site": {
+   "id": "S207",
+   "pollutant": "SO2",
+   "tier": "indicative",
+   "service_interval_days": 45,
+   "approved_interval_days": 45
+  },
+  "visit": {
+   "date": "2024-07-15",
+   "start": "2024-07-15T10:00",
+   "end": "2024-07-15T11:10",
+   "sequence_status": "partial"
+  },
+  "reference": {
+   "standard_id": "C5520",
+   "conc": 400,
+   "unit": "ppb",
+   "cert_no": "UK-88213",
+   "cert_expiry": "2025-02-28"
+  },
+  "checks": [
+   {
+    "type": "as_found_zero",
+    "ref_id": "C5520",
+    "ref_conc": 0,
+    "unit": "ppm",
+    "reading": 7.05,
+    "tol": 5,
+    "ts": "2024-07-15T10:05"
+   },
+   {
+    "type": "as_left_zero",
+    "ref_id": "C5520",
+    "ref_conc": 0,
+    "unit": "ppm",
+    "reading": 9,
+    "tol": 5,
+    "ts": "2024-07-15T10:40"
+   },
+   {
+    "type": "as_left_zero",
+    "ref_id": "C5520",
+    "ref_conc": 0,
+    "unit": "ppm",
+    "reading": 8.4,
+    "tol": 5,
+    "ts": "2024-07-15T11:00"
+   }
+  ],
+  "history": {
+   "last_visit_date": "2024-06-14",
+   "results": [
+    "pass",
+    "pass"
+   ],
+   "autochecks": [
+    {
+     "d": "2024-07-10",
+     "r": "pass"
+    },
+    {
+     "d": "2024-07-12",
+     "r": "pass"
+    }
+   ]
+  },
+  "instrument": {
+   "temp_min": 16,
+   "temp_max": 26,
+   "firmware": "3.2"
+  }
+ },
+ "factors": {
+  "pollutant": "SO2",
+  "as_found_ratio": 1.41,
+  "as_left_status": "repeated_zero_fail",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 228,
+  "unit_mismatch": true,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "none",
+  "days_since_last_visit": 31,
+  "visit_completeness": "zero_only",
+  "prior_fail_count": 0,
+  "timestamp_mismatch": "none",
+  "site_priority": "indicative"
+ },
+ "factors_sampled": {
+  "pollutant": "SO2",
+  "as_found_ratio": 1.41,
+  "as_left_status": "all_pass",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 228,
+  "unit_mismatch": true,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "none",
+  "days_since_last_visit": 31,
+  "visit_completeness": "zero_only",
+  "prior_fail_count": 0,
+  "timestamp_mismatch": "none",
+  "site_priority": "indicative"
+ },
+ "plan": {
+  "data_accepted": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "reference_valid": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "withdraw",
+   "second": null
+  },
+  "flag_extent": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  },
+  "return_urgency": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  }
+ },
+ "target_words": 57,
+ "deciding": {
+  "data_accepted": "As-found zero is 7.05 against tol 5, but the autochecks passed up to 07-12 and the history is clean. Only zero points were run, so either answer is defensible.",
+  "reference_valid": "Check unit is ppm against reference unit ppb, and the zero ref_conc is unconverted. The id and expiry (2025-02-28) are fine, and the zero point makes the unit difference hard to weigh.",
+  "next_step": "Both as-left zero readings (9 and 8.4) are still out of tol 5 after adjustment, so the analyser cannot be brought in by site adjustment.",
+  "flag_extent": "31 days since the last visit with autochecks passing until 07-12; the affected span is near the 30-day boundary between level 1 and level 2.",
+  "return_urgency": "Indicative tier with a faulty zero that is not fixed. Prompt and urgent are both plausible."
+ },
+ "request": "rec-F338-0016",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012531
+}

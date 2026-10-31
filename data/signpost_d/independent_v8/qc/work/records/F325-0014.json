@@ -1,0 +1,144 @@
+{
+ "id": "F325-0014",
+ "family": "F325",
+ "state": {
+  "pen": {
+   "pen_id": "B02",
+   "stage": "broodstock",
+   "limits": {
+    "do_min_mg_l": 6.0
+   }
+  },
+  "check": {
+   "pen_id": "B02",
+   "sampled_at": "2024-07-22T10:30",
+   "sampler_id": "T05",
+   "depth_profile": [
+    {
+     "depth_m": 1,
+     "do_mg_l": 7.2
+    },
+    {
+     "depth_m": 3,
+     "do_mg_l": 6.9
+    }
+   ],
+   "readings": {
+    "do_mg_l": 6.9,
+    "do_unit": "mg/L"
+   }
+  },
+  "instrument": {
+   "last_cal": "2024-06-20",
+   "cal_result": "pass",
+   "cal_due": "2024-09-20",
+   "logger_do_mg_l": 5.6,
+   "logger_flags": [
+    "LOW_DO"
+   ]
+  },
+  "conditions": {
+   "feed_kg_last_6h": 520,
+   "feed_usual_kg": 400
+  },
+  "history": [
+   {
+    "do": 5.4,
+    "in_limits": false
+   },
+   {
+    "do": 6.8,
+    "in_limits": true
+   },
+   {
+    "do": 5.5,
+    "in_limits": false
+   },
+   {
+    "do": 5.7,
+    "in_limits": false
+   },
+   {
+    "do": 5.9,
+    "in_limits": true
+   },
+   {
+    "do": 6.7,
+    "in_limits": true
+   }
+  ],
+  "notes": {
+   "sampler": "Typed up from handheld screen.",
+   "signoff": "A.Lin",
+   "signoff_at": "2024-07-22T11:10"
+  }
+ },
+ "factors": {
+  "stock_stage": "broodstock",
+  "true_do_margin": 0.87,
+  "primary_cause": "recording",
+  "cross_section_mismatch": "none",
+  "calibration_state": "current",
+  "logger_alarm_raised": true,
+  "mitigation_present": false,
+  "mitigation_kind": "passed_repeat_check",
+  "history_out_of_range": 3,
+  "missing_required": 0,
+  "date_order_fault": false,
+  "boundary_case": false,
+  "note_tone": "consistent_concern"
+ },
+ "factors_sampled": {
+  "stock_stage": "broodstock",
+  "true_do_margin": 0.87,
+  "primary_cause": "instrument",
+  "cross_section_mismatch": "none",
+  "calibration_state": "overdue",
+  "logger_alarm_raised": true,
+  "mitigation_present": false,
+  "mitigation_kind": "passed_repeat_check",
+  "history_out_of_range": 1,
+  "missing_required": 4,
+  "date_order_fault": true,
+  "boundary_case": false,
+  "note_tone": "consistent_concern"
+ },
+ "plan": {
+  "genuine_do_breach": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "next_step": {
+   "clarity": "contested",
+   "target": "resample_first",
+   "second": "reduce_feeding"
+  },
+  "deviation_cause": {
+   "clarity": "balanced",
+   "target": "recording_error",
+   "second": "instrument_fault"
+  },
+  "persistence": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "evidence_completeness": {
+   "clarity": "clear",
+   "target": "3",
+   "second": null
+  }
+ },
+ "target_words": 31,
+ "deciding": {
+  "genuine_do_breach": "The calibrated probe shows 6.9 and 7.2 against a 6.0 limit, but the logger reads 5.6 with LOW_DO. That is a 1.3 gap, keeping breach plausible but less likely.",
+  "next_step": "The logger disagreement favours a repeat check. Feed of 520 against a usual 400 and a history of lows make reducing feed defensible.",
+  "deviation_cause": "Calibration is current, so a probe fault is less likely, but the note says values were typed from the screen. The 1.3 logger gap keeps instrument fault open.",
+  "persistence": "Three history checks are flagged out of range, and a 5.9 entry is flagged in limits despite being below 6.0. That gives four or three.",
+  "evidence_completeness": "Every element is present, calibration is current, no dates are out of order, and signoff_at follows sampled_at, so level 3."
+ },
+ "request": "rec-F325-0011",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.014589
+}

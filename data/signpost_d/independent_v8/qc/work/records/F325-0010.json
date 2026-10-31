@@ -1,0 +1,145 @@
+{
+ "id": "F325-0010",
+ "family": "F325",
+ "state": {
+  "pen": {
+   "pen_id": "S6",
+   "stage": "smolt",
+   "limits": {
+    "do_min_mg_l": 7.0,
+    "tan_max_mg_l": 0.6,
+    "temp_max_c": 14
+   }
+  },
+  "check": {
+   "pen_id": "S6",
+   "sampled_at": "2025-04-14T11:20",
+   "sampler_id": "S09",
+   "readings": {
+    "do_mg_l": 6.7,
+    "do_unit": "mg/L",
+    "tan_mg_l": 0.3
+   },
+   "depth_profile": [
+    {
+     "depth_m": 1,
+     "do_mg_l": 7.0
+    },
+    {
+     "depth_m": 4,
+     "do_mg_l": 6.7
+    }
+   ]
+  },
+  "instrument": {
+   "last_cal": "2025-03-02",
+   "cal_result": "pass",
+   "cal_due": "2025-04-01",
+   "logger_do_mg_l": 6.6,
+   "logger_flags": []
+  },
+  "conditions": {
+   "feed_kg_last_6h": 62,
+   "usual_feed_kg_6h": 60
+  },
+  "history": [
+   {
+    "do": 7.4,
+    "in_limits": true
+   },
+   {
+    "do": 7.2,
+    "in_limits": true
+   },
+   {
+    "do": 7.0,
+    "in_limits": true
+   },
+   {
+    "do": 7.3,
+    "in_limits": true
+   },
+   {
+    "do": 7.1,
+    "in_limits": true
+   },
+   {
+    "do": 7.5,
+    "in_limits": true
+   }
+  ],
+  "notes": {
+   "sampler": "Fish lively and feeding hard.",
+   "signoff": "SUP2",
+   "signoff_at": "2025-04-14T11:50"
+  }
+ },
+ "factors": {
+  "stock_stage": "smolt",
+  "true_do_margin": -0.3,
+  "primary_cause": "instrument",
+  "cross_section_mismatch": "none",
+  "calibration_state": "overdue",
+  "logger_alarm_raised": false,
+  "mitigation_present": false,
+  "mitigation_kind": "none",
+  "history_out_of_range": 0,
+  "missing_required": 0,
+  "date_order_fault": false,
+  "boundary_case": false,
+  "note_tone": "alarming_benign"
+ },
+ "factors_sampled": {
+  "stock_stage": "smolt",
+  "true_do_margin": -1.07,
+  "primary_cause": "husbandry",
+  "cross_section_mismatch": "pen_id_mismatch",
+  "calibration_state": "overdue",
+  "logger_alarm_raised": false,
+  "mitigation_present": false,
+  "mitigation_kind": "aeration_running",
+  "history_out_of_range": 4,
+  "missing_required": 4,
+  "date_order_fault": false,
+  "boundary_case": true,
+  "note_tone": "alarming_benign"
+ },
+ "plan": {
+  "genuine_do_breach": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "contested",
+   "target": "file_routine",
+   "second": "reduce_feeding"
+  },
+  "deviation_cause": {
+   "clarity": "clear",
+   "target": "instrument_fault",
+   "second": null
+  },
+  "persistence": {
+   "clarity": "contested",
+   "target": "1",
+   "second": "0"
+  },
+  "evidence_completeness": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  }
+ },
+ "target_words": 110,
+ "deciding": {
+  "genuine_do_breach": "Probe DO 6.7 at 4 m is below the 7.0 limit, and the logger independently reads 6.6, so the low value is corroborated.",
+  "next_step": "The deficit is mild (0.3 below limit) and feed is near usual (62 vs 60 kg), so either routine filing or cutting feed is defensible. The probe calibration is overdue, which pulls toward routine filing pending a recheck.",
+  "deviation_cause": "cal_due 2025-04-01 is before sampled_at 2025-04-14, so the probe was overdue for calibration. Feeding is normal and no tide, algal or treatment signals are present.",
+  "persistence": "All six history entries are in limits, so only the current check is out of range. That gives 1 of 7, or 0 if only past checks are counted.",
+  "evidence_completeness": "Every field is present and signed off, with no date errors. Only the overdue calibration is invalid, so exactly one element is invalid."
+ },
+ "request": "rec-F325-0006",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.014093
+}

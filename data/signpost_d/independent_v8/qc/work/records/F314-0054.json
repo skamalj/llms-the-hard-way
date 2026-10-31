@@ -1,0 +1,137 @@
+{
+ "id": "F314-0054",
+ "family": "F314",
+ "state": {
+  "property": {
+   "inv": [
+    {
+     "id": "A1",
+     "type": "boiler",
+     "loc": "kitchen",
+     "serial": "N310"
+    },
+    {
+     "id": "A2",
+     "type": "hob",
+     "loc": "kitchen",
+     "serial": "H88"
+    }
+   ]
+  },
+  "tenancy": {
+   "review": "2025-04-14"
+  },
+  "certificate": {
+   "insp": "2024-04-14",
+   "exp": "2025-04-14",
+   "lic": "GS2090"
+  },
+  "engineer": {
+   "lic": "GS2090",
+   "valid_to": "2024-04-14",
+   "cats": [
+    "boiler",
+    "hob"
+   ]
+  },
+  "appliance_checks": [
+   {
+    "id": "A1",
+    "loc": "kitchen",
+    "serial": "N310",
+    "ratio": 0.004,
+    "thr": 0.004,
+    "defect": "ID",
+    "isolation": {
+     "supply_off": true
+    }
+   },
+   {
+    "id": "A2",
+    "loc": "kitchen",
+    "serial": "H88",
+    "defect": "NCS"
+   }
+  ],
+  "history": {
+   "defects": 1,
+   "remedials": [
+    {
+     "id": "A1",
+     "done": "2024-04-20",
+     "lic": "GS2090"
+    }
+   ],
+   "renewal": {
+    "date": "2025-04-30",
+    "status": "booked"
+   }
+  }
+ },
+ "factors": {
+  "inventory_mismatch": "none",
+  "tenant_owned_appliance": false,
+  "date_misalignment": "none",
+  "days_to_true_expiry": 0,
+  "renewal_booked": true,
+  "engineer_status": "valid_to_equals_inspection_date",
+  "worst_defect_class": "not_to_current_standard_open_after_dangerous_closed",
+  "defect_isolated": true,
+  "remedial_completed": true,
+  "combustion_reading": "borderline_ratio_equals_threshold",
+  "prior_defect_count": 1,
+  "boundary_case": true
+ },
+ "factors_sampled": {
+  "inventory_mismatch": "location_mismatch",
+  "tenant_owned_appliance": false,
+  "date_misalignment": "none",
+  "days_to_true_expiry": 104,
+  "renewal_booked": true,
+  "engineer_status": "lapsed_on_date",
+  "worst_defect_class": "immediately_dangerous",
+  "defect_isolated": true,
+  "remedial_completed": true,
+  "combustion_reading": "borderline",
+  "prior_defect_count": 1,
+  "boundary_case": false
+ },
+ "plan": {
+  "covers_all_appliances": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "engineer_valid": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "emergency_isolation",
+   "second": null
+  },
+  "renewal_urgency": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "open_hazard": {
+   "clarity": "contested",
+   "target": "1",
+   "second": "0"
+  }
+ },
+ "target_words": 66,
+ "deciding": {
+  "covers_all_appliances": "Inventory ids, locations and serials for A1 and A2 match the checks exactly.",
+  "engineer_valid": "Licences match and categories cover both appliances; valid_to equals inspection date, at the boundary.",
+  "next_step": "A1 ID defect is isolated with a matching remedial after inspection; only an NCS on A2 remains, so no appliance in service is dangerous.",
+  "renewal_urgency": "True expiry 2025-04-14 equals review date; renewal booked only for 2025-04-30.",
+  "open_hazard": "A1 ID closed by a later matching remedial; A2 NCS remains, so level 1 or 0 if the closure is read as clearing it all."
+ },
+ "request": "rec-F314-0051",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.010615
+}

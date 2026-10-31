@@ -1,0 +1,152 @@
+{
+ "id": "F328-0014",
+ "family": "F328",
+ "state": {
+  "report_meta": {
+   "driver_id": "D09",
+   "vehicle": "NB19"
+  },
+  "vehicle_device": {
+   "health_flags": [],
+   "odo": [
+    52010,
+    52250
+   ]
+  },
+  "trips": [
+   {
+    "s": "05:30",
+    "e": "08:00",
+    "driver_card": "D09",
+    "gps_km": 100.8
+   },
+   {
+    "s": "08:10",
+    "e": "10:40",
+    "driver_card": "D09",
+    "gps_km": 100.82
+   }
+  ],
+  "events": [
+   {
+    "t": "2024-03-04T07:05",
+    "type": "speed",
+    "seg": "A1-N",
+    "recorded_mph": 84.5,
+    "posted_limit_mph": 70,
+    "map_ver": "22.1"
+   },
+   {
+    "t": "06:10",
+    "type": "harsh_brake",
+    "tags": [
+     "congestion"
+    ]
+   },
+   {
+    "t": "09:15",
+    "type": "harsh_corner",
+    "tags": [
+     "rain"
+    ]
+   },
+   {
+    "t": "09:50",
+    "type": "harsh_brake",
+    "tags": [
+     "roadworks"
+    ]
+   }
+  ],
+  "tacho_summary": {
+   "card": "D09",
+   "breaks": [
+    "08:00-08:25"
+   ]
+  },
+  "notes_history": {
+   "supervisor_note": "A1-N limit was raised; check map.",
+   "limit_updates": [
+    {
+     "seg": "A1-N",
+     "new_mph": 75,
+     "date": "2024-03-04"
+    }
+   ],
+   "coaching": [
+    "2023-11-02 loading completed",
+    "2024-01-15 loading completed",
+    "2024-02-10 tyre checks completed",
+    "2024-03-06 scheduled"
+   ]
+  }
+ },
+ "factors": {
+  "driver_assignment": "match",
+  "raw_speed_excess_pct": 20.7,
+  "speed_mitigation": "map_limit_outdated",
+  "harsh_event_count": 3,
+  "harsh_context_logged": true,
+  "device_health": "ok",
+  "telematics_stint_hours": 5.0,
+  "tacho_break_reconciles": false,
+  "prior_coaching_count": 3,
+  "coaching_status": "scheduled",
+  "boundary_value": false,
+  "note_content": "benign_explanation_supported",
+  "distance_discrepancy_pct": 15.99
+ },
+ "factors_sampled": {
+  "driver_assignment": "match",
+  "raw_speed_excess_pct": 11.33,
+  "speed_mitigation": "map_limit_outdated",
+  "harsh_event_count": 11,
+  "harsh_context_logged": true,
+  "device_health": "ok",
+  "telematics_stint_hours": 4.47,
+  "tacho_break_reconciles": true,
+  "prior_coaching_count": 3,
+  "coaching_status": "scheduled",
+  "boundary_value": false,
+  "note_content": "benign_explanation_supported",
+  "distance_discrepancy_pct": 15.99
+ },
+ "plan": {
+  "driver_attributed": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "follow_up": {
+   "clarity": "balanced",
+   "target": "hold_verify",
+   "second": "no_action"
+  },
+  "worst_event_cause": {
+   "clarity": "leaning",
+   "target": "driver_choice",
+   "second": null
+  },
+  "speed_excess": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "hours_exposure": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  }
+ },
+ "target_words": 77,
+ "deciding": {
+  "driver_attributed": "D09 on report, both trip cards and tacho card; no swap or second driver.",
+  "follow_up": "Whether the A1-N limit update (same day, no time) applied before 07:05 decides if the breach is real; unconfirmed, so verify first, with no action possible if the update applied.",
+  "worst_event_cause": "Limit update exists and the map is older, but it is not dated before the event; harsh events are context-tagged and the speed event itself has none, so driver choice leads.",
+  "speed_excess": "84.5 vs 70 is 20.7%; against the updated 75 limit it would be 12.7%, but the update date is only same-day, so level 3 slightly favoured over 2.",
+  "hours_exposure": "Trips 05:30-10:40 with a 25 min tacho break give about 5.0 h drive; break is under 45 min, so level 2."
+ },
+ "request": "rec-F328-0011",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.013075
+}

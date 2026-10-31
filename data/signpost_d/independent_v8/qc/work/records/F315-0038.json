@@ -1,0 +1,126 @@
+{
+ "id": "F315-0038",
+ "family": "F315",
+ "state": {
+  "report": {
+   "ref": "F-6032",
+   "received_at": "2024-06-10",
+   "source": "public_web",
+   "fault_code": "OUT",
+   "units_reported": [
+    "U55",
+    "U56",
+    "U57",
+    "U58"
+   ]
+  },
+  "asset": {
+   "unit_id": "U55",
+   "site_category": "junction_or_crossing",
+   "feeder_id": "FD-2"
+  },
+  "cms": {
+   "node_id": "N55",
+   "status_code": "NC",
+   "last_comms_at": "2024-05-02"
+  },
+  "history": [
+   {
+    "job_ref": "J-5100",
+    "raised": "2024-04-28",
+    "attended": "2024-04-30",
+    "completed": "2024-05-01",
+    "outcome_code": "FIX"
+   },
+   {
+    "job_ref": "J-5230",
+    "raised": "2024-06-09",
+    "attended": null,
+    "completed": null,
+    "outcome_code": null
+   }
+  ],
+  "job": {
+   "job_ref": "J-5240",
+   "stage": "RECT",
+   "attended_at": "2024-06-10T11:00",
+   "completed_at": "2024-06-10T11:50",
+   "hazard_code": null,
+   "linked_job_ref": "J-5230"
+  },
+  "supply": {
+   "dno_incident_ref": "DNO-90777",
+   "dno_status": "open",
+   "feeder_units_dark": 4,
+   "feeder_id": "FD-9"
+  }
+ },
+ "factors": {
+  "dark_unit_count": 4,
+  "dno_incident_logged": true,
+  "cms_state": "no_comms",
+  "days_since_last_repair": 40,
+  "last_repair_state": "completed",
+  "hazard_observed": "none",
+  "hazard_made_safe": false,
+  "site_category": "junction_or_crossing",
+  "planned_works_active": false,
+  "current_job_stage": "fix_recorded_unconfirmed",
+  "dates_out_of_order": false,
+  "duplicate_of_open_job": true,
+  "report_source": "public_web"
+ },
+ "factors_sampled": {
+  "dark_unit_count": 4,
+  "dno_incident_logged": true,
+  "cms_state": "no_comms",
+  "days_since_last_repair": 350,
+  "last_repair_state": "no_record",
+  "hazard_observed": "none",
+  "hazard_made_safe": false,
+  "site_category": "junction_or_crossing",
+  "planned_works_active": false,
+  "current_job_stage": "not_attended",
+  "dates_out_of_order": false,
+  "duplicate_of_open_job": false,
+  "report_source": "public_web"
+ },
+ "plan": {
+  "supply_side_fault": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "repeat_failure": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "next_action": {
+   "clarity": "clear",
+   "target": "close_report",
+   "second": null
+  },
+  "source_support": {
+   "clarity": "contested",
+   "target": "0",
+   "second": "1"
+  },
+  "repair_progress": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  }
+ },
+ "target_words": 70,
+ "deciding": {
+  "supply_side_fault": "DNO incident is open with 4 units dark, but supply.feeder_id FD-9 differs from asset.feeder_id FD-2, which holds this in balance.",
+  "repeat_failure": "J-5100 completed 2024-05-01, 40 days before the 2024-06-10 report.",
+  "next_action": "job.linked_job_ref J-5230 matches an open history entry, so an open job already covers this report.",
+  "source_support": "cms is NC with last comms 2024-05-02, so it confirms nothing. The DNO incident feeder does not match the asset's, which leaves 0 vs 1.",
+  "repair_progress": "Job RECT has completed_at 11:50 on site, but cms is NC and there is no later scout entry, so the fix is unconfirmed."
+ },
+ "request": "rec-F315-0036",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.009378
+}

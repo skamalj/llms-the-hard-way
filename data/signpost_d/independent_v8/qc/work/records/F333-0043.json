@@ -1,0 +1,135 @@
+{
+ "id": "F333-0043",
+ "family": "F333",
+ "state": {
+  "room": {
+   "room_id": "B214"
+  },
+  "tenancy": {
+   "start_date": "2025-02-03",
+   "end_date": "2025-04-03",
+   "deposit_dispute_lodged": true
+  },
+  "checkin_inventory": {
+   "signed_date": "2025-02-03",
+   "signed_by_resident": true,
+   "items": [
+    {
+     "item_code": "SINK",
+     "location": "bath",
+     "grade": "good"
+    },
+    {
+     "item_code": "DOOR",
+     "location": "entry",
+     "grade": "good"
+    }
+   ]
+  },
+  "checkout_inspection": {
+   "inspection_type": "checkout",
+   "inspection_date": "2025-04-03",
+   "items": [
+    {
+     "item_code": "SINK",
+     "location": "bath",
+     "grade": "damaged",
+     "defect_category": "broken_fitting",
+     "photo_refs": []
+    },
+    {
+     "item_code": "DOOR",
+     "location": "entry",
+     "grade": "good",
+     "photo_refs": [
+      "p2"
+     ]
+    }
+   ]
+  },
+  "proposed_charges": {
+   "lines": [],
+   "summary_total": 0
+  },
+  "works_orders": [
+   {
+    "wo_id": "W88",
+    "raised_date": "2025-01-20",
+    "location": "bath",
+    "category": "plumbing",
+    "priority_code": "P3",
+    "status": "open",
+    "completed_date": null,
+    "retest_passed": null
+   }
+  ]
+ },
+ "factors": {
+  "inspection_type": "checkout",
+  "checkin_inventory_state": "complete",
+  "prior_damage_on_charged_item": "none",
+  "charge_discrepancy": "none",
+  "worst_defect_tier": "functional",
+  "true_cause": "prior_occupant",
+  "predating_works_order": true,
+  "safety_fault_remedied": false,
+  "photo_coverage": "all_but_one",
+  "tenancy_months": 2,
+  "date_out_of_order": false,
+  "deposit_dispute_lodged": true,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "inspection_type": "checkout",
+  "checkin_inventory_state": "complete",
+  "prior_damage_on_charged_item": "none",
+  "charge_discrepancy": "none",
+  "worst_defect_tier": "cosmetic",
+  "true_cause": "no_defect",
+  "predating_works_order": true,
+  "safety_fault_remedied": false,
+  "photo_coverage": "all_but_one",
+  "tenancy_months": 2,
+  "date_out_of_order": false,
+  "deposit_dispute_lodged": true,
+  "boundary_case": false
+ },
+ "plan": {
+  "checkin_clean": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "disposition": {
+   "clarity": "leaning",
+   "target": "adjust_and_approve",
+   "second": null
+  },
+  "main_cause": {
+   "clarity": "leaning",
+   "target": "prior_occupant",
+   "second": null
+  },
+  "defect_severity": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  },
+  "charge_gap": {
+   "clarity": "leaning",
+   "target": "0",
+   "second": null
+  }
+ },
+ "target_words": 100,
+ "deciding": {
+  "checkin_clean": "No lines are charged, so vacuously true; but the SINK is damaged at checkout and would be uncharged, which leaves doubt.",
+  "disposition": "The SINK damage has no photo and a works order predates the tenancy; correctable from the record, leaning adjust_and_approve.",
+  "main_cause": "Works order W88 for the bath plumbing was raised 2025-01-20, before the 2025-02-03 start; this points to a prior fault, though SINK was graded good at check-in.",
+  "defect_severity": "A broken_fitting on the sink needs repair but the room is usable (level 1); some may rank a plumbing fault as level 2.",
+  "charge_gap": "No lines and a zero total; evidenced charges are none because the damage has no photo, so the gap is 0."
+ },
+ "request": "rec-F333-0041",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.005478
+}

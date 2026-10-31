@@ -1,0 +1,160 @@
+{
+ "id": "F303-0006",
+ "family": "F303",
+ "state": {
+  "order": {
+   "id": "O-48213",
+   "rx": {
+    "modality": "ambulatory_cylinder",
+    "flow_lpm": 2,
+    "hrs_day": 8,
+    "rx_expiry": "2026-01-31"
+   },
+   "items_ordered": [
+    {
+     "sku": "CYL-HX2300",
+     "qty": 1
+    },
+    {
+     "sku": "REG-2L",
+     "qty": 1
+    }
+   ],
+   "account": {
+    "billing_hold": false
+   }
+  },
+  "visit": {
+   "id": "V-9021",
+   "visit_date": "2025-03-10",
+   "arrived_at": "2025-03-10T13:40",
+   "departed_at": "2025-03-10T14:35",
+   "items_left": [
+    {
+     "sku": "CYL-HX2300",
+     "qty": 1,
+     "serial": "HX7731"
+    },
+    {
+     "sku": "REG-2L",
+     "qty": 1,
+     "serial": "RG2208"
+    }
+   ],
+   "install_checks": {
+    "flow_verified": true,
+    "alarm_tested": true,
+    "training_given": false,
+    "completed_at": "2025-03-10T14:25"
+   },
+   "patient_signature": "on_file",
+   "handover_at": "2025-03-10T14:30"
+  },
+  "site_assessment": {
+   "assessed_at": "2025-03-10T13:55",
+   "hazards": [
+    {
+     "code": "SMOKING_INDOORS",
+     "status": "open",
+     "fix": null
+    },
+    {
+     "code": "GAS_HOB_NEAR",
+     "status": "open",
+     "fix": null
+    },
+    {
+     "code": "NO_SIGNAGE",
+     "status": null,
+     "fix": null
+    }
+   ]
+  },
+  "equipment": {
+   "concentrator": null,
+   "flow_setting_lpm": 2,
+   "fault_log": [],
+   "cylinders_on_site": [
+    {
+     "size": "HX 2300 L",
+     "fill_pct": 55
+    }
+   ]
+  },
+  "supply_plan": {
+   "next_delivery_date": "2025-03-11",
+   "window": "09:00-13:00",
+   "route_day": "Tue"
+  }
+ },
+ "factors": {
+  "rx_alignment": "modality_ambiguous",
+  "items_shortfall": "none",
+  "setup_state": "training_missing",
+  "supply_hours": 31.6,
+  "concentrator_fault": false,
+  "fault_mitigated": false,
+  "hazards_found": 3,
+  "hazard_mitigation": false,
+  "hazard_status_missing": true,
+  "handover_gap": false,
+  "timeline_out_of_order": false,
+  "next_delivery": "booked_in_time",
+  "dependency_level": "nocturnal",
+  "billing_hold": false
+ },
+ "factors_sampled": {
+  "rx_alignment": "modality_mismatch",
+  "items_shortfall": "one_short",
+  "setup_state": "training_missing",
+  "supply_hours": 334.28,
+  "concentrator_fault": false,
+  "fault_mitigated": false,
+  "hazards_found": 1,
+  "hazard_mitigation": true,
+  "hazard_status_missing": true,
+  "handover_gap": false,
+  "timeline_out_of_order": true,
+  "next_delivery": "booked_in_time",
+  "dependency_level": "nocturnal",
+  "billing_hold": false
+ },
+ "plan": {
+  "rx_match": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "next_step": {
+   "clarity": "balanced",
+   "target": "close_record",
+   "second": "book_revisit"
+  },
+  "fulfilment": {
+   "clarity": "clear",
+   "target": "setup_incomplete",
+   "second": null
+  },
+  "supply_runway": {
+   "clarity": "clear",
+   "target": "1",
+   "second": null
+  },
+  "open_hazards": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  }
+ },
+ "target_words": 110,
+ "deciding": {
+  "rx_match": "Rx modality is ambulatory_cylinder, but the item left is a large static HX 2300 L cylinder; flow 2 lpm matches the setting, so match is plausible but not certain.",
+  "next_step": "training_given is false (supports revisit), but the next delivery is booked for the next morning and the other checks and signature are complete (supports closing).",
+  "fulfilment": "Both ordered SKUs appear in items_left, but install_checks.training_given is false, so setup is incomplete.",
+  "supply_runway": "No concentrator; one HX 2300 L at 55% is about 1265 L against 960 L/day (2 lpm x 8 h), roughly 31 hours.",
+  "open_hazards": "Two hazards are open; the third has a null status, so the count is 2 or 3."
+ },
+ "request": "rec-F303-0006",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.021867
+}

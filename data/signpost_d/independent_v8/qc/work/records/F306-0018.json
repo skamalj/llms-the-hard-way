@@ -1,0 +1,159 @@
+{
+ "id": "F306-0018",
+ "family": "F306",
+ "state": {
+  "trip": {
+   "id": "T-2402",
+   "trip_type": "day_distant",
+   "depart_date": "2025-10-21",
+   "return_date": "2025-10-22",
+   "pupil_headcount": 14,
+   "transport": {
+    "seats": 12
+   }
+  },
+  "roster": {
+   "count": 13,
+   "default_consent": {
+    "date": "2025-09-01",
+    "expiry": "2026-08-31"
+   },
+   "overrides": [
+    {
+     "id": "P02",
+     "medical_flag": true,
+     "care_plan_ref": null
+    },
+    {
+     "id": "P06",
+     "medical_flag": true,
+     "care_plan_ref": null
+    },
+    {
+     "id": "P08",
+     "medical_flag": true,
+     "care_plan_ref": null
+    },
+    {
+     "id": "P12",
+     "medical_flag": true,
+     "care_plan_ref": null
+    }
+   ]
+  },
+  "staffing": [
+   {
+    "id": "A1",
+    "confirmed": true,
+    "from": "2025-10-21",
+    "to": "2025-10-22"
+   },
+   {
+    "id": "A2",
+    "confirmed": true,
+    "from": "2025-10-21",
+    "to": "2025-10-21"
+   }
+  ],
+  "activities": [
+   {
+    "date": "2025-10-22",
+    "hazard_tier": 3,
+    "provider": "PRV-3",
+    "contract_status": "signed",
+    "licence_ref": "AALA-12",
+    "licence_expiry": "2025-09-30",
+    "instructors_supplied": 3,
+    "plan_copies_received": [
+     "P06"
+    ]
+   }
+  ],
+  "approvals": {
+   "review_date": "2025-09-22",
+   "ratio_required": 12,
+   "amendments": [
+    {
+     "field": "activity_date",
+     "new": "2025-10-21"
+    }
+   ],
+   "exceptions": [
+    {
+     "type": "licence_renewal",
+     "status": "pending"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "trip_type": "day_distant",
+  "pupil_count": 13,
+  "consent_gap": "none",
+  "consent_exception_logged": false,
+  "staffing_position": "exact",
+  "provider_instructors_confirmed": true,
+  "planted_mismatches": 4,
+  "amendment_explains_one": true,
+  "medical_flagged": 4,
+  "plans_missing": 4,
+  "provider_holds_plan_copy": true,
+  "high_hazard_activity": "renewal_pending",
+  "days_to_departure": 29,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "trip_type": "day_distant",
+  "pupil_count": 13,
+  "consent_gap": "several_missing",
+  "consent_exception_logged": false,
+  "staffing_position": "short_one_day",
+  "provider_instructors_confirmed": true,
+  "planted_mismatches": 5,
+  "amendment_explains_one": true,
+  "medical_flagged": 4,
+  "plans_missing": 0,
+  "provider_holds_plan_copy": false,
+  "high_hazard_activity": "renewal_pending",
+  "days_to_departure": 29,
+  "boundary_case": false
+ },
+ "plan": {
+  "consent_complete": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "staffing_adequate": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "disposition": {
+   "clarity": "leaning",
+   "target": "return_revise",
+   "second": null
+  },
+  "mismatch_count": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  },
+  "medical_coverage": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 70,
+ "deciding": {
+  "consent_complete": "All 13 pupils carry the default consent, valid to 2026-08-31, and no consent dates are null or expired.",
+  "staffing_adequate": "13 pupils at 1:12 need 2 adults. A1 and A2 are both confirmed and cover 10-21. Only A1 covers 10-22, the return_date, so the second day is uncertain.",
+  "disposition": "There are several substantive gaps: no plans for 4 flagged pupils, the tier 3 licence expired 2025-09-30 with renewal pending, and headcount and seat mismatches. That points to return and revise.",
+  "mismatch_count": "Open mismatches are headcount 14 vs roster 13, seats 12 vs 13 pupils, and return_date 10-22 vs A2's 10-21. The activity date is covered by an amendment. Counting the staffing date separately would make four.",
+  "medical_coverage": "All 4 flagged pupils have care_plan_ref null. The only mitigation is P06's id in plan_copies_received, which could count as some cover (level 1) or not (level 0)."
+ },
+ "request": "rec-F306-0016",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.021327
+}

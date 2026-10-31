@@ -1,0 +1,122 @@
+{
+ "id": "F330-0003",
+ "family": "F330",
+ "state": {
+  "request": {
+   "grade": "G4",
+   "cost_centre": "CC20",
+   "trip_ref": "T-5",
+   "requested_total": 302.4
+  },
+  "lines": [
+   {
+    "date": "2025-06-02",
+    "category": "hotel",
+    "cost_centre": "CC20",
+    "amount_gbp": 150
+   },
+   {
+    "date": "2025-06-03",
+    "category": "hotel",
+    "cost_centre": "CC27",
+    "amount_gbp": 152.4
+   }
+  ],
+  "policy": {
+   "cap_gbp": 150,
+   "cap_unit": "night",
+   "units": 2,
+   "reviewer_limit_gbp": 100
+  },
+  "travel": {
+   "trip_ref": "T-5",
+   "depart": "2025-06-02",
+   "return": "2025-06-04",
+   "booked_on": "2025-04-11",
+   "disruption": null,
+   "alt_check": null,
+   "client_recharge": {
+    "billable": true,
+    "client_code": "C77"
+   }
+  },
+  "approvals": {
+   "pre_approval": {
+    "trip_ref": "T-5",
+    "max_gbp": 2.4,
+    "valid_to": "2025-06-04"
+   }
+  },
+  "history": {
+   "exceptions_12m": 1
+  }
+ },
+ "factors": {
+  "breach_type": "hotel_rate_over_cap",
+  "true_excess_pct": 0.8,
+  "amount_mismatch": "none",
+  "reference_mismatch": "cost_centre_differs",
+  "pre_approval_state": "valid_matching",
+  "external_disruption": false,
+  "compliant_option": "not_checked",
+  "missing_item": "none",
+  "excess_vs_authority": "well_within",
+  "client_rechargeable": true,
+  "prior_exceptions_12m": 1,
+  "booking_lead_days": 52,
+  "employee_grade": "G4"
+ },
+ "factors_sampled": {
+  "breach_type": "hotel_rate_over_cap",
+  "true_excess_pct": 97.66,
+  "amount_mismatch": "none",
+  "reference_mismatch": "two_of_above",
+  "pre_approval_state": "valid_matching",
+  "external_disruption": true,
+  "compliant_option": "none_available",
+  "missing_item": "none",
+  "excess_vs_authority": "well_within",
+  "client_rechargeable": true,
+  "prior_exceptions_12m": 1,
+  "booking_lead_days": 52,
+  "employee_grade": "G4"
+ },
+ "plan": {
+  "preapproval_covers": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "outside_control": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "excess_disposition": {
+   "clarity": "balanced",
+   "target": "partial_approve",
+   "second": "decline_excess"
+  },
+  "excess_size": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  },
+  "discrepancy_count": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  }
+ },
+ "target_words": 52,
+ "deciding": {
+  "preapproval_covers": "Pre-approval matches T-5 and is valid, with max_gbp 2.4 equal to the 2.4 excess, but the line cost centre CC27 differs from the request.",
+  "outside_control": "disruption is null and alt_check is null, so no circumstance outside the employee's control is documented.",
+  "excess_disposition": "Excess of 2.4 is tiny and the client is billable (C77), favouring a partial approval; a cap breach with no documented cause supports declining.",
+  "excess_size": "Lines sum 302.4 vs cap 150x2=300, about 0.8%, barely above zero and arguably immaterial.",
+  "discrepancy_count": "Only line 2 cost_centre CC27 differs from request CC20; total, trip refs and dates all agree."
+ },
+ "request": "rec-F330-0001",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.015116
+}

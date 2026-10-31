@@ -1,0 +1,138 @@
+{
+ "id": "F328-0035",
+ "family": "F328",
+ "state": {
+  "report_meta": {
+   "driver_id": "D31"
+  },
+  "vehicle_device": {
+   "health_flags": [],
+   "odo_km": [
+    1000,
+    1225.5
+   ]
+  },
+  "trips": [
+   {
+    "start": "08:00",
+    "end": "09:30",
+    "gps_km": 100,
+    "driver_card": "D31"
+   },
+   {
+    "start": "09:36",
+    "end": "10:57",
+    "gps_km": 90,
+    "driver_card": "D31"
+   }
+  ],
+  "events": [
+   {
+    "time": "10:20",
+    "type": "speed",
+    "recorded_mph": 73,
+    "posted_limit_mph": 60,
+    "tags": [
+     "roadworks"
+    ]
+   },
+   {
+    "type": "harsh",
+    "ctx": "congestion",
+    "times": [
+     "08:10",
+     "08:25",
+     "08:40",
+     "08:55",
+     "09:10",
+     "09:20",
+     "09:45",
+     "10:00",
+     "10:10",
+     "10:30",
+     "10:45"
+    ]
+   }
+  ],
+  "tacho_summary": {
+   "D31": "08:00/10:57"
+  },
+  "notes_history": {
+   "supervisor_note": "D88 took over at 10:00.",
+   "coaching": [
+    "completed",
+    "completed",
+    "completed",
+    "partly 2/4"
+   ]
+  }
+ },
+ "factors": {
+  "driver_assignment": "match",
+  "raw_speed_excess_pct": 21.7,
+  "speed_mitigation": "none",
+  "harsh_event_count": 11,
+  "harsh_context_logged": true,
+  "device_health": "ok",
+  "telematics_stint_hours": 2.95,
+  "tacho_break_reconciles": false,
+  "prior_coaching_count": 4,
+  "coaching_status": "partly_completed",
+  "boundary_value": false,
+  "note_content": "contradicts_data",
+  "distance_discrepancy_pct": 18.7
+ },
+ "factors_sampled": {
+  "driver_assignment": "match",
+  "raw_speed_excess_pct": 14.84,
+  "speed_mitigation": "none",
+  "harsh_event_count": 11,
+  "harsh_context_logged": true,
+  "device_health": "ok",
+  "telematics_stint_hours": 4.02,
+  "tacho_break_reconciles": false,
+  "prior_coaching_count": 4,
+  "coaching_status": "partly_completed",
+  "boundary_value": false,
+  "note_content": "contradicts_data",
+  "distance_discrepancy_pct": 18.7
+ },
+ "plan": {
+  "driver_attributed": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "follow_up": {
+   "clarity": "balanced",
+   "target": "formal_review",
+   "second": "coaching"
+  },
+  "worst_event_cause": {
+   "clarity": "clear",
+   "target": "road_conditions",
+   "second": null
+  },
+  "speed_excess": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "hours_exposure": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 25,
+ "deciding": {
+  "driver_attributed": "Both trip cards and the tacho show D31 through 10:57, which contradicts the note that D88 took over at 10:00; the 18.7% km gap leaves some doubt.",
+  "follow_up": "Speeding recurs after three completed coaching entries (supports formal review), but the latest coaching is only partly completed 2/4 (supports coaching).",
+  "worst_event_cause": "The worst event carries a roadworks tag and the eleven harsh events all carry congestion tags, with a healthy device and no limit update.",
+  "speed_excess": "73 against 60 is 21.7% over, just above the 20% boundary; there is no mitigation, and the roadworks tag keeps level 2 plausible.",
+  "hours_exposure": "Trips 08:00-10:57 with a 6 min stop give about 2.95 h with no tacho break, right at the 3 h anchor between levels 0 and 1."
+ },
+ "request": "rec-F328-0031",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.019571
+}

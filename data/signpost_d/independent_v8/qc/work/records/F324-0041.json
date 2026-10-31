@@ -1,0 +1,142 @@
+{
+ "id": "F324-0041",
+ "family": "F324",
+ "state": {
+  "zone": {
+   "dripper_count": 200,
+   "spec_bar": 1.8
+  },
+  "schedule": {
+   "date": "2024-06-12",
+   "cycles": [
+    {
+     "ml": 50,
+     "s": 300
+    },
+    {
+     "ml": 50,
+     "s": 300
+    },
+    {
+     "ml": 50,
+     "s": 300
+    }
+   ],
+   "drain_target_pct": [
+    20,
+    30
+   ],
+   "overrides": []
+  },
+  "controller_log": {
+   "cycles": [
+    {
+     "delivered_l": 10.0,
+     "valve_open_s": 300,
+     "line_pressure_bar": 2.0
+    },
+    {
+     "delivered_l": 9.1,
+     "valve_open_s": 300,
+     "line_pressure_bar": 2.0
+    },
+    {
+     "delivered_l": 8.95,
+     "valve_open_s": 285,
+     "line_pressure_bar": 2.0
+    }
+   ],
+   "daily_total_l": 28.05,
+   "meter_total_l": 25.5
+  },
+  "drainage": {
+   "drain_pct": [
+    4,
+    5,
+    6
+   ]
+  },
+  "sensors": {
+   "meter_last_calibrated": "2023-08-04",
+   "events": [
+    "handwater 06:10",
+    "moisture_spike 06:25"
+   ]
+  },
+  "maintenance": {
+   "windows": [],
+   "recent_work_orders": [
+    "2024-05-30",
+    "2024-04-11",
+    "2024-02-02",
+    "2023-12-15"
+   ]
+  }
+ },
+ "factors": {
+  "delivery_shortfall_pct": 15.0,
+  "mismatch_location": "meter_vs_controller",
+  "fault_cause": "valve_fault",
+  "approved_override": false,
+  "maintenance_window_active": false,
+  "drain_offset_points": 15.0,
+  "off_tolerance_cycles": 1,
+  "meter_calibration_age_days": 313,
+  "confirmation_pending": false,
+  "pressure_state": "normal",
+  "benign_alarm_decoy": "post_handwater_moisture",
+  "recent_work_orders": 4
+ },
+ "factors_sampled": {
+  "delivery_shortfall_pct": 1.57,
+  "mismatch_location": "meter_vs_controller",
+  "fault_cause": "valve_fault",
+  "approved_override": true,
+  "maintenance_window_active": false,
+  "drain_offset_points": 10.25,
+  "off_tolerance_cycles": 6,
+  "meter_calibration_age_days": 313,
+  "confirmation_pending": false,
+  "pressure_state": "normal",
+  "benign_alarm_decoy": "post_handwater_moisture",
+  "recent_work_orders": 4
+ },
+ "plan": {
+  "under_dosed": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "emitter_clogging": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "next_action": {
+   "clarity": "balanced",
+   "target": "monitor",
+   "second": "sign_off"
+  },
+  "drain_deviation": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "off_plan_cycles": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  }
+ },
+ "target_words": 36,
+ "deciding": {
+  "under_dosed": "Planned 30 L (3 x 200 x 50 mL) vs meter_total_l 25.5 (85%), overrides empty, so no approved reduction.",
+  "emitter_clogging": "Pressure normal and cycles 1-2 near plan, but the 8.95 L cycle has valve_open_s 285 vs 300 (valve points away from clogging) while meter/controller disagreement leaves flow uncertain.",
+  "next_action": "Meter 25.5 vs controller 28.05 L disagreement, and the meter calibration is 313 days old, hold monitor against sign_off in balance.",
+  "drain_deviation": "Drain samples 4,5,6 (mean 5) vs band 20-30 is 15 points below, sitting right on the level 2/3 boundary.",
+  "off_plan_cycles": "Cycle 3 delivered 8.95 vs 10 L planned (10.5% low) is only just over tolerance; cycle 2 at 9.1 is within, so 1 vs 0 is close."
+ },
+ "request": "rec-F324-0041",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.018801
+}

@@ -1,0 +1,116 @@
+{
+ "id": "F340-0026",
+ "family": "F340",
+ "state": {
+  "booking": {
+   "microchip": "985112004471",
+   "dog_name": "Bramble",
+   "check_in": "2025-03-10T08:00",
+   "checkout": "2025-03-14",
+   "owner_contact": {
+    "reachable_during_stay": true,
+    "confirm_call_done": false
+   }
+  },
+  "declaration": {
+   "weight_kg": 14.0,
+   "neutered": true,
+   "medications": [
+    {
+     "drug": "carprofen",
+     "next_due": "2025-03-11T22:00",
+     "supplied_count": 4
+    }
+   ]
+  },
+  "vaccination": {
+   "chip_on_cert": "985112004417",
+   "name_on_cert": "Bramble",
+   "core_expiry": "2025-04-18",
+   "titre_result": null
+  },
+  "vet_history": {
+   "neutered": true,
+   "current_prescriptions": [
+    "carprofen"
+   ]
+  },
+  "arrival_check": {
+   "measured_weight_kg": 15.5,
+   "cough": true,
+   "temp_c": 38.5,
+   "prior_stay_incidents": 3
+  },
+  "intake_notes": [
+   "Owner says jabs are all up to date."
+  ]
+ },
+ "factors": {
+  "vacc_expiry_offset_days": 35,
+  "titre_exemption_on_file": false,
+  "certificate_id_mismatch": "transposed_digit",
+  "arrival_cough_observed": true,
+  "cough_benign_explanation": "none",
+  "weight_discrepancy_pct": 9.7,
+  "medication_state": "declared_and_supplied",
+  "next_dose_hours": 38,
+  "neuter_status_conflict": false,
+  "owner_reachable": true,
+  "prior_incident_count": 3,
+  "note_tone": "reassuring_unverified",
+  "balanced_signals": false
+ },
+ "factors_sampled": {
+  "vacc_expiry_offset_days": 35,
+  "titre_exemption_on_file": true,
+  "certificate_id_mismatch": "none",
+  "arrival_cough_observed": true,
+  "cough_benign_explanation": "none",
+  "weight_discrepancy_pct": 24.77,
+  "medication_state": "declared_and_supplied",
+  "next_dose_hours": 38,
+  "neuter_status_conflict": true,
+  "owner_reachable": true,
+  "prior_incident_count": 3,
+  "note_tone": "reassuring_unverified",
+  "balanced_signals": false
+ },
+ "plan": {
+  "vacc_cover_valid": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "declaration_consistent": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "admission_disposition": {
+   "clarity": "balanced",
+   "target": "refuse",
+   "second": "isolation_admit"
+  },
+  "discrepancy_count": {
+   "clarity": "contested",
+   "target": "2",
+   "second": "1"
+  },
+  "action_urgency": {
+   "clarity": "contested",
+   "target": "1",
+   "second": "0"
+  }
+ },
+ "target_words": 67,
+ "deciding": {
+  "vacc_cover_valid": "core_expiry is a month past checkout, but the cert chip 985112004417 differs from booking chip 985112004471 (transposed digits), name matches, no re-scan note or titre.",
+  "declaration_consistent": "Declared 14.0 kg vs measured 15.5 kg is a gap of about 10 percent, right at the boundary; neutered and medication match the vet history.",
+  "admission_disposition": "The chip mismatch could mean the wrong dog's certificate (refuse), but the name matches and the owner is reachable; cough=true with no benign explanation points to isolation_admit.",
+  "discrepancy_count": "The unresolved chip mismatch is one; the borderline weight gap may or may not count as a second.",
+  "action_urgency": "Carprofen is declared and supplied, due in about 38 hours; the unconfirmed chip needs a call, but whether that is time-bound is arguable."
+ },
+ "request": "rec-F340-0026",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011752
+}

@@ -1,0 +1,162 @@
+{
+ "id": "F305-0017",
+ "family": "F305",
+ "state": {
+  "session": {
+   "id": "S-2208",
+   "chair": 7,
+   "date": "2024-05-03",
+   "needle_on": "2024-05-03T07:30",
+   "washback": "2024-05-03T11:15",
+   "log_ts": "2024-05-03T11:40",
+   "review_ts": "2024-06-05T09:00"
+  },
+  "prescription": {
+   "duration_min": 240,
+   "qb_ml_min": 300,
+   "dialysate_k": 2.0,
+   "dialysate_ca": 1.25,
+   "target_uf_ml": 3300,
+   "dry_weight_kg": 75.5
+  },
+  "machine": {
+   "qb_actual": 300,
+   "dialysate_k": 2.0,
+   "dialysate_ca": 1.25,
+   "uf_removed_ml": 3300,
+   "washback_ml": 250,
+   "alarms": [
+    {
+     "event": "AIR_DETECT",
+     "ts": "2024-05-03T09:00"
+    },
+    {
+     "event": "PUMP_STOP",
+     "ts": "2024-05-03T09:00"
+    },
+    {
+     "event": "PUMP_RESUME",
+     "ts": "2024-05-03T09:16"
+    }
+   ]
+  },
+  "observations": {
+   "pre_kg": 78.5,
+   "post_kg": 75.9,
+   "bp": [
+    {
+     "t": "2024-05-03T07:30",
+     "sys": 136
+    },
+    {
+     "t": "2024-05-03T09:30",
+     "sys": 112
+    },
+    {
+     "t": "2024-05-03T11:00",
+     "sys": 104
+    }
+   ],
+   "interventions": []
+  },
+  "checks": [
+   {
+    "code": "ID_CHECK",
+    "done": true,
+    "ts": "2024-05-03T07:15"
+   },
+   {
+    "code": "CHLORINE_TEST",
+    "done": true,
+    "ts": "2024-05-03T07:05"
+   },
+   {
+    "code": "MACHINE_PRIME",
+    "done": true,
+    "ts": "2024-05-03T07:28"
+   }
+  ],
+  "history": [
+   {
+    "d": "2024-04-30",
+    "presc_min": 240,
+    "eff_min": 240,
+    "post_kg": 75.6
+   },
+   {
+    "d": "2024-04-27",
+    "presc_min": 240,
+    "eff_min": 200,
+    "post_kg": 75.8
+   }
+  ]
+ },
+ "factors": {
+  "time_shortfall_min": 31,
+  "machine_pause_min": 16,
+  "uf_weight_gap_kg": 0.45,
+  "post_weight_missing": false,
+  "missing_check": "none",
+  "check_logged_after_start": false,
+  "prescription_mismatch": "none",
+  "mismatch_magnitude": "trivial",
+  "hypotension_episodes": 0,
+  "hypotension_mitigated": true,
+  "circuit_clotted": false,
+  "prior_short_sessions": 1,
+  "documented_flow_reduction": false
+ },
+ "factors_sampled": {
+  "time_shortfall_min": 41,
+  "machine_pause_min": 16,
+  "uf_weight_gap_kg": 0.69,
+  "post_weight_missing": false,
+  "missing_check": "none",
+  "check_logged_after_start": false,
+  "prescription_mismatch": "none",
+  "mismatch_magnitude": "trivial",
+  "hypotension_episodes": 1,
+  "hypotension_mitigated": false,
+  "circuit_clotted": false,
+  "prior_short_sessions": 1,
+  "documented_flow_reduction": false
+ },
+ "plan": {
+  "uf_reconciles": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "checks_before_start": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "log_disposition": {
+   "clarity": "balanced",
+   "target": "sign_off",
+   "second": "incident_report"
+  },
+  "time_shortfall": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "pending_age": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  }
+ },
+ "target_words": 88,
+ "deciding": {
+  "uf_reconciles": "Weight loss is 2.6 kg (78.5 to 75.9). UF 3300 minus washback 250 gives 3050 ml with no saline, a 0.45 kg gap. That is inside 0.5 kg but close to it.",
+  "checks_before_start": "All three checks are logged before needle_on at 07:30. The last, MACHINE_PRIME, is at 07:28, only two minutes earlier.",
+  "log_disposition": "Settings match the prescription, weights are present and the checks are in order. No hypotension or clot. The open question is the AIR_DETECT alarm with a 16 min pump stop. It is plausibly routine, but it could be treated as a safety event. Prior short sessions are limited to one.",
+  "time_shortfall": "Clock time is 225 min. Minus the 16 min pause (09:00 to 09:16) gives 209 effective against 240 prescribed, a 31 min shortfall. That is one minute over the moderate/major boundary.",
+  "pending_age": "log_ts is 2024-05-03T11:40 and review_ts is 2024-06-05T09:00, about 32 days. That is over 30 days, with a modest margin."
+ },
+ "request": "rec-F305-0016",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.019189
+}

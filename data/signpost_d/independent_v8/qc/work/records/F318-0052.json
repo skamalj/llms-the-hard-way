@@ -1,0 +1,148 @@
+{
+ "id": "F318-0052",
+ "family": "F318",
+ "state": {
+  "work_order": {
+   "visit_type": "routine_inspection",
+   "tasks": [
+    {
+     "task_id": 1,
+     "asset_ref": "GT2"
+    },
+    {
+     "task_id": 2,
+     "asset_ref": "PD1"
+    }
+   ],
+   "nav_notice": {
+    "in_force": false
+   }
+  },
+  "visit_log": {
+   "arrived": "2025-04-08T09:00",
+   "departed": "2025-04-08T13:00",
+   "crew_size": 2,
+   "timesheet_hours": 8,
+   "task_status": [
+    {
+     "task_id": 1,
+     "status": "temp_fix",
+     "deferral_ref": null,
+     "deferral_due": null
+    },
+    {
+     "task_id": 2,
+     "status": "done"
+    }
+   ]
+  },
+  "materials": {
+   "issued": [
+    {
+     "part_no": "K9",
+     "qty": 10
+    }
+   ],
+   "returned": [],
+   "fitted": [
+    {
+     "part_no": "K9",
+     "qty": 9
+    }
+   ]
+  },
+  "checks": {
+   "post_checks": [
+    {
+     "asset_ref": "GT2",
+     "result": "pass"
+    },
+    {
+     "asset_ref": "PD1",
+     "result": "pass"
+    }
+   ],
+   "leakage_ls": 9.1,
+   "leakage_limit_ls": 4,
+   "river_level_m": 2.2,
+   "flood_marker_m": 3.1
+  },
+  "asset_history": {
+   "prior_visits": [
+    {
+     "date": "2024-09-15",
+     "asset_ref": "GT2",
+     "defect_code": "LK"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "visit_type": "routine_inspection",
+  "tasks_ordered": 2,
+  "completion_state": "temporary_fix",
+  "parts_qty_mismatch": "trivial",
+  "hours_gap": 2.35,
+  "asset_ref_mismatch": false,
+  "post_check_result": "passed",
+  "leakage_ratio": 2.28,
+  "leakage_mitigation": false,
+  "navigation_notice_in_force": false,
+  "deferral_approved": false,
+  "prior_same_defect": 1,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "visit_type": "routine_inspection",
+  "tasks_ordered": 2,
+  "completion_state": "temporary_fix",
+  "parts_qty_mismatch": "trivial",
+  "hours_gap": 2.35,
+  "asset_ref_mismatch": false,
+  "post_check_result": "passed",
+  "leakage_ratio": 2.28,
+  "leakage_mitigation": false,
+  "navigation_notice_in_force": false,
+  "deferral_approved": false,
+  "prior_same_defect": 1,
+  "boundary_case": false
+ },
+ "plan": {
+  "safe_to_reopen": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "record_disposition": {
+   "clarity": "balanced",
+   "target": "close_with_followup",
+   "second": "close_visit"
+  },
+  "return_urgency": {
+   "clarity": "balanced",
+   "target": "immediate",
+   "second": "within_month"
+  },
+  "affected_scope": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  },
+  "section_mismatches": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 85,
+ "deciding": {
+  "safe_to_reopen": "Both post-checks pass, but leakage 9.1 vs limit 4 with river below flood marker and GT2 only temp_fixed.",
+  "record_disposition": "GT2 is temp_fix with no deferral ref, so a follow-up job is likely; the passed checks and trivial K9 difference allow plain closure.",
+  "return_urgency": "Leakage 2.28x limit is unmitigated, favouring immediate; passed checks and no restriction make within_month defensible.",
+  "affected_scope": "Single lock with the GT2 temp fix; one unit, though boat traffic of a few users could count.",
+  "section_mismatches": "K9 issued 10, fitted 9 is a trivial pack difference; timesheet 8h equals 4h x 2 crew, so zero unexplained, one arguable."
+ },
+ "request": "rec-F318-0051",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.006245
+}

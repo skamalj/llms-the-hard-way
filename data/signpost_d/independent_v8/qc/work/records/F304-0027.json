@@ -1,0 +1,101 @@
+{
+ "id": "F304-0027",
+ "family": "F304",
+ "state": {
+  "request": {
+   "appt_type": "chemo",
+   "appt_time": "10:30",
+   "vehicle_class": "car",
+   "crew_requested": "escort",
+   "mobility_booked": "walking"
+  },
+  "patient": {
+   "mobility_assessed": "walking",
+   "assessed_on": "2025-03-01",
+   "oxygen_lpm": 0,
+   "monitoring": null,
+   "fit_to_travel_signed": null
+  },
+  "journey": {
+   "window_end": "08:30",
+   "est_duration_min": 30,
+   "late_tolerance_min": 15,
+   "destination": {
+    "reslot_same_day": true
+   }
+  },
+  "notes": {
+   "ward_note": "Awaiting fit-to-travel form."
+  }
+ },
+ "factors": {
+  "mobility_alignment": "matches",
+  "secondary_discrepancy": "none",
+  "eligibility_concern": false,
+  "eligibility_exception": false,
+  "clinical_support": "none",
+  "crew_request_gap": "over_one_step",
+  "buffer_minutes": 90.0,
+  "duration_estimate_split": false,
+  "late_tolerance": true,
+  "appointment_type": "chemo",
+  "same_day_reslot": true,
+  "confirmation_pending": true,
+  "prior_aborts": 0,
+  "aborts_related": false
+ },
+ "factors_sampled": {
+  "mobility_alignment": "stale",
+  "secondary_discrepancy": "none",
+  "eligibility_concern": false,
+  "eligibility_exception": false,
+  "clinical_support": "transfer_assist",
+  "crew_request_gap": "over_one_step",
+  "buffer_minutes": 116.55,
+  "duration_estimate_split": false,
+  "late_tolerance": true,
+  "appointment_type": "theatre_transfer",
+  "same_day_reslot": true,
+  "confirmation_pending": false,
+  "prior_aborts": 2,
+  "aborts_related": true
+ },
+ "plan": {
+  "vehicle_fit": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "disposition": {
+   "clarity": "clear",
+   "target": "hold",
+   "second": null
+  },
+  "crew_config": {
+   "clarity": "leaning",
+   "target": "single_crew",
+   "second": null
+  },
+  "time_pressure": {
+   "clarity": "contested",
+   "target": "0",
+   "second": "1"
+  },
+  "delay_impact": {
+   "clarity": "contested",
+   "target": "1",
+   "second": "2"
+  }
+ },
+ "target_words": 27,
+ "deciding": {
+  "vehicle_fit": "Walking booked and assessed agree, but assessment is a few days old, leaving slight doubt.",
+  "disposition": "fit_to_travel_signed is null and ward_note says the form is awaited.",
+  "crew_config": "Walking patient, oxygen 0, no monitoring implies single crew; escort requested.",
+  "time_pressure": "Window end 08:30 plus 30 min leaves 90 min before 10:30, at the 0/1 boundary.",
+  "delay_impact": "Chemo with reslot_same_day true but 15 min tolerance makes moderate vs lost-session arguable."
+ },
+ "request": "rec-F304-0026",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.0103
+}

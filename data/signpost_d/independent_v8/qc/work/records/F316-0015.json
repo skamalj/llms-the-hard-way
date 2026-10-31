@@ -1,0 +1,154 @@
+{
+ "id": "F316-0015",
+ "family": "F316",
+ "state": {
+  "run_header": {
+   "run_id": "G5093",
+   "run_date": "2025-03-05",
+   "reviewed_at": "2025-03-05T22:30"
+  },
+  "plan": [
+   {
+    "section_code": "W-01",
+    "length_km": 6,
+    "width_m": 7,
+    "priority": "P1",
+    "planned_rate_gm2": 20,
+    "forecast_zone": "Z1"
+   },
+   {
+    "section_code": "W-02",
+    "length_km": 2.0,
+    "width_m": 7,
+    "priority": "P1",
+    "planned_rate_gm2": 20,
+    "forecast_zone": "Z2"
+   },
+   {
+    "section_code": "W-03",
+    "length_km": 3,
+    "width_m": 6,
+    "priority": "secondary",
+    "planned_rate_gm2": 15,
+    "forecast_zone": "Z2"
+   }
+  ],
+  "forecast": {
+   "zones": [
+    {
+     "zone": "Z1",
+     "freeze_time": "2025-03-05T22:10"
+    },
+    {
+     "zone": "Z2",
+     "freeze_time": "2025-03-06T00:10"
+    }
+   ],
+   "revisions": [
+    {
+     "issued_at": "2025-03-05T19:30",
+     "Z1": "2025-03-05T22:40",
+     "Z2": "2025-03-06T00:49"
+    }
+   ]
+  },
+  "telematics": {
+   "date": "2025-03-04",
+   "segments": [
+    {
+     "section_code": "W-02",
+     "end": "21:30",
+     "spread_on": true,
+     "logged_rate_gm2": 14
+    },
+    {
+     "section_code": "W-01",
+     "end": "22:12",
+     "spread_on": true,
+     "logged_rate_gm2": 20
+    }
+   ],
+   "dropouts": []
+  },
+  "materials": {
+   "loaded_t": 1.6,
+   "returned_t": 0.3,
+   "weighbridge_ticket": "WB-6620",
+   "rate_exception": null
+  },
+  "notes": {
+   "driver_note": "Run completed, no issues.",
+   "depot_note": "",
+   "closures": [],
+   "partner_cover": []
+  }
+ },
+ "factors": {
+  "missed_extent": "about_2km",
+  "missed_section_mitigated": false,
+  "salt_gap": "over_10pct",
+  "rate_exception_approved": false,
+  "finish_vs_freeze_min": 28,
+  "hours_to_freeze_untreated": 2.32,
+  "forecast_revised": "warmer",
+  "crosscheck_mismatch": "date_mismatch",
+  "driver_note_type": "routine",
+  "follow_up_run_scheduled": false,
+  "pending_confirmation": false,
+  "gps_dropouts": 0,
+  "nonpriority_untreated": true
+ },
+ "factors_sampled": {
+  "missed_extent": "none",
+  "missed_section_mitigated": false,
+  "salt_gap": "under_3pct",
+  "rate_exception_approved": false,
+  "finish_vs_freeze_min": 28,
+  "hours_to_freeze_untreated": 2.32,
+  "forecast_revised": "warmer",
+  "crosscheck_mismatch": "date_mismatch",
+  "driver_note_type": "routine",
+  "follow_up_run_scheduled": false,
+  "pending_confirmation": false,
+  "gps_dropouts": 0,
+  "nonpriority_untreated": true
+ },
+ "plan": {
+  "treated_before_freeze": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "salt_reconciles": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "follow_up": {
+   "clarity": "balanced",
+   "target": "hold",
+   "second": "sign_off"
+  },
+  "deficient_length": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  },
+  "freeze_proximity": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 68,
+ "deciding": {
+  "treated_before_freeze": "Both priority sections have segments ending before revised freezes (W-01 22:12 vs 22:40, W-02 21:30 vs 00:49), but the original Z1 freeze 22:10 preceded W-01's end, the telematics date is 03-04 not 03-05, and W-02 was at 14 vs 20 g/m2.",
+  "salt_reconciles": "Net 1.3 t (1.6 minus 0.3) against expected 1.04 to 1.12 t for the treated sections, a gap of 16 to 25%, above 10%.",
+  "follow_up": "The telematics date (2025-03-04) does not match run_date (2025-03-05), so the log may be unreliable and sign-off could be withheld; but a run with a routine note and every priority section logged could simply be signed off.",
+  "deficient_length": "W-02 is 2.0 km at 14 g/m2 vs planned 20, undertreated and right on the 2 km boundary; W-03 is secondary and untreated, which does not count.",
+  "freeze_proximity": "Undertreated W-02 is in Z2, revised freeze 00:49, 2.32 h after the 22:30 review, near the 2 h line between levels 2 and 3."
+ },
+ "request": "rec-F316-0011",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.027626
+}

@@ -1,0 +1,111 @@
+{
+ "id": "F304-0054",
+ "family": "F304",
+ "state": {
+  "request": {
+   "appt_type": "dialysis",
+   "appt_time": "2024-09-03T10:00",
+   "vehicle_class": "bariatric_ambulance",
+   "crew_requested": "double",
+   "mobility_booked": "bariatric_wheelchair",
+   "equipment": [
+    "bariatric trolley"
+   ]
+  },
+  "patient": {
+   "mobility_assessed": "bariatric_wheelchair",
+   "assessed_on": "2024-08-28",
+   "weight_kg": 172,
+   "oxygen_lpm": 0,
+   "monitoring": null,
+   "own_transport_available": true,
+   "exemption": {
+    "code": "BAR1",
+    "approved_by": "RJ",
+    "approved_on": "2024-02-12"
+   }
+  },
+  "journey": {
+   "window_end": "2024-09-03T09:15",
+   "est_duration_min": 47,
+   "late_tolerance_min": 10,
+   "destination": {
+    "reslot_same_day": false
+   }
+  },
+  "notes": {
+   "ward_note": "Clinic letter says 10:03.",
+   "control_note": "Unit holds slot 10 min; later arrivals reslotted only if a chair is free."
+  }
+ },
+ "factors": {
+  "mobility_alignment": "matches",
+  "secondary_discrepancy": "time_trivial",
+  "eligibility_concern": true,
+  "eligibility_exception": true,
+  "clinical_support": "bariatric_weight",
+  "crew_request_gap": "over_one_step",
+  "buffer_minutes": -2.0,
+  "duration_estimate_split": false,
+  "late_tolerance": true,
+  "appointment_type": "dialysis",
+  "same_day_reslot": false,
+  "confirmation_pending": false,
+  "prior_aborts": 0,
+  "aborts_related": false
+ },
+ "factors_sampled": {
+  "mobility_alignment": "matches",
+  "secondary_discrepancy": "time_trivial",
+  "eligibility_concern": true,
+  "eligibility_exception": true,
+  "clinical_support": "none",
+  "crew_request_gap": "over_one_step",
+  "buffer_minutes": 80.05,
+  "duration_estimate_split": false,
+  "late_tolerance": true,
+  "appointment_type": "outpatient",
+  "same_day_reslot": false,
+  "confirmation_pending": false,
+  "prior_aborts": 0,
+  "aborts_related": false
+ },
+ "plan": {
+  "vehicle_fit": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "disposition": {
+   "clarity": "balanced",
+   "target": "amend_confirm",
+   "second": "confirm"
+  },
+  "crew_config": {
+   "clarity": "clear",
+   "target": "specialist_team",
+   "second": null
+  },
+  "time_pressure": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "delay_impact": {
+   "clarity": "contested",
+   "target": "2",
+   "second": "1"
+  }
+ },
+ "target_words": 34,
+ "deciding": {
+  "vehicle_fit": "Bariatric wheelchair and ambulance match a recent assessment and the bariatric trolley is listed.",
+  "disposition": "Crew_requested double against a 172 kg patient is an uncommented gap supporting amend_confirm, while the 3 min clinic letter difference is trivial and exemption BAR1 covers eligibility.",
+  "crew_config": "weight_kg 172 exceeds the 160 kg limit, so a specialist team is needed.",
+  "time_pressure": "Window_end 09:15 plus 47 min gives 10:02 against 10:00, a 2 min overrun at the boundary, and the 10 min tolerance softens it.",
+  "delay_impact": "Dialysis session with a 10 min hold and a reslot only if a chair is free; a lost session or a reslot are both plausible."
+ },
+ "request": "rec-F304-0051",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012042
+}

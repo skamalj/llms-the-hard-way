@@ -1,0 +1,155 @@
+{
+ "id": "F328-0019",
+ "family": "F328",
+ "state": {
+  "report_meta": {
+   "vehicle": "YS22RTE",
+   "driver_id": "D330",
+   "period": "2024-07-15/2024-07-21"
+  },
+  "vehicle_device": {
+   "health_flags": [
+    "accelerometer_recalibrated"
+   ],
+   "last_calibration": "2024-07-17",
+   "odo_start": 52300,
+   "odo_end": 52420
+  },
+  "trips": [
+   {
+    "start": "2024-07-18T06:00",
+    "end": "2024-07-18T08:30",
+    "gps_km": 62.0,
+    "driver_card": null
+   },
+   {
+    "start": "2024-07-18T08:40",
+    "end": "2024-07-18T11:05",
+    "gps_km": 53.3,
+    "driver_card": null
+   }
+  ],
+  "events": [
+   {
+    "time": "2024-07-18T10:20",
+    "type": "speed",
+    "recorded_mph": 66,
+    "posted_limit_mph": 65,
+    "map_ver": "2024.6"
+   },
+   {
+    "time": "2024-07-15T07:15",
+    "type": "harsh_brake",
+    "tags": [
+     "roadworks"
+    ]
+   },
+   {
+    "time": "2024-07-16T14:05",
+    "type": "harsh_brake",
+    "tags": [
+     "roadworks"
+    ]
+   }
+  ],
+  "tacho_summary": {
+   "entries": [
+    {
+     "card": "D330",
+     "drive": "06:00-08:30"
+    },
+    {
+     "card": "D330",
+     "drive": "08:40-09:55"
+    }
+   ]
+  },
+  "notes_history": {
+   "coaching": [
+    {
+     "date": "2023-10-03",
+     "topic": "driving_hours",
+     "status": "completed"
+    },
+    {
+     "date": "2024-01-22",
+     "topic": "driving_hours",
+     "status": "completed"
+    },
+    {
+     "date": "2024-04-09",
+     "topic": "driving_hours",
+     "status": "completed"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "driver_assignment": "card_missing",
+  "raw_speed_excess_pct": 1.54,
+  "speed_mitigation": "none",
+  "harsh_event_count": 2,
+  "harsh_context_logged": true,
+  "device_health": "accelerometer_recalibrated",
+  "telematics_stint_hours": 5.08,
+  "tacho_break_reconciles": false,
+  "prior_coaching_count": 3,
+  "coaching_status": "completed",
+  "boundary_value": false,
+  "note_content": "none",
+  "distance_discrepancy_pct": 3.91
+ },
+ "factors_sampled": {
+  "driver_assignment": "card_missing",
+  "raw_speed_excess_pct": 22.13,
+  "speed_mitigation": "map_limit_outdated",
+  "harsh_event_count": 10,
+  "harsh_context_logged": true,
+  "device_health": "accelerometer_recalibrated",
+  "telematics_stint_hours": 2.08,
+  "tacho_break_reconciles": true,
+  "prior_coaching_count": 3,
+  "coaching_status": "none",
+  "boundary_value": false,
+  "note_content": "none",
+  "distance_discrepancy_pct": 3.91
+ },
+ "plan": {
+  "driver_attributed": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "follow_up": {
+   "clarity": "clear",
+   "target": "formal_review",
+   "second": null
+  },
+  "worst_event_cause": {
+   "clarity": "balanced",
+   "target": "road_conditions",
+   "second": "device_fault"
+  },
+  "speed_excess": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  },
+  "hours_exposure": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  }
+ },
+ "target_words": 44,
+ "deciding": {
+  "driver_attributed": "Trip driver_card is null; the tacho has D330 entries only up to 09:55, and the 10:20 speed event falls after them with no card shown.",
+  "follow_up": "Trips 06:00-11:05 with a 10-min stop (no qualifying break) give a stint over 4.5 h, and three completed driving_hours coachings already exist, so recurrence after completed coaching.",
+  "worst_event_cause": "The significant events are the harsh brakes, both tagged roadworks and both dated before the 2024-07-17 accelerometer recalibration, so road context and device doubt both apply.",
+  "speed_excess": "Only event is 66 in 65 (1.5% over), with no mitigation: barely over the limit, so level 0 or 1.",
+  "hours_exposure": "Trips 06:00-08:30 and 08:40-11:05 with a 10-min stop give about 5h05 elapsed and no break of 45 min in the tacho entries, though the tacho stops at 09:55."
+ },
+ "request": "rec-F328-0016",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.019511
+}

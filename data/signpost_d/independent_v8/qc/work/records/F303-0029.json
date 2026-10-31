@@ -1,0 +1,155 @@
+{
+ "id": "F303-0029",
+ "family": "F303",
+ "state": {
+  "order": {
+   "prescription": {
+    "modality": "concentrator",
+    "flow_lpm": 2,
+    "hours_per_day": 8,
+    "rx_expiry": "2026-02-01"
+   },
+   "items_ordered": [
+    {
+     "sku": "CONC5",
+     "qty": 1
+    },
+    {
+     "sku": "CD460",
+     "qty": 1
+    }
+   ],
+   "account": {
+    "billing_hold": true,
+    "arrears_gbp": 75
+   }
+  },
+  "visit": {
+   "visit_date": "2025-06-03",
+   "items_left": [
+    {
+     "sku": "CONC5",
+     "qty": 1,
+     "serial": "C5-640"
+    },
+    {
+     "sku": "CD460",
+     "qty": 1,
+     "serial": "CD-12"
+    }
+   ],
+   "install_checks": {
+    "flow_verified": false,
+    "alarm_tested": true,
+    "training_given": false,
+    "completed_at": "2025-06-03T10:50"
+   },
+   "patient_signature": null
+  },
+  "site_assessment": {
+   "hazards": [
+    {
+     "code": "HEAT_SRC",
+     "status": "resolved_on_visit",
+     "fix": "cylinder_relocated"
+    },
+    {
+     "code": "NO_ALARM",
+     "status": "open",
+     "fix": null
+    }
+   ]
+  },
+  "equipment": {
+   "concentrator": {
+    "serial": "C5-640",
+    "flow_setting_lpm": 2.5
+   },
+   "fault_log": [
+    {
+     "code": "LOW_PURITY",
+     "at": "2025-06-03T10:40"
+    }
+   ],
+   "cylinders_on_site": [
+    {
+     "size": "CD 460 L",
+     "fill_pct": 60
+    }
+   ]
+  },
+  "supply_plan": {
+   "next_delivery_date": null
+  }
+ },
+ "factors": {
+  "rx_alignment": "exact",
+  "items_shortfall": "none",
+  "setup_state": "training_missing",
+  "supply_hours": "about 2.3 usage hours (under 12 h)",
+  "concentrator_fault": true,
+  "fault_mitigated": false,
+  "hazards_found": 2,
+  "hazard_mitigation": true,
+  "hazard_status_missing": false,
+  "handover_gap": true,
+  "timeline_out_of_order": false,
+  "next_delivery": "not_booked",
+  "dependency_level": "nocturnal",
+  "billing_hold": true
+ },
+ "factors_sampled": {
+  "rx_alignment": "exact",
+  "items_shortfall": "none",
+  "setup_state": "training_missing",
+  "supply_hours": 41.28,
+  "concentrator_fault": false,
+  "fault_mitigated": false,
+  "hazards_found": 2,
+  "hazard_mitigation": true,
+  "hazard_status_missing": false,
+  "handover_gap": true,
+  "timeline_out_of_order": false,
+  "next_delivery": "not_booked",
+  "dependency_level": "nocturnal",
+  "billing_hold": true
+ },
+ "plan": {
+  "rx_match": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "next_step": {
+   "clarity": "contested",
+   "target": "hold_confirm",
+   "second": "book_revisit"
+  },
+  "fulfilment": {
+   "clarity": "leaning",
+   "target": "setup_incomplete",
+   "second": null
+  },
+  "supply_runway": {
+   "clarity": "leaning",
+   "target": "0",
+   "second": null
+  },
+  "open_hazards": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  }
+ },
+ "target_words": 78,
+ "deciding": {
+  "rx_match": "Concentrator modality matches, but flow_setting 2.5 lpm differs from prescribed 2 lpm and the unit has a fault entry; modest lean to false.",
+  "next_step": "Signature null and handover_at missing, training not given, next delivery null; confirming by phone or booking a revisit are both defensible.",
+  "fulfilment": "Both ordered SKUs are in items_left but training_given is false and flow_verified false, so setup is incomplete.",
+  "supply_runway": "Concentrator has an unresolved LOW_PURITY fault so it does not count; one CD 460 L at 60% is about 276 L, about 2.3 hours at 2 lpm.",
+  "open_hazards": "HEAT_SRC resolved_on_visit; NO_ALARM is open with fix null, giving exactly one open."
+ },
+ "request": "rec-F303-0026",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.013915
+}

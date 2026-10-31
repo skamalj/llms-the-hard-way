@@ -1,0 +1,146 @@
+{
+ "id": "F317-0023",
+ "family": "F317",
+ "state": {
+  "vehicle": {
+   "fleet_no": "T1807",
+   "odometer_km": 18495
+  },
+  "exam": {
+   "exam_id": "EX-40",
+   "due_at_km": 19000,
+   "items": [
+    {
+     "item_code": "E1",
+     "result": "ok",
+     "signed_by": "u8",
+     "signed_at": "2025-04-11T06:00"
+    },
+    {
+     "item_code": "E2",
+     "result": "ok",
+     "signed_by": "u8",
+     "signed_at": "2025-04-11T06:20"
+    },
+    {
+     "item_code": "E3",
+     "result": "ok",
+     "signed_by": "u5",
+     "signed_at": "2025-04-11T06:50"
+    },
+    {
+     "item_code": "E4",
+     "result": "ok",
+     "signed_by": "u5",
+     "signed_at": "2025-04-11T07:10"
+    },
+    {
+     "item_code": "E5",
+     "result": "ok",
+     "signed_by": null,
+     "signed_at": null
+    }
+   ]
+  },
+  "defects": [
+   {
+    "defect_id": "D-60",
+    "subsystem": "running_gear",
+    "safety_critical": true,
+    "raised_at": "2025-04-08T10:00",
+    "status": "closed",
+    "closed_at": "2025-04-09T15:00",
+    "retest_at": null,
+    "retest_result": null
+   }
+  ],
+  "work_orders": [
+   {
+    "wo_id": "W-33",
+    "defect_ref": "D-60",
+    "subsystem": "running_gear",
+    "completed_at": "2025-04-09T14:30",
+    "status": "closed"
+   }
+  ],
+  "concessions": [],
+  "release": {
+   "duty_id": "S-4",
+   "duty_type": "depot_shunt",
+   "depart_at": "2025-04-12T09:00",
+   "odo_reading_km": 18495,
+   "brake_test_at": null,
+   "brake_test_result": null
+  }
+ },
+ "factors": {
+  "km_to_exam_due": 505,
+  "odometer_disagreement": "none",
+  "exam_signed_fraction": 0.8,
+  "exam_record_missing": false,
+  "worst_defect_subsystem": "running_gear",
+  "worst_defect_state": "closed_no_retest",
+  "worst_defect_safety_critical": true,
+  "retest_out_of_order": false,
+  "concession_present": false,
+  "concession_flaw": "none",
+  "wo_crossref_mismatch": "none",
+  "planned_duty_type": "depot_shunt",
+  "recent_brake_test_pass": false,
+  "balanced_signals": false
+ },
+ "factors_sampled": {
+  "km_to_exam_due": 490,
+  "odometer_disagreement": "none",
+  "exam_signed_fraction": 0.13,
+  "exam_record_missing": true,
+  "worst_defect_subsystem": "running_gear",
+  "worst_defect_state": "closed_no_retest",
+  "worst_defect_safety_critical": true,
+  "retest_out_of_order": false,
+  "concession_present": false,
+  "concession_flaw": "wrong_fleet_no",
+  "wo_crossref_mismatch": "none",
+  "planned_duty_type": "depot_shunt",
+  "recent_brake_test_pass": false,
+  "balanced_signals": false
+ },
+ "plan": {
+  "sc_defects_cleared": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "release_decision": {
+   "clarity": "balanced",
+   "target": "release_restricted",
+   "second": "release"
+  },
+  "worst_subsystem": {
+   "clarity": "leaning",
+   "target": "running_gear",
+   "second": null
+  },
+  "exam_completion": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  },
+  "exam_mileage": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 51,
+ "deciding": {
+  "sc_defects_cleared": "Safety-critical D-60 is closed but retest_at and retest_result are null, so it was not retested.",
+  "release_decision": "Duty is depot_shunt, a limited duty, which favours restricted running, but no concession exists and no brake test is recorded, which keeps plain release open.",
+  "worst_subsystem": "D-60 running_gear is the only defect and is awaiting retest; closure with a completed WO leaves some doubt.",
+  "exam_completion": "4 of 5 items are signed with timestamps; E5 has a result but null signed_by and signed_at.",
+  "exam_mileage": "Due 19000 minus odometer 18495 leaves 505 km, just above the 500 km boundary."
+ },
+ "request": "rec-F317-0021",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.015131
+}

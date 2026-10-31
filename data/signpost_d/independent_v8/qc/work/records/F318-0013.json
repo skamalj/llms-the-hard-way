@@ -1,0 +1,143 @@
+{
+ "id": "F318-0013",
+ "family": "F318",
+ "state": {
+  "work_order": {
+   "visit_type": "routine_inspection",
+   "tasks": [
+    {
+     "task_id": 1,
+     "asset_ref": "PD-S"
+    },
+    {
+     "task_id": 2,
+     "asset_ref": "BG-A"
+    }
+   ],
+   "nav_notice": {
+    "in_force": true,
+    "to": "2025-06-30",
+    "scope_assets": [
+     "PD-S"
+    ]
+   },
+   "booked_passages_7d": 5
+  },
+  "visit_log": {
+   "task_status": [
+    {
+     "task_id": 1,
+     "status": "temp_fix",
+     "deferral_ref": null,
+     "deferral_due": null
+    },
+    {
+     "task_id": 2,
+     "status": "done"
+    }
+   ]
+  },
+  "checks": {
+   "post_checks": [
+    {
+     "asset_ref": "PD-S",
+     "result": "pass_advisory"
+    },
+    {
+     "asset_ref": "BG-A",
+     "result": "pass"
+    }
+   ],
+   "leakage_ls": 5.35,
+   "leakage_limit_ls": 5
+  },
+  "asset_history": {
+   "prior_visits": [
+    {
+     "asset_ref": "PD-S",
+     "defect_code": "LK4"
+    },
+    {
+     "asset_ref": "PD-S",
+     "defect_code": "LK4"
+    },
+    {
+     "asset_ref": "PD-S",
+     "defect_code": "LK4"
+    },
+    {
+     "asset_ref": "PD-S",
+     "defect_code": "LK4"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "visit_type": "routine_inspection",
+  "tasks_ordered": 2,
+  "completion_state": "temporary_fix",
+  "parts_qty_mismatch": "trivial",
+  "hours_gap": 0.0,
+  "asset_ref_mismatch": false,
+  "post_check_result": "passed_advisory",
+  "leakage_ratio": 1.07,
+  "leakage_mitigation": false,
+  "navigation_notice_in_force": true,
+  "deferral_approved": false,
+  "prior_same_defect": 4,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "visit_type": "routine_inspection",
+  "tasks_ordered": 8,
+  "completion_state": "temporary_fix",
+  "parts_qty_mismatch": "trivial",
+  "hours_gap": 2.87,
+  "asset_ref_mismatch": false,
+  "post_check_result": "passed_advisory",
+  "leakage_ratio": 1.07,
+  "leakage_mitigation": false,
+  "navigation_notice_in_force": true,
+  "deferral_approved": false,
+  "prior_same_defect": 4,
+  "boundary_case": false
+ },
+ "plan": {
+  "safe_to_reopen": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "record_disposition": {
+   "clarity": "leaning",
+   "target": "reopen_revisit",
+   "second": null
+  },
+  "return_urgency": {
+   "clarity": "clear",
+   "target": "within_week",
+   "second": null
+  },
+  "affected_scope": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  },
+  "section_mismatches": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  }
+ },
+ "target_words": 25,
+ "deciding": {
+  "safe_to_reopen": "PD-S has only an advisory pass and leakage is slightly over limit (5.35 against 5), but the task is a temp_fix and the nav notice is already in force.",
+  "record_disposition": "PD-S task 1 is only a temp_fix with no deferral ref, and the same defect LK4 has recurred four times, which points to a proper redo.",
+  "return_urgency": "The temp_fix on PD-S has no approved deferral and the defect has recurred four times, while the nav notice restricts the lock, so a restriction and a pending defect indicate a return within a week.",
+  "affected_scope": "booked_passages_7d is 5, on the boundary between level 1 and level 2.",
+  "section_mismatches": "Task 1 is temp_fix with null deferral_ref and deferral_due, the single unexplained gap; hours and parts are not recorded as mismatched."
+ },
+ "request": "rec-F318-0011",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.010812
+}

@@ -1,0 +1,184 @@
+{
+ "id": "F305-0004",
+ "family": "F305",
+ "state": {
+  "session": {
+   "id": "S8120",
+   "date": "2025-03-18",
+   "needle_on": "2025-03-18T08:00",
+   "washback": "2025-03-18T12:15",
+   "review_date": "2025-03-26"
+  },
+  "prescription": {
+   "duration_min": 240,
+   "dialysate_ca": 1.25,
+   "qb_ml_min": 350
+  },
+  "machine": {
+   "settings": {
+    "dialysate_ca": 1.75,
+    "qb_actual": 300
+   },
+   "uf_removed_ml": 1800,
+   "washback_ml": 200,
+   "alarms": [
+    {
+     "code": "PUMP_STOP",
+     "t": "2025-03-18T09:00"
+    },
+    {
+     "code": "PUMP_RESUME",
+     "t": "2025-03-18T09:20"
+    },
+    {
+     "code": "QB_REDUCED",
+     "reason": "ART_PRESSURE_HIGH",
+     "t": "2025-03-18T09:30"
+    }
+   ]
+  },
+  "observations": {
+   "pre_kg": 68.6,
+   "post_kg": 67.2,
+   "bp": [
+    [
+     "09:40",
+     88
+    ],
+    [
+     "09:55",
+     104
+    ]
+   ],
+   "interventions": [
+    {
+     "t": "09:41",
+     "saline_bolus_ml": 100
+    }
+   ]
+  },
+  "checks": [
+   {
+    "code": "ID",
+    "done": true,
+    "t": "2025-03-18T07:40"
+   },
+   {
+    "code": "DIALYSATE",
+    "done": true,
+    "t": "2025-03-18T07:50"
+   },
+   {
+    "code": "ACCESS",
+    "done": true,
+    "t": "2025-03-18T07:55"
+   }
+  ],
+  "history": [
+   [
+    "2025-02-25",
+    240,
+    238,
+    68.5
+   ],
+   [
+    "2025-02-28",
+    240,
+    205,
+    68.7
+   ],
+   [
+    "2025-03-04",
+    240,
+    240,
+    68.6
+   ],
+   [
+    "2025-03-07",
+    240,
+    210,
+    68.5
+   ],
+   [
+    "2025-03-11",
+    240,
+    236,
+    68.7
+   ],
+   [
+    "2025-03-14",
+    240,
+    239,
+    68.6
+   ]
+  ]
+ },
+ "factors": {
+  "time_shortfall_min": 5,
+  "machine_pause_min": 20,
+  "uf_weight_gap_kg": 0.1,
+  "post_weight_missing": false,
+  "missing_check": "machine_disinfection",
+  "check_logged_after_start": false,
+  "prescription_mismatch": "dialysate_ca",
+  "mismatch_magnitude": "clinically_relevant",
+  "hypotension_episodes": 1,
+  "hypotension_mitigated": true,
+  "circuit_clotted": false,
+  "prior_short_sessions": 2,
+  "documented_flow_reduction": true
+ },
+ "factors_sampled": {
+  "time_shortfall_min": 7,
+  "machine_pause_min": 20,
+  "uf_weight_gap_kg": 1.35,
+  "post_weight_missing": false,
+  "missing_check": "machine_disinfection",
+  "check_logged_after_start": false,
+  "prescription_mismatch": "blood_flow",
+  "mismatch_magnitude": "trivial",
+  "hypotension_episodes": 1,
+  "hypotension_mitigated": true,
+  "circuit_clotted": false,
+  "prior_short_sessions": 2,
+  "documented_flow_reduction": true
+ },
+ "plan": {
+  "uf_reconciles": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "checks_before_start": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "log_disposition": {
+   "clarity": "leaning",
+   "target": "incident_report",
+   "second": null
+  },
+  "time_shortfall": {
+   "clarity": "contested",
+   "target": "0",
+   "second": "1"
+  },
+  "pending_age": {
+   "clarity": "contested",
+   "target": "2",
+   "second": "1"
+  }
+ },
+ "target_words": 32,
+ "deciding": {
+  "uf_reconciles": "Net UF 1800-200-100=1500 ml against weight change 68.6-67.2=1.4 kg gives a gap of about 0.1 kg.",
+  "checks_before_start": "The three listed checks all precede the 08:00 start, but there is no machine disinfection entry, so completeness of the mandatory set is open.",
+  "log_disposition": "machine.settings.dialysate_ca is 1.75 against a prescribed 1.25, a wrong setting delivered. The QB reduction is documented, and the missing disinfection entry leaves some doubt.",
+  "time_shortfall": "Needle to washback is 255 min minus a 20 min pause gives 235 effective against 240, a 5 min shortfall at the level 0/1 boundary.",
+  "pending_age": "session.date is 2025-03-18 and review_date is 2025-03-26, 8 days, right at the 7/8 day boundary."
+ },
+ "request": "rec-F305-0001",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.017728
+}

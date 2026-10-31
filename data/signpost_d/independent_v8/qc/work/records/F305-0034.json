@@ -1,0 +1,160 @@
+{
+ "id": "F305-0034",
+ "family": "F305",
+ "state": {
+  "session": {
+   "id": "S-6043",
+   "pt": "P-1188",
+   "chair": 6,
+   "needle_on": "2025-04-01T07:30",
+   "washback": "2025-04-01T11:27",
+   "review_ts": "2025-05-05T08:00",
+   "rn": [
+    "N03",
+    "N19"
+   ]
+  },
+  "prescription": {
+   "duration_min": 240,
+   "dialysate_k": 2.0,
+   "qb_ml_min": 300,
+   "heparin_units": 2000,
+   "target_uf_ml": 2400,
+   "dry_weight_kg": 88.5
+  },
+  "machine": {
+   "settings": {
+    "dialysate_k": 2.0,
+    "heparin_units": 2000
+   },
+   "qb_actual": 270,
+   "uf_removed_ml": 2400,
+   "washback_ml": 150,
+   "alarms": [
+    {
+     "code": "PUMP_STOP",
+     "t": "09:00"
+    },
+    {
+     "code": "PUMP_RESUME",
+     "t": "09:03"
+    },
+    {
+     "code": "QB_REDUCED",
+     "reason": "ART_PRESSURE_HIGH",
+     "t": "09:40"
+    }
+   ]
+  },
+  "observations": {
+   "pre_kg": 90.3,
+   "post_kg": 88.6,
+   "bp": [
+    {
+     "t": "07:30",
+     "sys": 134
+    },
+    {
+     "t": "10:00",
+     "sys": 118
+    }
+   ],
+   "interventions": []
+  },
+  "checks": [
+   {
+    "code": "ID",
+    "done": true,
+    "t": "07:05",
+    "by": [
+     "N03",
+     "N19"
+    ]
+   },
+   {
+    "code": "ACCESS",
+    "done": true,
+    "t": "07:12",
+    "by": [
+     "N03"
+    ]
+   },
+   {
+    "code": "MACH",
+    "done": true,
+    "t": "07:10",
+    "by": [
+     "N19"
+    ]
+   }
+  ]
+ },
+ "factors": {
+  "time_shortfall_min": 6,
+  "machine_pause_min": 3,
+  "uf_weight_gap_kg": 0.55,
+  "post_weight_missing": false,
+  "missing_check": "none",
+  "check_logged_after_start": false,
+  "prescription_mismatch": "none",
+  "mismatch_magnitude": "trivial",
+  "hypotension_episodes": 0,
+  "hypotension_mitigated": true,
+  "circuit_clotted": false,
+  "prior_short_sessions": 0,
+  "documented_flow_reduction": true
+ },
+ "factors_sampled": {
+  "time_shortfall_min": 40,
+  "machine_pause_min": 3,
+  "uf_weight_gap_kg": 0.47,
+  "post_weight_missing": false,
+  "missing_check": "second_checker",
+  "check_logged_after_start": false,
+  "prescription_mismatch": "heparin_dose",
+  "mismatch_magnitude": "trivial",
+  "hypotension_episodes": 1,
+  "hypotension_mitigated": true,
+  "circuit_clotted": false,
+  "prior_short_sessions": 3,
+  "documented_flow_reduction": true
+ },
+ "plan": {
+  "uf_reconciles": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "checks_before_start": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "log_disposition": {
+   "clarity": "clear",
+   "target": "sign_off",
+   "second": null
+  },
+  "time_shortfall": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  },
+  "pending_age": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  }
+ },
+ "target_words": 71,
+ "deciding": {
+  "uf_reconciles": "Loss 1.7 kg; net UF 2400-150=2250 ml gives gap 0.55, just over 0.5; ignoring washback 0.7.",
+  "checks_before_start": "ID, ACCESS and MACH all done with checker ids at 07:05-07:12, before needle_on 07:30.",
+  "log_disposition": "Settings match prescription, checks complete, bp normal, QB reduction is documented; nothing is open.",
+  "time_shortfall": "Clock 237 min minus 3 min pause = 234 effective vs 240; short by 6, on the 5/6 boundary.",
+  "pending_age": "Session 2025-04-01, review_ts 2025-05-05: 34 days, only slightly over 30."
+ },
+ "request": "rec-F305-0031",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.014158
+}

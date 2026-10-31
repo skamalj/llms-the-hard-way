@@ -1,0 +1,162 @@
+{
+ "id": "F314-0025",
+ "family": "F314",
+ "state": {
+  "property": {
+   "ref": "P-5530",
+   "inventory": [
+    {
+     "id": "A1",
+     "type": "boiler",
+     "loc": "kitchen",
+     "serial": "BX3301",
+     "owned_by": "landlord"
+    },
+    {
+     "id": "A2",
+     "type": "gas fire",
+     "loc": "lounge",
+     "serial": "GF9012",
+     "owned_by": "tenant"
+    },
+    {
+     "id": "A3",
+     "type": "hob",
+     "loc": "kitchen",
+     "serial": "HB0457",
+     "owned_by": "landlord"
+    }
+   ]
+  },
+  "tenancy": {
+   "review": "2025-03-20"
+  },
+  "certificate": {
+   "inspected": "2024-05-20",
+   "expiry": "2025-05-20",
+   "licence": "660412",
+   "outcome": "pass"
+  },
+  "appliance_checks": [
+   {
+    "id": "A1",
+    "loc": "kitchen",
+    "serial": "BX3301",
+    "flue": "room-sealed",
+    "analyser": {
+     "ratio": 0.002,
+     "threshold": 0.004
+    },
+    "defect": "ID",
+    "isolation": {
+     "supply_off": true,
+     "capped": null
+    }
+   },
+   {
+    "id": "A2",
+    "loc": "lounge",
+    "serial": "GF9012",
+    "flue": "flueless",
+    "defect": null
+   }
+  ],
+  "engineer": {
+   "licence": "660412",
+   "valid_to": "2027-01-31",
+   "categories": [
+    "CENWAT",
+    "HOB"
+   ]
+  },
+  "history": {
+   "prior": [
+    {
+     "date": "2023-05-18",
+     "defects": {
+      "A1": "NCS"
+     }
+    },
+    {
+     "date": "2022-05-20",
+     "defects": {
+      "A1": "NCS"
+     }
+    }
+   ],
+   "remedials": [
+    {
+     "appliance_id": "A1",
+     "completed_on": "2024-05-10",
+     "engineer_licence": "660412"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "inventory_mismatch": "missing_from_cert",
+  "tenant_owned_appliance": true,
+  "date_misalignment": "none",
+  "days_to_true_expiry": 61,
+  "renewal_booked": false,
+  "engineer_status": "category_missing",
+  "worst_defect_class": "immediately_dangerous",
+  "defect_isolated": false,
+  "remedial_completed": false,
+  "combustion_reading": "normal",
+  "prior_defect_count": 2,
+  "boundary_case": true
+ },
+ "factors_sampled": {
+  "inventory_mismatch": "none",
+  "tenant_owned_appliance": true,
+  "date_misalignment": "none",
+  "days_to_true_expiry": 264,
+  "renewal_booked": false,
+  "engineer_status": "category_missing",
+  "worst_defect_class": "ncs",
+  "defect_isolated": false,
+  "remedial_completed": true,
+  "combustion_reading": "normal",
+  "prior_defect_count": 2,
+  "boundary_case": true
+ },
+ "plan": {
+  "covers_all_appliances": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "engineer_valid": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "balanced",
+   "target": "hold",
+   "second": "reinspect"
+  },
+  "renewal_urgency": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "open_hazard": {
+   "clarity": "balanced",
+   "target": "4",
+   "second": "3"
+  }
+ },
+ "target_words": 78,
+ "deciding": {
+  "covers_all_appliances": "Landlord-owned hob A3 is in the inventory but has no check; the tenant flag sits on the fire A2, which is certified, so it excuses nothing.",
+  "engineer_valid": "Checked fire A2 is flueless but the engineer categories are only CENWAT and HOB, so a category is missing.",
+  "next_step": "There are two gaps, the missing hob and the missing category, which favours reinspect; the open boiler defect is isolated and the licence matches, so a single hold to confirm is also defensible.",
+  "renewal_urgency": "Inspection 2024-05-20 and review 2025-03-20 leave 61 days, one day above the 60-day line.",
+  "open_hazard": "Boiler class ID; the only remedial predates the inspection so it closes nothing, and isolation shows supply_off true but capped null."
+ },
+ "request": "rec-F314-0021",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.014557
+}

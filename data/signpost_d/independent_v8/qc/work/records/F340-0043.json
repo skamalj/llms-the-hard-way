@@ -1,0 +1,98 @@
+{
+ "id": "F340-0043",
+ "family": "F340",
+ "state": {
+  "booking": {
+   "dog_name": "Pip",
+   "microchip": "985100012345",
+   "checkout": "2026-06-10",
+   "owner_contact": {
+    "reachable_during_stay": false
+   }
+  },
+  "declaration": {
+   "weight_kg": 10.0,
+   "neutered": true
+  },
+  "vaccination": {
+   "chip_on_cert": "985100012345",
+   "name_on_cert": "Pippa",
+   "core_expiry": "2026-06-27"
+  },
+  "vet_history": {
+   "neutered": false
+  },
+  "arrival_check": {
+   "measured_weight_kg": 10.6,
+   "cough": false
+  }
+ },
+ "factors": {
+  "vacc_expiry_offset_days": 17,
+  "titre_exemption_on_file": false,
+  "certificate_id_mismatch": "name_spelling_only",
+  "arrival_cough_observed": false,
+  "cough_benign_explanation": "none",
+  "weight_discrepancy_pct": 5.97,
+  "medication_state": "none_needed",
+  "next_dose_hours": "none",
+  "neuter_status_conflict": true,
+  "owner_reachable": false,
+  "prior_incident_count": 0,
+  "note_tone": "neutral",
+  "balanced_signals": false
+ },
+ "factors_sampled": {
+  "vacc_expiry_offset_days": 17,
+  "titre_exemption_on_file": true,
+  "certificate_id_mismatch": "name_spelling_only",
+  "arrival_cough_observed": false,
+  "cough_benign_explanation": "intranasal_vaccine_within_7d",
+  "weight_discrepancy_pct": 5.97,
+  "medication_state": "none_needed",
+  "next_dose_hours": 59,
+  "neuter_status_conflict": true,
+  "owner_reachable": false,
+  "prior_incident_count": 0,
+  "note_tone": "neutral",
+  "balanced_signals": false
+ },
+ "plan": {
+  "vacc_cover_valid": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "declaration_consistent": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "admission_disposition": {
+   "clarity": "leaning",
+   "target": "admit_standard",
+   "second": null
+  },
+  "discrepancy_count": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  },
+  "action_urgency": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  }
+ },
+ "target_words": 25,
+ "deciding": {
+  "vacc_cover_valid": "chip_on_cert equals booking.microchip and core_expiry 2026-06-27 is 17 days after checkout; only the name spelling differs.",
+  "declaration_consistent": "Weight 10.0 vs 10.6 is within tolerance and no medications or conditions conflict, but declared neutered true against vet neutered false pulls the other way.",
+  "admission_disposition": "Cover is valid, no symptoms and no medications; the neutered conflict cannot go to the owner because they are unreachable, so the dog is admitted normally.",
+  "discrepancy_count": "Name spelling and the neutered conflict are definite mismatches; whether the small weight difference or the unconfirmed neutered status counts as a third is open.",
+  "action_urgency": "The neutered record needs correcting, but nothing in the record is time-critical, so it fits within 48 hours of arrival."
+ },
+ "request": "rec-F340-0041",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012324
+}

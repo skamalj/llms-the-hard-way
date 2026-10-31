@@ -1,0 +1,133 @@
+{
+ "id": "F333-0002",
+ "family": "F333",
+ "state": {
+  "room": {
+   "room_id": "C22",
+   "block": "Ash"
+  },
+  "tenancy": {
+   "start_date": "2024-10-09",
+   "end_date": "2025-06-20",
+   "deposit_dispute_lodged": true
+  },
+  "checkin_inventory": {
+   "signed_date": "2024-10-08",
+   "items": [
+    {
+     "item_code": "wardrobe",
+     "grade": "fair"
+    },
+    {
+     "item_code": "heater",
+     "grade": "good"
+    }
+   ]
+  },
+  "checkout_inspection": {
+   "inspection_type": "mid_term",
+   "inspection_date": "2024-10-02",
+   "items": [
+    {
+     "item_code": "wardrobe",
+     "grade": "damaged",
+     "photo_refs": [
+      "p4"
+     ]
+    },
+    {
+     "item_code": "heater",
+     "grade": "damaged",
+     "defect_category": "heater_fail",
+     "photo_refs": []
+    }
+   ]
+  },
+  "proposed_charges": {
+   "lines": [
+    {
+     "item_code": "wardrobe",
+     "qty": 1,
+     "unit_rate": 30.0,
+     "line_total": 30.0
+    },
+    {
+     "item_code": "heater",
+     "qty": 1,
+     "unit_rate": 15.0,
+     "line_total": 15.0
+    }
+   ],
+   "summary_total": 45.4
+  },
+  "works_orders": []
+ },
+ "factors": {
+  "inspection_type": "mid_term",
+  "checkin_inventory_state": "complete",
+  "prior_damage_on_charged_item": "one_item",
+  "charge_discrepancy": "small_under_25",
+  "worst_defect_tier": "habitability",
+  "true_cause": "resident_damage",
+  "predating_works_order": false,
+  "safety_fault_remedied": false,
+  "photo_coverage": "all_but_one",
+  "tenancy_months": 8,
+  "date_out_of_order": true,
+  "deposit_dispute_lodged": true,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "inspection_type": "mid_term",
+  "checkin_inventory_state": "complete",
+  "prior_damage_on_charged_item": "none",
+  "charge_discrepancy": "large_over_100",
+  "worst_defect_tier": "habitability",
+  "true_cause": "fair_wear",
+  "predating_works_order": true,
+  "safety_fault_remedied": true,
+  "photo_coverage": "all_but_one",
+  "tenancy_months": 2,
+  "date_out_of_order": true,
+  "deposit_dispute_lodged": true,
+  "boundary_case": false
+ },
+ "plan": {
+  "checkin_clean": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "disposition": {
+   "clarity": "leaning",
+   "target": "order_reinspection",
+   "second": null
+  },
+  "main_cause": {
+   "clarity": "leaning",
+   "target": "resident_damage",
+   "second": null
+  },
+  "defect_severity": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  },
+  "charge_gap": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  }
+ },
+ "target_words": 55,
+ "deciding": {
+  "checkin_clean": "Wardrobe is charged but was graded fair at check-in.",
+  "disposition": "inspection_date 2024-10-02 is before tenancy start_date 2024-10-09, so the inspection is misdated and the room needs revisiting.",
+  "main_cause": "Heater good to damaged and wardrobe worsened, with an empty works_orders list, so no related prior works order.",
+  "defect_severity": "heater_fail is a habitability failure; no safety defect categories appear.",
+  "charge_gap": "summary_total 45.40 versus line sum 45.00 is 0.40 (level 1), but the heater line has no photo, so evidenced could be read differently."
+ },
+ "request": "rec-F333-0001",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.01257
+}

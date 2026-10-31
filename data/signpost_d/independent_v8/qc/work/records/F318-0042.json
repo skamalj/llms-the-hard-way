@@ -1,0 +1,177 @@
+{
+ "id": "F318-0042",
+ "family": "F318",
+ "state": {
+  "work_order": {
+   "lock_id": "L07",
+   "visit_type": "routine_inspection",
+   "tasks": [
+    {
+     "task_id": "T1",
+     "asset_ref": "A1"
+    },
+    {
+     "task_id": "T2",
+     "asset_ref": "A2"
+    },
+    {
+     "task_id": "T3",
+     "asset_ref": "A3"
+    },
+    {
+     "task_id": "T4",
+     "asset_ref": "A4"
+    },
+    {
+     "task_id": "T5",
+     "asset_ref": "A5"
+    },
+    {
+     "task_id": "T6",
+     "asset_ref": "A6"
+    },
+    {
+     "task_id": "T7",
+     "asset_ref": "A7"
+    },
+    {
+     "task_id": "T8",
+     "asset_ref": "A8"
+    }
+   ],
+   "nav_notice": {
+    "in_force": true,
+    "to": "2025-06-30",
+    "scope_assets": [
+     "A5"
+    ]
+   }
+  },
+  "visit_log": {
+   "arrived": "2025-06-04T09:00",
+   "departed": "2025-06-04T13:00",
+   "crew_size": 3,
+   "timesheet_hours": 19.8,
+   "task_status": [
+    {
+     "task_id": "T5",
+     "status": "temp_fix",
+     "deferral_ref": "DEF-12",
+     "deferral_due": "2025-08-01"
+    }
+   ]
+  },
+  "materials": {
+   "issued": [
+    {
+     "part_no": "R4",
+     "task_id": "T5",
+     "qty": 4
+    }
+   ],
+   "returned": [],
+   "fitted": [
+    {
+     "part_no": "R4",
+     "task_id": "T5",
+     "qty": 4
+    },
+    {
+     "part_no": "K2",
+     "task_id": "T5",
+     "qty": 1
+    }
+   ]
+  },
+  "checks": {
+   "post_checks": [
+    {
+     "asset_ref": "A5",
+     "result": "pass_advisory"
+    }
+   ],
+   "leakage_ls": 3.8,
+   "leakage_limit_ls": 2.0,
+   "river_level_m": 3.5,
+   "flood_marker_m": 3.2
+  },
+  "asset_history": {
+   "prior_visits": [
+    {
+     "date": "2024-10-02",
+     "asset_ref": "A5",
+     "defect_code": "D09"
+    }
+   ],
+   "open_defects": []
+  }
+ },
+ "factors": {
+  "visit_type": "routine_inspection",
+  "tasks_ordered": 8,
+  "completion_state": "temporary_fix",
+  "parts_qty_mismatch": "fitted part K2 with no issue line",
+  "hours_gap": 1.65,
+  "asset_ref_mismatch": false,
+  "post_check_result": "passed_advisory",
+  "leakage_ratio": 1.9,
+  "leakage_mitigation": true,
+  "navigation_notice_in_force": true,
+  "deferral_approved": true,
+  "prior_same_defect": 1,
+  "boundary_case": true
+ },
+ "factors_sampled": {
+  "visit_type": "routine_inspection",
+  "tasks_ordered": 8,
+  "completion_state": "temporary_fix",
+  "parts_qty_mismatch": "trivial",
+  "hours_gap": 1.65,
+  "asset_ref_mismatch": false,
+  "post_check_result": "passed_advisory",
+  "leakage_ratio": 1.9,
+  "leakage_mitigation": true,
+  "navigation_notice_in_force": true,
+  "deferral_approved": true,
+  "prior_same_defect": 1,
+  "boundary_case": true
+ },
+ "plan": {
+  "safe_to_reopen": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "record_disposition": {
+   "clarity": "leaning",
+   "target": "hold_query",
+   "second": null
+  },
+  "return_urgency": {
+   "clarity": "clear",
+   "target": "next_scheduled",
+   "second": null
+  },
+  "affected_scope": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  },
+  "section_mismatches": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  }
+ },
+ "target_words": 59,
+ "deciding": {
+  "safe_to_reopen": "Leakage 3.8 against a limit of 2.0 with an advisory check and a notice covering A5, offset by river level 3.5 above the 3.2 marker and an approved deferral.",
+  "record_disposition": "Timesheet 19.8h against a 12h span and the K2 fitted part with no issue line are specific points the crew can confirm, so a hold for a query is favoured.",
+  "return_urgency": "The deferral is approved with a due date of 2025-08-01 and the check is only advisory, so the next scheduled attendance is enough.",
+  "affected_scope": "Eight tasks and a lock serving through traffic suggest a broad user base, but no count is shown, so level 3 is favoured with some doubt.",
+  "section_mismatches": "Two unexplained mismatches: timesheet 19.8h against 3 x 4h = 12h, and part K2 fitted with no issue line. The deferral is explained by its ref."
+ },
+ "request": "rec-F318-0041",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012948
+}

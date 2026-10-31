@@ -1,0 +1,140 @@
+{
+ "id": "F328-0006",
+ "family": "F328",
+ "state": {
+  "report_meta": {
+   "id": "W31-A",
+   "driver_id": "D112",
+   "d": "2024-07-30"
+  },
+  "vehicle_device": {
+   "health_flags": [],
+   "last_cal": "2024-01-15",
+   "odo": [
+    84210,
+    84702
+   ]
+  },
+  "trips": [
+   {
+    "s": "06:00",
+    "e": "08:50",
+    "km": 250,
+    "card": "D112"
+   },
+   {
+    "s": "09:05",
+    "e": "11:25",
+    "km": 194,
+    "card": "D112"
+   }
+  ],
+  "events": [
+   {
+    "t": "10:12",
+    "type": "speed",
+    "mph": 70,
+    "limit": 60,
+    "seg": "A614",
+    "map_ver": "2023.4"
+   },
+   {
+    "type": "harsh",
+    "n": 11,
+    "tags": []
+   }
+  ],
+  "tacho_summary": {
+   "card": "D112",
+   "drive": "06:02-11:28"
+  },
+  "notes_history": {
+   "coaching": [
+    {
+     "d": "2024-02-05",
+     "issue": "harsh",
+     "status": "completed"
+    },
+    {
+     "d": "2024-06-10",
+     "status": "scheduled"
+    }
+   ],
+   "limit_updates": [
+    {
+     "seg": "A614",
+     "limit": 50,
+     "date": "2024-05-02"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "driver_assignment": "match",
+  "raw_speed_excess_pct": 40.0,
+  "speed_mitigation": "map_limit_outdated",
+  "harsh_event_count": 11,
+  "harsh_context_logged": false,
+  "device_health": "ok",
+  "telematics_stint_hours": 5.42,
+  "tacho_break_reconciles": false,
+  "prior_coaching_count": 2,
+  "coaching_status": "scheduled",
+  "boundary_value": false,
+  "note_content": "none",
+  "distance_discrepancy_pct": 10.81
+ },
+ "factors_sampled": {
+  "driver_assignment": "match",
+  "raw_speed_excess_pct": 17.22,
+  "speed_mitigation": "none",
+  "harsh_event_count": 11,
+  "harsh_context_logged": false,
+  "device_health": "ok",
+  "telematics_stint_hours": 4.62,
+  "tacho_break_reconciles": true,
+  "prior_coaching_count": 2,
+  "coaching_status": "scheduled",
+  "boundary_value": false,
+  "note_content": "none",
+  "distance_discrepancy_pct": 10.82
+ },
+ "plan": {
+  "driver_attributed": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "follow_up": {
+   "clarity": "leaning",
+   "target": "hold_verify",
+   "second": null
+  },
+  "worst_event_cause": {
+   "clarity": "clear",
+   "target": "map_data",
+   "second": null
+  },
+  "speed_excess": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  },
+  "hours_exposure": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  }
+ },
+ "target_words": 65,
+ "deciding": {
+  "driver_attributed": "Report driver D112 matches both trip cards and the tacho card across the event time of 10:12.",
+  "follow_up": "The breach depends on the newer A614 limit update (50 mph, dated 2024-05-02) not yet confirmed against the map. Coaching is only scheduled, with no completed coaching on speed.",
+  "worst_event_cause": "Event map_ver 2023.4 shows limit 60, but limit_updates holds a newer 50 for the same segment A614, dated before the event. No harsh context tags and the device is ok.",
+  "speed_excess": "70 mph against the updated 50 limit is 40% over, though the map shows 60 (16.7% over), which leaves some doubt.",
+  "hours_exposure": "Trips 06:00-08:50 and 09:05-11:25 are separated by only a 15 minute stop. Tacho drive 06:02-11:28 has no break of 45 minutes or more, so the stint is about 5h25 and sits just under the 5.5 h line."
+ },
+ "request": "rec-F328-0006",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.020176
+}

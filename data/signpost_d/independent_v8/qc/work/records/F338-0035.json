@@ -1,0 +1,133 @@
+{
+ "id": "F338-0035",
+ "family": "F338",
+ "state": {
+  "site": {
+   "pollutant": "SO2",
+   "tier": "standard",
+   "service_interval_days": 45
+  },
+  "visit": {
+   "date": "2024-09-12",
+   "start": "09:00",
+   "end": "11:00",
+   "sequence_status": "complete"
+  },
+  "reference": {
+   "standard_id": "S-9034",
+   "unit": "ppb",
+   "cert_expiry": "2025-07-03"
+  },
+  "checks": [
+   {
+    "type": "as_found_span",
+    "ref_id": "S-9034",
+    "ref_conc": 200,
+    "unit": "ppb",
+    "reading": 262,
+    "tol": 10,
+    "ts": "2024-09-12T09:30"
+   },
+   {
+    "type": "as_left_span",
+    "ref_id": "S-9034",
+    "ref_conc": 200,
+    "unit": "ppb",
+    "reading": 211,
+    "tol": 10,
+    "ts": "2024-09-12T10:40"
+   }
+  ],
+  "history": {
+   "last_visit_date": "2024-07-30",
+   "results": [
+    "fail",
+    "fail",
+    "fail",
+    "fail"
+   ],
+   "autochecks": [
+    {
+     "d": "2024-08-05",
+     "r": "fail"
+    },
+    {
+     "d": "2024-08-06",
+     "r": "fail"
+    }
+   ]
+  },
+  "instrument": {
+   "temp_max": 36,
+   "firmware": "4.2"
+  }
+ },
+ "factors": {
+  "pollutant": "SO2",
+  "as_found_ratio": 3.08,
+  "as_left_status": "marginal",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 295,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": false,
+  "drift_explanation": "enclosure_temp_excursion",
+  "days_since_last_visit": 44,
+  "visit_completeness": "complete",
+  "prior_fail_count": 4,
+  "timestamp_mismatch": "none",
+  "site_priority": "standard"
+ },
+ "factors_sampled": {
+  "pollutant": "SO2",
+  "as_found_ratio": 3.08,
+  "as_left_status": "marginal",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 295,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": false,
+  "drift_explanation": "enclosure_temp_excursion",
+  "days_since_last_visit": 44,
+  "visit_completeness": "complete",
+  "prior_fail_count": 4,
+  "timestamp_mismatch": "none",
+  "site_priority": "standard"
+ },
+ "plan": {
+  "data_accepted": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "reference_valid": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "withdraw",
+   "second": null
+  },
+  "flag_extent": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  },
+  "return_urgency": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 60,
+ "deciding": {
+  "data_accepted": "As-found span 262 vs 200 far exceeds tol 10 and autochecks failed early August, so data cannot stand.",
+  "reference_valid": "IDs, units and expiry all agree, with the cert valid until 2025; slight doubt from the odd ID format.",
+  "next_step": "Four prior fails, failing autochecks, large as-found error and marginal as-left (211 vs tol 10) point to workshop repair.",
+  "flag_extent": "44 days since last visit but autochecks failed from 2024-08-05; flagging from the first fail (about 38 days) or the full 44 days is arguable.",
+  "return_urgency": "Standard-tier site with a marginal as-left; a return within one to two days or three to seven days are both defensible."
+ },
+ "request": "rec-F338-0031",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.006461
+}

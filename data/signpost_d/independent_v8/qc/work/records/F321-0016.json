@@ -1,0 +1,158 @@
+{
+ "id": "F321-0016",
+ "family": "F321",
+ "state": {
+  "permit": {
+   "id": "P-1001",
+   "window_start": "2024-03-04T08:00",
+   "window_end": "2024-03-04T17:00",
+   "scoped_tasks": [
+    {
+     "task_code": "ANT-01",
+     "equipment_ref": "A1"
+    },
+    {
+     "task_code": "ANT-02",
+     "equipment_ref": "A2"
+    },
+    {
+     "task_code": "RRU-03",
+     "equipment_ref": "R3"
+    },
+    {
+     "task_code": "CAB-04",
+     "equipment_ref": "C4"
+    }
+   ],
+   "landlord_notice_date": null
+  },
+  "attendance": [
+   {
+    "badge_id": "B17",
+    "event": "in",
+    "ts": "2024-03-04T08:10"
+   },
+   {
+    "badge_id": "B17",
+    "event": "out",
+    "ts": "2024-03-04T16:50"
+   }
+  ],
+  "personnel": [
+   {
+    "engineer_id": "E5",
+    "badge_id": "B17",
+    "role": "climber",
+    "height_cert_expiry": "2025-01-31"
+   }
+  ],
+  "works": [
+   {
+    "task_code": "ANT-01",
+    "equipment_ref": "A1",
+    "status": "complete",
+    "started_at": "2024-03-04T09:00",
+    "completed_at": null
+   },
+   {
+    "task_code": "ANT-02",
+    "equipment_ref": "A2",
+    "status": "in_progress",
+    "completed_at": null
+   },
+   {
+    "task_code": "RRU-03",
+    "equipment_ref": "R3",
+    "status": "not_started",
+    "completed_at": null
+   },
+   {
+    "task_code": "CAB-04",
+    "equipment_ref": "C4",
+    "status": "not_started",
+    "completed_at": null
+   },
+   {
+    "task_code": "FDR-09",
+    "equipment_ref": "F9",
+    "status": "complete",
+    "completed_at": "2024-03-04T14:00"
+   }
+  ],
+  "closeout": {
+   "signout_at": "2024-03-04T16:50",
+   "key_status": null,
+   "photos_required": 6,
+   "photos_uploaded": 7,
+   "variation_ref": null,
+   "submitted_at": "2024-03-04T17:20",
+   "queue_extract_at": "2024-04-04T09:00"
+  }
+ },
+ "factors": {
+  "scope_mismatch": "extra_task",
+  "window_deviation": "within",
+  "cert_status": "all_valid",
+  "scoped_task_count": 4,
+  "completion_fraction": 0.25,
+  "signout_missing": false,
+  "key_return": "not_recorded",
+  "photo_shortfall": -1,
+  "badge_id_mismatch": false,
+  "variation_approved": false,
+  "landlord_notice": "null",
+  "weather_hold_logged": false
+ },
+ "factors_sampled": {
+  "scope_mismatch": "trivial_code_variant",
+  "window_deviation": "within",
+  "cert_status": "cert_record_null",
+  "scoped_task_count": 4,
+  "completion_fraction": 0.95,
+  "signout_missing": false,
+  "key_return": "not_recorded",
+  "photo_shortfall": -1,
+  "badge_id_mismatch": false,
+  "variation_approved": false,
+  "landlord_notice": "null",
+  "weather_hold_logged": false
+ },
+ "plan": {
+  "within_scope": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "certs_in_date": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "closeout_action": {
+   "clarity": "clear",
+   "target": "refer_compliance",
+   "second": null
+  },
+  "scope_completion": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "pending_age": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 44,
+ "deciding": {
+  "within_scope": "works includes FDR-09/F9, which is not on the permit's scoped_tasks, and variation_ref is null.",
+  "certs_in_date": "Sole engineer E5 has height_cert_expiry 2025-01-31, after the 2024-03-04 visit.",
+  "closeout_action": "Unauthorised FDR-09 work with no variation_ref points to compliance referral, which takes precedence over the other gaps.",
+  "scope_completion": "Only ANT-01 is marked complete, and it has a null completed_at. Counting it gives level 1; discounting it gives level 0.",
+  "pending_age": "Submitted 2024-03-04 and queue extract 2024-04-04 puts the wait at about 31 days, just past the 30-day boundary."
+ },
+ "request": "rec-F321-0016",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.010091
+}

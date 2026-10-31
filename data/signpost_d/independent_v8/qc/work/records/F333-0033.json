@@ -1,0 +1,142 @@
+{
+ "id": "F333-0033",
+ "family": "F333",
+ "state": {
+  "tenancy": {
+   "start_date": "2025-09-01",
+   "end_date": "2025-11-01",
+   "deposit_dispute_lodged": true
+  },
+  "checkin_inventory": {
+   "signed_date": "2025-09-01",
+   "signed_by_resident": true,
+   "items": [
+    {
+     "item_code": "CARP",
+     "grade": "good"
+    },
+    {
+     "item_code": "DESK",
+     "grade": "good"
+    },
+    {
+     "item_code": "CHAIR",
+     "grade": "good"
+    },
+    {
+     "item_code": "BLIND",
+     "grade": "good"
+    }
+   ]
+  },
+  "checkout_inspection": {
+   "inspection_type": "checkout",
+   "inspection_date": "2025-11-01",
+   "items": [
+    {
+     "item_code": "CARP",
+     "grade": "damaged",
+     "defect_category": "stain",
+     "photo_refs": [
+      "p1"
+     ]
+    },
+    {
+     "item_code": "DESK",
+     "grade": "good",
+     "photo_refs": [
+      "p2"
+     ]
+    }
+   ]
+  },
+  "proposed_charges": {
+   "lines": [
+    {
+     "item_code": "CARP",
+     "qty": 2,
+     "unit_rate": 45,
+     "line_total": 90
+    }
+   ],
+   "summary_total": 90
+  },
+  "works_orders": [
+   {
+    "wo_id": "W7",
+    "location": "kitchen",
+    "category": "plumbing",
+    "priority_code": "P2",
+    "status": "open"
+   }
+  ]
+ },
+ "factors": {
+  "inspection_type": "checkout",
+  "checkin_inventory_state": "complete",
+  "prior_damage_on_charged_item": "none",
+  "charge_discrepancy": "medium_25_to_100",
+  "worst_defect_tier": "cosmetic",
+  "true_cause": "resident_damage",
+  "predating_works_order": false,
+  "safety_fault_remedied": true,
+  "photo_coverage": "full",
+  "tenancy_months": 2,
+  "date_out_of_order": false,
+  "deposit_dispute_lodged": true,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "inspection_type": "checkout",
+  "checkin_inventory_state": "complete",
+  "prior_damage_on_charged_item": "none",
+  "charge_discrepancy": "medium_25_to_100",
+  "worst_defect_tier": "functional",
+  "true_cause": "building_fault",
+  "predating_works_order": false,
+  "safety_fault_remedied": true,
+  "photo_coverage": "full",
+  "tenancy_months": 2,
+  "date_out_of_order": false,
+  "deposit_dispute_lodged": true,
+  "boundary_case": false
+ },
+ "plan": {
+  "checkin_clean": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "disposition": {
+   "clarity": "contested",
+   "target": "adjust_and_approve",
+   "second": "order_reinspection"
+  },
+  "main_cause": {
+   "clarity": "clear",
+   "target": "resident_damage",
+   "second": null
+  },
+  "defect_severity": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "charge_gap": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  }
+ },
+ "target_words": 49,
+ "deciding": {
+  "checkin_clean": "CARP, the charged item, is graded good at check-in, signed on the start date; the small doubt is that only two of four check-in items were re-graded at checkout.",
+  "disposition": "The quantity can be corrected from the record (qty 2 against one stained carpet), but the checkout lists only 2 of 4 check-in items, so adjust_and_approve and order_reinspection are both defensible.",
+  "main_cause": "CARP went from good to damaged with a photo, and the only works order is for the kitchen plumbing, so the cause is resident damage.",
+  "defect_severity": "The only defect is a stain on carpet, which is cosmetic, though the damaged grade could make it read as a repair item (level 1).",
+  "charge_gap": "Line 2 x 45 = 90 against a single stained carpet evidenced at 45 gives a gap of 45, though the unit rate cannot be checked."
+ },
+ "request": "rec-F333-0031",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011191
+}

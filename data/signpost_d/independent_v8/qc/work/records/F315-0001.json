@@ -1,0 +1,116 @@
+{
+ "id": "F315-0001",
+ "family": "F315",
+ "state": {
+  "report": {
+   "received_at": "2025-03-04T19:10",
+   "source": "public_web",
+   "units_reported": [
+    "U101",
+    "U102",
+    "U103"
+   ]
+  },
+  "asset": {
+   "unit_id": "U101",
+   "site_category": "residential",
+   "planned_works": {
+    "window_start": "2025-03-03",
+    "window_end": "2025-03-07",
+    "work_type": "RESURFACE"
+   }
+  },
+  "cms": {
+   "status_code": "OK",
+   "last_comms_at": "2025-03-05T09:30"
+  },
+  "history": [
+   {
+    "job_ref": "J88",
+    "completed": "2024-07-28",
+    "outcome_code": "FIXED"
+   }
+  ],
+  "job": {
+   "job_ref": "J140",
+   "stage": "RECT",
+   "attended_at": "2025-03-05T09:00",
+   "completed_at": "2025-03-05T09:40",
+   "hazard_code": null,
+   "linked_job_ref": null
+  },
+  "supply": {
+   "dno_incident_ref": "DNO-5512",
+   "dno_status": "open",
+   "feeder_units_dark": 3
+  }
+ },
+ "factors": {
+  "dark_unit_count": 3,
+  "dno_incident_logged": true,
+  "cms_state": "normal_burning, reading timed before fix completion",
+  "days_since_last_repair": 219,
+  "last_repair_state": "completed",
+  "hazard_observed": "none",
+  "hazard_made_safe": false,
+  "site_category": "residential",
+  "planned_works_active": true,
+  "current_job_stage": "rectified_unconfirmed",
+  "dates_out_of_order": false,
+  "duplicate_of_open_job": false,
+  "report_source": "public_web"
+ },
+ "factors_sampled": {
+  "dark_unit_count": 3,
+  "dno_incident_logged": true,
+  "cms_state": "lamp_fail",
+  "days_since_last_repair": 219,
+  "last_repair_state": "completed",
+  "hazard_observed": "door_missing",
+  "hazard_made_safe": false,
+  "site_category": "residential",
+  "planned_works_active": true,
+  "current_job_stage": "not_attended",
+  "dates_out_of_order": false,
+  "duplicate_of_open_job": true,
+  "report_source": "public_web"
+ },
+ "plan": {
+  "supply_side_fault": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "repeat_failure": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "next_action": {
+   "clarity": "clear",
+   "target": "hold_verify",
+   "second": null
+  },
+  "source_support": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  },
+  "repair_progress": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  }
+ },
+ "target_words": 42,
+ "deciding": {
+  "supply_side_fault": "supply.dno_incident_ref open and feeder_units_dark 3; but the unit was fixed on site, which leaves some doubt.",
+  "repeat_failure": "The last completed repair is 2024-07-28, 219 days before report.received_at, well outside 84 days.",
+  "next_action": "No hazard and no linked open job; the cms OK reading (09:30) predates job.completed_at (09:40), so one confirmation is still needed.",
+  "source_support": "Two or three sources agree: the public report, the DNO incident with feeder count, and the job card.",
+  "repair_progress": "job.stage RECT with completed_at; cms OK last_comms_at is 10 minutes before completion, so it is neither clearly after the fix nor clearly absent."
+ },
+ "request": "rec-F315-0001",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.010136
+}

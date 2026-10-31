@@ -1,0 +1,155 @@
+{
+ "id": "F333-0022",
+ "family": "F333",
+ "state": {
+  "room": {
+   "room_id": "C305",
+   "rate_card_ref": "RC24"
+  },
+  "tenancy": {
+   "start_date": "2023-09-20",
+   "end_date": "2024-06-20",
+   "deposit_held": 300,
+   "deposit_dispute_lodged": true
+  },
+  "checkin_inventory": {
+   "signed_date": "2023-09-19",
+   "signed_by_resident": true,
+   "items": [
+    {
+     "item_code": "DOR",
+     "location": "bedroom",
+     "grade": "good"
+    },
+    {
+     "item_code": "CHR",
+     "location": "bedroom",
+     "grade": "fair"
+    }
+   ]
+  },
+  "checkout_inspection": {
+   "inspection_type": "checkout",
+   "inspection_date": "2024-06-21",
+   "items": [
+    {
+     "item_code": "DOR",
+     "location": "bedroom",
+     "grade": "damaged",
+     "defect_category": "broken_fitting",
+     "photo_refs": [
+      "p2"
+     ]
+    },
+    {
+     "item_code": "CHR",
+     "location": "bedroom",
+     "grade": "fair",
+     "defect_category": "scuff",
+     "photo_refs": [
+      "p3"
+     ]
+    }
+   ]
+  },
+  "proposed_charges": {
+   "lines": [
+    {
+     "item_code": "DOR",
+     "reason_code": "DMG",
+     "qty": 1,
+     "unit_rate": 120,
+     "line_total": 120
+    },
+    {
+     "item_code": "CHR",
+     "reason_code": "DMG",
+     "qty": 1,
+     "unit_rate": 30,
+     "line_total": 30
+    }
+   ],
+   "summary_total": 150,
+   "rate_card_ref": "RC24"
+  },
+  "works_orders": [
+   {
+    "wo_id": "W3",
+    "raised_date": "2023-08-28",
+    "location": "bedroom",
+    "category": "joinery",
+    "status": "completed",
+    "completed_date": "2023-09-05",
+    "retest_passed": true
+   }
+  ]
+ },
+ "factors": {
+  "inspection_type": "checkout",
+  "checkin_inventory_state": "complete",
+  "prior_damage_on_charged_item": "fair",
+  "charge_discrepancy": "small_under_25",
+  "worst_defect_tier": "functional",
+  "true_cause": "no_defect",
+  "predating_works_order": true,
+  "safety_fault_remedied": true,
+  "photo_coverage": "full",
+  "tenancy_months": 9,
+  "date_out_of_order": false,
+  "deposit_dispute_lodged": true,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "inspection_type": "checkout",
+  "checkin_inventory_state": "complete",
+  "prior_damage_on_charged_item": "none",
+  "charge_discrepancy": "small_under_25",
+  "worst_defect_tier": "functional",
+  "true_cause": "no_defect",
+  "predating_works_order": true,
+  "safety_fault_remedied": true,
+  "photo_coverage": "full",
+  "tenancy_months": 9,
+  "date_out_of_order": false,
+  "deposit_dispute_lodged": true,
+  "boundary_case": false
+ },
+ "plan": {
+  "checkin_clean": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "disposition": {
+   "clarity": "leaning",
+   "target": "approve_as_drafted",
+   "second": null
+  },
+  "main_cause": {
+   "clarity": "balanced",
+   "target": "no_defect",
+   "second": "building_fault"
+  },
+  "defect_severity": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  },
+  "charge_gap": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  }
+ },
+ "target_words": 106,
+ "deciding": {
+  "checkin_clean": "DOR was good at check-in, but charged item CHR was graded fair, so not every charged item was undamaged; the CHR line is weak.",
+  "disposition": "Lines match checkout items with photos and totals sum to 150; only the dispute flag and the CHR line cast mild doubt.",
+  "main_cause": "CHR is unchanged (fair to fair) suggesting no defect, while DOR damage sits in a bedroom with a completed joinery order W3 that could suggest a building fault.",
+  "defect_severity": "broken_fitting on DOR needs repair but the room is usable: functional.",
+  "charge_gap": "CHR charged 30 though unchanged, so evidenced total is 120 versus 150 proposed, gap of 30 near the 25 to 100 range; the doubt is whether prior fair wear shifts it further."
+ },
+ "request": "rec-F333-0021",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.005981
+}

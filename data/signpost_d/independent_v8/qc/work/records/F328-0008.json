@@ -1,0 +1,136 @@
+{
+ "id": "F328-0008",
+ "family": "F328",
+ "state": {
+  "report_meta": {
+   "driver_id": "D88",
+   "d": "2024-07-09"
+  },
+  "vehicle_device": {
+   "health_flags": [],
+   "odo": [
+    40000,
+    40108
+   ]
+  },
+  "trips": [
+   {
+    "s": "06:00",
+    "e": "10:32",
+    "km": 101,
+    "card": "D88"
+   }
+  ],
+  "events": [
+   {
+    "t": "10:05",
+    "type": "speed",
+    "mph": 66,
+    "limit": 60,
+    "seg": "B41",
+    "map_ver": "23.1"
+   },
+   {
+    "type": "harsh",
+    "n": 14,
+    "tags": []
+   }
+  ],
+  "tacho_summary": {
+   "card": "D88",
+   "second_driver": "D91"
+  },
+  "notes_history": {
+   "supervisor_note": "B41 limit raised to 65 in May.",
+   "limit_updates": [
+    {
+     "seg": "B41",
+     "limit": 65,
+     "date": "2024-05-01"
+    }
+   ],
+   "coaching": [
+    {
+     "d": "2024-02-12",
+     "status": "partly_completed"
+    },
+    {
+     "d": "2024-04-08",
+     "status": "partly_completed"
+    },
+    {
+     "d": "2024-06-17",
+     "status": "partly_completed"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "driver_assignment": "second_driver_on_shift",
+  "raw_speed_excess_pct": 10.0,
+  "speed_mitigation": "map_limit_outdated",
+  "harsh_event_count": 14,
+  "harsh_context_logged": false,
+  "device_health": "ok",
+  "telematics_stint_hours": 4.53,
+  "tacho_break_reconciles": false,
+  "prior_coaching_count": 3,
+  "coaching_status": "partly_completed",
+  "boundary_value": true,
+  "note_content": "benign_explanation_supported",
+  "distance_discrepancy_pct": 6.93
+ },
+ "factors_sampled": {
+  "driver_assignment": "second_driver_on_shift",
+  "raw_speed_excess_pct": 17.46,
+  "speed_mitigation": "emergency_diversion_logged",
+  "harsh_event_count": 14,
+  "harsh_context_logged": false,
+  "device_health": "ok",
+  "telematics_stint_hours": 5.96,
+  "tacho_break_reconciles": false,
+  "prior_coaching_count": 3,
+  "coaching_status": "partly_completed",
+  "boundary_value": true,
+  "note_content": "benign_explanation_supported",
+  "distance_discrepancy_pct": 6.93
+ },
+ "plan": {
+  "driver_attributed": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "follow_up": {
+   "clarity": "clear",
+   "target": "coaching",
+   "second": null
+  },
+  "worst_event_cause": {
+   "clarity": "contested",
+   "target": "map_data",
+   "second": "driver_choice"
+  },
+  "speed_excess": {
+   "clarity": "contested",
+   "target": "1",
+   "second": "2"
+  },
+  "hours_exposure": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  }
+ },
+ "target_words": 25,
+ "deciding": {
+  "driver_attributed": "Trip and tacho cards are D88, but a second_driver D91 is listed on the shift without times, so who was at the wheel at 10:05 is only modestly settled.",
+  "follow_up": "Hours breach over 4.5 h and 14 harsh events with no context. All three coaching entries are only partly_completed, so none is complete.",
+  "worst_event_cause": "The event used map_ver 23.1 and a limit of 60, while a newer limit of 65 on B41 is dated 2024-05-01, before the event. The harsh events have no tags, so driver behaviour is also defensible.",
+  "speed_excess": "66 mph against the posted 60 is exactly 10.0% over, but against the updated 65 it is about 1.5%. That puts it between level 2 and level 1.",
+  "hours_exposure": "The single trip 06:00-10:32 is 4h32 with no break in the tacho record. That is just over the 4.5 h line, so level 2 versus level 1 is open."
+ },
+ "request": "rec-F328-0006",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.020176
+}

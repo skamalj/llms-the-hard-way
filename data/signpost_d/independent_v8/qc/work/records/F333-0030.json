@@ -1,0 +1,145 @@
+{
+ "id": "F333-0030",
+ "family": "F333",
+ "state": {
+  "room": {
+   "room_id": "E04-315",
+   "rate_card_ref": "RC24"
+  },
+  "tenancy": {
+   "start_date": "2023-09-10",
+   "end_date": "2024-09-09"
+  },
+  "checkin_inventory": {
+   "signed_date": "2023-09-09",
+   "items": [
+    {
+     "item_code": "HEAT",
+     "grade": "good"
+    },
+    {
+     "item_code": "LGT",
+     "grade": "good"
+    }
+   ]
+  },
+  "checkout_inspection": {
+   "inspection_type": "mid_term",
+   "inspection_date": "2024-06-20",
+   "items": [
+    {
+     "item_code": "HEAT",
+     "grade": "damaged",
+     "defect_category": "heater_fail",
+     "photo_refs": [
+      "p9"
+     ]
+    },
+    {
+     "item_code": "LGT",
+     "grade": "damaged",
+     "defect_category": "broken_fitting",
+     "photo_refs": []
+    }
+   ]
+  },
+  "proposed_charges": {
+   "lines": [
+    {
+     "item_code": "HEAT",
+     "qty": 1,
+     "unit_rate": 80,
+     "line_total": 80
+    },
+    {
+     "item_code": "LGT",
+     "qty": 1,
+     "unit_rate": 100.5,
+     "line_total": 100.5
+    }
+   ],
+   "summary_total": 180.5,
+   "rate_card_ref": "RC24"
+  },
+  "works_orders": [
+   {
+    "wo_id": "W14",
+    "raised_date": "2024-06-20",
+    "location": "corridor",
+    "category": "fire_door",
+    "priority_code": "P1",
+    "status": "completed",
+    "completed_date": "2024-06-20",
+    "retest_passed": true
+   }
+  ]
+ },
+ "factors": {
+  "inspection_type": "mid_term",
+  "checkin_inventory_state": "complete",
+  "prior_damage_on_charged_item": "none",
+  "charge_discrepancy": "large_over_100",
+  "worst_defect_tier": "habitability",
+  "true_cause": "resident_damage",
+  "predating_works_order": false,
+  "safety_fault_remedied": true,
+  "photo_coverage": "half_or_less",
+  "tenancy_months": 12,
+  "date_out_of_order": false,
+  "deposit_dispute_lodged": false,
+  "boundary_case": true
+ },
+ "factors_sampled": {
+  "inspection_type": "mid_term",
+  "checkin_inventory_state": "signed_late",
+  "prior_damage_on_charged_item": "none",
+  "charge_discrepancy": "medium_25_to_100",
+  "worst_defect_tier": "habitability",
+  "true_cause": "prior_occupant",
+  "predating_works_order": false,
+  "safety_fault_remedied": true,
+  "photo_coverage": "half_or_less",
+  "tenancy_months": 12,
+  "date_out_of_order": false,
+  "deposit_dispute_lodged": false,
+  "boundary_case": true
+ },
+ "plan": {
+  "checkin_clean": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "disposition": {
+   "clarity": "balanced",
+   "target": "hold_for_evidence",
+   "second": "approve_as_drafted"
+  },
+  "main_cause": {
+   "clarity": "leaning",
+   "target": "resident_damage",
+   "second": null
+  },
+  "defect_severity": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  },
+  "charge_gap": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 84,
+ "deciding": {
+  "checkin_clean": "Both charged items, HEAT and LGT, are graded good in a complete check-in signed before the tenancy start.",
+  "disposition": "LGT has an empty photo_refs list while HEAT has a photo; one missing photo favours hold, but the rest is consistent so approving remains defensible.",
+  "main_cause": "Both items go good to damaged with no works order at HEAT or LGT; the only works order is for the corridor fire door.",
+  "defect_severity": "heater_fail stops normal heating (level 2), though a reviewer could treat it as repairable with the room usable (level 1); the corridor fire door order is completed and elsewhere.",
+  "charge_gap": "Summary 180.50 versus 80.00 for photographed HEAT gives a gap of 100.50, just over the 100.00 boundary between levels 2 and 3, and the unphotographed LGT line could be accepted or not."
+ },
+ "request": "rec-F333-0026",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.013368
+}

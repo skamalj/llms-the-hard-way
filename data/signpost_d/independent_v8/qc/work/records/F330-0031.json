@@ -1,0 +1,160 @@
+{
+ "id": "F330-0031",
+ "family": "F330",
+ "state": {
+  "request": {
+   "req_id": "X-4417",
+   "grade": "G6",
+   "cost_centre": "CC210",
+   "trip_ref": "T-8812",
+   "requested_total": 1200,
+   "ccy": "GBP"
+  },
+  "lines": [
+   {
+    "line_no": 1,
+    "date": "2025-02-10",
+    "category": "airfare_upgrade",
+    "cost_centre": "CC210",
+    "amount": 800,
+    "ccy": "EUR",
+    "fx_rate": 0.86,
+    "amount_gbp": 720,
+    "receipt_attached": false
+   },
+   {
+    "line_no": 2,
+    "date": "2025-02-14",
+    "category": "airfare",
+    "cost_centre": "CC210",
+    "amount": 600,
+    "ccy": "EUR",
+    "fx_rate": 0.86,
+    "amount_gbp": 540,
+    "receipt_attached": true
+   },
+   {
+    "line_no": 3,
+    "date": "2025-02-19",
+    "category": "taxi",
+    "cost_centre": "CC210",
+    "amount": 40,
+    "ccy": "GBP",
+    "fx_rate": 1,
+    "amount_gbp": 40,
+    "receipt_attached": true
+   }
+  ],
+  "policy": {
+   "rule_id": "AF-G6",
+   "grade_band": "G6",
+   "cap_gbp": 1000,
+   "cap_unit": "trip",
+   "units": 1,
+   "reviewer_limit_gbp": 300
+  },
+  "travel": {
+   "trip_ref": "T-8821",
+   "depart": "2025-02-10",
+   "return": "2025-02-16",
+   "booked_on": "2025-01-13",
+   "disruption": {
+    "code": "FLT_CXL",
+    "source": "airline",
+    "logged_on": "2025-02-10"
+   },
+   "alt_check": {
+    "options_seen": 3,
+    "compliant_found": false
+   },
+   "client_recharge": {
+    "billable": true,
+    "client_code": "C-310"
+   }
+  },
+  "approvals": {
+   "line_mgr": {
+    "approved": true
+   },
+   "pre_approval": {
+    "ref": "PA-77",
+    "trip_ref": "T-8821",
+    "max_gbp": 350,
+    "valid_to": "2025-03-01"
+   }
+  },
+  "history": {
+   "exceptions_12m": 7,
+   "approved_12m": 3,
+   "declined_12m": 4
+  }
+ },
+ "factors": {
+  "breach_type": "airfare_class_upgrade",
+  "true_excess_pct": 30.0,
+  "amount_mismatch": "fx_rate_stale_two_lines_and_total_differs",
+  "reference_mismatch": "trip_ref_differs_and_one_date_outside_window",
+  "pre_approval_state": "valid_matching",
+  "external_disruption": true,
+  "compliant_option": "none_available",
+  "missing_item": "receipt",
+  "excess_vs_authority": "at_limit",
+  "client_rechargeable": true,
+  "prior_exceptions_12m": 7,
+  "booking_lead_days": 28,
+  "employee_grade": "G6"
+ },
+ "factors_sampled": {
+  "breach_type": "airfare_class_upgrade",
+  "true_excess_pct": 6.61,
+  "amount_mismatch": "fx_rate_stale",
+  "reference_mismatch": "trip_ref_differs",
+  "pre_approval_state": "expired",
+  "external_disruption": false,
+  "compliant_option": "available",
+  "missing_item": "receipt",
+  "excess_vs_authority": "well_within",
+  "client_rechargeable": true,
+  "prior_exceptions_12m": 7,
+  "booking_lead_days": 28,
+  "employee_grade": "G6"
+ },
+ "plan": {
+  "preapproval_covers": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "outside_control": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "excess_disposition": {
+   "clarity": "balanced",
+   "target": "decline_excess",
+   "second": "refer_controller"
+  },
+  "excess_size": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  },
+  "discrepancy_count": {
+   "clarity": "balanced",
+   "target": "4",
+   "second": "3"
+  }
+ },
+ "target_words": 108,
+ "deciding": {
+  "preapproval_covers": "pre_approval trip_ref T-8821 matches travel, valid_to after depart, max_gbp 350 above the 300 excess; only request trip_ref T-8812 casts doubt.",
+  "outside_control": "travel.disruption FLT_CXL logged by airline and alt_check compliant_found false.",
+  "excess_disposition": "Breaching upgrade line has no receipt and the claim is riddled with mismatches, favouring cap only; excess of 300 equals reviewer_limit_gbp 300, keeping referral plausible.",
+  "excess_size": "Line sum 1300 against cap 1000 gives 30%; requested_total 1200 would give 20%, both in the 10-50% band.",
+  "discrepancy_count": "Two stale fx lines (720 vs 688, 540 vs 516), requested_total 1200 vs sum 1300, request trip_ref T-8812 vs T-8821, line 3 dated 02-19 after return 02-16: five, with the total mismatch arguably a knock-on."
+ },
+ "request": "rec-F330-0031",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.015404
+}

@@ -1,0 +1,126 @@
+{
+ "id": "F319-0003",
+ "family": "F319",
+ "state": {
+  "asset": {
+   "turbine_id": "T07",
+   "blade_serial": "B-5120",
+   "blade_len_m": 60
+  },
+  "inspection": {
+   "date": "2025-08-14",
+   "inspector_note": "Severe LE damage, urgent attention."
+  },
+  "findings": [
+   {
+    "zone": "LE",
+    "radius_m": 47,
+    "chord_pos": 0.0,
+    "length_mm": 240,
+    "depth_mm": 5,
+    "laminate_thickness_mm": 5,
+    "core_visible": true,
+    "flags": [
+     "paint_loss"
+    ]
+   }
+  ],
+  "history": {
+   "previous": {
+    "date": "2025-09-01",
+    "blade_serial": "B-5120",
+    "findings": [
+     {
+      "zone": "LE",
+      "radius_m": 47,
+      "length_mm": 150,
+      "depth_mm": 2
+     }
+    ]
+   }
+  },
+  "maintenance": {
+   "lps": {
+    "result": "pass"
+   },
+   "curtailment": {
+    "active": true,
+    "rpm_limit": 11
+   },
+   "concessions": [
+    {
+     "ref": "C-88",
+     "max_length_mm": 300
+    }
+   ]
+  }
+ },
+ "factors": {
+  "worst_depth": "core",
+  "mechanism": "erosion",
+  "growth_state": "marked",
+  "baseline_defect": "date_out_of_order",
+  "coverage_gap": false,
+  "mitigation_present": true,
+  "mitigation_type": "curtailment and concession",
+  "lps_result": "pass",
+  "repair_state": "none",
+  "boundary_case": true,
+  "note_tone": "alarmist",
+  "finding_count": 1,
+  "season_exposure": false
+ },
+ "factors_sampled": {
+  "worst_depth": "laminate",
+  "mechanism": "coating_wear",
+  "growth_state": "marked",
+  "baseline_defect": "date_out_of_order",
+  "coverage_gap": false,
+  "mitigation_present": true,
+  "mitigation_type": "temp_tape",
+  "lps_result": "pass",
+  "repair_state": "none",
+  "boundary_case": true,
+  "note_tone": "alarmist",
+  "finding_count": 9,
+  "season_exposure": true
+ },
+ "plan": {
+  "damage_worsened": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "disposition": {
+   "clarity": "leaning",
+   "target": "no_action",
+   "second": null
+  },
+  "damage_mechanism": {
+   "clarity": "clear",
+   "target": "erosion",
+   "second": null
+  },
+  "defect_depth": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  },
+  "repair_urgency": {
+   "clarity": "balanced",
+   "target": "4",
+   "second": "3"
+  }
+ },
+ "target_words": 79,
+ "deciding": {
+  "damage_worsened": "The previous record shows lengths 150 to 240 mm, but history.previous.date (2025-09-01) is later than the inspection date (2025-08-14), so the baseline is unreliable.",
+  "disposition": "The finding (240 mm) is within the concession limit of 300 mm and curtailment is already active, which leans toward no further action. The core-depth reading leaves doubt.",
+  "damage_mechanism": "Zone LE, radius 47 m of a 60 m blade (outer third), chord_pos 0.0, and paint loss with no soot or pinhole, with LPS pass.",
+  "defect_depth": "core_visible is true, and depth_mm 5 equals laminate_thickness_mm 5 exactly.",
+  "repair_urgency": "Core exposure is present, but the concession and the active rpm limit mean the turbine is already running curtailed, so the choice between level 4 and level 3 is open."
+ },
+ "request": "rec-F319-0001",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.010856
+}

@@ -1,0 +1,122 @@
+{
+ "id": "F337-0030",
+ "family": "F337",
+ "state": {
+  "station": {
+   "channels": [
+    {
+     "cha": "BHZ",
+     "sensor_serial": "T90",
+     "response_epoch_start": "2018-09-10"
+    }
+   ]
+  },
+  "acquisition": {
+   "day": "2024-06-21",
+   "channel_hours_expected": 72,
+   "completeness_pct": 99,
+   "gaps": [
+    {
+     "cha": "BHZ",
+     "start": "01:00",
+     "end": "13:00"
+    },
+    {
+     "cha": "BHE",
+     "start": "01:00",
+     "end": "13:00"
+    }
+   ],
+   "gps_lock_pct": 76
+  },
+  "qc_metrics": {
+   "dead": false,
+   "psd_dev_db": 24.9,
+   "cal_pulse": {
+    "date": "2024-06-19",
+    "result": "pass"
+   }
+  },
+  "maintenance_log": [
+   {
+    "action": "sensor_swap",
+    "date": "2024-06-18",
+    "sensor_serial_installed": "T91"
+   },
+   {
+    "action": "outage",
+    "outage_start": "01:00",
+    "outage_end": "12:50"
+   }
+  ],
+  "operator_notes": [
+   "Telemetry down overnight."
+  ]
+ },
+ "factors": {
+  "sensor_metadata_state": "swap_stale",
+  "maintenance_log_present": true,
+  "gap_coverage": "minor_overrun",
+  "true_usable_fraction": 0.45,
+  "completeness_summary_drift": 7.63,
+  "timing_quality": "lost_hours",
+  "calibration_status": "passed",
+  "noise_excess_db": 24.85,
+  "benign_noise_cause_logged": false,
+  "operator_note_consistency": "consistent",
+  "dead_channels": 0,
+  "boundary_case": true
+ },
+ "factors_sampled": {
+  "sensor_metadata_state": "swap_updated",
+  "maintenance_log_present": true,
+  "gap_coverage": "all_logged",
+  "true_usable_fraction": 0.8,
+  "completeness_summary_drift": 7.63,
+  "timing_quality": "intermittent",
+  "calibration_status": "passed",
+  "noise_excess_db": 24.85,
+  "benign_noise_cause_logged": false,
+  "operator_note_consistency": "consistent",
+  "dead_channels": 0,
+  "boundary_case": true
+ },
+ "plan": {
+  "response_valid": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "gaps_explained": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "disposition": {
+   "clarity": "balanced",
+   "target": "hold",
+   "second": "release_flagged"
+  },
+  "usable_fraction": {
+   "clarity": "leaning",
+   "target": "0",
+   "second": null
+  },
+  "pending_age": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  }
+ },
+ "target_words": 48,
+ "deciding": {
+  "response_valid": "Log swap to T91 on 2024-06-18 but metadata still shows T90 with a 2018 epoch.",
+  "gaps_explained": "Gaps end 13:00 versus logged outage end 12:50, a 10-minute overrun; the note says telemetry was down. Partly explained.",
+  "disposition": "Stale metadata with a passing cal pulse after the swap supports hold; 76% GPS lock and large gaps support release_flagged.",
+  "usable_fraction": "Two 12-hour gaps in 72 channel-hours leave about 67% minus noise and poor timing, so level 0 or 1, leaning level 0.",
+  "pending_age": "The day is 2024-06-21 and the swap 2024-06-18; no review date, so under 1 day or 1-7 days."
+ },
+ "request": "rec-F337-0026",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.005129
+}

@@ -1,0 +1,110 @@
+{
+ "id": "F304-0046",
+ "family": "F304",
+ "state": {
+  "request": {
+   "ref": "T1001",
+   "appt_type": "discharge",
+   "appt_time": "2025-03-11T10:45",
+   "vehicle_class": "seated",
+   "crew_requested": 1,
+   "mobility_booked": "walking",
+   "equipment": []
+  },
+  "patient": {
+   "mobility_assessed": "walking",
+   "assessed_on": "2024-10-02",
+   "weight_kg": 74,
+   "oxygen_lpm": 0,
+   "monitoring": null,
+   "own_transport_available": false,
+   "exemption": null
+  },
+  "journey": {
+   "window_end": "2025-03-11T10:00",
+   "est_duration_min": 45,
+   "late_tolerance_min": 15,
+   "destination": {
+    "reslot_same_day": true
+   }
+  },
+  "history": [
+   {
+    "date": "2025-02-01",
+    "outcome": "aborted",
+    "vehicle_class": "seated",
+    "reason": "no answer at pickup"
+   }
+  ]
+ },
+ "factors": {
+  "mobility_alignment": "matches",
+  "secondary_discrepancy": "none",
+  "eligibility_concern": false,
+  "eligibility_exception": false,
+  "clinical_support": "none",
+  "crew_request_gap": "under_one_step",
+  "buffer_minutes": 0.0,
+  "duration_estimate_split": false,
+  "late_tolerance": true,
+  "appointment_type": "discharge",
+  "same_day_reslot": true,
+  "confirmation_pending": false,
+  "prior_aborts": 1,
+  "aborts_related": false
+ },
+ "factors_sampled": {
+  "mobility_alignment": "matches",
+  "secondary_discrepancy": "equipment_unlisted",
+  "eligibility_concern": true,
+  "eligibility_exception": false,
+  "clinical_support": "none",
+  "crew_request_gap": "under_one_step",
+  "buffer_minutes": 84.42,
+  "duration_estimate_split": false,
+  "late_tolerance": true,
+  "appointment_type": "discharge",
+  "same_day_reslot": true,
+  "confirmation_pending": false,
+  "prior_aborts": 1,
+  "aborts_related": false
+ },
+ "plan": {
+  "vehicle_fit": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "disposition": {
+   "clarity": "leaning",
+   "target": "confirm",
+   "second": null
+  },
+  "crew_config": {
+   "clarity": "leaning",
+   "target": "single_crew",
+   "second": null
+  },
+  "time_pressure": {
+   "clarity": "contested",
+   "target": "2",
+   "second": "3"
+  },
+  "delay_impact": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 88,
+ "deciding": {
+  "vehicle_fit": "Booked and assessed mobility agree, but assessed_on 2024-10-02 is about five months before the journey, so the assessment is doubtful.",
+  "disposition": "No conflicting fields, no pending confirmation, own transport unavailable; only the old assessment gives doubt.",
+  "crew_config": "Walking patient, oxygen 0, monitoring null, 74 kg, so single crew.",
+  "time_pressure": "window_end 10:00 plus 45 min lands exactly at the 10:45 appointment; zero spare, with 15 min tolerance. Level 2 or 3 both defensible.",
+  "delay_impact": "Discharge with reslot_same_day true; routine discharge lounge, no treatment involved, so level 0 or 1."
+ },
+ "request": "rec-F304-0046",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.010741
+}

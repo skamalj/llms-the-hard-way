@@ -1,0 +1,128 @@
+{
+ "id": "F339-0041",
+ "family": "F339",
+ "state": {
+  "application": {
+   "id": "A-1041",
+   "submitted": "2025-03-03",
+   "animal_ref": "D-88",
+   "hold_expires": "2025-03-10"
+  },
+  "household": {
+   "children": [
+    5
+   ],
+   "other_pets": [
+    {
+     "sp": "cat",
+     "vacc": null
+    }
+   ],
+   "tenure": "rent",
+   "garden": true,
+   "hours_alone": 6
+  },
+  "animal": {
+   "species": "dog",
+   "no_cats": true,
+   "min_child_age": 8,
+   "needs_garden": true,
+   "max_hours_alone": 6
+  },
+  "checks": {
+   "home_visit": {
+    "status": "not_started"
+   },
+   "landlord_consent": {
+    "status": "pending",
+    "species_covered": [
+     "dog"
+    ],
+    "date": "2025-03-05"
+   },
+   "references": [
+    {
+     "status": "returned"
+    },
+    {
+     "status": "awaiting"
+    }
+   ]
+  },
+  "overrides": [
+   {
+    "key": "no_cats",
+    "approver_role": "behaviour_lead",
+    "date": "2025-03-04"
+   }
+  ]
+ },
+ "factors": {
+  "home_visit_state": "not_started",
+  "visit_date_out_of_order": false,
+  "visit_detail_mismatch": false,
+  "tenure_consent": "rent_consent_pending",
+  "tenancy_pet_clause": false,
+  "contradicted_requirements": 2,
+  "behaviour_override": true,
+  "threshold_boundary": true,
+  "reference_status": "one_outstanding",
+  "prior_returns": "none",
+  "trusted_repeat_adopter": false,
+  "hold_days_remaining": 7,
+  "other_pet_vacc_unknown": true
+ },
+ "factors_sampled": {
+  "home_visit_state": "not_started",
+  "visit_date_out_of_order": false,
+  "visit_detail_mismatch": false,
+  "tenure_consent": "rent_consent_pending",
+  "tenancy_pet_clause": false,
+  "contradicted_requirements": 1,
+  "behaviour_override": true,
+  "threshold_boundary": true,
+  "reference_status": "one_outstanding",
+  "prior_returns": "none",
+  "trusted_repeat_adopter": false,
+  "hold_days_remaining": 0,
+  "other_pet_vacc_unknown": true
+ },
+ "plan": {
+  "home_visit_valid": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "species_consent": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "disposition": {
+   "clarity": "balanced",
+   "target": "decline",
+   "second": "hold_pending"
+  },
+  "source_support": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  },
+  "requirement_conflicts": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  }
+ },
+ "target_words": 45,
+ "deciding": {
+  "home_visit_valid": "checks.home_visit.status is not_started, so no visit confirms the household.",
+  "species_consent": "Landlord consent lists dog and is dated, but its status is still pending; the pending status keeps it balanced.",
+  "disposition": "A behaviour override covers no_cats, but the child-age conflict stands, one reference is awaiting and consent is pending; decline and hold_pending are both defensible.",
+  "source_support": "Only one reference is returned; the visit has not started and the other reference is awaiting. The pending consent record could count as a second source.",
+  "requirement_conflicts": "A cat against no_cats and a child aged 5 against min_child_age 8 are two clear conflicts. hours_alone 6 equals max_hours_alone 6, so it is at the boundary and could be counted as a third."
+ },
+ "request": "rec-F339-0041",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.013179
+}

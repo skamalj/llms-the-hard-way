@@ -1,0 +1,151 @@
+{
+ "id": "F317-0018",
+ "family": "F317",
+ "state": {
+  "vehicle": {
+   "fleet_no": "T1877",
+   "odometer_km": 20960,
+   "last_exam": "C",
+   "last_exam_date": "2024-01-20"
+  },
+  "exam": {
+   "exam_id": "E300",
+   "due_at_km": 21000,
+   "opened_at": "2024-09-04T05:00",
+   "items": [
+    {
+     "item_code": "C1",
+     "result": "ok",
+     "signed_by": "rp",
+     "signed_at": "2024-09-04T05:30"
+    },
+    {
+     "item_code": "C2",
+     "result": "ok",
+     "signed_by": "rp",
+     "signed_at": "2024-09-04T05:50"
+    },
+    {
+     "item_code": "C3",
+     "result": "ok",
+     "signed_by": "lw",
+     "signed_at": "2024-09-04T06:10"
+    },
+    {
+     "item_code": "C4",
+     "result": "ok",
+     "signed_by": "lw",
+     "signed_at": "2024-09-03T22:00"
+    }
+   ]
+  },
+  "defects": [
+   {
+    "defect_id": "D88",
+    "subsystem": "pantograph",
+    "safety_critical": true,
+    "raised_at": "2024-08-30",
+    "status": "closed",
+    "closed_at": "2024-09-03",
+    "retest_at": "2024-09-02T10:00",
+    "retest_result": "pass"
+   }
+  ],
+  "work_orders": [
+   {
+    "wo_id": "W90",
+    "defect_ref": "D88",
+    "subsystem": "pantograph",
+    "status": "completed",
+    "completed_at": "2024-09-03T08:00"
+   }
+  ],
+  "concessions": [
+   {
+    "conc_id": "C21",
+    "fleet_no": "T1877",
+    "defect_ref": "D88",
+    "restriction_code": "OFFPEAK_ONLY",
+    "valid_from": "2024-09-03",
+    "valid_until": "2024-10-15"
+   }
+  ],
+  "release": {
+   "duty_type": "off_peak",
+   "depart_at": "2024-09-06T10:00",
+   "odo_reading_km": 20995,
+   "brake_test_at": "2024-09-06T06:00",
+   "brake_test_result": "pass"
+  }
+ },
+ "factors": {
+  "km_to_exam_due": 5,
+  "odometer_disagreement": "large",
+  "exam_signed_fraction": 1.0,
+  "exam_record_missing": false,
+  "worst_defect_subsystem": "pantograph",
+  "worst_defect_state": "closed_retested",
+  "worst_defect_safety_critical": true,
+  "retest_out_of_order": true,
+  "concession_present": true,
+  "concession_flaw": "none",
+  "wo_crossref_mismatch": "none",
+  "planned_duty_type": "off_peak",
+  "recent_brake_test_pass": true,
+  "balanced_signals": false
+ },
+ "factors_sampled": {
+  "km_to_exam_due": -561,
+  "odometer_disagreement": "large",
+  "exam_signed_fraction": 0.95,
+  "exam_record_missing": false,
+  "worst_defect_subsystem": "none",
+  "worst_defect_state": "closed_retested",
+  "worst_defect_safety_critical": false,
+  "retest_out_of_order": true,
+  "concession_present": true,
+  "concession_flaw": "expired",
+  "wo_crossref_mismatch": "none",
+  "planned_duty_type": "off_peak",
+  "recent_brake_test_pass": true,
+  "balanced_signals": false
+ },
+ "plan": {
+  "sc_defects_cleared": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "release_decision": {
+   "clarity": "clear",
+   "target": "release_restricted",
+   "second": null
+  },
+  "worst_subsystem": {
+   "clarity": "leaning",
+   "target": "pantograph",
+   "second": null
+  },
+  "exam_completion": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  },
+  "exam_mileage": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  }
+ },
+ "target_words": 73,
+ "deciding": {
+  "sc_defects_cleared": "Safety-critical D88 shows retest pass, but retest_at 09-02 precedes work order completed_at 09-03, so the retest may not count.",
+  "release_decision": "Valid OFFPEAK_ONLY concession for D88 covers the off_peak duty and the brake test passed 4 hours before departure, so restricted release is settled.",
+  "worst_subsystem": "Pantograph D88 is the only defect, with a retest that predates the repair, so it is arguably unresolved.",
+  "exam_completion": "All 4 items are signed with timestamps, but C4 is stamped before the exam opened_at, so it may not count as complete.",
+  "exam_mileage": "Release odometer 20995 gives 5 km left before 21000, right at the zero boundary, while the vehicle odometer shows 40 km left."
+ },
+ "request": "rec-F317-0016",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.014223
+}

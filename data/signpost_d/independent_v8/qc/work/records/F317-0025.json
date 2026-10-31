@@ -1,0 +1,142 @@
+{
+ "id": "F317-0025",
+ "family": "F317",
+ "state": {
+  "vehicle": {
+   "fleet_no": "T4402",
+   "odometer_km": 77995
+  },
+  "exam": {
+   "exam_id": "EX-7",
+   "due_at_km": 78000,
+   "items": [
+    {
+     "item_code": "A1",
+     "result": "ok",
+     "signed_by": "u2",
+     "signed_at": "2025-06-03T05:00"
+    },
+    {
+     "item_code": "A2",
+     "result": "ok",
+     "signed_by": "u2",
+     "signed_at": "2025-06-03T05:20"
+    },
+    {
+     "item_code": "A3",
+     "result": "ok",
+     "signed_by": "u9",
+     "signed_at": "2025-06-03T05:45"
+    }
+   ]
+  },
+  "defects": [
+   {
+    "defect_id": "D-71",
+    "subsystem": "saloon_doors",
+    "safety_critical": true,
+    "status": "closed",
+    "closed_at": "2025-06-02T16:00",
+    "retest_at": "2025-06-02T17:00",
+    "retest_result": "pass"
+   }
+  ],
+  "work_orders": [
+   {
+    "wo_id": "W-12",
+    "defect_ref": "D-90",
+    "subsystem": "saloon_doors",
+    "completed_at": "2025-06-02T15:30",
+    "status": "closed"
+   }
+  ],
+  "concessions": [
+   {
+    "conc_id": "C-4",
+    "fleet_no": "T4402",
+    "defect_ref": "D-71",
+    "restriction_code": "DOOR3_ISOL",
+    "valid_from": "2025-06-01",
+    "valid_until": "2025-07-01"
+   }
+  ],
+  "release": {
+   "duty_id": "SP-2",
+   "duty_type": "spare",
+   "depart_at": "2025-06-03T09:00",
+   "odo_reading_km": 78004,
+   "brake_test_at": "2025-06-03T07:00",
+   "brake_test_result": "pass"
+  }
+ },
+ "factors": {
+  "km_to_exam_due": -4,
+  "odometer_disagreement": "trivial",
+  "exam_signed_fraction": 1.0,
+  "exam_record_missing": false,
+  "worst_defect_subsystem": "none",
+  "worst_defect_state": "closed_retested",
+  "worst_defect_safety_critical": true,
+  "retest_out_of_order": false,
+  "concession_present": true,
+  "concession_flaw": "none",
+  "wo_crossref_mismatch": "defect_ref_unknown",
+  "planned_duty_type": "spare",
+  "recent_brake_test_pass": true,
+  "balanced_signals": true
+ },
+ "factors_sampled": {
+  "km_to_exam_due": 476,
+  "odometer_disagreement": "trivial",
+  "exam_signed_fraction": 0.87,
+  "exam_record_missing": false,
+  "worst_defect_subsystem": "saloon_doors",
+  "worst_defect_state": "open_no_wo",
+  "worst_defect_safety_critical": true,
+  "retest_out_of_order": false,
+  "concession_present": false,
+  "concession_flaw": "expired",
+  "wo_crossref_mismatch": "defect_ref_unknown",
+  "planned_duty_type": "spare",
+  "recent_brake_test_pass": true,
+  "balanced_signals": true
+ },
+ "plan": {
+  "sc_defects_cleared": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "release_decision": {
+   "clarity": "clear",
+   "target": "release_restricted",
+   "second": null
+  },
+  "worst_subsystem": {
+   "clarity": "leaning",
+   "target": "none",
+   "second": null
+  },
+  "exam_completion": {
+   "clarity": "clear",
+   "target": "3",
+   "second": null
+  },
+  "exam_mileage": {
+   "clarity": "contested",
+   "target": "2",
+   "second": "1"
+  }
+ },
+ "target_words": 55,
+ "deciding": {
+  "sc_defects_cleared": "D-71 is closed with retest pass, but the only WO references unknown defect D-90, so no repair is linked to D-71.",
+  "release_decision": "A valid concession (DOOR3_ISOL, valid past depart_at) covers D-71 and duty is spare, so release only under restriction.",
+  "worst_subsystem": "D-71 saloon_doors is closed and retested, so nothing is open; the unlinked WO leaves slight doubt.",
+  "exam_completion": "All 3 exam items have signed_by and signed_at.",
+  "exam_mileage": "Release odo 78004 is 4 km past due 78000, while vehicle odometer 77995 shows 5 km left, straddling the 0 km boundary."
+ },
+ "request": "rec-F317-0021",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.015131
+}

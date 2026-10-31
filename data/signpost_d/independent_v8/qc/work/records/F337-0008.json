@@ -1,0 +1,125 @@
+{
+ "id": "F337-0008",
+ "family": "F337",
+ "state": {
+  "station": {
+   "channels": [
+    {
+     "cha": "BHZ",
+     "sensor_serial": "W3320",
+     "response_epoch_start": "2024-05-30"
+    }
+   ]
+  },
+  "acquisition": {
+   "day": "2024-06-10",
+   "run": "2024-06-11T01:00",
+   "channel_hours_expected": 48,
+   "completeness_pct": 77.6,
+   "gaps": [
+    {
+     "cha": "BHZ",
+     "start": "04:00",
+     "end": "15:14"
+    }
+   ],
+   "gps_lock_pct": 99
+  },
+  "qc_metrics": {
+   "channels": [
+    {
+     "cha": "BHN",
+     "dead": false,
+     "clipped_minutes": 90,
+     "psd_dev_db": 7.2
+    }
+   ],
+   "cal_pulse": {
+    "date": "2024-05-20",
+    "result": "pass"
+   }
+  },
+  "maintenance_log": [
+   {
+    "date": "2024-05-30",
+    "action": "sensor_swap",
+    "sensor_serial_installed": "W3320"
+   },
+   {
+    "action": "outage",
+    "outage_start": "2024-06-10T04:00",
+    "outage_end": "2024-06-10T15:00"
+   }
+  ],
+  "operator_notes": [
+   "Quarry blasting 10:00-12:00 raised noise.",
+   "Sensor swapped 2024-05-30."
+  ]
+ },
+ "factors": {
+  "sensor_metadata_state": "swap_updated",
+  "maintenance_log_present": true,
+  "gap_coverage": "minor_overrun",
+  "true_usable_fraction": 0.735,
+  "completeness_summary_drift": 0.99,
+  "timing_quality": "locked",
+  "calibration_status": "predates_swap",
+  "noise_excess_db": 7.24,
+  "benign_noise_cause_logged": true,
+  "operator_note_consistency": "consistent",
+  "dead_channels": 0,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "sensor_metadata_state": "swap_stale",
+  "maintenance_log_present": false,
+  "gap_coverage": "no_gaps",
+  "true_usable_fraction": 0.3,
+  "completeness_summary_drift": 0.99,
+  "timing_quality": "locked",
+  "calibration_status": "passed",
+  "noise_excess_db": 7.24,
+  "benign_noise_cause_logged": true,
+  "operator_note_consistency": "consistent",
+  "dead_channels": 0,
+  "boundary_case": false
+ },
+ "plan": {
+  "response_valid": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "gaps_explained": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "disposition": {
+   "clarity": "clear",
+   "target": "hold",
+   "second": null
+  },
+  "usable_fraction": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  },
+  "pending_age": {
+   "clarity": "leaning",
+   "target": "0",
+   "second": null
+  }
+ },
+ "target_words": 103,
+ "deciding": {
+  "response_valid": "Serial W3320 and epoch 2024-05-30 match the logged sensor_swap and the operator note.",
+  "gaps_explained": "The BZ gap 04:00-15:14 overlaps the logged outage but runs 14 minutes past its end, so it is explained yet a strict reader may doubt it.",
+  "disposition": "The only open item is that the cal_pulse date 2024-05-20 predates the 2024-05-30 swap, so a post-swap calibration needs confirming.",
+  "usable_fraction": "An 11.2 h gap plus 90 clipped minutes leaves about 35 of 48 channel-hours, about 73%, within 50-90%.",
+  "pending_age": "Day 2024-06-10 with run time 2024-06-11T01:00 means the packet is under a day old."
+ },
+ "request": "rec-F337-0006",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011958
+}

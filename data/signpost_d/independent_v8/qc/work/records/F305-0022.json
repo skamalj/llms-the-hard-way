@@ -1,0 +1,137 @@
+{
+ "id": "F305-0022",
+ "family": "F305",
+ "state": {
+  "session": {
+   "date": "2024-03-04",
+   "needle_on": "2024-03-04T07:00",
+   "washback": "2024-03-04T11:04",
+   "review_ts": "2024-03-12T08:00"
+  },
+  "prescription": {
+   "duration_min": 240,
+   "heparin_units": 5000
+  },
+  "machine": {
+   "heparin_units": 5000,
+   "uf_removed_ml": 2100,
+   "washback_ml": 250,
+   "alarms": [
+    {
+     "code": "PUMP_STOP",
+     "t": "08:10"
+    },
+    {
+     "code": "PUMP_RESUME",
+     "t": "08:20"
+    }
+   ]
+  },
+  "observations": {
+   "pre_kg": 80.0,
+   "post_kg": 78.6,
+   "bp": [
+    {
+     "t": "07:30",
+     "s": 132
+    },
+    {
+     "t": "09:30",
+     "s": 121
+    }
+   ]
+  },
+  "checks": [
+   {
+    "code": "ID_VERIFY",
+    "done": true,
+    "ts": "2024-03-04T06:48"
+   },
+   {
+    "code": "ACCESS_CHECK",
+    "done": true,
+    "ts": "2024-03-04T07:25"
+   }
+  ],
+  "history": [
+   {
+    "d": "2024-03-01",
+    "rx": 240,
+    "eff": 240
+   },
+   {
+    "d": "2024-02-28",
+    "rx": 240,
+    "eff": 238
+   }
+  ]
+ },
+ "factors": {
+  "time_shortfall_min": 6,
+  "machine_pause_min": 10,
+  "uf_weight_gap_kg": 0.45,
+  "post_weight_missing": false,
+  "missing_check": "none",
+  "check_logged_after_start": true,
+  "prescription_mismatch": "none",
+  "mismatch_magnitude": "trivial",
+  "hypotension_episodes": 0,
+  "hypotension_mitigated": false,
+  "circuit_clotted": false,
+  "prior_short_sessions": 0,
+  "documented_flow_reduction": false
+ },
+ "factors_sampled": {
+  "time_shortfall_min": 59,
+  "machine_pause_min": 10,
+  "uf_weight_gap_kg": 1.42,
+  "post_weight_missing": false,
+  "missing_check": "none",
+  "check_logged_after_start": false,
+  "prescription_mismatch": "heparin_dose",
+  "mismatch_magnitude": "clinically_relevant",
+  "hypotension_episodes": 3,
+  "hypotension_mitigated": false,
+  "circuit_clotted": false,
+  "prior_short_sessions": 2,
+  "documented_flow_reduction": false
+ },
+ "plan": {
+  "uf_reconciles": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "checks_before_start": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "log_disposition": {
+   "clarity": "balanced",
+   "target": "hold_query",
+   "second": "sign_off"
+  },
+  "time_shortfall": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  },
+  "pending_age": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  }
+ },
+ "target_words": 79,
+ "deciding": {
+  "uf_reconciles": "Net UF 2100-250=1850 ml against 1.4 kg loss (80.0-78.6); gap 0.45 kg, just inside the 0.5 kg limit.",
+  "checks_before_start": "ACCESS_CHECK stamped 07:25, 25 minutes after needle_on 07:00, clearly after treatment start.",
+  "log_disposition": "The late ACCESS_CHECK needs confirming, but the shortfall and UF gap are both near their limits and could be read as acceptable, so sign-off is arguable.",
+  "time_shortfall": "Clock 244 min minus 10 min pause gives 234 effective against 240 prescribed: 6 short, on the 5/6 boundary.",
+  "pending_age": "review_ts 2024-03-12 08:00 is about 7 days 21 hours after washback on 2024-03-04, close to the 8-day boundary."
+ },
+ "request": "rec-F305-0021",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.010919
+}

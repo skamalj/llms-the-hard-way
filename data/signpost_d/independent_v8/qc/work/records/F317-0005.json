@@ -1,0 +1,123 @@
+{
+ "id": "F317-0005",
+ "family": "F317",
+ "state": {
+  "vehicle": {
+   "fleet_no": "T5001",
+   "odometer_km": 70185
+  },
+  "exam": {
+   "due_at_km": 69990,
+   "items": [
+    {
+     "item_code": "A1",
+     "signed_by": "r1",
+     "signed_at": "2025-04-02T08:00"
+    },
+    {
+     "item_code": "A2",
+     "result": "ok",
+     "signed_by": null,
+     "signed_at": null
+    },
+    {
+     "item_code": "A3",
+     "result": "ok",
+     "signed_by": null,
+     "signed_at": null
+    }
+   ]
+  },
+  "defects": [
+   {
+    "defect_id": "D-7",
+    "subsystem": "pantograph",
+    "safety_critical": true,
+    "status": "closed",
+    "retest_at": "2025-04-01",
+    "retest_result": "pass"
+   }
+  ],
+  "work_orders": [
+   {
+    "defect_ref": "D-7",
+    "subsystem": "running_gear",
+    "status": "done"
+   }
+  ],
+  "release": {
+   "duty_type": "depot_shunt",
+   "odo_reading_km": 70210
+  }
+ },
+ "factors": {
+  "km_to_exam_due": -220,
+  "odometer_disagreement": "large",
+  "exam_signed_fraction": 0.33,
+  "exam_record_missing": false,
+  "worst_defect_subsystem": "none",
+  "worst_defect_state": "closed_retested",
+  "worst_defect_safety_critical": true,
+  "retest_out_of_order": false,
+  "concession_present": false,
+  "concession_flaw": "none",
+  "wo_crossref_mismatch": "subsystem_differs",
+  "planned_duty_type": "depot_shunt",
+  "recent_brake_test_pass": false,
+  "balanced_signals": false
+ },
+ "factors_sampled": {
+  "km_to_exam_due": -153,
+  "odometer_disagreement": "large",
+  "exam_signed_fraction": 0.43,
+  "exam_record_missing": true,
+  "worst_defect_subsystem": "pantograph",
+  "worst_defect_state": "open_no_wo",
+  "worst_defect_safety_critical": true,
+  "retest_out_of_order": false,
+  "concession_present": false,
+  "concession_flaw": "none",
+  "wo_crossref_mismatch": "subsystem_differs",
+  "planned_duty_type": "depot_shunt",
+  "recent_brake_test_pass": false,
+  "balanced_signals": false
+ },
+ "plan": {
+  "sc_defects_cleared": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "release_decision": {
+   "clarity": "clear",
+   "target": "withdraw",
+   "second": null
+  },
+  "worst_subsystem": {
+   "clarity": "clear",
+   "target": "none",
+   "second": null
+  },
+  "exam_completion": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  },
+  "exam_mileage": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 29,
+ "deciding": {
+  "sc_defects_cleared": "D-7 is closed with a passed retest, but its work order lists running_gear, not pantograph, so the link is doubtful.",
+  "release_decision": "Release odo 70210 is 220 km past due_at_km 69990, beyond 200 km, so withdraw.",
+  "worst_subsystem": "The only defect, D-7, is closed with a passed retest, so nothing is open or awaiting retest.",
+  "exam_completion": "One of three items is fully signed; fewer than half, so level 1.",
+  "exam_mileage": "The vehicle odo shows 195 km over but the later release odo shows 220 km over, straddling the 200 km boundary."
+ },
+ "request": "rec-F317-0001",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011125
+}

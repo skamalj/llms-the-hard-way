@@ -1,0 +1,174 @@
+{
+ "id": "F305-0047",
+ "family": "F305",
+ "state": {
+  "session": {
+   "needle_on": "2025-02-03T08:00",
+   "washback": "2025-02-03T12:00",
+   "review_at": "2025-03-06T08:00"
+  },
+  "prescription": {
+   "duration_min": 240,
+   "dialysate_k": 2.0
+  },
+  "machine": {
+   "dialysate_k": 2.0,
+   "uf_removed_ml": 3300,
+   "washback_ml": 250,
+   "alarms": [
+    {
+     "c": "PUMP_STOP",
+     "t": "2025-02-03T10:00"
+    },
+    {
+     "c": "PUMP_RESUME",
+     "t": "2025-02-03T10:05"
+    }
+   ]
+  },
+  "observations": {
+   "pre_kg": 81.4,
+   "post_kg": 79.25,
+   "bp": [
+    [
+     "09:00",
+     86
+    ],
+    [
+     "09:50",
+     88
+    ],
+    [
+     "10:40",
+     85
+    ],
+    [
+     "11:20",
+     87
+    ],
+    [
+     "11:40",
+     108
+    ]
+   ],
+   "interventions": [
+    {
+     "t": "09:02",
+     "saline_bolus_ml": 100
+    },
+    {
+     "t": "09:52",
+     "saline_bolus_ml": 100
+    },
+    {
+     "t": "10:42",
+     "saline_bolus_ml": 100
+    },
+    {
+     "t": "11:22",
+     "saline_bolus_ml": 100
+    }
+   ]
+  },
+  "checks": [
+   {
+    "c": "prime",
+    "done": true,
+    "t": "2025-02-03T07:48",
+    "by": [
+     "N4",
+     "N9"
+    ]
+   },
+   {
+    "c": "access_assessment",
+    "done": true,
+    "t": "2025-02-03T07:55",
+    "by": [
+     "N4",
+     null
+    ]
+   }
+  ],
+  "history": [
+   {
+    "d": "2025-01-27",
+    "p": 240,
+    "e": 200
+   },
+   {
+    "d": "2025-01-20",
+    "p": 240,
+    "e": 240
+   }
+  ]
+ },
+ "factors": {
+  "time_shortfall_min": 5,
+  "machine_pause_min": 5,
+  "uf_weight_gap_kg": 0.5,
+  "post_weight_missing": false,
+  "missing_check": "none",
+  "check_logged_after_start": false,
+  "prescription_mismatch": "none",
+  "mismatch_magnitude": "trivial",
+  "hypotension_episodes": 4,
+  "hypotension_mitigated": true,
+  "circuit_clotted": false,
+  "prior_short_sessions": 1,
+  "documented_flow_reduction": false
+ },
+ "factors_sampled": {
+  "time_shortfall_min": 59,
+  "machine_pause_min": 7,
+  "uf_weight_gap_kg": 0.71,
+  "post_weight_missing": false,
+  "missing_check": "access_assessment",
+  "check_logged_after_start": false,
+  "prescription_mismatch": "none",
+  "mismatch_magnitude": "trivial",
+  "hypotension_episodes": 4,
+  "hypotension_mitigated": true,
+  "circuit_clotted": false,
+  "prior_short_sessions": 3,
+  "documented_flow_reduction": false
+ },
+ "plan": {
+  "uf_reconciles": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "checks_before_start": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "log_disposition": {
+   "clarity": "balanced",
+   "target": "hold_query",
+   "second": "incident_report"
+  },
+  "time_shortfall": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "pending_age": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 62,
+ "deciding": {
+  "uf_reconciles": "Net UF 3300-250-400=2650 ml vs weight loss 2.15 kg: gap about 0.5 kg, at the limit.",
+  "checks_before_start": "Both checks done and stamped before needle_on; second checker id on access_assessment is null, a small doubt.",
+  "log_disposition": "Null second checker id and borderline UF gap need confirmation (hold_query); four low readings with boluses and 108 recovery are mitigated; incident is a weak alternative.",
+  "time_shortfall": "Clock 240 min minus 5 min pause = 235 effective vs 240, short by about 5, on the level 0/1 edge.",
+  "pending_age": "Washback 2025-02-03 to review_at 2025-03-06T08:00 is about 30.8 days, just over the 30 day line."
+ },
+ "request": "rec-F305-0046",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.01425
+}

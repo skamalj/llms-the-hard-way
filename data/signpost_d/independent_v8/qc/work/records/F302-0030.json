@@ -1,0 +1,106 @@
+{
+ "id": "F302-0030",
+ "family": "F302",
+ "state": {
+  "consent": {
+   "signed_date": "2024-06-01"
+  },
+  "visit": {
+   "review_date": "2024-06-14",
+   "window_days": 14
+  },
+  "labs": [
+   {
+    "test": "Creat",
+    "value": 1.0,
+    "unit": "mg/dL",
+    "threshold_format": "<=1.0",
+    "repeat": true
+   }
+  ],
+  "eligibility": {
+   "criteria": [
+    {
+     "recorded_value": 88,
+     "unit": "umol/L",
+     "operator": "lt"
+    }
+   ],
+   "signoff": {
+    "signed": true
+   },
+   "queries": [
+    {
+     "status": "open",
+     "applies_n": 5
+    }
+   ]
+  }
+ },
+ "factors": {
+  "lab_reconciliation": "unit_only",
+  "consent_status": "current_ok",
+  "window_days_remaining": 1,
+  "collection_date_mismatch": "within_window",
+  "prohibited_conmed": false,
+  "washout_completed": true,
+  "out_of_range_lab": false,
+  "valid_repeat_on_file": "valid_repeat_in_range",
+  "boundary_value": true,
+  "identifier_mismatch": "none",
+  "investigator_signoff": "signed_after_results",
+  "open_query_count": 1
+ },
+ "factors_sampled": {
+  "lab_reconciliation": "unit_only",
+  "consent_status": "signed_after_procedure",
+  "window_days_remaining": 17,
+  "collection_date_mismatch": "within_window",
+  "prohibited_conmed": false,
+  "washout_completed": false,
+  "out_of_range_lab": false,
+  "valid_repeat_on_file": "valid_repeat_in_range",
+  "boundary_value": true,
+  "identifier_mismatch": "screening_no_differs",
+  "investigator_signoff": "signed_after_results",
+  "open_query_count": 3
+ },
+ "plan": {
+  "eligibility_proven": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "next_step": {
+   "clarity": "contested",
+   "target": "release",
+   "second": "hold_query"
+  },
+  "primary_issue": {
+   "clarity": "balanced",
+   "target": "no_issue",
+   "second": "timing_window"
+  },
+  "affected_scope": {
+   "clarity": "contested",
+   "target": "1",
+   "second": "2"
+  },
+  "window_left": {
+   "clarity": "contested",
+   "target": "1",
+   "second": "0"
+  }
+ },
+ "target_words": 25,
+ "deciding": {
+  "eligibility_proven": "Value equals threshold 1.0 with operator lt versus <=, and units differ (88 umol/L vs 1.0 mg/dL); a repeat is on file, so true remains plausible.",
+  "next_step": "One open query versus an otherwise reconcilable record splits release and hold_query.",
+  "primary_issue": "Nothing is documented as wrong, but only one day remains in the window, so timing is the alternative.",
+  "affected_scope": "Query applies_n is 5, at the boundary between levels 1 and 2.",
+  "window_left": "Consent 06-01 plus 14 days is 06-15; review 06-14 leaves one day, close to zero."
+ },
+ "request": "rec-F302-0026",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.008784
+}

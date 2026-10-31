@@ -1,0 +1,103 @@
+{
+ "id": "F303-0036",
+ "family": "F303",
+ "state": {
+  "order": {
+   "id": "O-5521",
+   "prescription": {
+    "modality": "concentrator",
+    "flow_lpm": 2,
+    "hours_per_day": 8,
+    "rx_expiry": "2024-05-31"
+   },
+   "items_ordered": [
+    {
+     "sku": "CONC-5",
+     "qty": 1
+    }
+   ]
+  },
+  "visit": {
+   "visit_date": "2024-06-04",
+   "arrived_at": "2024-06-04T10:10",
+   "departed_at": "2024-06-04T10:25",
+   "items_left": [],
+   "install_checks": null,
+   "patient_signature": "on_file",
+   "handover_at": "2024-06-04T10:24"
+  },
+  "supply_plan": {
+   "next_delivery_date": "2024-06-20"
+  }
+ },
+ "factors": {
+  "rx_alignment": "rx_expired",
+  "items_shortfall": "nothing_left",
+  "setup_state": "checks_null",
+  "supply_hours": 328.78,
+  "concentrator_fault": false,
+  "fault_mitigated": true,
+  "hazards_found": 0,
+  "hazard_mitigation": false,
+  "hazard_status_missing": false,
+  "handover_gap": false,
+  "timeline_out_of_order": false,
+  "next_delivery": "booked_too_late",
+  "dependency_level": "nocturnal",
+  "billing_hold": false
+ },
+ "factors_sampled": {
+  "rx_alignment": "rx_expired",
+  "items_shortfall": "nothing_left",
+  "setup_state": "checks_null",
+  "supply_hours": 328.78,
+  "concentrator_fault": false,
+  "fault_mitigated": true,
+  "hazards_found": 4,
+  "hazard_mitigation": false,
+  "hazard_status_missing": true,
+  "handover_gap": false,
+  "timeline_out_of_order": true,
+  "next_delivery": "booked_too_late",
+  "dependency_level": "nocturnal",
+  "billing_hold": false
+ },
+ "plan": {
+  "rx_match": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "chase_paperwork",
+   "second": null
+  },
+  "fulfilment": {
+   "clarity": "leaning",
+   "target": "items_short",
+   "second": null
+  },
+  "supply_runway": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "open_hazards": {
+   "clarity": "contested",
+   "target": "1",
+   "second": "0"
+  }
+ },
+ "target_words": 37,
+ "deciding": {
+  "rx_match": "rx_expiry 2024-05-31 precedes visit_date 2024-06-04, but modality/flow ordered is consistent; nothing left to compare.",
+  "next_step": "Plan requires chase_paperwork; record shows signature on file and no further actions, so paperwork-only follow-up fits.",
+  "fulfilment": "items_left is empty against one ordered concentrator; shortfall leaning items_short.",
+  "supply_runway": "No cylinders listed and no installed concentrator; ample vs adequate depends on unlisted supply.",
+  "open_hazards": "No site_assessment section; one open hazard vs none is unresolved."
+ },
+ "request": "rec-F303-0036",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.006749
+}

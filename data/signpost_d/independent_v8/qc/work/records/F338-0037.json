@@ -1,0 +1,119 @@
+{
+ "id": "F338-0037",
+ "family": "F338",
+ "state": {
+  "site": {
+   "pollutant": "CO",
+   "tier": "compliance",
+   "service_interval_days": 90
+  },
+  "visit": {
+   "date": "2024-05-14",
+   "start": "09:00",
+   "end": "11:30",
+   "sequence_status": "partial",
+   "maintenance_window": true
+  },
+  "reference": {
+   "standard_id": "CY77102",
+   "cert_expiry": "2024-10-11",
+   "unit": "ppm"
+  },
+  "checks": [
+   {
+    "type": "as_found_zero",
+    "ref_id": "CY77102",
+    "ref_conc": 0,
+    "unit": "ppm",
+    "reading": 1.55,
+    "tol": 0.5,
+    "ts": "09:20"
+   },
+   {
+    "type": "as_left_zero",
+    "ref_id": "CY77102",
+    "ref_conc": 0,
+    "unit": "ppm",
+    "reading": 0.7,
+    "tol": 0.5,
+    "ts": "10:40"
+   }
+  ],
+  "history": {
+   "last_visit_date": "2024-04-05",
+   "results": [
+    "pass",
+    "fail",
+    "fail"
+   ]
+  }
+ },
+ "factors": {
+  "pollutant": "CO",
+  "as_found_ratio": 3.1,
+  "as_left_status": "one_point_fail",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 150,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "maintenance_window",
+  "days_since_last_visit": 39,
+  "visit_completeness": "zero_only",
+  "prior_fail_count": 2,
+  "timestamp_mismatch": "none",
+  "site_priority": "compliance"
+ },
+ "factors_sampled": {
+  "pollutant": "CO",
+  "as_found_ratio": 3.1,
+  "as_left_status": "one_point_fail",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 150,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "maintenance_window",
+  "days_since_last_visit": 39,
+  "visit_completeness": "zero_only",
+  "prior_fail_count": 2,
+  "timestamp_mismatch": "none",
+  "site_priority": "compliance"
+ },
+ "plan": {
+  "data_accepted": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "reference_valid": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "balanced",
+   "target": "close_visit",
+   "second": "recalibrate"
+  },
+  "flag_extent": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  },
+  "return_urgency": {
+   "clarity": "clear",
+   "target": "4",
+   "second": null
+  }
+ },
+ "target_words": 60,
+ "deciding": {
+  "data_accepted": "As-found zero reading 1.55 vs tolerance 0.5 is far out, so the prior data likely needs correction, though the maintenance window gives some doubt.",
+  "reference_valid": "ref_id matches standard_id CY77102, units are ppm throughout and the certificate expires about 150 days after the visit.",
+  "next_step": "Only zero points exist and the as-left zero 0.7 is just outside the 0.5 tolerance; closing or repeating the calibration are both defensible.",
+  "flag_extent": "39 days since the last visit with a large as-found zero deviation points to flagging more than 30 days.",
+  "return_urgency": "Compliance-tier site with no span or precision checks and the as-left zero still out of tolerance needs same-day return."
+ },
+ "request": "rec-F338-0036",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.005764
+}

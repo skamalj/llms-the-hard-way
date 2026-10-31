@@ -1,0 +1,128 @@
+{
+ "id": "F338-0032",
+ "family": "F338",
+ "state": {
+  "site": {
+   "pollutant": "NO2",
+   "tier": "compliance",
+   "service_interval_days": 90,
+   "approved_interval_days": 90
+  },
+  "visit": {
+   "date": "2024-06-20",
+   "start": "08:30",
+   "end": "09:40",
+   "sequence_status": "aborted",
+   "maint_window": false
+  },
+  "reference": {
+   "standard_id": "C2210",
+   "unit": "ppb",
+   "cert_expiry": null
+  },
+  "checks": [
+   {
+    "type": "as_found_zero",
+    "ref_id": "C2210",
+    "ref_conc": 0,
+    "unit": "ppb",
+    "reading": 9,
+    "tol": 2,
+    "ts": "2024-06-20T08:45"
+   },
+   {
+    "type": "as_found_span",
+    "ref_id": "C2210",
+    "ref_conc": 100,
+    "unit": "ppb",
+    "reading": 131,
+    "tol": 5,
+    "ts": "2024-06-20T09:50"
+   }
+  ],
+  "history": {
+   "last_visit_date": "2024-03-07",
+   "autochecks": [
+    {
+     "d": "2024-06-17",
+     "r": "pass"
+    }
+   ],
+   "results": [
+    "fail",
+    "pass"
+   ]
+  },
+  "instrument": {
+   "temp_max": 24
+  }
+ },
+ "factors": {
+  "pollutant": "NO2",
+  "as_found_ratio": 2.47,
+  "as_left_status": "not_recorded",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": "unknown (cert expiry absent)",
+  "unit_mismatch": false,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "none",
+  "days_since_last_visit": 105,
+  "visit_completeness": "aborted_power",
+  "prior_fail_count": 1,
+  "timestamp_mismatch": "minutes_outside",
+  "site_priority": "compliance"
+ },
+ "factors_sampled": {
+  "pollutant": "NO2",
+  "as_found_ratio": 2.47,
+  "as_left_status": "all_pass",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 167,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "none",
+  "days_since_last_visit": 105,
+  "visit_completeness": "aborted_power",
+  "prior_fail_count": 1,
+  "timestamp_mismatch": "minutes_outside",
+  "site_priority": "compliance"
+ },
+ "plan": {
+  "data_accepted": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "reference_valid": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "close_flagged",
+   "second": null
+  },
+  "flag_extent": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  },
+  "return_urgency": {
+   "clarity": "clear",
+   "target": "4",
+   "second": null
+  }
+ },
+ "target_words": 69,
+ "deciding": {
+  "data_accepted": "As-found zero and span out of tolerance with no as-left, but autochecks passed recently, so partial acceptance is arguable.",
+  "reference_valid": "reference.cert_expiry is null so certificate details are absent.",
+  "next_step": "Failed as-found with a long interval and an aborted visit; prior data needs flagging.",
+  "flag_extent": "105 days since last visit with no explanation for drift and out-of-tolerance as-found point to flagging over 30 days.",
+  "return_urgency": "Aborted visit at a compliance site with no as-left points; the analyser needs same-day return."
+ },
+ "request": "rec-F338-0031",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.006461
+}

@@ -1,0 +1,152 @@
+{
+ "id": "F328-0048",
+ "family": "F328",
+ "state": {
+  "report_meta": {
+   "id": "W20-077",
+   "reg": "PL21",
+   "driver_id": "D31"
+  },
+  "vehicle_device": {
+   "health_flags": [
+    "gps_dropouts 10:05-10:40"
+   ],
+   "odo": [
+    5000,
+    5208.9
+   ]
+  },
+  "trips": [
+   {
+    "s": "2024-05-15T08:00",
+    "e": "09:30",
+    "card": "D31",
+    "km": 100
+   },
+   {
+    "s": "09:32",
+    "e": "11:00",
+    "card": "D31",
+    "km": 100
+   }
+  ],
+  "events": [
+   {
+    "t": "2024-05-15T09:50",
+    "type": "speed",
+    "mph": 72,
+    "lim": 60,
+    "map": "v4"
+   },
+   {
+    "t": "10:20",
+    "type": "harsh_brake",
+    "tags": [
+     "congestion"
+    ]
+   },
+   {
+    "t": "10:30",
+    "type": "harsh_brake",
+    "tags": [
+     "congestion"
+    ]
+   }
+  ],
+  "tacho_summary": {
+   "entries": [
+    {
+     "card": "D31",
+     "drive": [
+      "08:00",
+      "11:00"
+     ],
+     "breaks": []
+    }
+   ]
+  },
+  "notes_history": {
+   "driver_comment": "The limit there is 70.",
+   "coaching": [
+    {
+     "topic": "harsh_braking",
+     "status": "completed"
+    },
+    {
+     "topic": "speed",
+     "status": "partly_completed",
+     "modules": "2/5"
+    }
+   ],
+   "limit_updates": []
+  }
+ },
+ "factors": {
+  "driver_assignment": "match",
+  "raw_speed_excess_pct": 20.0,
+  "speed_mitigation": "none",
+  "harsh_event_count": 2,
+  "harsh_context_logged": true,
+  "device_health": "intermittent_dropouts",
+  "telematics_stint_hours": 3.0,
+  "tacho_break_reconciles": false,
+  "prior_coaching_count": 2,
+  "coaching_status": "partly_completed",
+  "boundary_value": true,
+  "note_content": "unverified_claim",
+  "distance_discrepancy_pct": 4.46
+ },
+ "factors_sampled": {
+  "driver_assignment": "match",
+  "raw_speed_excess_pct": 8.44,
+  "speed_mitigation": "none",
+  "harsh_event_count": 2,
+  "harsh_context_logged": true,
+  "device_health": "intermittent_dropouts",
+  "telematics_stint_hours": 2.16,
+  "tacho_break_reconciles": true,
+  "prior_coaching_count": 4,
+  "coaching_status": "partly_completed",
+  "boundary_value": true,
+  "note_content": "unverified_claim",
+  "distance_discrepancy_pct": 4.46
+ },
+ "plan": {
+  "driver_attributed": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "follow_up": {
+   "clarity": "clear",
+   "target": "coaching",
+   "second": null
+  },
+  "worst_event_cause": {
+   "clarity": "balanced",
+   "target": "road_conditions",
+   "second": "device_fault"
+  },
+  "speed_excess": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  },
+  "hours_exposure": {
+   "clarity": "contested",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 62,
+ "deciding": {
+  "driver_attributed": "Card D31 on both trips and the tacho entry covering the 09:50 speed event match the reported driver.",
+  "follow_up": "The speed event has no limit update or tag to mitigate it, the claim about a 70 limit is unsupported, dropouts are after the event, and speed coaching is only 2/5 done.",
+  "worst_event_cause": "Harsh brakes at 10:20 and 10:30 carry congestion tags but fall inside the GPS dropout window 10:05-10:40.",
+  "speed_excess": "72 against 60 is exactly 20.0% over, on the boundary between levels 2 and 3, with no mitigating record.",
+  "hours_exposure": "Trips 08:00-09:30 and 09:32-11:00 with a 2 min stop and no tacho break give exactly 3.0 h, on the boundary between levels 0 and 1."
+ },
+ "request": "rec-F328-0046",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.021983
+}

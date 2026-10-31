@@ -1,0 +1,98 @@
+{
+ "id": "F302-0040",
+ "family": "F302",
+ "state": {
+  "consent": {
+   "signed": "2024-04-01"
+  },
+  "visit": {
+   "review": "2024-04-11",
+   "window_days": 20,
+   "cohort_n": 12
+  },
+  "labs": [
+   {
+    "code": "K",
+    "value": 5.0,
+    "threshold": 5.0,
+    "threshold_format": "<=",
+    "collected": "2024-04-02",
+    "repeat": true
+   }
+  ],
+  "eligibility": {
+   "criteria": [
+    {
+     "op": "lt",
+     "recorded_value": 5.0
+    }
+   ]
+  }
+ },
+ "factors": {
+  "lab_reconciliation": "identical",
+  "consent_status": "current_ok",
+  "window_days_remaining": 10,
+  "collection_date_mismatch": "outside_validity",
+  "prohibited_conmed": false,
+  "washout_completed": false,
+  "out_of_range_lab": false,
+  "valid_repeat_on_file": "repeat_exceeds_allowance",
+  "boundary_value": true,
+  "identifier_mismatch": "none",
+  "investigator_signoff": "unsigned",
+  "open_query_count": 0
+ },
+ "factors_sampled": {
+  "lab_reconciliation": "identical",
+  "consent_status": "signed_after_procedure",
+  "window_days_remaining": -4,
+  "collection_date_mismatch": "outside_validity",
+  "prohibited_conmed": false,
+  "washout_completed": false,
+  "out_of_range_lab": false,
+  "valid_repeat_on_file": "repeat_exceeds_allowance",
+  "boundary_value": true,
+  "identifier_mismatch": "none",
+  "investigator_signoff": "unsigned",
+  "open_query_count": 0
+ },
+ "plan": {
+  "eligibility_proven": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "balanced",
+   "target": "screen_fail",
+   "second": "release"
+  },
+  "primary_issue": {
+   "clarity": "leaning",
+   "target": "clinical_value",
+   "second": null
+  },
+  "affected_scope": {
+   "clarity": "clear",
+   "target": "2",
+   "second": null
+  },
+  "window_left": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  }
+ },
+ "target_words": 25,
+ "deciding": {
+  "eligibility_proven": "The value 5.0 matches the recorded value and equals the threshold, which the <= format allows, but op lt reads it as a failure, leaving some doubt.",
+  "next_step": "Potassium 5.0 equals the threshold under op lt (screen_fail) while the <= format would pass it (release); both are defensible.",
+  "primary_issue": "A boundary lab value against the lt/<= conflict is the only problem; consent and identifiers are not an issue.",
+  "affected_scope": "visit.cohort_n is 12, within the 6-20 range.",
+  "window_left": "Signed 04-01 plus 20 days is 04-21; review 04-11 leaves 10 days, at the line between levels 2 and 3."
+ },
+ "request": "rec-F302-0036",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011013
+}

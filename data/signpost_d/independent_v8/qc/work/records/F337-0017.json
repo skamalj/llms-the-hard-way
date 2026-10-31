@@ -1,0 +1,98 @@
+{
+ "id": "F337-0017",
+ "family": "F337",
+ "state": {
+  "station": {
+   "channels": [
+    {
+     "cha": "HHZ",
+     "sensor_serial": "S221",
+     "response_epoch_start": "2023-08-01"
+    }
+   ]
+  },
+  "acquisition": {
+   "gaps": [
+    {
+     "cha": "HHZ",
+     "start": "05:00",
+     "end": "05:40"
+    }
+   ],
+   "completeness_pct": 99.4
+  },
+  "maintenance_log": [
+   {
+    "action": "sensor_swap",
+    "date": "2023-08-01",
+    "sensor_serial_installed": "S221"
+   }
+  ]
+ },
+ "factors": {
+  "sensor_metadata_state": "no_swap",
+  "maintenance_log_present": true,
+  "gap_coverage": "all_logged",
+  "true_usable_fraction": 0.99,
+  "completeness_summary_drift": 0.5,
+  "timing_quality": "locked",
+  "calibration_status": "passed",
+  "noise_excess_db": 1.2,
+  "benign_noise_cause_logged": false,
+  "operator_note_consistency": "consistent",
+  "dead_channels": 0,
+  "boundary_case": true
+ },
+ "factors_sampled": {
+  "sensor_metadata_state": "swap_stale",
+  "maintenance_log_present": true,
+  "gap_coverage": "all_logged",
+  "true_usable_fraction": 0.44,
+  "completeness_summary_drift": 6.75,
+  "timing_quality": "locked",
+  "calibration_status": "predates_swap",
+  "noise_excess_db": 24.46,
+  "benign_noise_cause_logged": false,
+  "operator_note_consistency": "contradicts_data",
+  "dead_channels": 2,
+  "boundary_case": true
+ },
+ "plan": {
+  "response_valid": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "gaps_explained": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "disposition": {
+   "clarity": "clear",
+   "target": "release_flagged",
+   "second": null
+  },
+  "usable_fraction": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  },
+  "pending_age": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  }
+ },
+ "target_words": 38,
+ "deciding": {
+  "response_valid": "Serial S221 and epoch 2023-08-01 match the swap log entry.",
+  "gaps_explained": "The 05:00-05:40 gap has no logged outage window in the log, so it is not clearly explained.",
+  "disposition": "A single short unlogged gap is the only fault, confined to one segment, so flag it and publish the rest.",
+  "usable_fraction": "One 40-minute gap on one channel is about 99%, near the boundary.",
+  "pending_age": "No decision age is shown; the packet carries no age information beyond the date."
+ },
+ "request": "rec-F337-0016",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.004668
+}

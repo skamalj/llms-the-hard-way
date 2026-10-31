@@ -1,0 +1,156 @@
+{
+ "id": "F303-0015",
+ "family": "F303",
+ "state": {
+  "order": {
+   "prescription": {
+    "modality": "concentrator",
+    "flow_lpm": 2,
+    "hours_per_day": 24,
+    "rx_expiry": "2026-01-15"
+   },
+   "items_ordered": [
+    {
+     "sku": "CONC5",
+     "qty": 1
+    }
+   ]
+  },
+  "visit": {
+   "visit_date": "2025-09-02",
+   "access_achieved": false,
+   "items_left": [],
+   "install_checks": null,
+   "patient_signature": null,
+   "handover_at": null
+  },
+  "site_assessment": {
+   "hazards": [
+    {
+     "code": "SMOKING",
+     "status": "open",
+     "fix": null
+    },
+    {
+     "code": "GAS_HOB",
+     "status": "open",
+     "fix": null
+    },
+    {
+     "code": "NO_ALARM",
+     "status": "open",
+     "fix": null
+    },
+    {
+     "code": "HEATER",
+     "status": "open",
+     "fix": null
+    }
+   ]
+  },
+  "equipment": {
+   "concentrator": {
+    "serial": "C902",
+    "flow_setting_lpm": 2
+   },
+   "fault_log": [
+    {
+     "code": "LOW_PURITY",
+     "date": "2025-08-21"
+    },
+    {
+     "code": "RETEST",
+     "date": "2025-08-28",
+     "retest_passed": true
+    }
+   ],
+   "cylinders_on_site": [
+    {
+     "size": "HX 2300 L",
+     "fill_pct": 100
+    },
+    {
+     "size": "HX 2300 L",
+     "fill_pct": 100
+    },
+    {
+     "size": "HX 2300 L",
+     "fill_pct": 100
+    }
+   ]
+  },
+  "supply_plan": {
+   "next_delivery_date": "2025-09-05"
+  }
+ },
+ "factors": {
+  "rx_alignment": "exact",
+  "items_shortfall": "nothing_left",
+  "setup_state": "checks_null",
+  "supply_hours": 57.5,
+  "concentrator_fault": true,
+  "fault_mitigated": true,
+  "hazards_found": 4,
+  "hazard_mitigation": false,
+  "hazard_status_missing": false,
+  "handover_gap": true,
+  "timeline_out_of_order": false,
+  "next_delivery": "booked_in_time",
+  "dependency_level": "continuous",
+  "billing_hold": false
+ },
+ "factors_sampled": {
+  "rx_alignment": "exact",
+  "items_shortfall": "nothing_left",
+  "setup_state": "all_logged",
+  "supply_hours": 14.51,
+  "concentrator_fault": true,
+  "fault_mitigated": true,
+  "hazards_found": 0,
+  "hazard_mitigation": false,
+  "hazard_status_missing": true,
+  "handover_gap": false,
+  "timeline_out_of_order": false,
+  "next_delivery": "booked_in_time",
+  "dependency_level": "continuous",
+  "billing_hold": false
+ },
+ "plan": {
+  "rx_match": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "next_step": {
+   "clarity": "balanced",
+   "target": "hold_confirm",
+   "second": "chase_paperwork"
+  },
+  "fulfilment": {
+   "clarity": "clear",
+   "target": "nothing_delivered",
+   "second": null
+  },
+  "supply_runway": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  },
+  "open_hazards": {
+   "clarity": "clear",
+   "target": "4",
+   "second": null
+  }
+ },
+ "target_words": 57,
+ "deciding": {
+  "rx_match": "The installed concentrator is set to 2 lpm and matches the prescription, but nothing was left on this visit, so the match is arguable.",
+  "next_step": "The signature and handover_at are null, which suggests chasing paperwork. access_achieved is false and the fault retest is on record, which suggests phone confirmation before closing.",
+  "fulfilment": "items_left is empty and access_achieved is false, so nothing was delivered.",
+  "supply_runway": "The concentrator had a fault, but a retest passed, which supports level 3. The three HX 2300 cylinders alone give about 57 h, which is level 2.",
+  "open_hazards": "Four hazards are listed with status open and no fix, which is four or more."
+ },
+ "request": "rec-F303-0011",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.014864
+}

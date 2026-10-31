@@ -1,0 +1,119 @@
+{
+ "id": "F304-0030",
+ "family": "F304",
+ "state": {
+  "request": {
+   "appt_type": "theatre_transfer",
+   "appt_time": "11:00",
+   "vehicle_class": "wheelchair_van",
+   "crew_requested": "double",
+   "mobility_booked": "wheelchair",
+   "escort_name": null
+  },
+  "patient": {
+   "mobility_assessed": "wheelchair",
+   "assessed_on": "2025-02-20",
+   "oxygen_lpm": null,
+   "monitoring": null
+  },
+  "journey": {
+   "window_end": "08:50",
+   "est_duration_min": 40,
+   "late_tolerance_min": 10,
+   "destination": {
+    "reslot_same_day": false
+   }
+  },
+  "history": [
+   {
+    "outcome": "aborted",
+    "reason": "no show"
+   },
+   {
+    "outcome": "aborted",
+    "reason": "bed unavailable"
+   },
+   {
+    "outcome": "aborted",
+    "reason": "weather"
+   },
+   {
+    "outcome": "aborted",
+    "reason": "vehicle fault"
+   }
+  ],
+  "notes": {
+   "ward_note": "Escort nurse to be named; O2 prn per anaesthetist; theatre list moved to 11:30."
+  }
+ },
+ "factors": {
+  "mobility_alignment": "matches",
+  "secondary_discrepancy": "time_material",
+  "eligibility_concern": false,
+  "eligibility_exception": true,
+  "clinical_support": "possible_oxygen_prn",
+  "crew_request_gap": "correct",
+  "buffer_minutes": 90.0,
+  "duration_estimate_split": false,
+  "late_tolerance": true,
+  "appointment_type": "theatre_transfer",
+  "same_day_reslot": false,
+  "confirmation_pending": true,
+  "prior_aborts": 4,
+  "aborts_related": false
+ },
+ "factors_sampled": {
+  "mobility_alignment": "matches",
+  "secondary_discrepancy": "time_material",
+  "eligibility_concern": false,
+  "eligibility_exception": true,
+  "clinical_support": "low_flow_oxygen",
+  "crew_request_gap": "correct",
+  "buffer_minutes": 46.31,
+  "duration_estimate_split": false,
+  "late_tolerance": true,
+  "appointment_type": "theatre_transfer",
+  "same_day_reslot": true,
+  "confirmation_pending": true,
+  "prior_aborts": 4,
+  "aborts_related": false
+ },
+ "plan": {
+  "vehicle_fit": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "disposition": {
+   "clarity": "clear",
+   "target": "hold",
+   "second": null
+  },
+  "crew_config": {
+   "clarity": "balanced",
+   "target": "double_crew",
+   "second": "clinical_escort"
+  },
+  "time_pressure": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "delay_impact": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  }
+ },
+ "target_words": 85,
+ "deciding": {
+  "vehicle_fit": "Wheelchair matches, but assessment is 12 days old and possible O2 is unlisted, so fit is only modestly supported.",
+  "disposition": "escort_name is null and ward_note says the escort nurse is to be named.",
+  "crew_config": "Wheelchair with no oxygen_lpm favours double crew; O2 prn note keeps clinical escort plausible.",
+  "time_pressure": "Window end 08:50 plus 40 min leaves 90 min before 11:00, at the 0/1 boundary.",
+  "delay_impact": "Theatre transfer with reslot false, so slot loss is likely; 10 min tolerance adds slight doubt."
+ },
+ "request": "rec-F304-0026",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.0103
+}

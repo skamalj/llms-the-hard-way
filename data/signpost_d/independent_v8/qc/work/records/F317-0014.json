@@ -1,0 +1,143 @@
+{
+ "id": "F317-0014",
+ "family": "F317",
+ "state": {
+  "vehicle": {
+   "fleet_no": "T4402",
+   "odometer_km": 33000
+  },
+  "exam": {
+   "due_at_km": 33500,
+   "opened_at": "2024-06-11T05:00",
+   "items": [
+    {
+     "c": "E1",
+     "signed_by": "u2",
+     "signed_at": "2024-06-11T05:40"
+    },
+    {
+     "c": "E2",
+     "signed_by": "u2",
+     "signed_at": "2024-06-11T06:10"
+    },
+    {
+     "c": "E3",
+     "signed_by": "u6",
+     "signed_at": "2024-06-11T06:30"
+    },
+    {
+     "c": "E4",
+     "signed_by": "u6",
+     "signed_at": "2024-06-10T22:15"
+    }
+   ]
+  },
+  "defects": [
+   {
+    "defect_id": "D3",
+    "subsystem": "saloon_doors",
+    "safety_critical": true,
+    "status": "closed",
+    "closed_at": "2024-06-01",
+    "retest_at": "2024-06-02",
+    "retest_result": "pass"
+   }
+  ],
+  "work_orders": [
+   {
+    "wo_id": "W4",
+    "defect_ref": "D3",
+    "subsystem": "saloon_doors",
+    "completed_at": "2024-06-01",
+    "status": "done"
+   }
+  ],
+  "concessions": [
+   {
+    "conc_id": "C2",
+    "fleet_no": "T4402",
+    "defect_ref": "D3",
+    "restriction_code": "R2",
+    "valid_from": "2024-06-01",
+    "valid_until": "2024-07-01"
+   }
+  ],
+  "release": {
+   "duty_type": "peak_diagram",
+   "depart_at": "2024-06-12T06:00",
+   "odo_reading_km": 33000,
+   "brake_test_at": "2024-06-11T22:00",
+   "brake_test_result": "pass"
+  }
+ },
+ "factors": {
+  "km_to_exam_due": 500,
+  "odometer_disagreement": "none",
+  "exam_signed_fraction": 1.0,
+  "exam_record_missing": false,
+  "worst_defect_subsystem": "saloon_doors",
+  "worst_defect_state": "closed_retested",
+  "worst_defect_safety_critical": true,
+  "retest_out_of_order": false,
+  "concession_present": true,
+  "concession_flaw": "none",
+  "wo_crossref_mismatch": "none",
+  "planned_duty_type": "peak_diagram",
+  "recent_brake_test_pass": true,
+  "balanced_signals": true
+ },
+ "factors_sampled": {
+  "km_to_exam_due": 1410,
+  "odometer_disagreement": "none",
+  "exam_signed_fraction": 0.74,
+  "exam_record_missing": false,
+  "worst_defect_subsystem": "saloon_doors",
+  "worst_defect_state": "closed_retested",
+  "worst_defect_safety_critical": true,
+  "retest_out_of_order": false,
+  "concession_present": true,
+  "concession_flaw": "none",
+  "wo_crossref_mismatch": "none",
+  "planned_duty_type": "peak_diagram",
+  "recent_brake_test_pass": true,
+  "balanced_signals": true
+ },
+ "plan": {
+  "sc_defects_cleared": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "release_decision": {
+   "clarity": "balanced",
+   "target": "release_restricted",
+   "second": "release"
+  },
+  "worst_subsystem": {
+   "clarity": "clear",
+   "target": "none",
+   "second": null
+  },
+  "exam_completion": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "exam_mileage": {
+   "clarity": "contested",
+   "target": "1",
+   "second": "0"
+  }
+ },
+ "target_words": 32,
+ "deciding": {
+  "sc_defects_cleared": "D3 is safety-critical, closed, and retested with a pass after the work order completion; a valid concession on it adds slight doubt.",
+  "release_decision": "Valid concession C2 with restriction R2 on the closed defect against clean closure, passing brake test and all-signed exam; restricted release and unrestricted release are both plausible.",
+  "worst_subsystem": "The only defect D3 is closed and retested with a pass, so no defect is unresolved.",
+  "exam_completion": "All 4 items are signed with timestamps, but E4 signed_at (06-10T22:15) is before exam opened_at (06-11T05:00), holding level 3 against level 2.",
+  "exam_mileage": "due_at_km 33500 minus odometer 33000 (same at release) is exactly 500 km, on the boundary between level 0 and level 1."
+ },
+ "request": "rec-F317-0011",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.014441
+}

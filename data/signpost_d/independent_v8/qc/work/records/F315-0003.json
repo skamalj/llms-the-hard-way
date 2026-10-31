@@ -1,0 +1,112 @@
+{
+ "id": "F315-0003",
+ "family": "F315",
+ "state": {
+  "report": {
+   "received_at": "2025-03-27T22:40",
+   "source": "police",
+   "units_reported": [
+    "R55",
+    "R56",
+    "R57"
+   ]
+  },
+  "asset": {
+   "unit_id": "R55",
+   "site_category": "residential",
+   "planned_works": null
+  },
+  "cms": null,
+  "history": [
+   {
+    "job_ref": "J61",
+    "attended": "2025-01-02",
+    "completed": "2025-01-02",
+    "outcome_code": "FIXED"
+   },
+   {
+    "job_ref": "S9",
+    "completed": "2025-01-05",
+    "outcome_code": "SCOUT_OK"
+   }
+  ],
+  "job": {
+   "job_ref": "J61",
+   "stage": "RECT",
+   "completed_at": "2025-01-02",
+   "hazard_code": null
+  },
+  "supply": {
+   "dno_incident_ref": null,
+   "feeder_units_dark": 3
+  }
+ },
+ "factors": {
+  "dark_unit_count": 3,
+  "dno_incident_logged": false,
+  "cms_state": "section_null",
+  "days_since_last_repair": 84,
+  "last_repair_state": "completed",
+  "hazard_observed": "none",
+  "hazard_made_safe": false,
+  "site_category": "residential",
+  "planned_works_active": false,
+  "current_job_stage": "rectified_confirmed",
+  "dates_out_of_order": false,
+  "duplicate_of_open_job": false,
+  "report_source": "police"
+ },
+ "factors_sampled": {
+  "dark_unit_count": 3,
+  "dno_incident_logged": false,
+  "cms_state": "section_null",
+  "days_since_last_repair": 74,
+  "last_repair_state": "no_record",
+  "hazard_observed": "column_damaged",
+  "hazard_made_safe": false,
+  "site_category": "residential",
+  "planned_works_active": false,
+  "current_job_stage": "not_attended",
+  "dates_out_of_order": false,
+  "duplicate_of_open_job": false,
+  "report_source": "cms_auto"
+ },
+ "plan": {
+  "supply_side_fault": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "repeat_failure": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "next_action": {
+   "clarity": "clear",
+   "target": "hold_verify",
+   "second": null
+  },
+  "source_support": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  },
+  "repair_progress": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  }
+ },
+ "target_words": 36,
+ "deciding": {
+  "supply_side_fault": "supply.feeder_units_dark 3 and three adjacent units in units_reported, but no DNO incident is logged.",
+  "repeat_failure": "J61 was completed 2025-01-02, exactly 84 days before report.received_at 2025-03-27, on the boundary of the window.",
+  "next_action": "cms is null and the report is new after the scout confirmation, so one verification is needed; there is no hazard.",
+  "source_support": "The police report, feeder count, job card and scout entry give three or four sources, but cms is missing, which keeps level 2 or 3 open.",
+  "repair_progress": "job J61 RECT completed 2025-01-02 and history S9 SCOUT_OK on 2025-01-05 confirm the earlier fix; the new report is unverified."
+ },
+ "request": "rec-F315-0001",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.010136
+}

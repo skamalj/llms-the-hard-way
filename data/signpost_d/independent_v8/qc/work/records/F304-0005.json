@@ -1,0 +1,113 @@
+{
+ "id": "F304-0005",
+ "family": "F304",
+ "state": {
+  "request": {
+   "appt_type": "outpatient",
+   "appt_time": "10:15",
+   "vehicle_class": "wheelchair_van",
+   "crew_requested": 2,
+   "mobility_booked": "wheelchair",
+   "equipment": [
+    "bariatric chair"
+   ]
+  },
+  "patient": {
+   "mobility_assessed": "wheelchair",
+   "assessed_on": "2024-06-05",
+   "weight_kg": 156,
+   "oxygen_lpm": 0,
+   "monitoring": null,
+   "own_transport_available": true,
+   "carer_available": true,
+   "exemption": null
+  },
+  "journey": {
+   "window_end": "09:00",
+   "est_duration_min": 45,
+   "late_tolerance_min": 15,
+   "destination": {
+    "reslot_same_day": true
+   }
+  },
+  "history": [
+   {
+    "o": "aborted",
+    "r": "wrong vehicle class sent"
+   }
+  ],
+  "notes": {
+   "referrer_note": "Family has an accessible vehicle."
+  }
+ },
+ "factors": {
+  "mobility_alignment": "matches",
+  "secondary_discrepancy": "none",
+  "eligibility_concern": true,
+  "eligibility_exception": false,
+  "clinical_support": "none (weight 156 decoy)",
+  "crew_request_gap": "correct",
+  "buffer_minutes": 30.0,
+  "duration_estimate_split": false,
+  "late_tolerance": true,
+  "appointment_type": "outpatient",
+  "same_day_reslot": true,
+  "confirmation_pending": false,
+  "prior_aborts": 1,
+  "aborts_related": true
+ },
+ "factors_sampled": {
+  "mobility_alignment": "matches",
+  "secondary_discrepancy": "none",
+  "eligibility_concern": false,
+  "eligibility_exception": false,
+  "clinical_support": "bariatric",
+  "crew_request_gap": "over_one_step",
+  "buffer_minutes": -33.97,
+  "duration_estimate_split": false,
+  "late_tolerance": true,
+  "appointment_type": "outpatient",
+  "same_day_reslot": true,
+  "confirmation_pending": false,
+  "prior_aborts": 1,
+  "aborts_related": true
+ },
+ "plan": {
+  "vehicle_fit": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "disposition": {
+   "clarity": "leaning",
+   "target": "decline",
+   "second": null
+  },
+  "crew_config": {
+   "clarity": "clear",
+   "target": "double_crew",
+   "second": null
+  },
+  "time_pressure": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  },
+  "delay_impact": {
+   "clarity": "leaning",
+   "target": "0",
+   "second": null
+  }
+ },
+ "target_words": 92,
+ "deciding": {
+  "vehicle_fit": "wheelchair_van and bariatric chair match assessed wheelchair, assessed 2024-06-05, weight 156 under the limit.",
+  "disposition": "own_transport_available true, carer_available true, referrer_note on family vehicle, exemption null, pointing to decline; clinic is the only doubt.",
+  "crew_config": "Wheelchair, oxygen 0, no monitoring, weight 156 under 160 kg gives double_crew.",
+  "time_pressure": "window_end 09:00 plus 45 min is 09:45 against appt 10:15, exactly 30 minutes spare, on the 1/2 boundary.",
+  "delay_impact": "Routine outpatient with reslot_same_day true and late_tolerance 15, so rebookable with low impact."
+ },
+ "request": "rec-F304-0001",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.010229
+}

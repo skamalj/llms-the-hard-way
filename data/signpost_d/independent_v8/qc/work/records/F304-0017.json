@@ -1,0 +1,127 @@
+{
+ "id": "F304-0017",
+ "family": "F304",
+ "state": {
+  "request": {
+   "ref": "T2210",
+   "appt_type": "theatre_transfer",
+   "appt_time": "2025-04-08T09:45",
+   "vehicle_class": "car",
+   "crew_requested": 2,
+   "mobility_booked": "walking",
+   "equipment": []
+  },
+  "patient": {
+   "mobility_assessed": "walking",
+   "assessed_on": "2024-08-02",
+   "oxygen_lpm": 0,
+   "monitoring": null,
+   "weight_kg": 82,
+   "own_transport_available": true,
+   "fit_to_travel_signed": null,
+   "exemption": {
+    "code": "EX4",
+    "approved_by": "S. Webb",
+    "approved_on": "2025-03-30"
+   }
+  },
+  "journey": {
+   "window_end": "09:00",
+   "est_duration_min": 45,
+   "late_tolerance_min": 0,
+   "destination": {
+    "reslot_same_day": false
+   }
+  },
+  "history": [
+   {
+    "date": "2025-02-03",
+    "outcome": "aborted",
+    "reason": "clinic cancelled"
+   },
+   {
+    "date": "2025-02-24",
+    "outcome": "aborted",
+    "reason": "pt unwell"
+   },
+   {
+    "date": "2025-03-14",
+    "outcome": "aborted",
+    "reason": "vehicle fault"
+   }
+  ],
+  "notes": {
+   "ward_note": "Needs walking frame; fit-to-travel form awaiting surgeon signature."
+  }
+ },
+ "factors": {
+  "mobility_alignment": "stale",
+  "secondary_discrepancy": "equipment_unlisted",
+  "eligibility_concern": true,
+  "eligibility_exception": true,
+  "clinical_support": "none",
+  "crew_request_gap": "over_one_step",
+  "buffer_minutes": 0.0,
+  "duration_estimate_split": false,
+  "late_tolerance": false,
+  "appointment_type": "theatre_transfer",
+  "same_day_reslot": false,
+  "confirmation_pending": true,
+  "prior_aborts": 3,
+  "aborts_related": false
+ },
+ "factors_sampled": {
+  "mobility_alignment": "stale",
+  "secondary_discrepancy": "equipment_unlisted",
+  "eligibility_concern": true,
+  "eligibility_exception": true,
+  "clinical_support": "transfer_assist",
+  "crew_request_gap": "over_one_step",
+  "buffer_minutes": 142.43,
+  "duration_estimate_split": false,
+  "late_tolerance": false,
+  "appointment_type": "theatre_transfer",
+  "same_day_reslot": true,
+  "confirmation_pending": false,
+  "prior_aborts": 3,
+  "aborts_related": false
+ },
+ "plan": {
+  "vehicle_fit": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "disposition": {
+   "clarity": "clear",
+   "target": "hold",
+   "second": null
+  },
+  "crew_config": {
+   "clarity": "clear",
+   "target": "single_crew",
+   "second": null
+  },
+  "time_pressure": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "delay_impact": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  }
+ },
+ "target_words": 38,
+ "deciding": {
+  "vehicle_fit": "Mobility assessment dated 2024-08-02 is about eight months old for an April appointment, and a walking frame in ward_note is absent from equipment.",
+  "disposition": "fit_to_travel_signed is null and the ward note says the form awaits surgeon signature, so one confirmation is outstanding. The exemption covers eligibility.",
+  "crew_config": "Walking patient, oxygen 0, monitoring null, 82 kg, so single crew. The request for 2 crew is over-specified.",
+  "time_pressure": "Window end 09:00 plus 45 min journey arrives exactly at the 09:45 appointment, so the buffer is zero, on the boundary between arriving late and arriving with under 30 minutes spare.",
+  "delay_impact": "Theatre transfer with reslot_same_day false means a lost slot with no same-day alternative, though nothing else confirms it."
+ },
+ "request": "rec-F304-0016",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.013204
+}

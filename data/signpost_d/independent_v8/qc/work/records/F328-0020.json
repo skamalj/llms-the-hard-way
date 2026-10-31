@@ -1,0 +1,158 @@
+{
+ "id": "F328-0020",
+ "family": "F328",
+ "state": {
+  "report_meta": {
+   "vehicle": "BV20MXA",
+   "driver_id": "D072",
+   "period": "2024-08-05/2024-08-11"
+  },
+  "vehicle_device": {
+   "health_flags": [],
+   "last_calibration": "2024-04-18",
+   "odo_start": 33100,
+   "odo_end": 33226
+  },
+  "trips": [
+   {
+    "start": "2024-08-06T05:30",
+    "end": "2024-08-06T06:55",
+    "gps_km": 55.2,
+    "driver_card": "D072"
+   },
+   {
+    "start": "2024-08-06T07:05",
+    "end": "2024-08-06T08:35",
+    "gps_km": 61.0,
+    "driver_card": "D072"
+   }
+  ],
+  "events": [
+   {
+    "time": "2024-08-06T08:30",
+    "type": "speed",
+    "recorded_mph": 70,
+    "posted_limit_mph": 52,
+    "map_ver": "2023.9"
+   },
+   {
+    "time": "2024-08-06T05:50",
+    "type": "harsh_brake"
+   },
+   {
+    "time": "2024-08-06T06:20",
+    "type": "harsh_brake"
+   },
+   {
+    "time": "2024-08-06T07:30",
+    "type": "harsh_corner"
+   },
+   {
+    "time": "2024-08-06T08:10",
+    "type": "harsh_accel"
+   }
+  ],
+  "tacho_summary": {
+   "entries": [
+    {
+     "card": "D072",
+     "drive": "05:30-06:55"
+    },
+    {
+     "card": "D072",
+     "break": "06:55-07:05"
+    },
+    {
+     "card": "D072",
+     "drive": "07:05-08:20"
+    },
+    {
+     "card_swap": "08:20 D072 to D118"
+    },
+    {
+     "card": "D118",
+     "drive": "08:20-08:35"
+    }
+   ]
+  },
+  "notes_history": {
+   "supervisor_note": "D072 drove the whole shift, no swap took place.",
+   "coaching": [],
+   "limit_updates": [
+    {
+     "segment": "A52-N",
+     "limit_mph": 70,
+     "date": "2024-07-30"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "driver_assignment": "card_swap_logged",
+  "raw_speed_excess_pct": 34.62,
+  "speed_mitigation": "map_limit_outdated",
+  "harsh_event_count": 4,
+  "harsh_context_logged": false,
+  "device_health": "ok",
+  "telematics_stint_hours": 3.08,
+  "tacho_break_reconciles": true,
+  "prior_coaching_count": 0,
+  "coaching_status": "none",
+  "boundary_value": false,
+  "note_content": "contradicts_data",
+  "distance_discrepancy_pct": 7.78
+ },
+ "factors_sampled": {
+  "driver_assignment": "card_swap_logged",
+  "raw_speed_excess_pct": 34.67,
+  "speed_mitigation": "map_limit_outdated",
+  "harsh_event_count": 4,
+  "harsh_context_logged": false,
+  "device_health": "ok",
+  "telematics_stint_hours": 6.19,
+  "tacho_break_reconciles": false,
+  "prior_coaching_count": 0,
+  "coaching_status": "completed",
+  "boundary_value": false,
+  "note_content": "contradicts_data",
+  "distance_discrepancy_pct": 7.78
+ },
+ "plan": {
+  "driver_attributed": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "follow_up": {
+   "clarity": "clear",
+   "target": "coaching",
+   "second": null
+  },
+  "worst_event_cause": {
+   "clarity": "clear",
+   "target": "map_data",
+   "second": null
+  },
+  "speed_excess": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "hours_exposure": {
+   "clarity": "contested",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 200,
+ "deciding": {
+  "driver_attributed": "Tacho logs a swap from D072 to D118 at 08:20, ten minutes before the 08:30 speed event, but the trip card still reads D072 and the supervisor note says no swap occurred.",
+  "follow_up": "Four harsh events with no context tags, most before the swap and on D072's card, plus no coaching on record, so a confirmed breach with no completed coaching.",
+  "worst_event_cause": "Posted 52 on the event conflicts with a newer 70 limit for the segment dated 2024-07-30, while the event's map_ver is the older 2023.9.",
+  "speed_excess": "70 mph against the updated 70 limit is not over, but the update's applicability to this event is slightly uncertain, so level 0 versus level 1.",
+  "hours_exposure": "Trips 05:30-08:35 with a 10-min stop are 3h05 elapsed, about 3h of driving, right at the 3-hour boundary, but the 08:20 card swap splits D072's stint to about 2h50."
+ },
+ "request": "rec-F328-0016",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.019511
+}

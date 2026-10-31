@@ -1,0 +1,168 @@
+{
+ "id": "F314-0028",
+ "family": "F314",
+ "state": {
+  "property": {
+   "inventory": [
+    {
+     "id": "B1",
+     "type": "boiler",
+     "loc": "utility",
+     "serial": "W20-5517",
+     "owned_by": "landlord"
+    },
+    {
+     "id": "H1",
+     "type": "hob",
+     "loc": "kitchen",
+     "serial": "H-883",
+     "owned_by": "tenant"
+    }
+   ]
+  },
+  "tenancy": {
+   "start_date": "2023-09-01",
+   "review_date": "2025-04-11"
+  },
+  "certificate": {
+   "inspection_date": "2024-06-10",
+   "issue_date": "2024-06-10",
+   "expiry_date": "2025-06-10",
+   "engineer_licence": "GS-205531",
+   "overall_outcome": "pass"
+  },
+  "appliance_checks": [
+   {
+    "appliance_id": "B1",
+    "loc": "utility",
+    "serial": "W20-5571",
+    "defect_class": "AR",
+    "analyser": {
+     "ratio": 0.004,
+     "threshold": 0.004,
+     "retest_ratio": null
+    },
+    "isolation": {
+     "supply_off": null,
+     "capped": true,
+     "label_code": "AR1",
+     "acknowledged_by_role": null
+    }
+   },
+   {
+    "appliance_id": "H1",
+    "loc": "kitchen",
+    "serial": "H-883",
+    "defect_class": null
+   }
+  ],
+  "engineer": {
+   "licence_no": "GS-205531",
+   "valid_from": "2023-01-01",
+   "valid_to": "2025-12-31",
+   "categories": [
+    "boiler",
+    "hob"
+   ]
+  },
+  "history": {
+   "prior_certificates": [
+    {
+     "date": "2023-06-08",
+     "defects": [
+      {
+       "id": "B1",
+       "class": "NCS"
+      }
+     ]
+    },
+    {
+     "date": "2022-06-05",
+     "defects": [
+      {
+       "id": "B1",
+       "class": "NCS"
+      }
+     ]
+    }
+   ],
+   "remedials": [
+    {
+     "appliance_id": "H1",
+     "completed_on": "2024-05-01",
+     "engineer_licence": "GS-205531"
+    }
+   ],
+   "renewal_booking": {
+    "date": "2025-05-20",
+    "status": "booked"
+   }
+  }
+ },
+ "factors": {
+  "inventory_mismatch": "serial_mismatch",
+  "tenant_owned_appliance": true,
+  "date_misalignment": "none",
+  "days_to_true_expiry": 60,
+  "renewal_booked": true,
+  "engineer_status": "active_matching",
+  "worst_defect_class": "AR",
+  "defect_isolated": false,
+  "remedial_completed": false,
+  "combustion_reading": "borderline",
+  "prior_defect_count": 2,
+  "boundary_case": true
+ },
+ "factors_sampled": {
+  "inventory_mismatch": "serial_mismatch",
+  "tenant_owned_appliance": true,
+  "date_misalignment": "none",
+  "days_to_true_expiry": -42,
+  "renewal_booked": true,
+  "engineer_status": "active_matching",
+  "worst_defect_class": "none",
+  "defect_isolated": false,
+  "remedial_completed": true,
+  "combustion_reading": "borderline",
+  "prior_defect_count": 2,
+  "boundary_case": true
+ },
+ "plan": {
+  "covers_all_appliances": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "engineer_valid": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "balanced",
+   "target": "accept",
+   "second": "accept_with_works"
+  },
+  "renewal_urgency": {
+   "clarity": "contested",
+   "target": "0",
+   "second": "1"
+  },
+  "open_hazard": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 83,
+ "deciding": {
+  "covers_all_appliances": "B1 serial W20-5517 in inventory vs W20-5571 in checks (two digits swapped, location matches); H1 is tenant-owned but certified.",
+  "engineer_valid": "Licence matches, registration 2023-01-01 to 2025-12-31 spans the inspection, and categories cover boiler and hob.",
+  "next_step": "Overall outcome pass and ratio equal to threshold; the open AR on B1 and the serial mismatch could argue for scheduled works.",
+  "renewal_urgency": "True expiry 2025-06-10 is exactly 60 days after review date 2025-04-11, on the boundary of levels 0 and 1; a renewal is booked.",
+  "open_hazard": "AR defect on B1: capped true and a label code, but supply_off is null and no acknowledgement is recorded, so isolation is unclear."
+ },
+ "request": "rec-F314-0026",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.013876
+}

@@ -1,0 +1,103 @@
+{
+ "id": "F340-0044",
+ "family": "F340",
+ "state": {
+  "booking": {
+   "checkin": "2026-07-14",
+   "checkout": "2026-07-18",
+   "owner_contact": {
+    "reachable_during_stay": true,
+    "confirm_call_done": false
+   }
+  },
+  "declaration": {
+   "weight_kg": 12.0,
+   "medications": []
+  },
+  "vaccination": {
+   "core_expiry": "2026-06-18",
+   "titre_result": null
+  },
+  "vet_history": {
+   "current_prescriptions": [
+    "ear drops, ends 2026-07-01"
+   ]
+  },
+  "arrival_check": {
+   "measured_weight_kg": 13.2,
+   "cough": false,
+   "prior_stay_incidents": 1
+  },
+  "intake_notes": [
+   "Owner says jabs are all up to date and can email the certificate today."
+  ]
+ },
+ "factors": {
+  "vacc_expiry_offset_days": -30,
+  "titre_exemption_on_file": false,
+  "certificate_id_mismatch": "none",
+  "arrival_cough_observed": false,
+  "cough_benign_explanation": "none",
+  "weight_discrepancy_pct": 10.0,
+  "medication_state": "in_vet_history_ended_before_checkin",
+  "next_dose_hours": "none",
+  "neuter_status_conflict": false,
+  "owner_reachable": true,
+  "prior_incident_count": 1,
+  "note_tone": "reassuring_unverified",
+  "balanced_signals": false
+ },
+ "factors_sampled": {
+  "vacc_expiry_offset_days": -30,
+  "titre_exemption_on_file": true,
+  "certificate_id_mismatch": "different_chip",
+  "arrival_cough_observed": false,
+  "cough_benign_explanation": "none",
+  "weight_discrepancy_pct": 19.08,
+  "medication_state": "in_vet_history_not_declared",
+  "next_dose_hours": 67,
+  "neuter_status_conflict": false,
+  "owner_reachable": true,
+  "prior_incident_count": 1,
+  "note_tone": "reassuring_unverified",
+  "balanced_signals": false
+ },
+ "plan": {
+  "vacc_cover_valid": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "declaration_consistent": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "admission_disposition": {
+   "clarity": "clear",
+   "target": "hold_pending",
+   "second": null
+  },
+  "discrepancy_count": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  },
+  "action_urgency": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 43,
+ "deciding": {
+  "vacc_cover_valid": "core_expiry 2026-06-18 is 30 days before checkout and titre_result is null; the owner's note is unverified.",
+  "declaration_consistent": "Weight gap is exactly 10 percent and the vet's ear drops ended before check-in, so the empty medication list is arguably fine; an undeclared prescription still leaves doubt.",
+  "admission_disposition": "Lapsed cover is the single outstanding item and reachable_during_stay is true with confirm_call_done false, so the dog waits for the owner's confirmation.",
+  "discrepancy_count": "The lapsed expiry against checkout and the undeclared ear drops are firm; the 10 percent weight gap and the unverified note are borderline, giving either two to three or four.",
+  "action_urgency": "Dog waits at reception for a certificate, which suggests action before leaving reception, but the owner says it can be emailed today, which suggests end of arrival day."
+ },
+ "request": "rec-F340-0041",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012324
+}

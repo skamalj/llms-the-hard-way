@@ -1,0 +1,124 @@
+{
+ "id": "F338-0026",
+ "family": "F338",
+ "state": {
+  "site": {
+   "pollutant": "O3",
+   "tier": "standard",
+   "service_interval_days": 30
+  },
+  "visit": {
+   "date": "2024-05-14",
+   "start": "09:00",
+   "end": "11:00",
+   "sequence_status": "complete"
+  },
+  "reference": {
+   "standard_id": "CY-4417",
+   "unit": "ppb",
+   "cert_expiry": "2024-11-07"
+  },
+  "checks": [
+   {
+    "type": "as_found",
+    "ref_id": "CY-4417",
+    "ref_conc": 80,
+    "unit": "nmol/mol",
+    "reading": 64.8,
+    "tol": 4,
+    "ts": "2024-05-14T09:10"
+   },
+   {
+    "type": "as_left",
+    "ref_id": "CY-4417",
+    "ref_conc": 80,
+    "unit": "nmol/mol",
+    "reading": 80.4,
+    "tol": 4,
+    "ts": "2024-05-14T11:12"
+   }
+  ],
+  "history": {
+   "last_visit_date": "2024-04-17",
+   "results": [
+    "pass",
+    "fail",
+    "pass"
+   ],
+   "autochecks": [
+    {
+     "d": "2024-05-10",
+     "r": "pass"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "pollutant": "O3",
+  "as_found_ratio": 0.81,
+  "as_left_status": "all_pass",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 176,
+  "unit_mismatch": true,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "none",
+  "days_since_last_visit": 27,
+  "visit_completeness": "complete",
+  "prior_fail_count": 1,
+  "timestamp_mismatch": "minutes_outside",
+  "site_priority": "standard"
+ },
+ "factors_sampled": {
+  "pollutant": "O3",
+  "as_found_ratio": 0.81,
+  "as_left_status": "all_pass",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 176,
+  "unit_mismatch": true,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "none",
+  "days_since_last_visit": 27,
+  "visit_completeness": "complete",
+  "prior_fail_count": 1,
+  "timestamp_mismatch": "minutes_outside",
+  "site_priority": "standard"
+ },
+ "plan": {
+  "data_accepted": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "reference_valid": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "close_flagged",
+   "second": null
+  },
+  "flag_extent": {
+   "clarity": "clear",
+   "target": "1",
+   "second": null
+  },
+  "return_urgency": {
+   "clarity": "contested",
+   "target": "4",
+   "second": "3"
+  }
+ },
+ "target_words": 53,
+ "deciding": {
+  "data_accepted": "As-found 64.8 vs 80 with tol 4 is a 15 ppb miss, but as-left passes and autochecks pass; the as-found drift needs flagging, so data cannot be accepted unchanged... however the plan leans on autochecks passing to the visit.",
+  "reference_valid": "Check unit nmol/mol differs from reference unit ppb while ref_conc is unconverted; IDs and expiry are fine.",
+  "next_step": "As-left passes, as-found out of tolerance, so close with flagging; unit doubt leaves some uncertainty.",
+  "flag_extent": "Passing autochecks run to just before the visit, so only the last few days need flagging (1-7 days).",
+  "return_urgency": "Checks ts 11:12 falls after visit end 11:00 and unit mismatch on the reference; a same-day versus 1-2 day return is arguable."
+ },
+ "request": "rec-F338-0026",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.005676
+}

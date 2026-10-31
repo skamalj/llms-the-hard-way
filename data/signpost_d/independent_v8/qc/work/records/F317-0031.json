@@ -1,0 +1,130 @@
+{
+ "id": "F317-0031",
+ "family": "F317",
+ "state": {
+  "vehicle": {
+   "fleet_no": "T2114",
+   "odometer_km": 50403
+  },
+  "exam": {
+   "due_at_km": 50200,
+   "items": [
+    {
+     "c": "B1",
+     "signed_by": "u4",
+     "signed_at": "2024-06-01T06:00"
+    },
+    {
+     "c": "B2",
+     "signed_by": "u4",
+     "signed_at": "2024-06-01T06:20"
+    },
+    {
+     "c": "D1",
+     "result": "ok",
+     "signed_by": null,
+     "signed_at": null
+    },
+    {
+     "c": "E1",
+     "result": "ok",
+     "signed_by": null,
+     "signed_at": null
+    },
+    {
+     "c": "G2",
+     "signed_by": null,
+     "signed_at": null
+    }
+   ]
+  },
+  "defects": [
+   {
+    "defect_id": "D81",
+    "subsystem": "saloon_doors",
+    "safety_critical": true,
+    "status": "closed",
+    "closed_at": "2024-05-30",
+    "retest_at": null,
+    "retest_result": null
+   }
+  ],
+  "release": {
+   "duty_type": "peak_diagram",
+   "depart_at": "2024-06-02T06:30",
+   "odo_reading_km": 50403,
+   "brake_test_at": "2024-06-02T05:50",
+   "brake_test_result": "pass"
+  }
+ },
+ "factors": {
+  "km_to_exam_due": -203,
+  "odometer_disagreement": "none",
+  "exam_signed_fraction": 0.4,
+  "exam_record_missing": false,
+  "worst_defect_subsystem": "none",
+  "worst_defect_state": "closed_no_retest",
+  "worst_defect_safety_critical": true,
+  "retest_out_of_order": false,
+  "concession_present": false,
+  "concession_flaw": "none",
+  "wo_crossref_mismatch": "none",
+  "planned_duty_type": "peak_diagram",
+  "recent_brake_test_pass": true,
+  "balanced_signals": false
+ },
+ "factors_sampled": {
+  "km_to_exam_due": 895,
+  "odometer_disagreement": "none",
+  "exam_signed_fraction": 1.0,
+  "exam_record_missing": false,
+  "worst_defect_subsystem": "none",
+  "worst_defect_state": "closed_no_retest",
+  "worst_defect_safety_critical": true,
+  "retest_out_of_order": false,
+  "concession_present": false,
+  "concession_flaw": "none",
+  "wo_crossref_mismatch": "none",
+  "planned_duty_type": "peak_diagram",
+  "recent_brake_test_pass": true,
+  "balanced_signals": false
+ },
+ "plan": {
+  "sc_defects_cleared": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "release_decision": {
+   "clarity": "clear",
+   "target": "hold",
+   "second": null
+  },
+  "worst_subsystem": {
+   "clarity": "clear",
+   "target": "none",
+   "second": null
+  },
+  "exam_completion": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  },
+  "exam_mileage": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 58,
+ "deciding": {
+  "sc_defects_cleared": "Safety-critical door defect D81 is closed but retest_at and retest_result are null, so closure is unconfirmed; closed status keeps the true reading plausible.",
+  "release_decision": "Only one missing confirmation (retest of D81) with a recent passed brake test and no open defects: hold until the retest is recorded.",
+  "worst_subsystem": "The only defect is closed; nothing is open, so none.",
+  "exam_completion": "2 of 5 items have signed_by and signed_at; two others have results but null signatures, so fewer than half are signed.",
+  "exam_mileage": "Odometer 50403 against due_at_km 50200 is 203 km past due, just over the 200 km boundary between levels 2 and 3."
+ },
+ "request": "rec-F317-0031",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.010782
+}

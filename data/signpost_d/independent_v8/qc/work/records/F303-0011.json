@@ -1,0 +1,164 @@
+{
+ "id": "F303-0011",
+ "family": "F303",
+ "state": {
+  "order": {
+   "id": "O-4417",
+   "prescription": {
+    "modality": "concentrator",
+    "flow_lpm": 2,
+    "hours_per_day": 8,
+    "rx_expiry": "2026-03-01"
+   },
+   "items_ordered": [
+    {
+     "sku": "CONC5",
+     "qty": 1
+    },
+    {
+     "sku": "HX2300",
+     "qty": 2
+    }
+   ]
+  },
+  "visit": {
+   "visit_date": "2025-05-12",
+   "arrived_at": "09:10",
+   "departed_at": "10:05",
+   "items_left": [
+    {
+     "sku": "CONC5",
+     "qty": 1,
+     "serial": "C881"
+    },
+    {
+     "sku": "HX2300",
+     "qty": 2,
+     "serial": "H12"
+    }
+   ],
+   "install_checks": {
+    "flow_verified": true,
+    "alarm_tested": true,
+    "training_given": true,
+    "completed_at": "09:58"
+   },
+   "patient_signature": "on_file",
+   "handover_at": "10:02"
+  },
+  "site_assessment": {
+   "hazards": [
+    {
+     "code": "SMOKING",
+     "status": "open",
+     "fix": null
+    },
+    {
+     "code": "GAS_HOB",
+     "status": "open",
+     "fix": null
+    },
+    {
+     "code": "NO_ALARM",
+     "status": "open",
+     "fix": null
+    },
+    {
+     "code": "HEATER",
+     "status": "resolved_on_visit",
+     "fix": null
+    }
+   ]
+  },
+  "equipment": {
+   "concentrator": {
+    "serial": "C881",
+    "flow_setting_lpm": 2.5
+   },
+   "fault_log": [],
+   "cylinders_on_site": [
+    {
+     "size": "HX 2300 L",
+     "fill_pct": 100
+    },
+    {
+     "size": "HX 2300 L",
+     "fill_pct": 100
+    }
+   ]
+  },
+  "supply_plan": {
+   "next_delivery_date": "2025-05-16"
+  }
+ },
+ "factors": {
+  "rx_alignment": "flow_setting_slightly_off",
+  "items_shortfall": "none",
+  "setup_state": "all_logged",
+  "supply_hours": 105.36,
+  "concentrator_fault": false,
+  "fault_mitigated": false,
+  "hazards_found": 4,
+  "hazard_mitigation": false,
+  "hazard_status_missing": false,
+  "handover_gap": false,
+  "timeline_out_of_order": false,
+  "next_delivery": "booked_in_time",
+  "dependency_level": "nocturnal",
+  "billing_hold": false
+ },
+ "factors_sampled": {
+  "rx_alignment": "modality_mismatch",
+  "items_shortfall": "several_short",
+  "setup_state": "checks_null",
+  "supply_hours": 105.36,
+  "concentrator_fault": false,
+  "fault_mitigated": false,
+  "hazards_found": 2,
+  "hazard_mitigation": false,
+  "hazard_status_missing": false,
+  "handover_gap": true,
+  "timeline_out_of_order": true,
+  "next_delivery": "booked_in_time",
+  "dependency_level": "nocturnal",
+  "billing_hold": false
+ },
+ "plan": {
+  "rx_match": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "close_record",
+   "second": null
+  },
+  "fulfilment": {
+   "clarity": "leaning",
+   "target": "fully_complete",
+   "second": null
+  },
+  "supply_runway": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "open_hazards": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "4"
+  }
+ },
+ "target_words": 89,
+ "deciding": {
+  "rx_match": "Concentrator left matches the modality, but flow_setting_lpm 2.5 is above the prescribed 2, so a match is arguable either way.",
+  "next_step": "All items left, checks complete, signature and handover time present, next delivery booked, so filing is favoured. Open hazards leave slight doubt.",
+  "fulfilment": "items_left equals items_ordered and all three install checks are true with a completed_at time.",
+  "supply_runway": "A verified concentrator would give level 3, but the two HX 2300 cylinders alone give about 4.8 days at 2 lpm for 8 h a day, which is level 2.",
+  "open_hazards": "Three hazards are open. HEATER is resolved_on_visit but its fix is null, so it could count as a fourth."
+ },
+ "request": "rec-F303-0011",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.014864
+}

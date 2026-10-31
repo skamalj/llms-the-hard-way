@@ -1,0 +1,165 @@
+{
+ "id": "F328-0050",
+ "family": "F328",
+ "state": {
+  "report_meta": {
+   "id": "W20-230",
+   "reg": "BD66",
+   "driver_id": "D52"
+  },
+  "vehicle_device": {
+   "health_flags": [
+    "gps_drift"
+   ],
+   "odo": [
+    90000,
+    90450.3
+   ]
+  },
+  "trips": [
+   {
+    "s": "2024-05-16T05:30",
+    "e": "08:00",
+    "card": "D52",
+    "km": 150
+   },
+   {
+    "s": "08:02",
+    "e": "10:05",
+    "card": "D52",
+    "km": 120
+   },
+   {
+    "s": "11:00",
+    "e": "13:10",
+    "card": "D77",
+    "km": 130
+   }
+  ],
+  "events": [
+   {
+    "t": "2024-05-16T11:40",
+    "type": "speed",
+    "mph": 75,
+    "lim": 60,
+    "seg": "A38",
+    "map": "v2"
+   },
+   {
+    "t": "12:00",
+    "type": "harsh_brake"
+   },
+   {
+    "t": "12:30",
+    "type": "speed",
+    "mph": 66.3,
+    "lim": 60,
+    "seg": "M5",
+    "map": "v6"
+   }
+  ],
+  "tacho_summary": {
+   "entries": [
+    {
+     "card": "D52",
+     "drive": [
+      "05:30",
+      "10:05"
+     ],
+     "breaks": []
+    },
+    {
+     "card": "D77",
+     "drive": [
+      "11:00",
+      "13:10"
+     ]
+    }
+   ]
+  },
+  "notes_history": {
+   "coaching": [
+    {
+     "topic": "driving_hours",
+     "status": "completed",
+     "date": "2024-02-20"
+    }
+   ],
+   "limit_updates": [
+    {
+     "seg": "A38",
+     "limit_mph": 70,
+     "eff": "2024-05-10"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "driver_assignment": "mismatch_unexplained",
+  "raw_speed_excess_pct": 25.0,
+  "speed_mitigation": "map_limit_outdated",
+  "harsh_event_count": 1,
+  "harsh_context_logged": false,
+  "device_health": "gps_drift",
+  "telematics_stint_hours": 4.58,
+  "tacho_break_reconciles": false,
+  "prior_coaching_count": 1,
+  "coaching_status": "completed",
+  "boundary_value": false,
+  "note_content": "none",
+  "distance_discrepancy_pct": 12.57
+ },
+ "factors_sampled": {
+  "driver_assignment": "match",
+  "raw_speed_excess_pct": 25.27,
+  "speed_mitigation": "emergency_diversion_logged",
+  "harsh_event_count": 8,
+  "harsh_context_logged": false,
+  "device_health": "gps_drift",
+  "telematics_stint_hours": 3.24,
+  "tacho_break_reconciles": false,
+  "prior_coaching_count": 3,
+  "coaching_status": "completed",
+  "boundary_value": false,
+  "note_content": "none",
+  "distance_discrepancy_pct": 12.57
+ },
+ "plan": {
+  "driver_attributed": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "follow_up": {
+   "clarity": "leaning",
+   "target": "formal_review",
+   "second": null
+  },
+  "worst_event_cause": {
+   "clarity": "clear",
+   "target": "map_data",
+   "second": null
+  },
+  "speed_excess": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  },
+  "hours_exposure": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  }
+ },
+ "target_words": 73,
+ "deciding": {
+  "driver_attributed": "Both speed events are on the 11:00-13:10 trip with card D77 and a tacho D77 entry, with no swap logged, while the reported driver is D52.",
+  "follow_up": "Driving-hours breach of about 4.6 h without a break on D52's own trips follows completed driving_hours coaching dated 2024-02-20, pointing to formal review; the stint is only just over 4.5 h.",
+  "worst_event_cause": "The 75 mph event on A38 uses map v2 while limit_updates holds a newer 70 limit effective 2024-05-10, before the event.",
+  "speed_excess": "The 75 event is only about 7% over the newer limit of 70, and the unmitigated 66.3 against 60 is 10.5% over, close to the 10% boundary, with GPS drift flagged.",
+  "hours_exposure": "D52's trips 05:30-08:00 and 08:02-10:05 with a 2 min stop and no tacho break give about 4.6 h, just over 4.5 h, with GPS drift and an odometer gap adding doubt."
+ },
+ "request": "rec-F328-0046",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.021983
+}

@@ -1,0 +1,129 @@
+{
+ "id": "F321-0040",
+ "family": "F321",
+ "state": {
+  "permit": {
+   "window_start": "2025-02-03T08:00",
+   "window_end": "2025-02-03T16:00",
+   "scoped_tasks": [
+    {
+     "task_code": "ANT-ALN-01",
+     "equipment_ref": "A3"
+    },
+    {
+     "task_code": "CAB-INS-02",
+     "equipment_ref": "C4"
+    },
+    {
+     "task_code": "GND-TST-03",
+     "equipment_ref": "G6"
+    }
+   ]
+  },
+  "attendance": [
+   {
+    "badge_id": "B6",
+    "event": "in",
+    "ts": "2025-02-03T08:10"
+   }
+  ],
+  "personnel": [
+   {
+    "badge_id": "B6",
+    "height_cert_expiry": "2026-01-15"
+   }
+  ],
+  "works": [
+   {
+    "task_code": "ANT-ALN-01",
+    "equipment_ref": "A3",
+    "status": "complete"
+   },
+   {
+    "task_code": "CAB-INS-02",
+    "equipment_ref": "C4",
+    "status": "in_progress"
+   },
+   {
+    "task_code": "RRU-SWP-09",
+    "equipment_ref": "R9",
+    "status": "in_progress"
+   }
+  ],
+  "closeout": {
+   "signout_at": null,
+   "key_status": "returned",
+   "photos_required": 6,
+   "photos_uploaded": 5,
+   "variation_ref": null,
+   "submitted_at": "2025-03-02T09:00",
+   "pulled_at": "2025-04-01T09:00"
+  }
+ },
+ "factors": {
+  "scope_mismatch": "extra_task",
+  "window_deviation": "within",
+  "cert_status": "all_valid",
+  "scoped_task_count": 3,
+  "completion_fraction": 0.33,
+  "signout_missing": true,
+  "key_return": "returned",
+  "photo_shortfall": 1,
+  "badge_id_mismatch": false,
+  "variation_approved": false,
+  "landlord_notice": "not_required",
+  "weather_hold_logged": false
+ },
+ "factors_sampled": {
+  "scope_mismatch": "trivial_code_variant",
+  "window_deviation": "within",
+  "cert_status": "expired_before_visit",
+  "scoped_task_count": 2,
+  "completion_fraction": 0.28,
+  "signout_missing": true,
+  "key_return": "returned",
+  "photo_shortfall": -1,
+  "badge_id_mismatch": false,
+  "variation_approved": true,
+  "landlord_notice": "not_required",
+  "weather_hold_logged": false
+ },
+ "plan": {
+  "within_scope": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "certs_in_date": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "closeout_action": {
+   "clarity": "leaning",
+   "target": "book_revisit",
+   "second": null
+  },
+  "scope_completion": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  },
+  "pending_age": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 39,
+ "deciding": {
+  "within_scope": "RRU-SWP-09/R9 was logged but is not on the permit, and variation_ref is null.",
+  "certs_in_date": "height_cert_expiry 2026-01-15 is well after the visit date 2025-02-03.",
+  "closeout_action": "CAB-INS-02 and GND-TST-03 were left unfinished, pointing to revisit; the unpermitted task and null signout_at add doubt.",
+  "scope_completion": "Only ANT-ALN-01 of three scoped tasks is complete, under half; GND-TST-03 has no works entry.",
+  "pending_age": "submitted_at 2025-03-02 against pulled_at 2025-04-01 is 30 days, on the boundary of levels 2 and 3."
+ },
+ "request": "rec-F321-0036",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.010168
+}

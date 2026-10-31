@@ -1,0 +1,138 @@
+{
+ "id": "F328-0032",
+ "family": "F328",
+ "state": {
+  "report_meta": {
+   "driver_id": "D4410",
+   "vehicle": "LM70 BDE"
+  },
+  "vehicle_device": {
+   "health_flags": [
+    "gps_drift"
+   ],
+   "odo_km": [
+    5000,
+    5155
+   ]
+  },
+  "trips": [
+   {
+    "start": "2025-06-11T07:00",
+    "end": "2025-06-11T09:57",
+    "gps_km": 130,
+    "driver_card": null
+   }
+  ],
+  "events": [
+   {
+    "time": "2025-06-11T08:20",
+    "type": "speed",
+    "recorded_mph": 55,
+    "posted_limit_mph": 48,
+    "map_ver": "23.1",
+    "seg": "B6-04"
+   },
+   {
+    "type": "harsh",
+    "ctx": "congestion",
+    "times": [
+     "07:10",
+     "07:25",
+     "07:40",
+     "07:55",
+     "08:05",
+     "08:30",
+     "08:45",
+     "09:05",
+     "09:20"
+    ]
+   }
+  ],
+  "tacho_summary": {
+   "D4410": [
+    {
+     "drive": "07:00/10:00"
+    }
+   ]
+  },
+  "notes_history": {
+   "supervisor_note": "Planner believes a relief driver covered Wednesday.",
+   "coaching": [],
+   "limit_updates": [
+    {
+     "seg": "B6-04",
+     "limit": 44,
+     "date": "2025-05-20"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "driver_assignment": "card_missing",
+  "raw_speed_excess_pct": 14.6,
+  "speed_mitigation": "map_limit_outdated",
+  "harsh_event_count": 9,
+  "harsh_context_logged": true,
+  "device_health": "gps_drift",
+  "telematics_stint_hours": 2.95,
+  "tacho_break_reconciles": false,
+  "prior_coaching_count": 0,
+  "coaching_status": "none",
+  "boundary_value": false,
+  "note_content": "unverified_claim",
+  "distance_discrepancy_pct": 19.23
+ },
+ "factors_sampled": {
+  "driver_assignment": "card_missing",
+  "raw_speed_excess_pct": 14.39,
+  "speed_mitigation": "emergency_diversion_logged",
+  "harsh_event_count": 9,
+  "harsh_context_logged": true,
+  "device_health": "gps_drift",
+  "telematics_stint_hours": 2.4,
+  "tacho_break_reconciles": true,
+  "prior_coaching_count": 2,
+  "coaching_status": "none",
+  "boundary_value": false,
+  "note_content": "unverified_claim",
+  "distance_discrepancy_pct": 19.23
+ },
+ "plan": {
+  "driver_attributed": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "follow_up": {
+   "clarity": "balanced",
+   "target": "hold_verify",
+   "second": "coaching"
+  },
+  "worst_event_cause": {
+   "clarity": "clear",
+   "target": "map_data",
+   "second": null
+  },
+  "speed_excess": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  },
+  "hours_exposure": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  }
+ },
+ "target_words": 43,
+ "deciding": {
+  "driver_attributed": "Trip driver_card is null, but the tacho shows D4410 driving 07:00-10:00 across the 08:20 event; the planner's relief-driver claim has no supporting entry.",
+  "follow_up": "The speed breach is real but rests on card attribution that is unconfirmed and on a gps_drift unit with a 19% km gap, so verifying and coaching are both defensible.",
+  "worst_event_cause": "Event map_ver 23.1 with limit 48, while limit_updates for B6-04 holds a newer limit of 44 dated 2025-05-20.",
+  "speed_excess": "55 against 48 is 14.6% over, and against the newer limit of 44 it is 25%; gps_drift gives some doubt on the reading.",
+  "hours_exposure": "Trip 07:00-09:57 and tacho drive 07:00-10:00 give a stint of about 2.95 h, right at the 3 h anchor."
+ },
+ "request": "rec-F328-0031",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.019571
+}

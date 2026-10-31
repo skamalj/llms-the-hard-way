@@ -1,0 +1,143 @@
+{
+ "id": "F305-0011",
+ "family": "F305",
+ "state": {
+  "session": {
+   "id": "S-4412",
+   "chair": 3,
+   "date": "2025-03-03",
+   "needle_on": "2025-03-03T08:00",
+   "washback": "2025-03-03T12:07",
+   "review_ts": "2025-04-02T13:30"
+  },
+  "prescription": {
+   "duration_min": 240,
+   "qb": 300,
+   "target_uf_ml": 2600
+  },
+  "machine": {
+   "qb": 300,
+   "uf_removed_ml": 2800,
+   "washback_ml": 250,
+   "alarms": [
+    {
+     "event": "PUMP_STOP",
+     "t": "2025-03-03T09:30"
+    },
+    {
+     "event": "PUMP_RESUME",
+     "t": "2025-03-03T09:53"
+    }
+   ]
+  },
+  "observations": {
+   "pre_kg": 78.4,
+   "post_kg": 76.35,
+   "bp": [
+    [
+     "08:00",
+     134
+    ],
+    [
+     "10:00",
+     118
+    ]
+   ],
+   "interventions": []
+  },
+  "checks": [
+   {
+    "code": "machine_alarm_test",
+    "done": true,
+    "t": "2025-03-03T07:32"
+   },
+   {
+    "code": "dialysate_conductivity",
+    "done": true,
+    "t": "2025-03-03T07:40"
+   }
+  ],
+  "history": [
+   {
+    "d": "2025-02-28",
+    "presc_min": 240,
+    "eff_min": 240,
+    "post_kg": 76.3
+   },
+   {
+    "d": "2025-02-26",
+    "presc_min": 240,
+    "eff_min": 218,
+    "post_kg": 76.5
+   }
+  ]
+ },
+ "factors": {
+  "time_shortfall_min": 16,
+  "machine_pause_min": 23,
+  "uf_weight_gap_kg": 0.5,
+  "post_weight_missing": false,
+  "missing_check": "water_chlorine_test",
+  "check_logged_after_start": false,
+  "prescription_mismatch": "none",
+  "mismatch_magnitude": "trivial",
+  "hypotension_episodes": 0,
+  "hypotension_mitigated": false,
+  "circuit_clotted": false,
+  "prior_short_sessions": 1,
+  "documented_flow_reduction": false
+ },
+ "factors_sampled": {
+  "time_shortfall_min": 1,
+  "machine_pause_min": 23,
+  "uf_weight_gap_kg": 0.95,
+  "post_weight_missing": false,
+  "missing_check": "water_chlorine_test",
+  "check_logged_after_start": false,
+  "prescription_mismatch": "none",
+  "mismatch_magnitude": "trivial",
+  "hypotension_episodes": 0,
+  "hypotension_mitigated": false,
+  "circuit_clotted": false,
+  "prior_short_sessions": 1,
+  "documented_flow_reduction": false
+ },
+ "plan": {
+  "uf_reconciles": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "checks_before_start": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "log_disposition": {
+   "clarity": "contested",
+   "target": "hold_query",
+   "second": "sign_off"
+  },
+  "time_shortfall": {
+   "clarity": "contested",
+   "target": "2",
+   "second": "1"
+  },
+  "pending_age": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 115,
+ "deciding": {
+  "uf_reconciles": "Net UF 2800-250=2550 ml against weight change 78.4-76.35=2.05 kg gives a gap of about 0.50 kg, right at the limit.",
+  "checks_before_start": "The checks list has only alarm test and conductivity; there is no water_chlorine_test entry, so not all mandatory checks are documented.",
+  "log_disposition": "The single missing chlorine check points to hold_query, while the UF gap at the limit and an otherwise clean log leave sign_off defensible.",
+  "time_shortfall": "Clock time 08:00-12:07 is 247 min minus a 23 min pump pause gives 224 effective vs 240 prescribed, a 16 min shortfall at the level 1/2 boundary.",
+  "pending_age": "Washback 2025-03-03T12:07 against review_ts 2025-04-02T13:30 is just over 30 days, at the level 2/3 boundary."
+ },
+ "request": "rec-F305-0011",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.015305
+}

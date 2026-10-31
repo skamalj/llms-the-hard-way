@@ -1,0 +1,161 @@
+{
+ "id": "F333-0040",
+ "family": "F333",
+ "state": {
+  "room": {
+   "room_id": "E212",
+   "block": "E",
+   "room_type": "study",
+   "next_occupancy_date": "2024-09-01",
+   "rate_card_ref": "RC24"
+  },
+  "tenancy": {
+   "start_date": "2023-10-01",
+   "end_date": "2024-06-30",
+   "deposit_held": 500,
+   "deposit_dispute_lodged": true
+  },
+  "checkin_inventory": {
+   "signed_date": "2023-09-29",
+   "signed_by_resident": true,
+   "items": [
+    {
+     "item_code": "CARPET",
+     "location": "floor",
+     "grade": "fair"
+    },
+    {
+     "item_code": "CHAIR",
+     "location": "desk",
+     "grade": "good"
+    },
+    {
+     "item_code": "SHOWER_SCR",
+     "location": "bathroom",
+     "grade": "fair"
+    }
+   ]
+  },
+  "checkout_inspection": {
+   "inspection_type": "pre_arrival",
+   "inspection_date": "2024-08-20",
+   "inspector_id": "I2",
+   "items": [
+    {
+     "item_code": "CARPET",
+     "location": "floor",
+     "grade": "fair",
+     "defect_category": "stain",
+     "photo_refs": [
+      "p1"
+     ]
+    },
+    {
+     "item_code": "CHAIR",
+     "location": "desk",
+     "grade": "good",
+     "defect_category": "scuff",
+     "photo_refs": [
+      "p2"
+     ]
+    },
+    {
+     "item_code": "SHOWER_SCR",
+     "location": "bathroom",
+     "grade": "fair",
+     "defect_category": "broken_fitting",
+     "photo_refs": []
+    }
+   ]
+  },
+  "proposed_charges": {
+   "lines": [
+    {
+     "item_code": "CARPET",
+     "reason_code": "DMG",
+     "qty": 1,
+     "unit_rate": 60,
+     "line_total": 60
+    },
+    {
+     "item_code": "CHAIR",
+     "reason_code": "DMG",
+     "qty": 1,
+     "unit_rate": 41,
+     "line_total": 41
+    }
+   ],
+   "summary_total": 101,
+   "rate_card_ref": "RC24"
+  },
+  "works_orders": []
+ },
+ "factors": {
+  "inspection_type": "pre_arrival",
+  "checkin_inventory_state": "complete",
+  "prior_damage_on_charged_item": "one",
+  "charge_discrepancy": "line for item graded good at checkout",
+  "worst_defect_tier": "functional",
+  "true_cause": "no_defect",
+  "predating_works_order": false,
+  "safety_fault_remedied": false,
+  "photo_coverage": "all_but_one",
+  "tenancy_months": 9,
+  "date_out_of_order": false,
+  "deposit_dispute_lodged": true,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "inspection_type": "pre_arrival",
+  "checkin_inventory_state": "complete",
+  "prior_damage_on_charged_item": "two_or_more",
+  "charge_discrepancy": "small_under_25",
+  "worst_defect_tier": "functional",
+  "true_cause": "resident_damage",
+  "predating_works_order": false,
+  "safety_fault_remedied": false,
+  "photo_coverage": "all_but_one",
+  "tenancy_months": 9,
+  "date_out_of_order": false,
+  "deposit_dispute_lodged": true,
+  "boundary_case": false
+ },
+ "plan": {
+  "checkin_clean": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "disposition": {
+   "clarity": "clear",
+   "target": "adjust_and_approve",
+   "second": null
+  },
+  "main_cause": {
+   "clarity": "contested",
+   "target": "no_defect",
+   "second": "prior_occupant"
+  },
+  "defect_severity": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  },
+  "charge_gap": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 64,
+ "deciding": {
+  "checkin_clean": "CHAIR was good at check-in, but CARPET was graded fair, which arguably still counts as undamaged.",
+  "disposition": "The summary of 101 adds up, but the lines are unsupported: CHAIR is good at checkout and CARPET is unchanged. Removing them is correctable from the record, and the single missing photo is on an uncharged item.",
+  "main_cause": "Checkout grades equal check-in for all items, though CARPET was already fair at check-in, which could be read as a prior-occupant issue.",
+  "defect_severity": "The worst defect is broken_fitting on SHOWER_SCR in the bathroom at an unchanged grade. The room is usable, but a shower fitting might stop normal use, so levels 1 and 2 are both plausible.",
+  "charge_gap": "Proposed total 101 against nothing evidenced puts the gap just above the 100 boundary."
+ },
+ "request": "rec-F333-0036",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.014474
+}

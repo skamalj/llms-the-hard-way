@@ -1,0 +1,158 @@
+{
+ "id": "F318-0007",
+ "family": "F318",
+ "state": {
+  "work_order": {
+   "tasks": [
+    {
+     "task_id": "T1",
+     "asset_ref": "G1"
+    },
+    {
+     "task_id": "T2",
+     "asset_ref": "G1"
+    },
+    {
+     "task_id": "T3",
+     "asset_ref": "G1"
+    }
+   ],
+   "nav_notice": {
+    "in_force": true,
+    "to": "2025-07-01",
+    "scope_assets": [
+     "G1"
+    ]
+   }
+  },
+  "visit_log": {
+   "arrived": "2025-06-12T09:00",
+   "departed": "2025-06-12T12:00",
+   "crew_size": 2,
+   "timesheet_hours": 3.58,
+   "task_status": [
+    {
+     "task_id": "T1",
+     "status": "deferred",
+     "deferral_ref": "D-81",
+     "deferral_due": "2025-09-01"
+    },
+    {
+     "task_id": "T2",
+     "status": "deferred",
+     "deferral_ref": "D-81",
+     "deferral_due": "2025-09-01"
+    },
+    {
+     "task_id": "T3",
+     "status": "deferred",
+     "deferral_ref": "D-81",
+     "deferral_due": "2025-09-01"
+    }
+   ]
+  },
+  "materials": {
+   "issued": [
+    {
+     "part_no": "P12",
+     "task_id": "T1",
+     "qty": 6
+    }
+   ],
+   "returned": [],
+   "fitted": []
+  },
+  "checks": {
+   "post_checks": [
+    {
+     "asset_ref": "G1",
+     "result": "pass",
+     "checked_at": "2025-06-12T11:45"
+    }
+   ],
+   "leakage_ls": 9.4,
+   "leakage_limit_ls": 5,
+   "river_level_m": 2.3,
+   "flood_marker_m": 2.0,
+   "gauge_cal_due": "2025-11-01"
+  },
+  "asset_history": {
+   "prior_visits": [
+    {
+     "date": "2025-01-09",
+     "asset_ref": "G1",
+     "defect_code": "LEAK"
+    }
+   ],
+   "open_defects": []
+  }
+ },
+ "factors": {
+  "visit_type": "reactive_callout",
+  "tasks_ordered": 3,
+  "completion_state": "none_done",
+  "parts_qty_mismatch": "large",
+  "hours_gap": 2.42,
+  "asset_ref_mismatch": false,
+  "post_check_result": "passed",
+  "leakage_ratio": 1.88,
+  "leakage_mitigation": true,
+  "navigation_notice_in_force": true,
+  "deferral_approved": true,
+  "prior_same_defect": 1,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "visit_type": "reactive_callout",
+  "tasks_ordered": 3,
+  "completion_state": "none_done",
+  "parts_qty_mismatch": "large",
+  "hours_gap": 2.42,
+  "asset_ref_mismatch": false,
+  "post_check_result": "passed",
+  "leakage_ratio": 1.88,
+  "leakage_mitigation": true,
+  "navigation_notice_in_force": true,
+  "deferral_approved": true,
+  "prior_same_defect": 1,
+  "boundary_case": false
+ },
+ "plan": {
+  "safe_to_reopen": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "record_disposition": {
+   "clarity": "clear",
+   "target": "close_with_followup",
+   "second": null
+  },
+  "return_urgency": {
+   "clarity": "balanced",
+   "target": "next_scheduled",
+   "second": "immediate"
+  },
+  "affected_scope": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "section_mismatches": {
+   "clarity": "clear",
+   "target": "2",
+   "second": null
+  }
+ },
+ "target_words": 29,
+ "deciding": {
+  "safe_to_reopen": "G1 check passes and leakage 9.4 vs limit 5 is mitigated by river 2.3 above flood marker 2.0, but all three tasks are deferred and the nav notice covering G1 runs to 2025-07-01.",
+  "record_disposition": "All tasks carry deferral_ref D-81 with due date 2025-09-01, so the deferral is explained; close with a follow-up job.",
+  "return_urgency": "Deferral due 2025-09-01 and a passing check support the scheduled cycle, but leakage is 1.88 times the limit with no work done, which makes immediate arguable.",
+  "affected_scope": "Single asset G1 in the nav notice; whether boat traffic through the lock counts as a second unit is open.",
+  "section_mismatches": "Timesheet 3.58 vs 6 span-hours (gap 2.42) and P12 issued 6, returned 0, fitted none; the deferrals have refs, and the asset refs and check agree."
+ },
+ "request": "rec-F318-0006",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.015671
+}

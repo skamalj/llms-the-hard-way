@@ -1,0 +1,135 @@
+{
+ "id": "F317-0055",
+ "family": "F317",
+ "state": {
+  "vehicle": {
+   "fleet_no": 5202,
+   "odometer_km": 39995
+  },
+  "exam": {
+   "due_at_km": 40000,
+   "items": [
+    {
+     "item_code": "H1",
+     "result": "pass",
+     "signed_by": null,
+     "signed_at": null
+    },
+    {
+     "item_code": "H2",
+     "result": "pass",
+     "signed_by": "r6",
+     "signed_at": null
+    },
+    {
+     "item_code": "H3",
+     "result": null,
+     "signed_by": null,
+     "signed_at": null
+    }
+   ]
+  },
+  "defects": [
+   {
+    "defect_id": "D40",
+    "subsystem": "saloon_doors",
+    "safety_critical": true,
+    "status": "closed",
+    "retest_at": "2024-06-02",
+    "retest_result": "pass"
+   }
+  ],
+  "work_orders": [
+   {
+    "defect_ref": "D40",
+    "subsystem": "saloon_doors",
+    "completed_at": "2024-06-01"
+   }
+  ],
+  "concessions": [
+   {
+    "defect_ref": "D40",
+    "fleet_no": 5202,
+    "restriction_code": "R4",
+    "valid_until": "2024-09-01"
+   }
+  ],
+  "release": {
+   "duty_type": "peak_diagram",
+   "depart_at": "2024-06-06T05:30",
+   "odo_reading_km": 40015,
+   "brake_test_at": "2024-06-06T03:00",
+   "brake_test_result": "pass"
+  }
+ },
+ "factors": {
+  "km_to_exam_due": 5,
+  "odometer_disagreement": "trivial",
+  "exam_signed_fraction": 0.0,
+  "exam_record_missing": false,
+  "worst_defect_subsystem": "none",
+  "worst_defect_state": "closed_retested",
+  "worst_defect_safety_critical": true,
+  "retest_out_of_order": false,
+  "concession_present": true,
+  "concession_flaw": "none",
+  "wo_crossref_mismatch": "none",
+  "planned_duty_type": "peak_diagram",
+  "recent_brake_test_pass": true,
+  "balanced_signals": false
+ },
+ "factors_sampled": {
+  "km_to_exam_due": 1135,
+  "odometer_disagreement": "trivial",
+  "exam_signed_fraction": 0.1,
+  "exam_record_missing": false,
+  "worst_defect_subsystem": "saloon_doors",
+  "worst_defect_state": "open_wo_in_progress",
+  "worst_defect_safety_critical": true,
+  "retest_out_of_order": false,
+  "concession_present": false,
+  "concession_flaw": "none",
+  "wo_crossref_mismatch": "defect_ref_unknown",
+  "planned_duty_type": "peak_diagram",
+  "recent_brake_test_pass": true,
+  "balanced_signals": false
+ },
+ "plan": {
+  "sc_defects_cleared": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "release_decision": {
+   "clarity": "clear",
+   "target": "release_restricted",
+   "second": null
+  },
+  "worst_subsystem": {
+   "clarity": "clear",
+   "target": "none",
+   "second": null
+  },
+  "exam_completion": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "exam_mileage": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  }
+ },
+ "target_words": 50,
+ "deciding": {
+  "sc_defects_cleared": "D40 is closed with retest pass on 2024-06-02, after work order completion on 06-01, and the work order matches the defect.",
+  "release_decision": "Concession R4 for fleet 5202 is valid until 2024-09-01, beyond departure, so the tram may run only under that restriction; the brake test passed.",
+  "worst_subsystem": "The only defect, D40, is closed and retested, so none is open or awaiting retest.",
+  "exam_completion": "No item has both signed_by and signed_at; H2 has signed_by only, leaving level 0 ahead of level 1.",
+  "exam_mileage": "Vehicle odometer 39995 is 5 km short of due 40000, while the release reading 40015 is 15 km past, which sits on the level 1 and 2 boundary."
+ },
+ "request": "rec-F317-0051",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.014219
+}

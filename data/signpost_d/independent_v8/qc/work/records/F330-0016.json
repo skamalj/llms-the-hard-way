@@ -1,0 +1,152 @@
+{
+ "id": "F330-0016",
+ "family": "F330",
+ "state": {
+  "request": {
+   "req_id": "E101",
+   "grade": "G5",
+   "cost_centre": "CC1",
+   "trip_ref": "T1",
+   "requested_total": 140,
+   "ccy": "GBP"
+  },
+  "lines": [
+   {
+    "line_no": 1,
+    "date": "2025-03-08",
+    "category": "meal",
+    "cost_centre": "CC1",
+    "amount_gbp": 35
+   },
+   {
+    "line_no": 2,
+    "date": "2025-03-09",
+    "category": "meal",
+    "cost_centre": "CC1",
+    "amount_gbp": 35
+   },
+   {
+    "line_no": 3,
+    "date": "2025-03-11",
+    "category": "meal",
+    "cost_centre": "CC1",
+    "amount_gbp": 35
+   },
+   {
+    "line_no": 4,
+    "date": "2025-03-14",
+    "category": "meal",
+    "cost_centre": "CC1",
+    "amount_gbp": 35
+   }
+  ],
+  "policy": {
+   "rule_id": "MEAL-PD",
+   "grade_band": "G5",
+   "cap_gbp": 30,
+   "cap_unit": "day",
+   "units": 3,
+   "reviewer_limit_gbp": 500
+  },
+  "travel": {
+   "trip_ref": "T1",
+   "depart": "2025-03-10",
+   "return": "2025-03-12",
+   "booked_on": "2025-01-15",
+   "disruption": {
+    "code": "FLT_CXL",
+    "source": "airline",
+    "logged_on": "2025-03-09"
+   },
+   "alt_check": null,
+   "client_recharge": {
+    "billable": true,
+    "client_code": "C77"
+   }
+  },
+  "approvals": {
+   "line_mgr": {
+    "approved": true
+   },
+   "pre_approval": {
+    "ref": "PA1",
+    "trip_ref": "T1",
+    "max_gbp": 60,
+    "valid_to": "2025-03-31"
+   }
+  },
+  "history": {
+   "exceptions_12m": 1,
+   "approved_12m": 1,
+   "declined_12m": 0
+  }
+ },
+ "factors": {
+  "breach_type": "meal_over_per_diem",
+  "true_excess_pct": 55.56,
+  "amount_mismatch": "none",
+  "reference_mismatch": "line_date_outside_trip",
+  "pre_approval_state": "valid_covers",
+  "external_disruption": true,
+  "compliant_option": "not_checked",
+  "missing_item": "none",
+  "excess_vs_authority": "well_within",
+  "client_rechargeable": true,
+  "prior_exceptions_12m": 1,
+  "booking_lead_days": 54,
+  "employee_grade": "G5"
+ },
+ "factors_sampled": {
+  "breach_type": "meal_over_per_diem",
+  "true_excess_pct": 55.56,
+  "amount_mismatch": "none",
+  "reference_mismatch": "line_date_outside_trip",
+  "pre_approval_state": "max_below_excess",
+  "external_disruption": true,
+  "compliant_option": "not_checked",
+  "missing_item": "none",
+  "excess_vs_authority": "well_within",
+  "client_rechargeable": true,
+  "prior_exceptions_12m": 1,
+  "booking_lead_days": 54,
+  "employee_grade": "G5"
+ },
+ "plan": {
+  "preapproval_covers": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "outside_control": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "excess_disposition": {
+   "clarity": "leaning",
+   "target": "decline_excess",
+   "second": null
+  },
+  "excess_size": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  },
+  "discrepancy_count": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "4"
+  }
+ },
+ "target_words": 52,
+ "deciding": {
+  "preapproval_covers": "pre_approval trip T1 matches, valid_to 2025-03-31 is after depart, max_gbp 60 exceeds the 50 excess; doubt remains from the date problems.",
+  "outside_control": "travel.disruption FLT_CXL logged 2025-03-09 by the airline.",
+  "excess_disposition": "Three of four meal lines fall outside the trip window, so only the cap is safely payable; the covering pre-approval and disruption give some doubt.",
+  "excess_size": "Lines sum 140 against cap 30x3=90, excess 50 = 55.6%, just above the 50% boundary.",
+  "discrepancy_count": "Lines 1, 2 and 4 are dated outside 03-10 to 03-12 (three); a reviewer might add the line 3 date on the edge, giving four."
+ },
+ "request": "rec-F330-0016",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.016923
+}

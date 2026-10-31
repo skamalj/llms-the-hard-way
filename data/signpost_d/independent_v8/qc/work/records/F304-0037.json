@@ -1,0 +1,121 @@
+{
+ "id": "F304-0037",
+ "family": "F304",
+ "state": {
+  "request": {
+   "ref": "T202",
+   "appt_type": "outpatient",
+   "appt_time": "2025-06-10T15:00",
+   "vehicle_class": "wheelchair",
+   "crew_requested": "double_crew",
+   "mobility_booked": "wheelchair",
+   "equipment": []
+  },
+  "patient": {
+   "mobility_assessed": "wheelchair",
+   "assessed_on": "2025-03-28",
+   "weight_kg": 85,
+   "oxygen_lpm": 0,
+   "monitoring": null,
+   "own_transport_available": false,
+   "escort_name": null,
+   "exemption": {
+    "code": "OP4",
+    "approved_by": "SR",
+    "approved_on": "2025-01-15"
+   }
+  },
+  "journey": {
+   "window_start": "2025-06-10T11:30",
+   "window_end": "2025-06-10T12:30",
+   "est_duration_min": 40,
+   "manual_est_min": null,
+   "late_tolerance_min": 0,
+   "destination": {
+    "reslot_same_day": true
+   }
+  },
+  "history": [
+   {
+    "date": "2025-04-22",
+    "outcome": "aborted",
+    "vehicle_class": "wheelchair",
+    "reason": "patient not ready"
+   }
+  ],
+  "notes": {
+   "ward_note": "Carer may travel; ward confirming.",
+   "control_note": "Clinic can see patient later today if missed."
+  }
+ },
+ "factors": {
+  "mobility_alignment": "matches",
+  "secondary_discrepancy": "none",
+  "eligibility_concern": false,
+  "eligibility_exception": true,
+  "clinical_support": "none",
+  "crew_request_gap": "correct",
+  "buffer_minutes": 110.0,
+  "duration_estimate_split": false,
+  "late_tolerance": false,
+  "appointment_type": "outpatient",
+  "same_day_reslot": true,
+  "confirmation_pending": true,
+  "prior_aborts": 1,
+  "aborts_related": false
+ },
+ "factors_sampled": {
+  "mobility_alignment": "matches",
+  "secondary_discrepancy": "address_material",
+  "eligibility_concern": false,
+  "eligibility_exception": true,
+  "clinical_support": "low_flow_oxygen",
+  "crew_request_gap": "under_one_step",
+  "buffer_minutes": -2.74,
+  "duration_estimate_split": false,
+  "late_tolerance": false,
+  "appointment_type": "outpatient",
+  "same_day_reslot": true,
+  "confirmation_pending": true,
+  "prior_aborts": 1,
+  "aborts_related": false
+ },
+ "plan": {
+  "vehicle_fit": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "disposition": {
+   "clarity": "balanced",
+   "target": "confirm",
+   "second": "hold"
+  },
+  "crew_config": {
+   "clarity": "leaning",
+   "target": "double_crew",
+   "second": null
+  },
+  "time_pressure": {
+   "clarity": "clear",
+   "target": "0",
+   "second": null
+  },
+  "delay_impact": {
+   "clarity": "contested",
+   "target": "1",
+   "second": "0"
+  }
+ },
+ "target_words": 96,
+ "deciding": {
+  "vehicle_fit": "Wheelchair booked and assessed, but the assessment is dated 2025-03-28, 74 days old, which leaves its currency open.",
+  "disposition": "escort_name is null with a ward note saying the carer may travel, so a confirmation is arguably pending; it is unclear whether the escort is required.",
+  "crew_config": "Wheelchair transfer with oxygen_lpm 0 and no monitoring points to double_crew.",
+  "time_pressure": "Window ends 12:30 plus 40 min journey against 15:00 leaves 110 min spare.",
+  "delay_impact": "Outpatient slot is routine, but reslot_same_day true and a control note offering a later slot make level 0 versus 1 two-sided."
+ },
+ "request": "rec-F304-0036",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.01213
+}

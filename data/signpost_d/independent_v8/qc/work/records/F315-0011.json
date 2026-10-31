@@ -1,0 +1,105 @@
+{
+ "id": "F315-0011",
+ "family": "F315",
+ "state": {
+  "report": {
+   "ref": "FR-5521",
+   "received_at": "2025-03-14T07:10",
+   "source": "public_web",
+   "fault_code": null,
+   "units_reported": [
+    "A12"
+   ]
+  },
+  "history": [
+   {
+    "job_ref": "J-801",
+    "raised": "2025-01-27",
+    "attended": "2025-01-30",
+    "completed": "2025-01-31",
+    "outcome_code": "LAMP"
+   }
+  ],
+  "job": {
+   "job_ref": "J-844",
+   "stage": "RECT",
+   "attended_at": "2025-03-14T11:00",
+   "completed_at": "2025-03-14T11:40",
+   "hazard_code": null,
+   "made_safe": true
+  },
+  "cms": null,
+  "supply": {
+   "dno_incident_ref": null,
+   "feeder_units_dark": 1
+  }
+ },
+ "factors": {
+  "dark_unit_count": 1,
+  "dno_incident_logged": false,
+  "cms_state": "section_null",
+  "days_since_last_repair": 42,
+  "last_repair_state": "completed",
+  "hazard_observed": "none",
+  "hazard_made_safe": true,
+  "site_category": "main_road",
+  "planned_works_active": false,
+  "current_job_stage": "attended_unresolved",
+  "dates_out_of_order": false,
+  "duplicate_of_open_job": false,
+  "report_source": "public_web"
+ },
+ "factors_sampled": {
+  "dark_unit_count": 6,
+  "dno_incident_logged": false,
+  "cms_state": "section_null",
+  "days_since_last_repair": 42,
+  "last_repair_state": "completed",
+  "hazard_observed": "none",
+  "hazard_made_safe": true,
+  "site_category": "main_road",
+  "planned_works_active": false,
+  "current_job_stage": "attended_unresolved",
+  "dates_out_of_order": false,
+  "duplicate_of_open_job": false,
+  "report_source": "public_web"
+ },
+ "plan": {
+  "supply_side_fault": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "repeat_failure": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "next_action": {
+   "clarity": "contested",
+   "target": "urgent_make_safe",
+   "second": "hold_verify"
+  },
+  "source_support": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "repair_progress": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 58,
+ "deciding": {
+  "supply_side_fault": "supply.feeder_units_dark is 1, no DNO incident ref, only one unit reported.",
+  "repeat_failure": "history J-801 completed 2025-01-31, 42 days before the 2025-03-14 report.",
+  "next_action": "Main-road unit; job RECT but cms is null so a fix is unconfirmed. Hold for verification versus urgent dispatch is two-sided.",
+  "source_support": "Only a public web report; cms null; job card is the sole other item and is self-referential, so level 0 or 1.",
+  "repair_progress": "job.stage RECT with completed_at 11:40 but cms null and no scout entry: fix recorded unconfirmed (2), though stage-based reading might say 3."
+ },
+ "request": "rec-F315-0011",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.005806
+}

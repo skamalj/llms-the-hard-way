@@ -1,0 +1,128 @@
+{
+ "id": "F314-0040",
+ "family": "F314",
+ "state": {
+  "property": {
+   "inv": [
+    "A1",
+    "A2"
+   ]
+  },
+  "tenancy": {
+   "review_date": "2025-05-01"
+  },
+  "certificate": {
+   "inspection_date": "2024-05-01",
+   "issue_date": "2024-04-28",
+   "engineer_licence": "L7"
+  },
+  "engineer": {
+   "licence_no": "L7",
+   "valid_to": "2026-01-01",
+   "categories": [
+    "boiler",
+    "hob"
+   ]
+  },
+  "appliance_checks": [
+   {
+    "id": "A1",
+    "defect_class": "NCS"
+   }
+  ],
+  "history": {
+   "prior_certificates": [
+    {
+     "date": "2023-05-01",
+     "defects": [
+      "A1"
+     ]
+    },
+    {
+     "date": "2022-05-02",
+     "defects": [
+      "A1"
+     ]
+    },
+    {
+     "date": "2021-04-29",
+     "defects": [
+      "A1"
+     ]
+    },
+    {
+     "date": "2020-05-04",
+     "defects": [
+      "A1"
+     ]
+    }
+   ]
+  }
+ },
+ "factors": {
+  "inventory_mismatch": "missing_from_cert",
+  "tenant_owned_appliance": false,
+  "date_misalignment": "issued_before_inspection",
+  "days_to_true_expiry": 0,
+  "renewal_booked": false,
+  "engineer_status": "active_matching",
+  "worst_defect_class": "not_to_current_standard",
+  "defect_isolated": false,
+  "remedial_completed": false,
+  "combustion_reading": "normal",
+  "prior_defect_count": 4,
+  "boundary_case": true
+ },
+ "factors_sampled": {
+  "inventory_mismatch": "none",
+  "tenant_owned_appliance": false,
+  "date_misalignment": "issued_before_inspection",
+  "days_to_true_expiry": 44,
+  "renewal_booked": false,
+  "engineer_status": "active_matching",
+  "worst_defect_class": "immediately_dangerous",
+  "defect_isolated": false,
+  "remedial_completed": false,
+  "combustion_reading": "normal",
+  "prior_defect_count": 4,
+  "boundary_case": true
+ },
+ "plan": {
+  "covers_all_appliances": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "engineer_valid": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "accept",
+   "second": null
+  },
+  "renewal_urgency": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  },
+  "open_hazard": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  }
+ },
+ "target_words": 25,
+ "deciding": {
+  "covers_all_appliances": "Inventory lists A1 and A2, but appliance_checks contains only A1, so A2 is missing and is not tenant-owned.",
+  "engineer_valid": "Licence L7 matches on both sections, valid_to 2026-01-01 is after inspection, and the categories cover the boiler and hob.",
+  "next_step": "The advisory NCS defect on A1 needs scheduled works and nothing is dangerous. The missing A2 check and the issue date before inspection leave some doubt.",
+  "renewal_urgency": "Review date 2025-05-01 equals inspection 2024-05-01 plus 12 months, so the true expiry is reached that day. The issue date before inspection leaves 0 days versus about 1 day open.",
+  "open_hazard": "The only open defect is NCS on A1, an advisory item. The prior defects on A1 and the missing A2 check keep some doubt."
+ },
+ "request": "rec-F314-0036",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.013648
+}

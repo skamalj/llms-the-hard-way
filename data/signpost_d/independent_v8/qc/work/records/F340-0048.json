@@ -1,0 +1,100 @@
+{
+ "id": "F340-0048",
+ "family": "F340",
+ "state": {
+  "booking": {
+   "chip": "9815273",
+   "dog": "Moss",
+   "checkout": "2025-07-10",
+   "owner_contact": {
+    "reachable_during_stay": true,
+    "confirm_call_done": false
+   }
+  },
+  "declaration": {
+   "weight_kg": 23,
+   "neutered": true
+  },
+  "vaccination": {
+   "chip_on_cert": "9815237",
+   "name_on_cert": "Moss",
+   "core_expiry": "2025-08-13"
+  },
+  "vet_history": {
+   "neutered": false
+  },
+  "arrival_check": {
+   "measured_weight_kg": 25,
+   "cough": true,
+   "temp_c": 38.6
+  }
+ },
+ "factors": {
+  "vacc_expiry_offset_days": 34,
+  "titre_exemption_on_file": false,
+  "certificate_id_mismatch": "transposed_digit",
+  "arrival_cough_observed": true,
+  "cough_benign_explanation": "none",
+  "weight_discrepancy_pct": 8.7,
+  "medication_state": "none_needed",
+  "next_dose_hours": 25,
+  "neuter_status_conflict": true,
+  "owner_reachable": true,
+  "prior_incident_count": 0,
+  "note_tone": "neutral",
+  "balanced_signals": false
+ },
+ "factors_sampled": {
+  "vacc_expiry_offset_days": 34,
+  "titre_exemption_on_file": false,
+  "certificate_id_mismatch": "transposed_digit",
+  "arrival_cough_observed": true,
+  "cough_benign_explanation": "none",
+  "weight_discrepancy_pct": 8.55,
+  "medication_state": "none_needed",
+  "next_dose_hours": 25,
+  "neuter_status_conflict": true,
+  "owner_reachable": true,
+  "prior_incident_count": 0,
+  "note_tone": "neutral",
+  "balanced_signals": false
+ },
+ "plan": {
+  "vacc_cover_valid": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "declaration_consistent": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "admission_disposition": {
+   "clarity": "balanced",
+   "target": "isolation_admit",
+   "second": "admit_conditions"
+  },
+  "discrepancy_count": {
+   "clarity": "clear",
+   "target": "2",
+   "second": null
+  },
+  "action_urgency": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  }
+ },
+ "target_words": 35,
+ "deciding": {
+  "vacc_cover_valid": "core_expiry is 34 days past checkout, but chip_on_cert 9815237 differs from booking.chip 9815273 by two swapped digits, with the name matching.",
+  "declaration_consistent": "declaration.neutered true against vet_history.neutered false, and the vet record is authoritative.",
+  "admission_disposition": "Unexplained cough supports isolation, but a plain cough with a normal temperature and a reachable owner leaves admit_conditions defensible.",
+  "discrepancy_count": "Exactly two mismatches: the transposed chip digit and the neutered conflict; the weight gap is under 10 percent.",
+  "action_urgency": "The chip check and neuter confirmation could be done within 48 hours of arrival, or nothing may be urgent; the owner is reachable but not yet called."
+ },
+ "request": "rec-F340-0046",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.01229
+}

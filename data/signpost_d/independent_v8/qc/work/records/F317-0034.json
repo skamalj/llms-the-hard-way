@@ -1,0 +1,167 @@
+{
+ "id": "F317-0034",
+ "family": "F317",
+ "state": {
+  "vehicle": {
+   "fleet_no": "T5086",
+   "odometer_km": 79480
+  },
+  "exam": {
+   "due_at_km": 80000,
+   "items": [
+    {
+     "c": "A1",
+     "signed_by": "u3",
+     "signed_at": "2024-03-05T07:00"
+    },
+    {
+     "c": "A2",
+     "signed_by": "u3",
+     "signed_at": "2024-03-05T07:20"
+    },
+    {
+     "c": "A3",
+     "signed_by": "u3",
+     "signed_at": "2024-03-05T07:40"
+    },
+    {
+     "c": "B1",
+     "result": "ok",
+     "signed_by": null,
+     "signed_at": null
+    },
+    {
+     "c": "B2",
+     "result": "ok",
+     "signed_by": null,
+     "signed_at": null
+    },
+    {
+     "c": "B3",
+     "signed_by": null,
+     "signed_at": null
+    },
+    {
+     "c": "B4",
+     "signed_by": null,
+     "signed_at": null
+    }
+   ]
+  },
+  "defects": [
+   {
+    "defect_id": "D61",
+    "subsystem": "pantograph",
+    "safety_critical": true,
+    "status": "closed",
+    "closed_at": "2024-03-01",
+    "retest_at": "2024-03-02",
+    "retest_result": "pass"
+   },
+   {
+    "defect_id": "D64",
+    "subsystem": "saloon_doors",
+    "safety_critical": true,
+    "status": "closed",
+    "closed_at": "2024-03-04",
+    "retest_at": null,
+    "retest_result": null
+   }
+  ],
+  "work_orders": [
+   {
+    "wo_id": "W88",
+    "defect_ref": "D61",
+    "subsystem": "running_gear",
+    "status": "done"
+   }
+  ],
+  "concessions": [
+   {
+    "conc_id": "C9",
+    "fleet_no": "T5086",
+    "defect_ref": "D64",
+    "restriction_code": "R4",
+    "valid_from": "2024-03-04",
+    "valid_until": "2024-03-20"
+   }
+  ],
+  "release": {
+   "duty_type": "off_peak",
+   "depart_at": "2024-03-06T09:00",
+   "odo_reading_km": 79504,
+   "brake_test_at": "2024-03-06T07:30",
+   "brake_test_result": "pass"
+  }
+ },
+ "factors": {
+  "km_to_exam_due": 496,
+  "odometer_disagreement": "trivial",
+  "exam_signed_fraction": 0.43,
+  "exam_record_missing": false,
+  "worst_defect_subsystem": "saloon_doors",
+  "worst_defect_state": "closed_no_retest",
+  "worst_defect_safety_critical": true,
+  "retest_out_of_order": false,
+  "concession_present": true,
+  "concession_flaw": "none",
+  "wo_crossref_mismatch": "subsystem_differs",
+  "planned_duty_type": "off_peak",
+  "recent_brake_test_pass": true,
+  "balanced_signals": false
+ },
+ "factors_sampled": {
+  "km_to_exam_due": -364,
+  "odometer_disagreement": "trivial",
+  "exam_signed_fraction": 0.13,
+  "exam_record_missing": false,
+  "worst_defect_subsystem": "pantograph",
+  "worst_defect_state": "closed_retested",
+  "worst_defect_safety_critical": true,
+  "retest_out_of_order": false,
+  "concession_present": false,
+  "concession_flaw": "wrong_defect_ref",
+  "wo_crossref_mismatch": "subsystem_differs",
+  "planned_duty_type": "peak_diagram",
+  "recent_brake_test_pass": false,
+  "balanced_signals": false
+ },
+ "plan": {
+  "sc_defects_cleared": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "release_decision": {
+   "clarity": "contested",
+   "target": "release_restricted",
+   "second": "release"
+  },
+  "worst_subsystem": {
+   "clarity": "balanced",
+   "target": "none",
+   "second": "saloon_doors"
+  },
+  "exam_completion": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  },
+  "exam_mileage": {
+   "clarity": "contested",
+   "target": "1",
+   "second": "0"
+  }
+ },
+ "target_words": 125,
+ "deciding": {
+  "sc_defects_cleared": "Safety-critical door defect D64 is closed with null retest_at and retest_result, so it is not properly retested.",
+  "release_decision": "Valid concession C9 for D64 and an off-peak duty with a passed recent brake test support release_restricted; the closed defects and passed test leave plain release arguable.",
+  "worst_subsystem": "D64 on saloon_doors is closed but never retested, while D61 is closed and retested; whether D64 counts as unresolved is open.",
+  "exam_completion": "3 of 7 items signed; two more carry results but no signature, so just under half is signed but near the boundary.",
+  "exam_mileage": "Release reading 79504 leaves 496 km before due 80000, just under the 500 km boundary; the vehicle odometer shows 520 km."
+ },
+ "request": "rec-F317-0031",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.010782
+}

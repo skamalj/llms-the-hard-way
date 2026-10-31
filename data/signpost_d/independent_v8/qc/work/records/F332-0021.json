@@ -1,0 +1,137 @@
+{
+ "id": "F332-0021",
+ "family": "F332",
+ "state": {
+  "application": {
+   "received": "2025-03-10",
+   "amount": 6000,
+   "term_months": 36,
+   "monthly_instalment": 190,
+   "declared_gross_monthly": 2000,
+   "employer_declared": "Alder Co"
+  },
+  "income_verification": [
+   {
+    "type": "payslip",
+    "employer_name": "Alder Co Ltd",
+    "gross_monthly": 1840,
+    "doc_date": "2025-02-28",
+    "verified": true
+   }
+  ],
+  "credit_report": {
+   "accounts": [
+    {
+     "ref": "A1",
+     "lender": "Northgate Fin",
+     "status": "open",
+     "balance": 5100,
+     "monthly_payment": 520,
+     "late_markers": [
+      {
+       "month": "2024-06",
+       "days_past_due": 100,
+       "arrangement_flag": true
+      }
+     ]
+    }
+   ],
+   "defaults": [
+    {
+     "ref": "A1",
+     "date": "2024-08"
+    }
+   ]
+  },
+  "declared_commitments": {
+   "debts": [
+    {
+     "lender": "Northgate Finance",
+     "balance": 4300,
+     "monthly_payment": 520
+    }
+   ],
+   "housing_cost": 240
+  },
+  "policy_checks": {
+   "max_amount": 10000,
+   "max_term_months": 60,
+   "exceptions": [
+    {
+     "exception_id": "E7",
+     "covers": "rate",
+     "approved_by": "manager",
+     "expiry": "2025-12-31"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "income_gap_pct": 8.0,
+  "income_doc_state": "current",
+  "second_income_verified": false,
+  "undeclared_account": "none",
+  "post_loan_dti": 0.52,
+  "consolidation_payoff": false,
+  "worst_late_days": "90_plus_or_default",
+  "arrears_under_arrangement": true,
+  "policy_cap_breach": "none",
+  "exception_approved": true,
+  "employer_name_variance": "trivial",
+  "member_tenure_months": 52,
+  "share_balance": 24240.88
+ },
+ "factors_sampled": {
+  "income_gap_pct": 22.34,
+  "income_doc_state": "current",
+  "second_income_verified": false,
+  "undeclared_account": "none",
+  "post_loan_dti": 0.2,
+  "consolidation_payoff": false,
+  "worst_late_days": "90_plus_or_default",
+  "arrears_under_arrangement": true,
+  "policy_cap_breach": "none",
+  "exception_approved": true,
+  "employer_name_variance": "trivial",
+  "member_tenure_months": 52,
+  "share_balance": 24240.88
+ },
+ "plan": {
+  "income_supported": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "debts_disclosed": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "next_step": {
+   "clarity": "balanced",
+   "target": "approve_conditions",
+   "second": "decline"
+  },
+  "dti_level": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  },
+  "arrears_depth": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  }
+ },
+ "target_words": 58,
+ "deciding": {
+  "income_supported": "Verified payslip 1840 vs declared 2000 is an 8% shortfall, inside 10% but close to the limit; the payslip is current.",
+  "debts_disclosed": "Open bureau account Northgate Fin matches declared Northgate Finance at the same 520 payment, but the balances differ (5100 vs 4300), so it is plausibly lag or plausibly not the same debt.",
+  "next_step": "Payments 520+240+190 over 1840 income exceed 50% and a default is recorded, which points to decline. The arrangement flag on the late marker and the 100% match of the debt payments make approval with reduced terms defensible.",
+  "dti_level": "(520 + 240 + 190) / 1840 is about 52%, which is 45% or more.",
+  "arrears_depth": "A1 has a 100-day late marker and a default dated 2024-08 on the same ref. The arrangement flag on the marker leaves some doubt whether it counts."
+ },
+ "request": "rec-F332-0021",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.00965
+}

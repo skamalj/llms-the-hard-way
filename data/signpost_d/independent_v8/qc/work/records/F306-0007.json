@@ -1,0 +1,150 @@
+{
+ "id": "F306-0007",
+ "family": "F306",
+ "state": {
+  "trip": {
+   "id": "T-3377",
+   "dest": "Edinburgh",
+   "trip_type": "day_distant",
+   "depart_date": "2025-10-14",
+   "return_date": "2025-10-14",
+   "pupil_headcount": 36,
+   "transport": {
+    "seats": 40
+   }
+  },
+  "roster": {
+   "count": 36,
+   "notable": [
+    {
+     "id": "p09",
+     "consent_date": "2024-09-30",
+     "consent_expiry": "2025-09-30"
+    },
+    {
+     "id": "p03",
+     "medical_flag": true,
+     "care_plan_ref": null
+    },
+    {
+     "id": "p11",
+     "medical_flag": true,
+     "care_plan_ref": null
+    },
+    {
+     "id": "p27",
+     "medical_flag": true,
+     "care_plan_ref": null
+    }
+   ]
+  },
+  "staffing": [
+   {
+    "role": "teacher",
+    "n": 2,
+    "confirmed": true,
+    "dbs_status": "valid",
+    "attend_from": "2025-10-14",
+    "attend_to": "2025-10-14"
+   },
+   {
+    "role": "TA",
+    "n": 1,
+    "confirmed": false
+   }
+  ],
+  "activities": [
+   {
+    "date": "2025-10-14",
+    "hazard_tier": 2,
+    "provider": "P6",
+    "instructors_supplied": 2,
+    "contract_status": "signed",
+    "plan_copies_received": [
+     "p11"
+    ]
+   }
+  ],
+  "approvals": {
+   "review_date": "2025-07-19",
+   "ratio_required": 15,
+   "amendments": [
+    {
+     "field": "pupil_headcount",
+     "new": 36
+    }
+   ],
+   "exceptions": []
+  }
+ },
+ "factors": {
+  "trip_type": "day_distant",
+  "pupil_count": 36,
+  "consent_gap": "one_expired",
+  "consent_exception_logged": false,
+  "staffing_position": "short_one_day",
+  "provider_instructors_confirmed": true,
+  "planted_mismatches": 1,
+  "amendment_explains_one": true,
+  "medical_flagged": 3,
+  "plans_missing": 3,
+  "provider_holds_plan_copy": true,
+  "high_hazard_activity": "none",
+  "days_to_departure": 87,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "trip_type": "day_distant",
+  "pupil_count": 36,
+  "consent_gap": "one_expired",
+  "consent_exception_logged": false,
+  "staffing_position": "exact",
+  "provider_instructors_confirmed": true,
+  "planted_mismatches": 3,
+  "amendment_explains_one": true,
+  "medical_flagged": 2,
+  "plans_missing": 3,
+  "provider_holds_plan_copy": false,
+  "high_hazard_activity": "none",
+  "days_to_departure": 87,
+  "boundary_case": false
+ },
+ "plan": {
+  "consent_complete": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "staffing_adequate": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "disposition": {
+   "clarity": "clear",
+   "target": "approve",
+   "second": null
+  },
+  "mismatch_count": {
+   "clarity": "leaning",
+   "target": "0",
+   "second": null
+  },
+  "medical_coverage": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 52,
+ "deciding": {
+  "consent_complete": "p09 consent_expiry 2025-09-30 is before depart_date 2025-10-14 and approvals.exceptions is empty.",
+  "staffing_adequate": "Ratio 15 for 36 pupils needs 3 adults; only 2 teachers are confirmed and the TA has confirmed=false.",
+  "disposition": "No pending exceptions, hazard is tier 2, the provider contract is signed with instructors supplied, and nothing is awaiting external confirmation.",
+  "mismatch_count": "Headcount 36 matches the roster count, and the amendment already sets pupil_headcount to 36, leaving no visible unresolved mismatch; the amendment's role gives slight doubt.",
+  "medical_coverage": "3 flagged pupils all have care_plan_ref null (level 0), but the provider holds a plan copy for p11, which could be read as one plan held (level 1)."
+ },
+ "request": "rec-F306-0006",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.018414
+}

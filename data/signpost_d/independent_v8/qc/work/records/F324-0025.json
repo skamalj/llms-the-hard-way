@@ -1,0 +1,114 @@
+{
+ "id": "F324-0025",
+ "family": "F324",
+ "state": {
+  "schedule": {
+   "planned_l": [
+    50,
+    100,
+    100,
+    50
+   ],
+   "drain_target_pct": [
+    15,
+    25
+   ],
+   "overrides": []
+  },
+  "controller_log": {
+   "delivered_l": [
+    50,
+    50,
+    50,
+    50
+   ],
+   "line_pressure_bar": [
+    1.6,
+    1.6,
+    1.6,
+    1.6
+   ],
+   "spec_bar": 1.5
+  },
+  "drainage": {
+   "drain_pct": [
+    14,
+    15.5
+   ],
+   "catch_test": {
+    "ordered": true,
+    "result": null
+   }
+  },
+  "sensors": {
+   "meter_last_calibrated": "2025-01-12",
+   "log_date": "2025-06-01"
+  }
+ },
+ "factors": {
+  "delivery_shortfall_pct": 33.33,
+  "mismatch_location": "none",
+  "fault_cause": "schedule_entry_error",
+  "approved_override": false,
+  "maintenance_window_active": false,
+  "drain_offset_points": -0.25,
+  "off_tolerance_cycles": 2,
+  "meter_calibration_age_days": 140,
+  "confirmation_pending": true,
+  "pressure_state": "normal",
+  "benign_alarm_decoy": "none",
+  "recent_work_orders": 0
+ },
+ "factors_sampled": {
+  "delivery_shortfall_pct": 2.23,
+  "mismatch_location": "none",
+  "fault_cause": "schedule_entry_error",
+  "approved_override": true,
+  "maintenance_window_active": true,
+  "drain_offset_points": 16.69,
+  "off_tolerance_cycles": 2,
+  "meter_calibration_age_days": 140,
+  "confirmation_pending": true,
+  "pressure_state": "normal",
+  "benign_alarm_decoy": "tank_alarm_cleared",
+  "recent_work_orders": 0
+ },
+ "plan": {
+  "under_dosed": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "emitter_clogging": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "next_action": {
+   "clarity": "clear",
+   "target": "hold_for_check",
+   "second": null
+  },
+  "drain_deviation": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  },
+  "off_plan_cycles": {
+   "clarity": "clear",
+   "target": "2",
+   "second": null
+  }
+ },
+ "target_words": 34,
+ "deciding": {
+  "under_dosed": "delivered_l totals 200 L against 300 L planned (67%) and overrides is empty.",
+  "emitter_clogging": "Pressure is 1.6 bar against a 1.5 spec. Every cycle delivers a uniform 50 L, and the gaps are only in the two cycles whose planned_l is 100 against 50 for the others. That points to a schedule entry, not clogging.",
+  "next_action": "catch_test is ordered with result null, so the reading is unconfirmed and the decision waits on it.",
+  "drain_deviation": "Held in balance: drain_pct 14 and 15.5 average 14.75 against a band minimum of 15, a mean just 0.25 below the band edge.",
+  "off_plan_cycles": "The 2nd and 3rd cycles deliver 50 L against 100 L planned and the others match, so two cycles are off."
+ },
+ "request": "rec-F324-0021",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.015609
+}

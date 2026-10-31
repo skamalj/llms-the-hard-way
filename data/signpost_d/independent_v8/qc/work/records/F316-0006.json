@@ -1,0 +1,152 @@
+{
+ "id": "F316-0006",
+ "family": "F316",
+ "state": {
+  "run_header": {
+   "run_id": "G114",
+   "run_type": "precautionary",
+   "reviewed_at": "2025-01-14T21:50"
+  },
+  "plan": [
+   {
+    "code": "A12-04",
+    "km": 3,
+    "w": 7,
+    "prio": "P1",
+    "rate": 20,
+    "zone": "Z1"
+   },
+   {
+    "code": "A12-05",
+    "km": 2,
+    "w": 7,
+    "prio": "P2",
+    "rate": 20,
+    "zone": "Z2"
+   },
+   {
+    "code": "A12-S1",
+    "km": 4,
+    "w": 6,
+    "prio": "secondary",
+    "rate": 20,
+    "zone": "Z2"
+   }
+  ],
+  "forecast": {
+   "zones": [
+    {
+     "zone": "Z1",
+     "freeze": "2025-01-14T23:23"
+    },
+    {
+     "zone": "Z2",
+     "freeze": "2025-01-15T10:15"
+    }
+   ],
+   "revisions": []
+  },
+  "telematics": {
+   "segments": [
+    {
+     "code": "A12-04",
+     "end": "21:40",
+     "on": true,
+     "rate": 20
+    },
+    {
+     "code": "A12-5",
+     "end": "21:10",
+     "on": true,
+     "rate": 20
+    }
+   ],
+   "dropouts": [
+    "A12-04",
+    "A12-04",
+    "A12-04",
+    "A12-S1"
+   ]
+  },
+  "materials": {
+   "loaded_t": 0.8,
+   "returned_t": 0.08,
+   "ticket": "WB4471",
+   "rate_exception": null
+  },
+  "notes": {
+   "driver": "Routine run.",
+   "depot": "",
+   "closures": [],
+   "partner_cover": []
+  }
+ },
+ "factors": {
+  "missed_extent": "none (A12-5 code ambiguity only)",
+  "missed_section_mitigated": false,
+  "salt_gap": "under_3pct",
+  "rate_exception_approved": false,
+  "finish_vs_freeze_min": 103,
+  "hours_to_freeze_untreated": 12.4,
+  "forecast_revised": "none",
+  "crosscheck_mismatch": "section_code",
+  "driver_note_type": "routine",
+  "follow_up_run_scheduled": false,
+  "pending_confirmation": false,
+  "gps_dropouts": 4,
+  "nonpriority_untreated": true
+ },
+ "factors_sampled": {
+  "missed_extent": "none",
+  "missed_section_mitigated": false,
+  "salt_gap": "over_10pct",
+  "rate_exception_approved": false,
+  "finish_vs_freeze_min": 103,
+  "hours_to_freeze_untreated": 11.89,
+  "forecast_revised": "none",
+  "crosscheck_mismatch": "section_code",
+  "driver_note_type": "routine",
+  "follow_up_run_scheduled": false,
+  "pending_confirmation": false,
+  "gps_dropouts": 4,
+  "nonpriority_untreated": true
+ },
+ "plan": {
+  "treated_before_freeze": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "salt_reconciles": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "follow_up": {
+   "clarity": "balanced",
+   "target": "partial_retreat",
+   "second": "sign_off"
+  },
+  "deficient_length": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "freeze_proximity": {
+   "clarity": "clear",
+   "target": "0",
+   "second": null
+  }
+ },
+ "target_words": 46,
+ "deciding": {
+  "treated_before_freeze": "Last priority segment ended 21:40, 103 min before the Z1 freeze at 23:23, but telematics logs A12-5 where the plan has A12-05, so the P2 match is slightly uncertain.",
+  "salt_reconciles": "Net 0.72 t against 0.70 t expected if A12-5 is A12-05; only a strict code mismatch would break it.",
+  "follow_up": "The A12-5 code mismatch against A12-05 can be read as a typo (sign_off) or as an unmatched P2 section needing re-treatment (partial_retreat).",
+  "deficient_length": "If A12-5 is accepted as A12-05 nothing is missed; if not, the 2 km P2 section is the affected length, so level 0 or 1.",
+  "freeze_proximity": "Even if A12-05 were untreated, its Z2 freeze is 2025-01-15T10:15, over 12 h after the 21:50 review."
+ },
+ "request": "rec-F316-0006",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.020312
+}

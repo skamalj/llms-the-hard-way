@@ -1,0 +1,117 @@
+{
+ "id": "F303-0023",
+ "family": "F303",
+ "state": {
+  "order": {
+   "prescription": {
+    "modality": "conc",
+    "flow_lpm": 2,
+    "rx_expiry": "2025-03-01"
+   },
+   "items_ordered": [
+    {
+     "sku": "CONC",
+     "qty": 1
+    }
+   ],
+   "account": {
+    "billing_hold": true,
+    "arrears_gbp": 85
+   }
+  },
+  "visit": {
+   "visit_date": "2024-06-04",
+   "items_left": [
+    {
+     "sku": "CONC",
+     "qty": 1,
+     "serial": "C3"
+    }
+   ],
+   "install_checks": {
+    "flow_verified": true,
+    "alarm_tested": null,
+    "training_given": true
+   }
+  },
+  "site_assessment": {
+   "hazards": []
+  },
+  "equipment": {
+   "concentrator": {
+    "serial": "C3",
+    "flow_setting_lpm": 2
+   }
+  }
+ },
+ "factors": {
+  "rx_alignment": "exact",
+  "items_shortfall": "none",
+  "setup_state": "test_not_logged",
+  "supply_hours": 307.58,
+  "concentrator_fault": false,
+  "fault_mitigated": false,
+  "hazards_found": 0,
+  "hazard_mitigation": false,
+  "hazard_status_missing": false,
+  "handover_gap": false,
+  "timeline_out_of_order": false,
+  "next_delivery": "not_booked",
+  "dependency_level": "nocturnal",
+  "billing_hold": true
+ },
+ "factors_sampled": {
+  "rx_alignment": "rx_expired",
+  "items_shortfall": "one_short",
+  "setup_state": "test_not_logged",
+  "supply_hours": 307.58,
+  "concentrator_fault": false,
+  "fault_mitigated": false,
+  "hazards_found": 3,
+  "hazard_mitigation": false,
+  "hazard_status_missing": false,
+  "handover_gap": false,
+  "timeline_out_of_order": false,
+  "next_delivery": "booked_in_time",
+  "dependency_level": "nocturnal",
+  "billing_hold": true
+ },
+ "plan": {
+  "rx_match": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "urgent_dispatch",
+   "second": null
+  },
+  "fulfilment": {
+   "clarity": "contested",
+   "target": "fully_complete",
+   "second": "setup_incomplete"
+  },
+  "supply_runway": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  },
+  "open_hazards": {
+   "clarity": "clear",
+   "target": "0",
+   "second": null
+  }
+ },
+ "target_words": 28,
+ "deciding": {
+  "rx_match": "The ordered and delivered CONC is set to flow_setting_lpm 2, equal to the prescribed 2 lpm, and the prescription is unexpired.",
+  "next_step": "alarm_tested is null, the install_checks have no completed_at, and supply_plan is absent with no next delivery booked. The record needs prompt action.",
+  "fulfilment": "All ordered items were left, but alarm_tested is null, so complete versus setup_incomplete is open.",
+  "supply_runway": "The concentrator C3 is installed with flow_verified true and has no fault log entry, so it is working.",
+  "open_hazards": "The hazards list is empty."
+ },
+ "request": "rec-F303-0021",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011874
+}

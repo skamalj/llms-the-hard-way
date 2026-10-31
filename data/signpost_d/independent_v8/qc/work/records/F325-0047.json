@@ -1,0 +1,114 @@
+{
+ "id": "F325-0047",
+ "family": "F325",
+ "state": {
+  "pen": {
+   "stage": "smolt",
+   "limits": {
+    "do_min_mg_l": 7.0
+   }
+  },
+  "check": {
+   "sampler_id": "T03",
+   "readings": {
+    "do_mg_l": 6.8,
+    "do_unit": "mg/L"
+   }
+  },
+  "instrument": {
+   "cal_result": "pass",
+   "logger_do_mg_l": 8.3
+  },
+  "history": [
+   {
+    "in_limits": false
+   },
+   {
+    "in_limits": true
+   },
+   {
+    "in_limits": false
+   },
+   {
+    "in_limits": true
+   },
+   {
+    "in_limits": false
+   },
+   {
+    "in_limits": true
+   }
+  ],
+  "notes": {
+   "signoff": null
+  }
+ },
+ "factors": {
+  "stock_stage": "smolt",
+  "true_do_margin": 1.3,
+  "primary_cause": "instrument",
+  "cross_section_mismatch": "none",
+  "calibration_state": "current",
+  "logger_alarm_raised": false,
+  "mitigation_present": false,
+  "mitigation_kind": "none",
+  "history_out_of_range": 3,
+  "missing_required": 1,
+  "date_order_fault": false,
+  "boundary_case": true,
+  "note_tone": "consistent_concern"
+ },
+ "factors_sampled": {
+  "stock_stage": "smolt",
+  "true_do_margin": -1.36,
+  "primary_cause": "instrument",
+  "cross_section_mismatch": "pen_id_mismatch",
+  "calibration_state": "current",
+  "logger_alarm_raised": false,
+  "mitigation_present": true,
+  "mitigation_kind": "approved_treatment_window",
+  "history_out_of_range": 2,
+  "missing_required": 1,
+  "date_order_fault": false,
+  "boundary_case": true,
+  "note_tone": "consistent_concern"
+ },
+ "plan": {
+  "genuine_do_breach": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "balanced",
+   "target": "reduce_feeding",
+   "second": "file_routine"
+  },
+  "deviation_cause": {
+   "clarity": "clear",
+   "target": "instrument_fault",
+   "second": null
+  },
+  "persistence": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  },
+  "evidence_completeness": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  }
+ },
+ "target_words": 25,
+ "deciding": {
+  "genuine_do_breach": "The probe reads 6.8 against a 7.0 minimum, but the logger reads 8.3 and the gap is 1.5 mg/L, so the low value is not genuine.",
+  "next_step": "The logger is in limits, which supports filing. Three history items are out of range, which supports cutting feed as a precaution. The two options are close.",
+  "deviation_cause": "The probe-versus-logger gap of 1.5 mg/L exceeds 1, and no other cause is shown, so it is an instrument fault.",
+  "persistence": "Three of the six history items are out of range. Counting the probe's current low value makes four (sustained); excluding it makes three (recurring). That is the split.",
+  "evidence_completeness": "Only the supervisor sign-off (notes.signoff null) is missing. That is exactly one missing element."
+ },
+ "request": "rec-F325-0046",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.009842
+}

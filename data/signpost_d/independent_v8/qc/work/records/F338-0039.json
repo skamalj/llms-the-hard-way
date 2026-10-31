@@ -1,0 +1,108 @@
+{
+ "id": "F338-0039",
+ "family": "F338",
+ "state": {
+  "site": {
+   "pollutant": "NO2",
+   "tier": "standard",
+   "service_interval_days": 90
+  },
+  "visit": {
+   "date": "2024-09-12",
+   "sequence_status": "complete"
+  },
+  "reference": {
+   "standard_id": "CY5521",
+   "cert_expiry": "2025-03-21",
+   "unit": "ppb"
+  },
+  "checks": [
+   {
+    "type": "as_found_span",
+    "ref_id": "CY5521",
+    "ref_conc": 200,
+    "unit": "ppb",
+    "reading": 140,
+    "tol": 10
+   },
+   {
+    "type": "as_left",
+    "points": []
+   }
+  ],
+  "history": {
+   "last_visit_date": "2024-08-30"
+  },
+  "instrument": {
+   "enclosure_temp_max": 34
+  }
+ },
+ "factors": {
+  "pollutant": "NO2",
+  "as_found_ratio": 0.7,
+  "as_left_status": "not_recorded",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 190,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "enclosure_temp_excursion",
+  "days_since_last_visit": 13,
+  "visit_completeness": "complete",
+  "prior_fail_count": 0,
+  "timestamp_mismatch": "none",
+  "site_priority": "standard"
+ },
+ "factors_sampled": {
+  "pollutant": "NO2",
+  "as_found_ratio": 0.7,
+  "as_left_status": "not_recorded",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 190,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "enclosure_temp_excursion",
+  "days_since_last_visit": 13,
+  "visit_completeness": "complete",
+  "prior_fail_count": 0,
+  "timestamp_mismatch": "none",
+  "site_priority": "standard"
+ },
+ "plan": {
+  "data_accepted": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "reference_valid": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "close_visit",
+   "second": null
+  },
+  "flag_extent": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "return_urgency": {
+   "clarity": "contested",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 39,
+ "deciding": {
+  "data_accepted": "As-found span 140 vs 200 ppb is far out of tolerance, but enclosure_temp_max 34 offers an explanation.",
+  "reference_valid": "IDs and ppb units match and the certificate is in date, but the short ID format makes a certificate record match slightly doubtful.",
+  "next_step": "Sequence_status is complete with no prior failures, and there are no as-left points in checks; closing the visit is mildly favoured.",
+  "flag_extent": "Only 13 days since the last visit, with a 30% as-found span shortfall; flagging could be the whole 13-day interval or a shorter period.",
+  "return_urgency": "Standard-tier site with a temperature excursion and no as-left points; routine and a planned extra visit are both defensible."
+ },
+ "request": "rec-F338-0036",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.005764
+}

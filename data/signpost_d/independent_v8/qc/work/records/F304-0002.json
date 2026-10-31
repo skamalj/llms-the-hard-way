@@ -1,0 +1,96 @@
+{
+ "id": "F304-0002",
+ "family": "F304",
+ "state": {
+  "request": {
+   "appt_type": "inter-site transfer",
+   "appt_time": "10:20",
+   "vehicle_class": "car"
+  },
+  "patient": {
+   "mobility_assessed": null,
+   "monitoring": "cardiac",
+   "fit_to_travel_signed": null
+  },
+  "journey": {
+   "window_end": "08:00",
+   "est_duration_min": 40,
+   "destination": {
+    "reslot_same_day": false
+   }
+  },
+  "notes": {
+   "ward_note": "Fit-to-travel form awaited; monitor only if symptomatic."
+  }
+ },
+ "factors": {
+  "mobility_alignment": "missing",
+  "secondary_discrepancy": "none",
+  "eligibility_concern": false,
+  "eligibility_exception": false,
+  "clinical_support": "cardiac_monitoring",
+  "crew_request_gap": "under_one_step",
+  "buffer_minutes": 100.0,
+  "duration_estimate_split": false,
+  "late_tolerance": false,
+  "appointment_type": "inter-site transfer",
+  "same_day_reslot": false,
+  "confirmation_pending": true,
+  "prior_aborts": 0,
+  "aborts_related": false
+ },
+ "factors_sampled": {
+  "mobility_alignment": "missing",
+  "secondary_discrepancy": "address_material",
+  "eligibility_concern": true,
+  "eligibility_exception": false,
+  "clinical_support": "cardiac_monitoring",
+  "crew_request_gap": "under_one_step",
+  "buffer_minutes": -36.38,
+  "duration_estimate_split": true,
+  "late_tolerance": false,
+  "appointment_type": "outpatient",
+  "same_day_reslot": false,
+  "confirmation_pending": false,
+  "prior_aborts": 4,
+  "aborts_related": true
+ },
+ "plan": {
+  "vehicle_fit": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "disposition": {
+   "clarity": "leaning",
+   "target": "hold",
+   "second": null
+  },
+  "crew_config": {
+   "clarity": "contested",
+   "target": "clinical_escort",
+   "second": "single_crew"
+  },
+  "time_pressure": {
+   "clarity": "leaning",
+   "target": "0",
+   "second": null
+  },
+  "delay_impact": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 31,
+ "deciding": {
+  "vehicle_fit": "patient.mobility_assessed is null, so no assessment supports the booked car, and cardiac monitoring is not covered.",
+  "disposition": "fit_to_travel_signed is null and the ward_note says the form is awaited, so hold.",
+  "crew_config": "monitoring is cardiac (escort), but the note says to monitor only if symptomatic, so single_crew is defensible.",
+  "time_pressure": "window_end 08:00 plus 40 min is 08:40 against appt 10:20, about 100 minutes spare.",
+  "delay_impact": "Inter-site transfer with reslot_same_day false; a lost transfer slot (3) versus lost treatment session (2) is open."
+ },
+ "request": "rec-F304-0001",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.010229
+}

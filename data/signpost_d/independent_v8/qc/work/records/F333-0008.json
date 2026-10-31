@@ -1,0 +1,124 @@
+{
+ "id": "F333-0008",
+ "family": "F333",
+ "state": {
+  "tenancy": {
+   "start_date": "2024-09-01",
+   "end_date": "2025-04-01"
+  },
+  "checkin_inventory": {
+   "signed_date": "2024-09-15",
+   "items": [
+    {
+     "item_code": "DOOR",
+     "grade": "fair"
+    }
+   ]
+  },
+  "checkout_inspection": {
+   "inspection_type": "checkout",
+   "inspection_date": "2025-04-01",
+   "items": [
+    {
+     "item_code": "DOOR",
+     "grade": "fair",
+     "defect_category": "fire_door_closer",
+     "photo_refs": [
+      "p1"
+     ]
+    }
+   ]
+  },
+  "proposed_charges": {
+   "lines": [
+    {
+     "item_code": "DOOR",
+     "reason_code": "DMG",
+     "qty": 1,
+     "unit_rate": 100,
+     "line_total": 100
+    }
+   ],
+   "summary_total": 100
+  },
+  "works_orders": [
+   {
+    "wo_id": "W3",
+    "raised_date": "2025-03-20",
+    "location": "door",
+    "category": "fire_door_closer",
+    "status": "completed",
+    "completed_date": "2025-04-01",
+    "retest_passed": true
+   }
+  ]
+ },
+ "factors": {
+  "inspection_type": "checkout",
+  "checkin_inventory_state": "signed_late",
+  "prior_damage_on_charged_item": "one_item",
+  "charge_discrepancy": "none",
+  "worst_defect_tier": "safety",
+  "true_cause": "no_defect",
+  "predating_works_order": false,
+  "safety_fault_remedied": true,
+  "photo_coverage": "full",
+  "tenancy_months": 7,
+  "date_out_of_order": false,
+  "deposit_dispute_lodged": false,
+  "boundary_case": true
+ },
+ "factors_sampled": {
+  "inspection_type": "checkout",
+  "checkin_inventory_state": "signed_late",
+  "prior_damage_on_charged_item": "one_item",
+  "charge_discrepancy": "none",
+  "worst_defect_tier": "cosmetic",
+  "true_cause": "prior_occupant",
+  "predating_works_order": false,
+  "safety_fault_remedied": true,
+  "photo_coverage": "full",
+  "tenancy_months": 7,
+  "date_out_of_order": false,
+  "deposit_dispute_lodged": false,
+  "boundary_case": true
+ },
+ "plan": {
+  "checkin_clean": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "disposition": {
+   "clarity": "clear",
+   "target": "adjust_and_approve",
+   "second": null
+  },
+  "main_cause": {
+   "clarity": "clear",
+   "target": "no_defect",
+   "second": null
+  },
+  "defect_severity": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  },
+  "charge_gap": {
+   "clarity": "contested",
+   "target": "2",
+   "second": "3"
+  }
+ },
+ "target_words": 46,
+ "deciding": {
+  "checkin_clean": "The charged item DOOR was graded fair at check-in, which was also signed 14 days after start.",
+  "disposition": "DOOR grade is unchanged (fair to fair) yet it is charged, so the line is correctable from the record.",
+  "main_cause": "DOOR is graded fair at both check-in and checkout, so no item changed grade.",
+  "defect_severity": "fire_door_closer is a safety category, but works order W3 was completed on the inspection date with retest passed, so habitability is arguable.",
+  "charge_gap": "The line total of 100.00 is unevidenced because the grade did not worsen; the gap sits exactly at the 100 boundary between levels 2 and 3."
+ },
+ "request": "rec-F333-0006",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.010594
+}

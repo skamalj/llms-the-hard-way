@@ -1,0 +1,155 @@
+{
+ "id": "F328-0053",
+ "family": "F328",
+ "state": {
+  "report_meta": {
+   "id": "W20-F",
+   "veh": "BT21 KDA",
+   "driver_id": "D305",
+   "period": "2024-05-06/2024-05-12"
+  },
+  "vehicle_device": {
+   "health_flags": [],
+   "last_cal": "2024-03-04",
+   "odo_start": 40100,
+   "odo_end": 40590
+  },
+  "trips": [
+   {
+    "id": "T1",
+    "start": "05-12T06:00",
+    "end": "05-12T08:15",
+    "gps_km": 190,
+    "driver_card": null
+   },
+   {
+    "id": "T2",
+    "start": "05-12T08:20",
+    "end": "05-12T10:40",
+    "gps_km": 217,
+    "driver_card": null
+   }
+  ],
+  "events": [
+   {
+    "t": "05-12T09:30",
+    "type": "speed",
+    "recorded_mph": 51,
+    "posted_limit_mph": 50,
+    "map_ver": "M24.1"
+   },
+   {
+    "t": "05-12T07:05",
+    "type": "harsh_brake",
+    "tags": [
+     "congestion"
+    ]
+   },
+   {
+    "t": "05-12T08:50",
+    "type": "harsh_brake",
+    "tags": [
+     "congestion"
+    ]
+   },
+   {
+    "t": "05-12T09:10",
+    "type": "harsh_corner",
+    "tags": [
+     "congestion"
+    ]
+   }
+  ],
+  "tacho_summary": {
+   "cards": [
+    {
+     "card": "D305",
+     "drive": [
+      [
+       "06:00",
+       "08:15"
+      ]
+     ]
+    }
+   ]
+  },
+  "notes_history": {
+   "supervisor_note": "12 May: emergency diversion on B-road after closure, per driver.",
+   "coaching": [
+    {
+     "topic": "speed",
+     "status": "partly_completed",
+     "modules": "1/3"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "driver_assignment": "card_missing",
+  "raw_speed_excess_pct": 2.0,
+  "speed_mitigation": "emergency_diversion_logged",
+  "harsh_event_count": 3,
+  "harsh_context_logged": true,
+  "device_health": "ok",
+  "telematics_stint_hours": 4.58,
+  "tacho_break_reconciles": false,
+  "prior_coaching_count": 1,
+  "coaching_status": "partly_completed",
+  "boundary_value": false,
+  "note_content": "unverified_claim",
+  "distance_discrepancy_pct": 16.9
+ },
+ "factors_sampled": {
+  "driver_assignment": "card_missing",
+  "raw_speed_excess_pct": 1.98,
+  "speed_mitigation": "emergency_diversion_logged",
+  "harsh_event_count": 10,
+  "harsh_context_logged": true,
+  "device_health": "ok",
+  "telematics_stint_hours": 2.32,
+  "tacho_break_reconciles": true,
+  "prior_coaching_count": 1,
+  "coaching_status": "partly_completed",
+  "boundary_value": false,
+  "note_content": "unverified_claim",
+  "distance_discrepancy_pct": 16.95
+ },
+ "plan": {
+  "driver_attributed": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "follow_up": {
+   "clarity": "leaning",
+   "target": "no_action",
+   "second": null
+  },
+  "worst_event_cause": {
+   "clarity": "contested",
+   "target": "road_conditions",
+   "second": "driver_choice"
+  },
+  "speed_excess": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  },
+  "hours_exposure": {
+   "clarity": "contested",
+   "target": "2",
+   "second": "1"
+  }
+ },
+ "target_words": 103,
+ "deciding": {
+  "driver_attributed": "Both trip cards are null; the D305 tacho entry ends 08:15, before the 09:30 speed event, and nothing covers T2, which favours false only modestly.",
+  "follow_up": "The only speed event is 1 mph over (2%) and the diversion note may explain it; the harsh events are congestion-tagged and the speed coaching is part-way done, so a confirmed breach is unlikely.",
+  "worst_event_cause": "The congestion-tagged harsh events and the diversion line point to road conditions, but the diversion is unverified (per driver only) and the speed event itself has no tag.",
+  "speed_excess": "51 against 50 mph is 2% over; the unverified diversion decides whether it counts as unmitigated (level 1) or not (level 0).",
+  "hours_exposure": "T1 and T2 give 2h15 plus 2h20 with a 5 min gap, about 4.6 h, just over the 4.5 h line; there is no tacho cover for T2 and no qualifying break."
+ },
+ "request": "rec-F328-0051",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.017725
+}

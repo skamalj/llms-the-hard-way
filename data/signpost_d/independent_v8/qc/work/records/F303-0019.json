@@ -1,0 +1,161 @@
+{
+ "id": "F303-0019",
+ "family": "F303",
+ "state": {
+  "order": {
+   "prescription": {
+    "modality": "cylinder",
+    "flow_lpm": 2,
+    "hours_per_day": 8,
+    "rx_expiry": "2026-04-30"
+   },
+   "items_ordered": [
+    {
+     "sku": "HX2300",
+     "qty": 2
+    },
+    {
+     "sku": "CD460",
+     "qty": 1
+    },
+    {
+     "sku": "ZD300",
+     "qty": 2
+    }
+   ]
+  },
+  "visit": {
+   "visit_date": "2025-04-08",
+   "items_left": [
+    {
+     "sku": "HX2300",
+     "qty": 2
+    },
+    {
+     "sku": "CD460",
+     "qty": 1
+    },
+    {
+     "sku": "ZD300",
+     "qty": 2
+    }
+   ],
+   "install_checks": {
+    "flow_verified": true,
+    "alarm_tested": true,
+    "training_given": null,
+    "completed_at": "15:40"
+   },
+   "patient_signature": "on_file",
+   "handover_at": "15:45"
+  },
+  "site_assessment": {
+   "hazards": [
+    {
+     "code": "CYL_STORE",
+     "status": "open",
+     "fix": null
+    }
+   ]
+  },
+  "equipment": {
+   "flow_setting_lpm": 2.5,
+   "fault_log": [],
+   "cylinders_on_site": [
+    {
+     "size": "HX 2300 L",
+     "fill_pct": 100
+    },
+    {
+     "size": "HX 2300 L",
+     "fill_pct": 100
+    },
+    {
+     "size": "CD 460 L",
+     "fill_pct": 100
+    },
+    {
+     "size": "ZD 300 L",
+     "fill_pct": 100
+    },
+    {
+     "size": "ZD 300 L",
+     "fill_pct": 100
+    }
+   ]
+  },
+  "supply_plan": {
+   "next_delivery_date": "2025-04-09"
+  }
+ },
+ "factors": {
+  "rx_alignment": "flow_mismatch",
+  "items_shortfall": "none",
+  "setup_state": "training_missing",
+  "supply_hours": 47.2,
+  "concentrator_fault": false,
+  "fault_mitigated": false,
+  "hazards_found": 1,
+  "hazard_mitigation": false,
+  "hazard_status_missing": false,
+  "handover_gap": false,
+  "timeline_out_of_order": false,
+  "next_delivery": "booked_in_time",
+  "dependency_level": "ambulatory",
+  "billing_hold": false
+ },
+ "factors_sampled": {
+  "rx_alignment": "flow_mismatch",
+  "items_shortfall": "one_short",
+  "setup_state": "training_missing",
+  "supply_hours": 394.89,
+  "concentrator_fault": true,
+  "fault_mitigated": true,
+  "hazards_found": 1,
+  "hazard_mitigation": true,
+  "hazard_status_missing": false,
+  "handover_gap": false,
+  "timeline_out_of_order": false,
+  "next_delivery": "not_booked",
+  "dependency_level": "ambulatory",
+  "billing_hold": false
+ },
+ "plan": {
+  "rx_match": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "close_record",
+   "second": null
+  },
+  "fulfilment": {
+   "clarity": "balanced",
+   "target": "fully_complete",
+   "second": "setup_incomplete"
+  },
+  "supply_runway": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  },
+  "open_hazards": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  }
+ },
+ "target_words": 64,
+ "deciding": {
+  "rx_match": "Prescription is cylinder at 2 lpm and cylinder SKUs match, but the regulator setting is 2.5 lpm, a small deviation.",
+  "next_step": "All items are left, the signature and handover are present, and the next delivery is booked for the next day; only a null training flag remains.",
+  "fulfilment": "All SKUs match the order and the other checks are true, but training_given is null, which sits between complete and incomplete setup.",
+  "supply_runway": "Total about 5660 L at 2 lpm is about 47 hours, just under the 48-hour boundary.",
+  "open_hazards": "One hazard, CYL_STORE, is open with no fix code."
+ },
+ "request": "rec-F303-0016",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.014977
+}

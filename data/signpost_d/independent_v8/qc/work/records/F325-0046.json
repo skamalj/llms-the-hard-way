@@ -1,0 +1,153 @@
+{
+ "id": "F325-0046",
+ "family": "F325",
+ "state": {
+  "pen": {
+   "pen_id": "P14",
+   "stage": "grower",
+   "limits": {
+    "do_min_mg_l": 6.0,
+    "tan_max_mg_l": 0.5,
+    "temp_max_c": 16
+   }
+  },
+  "check": {
+   "pen_id": "P14",
+   "sampled_at": "2024-05-12T09:10",
+   "sampler_id": "T07",
+   "depth_profile": [
+    {
+     "depth_m": 1,
+     "do_mg_l": 5.8
+    },
+    {
+     "depth_m": 5,
+     "do_mg_l": 5.7
+    }
+   ],
+   "readings": {
+    "do_mg_l": 5.7,
+    "do_unit": "mg/L",
+    "tan_mg_l": 0.2
+   }
+  },
+  "instrument": {
+   "probe": "HQ-3391",
+   "last_cal": "2024-03-01",
+   "cal_result": "pass",
+   "cal_due": "2024-04-30",
+   "logger_do_mg_l": 7.6,
+   "logger_flags": []
+  },
+  "conditions": {
+   "tide": "mid_ebb",
+   "algal_advisory": false,
+   "feed_kg_last_6h": 210
+  },
+  "history": [
+   {
+    "d": "05-11",
+    "min_do": 7.4,
+    "in_limits": true
+   },
+   {
+    "d": "05-10",
+    "min_do": 7.2,
+    "in_limits": true
+   },
+   {
+    "d": "05-09",
+    "min_do": 7.6,
+    "in_limits": true
+   },
+   {
+    "d": "05-08",
+    "min_do": 7.5,
+    "in_limits": true
+   },
+   {
+    "d": "05-07",
+    "min_do": 7.3,
+    "in_limits": true
+   },
+   {
+    "d": "05-06",
+    "min_do": 7.8,
+    "in_limits": true
+   }
+  ],
+  "notes": {
+   "sampler": "Probe reads terrible, but fish look fine and are feeding hard.",
+   "signoff": "S02",
+   "signoff_at": "2024-05-12T09:40"
+  }
+ },
+ "factors": {
+  "stock_stage": "grower",
+  "true_do_margin": 1.6,
+  "primary_cause": "instrument",
+  "cross_section_mismatch": "none",
+  "calibration_state": "overdue",
+  "logger_alarm_raised": false,
+  "mitigation_present": false,
+  "mitigation_kind": "none",
+  "history_out_of_range": 0,
+  "missing_required": 1,
+  "date_order_fault": false,
+  "boundary_case": false,
+  "note_tone": "alarming_benign"
+ },
+ "factors_sampled": {
+  "stock_stage": "grower",
+  "true_do_margin": -3.99,
+  "primary_cause": "none",
+  "cross_section_mismatch": "unit_confusion",
+  "calibration_state": "current",
+  "logger_alarm_raised": false,
+  "mitigation_present": false,
+  "mitigation_kind": "documented_slack_tide",
+  "history_out_of_range": 7,
+  "missing_required": 4,
+  "date_order_fault": true,
+  "boundary_case": false,
+  "note_tone": "alarming_benign"
+ },
+ "plan": {
+  "genuine_do_breach": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "file_routine",
+   "second": null
+  },
+  "deviation_cause": {
+   "clarity": "clear",
+   "target": "instrument_fault",
+   "second": null
+  },
+  "persistence": {
+   "clarity": "leaning",
+   "target": "0",
+   "second": null
+  },
+  "evidence_completeness": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  }
+ },
+ "target_words": 108,
+ "deciding": {
+  "genuine_do_breach": "Probe shows 5.7 against a 6.0 minimum, but the logger reads 7.6, the probe is overdue for calibration, and the fish look fine. This points to no real breach, with some doubt.",
+  "next_step": "The logger is in limits, the history is clean and the notes are calm, so routine filing is favoured. The probe reading is still low, so a resample remains a small possibility.",
+  "deviation_cause": "cal_due 2024-04-30 is before sampled_at 2024-05-12, and probe 5.7 vs logger 7.6 is a gap of 1.9 mg/L, so it is an instrument fault.",
+  "persistence": "All six history items have in_limits true and the true condition is in range, so none of the last seven are out of range. The low probe value leaves slight doubt.",
+  "evidence_completeness": "Everything is present except the calibration, which is overdue and so invalid. That is exactly one invalid element."
+ },
+ "request": "rec-F325-0046",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.009842
+}

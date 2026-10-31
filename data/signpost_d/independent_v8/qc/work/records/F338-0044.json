@@ -1,0 +1,141 @@
+{
+ "id": "F338-0044",
+ "family": "F338",
+ "state": {
+  "site": {
+   "pol": "SO2",
+   "tier": "indicative",
+   "int_d": 60
+  },
+  "visit": {
+   "date": "2024-09-16",
+   "start": "13:00",
+   "end": "14:10",
+   "seq": "partial",
+   "maint_win": true
+  },
+  "reference": {
+   "id": "S-3308",
+   "conc": 0,
+   "unit": "ppb",
+   "exp": "2025-07-28"
+  },
+  "checks": [
+   {
+    "t": "af_zero",
+    "ref_id": "S-3308",
+    "ref": 0,
+    "unit": "ppb",
+    "read": 4.2,
+    "tol": 2,
+    "ts": "2024-09-16T13:12"
+   },
+   {
+    "t": "al_zero",
+    "ref_id": "S-3308",
+    "ref": 0,
+    "unit": "ppb",
+    "read": 1.8,
+    "tol": 2,
+    "ts": "2024-09-16T14:00"
+   }
+  ],
+  "history": {
+   "last": "2024-07-09",
+   "results": [
+    "pass",
+    "fail",
+    "pass",
+    "pass"
+   ],
+   "auto": [
+    {
+     "d": "2024-07-12",
+     "r": "fail"
+    },
+    {
+     "d": "2024-07-13",
+     "r": "fail"
+    },
+    {
+     "d": "2024-08-20",
+     "r": "pass"
+    }
+   ]
+  },
+  "instrument": {
+   "fw": "4.0.2",
+   "svc": "2024-03-02",
+   "tmin": 12,
+   "tmax": 28
+  }
+ },
+ "factors": {
+  "pollutant": "SO2",
+  "as_found_ratio": 2.1,
+  "as_left_status": "marginal",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 315,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": false,
+  "drift_explanation": "maintenance_window",
+  "days_since_last_visit": 69,
+  "visit_completeness": "zero_only",
+  "prior_fail_count": 1,
+  "timestamp_mismatch": "none",
+  "site_priority": "indicative"
+ },
+ "factors_sampled": {
+  "pollutant": "SO2",
+  "as_found_ratio": 2.1,
+  "as_left_status": "marginal",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 315,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": false,
+  "drift_explanation": "maintenance_window",
+  "days_since_last_visit": 69,
+  "visit_completeness": "zero_only",
+  "prior_fail_count": 1,
+  "timestamp_mismatch": "none",
+  "site_priority": "indicative"
+ },
+ "plan": {
+  "data_accepted": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "reference_valid": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "next_step": {
+   "clarity": "balanced",
+   "target": "close_flagged",
+   "second": "recalibrate"
+  },
+  "flag_extent": {
+   "clarity": "clear",
+   "target": "3",
+   "second": null
+  },
+  "return_urgency": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  }
+ },
+ "target_words": 78,
+ "deciding": {
+  "data_accepted": "As-found zero 4.2 vs tol 2 is out, but maint_win is true and the zero drift is explained; autochecks failed early and then recovered, leaving some doubt.",
+  "reference_valid": "ref_ids match S-3308, units ppb, expiry 2025-07-28 is well after the visit, but only a zero concentration is certified in the record.",
+  "next_step": "As-left zero 1.8 vs tol 2 is only just inside and no span or precision was run (partial); close_flagged vs recalibrate is balanced.",
+  "flag_extent": "Early autocheck failures in July, a gap to 2024-08-20 and an out-of-tolerance as-found across a 69-day interval imply the whole period is affected (over 30 days).",
+  "return_urgency": "Indicative tier and a maintenance window explanation make it a low priority, but the missing span check could justify a return in 3-7 days rather than 8-30."
+ },
+ "request": "rec-F338-0041",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.008854
+}

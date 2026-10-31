@@ -1,0 +1,123 @@
+{
+ "id": "F304-0041",
+ "family": "F304",
+ "state": {
+  "request": {
+   "appt_type": "chemotherapy",
+   "appt_time": "10:20",
+   "vehicle_class": "wheelchair_car",
+   "crew_requested": "double",
+   "mobility_booked": "wheelchair",
+   "equipment": []
+  },
+  "patient": {
+   "mobility_assessed": "walking_aid",
+   "assessed_on": "2025-05-02",
+   "oxygen_lpm": 0,
+   "monitoring": null,
+   "own_transport_available": true,
+   "carer_available": true,
+   "exemption": null
+  },
+  "journey": {
+   "window_end": "09:12",
+   "est_duration_min": 40,
+   "manual_est_min": null,
+   "late_tolerance_min": 10,
+   "destination": {
+    "reslot_same_day": false
+   }
+  },
+  "history": [
+   {
+    "outcome": "aborted",
+    "reason": "no answer"
+   },
+   {
+    "outcome": "aborted",
+    "reason": "clinic cancelled"
+   },
+   {
+    "outcome": "aborted",
+    "reason": "no answer"
+   },
+   {
+    "outcome": "aborted",
+    "reason": "patient unwell"
+   }
+  ],
+  "notes": {
+   "referrer_note": "Patient drives most days but is tired after cycles."
+  }
+ },
+ "factors": {
+  "mobility_alignment": "overstated",
+  "secondary_discrepancy": "none",
+  "eligibility_concern": true,
+  "eligibility_exception": false,
+  "clinical_support": "none",
+  "crew_request_gap": "correct",
+  "buffer_minutes": 28.0,
+  "duration_estimate_split": false,
+  "late_tolerance": true,
+  "appointment_type": "chemotherapy",
+  "same_day_reslot": false,
+  "confirmation_pending": false,
+  "prior_aborts": 4,
+  "aborts_related": false
+ },
+ "factors_sampled": {
+  "mobility_alignment": "overstated",
+  "secondary_discrepancy": "none",
+  "eligibility_concern": true,
+  "eligibility_exception": false,
+  "clinical_support": "low_flow_oxygen",
+  "crew_request_gap": "correct",
+  "buffer_minutes": 19.68,
+  "duration_estimate_split": false,
+  "late_tolerance": true,
+  "appointment_type": "chemotherapy",
+  "same_day_reslot": false,
+  "confirmation_pending": true,
+  "prior_aborts": 4,
+  "aborts_related": false
+ },
+ "plan": {
+  "vehicle_fit": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "disposition": {
+   "clarity": "contested",
+   "target": "decline",
+   "second": "amend_confirm"
+  },
+  "crew_config": {
+   "clarity": "leaning",
+   "target": "double_crew",
+   "second": null
+  },
+  "time_pressure": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  },
+  "delay_impact": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  }
+ },
+ "target_words": 57,
+ "deciding": {
+  "vehicle_fit": "Booked wheelchair car covers more than the recent walking_aid assessment; fits, but booked mobility exceeds assessed.",
+  "disposition": "own_transport_available true, no exemption (decline) versus booked/assessed mobility conflict that could be corrected (amend_confirm).",
+  "crew_config": "Wheelchair booked, no oxygen or monitoring, double crew requested; assessment shows walking aid, so some doubt.",
+  "time_pressure": "window_end 09:12 + 40 min against 10:20 leaves 28 min, just under the 30 anchor.",
+  "delay_impact": "Chemotherapy with reslot_same_day false; late tolerance 10 min gives some doubt."
+ },
+ "request": "rec-F304-0041",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.008819
+}

@@ -1,0 +1,109 @@
+{
+ "id": "F304-0049",
+ "family": "F304",
+ "state": {
+  "request": {
+   "ref": "T4004",
+   "appt_type": "dialysis",
+   "appt_time": "2025-03-13T14:00",
+   "vehicle_class": "wheelchair",
+   "crew_requested": 2,
+   "mobility_booked": "wheelchair",
+   "equipment": [
+    "wheelchair",
+    "monitor"
+   ]
+  },
+  "patient": {
+   "mobility_assessed": "wheelchair",
+   "assessed_on": "2025-03-03",
+   "weight_kg": 82,
+   "oxygen_lpm": 0,
+   "monitoring": "cardiac",
+   "own_transport_available": false,
+   "exemption": null
+  },
+  "journey": {
+   "window_end": "2025-03-13T12:00",
+   "est_duration_min": 30,
+   "late_tolerance_min": 15,
+   "destination": {
+    "reslot_same_day": false
+   }
+  },
+  "history": [],
+  "notes": {
+   "control_note": "Unit confirms chair at 14:30."
+  }
+ },
+ "factors": {
+  "mobility_alignment": "matches",
+  "secondary_discrepancy": "time_material",
+  "eligibility_concern": false,
+  "eligibility_exception": false,
+  "clinical_support": "cardiac_monitoring",
+  "crew_request_gap": "under_one_step",
+  "buffer_minutes": 90.0,
+  "duration_estimate_split": false,
+  "late_tolerance": true,
+  "appointment_type": "dialysis",
+  "same_day_reslot": false,
+  "confirmation_pending": false,
+  "prior_aborts": 0,
+  "aborts_related": false
+ },
+ "factors_sampled": {
+  "mobility_alignment": "stale",
+  "secondary_discrepancy": "time_material",
+  "eligibility_concern": false,
+  "eligibility_exception": false,
+  "clinical_support": "none",
+  "crew_request_gap": "under_one_step",
+  "buffer_minutes": -10.07,
+  "duration_estimate_split": false,
+  "late_tolerance": true,
+  "appointment_type": "dialysis",
+  "same_day_reslot": false,
+  "confirmation_pending": false,
+  "prior_aborts": 0,
+  "aborts_related": false
+ },
+ "plan": {
+  "vehicle_fit": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "disposition": {
+   "clarity": "leaning",
+   "target": "amend_confirm",
+   "second": null
+  },
+  "crew_config": {
+   "clarity": "clear",
+   "target": "clinical_escort",
+   "second": null
+  },
+  "time_pressure": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "delay_impact": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  }
+ },
+ "target_words": 67,
+ "deciding": {
+  "vehicle_fit": "Wheelchair booked and assessed 2025-03-03, monitor listed in equipment, so the vehicle fits.",
+  "disposition": "request.appt_time 14:00 against the unit-confirmed 14:30 is a 30 min correctable mismatch; nothing is pending.",
+  "crew_config": "monitoring is cardiac with 82 kg, so clinical escort.",
+  "time_pressure": "12:00 plus 30 min arrives 12:30, 90 min before 14:00; on the level 0 and 1 boundary (120 min against 14:30).",
+  "delay_impact": "Dialysis session with reslot_same_day false (high), but a 15 min tolerance makes moderate plausible."
+ },
+ "request": "rec-F304-0046",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.010741
+}

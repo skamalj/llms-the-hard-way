@@ -1,0 +1,111 @@
+{
+ "id": "F304-0010",
+ "family": "F304",
+ "state": {
+  "request": {
+   "ref": "X5530",
+   "appt_type": "dialysis",
+   "appt_time": "2025-06-10T10:00",
+   "vehicle_class": "ambulance_seat",
+   "crew_requested": "clinical_escort",
+   "mobility_booked": "walking",
+   "equipment": [
+    "O2 cylinder"
+   ]
+  },
+  "patient": {
+   "mobility_assessed": "walking_aid",
+   "assessed_on": "2025-02-20",
+   "weight_kg": 82,
+   "oxygen_lpm": 2,
+   "monitoring": null,
+   "own_transport_available": true,
+   "exemption": {
+    "code": "EX-MED",
+    "approved_by": "Dr Osei",
+    "approved_on": "2024-09-14"
+   }
+  },
+  "journey": {
+   "window_end": "2025-06-10T07:45",
+   "est_duration_min": 45,
+   "late_tolerance_min": 0,
+   "reslot_same_day": true
+  },
+  "history": [],
+  "notes": {
+   "ward_note": "Chair 10:03 per unit.",
+   "referrer_note": "Drives to clinic visits but is exhausted after dialysis."
+  }
+ },
+ "factors": {
+  "mobility_alignment": "overstated",
+  "secondary_discrepancy": "time_trivial",
+  "eligibility_concern": true,
+  "eligibility_exception": true,
+  "clinical_support": "low_flow_oxygen",
+  "crew_request_gap": "correct",
+  "buffer_minutes": 90.0,
+  "duration_estimate_split": false,
+  "late_tolerance": false,
+  "appointment_type": "dialysis",
+  "same_day_reslot": true,
+  "confirmation_pending": false,
+  "prior_aborts": 0,
+  "aborts_related": false
+ },
+ "factors_sampled": {
+  "mobility_alignment": "overstated",
+  "secondary_discrepancy": "time_trivial",
+  "eligibility_concern": true,
+  "eligibility_exception": true,
+  "clinical_support": "none",
+  "crew_request_gap": "under_one_step",
+  "buffer_minutes": 13.68,
+  "duration_estimate_split": false,
+  "late_tolerance": false,
+  "appointment_type": "dialysis",
+  "same_day_reslot": true,
+  "confirmation_pending": true,
+  "prior_aborts": 0,
+  "aborts_related": false
+ },
+ "plan": {
+  "vehicle_fit": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "disposition": {
+   "clarity": "balanced",
+   "target": "confirm",
+   "second": "decline"
+  },
+  "crew_config": {
+   "clarity": "clear",
+   "target": "clinical_escort",
+   "second": null
+  },
+  "time_pressure": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  },
+  "delay_impact": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  }
+ },
+ "target_words": 88,
+ "deciding": {
+  "vehicle_fit": "Booked walking against assessed walking_aid is a mild overstatement. The assessment is recent and the seated ambulance with the cylinder listed is plausible.",
+  "disposition": "own_transport_available true and the referrer note says the patient drives, but a recorded EX-MED exemption exists, approved in 2024. The 10:03 chair time is trivial.",
+  "crew_config": "oxygen_lpm 2 at 82 kg, below bariatric limit, and clinical_escort already requested.",
+  "time_pressure": "Window end 07:45 plus 45 min gives 08:30 arrival against 10:00, exactly 90 min spare, on the boundary of levels 0 and 1.",
+  "delay_impact": "Dialysis with reslot_same_day true, so a late arrival is probably reslotted (level 1), but the patient is fatigued after treatment."
+ },
+ "request": "rec-F304-0006",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012989
+}

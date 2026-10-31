@@ -1,0 +1,168 @@
+{
+ "id": "F303-0027",
+ "family": "F303",
+ "state": {
+  "order": {
+   "prescription": {
+    "modality": "concentrator",
+    "flow_lpm": 2,
+    "hours_per_day": 24,
+    "rx_expiry": "2026-01-01"
+   },
+   "items_ordered": [
+    {
+     "sku": "CONC5",
+     "qty": 1
+    },
+    {
+     "sku": "HUMID",
+     "qty": 1
+    }
+   ],
+   "account": {
+    "billing_hold": true,
+    "arrears_gbp": 120
+   }
+  },
+  "visit": {
+   "visit_id": "V2201",
+   "visit_date": "2025-04-14",
+   "arrived_at": "2025-04-14T09:00",
+   "departed_at": "2025-04-14T09:35",
+   "items_left": [],
+   "install_checks": {
+    "flow_verified": false,
+    "alarm_tested": true,
+    "training_given": true,
+    "completed_at": "2025-04-14T09:30"
+   },
+   "patient_signature": true,
+   "handover_at": "2025-04-14T09:33"
+  },
+  "site_assessment": {
+   "assessed_at": "2025-04-14T09:10",
+   "hazards": [
+    {
+     "code": "SMOKING",
+     "status": "open",
+     "fix": null
+    },
+    {
+     "code": "GAS_HOB",
+     "status": "open",
+     "fix": null
+    },
+    {
+     "code": "NO_ALARM",
+     "status": "open",
+     "fix": "alarm_fitted"
+    },
+    {
+     "code": "BLOCKED_EXIT",
+     "status": "open",
+     "fix": null
+    },
+    {
+     "code": "TRIP_TUBING",
+     "status": "resolved_on_visit",
+     "fix": null
+    }
+   ]
+  },
+  "equipment": {
+   "concentrator": {
+    "serial": "C5-221",
+    "flow_setting_lpm": 2
+   },
+   "fault_log": [],
+   "cylinders_on_site": [
+    {
+     "size": "HX 2300 L",
+     "fill_pct": 100
+    },
+    {
+     "size": "HX 2300 L",
+     "fill_pct": 100
+    },
+    {
+     "size": "HX 2300 L",
+     "fill_pct": 60
+    }
+   ]
+  },
+  "supply_plan": {
+   "next_delivery_date": "2025-04-20",
+   "route_day": "Tue"
+  }
+ },
+ "factors": {
+  "rx_alignment": "exact",
+  "items_shortfall": "nothing_left",
+  "setup_state": "all_logged",
+  "supply_hours": "about 50 hours of cylinder supply; installed concentrator unfaulted but flow not verified",
+  "concentrator_fault": false,
+  "fault_mitigated": false,
+  "hazards_found": 5,
+  "hazard_mitigation": false,
+  "hazard_status_missing": false,
+  "handover_gap": false,
+  "timeline_out_of_order": false,
+  "next_delivery": "booked_in_time",
+  "dependency_level": "continuous",
+  "billing_hold": true
+ },
+ "factors_sampled": {
+  "rx_alignment": "exact",
+  "items_shortfall": "one_short",
+  "setup_state": "all_logged",
+  "supply_hours": 249.78,
+  "concentrator_fault": false,
+  "fault_mitigated": false,
+  "hazards_found": 5,
+  "hazard_mitigation": false,
+  "hazard_status_missing": false,
+  "handover_gap": true,
+  "timeline_out_of_order": false,
+  "next_delivery": "booked_in_time",
+  "dependency_level": "continuous",
+  "billing_hold": true
+ },
+ "plan": {
+  "rx_match": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "close_record",
+   "second": null
+  },
+  "fulfilment": {
+   "clarity": "balanced",
+   "target": "nothing_delivered",
+   "second": "setup_incomplete"
+  },
+  "supply_runway": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  },
+  "open_hazards": {
+   "clarity": "balanced",
+   "target": "4",
+   "second": "3"
+  }
+ },
+ "target_words": 94,
+ "deciding": {
+  "rx_match": "Existing concentrator is set to 2 lpm, but items_left is empty so nothing delivered can be shown to match the prescription.",
+  "next_step": "Signature and handover logged, all checks except flow_verified present, next delivery booked; closing leaned on despite empty delivery.",
+  "fulfilment": "items_left is empty against two ordered SKUs (nothing_delivered), but install checks were logged on site, keeping setup_incomplete plausible.",
+  "supply_runway": "Installed concentrator has no fault entry but flow_verified is false; cylinders hold about 5980 L, roughly 2 days at 2 lpm continuous, so level 3 vs 2 is contested.",
+  "open_hazards": "Four hazards status open and one resolved; NO_ALARM is open yet shows alarm_fitted, so 3 or 4 open is arguable."
+ },
+ "request": "rec-F303-0026",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.013915
+}

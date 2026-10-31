@@ -1,0 +1,138 @@
+{
+ "id": "F333-0020",
+ "family": "F333",
+ "state": {
+  "tenancy": {
+   "start_date": "2024-09-10",
+   "end_date": "2025-05-10"
+  },
+  "checkin_inventory": {
+   "items": [
+    {
+     "item_code": "WARDROBE",
+     "location": "bed",
+     "grade": "fair"
+    },
+    {
+     "item_code": "BLIND",
+     "location": "bed",
+     "grade": "fair"
+    }
+   ]
+  },
+  "checkout_inspection": {
+   "inspection_type": "checkout",
+   "items": [
+    {
+     "item_code": "WARDROBE",
+     "location": "bed",
+     "grade": "damaged",
+     "defect_category": "broken_fitting",
+     "photo_refs": [
+      "p4"
+     ]
+    },
+    {
+     "item_code": "BLIND",
+     "location": "bed",
+     "grade": "fair",
+     "defect_category": "scuff",
+     "photo_refs": []
+    }
+   ]
+  },
+  "proposed_charges": {
+   "lines": [
+    {
+     "item_code": "WARDROBE",
+     "qty": 1,
+     "unit_rate": 40,
+     "line_total": 40
+    },
+    {
+     "item_code": "BLIND",
+     "qty": 1,
+     "unit_rate": 12,
+     "line_total": 12
+    }
+   ],
+   "summary_total": 52
+  },
+  "works_orders": [
+   {
+    "location": "bed",
+    "category": "fabric",
+    "raised_date": "2024-08-20",
+    "status": "completed"
+   }
+  ]
+ },
+ "factors": {
+  "inspection_type": "checkout",
+  "checkin_inventory_state": "complete",
+  "prior_damage_on_charged_item": "one_item",
+  "charge_discrepancy": "none",
+  "worst_defect_tier": "functional",
+  "true_cause": "building_fault",
+  "predating_works_order": true,
+  "safety_fault_remedied": false,
+  "photo_coverage": "all_but_one",
+  "tenancy_months": 8,
+  "date_out_of_order": false,
+  "deposit_dispute_lodged": false,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "inspection_type": "checkout",
+  "checkin_inventory_state": "complete",
+  "prior_damage_on_charged_item": "one_item",
+  "charge_discrepancy": "none",
+  "worst_defect_tier": "functional",
+  "true_cause": "resident_damage",
+  "predating_works_order": true,
+  "safety_fault_remedied": true,
+  "photo_coverage": "all_but_one",
+  "tenancy_months": 8,
+  "date_out_of_order": false,
+  "deposit_dispute_lodged": false,
+  "boundary_case": false
+ },
+ "plan": {
+  "checkin_clean": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "disposition": {
+   "clarity": "clear",
+   "target": "adjust_and_approve",
+   "second": null
+  },
+  "main_cause": {
+   "clarity": "balanced",
+   "target": "building_fault",
+   "second": "fair_wear"
+  },
+  "defect_severity": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  },
+  "charge_gap": {
+   "clarity": "contested",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 43,
+ "deciding": {
+  "checkin_clean": "Both charged items, WARDROBE and BLIND, were graded fair at check-in.",
+  "disposition": "BLIND is charged 12 though still fair at checkout (same as check-in) with no photo; dropping that line corrects the draft using figures already in the record.",
+  "main_cause": "A fabric works order at location bed was raised before tenancy start, supporting building fault, while a one-step drop over 8 months suggests fair wear.",
+  "defect_severity": "WARDROBE broken_fitting needs repair (functional) but the other item is only a scuff, so cosmetic remains arguable.",
+  "charge_gap": "WARDROBE line 40 is evidenced (worse grade plus photo); BLIND line 12 is unevidenced, so the gap of 12 is small and whether it counts is open."
+ },
+ "request": "rec-F333-0016",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.014062
+}

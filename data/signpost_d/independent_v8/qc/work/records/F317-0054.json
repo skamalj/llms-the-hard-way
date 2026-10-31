@@ -1,0 +1,157 @@
+{
+ "id": "F317-0054",
+ "family": "F317",
+ "state": {
+  "vehicle": {
+   "fleet_no": 1807,
+   "class": "T1",
+   "odometer_km": 21860,
+   "last_exam_date": "2024-02-11"
+  },
+  "exam": {
+   "exam_id": "E40",
+   "exam_type": "G1",
+   "due_at_km": 22000,
+   "opened_at": "2024-06-09T07:00",
+   "items": [
+    {
+     "item_code": "F1",
+     "result": "pass",
+     "signed_by": null,
+     "signed_at": null
+    },
+    {
+     "item_code": "F2",
+     "result": "pass",
+     "signed_by": "p3",
+     "signed_at": null
+    },
+    {
+     "item_code": "F3",
+     "result": null,
+     "signed_by": null,
+     "signed_at": null
+    },
+    {
+     "item_code": "F4",
+     "result": null,
+     "signed_by": null,
+     "signed_at": null
+    }
+   ]
+  },
+  "defects": [
+   {
+    "defect_id": "D204",
+    "fleet_no": 1807,
+    "subsystem": "pantograph",
+    "safety_critical": true,
+    "raised_at": "2024-04-06",
+    "status": "closed",
+    "closed_at": "2024-04-12",
+    "retest_at": "2024-04-10",
+    "retest_result": "pass"
+   },
+   {
+    "defect_id": "D210",
+    "fleet_no": 1807,
+    "subsystem": "saloon_doors",
+    "safety_critical": false,
+    "raised_at": "2024-04-20",
+    "status": "closed",
+    "closed_at": "2024-04-21",
+    "retest_at": "2024-04-21",
+    "retest_result": "pass"
+   }
+  ],
+  "work_orders": [
+   {
+    "wo_id": "W15",
+    "defect_ref": "D204",
+    "subsystem": "running_gear",
+    "opened_at": "2024-04-07",
+    "completed_at": "2024-04-12",
+    "status": "done"
+   }
+  ],
+  "concessions": [],
+  "release": {
+   "duty_id": "U30",
+   "duty_type": "off_peak",
+   "depart_at": "2024-06-12T10:00",
+   "odo_reading_km": 21866,
+   "brake_test_at": "2024-06-08T05:00",
+   "brake_test_result": "pass"
+  }
+ },
+ "factors": {
+  "km_to_exam_due": 140,
+  "odometer_disagreement": "trivial",
+  "exam_signed_fraction": 0.0,
+  "exam_record_missing": false,
+  "worst_defect_subsystem": "none",
+  "worst_defect_state": "closed_retested",
+  "worst_defect_safety_critical": true,
+  "retest_out_of_order": true,
+  "concession_present": false,
+  "concession_flaw": "none",
+  "wo_crossref_mismatch": "subsystem_differs",
+  "planned_duty_type": "off_peak",
+  "recent_brake_test_pass": false,
+  "balanced_signals": false
+ },
+ "factors_sampled": {
+  "km_to_exam_due": -106,
+  "odometer_disagreement": "trivial",
+  "exam_signed_fraction": 0.35,
+  "exam_record_missing": false,
+  "worst_defect_subsystem": "pantograph",
+  "worst_defect_state": "closed_no_retest",
+  "worst_defect_safety_critical": false,
+  "retest_out_of_order": false,
+  "concession_present": false,
+  "concession_flaw": "wrong_defect_ref",
+  "wo_crossref_mismatch": "subsystem_differs",
+  "planned_duty_type": "off_peak",
+  "recent_brake_test_pass": false,
+  "balanced_signals": false
+ },
+ "plan": {
+  "sc_defects_cleared": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "release_decision": {
+   "clarity": "balanced",
+   "target": "withdraw",
+   "second": "release"
+  },
+  "worst_subsystem": {
+   "clarity": "clear",
+   "target": "none",
+   "second": null
+  },
+  "exam_completion": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "exam_mileage": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  }
+ },
+ "target_words": 136,
+ "deciding": {
+  "sc_defects_cleared": "Safety-critical D204 had its retest on 2024-04-10 before the repair was completed on 04-12, and its work order is listed under running_gear against a pantograph defect, so the retest is not proper.",
+  "release_decision": "Safety-critical retest sequence is invalid and the work order mismatches (points to withdraw), but no defect is open, the duty is off-peak and the exam is not yet due (points to release).",
+  "worst_subsystem": "Both defects are closed with pass retests, so none is open or awaiting retest.",
+  "exam_completion": "No item has both signed_by and signed_at; F2 has signed_by but null signed_at, which leaves level 0 slightly ahead of level 1.",
+  "exam_mileage": "due_at_km 22000 minus release reading 21866 leaves 134 km, and the vehicle odometer gives 140 km, so both are well within 0 to 500 km."
+ },
+ "request": "rec-F317-0051",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.014219
+}

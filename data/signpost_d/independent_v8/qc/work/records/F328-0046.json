@@ -1,0 +1,147 @@
+{
+ "id": "F328-0046",
+ "family": "F328",
+ "state": {
+  "report_meta": {
+   "id": "W20-118",
+   "reg": "KX19",
+   "driver_id": "D14"
+  },
+  "vehicle_device": {
+   "health_flags": [
+    "intermittent_dropouts"
+   ],
+   "odo": [
+    10000,
+    10612
+   ]
+  },
+  "trips": [
+   {
+    "s": "2024-05-14T05:50",
+    "e": "08:30",
+    "card": "D14",
+    "km": 300
+   },
+   {
+    "s": "08:37",
+    "e": "11:30",
+    "card": null,
+    "km": 266
+   }
+  ],
+  "events": [
+   {
+    "t": "2024-05-14T07:10",
+    "type": "speed",
+    "mph": 60.4,
+    "lim": 60,
+    "seg": "A49",
+    "map": "v2"
+   },
+   {
+    "t": "08:05",
+    "type": "harsh_brake"
+   },
+   {
+    "t": "09:02",
+    "type": "harsh_brake"
+   },
+   {
+    "t": "10:11",
+    "type": "harsh_accel"
+   }
+  ],
+  "tacho_summary": {
+   "entries": [
+    {
+     "card": "D14",
+     "drive": [
+      "05:50",
+      "11:10"
+     ],
+     "breaks": []
+    }
+   ]
+  },
+  "notes_history": {
+   "supervisor_note": "Heavy congestion on A49 Tuesday, traffic log 3318.",
+   "coaching": [],
+   "limit_updates": [
+    {
+     "seg": "A49",
+     "limit_mph": 70,
+     "eff": "2024-05-01"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "driver_assignment": "card_missing on second trip only; event trip card matches",
+  "raw_speed_excess_pct": 0.72,
+  "speed_mitigation": "map_limit_outdated",
+  "harsh_event_count": 3,
+  "harsh_context_logged": false,
+  "device_health": "intermittent_dropouts",
+  "telematics_stint_hours": 5.6,
+  "tacho_break_reconciles": false,
+  "prior_coaching_count": 0,
+  "coaching_status": "none",
+  "boundary_value": false,
+  "note_content": "benign_explanation_supported",
+  "distance_discrepancy_pct": 8.07
+ },
+ "factors_sampled": {
+  "driver_assignment": "mismatch_unexplained",
+  "raw_speed_excess_pct": 0.72,
+  "speed_mitigation": "map_limit_outdated",
+  "harsh_event_count": 11,
+  "harsh_context_logged": false,
+  "device_health": "intermittent_dropouts",
+  "telematics_stint_hours": 6.38,
+  "tacho_break_reconciles": true,
+  "prior_coaching_count": 2,
+  "coaching_status": "none",
+  "boundary_value": false,
+  "note_content": "benign_explanation_supported",
+  "distance_discrepancy_pct": 8.07
+ },
+ "plan": {
+  "driver_attributed": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "follow_up": {
+   "clarity": "leaning",
+   "target": "hold_verify",
+   "second": null
+  },
+  "worst_event_cause": {
+   "clarity": "balanced",
+   "target": "driver_choice",
+   "second": "road_conditions"
+  },
+  "speed_excess": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "hours_exposure": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 48,
+ "deciding": {
+  "driver_attributed": "Speed event at 07:10 falls in trip 1 with card D14 matching the reported driver and tacho; trip 2 has a null card, which leaves modest doubt.",
+  "follow_up": "No unmitigated speed breach and the hours picture rests on dropout-affected data and a null-card trip; verification is needed before any action.",
+  "worst_event_cause": "Harsh events carry no context tags (driver_choice), but the supervisor note cites congestion on A49 in the same period with a log reference (road_conditions).",
+  "speed_excess": "Recorded 60.4 against old map limit 60, but limit_updates holds 70 for A49 effective 2024-05-01 before the event with map v2. Mitigated gives 0; the raw 0.7% would be level 1.",
+  "hours_exposure": "Telematics shows trips 05:50-08:30 and 08:37-11:30 with a 7 min stop, about 5.7 h, while tacho drive ends 11:10 (about 5.3 h) with no break; dropouts leave level 2 versus 3 open."
+ },
+ "request": "rec-F328-0046",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.021983
+}

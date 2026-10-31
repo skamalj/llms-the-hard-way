@@ -1,0 +1,133 @@
+{
+ "id": "F330-0024",
+ "family": "F330",
+ "state": {
+  "request": {
+   "req_id": "X104",
+   "grade": "G6",
+   "cost_centre": "CC510",
+   "trip_ref": "T6650",
+   "requested_total": 640
+  },
+  "lines": [
+   {
+    "line_no": 1,
+    "date": "2025-09-02",
+    "category": "air",
+    "cost_centre": "CC515",
+    "amount": 738,
+    "ccy": "EUR",
+    "fx_rate": 0.85,
+    "amount_gbp": 628,
+    "receipt_attached": true
+   }
+  ],
+  "policy": {
+   "rule_id": "AIR1",
+   "grade_band": "G6",
+   "cap_gbp": 600,
+   "cap_unit": "trip",
+   "units": 1,
+   "reviewer_limit_gbp": 500
+  },
+  "travel": {
+   "trip_ref": "T6650",
+   "depart": "2025-09-08",
+   "return": "2025-09-12",
+   "booked_on": "2025-08-13",
+   "disruption": null,
+   "alt_check": {
+    "options_seen": 2,
+    "compliant_found": true
+   },
+   "client_recharge": {
+    "billable": true,
+    "client_code": "CL4"
+   }
+  },
+  "approvals": {
+   "line_mgr": {
+    "approved": true
+   },
+   "pre_approval": {
+    "ref": "PA88",
+    "trip_ref": "T6650",
+    "max_gbp": 100,
+    "valid_to": "2025-09-12"
+   }
+  },
+  "history": {
+   "exceptions_12m": 0,
+   "approved_12m": 0,
+   "declined_12m": 0
+  }
+ },
+ "factors": {
+  "breach_type": "airfare_class_upgrade",
+  "true_excess_pct": 4.67,
+  "amount_mismatch": "rounding_and_total_differs",
+  "reference_mismatch": "line_date_and_cost_centre_differ",
+  "pre_approval_state": "valid_matching",
+  "external_disruption": false,
+  "compliant_option": "available",
+  "missing_item": "none",
+  "excess_vs_authority": "well_within",
+  "client_rechargeable": true,
+  "prior_exceptions_12m": 0,
+  "booking_lead_days": 26,
+  "employee_grade": "G6"
+ },
+ "factors_sampled": {
+  "breach_type": "airfare_class_upgrade",
+  "true_excess_pct": 4.67,
+  "amount_mismatch": "rounding",
+  "reference_mismatch": "none",
+  "pre_approval_state": "expired",
+  "external_disruption": false,
+  "compliant_option": "none_available",
+  "missing_item": "receipt",
+  "excess_vs_authority": "well_within",
+  "client_rechargeable": true,
+  "prior_exceptions_12m": 0,
+  "booking_lead_days": 26,
+  "employee_grade": "G6"
+ },
+ "plan": {
+  "preapproval_covers": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "outside_control": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "excess_disposition": {
+   "clarity": "balanced",
+   "target": "decline_excess",
+   "second": "partial_approve"
+  },
+  "excess_size": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  },
+  "discrepancy_count": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "4"
+  }
+ },
+ "target_words": 49,
+ "deciding": {
+  "preapproval_covers": "pre_approval trip_ref T6650 matches, valid_to 2025-09-12 is after depart, and max_gbp 100 exceeds the excess of 28.",
+  "outside_control": "disruption is null and alt_check shows compliant_found true, with a 26-day booking lead.",
+  "excess_disposition": "A small excess of 28 is covered by a valid pre-approval, but a compliant option existed and no disruption is logged, so declining and partly approving are both defensible.",
+  "excess_size": "628 against cap 600 gives an excess of 28, or 4.67%.",
+  "discrepancy_count": "Requested_total 640 differs from the line total of 628; line date 09-02 is before depart 09-08; line cost centre CC515 differs from CC510. That is three, and the fx rounding (738 x 0.85 = 627.3 against 628) makes four if counted."
+ },
+ "request": "rec-F330-0021",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.015448
+}

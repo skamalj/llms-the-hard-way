@@ -1,0 +1,118 @@
+{
+ "id": "F338-0025",
+ "family": "F338",
+ "state": {
+  "site": {
+   "pollutant": "NO2",
+   "tier": "standard",
+   "service_interval_days": 90
+  },
+  "visit": {
+   "date": "2025-08-12",
+   "sequence_status": "complete",
+   "maintenance_window": false
+  },
+  "reference": {
+   "standard_id": "CYL-3308",
+   "cert_expiry": "2026-07-17"
+  },
+  "checks": [
+   {
+    "type": "as_found_span",
+    "ref_id": "CYL-3308",
+    "ref_conc": 200,
+    "reading": 211.6,
+    "tol": 4
+   },
+   {
+    "type": "as_left_span",
+    "ref_id": "CYL-3308",
+    "ref_conc": 200,
+    "reading": 200.7,
+    "tol": 4
+   }
+  ],
+  "history": {
+   "last_visit_date": "2025-05-16",
+   "results": [
+    "fail",
+    "pass",
+    "fail",
+    "fail",
+    "pass",
+    "fail"
+   ]
+  },
+  "instrument": {
+   "enclosure_temp_max": 36
+  }
+ },
+ "factors": {
+  "pollutant": "NO2",
+  "as_found_ratio": 2.89,
+  "as_left_status": "all_pass",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 339,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "enclosure_temp_excursion",
+  "days_since_last_visit": 88,
+  "visit_completeness": "complete",
+  "prior_fail_count": 4,
+  "timestamp_mismatch": "none",
+  "site_priority": "standard"
+ },
+ "factors_sampled": {
+  "pollutant": "NO2",
+  "as_found_ratio": 2.89,
+  "as_left_status": "all_pass",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 339,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "enclosure_temp_excursion",
+  "days_since_last_visit": 88,
+  "visit_completeness": "complete",
+  "prior_fail_count": 4,
+  "timestamp_mismatch": "none",
+  "site_priority": "standard"
+ },
+ "plan": {
+  "data_accepted": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "reference_valid": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "close_flagged",
+   "second": null
+  },
+  "flag_extent": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  },
+  "return_urgency": {
+   "clarity": "contested",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 43,
+ "deciding": {
+  "data_accepted": "As-found span error 11.6 vs tol 4 argues against acceptance, while enclosure_temp_max 36 explains the drift and as-left passes; balanced, leaning true.",
+  "reference_valid": "ref_id matches CYL-3308 and cert_expiry is far in the future, but no units or concentration are given on the reference section, leaving slight doubt.",
+  "next_step": "As-left span is in tolerance after adjustment, sequence complete, while the as-found error of 2.9x tol means earlier data needs flagging: close_flagged.",
+  "flag_extent": "88 days since last visit and 4 of 6 prior results failed; temperature excursion may limit the affected window to 8 to 30 days, or all 88 days may be flagged.",
+  "return_urgency": "As-left passes, so routine is likely; the repeated past failures (4) could justify a planned extra visit in 8 to 30 days; contested."
+ },
+ "request": "rec-F338-0021",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.009952
+}

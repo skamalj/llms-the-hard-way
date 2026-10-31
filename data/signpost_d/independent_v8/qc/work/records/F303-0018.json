@@ -1,0 +1,134 @@
+{
+ "id": "F303-0018",
+ "family": "F303",
+ "state": {
+  "order": {
+   "prescription": {
+    "modality": "cylinder",
+    "flow_lpm": 2,
+    "hours_per_day": 24,
+    "rx_expiry": "2026-01-20"
+   },
+   "items_ordered": [
+    {
+     "sku": "HX2300",
+     "qty": 2
+    }
+   ],
+   "account": {
+    "billing_hold": true,
+    "arrears_gbp": 212,
+    "patient_cancelled": true
+   }
+  },
+  "visit": {
+   "visit_date": "2025-03-03",
+   "arrived_at": "14:05",
+   "departed_at": "14:12",
+   "access_achieved": false,
+   "items_left": [],
+   "install_checks": null,
+   "patient_signature": null
+  },
+  "site_assessment": {
+   "assessed_at": "2025-02-10T10:00",
+   "hazards": [
+    {
+     "code": "HEAT_SRC",
+     "status": "open",
+     "fix": null
+    },
+    {
+     "code": "CYL_STORE",
+     "status": null,
+     "fix": null
+    }
+   ]
+  },
+  "equipment": {
+   "concentrator": null,
+   "flow_setting_lpm": 2,
+   "fault_log": [],
+   "cylinders_on_site": [
+    {
+     "size": "HX 2300 L",
+     "fill_pct": 64
+    }
+   ]
+  },
+  "supply_plan": {
+   "next_delivery_date": "2025-03-05",
+   "route_day": "Mon"
+  }
+ },
+ "factors": {
+  "rx_alignment": "exact",
+  "items_shortfall": "nothing_left",
+  "setup_state": "checks_null",
+  "supply_hours": 12.3,
+  "concentrator_fault": false,
+  "fault_mitigated": false,
+  "hazards_found": 2,
+  "hazard_mitigation": false,
+  "hazard_status_missing": true,
+  "handover_gap": true,
+  "timeline_out_of_order": false,
+  "next_delivery": "booked_in_time",
+  "dependency_level": "continuous",
+  "billing_hold": true
+ },
+ "factors_sampled": {
+  "rx_alignment": "exact",
+  "items_shortfall": "none",
+  "setup_state": "checks_null",
+  "supply_hours": 250.01,
+  "concentrator_fault": false,
+  "fault_mitigated": false,
+  "hazards_found": 0,
+  "hazard_mitigation": true,
+  "hazard_status_missing": true,
+  "handover_gap": true,
+  "timeline_out_of_order": false,
+  "next_delivery": "booked_in_time",
+  "dependency_level": "continuous",
+  "billing_hold": true
+ },
+ "plan": {
+  "rx_match": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "close_record",
+   "second": null
+  },
+  "fulfilment": {
+   "clarity": "clear",
+   "target": "nothing_delivered",
+   "second": null
+  },
+  "supply_runway": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  },
+  "open_hazards": {
+   "clarity": "contested",
+   "target": "2",
+   "second": "1"
+  }
+ },
+ "target_words": 130,
+ "deciding": {
+  "rx_match": "Existing cylinder equipment and its 2 lpm setting match the cylinder prescription at 2 lpm, but nothing was delivered on this visit.",
+  "next_step": "Account shows patient_cancelled true and a delivery is booked for 2 days later, but there is no signature and no install checks.",
+  "fulfilment": "items_left is empty and access_achieved is false.",
+  "supply_runway": "One HX 2300 L at 64% is about 1470 L, or about 12.3 hours at 2 lpm: just above the 12-hour boundary.",
+  "open_hazards": "One hazard is open and the other has a null status; whether that one counts decides between 1 and 2."
+ },
+ "request": "rec-F303-0016",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.014977
+}

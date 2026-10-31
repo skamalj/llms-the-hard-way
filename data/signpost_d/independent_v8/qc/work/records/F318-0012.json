@@ -1,0 +1,153 @@
+{
+ "id": "F318-0012",
+ "family": "F318",
+ "state": {
+  "work_order": {
+   "visit_type": "winter_stoppage",
+   "tasks": [
+    {
+     "task_id": 1,
+     "asset_ref": "GT-2"
+    },
+    {
+     "task_id": 2,
+     "asset_ref": "PD-N"
+    },
+    {
+     "task_id": 3,
+     "asset_ref": "SL-1"
+    }
+   ],
+   "nav_notice": {
+    "in_force": true,
+    "to": "2025-02-28",
+    "scope_assets": [
+     "SL-1"
+    ]
+   },
+   "booked_passages_7d": 5
+  },
+  "visit_log": {
+   "arrived": "2025-01-14T08:00",
+   "departed": "2025-01-14T12:00",
+   "crew_size": 2,
+   "timesheet_hours": 8,
+   "task_status": [
+    {
+     "task_id": 1,
+     "status": "done"
+    },
+    {
+     "task_id": 2,
+     "status": "done"
+    },
+    {
+     "task_id": 3,
+     "status": "deferred",
+     "deferral_ref": "DF-31",
+     "deferral_due": "2025-02-05"
+    }
+   ]
+  },
+  "checks": {
+   "post_checks": [
+    {
+     "asset_ref": "GT-2",
+     "result": "pass"
+    },
+    {
+     "asset_ref": "PD-N",
+     "result": "pass"
+    },
+    {
+     "asset_ref": "SL-3",
+     "result": "pass"
+    }
+   ],
+   "leakage_ls": 4.65,
+   "leakage_limit_ls": 5
+  },
+  "asset_history": {
+   "prior_visits": [
+    {
+     "date": "2024-02-01",
+     "asset_ref": "SL-1",
+     "defect_code": "SL7"
+    },
+    {
+     "date": "2023-01-20",
+     "asset_ref": "SL-1",
+     "defect_code": "SL7"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "visit_type": "winter_stoppage",
+  "tasks_ordered": 3,
+  "completion_state": "some_outstanding",
+  "parts_qty_mismatch": "none",
+  "hours_gap": 0.0,
+  "asset_ref_mismatch": true,
+  "post_check_result": "passed",
+  "leakage_ratio": 0.93,
+  "leakage_mitigation": false,
+  "navigation_notice_in_force": true,
+  "deferral_approved": true,
+  "prior_same_defect": 2,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "visit_type": "winter_stoppage",
+  "tasks_ordered": 3,
+  "completion_state": "all_done",
+  "parts_qty_mismatch": "moderate",
+  "hours_gap": 2.98,
+  "asset_ref_mismatch": true,
+  "post_check_result": "passed",
+  "leakage_ratio": 0.93,
+  "leakage_mitigation": false,
+  "navigation_notice_in_force": true,
+  "deferral_approved": true,
+  "prior_same_defect": 2,
+  "boundary_case": false
+ },
+ "plan": {
+  "safe_to_reopen": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "record_disposition": {
+   "clarity": "leaning",
+   "target": "reopen_revisit",
+   "second": null
+  },
+  "return_urgency": {
+   "clarity": "clear",
+   "target": "within_month",
+   "second": null
+  },
+  "affected_scope": {
+   "clarity": "contested",
+   "target": "1",
+   "second": "2"
+  },
+  "section_mismatches": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  }
+ },
+ "target_words": 36,
+ "deciding": {
+  "safe_to_reopen": "Leakage is within limit and the checks pass, but task 3 on SL-1 is deferred and its post-check is logged against SL-3, so SL-1 is unverified; a nav notice also covers SL-1.",
+  "record_disposition": "The task 3 asset_ref SL-1 differs from the post_check asset_ref SL-3, which points to a redo, though the approved deferral and the otherwise consistent record leave some doubt.",
+  "return_urgency": "Deferral DF-31 has a ref and a due date of 2025-02-05, inside 28 days of the visit; the nav notice already covers SL-1 and leakage is within limit.",
+  "affected_scope": "booked_passages_7d is 5, on the boundary between level 1 (two to five) and level 2 (six to twenty).",
+  "section_mismatches": "The one unexplained mismatch is SL-1 against SL-3; hours reconcile at 8 h and the deferral has a ref."
+ },
+ "request": "rec-F318-0011",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.010812
+}

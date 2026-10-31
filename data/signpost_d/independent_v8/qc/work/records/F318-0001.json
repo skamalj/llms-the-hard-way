@@ -1,0 +1,177 @@
+{
+ "id": "F318-0001",
+ "family": "F318",
+ "state": {
+  "work_order": {
+   "wo_id": "WO-4471",
+   "lock_id": "L12",
+   "visit_type": "planned_repair",
+   "tasks": [
+    {
+     "task_id": 1,
+     "asset_ref": "BG-N"
+    },
+    {
+     "task_id": 2,
+     "asset_ref": "BG-S"
+    },
+    {
+     "task_id": 3,
+     "asset_ref": "PD-1"
+    },
+    {
+     "task_id": 4,
+     "asset_ref": "PD-2"
+    },
+    {
+     "task_id": 5,
+     "asset_ref": "CU-1"
+    },
+    {
+     "task_id": 6,
+     "asset_ref": "CU-2"
+    },
+    {
+     "task_id": 7,
+     "asset_ref": "WL-1"
+    }
+   ],
+   "nav_notice": {
+    "in_force": false
+   }
+  },
+  "visit_log": {
+   "arrived": "2024-05-07T08:00",
+   "departed": "2024-05-07T15:00",
+   "crew_size": 3,
+   "timesheet_hours": 19.1,
+   "task_status": [
+    {
+     "task_id": 1,
+     "status": "temp_fix",
+     "deferral_ref": null,
+     "deferral_due": null
+    },
+    {
+     "task_id": 2,
+     "status": "done"
+    },
+    {
+     "task_id": 3,
+     "status": "done"
+    },
+    {
+     "task_id": 4,
+     "status": "done"
+    },
+    {
+     "task_id": 5,
+     "status": "done"
+    },
+    {
+     "task_id": 6,
+     "status": "done"
+    },
+    {
+     "task_id": 7,
+     "status": "done"
+    }
+   ]
+  },
+  "checks": {
+   "post_checks": [
+    {
+     "asset_ref": "BG-N",
+     "result": "fail",
+     "checked_at": "2024-05-07T14:30"
+    }
+   ],
+   "leakage_ls": 37,
+   "leakage_limit_ls": 15,
+   "river_level_m": 3.4,
+   "flood_marker_m": 3.0
+  },
+  "asset_history": {
+   "prior_visits": [
+    {
+     "date": "2023-09-02",
+     "asset_ref": "BG-N",
+     "defect_code": "SEAL"
+    },
+    {
+     "date": "2024-01-15",
+     "asset_ref": "BG-N",
+     "defect_code": "SEAL"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "visit_type": "planned_repair",
+  "tasks_ordered": 7,
+  "completion_state": "temporary_fix",
+  "parts_qty_mismatch": "none",
+  "hours_gap": 1.86,
+  "asset_ref_mismatch": false,
+  "post_check_result": "failed",
+  "leakage_ratio": 2.47,
+  "leakage_mitigation": true,
+  "navigation_notice_in_force": false,
+  "deferral_approved": false,
+  "prior_same_defect": 2,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "visit_type": "planned_repair",
+  "tasks_ordered": 7,
+  "completion_state": "temporary_fix",
+  "parts_qty_mismatch": "none",
+  "hours_gap": 1.86,
+  "asset_ref_mismatch": false,
+  "post_check_result": "failed",
+  "leakage_ratio": 2.47,
+  "leakage_mitigation": true,
+  "navigation_notice_in_force": false,
+  "deferral_approved": false,
+  "prior_same_defect": 2,
+  "boundary_case": false
+ },
+ "plan": {
+  "safe_to_reopen": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "record_disposition": {
+   "clarity": "clear",
+   "target": "hold_query",
+   "second": null
+  },
+  "return_urgency": {
+   "clarity": "leaning",
+   "target": "within_month",
+   "second": null
+  },
+  "affected_scope": {
+   "clarity": "clear",
+   "target": "3",
+   "second": null
+  },
+  "section_mismatches": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 161,
+ "deciding": {
+  "safe_to_reopen": "BG-N fail and temp_fix, but leakage 37 vs limit 15 is partly mitigated by river above flood marker; balanced.",
+  "record_disposition": "Hours 19.1 vs 21 expected, temp_fix with no deferral ref, and a failed check leave one point for the crew to confirm.",
+  "return_urgency": "Temporary fix on BG-N with no deferral, no nav notice; non-restricting outstanding work suggests within a month.",
+  "affected_scope": "Seven tasks across a lock on a navigation; all boaters using the lock affected, more than twenty.",
+  "section_mismatches": "Hours gap, missing deferral ref on temp_fix, and failed check with no covering notice could be counted as two or three."
+ },
+ "request": "rec-F318-0001",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.006497
+}

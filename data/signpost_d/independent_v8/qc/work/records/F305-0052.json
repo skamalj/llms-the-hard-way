@@ -1,0 +1,120 @@
+{
+ "id": "F305-0052",
+ "family": "F305",
+ "state": {
+  "session": {
+   "date": "2025-04-02",
+   "needle_on": "2025-04-02T07:00",
+   "washback": "2025-04-02T11:02",
+   "review_on": "2025-06-12"
+  },
+  "prescription": {
+   "duration_min": 240,
+   "qb_ml_min": 300
+  },
+  "machine": {
+   "qb": 295,
+   "uf_removed_ml": 2100,
+   "washback_ml": 200,
+   "alarms": [
+    [
+     "PUMP_STOP",
+     "09:00"
+    ],
+    [
+     "PUMP_RESUME",
+     "09:13"
+    ]
+   ]
+  },
+  "observations": {
+   "pre_kg": 82.0,
+   "post_kg": 80.7,
+   "bp": [
+    [
+     "09:15",
+     86
+    ],
+    [
+     "09:30",
+     92
+    ]
+   ]
+  },
+  "checks": [
+   {
+    "c": "ID",
+    "done": true,
+    "t": "2025-04-02T07:00"
+   }
+  ]
+ },
+ "factors": {
+  "time_shortfall_min": 11,
+  "machine_pause_min": 13,
+  "uf_weight_gap_kg": 0.6,
+  "post_weight_missing": false,
+  "missing_check": "none",
+  "check_logged_after_start": false,
+  "prescription_mismatch": "blood_flow",
+  "mismatch_magnitude": "trivial",
+  "hypotension_episodes": 1,
+  "hypotension_mitigated": false,
+  "circuit_clotted": false,
+  "prior_short_sessions": 0,
+  "documented_flow_reduction": false
+ },
+ "factors_sampled": {
+  "time_shortfall_min": 68,
+  "machine_pause_min": 13,
+  "uf_weight_gap_kg": 0.8,
+  "post_weight_missing": false,
+  "missing_check": "none",
+  "check_logged_after_start": false,
+  "prescription_mismatch": "blood_flow",
+  "mismatch_magnitude": "trivial",
+  "hypotension_episodes": 4,
+  "hypotension_mitigated": false,
+  "circuit_clotted": false,
+  "prior_short_sessions": 3,
+  "documented_flow_reduction": false
+ },
+ "plan": {
+  "uf_reconciles": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "checks_before_start": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "log_disposition": {
+   "clarity": "balanced",
+   "target": "refer_prescriber",
+   "second": "hold_query"
+  },
+  "time_shortfall": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  },
+  "pending_age": {
+   "clarity": "clear",
+   "target": "3",
+   "second": null
+  }
+ },
+ "target_words": 33,
+ "deciding": {
+  "uf_reconciles": "Net UF 2100-200=1900 ml against 1.3 kg weight loss gives a 0.6 kg gap, just over the 0.5 limit.",
+  "checks_before_start": "The only check is stamped exactly at needle_on 07:00, so it is not clearly before start.",
+  "log_disposition": "One systolic of 86 with no intervention and a recovery to 92, plus qb 295 against 300 and the borderline UF gap, leave referral and a query both plausible.",
+  "time_shortfall": "Clock 242 min minus a 13 min pause gives 229 effective against 240, about 11 short.",
+  "pending_age": "Session on 2025-04-02 and review_on 2025-06-12 is 71 days, far over thirty."
+ },
+ "request": "rec-F305-0051",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011793
+}

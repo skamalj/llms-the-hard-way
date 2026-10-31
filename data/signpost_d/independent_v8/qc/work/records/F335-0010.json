@@ -1,0 +1,130 @@
+{
+ "id": "F335-0010",
+ "family": "F335",
+ "state": {
+  "slot": {
+   "station_id": "RG-C5",
+   "slot_start": "2025-07-10T10:30:00Z",
+   "slot_length_s": 120,
+   "daypart": "midmorning",
+   "watershed_active": false,
+   "election_restriction": true,
+   "lock_lead_h": 6
+  },
+  "item": {
+   "item_type": "news_package",
+   "booking_ref": "TB-8265",
+   "asset": {
+    "asset_id": "A-65502",
+    "version": 1,
+    "duration_s": 115,
+    "qc_passed": true,
+    "qc_at": "2025-07-06T14:00:00Z",
+    "edit_points": []
+   },
+   "content_tags": [
+    "political_comment"
+   ]
+  },
+  "clearances": {
+   "music_rights": {
+    "status": "cleared",
+    "valid_until": "2025-07-10T12:00:00Z"
+   },
+   "copy_approval": {
+    "status": "not_applicable"
+   },
+   "exceptions": [
+    {
+     "scope": "political_comment",
+     "daypart": "evening",
+     "approved_at": "2025-07-05T09:00:00Z"
+    }
+   ]
+  },
+  "schedule_context": {
+   "next_item": {
+    "type": "filler",
+    "flex": true,
+    "min_duration_s": 10,
+    "max_duration_s": 60
+   }
+  },
+  "history": {
+   "airing_count": 9,
+   "last_aired": "2025-06-25",
+   "change_log": []
+  },
+  "review": {
+   "reviewed_at": "2025-07-07T06:00:00Z"
+  }
+ },
+ "factors": {
+  "item_type": "news_package",
+  "hours_to_lock": 70.5,
+  "asset_status": "verified",
+  "duration_delta_s": -5,
+  "trim_point_logged": false,
+  "flex_filler_adjacent": true,
+  "rights_state": "cleared",
+  "copy_approval_state": "not_applicable",
+  "content_flag": "political_comment",
+  "compliance_exception_approved": true,
+  "asset_replaced_after_approval": false,
+  "clearances_missing": false,
+  "prior_clean_airings": 9
+ },
+ "factors_sampled": {
+  "item_type": "news_package",
+  "hours_to_lock": 81.28,
+  "asset_status": "uploaded_unchecked",
+  "duration_delta_s": -5,
+  "trim_point_logged": true,
+  "flex_filler_adjacent": true,
+  "rights_state": "pending_request_logged",
+  "copy_approval_state": "awaiting",
+  "content_flag": "none",
+  "compliance_exception_approved": true,
+  "asset_replaced_after_approval": false,
+  "clearances_missing": false,
+  "prior_clean_airings": 9
+ },
+ "plan": {
+  "asset_fits": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "disposition": {
+   "clarity": "balanced",
+   "target": "approve",
+   "second": "approve_adjusted"
+  },
+  "main_blocker": {
+   "clarity": "balanced",
+   "target": "content_compliance",
+   "second": "rights_clearance"
+  },
+  "lock_urgency": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  },
+  "open_checks": {
+   "clarity": "contested",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 76,
+ "deciding": {
+  "asset_fits": "The asset is QC-passed; duration_s 115 is 5s short of the 120s slot, which is slightly short but workable.",
+  "disposition": "Air as booked is slightly favoured; the 5s gap could be absorbed by the flex next item (10-60s), which keeps approve_adjusted plausible.",
+  "main_blocker": "The political_comment tag falls under election_restriction true; the exception is scoped to the evening daypart, not midmorning, so content is slightly favoured. Music rights expire only 1.5h after slot_start, which keeps rights plausible.",
+  "lock_urgency": "Lock is 07-10T10:30 minus 6h = 04:30, 70.5h after reviewed_at 07-07T06:00. That is just under the 72h boundary between levels 0 and 1.",
+  "open_checks": "Everything is resolved except whether the evening-scoped exception covers a midmorning slot: 0 if accepted, 1 if not."
+ },
+ "request": "rec-F335-0006",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.013017
+}

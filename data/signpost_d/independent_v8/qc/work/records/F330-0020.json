@@ -1,0 +1,132 @@
+{
+ "id": "F330-0020",
+ "family": "F330",
+ "state": {
+  "request": {
+   "grade": "G5",
+   "cost_centre": "CC1",
+   "trip_ref": "T5",
+   "requested_total": 439
+  },
+  "lines": [
+   {
+    "date": "2025-06-10",
+    "category": "air",
+    "cost_centre": "CC2",
+    "amount_gbp": 300,
+    "receipt_attached": true
+   },
+   {
+    "date": "2025-06-14",
+    "category": "air",
+    "cost_centre": "CC2",
+    "ccy": "EUR",
+    "amount": 160,
+    "fx_rate": 0.85,
+    "amount_gbp": 138,
+    "receipt_attached": true
+   }
+  ],
+  "policy": {
+   "cap_gbp": 400,
+   "units": 1,
+   "reviewer_limit_gbp": 150
+  },
+  "travel": {
+   "trip_ref": "T5",
+   "depart": "2025-06-10",
+   "return": "2025-06-14",
+   "booked_on": "2025-04-23",
+   "disruption": {
+    "code": "ECO_SOLD_OUT",
+    "source": "airline",
+    "logged_on": "2025-06-01"
+   },
+   "alt_check": {
+    "options_seen": 2,
+    "compliant_found": true
+   }
+  },
+  "approvals": {
+   "line_mgr": {
+    "approved": true
+   },
+   "pre_approval": {
+    "trip_ref": "T5",
+    "max_gbp": 50,
+    "valid_to": "2025-07-31"
+   }
+  },
+  "history": {
+   "exceptions_12m": 7
+  }
+ },
+ "factors": {
+  "breach_type": "airfare_class_upgrade",
+  "true_excess_pct": 9.5,
+  "amount_mismatch": "fx_rate_stale",
+  "reference_mismatch": "cost_centre_differs",
+  "pre_approval_state": "valid_covers",
+  "external_disruption": true,
+  "compliant_option": "available",
+  "missing_item": "none",
+  "excess_vs_authority": "well_within",
+  "client_rechargeable": false,
+  "prior_exceptions_12m": 7,
+  "booking_lead_days": 48,
+  "employee_grade": "G5"
+ },
+ "factors_sampled": {
+  "breach_type": "airfare_class_upgrade",
+  "true_excess_pct": 77.0,
+  "amount_mismatch": "fx_rate_stale",
+  "reference_mismatch": "cost_centre_differs",
+  "pre_approval_state": "max_below_excess",
+  "external_disruption": true,
+  "compliant_option": "available",
+  "missing_item": "receipt",
+  "excess_vs_authority": "above_limit",
+  "client_rechargeable": false,
+  "prior_exceptions_12m": 7,
+  "booking_lead_days": 48,
+  "employee_grade": "G5"
+ },
+ "plan": {
+  "preapproval_covers": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "outside_control": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "excess_disposition": {
+   "clarity": "clear",
+   "target": "approve_full",
+   "second": null
+  },
+  "excess_size": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  },
+  "discrepancy_count": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "4"
+  }
+ },
+ "target_words": 29,
+ "deciding": {
+  "preapproval_covers": "pre_approval T5 matches the trip, valid_to 2025-07-31 is after depart, max 50 exceeds the 38 excess; cost centre differences leave slight doubt.",
+  "outside_control": "ECO_SOLD_OUT disruption logged by the airline, but alt_check says a compliant option was found among 2 seen.",
+  "excess_disposition": "Excess 38 is under reviewer_limit_gbp 150, the pre-approval covers it, the manager approved, and all receipts are attached.",
+  "excess_size": "Lines sum 438 against cap 400, excess 38 = 9.5%; corrected fx gives 436, so it is close to the 10% boundary.",
+  "discrepancy_count": "Both lines carry CC2 against request CC1 (two), and line 2 fx 160x0.85=136 not 138 (three); requested_total 439 against the 438 sum is a possible fourth."
+ },
+ "request": "rec-F330-0016",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.016923
+}

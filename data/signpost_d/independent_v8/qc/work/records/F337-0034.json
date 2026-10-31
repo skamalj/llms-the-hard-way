@@ -1,0 +1,106 @@
+{
+ "id": "F337-0034",
+ "family": "F337",
+ "state": {
+  "station": {
+   "channels": [
+    {
+     "cha": "EHZ",
+     "sensor_serial": "M305",
+     "response_epoch_start": "2024-02-15"
+    }
+   ]
+  },
+  "acquisition": {
+   "day": "2024-03-01",
+   "completeness_pct": 99.0,
+   "gaps": [
+    {
+     "cha": "EHZ",
+     "start": "08:00",
+     "end": "09:55"
+    }
+   ]
+  },
+  "qc_metrics": [
+   {
+    "cha": "EHZ",
+    "psd_dev_db": 19.7,
+    "cal_pulse": {
+     "date": "2024-02-01",
+     "result": "pass"
+    }
+   }
+  ],
+  "maintenance_log": null,
+  "operator_notes": [
+   "Swap on 2024-02-20; generator running 06:00-12:00; telemetry down 08:00-10:00."
+  ]
+ },
+ "factors": {
+  "sensor_metadata_state": "swap_updated",
+  "maintenance_log_present": false,
+  "gap_coverage": "all_logged",
+  "true_usable_fraction": 0.92,
+  "completeness_summary_drift": 7.73,
+  "timing_quality": "locked",
+  "calibration_status": "predates_swap",
+  "noise_excess_db": 19.7,
+  "benign_noise_cause_logged": true,
+  "operator_note_consistency": "contradicts_data",
+  "dead_channels": 0,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "sensor_metadata_state": "swap_updated",
+  "maintenance_log_present": false,
+  "gap_coverage": "all_logged",
+  "true_usable_fraction": 0.92,
+  "completeness_summary_drift": 7.73,
+  "timing_quality": "locked",
+  "calibration_status": "predates_swap",
+  "noise_excess_db": 19.67,
+  "benign_noise_cause_logged": true,
+  "operator_note_consistency": "contradicts_data",
+  "dead_channels": 0,
+  "boundary_case": false
+ },
+ "plan": {
+  "response_valid": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "gaps_explained": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "disposition": {
+   "clarity": "clear",
+   "target": "hold",
+   "second": null
+  },
+  "usable_fraction": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  },
+  "pending_age": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  }
+ },
+ "target_words": 63,
+ "deciding": {
+  "response_valid": "Serial M305 and epoch 2024-02-15 look current, but the note gives a swap date 2024-02-20 that conflicts with the epoch, and there is no log.",
+  "gaps_explained": "Gap 08:00-09:55 lies inside the telemetry outage in the note, though the log is null.",
+  "disposition": "maintenance_log is null and the cal pulse predates the swap, so swap and gap need confirmation.",
+  "usable_fraction": "Gap is about 1h55 of 24h, about 92%; completeness_pct 99 and noise of 19.7 dB leave level 2 versus 3 contested.",
+  "pending_age": "Day 2024-03-01, well past a week, no decision timestamp; eight to thirty days most likely."
+ },
+ "request": "rec-F337-0031",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.005277
+}

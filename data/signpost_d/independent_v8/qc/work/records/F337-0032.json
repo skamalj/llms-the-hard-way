@@ -1,0 +1,120 @@
+{
+ "id": "F337-0032",
+ "family": "F337",
+ "state": {
+  "station": {
+   "channels": [
+    {
+     "cha": "HHZ",
+     "sensor_serial": "A77",
+     "response_epoch_start": "2022-06-01"
+    },
+    {
+     "cha": "HHN",
+     "sensor_serial": "A77",
+     "response_epoch_start": "2022-06-01"
+    }
+   ]
+  },
+  "acquisition": {
+   "day": "2023-09-14",
+   "completeness_pct": 99.5,
+   "gaps": [
+    {
+     "cha": "HHZ",
+     "start": "10:00",
+     "end": "13:10"
+    },
+    {
+     "cha": "HHN",
+     "start": "10:00",
+     "end": "13:10"
+    }
+   ]
+  },
+  "qc_metrics": [
+   {
+    "cha": "HHZ",
+    "psd_dev_db": 8.4
+   }
+  ],
+  "maintenance_log": [
+   {
+    "action": "visit",
+    "outage_start": "10:00",
+    "outage_end": "13:00"
+   },
+   {
+    "action": "sensor_swap",
+    "date": "2022-05-30",
+    "sensor_serial_installed": "A77"
+   }
+  ]
+ },
+ "factors": {
+  "sensor_metadata_state": "no_swap",
+  "maintenance_log_present": true,
+  "gap_coverage": "minor_overrun",
+  "true_usable_fraction": 0.87,
+  "completeness_summary_drift": 7.08,
+  "timing_quality": "locked",
+  "calibration_status": "passed",
+  "noise_excess_db": 8.4,
+  "benign_noise_cause_logged": true,
+  "operator_note_consistency": "absent",
+  "dead_channels": 0,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "sensor_metadata_state": "no_swap",
+  "maintenance_log_present": true,
+  "gap_coverage": "minor_overrun",
+  "true_usable_fraction": 1.0,
+  "completeness_summary_drift": 7.08,
+  "timing_quality": "locked",
+  "calibration_status": "passed",
+  "noise_excess_db": 8.38,
+  "benign_noise_cause_logged": true,
+  "operator_note_consistency": "absent",
+  "dead_channels": 0,
+  "boundary_case": false
+ },
+ "plan": {
+  "response_valid": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "gaps_explained": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "disposition": {
+   "clarity": "leaning",
+   "target": "release_flagged",
+   "second": null
+  },
+  "usable_fraction": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  },
+  "pending_age": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 64,
+ "deciding": {
+  "response_valid": "Serial A77 matches the logged swap, but the epoch 2022-06-01 starts two days after the swap date.",
+  "gaps_explained": "Gaps end 13:10 versus logged outage end 13:00; a 10-minute overrun leaves slight doubt.",
+  "disposition": "Faults confined to one listed segment; the rest can be published with the gap flagged.",
+  "usable_fraction": "3h10 lost on both channels of 24h gives about 87%; completeness_pct 99.5 is inflated.",
+  "pending_age": "The day 2023-09-14 is long past, over thirty days, with no decision timestamp; eight to thirty days remains plausible."
+ },
+ "request": "rec-F337-0031",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.005277
+}

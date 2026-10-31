@@ -1,0 +1,164 @@
+{
+ "id": "F305-0053",
+ "family": "F305",
+ "state": {
+  "session": {
+   "date": "2025-05-12",
+   "needle_on": "2025-05-12T06:30",
+   "washback": "2025-05-12T10:20",
+   "review_on": "2025-06-12T06:00"
+  },
+  "prescription": {
+   "duration_min": 240,
+   "target_uf_ml": 2300
+  },
+  "machine": {
+   "uf_removed_ml": 2300,
+   "washback_ml": 200,
+   "alarms": [
+    [
+     "PUMP_STOP",
+     "08:00"
+    ],
+    [
+     "PUMP_RESUME",
+     "08:05"
+    ]
+   ]
+  },
+  "observations": {
+   "pre_kg": 79.5,
+   "post_kg": 77.6,
+   "bp": [
+    [
+     "07:40",
+     88
+    ],
+    [
+     "07:50",
+     100
+    ],
+    [
+     "08:20",
+     84
+    ],
+    [
+     "08:30",
+     99
+    ],
+    [
+     "09:05",
+     86
+    ],
+    [
+     "09:15",
+     104
+    ]
+   ],
+   "interventions": [
+    [
+     "07:41",
+     100
+    ],
+    [
+     "08:22",
+     100
+    ],
+    [
+     "09:06",
+     100
+    ]
+   ]
+  },
+  "checks": [
+   {
+    "c": "ID",
+    "done": true,
+    "t": "06:30"
+   },
+   {
+    "c": "ACCESS",
+    "done": true,
+    "t": "06:20"
+   }
+  ],
+  "history": [
+   {
+    "prescribed_min": 240,
+    "effective_min": 210
+   },
+   {
+    "prescribed_min": 240,
+    "effective_min": 220
+   }
+  ]
+ },
+ "factors": {
+  "time_shortfall_min": 15,
+  "machine_pause_min": 5,
+  "uf_weight_gap_kg": 0.1,
+  "post_weight_missing": false,
+  "missing_check": "none",
+  "check_logged_after_start": false,
+  "prescription_mismatch": "none",
+  "mismatch_magnitude": "clinically_relevant",
+  "hypotension_episodes": 3,
+  "hypotension_mitigated": true,
+  "circuit_clotted": false,
+  "prior_short_sessions": 2,
+  "documented_flow_reduction": false
+ },
+ "factors_sampled": {
+  "time_shortfall_min": 36,
+  "machine_pause_min": 5,
+  "uf_weight_gap_kg": 0.8,
+  "post_weight_missing": true,
+  "missing_check": "none",
+  "check_logged_after_start": false,
+  "prescription_mismatch": "none",
+  "mismatch_magnitude": "clinically_relevant",
+  "hypotension_episodes": 3,
+  "hypotension_mitigated": true,
+  "circuit_clotted": false,
+  "prior_short_sessions": 2,
+  "documented_flow_reduction": false
+ },
+ "plan": {
+  "uf_reconciles": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "checks_before_start": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "log_disposition": {
+   "clarity": "contested",
+   "target": "refer_prescriber",
+   "second": "sign_off"
+  },
+  "time_shortfall": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  },
+  "pending_age": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 36,
+ "deciding": {
+  "uf_reconciles": "Net UF 2300-200-300 saline=1800 ml against 1.9 kg loss, gap about 0.1 kg, both weights present.",
+  "checks_before_start": "ID check is stamped 06:30, equal to needle_on, while ACCESS is at 06:20; the equal timestamp leaves some doubt.",
+  "log_disposition": "Three hypotensive readings each mitigated by saline and followed by recovery, but two earlier short sessions in history; sign-off and referral both defensible.",
+  "time_shortfall": "Clock 230 min minus a 5 min pause gives 225 effective against 240, 15 short, at the edge between minor and moderate.",
+  "pending_age": "Washback on 05-12 10:20 and review_on 06-12 06:00 is about 30.8 days, just past the thirty-day line."
+ },
+ "request": "rec-F305-0051",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011793
+}

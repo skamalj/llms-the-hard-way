@@ -1,0 +1,170 @@
+{
+ "id": "F324-0007",
+ "family": "F324",
+ "state": {
+  "zone": {
+   "id": "G7-1",
+   "dripper_count": 60,
+   "rate_lph": 2.0
+  },
+  "schedule": {
+   "dur_s": 900,
+   "cycles": [
+    {
+     "t": "06:00",
+     "ml": 500
+    },
+    {
+     "t": "09:00",
+     "ml": 500
+    },
+    {
+     "t": "12:00",
+     "ml": 500
+    },
+    {
+     "t": "15:00",
+     "ml": 500
+    }
+   ],
+   "drain_target_pct": [
+    20,
+    30
+   ],
+   "overrides": []
+  },
+  "controller_log": {
+   "spec_bar": 2.0,
+   "cycles": [
+    {
+     "t": "06:00",
+     "open_s": 900,
+     "l": 27.2,
+     "bar": 2.0
+    },
+    {
+     "t": "09:00",
+     "open_s": 900,
+     "l": 26.5,
+     "bar": 2.0
+    },
+    {
+     "t": "12:00",
+     "open_s": 900,
+     "l": 27.0,
+     "bar": 2.1
+    },
+    {
+     "t": "15:00",
+     "open_s": 900,
+     "l": 27.1,
+     "bar": 2.0
+    }
+   ],
+   "daily_total_l": 108.6,
+   "meter_total_l": 108.4
+  },
+  "drainage": {
+   "drain_pct": [
+    5.4,
+    4.5
+   ],
+   "catch_test": {
+    "ordered": true,
+    "result_lph": 1.6
+   }
+  },
+  "sensors": {
+   "log_date": "2025-06-10",
+   "meter_last_calibrated": "2024-06-14"
+  },
+  "maintenance": {
+   "windows": [
+    {
+     "type": "line_flush",
+     "start": "08:30",
+     "end": "09:30"
+    }
+   ],
+   "alarms": [
+    {
+     "code": "TANK_LO",
+     "ack": true,
+     "cleared": true
+    }
+   ],
+   "recent_work_orders": [
+    "2025-05-28",
+    "2025-05-02",
+    "2025-03-11",
+    "2025-01-20"
+   ]
+  }
+ },
+ "factors": {
+  "delivery_shortfall_pct": 10.2,
+  "mismatch_location": "cycle_sum_vs_total",
+  "fault_cause": "emitter_clogging",
+  "approved_override": false,
+  "maintenance_window_active": true,
+  "drain_offset_points": -15.05,
+  "off_tolerance_cycles": 2,
+  "meter_calibration_age_days": 361,
+  "confirmation_pending": false,
+  "pressure_state": "normal",
+  "benign_alarm_decoy": "tank_alarm_cleared",
+  "recent_work_orders": 4
+ },
+ "factors_sampled": {
+  "delivery_shortfall_pct": 1.21,
+  "mismatch_location": "cycle_sum_vs_total",
+  "fault_cause": "schedule_entry_error",
+  "approved_override": false,
+  "maintenance_window_active": true,
+  "drain_offset_points": -15.05,
+  "off_tolerance_cycles": 2,
+  "meter_calibration_age_days": 361,
+  "confirmation_pending": true,
+  "pressure_state": "normal",
+  "benign_alarm_decoy": "tank_alarm_cleared",
+  "recent_work_orders": 4
+ },
+ "plan": {
+  "under_dosed": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "emitter_clogging": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "next_action": {
+   "clarity": "leaning",
+   "target": "sign_off",
+   "second": null
+  },
+  "drain_deviation": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "off_plan_cycles": {
+   "clarity": "contested",
+   "target": "1",
+   "second": "2"
+  }
+ },
+ "target_words": 60,
+ "deciding": {
+  "under_dosed": "Cycle deliveries sum to 107.8 L against 120 L planned, about 10.2% short, and no override is listed. The 108.6 L daily total differs slightly from the cycle sum.",
+  "emitter_clogging": "Pressure is 2.0-2.1 bar, valves were open the full 900 s, and the catch test gives 1.6 lph per dripper against a 2.0 rating. Drain is very low.",
+  "next_action": "Meter and controller totals agree within 0.2 L and the low-delivery cycle overlaps the 08:30-09:30 line_flush window. The TANK_LO alarm is acknowledged and cleared, and the catch test result is in. Remaining doubt is the 10% shortfall and the old meter calibration.",
+  "drain_deviation": "Drain samples 5.4 and 4.5 average 4.95 against a 20-30 band, which is 15.05 points below the minimum, right at the 15-point line between levels 2 and 3.",
+  "off_plan_cycles": "Cycle 2 at 26.5 L against 30 L is 11.7% under. Cycle 3 at 27.0 L is exactly 10.0% under and borderline. Cycles 1 and 4 are within 10%."
+ },
+ "request": "rec-F324-0006",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.017297
+}

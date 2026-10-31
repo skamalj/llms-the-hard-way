@@ -1,0 +1,119 @@
+{
+ "id": "F315-0002",
+ "family": "F315",
+ "state": {
+  "report": {
+   "received_at": "2025-03-12T20:15",
+   "source": "public_web",
+   "units_reported": [
+    "M410",
+    "M411"
+   ]
+  },
+  "asset": {
+   "unit_id": "M410",
+   "site_category": "main_road",
+   "planned_works": {
+    "window_start": "2025-03-10",
+    "window_end": "2025-03-20",
+    "work_type": "CABLE_DIVERSION"
+   }
+  },
+  "cms": {
+   "node_id": "N410",
+   "status_code": "OK",
+   "last_comms_at": "2025-03-13T07:20"
+  },
+  "history": [
+   {
+    "job_ref": "J201",
+    "raised": "2024-12-30",
+    "attended": "2025-01-10",
+    "completed": "2025-01-10",
+    "outcome_code": "FIXED"
+   }
+  ],
+  "job": {
+   "job_ref": "J230",
+   "stage": "RECT",
+   "attended_at": "2025-03-13",
+   "completed_at": "2025-03-13T07:05",
+   "hazard_code": null,
+   "linked_job_ref": null
+  },
+  "supply": {
+   "dno_incident_ref": null,
+   "dno_status": null,
+   "feeder_units_dark": 6,
+   "feeder_id": "F17"
+  }
+ },
+ "factors": {
+  "dark_unit_count": 6,
+  "dno_incident_logged": false,
+  "cms_state": "normal_burning",
+  "days_since_last_repair": 61,
+  "last_repair_state": "completed",
+  "hazard_observed": "none",
+  "hazard_made_safe": true,
+  "site_category": "main_road",
+  "planned_works_active": true,
+  "current_job_stage": "rectified_unconfirmed",
+  "dates_out_of_order": false,
+  "duplicate_of_open_job": false,
+  "report_source": "public_web"
+ },
+ "factors_sampled": {
+  "dark_unit_count": 6,
+  "dno_incident_logged": false,
+  "cms_state": "normal_burning",
+  "days_since_last_repair": 338,
+  "last_repair_state": "completed",
+  "hazard_observed": "none",
+  "hazard_made_safe": true,
+  "site_category": "main_road",
+  "planned_works_active": true,
+  "current_job_stage": "attended_unresolved",
+  "dates_out_of_order": false,
+  "duplicate_of_open_job": false,
+  "report_source": "public_web"
+ },
+ "plan": {
+  "supply_side_fault": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "repeat_failure": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "next_action": {
+   "clarity": "contested",
+   "target": "close_report",
+   "second": "routine_repair"
+  },
+  "source_support": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  },
+  "repair_progress": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 80,
+ "deciding": {
+  "supply_side_fault": "supply.feeder_units_dark 6 on one feeder with no DNO incident; many units dark points to supply, though the incident is unlogged.",
+  "repeat_failure": "History job J201 was completed 2025-01-10, 61 days before report.received_at 2025-03-12, within 84 days.",
+  "next_action": "cms OK after completed_at suggests the unit is burning (close), but 6 units are still counted dark on the feeder (routine_repair).",
+  "source_support": "Only the feeder_units_dark count supports the supply picture; the cms node reading and the planned works do not corroborate the report.",
+  "repair_progress": "job completed_at 07:05 and cms OK at 07:20 would confirm the fix, but the node covers only M410 while 6 units remain counted dark."
+ },
+ "request": "rec-F315-0001",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.010136
+}

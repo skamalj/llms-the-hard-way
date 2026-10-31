@@ -1,0 +1,121 @@
+{
+ "id": "F328-0007",
+ "family": "F328",
+ "state": {
+  "report_meta": {
+   "driver_id": "D204",
+   "d": "2024-08-13"
+  },
+  "vehicle_device": {
+   "health_flags": [],
+   "odo": [
+    51000,
+    51244
+   ]
+  },
+  "trips": [
+   {
+    "s": "07:00",
+    "e": "09:40",
+    "km": 120,
+    "card": "D204"
+   },
+   {
+    "s": "10:00",
+    "e": "12:40",
+    "km": 119,
+    "card": "D204"
+   }
+  ],
+  "events": [
+   {
+    "t": "11:20",
+    "type": "speed",
+    "mph": 85,
+    "limit": 70,
+    "tags": []
+   },
+   {
+    "t": "11:50",
+    "type": "harsh_brake",
+    "tags": []
+   }
+  ],
+  "tacho_summary": {
+   "card": "D204",
+   "drive": "07:00-12:40",
+   "second_driver": "D377"
+  },
+  "notes_history": {
+   "supervisor_note": "D204 drove solo all day; no second driver."
+  }
+ },
+ "factors": {
+  "driver_assignment": "second_driver_on_shift",
+  "raw_speed_excess_pct": 21.4,
+  "speed_mitigation": "none",
+  "harsh_event_count": 1,
+  "harsh_context_logged": false,
+  "device_health": "ok",
+  "telematics_stint_hours": 5.67,
+  "tacho_break_reconciles": false,
+  "prior_coaching_count": 0,
+  "coaching_status": "none",
+  "boundary_value": false,
+  "note_content": "contradicts_data",
+  "distance_discrepancy_pct": 2.09
+ },
+ "factors_sampled": {
+  "driver_assignment": "second_driver_on_shift",
+  "raw_speed_excess_pct": 34.38,
+  "speed_mitigation": "none",
+  "harsh_event_count": 1,
+  "harsh_context_logged": false,
+  "device_health": "ok",
+  "telematics_stint_hours": 5.97,
+  "tacho_break_reconciles": false,
+  "prior_coaching_count": 0,
+  "coaching_status": "none",
+  "boundary_value": false,
+  "note_content": "contradicts_data",
+  "distance_discrepancy_pct": 2.09
+ },
+ "plan": {
+  "driver_attributed": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "follow_up": {
+   "clarity": "balanced",
+   "target": "formal_review",
+   "second": "coaching"
+  },
+  "worst_event_cause": {
+   "clarity": "clear",
+   "target": "driver_choice",
+   "second": null
+  },
+  "speed_excess": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  },
+  "hours_exposure": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 48,
+ "deciding": {
+  "driver_attributed": "Trip cards and the tacho card are D204, but tacho_summary lists second_driver D377 on shift with no times. The supervisor note says no second driver, which contradicts the tacho, so attribution is only modestly favoured.",
+  "follow_up": "The breach is confirmed and there is no prior coaching. The stint of about 5.7 h and the roughly 21% excess make it serious enough for formal review, but the lack of any history leaves coaching defensible.",
+  "worst_event_cause": "The speed event has empty tags, there are no limit_updates, the device health flags are empty and the map is current, so nothing external explains it.",
+  "speed_excess": "85 mph in a 70 limit is 21.4% over. That is only just past the 20% line, so level 3 versus level 2 is open, and the second-driver question adds doubt.",
+  "hours_exposure": "Trips 07:00-09:40 and 10:00-12:40 have a 20 minute gap, and tacho drive runs 07:00-12:40 with no 45 minute break. That gives about 5.67 h, just over 5.5, and a possible unlogged changeover keeps level 2 plausible."
+ },
+ "request": "rec-F328-0006",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.020176
+}

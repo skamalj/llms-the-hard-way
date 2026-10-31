@@ -1,0 +1,147 @@
+{
+ "id": "F330-0012",
+ "family": "F330",
+ "state": {
+  "request": {
+   "req_id": "EX-2207",
+   "grade": "G7",
+   "cost_centre": "CC40",
+   "trip_ref": "T818",
+   "requested_total": 1582
+  },
+  "lines": [
+   {
+    "line_no": 1,
+    "date": "2025-05-06",
+    "category": "ent",
+    "cost_centre": "CC40",
+    "amount_gbp": 780
+   },
+   {
+    "line_no": 2,
+    "date": "2025-05-06",
+    "category": "ent",
+    "cost_centre": "CC40",
+    "amount_gbp": 780
+   },
+   {
+    "line_no": 3,
+    "date": "2025-05-06",
+    "category": "ent_drinks",
+    "cost_centre": "CC44",
+    "amount_gbp": 22
+   }
+  ],
+  "policy": {
+   "grade_band": "G7",
+   "cap_gbp": 800,
+   "cap_unit": "event",
+   "units": 1,
+   "reviewer_limit_gbp": 1000
+  },
+  "travel": {
+   "trip_ref": "T881",
+   "depart": "2025-05-05",
+   "return": "2025-05-07",
+   "booked_on": "2025-03-31",
+   "disruption": {
+    "code": "VENUE_CANCEL",
+    "source": "venue",
+    "logged_on": "2025-05-06"
+   },
+   "alt_check": {
+    "options_seen": 2,
+    "compliant_found": true
+   },
+   "client_recharge": {
+    "billable": true,
+    "client_code": "C12"
+   }
+  },
+  "approvals": {
+   "line_mgr": {
+    "approved": true
+   },
+   "pre_approval": {
+    "ref": "PA-3",
+    "trip_ref": "T881",
+    "max_gbp": 1000,
+    "valid_to": "2025-05-08"
+   },
+   "attendees": []
+  },
+  "history": {
+   "exceptions_12m": 5,
+   "approved_12m": 4,
+   "declined_12m": 1
+  }
+ },
+ "factors": {
+  "breach_type": "client_entertainment_over_limit",
+  "true_excess_pct": 0.25,
+  "amount_mismatch": "duplicated_line",
+  "reference_mismatch": "two_of_above",
+  "pre_approval_state": "valid_matching",
+  "external_disruption": true,
+  "compliant_option": "available",
+  "missing_item": "attendee_list",
+  "excess_vs_authority": "well_within",
+  "client_rechargeable": true,
+  "prior_exceptions_12m": 5,
+  "booking_lead_days": 35,
+  "employee_grade": "G7"
+ },
+ "factors_sampled": {
+  "breach_type": "client_entertainment_over_limit",
+  "true_excess_pct": 43.98,
+  "amount_mismatch": "none",
+  "reference_mismatch": "two_of_above",
+  "pre_approval_state": "valid_matching",
+  "external_disruption": true,
+  "compliant_option": "available",
+  "missing_item": "attendee_list",
+  "excess_vs_authority": "well_within",
+  "client_rechargeable": true,
+  "prior_exceptions_12m": 5,
+  "booking_lead_days": 35,
+  "employee_grade": "G7"
+ },
+ "plan": {
+  "preapproval_covers": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "outside_control": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "excess_disposition": {
+   "clarity": "leaning",
+   "target": "partial_approve",
+   "second": null
+  },
+  "excess_size": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  },
+  "discrepancy_count": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  }
+ },
+ "target_words": 48,
+ "deciding": {
+  "preapproval_covers": "pre_approval trip_ref T881 matches travel and max_gbp 1000 exceeds the excess, but request.trip_ref is T818, so the link to this claim is doubtful.",
+  "outside_control": "travel.disruption VENUE_CANCEL is logged on 2025-05-06 during the trip.",
+  "excess_disposition": "Excess is small and disruption is logged, with recharge billable, but attendees is empty and a compliant option was found, so a partial approval fits best.",
+  "excess_size": "After removing duplicate line 2 the sum is 802 vs cap 800: excess 2, which is about 0.25%, so level 0 or 1 are both arguable.",
+  "discrepancy_count": "Duplicated lines 1 and 2, request trip_ref T818 vs travel T881, and line 3 cost_centre CC44 vs request CC40 make three."
+ },
+ "request": "rec-F330-0011",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.01697
+}

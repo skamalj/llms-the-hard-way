@@ -1,0 +1,120 @@
+{
+ "id": "F338-0012",
+ "family": "F338",
+ "state": {
+  "site": {
+   "pollutant": "CO",
+   "tier": "standard",
+   "service_interval_days": 90
+  },
+  "visit": {
+   "date": "2024-08-20",
+   "sequence_status": "complete",
+   "maint_window": true
+  },
+  "reference": {
+   "standard_id": "C2205",
+   "conc": 40,
+   "unit": "ppm",
+   "cert_expiry": "2025-07-26"
+  },
+  "checks": [
+   {
+    "phase": "as_found",
+    "type": "span",
+    "ref_id": "C2205",
+    "ref_conc": 40,
+    "unit": "ppm",
+    "reading": 40.89,
+    "tol": 1,
+    "ts": "2024-08-20T09:30"
+   },
+   {
+    "phase": "as_left",
+    "type": "zero",
+    "ref_id": null,
+    "ref_conc": 0,
+    "unit": "ppm",
+    "reading": 1.4,
+    "tol": 1,
+    "ts": "2024-08-21T08:10"
+   }
+  ],
+  "history": {
+   "last_visit_date": "2024-05-11",
+   "results": [
+    "pass",
+    "fail",
+    "pass"
+   ]
+  }
+ },
+ "factors": {
+  "pollutant": "CO",
+  "as_found_ratio": 0.89,
+  "as_left_status": "one_point_fail",
+  "cylinder_id_mismatch": "none (one as_left point has null ref_id)",
+  "cert_expiry_offset_days": 340,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "maintenance_window",
+  "days_since_last_visit": 101,
+  "visit_completeness": "complete",
+  "prior_fail_count": 1,
+  "timestamp_mismatch": "different_day",
+  "site_priority": "standard"
+ },
+ "factors_sampled": {
+  "pollutant": "CO",
+  "as_found_ratio": 0.89,
+  "as_left_status": "one_point_fail",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 340,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "maintenance_window",
+  "days_since_last_visit": 101,
+  "visit_completeness": "complete",
+  "prior_fail_count": 1,
+  "timestamp_mismatch": "different_day",
+  "site_priority": "standard"
+ },
+ "plan": {
+  "data_accepted": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "reference_valid": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "close_flagged",
+   "second": null
+  },
+  "flag_extent": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "return_urgency": {
+   "clarity": "clear",
+   "target": "4",
+   "second": null
+  }
+ },
+ "target_words": 35,
+ "deciding": {
+  "data_accepted": "As-found span reading 40.89 against 40 with tol 1 is within tolerance, and the visit was in a maintenance window. The prior data stands.",
+  "reference_valid": "The as-found ref_id matches C2205 and the certificate is in date until 2025-07. The as-left zero point has a null ref_id and a next-day timestamp, so identification is weakly doubtful.",
+  "next_step": "The sequence is complete but the as-left zero reading of 1.4 exceeds tol 1, with one prior fail in history. Closing with flags is the lean, though a repeat is arguable.",
+  "flag_extent": "101 days since the last visit, with a maintenance window as mitigation and no interim data. The boundary between 8-30 and over 30 days is held open.",
+  "return_urgency": "The as-left zero point fails (1.4 vs tol 1), so the analyser was left out of tolerance and needs same-day attendance."
+ },
+ "request": "rec-F338-0011",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.009665
+}

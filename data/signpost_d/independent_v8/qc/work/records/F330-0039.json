@@ -1,0 +1,117 @@
+{
+ "id": "F330-0039",
+ "family": "F330",
+ "state": {
+  "request": {
+   "trip_ref": "T4",
+   "grade": "G5",
+   "cost_centre": "CC205",
+   "requested_total": 324
+  },
+  "lines": [
+   {
+    "date": "2025-06-11",
+    "category": "hotel",
+    "cost_centre": "CC-205",
+    "amount_gbp": 324
+   }
+  ],
+  "policy": {
+   "grade_band": "G5",
+   "cap_gbp": 150,
+   "units": 2,
+   "reviewer_limit_gbp": 250
+  },
+  "travel": {
+   "trip_ref": "T4",
+   "depart": "2025-06-10",
+   "return": "2025-06-12",
+   "booked_on": "2025-05-31",
+   "alt_check": {
+    "options_seen": 4,
+    "compliant_found": false
+   }
+  },
+  "approvals": {
+   "line_mgr": {
+    "approved": null
+   },
+   "pre_approval": {
+    "trip_ref": "T4",
+    "max_gbp": 100,
+    "valid_to": "2025-05-01"
+   }
+  },
+  "history": {
+   "exceptions_12m": 2
+  }
+ },
+ "factors": {
+  "breach_type": "hotel_rate_over_cap",
+  "true_excess_pct": 8.0,
+  "amount_mismatch": "none",
+  "reference_mismatch": "none",
+  "pre_approval_state": "expired",
+  "external_disruption": false,
+  "compliant_option": "none_available",
+  "missing_item": "line_manager_approval",
+  "excess_vs_authority": "well_within",
+  "client_rechargeable": false,
+  "prior_exceptions_12m": 2,
+  "booking_lead_days": 10,
+  "employee_grade": "G5"
+ },
+ "factors_sampled": {
+  "breach_type": "hotel_rate_over_cap",
+  "true_excess_pct": 98.6,
+  "amount_mismatch": "duplicated_line",
+  "reference_mismatch": "line_date_outside_trip",
+  "pre_approval_state": "different_trip",
+  "external_disruption": false,
+  "compliant_option": "not_checked",
+  "missing_item": "line_manager_approval",
+  "excess_vs_authority": "well_within",
+  "client_rechargeable": false,
+  "prior_exceptions_12m": 2,
+  "booking_lead_days": 10,
+  "employee_grade": "G5"
+ },
+ "plan": {
+  "preapproval_covers": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "outside_control": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "excess_disposition": {
+   "clarity": "leaning",
+   "target": "partial_approve",
+   "second": null
+  },
+  "excess_size": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  },
+  "discrepancy_count": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 25,
+ "deciding": {
+  "preapproval_covers": "pre_approval valid_to 2025-05-01 is before depart 2025-06-10 and max_gbp 100 is also above the 24 excess only on paper; it has expired.",
+  "outside_control": "alt_check options_seen 4, compliant_found false: no compliant option was available.",
+  "excess_disposition": "Small 24 excess, no compliant option, but line_mgr approval is null and the pre-approval has expired, which favours partial approval.",
+  "excess_size": "324 against cap 150x2=300 gives a 24 excess, 8% of cap, under the 10% boundary.",
+  "discrepancy_count": "Line cost_centre CC-205 vs request CC205 is a formatting difference only, so 0 or 1; all other references agree."
+ },
+ "request": "rec-F330-0036",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.01428
+}

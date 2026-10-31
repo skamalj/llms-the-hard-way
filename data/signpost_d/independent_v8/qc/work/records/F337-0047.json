@@ -1,0 +1,134 @@
+{
+ "id": "F337-0047",
+ "family": "F337",
+ "state": {
+  "station": {
+   "channels": [
+    {
+     "cha": "BHZ",
+     "sensor_serial": "K7731",
+     "response_epoch_start": "2023-04-02"
+    },
+    {
+     "cha": "BHN",
+     "sensor_serial": "K7731",
+     "response_epoch_start": "2023-04-02"
+    }
+   ]
+  },
+  "acquisition": {
+   "day": "2025-06-10",
+   "queued_at": "2025-06-10T08:00",
+   "as_of": "2025-06-11T07:30",
+   "channel_hours_expected": 48,
+   "completeness_pct": 99.8,
+   "gps_lock_pct": 99,
+   "gaps": [
+    {
+     "cha": "BHZ",
+     "start": "2025-06-10T03:00",
+     "end": "2025-06-10T07:30"
+    },
+    {
+     "cha": "BHN",
+     "start": "2025-06-10T12:10",
+     "end": "2025-06-10T12:20"
+    }
+   ]
+  },
+  "qc_metrics": [
+   {
+    "cha": "BHZ",
+    "psd_dev_db": 2.1,
+    "dead": false,
+    "cal_pulse": {
+     "date": "2025-05-20",
+     "result": "pass"
+    }
+   },
+   {
+    "cha": "BHN",
+    "psd_dev_db": 1.8,
+    "dead": false
+   }
+  ],
+  "maintenance_log": [
+   {
+    "action": "sensor_swap",
+    "date": "2023-04-02",
+    "sensor_serial_installed": "K7737"
+   },
+   {
+    "action": "outage",
+    "outage_start": "2025-06-10T03:00",
+    "outage_end": "2025-06-10T07:30"
+   }
+  ]
+ },
+ "factors": {
+  "sensor_metadata_state": "serial_typo",
+  "maintenance_log_present": true,
+  "gap_coverage": "some_unlogged",
+  "true_usable_fraction": 0.903,
+  "completeness_summary_drift": 0.9,
+  "timing_quality": "locked",
+  "calibration_status": "passed",
+  "noise_excess_db": 2.1,
+  "benign_noise_cause_logged": false,
+  "operator_note_consistency": "absent",
+  "dead_channels": 0,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "sensor_metadata_state": "serial_typo",
+  "maintenance_log_present": true,
+  "gap_coverage": "some_unlogged",
+  "true_usable_fraction": 0.76,
+  "completeness_summary_drift": 0.9,
+  "timing_quality": "locked",
+  "calibration_status": "passed",
+  "noise_excess_db": 13.59,
+  "benign_noise_cause_logged": false,
+  "operator_note_consistency": "absent",
+  "dead_channels": 3,
+  "boundary_case": false
+ },
+ "plan": {
+  "response_valid": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "gaps_explained": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "disposition": {
+   "clarity": "clear",
+   "target": "release",
+   "second": null
+  },
+  "usable_fraction": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  },
+  "pending_age": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 51,
+ "deciding": {
+  "response_valid": "Station serial K7731 differs by one character from logged installed K7737; the epoch equals the swap date, so it looks like a typo.",
+  "gaps_explained": "BHN gap 12:10-12:20 has no matching log entry; only the BHZ gap matches the outage.",
+  "disposition": "Cal pulse passed, GPS lock 99%, noise low, and the lone unlogged gap is only 10 minutes, so nothing material is left unresolved.",
+  "usable_fraction": "Gaps total 4.67 h of 48, about 90.3% usable, right at the 90% boundary; completeness_pct 99.8 is a decoy.",
+  "pending_age": "queued_at to as_of is 23.5 hours, just under the one-day line."
+ },
+ "request": "rec-F337-0046",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.013929
+}

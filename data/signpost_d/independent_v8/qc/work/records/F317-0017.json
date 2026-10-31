@@ -1,0 +1,159 @@
+{
+ "id": "F317-0017",
+ "family": "F317",
+ "state": {
+  "vehicle": {
+   "fleet_no": "T3302",
+   "odometer_km": 30900,
+   "last_exam": "A",
+   "last_exam_date": "2024-02-14"
+  },
+  "exam": {
+   "exam_id": "E512",
+   "due_at_km": 30850,
+   "items": [
+    {
+     "item_code": "A1",
+     "result": "ok",
+     "signed_by": "ab",
+     "signed_at": "2024-09-05T05:30"
+    },
+    {
+     "item_code": "A2",
+     "result": "ok",
+     "signed_by": "ab",
+     "signed_at": "2024-09-05T05:50"
+    },
+    {
+     "item_code": "A3",
+     "result": "ok",
+     "signed_by": "cd",
+     "signed_at": "2024-09-05T06:10"
+    },
+    {
+     "item_code": "A4",
+     "result": "ok",
+     "signed_by": "cd",
+     "signed_at": null
+    },
+    {
+     "item_code": "A5",
+     "result": null,
+     "signed_by": null,
+     "signed_at": null
+    },
+    {
+     "item_code": "A6",
+     "result": null,
+     "signed_by": null,
+     "signed_at": null
+    },
+    {
+     "item_code": "A7",
+     "result": null,
+     "signed_by": null,
+     "signed_at": null
+    }
+   ]
+  },
+  "defects": [
+   {
+    "defect_id": "D12",
+    "subsystem": "pantograph",
+    "safety_critical": true,
+    "raised_at": "2024-09-01",
+    "status": "closed",
+    "closed_at": "2024-09-03T10:00",
+    "retest_at": "2024-09-02T15:00",
+    "retest_result": "pass"
+   }
+  ],
+  "work_orders": [
+   {
+    "wo_id": "W31",
+    "defect_ref": "D12",
+    "subsystem": "pantograph",
+    "status": "completed",
+    "completed_at": "2024-09-02T15:00"
+   }
+  ],
+  "concessions": [],
+  "release": {
+   "duty_type": "spare",
+   "depart_at": "2024-09-06T08:00",
+   "odo_reading_km": 31054,
+   "brake_test_at": "2024-09-06T05:00",
+   "brake_test_result": "pass"
+  }
+ },
+ "factors": {
+  "km_to_exam_due": -204,
+  "odometer_disagreement": "large",
+  "exam_signed_fraction": 0.43,
+  "exam_record_missing": false,
+  "worst_defect_subsystem": "none",
+  "worst_defect_state": "closed_retested",
+  "worst_defect_safety_critical": true,
+  "retest_out_of_order": false,
+  "concession_present": false,
+  "concession_flaw": "expired",
+  "wo_crossref_mismatch": "none",
+  "planned_duty_type": "spare",
+  "recent_brake_test_pass": true,
+  "balanced_signals": false
+ },
+ "factors_sampled": {
+  "km_to_exam_due": -172,
+  "odometer_disagreement": "large",
+  "exam_signed_fraction": 0.57,
+  "exam_record_missing": true,
+  "worst_defect_subsystem": "pantograph",
+  "worst_defect_state": "closed_no_retest",
+  "worst_defect_safety_critical": true,
+  "retest_out_of_order": false,
+  "concession_present": false,
+  "concession_flaw": "expired",
+  "wo_crossref_mismatch": "none",
+  "planned_duty_type": "spare",
+  "recent_brake_test_pass": true,
+  "balanced_signals": false
+ },
+ "plan": {
+  "sc_defects_cleared": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "release_decision": {
+   "clarity": "leaning",
+   "target": "release_restricted",
+   "second": null
+  },
+  "worst_subsystem": {
+   "clarity": "clear",
+   "target": "none",
+   "second": null
+  },
+  "exam_completion": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  },
+  "exam_mileage": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 46,
+ "deciding": {
+  "sc_defects_cleared": "D12 is closed with retest pass, but retest_at equals the work order completed_at, so the sequence is only marginally credible.",
+  "release_decision": "Spare duty with a brake test pass 3 hours before departure supports limited running, while the exam is incomplete and the mileage is overrun.",
+  "worst_subsystem": "The only defect D12 is closed with a passing retest and no other defects exist.",
+  "exam_completion": "3 of 7 items fully signed, plus A4 has a signer but no timestamp, so level 1 or 2.",
+  "exam_mileage": "Release odometer 31054 against due 30850 is 204 km over, just past the 200 km line, while the vehicle odometer 30900 gives only 50 km over."
+ },
+ "request": "rec-F317-0016",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.014223
+}

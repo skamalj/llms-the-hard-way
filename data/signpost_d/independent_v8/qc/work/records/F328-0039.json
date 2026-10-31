@@ -1,0 +1,150 @@
+{
+ "id": "F328-0039",
+ "family": "F328",
+ "state": {
+  "report_meta": {
+   "id": "WK24-V412",
+   "from": "2024-06-10",
+   "to": "2024-06-16",
+   "veh": "RJ68KDA",
+   "driver_id": "D5120",
+   "depot": "Daventry"
+  },
+  "vehicle_device": {
+   "fw": "4.2.1",
+   "last_cal": "2024-01-20",
+   "health_flags": [],
+   "odo": [
+    88170,
+    88550
+   ]
+  },
+  "trips": [
+   {
+    "id": "T1",
+    "s": "2024-06-11T07:00",
+    "e": "2024-06-11T09:00",
+    "gps_km": 165,
+    "card": "D7788",
+    "ign_min": 120
+   },
+   {
+    "id": "T2",
+    "s": "2024-06-11T09:10",
+    "e": "2024-06-11T11:10",
+    "gps_km": 165,
+    "card": "D7788",
+    "ign_min": 120
+   }
+  ],
+  "events": [
+   {
+    "t": "2024-06-11T07:50",
+    "type": "speed",
+    "mph": 62,
+    "limit": 58,
+    "map_ver": "24.2"
+   },
+   {
+    "t": "2024-06-11T09:35",
+    "type": "speed",
+    "mph": 57,
+    "limit": 45,
+    "map_ver": "24.2"
+   }
+  ],
+  "tacho_summary": {
+   "cards": [
+    {
+     "card": "D5120",
+     "drive": "2024-06-11 07:00-11:10",
+     "breaks": []
+    }
+   ],
+   "second_driver": null
+  },
+  "notes_history": {
+   "supervisor_note": "Emergency diversion via A43 on 11 Jun 09:00-14:00 after collision on M1.",
+   "driver_comment": "Followed police diversion.",
+   "coaching": [
+    {
+     "d": "2024-04-08",
+     "status": "scheduled"
+    },
+    {
+     "d": "2024-05-20",
+     "status": "scheduled"
+    }
+   ],
+   "limit_updates": []
+  }
+ },
+ "factors": {
+  "driver_assignment": "mismatch_unexplained",
+  "raw_speed_excess_pct": 26.67,
+  "speed_mitigation": "emergency_diversion_logged",
+  "harsh_event_count": 0,
+  "harsh_context_logged": false,
+  "device_health": "ok",
+  "telematics_stint_hours": 4.17,
+  "tacho_break_reconciles": false,
+  "prior_coaching_count": 2,
+  "coaching_status": "scheduled",
+  "boundary_value": false,
+  "note_content": "benign_explanation_supported",
+  "distance_discrepancy_pct": 15.14
+ },
+ "factors_sampled": {
+  "driver_assignment": "mismatch_unexplained",
+  "raw_speed_excess_pct": 26.89,
+  "speed_mitigation": "emergency_diversion_logged",
+  "harsh_event_count": 0,
+  "harsh_context_logged": false,
+  "device_health": "ok",
+  "telematics_stint_hours": 4.73,
+  "tacho_break_reconciles": false,
+  "prior_coaching_count": 2,
+  "coaching_status": "scheduled",
+  "boundary_value": false,
+  "note_content": "benign_explanation_supported",
+  "distance_discrepancy_pct": 15.14
+ },
+ "plan": {
+  "driver_attributed": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "follow_up": {
+   "clarity": "leaning",
+   "target": "no_action",
+   "second": null
+  },
+  "worst_event_cause": {
+   "clarity": "contested",
+   "target": "road_conditions",
+   "second": "device_fault"
+  },
+  "speed_excess": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  },
+  "hours_exposure": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  }
+ },
+ "target_words": 105,
+ "deciding": {
+  "driver_attributed": "Both trips are on card D7788 with no swap entry, while the tacho shows D5120 driving the whole 07:00-11:10 span. The cards conflict, so neither answer is firmly established.",
+  "follow_up": "The 57 in a 45 on T2 at 09:35 falls inside the logged diversion window. The remaining event is a 62 in a 58, and attribution is unclear. No confirmed breach is left, though a doubt remains.",
+  "worst_event_cause": "The 09:35 event falls inside the diversion window (road_conditions). The 15% gap between gps_km (330) and the odometer change (380) hints at a device issue (device_fault).",
+  "speed_excess": "The 57/45 event (26.7%) is mitigated by the diversion, leaving 62 in a 58 (6.9% over, level 1). Level 0 applies if the second event is also discounted because of the card conflict.",
+  "hours_exposure": "T1 and T2 are separated by 10 min, giving 07:00-11:10 (about 4.2 h) with no break logged. That is in the 3 to 4.5 h range."
+ },
+ "request": "rec-F328-0036",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.021439
+}

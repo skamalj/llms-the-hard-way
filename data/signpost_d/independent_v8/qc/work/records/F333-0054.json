@@ -1,0 +1,114 @@
+{
+ "id": "F333-0054",
+ "family": "F333",
+ "state": {
+  "checkin_inventory": {
+   "items": [
+    {
+     "item_code": "SMK1",
+     "grade": "fair"
+    },
+    {
+     "item_code": "MAT1",
+     "grade": "good"
+    }
+   ]
+  },
+  "checkout_inspection": {
+   "inspection_type": "pre_arrival",
+   "items": [
+    {
+     "item_code": "SMK1",
+     "grade": "fair",
+     "defect_category": "smoke_detector_fail",
+     "photo_refs": [
+      "p1"
+     ]
+    },
+    {
+     "item_code": "MAT1",
+     "grade": "good",
+     "photo_refs": []
+    }
+   ]
+  },
+  "proposed_charges": {
+   "lines": [
+    {
+     "item_code": "MAT1",
+     "qty": 1,
+     "line_total": 100.5
+    }
+   ],
+   "summary_total": 100.5
+  }
+ },
+ "factors": {
+  "inspection_type": "pre_arrival",
+  "checkin_inventory_state": "complete",
+  "prior_damage_on_charged_item": "none",
+  "charge_discrepancy": "line_for_item_graded_good_near_100",
+  "worst_defect_tier": "safety",
+  "true_cause": "no_defect",
+  "predating_works_order": false,
+  "safety_fault_remedied": false,
+  "photo_coverage": "all_but_one",
+  "tenancy_months": 5,
+  "date_out_of_order": false,
+  "deposit_dispute_lodged": false,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "inspection_type": "pre_arrival",
+  "checkin_inventory_state": "complete",
+  "prior_damage_on_charged_item": "one_item",
+  "charge_discrepancy": "none",
+  "worst_defect_tier": "safety",
+  "true_cause": "fair_wear",
+  "predating_works_order": false,
+  "safety_fault_remedied": false,
+  "photo_coverage": "all_but_one",
+  "tenancy_months": 5,
+  "date_out_of_order": false,
+  "deposit_dispute_lodged": false,
+  "boundary_case": false
+ },
+ "plan": {
+  "checkin_clean": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "disposition": {
+   "clarity": "balanced",
+   "target": "approve_as_drafted",
+   "second": "adjust_and_approve"
+  },
+  "main_cause": {
+   "clarity": "clear",
+   "target": "no_defect",
+   "second": null
+  },
+  "defect_severity": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  },
+  "charge_gap": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 28,
+ "deciding": {
+  "checkin_clean": "Only charged item MAT1 was graded good at check-in.",
+  "disposition": "Lines match a coherent inspection and only one item lacks a photo; MAT1 charged though graded good could be adjusted.",
+  "main_cause": "SMK1 fair/fair and MAT1 good/good: grades equal for every item.",
+  "defect_severity": "smoke_detector_fail is a safety defect (level 3), yet the item grade is only fair and unchanged, so level 2 is arguable.",
+  "charge_gap": "MAT1 is graded good at checkout so evidenced charges are 0; proposed 100.50 sits just above the 100 boundary between levels 2 and 3."
+ },
+ "request": "rec-F333-0051",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.013569
+}

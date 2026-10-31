@@ -1,0 +1,149 @@
+{
+ "id": "F338-0045",
+ "family": "F338",
+ "state": {
+  "site": {
+   "pol": "NO2",
+   "tier": "compliance",
+   "int_d": 90
+  },
+  "visit": {
+   "date": "2024-10-14",
+   "start": "09:00",
+   "end": "11:00",
+   "seq": "complete"
+  },
+  "reference": {
+   "id": "N-80417",
+   "conc": 200,
+   "unit": "ppb",
+   "exp": "2025-03-21"
+  },
+  "checks": [
+   {
+    "t": "af_zero",
+    "ref_id": "N-80417",
+    "ref": 0,
+    "unit": "ppb",
+    "read": 1.0,
+    "tol": 5,
+    "ts": "2024-10-14T09:15"
+   },
+   {
+    "t": "af_span",
+    "ref_id": "N-80471",
+    "ref": 200,
+    "unit": "ppb",
+    "read": 210,
+    "tol": 5,
+    "ts": "2024-10-13T16:40"
+   },
+   {
+    "t": "al_span",
+    "ref_id": "N-80417",
+    "ref": 200,
+    "unit": "ppb",
+    "read": 200.8,
+    "tol": 5,
+    "ts": "2024-10-14T10:30"
+   },
+   {
+    "t": "al_prec",
+    "ref_id": "N-80417",
+    "ref": 100,
+    "unit": "ppb",
+    "read": 100.5,
+    "tol": 5,
+    "ts": "2024-10-14T10:45"
+   }
+  ],
+  "history": {
+   "last": "2024-07-30",
+   "results": [
+    "pass",
+    "fail",
+    "fail",
+    "pass"
+   ],
+   "auto": [
+    {
+     "d": "2024-10-09",
+     "r": "pass"
+    }
+   ]
+  },
+  "instrument": {
+   "fw": "1.9",
+   "tmin": 16,
+   "tmax": 25
+  }
+ },
+ "factors": {
+  "pollutant": "NO2",
+  "as_found_ratio": 2.0,
+  "as_left_status": "all_pass",
+  "cylinder_id_mismatch": "transposed_digit",
+  "cert_expiry_offset_days": 158,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "none",
+  "days_since_last_visit": 76,
+  "visit_completeness": "complete",
+  "prior_fail_count": 2,
+  "timestamp_mismatch": "different_day",
+  "site_priority": "compliance"
+ },
+ "factors_sampled": {
+  "pollutant": "NO2",
+  "as_found_ratio": 2.0,
+  "as_left_status": "all_pass",
+  "cylinder_id_mismatch": "transposed_digit",
+  "cert_expiry_offset_days": 158,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "none",
+  "days_since_last_visit": 76,
+  "visit_completeness": "complete",
+  "prior_fail_count": 2,
+  "timestamp_mismatch": "different_day",
+  "site_priority": "compliance"
+ },
+ "plan": {
+  "data_accepted": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "reference_valid": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "withdraw",
+   "second": null
+  },
+  "flag_extent": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "return_urgency": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "4"
+  }
+ },
+ "target_words": 94,
+ "deciding": {
+  "data_accepted": "As-found span 210 vs 200 with tol 5 (2x) and its timestamp is on 2024-10-13, outside the visit; passing autochecks and clean as-left keep acceptance plausible.",
+  "reference_valid": "The as-found span row ref_id N-80471 differs from the reference N-80417 by transposed digits; other rows match and expiry and units agree, so it may be a typo.",
+  "next_step": "The as-left points pass, but the identifier mismatch and off-day as-found timestamp make the as-found data unreliable; removing the analyser is leaning but not certain.",
+  "flag_extent": "Compliance site, as-found 2x tolerance, 76 days since the last visit and 2 prior fails; autochecks passed until 5 days before the visit, so the scope is either the full interval or a shorter drift.",
+  "return_urgency": "Compliance tier with an unresolved reference identity: a 1-2 day or same-day return is both defensible; the passing as-left argues against same-day."
+ },
+ "request": "rec-F338-0041",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.008854
+}

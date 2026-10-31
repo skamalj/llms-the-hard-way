@@ -1,0 +1,149 @@
+{
+ "id": "F338-0015",
+ "family": "F338",
+ "state": {
+  "site": {
+   "pollutant": "SO2",
+   "tier": "compliance"
+  },
+  "visit": {
+   "date": "2024-09-12",
+   "sequence_status": "partial",
+   "maint_window": false
+  },
+  "reference": {
+   "standard_id": "C3350",
+   "conc": 400,
+   "unit": "ppb",
+   "cert_no": null,
+   "cert_expiry": "2025-07-16"
+  },
+  "checks": [
+   {
+    "phase": "as_found",
+    "type": "zero",
+    "ref_id": "C3350",
+    "ref_conc": 0,
+    "unit": "ppb",
+    "reading": 2,
+    "tol": 20
+   },
+   {
+    "phase": "as_found",
+    "type": "span",
+    "ref_id": "C3350",
+    "ref_conc": 400,
+    "unit": "ppb",
+    "reading": 447.4,
+    "tol": 20
+   },
+   {
+    "phase": "as_left",
+    "type": "span",
+    "ref_id": "C3350",
+    "ref_conc": 400,
+    "unit": "ppb",
+    "reading": 401,
+    "tol": 20
+   },
+   {
+    "phase": "as_left",
+    "type": "zero",
+    "ref_id": "C3350",
+    "ref_conc": 0,
+    "unit": "ppb",
+    "reading": 1,
+    "tol": 20
+   }
+  ],
+  "instrument": {
+   "temp_max": 34
+  },
+  "history": {
+   "last_visit_date": "2024-09-01",
+   "results": [
+    "pass",
+    "fail",
+    "fail"
+   ],
+   "autochecks": [
+    {
+     "d": "2024-09-02",
+     "r": "pass"
+    },
+    {
+     "d": "2024-09-08",
+     "r": "pass"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "pollutant": "SO2",
+  "as_found_ratio": 2.37,
+  "as_left_status": "all_pass",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": "308 (certificate number null)",
+  "unit_mismatch": false,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "enclosure_temp_excursion",
+  "days_since_last_visit": 11,
+  "visit_completeness": "multipoint_missing",
+  "prior_fail_count": 2,
+  "timestamp_mismatch": "none",
+  "site_priority": "compliance"
+ },
+ "factors_sampled": {
+  "pollutant": "SO2",
+  "as_found_ratio": 2.37,
+  "as_left_status": "all_pass",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 308,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "enclosure_temp_excursion",
+  "days_since_last_visit": 11,
+  "visit_completeness": "multipoint_missing",
+  "prior_fail_count": 2,
+  "timestamp_mismatch": "none",
+  "site_priority": "compliance"
+ },
+ "plan": {
+  "data_accepted": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "reference_valid": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "close_flagged",
+   "second": null
+  },
+  "flag_extent": {
+   "clarity": "contested",
+   "target": "1",
+   "second": "0"
+  },
+  "return_urgency": {
+   "clarity": "balanced",
+   "target": "4",
+   "second": "3"
+  }
+ },
+ "target_words": 84,
+ "deciding": {
+  "data_accepted": "The as-found span of 447.4 is 2.37 times tol, but it is explained by the temp_max of 34 and the autochecks pass to 2024-09-08. The missing multipoint check keeps rejection plausible.",
+  "reference_valid": "The IDs, units and expiry (2025-07) agree, but cert_no is null so the certificate cannot be confirmed.",
+  "next_step": "The as-left points pass after adjustment and the as-found error needs a short flag. The visit closes flagged.",
+  "flag_extent": "Only 11 days since the last visit, with the autochecks passing until 2024-09-08. Whether 1-7 days or none need flagging is open.",
+  "return_urgency": "This is a compliance site, and the multipoint check is missing after a span error of 2.37 times tol. Same day versus 1-2 days is balanced against the passing as-left."
+ },
+ "request": "rec-F338-0011",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.009665
+}

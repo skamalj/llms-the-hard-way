@@ -1,0 +1,155 @@
+{
+ "id": "F302-0053",
+ "family": "F302",
+ "state": {
+  "subject": {
+   "scr": "S233",
+   "ini": "RA",
+   "sex": "F",
+   "site": "04"
+  },
+  "consent": {
+   "initials": "RA",
+   "form": "v1",
+   "current": "v2",
+   "signed": "2024-03-04",
+   "reconsent": [
+    {
+     "v": "v2",
+     "date": "2024-03-08"
+    }
+   ]
+  },
+  "visit": {
+   "date": "2024-03-11",
+   "review": "2024-03-21",
+   "window_days": 28,
+   "procedures": [
+    {
+     "name": "ECG",
+     "date": "2024-03-11"
+    }
+   ]
+  },
+  "labs": [
+   {
+    "test": "creat",
+    "value": 1.9,
+    "unit": "mg/dL",
+    "threshold": "<=1.5",
+    "flag": "H",
+    "collected": "2024-03-11",
+    "valid_days": 14,
+    "req_scr": "S233",
+    "batch_n": 22
+   },
+   {
+    "test": "Hb",
+    "value": 11.8,
+    "unit": "g/dL",
+    "flag": "L",
+    "collected": "2024-03-11",
+    "valid_days": 14
+   }
+  ],
+  "eligibility": {
+   "criteria": [
+    {
+     "id": "E4",
+     "recorded_value": 1.9,
+     "unit": "mg/dL",
+     "met": true
+    }
+   ],
+   "signoff": {
+    "signed": true,
+    "date": "2024-03-14"
+   },
+   "queries": [
+    {
+     "id": 1,
+     "status": "closed"
+    }
+   ]
+  },
+  "conmeds": {
+   "prohibited_classes": [
+    "steroid"
+   ],
+   "washout_days": 14,
+   "items": [
+    {
+     "class": "statin",
+     "start": "2023-06-01",
+     "stop": null
+    }
+   ]
+  }
+ },
+ "factors": {
+  "lab_reconciliation": "threshold_crossing",
+  "consent_status": "superseded_reconsented",
+  "window_days_remaining": 11,
+  "collection_date_mismatch": "within_window",
+  "prohibited_conmed": false,
+  "washout_completed": true,
+  "out_of_range_lab": true,
+  "valid_repeat_on_file": "none",
+  "boundary_value": false,
+  "identifier_mismatch": "none",
+  "investigator_signoff": "signed_after_results",
+  "open_query_count": 0
+ },
+ "factors_sampled": {
+  "lab_reconciliation": "threshold_crossing",
+  "consent_status": "superseded_reconsented",
+  "window_days_remaining": 21,
+  "collection_date_mismatch": "outside_validity",
+  "prohibited_conmed": false,
+  "washout_completed": true,
+  "out_of_range_lab": true,
+  "valid_repeat_on_file": "none",
+  "boundary_value": false,
+  "identifier_mismatch": "initials_transposed",
+  "investigator_signoff": "signed_after_results",
+  "open_query_count": 0
+ },
+ "plan": {
+  "eligibility_proven": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "screen_fail",
+   "second": null
+  },
+  "primary_issue": {
+   "clarity": "clear",
+   "target": "clinical_value",
+   "second": null
+  },
+  "affected_scope": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "window_left": {
+   "clarity": "contested",
+   "target": "2",
+   "second": "3"
+  }
+ },
+ "target_words": 164,
+ "deciding": {
+  "eligibility_proven": "Creatinine 1.9 mg/dL exceeds the <=1.5 threshold on a valid, in-window lab, despite met:true. The plan listed true, but that contradicts the clinical failure, so the record shows the criterion unmet and the statement is false.",
+  "next_step": "The criterion is unmet on valid data, with no repeat on file and documentation sound, so screen_fail leads. A rescreen cannot be fully ruled out.",
+  "primary_issue": "The creatinine of 1.9 against <=1.5 conflicts with criterion E4. Consent was re-consented, identifiers match and the lab is in window.",
+  "affected_scope": "labs[].batch_n is 22, just above 20.",
+  "window_left": "Consent signed 2024-03-04 plus 28 days gives 2024-04-01; review is 2024-03-21, so 11 days remain, at the 10/11 boundary."
+ },
+ "request": "rec-F302-0051",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.01302
+}

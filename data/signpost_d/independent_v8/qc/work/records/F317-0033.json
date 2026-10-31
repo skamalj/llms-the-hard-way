@@ -1,0 +1,146 @@
+{
+ "id": "F317-0033",
+ "family": "F317",
+ "state": {
+  "vehicle": {
+   "fleet_no": "T4520",
+   "odometer_km": 59700
+  },
+  "exam": {
+   "due_at_km": 60000,
+   "items": [
+    {
+     "c": "A1",
+     "result": "ok",
+     "signed_by": "u7",
+     "signed_at": "2024-04-11T08:00"
+    },
+    {
+     "c": "A2",
+     "result": "ok",
+     "signed_by": "u7",
+     "signed_at": "2024-04-11T08:30"
+    },
+    {
+     "c": "A3",
+     "result": "ok",
+     "signed_by": "u9",
+     "signed_at": "2024-04-11T09:10"
+    }
+   ]
+  },
+  "defects": [
+   {
+    "defect_id": "D40",
+    "subsystem": "pantograph",
+    "safety_critical": false,
+    "status": "open",
+    "raised_at": "2024-04-09"
+   },
+   {
+    "defect_id": "D33",
+    "subsystem": "running_gear",
+    "safety_critical": true,
+    "status": "closed",
+    "closed_at": "2024-04-02",
+    "retest_at": "2024-04-03",
+    "retest_result": "pass"
+   }
+  ],
+  "work_orders": [
+   {
+    "wo_id": "W71",
+    "defect_ref": "D40",
+    "subsystem": "saloon_doors",
+    "status": "open"
+   }
+  ],
+  "concessions": [
+   {
+    "conc_id": "C5",
+    "fleet_no": "T4520",
+    "defect_ref": "D40",
+    "restriction_code": "R2",
+    "valid_from": "2024-04-09",
+    "valid_until": "2024-04-12"
+   }
+  ],
+  "release": {
+   "duty_type": "peak_diagram",
+   "depart_at": "2024-04-14T06:00",
+   "odo_reading_km": 60150,
+   "brake_test_at": "2024-04-10T07:00",
+   "brake_test_result": "pass"
+  }
+ },
+ "factors": {
+  "km_to_exam_due": -150,
+  "odometer_disagreement": "large",
+  "exam_signed_fraction": 1.0,
+  "exam_record_missing": false,
+  "worst_defect_subsystem": "pantograph",
+  "worst_defect_state": "open_wo",
+  "worst_defect_safety_critical": false,
+  "retest_out_of_order": false,
+  "concession_present": true,
+  "concession_flaw": "expired",
+  "wo_crossref_mismatch": "subsystem_differs",
+  "planned_duty_type": "peak_diagram",
+  "recent_brake_test_pass": false,
+  "balanced_signals": false
+ },
+ "factors_sampled": {
+  "km_to_exam_due": -314,
+  "odometer_disagreement": "large",
+  "exam_signed_fraction": 0.24,
+  "exam_record_missing": false,
+  "worst_defect_subsystem": "none",
+  "worst_defect_state": "closed_retested",
+  "worst_defect_safety_critical": true,
+  "retest_out_of_order": false,
+  "concession_present": true,
+  "concession_flaw": "none",
+  "wo_crossref_mismatch": "subsystem_differs",
+  "planned_duty_type": "peak_diagram",
+  "recent_brake_test_pass": false,
+  "balanced_signals": false
+ },
+ "plan": {
+  "sc_defects_cleared": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "release_decision": {
+   "clarity": "leaning",
+   "target": "withdraw",
+   "second": null
+  },
+  "worst_subsystem": {
+   "clarity": "clear",
+   "target": "pantograph",
+   "second": null
+  },
+  "exam_completion": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  },
+  "exam_mileage": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  }
+ },
+ "target_words": 118,
+ "deciding": {
+  "sc_defects_cleared": "The only safety-critical defect D33 is closed with a passed retest the next day; the open pantograph defect D40 is not safety-critical.",
+  "release_decision": "Open pantograph defect whose concession C5 expired 2024-04-12, before the 04-14 departure, plus work order subsystem mismatch and an old brake test, for a peak duty: withdraw.",
+  "worst_subsystem": "D40 on pantograph is open and is the only unresolved defect.",
+  "exam_completion": "All 3 exam items have signed_by and signed_at.",
+  "exam_mileage": "Release reading 60150 (later, authoritative) is 150 km past due 60000 versus the stale vehicle odometer 59700, so past due by 200 km or less."
+ },
+ "request": "rec-F317-0031",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.010782
+}

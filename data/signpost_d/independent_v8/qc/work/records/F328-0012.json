@@ -1,0 +1,102 @@
+{
+ "id": "F328-0012",
+ "family": "F328",
+ "state": {
+  "report_meta": {
+   "driver_id": "D41"
+  },
+  "trips": [
+   {
+    "driver_card": "D41",
+    "s": "06:00",
+    "e": "10:40"
+   },
+   {
+    "driver_card": "D77",
+    "s": "10:50",
+    "e": "12:00"
+   }
+  ],
+  "events": [
+   {
+    "t": "11:20",
+    "mph": 76.1,
+    "limit_mph": 60
+   }
+  ],
+  "tacho_summary": {
+   "swap": "10:45 D41>D77"
+  },
+  "notes_history": {
+   "supervisor_note": "Diversion logged 11:00-12:00, road closed."
+  }
+ },
+ "factors": {
+  "driver_assignment": "card_swap_logged",
+  "raw_speed_excess_pct": 26.8,
+  "speed_mitigation": "emergency_diversion_logged",
+  "harsh_event_count": 0,
+  "harsh_context_logged": false,
+  "device_health": "ok",
+  "telematics_stint_hours": 4.67,
+  "tacho_break_reconciles": false,
+  "prior_coaching_count": 0,
+  "coaching_status": "none",
+  "boundary_value": false,
+  "note_content": "benign_explanation_supported",
+  "distance_discrepancy_pct": 0.0
+ },
+ "factors_sampled": {
+  "driver_assignment": "card_swap_logged",
+  "raw_speed_excess_pct": 26.87,
+  "speed_mitigation": "emergency_diversion_logged",
+  "harsh_event_count": 12,
+  "harsh_context_logged": true,
+  "device_health": "accelerometer_recalibrated",
+  "telematics_stint_hours": 6.22,
+  "tacho_break_reconciles": true,
+  "prior_coaching_count": 0,
+  "coaching_status": "scheduled",
+  "boundary_value": false,
+  "note_content": "benign_explanation_supported",
+  "distance_discrepancy_pct": 4.59
+ },
+ "plan": {
+  "driver_attributed": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "follow_up": {
+   "clarity": "clear",
+   "target": "formal_review",
+   "second": null
+  },
+  "worst_event_cause": {
+   "clarity": "clear",
+   "target": "driver_choice",
+   "second": null
+  },
+  "speed_excess": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "hours_exposure": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  }
+ },
+ "target_words": 27,
+ "deciding": {
+  "driver_attributed": "Tacho swap at 10:45 D41>D77; the 11:20 speed event falls on D77's trip, not the reported driver's.",
+  "follow_up": "Speed event is on another card and the diversion explains it; only a 4.67 h stint on D41 remains, and no earlier coaching exists, so the record gives little for a clear formal review beyond that.",
+  "worst_event_cause": "No harsh context or device flag; the only flagged event has no technical explanation, so reads as driver behaviour.",
+  "speed_excess": "76.1 vs 60 is about 26.8%, but the 11:00-12:00 diversion note covers 11:20; level 0 favoured, level 1 if the diversion is not accepted for speed.",
+  "hours_exposure": "D41 trip 06:00-10:40 with no break is about 4.67 h, just above 4.5 h, so level 2 is slightly favoured over 1."
+ },
+ "request": "rec-F328-0011",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.013075
+}

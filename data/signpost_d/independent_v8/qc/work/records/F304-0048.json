@@ -1,0 +1,103 @@
+{
+ "id": "F304-0048",
+ "family": "F304",
+ "state": {
+  "request": {
+   "appt_type": "inter-site transfer",
+   "appt_time": "10:00",
+   "vehicle_class": "wheelchair",
+   "crew_requested": 1,
+   "mobility_booked": "wheelchair",
+   "equipment": [
+    "wheelchair"
+   ]
+  },
+  "patient": {
+   "mobility_assessed": "wheelchair",
+   "assessed_on": "2025-03-01",
+   "oxygen_lpm": 0,
+   "monitoring": null,
+   "escort_name": null
+  },
+  "journey": {
+   "window_end": "09:00",
+   "est_duration_min": 30,
+   "late_tolerance_min": 0,
+   "destination": "Cardiac Day Unit",
+   "reslot_same_day": false
+  },
+  "notes": {
+   "ward_note": "Escort name to follow."
+  }
+ },
+ "factors": {
+  "mobility_alignment": "matches",
+  "secondary_discrepancy": "none",
+  "eligibility_concern": false,
+  "eligibility_exception": false,
+  "clinical_support": "transfer_assist",
+  "crew_request_gap": "over_one_step",
+  "buffer_minutes": 30.0,
+  "duration_estimate_split": false,
+  "late_tolerance": false,
+  "appointment_type": "inter-site transfer",
+  "same_day_reslot": false,
+  "confirmation_pending": true,
+  "prior_aborts": 0,
+  "aborts_related": false
+ },
+ "factors_sampled": {
+  "mobility_alignment": "matches",
+  "secondary_discrepancy": "none",
+  "eligibility_concern": false,
+  "eligibility_exception": false,
+  "clinical_support": "transfer_assist",
+  "crew_request_gap": "over_one_step",
+  "buffer_minutes": 5.48,
+  "duration_estimate_split": false,
+  "late_tolerance": true,
+  "appointment_type": "outpatient",
+  "same_day_reslot": true,
+  "confirmation_pending": false,
+  "prior_aborts": 1,
+  "aborts_related": false
+ },
+ "plan": {
+  "vehicle_fit": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "disposition": {
+   "clarity": "clear",
+   "target": "hold",
+   "second": null
+  },
+  "crew_config": {
+   "clarity": "balanced",
+   "target": "double_crew",
+   "second": "clinical_escort"
+  },
+  "time_pressure": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  },
+  "delay_impact": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  }
+ },
+ "target_words": 29,
+ "deciding": {
+  "vehicle_fit": "Wheelchair booked and assessed on 2025-03-01, equipment matches, no discrepancy.",
+  "disposition": "escort_name is null and the ward note says the name will follow, so a confirmation is outstanding.",
+  "crew_config": "Wheelchair transfer with oxygen 0 and monitoring null suggests double crew, but a pending named escort makes clinical escort plausible.",
+  "time_pressure": "window_end 09:00 plus 30 min arrives 09:30 for a 10:00 appointment: exactly 30 min spare, on the level 1 and 2 boundary.",
+  "delay_impact": "Inter-site transfer to a day unit, reslot_same_day false and no tolerance; a lost slot is high, with critical transfer-loss as the alternative."
+ },
+ "request": "rec-F304-0046",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.010741
+}

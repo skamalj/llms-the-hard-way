@@ -1,0 +1,113 @@
+{
+ "id": "F314-0052",
+ "family": "F314",
+ "state": {
+  "property": {
+   "inv": [
+    {
+     "id": "A1",
+     "type": "boiler",
+     "loc": "utility",
+     "serial": "K5521"
+    }
+   ]
+  },
+  "tenancy": {
+   "review": "2025-07-21"
+  },
+  "certificate": {
+   "insp": "2024-09-20",
+   "exp": "2025-09-20",
+   "lic": "GS7312",
+   "outcome": "pass"
+  },
+  "engineer": {
+   "lic": "GS7312",
+   "valid_to": "2024-09-20"
+  },
+  "appliance_checks": [
+   {
+    "id": "A1",
+    "loc": "utility",
+    "serial": "K5512",
+    "ratio": 0.006,
+    "thr": 0.004,
+    "retest": null,
+    "defect": "AR",
+    "isolation": {
+     "supply_off": null,
+     "label": "W2"
+    }
+   }
+  ],
+  "history": {
+   "defects": 1
+  }
+ },
+ "factors": {
+  "inventory_mismatch": "serial_mismatch",
+  "tenant_owned_appliance": false,
+  "date_misalignment": "none",
+  "days_to_true_expiry": 61,
+  "renewal_booked": false,
+  "engineer_status": "valid_to_equals_inspection_date",
+  "worst_defect_class": "at_risk",
+  "defect_isolated": false,
+  "remedial_completed": false,
+  "combustion_reading": "high_no_retest",
+  "prior_defect_count": 1,
+  "boundary_case": true
+ },
+ "factors_sampled": {
+  "inventory_mismatch": "none",
+  "tenant_owned_appliance": false,
+  "date_misalignment": "none",
+  "days_to_true_expiry": 171,
+  "renewal_booked": false,
+  "engineer_status": "lapsed_on_date",
+  "worst_defect_class": "immediately_dangerous",
+  "defect_isolated": false,
+  "remedial_completed": false,
+  "combustion_reading": "high_no_retest",
+  "prior_defect_count": 1,
+  "boundary_case": false
+ },
+ "plan": {
+  "covers_all_appliances": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "engineer_valid": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "emergency_isolation",
+   "second": null
+  },
+  "renewal_urgency": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "open_hazard": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 61,
+ "deciding": {
+  "covers_all_appliances": "Check serial K5512 differs from inventory serial K5521 for A1, so the certified unit may not be the listed one.",
+  "engineer_valid": "engineer.valid_to equals inspection date 2024-09-20, the last valid day.",
+  "next_step": "Ratio 0.006 over threshold 0.004 with no retest, outcome pass, and AR appliance in service with no supply_off.",
+  "renewal_urgency": "Review 2025-07-21 to expiry 2025-09-20 is 61 days, one day over the 60-day boundary.",
+  "open_hazard": "AR defect open; label W2 present but supply_off null, so isolated (2) or in service (3) both defensible."
+ },
+ "request": "rec-F314-0051",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.010615
+}

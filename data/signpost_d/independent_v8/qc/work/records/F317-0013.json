@@ -1,0 +1,143 @@
+{
+ "id": "F317-0013",
+ "family": "F317",
+ "state": {
+  "vehicle": {
+   "fleet_no": "T1507",
+   "odometer_km": 60120
+  },
+  "exam": {
+   "due_at_km": 59970,
+   "items": [
+    {
+     "c": "E1",
+     "signed_by": "u7",
+     "signed_at": "2024-06-05T06:00"
+    },
+    {
+     "c": "E2",
+     "signed_by": "u7",
+     "signed_at": "2024-06-05T06:30"
+    },
+    {
+     "c": "E3",
+     "signed_by": "u8",
+     "signed_at": "2024-06-05T07:00"
+    },
+    {
+     "c": "E4",
+     "signed_by": null,
+     "signed_at": null
+    },
+    {
+     "c": "E5",
+     "signed_by": null,
+     "signed_at": null
+    }
+   ]
+  },
+  "defects": [
+   {
+    "defect_id": "D12",
+    "subsystem": "saloon_doors",
+    "safety_critical": true,
+    "status": "closed",
+    "retest_at": "2024-05-29",
+    "retest_result": "pass"
+   },
+   {
+    "defect_id": "D15",
+    "subsystem": "running_gear",
+    "safety_critical": false,
+    "status": "open",
+    "retest_at": null
+   }
+  ],
+  "work_orders": [
+   {
+    "wo_id": "W20",
+    "defect_ref": "D15",
+    "subsystem": "running_gear",
+    "status": "open",
+    "completed_at": null
+   }
+  ],
+  "release": {
+   "duty_type": "peak_diagram",
+   "depart_at": "2024-06-06T05:30",
+   "odo_reading_km": 60135,
+   "brake_test_at": "2024-06-05T20:00",
+   "brake_test_result": "pass"
+  }
+ },
+ "factors": {
+  "km_to_exam_due": -165,
+  "odometer_disagreement": "trivial",
+  "exam_signed_fraction": 0.6,
+  "exam_record_missing": false,
+  "worst_defect_subsystem": "running_gear",
+  "worst_defect_state": "open",
+  "worst_defect_safety_critical": false,
+  "retest_out_of_order": false,
+  "concession_present": false,
+  "concession_flaw": "none",
+  "wo_crossref_mismatch": "none",
+  "planned_duty_type": "peak_diagram",
+  "recent_brake_test_pass": true,
+  "balanced_signals": false
+ },
+ "factors_sampled": {
+  "km_to_exam_due": -503,
+  "odometer_disagreement": "trivial",
+  "exam_signed_fraction": 0.61,
+  "exam_record_missing": false,
+  "worst_defect_subsystem": "saloon_doors",
+  "worst_defect_state": "closed_retested",
+  "worst_defect_safety_critical": false,
+  "retest_out_of_order": false,
+  "concession_present": false,
+  "concession_flaw": "none",
+  "wo_crossref_mismatch": "none",
+  "planned_duty_type": "peak_diagram",
+  "recent_brake_test_pass": true,
+  "balanced_signals": false
+ },
+ "plan": {
+  "sc_defects_cleared": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "release_decision": {
+   "clarity": "contested",
+   "target": "withdraw",
+   "second": "release"
+  },
+  "worst_subsystem": {
+   "clarity": "clear",
+   "target": "running_gear",
+   "second": null
+  },
+  "exam_completion": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  },
+  "exam_mileage": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  }
+ },
+ "target_words": 56,
+ "deciding": {
+  "sc_defects_cleared": "The only safety-critical defect, D12, is closed with a passing retest; the open D15 is not flagged safety-critical, though it is on running gear.",
+  "release_decision": "Open running-gear defect with its work order incomplete and the exam overrun, no concession, for peak duty; against that, D15 is non-critical, the brake test passed and the overrun is under 200 km.",
+  "worst_subsystem": "D15 on running_gear is open and its work order is open; D12 is closed and retested.",
+  "exam_completion": "3 of 5 exam items are signed with timestamps; two are unsigned, giving level 2.",
+  "exam_mileage": "Release odometer 60135 against due 60 km... due_at_km 59970 is about 165 km past due, under 200, so level 2; the vehicle and release readings differ slightly."
+ },
+ "request": "rec-F317-0011",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.014441
+}

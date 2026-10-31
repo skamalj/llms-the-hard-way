@@ -1,0 +1,159 @@
+{
+ "id": "F303-0002",
+ "family": "F303",
+ "state": {
+  "order": {
+   "id": "O-5120",
+   "rx": {
+    "modality": "cylinder",
+    "flow_lpm": 2,
+    "hrs_day": 8,
+    "rx_expiry": "2026-01-15"
+   },
+   "items": [
+    {
+     "sku": "HX2300",
+     "qty": 2
+    },
+    {
+     "sku": "CAN2",
+     "qty": 2
+    }
+   ]
+  },
+  "visit": {
+   "date": "2025-06-03",
+   "items_left": [
+    {
+     "sku": "HX2300",
+     "qty": 2,
+     "serial": "H88"
+    },
+    {
+     "sku": "CAN2",
+     "qty": 1,
+     "serial": null
+    }
+   ],
+   "install_checks": {
+    "flow_verified": true,
+    "alarm_tested": true,
+    "training_given": true,
+    "completed_at": "2025-06-03T10:40"
+   },
+   "patient_signature": null,
+   "handover_at": "2025-06-03T10:45"
+  },
+  "site_assessment": {
+   "hazards": [
+    {
+     "code": "GAS_HOB",
+     "status": "open",
+     "fix": null
+    },
+    {
+     "code": "OPEN_FLAME",
+     "status": "open",
+     "fix": null
+    },
+    {
+     "code": "SMOKING",
+     "status": "open",
+     "fix": null
+    },
+    {
+     "code": "CYL_STORE",
+     "status": "open",
+     "fix": "cylinder_relocated"
+    }
+   ]
+  },
+  "equipment": {
+   "flow_setting_lpm": 2.5,
+   "cylinders_on_site": [
+    {
+     "size": "HX 2300 L",
+     "fill_pct": 100
+    },
+    {
+     "size": "HX 2300 L",
+     "fill_pct": 76
+    }
+   ],
+   "fault_log": []
+  },
+  "supply_plan": {
+   "next_delivery_date": "2025-06-10"
+  }
+ },
+ "factors": {
+  "rx_alignment": "flow_mismatch",
+  "items_shortfall": "one_short",
+  "setup_state": "all_logged",
+  "supply_hours": 101.2,
+  "concentrator_fault": false,
+  "fault_mitigated": false,
+  "hazards_found": 4,
+  "hazard_mitigation": false,
+  "hazard_status_missing": false,
+  "handover_gap": true,
+  "timeline_out_of_order": false,
+  "next_delivery": "booked_too_late",
+  "dependency_level": "nocturnal",
+  "billing_hold": false
+ },
+ "factors_sampled": {
+  "rx_alignment": "exact",
+  "items_shortfall": "one_short",
+  "setup_state": "test_not_logged",
+  "supply_hours": 101.22,
+  "concentrator_fault": false,
+  "fault_mitigated": true,
+  "hazards_found": 0,
+  "hazard_mitigation": false,
+  "hazard_status_missing": false,
+  "handover_gap": true,
+  "timeline_out_of_order": false,
+  "next_delivery": "booked_too_late",
+  "dependency_level": "nocturnal",
+  "billing_hold": false
+ },
+ "plan": {
+  "rx_match": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "next_step": {
+   "clarity": "contested",
+   "target": "chase_paperwork",
+   "second": "close_record"
+  },
+  "fulfilment": {
+   "clarity": "balanced",
+   "target": "fully_complete",
+   "second": "items_short"
+  },
+  "supply_runway": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  },
+  "open_hazards": {
+   "clarity": "contested",
+   "target": "4",
+   "second": "3"
+  }
+ },
+ "target_words": 93,
+ "deciding": {
+  "rx_match": "Regulator flow_setting_lpm is 2.5 against a prescribed 2 lpm; a small gap, so the answer is modestly false.",
+  "next_step": "patient_signature is null while handover_at is set, which favours chasing paperwork; the one cannula short and the hazards make closing defensible too.",
+  "fulfilment": "All install checks are true, but CAN2 is ordered at qty 2 and only 1 left, a minor accessory shortfall.",
+  "supply_runway": "The two HX 2300 L cylinders at 100% and 76% hold about 4050 L; at 960 L/day that is about 101 hours, roughly 4 days.",
+  "open_hazards": "Four hazards have status open; one (CYL_STORE) also carries cylinder_relocated, so it may count as fixed, giving 3 or 4."
+ },
+ "request": "rec-F303-0001",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012731
+}

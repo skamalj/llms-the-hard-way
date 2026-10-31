@@ -1,0 +1,130 @@
+{
+ "id": "F304-0009",
+ "family": "F304",
+ "state": {
+  "request": {
+   "ref": "X4418",
+   "appt_type": "dialysis",
+   "appt_time": "2025-06-03T10:00",
+   "vehicle_class": "wheelchair_o2",
+   "crew_requested": "double_crew",
+   "mobility_booked": "wheelchair",
+   "equipment": [
+    "O2 cylinder",
+    "wheelchair"
+   ]
+  },
+  "patient": {
+   "mobility_assessed": "wheelchair",
+   "assessed_on": "2025-05-29",
+   "weight_kg": 155,
+   "oxygen_lpm": 2,
+   "monitoring": null,
+   "own_transport_available": false,
+   "exemption": {
+    "code": "EX-REN",
+    "approved_by": "Dr Hale",
+    "approved_on": "2025-01-10"
+   }
+  },
+  "journey": {
+   "window_end": "2025-06-03T08:37",
+   "est_duration_min": 50,
+   "late_tolerance_min": 0,
+   "reslot_same_day": false
+  },
+  "history": [
+   {
+    "date": "2025-04-08",
+    "outcome": "aborted",
+    "vehicle_class": "car",
+    "reason": "needed oxygen, car unsuitable"
+   },
+   {
+    "date": "2025-04-15",
+    "outcome": "aborted",
+    "vehicle_class": "car",
+    "reason": "needed oxygen, car unsuitable"
+   },
+   {
+    "date": "2025-04-29",
+    "outcome": "aborted",
+    "vehicle_class": "wheelchair_veh",
+    "reason": "oxygen supply ran low"
+   }
+  ],
+  "notes": {
+   "ward_note": "Chair slot 10:00, unit full today."
+  }
+ },
+ "factors": {
+  "mobility_alignment": "matches",
+  "secondary_discrepancy": "none",
+  "eligibility_concern": false,
+  "eligibility_exception": true,
+  "clinical_support": "bariatric",
+  "crew_request_gap": "under_one_step",
+  "buffer_minutes": 3.0,
+  "duration_estimate_split": false,
+  "late_tolerance": false,
+  "appointment_type": "dialysis",
+  "same_day_reslot": false,
+  "confirmation_pending": false,
+  "prior_aborts": 3,
+  "aborts_related": true
+ },
+ "factors_sampled": {
+  "mobility_alignment": "matches",
+  "secondary_discrepancy": "none",
+  "eligibility_concern": false,
+  "eligibility_exception": true,
+  "clinical_support": "bariatric",
+  "crew_request_gap": "under_one_step",
+  "buffer_minutes": 159.94,
+  "duration_estimate_split": false,
+  "late_tolerance": false,
+  "appointment_type": "discharge",
+  "same_day_reslot": true,
+  "confirmation_pending": false,
+  "prior_aborts": 3,
+  "aborts_related": true
+ },
+ "plan": {
+  "vehicle_fit": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "disposition": {
+   "clarity": "clear",
+   "target": "amend_confirm",
+   "second": null
+  },
+  "crew_config": {
+   "clarity": "leaning",
+   "target": "clinical_escort",
+   "second": null
+  },
+  "time_pressure": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  },
+  "delay_impact": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  }
+ },
+ "target_words": 107,
+ "deciding": {
+  "vehicle_fit": "wheelchair_o2 with the O2 cylinder listed matches a wheelchair assessment from 2025-05-29. The earlier aborts were in cars.",
+  "disposition": "crew_requested is double_crew but oxygen_lpm is 2, a correctable crew conflict. Nothing is pending and no eligibility problem.",
+  "crew_config": "Oxygen 2 lpm points to a clinical escort. Weight 155 kg is just under the 160 kg limit, which leaves a little doubt.",
+  "time_pressure": "Window end 08:37 plus 50 min gives 09:27 arrival against 10:00, about 33 min spare. The booked crew mismatch and zero tolerance leave it near the boundary.",
+  "delay_impact": "Dialysis session with reslot_same_day false and the ward note saying the unit is full: treatment lost."
+ },
+ "request": "rec-F304-0006",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012989
+}

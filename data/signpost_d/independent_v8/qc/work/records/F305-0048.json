@@ -1,0 +1,118 @@
+{
+ "id": "F305-0048",
+ "family": "F305",
+ "state": {
+  "session": {
+   "needle_on": "2025-04-10T07:00",
+   "washback": "2025-04-10T10:36",
+   "review_at": "2025-04-11T06:00"
+  },
+  "prescription": {
+   "duration_min": 240,
+   "qb": 350
+  },
+  "machine": {
+   "qb_actual": 280,
+   "uf_removed_ml": 3200,
+   "washback_ml": 200,
+   "alarms": [
+    {
+     "c": "QB_REDUCED",
+     "code": "ART_PRESSURE_HIGH"
+    },
+    {
+     "c": "PUMP_STOP",
+     "t": "08:30"
+    },
+    {
+     "c": "PUMP_RESUME",
+     "t": "08:40"
+    }
+   ]
+  },
+  "observations": {
+   "pre_kg": 80.0,
+   "post_kg": 78.5
+  },
+  "checks": [
+   {
+    "c": "prime",
+    "done": true,
+    "t": "2025-04-10T06:50"
+   },
+   {
+    "c": "access_assessment",
+    "done": true,
+    "t": "2025-04-10T07:00"
+   }
+  ]
+ },
+ "factors": {
+  "time_shortfall_min": 34,
+  "machine_pause_min": 10,
+  "uf_weight_gap_kg": 1.5,
+  "post_weight_missing": false,
+  "missing_check": "none",
+  "check_logged_after_start": false,
+  "prescription_mismatch": "none",
+  "mismatch_magnitude": "trivial",
+  "hypotension_episodes": 0,
+  "hypotension_mitigated": false,
+  "circuit_clotted": false,
+  "prior_short_sessions": 0,
+  "documented_flow_reduction": true
+ },
+ "factors_sampled": {
+  "time_shortfall_min": 62,
+  "machine_pause_min": 10,
+  "uf_weight_gap_kg": 1.5,
+  "post_weight_missing": false,
+  "missing_check": "second_checker",
+  "check_logged_after_start": true,
+  "prescription_mismatch": "blood_flow",
+  "mismatch_magnitude": "clinically_relevant",
+  "hypotension_episodes": 3,
+  "hypotension_mitigated": false,
+  "circuit_clotted": false,
+  "prior_short_sessions": 0,
+  "documented_flow_reduction": true
+ },
+ "plan": {
+  "uf_reconciles": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "checks_before_start": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "log_disposition": {
+   "clarity": "balanced",
+   "target": "sign_off",
+   "second": "hold_query"
+  },
+  "time_shortfall": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  },
+  "pending_age": {
+   "clarity": "leaning",
+   "target": "0",
+   "second": null
+  }
+ },
+ "target_words": 30,
+ "deciding": {
+  "uf_reconciles": "Net UF 3200-200=3000 ml vs weight loss 1.5 kg: gap 1.5 kg, well over 0.5.",
+  "checks_before_start": "access_assessment stamped 07:00, identical to needle_on; prime check at 06:50 precedes it.",
+  "log_disposition": "Reduced qb is documented by QB_REDUCED alarm so no mismatch; large UF gap and short time could prompt a query, otherwise sign off.",
+  "time_shortfall": "Clock 216 min minus 10 min pause = 206 vs 240, short by 34, over 30.",
+  "pending_age": "Washback 10:36 to review_at next day 06:00 is about 19 hours."
+ },
+ "request": "rec-F305-0046",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.01425
+}

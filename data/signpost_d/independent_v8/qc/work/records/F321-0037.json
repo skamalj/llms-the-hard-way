@@ -1,0 +1,149 @@
+{
+ "id": "F321-0037",
+ "family": "F321",
+ "state": {
+  "permit": {
+   "permit_id": "P-3105",
+   "window_start": "2025-02-18T08:00",
+   "window_end": "2025-02-18T17:00",
+   "scoped_tasks": [
+    {
+     "task_code": "ANT-ALN-01",
+     "equipment_ref": "A21"
+    },
+    {
+     "task_code": "RRU-SWP-02",
+     "equipment_ref": "R05"
+    },
+    {
+     "task_code": "CAB-INS-03",
+     "equipment_ref": "C11"
+    },
+    {
+     "task_code": "GND-TST-04",
+     "equipment_ref": "G02"
+    }
+   ]
+  },
+  "attendance": [
+   {
+    "badge_id": "B12",
+    "event": "in",
+    "ts": "2025-02-18T08:05"
+   },
+   {
+    "badge_id": "B12",
+    "event": "out",
+    "ts": "2025-02-18T16:40"
+   }
+  ],
+  "personnel": [
+   {
+    "engineer_id": "E3",
+    "badge_id": "B12",
+    "height_cert_expiry": "2025-02-18"
+   }
+  ],
+  "works": [
+   {
+    "task_code": "ANT-ALN-01",
+    "equipment_ref": "A21",
+    "status": "complete",
+    "completed_at": "2025-02-18T10:00"
+   },
+   {
+    "task_code": "RRU-SWP-02",
+    "equipment_ref": "R05",
+    "status": "complete",
+    "completed_at": "2025-02-18T12:00"
+   },
+   {
+    "task_code": "CAB-INS-03",
+    "equipment_ref": "C11",
+    "status": "complete",
+    "completed_at": "2025-02-18T14:00"
+   },
+   {
+    "task_code": "GND-TST-04",
+    "equipment_ref": "G02",
+    "status": "in_progress",
+    "completed_at": "2025-02-18T16:20"
+   }
+  ],
+  "closeout": {
+   "signout_at": "2025-02-18T16:40",
+   "key_status": "returned",
+   "photos_required": 8,
+   "photos_uploaded": 7,
+   "variation_ref": null,
+   "submitted_at": "2025-03-04T09:00",
+   "pulled_at": "2025-04-03T09:00"
+  }
+ },
+ "factors": {
+  "scope_mismatch": "none",
+  "window_deviation": "within",
+  "cert_status": "expires_on_visit_date",
+  "scoped_task_count": 4,
+  "completion_fraction": 0.75,
+  "signout_missing": false,
+  "key_return": "returned",
+  "photo_shortfall": 1,
+  "badge_id_mismatch": false,
+  "variation_approved": false,
+  "landlord_notice": "not_required",
+  "weather_hold_logged": false
+ },
+ "factors_sampled": {
+  "scope_mismatch": "none",
+  "window_deviation": "within",
+  "cert_status": "expires_on_visit_date",
+  "scoped_task_count": 4,
+  "completion_fraction": 0.69,
+  "signout_missing": false,
+  "key_return": "returned",
+  "photo_shortfall": 1,
+  "badge_id_mismatch": false,
+  "variation_approved": true,
+  "landlord_notice": "not_required",
+  "weather_hold_logged": false
+ },
+ "plan": {
+  "within_scope": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "certs_in_date": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "closeout_action": {
+   "clarity": "clear",
+   "target": "book_revisit",
+   "second": null
+  },
+  "scope_completion": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "pending_age": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 81,
+ "deciding": {
+  "within_scope": "All four logged task codes and equipment refs match the permit scoped_tasks exactly; variation_ref is null and not needed.",
+  "certs_in_date": "height_cert_expiry 2025-02-18 equals the visit date, so still in date on the day.",
+  "closeout_action": "GND-TST-04 has status in_progress, not complete, so an authorised task was left unfinished while everything else reconciles.",
+  "scope_completion": "Three tasks complete; the fourth is in_progress yet carries a completed_at stamp, leaving it ambiguous between all complete and one open.",
+  "pending_age": "submitted_at 2025-03-04 against pulled_at 2025-04-03 is exactly 30 days, right on the boundary between levels 2 and 3."
+ },
+ "request": "rec-F321-0036",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.010168
+}

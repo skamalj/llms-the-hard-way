@@ -1,0 +1,155 @@
+{
+ "id": "F337-0037",
+ "family": "F337",
+ "state": {
+  "station": {
+   "channels": [
+    {
+     "cha": "BHZ",
+     "sensor_serial": "N88",
+     "gain_counts_per_ms": 4180,
+     "response_epoch_start": "2025-06-12"
+    },
+    {
+     "cha": "BHN",
+     "sensor_serial": "N71",
+     "gain_counts_per_ms": 4150,
+     "response_epoch_start": "2024-10-01"
+    },
+    {
+     "cha": "BHE",
+     "sensor_serial": "N72",
+     "gain_counts_per_ms": 4155,
+     "response_epoch_start": "2024-10-01"
+    }
+   ]
+  },
+  "acquisition": {
+   "day": "2025-06-12",
+   "queued": "2025-06-13",
+   "asof": "2025-06-21",
+   "channel_hours_expected": 72,
+   "completeness_pct": 99.7,
+   "gps_lock_pct": 84,
+   "gaps": [
+    {
+     "cha": "BHN",
+     "start": "09:10",
+     "end": "09:22"
+    }
+   ]
+  },
+  "qc_metrics": {
+   "channels": [
+    {
+     "cha": "BHZ",
+     "psd_dev_db": 18,
+     "spikes": 3,
+     "dead": false,
+     "clipped_minutes": 260
+    },
+    {
+     "cha": "BHN",
+     "psd_dev_db": 2.1,
+     "spikes": 0,
+     "dead": false,
+     "clipped_minutes": 170
+    },
+    {
+     "cha": "BHE",
+     "psd_dev_db": 1.8,
+     "spikes": 0,
+     "dead": false,
+     "clipped_minutes": 0
+    }
+   ],
+   "cal_pulse": {
+    "date": "2025-06-11",
+    "result": "pass"
+   }
+  },
+  "maintenance_log": [
+   {
+    "date": "2025-06-11",
+    "action": "sensor_swap",
+    "cha": "BHZ",
+    "sensor_serial_installed": "N88"
+   },
+   {
+    "date": "2025-06-12",
+    "action": "field_visit",
+    "note": "Cabling checked."
+   }
+  ],
+  "operator_notes": [
+   "Diesel generator ran 02:00-04:30 UTC near the vault.",
+   "BHZ response epoch date to be confirmed against the field sheet."
+  ]
+ },
+ "factors": {
+  "sensor_metadata_state": "swap_updated",
+  "maintenance_log_present": true,
+  "gap_coverage": "visit_day_only",
+  "true_usable_fraction": 0.9,
+  "completeness_summary_drift": 7.4,
+  "timing_quality": "intermittent",
+  "calibration_status": "passed",
+  "noise_excess_db": 17.99,
+  "benign_noise_cause_logged": true,
+  "operator_note_consistency": "consistent",
+  "dead_channels": 0,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "sensor_metadata_state": "swap_updated",
+  "maintenance_log_present": true,
+  "gap_coverage": "no_gaps",
+  "true_usable_fraction": 0.96,
+  "completeness_summary_drift": 7.4,
+  "timing_quality": "intermittent",
+  "calibration_status": "passed",
+  "noise_excess_db": 17.99,
+  "benign_noise_cause_logged": true,
+  "operator_note_consistency": "consistent",
+  "dead_channels": 2,
+  "boundary_case": false
+ },
+ "plan": {
+  "response_valid": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "gaps_explained": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "disposition": {
+   "clarity": "clear",
+   "target": "hold",
+   "second": null
+  },
+  "usable_fraction": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  },
+  "pending_age": {
+   "clarity": "contested",
+   "target": "1",
+   "second": "2"
+  }
+ },
+ "target_words": 123,
+ "deciding": {
+  "response_valid": "BHZ serial N88 matches the 2025-06-11 swap, but the epoch starts a day after the swap and an operator note says it is still to be confirmed.",
+  "gaps_explained": "The 12-minute BHN gap falls on the day of a logged field_visit that has no time window, so overlap is plausible but not shown.",
+  "disposition": "One pending item, the unconfirmed BHZ epoch, is flagged in the operator note; everything else is clean or explained, so hold.",
+  "usable_fraction": "Clipped minutes 430 plus a 12-minute gap lose about 442 of 4320 channel-minutes, roughly 89.8% usable, right at the 90% anchor.",
+  "pending_age": "Queued 2025-06-13 and as-of 2025-06-21 gives 8 days, on the edge between levels 1 and 2."
+ },
+ "request": "rec-F337-0036",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012815
+}

@@ -1,0 +1,148 @@
+{
+ "id": "F333-0026",
+ "family": "F333",
+ "state": {
+  "room": {
+   "room_id": "B12-304",
+   "rate_card_ref": "RC24"
+  },
+  "tenancy": {
+   "start_date": "2023-09-16",
+   "end_date": "2024-06-15"
+  },
+  "checkin_inventory": {
+   "signed_date": "2023-09-15",
+   "items": [
+    {
+     "item_code": "SMK",
+     "grade": "good"
+    },
+    {
+     "item_code": "WALL",
+     "grade": "good"
+    },
+    {
+     "item_code": "DESK",
+     "grade": null
+    }
+   ]
+  },
+  "checkout_inspection": {
+   "inspection_type": "checkout",
+   "inspection_date": "2024-06-15",
+   "items": [
+    {
+     "item_code": "SMK",
+     "grade": "damaged",
+     "defect_category": "smoke_detector_fail",
+     "photo_refs": [
+      "p1"
+     ]
+    },
+    {
+     "item_code": "WALL",
+     "grade": "damaged",
+     "defect_category": "scuff",
+     "photo_refs": []
+    }
+   ]
+  },
+  "proposed_charges": {
+   "lines": [
+    {
+     "item_code": "SMK",
+     "qty": 1,
+     "unit_rate": 45,
+     "line_total": 45
+    },
+    {
+     "item_code": "WALL",
+     "qty": 1,
+     "unit_rate": 25.5,
+     "line_total": 25.5
+    }
+   ],
+   "summary_total": 70.5,
+   "rate_card_ref": "RC24"
+  },
+  "works_orders": [
+   {
+    "wo_id": "W9",
+    "raised_date": "2024-06-15",
+    "location": "bedroom",
+    "category": "detector_replace",
+    "status": "completed",
+    "completed_date": "2024-06-15",
+    "retest_passed": true
+   }
+  ]
+ },
+ "factors": {
+  "inspection_type": "checkout",
+  "checkin_inventory_state": "partial",
+  "prior_damage_on_charged_item": "none",
+  "charge_discrepancy": "medium_25_to_100",
+  "worst_defect_tier": "safety",
+  "true_cause": "resident_damage",
+  "predating_works_order": false,
+  "safety_fault_remedied": true,
+  "photo_coverage": "all_but_one",
+  "tenancy_months": 9,
+  "date_out_of_order": false,
+  "deposit_dispute_lodged": false,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "inspection_type": "checkout",
+  "checkin_inventory_state": "partial",
+  "prior_damage_on_charged_item": "none",
+  "charge_discrepancy": "large_over_100",
+  "worst_defect_tier": "cosmetic",
+  "true_cause": "resident_damage",
+  "predating_works_order": false,
+  "safety_fault_remedied": true,
+  "photo_coverage": "half_or_less",
+  "tenancy_months": 9,
+  "date_out_of_order": false,
+  "deposit_dispute_lodged": false,
+  "boundary_case": false
+ },
+ "plan": {
+  "checkin_clean": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "disposition": {
+   "clarity": "clear",
+   "target": "hold_for_evidence",
+   "second": null
+  },
+  "main_cause": {
+   "clarity": "clear",
+   "target": "resident_damage",
+   "second": null
+  },
+  "defect_severity": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  },
+  "charge_gap": {
+   "clarity": "contested",
+   "target": "2",
+   "second": "1"
+  }
+ },
+ "target_words": 43,
+ "deciding": {
+  "checkin_clean": "Both charged items (SMK, WALL) are graded good at check-in; only the uncharged DESK has a null grade, leaving slight doubt.",
+  "disposition": "Exactly one charged item (WALL) has an empty photo_refs list while grades and dates are in order, so one photo is needed.",
+  "main_cause": "Items go good to damaged with no works order before the tenancy start; the only works order is dated on the inspection day.",
+  "defect_severity": "smoke_detector_fail is a safety category, but the detector works order was completed on the inspection date with retest_passed true, so level 2 is arguable.",
+  "charge_gap": "Summary 70.50 against 45.00 for the photographed SMK line gives a gap of 25.50, just over the 25.00 boundary between levels 1 and 2; counting the WALL line as evidenced would give 0."
+ },
+ "request": "rec-F333-0026",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.013368
+}

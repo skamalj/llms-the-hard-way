@@ -1,0 +1,121 @@
+{
+ "id": "F304-0014",
+ "family": "F304",
+ "state": {
+  "request": {
+   "ref": "T4412",
+   "appt_type": "inter-site transfer",
+   "appt_time": "15:00",
+   "vehicle_class": "wheelchair",
+   "crew_requested": "double",
+   "mobility_booked": "wheelchair",
+   "equipment": []
+  },
+  "patient": {
+   "mobility_assessed": "wheelchair",
+   "assessed_on": "2025-01-05",
+   "oxygen_lpm": 0,
+   "monitoring": null,
+   "own_transport_available": false,
+   "exemption": {
+    "code": "EX-2",
+    "approved_by": "consultant",
+    "approved_on": "2024-12-01"
+   }
+  },
+  "journey": {
+   "clinic_time": "15:03",
+   "window_end": "13:00",
+   "est_duration_min": 29,
+   "late_tolerance_min": 10,
+   "destination": {
+    "reslot_same_day": false
+   }
+  },
+  "history": [
+   {
+    "date": "2025-04-08",
+    "outcome": "completed",
+    "vehicle_class": "wheelchair"
+   },
+   {
+    "date": "2025-02-14",
+    "outcome": "aborted",
+    "reason": "vehicle late, slot missed"
+   }
+  ],
+  "notes": {
+   "control_note": "Site B renal bed; no later transfer slot."
+  }
+ },
+ "factors": {
+  "mobility_alignment": "stale",
+  "secondary_discrepancy": "time_trivial",
+  "eligibility_concern": false,
+  "eligibility_exception": true,
+  "clinical_support": "none",
+  "crew_request_gap": "correct",
+  "buffer_minutes": 91.0,
+  "duration_estimate_split": false,
+  "late_tolerance": true,
+  "appointment_type": "inter-site transfer",
+  "same_day_reslot": false,
+  "confirmation_pending": false,
+  "prior_aborts": 1,
+  "aborts_related": true
+ },
+ "factors_sampled": {
+  "mobility_alignment": "stale",
+  "secondary_discrepancy": "time_trivial",
+  "eligibility_concern": false,
+  "eligibility_exception": true,
+  "clinical_support": "none",
+  "crew_request_gap": "correct",
+  "buffer_minutes": 106.87,
+  "duration_estimate_split": false,
+  "late_tolerance": true,
+  "appointment_type": "dialysis",
+  "same_day_reslot": true,
+  "confirmation_pending": false,
+  "prior_aborts": 1,
+  "aborts_related": true
+ },
+ "plan": {
+  "vehicle_fit": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "disposition": {
+   "clarity": "leaning",
+   "target": "confirm",
+   "second": null
+  },
+  "crew_config": {
+   "clarity": "clear",
+   "target": "double_crew",
+   "second": null
+  },
+  "time_pressure": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "delay_impact": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 67,
+ "deciding": {
+  "vehicle_fit": "Values agree with wheelchair, but assessed_on 2025-01-05 is stale; a wheelchair journey completed on 2025-04-08 partly offsets it.",
+  "disposition": "Only a 3 min clinic_time difference (15:00 vs 15:03), which is trivial, and an exemption on file; no pending items. The earlier abort was about lateness.",
+  "crew_config": "Wheelchair transfer with oxygen_lpm 0 and monitoring null requires double crew.",
+  "time_pressure": "Appt 15:00 less window_end 13:00 is 120 min, minus est 29 leaves 91 min, one minute over the 90 min boundary.",
+  "delay_impact": "Control_note says no later transfer slot and reslot is false, which gives a lost slot; the 10 min late_tolerance keeps the treatment-lost reading open."
+ },
+ "request": "rec-F304-0011",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012558
+}

@@ -1,0 +1,167 @@
+{
+ "id": "F303-0025",
+ "family": "F303",
+ "state": {
+  "order": {
+   "prescription": {
+    "modality": "conc",
+    "flow_lpm": 3,
+    "hours_per_day": 16,
+    "rx_expiry": "2025-04-01"
+   },
+   "items_ordered": [
+    {
+     "sku": "CONC",
+     "qty": 1
+    },
+    {
+     "sku": "CD460",
+     "qty": 1
+    }
+   ]
+  },
+  "visit": {
+   "visit_date": "2024-06-07",
+   "items_left": [
+    {
+     "sku": "CONC",
+     "qty": 1,
+     "serial": "C5"
+    },
+    {
+     "sku": "CD460",
+     "qty": 1,
+     "serial": "D8"
+    }
+   ],
+   "install_checks": {
+    "flow_verified": true,
+    "alarm_tested": true,
+    "training_given": true,
+    "completed_at": "2024-06-07T14:00"
+   },
+   "patient_signature": "on_file",
+   "handover_at": "2024-06-07T14:05"
+  },
+  "site_assessment": {
+   "hazards": [
+    {
+     "code": "SMOKING",
+     "status": "open",
+     "fix": null
+    },
+    {
+     "code": "GAS_HOB",
+     "status": "open",
+     "fix": null
+    },
+    {
+     "code": "HEATER",
+     "status": "open",
+     "fix": null
+    },
+    {
+     "code": "CABLE",
+     "status": null,
+     "fix": null
+    },
+    {
+     "code": "CYL_STORE",
+     "status": "resolved_on_visit",
+     "fix": "cylinder_relocated"
+    }
+   ]
+  },
+  "equipment": {
+   "concentrator": {
+    "serial": "C5",
+    "flow_setting_lpm": 3
+   },
+   "fault_log": [
+    {
+     "code": "LOW_PURITY",
+     "retest_passed": true
+    }
+   ],
+   "cylinders_on_site": [
+    {
+     "size": "CD 460 L",
+     "fill_pct": 20
+    }
+   ]
+  },
+  "supply_plan": {
+   "next_delivery_date": "2024-06-28"
+  }
+ },
+ "factors": {
+  "rx_alignment": "exact",
+  "items_shortfall": "none",
+  "setup_state": "all_logged",
+  "supply_hours": "concentrator verified working",
+  "concentrator_fault": false,
+  "fault_mitigated": true,
+  "hazards_found": 5,
+  "hazard_mitigation": true,
+  "hazard_status_missing": true,
+  "handover_gap": false,
+  "timeline_out_of_order": false,
+  "next_delivery": "booked_too_late",
+  "dependency_level": "ambulatory",
+  "billing_hold": false
+ },
+ "factors_sampled": {
+  "rx_alignment": "flow_mismatch",
+  "items_shortfall": "none",
+  "setup_state": "all_logged",
+  "supply_hours": 154.05,
+  "concentrator_fault": true,
+  "fault_mitigated": false,
+  "hazards_found": 4,
+  "hazard_mitigation": true,
+  "hazard_status_missing": false,
+  "handover_gap": true,
+  "timeline_out_of_order": false,
+  "next_delivery": "booked_too_late",
+  "dependency_level": "ambulatory",
+  "billing_hold": false
+ },
+ "plan": {
+  "rx_match": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "close_record",
+   "second": null
+  },
+  "fulfilment": {
+   "clarity": "leaning",
+   "target": "fully_complete",
+   "second": null
+  },
+  "supply_runway": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "open_hazards": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "4"
+  }
+ },
+ "target_words": 76,
+ "deciding": {
+  "rx_match": "The delivered CONC is set to 3 lpm, equal to the prescribed 3 lpm.",
+  "next_step": "Items, checks, signature and handover are all complete, so closing is favoured. The open hazards and the late next delivery leave some doubt.",
+  "fulfilment": "Both ordered items are in items_left and all three install checks are true with a completed_at time.",
+  "supply_runway": "The concentrator C5 is installed with a verified flow and a passed retest after LOW_PURITY, which favours level 3. The cylinder is only 20% full and the next delivery is 21 days away, which keeps level 2 plausible.",
+  "open_hazards": "Three hazards are open, CABLE has a null status and CYL_STORE is resolved. The count is three or four."
+ },
+ "request": "rec-F303-0021",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011874
+}

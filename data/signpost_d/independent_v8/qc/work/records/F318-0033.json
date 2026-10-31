@@ -1,0 +1,164 @@
+{
+ "id": "F318-0033",
+ "family": "F318",
+ "state": {
+  "work_order": {
+   "wo_id": "WO-3307",
+   "lock_id": "L22",
+   "visit_type": "reactive_callout",
+   "tasks": [
+    {
+     "task_id": "T1",
+     "task_code": "PD",
+     "asset_ref": "P1",
+     "qty_planned": 1
+    },
+    {
+     "task_id": "T2",
+     "task_code": "GR",
+     "asset_ref": "P1",
+     "qty_planned": 4
+    }
+   ],
+   "nav_notice": {
+    "in_force": false
+   }
+  },
+  "visit_log": {
+   "arrived": "2025-05-06T13:00",
+   "departed": "2025-05-06T16:00",
+   "crew_size": 2,
+   "timesheet_hours": 6.8,
+   "task_status": [
+    {
+     "task_id": "T1",
+     "status": "done",
+     "deferral_ref": null
+    },
+    {
+     "task_id": "T2",
+     "status": "done",
+     "deferral_ref": null
+    }
+   ]
+  },
+  "materials": {
+   "issued": [
+    {
+     "part_no": "S11",
+     "task_id": "T1",
+     "qty": 1
+    },
+    {
+     "part_no": "B40",
+     "task_id": "T2",
+     "qty": 4
+    }
+   ],
+   "returned": [],
+   "fitted": [
+    {
+     "part_no": "S11",
+     "task_id": "T1",
+     "qty": 1
+    },
+    {
+     "part_no": "B40",
+     "task_id": "T2",
+     "qty": 12
+    },
+    {
+     "part_no": "R9",
+     "task_id": "T2",
+     "qty": 2
+    }
+   ]
+  },
+  "checks": {
+   "post_checks": [
+    {
+     "asset_ref": "P1",
+     "result": "pass",
+     "checked_at": "2025-05-06T15:50"
+    }
+   ],
+   "leakage_ls": 12.6,
+   "leakage_limit_ls": 20,
+   "river_level_m": 1.9,
+   "flood_marker_m": 3.0,
+   "gauge_cal_due": "2025-09-01"
+  },
+  "asset_history": {
+   "prior_visits": [],
+   "open_defects": []
+  }
+ },
+ "factors": {
+  "visit_type": "reactive_callout",
+  "tasks_ordered": 2,
+  "completion_state": "all_done",
+  "parts_qty_mismatch": "large",
+  "hours_gap": 0.14,
+  "asset_ref_mismatch": false,
+  "post_check_result": "passed",
+  "leakage_ratio": 0.63,
+  "leakage_mitigation": false,
+  "navigation_notice_in_force": false,
+  "deferral_approved": false,
+  "prior_same_defect": 0,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "visit_type": "reactive_callout",
+  "tasks_ordered": 2,
+  "completion_state": "some_outstanding",
+  "parts_qty_mismatch": "large",
+  "hours_gap": 0.14,
+  "asset_ref_mismatch": false,
+  "post_check_result": "passed",
+  "leakage_ratio": 0.63,
+  "leakage_mitigation": false,
+  "navigation_notice_in_force": false,
+  "deferral_approved": false,
+  "prior_same_defect": 0,
+  "boundary_case": false
+ },
+ "plan": {
+  "safe_to_reopen": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "record_disposition": {
+   "clarity": "balanced",
+   "target": "close_visit",
+   "second": "reopen_revisit"
+  },
+  "return_urgency": {
+   "clarity": "clear",
+   "target": "next_scheduled",
+   "second": null
+  },
+  "affected_scope": {
+   "clarity": "leaning",
+   "target": "0",
+   "second": null
+  },
+  "section_mismatches": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 86,
+ "deciding": {
+  "safe_to_reopen": "Checks pass and leakage is within limit, but materials contradict the work. B40 fitted 12 against 4 issued, and R9 fitted with no issue line. The conflicting records mean it is not safe to confirm.",
+  "record_disposition": "Both tasks are done and the P1 check passes, which favours closing as logged. The large B40 and R9 discrepancies keep a revisit plausible.",
+  "return_urgency": "Open_defects is empty, checks pass and leakage is 12.6 of 20, so no extra attendance is needed. The next scheduled cycle suffices.",
+  "affected_scope": "Both tasks and the single post-check concern one asset, P1, which points to one unit. The over-fitted parts add slight doubt.",
+  "section_mismatches": "B40 quantity (12 vs 4) and R9 with no issue are two clear mismatches. The timesheet 6.8 vs 6 crew-hours is a possible third."
+ },
+ "request": "rec-F318-0031",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.016177
+}

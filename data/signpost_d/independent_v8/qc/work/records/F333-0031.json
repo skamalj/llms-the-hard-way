@@ -1,0 +1,133 @@
+{
+ "id": "F333-0031",
+ "family": "F333",
+ "state": {
+  "tenancy": {
+   "start_date": "2025-09-01",
+   "end_date": "2025-10-31"
+  },
+  "checkin_inventory": {
+   "signed_date": "2025-09-15",
+   "signed_by_resident": true,
+   "items": [
+    {
+     "item_code": "CURT",
+     "grade": "good"
+    },
+    {
+     "item_code": "DRAW",
+     "grade": "damaged"
+    }
+   ]
+  },
+  "checkout_inspection": {
+   "inspection_type": "pre_arrival",
+   "inspection_date": "2025-10-31",
+   "items": [
+    {
+     "item_code": "CURT",
+     "grade": "good",
+     "photo_refs": [
+      "p1"
+     ]
+    },
+    {
+     "item_code": "DRAW",
+     "grade": "damaged",
+     "defect_category": "broken_fitting",
+     "photo_refs": []
+    }
+   ]
+  },
+  "proposed_charges": {
+   "lines": [
+    {
+     "item_code": "CURT",
+     "reason_code": "CLEAN",
+     "qty": 1,
+     "unit_rate": 25.0,
+     "line_total": 24.99
+    }
+   ],
+   "summary_total": 24.99
+  },
+  "works_orders": [
+   {
+    "wo_id": "W1",
+    "location": "corridor",
+    "category": "smoke_detector_fail",
+    "status": "completed",
+    "completed_date": "2025-10-31",
+    "retest_passed": true
+   }
+  ]
+ },
+ "factors": {
+  "inspection_type": "pre_arrival",
+  "checkin_inventory_state": "signed_late",
+  "prior_damage_on_charged_item": "none",
+  "charge_discrepancy": "small_under_25",
+  "worst_defect_tier": "functional",
+  "true_cause": "prior_occupant",
+  "predating_works_order": false,
+  "safety_fault_remedied": true,
+  "photo_coverage": "all_but_one",
+  "tenancy_months": 2,
+  "date_out_of_order": false,
+  "deposit_dispute_lodged": false,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "inspection_type": "pre_arrival",
+  "checkin_inventory_state": "signed_late",
+  "prior_damage_on_charged_item": "none",
+  "charge_discrepancy": "small_under_25",
+  "worst_defect_tier": "functional",
+  "true_cause": "prior_occupant",
+  "predating_works_order": false,
+  "safety_fault_remedied": true,
+  "photo_coverage": "all_but_one",
+  "tenancy_months": 2,
+  "date_out_of_order": false,
+  "deposit_dispute_lodged": false,
+  "boundary_case": false
+ },
+ "plan": {
+  "checkin_clean": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "disposition": {
+   "clarity": "leaning",
+   "target": "approve_as_drafted",
+   "second": null
+  },
+  "main_cause": {
+   "clarity": "contested",
+   "target": "no_defect",
+   "second": "prior_occupant"
+  },
+  "defect_severity": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  },
+  "charge_gap": {
+   "clarity": "contested",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 25,
+ "deciding": {
+  "checkin_clean": "The only charged item, CURT, is graded good in the check-in inventory.",
+  "disposition": "Report is complete and the line is tiny; only the late check-in signature (14 days after start) and one empty photo list on an uncharged item give slight doubt.",
+  "main_cause": "Every item has the same grade at check-in and checkout (DRAW damaged both times), so no_defect and prior_occupant are both defensible.",
+  "defect_severity": "DRAW broken_fitting is a functional defect; the smoke detector order was completed and retested the same day, and the unclear usability of the room leaves level 2 possible.",
+  "charge_gap": "Line_total 24.99 against qty 1 x unit_rate 25.00 is a one penny difference, and the item is graded good, so level 0 and level 1 are both defensible."
+ },
+ "request": "rec-F333-0031",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011191
+}

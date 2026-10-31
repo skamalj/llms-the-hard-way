@@ -1,0 +1,109 @@
+{
+ "id": "F315-0041",
+ "family": "F315",
+ "state": {
+  "report": {
+   "ref": "F101",
+   "received_at": "2024-05-14T06:10",
+   "source": "police",
+   "units_reported": [
+    "A1",
+    "A2",
+    "A3",
+    "A4",
+    "A5",
+    "A6"
+   ]
+  },
+  "asset": {
+   "unit_id": "A3",
+   "site_category": "main_road",
+   "planned_works": {
+    "window_start": "2024-05-12",
+    "window_end": "2024-05-20",
+    "work_type": "cable_diversion"
+   }
+  },
+  "cms": null,
+  "history": [],
+  "job": {
+   "job_ref": "J55",
+   "stage": "RAISED",
+   "attended_at": null,
+   "completed_at": null
+  },
+  "supply": {
+   "dno_incident_ref": null,
+   "feeder_units_dark": 6,
+   "feeder_id": "FD7"
+  }
+ },
+ "factors": {
+  "dark_unit_count": 6,
+  "dno_incident_logged": false,
+  "cms_state": "section_null",
+  "days_since_last_repair": "none",
+  "last_repair_state": "no_record",
+  "hazard_observed": "none",
+  "hazard_made_safe": false,
+  "site_category": "main_road",
+  "planned_works_active": true,
+  "current_job_stage": "RAISED",
+  "dates_out_of_order": false,
+  "duplicate_of_open_job": false,
+  "report_source": "police"
+ },
+ "factors_sampled": {
+  "dark_unit_count": 6,
+  "dno_incident_logged": false,
+  "cms_state": "section_null",
+  "days_since_last_repair": 179,
+  "last_repair_state": "no_record",
+  "hazard_observed": "none",
+  "hazard_made_safe": true,
+  "site_category": "main_road",
+  "planned_works_active": true,
+  "current_job_stage": "rectified_unconfirmed",
+  "dates_out_of_order": false,
+  "duplicate_of_open_job": false,
+  "report_source": "cms_auto"
+ },
+ "plan": {
+  "supply_side_fault": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "repeat_failure": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "next_action": {
+   "clarity": "balanced",
+   "target": "close_report",
+   "second": "routine_repair"
+  },
+  "source_support": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  },
+  "repair_progress": {
+   "clarity": "leaning",
+   "target": "0",
+   "second": null
+  }
+ },
+ "target_words": 34,
+ "deciding": {
+  "supply_side_fault": "supply.feeder_units_dark is 6 and six adjacent ids are reported, so three or more units are dark on one feeder.",
+  "repeat_failure": "history is an empty list, so there is no completed repair in the window.",
+  "next_action": "An open RAISED job J55 already exists, which favours closing the report. Planned works and no CMS reading leave routine repair plausible.",
+  "source_support": "The police report, the feeder count, the planned-works entry and the job card all touch the record, but none is a confirming reading. Whether they count as 2-3 or 4 sources is open.",
+  "repair_progress": "job.attended_at is null and stage is RAISED, so no crew visit is logged. Planned works leave slight doubt."
+ },
+ "request": "rec-F315-0041",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.009599
+}

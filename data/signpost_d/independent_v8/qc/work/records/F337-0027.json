@@ -1,0 +1,100 @@
+{
+ "id": "F337-0027",
+ "family": "F337",
+ "state": {
+  "station": {
+   "channels": [
+    {
+     "cha": "HHZ",
+     "sensor_serial": "A771",
+     "response_epoch_start": "2019-08-01"
+    }
+   ]
+  },
+  "acquisition": {
+   "day": "2024-03-18",
+   "channel_hours_expected": 24,
+   "completeness_pct": 100,
+   "gaps": [],
+   "gps_lock_pct": 98
+  },
+  "qc_metrics": {
+   "dead": false,
+   "psd_dev_db": 9.7,
+   "cal_pulse": {
+    "date": null,
+    "result": null
+   }
+  },
+  "maintenance_log": null,
+  "operator_notes": [
+   "Noise 02:00-05:00 from quarry blasting. Swapped sensor to A772 on 2024-03-10."
+  ]
+ },
+ "factors": {
+  "sensor_metadata_state": "swap_stale",
+  "maintenance_log_present": false,
+  "gap_coverage": "no_gaps",
+  "true_usable_fraction": 0.95,
+  "completeness_summary_drift": 0.0,
+  "timing_quality": "locked",
+  "calibration_status": "not_run",
+  "noise_excess_db": 9.71,
+  "benign_noise_cause_logged": true,
+  "operator_note_consistency": "contradicts_data",
+  "dead_channels": 0,
+  "boundary_case": true
+ },
+ "factors_sampled": {
+  "sensor_metadata_state": "no_swap",
+  "maintenance_log_present": false,
+  "gap_coverage": "no_gaps",
+  "true_usable_fraction": 0.47,
+  "completeness_summary_drift": 4.0,
+  "timing_quality": "locked",
+  "calibration_status": "not_run",
+  "noise_excess_db": 9.71,
+  "benign_noise_cause_logged": true,
+  "operator_note_consistency": "contradicts_data",
+  "dead_channels": 0,
+  "boundary_case": true
+ },
+ "plan": {
+  "response_valid": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "gaps_explained": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "disposition": {
+   "clarity": "balanced",
+   "target": "quarantine",
+   "second": "release"
+  },
+  "usable_fraction": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  },
+  "pending_age": {
+   "clarity": "contested",
+   "target": "2",
+   "second": "3"
+  }
+ },
+ "target_words": 48,
+ "deciding": {
+  "response_valid": "Note says the sensor was swapped to A772 on 2024-03-10 but metadata still shows A771 with a 2019 epoch.",
+  "gaps_explained": "Gap list is empty and the log is null; vacuous truth versus unconfirmable.",
+  "disposition": "Uncertain swap and no cal pulse argue quarantine; no gaps, clean timing and a blasting-explained noise window argue release.",
+  "usable_fraction": "No gaps or dead channels; the 3-hour blasting noise could cost about 12%, so level 2 or 3.",
+  "pending_age": "Only the day 2024-03-18 and a note dated 2024-03-10 are shown; the age is unclear between 8-30 days and over 30."
+ },
+ "request": "rec-F337-0026",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.005129
+}

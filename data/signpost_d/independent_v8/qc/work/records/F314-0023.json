@@ -1,0 +1,123 @@
+{
+ "id": "F314-0023",
+ "family": "F314",
+ "state": {
+  "property": {
+   "inventory": [
+    {
+     "id": "A1",
+     "type": "boiler",
+     "loc": "kitchen"
+    },
+    {
+     "id": "A2",
+     "type": "hob",
+     "loc": "utility",
+     "owned_by": "tenant"
+    }
+   ]
+  },
+  "tenancy": {
+   "review": "2024-12-30"
+  },
+  "certificate": {
+   "inspected": "2024-03-01",
+   "licence": "4471"
+  },
+  "appliance_checks": [
+   {
+    "id": "A1",
+    "type": "boiler",
+    "loc": "kitchen",
+    "defect": "ID"
+   },
+   {
+    "id": "A2",
+    "type": "hob",
+    "loc": "kitchen"
+   }
+  ],
+  "engineer": {
+   "licence": "4471",
+   "valid_to": "2026-01-01",
+   "categories": [
+    "boiler",
+    "hob"
+   ]
+  },
+  "history": {
+   "remedials": [
+    {
+     "id": "A1",
+     "done": "2024-03-01"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "inventory_mismatch": "location_mismatch",
+  "tenant_owned_appliance": true,
+  "date_misalignment": "none",
+  "days_to_true_expiry": 61,
+  "renewal_booked": false,
+  "engineer_status": "active_matching",
+  "worst_defect_class": "immediately_dangerous_remedial_same_day",
+  "defect_isolated": true,
+  "remedial_completed": true,
+  "combustion_reading": "high_retest_pass",
+  "prior_defect_count": 1,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "inventory_mismatch": "location_mismatch",
+  "tenant_owned_appliance": true,
+  "date_misalignment": "none",
+  "days_to_true_expiry": 54,
+  "renewal_booked": false,
+  "engineer_status": "active_matching",
+  "worst_defect_class": "at_risk",
+  "defect_isolated": true,
+  "remedial_completed": true,
+  "combustion_reading": "high_retest_pass",
+  "prior_defect_count": 1,
+  "boundary_case": false
+ },
+ "plan": {
+  "covers_all_appliances": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "engineer_valid": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "contested",
+   "target": "accept",
+   "second": "reinspect"
+  },
+  "renewal_urgency": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "open_hazard": {
+   "clarity": "contested",
+   "target": "4",
+   "second": "3"
+  }
+ },
+ "target_words": 37,
+ "deciding": {
+  "covers_all_appliances": "Both inventory ids are checked, but the tenant-owned hob is checked in the kitchen against the utility room in the inventory.",
+  "engineer_valid": "Licence 4471 matches, valid_to 2026-01-01 is after inspection, and categories list both boiler and hob.",
+  "next_step": "All appliances have checks and a remedial is logged for A1, but it is dated the same day as inspection and the location mismatch remains.",
+  "renewal_urgency": "Inspection 2024-03-01 and review 2024-12-30 leave 61 days, one day above the 60-day line.",
+  "open_hazard": "A1 is class ID and the remedial is dated the same day as inspection rather than after, so it may still be open; no isolation block is recorded."
+ },
+ "request": "rec-F314-0021",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.014557
+}

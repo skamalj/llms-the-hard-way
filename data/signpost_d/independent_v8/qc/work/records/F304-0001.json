@@ -1,0 +1,111 @@
+{
+ "id": "F304-0001",
+ "family": "F304",
+ "state": {
+  "request": {
+   "ref": "TB-4471",
+   "requester": "Onc Day Unit",
+   "appt_type": "chemotherapy",
+   "appt_time": "09:55",
+   "vehicle_class": "wheelchair_car",
+   "crew_requested": 2,
+   "mobility_booked": "wheelchair",
+   "equipment": [],
+   "dest": "Site1 Onc Day Unit"
+  },
+  "patient": {
+   "mobility_assessed": "wheelchair",
+   "assessed_on": "2024-06-10",
+   "weight_kg": 156,
+   "oxygen_lpm": null,
+   "monitoring": null,
+   "own_transport_available": true,
+   "exemption": null
+  },
+  "journey": {
+   "window_end": "09:00",
+   "est_duration_min": 52,
+   "manual_est_min": null,
+   "late_tolerance_min": 0,
+   "destination": {
+    "site": "Site 2 Onc Day Unit",
+    "reslot_same_day": false
+   }
+  },
+  "history": [],
+  "notes": {
+   "ward_note": "Nurse suggests observation en route if possible.",
+   "referrer_note": "Family car normally available."
+  }
+ },
+ "factors": {
+  "mobility_alignment": "matches (assessed 3 days before appt)",
+  "secondary_discrepancy": "address_material",
+  "eligibility_concern": true,
+  "eligibility_exception": false,
+  "clinical_support": "none (weight 156 decoy, no oxygen or monitoring)",
+  "crew_request_gap": "correct",
+  "buffer_minutes": 3.0,
+  "duration_estimate_split": false,
+  "late_tolerance": false,
+  "appointment_type": "chemotherapy",
+  "same_day_reslot": false,
+  "confirmation_pending": false,
+  "prior_aborts": 0,
+  "aborts_related": false
+ },
+ "factors_sampled": {
+  "mobility_alignment": "stale",
+  "secondary_discrepancy": "address_material",
+  "eligibility_concern": true,
+  "eligibility_exception": false,
+  "clinical_support": "bariatric",
+  "crew_request_gap": "correct",
+  "buffer_minutes": 46.98,
+  "duration_estimate_split": false,
+  "late_tolerance": false,
+  "appointment_type": "theatre_transfer",
+  "same_day_reslot": true,
+  "confirmation_pending": false,
+  "prior_aborts": 0,
+  "aborts_related": false
+ },
+ "plan": {
+  "vehicle_fit": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "disposition": {
+   "clarity": "balanced",
+   "target": "decline",
+   "second": "hold"
+  },
+  "crew_config": {
+   "clarity": "contested",
+   "target": "double_crew",
+   "second": "clinical_escort"
+  },
+  "time_pressure": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  },
+  "delay_impact": {
+   "clarity": "clear",
+   "target": "2",
+   "second": null
+  }
+ },
+ "target_words": 85,
+ "deciding": {
+  "vehicle_fit": "Booked wheelchair_car matches assessed wheelchair, assessed 2024-06-10 shortly before the appointment; only the 156 kg weight and no listed equipment leave slight doubt.",
+  "disposition": "own_transport_available true, referrer_note says family car available, exemption null points to decline; the address mismatch (Site1 vs Site 2) and ward note leave hold plausible.",
+  "crew_config": "Wheelchair with no oxygen or monitoring gives double_crew; the ward_note about observation en route makes clinical_escort defensible.",
+  "time_pressure": "window_end 09:00 plus est 52 min gives 09:52 against appt 09:55, 3 minutes spare; the address mismatch could make the journey overrun.",
+  "delay_impact": "Chemotherapy appointment with reslot_same_day false means a lost treatment session with no same-day alternative."
+ },
+ "request": "rec-F304-0001",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.010229
+}

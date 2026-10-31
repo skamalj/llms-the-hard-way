@@ -1,0 +1,151 @@
+{
+ "id": "F316-0009",
+ "family": "F316",
+ "state": {
+  "run_header": {
+   "run_id": "G412",
+   "run_type": "reactive",
+   "reviewed_at": "2025-01-30T21:35"
+  },
+  "plan": [
+   {
+    "code": "M6-04",
+    "km": 1.6,
+    "w": 7,
+    "prio": "P1",
+    "rate": 20,
+    "zone": "Z1"
+   },
+   {
+    "code": "M6-05",
+    "km": 3,
+    "w": 7,
+    "prio": "P2",
+    "rate": 20,
+    "zone": "Z1"
+   },
+   {
+    "code": "M6-S2",
+    "km": 2,
+    "w": 6,
+    "prio": "secondary",
+    "rate": 20,
+    "zone": "Z1"
+   }
+  ],
+  "forecast": {
+   "zones": [
+    {
+     "zone": "Z1",
+     "freeze": "2025-01-30T21:10"
+    }
+   ],
+   "revisions": [
+    {
+     "issued_at": "2025-01-30T20:40",
+     "zone": "Z1",
+     "freeze": "2025-01-30T22:20"
+    }
+   ]
+  },
+  "telematics": {
+   "segments": [
+    {
+     "code": "M6-5",
+     "end": "21:05",
+     "on": true,
+     "rate": 20
+    },
+    {
+     "code": "M6-04",
+     "end": "21:30",
+     "on": true,
+     "rate": 18
+    }
+   ],
+   "dropouts": [
+    "M6-S2"
+   ]
+  },
+  "materials": {
+   "loaded_t": 0.7,
+   "returned_t": 0.06,
+   "ticket": null,
+   "rate_exception": null
+  },
+  "notes": {
+   "driver": "Routine run.",
+   "depot": "",
+   "closures": [],
+   "partner_cover": []
+  }
+ },
+ "factors": {
+  "missed_extent": "under_2km (1.6 km at 10% below rate)",
+  "missed_section_mitigated": false,
+  "salt_gap": "under_3pct (ticket null)",
+  "rate_exception_approved": false,
+  "finish_vs_freeze_min": 50,
+  "hours_to_freeze_untreated": 0.75,
+  "forecast_revised": "warmer",
+  "crosscheck_mismatch": "section_code",
+  "driver_note_type": "routine",
+  "follow_up_run_scheduled": false,
+  "pending_confirmation": true,
+  "gps_dropouts": 1,
+  "nonpriority_untreated": true
+ },
+ "factors_sampled": {
+  "missed_extent": "2_to_10km",
+  "missed_section_mitigated": false,
+  "salt_gap": "under_3pct",
+  "rate_exception_approved": false,
+  "finish_vs_freeze_min": -87,
+  "hours_to_freeze_untreated": 0.75,
+  "forecast_revised": "warmer",
+  "crosscheck_mismatch": "section_code",
+  "driver_note_type": "routine",
+  "follow_up_run_scheduled": false,
+  "pending_confirmation": true,
+  "gps_dropouts": 1,
+  "nonpriority_untreated": true
+ },
+ "plan": {
+  "treated_before_freeze": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "salt_reconciles": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "follow_up": {
+   "clarity": "balanced",
+   "target": "partial_retreat",
+   "second": "full_rerun"
+  },
+  "deficient_length": {
+   "clarity": "contested",
+   "target": "1",
+   "second": "0"
+  },
+  "freeze_proximity": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  }
+ },
+ "target_words": 98,
+ "deciding": {
+  "treated_before_freeze": "Last priority end 21:30 is before the revised Z1 freeze at 22:20 but after the original 21:10, and M6-04 was spread at only 18 g/m2.",
+  "salt_reconciles": "Net 0.64 t matches the 0.644 t expected, but the weighbridge ticket is null, so a tonnage figure is unconfirmed.",
+  "follow_up": "M6-04 low rate, the M6-5 code mismatch and the null ticket with no scheduled run: partial_retreat versus full_rerun.",
+  "deficient_length": "M6-04 (1.6 km) was logged at 18 against 20, exactly 10% below, so whether it counts as undertreated is borderline.",
+  "freeze_proximity": "Revised Z1 freeze is 22:20, 0.75 h after the 21:35 review, if the low-rate P1 section counts as undertreated."
+ },
+ "request": "rec-F316-0006",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.020312
+}

@@ -1,0 +1,125 @@
+{
+ "id": "F302-0003",
+ "family": "F302",
+ "state": {
+  "consent": {
+   "signed_date": "2025-05-06",
+   "form_version": "4.0",
+   "current_version": "4.0"
+  },
+  "visit": {
+   "visit_date": "2025-05-06",
+   "review_date": "2025-05-20",
+   "window_days": 14,
+   "procedures": [
+    {
+     "name": "vitals",
+     "date": "2025-05-06"
+    }
+   ]
+  },
+  "labs": [
+   {
+    "test": "CREAT",
+    "value": 88,
+    "unit": "umol/L",
+    "threshold": "<=1.5 mg/dL",
+    "collected": "2025-05-06",
+    "lot_n": 20
+   }
+  ],
+  "eligibility": {
+   "criteria": [
+    {
+     "test": "CREAT",
+     "recorded_value": 1.0,
+     "unit": "mg/dL",
+     "met": true
+    }
+   ],
+   "signoff": {
+    "signed": false
+   },
+   "queries": [
+    {
+     "id": 1,
+     "status": "open"
+    },
+    {
+     "id": 2,
+     "status": "open"
+    },
+    {
+     "id": 3,
+     "status": "open"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "lab_reconciliation": "unit_only",
+  "consent_status": "signed_same_day_as_procedure",
+  "window_days_remaining": 0,
+  "collection_date_mismatch": "none",
+  "prohibited_conmed": false,
+  "washout_completed": true,
+  "out_of_range_lab": false,
+  "valid_repeat_on_file": "none",
+  "boundary_value": false,
+  "identifier_mismatch": "none",
+  "investigator_signoff": "unsigned",
+  "open_query_count": 3
+ },
+ "factors_sampled": {
+  "lab_reconciliation": "unit_only",
+  "consent_status": "signed_after_procedure",
+  "window_days_remaining": -1,
+  "collection_date_mismatch": "none",
+  "prohibited_conmed": false,
+  "washout_completed": true,
+  "out_of_range_lab": false,
+  "valid_repeat_on_file": "none",
+  "boundary_value": false,
+  "identifier_mismatch": "none",
+  "investigator_signoff": "unsigned",
+  "open_query_count": 3
+ },
+ "plan": {
+  "eligibility_proven": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "hold_query",
+   "second": null
+  },
+  "primary_issue": {
+   "clarity": "balanced",
+   "target": "clinical_value",
+   "second": "documentation"
+  },
+  "affected_scope": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  },
+  "window_left": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 54,
+ "deciding": {
+  "eligibility_proven": "Creatinine 88 umol/L equals about 1.0 mg/dL, under the 1.5 limit, but sign-off is unsigned and consent is dated the same day as the first procedure, so doubt remains.",
+  "next_step": "eligibility.queries has three open entries and signoff.signed is false; these are confirmable site responses, so randomisation holds.",
+  "primary_issue": "The umol/L versus mg/dL mismatch (clinical_value) is held against the same-day consent and unsigned sign-off (documentation).",
+  "affected_scope": "labs[0].lot_n is 20, exactly on the line between six-to-twenty and more than twenty.",
+  "window_left": "consent 2025-05-06 + 14 = 2025-05-20, equal to the review date, so zero days remain, on the line between closed and one day."
+ },
+ "request": "rec-F302-0001",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012795
+}

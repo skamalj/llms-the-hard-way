@@ -1,0 +1,132 @@
+{
+ "id": "F333-0016",
+ "family": "F333",
+ "state": {
+  "tenancy": {
+   "start_date": "2024-09-14",
+   "end_date": "2025-04-13",
+   "deposit_dispute_lodged": true
+  },
+  "checkin_inventory": {
+   "signed_date": "2024-09-12",
+   "items": [
+    {
+     "item_code": "CARPET",
+     "grade": "fair"
+    },
+    {
+     "item_code": "SMOKE_DET",
+     "grade": "fair"
+    }
+   ]
+  },
+  "checkout_inspection": {
+   "inspection_type": "pre_arrival",
+   "inspection_date": "2025-08-20",
+   "items": [
+    {
+     "item_code": "CARPET",
+     "grade": "fair",
+     "defect_category": "stain",
+     "photo_refs": []
+    },
+    {
+     "item_code": "SMOKE_DET",
+     "grade": "fair",
+     "defect_category": "smoke_detector_fail",
+     "photo_refs": [
+      "p1"
+     ]
+    }
+   ]
+  },
+  "proposed_charges": {
+   "lines": [
+    {
+     "item_code": "CARPET",
+     "qty": 2,
+     "unit_rate": 60,
+     "line_total": 120
+    }
+   ],
+   "summary_total": 120
+  },
+  "works_orders": [
+   {
+    "location": "ceiling",
+    "category": "smoke_detector",
+    "status": "completed",
+    "completed_date": "2025-08-20",
+    "retest_passed": true
+   }
+  ]
+ },
+ "factors": {
+  "inspection_type": "pre_arrival",
+  "checkin_inventory_state": "complete",
+  "prior_damage_on_charged_item": "one_item",
+  "charge_discrepancy": "large_over_100",
+  "worst_defect_tier": "smoke_detector_fail",
+  "true_cause": "no_defect",
+  "predating_works_order": false,
+  "safety_fault_remedied": true,
+  "photo_coverage": "all_but_one",
+  "tenancy_months": 7,
+  "date_out_of_order": false,
+  "deposit_dispute_lodged": true,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "inspection_type": "pre_arrival",
+  "checkin_inventory_state": "complete",
+  "prior_damage_on_charged_item": "none",
+  "charge_discrepancy": "large_over_100",
+  "worst_defect_tier": "cosmetic",
+  "true_cause": "fair_wear",
+  "predating_works_order": false,
+  "safety_fault_remedied": true,
+  "photo_coverage": "all_but_one",
+  "tenancy_months": 7,
+  "date_out_of_order": false,
+  "deposit_dispute_lodged": true,
+  "boundary_case": false
+ },
+ "plan": {
+  "checkin_clean": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "disposition": {
+   "clarity": "leaning",
+   "target": "order_reinspection",
+   "second": null
+  },
+  "main_cause": {
+   "clarity": "clear",
+   "target": "no_defect",
+   "second": null
+  },
+  "defect_severity": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  },
+  "charge_gap": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 47,
+ "deciding": {
+  "checkin_clean": "Charged CARPET was graded fair at check-in, not good.",
+  "disposition": "Inspection type is pre_arrival, dated months after tenancy end, with a missing photo on the charged item; the room needs revisiting.",
+  "main_cause": "Checkout grades equal check-in grades for every item (CARPET fair/fair, SMOKE_DET fair/fair).",
+  "defect_severity": "SMOKE_DET smoke_detector_fail points to safety, but the works order was completed on inspection date with retest passed, so habitability-level reading is also defensible.",
+  "charge_gap": "Proposed 120 against no item graded worse at checkout (evidenced 0) gives a gap just above 100, close to the 100 boundary."
+ },
+ "request": "rec-F333-0016",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.014062
+}

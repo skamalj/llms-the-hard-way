@@ -1,0 +1,155 @@
+{
+ "id": "F333-0003",
+ "family": "F333",
+ "state": {
+  "room": {
+   "room_id": "D07",
+   "block": "Elm"
+  },
+  "tenancy": {
+   "start_date": "2024-08-01",
+   "end_date": "2025-06-30"
+  },
+  "checkin_inventory": {
+   "signed_date": "2024-07-30",
+   "items": [
+    {
+     "item_code": "wall_paint",
+     "grade": "good"
+    },
+    {
+     "item_code": "carpet",
+     "grade": "good"
+    },
+    {
+     "item_code": "door_closer",
+     "grade": "good"
+    }
+   ]
+  },
+  "checkout_inspection": {
+   "inspection_type": "checkout",
+   "inspection_date": "2025-06-30",
+   "items": [
+    {
+     "item_code": "wall_paint",
+     "grade": "damaged",
+     "defect_category": "stain",
+     "photo_refs": [
+      "p7"
+     ]
+    },
+    {
+     "item_code": "carpet",
+     "grade": "damaged",
+     "defect_category": "stain",
+     "photo_refs": []
+    },
+    {
+     "item_code": "door_closer",
+     "grade": "damaged",
+     "defect_category": "fire_door_closer",
+     "photo_refs": [
+      "p8"
+     ]
+    }
+   ]
+  },
+  "proposed_charges": {
+   "lines": [
+    {
+     "item_code": "wall_paint",
+     "qty": 1,
+     "unit_rate": 60.0,
+     "line_total": 60.0
+    },
+    {
+     "item_code": "carpet",
+     "qty": 1,
+     "unit_rate": 100.0,
+     "line_total": 100.0
+    }
+   ],
+   "summary_total": 160.0
+  },
+  "works_orders": [
+   {
+    "wo_id": "W9",
+    "raised_date": "2025-03-12",
+    "location": "door_closer",
+    "category": "fire_door_closer",
+    "status": "completed",
+    "completed_date": "2025-06-30",
+    "retest_passed": true
+   }
+  ]
+ },
+ "factors": {
+  "inspection_type": "checkout",
+  "checkin_inventory_state": "complete",
+  "prior_damage_on_charged_item": "none",
+  "charge_discrepancy": "boundary_100",
+  "worst_defect_tier": "safety",
+  "true_cause": "building_fault",
+  "predating_works_order": false,
+  "safety_fault_remedied": true,
+  "photo_coverage": "all_but_one",
+  "tenancy_months": 11,
+  "date_out_of_order": false,
+  "deposit_dispute_lodged": false,
+  "boundary_case": true
+ },
+ "factors_sampled": {
+  "inspection_type": "checkout",
+  "checkin_inventory_state": "complete",
+  "prior_damage_on_charged_item": "one_item",
+  "charge_discrepancy": "large_over_100",
+  "worst_defect_tier": "functional",
+  "true_cause": "fair_wear",
+  "predating_works_order": false,
+  "safety_fault_remedied": true,
+  "photo_coverage": "half_or_less",
+  "tenancy_months": 11,
+  "date_out_of_order": false,
+  "deposit_dispute_lodged": false,
+  "boundary_case": true
+ },
+ "plan": {
+  "checkin_clean": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "disposition": {
+   "clarity": "clear",
+   "target": "hold_for_evidence",
+   "second": null
+  },
+  "main_cause": {
+   "clarity": "clear",
+   "target": "building_fault",
+   "second": null
+  },
+  "defect_severity": {
+   "clarity": "clear",
+   "target": "3",
+   "second": null
+  },
+  "charge_gap": {
+   "clarity": "contested",
+   "target": "2",
+   "second": "3"
+  }
+ },
+ "target_words": 71,
+ "deciding": {
+  "checkin_clean": "Charged wall_paint and carpet were both graded good at check-in.",
+  "disposition": "Exactly one item, carpet, has an empty photo_refs list; everything else is complete and consistent.",
+  "main_cause": "Door closer defect matches works order W9 for fire_door_closer at the same location.",
+  "defect_severity": "Checkout lists fire_door_closer, a safety category, even though W9 was fixed on the inspection date.",
+  "charge_gap": "Evidenced total is 60.00 (photo on wall_paint only) against summary_total 160.00, a difference of exactly 100.00 which sits on the level 2/3 boundary."
+ },
+ "request": "rec-F333-0001",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.01257
+}

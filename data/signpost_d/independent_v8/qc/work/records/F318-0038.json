@@ -1,0 +1,169 @@
+{
+ "id": "F318-0038",
+ "family": "F318",
+ "state": {
+  "work_order": {
+   "visit_type": "reactive_callout",
+   "tasks": [
+    {
+     "task_id": 1,
+     "asset_ref": "GATE-W"
+    },
+    {
+     "task_id": 2,
+     "asset_ref": "PADDLE-W"
+    }
+   ],
+   "nav_notice": {
+    "in_force": true,
+    "to": "2025-08-15",
+    "scope_assets": [
+     "GATE-W"
+    ]
+   }
+  },
+  "visit_log": {
+   "arrived": "2025-08-05T07:00",
+   "departed": "2025-08-05T10:00",
+   "crew_size": 2,
+   "timesheet_hours": 9.87,
+   "task_status": [
+    {
+     "task_id": 1,
+     "status": "done"
+    },
+    {
+     "task_id": 2,
+     "status": "done"
+    }
+   ]
+  },
+  "materials": {
+   "issued": [
+    {
+     "part_no": "GW-7",
+     "task_id": 1,
+     "qty": 6
+    }
+   ],
+   "returned": [
+    {
+     "part_no": "GW-7",
+     "qty": 1
+    }
+   ],
+   "fitted": [
+    {
+     "part_no": "GW-7",
+     "task_id": 1,
+     "qty": 3
+    }
+   ]
+  },
+  "checks": {
+   "post_checks": [
+    {
+     "asset_ref": "GATE-W2",
+     "result": "pass_advisory",
+     "checked_at": "2025-08-05T09:45"
+    }
+   ],
+   "leakage_ls": 74,
+   "leakage_limit_ls": 50,
+   "river_level_m": 1.0,
+   "flood_marker_m": 1.6
+  },
+  "asset_history": {
+   "prior_visits": [
+    {
+     "date": "2025-02-01",
+     "asset_ref": "GATE-W",
+     "defect_code": "LK"
+    },
+    {
+     "date": "2024-11-01",
+     "asset_ref": "GATE-W",
+     "defect_code": "LK"
+    },
+    {
+     "date": "2024-07-01",
+     "asset_ref": "GATE-W",
+     "defect_code": "LK"
+    },
+    {
+     "date": "2024-03-01",
+     "asset_ref": "GATE-W",
+     "defect_code": "LK"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "visit_type": "reactive_callout",
+  "tasks_ordered": 2,
+  "completion_state": "all_done",
+  "parts_qty_mismatch": "moderate",
+  "hours_gap": 3.87,
+  "asset_ref_mismatch": true,
+  "post_check_result": "passed_advisory",
+  "leakage_ratio": 1.48,
+  "leakage_mitigation": false,
+  "navigation_notice_in_force": true,
+  "deferral_approved": false,
+  "prior_same_defect": 4,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "visit_type": "reactive_callout",
+  "tasks_ordered": 2,
+  "completion_state": "all_done",
+  "parts_qty_mismatch": "moderate",
+  "hours_gap": 3.87,
+  "asset_ref_mismatch": true,
+  "post_check_result": "passed_advisory",
+  "leakage_ratio": 1.48,
+  "leakage_mitigation": false,
+  "navigation_notice_in_force": true,
+  "deferral_approved": false,
+  "prior_same_defect": 4,
+  "boundary_case": false
+ },
+ "plan": {
+  "safe_to_reopen": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "record_disposition": {
+   "clarity": "balanced",
+   "target": "close_visit",
+   "second": "hold_query"
+  },
+  "return_urgency": {
+   "clarity": "balanced",
+   "target": "next_scheduled",
+   "second": "immediate"
+  },
+  "affected_scope": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "section_mismatches": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 38,
+ "deciding": {
+  "safe_to_reopen": "Advisory pass but leakage 74 over limit 50 with river below flood marker (no mitigation); possibly not blocking.",
+  "record_disposition": "All tasks marked done, but several mismatches in parts and checks could be queried.",
+  "return_urgency": "No open defect list, tasks done, so next scheduled; leakage over limit leaves immediate plausible.",
+  "affected_scope": "Single gate asset on a notice; unclear whether one unit or a few users.",
+  "section_mismatches": "GW-7 fitted 3 vs 5 net, check asset GATE-W2 vs GATE-W, timesheet 9.87h vs 6h span, and no check for PADDLE-W; three or arguably two counted."
+ },
+ "request": "rec-F318-0036",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.006928
+}

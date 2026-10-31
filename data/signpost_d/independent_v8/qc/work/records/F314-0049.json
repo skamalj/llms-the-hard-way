@@ -1,0 +1,112 @@
+{
+ "id": "F314-0049",
+ "family": "F314",
+ "state": {
+  "property": {
+   "inv": [
+    {
+     "id": "A1",
+     "loc": "kitchen"
+    },
+    {
+     "id": "A2",
+     "owner": "tenant"
+    }
+   ]
+  },
+  "tenancy": {
+   "review": "2025-04-11"
+  },
+  "certificate": {
+   "insp": "2024-06-10",
+   "exp": "2025-07-01",
+   "lic": "G2"
+  },
+  "appliance_checks": [
+   {
+    "id": "A1",
+    "loc": "utility",
+    "ratio": 0.01,
+    "thr": 0.008,
+    "retest": null,
+    "defect": "ID",
+    "isolation": {
+     "supply_off": true
+    }
+   }
+  ],
+  "engineer": {
+   "lic": "G2",
+   "to": "2024-05-31"
+  },
+  "history": {
+   "renewal": "2025-05-20"
+  }
+ },
+ "factors": {
+  "inventory_mismatch": "location_mismatch",
+  "tenant_owned_appliance": true,
+  "date_misalignment": "expiry_miscomputed",
+  "days_to_true_expiry": 60,
+  "renewal_booked": true,
+  "engineer_status": "lapsed_on_date",
+  "worst_defect_class": "ID",
+  "defect_isolated": true,
+  "remedial_completed": false,
+  "combustion_reading": "high_no_retest",
+  "prior_defect_count": 1,
+  "boundary_case": true
+ },
+ "factors_sampled": {
+  "inventory_mismatch": "location_mismatch",
+  "tenant_owned_appliance": true,
+  "date_misalignment": "expiry_miscomputed",
+  "days_to_true_expiry": 2,
+  "renewal_booked": true,
+  "engineer_status": "active_matching",
+  "worst_defect_class": "ncs",
+  "defect_isolated": true,
+  "remedial_completed": false,
+  "combustion_reading": "high_no_retest",
+  "prior_defect_count": 1,
+  "boundary_case": false
+ },
+ "plan": {
+  "covers_all_appliances": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "engineer_valid": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "accept_with_works",
+   "second": null
+  },
+  "renewal_urgency": {
+   "clarity": "contested",
+   "target": "0",
+   "second": "1"
+  },
+  "open_hazard": {
+   "clarity": "balanced",
+   "target": "4",
+   "second": "3"
+  }
+ },
+ "target_words": 37,
+ "deciding": {
+  "covers_all_appliances": "A1 is listed in the kitchen but checked in the utility. A2 is tenant-owned and absent from the checks, so the certificate probably does not cover the same appliance.",
+  "engineer_valid": "Engineer valid_to 2024-05-31 is before the inspection date of 2024-06-10, so registration had lapsed.",
+  "next_step": "The supply is off on A1, which leaves a defect to rectify through works rather than anything in service. The licence matches and the renewal is booked, so works are the next step.",
+  "renewal_urgency": "The printed expiry 2025-07-01 is wrong. True expiry is 2025-06-10, exactly 60 days after the review date 2025-04-11, on the 60/61 boundary between levels 0 and 1.",
+  "open_hazard": "A1 has defect class ID, which is dangerous. supply_off is true but capped, label and acknowledgement are absent, so level 3 is arguable if it is not fully isolated."
+ },
+ "request": "rec-F314-0046",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.009597
+}

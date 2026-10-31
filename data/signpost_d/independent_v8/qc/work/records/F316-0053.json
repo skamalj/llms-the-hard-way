@@ -1,0 +1,152 @@
+{
+ "id": "F316-0053",
+ "family": "F316",
+ "state": {
+  "run_header": {
+   "run_id": "G331",
+   "run_type": "reactive",
+   "vehicle_reg": "KT19 XYZ",
+   "reviewed_at": "2025-02-03T22:00"
+  },
+  "plan": [
+   {
+    "section_code": "A417-06",
+    "length_km": 11,
+    "width_m": 7,
+    "priority": "P1",
+    "planned_rate_gm2": 20,
+    "forecast_zone": "Z1"
+   },
+   {
+    "section_code": "A417-02",
+    "length_km": 3,
+    "width_m": 6,
+    "priority": "secondary",
+    "planned_rate_gm2": 15,
+    "forecast_zone": "Z1"
+   }
+  ],
+  "forecast": {
+   "zones": [
+    {
+     "zone": "Z1",
+     "freeze_time": "2025-02-04T00:00"
+    }
+   ]
+  },
+  "telematics": {
+   "vehicle_reg": "KT19 XYZ",
+   "date": "2025-02-03",
+   "segments": [
+    {
+     "section_code": "A417-6",
+     "start": "20:00",
+     "end": "20:15",
+     "spread_on": false
+    },
+    {
+     "section_code": "A417-6",
+     "start": "20:20",
+     "end": "20:40",
+     "spread_on": true,
+     "logged_rate_gm2": 20
+    }
+   ],
+   "dropouts": [
+    {
+     "start": "20:05",
+     "nearest_section": "A417-02"
+    },
+    {
+     "start": "20:25",
+     "nearest_section": "A417-02"
+    },
+    {
+     "start": "20:30",
+     "nearest_section": "A417-02"
+    },
+    {
+     "start": "20:35",
+     "nearest_section": "A417-02"
+    }
+   ]
+  },
+  "materials": {
+   "loaded_t": 1.5,
+   "returned_t": 0.3,
+   "weighbridge_ticket": "WB-77"
+  },
+  "notes": {
+   "driver_note": "Spinner jammed near Holt Lane, cleared and section re-run.",
+   "depot_note": "Run R2 booked out 03:30 on same route."
+  }
+ },
+ "factors": {
+  "missed_extent": "over_10km",
+  "missed_section_mitigated": false,
+  "salt_gap": "over_10pct",
+  "rate_exception_approved": false,
+  "finish_vs_freeze_min": -200,
+  "hours_to_freeze_untreated": 2.0,
+  "forecast_revised": "none",
+  "crosscheck_mismatch": "section_code",
+  "driver_note_type": "alarming_resolved",
+  "follow_up_run_scheduled": true,
+  "pending_confirmation": false,
+  "gps_dropouts": 4,
+  "nonpriority_untreated": true
+ },
+ "factors_sampled": {
+  "missed_extent": "2_to_10km",
+  "missed_section_mitigated": false,
+  "salt_gap": "3_to_10pct",
+  "rate_exception_approved": false,
+  "finish_vs_freeze_min": -30,
+  "hours_to_freeze_untreated": 7.58,
+  "forecast_revised": "none",
+  "crosscheck_mismatch": "section_code",
+  "driver_note_type": "alarming_resolved",
+  "follow_up_run_scheduled": true,
+  "pending_confirmation": false,
+  "gps_dropouts": 4,
+  "nonpriority_untreated": true
+ },
+ "plan": {
+  "treated_before_freeze": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "salt_reconciles": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "follow_up": {
+   "clarity": "leaning",
+   "target": "sign_off",
+   "second": null
+  },
+  "deficient_length": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  },
+  "freeze_proximity": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 54,
+ "deciding": {
+  "treated_before_freeze": "Plan code A417-06 has no exact telematics match; A417-6 finished 20:40, 200 min before the 00:00 freeze, so it is likely the same section.",
+  "salt_reconciles": "Net 1.2 t against 1.54 t expected for 11 km at 20 g/m2 is a gap of about 22%.",
+  "follow_up": "If A417-6 is the planned section, the run was re-run after the jam and a follow-up run is already booked, so the log can be accepted.",
+  "deficient_length": "A417-06 (11 km P1) has no exact segment match, which on the log as written leaves over 10 km unmatched.",
+  "freeze_proximity": "Freeze 00:00 against review 22:00 is exactly 2 h, the boundary between the two highest levels."
+ },
+ "request": "rec-F316-0051",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.020229
+}
