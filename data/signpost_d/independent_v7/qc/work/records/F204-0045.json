@@ -1,0 +1,129 @@
+{
+ "id": "F204-0045",
+ "family": "F204",
+ "state": {
+  "rx": {
+   "drug": "methotrexate",
+   "strength": {
+    "val": 2.5,
+    "unit": "mg"
+   },
+   "form": "tab",
+   "dose": 4,
+   "freq_per_day": 1,
+   "qty": 16
+  },
+  "patient": {
+   "pt_id": "P90846",
+   "supplies": [
+    {
+     "date": "2025-05-21",
+     "days_covered": 28
+    }
+   ],
+   "emergency_supplies": [],
+   "near_miss_count": 2
+  },
+  "dispensed": {
+   "product_name": "methotrexate",
+   "strength": {
+    "val": 2000,
+    "unit": "mcg"
+   },
+   "form": "tab",
+   "pack_size": 16,
+   "packs": 1,
+   "high_risk": true
+  },
+  "label": {
+   "pt_id": "P90846",
+   "dose_qty": 4,
+   "freq_per_day": 1,
+   "qty_printed": 16
+  },
+  "check_log": {
+   "checked_at": "2025-06-10T15:30",
+   "clin_check": {
+    "by": "RPh1",
+    "at": "2025-06-10T15:10"
+   },
+   "queries": [],
+   "interventions": [
+    {
+     "code": "STR",
+     "field": "strength",
+     "accepted": true,
+     "by": "RPh1"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "strength_status": "mismatch_converted",
+  "product_status": "exact",
+  "quantity_status": "exact",
+  "label_status": "correct",
+  "prescriber_query": "none",
+  "pharmacist_intervention": true,
+  "clinical_check_signed": true,
+  "home_supply_days": 7,
+  "emergency_supply": false,
+  "short_expiry": false,
+  "prior_error_count": 2,
+  "high_risk_drug": true,
+  "boundary_case": true
+ },
+ "factors_sampled": {
+  "strength_status": "mismatch_converted",
+  "product_status": "exact",
+  "quantity_status": "exact",
+  "label_status": "patient_id_mismatch",
+  "prescriber_query": "none",
+  "pharmacist_intervention": true,
+  "clinical_check_signed": true,
+  "home_supply_days": 7,
+  "emergency_supply": false,
+  "short_expiry": false,
+  "prior_error_count": 2,
+  "high_risk_drug": true,
+  "boundary_case": true
+ },
+ "plan": {
+  "strength_differs": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "release_annotated",
+   "second": null
+  },
+  "error_category": {
+   "clarity": "contested",
+   "target": "none_found",
+   "second": "product_error"
+  },
+  "open_discrepancies": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  },
+  "supply_urgency": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 48,
+ "deciding": {
+  "strength_differs": "Rx 2.5 mg against dispensed 2000 mcg (2 mg) is unequal after conversion. The accepted intervention gives a little doubt.",
+  "next_step": "There is no pending query and the clinical check is signed. The accepted strength intervention calls for release once annotated.",
+  "error_category": "The strength difference on a high-risk drug has an accepted intervention on the strength field. Readers could treat it as resolved (none found) or as still a product error.",
+  "open_discrepancies": "The label, quantity and product agree. Only the intervened strength difference could be counted, giving one open item, or a second by a strict reading.",
+  "supply_urgency": "The 28-day supply from 05-21 covers through 06-17. At the 06-10 check that is 8 days counting today or 7 days after today, which sits on the boundary between levels 0 and 1."
+ },
+ "request": "rec-F204-0041",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.015225
+}

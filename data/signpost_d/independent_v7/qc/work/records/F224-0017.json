@@ -1,0 +1,143 @@
+{
+ "id": "F224-0017",
+ "family": "F224",
+ "state": {
+  "request": {
+   "views": [
+    "BW"
+   ],
+   "ind": "C01",
+   "risk": "low",
+   "req": "2024-05-02",
+   "prior": "2022-07-05",
+   "flags": [
+    "SPECIAL_CARE"
+   ],
+   "exceptions": [
+    {
+     "code": "EXT_PA",
+     "appr": "D114"
+    }
+   ]
+  },
+  "exposures": [
+   {
+    "view": "BW",
+    "kV": 70,
+    "mGy": 1.94,
+    "t": "10:02"
+   },
+   {
+    "view": "BW",
+    "kV": 70,
+    "mGy": 1.94,
+    "t": "10:04",
+    "retake_of": "10:02"
+   },
+   {
+    "view": "PA",
+    "mGy": 0.8,
+    "t": "10:06"
+   },
+   {
+    "view": "PA",
+    "mGy": 0.8,
+    "t": "10:08"
+   },
+   {
+    "view": "PA",
+    "mGy": 0.8,
+    "t": "10:10"
+   }
+  ],
+  "image_review": {
+   "grade": 2,
+   "faults": [
+    "FC_CONE_CUT"
+   ],
+   "second_grader": "done"
+  },
+  "equipment": {
+   "last_qa": "2024-03-01",
+   "qa_months": 6,
+   "output_test": "pass",
+   "drl": {
+    "BW": 1.0,
+    "PA": 1.5
+   }
+  },
+  "operator": {
+   "id": "O7",
+   "signoff_at": "2024-05-02T11:00",
+   "prior_findings_12m": 1
+  }
+ },
+ "factors": {
+  "indication_match": "match",
+  "recall_interval_months": 22,
+  "dose_ratio_to_drl": 1.94,
+  "console_log_discrepancy": "none",
+  "retake_cause": "positioning",
+  "equipment_qa_status": "in_date",
+  "approved_exception": true,
+  "patient_cooperation_flag": true,
+  "unrequested_exposure_count": 3,
+  "verbal_authorisation_logged": false,
+  "image_grade": "diagnostic",
+  "audit_completeness": "complete",
+  "operator_prior_findings": 1
+ },
+ "factors_sampled": {
+  "indication_match": "mismatch",
+  "recall_interval_months": 22,
+  "dose_ratio_to_drl": 1.94,
+  "console_log_discrepancy": "none",
+  "retake_cause": "no_retake",
+  "equipment_qa_status": "in_date",
+  "approved_exception": false,
+  "patient_cooperation_flag": true,
+  "unrequested_exposure_count": 3,
+  "verbal_authorisation_logged": false,
+  "image_grade": "diagnostic",
+  "audit_completeness": "operator_signoff_missing",
+  "operator_prior_findings": 4
+ },
+ "plan": {
+  "justified": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "operator_retake": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "follow_up": {
+   "clarity": "leaning",
+   "target": "close_record",
+   "second": null
+  },
+  "dose_position": {
+   "clarity": "clear",
+   "target": "3",
+   "second": null
+  },
+  "unjustified_count": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 81,
+ "deciding": {
+  "justified": "C01 on BW request; prior BW 22 months earlier is within 24 allowed at low risk.",
+  "operator_retake": "Retake of 10:02 with FC_CONE_CUT points to technique, but SPECIAL_CARE flag leaves patient cause plausible.",
+  "follow_up": "Output test pass, in-date QA, sign-off and second grading done, and an approved exception EXT_PA by D114 mitigates the dose; only one prior finding.",
+  "dose_position": "BW 1.94 mGy against drl 1.0 gives 1.94, above 150%.",
+  "unjustified_count": "Three PA exposures are absent from request views; EXT_PA exception names no view, so whether it covers one is open (3 vs 2)."
+ },
+ "request": "rec-F224-0016",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011721
+}

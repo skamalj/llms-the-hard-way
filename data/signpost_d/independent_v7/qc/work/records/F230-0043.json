@@ -1,0 +1,155 @@
+{
+ "id": "F230-0043",
+ "family": "F230",
+ "state": {
+  "prescriptions": [
+   {
+    "item_id": "C",
+    "drug": "paracetamol",
+    "strength_mg": 500,
+    "dose_units": 2,
+    "time_critical": false,
+    "changes": [
+     {
+      "effective": "2024-05-01",
+      "new_dose_units": 2,
+      "order_ref": "GP118",
+      "authorised_by_role": "GP"
+     }
+    ]
+   },
+   {
+    "item_id": "D",
+    "drug": "oxycodone",
+    "strength_mg": 5,
+    "dose_units": 1,
+    "controlled": true,
+    "changes": [
+     {
+      "effective": "2024-05-02",
+      "order_ref": "GP119",
+      "withhold": true
+     }
+    ]
+   }
+  ],
+  "administrations": [
+   {
+    "item_id": "C",
+    "scheduled": "08:00",
+    "given_at": "09:36",
+    "units_given": 2,
+    "initials": "RT"
+   },
+   {
+    "item_id": "C",
+    "scheduled": "08:00",
+    "given_at": "09:36",
+    "units_given": 2,
+    "initials": "RT"
+   },
+   {
+    "item_id": "D",
+    "scheduled": "08:00",
+    "given_at": null,
+    "units_given": 0,
+    "code": "W",
+    "initials": null,
+    "second_initials": null
+   }
+  ],
+  "stock": {
+   "C": {
+    "opening": 30,
+    "received": 0,
+    "closing": 26
+   },
+   "D": {
+    "opening": 12,
+    "closing": 12
+   }
+  },
+  "round": {
+   "open_queries": [],
+   "post_dose_obs": [
+    {
+     "type": "pain",
+     "v": 9
+    }
+   ]
+  },
+  "history": {
+   "errors_30d": 4
+  }
+ },
+ "factors": {
+  "dose_mismatch_type": "duplicate_entry",
+  "prescription_change_documented": true,
+  "omission_count": 2,
+  "omission_reason_valid": true,
+  "late_minutes": 96,
+  "time_critical_affected": false,
+  "stock_variance": 0,
+  "stock_variance_explained": false,
+  "signature_gaps": 2,
+  "unit_expression_decoy": "matching_units",
+  "post_dose_obs_reassuring": false,
+  "pending_query": "none",
+  "prior_errors_30d": 4,
+  "item_count": 4
+ },
+ "factors_sampled": {
+  "dose_mismatch_type": "duplicate_entry",
+  "prescription_change_documented": true,
+  "omission_count": 2,
+  "omission_reason_valid": true,
+  "late_minutes": 96,
+  "time_critical_affected": false,
+  "stock_variance": -1,
+  "stock_variance_explained": false,
+  "signature_gaps": 2,
+  "unit_expression_decoy": "matching_units",
+  "post_dose_obs_reassuring": false,
+  "pending_query": "none",
+  "prior_errors_30d": 4,
+  "item_count": 4
+ },
+ "plan": {
+  "dose_mismatch": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "stock_reconciles": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "balanced",
+   "target": "sign_off",
+   "second": "report_incident"
+  },
+  "open_discrepancies": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "error_severity": {
+   "clarity": "contested",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 131,
+ "deciding": {
+  "dose_mismatch": "Item C has two entries for 08:00.",
+  "stock_reconciles": "C: 30 less 4 units signed gives 26 and D: 12 unchanged with 0 given; both equal closing.",
+  "next_step": "Duplicate on an ordinary drug points to an incident, but stock matches and the withhold is ordered, so sign-off is arguable.",
+  "open_discrepancies": "C duplicate and late timing, D null initials, and further items could be counted as two or three or more.",
+  "error_severity": "The duplicate stock matches signed doses; the only remaining faults are null initials on a validly withheld dose, so none or documentation is arguable."
+ },
+ "request": "rec-F230-0041",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.005884
+}

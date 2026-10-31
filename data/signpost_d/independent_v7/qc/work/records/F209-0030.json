@@ -1,0 +1,121 @@
+{
+ "id": "F209-0030",
+ "family": "F209",
+ "state": {
+  "unit": {
+   "asset_id": "DP-502",
+   "type": "dry_powder",
+   "capacity_kg": 4,
+   "manufacture_date": "2020-02-12",
+   "gauge_green_min_bar": 12,
+   "gauge_green_max_bar": 16
+  },
+  "visit": {
+   "visit_date": "2024-05-09",
+   "tech_cert_expiry": "2024-05-25",
+   "service_type": "interim",
+   "checks": {
+    "pressure_bar": 14,
+    "seal_ok": true,
+    "tamper_tag_ok": true,
+    "hose_ok": true,
+    "corrosion": false,
+    "discharge_done": false,
+    "hydro_test_done": false
+   }
+  },
+  "tag": {
+   "tag_asset_id": "DP-502",
+   "tag_service_date": "2023-03-20",
+   "tag_next_due": "2024-03-20"
+  },
+  "history": [
+   {
+    "date": "2023-03-20",
+    "service_type": "basic",
+    "result": "pass"
+   },
+   {
+    "date": "2023-11-05",
+    "service_type": "interim",
+    "result": "pass"
+   }
+  ],
+  "register": {
+   "reg_asset_id": "DP-502",
+   "reg_type": "dry_powder",
+   "reg_capacity_kg": 6,
+   "zone_risk_class": "general"
+  }
+ },
+ "factors": {
+  "unit_type": "dry_powder",
+  "unit_age_years": 4,
+  "service_level_gap": "matched",
+  "days_past_due": 50,
+  "deferral_approved": false,
+  "injected_mismatch_count": 2,
+  "physical_defect": "none",
+  "defect_rectified_on_visit": false,
+  "type_location_mismatch": false,
+  "location_exemption_on_file": false,
+  "record_gap": "tag_not_updated",
+  "technician_cert_status": "expiring_soon",
+  "out_of_order_dates": false,
+  "borderline_case": false
+ },
+ "factors_sampled": {
+  "unit_type": "dry_powder",
+  "unit_age_years": 4,
+  "service_level_gap": "matched",
+  "days_past_due": 33,
+  "deferral_approved": false,
+  "injected_mismatch_count": 2,
+  "physical_defect": "hose_damaged",
+  "defect_rectified_on_visit": false,
+  "type_location_mismatch": false,
+  "location_exemption_on_file": false,
+  "record_gap": "tag_not_updated",
+  "technician_cert_status": "expiring_soon",
+  "out_of_order_dates": false,
+  "borderline_case": false
+ },
+ "plan": {
+  "left_compliant": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "balanced",
+   "target": "accept_record",
+   "second": "hold_confirm"
+  },
+  "service_level_due": {
+   "clarity": "contested",
+   "target": "interim_check",
+   "second": "basic_service"
+  },
+  "visit_lateness": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  },
+  "mismatch_count": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  }
+ },
+ "target_words": 70,
+ "deciding": {
+  "left_compliant": "Pressure 14 within 12-16 bar, all checks true, certificate valid at 2024-05-09; no defect.",
+  "next_step": "Unit is fine (accept), but the tag still shows the 2023-03-20 date and capacity 6 vs 4 could warrant a confirmation (hold).",
+  "service_level_due": "Last basic 2023-03-20 is over 12 months old, favouring basic, yet the visit was an interim check on a 4-year-old unit with a later interim entry; both readings are defensible.",
+  "visit_lateness": "Last basic 2023-03-20 gives due 2024-03-20; visit 2024-05-09 is 50 days past, level 2, with the stale tag next_due as a minor doubt.",
+  "mismatch_count": "tag_service_date 2023-03-20 vs visit 2024-05-09 and reg capacity 6 vs 4: two."
+ },
+ "request": "rec-F209-0026",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.013964
+}

@@ -1,0 +1,177 @@
+{
+ "id": "F224-0043",
+ "family": "F224",
+ "state": {
+  "request": {
+   "views": [
+    "BW_L"
+   ],
+   "ind": "CARIES_RECALL",
+   "risk": "moderate",
+   "prior": "2024-04-20",
+   "date": "2025-05-21",
+   "exceptions": [
+    {
+     "code": "EX_EMERG",
+     "approver": "D114"
+    }
+   ]
+  },
+  "exposures": [
+   {
+    "id": 1,
+    "v": "BW_L",
+    "kV": 65,
+    "s": 0.1,
+    "mGy": 0.56,
+    "t": "09:40"
+   },
+   {
+    "id": 2,
+    "v": "BW_L",
+    "kV": 65,
+    "s": 0.1,
+    "mGy": 0.56,
+    "t": "09:43",
+    "retake_of": 1
+   },
+   {
+    "id": 3,
+    "v": "PA_LL6",
+    "kV": 65,
+    "s": 0.1,
+    "mGy": 0.5,
+    "t": "09:50"
+   },
+   {
+    "id": 4,
+    "v": "PA_LL5",
+    "kV": 65,
+    "s": 0.1,
+    "mGy": 0.5,
+    "t": "09:52"
+   }
+  ],
+  "image_review": {
+   "grade": 1,
+   "faults": {
+    "1": [
+     "FC_CONE_CUT"
+    ]
+   },
+   "sensor_errors": [],
+   "second_grader": "done"
+  },
+  "equipment": {
+   "last_qa": "2025-02-10",
+   "qa_months": 12,
+   "output_test": "pass",
+   "service_log": [
+    {
+     "visit": "2025-05-20/2025-05-23",
+     "status": "open"
+    }
+   ],
+   "drl_ref": {
+    "BW_L": 1.0,
+    "PA_LL6": 1.0,
+    "PA_LL5": 1.0
+   },
+   "console_log": [
+    {
+     "t": "09:40",
+     "kV": 66,
+     "s": 0.15
+    },
+    {
+     "t": "09:43",
+     "kV": 66,
+     "s": 0.15
+    },
+    {
+     "t": "09:50",
+     "kV": 65,
+     "s": 0.1
+    },
+    {
+     "t": "09:52",
+     "kV": 65,
+     "s": 0.1
+    }
+   ]
+  },
+  "operator": {
+   "id": "OP08",
+   "signoff_at": "2025-05-21T10:30",
+   "prior_findings_12m": 0
+  }
+ },
+ "factors": {
+  "indication_match": "match",
+  "recall_interval_months": 12,
+  "dose_ratio_to_drl": 0.87,
+  "console_log_discrepancy": "setting_mismatch",
+  "retake_cause": "cone_cut",
+  "equipment_qa_status": "under_service",
+  "approved_exception": true,
+  "patient_cooperation_flag": false,
+  "unrequested_exposure_count": 2,
+  "verbal_authorisation_logged": false,
+  "image_grade": "diagnostic",
+  "audit_completeness": "complete",
+  "operator_prior_findings": 0
+ },
+ "factors_sampled": {
+  "indication_match": "match",
+  "recall_interval_months": 12,
+  "dose_ratio_to_drl": 0.56,
+  "console_log_discrepancy": "setting_mismatch",
+  "retake_cause": "no_retake",
+  "equipment_qa_status": "under_service",
+  "approved_exception": true,
+  "patient_cooperation_flag": false,
+  "unrequested_exposure_count": 3,
+  "verbal_authorisation_logged": false,
+  "image_grade": "diagnostic",
+  "audit_completeness": "complete",
+  "operator_prior_findings": 0
+ },
+ "plan": {
+  "justified": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "operator_retake": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "follow_up": {
+   "clarity": "balanced",
+   "target": "hold_confirm",
+   "second": "log_trend"
+  },
+  "dose_position": {
+   "clarity": "clear",
+   "target": "1",
+   "second": null
+  },
+  "unjustified_count": {
+   "clarity": "contested",
+   "target": "1",
+   "second": "2"
+  }
+ },
+ "target_words": 39,
+ "deciding": {
+  "justified": "CARIES_RECALL matches BW_L and the 13 months since the prior view meet the 12-month moderate-risk interval. The extra PA views add some doubt about the episode as a whole.",
+  "operator_retake": "Retake 2 follows FC_CONE_CUT on exposure 1, with no sensor errors and a passing output test, so operator technique is clear.",
+  "follow_up": "The service visit window (05-20 to 05-23) is open on the exposure date with no post-service test recorded, so confirmation is outstanding. The console setting difference is small and could simply be logged for trend.",
+  "dose_position": "The list shows 0.56 mGy but console 66 kV/0.15 s govern, implying about 0.87 mGy against a 1.0 reference. That puts the dose at 75-100%, typical.",
+  "unjustified_count": "PA_LL6 and PA_LL5 are not requested. A single EX_EMERG exception with approver D114 names no view, so it may cover one of them, giving 1 or 2 exposures without a justified request."
+ },
+ "request": "rec-F224-0041",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.01992
+}

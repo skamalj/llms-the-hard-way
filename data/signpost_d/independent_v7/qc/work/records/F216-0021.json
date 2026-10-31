@@ -1,0 +1,167 @@
+{
+ "id": "F216-0021",
+ "family": "F216",
+ "state": {
+  "session": {
+   "id": "SC41",
+   "type": "school_session",
+   "date": "2024-03-12",
+   "next": "2024-03-14"
+  },
+  "storage": {
+   "unit": "F3",
+   "alarms_30d": 4,
+   "maint": [
+    {
+     "kind": "defrost",
+     "start": "09:40",
+     "end": "10:20",
+     "backup": "F4"
+    }
+   ]
+  },
+  "temp_log": {
+   "interval_min": 10,
+   "readings": [
+    {
+     "t": "09:30",
+     "product_c": 7.4
+    },
+    {
+     "t": "09:40",
+     "product_c": 8.3
+    },
+    {
+     "t": "09:50",
+     "product_c": 8.9
+    },
+    {
+     "t": "10:00",
+     "product_c": 8.4
+    },
+    {
+     "t": "10:10",
+     "product_c": 6.1
+    }
+   ],
+   "backup": [
+    {
+     "t": "10:10",
+     "product_c": 5.0
+    }
+   ]
+  },
+  "stock": {
+   "lots": [
+    {
+     "lot": "A12",
+     "tol_min": 60,
+     "open": 30,
+     "waste": 1,
+     "close": 9
+    },
+    {
+     "lot": "B07",
+     "tol_min": 60,
+     "open": 20,
+     "waste": 0,
+     "close": null
+    }
+   ]
+  },
+  "administration": [
+   {
+    "t": "09:15",
+    "lot": "A12",
+    "n": 4
+   },
+   {
+    "t": "09:50",
+    "lot": "A12",
+    "n": 10
+   },
+   {
+    "t": "10:05",
+    "lot": "A12",
+    "n": 6
+   }
+  ],
+  "excursion_actions": {
+   "start": "09:40",
+   "end": "10:10",
+   "quarantined": true,
+   "advice_req": "10:30",
+   "status": "CLR_SHORT",
+   "advice_at": "14:00",
+   "revised_expiry": "2024-04-30"
+  }
+ },
+ "factors": {
+  "true_excursion_minutes": 30,
+  "log_source_discrepancy": "none",
+  "buffered_probe_in_range": false,
+  "planned_maintenance": true,
+  "stability_clearance": "cleared_short",
+  "doses_during_exposure": 16,
+  "stock_count_gap": 0,
+  "lot_id_mismatch": false,
+  "lots_beyond_tolerance": "none",
+  "freezing_reading": false,
+  "boundary_case": true,
+  "unit_alarm_history": 4,
+  "session_type": "school_session"
+ },
+ "factors_sampled": {
+  "true_excursion_minutes": 138,
+  "log_source_discrepancy": "none",
+  "buffered_probe_in_range": false,
+  "planned_maintenance": true,
+  "stability_clearance": "not_requested",
+  "doses_during_exposure": 16,
+  "stock_count_gap": -5,
+  "lot_id_mismatch": false,
+  "lots_beyond_tolerance": "some",
+  "freezing_reading": false,
+  "boundary_case": false,
+  "unit_alarm_history": 4,
+  "session_type": "school_session"
+ },
+ "plan": {
+  "dosed_uncleared": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "stock_reconciles": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "stock_disposition": {
+   "clarity": "leaning",
+   "target": "release_restricted",
+   "second": null
+  },
+  "excursion_duration": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  },
+  "followup_urgency": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  }
+ },
+ "target_words": 62,
+ "deciding": {
+  "dosed_uncleared": "Doses at 09:50 and 10:05 (16) fall after excursion start 09:40 and before advice_at 14:00; the 10:05 doses may have come from relocated stock, which leaves some doubt.",
+  "stock_reconciles": "Lot A12 balances (30-1-20=9), but B07 closing is null, so its balance cannot be confirmed; lot numbers match.",
+  "stock_disposition": "Status CLR_SHORT with revised_expiry 2024-04-30 and all lots within 60-min tolerance point to release_restricted.",
+  "excursion_duration": "Product readings 8.3, 8.9 and 8.4 at 10-min spacing give 30 minutes, exactly at the 1/2 boundary.",
+  "followup_urgency": "Advice is already received with a shortened expiry, but 16 doses were given before clearance and the next session is 2024-03-14, which leaves 'before next session' versus 'within 24h' open."
+ },
+ "request": "rec-F216-0021",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.019236
+}

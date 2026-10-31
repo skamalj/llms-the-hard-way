@@ -1,0 +1,144 @@
+{
+ "id": "F213-0026",
+ "family": "F213",
+ "state": {
+  "pool": {
+   "type": "teaching",
+   "test_interval_min": 60,
+   "opening": {
+    "open": "2025-03-04T09:00",
+    "close": "2025-03-04T12:00"
+   },
+   "limits": {
+    "free_cl_min": 1,
+    "free_cl_max": 3,
+    "combined_cl_max": 0.5,
+    "ph_min": 7,
+    "ph_max": 7.6
+   },
+   "tolerance": {
+    "free_cl": 0.2,
+    "ph": 0.2
+   },
+   "micro_due": "2025-03-20"
+  },
+  "manual_tests": [
+   {
+    "time": "2025-03-04T09:00",
+    "free_cl": 1.8,
+    "ph": 7.4,
+    "kit_id": "K1"
+   },
+   {
+    "time": "2025-03-04T11:30",
+    "free_cl": 1.7,
+    "ph": 7.4,
+    "kit_id": "K1"
+   },
+   {
+    "time": "2025-03-04T10:00",
+    "free_cl": 1.8,
+    "ph": 7.3,
+    "kit_id": "K1"
+   }
+  ],
+  "plant": {
+   "controller_readings": [
+    {
+     "time": "2025-03-04T09:00",
+     "free_cl": 1.8,
+     "ph": 7.4
+    },
+    {
+     "time": "2025-03-04T10:00",
+     "free_cl": 2.0,
+     "ph": 7.3
+    },
+    {
+     "time": "2025-03-04T11:30",
+     "free_cl": 1.7,
+     "ph": 7.4
+    }
+   ],
+   "bather_count": 142
+  },
+  "equipment": {
+   "kits": [
+    {
+     "kit_id": "K1",
+     "cal_due": "2025-09-01"
+    }
+   ]
+  },
+  "actions": [],
+  "lab_sample": null
+ },
+ "factors": {
+  "pool_type": "teaching",
+  "test_coverage_gap": 1,
+  "boundary_interval": true,
+  "log_controller_discrepancy": "at_tolerance",
+  "discrepancy_location": "free_chlorine",
+  "excursion_severity": "none",
+  "corrective_action_delay": "not_applicable",
+  "retest_logged": false,
+  "dosing_event_explains": false,
+  "kit_calibration_status": "in_date",
+  "lab_sample_state": "not_due",
+  "out_of_order_entry": true,
+  "benign_noise": "high_bathers"
+ },
+ "factors_sampled": {
+  "pool_type": "teaching",
+  "test_coverage_gap": 1,
+  "boundary_interval": true,
+  "log_controller_discrepancy": "none",
+  "discrepancy_location": "free_chlorine",
+  "excursion_severity": "clear",
+  "corrective_action_delay": "delayed",
+  "retest_logged": true,
+  "dosing_event_explains": true,
+  "kit_calibration_status": "in_date",
+  "lab_sample_state": "positive",
+  "out_of_order_entry": true,
+  "benign_noise": "high_bathers"
+ },
+ "plan": {
+  "test_frequency_met": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "readings_reconcile": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "log_disposition": {
+   "clarity": "clear",
+   "target": "accept",
+   "second": null
+  },
+  "action_delay": {
+   "clarity": "clear",
+   "target": "0",
+   "second": null
+  },
+  "failed_checks": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  }
+ },
+ "target_words": 39,
+ "deciding": {
+  "test_frequency_met": "Sorted manual_tests go 09:00, 10:00, 11:30: a 90-minute spacing against a 60-minute interval, so a required test is missing.",
+  "readings_reconcile": "The 10:00 free_cl is 1.8 manual versus 2.0 controller, exactly the 0.2 tolerance. pH and the other readings match.",
+  "log_disposition": "All values are inside limits, no actions are needed, the kit is in date and the lab sample is not yet due, so the log is filed.",
+  "action_delay": "No manual value is outside pool.limits, so no action was needed and actions is empty.",
+  "failed_checks": "The coverage gap is one failed check. The at-tolerance free_cl difference could count as a second."
+ },
+ "request": "rec-F213-0026",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.016048
+}

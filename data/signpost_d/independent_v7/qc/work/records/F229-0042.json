@@ -1,0 +1,91 @@
+{
+ "id": "F229-0042",
+ "family": "F229",
+ "state": {
+  "lot": {
+   "lot_id": "L-0517",
+   "pick_end": "05:30"
+  },
+  "intake": {
+   "net_kg": 8000,
+   "temp_c": 5
+  },
+  "press": {
+   "band_l_per_t": "600-680",
+   "cycle_start": "13:24",
+   "juice_l": 5100
+  },
+  "transfer": {
+   "lot_ref": "L-0571",
+   "qa_signoff": null
+  }
+ },
+ "factors": {
+  "weight_mismatch": "none",
+  "press_programme": "destemmed_standard",
+  "yield_position": "inside_band",
+  "lot_id_drift": "different_lot_on_transfer",
+  "missing_step": "qa_signoff_missing",
+  "out_of_order_timestamp": false,
+  "pick_to_press_hours": 7.9,
+  "pick_end_recorded": true,
+  "cold_held": true,
+  "rot_pct": 9.67,
+  "sorting_applied": true,
+  "note_signal": "none",
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "weight_mismatch": "none",
+  "press_programme": "destemmed_standard",
+  "yield_position": "inside_band",
+  "lot_id_drift": "different_lot_on_transfer",
+  "missing_step": "qa_signoff_missing",
+  "out_of_order_timestamp": false,
+  "pick_to_press_hours": 2.72,
+  "pick_end_recorded": true,
+  "cold_held": true,
+  "rot_pct": 9.67,
+  "sorting_applied": true,
+  "note_signal": "none",
+  "boundary_case": false
+ },
+ "plan": {
+  "yield_consistent": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "chain_intact": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "release_decision": {
+   "clarity": "leaning",
+   "target": "release_corrected",
+   "second": null
+  },
+  "pick_press_delay": {
+   "clarity": "contested",
+   "target": "1",
+   "second": "2"
+  },
+  "failed_checks": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 25,
+ "deciding": {
+  "yield_consistent": "5100 l from 8000 kg is 637.5 l/t, inside 600-680.",
+  "chain_intact": "lot_id L-0517 against transfer lot_ref L-0571 could be a transposed digit or a different lot.",
+  "release_decision": "The id mismatch looks clerical and qa_signoff is null, so fix the record and release.",
+  "pick_press_delay": "pick_end 05:30 to cycle_start 13:24 is 7.9 h, just under the 8 h line.",
+  "failed_checks": "The id mismatch and missing QA signoff are clear failures; the sparse record leaves the other checks uncertain, so the count is two to four."
+ },
+ "request": "rec-F229-0041",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.009375
+}

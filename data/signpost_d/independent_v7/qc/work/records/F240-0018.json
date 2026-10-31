@@ -1,0 +1,166 @@
+{
+ "id": "F240-0018",
+ "family": "F240",
+ "state": {
+  "asset": {
+   "id": "INV-C2-05",
+   "sn": "T9902",
+   "rated_ac_kw": 1500,
+   "block": "C2"
+  },
+  "fault_event": {
+   "sn": "T9902",
+   "code": "F-COM-03",
+   "fw_sev": 3,
+   "ts_start": "2025-06-08T10:00",
+   "ts_clear": "2025-06-08T11:30",
+   "auto_restarts": 5
+  },
+  "telemetry": {
+   "samples": [
+    {
+     "ts": "10:00",
+     "ac_kw": 1200,
+     "exp_kw": 1250,
+     "poa": 800,
+     "limit_pct": 100
+    },
+    {
+     "ts": "10:25",
+     "ac_kw": 0,
+     "exp_kw": 1280,
+     "poa": 820,
+     "limit_pct": 0
+    },
+    {
+     "ts": "12:00",
+     "ac_kw": 95,
+     "exp_kw": 1400,
+     "poa": 860,
+     "limit_pct": 6.3
+    }
+   ],
+   "exp_day_kwh": 8000,
+   "exp_window_kwh": 1800,
+   "act_window_kwh": 1380
+  },
+  "site_context": {
+   "grid_events": [
+    {
+     "ts": "2025-06-08T10:01",
+     "type": "sag",
+     "magnitude_pu": 0.97
+    }
+   ],
+   "maint": [
+    {
+     "from": "2025-06-08T09:00",
+     "to": "2025-06-08T12:00",
+     "scope": "C2"
+    }
+   ],
+   "neighbours": [
+    {
+     "id": "INV-C2-04",
+     "ratio": 0.99
+    },
+    {
+     "id": "INV-C2-06",
+     "ratio": 1.0
+    }
+   ]
+  },
+  "history": {
+   "faults": [
+    {
+     "date": "2025-05-30",
+     "code": "F-COM-03"
+    },
+    {
+     "date": "2025-06-08",
+     "code": "F-COM-03"
+    }
+   ],
+   "work_orders": [
+    {
+     "wo": "W-6102",
+     "opened": "2025-05-31",
+     "completed": "2025-06-08",
+     "retest_ok": false
+    },
+    {
+     "wo": "W-6120",
+     "opened": "2025-06-08",
+     "completed": null,
+     "retest_ok": null
+    }
+   ]
+  }
+ },
+ "factors": {
+  "fault_class": "comms_loss",
+  "log_telemetry_mismatch": "moderate_15_60min",
+  "grid_event_concurrent": true,
+  "maintenance_window_active": true,
+  "neighbour_cross_check": "neighbours_normal",
+  "repeat_count_30d": 2,
+  "last_repair_status": "open",
+  "current_limit_pct": 6.3,
+  "yield_loss_pct": 5.25,
+  "low_irradiance_window": false,
+  "serial_mismatch": false,
+  "boundary_placement": false
+ },
+ "factors_sampled": {
+  "fault_class": "comms_loss",
+  "log_telemetry_mismatch": "moderate_15_60min",
+  "grid_event_concurrent": true,
+  "maintenance_window_active": true,
+  "neighbour_cross_check": "neighbours_normal",
+  "repeat_count_30d": 2,
+  "last_repair_status": "open",
+  "current_limit_pct": 6.32,
+  "yield_loss_pct": 0.47,
+  "low_irradiance_window": false,
+  "serial_mismatch": false,
+  "boundary_placement": false
+ },
+ "plan": {
+  "genuine_defect": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "post_repair_repeat": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "urgent_dispatch",
+   "second": null
+  },
+  "yield_loss": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  },
+  "capacity_unavailable": {
+   "clarity": "clear",
+   "target": "2",
+   "second": null
+  }
+ },
+ "target_words": 53,
+ "deciding": {
+  "genuine_defect": "Neighbours at 0.99 to 1.0 mean the cause is local to this unit, and a repair retest failed. The weak sag of 0.97 pu and the maintenance window leave some doubt.",
+  "post_repair_repeat": "W-6102 was completed 2025-06-08 with retest_ok false, and F-COM-03 is also dated 2025-06-08. Same-day dates leave the order of events open.",
+  "next_step": "The unit is still limited to 6.3% output, a retest failed and a new work order is open, which favours dispatch. The window and sag are the reason for some hesitation.",
+  "yield_loss": "(1800-1380)/8000 = 5.25%, just over the 5% line.",
+  "capacity_unavailable": "The last sample shows limit_pct 6.3 and 95 kW, which is below 50% of rated but still exporting."
+ },
+ "request": "rec-F240-0016",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.01584
+}

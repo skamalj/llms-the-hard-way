@@ -1,0 +1,155 @@
+{
+ "id": "F236-0031",
+ "family": "F236",
+ "state": {
+  "changeover": {
+   "line": "L2",
+   "from_allergens": [
+    "wheat",
+    "sesame"
+   ],
+   "to_allergens": [
+    "wheat",
+    "milk"
+   ]
+  },
+  "cleaning": {
+   "steps": [
+    {
+     "id": 1,
+     "completed": true,
+     "spec_min": 30,
+     "actual_min": 32
+    },
+    {
+     "id": 2,
+     "completed": true,
+     "spec_min": 20,
+     "actual_min": 20
+    }
+   ]
+  },
+  "verification": {
+   "swabs": [
+    {
+     "id": "SW4",
+     "target": "sesame",
+     "ppm": 14,
+     "limit_ppm": 10,
+     "t": "2024-05-06T08:30"
+    },
+    {
+     "id": "SW7",
+     "retest_of": "SW9",
+     "target": "sesame",
+     "ppm": 3,
+     "limit_ppm": 10,
+     "t": "2024-05-06T09:10"
+    }
+   ]
+  },
+  "production": {
+   "line_id": "L5",
+   "start_at": "2024-05-06T10:00",
+   "end_at": "2024-05-06T14:00",
+   "qty": 520,
+   "unit": "kg",
+   "may_contain": [
+    "sesame"
+   ]
+  },
+  "approvals": {
+   "qa_signoff": {
+    "signer": "Q3",
+    "signed_at": "2024-05-06T09:45"
+   },
+   "deviations": [
+    {
+     "id": "D4",
+     "scope": "SW4 retest",
+     "approved_at": "2024-05-06T09:00"
+    }
+   ]
+  },
+  "history": [
+   {
+    "ok": false
+   },
+   {
+    "ok": true
+   },
+   {
+    "ok": false
+   },
+   {
+    "ok": true
+   }
+  ]
+ },
+ "factors": {
+  "allergen_transition": "swaps_allergen",
+  "cleaning_completion": "full",
+  "swab_outcome": "positive_retest_unlinked",
+  "swab_timing_mismatch": false,
+  "cross_section_discrepancy": "line_id_mismatch",
+  "exposed_quantity_kg": 520.0,
+  "approved_deviation": true,
+  "label_precaution": true,
+  "dedicated_tooling": false,
+  "qa_signoff_state": "signed_before_start",
+  "line_failure_history": 2,
+  "boundary_value": false
+ },
+ "factors_sampled": {
+  "allergen_transition": "swaps_allergen",
+  "cleaning_completion": "full",
+  "swab_outcome": "positive_no_retest",
+  "swab_timing_mismatch": false,
+  "cross_section_discrepancy": "line_id_mismatch",
+  "exposed_quantity_kg": 408.64,
+  "approved_deviation": true,
+  "label_precaution": true,
+  "dedicated_tooling": false,
+  "qa_signoff_state": "signed_before_start",
+  "line_failure_history": 2,
+  "boundary_value": false
+ },
+ "plan": {
+  "swabs_cleared": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "line_disposition": {
+   "clarity": "clear",
+   "target": "hold",
+   "second": null
+  },
+  "worst_deficiency": {
+   "clarity": "clear",
+   "target": "records_only",
+   "second": null
+  },
+  "exposed_product": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "residue_evidence": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  }
+ },
+ "target_words": 56,
+ "deciding": {
+  "swabs_cleared": "SW4 sesame 14 ppm exceeds the 10 limit, and the retest SW7 points to SW9, which does not exist, so no valid passing retest is linked.",
+  "line_disposition": "Cleaning is complete and a retest reading of 3 ppm exists, so only the missing link to the original swab needs confirming; hold until supplied.",
+  "worst_deficiency": "All steps are completed, the retest passes and sign-off precedes start. The issues are paperwork: production.line_id L5 differs from changeover L2, and retest_of is broken.",
+  "exposed_product": "520 kg batch from 10:00 to 14:00 with no linked passing swab, so over 500 kg is exposed. If the retest is accepted, only part of the batch (under 500 kg) is exposed.",
+  "residue_evidence": "SW4 is over the limit (14 vs 10). A retest at 3 ppm passes (level 2) but is unlinked, so it could be read as a missing retest (level 3)."
+ },
+ "request": "rec-F236-0031",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.01363
+}

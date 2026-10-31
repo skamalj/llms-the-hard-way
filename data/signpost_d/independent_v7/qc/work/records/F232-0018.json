@@ -1,0 +1,165 @@
+{
+ "id": "F232-0018",
+ "family": "F232",
+ "state": {
+  "night_header": {
+   "date": "2025-06-11",
+   "tel": "2.4m",
+   "instr": "imager",
+   "prog": "P41",
+   "alloc_h": 8,
+   "eng_window": [
+    "00:00",
+    "04:00"
+   ]
+  },
+  "conditions": {
+   "closures": [
+    {
+     "s": "23:00",
+     "e": "04:05",
+     "reason": "weather"
+    }
+   ],
+   "limits": {
+    "hum": 85,
+    "wind": 50,
+    "cloud": 4
+   },
+   "hourly": [
+    {
+     "h": "23",
+     "hum": 88,
+     "wind": 20,
+     "cloud": 2
+    }
+   ]
+  },
+  "exposures": [
+   {
+    "id": "f1",
+    "t": "T3",
+    "start_utc": "2025-06-11T05:00",
+    "exp": 900,
+    "f": "g",
+    "see": 1.3,
+    "qa": "pass"
+   },
+   {
+    "id": "f2",
+    "t": "T3",
+    "exp": 900,
+    "f": "g",
+    "see": 1.45,
+    "qa": null
+   },
+   {
+    "id": "f3",
+    "t": "T4",
+    "exp": 600,
+    "f": "r",
+    "see": 1.4,
+    "qa": null
+   }
+  ],
+  "programme_request": {
+   "T3": {
+    "req": [
+     "g",
+     "r"
+    ],
+    "s": 3600,
+    "max_see": 1.5
+   },
+   "exception": {
+    "ids": [
+     "T3"
+    ],
+    "see": 1.8
+   }
+  },
+  "faults": [
+   {
+    "sub": "camera shutter",
+    "s": "23:01",
+    "e": null,
+    "cleared": false,
+    "retest_utc": null,
+    "workaround": null,
+    "ticket": "TK-318"
+   }
+  ],
+  "notes": {
+   "obs": "T3 complete",
+   "na": "shutter stuck, nothing usable after closure"
+  }
+ },
+ "factors": {
+  "weather_loss_hours": 5.09,
+  "fault_overlap": "major_overlap",
+  "fault_resolution_state": "open_blocking",
+  "maintenance_window": false,
+  "closure_reason_mismatch": "coincides_with_fault",
+  "note_claim_discrepancy": "filter_missing",
+  "seeing_vs_limit": "near_boundary",
+  "seeing_exception_approved": true,
+  "usable_fraction": 0.18,
+  "qa_pending_count": 2,
+  "utc_date_rollover": false,
+  "assistant_note_tone": "neutral",
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "weather_loss_hours": 5.09,
+  "fault_overlap": "major_overlap",
+  "fault_resolution_state": "no_fault",
+  "maintenance_window": true,
+  "closure_reason_mismatch": "coincides_with_fault",
+  "note_claim_discrepancy": "none",
+  "seeing_vs_limit": "near_boundary",
+  "seeing_exception_approved": true,
+  "usable_fraction": 0.48,
+  "qa_pending_count": 3,
+  "utc_date_rollover": false,
+  "assistant_note_tone": "neutral",
+  "boundary_case": false
+ },
+ "plan": {
+  "weather_only_loss": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "claims_supported": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "night_disposition": {
+   "clarity": "clear",
+   "target": "charge_full",
+   "second": null
+  },
+  "usable_share": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  },
+  "fault_followup": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  }
+ },
+ "target_words": 160,
+ "deciding": {
+  "weather_only_loss": "Shutter fault starts 23:01, within two minutes of the 23:00 weather closure start; humidity 88 is only slightly over the limit, so the cause is not weather alone.",
+  "claims_supported": "T3 claimed complete but has only g, 1800 s of 3600 s, and no r frame.",
+  "night_disposition": "Fault still open, targets incomplete, and time lost; charge_full would not fit.",
+  "usable_share": "Only f1 (900 s) has qa pass, about 3% of 8 h; several frames are pending.",
+  "fault_followup": "Shutter fault open with null workaround and null retest, so the camera is unusable."
+ },
+ "request": "rec-F232-0016",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.00657
+}

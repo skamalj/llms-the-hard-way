@@ -1,0 +1,106 @@
+{
+ "id": "F205-0003",
+ "family": "F205",
+ "state": {
+  "flight": {
+   "no": "LM77",
+   "std": "2024-03-09T15:00:00Z",
+   "turn": "full_turn"
+  },
+  "times": {
+   "fuel_start": "2024-03-09T14:05:00Z",
+   "last_bag": "2024-03-09T14:40:00Z",
+   "off_blocks": "2024-03-09T15:37:00Z",
+   "delay_code": "pushback_tug",
+   "delay_min": 37
+  },
+  "load": {
+   "bags_count": 64,
+   "bags_kg": 1250,
+   "fuel_kg": 5400,
+   "captain_accepted": true
+  },
+  "hold_log": [
+   {
+    "bags": 60,
+    "kg": 1180
+   },
+   {
+    "bags": 3,
+    "kg": 65,
+    "transfer": true
+   }
+  ],
+  "services": {
+   "fuel": {
+    "uplift_kg": 5100
+   }
+  }
+ },
+ "factors": {
+  "bag_mismatch_size": "trivial_1_2_bags",
+  "mismatch_location": "fuel_uplift_vs_loadsheet_fuel",
+  "missing_record": "none",
+  "milestone_out_of_order": false,
+  "delay_minutes": 37,
+  "delay_code_fit": "supported",
+  "explanatory_remark": false,
+  "pending_signoff": false,
+  "dg_on_board": false,
+  "decoy_noise": "transfer_bags_listed_separately",
+  "boundary_value": false,
+  "turn_type": "full_turn"
+ },
+ "factors_sampled": {
+  "bag_mismatch_size": "trivial_1_2_bags",
+  "mismatch_location": "fuel_uplift_vs_loadsheet_fuel",
+  "missing_record": "none",
+  "milestone_out_of_order": false,
+  "delay_minutes": 37,
+  "delay_code_fit": "supported",
+  "explanatory_remark": false,
+  "pending_signoff": false,
+  "dg_on_board": false,
+  "decoy_noise": "transfer_bags_listed_separately",
+  "boundary_value": false,
+  "turn_type": "full_turn"
+ },
+ "plan": {
+  "load_reconciled": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "delay_code_supported": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "log_disposition": {
+   "clarity": "clear",
+   "target": "hold_confirm",
+   "second": null
+  },
+  "offblock_delay": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  },
+  "failed_checks": {
+   "clarity": "contested",
+   "target": "2",
+   "second": "1"
+  }
+ },
+ "target_words": 54,
+ "deciding": {
+  "load_reconciled": "Loadsheet 64 bags/1250 kg against hold 60+3 bags and 1180+65 kg; one bag and 5 kg differ, within tolerance but not exact.",
+  "delay_code_supported": "Code 'pushback_tug' but no pushback record exists in services, and last_bag and fuel milestones were done before STD, so nothing logged supports it.",
+  "log_disposition": "Loadsheet fuel 5400 against uplift 5100 and a code with no pushback record need confirming before close.",
+  "offblock_delay": "Off-blocks 15:37 against STD 15:00 is 37 min, level 2; the delay_min field matches.",
+  "failed_checks": "Fuel differs by 300 kg and the code is unsupported; the 1-bag gap is borderline, so one or two failures are both defensible."
+ },
+ "request": "rec-F205-0001",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.006657
+}

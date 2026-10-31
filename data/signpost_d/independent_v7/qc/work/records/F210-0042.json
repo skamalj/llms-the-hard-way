@@ -1,0 +1,123 @@
+{
+ "id": "F210-0042",
+ "family": "F210",
+ "state": {
+  "collection": {
+   "collected_at": "2024-06-03T06:30",
+   "vat_l": 2500,
+   "meter_l": 2150,
+   "vat_temp_c": 4.4,
+   "last_milking_end": "2024-06-02T20:00"
+  },
+  "sample": {
+   "sample_id": "S202",
+   "taken_at": "2024-06-03T06:32",
+   "seal_intact": true,
+   "arrival_temp_c": 4.2
+  },
+  "lab_results": {
+   "sample_id": "S202",
+   "bactoscan_kcfu_ml": 150,
+   "scc_k_ml": 450,
+   "inhibitory": "neg",
+   "retest": {
+    "requested": true,
+    "result": null
+   }
+  },
+  "farm_terms": {
+   "limits": {
+    "vat_temp_c": 4.0,
+    "bactoscan_kcfu_ml": 100,
+    "scc_k_ml": 400
+   },
+   "approved_exceptions": [],
+   "treatment_register": [
+    {
+     "drug": "cefalexin",
+     "withdrawal_end": "2024-06-05",
+     "segregated": true
+    }
+   ],
+   "breaches_90d": 2
+  },
+  "equipment": {
+   "vat_thermometer": {
+    "due": "2024-12-01"
+   },
+   "tanker_meter": {
+    "due": "2024-11-15"
+   }
+  }
+ },
+ "factors": {
+  "vat_temp_level": "borderline",
+  "recent_milking": false,
+  "mismatch_site": "volume",
+  "mismatch_magnitude": "moderate",
+  "meter_calibration_overdue": false,
+  "lab_limit_breaches": 2,
+  "exception_covers_breach": false,
+  "inhibitory_status": "negative",
+  "treatment_withdrawal_active": true,
+  "retest_state": "pending",
+  "sample_integrity": "intact",
+  "history_breaches_90d": 2,
+  "value_on_boundary": false,
+  "driver_sensory_flag": false
+ },
+ "factors_sampled": {
+  "vat_temp_level": "compliant",
+  "recent_milking": false,
+  "mismatch_site": "volume",
+  "mismatch_magnitude": "moderate",
+  "meter_calibration_overdue": false,
+  "lab_limit_breaches": 2,
+  "exception_covers_breach": false,
+  "inhibitory_status": "negative",
+  "treatment_withdrawal_active": true,
+  "retest_state": "pending",
+  "sample_integrity": "intact",
+  "history_breaches_90d": 2,
+  "value_on_boundary": false,
+  "driver_sensory_flag": false
+ },
+ "plan": {
+  "temp_compliant": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "intake_disposition": {
+   "clarity": "balanced",
+   "target": "accept_deduction",
+   "second": "hold_retest"
+  },
+  "issue_source": {
+   "clarity": "balanced",
+   "target": "none_evident",
+   "second": "farm_practice"
+  },
+  "discrepancy_size": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  },
+  "unexplained_breaches": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  }
+ },
+ "target_words": 37,
+ "deciding": {
+  "temp_compliant": "vat_temp_c 4.4 is only slightly above the 4.0 limit, and milking ended about 10 h earlier, so no recent-milking excuse.",
+  "intake_disposition": "bactoscan 150 and scc 450 exceed limits with no exception, favouring a deduction, but lab_results.retest is requested with a null result.",
+  "issue_source": "Volume mismatch with a current calibration could be farm-side, and the active treatment_register entry (segregated true) is a possible farm practice cause; neither is decisive.",
+  "discrepancy_size": "vat_l 2500 vs meter_l 2150 is a 14% difference, within the 10 to 25% band.",
+  "unexplained_breaches": "Two parameters exceed limits with no exceptions, but the pending retest leaves it open whether one counts."
+ },
+ "request": "rec-F210-0041",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011859
+}

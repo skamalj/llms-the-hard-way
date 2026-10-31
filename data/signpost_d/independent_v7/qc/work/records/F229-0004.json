@@ -1,0 +1,111 @@
+{
+ "id": "F229-0004",
+ "family": "F229",
+ "state": {
+  "lot": {
+   "lot_id": "L3058",
+   "block": "D2",
+   "pick_end": null
+  },
+  "intake": {
+   "block_code": "D2",
+   "arrival_at": "2024-09-25T06:00",
+   "gross_kg": 4510,
+   "tare_kg": 1500,
+   "net_kg": 3000,
+   "temp_c": 5,
+   "cold_room_in": "06:10",
+   "cold_room_out": "09:20"
+  },
+  "sample": {
+   "rot_pct": 8.01,
+   "sort": {
+    "sorted": true,
+    "rejected_kg": 90,
+    "post_sort_rot_pct": 2.4
+   }
+  },
+  "press": {
+   "programme": "whole_bunch_gentle",
+   "band_l_per_t": "500-580",
+   "cycle_start": "2024-09-25T09:36",
+   "juice_l": 1600,
+   "so2_mg_l": null,
+   "operator_note": "Light rain, minor pump noise."
+  },
+  "transfer": {
+   "lot_ref": "L3058",
+   "tank_id": "T3",
+   "transferred_l": 1570,
+   "qa_signoff": "PS 12:10"
+  }
+ },
+ "factors": {
+  "weight_mismatch": "trivial_under_1pct",
+  "press_programme": "whole_bunch_gentle",
+  "yield_position": "inside_band",
+  "lot_id_drift": "none",
+  "missing_step": "so2_null",
+  "out_of_order_timestamp": false,
+  "pick_to_press_hours": 3.6,
+  "pick_end_recorded": false,
+  "cold_held": true,
+  "rot_pct": 8.01,
+  "sorting_applied": true,
+  "note_signal": "benign_decoy",
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "weight_mismatch": "trivial_under_1pct",
+  "press_programme": "whole_bunch_gentle",
+  "yield_position": "inside_band",
+  "lot_id_drift": "none",
+  "missing_step": "sample_null",
+  "out_of_order_timestamp": false,
+  "pick_to_press_hours": 5.36,
+  "pick_end_recorded": false,
+  "cold_held": true,
+  "rot_pct": 8.01,
+  "sorting_applied": true,
+  "note_signal": "benign_decoy",
+  "boundary_case": false
+ },
+ "plan": {
+  "yield_consistent": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "chain_intact": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "release_decision": {
+   "clarity": "clear",
+   "target": "release",
+   "second": null
+  },
+  "pick_press_delay": {
+   "clarity": "leaning",
+   "target": "0",
+   "second": null
+  },
+  "failed_checks": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 43,
+ "deciding": {
+  "yield_consistent": "1600 L from 3000 kg is about 533 L/t, inside the 500-580 band.",
+  "chain_intact": "L3058 and D2 are identical across the lot, intake and transfer, but the missing so2 and the missing pick_end leave a little doubt.",
+  "release_decision": "The yield is in band, the ids match, the fruit was cold held and sorted, and QA signed off; the rain and pump noise are only decoys.",
+  "pick_press_delay": "pick_end is null, and arrival 06:00 to cycle_start 09:36 is 3.6 h, so under 4 h is likely, though the pick end is unknown.",
+  "failed_checks": "so2 is null, the weights have a small gap (4510 minus 1500 is 3010 against 3000), the rot is 8.01%, and pick_end is missing; the count sits between 2-3 and 4 or more."
+ },
+ "request": "rec-F229-0001",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011421
+}

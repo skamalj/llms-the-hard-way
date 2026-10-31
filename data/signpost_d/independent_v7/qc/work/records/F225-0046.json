@@ -1,0 +1,111 @@
+{
+ "id": "F225-0046",
+ "family": "F225",
+ "state": {
+  "transfer_note": {
+   "transfer_date": "2025-05-12",
+   "ewc_code": "15 01 01",
+   "qty": 10,
+   "qty_unit": "t",
+   "sic_code": null,
+   "container": null,
+   "producer_sig_at": "2025-05-12T07:40"
+  },
+  "carrier": {
+   "carrier_reg_no": "CB123456",
+   "reg_expiry": "2026-02-01",
+   "vehicle_reg": "KX19ABC"
+  },
+  "weighbridge": {
+   "time_in": "2025-05-12T08:10",
+   "anpr_reg": "KX19ABC",
+   "gross_kg": 17980,
+   "tare_kg": 6460
+  },
+  "inspection": {
+   "observed_ewc": "15 01 01",
+   "primary_material": "cardboard",
+   "contamination_pct": 11
+  },
+  "site_permit": {
+   "accepted_ewc": [
+    "15 01 01"
+   ],
+   "moisture_allowance_pct": 8
+  },
+  "producer_history": {
+   "deliveries_12m": 40,
+   "rejections_12m": 1
+  }
+ },
+ "factors": {
+  "weight_discrepancy_pct": 15.2,
+  "unit_convention_differs": false,
+  "code_mismatch": "none",
+  "inspection_status": "complete",
+  "contamination_pct": 11.0,
+  "missing_doc_items": 2,
+  "carrier_reg_state": "valid",
+  "renewal_receipt_present": false,
+  "signature_after_delivery": false,
+  "moisture_allowance_agreed": true,
+  "producer_prior_rejections": 1,
+  "vehicle_reg_mismatch": "none",
+  "code_on_permit": true,
+  "boundary_placement": true
+ },
+ "factors_sampled": {
+  "weight_discrepancy_pct": 43.51,
+  "unit_convention_differs": false,
+  "code_mismatch": "different_chapter",
+  "inspection_status": "partial",
+  "contamination_pct": 4.9,
+  "missing_doc_items": 3,
+  "carrier_reg_state": "expired_before_delivery",
+  "renewal_receipt_present": false,
+  "signature_after_delivery": false,
+  "moisture_allowance_agreed": true,
+  "producer_prior_rejections": 5,
+  "vehicle_reg_mismatch": "different_vehicle",
+  "code_on_permit": true,
+  "boundary_placement": true
+ },
+ "plan": {
+  "code_matches_load": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "load_disposition": {
+   "clarity": "leaning",
+   "target": "accept_conditional",
+   "second": null
+  },
+  "follow_up": {
+   "clarity": "balanced",
+   "target": "file_note",
+   "second": "regulator_referral"
+  },
+  "weight_variance": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  },
+  "doc_gaps": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  }
+ },
+ "target_words": 29,
+ "deciding": {
+  "code_matches_load": "inspection.observed_ewc 15 01 01 equals declared ewc_code and material is cardboard.",
+  "load_disposition": "Matching load with contamination 11%, so tip with downgrade; two null note fields add some doubt.",
+  "follow_up": "One rejection in 40 deliveries and a 15% weight gap beyond the 8% allowance: a file note or a referral are both arguable.",
+  "weight_variance": "Net 11,520 kg against declared 10 t is 15.2%, right at the boundary between minor and major.",
+  "doc_gaps": "sic_code and container are null, two missing entries; whether container is required leaves a little doubt."
+ },
+ "request": "rec-F225-0046",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.010934
+}

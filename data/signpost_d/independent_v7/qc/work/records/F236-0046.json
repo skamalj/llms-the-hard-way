@@ -1,0 +1,152 @@
+{
+ "id": "F236-0046",
+ "family": "F236",
+ "state": {
+  "changeover": {
+   "line": "L2",
+   "from": "P14",
+   "to": "P09",
+   "from_allergens": [
+    "wheat",
+    "sesame"
+   ],
+   "to_allergens": [
+    "wheat"
+   ],
+   "end": "2025-03-04T05:40"
+  },
+  "cleaning": {
+   "steps": [
+    {
+     "s": "dry_clean",
+     "done": true,
+     "spec_min": 30,
+     "actual_min": 30
+    },
+    {
+     "s": "wash",
+     "done": true,
+     "spec_min": 30,
+     "actual_min": 27
+    }
+   ]
+  },
+  "verification": {
+   "swabs": [
+    {
+     "id": "S1",
+     "loc": "mixer",
+     "target": "sesame",
+     "reading": 0.0,
+     "limit_ppm": 2.5,
+     "at": "2025-03-04T05:50"
+    },
+    {
+     "id": "S2",
+     "loc": "depositor",
+     "target": "sesame",
+     "reading": 0.1,
+     "lod_ppm": 0.1,
+     "limit_ppm": 2.5,
+     "at": "2025-03-04T05:52"
+    }
+   ]
+  },
+  "production": {
+   "line": "L2",
+   "code": "P09",
+   "batch": "B2217",
+   "start": "2025-03-04T06:30",
+   "end": "2025-03-04T09:30",
+   "qty": 500,
+   "unit": "kg",
+   "pack_allergens": [
+    "wheat"
+   ]
+  },
+  "approvals": {
+   "qa_signoff": null,
+   "deviations": []
+  },
+  "history": {
+   "passed": [
+    true,
+    false,
+    true,
+    false,
+    false,
+    true,
+    false,
+    true,
+    false,
+    true
+   ]
+  }
+ },
+ "factors": {
+  "allergen_transition": "removes_allergen",
+  "cleaning_completion": "all steps done, wash 27 of 30 min",
+  "swab_outcome": "all_negative",
+  "swab_timing_mismatch": false,
+  "cross_section_discrepancy": "none",
+  "exposed_quantity_kg": 500.0,
+  "approved_deviation": false,
+  "label_precaution": false,
+  "dedicated_tooling": false,
+  "qa_signoff_state": "missing",
+  "line_failure_history": 5,
+  "boundary_value": true
+ },
+ "factors_sampled": {
+  "allergen_transition": "removes_allergen",
+  "cleaning_completion": "full",
+  "swab_outcome": "all_negative",
+  "swab_timing_mismatch": false,
+  "cross_section_discrepancy": "none",
+  "exposed_quantity_kg": 115.36,
+  "approved_deviation": false,
+  "label_precaution": false,
+  "dedicated_tooling": false,
+  "qa_signoff_state": "missing",
+  "line_failure_history": 5,
+  "boundary_value": true
+ },
+ "plan": {
+  "swabs_cleared": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "line_disposition": {
+   "clarity": "clear",
+   "target": "release",
+   "second": null
+  },
+  "worst_deficiency": {
+   "clarity": "balanced",
+   "target": "cleaning_shortfall",
+   "second": "records_only"
+  },
+  "exposed_product": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  },
+  "residue_evidence": {
+   "clarity": "contested",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 50,
+ "deciding": {
+  "swabs_cleared": "Both swabs read at or below LOD, limit 2.5, and were taken before production start 06:30.",
+  "line_disposition": "Swabs clean, all steps done, identifiers match, so release.",
+  "worst_deficiency": "Wash ran 27 of 30 min (possible shortfall) against qa_signoff null (paperwork); both are modest.",
+  "exposed_product": "Qty exactly 500 kg with no sign-off verifying clean, so level 2 vs 3 sits on the boundary.",
+  "residue_evidence": "S1 reads 0.0 while S2 reads 0.1 equal to LOD 0.1, which is either negative or trace."
+ },
+ "request": "rec-F236-0046",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.015151
+}

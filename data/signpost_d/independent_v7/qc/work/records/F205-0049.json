@@ -1,0 +1,111 @@
+{
+ "id": "F205-0049",
+ "family": "F205",
+ "state": {
+  "flight": {
+   "no": "RT305",
+   "std": "2025-06-14T09:00Z",
+   "turn": "transit"
+  },
+  "times": {
+   "on_blocks": "2025-06-14T08:10Z",
+   "doors_open": "2025-06-14T08:05Z",
+   "off_blocks": "2025-06-14T10:33Z",
+   "delay_code": null,
+   "delay_min": 93
+  },
+  "load": {
+   "pax_total": 87,
+   "bags_count": 52,
+   "bags_kg": 700,
+   "captain_accepted": true,
+   "notoc": null
+  },
+  "hold_log": [
+   {
+    "pos": "1",
+    "bags": 30,
+    "wt": 400,
+    "unit": "kg"
+   },
+   {
+    "pos": "2",
+    "bags": 22,
+    "wt": 300,
+    "unit": "kg"
+   }
+  ],
+  "remarks": [
+   {
+    "role": "ramp",
+    "msg": "Hydraulic cart fault; waited for replacement."
+   }
+  ]
+ },
+ "factors": {
+  "bag_mismatch_size": "none",
+  "mismatch_location": "loadsheet_bags_vs_hold_log",
+  "missing_record": "notoc_missing",
+  "milestone_out_of_order": true,
+  "delay_minutes": 93,
+  "delay_code_fit": "no_code_logged",
+  "explanatory_remark": true,
+  "pending_signoff": false,
+  "dg_on_board": false,
+  "decoy_noise": "none",
+  "boundary_value": false,
+  "turn_type": "transit_through"
+ },
+ "factors_sampled": {
+  "bag_mismatch_size": "moderate_3_9_bags",
+  "mismatch_location": "loadsheet_bags_vs_hold_log",
+  "missing_record": "notoc_missing",
+  "milestone_out_of_order": true,
+  "delay_minutes": 93,
+  "delay_code_fit": "no_code_logged",
+  "explanatory_remark": true,
+  "pending_signoff": false,
+  "dg_on_board": false,
+  "decoy_noise": "none",
+  "boundary_value": false,
+  "turn_type": "transit_through"
+ },
+ "plan": {
+  "load_reconciled": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "delay_code_supported": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "log_disposition": {
+   "clarity": "leaning",
+   "target": "hold_confirm",
+   "second": null
+  },
+  "offblock_delay": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  },
+  "failed_checks": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  }
+ },
+ "target_words": 51,
+ "deciding": {
+  "load_reconciled": "Hold bags 30+22 equal 52 and weights 400+300 equal 700 kg, matching the loadsheet exactly.",
+  "delay_code_supported": "delay_code is null although delay_min is 93 and the timestamps show a 93-minute off-block delay.",
+  "log_disposition": "Notoc is null, with no dg flagged, and delay_code is blank. The remark explains the delay, so confirming the missing records would close it. Some doubt remains because of the order fault.",
+  "offblock_delay": "Off-blocks 10:33 against STD 09:00 is 93 minutes, well over 60.",
+  "failed_checks": "Missing delay code, doors_open before on_blocks, null notoc and a delay over 60 minutes make about four failures."
+ },
+ "request": "rec-F205-0046",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.01388
+}

@@ -1,0 +1,139 @@
+{
+ "id": "F203-0006",
+ "family": "F203",
+ "state": {
+  "request": {
+   "id": "ILL-4412",
+   "submitted_on": "2024-03-04",
+   "need_by": "2024-04-20",
+   "scope": "whole_item"
+  },
+  "borrower_library": {
+   "agreement": {
+    "status": "active",
+    "expires_on": "2025-01-31"
+   },
+   "open_loans": [
+    {
+     "loan_id": "L1",
+     "due_on": "2024-02-10",
+     "renewed_on": null,
+     "return_scan_on": "2024-02-08"
+    },
+    {
+     "loan_id": "L2",
+     "due_on": "2024-02-17",
+     "renewed_on": "2024-02-15",
+     "return_scan_on": null
+    },
+    {
+     "loan_id": "L3",
+     "due_on": "2024-02-24",
+     "renewed_on": null,
+     "return_scan_on": "2024-02-22"
+    }
+   ],
+   "loans_last_12m": 212
+  },
+  "patron": {
+   "member_id": "M771",
+   "verified_on": "2024-03-01"
+  },
+  "item": {
+   "condition_grade": "good",
+   "conservation_check": {
+    "checked_on": "2024-02-20",
+    "outcome": "pass",
+    "box_supplied": true
+   },
+   "local_holds": 2
+  },
+  "holdings_network": {
+   "copies": [
+    {
+     "library_code": "NW",
+     "status": "lendable"
+    },
+    {
+     "library_code": "EA",
+     "status": "on_loan"
+    }
+   ],
+   "supplier_status": {
+    "print_status": "out_of_print",
+    "secondhand_listings": 3
+   }
+  },
+  "logistics": {
+   "est_arrival": "2024-04-01"
+  }
+ },
+ "factors": {
+  "agreement_status": "active",
+  "borrower_overdue_count": 3,
+  "overdue_mitigated": true,
+  "patron_verification": "verified",
+  "item_condition": "good",
+  "conservation_cleared": true,
+  "local_holds_queue": 2,
+  "network_other_copies": 1,
+  "print_status": "out_of_print_secondhand",
+  "request_scope": "whole_item",
+  "copyright_declaration_present": false,
+  "need_by_slack_days": 19,
+  "need_by_missing": false
+ },
+ "factors_sampled": {
+  "agreement_status": "active",
+  "borrower_overdue_count": 3,
+  "overdue_mitigated": true,
+  "patron_verification": "verified",
+  "item_condition": "good",
+  "conservation_cleared": true,
+  "local_holds_queue": 2,
+  "network_other_copies": 1,
+  "print_status": "out_of_print_secondhand",
+  "request_scope": "whole_item",
+  "copyright_declaration_present": false,
+  "need_by_slack_days": 5,
+  "need_by_missing": false
+ },
+ "plan": {
+  "borrower_good_standing": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "disposition": {
+   "clarity": "balanced",
+   "target": "decline",
+   "second": "lend"
+  },
+  "loan_restriction": {
+   "clarity": "balanced",
+   "target": "standard_loan",
+   "second": "library_use_only"
+  },
+  "time_slack": {
+   "clarity": "clear",
+   "target": "3",
+   "second": null
+  },
+  "replacement_difficulty": {
+   "clarity": "leaning",
+   "target": "4",
+   "second": null
+  }
+ },
+ "target_words": 91,
+ "deciding": {
+  "borrower_good_standing": "Three loans have due_on before submitted_on, though each carries a return_scan_on or renewed_on before due_on; the agreement is active.",
+  "disposition": "Three overdue loans though each is mitigated, against a clean active agreement, verified patron and passed conservation check; lend and decline are both plausible.",
+  "loan_restriction": "Item is good grade with a passed conservation check and box supplied, favouring standard loan; two local holds and a secondhand-only supply leave library use plausible.",
+  "time_slack": "Arrival 2024-04-01 against need_by 2024-04-20 gives 19 days spare.",
+  "replacement_difficulty": "One lendable network copy (NW) is listed but the other entry is on loan, and supplier status shows out of print with 3 secondhand listings."
+ },
+ "request": "rec-F203-0006",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.00649
+}

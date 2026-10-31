@@ -1,0 +1,155 @@
+{
+ "id": "F202-0049",
+ "family": "F202",
+ "state": {
+  "patrol": {
+   "id": "P4410",
+   "elr": "STN3",
+   "date": "2024-11-18",
+   "booked": [
+    21.0,
+    22.5
+   ],
+   "freq": "weekly",
+   "weather": "heavy rain",
+   "speed_mph": 90
+  },
+  "walk_trace": {
+   "walked": [
+    21.0,
+    22.062
+   ],
+   "gaps": [
+    [
+     22.062,
+     22.5
+    ]
+   ],
+   "mins": 84
+  },
+  "defects": [
+   {
+    "id": "D1",
+    "type": "twist",
+    "cat": "track_geometry",
+    "mileage": 21.4,
+    "meas": 30,
+    "unit": "mm",
+    "pri": "P3",
+    "photo": true
+   },
+   {
+    "id": "D2",
+    "type": "cess_drainage_blockage",
+    "cat": "lineside",
+    "mileage": 21.8,
+    "meas": 90,
+    "unit": "pct",
+    "pri": "P3",
+    "photo": true
+   }
+  ],
+  "standards": {
+   "twist": {
+    "unit": "mm",
+    "monitor": 15,
+    "seven_day": 22,
+    "immediate": 30
+   },
+   "cess_drainage_blockage": {
+    "unit": "pct",
+    "monitor": 50,
+    "seven_day": 70,
+    "immediate": 90
+   }
+  },
+  "site_context": {
+   "esr": [
+    {
+     "from": 21.3,
+     "to": 21.9,
+     "mph": 20
+    }
+   ],
+   "history": [
+    {
+     "date": "2024-08-20",
+     "type": "twist",
+     "mileage": 21.4
+    }
+   ],
+   "last_geometry_run": "2024-09-02"
+  },
+  "remarks": {
+   "comment": "Twist about 29.4 mm at 21.42, ESR in place. Late train 12 min earlier."
+  }
+ },
+ "factors": {
+  "measured_band": "immediate",
+  "worst_defect_category": "track_geometry",
+  "priority_vs_measurement": "understated",
+  "unit_mismatch": false,
+  "location_mismatch": "trivial",
+  "coverage_gap_pct": 29.22,
+  "mitigation_present": true,
+  "mitigation_kind": "esr_already_imposed",
+  "repeat_history": 1,
+  "photo_evidence": true,
+  "note_stance": "contradicts_entry",
+  "boundary_case": true,
+  "decoy_alarm": true
+ },
+ "factors_sampled": {
+  "measured_band": "monitor",
+  "worst_defect_category": "track_component",
+  "priority_vs_measurement": "match",
+  "unit_mismatch": false,
+  "location_mismatch": "trivial",
+  "coverage_gap_pct": 29.22,
+  "mitigation_present": false,
+  "mitigation_kind": "esr_already_imposed",
+  "repeat_history": 4,
+  "photo_evidence": true,
+  "note_stance": "contradicts_entry",
+  "boundary_case": true,
+  "decoy_alarm": true
+ },
+ "plan": {
+  "priority_supported": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "monitor_next_patrol",
+   "second": null
+  },
+  "worst_category": {
+   "clarity": "contested",
+   "target": "track_geometry",
+   "second": "lineside"
+  },
+  "discrepancy_size": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "response_urgency": {
+   "clarity": "contested",
+   "target": "2",
+   "second": "3"
+  }
+ },
+ "target_words": 138,
+ "deciding": {
+  "priority_supported": "Both defects are P3 while their measurements (30 mm and 90%) sit on or beyond the seven-day limit, at the immediate threshold, so the priorities are probably understated.",
+  "next_step": "A 20 mph ESR covers 21.3-21.9 over both defects, so recheck at the next patrol is sound and both defects are within the walked range.",
+  "worst_category": "Twist 30 mm and drainage blockage 90% both sit exactly on their immediate thresholds; the tie-break favours geometry but lineside is defensible.",
+  "discrepancy_size": "The recorded 30 mm against the comment's 29.4 mm differs by about 2.0%, right on the 0/1 boundary.",
+  "response_urgency": "Both measurements equal their immediate thresholds exactly and the table does not say if limits are inclusive, so level 2 versus 3 is open; the ESR keeps level 2 defensible."
+ },
+ "request": "rec-F202-0046",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.014235
+}

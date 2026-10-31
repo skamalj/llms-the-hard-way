@@ -1,0 +1,153 @@
+{
+ "id": "F215-0007",
+ "family": "F215",
+ "state": {
+  "bin": {
+   "bin_id": "F12",
+   "crop": "barley",
+   "fill_t": 640,
+   "capacity_t": 900,
+   "intake_date": "2024-08-10",
+   "intake_cond": "blended",
+   "safe_mc_pct": 15.0,
+   "baseline_c": 14.0
+  },
+  "cable_readings": [
+   {
+    "cable_id": "C1",
+    "cal_due": "2025-04-01",
+    "fault": false,
+    "nodes": [
+     {
+      "depth_m": 1.5,
+      "temp_c": [
+       23.6,
+       23.9,
+       24.2
+      ]
+     },
+     {
+      "depth_m": 3.0,
+      "temp_c": [
+       15.0,
+       15.1,
+       15.1
+      ]
+     }
+    ]
+   },
+   {
+    "cable_id": "C2",
+    "cal_due": "2025-04-01",
+    "fault": false,
+    "nodes": [
+     {
+      "depth_m": 1.5,
+      "temp_c": [
+       21.8,
+       22.2,
+       22.5
+      ]
+     },
+     {
+      "depth_m": 3.0,
+      "temp_c": [
+       null,
+       null,
+       null
+      ]
+     }
+    ]
+   }
+  ],
+  "moisture": [
+   {
+    "sample_date": "2024-09-12",
+    "method": "handheld",
+    "mc_pct": 14.8
+   }
+  ],
+  "environment": {
+   "ambient_c_7d_mean": 13.5,
+   "headspace_c": 15.0,
+   "co2_ppm": 480,
+   "reading_date": "2024-09-16"
+  },
+  "aeration": [],
+  "pest_checks": [
+   {
+    "check_date": "2024-09-13",
+    "traps_set": 6,
+    "insects_counted": 4
+   }
+  ]
+ },
+ "factors": {
+  "peak_excess_c": 10.2,
+  "rise_trend": "slight_rise",
+  "second_cable_corroboration": true,
+  "sensor_fault_flag": false,
+  "ambient_warming": false,
+  "moisture_vs_limit": "within_0_5_pct",
+  "moisture_sample_status": "handheld_only",
+  "aeration_running": false,
+  "co2_elevation": "normal",
+  "insect_trap_count": 4,
+  "missing_section": "cable_nodes_partial",
+  "date_order_anomaly": false,
+  "intake_condition": "blended"
+ },
+ "factors_sampled": {
+  "peak_excess_c": 9.33,
+  "rise_trend": "flat",
+  "second_cable_corroboration": true,
+  "sensor_fault_flag": false,
+  "ambient_warming": true,
+  "moisture_vs_limit": "within_0_5_pct",
+  "moisture_sample_status": "handheld_only",
+  "aeration_running": false,
+  "co2_elevation": "normal",
+  "insect_trap_count": 4,
+  "missing_section": "cable_nodes_partial",
+  "date_order_anomaly": false,
+  "intake_condition": "blended"
+ },
+ "plan": {
+  "hotspot_active": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "moisture_safe": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "next_action": {
+   "clarity": "leaning",
+   "target": "continue_monitoring",
+   "second": null
+  },
+  "recurrence_count": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  },
+  "temp_excess": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 103,
+ "deciding": {
+  "hotspot_active": "C1 1.5 m node rises 23.6, 23.9, 24.2 and C2 at the same depth rises 21.8, 22.2, 22.5. The rise is small and one C2 node is null, which leaves some doubt. Ambient and headspace are near baseline.",
+  "moisture_safe": "The only sample is handheld (14.8%), not a lab verification, and it sits within 0.5 points of the 15.0% limit, so safety is unverified.",
+  "next_action": "The rise is slow and no fan is running. Continuing monitoring is the leading answer, with doubt because of the heat level and the unverified moisture.",
+  "recurrence_count": "The record has no issue history. The blended intake gives only weak hints, so level 2 and level 1 are both plausible.",
+  "temp_excess": "Peak valid node is 24.2 C against a 14.0 C baseline, 10.2 above. That sits right on the 10 C boundary between level 2 and level 3."
+ },
+ "request": "rec-F215-0006",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.009396
+}

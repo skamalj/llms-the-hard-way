@@ -1,0 +1,103 @@
+{
+ "id": "F205-0047",
+ "family": "F205",
+ "state": {
+  "flight": {
+   "no": "LM417",
+   "std": "2025-04-02T14:00Z",
+   "turn": "quick"
+  },
+  "times": {
+   "last_bag": "2025-04-02T13:30Z",
+   "doors_closed": "2025-04-02T13:50Z",
+   "off_blocks": "2025-04-02T14:16Z",
+   "delay_code": "BAG",
+   "delay_min": 16
+  },
+  "load": {
+   "bags_count": 48,
+   "bags_kg": 650,
+   "captain_accepted": true
+  },
+  "hold_log": [
+   {
+    "pos": "1",
+    "bags": 24,
+    "wt": 330,
+    "unit": "kg"
+   },
+   {
+    "pos": "2",
+    "bags": 24,
+    "wt": 710,
+    "unit": "lb"
+   }
+  ]
+ },
+ "factors": {
+  "bag_mismatch_size": "none",
+  "mismatch_location": "loadsheet_bags_vs_hold_log",
+  "missing_record": "none",
+  "milestone_out_of_order": false,
+  "delay_minutes": 16,
+  "delay_code_fit": "contradicted",
+  "explanatory_remark": false,
+  "pending_signoff": false,
+  "dg_on_board": false,
+  "decoy_noise": "weight_units_kg_vs_lb",
+  "boundary_value": true,
+  "turn_type": "quick_turn"
+ },
+ "factors_sampled": {
+  "bag_mismatch_size": "trivial_1_2_bags",
+  "mismatch_location": "loadsheet_bags_vs_hold_log",
+  "missing_record": "none",
+  "milestone_out_of_order": true,
+  "delay_minutes": 94,
+  "delay_code_fit": "supported",
+  "explanatory_remark": false,
+  "pending_signoff": true,
+  "dg_on_board": false,
+  "decoy_noise": "weight_units_kg_vs_lb",
+  "boundary_value": false,
+  "turn_type": "quick_turn"
+ },
+ "plan": {
+  "load_reconciled": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "delay_code_supported": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "log_disposition": {
+   "clarity": "leaning",
+   "target": "close_clean",
+   "second": null
+  },
+  "offblock_delay": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  },
+  "failed_checks": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  }
+ },
+ "target_words": 52,
+ "deciding": {
+  "load_reconciled": "Hold bags 24+24 equal the loadsheet 48. Weight 330 kg plus 710 lb (about 322 kg) is about 652 kg against 650 kg, so the lb entry is only unit noise.",
+  "delay_code_supported": "Code BAG, but last_bag at 13:30 was 30 min before STD and doors closed 13:50, so baggage did not run late.",
+  "log_disposition": "Load and signoff are complete and no remark is needed. Only the delay code mismatch gives a slight doubt about closing as recorded.",
+  "offblock_delay": "Off-blocks 14:16 against STD 14:00 is 16 minutes, just past the 15-minute boundary between minor and significant.",
+  "failed_checks": "The delay code check fails. Whether the 16-minute delay counts as a second failure is borderline."
+ },
+ "request": "rec-F205-0046",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.01388
+}

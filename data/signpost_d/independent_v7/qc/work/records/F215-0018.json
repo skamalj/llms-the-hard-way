@@ -1,0 +1,148 @@
+{
+ "id": "F215-0018",
+ "family": "F215",
+ "state": {
+  "bin": {
+   "crop": "beans",
+   "intake_date": "2024-09-02",
+   "intake_cond": "undried",
+   "safe_mc_pct": 16.0,
+   "baseline_c": 14.0
+  },
+  "cable_readings": [
+   {
+    "cable_id": "C1",
+    "cal_due": "2025-03-01",
+    "fault": false,
+    "nodes": [
+     {
+      "depth_m": 1.5,
+      "temp_c": [
+       15.3,
+       15.8,
+       16.2
+      ]
+     }
+    ]
+   },
+   {
+    "cable_id": "C2",
+    "cal_due": "2025-03-01",
+    "fault": false,
+    "nodes": [
+     {
+      "depth_m": 1.5,
+      "temp_c": [
+       14.8,
+       15.1,
+       15.4
+      ]
+     }
+    ]
+   },
+   {
+    "cable_id": "C3",
+    "cal_due": "2025-03-01",
+    "fault": true,
+    "nodes": [
+     {
+      "depth_m": 1.5,
+      "temp_c": [
+       24.4,
+       24.4,
+       24.4
+      ]
+     }
+    ]
+   }
+  ],
+  "moisture": [
+   {
+    "sample_date": "2024-09-18",
+    "method": "lab",
+    "mc_pct": 16.3
+   }
+  ],
+  "environment": {
+   "ambient_c_7d_mean": 13.0,
+   "co2_ppm": 1050,
+   "reading_date": "2024-09-25"
+  },
+  "aeration": [
+   {
+    "start": "2024-09-24",
+    "end": null,
+    "fan_hours": 20,
+    "mode": "cool"
+   }
+  ]
+ },
+ "factors": {
+  "peak_excess_c": 2.2,
+  "rise_trend": "steady_climb",
+  "second_cable_corroboration": true,
+  "sensor_fault_flag": true,
+  "ambient_warming": false,
+  "moisture_vs_limit": "within_0_5_pct",
+  "moisture_sample_status": "recent_lab",
+  "aeration_running": true,
+  "co2_elevation": "raised",
+  "insect_trap_count": 6,
+  "missing_section": "cable_nodes_partial",
+  "date_order_anomaly": false,
+  "intake_condition": "undried"
+ },
+ "factors_sampled": {
+  "peak_excess_c": 10.37,
+  "rise_trend": "flat",
+  "second_cable_corroboration": false,
+  "sensor_fault_flag": true,
+  "ambient_warming": false,
+  "moisture_vs_limit": "within_0_5_pct",
+  "moisture_sample_status": "recent_lab",
+  "aeration_running": true,
+  "co2_elevation": "raised",
+  "insect_trap_count": 6,
+  "missing_section": "cable_nodes_partial",
+  "date_order_anomaly": false,
+  "intake_condition": "undried"
+ },
+ "plan": {
+  "hotspot_active": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "moisture_safe": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "next_action": {
+   "clarity": "leaning",
+   "target": "continue_monitoring",
+   "second": null
+  },
+  "recurrence_count": {
+   "clarity": "contested",
+   "target": "2",
+   "second": "1"
+  },
+  "temp_excess": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 46,
+ "deciding": {
+  "hotspot_active": "C1 and C2 both climb steadily over the three dates with raised CO2 of 1050, and ambient is below the grain temperature; the 24.4 on C3 is a faulted cable and is ignored.",
+  "moisture_safe": "The recent lab sample is 16.3 against a 16.0 limit, slightly above.",
+  "next_action": "Fans are already running (end null, 20 h) and the valid rise is small, so continuing to monitor is favoured, with some doubt given the climb and raised CO2.",
+  "recurrence_count": "No issue history appears in the snapshot, so level 1 versus 2 is an inference from the undried intake.",
+  "temp_excess": "The highest valid node is C1 at 16.2 against baseline 14.0, about 2.2 above, close to the 2 degree boundary between levels 0 and 1; the faulty C3 is excluded."
+ },
+ "request": "rec-F215-0016",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.009473
+}

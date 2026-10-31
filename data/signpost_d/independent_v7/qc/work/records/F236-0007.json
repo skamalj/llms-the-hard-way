@@ -1,0 +1,165 @@
+{
+ "id": "F236-0007",
+ "family": "F236",
+ "state": {
+  "changeover": {
+   "line": "L4",
+   "from_allergens": [
+    "egg",
+    "wheat"
+   ],
+   "to_allergens": [
+    "wheat"
+   ]
+  },
+  "cleaning": {
+   "steps": [
+    {
+     "n": 1,
+     "completed": true
+    },
+    {
+     "n": 2,
+     "completed": false
+    },
+    {
+     "n": 3,
+     "completed": false
+    }
+   ],
+   "part_swap": true,
+   "dedicated_set": "DS-7"
+  },
+  "verification": {
+   "swabs": [
+    {
+     "id": "S1",
+     "target": "egg",
+     "reading": 9.8,
+     "limit_ppm": 10,
+     "at": "2024-06-03T07:40"
+    }
+   ]
+  },
+  "production": {
+   "line": "L4",
+   "start_at": "2024-06-03T08:00",
+   "quantity": 506,
+   "unit": "kg",
+   "packaging_allergens": [
+    "wheat",
+    "may_contain:egg"
+   ]
+  },
+  "approvals": {
+   "qa_signoff": {
+    "signed_at": "2024-06-03T07:45"
+   },
+   "deviations": [
+    {
+     "id": "D-31",
+     "scope": "L4 steps 2-3 reduced clean",
+     "approved_at": "2024-06-03T07:30"
+    }
+   ]
+  },
+  "history": [
+   {
+    "passed": true
+   },
+   {
+    "passed": false
+   },
+   {
+    "passed": true
+   },
+   {
+    "passed": true
+   },
+   {
+    "passed": false
+   },
+   {
+    "passed": true
+   },
+   {
+    "passed": true
+   },
+   {
+    "passed": true
+   },
+   {
+    "passed": true
+   },
+   {
+    "passed": true
+   }
+  ]
+ },
+ "factors": {
+  "allergen_transition": "removes_allergen",
+  "cleaning_completion": "multiple_steps_skipped",
+  "swab_outcome": "all_below_limit_trace",
+  "swab_timing_mismatch": false,
+  "cross_section_discrepancy": "none",
+  "exposed_quantity_kg": 506.0,
+  "approved_deviation": true,
+  "label_precaution": true,
+  "dedicated_tooling": true,
+  "qa_signoff_state": "signed_before_start",
+  "line_failure_history": 2,
+  "boundary_value": false
+ },
+ "factors_sampled": {
+  "allergen_transition": "removes_allergen",
+  "cleaning_completion": "multiple_steps_skipped",
+  "swab_outcome": "all_negative",
+  "swab_timing_mismatch": false,
+  "cross_section_discrepancy": "none",
+  "exposed_quantity_kg": 418.93,
+  "approved_deviation": true,
+  "label_precaution": true,
+  "dedicated_tooling": true,
+  "qa_signoff_state": "signed_before_start",
+  "line_failure_history": 2,
+  "boundary_value": false
+ },
+ "plan": {
+  "swabs_cleared": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "line_disposition": {
+   "clarity": "clear",
+   "target": "release_conditional",
+   "second": null
+  },
+  "worst_deficiency": {
+   "clarity": "leaning",
+   "target": "cleaning_shortfall",
+   "second": null
+  },
+  "exposed_product": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "residue_evidence": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  }
+ },
+ "target_words": 49,
+ "deciding": {
+  "swabs_cleared": "The only swab S1 (9.8 vs 10 ppm) was taken at 07:40, before the 08:00 start, but it sits close to the limit.",
+  "line_disposition": "Approved deviation D-31 covers the skipped steps and packaging carries may_contain:egg, so release with a label control fits.",
+  "worst_deficiency": "Steps 2 and 3 completed:false; the deviation softens this but it remains the main issue.",
+  "exposed_product": "Batch is 506 kg, right at the 500 boundary, and the skipped steps cast doubt on whether the line was truly verified clean.",
+  "residue_evidence": "Reading 9.8 is above zero and just under the 10 ppm limit, between trace and at-limit."
+ },
+ "request": "rec-F236-0006",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.015068
+}

@@ -1,0 +1,158 @@
+{
+ "id": "F220-0034",
+ "family": "F220",
+ "state": {
+  "tray": {
+   "tray_id": "T-2290",
+   "set_code": "ENT-C",
+   "barcode": "660218",
+   "requested_for": "2025-06-10T14:00",
+   "request_note": "Next list."
+  },
+  "set_check": {
+   "lines": [
+    {
+     "cat_code": "E3",
+     "qty_expected": 2,
+     "qty_counted": 1
+    },
+    {
+     "cat_code": "E5",
+     "qty_expected": 1,
+     "qty_counted": 0
+    },
+    {
+     "cat_code": "E8",
+     "qty_expected": 3,
+     "qty_counted": 1
+    },
+    {
+     "cat_code": "E9",
+     "qty_expected": 2,
+     "qty_counted": 1
+    },
+    {
+     "cat_code": "Z40",
+     "qty_expected": 0,
+     "qty_counted": 1
+    }
+   ],
+   "variances": [
+    {
+     "cat_code": "E3",
+     "reason": "substituted",
+     "approved_by": "L.Park"
+    },
+    {
+     "cat_code": "E9",
+     "reason": "in repair",
+     "approved_by": null
+    }
+   ],
+   "packer_note": "All there, checked twice."
+  },
+  "washer": {
+   "cycle_id": "W-77",
+   "a0": 3000,
+   "alarms": [],
+   "trays_processed": [
+    "660128"
+   ]
+  },
+  "steriliser_load": {
+   "load_id": "L-12",
+   "printout": {
+    "temp_min_c": 134.4,
+    "temp_max_c": 136.0,
+    "hold_s": 190,
+    "pressure_kpa": 296
+   },
+   "logger": {
+    "temp_min_c": 134.5,
+    "hold_s": 190
+   },
+   "daily_test": {
+    "date": "2025-06-10",
+    "result": "pass"
+   },
+   "bi": {
+    "result": "pass"
+   },
+   "ci_result": "pass",
+   "unload_condition": "dry"
+  },
+  "release_label": {
+   "tray_barcode": "660218",
+   "load_id": "L-12",
+   "wrap_condition": "intact"
+  }
+ },
+ "factors": {
+  "set_count_discrepancies": 5,
+  "substitution_documented": false,
+  "cycle_excursion": "pressure_fault",
+  "independent_logger_confirms": true,
+  "bi_status": "pass",
+  "chemical_indicator": "pass",
+  "washer_record_state": "barcode_not_listed",
+  "pack_integrity": "intact",
+  "label_mismatch": "none",
+  "daily_test_state": "pass_today",
+  "theatre_urgency": "next_list",
+  "note_tone": "reassuring_unverified",
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "set_count_discrepancies": 1,
+  "substitution_documented": true,
+  "cycle_excursion": "pressure_fault",
+  "independent_logger_confirms": true,
+  "bi_status": "pass",
+  "chemical_indicator": "pass",
+  "washer_record_state": "complete",
+  "pack_integrity": "intact",
+  "label_mismatch": "none",
+  "daily_test_state": "pass_today",
+  "theatre_urgency": "next_list",
+  "note_tone": "reassuring_unverified",
+  "boundary_case": false
+ },
+ "plan": {
+  "cycle_in_limits": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "disposition": {
+   "clarity": "clear",
+   "target": "release",
+   "second": null
+  },
+  "failure_stage": {
+   "clarity": "clear",
+   "target": "wash_stage",
+   "second": null
+  },
+  "count_gaps": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "sterility_doubt": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  }
+ },
+ "target_words": 87,
+ "deciding": {
+  "cycle_in_limits": "Printout pressure_kpa 296 sits just under the saturated band while temperature and hold are in band in both printout and logger; the logger agrees on temperature, holding it in balance.",
+  "disposition": "BI and CI pass, the wrap is intact and dry, and the label barcode and load match; the washer barcode mismatch is the only record gap.",
+  "failure_stage": "washer.trays_processed lists 660128 but the tray barcode is 660218, a transposed digit at the earliest stage.",
+  "count_gaps": "Five lines differ (including Z40, not on the set); E3 is approved, E9's variance has approved_by null, so about four are unexplained, near the 3 vs 4 boundary; the packer note does not override the counts.",
+  "sterility_doubt": "BI and CI pass and the pack is intact and dry; the only gap is the washer barcode mismatch."
+ },
+ "request": "rec-F220-0031",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.014351
+}

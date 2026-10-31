@@ -1,0 +1,123 @@
+{
+ "id": "F229-0036",
+ "family": "F229",
+ "state": {
+  "lot": {
+   "lot_id": "L0412",
+   "block": "B-12",
+   "variety": "Pinot Noir",
+   "pick_date": "2024-09-14",
+   "pick_start": "06:00",
+   "pick_end": null
+  },
+  "intake": {
+   "ticket_no": 8841,
+   "block_code": "B-12",
+   "arrival_at": "2024-09-14T21:30",
+   "gross_kg": 12460,
+   "tare_kg": 2400,
+   "net_kg": 10060,
+   "bins": [
+    2000,
+    2010,
+    2020,
+    2015,
+    2000
+   ],
+   "temp_c": 22,
+   "cold_room_in": null,
+   "cold_room_out": null,
+   "driver_note": "Light rain at pick."
+  },
+  "sample": {
+   "sampled_at": "2024-09-14T20:50",
+   "brix": 24.1,
+   "rot_pct": 11.33,
+   "sort": {
+    "sorted": false
+   }
+  },
+  "press": {
+   "programme": "red_drained_pomace",
+   "band_l_per_t": "550-620",
+   "cycle_start": "2024-09-15T14:50",
+   "cycle_end": "2024-09-15T19:10",
+   "juice_l": 5480,
+   "so2_mg_l": null
+  },
+  "transfer": {
+   "lot_ref": "L-0412",
+   "tank_id": "T5",
+   "transferred_l": 5420,
+   "qa_signoff": "JR 2024-09-15T21:00"
+  }
+ },
+ "factors": {
+  "weight_mismatch": "trivial_under_1pct",
+  "press_programme": "red_drained_pomace",
+  "yield_position": "just_below_band",
+  "lot_id_drift": "format_variation_at_transfer",
+  "missing_step": "so2_addition_missing",
+  "out_of_order_timestamp": true,
+  "pick_to_press_hours": 17.3,
+  "pick_end_recorded": false,
+  "cold_held": false,
+  "rot_pct": 11.33,
+  "sorting_applied": false,
+  "note_signal": "benign_decoy",
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "weight_mismatch": "trivial_under_1pct",
+  "press_programme": "red_drained_pomace",
+  "yield_position": "inside_band",
+  "lot_id_drift": "none",
+  "missing_step": "so2_addition_missing",
+  "out_of_order_timestamp": true,
+  "pick_to_press_hours": 3.32,
+  "pick_end_recorded": false,
+  "cold_held": false,
+  "rot_pct": 11.33,
+  "sorting_applied": false,
+  "note_signal": "benign_decoy",
+  "boundary_case": false
+ },
+ "plan": {
+  "yield_consistent": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "chain_intact": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "release_decision": {
+   "clarity": "clear",
+   "target": "release_corrected",
+   "second": null
+  },
+  "pick_press_delay": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  },
+  "failed_checks": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  }
+ },
+ "target_words": 104,
+ "deciding": {
+  "yield_consistent": "juice_l 5480 on net 10060 kg is about 545 L/t, just under the 550-620 band; bin sum is within 0.2% of net.",
+  "chain_intact": "transfer.lot_ref is 'L-0412' against lot_id 'L0412'; only the format differs, so it could be a clerical variant or a real change.",
+  "release_decision": "The only issues are clerical: a missing SO2 entry, a sampled_at before arrival_at, and a lot_ref format difference. Yield is borderline and the QA sign-off is present.",
+  "pick_press_delay": "pick_end is null, but arrival_at 21:30 to cycle_start 14:50 next day is already about 17 h, which is a lower bound on the wait.",
+  "failed_checks": "Candidate failures: SO2 null, timestamp order, borderline yield, lot_ref format, and 11% rot unsorted. Whether the last two count puts it at two-three or four."
+ },
+ "request": "rec-F229-0036",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.00959
+}

@@ -1,0 +1,147 @@
+{
+ "id": "F230-0029",
+ "family": "F230",
+ "state": {
+  "resident": {
+   "status": "hospital",
+   "status_since": "2024-08-01"
+  },
+  "prescriptions": [
+   {
+    "item_id": "D1",
+    "strength_mg": 10,
+    "dose_units": 1,
+    "changes": [
+     {
+      "effective": "2024-08-05",
+      "new_dose_units": 1,
+      "order_ref": "O-9",
+      "authorised_by_role": "GP"
+     }
+    ]
+   },
+   {
+    "item_id": "D2",
+    "strength_mg": 10,
+    "dose_units": 1
+   },
+   {
+    "item_id": "D3",
+    "strength_mg": 10,
+    "dose_units": 1
+   }
+  ],
+  "administrations": [
+   {
+    "item_id": "D1",
+    "units_given": 1,
+    "strength_mg_used": 20,
+    "initials": null
+   },
+   {
+    "item_id": "D2",
+    "units_given": 0,
+    "code": "H",
+    "initials": "JL"
+   },
+   {
+    "item_id": "D3",
+    "units_given": 2,
+    "strength_mg_used": 5,
+    "initials": "JL"
+   }
+  ],
+  "stock": {
+   "D3": {
+    "opening": 20,
+    "closing": 16
+   }
+  },
+  "round": {
+   "date": "2024-08-08",
+   "open_queries": [
+    {
+     "type": "gp",
+     "raised": "2024-08-08T09:00",
+     "item_id": "D1"
+    }
+   ],
+   "post_dose_obs": [
+    {
+     "type": "pulse",
+     "value": 72
+    }
+   ]
+  }
+ },
+ "factors": {
+  "dose_mismatch_type": "wrong_strength",
+  "prescription_change_documented": true,
+  "omission_count": 1,
+  "omission_reason_valid": true,
+  "late_minutes": 26,
+  "time_critical_affected": false,
+  "stock_variance": -3,
+  "stock_variance_explained": false,
+  "signature_gaps": 1,
+  "unit_expression_decoy": "equivalent_split",
+  "post_dose_obs_reassuring": true,
+  "pending_query": "gp_query_open",
+  "prior_errors_30d": 3,
+  "item_count": 3
+ },
+ "factors_sampled": {
+  "dose_mismatch_type": "wrong_strength",
+  "prescription_change_documented": true,
+  "omission_count": 1,
+  "omission_reason_valid": true,
+  "late_minutes": 26,
+  "time_critical_affected": false,
+  "stock_variance": -3,
+  "stock_variance_explained": false,
+  "signature_gaps": 2,
+  "unit_expression_decoy": "equivalent_split",
+  "post_dose_obs_reassuring": true,
+  "pending_query": "none",
+  "prior_errors_30d": 3,
+  "item_count": 3
+ },
+ "plan": {
+  "dose_mismatch": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "stock_reconciles": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "hold",
+   "second": null
+  },
+  "open_discrepancies": {
+   "clarity": "contested",
+   "target": "2",
+   "second": "1"
+  },
+  "error_severity": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  }
+ },
+ "target_words": 32,
+ "deciding": {
+  "dose_mismatch": "D1 given 20 mg against a 10 mg prescription; D3's 2x5 mg split is a correct decoy.",
+  "stock_reconciles": "D3: 20 opening minus 2 given should leave 18, but closing is 16 with no waste or return recorded; only D3 has a stock section.",
+  "next_step": "An open GP query on D1 is outstanding and has to be answered before any outcome.",
+  "open_discrepancies": "D1 (error, open query) and D3 (stock gap of 2) are both unresolved; D2's H omission is valid because status is hospital since before the round.",
+  "error_severity": "The wrong-strength D1 is an ordinary drug (no high-risk or time-critical flag), which is level 3; the open query leaves a little doubt."
+ },
+ "request": "rec-F230-0026",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.010755
+}

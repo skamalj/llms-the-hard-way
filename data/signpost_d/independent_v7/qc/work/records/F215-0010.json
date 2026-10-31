@@ -1,0 +1,133 @@
+{
+ "id": "F215-0010",
+ "family": "F215",
+ "state": {
+  "bin": {
+   "crop": "wheat",
+   "safe_mc_pct": 15.0,
+   "baseline_c": 14.0,
+   "intake_cond": "dried_cleaned"
+  },
+  "cable_readings": [
+   {
+    "cable_id": "C1",
+    "cal_due": "2025-06-01",
+    "fault": false,
+    "nodes": [
+     {
+      "depth_m": 2.0,
+      "temp_c": [
+       20.5,
+       22.8,
+       24.1
+      ]
+     }
+    ]
+   },
+   {
+    "cable_id": "C2",
+    "cal_due": "2025-06-01",
+    "fault": false,
+    "nodes": [
+     {
+      "depth_m": 2.0,
+      "temp_c": [
+       19.0,
+       20.9,
+       22.6
+      ]
+     }
+    ]
+   }
+  ],
+  "moisture": [
+   {
+    "sample_date": "2024-10-08",
+    "method": "lab",
+    "mc_pct": 12.8
+   }
+  ],
+  "environment": {
+   "ambient_c_7d_mean": 11.0,
+   "headspace_c": 12.0,
+   "co2_ppm": 560,
+   "reading_date": "2024-10-14"
+  },
+  "aeration": [
+   {
+    "start": "2024-10-13T09:00",
+    "end": null,
+    "fan_hours": 8,
+    "mode": "cool"
+   }
+  ]
+ },
+ "factors": {
+  "peak_excess_c": 10.1,
+  "rise_trend": "steady_climb",
+  "second_cable_corroboration": true,
+  "sensor_fault_flag": false,
+  "ambient_warming": false,
+  "moisture_vs_limit": "well_below",
+  "moisture_sample_status": "recent_lab",
+  "aeration_running": true,
+  "co2_elevation": "normal",
+  "insect_trap_count": 24,
+  "missing_section": "none",
+  "date_order_anomaly": false,
+  "intake_condition": "dried_cleaned"
+ },
+ "factors_sampled": {
+  "peak_excess_c": 10.14,
+  "rise_trend": "flat",
+  "second_cable_corroboration": true,
+  "sensor_fault_flag": false,
+  "ambient_warming": true,
+  "moisture_vs_limit": "well_below",
+  "moisture_sample_status": "overdue",
+  "aeration_running": true,
+  "co2_elevation": "normal",
+  "insect_trap_count": 24,
+  "missing_section": "cable_nodes_partial",
+  "date_order_anomaly": false,
+  "intake_condition": "dried_cleaned"
+ },
+ "plan": {
+  "hotspot_active": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "moisture_safe": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "next_action": {
+   "clarity": "leaning",
+   "target": "aerate",
+   "second": null
+  },
+  "recurrence_count": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  },
+  "temp_excess": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 28,
+ "deciding": {
+  "hotspot_active": "C1 (20.5, 22.8, 24.1) and C2 (19.0, 20.9, 22.6) both climb at 2 m while ambient and headspace are near baseline.",
+  "moisture_safe": "The lab sample from 2024-10-08 reads 12.8% against a 15.0% limit, six days before the reading date.",
+  "next_action": "A fan run with end null and fan_hours 8 is already active, so continued aeration is the leading answer, though a hotspot this size could justify moving grain.",
+  "recurrence_count": "The record has no issue history, and the dried and cleaned intake suggests few repeats, so level 1 and level 2 are both plausible.",
+  "temp_excess": "Peak valid node is 24.1 C against a 14.0 C baseline, 10.1 above. That sits right on the 10 C boundary between level 2 and level 3."
+ },
+ "request": "rec-F215-0006",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.009396
+}

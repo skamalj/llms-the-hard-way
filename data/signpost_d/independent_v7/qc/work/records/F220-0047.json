@@ -1,0 +1,123 @@
+{
+ "id": "F220-0047",
+ "family": "F220",
+ "state": {
+  "tray": {
+   "barcode": "5120834"
+  },
+  "set_check": {
+   "lines": [
+    {
+     "cat_code": "S5",
+     "qty_expected": 2,
+     "qty_counted": 1
+    },
+    {
+     "cat_code": "K9",
+     "qty_expected": 1,
+     "qty_counted": 2
+    }
+   ],
+   "variances": [
+    {
+     "cat_code": "K9",
+     "reason": "substitute",
+     "approved_by": null
+    }
+   ]
+  },
+  "washer": {
+   "trays_processed": [
+    "5120384"
+   ]
+  },
+  "steriliser_load": {
+   "printout": {
+    "temp_min_c": 134.5,
+    "hold_s": 190
+   },
+   "logger": {
+    "temp_min_c": 134.4,
+    "hold_s": 190
+   },
+   "bi": {
+    "result": "pass"
+   },
+   "ci_result": null,
+   "unload_condition": "damp wrap edge, redried, retest logged"
+  },
+  "release_label": {
+   "sterilised_date": "2025-03-10",
+   "expiry_date": "2025-03-08",
+   "wrap_condition": "damp edge"
+  }
+ },
+ "factors": {
+  "set_count_discrepancies": 2,
+  "substitution_documented": true,
+  "cycle_excursion": "none",
+  "independent_logger_confirms": true,
+  "bi_status": "pass",
+  "chemical_indicator": "not_read",
+  "washer_record_state": "barcode_not_listed",
+  "pack_integrity": "condensate_dried_retested",
+  "label_mismatch": "expiry_inconsistent",
+  "daily_test_state": "pass_today",
+  "theatre_urgency": "next_list",
+  "note_tone": "flags_concern_open",
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "set_count_discrepancies": 1,
+  "substitution_documented": false,
+  "cycle_excursion": "short_hold",
+  "independent_logger_confirms": true,
+  "bi_status": "pass",
+  "chemical_indicator": "not_read",
+  "washer_record_state": "complete",
+  "pack_integrity": "wet_on_unload",
+  "label_mismatch": "expiry_inconsistent",
+  "daily_test_state": "pass_today",
+  "theatre_urgency": "next_list",
+  "note_tone": "flags_concern_open",
+  "boundary_case": false
+ },
+ "plan": {
+  "cycle_in_limits": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "disposition": {
+   "clarity": "clear",
+   "target": "release_annotated",
+   "second": null
+  },
+  "failure_stage": {
+   "clarity": "balanced",
+   "target": "wash_stage",
+   "second": "pack_stage"
+  },
+  "count_gaps": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  },
+  "sterility_doubt": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 63,
+ "deciding": {
+  "cycle_in_limits": "Printout and logger both in band (134.5/134.4 C, 190 s).",
+  "disposition": "BI passed, cycle confirmed and variance documented; the wrap was redried with a retest logged, so release with a note on the label.",
+  "failure_stage": "Washer trays_processed has 5120384 against tray barcode 5120834 (transposed digits), against the count lines and expiry mismatch at pack.",
+  "count_gaps": "Two discrepant lines; K9 has a variance with approved_by null and S5 has none, so 2 vs 1 depends on the weight of the K9 reason.",
+  "sterility_doubt": "CI is not read (doubtful) against a damp wrap edge that was redried and retested (compromised if taken at face value)."
+ },
+ "request": "rec-F220-0046",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.014949
+}

@@ -1,0 +1,137 @@
+{
+ "id": "F220-0007",
+ "family": "F220",
+ "state": {
+  "tray": {
+   "tray_id": "T-2090",
+   "barcode": "553018",
+   "requested_for": "2025-04-02T13:00",
+   "request_note": "Next list"
+  },
+  "set_check": {
+   "lines": [
+    {
+     "cat_code": "F2",
+     "qty_expected": 3,
+     "qty_counted": 2
+    },
+    {
+     "cat_code": "G7",
+     "qty_expected": 2,
+     "qty_counted": 1
+    }
+   ],
+   "variances": [
+    {
+     "cat_code": "F2",
+     "reason": "lost, replaced",
+     "approved_by": "J.Moreno"
+    },
+    {
+     "cat_code": "G7",
+     "reason": "set list rev B",
+     "approved_by": null
+    }
+   ],
+   "packer_note": "All there, checked twice."
+  },
+  "washer": {
+   "cycle_id": "W31",
+   "date": "2025-04-01",
+   "a0": 3000,
+   "alarms": [],
+   "trays_processed": [
+    "553018"
+   ]
+  },
+  "steriliser_load": {
+   "load_id": "L40",
+   "cycle_date": "2025-04-01",
+   "printout": null,
+   "logger": {
+    "temp_min_c": 135.0,
+    "hold_s": 200
+   },
+   "daily_test": {
+    "date": "2025-04-01",
+    "result": "pass"
+   },
+   "bi": null,
+   "ci_result": "unreadable",
+   "unload_condition": "slight damp at one corner"
+  },
+  "release_label": {
+   "load_id": "L40",
+   "sterilised_date": "2025-04-02",
+   "wrap_condition": "intact"
+  }
+ },
+ "factors": {
+  "set_count_discrepancies": 2,
+  "substitution_documented": true,
+  "cycle_excursion": "printout_missing",
+  "independent_logger_confirms": true,
+  "bi_status": "not_required",
+  "chemical_indicator": "not_read",
+  "washer_record_state": "complete",
+  "pack_integrity": "condensate_dried_retested",
+  "label_mismatch": "date_off_by_one_midnight",
+  "daily_test_state": "pass_today",
+  "theatre_urgency": "next_list",
+  "note_tone": "reassuring_unverified",
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "set_count_discrepancies": 5,
+  "substitution_documented": false,
+  "cycle_excursion": "printout_missing",
+  "independent_logger_confirms": false,
+  "bi_status": "not_required",
+  "chemical_indicator": "fail",
+  "washer_record_state": "barcode_not_listed",
+  "pack_integrity": "wet_on_unload",
+  "label_mismatch": "date_off_by_one_midnight",
+  "daily_test_state": "not_logged",
+  "theatre_urgency": "next_list",
+  "note_tone": "reassuring_unverified",
+  "boundary_case": false
+ },
+ "plan": {
+  "cycle_in_limits": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "disposition": {
+   "clarity": "leaning",
+   "target": "release_annotated",
+   "second": null
+  },
+  "failure_stage": {
+   "clarity": "balanced",
+   "target": "pack_stage",
+   "second": "no_discrepancy"
+  },
+  "count_gaps": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "sterility_doubt": {
+   "clarity": "contested",
+   "target": "2",
+   "second": "3"
+  }
+ },
+ "target_words": 160,
+ "deciding": {
+  "cycle_in_limits": "Printout is null but the logger shows 135.0 C and 200 s, in band.",
+  "disposition": "Variances are documented for the count lines, so release with an annotation is favoured; the unreadable CI and damp corner give some doubt.",
+  "failure_stage": "Label sterilised_date is a day after cycle_date, against otherwise complete washer data; pack versus none is split.",
+  "count_gaps": "G7 variance has approved_by null while F2 is approved: zero or one unexplained.",
+  "sterility_doubt": "ci_result unreadable (doubtful) against 'slight damp' on unload (possible compromised)."
+ },
+ "request": "rec-F220-0006",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.009628
+}

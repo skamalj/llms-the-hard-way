@@ -1,0 +1,150 @@
+{
+ "id": "F216-0024",
+ "family": "F216",
+ "state": {
+  "session": {
+   "id": "OC35",
+   "type": "outreach_coolbox",
+   "date": "2024-05-07",
+   "next": "2024-05-08"
+  },
+  "storage": {
+   "unit": "CB4",
+   "alarms_30d": 4
+  },
+  "temp_log": {
+   "interval_min": 10,
+   "readings": [
+    {
+     "t": "09:50",
+     "product_c": 8.4
+    },
+    {
+     "t": "10:00",
+     "product_c": 9.0
+    },
+    {
+     "t": "10:10",
+     "product_c": 9.6
+    },
+    {
+     "t": "10:20",
+     "product_c": 9.9
+    },
+    {
+     "t": "12:00",
+     "product_c": 7.8
+    }
+   ],
+   "manual_checks": [
+    {
+     "t": "11:55",
+     "min_c": 8.2,
+     "max_c": 10.4,
+     "current_c": 8.5
+    }
+   ],
+   "logger_gaps": [
+    {
+     "from": "10:30",
+     "to": "12:00"
+    }
+   ]
+  },
+  "stock": {
+   "lots": [
+    {
+     "lot": "V88",
+     "tol_min": 240,
+     "open": 40,
+     "waste": 2,
+     "close": 22
+    }
+   ]
+  },
+  "administration": [
+   {
+    "t": "11:00",
+    "lot": "V88",
+    "n": 16
+   }
+  ],
+  "excursion_actions": {
+   "start": "09:50",
+   "end": "12:00",
+   "quarantined": true,
+   "advice_req": "12:30",
+   "status": "CLR_SHORT",
+   "advice_at": "14:30",
+   "revised_expiry": "2024-05-20"
+  }
+ },
+ "factors": {
+  "true_excursion_minutes": 120,
+  "log_source_discrepancy": "logger_gap",
+  "buffered_probe_in_range": false,
+  "planned_maintenance": false,
+  "stability_clearance": "cleared_short",
+  "doses_during_exposure": 16,
+  "stock_count_gap": 0,
+  "lot_id_mismatch": false,
+  "lots_beyond_tolerance": "none",
+  "freezing_reading": false,
+  "boundary_case": true,
+  "unit_alarm_history": 4,
+  "session_type": "outreach_coolbox"
+ },
+ "factors_sampled": {
+  "true_excursion_minutes": 180,
+  "log_source_discrepancy": "logger_gap",
+  "buffered_probe_in_range": false,
+  "planned_maintenance": false,
+  "stability_clearance": "not_requested",
+  "doses_during_exposure": 16,
+  "stock_count_gap": 1,
+  "lot_id_mismatch": false,
+  "lots_beyond_tolerance": "some",
+  "freezing_reading": false,
+  "boundary_case": false,
+  "unit_alarm_history": 4,
+  "session_type": "outreach_coolbox"
+ },
+ "plan": {
+  "dosed_uncleared": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "stock_reconciles": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "stock_disposition": {
+   "clarity": "balanced",
+   "target": "release_restricted",
+   "second": "quarantine_hold"
+  },
+  "excursion_duration": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "followup_urgency": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 45,
+ "deciding": {
+  "dosed_uncleared": "16 doses at 11:00 fall within the excursion (start 09:50) and before advice_at 14:30. The 11:00 time sits inside the logger gap, so some doubt remains.",
+  "stock_reconciles": "V88: 40-2-16=22 matches closing 22, with a single lot and matching numbers.",
+  "stock_disposition": "CLR_SHORT with revised_expiry 2024-05-20 and tol_min 240 support release_restricted. The logger gap and a manual max of 10.4 leave doubt about whether the advice covered the real exposure, so quarantine_hold is also defensible.",
+  "excursion_duration": "Four readings above 8 give 40 minutes. The 10:30-12:00 gap with manual min 8.2 implies the gap was also out of range, so the total is about 120 minutes, on the 2/3 boundary.",
+  "followup_urgency": "16 doses were given in a roughly 2-hour exposure with the logger gap. The next session is 2024-05-08, and advice came late at 14:30, which leaves same-day versus within-24h open."
+ },
+ "request": "rec-F216-0021",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.019236
+}

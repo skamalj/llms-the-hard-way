@@ -1,0 +1,139 @@
+{
+ "id": "F207-0036",
+ "family": "F207",
+ "state": {
+  "loan": {
+   "medium": "ceramic",
+   "rh_min": 40,
+   "rh_max": 60,
+   "max_excursion_min": 60,
+   "acclim_hours_req": 24
+  },
+  "outgoing_report": {
+   "signed_by_lender": true,
+   "defects": [
+    {
+     "id": "a",
+     "class": "chip",
+     "area_cm2": 0.4
+    },
+    {
+     "id": "b",
+     "class": "dust",
+     "area_cm2": 2
+    },
+    {
+     "id": "c",
+     "class": "abrasion",
+     "area_cm2": 1
+    }
+   ]
+  },
+  "transit": {
+   "courier_present": false,
+   "crate_opened_at": "2024-03-02T08:00",
+   "rh_max_obs": 68,
+   "minutes_outside": 75,
+   "gap_minutes": 0,
+   "events": []
+  },
+  "arrival_report": {
+   "rest_hours": 16,
+   "defects": [
+    {
+     "id": "1",
+     "class": "chip",
+     "area_cm2": 0.4,
+     "matched_outgoing_id": "a"
+    },
+    {
+     "id": "2",
+     "class": "dust",
+     "area_cm2": 2.2,
+     "matched_outgoing_id": "b"
+    },
+    {
+     "id": "3",
+     "class": "abrasion",
+     "area_cm2": 1,
+     "matched_outgoing_id": "c"
+    }
+   ]
+  },
+  "approvals": [],
+  "issue_log": [
+   {
+    "date": "2023-09-10",
+    "issue_code": "chip"
+   }
+  ]
+ },
+ "factors": {
+  "object_medium": "ceramic",
+  "new_defect_count": 0,
+  "worst_new_defect_class": "none",
+  "loss_area_cm2": 0.97,
+  "defect_in_lender_photos": false,
+  "logger_outcome": "breach",
+  "excursion_explained": false,
+  "outgoing_report_status": "present_signed",
+  "courier_sequence": "opened_before_courier",
+  "acclimatisation_hours": 16,
+  "lender_variation_approved": true,
+  "signal_balance": "clear",
+  "prior_issue_entries": 1
+ },
+ "factors_sampled": {
+  "object_medium": "ceramic",
+  "new_defect_count": 3,
+  "worst_new_defect_class": "cosmetic",
+  "loss_area_cm2": 0.97,
+  "defect_in_lender_photos": false,
+  "logger_outcome": "breach",
+  "excursion_explained": false,
+  "outgoing_report_status": "present_signed",
+  "courier_sequence": "opened_before_courier",
+  "acclimatisation_hours": 16,
+  "lender_variation_approved": true,
+  "signal_balance": "clear",
+  "prior_issue_entries": 4
+ },
+ "plan": {
+  "new_damage": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "transit_breach": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "disposition": {
+   "clarity": "balanced",
+   "target": "install",
+   "second": "install_conditions"
+  },
+  "recurrence_count": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  },
+  "change_severity": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  }
+ },
+ "target_words": 83,
+ "deciding": {
+  "new_damage": "Every arrival defect has a matched_outgoing_id in the signed outgoing report.",
+  "transit_breach": "RH 68 against max 60 for 75 min vs 60 min allowance (modest overrun), but crate opened with no courier present.",
+  "disposition": "No new damage and a modest excursion, but rest 16h is under the 24h requirement; install vs added conditions is balanced.",
+  "recurrence_count": "One chip entry in the log within 12 months.",
+  "change_severity": "No new defects, but the chip is a structural defect on file with area 0.4 matched; the reader may doubt whether to call it level 3 or 0."
+ },
+ "request": "rec-F207-0036",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.004981
+}

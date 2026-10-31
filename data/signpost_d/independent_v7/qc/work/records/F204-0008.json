@@ -1,0 +1,128 @@
+{
+ "id": "F204-0008",
+ "family": "F204",
+ "state": {
+  "rx": {
+   "drug": "simvastatin",
+   "form": "tab",
+   "strength": {
+    "val": 20,
+    "unit": "mg"
+   },
+   "dose": 1,
+   "freq_per_day": 1,
+   "qty": 28
+  },
+  "patient": {
+   "pt_id": "P20917",
+   "supplies": [
+    {
+     "date": "2025-04-01",
+     "days_covered": 28
+    }
+   ],
+   "near_miss_count": 3
+  },
+  "dispensed": {
+   "product_name": "Zocor",
+   "generic_name": "simvastatin",
+   "form": "tab",
+   "strength": {
+    "val": 20,
+    "unit": "mg"
+   },
+   "pack_size": 28,
+   "packs": 1,
+   "owing": null,
+   "req_warnings": [
+    "W1"
+   ],
+   "high_risk": true
+  },
+  "label": {
+   "pt_id": "P20917",
+   "dose_qty": 1,
+   "freq_per_day": 1,
+   "warning_codes": [
+    "W1"
+   ],
+   "qty_printed": 28
+  },
+  "check_log": {
+   "checked_at": "2025-04-29T09:10",
+   "clin_check": {
+    "by": "RPh07",
+    "at": "2025-04-29T08:50"
+   },
+   "queries": []
+  }
+ },
+ "factors": {
+  "strength_status": "match_same_units",
+  "product_status": "generic_brand_equivalent",
+  "quantity_status": "exact",
+  "label_status": "correct",
+  "prescriber_query": "none",
+  "pharmacist_intervention": false,
+  "clinical_check_signed": true,
+  "home_supply_days": 0,
+  "emergency_supply": false,
+  "short_expiry": false,
+  "prior_error_count": 3,
+  "high_risk_drug": true,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "strength_status": "match_same_units",
+  "product_status": "generic_brand_equivalent",
+  "quantity_status": "exact",
+  "label_status": "warning_code_missing",
+  "prescriber_query": "none",
+  "pharmacist_intervention": false,
+  "clinical_check_signed": true,
+  "home_supply_days": 8,
+  "emergency_supply": false,
+  "short_expiry": false,
+  "prior_error_count": 3,
+  "high_risk_drug": true,
+  "boundary_case": false
+ },
+ "plan": {
+  "strength_differs": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "balanced",
+   "target": "release",
+   "second": "hold_query"
+  },
+  "error_category": {
+   "clarity": "leaning",
+   "target": "none_found",
+   "second": null
+  },
+  "open_discrepancies": {
+   "clarity": "leaning",
+   "target": "0",
+   "second": null
+  },
+  "supply_urgency": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 55,
+ "deciding": {
+  "strength_differs": "Both are 20 mg in the same unit; Zocor generic_name simvastatin matches rx drug.",
+  "next_step": "Clinical check is signed and no query is logged, favouring release; the signature predates the check and the high-risk flag with 3 prior near misses leave some case for holding.",
+  "error_category": "Product, quantity 1x28 and label codes W1 and patient id all agree; only the decoys (3 near misses, high-risk) create doubt.",
+  "open_discrepancies": "No field differs between rx, pack and label; the sole doubt is the unrelated history.",
+  "supply_urgency": "Supply of 28 days from 2025-04-01 ended 2025-04-29, the check date, so zero days remain, with level 2 plausible if counted as lasting today."
+ },
+ "request": "rec-F204-0006",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.00979
+}

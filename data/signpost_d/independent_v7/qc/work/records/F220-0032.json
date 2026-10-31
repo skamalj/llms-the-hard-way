@@ -1,0 +1,160 @@
+{
+ "id": "F220-0032",
+ "family": "F220",
+ "state": {
+  "tray": {
+   "tray_id": "T-5802",
+   "set_code": "GEN-A",
+   "barcode": "771205",
+   "requested_for": "2025-04-02T08:00",
+   "request_note": "Routine list."
+  },
+  "set_check": {
+   "lines": [
+    {
+     "cat_code": "K1",
+     "qty_expected": 2,
+     "qty_counted": 1
+    },
+    {
+     "cat_code": "K4",
+     "qty_expected": 2,
+     "qty_counted": 0
+    },
+    {
+     "cat_code": "S2",
+     "qty_expected": 4,
+     "qty_counted": 3
+    },
+    {
+     "cat_code": "H9",
+     "qty_expected": 1,
+     "qty_counted": 0
+    },
+    {
+     "cat_code": "X77",
+     "qty_expected": 0,
+     "qty_counted": 1
+    }
+   ],
+   "variances": [
+    {
+     "cat_code": "K1",
+     "reason": "substituted",
+     "approved_by": "M.Ode"
+    },
+    {
+     "cat_code": "K4",
+     "reason": "loan swap",
+     "approved_by": null
+    }
+   ],
+   "packer_note": "Several lines short, not yet checked."
+  },
+  "washer": {
+   "cycle_id": "W-310",
+   "a0": 3000,
+   "alarms": [],
+   "trays_processed": [
+    "771205"
+   ],
+   "rerun_cycle_id": null
+  },
+  "steriliser_load": {
+   "load_id": "L-41",
+   "printout": {
+    "temp_min_c": 133.6,
+    "temp_max_c": 135.8,
+    "hold_s": 180,
+    "pressure_kpa": 310
+   },
+   "logger": {
+    "temp_min_c": 133.7,
+    "hold_s": 180
+   },
+   "daily_test": {
+    "date": "2025-04-01",
+    "result": "pass"
+   },
+   "bi": {
+    "lot": "B8",
+    "result": "fail"
+   },
+   "ci_result": "pass",
+   "unload_condition": "outer wrap torn"
+  },
+  "release_label": {
+   "tray_barcode": "771205",
+   "load_id": "L-41",
+   "wrap_condition": "torn"
+  }
+ },
+ "factors": {
+  "set_count_discrepancies": 5,
+  "substitution_documented": false,
+  "cycle_excursion": "brief_temp_dip",
+  "independent_logger_confirms": false,
+  "bi_status": "fail",
+  "chemical_indicator": "pass",
+  "washer_record_state": "complete",
+  "pack_integrity": "wrap_tear",
+  "label_mismatch": "none",
+  "daily_test_state": "pass_today",
+  "theatre_urgency": "routine",
+  "note_tone": "flags_concern_open",
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "set_count_discrepancies": 5,
+  "substitution_documented": true,
+  "cycle_excursion": "brief_temp_dip",
+  "independent_logger_confirms": true,
+  "bi_status": "fail",
+  "chemical_indicator": "pass",
+  "washer_record_state": "complete",
+  "pack_integrity": "wrap_tear",
+  "label_mismatch": "none",
+  "daily_test_state": "pass_today",
+  "theatre_urgency": "routine",
+  "note_tone": "flags_concern_open",
+  "boundary_case": true
+ },
+ "plan": {
+  "cycle_in_limits": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "disposition": {
+   "clarity": "clear",
+   "target": "release",
+   "second": null
+  },
+  "failure_stage": {
+   "clarity": "contested",
+   "target": "no_discrepancy",
+   "second": "steriliser_stage"
+  },
+  "count_gaps": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "sterility_doubt": {
+   "clarity": "clear",
+   "target": "3",
+   "second": null
+  }
+ },
+ "target_words": 108,
+ "deciding": {
+  "cycle_in_limits": "Printout temp_min_c 133.6 and logger temp_min_c 133.7 are both below the 134.0 band floor.",
+  "disposition": "Washer, label and barcode fields reconcile with no mismatch; the plan's release rests on this process-record consistency, while bi.result fail and the torn wrap point the other way.",
+  "failure_stage": "Washer and label are clean and the count gaps carry a partial variance trail, so no_discrepancy is arguable; the BI fail and the temperature dip support steriliser_stage. Split.",
+  "count_gaps": "Five lines differ (including X77, not on the set); only K1 has an approved variance and K4's has approved_by null, giving about four unexplained, near the 3 vs 4 boundary.",
+  "sterility_doubt": "bi.result is fail and the unload condition and label both show a torn wrap."
+ },
+ "request": "rec-F220-0031",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.014351
+}

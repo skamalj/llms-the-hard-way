@@ -1,0 +1,143 @@
+{
+ "id": "F213-0035",
+ "family": "F213",
+ "state": {
+  "pool": {
+   "type": "teaching",
+   "test_interval_min": 120,
+   "opening": {
+    "open": "2025-09-03T09:00",
+    "close": "2025-09-03T13:00"
+   },
+   "limits": {
+    "ph_max": 7.6
+   },
+   "tolerance": {
+    "ph": 0.2
+   }
+  },
+  "manual_tests": [
+   {
+    "time": "2025-09-03T09:00",
+    "ph": 7.4,
+    "kit_id": "K5"
+   },
+   {
+    "time": "2025-09-03T11:00",
+    "ph": 7.8,
+    "kit_id": "K5"
+   },
+   {
+    "time": "2025-09-03T12:00",
+    "ph": 7.5,
+    "kit_id": "K5"
+   },
+   {
+    "time": "2025-09-03T13:00",
+    "ph": 7.4,
+    "kit_id": "K5"
+   }
+  ],
+  "plant": {
+   "controller_readings": [
+    {
+     "time": "2025-09-03T11:15",
+     "ph": 7.75
+    }
+   ],
+   "backwash": [
+    "2025-09-03T10:00"
+   ]
+  },
+  "equipment": {
+   "kits": [
+    {
+     "kit_id": "K5",
+     "cal_due": "2025-09-03"
+    }
+   ]
+  },
+  "actions": [
+   {
+    "time": "2025-09-03T11:35",
+    "action_type": "acid_dose",
+    "reading_ref": "2025-09-03T11:00",
+    "retest_time": "2025-09-03T12:00"
+   }
+  ],
+  "lab_sample": {
+   "sampled_on": "2025-09-01",
+   "result_on": "2025-09-03",
+   "status": "complete",
+   "tvc_37": 12
+  }
+ },
+ "factors": {
+  "pool_type": "teaching",
+  "test_coverage_gap": 0,
+  "boundary_interval": false,
+  "log_controller_discrepancy": "within_tolerance",
+  "discrepancy_location": "timestamp_offset",
+  "excursion_severity": "marginal",
+  "corrective_action_delay": "delayed",
+  "retest_logged": true,
+  "dosing_event_explains": false,
+  "kit_calibration_status": "in_date",
+  "lab_sample_state": "clear",
+  "out_of_order_entry": false,
+  "benign_noise": "backwash"
+ },
+ "factors_sampled": {
+  "pool_type": "teaching",
+  "test_coverage_gap": 3,
+  "boundary_interval": false,
+  "log_controller_discrepancy": "just_over",
+  "discrepancy_location": "timestamp_offset",
+  "excursion_severity": "marginal",
+  "corrective_action_delay": "delayed",
+  "retest_logged": true,
+  "dosing_event_explains": false,
+  "kit_calibration_status": "expired_before",
+  "lab_sample_state": "clear",
+  "out_of_order_entry": false,
+  "benign_noise": "backwash"
+ },
+ "plan": {
+  "test_frequency_met": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "readings_reconcile": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "log_disposition": {
+   "clarity": "balanced",
+   "target": "hold_for_retest",
+   "second": "accept"
+  },
+  "action_delay": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  },
+  "failed_checks": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 31,
+ "deciding": {
+  "test_frequency_met": "Tests at 09:00, 11:00 and 13:00 plus a 12:00 retest cover the 120 minute interval in opening hours.",
+  "readings_reconcile": "Controller ph 7.75 at 11:15 against manual 7.8 at 11:00 is a 0.05 difference, inside the 0.2 tolerance; the 15 minute timestamp shift is incidental.",
+  "log_disposition": "Marginal ph 7.8 over ph_max 7.6 with action and a 12:00 retest at 7.5 and a complete lab result; accept or a hold for retest are both defensible.",
+  "action_delay": "ph 7.8 at 11:00, action logged 11:35, 35 minutes, just past the 30 minute boundary.",
+  "failed_checks": "Kit K5 cal_due equals the log date, so in date; only the 35 minute action delay is arguably a failure, giving zero or one."
+ },
+ "request": "rec-F213-0031",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011746
+}

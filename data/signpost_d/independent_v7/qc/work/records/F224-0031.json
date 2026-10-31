@@ -1,0 +1,153 @@
+{
+ "id": "F224-0031",
+ "family": "F224",
+ "state": {
+  "request": {
+   "views": [
+    "BW_L"
+   ],
+   "ind": "PERIO_SCR",
+   "risk": "low",
+   "date": "2025-03-10",
+   "prior_bw": "2022-12-01",
+   "exc": [
+    {
+     "code": "EXC_SPEC",
+     "appr": "D41"
+    }
+   ],
+   "verbal_auth": [
+    {
+     "view": "PA_46",
+     "t": "09:40"
+    }
+   ],
+   "flags": [
+    "GAG_REFLEX"
+   ]
+  },
+  "exposures": [
+   {
+    "id": 1,
+    "view": "BW_L",
+    "t": "09:05",
+    "dose": 0.9
+   },
+   {
+    "id": 2,
+    "view": "BW_L",
+    "t": "09:07",
+    "dose": 0.9,
+    "retake_of": 1
+   },
+   {
+    "id": 3,
+    "view": "PA_46",
+    "t": "09:30",
+    "dose": 0.9
+   },
+   {
+    "id": 4,
+    "view": "PA_36",
+    "t": "09:33",
+    "dose": 0.9
+   }
+  ],
+  "image_review": {
+   "grade": 2,
+   "faults": {
+    "1": [
+     "FC_OVER_DENSE"
+    ]
+   },
+   "sensor_err": [
+    {
+     "t": "09:05",
+     "code": "SNS_W12"
+    }
+   ],
+   "grader2": "done"
+  },
+  "equipment": {
+   "qa": "2025-01-15",
+   "int": 12,
+   "test": "pass",
+   "drl": {
+    "BW": 1.0,
+    "PA": 1.0
+   }
+  },
+  "operator": {
+   "signoff": "2025-03-10T17:00",
+   "prior": 3
+  }
+ },
+ "factors": {
+  "indication_match": "partial_match",
+  "recall_interval_months": 27,
+  "dose_ratio_to_drl": 0.9,
+  "console_log_discrepancy": "none",
+  "retake_cause": "sensor_fault",
+  "equipment_qa_status": "in_date",
+  "approved_exception": true,
+  "patient_cooperation_flag": true,
+  "unrequested_exposure_count": 2,
+  "verbal_authorisation_logged": true,
+  "image_grade": "diagnostic",
+  "audit_completeness": "complete",
+  "operator_prior_findings": 3
+ },
+ "factors_sampled": {
+  "indication_match": "partial_match",
+  "recall_interval_months": 27,
+  "dose_ratio_to_drl": 1.75,
+  "console_log_discrepancy": "none",
+  "retake_cause": "exposure_setting",
+  "equipment_qa_status": "in_date",
+  "approved_exception": true,
+  "patient_cooperation_flag": true,
+  "unrequested_exposure_count": 2,
+  "verbal_authorisation_logged": true,
+  "image_grade": "diagnostic",
+  "audit_completeness": "operator_signoff_missing",
+  "operator_prior_findings": 3
+ },
+ "plan": {
+  "justified": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "operator_retake": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "follow_up": {
+   "clarity": "leaning",
+   "target": "close_record",
+   "second": null
+  },
+  "dose_position": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  },
+  "unjustified_count": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  }
+ },
+ "target_words": 67,
+ "deciding": {
+  "justified": "Indication PERIO_SCR only partly fits a BW_L request; interval of 27 months is fine, so doubt comes from the indication.",
+  "operator_retake": "Retake of exposure 1 has FC_OVER_DENSE, but a sensor error SNS_W12 is logged at the same timestamp and GAG_REFLEX is flagged, so not clearly technique.",
+  "follow_up": "Equipment QA in date and test passed, grader and operator sign-off complete, special-care exception with approver D41; nothing is left outstanding.",
+  "dose_position": "Each dose 0.9 mGy against reference 1.0, which is 90%.",
+  "unjustified_count": "PA_46 and PA_36 are not requested views (verbal auth for PA_46 is logged at 09:40, after the 09:30 exposure, so it does not cover it). Whether the partial-match BW retake counts as a third is the open point."
+ },
+ "request": "rec-F224-0031",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.016012
+}

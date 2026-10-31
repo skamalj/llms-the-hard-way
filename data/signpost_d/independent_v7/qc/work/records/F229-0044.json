@@ -1,0 +1,96 @@
+{
+ "id": "F229-0044",
+ "family": "F229",
+ "state": {
+  "lot": {
+   "lot_id": "L-0702",
+   "pick_start": "2024-09-24T06:00",
+   "pick_end": null
+  },
+  "intake": {
+   "arrival_at": "2024-09-24T15:00",
+   "net_kg": 8000,
+   "temp_c": 22,
+   "cold_room_in": null
+  },
+  "sample": null,
+  "press": {
+   "band_l_per_t": "500-580",
+   "cycle_start": "2024-09-25T09:30",
+   "juice_l": 3700,
+   "operator_note": "Pumped to T09."
+  },
+  "transfer": {
+   "lot_ref": "L-0702",
+   "tank_id": "T14"
+  }
+ },
+ "factors": {
+  "weight_mismatch": "none",
+  "press_programme": "whole_bunch_gentle",
+  "yield_position": "below_band",
+  "lot_id_drift": "none",
+  "missing_step": "sample_null",
+  "out_of_order_timestamp": false,
+  "pick_to_press_hours": 18.5,
+  "pick_end_recorded": false,
+  "cold_held": false,
+  "rot_pct": 1.34,
+  "sorting_applied": false,
+  "note_signal": "contradicts_log",
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "weight_mismatch": "none",
+  "press_programme": "whole_bunch_gentle",
+  "yield_position": "below_band",
+  "lot_id_drift": "none",
+  "missing_step": "sample_null",
+  "out_of_order_timestamp": false,
+  "pick_to_press_hours": 3.8,
+  "pick_end_recorded": false,
+  "cold_held": false,
+  "rot_pct": 1.34,
+  "sorting_applied": false,
+  "note_signal": "contradicts_log",
+  "boundary_case": false
+ },
+ "plan": {
+  "yield_consistent": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "chain_intact": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "release_decision": {
+   "clarity": "balanced",
+   "target": "segregate",
+   "second": "release_corrected"
+  },
+  "pick_press_delay": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  },
+  "failed_checks": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  }
+ },
+ "target_words": 43,
+ "deciding": {
+  "yield_consistent": "3700 l from 8000 kg is 462 l/t, well below 500-580.",
+  "chain_intact": "Ids match but operator_note says T09 while transfer.tank_id is T14, leaving it unclear whether the juice reached the intended tank.",
+  "release_decision": "No sample, a low yield, uncooled fruit and a tank contradiction point to isolating the juice, though the contradiction could be clerical.",
+  "pick_press_delay": "pick_end is null; arrival 15:00 to press start 09:30 next day is 18.5 h, a lower bound pointing to 16 h or more.",
+  "failed_checks": "Failures: the low yield, the null sample, the uncooled fruit and the tank-note contradiction; whether the last one and the delay count is uncertain."
+ },
+ "request": "rec-F229-0041",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.009375
+}

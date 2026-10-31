@@ -1,0 +1,121 @@
+{
+ "id": "F210-0026",
+ "family": "F210",
+ "state": {
+  "collection": {
+   "farm_id": "F118",
+   "compartment": "A",
+   "collected_at": "2024-05-06T07:10",
+   "vat_l": 3980,
+   "meter_l": 3590,
+   "vat_temp_c": 5.8,
+   "last_milking_end": "2024-05-06T05:50"
+  },
+  "sample": {
+   "sample_id": "S771",
+   "compartment": "B",
+   "seal_intact": true
+  },
+  "lab_results": {
+   "sample_id": "S771",
+   "bactoscan_kcfu_ml": 100,
+   "scc_k_ml": 450,
+   "inhibitory": null,
+   "retest": {
+    "requested": true,
+    "result": "pass"
+   }
+  },
+  "farm_terms": {
+   "limits": {
+    "temp_c": 6,
+    "bactoscan_kcfu_ml": 100,
+    "scc_k_ml": 400
+   },
+   "approved_exceptions": [
+    {
+     "param": "scc_k_ml",
+     "valid_from": "2024-04-01",
+     "valid_to": "2024-06-30"
+    }
+   ],
+   "treatment_register": [
+    {
+     "withdrawal_end": "2024-05-08",
+     "segregated": true
+    }
+   ],
+   "breaches_90d": 4
+  }
+ },
+ "factors": {
+  "vat_temp_level": "compliant",
+  "recent_milking": true,
+  "mismatch_site": "compartment",
+  "mismatch_magnitude": "moderate",
+  "meter_calibration_overdue": false,
+  "lab_limit_breaches": 1,
+  "exception_covers_breach": true,
+  "inhibitory_status": "not_tested",
+  "treatment_withdrawal_active": true,
+  "retest_state": "cleared",
+  "sample_integrity": "intact",
+  "history_breaches_90d": 4,
+  "value_on_boundary": true,
+  "driver_sensory_flag": false
+ },
+ "factors_sampled": {
+  "vat_temp_level": "compliant",
+  "recent_milking": true,
+  "mismatch_site": "compartment",
+  "mismatch_magnitude": "trivial",
+  "meter_calibration_overdue": false,
+  "lab_limit_breaches": 2,
+  "exception_covers_breach": true,
+  "inhibitory_status": "not_tested",
+  "treatment_withdrawal_active": true,
+  "retest_state": "cleared",
+  "sample_integrity": "intact",
+  "history_breaches_90d": 4,
+  "value_on_boundary": true,
+  "driver_sensory_flag": false
+ },
+ "plan": {
+  "temp_compliant": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "intake_disposition": {
+   "clarity": "clear",
+   "target": "accept_full",
+   "second": null
+  },
+  "issue_source": {
+   "clarity": "balanced",
+   "target": "collection_handling",
+   "second": "farm_practice"
+  },
+  "discrepancy_size": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  },
+  "unexplained_breaches": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 53,
+ "deciding": {
+  "temp_compliant": "vat_temp_c 5.8 is under the 6 limit, with milking ended 80 minutes before pick-up; the small margin leaves some doubt.",
+  "intake_disposition": "The only value above its limit (scc 450 vs 400) is covered by an approved exception spanning the date; the retest passed and bactoscan is exactly at its limit.",
+  "issue_source": "Sample compartment B vs collection compartment A points to handling, while the active treatment withdrawal on the farm keeps a farm-practice reading plausible.",
+  "discrepancy_size": "vat_l 3980 vs meter_l 3590 differs by 9.8% of vat and 10.9% of meter, straddling the 10% boundary between levels 1 and 2.",
+  "unexplained_breaches": "scc is covered by the exception, so none is unexplained; bactoscan sits exactly on its limit, and counting it as a breach would give one."
+ },
+ "request": "rec-F210-0026",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.010508
+}

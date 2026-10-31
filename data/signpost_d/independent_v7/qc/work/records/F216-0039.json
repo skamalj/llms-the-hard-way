@@ -1,0 +1,125 @@
+{
+ "id": "F216-0039",
+ "family": "F216",
+ "state": {
+  "session": {
+   "type": "pharmacy",
+   "date": "2024-08-20",
+   "next_session_date": "2024-08-21"
+  },
+  "storage": {
+   "alarms_30d": 1,
+   "maintenance": [
+    {
+     "type": "defrost",
+     "start": "09:00",
+     "end": "09:30",
+     "backup_unit": "U2"
+    }
+   ]
+  },
+  "temp_log": {
+   "readings": [
+    {
+     "t": "09:05",
+     "product_c": 7.8
+    },
+    {
+     "t": "09:15",
+     "product_c": 8.0
+    }
+   ],
+   "manual_checks": [
+    {
+     "t": "09:15",
+     "min_c": 3.4,
+     "max_c": 8.3,
+     "current_c": 8.3
+    }
+   ]
+  },
+  "stock": [
+   {
+    "lot": "P5",
+    "opening": 40,
+    "wasted": 3,
+    "closing": 19
+   }
+  ],
+  "administration": [
+   {
+    "t": "08:45",
+    "lot": "P5",
+    "n": 17
+   }
+  ]
+ },
+ "factors": {
+  "true_excursion_minutes": 0,
+  "log_source_discrepancy": "minor_offset",
+  "buffered_probe_in_range": false,
+  "planned_maintenance": true,
+  "stability_clearance": "not_requested",
+  "doses_during_exposure": 0,
+  "stock_count_gap": 1,
+  "lot_id_mismatch": false,
+  "lots_beyond_tolerance": "none",
+  "freezing_reading": false,
+  "boundary_case": false,
+  "unit_alarm_history": 1,
+  "session_type": "pharmacy"
+ },
+ "factors_sampled": {
+  "true_excursion_minutes": 10,
+  "log_source_discrepancy": "none",
+  "buffered_probe_in_range": false,
+  "planned_maintenance": true,
+  "stability_clearance": "refused",
+  "doses_during_exposure": 17,
+  "stock_count_gap": -6,
+  "lot_id_mismatch": false,
+  "lots_beyond_tolerance": "none",
+  "freezing_reading": false,
+  "boundary_case": false,
+  "unit_alarm_history": 1,
+  "session_type": "pharmacy"
+ },
+ "plan": {
+  "dosed_uncleared": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "stock_reconciles": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "stock_disposition": {
+   "clarity": "clear",
+   "target": "release",
+   "second": null
+  },
+  "excursion_duration": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "followup_urgency": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 78,
+ "deciding": {
+  "dosed_uncleared": "All 17 doses at 08:45 precede any near-limit reading at 09:15.",
+  "stock_reconciles": "P5: 40 - 17 - 3 = 20 against closing 19, a one-dose gap that could be unrecorded opened-vial wastage.",
+  "stock_disposition": "Logger readings never exceed 8.0 and no excursion actions or advice exist, so release is clear.",
+  "excursion_duration": "Logger max is exactly 8.0 (in range) but manual current_c of 8.3 at the same time, offset from the logger, leaves zero versus brief open.",
+  "followup_urgency": "The manual 8.3 reading during defrost, with no backup readings shown and a next session tomorrow, makes same-day versus within 24 hours defensible."
+ },
+ "request": "rec-F216-0036",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.010486
+}

@@ -1,0 +1,167 @@
+{
+ "id": "F207-0045",
+ "family": "F207",
+ "state": {
+  "loan": {
+   "ref": "L-6150",
+   "medium": "metalwork",
+   "rh_min": 30,
+   "rh_max": 50,
+   "max_excursion_min": 20,
+   "acclim_hours_req": 24
+  },
+  "outgoing_report": {
+   "signed_by_lender": false,
+   "defects": [
+    {
+     "id": "O1",
+     "class": "dust",
+     "location": "handle",
+     "area_cm2": 1.0
+    },
+    {
+     "id": "O2",
+     "class": "abrasion",
+     "location": "foot",
+     "area_cm2": 0.6
+    },
+    {
+     "id": "O3",
+     "class": "crack",
+     "location": "neck",
+     "area_cm2": 0.4
+    },
+    {
+     "id": "O4",
+     "class": "dust",
+     "location": "lid",
+     "area_cm2": 0.5
+    }
+   ]
+  },
+  "transit": {
+   "courier_present": true,
+   "rh_min_obs": null,
+   "rh_max_obs": null,
+   "minutes_outside": null,
+   "gap_minutes": 240,
+   "events": [
+    "CUSTOMS_OPEN"
+   ]
+  },
+  "arrival_report": {
+   "rest_hours": 20,
+   "defects": [
+    {
+     "id": "A1",
+     "class": "dust",
+     "area_cm2": 1.0,
+     "matched_outgoing_id": "O1"
+    },
+    {
+     "id": "A2",
+     "class": "abrasion",
+     "area_cm2": 0.6,
+     "matched_outgoing_id": "O2"
+    },
+    {
+     "id": "A3",
+     "class": "crack",
+     "area_cm2": 0.62,
+     "matched_outgoing_id": "O3"
+    },
+    {
+     "id": "A4",
+     "class": "dust",
+     "area_cm2": 0.5,
+     "matched_outgoing_id": "O4"
+    }
+   ]
+  },
+  "approvals": [
+   {
+    "code": "DUST_OK",
+    "scope_location": "handle",
+    "approved_at": "2025-01-05"
+   }
+  ],
+  "issue_log": [
+   {
+    "date": "2023-11-02",
+    "issue_code": "CRACK"
+   },
+   {
+    "date": "2025-02-01",
+    "issue_code": "DENT"
+   }
+  ]
+ },
+ "factors": {
+  "object_medium": "metalwork",
+  "new_defect_count": 0,
+  "worst_new_defect_class": "structural_loss",
+  "loss_area_cm2": 0.62,
+  "defect_in_lender_photos": false,
+  "logger_outcome": "data_gap",
+  "excursion_explained": true,
+  "outgoing_report_status": "present_unsigned",
+  "courier_sequence": "normal",
+  "acclimatisation_hours": 20,
+  "lender_variation_approved": true,
+  "signal_balance": "balanced",
+  "prior_issue_entries": 0
+ },
+ "factors_sampled": {
+  "object_medium": "metalwork",
+  "new_defect_count": 4,
+  "worst_new_defect_class": "cosmetic",
+  "loss_area_cm2": 0.62,
+  "defect_in_lender_photos": false,
+  "logger_outcome": "data_gap",
+  "excursion_explained": true,
+  "outgoing_report_status": "present_unsigned",
+  "courier_sequence": "normal",
+  "acclimatisation_hours": 20,
+  "lender_variation_approved": true,
+  "signal_balance": "balanced",
+  "prior_issue_entries": 2
+ },
+ "plan": {
+  "new_damage": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "transit_breach": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "disposition": {
+   "clarity": "balanced",
+   "target": "hold_crated",
+   "second": "return_lender"
+  },
+  "recurrence_count": {
+   "clarity": "leaning",
+   "target": "0",
+   "second": null
+  },
+  "change_severity": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  }
+ },
+ "target_words": 63,
+ "deciding": {
+  "new_damage": "All four arrival defects carry matched_outgoing_id O1-O4; the report is unsigned, which leaves modest doubt.",
+  "transit_breach": "minutes_outside and rh readings are null with gap_minutes 240, so the data is unusable and shows no proven breach; CUSTOMS_OPEN is a possible explanation.",
+  "disposition": "The logger gap, unsigned lender report and rest_hours 20 under the required 24 argue for hold_crated; the worsened crack could argue for return_lender.",
+  "recurrence_count": "The issue_log has a CRACK row from 2023-11-02 (older than 12 months) and a DENT row (different code), so no matching entry in the last 12 months.",
+  "change_severity": "Crack A3 is 0.62 cm2 against 0.4 cm2 in O3, a worsened structural defect under 2 cm2; matched dust and abrasion areas are unchanged."
+ },
+ "request": "rec-F207-0041",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.01347
+}

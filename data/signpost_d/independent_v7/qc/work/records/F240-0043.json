@@ -1,0 +1,156 @@
+{
+ "id": "F240-0043",
+ "family": "F240",
+ "state": {
+  "asset": {
+   "inverter_id": "INV-C2-11",
+   "serial": "SN70233",
+   "rated_ac_kw": 1500
+  },
+  "fault_event": {
+   "serial": "SN70223",
+   "code": "F-GND-01",
+   "fw_severity": 2,
+   "ts_start": "2024-07-19T09:00:00Z",
+   "ts_clear": "2024-07-19T14:30:00Z",
+   "auto_restarts": 1
+  },
+  "telemetry": {
+   "samples": [
+    {
+     "ts": "2024-07-19T12:15:00Z",
+     "ac_kw": 0,
+     "exp_kw": 1300,
+     "poa_wm2": 950,
+     "limit_pct": 0
+    },
+    {
+     "ts": "2024-07-19T12:45:00Z",
+     "ac_kw": 1450,
+     "exp_kw": 1480,
+     "poa_wm2": 970,
+     "limit_pct": 98
+    },
+    {
+     "ts": "2024-07-19T14:35:00Z",
+     "ac_kw": 1470,
+     "exp_kw": 1500,
+     "poa_wm2": 980,
+     "limit_pct": 98
+    }
+   ],
+   "exp_day_kwh": 9000,
+   "exp_window_kwh": 1900,
+   "act_window_kwh": 1459
+  },
+  "site_context": {
+   "grid_events": [
+    {
+     "ts": "2024-07-19T09:00:00Z",
+     "type": "voltage_sag",
+     "magnitude_pu": 0.82
+    }
+   ],
+   "maint_windows": [],
+   "neighbours": []
+  },
+  "history": {
+   "faults": [
+    {
+     "date": "2024-07-04",
+     "code": "F-GND-01"
+    },
+    {
+     "date": "2024-07-09",
+     "code": "F-GND-01"
+    },
+    {
+     "date": "2024-07-13",
+     "code": "F-GND-01"
+    },
+    {
+     "date": "2024-07-16",
+     "code": "F-GND-01"
+    },
+    {
+     "date": "2024-07-19",
+     "code": "F-GND-01"
+    }
+   ],
+   "work_orders": [
+    {
+     "wo_id": "WO-6071",
+     "opened": "2024-06-30",
+     "completed": "2024-07-02",
+     "retest_ok": null
+    }
+   ]
+  }
+ },
+ "factors": {
+  "fault_class": "dc_ground_fault",
+  "log_telemetry_mismatch": "large_over_2h",
+  "grid_event_concurrent": true,
+  "maintenance_window_active": false,
+  "neighbour_cross_check": "no_neighbour_data",
+  "repeat_count_30d": 5,
+  "last_repair_status": "completed_unverified",
+  "current_limit_pct": 98.0,
+  "yield_loss_pct": 4.9,
+  "low_irradiance_window": false,
+  "serial_mismatch": true,
+  "boundary_placement": false
+ },
+ "factors_sampled": {
+  "fault_class": "dc_ground_fault",
+  "log_telemetry_mismatch": "large_over_2h",
+  "grid_event_concurrent": true,
+  "maintenance_window_active": false,
+  "neighbour_cross_check": "no_neighbour_data",
+  "repeat_count_30d": 5,
+  "last_repair_status": "completed_unverified",
+  "current_limit_pct": 72.45,
+  "yield_loss_pct": 34.37,
+  "low_irradiance_window": false,
+  "serial_mismatch": true,
+  "boundary_placement": false
+ },
+ "plan": {
+  "genuine_defect": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "post_repair_repeat": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "scheduled_visit",
+   "second": null
+  },
+  "yield_loss": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  },
+  "capacity_unavailable": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  }
+ },
+ "target_words": 43,
+ "deciding": {
+  "genuine_defect": "Fault serial SN70223 differs from asset serial SN70233, and a voltage sag of 0.82 pu starts exactly at ts_start, so an external or mis-attributed cause is more likely. Repeat history and no neighbour data leave doubt.",
+  "post_repair_repeat": "WO-6071 completed 2024-07-02; all five F-GND-01 entries are dated 07-04 to 07-19, after completion.",
+  "next_step": "Repeat faults after an unverified repair with output near normal fits adding it to the planned visit rather than an urgent dispatch.",
+  "yield_loss": "(1900-1459)/9000 = 4.9%, just under the 5% boundary; the zero stretch is short against a 5.5h log.",
+  "capacity_unavailable": "Last sample limit_pct 98 with ac_kw 1470 of 1500 rated is barely derated, at the line between level 1 and full output."
+ },
+ "request": "rec-F240-0041",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.017446
+}

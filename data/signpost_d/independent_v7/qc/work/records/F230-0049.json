@@ -1,0 +1,152 @@
+{
+ "id": "F230-0049",
+ "family": "F230",
+ "state": {
+  "prescriptions": [
+   {
+    "item_id": "D1",
+    "drug": "amlodipine",
+    "dose_units": 1,
+    "time_critical": false,
+    "high_risk": false,
+    "changes": [
+     {
+      "effective": "2025-07-03",
+      "new_dose_units": 2,
+      "order_ref": "PH-88",
+      "authorised_by_role": "pharmacist"
+     }
+    ]
+   },
+   {
+    "item_id": "D2",
+    "drug": "lactulose",
+    "dose_units": 1
+   },
+   {
+    "item_id": "D3",
+    "drug": "folic acid",
+    "dose_units": 1
+   }
+  ],
+  "administrations": [
+   {
+    "item_id": "D1",
+    "scheduled": "08:00",
+    "given_at": "08:06",
+    "units_given": 2,
+    "code": "G",
+    "initials": "AB"
+   },
+   {
+    "item_id": "D2",
+    "scheduled": "08:00",
+    "units_given": 0,
+    "code": "N",
+    "initials": "AB"
+   },
+   {
+    "item_id": "D3",
+    "scheduled": "08:00",
+    "given_at": "08:08",
+    "units_given": 1,
+    "code": "G",
+    "initials": "AB"
+   }
+  ],
+  "stock": {
+   "D3": {
+    "opening": 10,
+    "wasted": 1,
+    "wasted_witnessed": true,
+    "closing": 8
+   }
+  },
+  "round": {
+   "date": "2025-07-03",
+   "open_queries": [
+    {
+     "type": "pharmacy",
+     "raised": "2025-07-03T09:00",
+     "item_id": "D1"
+    }
+   ],
+   "post_dose_obs": [
+    {
+     "type": "hr",
+     "value": 74
+    }
+   ]
+  }
+ },
+ "factors": {
+  "dose_mismatch_type": "wrong_quantity",
+  "prescription_change_documented": true,
+  "omission_count": 1,
+  "omission_reason_valid": false,
+  "late_minutes": 6,
+  "time_critical_affected": false,
+  "stock_variance": 1,
+  "stock_variance_explained": true,
+  "signature_gaps": 0,
+  "unit_expression_decoy": "none_present",
+  "post_dose_obs_reassuring": true,
+  "pending_query": "pharmacy_query_open",
+  "prior_errors_30d": 4,
+  "item_count": 3
+ },
+ "factors_sampled": {
+  "dose_mismatch_type": "wrong_quantity",
+  "prescription_change_documented": false,
+  "omission_count": 3,
+  "omission_reason_valid": false,
+  "late_minutes": 6,
+  "time_critical_affected": false,
+  "stock_variance": 1,
+  "stock_variance_explained": true,
+  "signature_gaps": 0,
+  "unit_expression_decoy": "none_present",
+  "post_dose_obs_reassuring": true,
+  "pending_query": "pharmacy_query_open",
+  "prior_errors_30d": 4,
+  "item_count": 7
+ },
+ "plan": {
+  "dose_mismatch": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "stock_reconciles": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "correct_and_close",
+   "second": null
+  },
+  "open_discrepancies": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  },
+  "error_severity": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  }
+ },
+ "target_words": 35,
+ "deciding": {
+  "dose_mismatch": "D1 given 2 units against 1 prescribed, but a change to 2 units has order_ref PH-88, effective on the round date. A pharmacy query is open on D1, which holds this in balance.",
+  "stock_reconciles": "D3 10-1 given-1 wasted (witnessed)=8 matches closing.",
+  "next_step": "Only a recording-type issue is visible and all other fields are clean. The omission on D2 sits uneasily with this plan.",
+  "open_discrepancies": "D2 code N with no supporting order is clearly unresolved. D1 is covered by an order but still has a query open, so one or two items are defensible.",
+  "error_severity": "D2 is an ordinary drug (no time_critical or high_risk flag) omitted with code N and no valid reason, which fits dose level 3."
+ },
+ "request": "rec-F230-0046",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.01538
+}

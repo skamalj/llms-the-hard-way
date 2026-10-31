@@ -1,0 +1,159 @@
+{
+ "id": "F240-0037",
+ "family": "F240",
+ "state": {
+  "asset": {
+   "inverter_id": "INV-21",
+   "serial": "SN-90117",
+   "rated_ac_kw": 4000,
+   "block": "B2"
+  },
+  "fault_event": {
+   "serial": "SN-90117",
+   "code": "F-GRID-OV",
+   "fw_severity": 2,
+   "ts_start": "2024-06-03T10:00",
+   "ts_clear": "2024-06-03T13:00",
+   "auto_restarts": 3
+  },
+  "telemetry": {
+   "samples": [
+    {
+     "ts": "2024-06-03T10:30",
+     "ac_kw": 0,
+     "exp_kw": 3300,
+     "poa_wm2": 880,
+     "limit_pct": 0
+    },
+    {
+     "ts": "2024-06-03T12:30",
+     "ac_kw": 0,
+     "exp_kw": 3400,
+     "poa_wm2": 900,
+     "limit_pct": 0
+    },
+    {
+     "ts": "2024-06-03T13:45",
+     "ac_kw": 1940,
+     "exp_kw": 3100,
+     "poa_wm2": 820,
+     "limit_pct": 50
+    }
+   ],
+   "exp_day_kwh": 20000,
+   "exp_window_kwh": 7000,
+   "act_window_kwh": 1400
+  },
+  "site_context": {
+   "grid_events": [
+    {
+     "ts": "2024-06-03T09:58",
+     "type": "overvoltage",
+     "magnitude_pu": 1.12
+    }
+   ],
+   "maint_windows": [],
+   "neighbours": null
+  },
+  "history": {
+   "faults": [
+    {
+     "date": "2024-05-06",
+     "code": "F-COMM-02"
+    },
+    {
+     "date": "2024-05-12",
+     "code": "F-GRID-OV"
+    },
+    {
+     "date": "2024-05-25",
+     "code": "F-GRID-OV"
+    },
+    {
+     "date": "2024-06-03",
+     "code": "F-GRID-OV"
+    }
+   ],
+   "work_orders": [
+    {
+     "wo_id": "WO-4410",
+     "opened": "2024-05-08",
+     "completed": "2024-05-10",
+     "retest_ok": false
+    },
+    {
+     "wo_id": "WO-4472",
+     "opened": "2024-05-26",
+     "completed": null,
+     "retest_ok": null
+    }
+   ]
+  }
+ },
+ "factors": {
+  "fault_class": "grid_overvoltage",
+  "log_telemetry_mismatch": "moderate_15_60min",
+  "grid_event_concurrent": true,
+  "maintenance_window_active": false,
+  "neighbour_cross_check": "no_neighbour_data",
+  "repeat_count_30d": 3,
+  "last_repair_status": "completed_then_reopened",
+  "current_limit_pct": 50.0,
+  "yield_loss_pct": 28.0,
+  "low_irradiance_window": false,
+  "serial_mismatch": false,
+  "boundary_placement": false
+ },
+ "factors_sampled": {
+  "fault_class": "grid_overvoltage",
+  "log_telemetry_mismatch": "moderate_15_60min",
+  "grid_event_concurrent": true,
+  "maintenance_window_active": false,
+  "neighbour_cross_check": "no_neighbour_data",
+  "repeat_count_30d": 3,
+  "last_repair_status": "open",
+  "current_limit_pct": 21.09,
+  "yield_loss_pct": 13.88,
+  "low_irradiance_window": false,
+  "serial_mismatch": false,
+  "boundary_placement": false
+ },
+ "plan": {
+  "genuine_defect": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "post_repair_repeat": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "scheduled_visit",
+   "second": null
+  },
+  "yield_loss": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  },
+  "capacity_unavailable": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  }
+ },
+ "target_words": 137,
+ "deciding": {
+  "genuine_defect": "A 1.12 pu overvoltage grid event at 09:58 overlaps ts_start of the F-GRID-OV fault, and irradiance is normal, so an external grid cause is clear.",
+  "post_repair_repeat": "WO-4410 completed 2024-05-10, and F-GRID-OV is logged on 05-12, 05-25 and 06-03, all after that completion.",
+  "next_step": "The grid cause makes urgent dispatch unwarranted, and open work order WO-4472 already carries the follow-up for a visit.",
+  "yield_loss": "(7000-1400)/20000 = 28%, well above the 20% line, with a modest log-versus-telemetry timing mismatch.",
+  "capacity_unavailable": "The last sample has limit_pct 50 and ac_kw 1940 of rated 4000 (48.5%), right at the 50% boundary between the two derated levels."
+ },
+ "request": "rec-F240-0036",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.016661
+}

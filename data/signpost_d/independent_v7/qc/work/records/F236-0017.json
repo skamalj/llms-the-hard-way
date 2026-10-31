@@ -1,0 +1,127 @@
+{
+ "id": "F236-0017",
+ "family": "F236",
+ "state": {
+  "changeover": {
+   "line": "L3",
+   "from_allergens": [
+    "milk"
+   ],
+   "to_allergens": [
+    "egg"
+   ]
+  },
+  "cleaning": {
+   "steps": [
+    {
+     "s": "wash",
+     "done": true,
+     "spec_min": 30,
+     "act_min": 32
+    }
+   ]
+  },
+  "verification": {
+   "swabs": [
+    {
+     "id": "S1",
+     "target": "milk",
+     "ppm": 0.5,
+     "limit_ppm": 5,
+     "at": "2024-06-03T05:50"
+    },
+    {
+     "id": "S2",
+     "target": "milk",
+     "ppm": 0,
+     "limit_ppm": 5,
+     "at": "2024-06-03T07:20"
+    }
+   ]
+  },
+  "production": {
+   "start_at": "2024-06-03T06:00",
+   "end_at": "2024-06-03T08:00",
+   "qty": 760000,
+   "unit": "g"
+  },
+  "approvals": {
+   "qa_signoff": {
+    "signed_at": "2024-06-03T07:30"
+   },
+   "deviations": [
+    {
+     "id": "D4",
+     "scope": "S2 timing",
+     "approved_at": "2024-06-03T05:30"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "allergen_transition": "swaps_allergen",
+  "cleaning_completion": "full",
+  "swab_outcome": "trace_below_limit",
+  "swab_timing_mismatch": true,
+  "cross_section_discrepancy": "quantity_unit_mismatch",
+  "exposed_quantity_kg": 760.0,
+  "approved_deviation": true,
+  "label_precaution": false,
+  "dedicated_tooling": false,
+  "qa_signoff_state": "signed_after_start",
+  "line_failure_history": 3,
+  "boundary_value": false
+ },
+ "factors_sampled": {
+  "allergen_transition": "swaps_allergen",
+  "cleaning_completion": "full",
+  "swab_outcome": "positive_retest_pass",
+  "swab_timing_mismatch": true,
+  "cross_section_discrepancy": "quantity_unit_mismatch",
+  "exposed_quantity_kg": 82.5,
+  "approved_deviation": true,
+  "label_precaution": false,
+  "dedicated_tooling": false,
+  "qa_signoff_state": "signed_after_start",
+  "line_failure_history": 3,
+  "boundary_value": false
+ },
+ "plan": {
+  "swabs_cleared": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "line_disposition": {
+   "clarity": "balanced",
+   "target": "release_conditional",
+   "second": "release"
+  },
+  "worst_deficiency": {
+   "clarity": "clear",
+   "target": "release_breach",
+   "second": null
+  },
+  "exposed_product": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "residue_evidence": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 62,
+ "deciding": {
+  "swabs_cleared": "S1 passed before start; S2 is timed 07:20 after the 06:00 start, though deviation D4 for S2 timing was approved beforehand.",
+  "line_disposition": "Swabs are under limit and a deviation exists, but sign-off came late and no may_contain label is present; a label control is plausible, as is plain release.",
+  "worst_deficiency": "qa_signoff.signed_at 07:30 is after production start_at 06:00.",
+  "exposed_product": "760000 g (760 kg) over 06:00-08:00, last passing swab 07:20, about 507 kg exposed, right at the 500 kg boundary.",
+  "residue_evidence": "S1 reads 0.5 ppm against a 5 limit and S2 reads 0, so the evidence is between none and trace."
+ },
+ "request": "rec-F236-0016",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.015522
+}

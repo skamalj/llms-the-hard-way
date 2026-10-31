@@ -1,0 +1,106 @@
+{
+ "id": "F205-0041",
+ "family": "F205",
+ "state": {
+  "flight": {
+   "no": "RX214",
+   "std": "2025-03-11T09:10",
+   "turn": "full"
+  },
+  "times": {
+   "on_blocks": "2025-03-11T07:55",
+   "boarding_start": "2025-03-11T08:32",
+   "doors_closed": "2025-03-11T09:06",
+   "off_blocks": "2025-03-11T09:14",
+   "delay_code": "boarding",
+   "delay_min": 3
+  },
+  "load": {
+   "bags_count": 42,
+   "fuel_kg": 5100,
+   "captain_accepted": true
+  },
+  "hold_log": [
+   {
+    "pos": "1",
+    "bags": 30
+   },
+   {
+    "pos": "T",
+    "bags": 12,
+    "transfer": true
+   }
+  ],
+  "services": {
+   "fuel": {
+    "uplift_kg": 5100
+   }
+  }
+ },
+ "factors": {
+  "bag_mismatch_size": "none",
+  "mismatch_location": "none",
+  "missing_record": "none",
+  "milestone_out_of_order": false,
+  "delay_minutes": 4,
+  "delay_code_fit": "supported",
+  "explanatory_remark": false,
+  "pending_signoff": false,
+  "dg_on_board": false,
+  "decoy_noise": "transfer_bags_listed_separately",
+  "boundary_value": true,
+  "turn_type": "full_turn"
+ },
+ "factors_sampled": {
+  "bag_mismatch_size": "trivial_1_2_bags",
+  "mismatch_location": "fuel_uplift_vs_loadsheet_fuel",
+  "missing_record": "hold_log_empty",
+  "milestone_out_of_order": false,
+  "delay_minutes": 5,
+  "delay_code_fit": "contradicted",
+  "explanatory_remark": true,
+  "pending_signoff": false,
+  "dg_on_board": false,
+  "decoy_noise": "transfer_bags_listed_separately",
+  "boundary_value": false,
+  "turn_type": "full_turn"
+ },
+ "plan": {
+  "load_reconciled": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "delay_code_supported": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "log_disposition": {
+   "clarity": "clear",
+   "target": "close_clean",
+   "second": null
+  },
+  "offblock_delay": {
+   "clarity": "contested",
+   "target": "1",
+   "second": "0"
+  },
+  "failed_checks": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 45,
+ "deciding": {
+  "load_reconciled": "Hold entries 30 + 12 transfer = 42 equals load.bags_count; transfer listed separately, which leaves slight doubt.",
+  "delay_code_supported": "Code boarding; boarding_start 08:32 is the milestone that ran late before doors_closed 09:06 and off-blocks 09:14.",
+  "log_disposition": "Counts match, fuel uplift equals loadsheet fuel, captain accepted, no missing records.",
+  "offblock_delay": "Off-blocks 09:14 vs STD 09:10 is 4 minutes, at the level 0/1 boundary; delay_min says 3.",
+  "failed_checks": "No clear failure; only the 4-minute lateness against delay_min 3 might count as one."
+ },
+ "request": "rec-F205-0041",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011346
+}

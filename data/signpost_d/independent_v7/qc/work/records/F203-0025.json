@@ -1,0 +1,142 @@
+{
+ "id": "F203-0025",
+ "family": "F203",
+ "state": {
+  "request": {
+   "submitted_on": "2025-07-01",
+   "need_by": "2025-07-10",
+   "scope": "whole_item",
+   "copyright_declaration_on": "2025-06-30"
+  },
+  "borrower_library": {
+   "agreement": {
+    "status": "active",
+    "expires_on": "2026-03-31"
+   },
+   "open_loans": [
+    {
+     "loan_id": "L1",
+     "due_on": "2025-05-10",
+     "renewed_on": null,
+     "return_scan_on": "2025-05-08"
+    },
+    {
+     "loan_id": "L2",
+     "due_on": "2025-05-24",
+     "renewed_on": "2025-05-20",
+     "return_scan_on": null
+    },
+    {
+     "loan_id": "L3",
+     "due_on": "2025-06-12",
+     "renewed_on": null,
+     "return_scan_on": "2025-06-10"
+    }
+   ]
+  },
+  "patron": null,
+  "item": {
+   "condition_grade": "good",
+   "conservation_check": null,
+   "local_holds": 1
+  },
+  "holdings_network": {
+   "copies": [
+    {
+     "library_code": "A1",
+     "status": "lendable"
+    },
+    {
+     "library_code": "B2",
+     "status": "lendable"
+    },
+    {
+     "library_code": "C3",
+     "status": "lendable"
+    },
+    {
+     "library_code": "D4",
+     "status": "lendable"
+    },
+    {
+     "library_code": "E5",
+     "status": "on_loan"
+    }
+   ],
+   "supplier_status": {
+    "print_status": "in_print"
+   }
+  },
+  "logistics": {
+   "est_arrival": "2025-07-13"
+  }
+ },
+ "factors": {
+  "agreement_status": "active",
+  "borrower_overdue_count": 3,
+  "overdue_mitigated": true,
+  "patron_verification": "missing",
+  "item_condition": "good",
+  "conservation_cleared": false,
+  "local_holds_queue": 1,
+  "network_other_copies": 4,
+  "print_status": "in_print",
+  "request_scope": "whole_item",
+  "copyright_declaration_present": true,
+  "need_by_slack_days": -3,
+  "need_by_missing": false
+ },
+ "factors_sampled": {
+  "agreement_status": "active",
+  "borrower_overdue_count": 3,
+  "overdue_mitigated": true,
+  "patron_verification": "missing",
+  "item_condition": "good",
+  "conservation_cleared": false,
+  "local_holds_queue": 1,
+  "network_other_copies": 2,
+  "print_status": "out_of_print_none",
+  "request_scope": "whole_item",
+  "copyright_declaration_present": true,
+  "need_by_slack_days": 29,
+  "need_by_missing": false
+ },
+ "plan": {
+  "borrower_good_standing": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "disposition": {
+   "clarity": "clear",
+   "target": "hold",
+   "second": null
+  },
+  "loan_restriction": {
+   "clarity": "leaning",
+   "target": "standard_loan",
+   "second": null
+  },
+  "time_slack": {
+   "clarity": "leaning",
+   "target": "0",
+   "second": null
+  },
+  "replacement_difficulty": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 55,
+ "deciding": {
+  "borrower_good_standing": "All three loans were due before submission but each has a return scan or renewal dated before due_on; agreement active.",
+  "disposition": "patron is null, the single missing record, so the request is paused until the patron is confirmed.",
+  "loan_restriction": "Item in good condition with 1 local hold and an active agreement; nothing indicates a restriction.",
+  "time_slack": "Arrival 2025-07-13 is after need_by 2025-07-10, 3 days late.",
+  "replacement_difficulty": "Exactly four lendable network copies (E5 on loan does not count), at the edge between 4+ and 1-3."
+ },
+ "request": "rec-F203-0021",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.009206
+}

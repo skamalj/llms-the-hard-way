@@ -1,0 +1,108 @@
+{
+ "id": "F230-0011",
+ "family": "F230",
+ "state": {
+  "prescriptions": [
+   {
+    "item_id": "A",
+    "dose_units": 2,
+    "time_critical": true,
+    "changes": []
+   }
+  ],
+  "administrations": [
+   {
+    "item_id": "A",
+    "units_given": 1,
+    "code": "G",
+    "initials": "MB"
+   }
+  ],
+  "stock": {
+   "A": {
+    "opening": 20,
+    "closing": 19
+   }
+  },
+  "round": {
+   "date": "2025-03-04",
+   "open_queries": [
+    {
+     "type": "pharmacy",
+     "raised": "2025-03-04T09:10",
+     "item_id": "A"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "dose_mismatch_type": "wrong_quantity",
+  "prescription_change_documented": false,
+  "omission_count": 0,
+  "omission_reason_valid": true,
+  "late_minutes": 0,
+  "time_critical_affected": true,
+  "stock_variance": 0,
+  "stock_variance_explained": false,
+  "signature_gaps": 0,
+  "unit_expression_decoy": "none_present",
+  "post_dose_obs_reassuring": false,
+  "pending_query": "pharmacy_query_open",
+  "prior_errors_30d": 2,
+  "item_count": 1
+ },
+ "factors_sampled": {
+  "dose_mismatch_type": "wrong_quantity",
+  "prescription_change_documented": false,
+  "omission_count": 3,
+  "omission_reason_valid": true,
+  "late_minutes": 118,
+  "time_critical_affected": true,
+  "stock_variance": 0,
+  "stock_variance_explained": false,
+  "signature_gaps": 2,
+  "unit_expression_decoy": "equivalent_split",
+  "post_dose_obs_reassuring": false,
+  "pending_query": "pharmacy_query_open",
+  "prior_errors_30d": 2,
+  "item_count": 9
+ },
+ "plan": {
+  "dose_mismatch": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "stock_reconciles": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "hold",
+   "second": null
+  },
+  "open_discrepancies": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  },
+  "error_severity": {
+   "clarity": "balanced",
+   "target": "4",
+   "second": "3"
+  }
+ },
+ "target_words": 28,
+ "deciding": {
+  "dose_mismatch": "Prescription says 2 units, 1 given, but a pharmacy query on the same item is open, so the order may be in doubt.",
+  "stock_reconciles": "Opening 20 minus 1 signed leaves 19, matching closing. Doubt comes only from the query on the item.",
+  "next_step": "One open pharmacy query on item A must be answered before the outcome is decided.",
+  "open_discrepancies": "Only item A is in question: units given differ and the query is open.",
+  "error_severity": "Item A is time-critical with a short dose, which fits level 4. The open query on the prescription leaves level 3 plausible."
+ },
+ "request": "rec-F230-0011",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.00933
+}

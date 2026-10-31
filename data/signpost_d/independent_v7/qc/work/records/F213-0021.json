@@ -1,0 +1,131 @@
+{
+ "id": "F213-0021",
+ "family": "F213",
+ "state": {
+  "pool": {
+   "type": "competition",
+   "test_interval_min": 120,
+   "opening": {
+    "open": "2024-05-10T08:00",
+    "close": "2024-05-10T12:00"
+   },
+   "limits": {
+    "free_cl_max": 3.0
+   },
+   "tolerance": {
+    "free_cl": 0.3
+   },
+   "micro_due": "2024-05-08"
+  },
+  "manual_tests": [
+   {
+    "time": "2024-05-10T08:00",
+    "free_cl": 2.0
+   },
+   {
+    "time": "2024-05-10T10:00",
+    "free_cl": 3.6
+   },
+   {
+    "time": "2024-05-10T12:00",
+    "free_cl": 2.1
+   },
+   {
+    "time": "2024-05-10T09:00",
+    "free_cl": 2.5
+   }
+  ],
+  "plant": {
+   "controller_readings": [
+    {
+     "time": "2024-05-10T10:12",
+     "free_cl": 3.3
+    }
+   ],
+   "dosing_events": [
+    {
+     "time": "2024-05-10T09:45",
+     "type": "shock"
+    }
+   ],
+   "bather_count": 410
+  },
+  "actions": [
+   {
+    "time": "2024-05-10T11:50",
+    "action_type": "dilution",
+    "reading_ref": "2024-05-10T10:00",
+    "retest_time": "2024-05-10T12:00"
+   }
+  ],
+  "lab_sample": null
+ },
+ "factors": {
+  "pool_type": "competition",
+  "test_coverage_gap": 1,
+  "boundary_interval": false,
+  "log_controller_discrepancy": "just_over",
+  "discrepancy_location": "timestamp_offset",
+  "excursion_severity": "serious",
+  "corrective_action_delay": "delayed",
+  "retest_logged": true,
+  "dosing_event_explains": true,
+  "kit_calibration_status": "in_date",
+  "lab_sample_state": "missing_when_due",
+  "out_of_order_entry": true,
+  "benign_noise": "high_bathers"
+ },
+ "factors_sampled": {
+  "pool_type": "competition",
+  "test_coverage_gap": 1,
+  "boundary_interval": false,
+  "log_controller_discrepancy": "just_over",
+  "discrepancy_location": "timestamp_offset",
+  "excursion_severity": "serious",
+  "corrective_action_delay": "delayed",
+  "retest_logged": true,
+  "dosing_event_explains": true,
+  "kit_calibration_status": "in_date",
+  "lab_sample_state": "missing_when_due",
+  "out_of_order_entry": true,
+  "benign_noise": "high_bathers"
+ },
+ "plan": {
+  "test_frequency_met": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "readings_reconcile": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "log_disposition": {
+   "clarity": "contested",
+   "target": "hold_for_retest",
+   "second": "accept"
+  },
+  "action_delay": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  },
+  "failed_checks": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 28,
+ "deciding": {
+  "test_frequency_met": "Tests at 08:00, 09:00, 10:00, 12:00 against a 120 min interval; none exceed it.",
+  "readings_reconcile": "Controller 3.3 at 10:12 vs manual 3.6 at 10:00: 0.3 difference, equals tolerance; time offset only.",
+  "log_disposition": "lab_sample null though micro_due passed (hold) versus water retested in limits (accept).",
+  "action_delay": "Excursion 3.6 at 10:00, first action 11:50 (110 min), close to the 120 boundary.",
+  "failed_checks": "Missing lab sample, 110 min action delay, out-of-order entry, and the excursion; count ambiguous between 2-3 and 4."
+ },
+ "request": "rec-F213-0021",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.006667
+}

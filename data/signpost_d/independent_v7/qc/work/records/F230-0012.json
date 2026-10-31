@@ -1,0 +1,118 @@
+{
+ "id": "F230-0012",
+ "family": "F230",
+ "state": {
+  "prescriptions": [
+   {
+    "item_id": "A",
+    "strength_mg": 10,
+    "dose_units": 1
+   },
+   {
+    "item_id": "B",
+    "high_risk": true,
+    "dose_units": 1
+   }
+  ],
+  "administrations": [
+   {
+    "item_id": "A",
+    "units_given": 2,
+    "strength_mg_used": 5,
+    "initials": "JK"
+   },
+   {
+    "item_id": "B",
+    "units_given": 1,
+    "initials": null
+   }
+  ],
+  "stock": {
+   "A": {
+    "opening": 30,
+    "wasted": 1,
+    "wasted_witnessed": true,
+    "closing": 27
+   }
+  },
+  "round": {
+   "open_queries": [
+    {
+     "type": "gp_callback",
+     "raised": "2025-03-04T08:00",
+     "item_id": "B"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "dose_mismatch_type": "equivalent_split",
+  "prescription_change_documented": false,
+  "omission_count": 0,
+  "omission_reason_valid": true,
+  "late_minutes": 0,
+  "time_critical_affected": false,
+  "stock_variance": 1,
+  "stock_variance_explained": true,
+  "signature_gaps": 1,
+  "unit_expression_decoy": "equivalent_split",
+  "post_dose_obs_reassuring": false,
+  "pending_query": "gp_callback_awaited",
+  "prior_errors_30d": 4,
+  "item_count": 2
+ },
+ "factors_sampled": {
+  "dose_mismatch_type": "wrong_quantity",
+  "prescription_change_documented": false,
+  "omission_count": 1,
+  "omission_reason_valid": true,
+  "late_minutes": 129,
+  "time_critical_affected": false,
+  "stock_variance": 1,
+  "stock_variance_explained": true,
+  "signature_gaps": 0,
+  "unit_expression_decoy": "equivalent_split",
+  "post_dose_obs_reassuring": false,
+  "pending_query": "gp_callback_awaited",
+  "prior_errors_30d": 4,
+  "item_count": 10
+ },
+ "plan": {
+  "dose_mismatch": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "stock_reconciles": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "balanced",
+   "target": "hold",
+   "second": "clinical_escalation"
+  },
+  "open_discrepancies": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "error_severity": {
+   "clarity": "clear",
+   "target": "1",
+   "second": null
+  }
+ },
+ "target_words": 43,
+ "deciding": {
+  "dose_mismatch": "Item A: 2 units of 5 mg against a 10 mg, 1 unit prescription. Total is equal, but a reader could still read it as a mismatch.",
+  "stock_reconciles": "Item A: 30 minus 2 signed minus 1 witnessed waste gives 27, which equals closing.",
+  "next_step": "The GP callback on high-risk item B is open (hold). Its missing initials could push toward escalation.",
+  "open_discrepancies": "Item B has both null initials and an open query. Item A's split dose might also be counted, giving two or three.",
+  "error_severity": "Doses are correct and on time. The only fault is null initials on item B, which is documentation."
+ },
+ "request": "rec-F230-0011",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.00933
+}

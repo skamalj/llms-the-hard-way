@@ -1,0 +1,116 @@
+{
+ "id": "F210-0012",
+ "family": "F210",
+ "state": {
+  "collection": {
+   "farm_id": "F0918",
+   "compartment": "A",
+   "collected_at": "2024-06-03T07:40",
+   "vat_l": 5000,
+   "meter_l": 3850,
+   "vat_temp_c": 7.1,
+   "last_milking_end": "2024-06-03T05:20"
+  },
+  "sample": {
+   "sample_id": "S9012",
+   "compartment": "B",
+   "taken_at": "2024-06-03T07:42",
+   "seal_intact": true,
+   "arrival_temp_c": 4.0
+  },
+  "lab_results": {
+   "sample_id": "S9012",
+   "scc_k_ml": 430,
+   "bactoscan_kcfu_ml": 60,
+   "inhibitory": null
+  },
+  "farm_terms": {
+   "limits": {
+    "scc_k_ml": 400,
+    "bactoscan_kcfu_ml": 100,
+    "vat_temp_c": 6
+   },
+   "approved_exceptions": [
+    {
+     "param": "scc_k_ml",
+     "valid_from": "2024-03-01",
+     "valid_to": "2024-06-30"
+    }
+   ],
+   "breaches_90d": 1
+  },
+  "equipment": {
+   "meter_due": "2024-12-01"
+  }
+ },
+ "factors": {
+  "vat_temp_level": "high",
+  "recent_milking": false,
+  "mismatch_site": "volume",
+  "mismatch_magnitude": "large",
+  "meter_calibration_overdue": false,
+  "lab_limit_breaches": 1,
+  "exception_covers_breach": true,
+  "inhibitory_status": "not_tested",
+  "treatment_withdrawal_active": false,
+  "retest_state": "none",
+  "sample_integrity": "intact",
+  "history_breaches_90d": 1,
+  "value_on_boundary": false,
+  "driver_sensory_flag": false
+ },
+ "factors_sampled": {
+  "vat_temp_level": "compliant",
+  "recent_milking": true,
+  "mismatch_site": "none",
+  "mismatch_magnitude": "moderate",
+  "meter_calibration_overdue": false,
+  "lab_limit_breaches": 3,
+  "exception_covers_breach": true,
+  "inhibitory_status": "not_tested",
+  "treatment_withdrawal_active": false,
+  "retest_state": "none",
+  "sample_integrity": "intact",
+  "history_breaches_90d": 1,
+  "value_on_boundary": false,
+  "driver_sensory_flag": false
+ },
+ "plan": {
+  "temp_compliant": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "intake_disposition": {
+   "clarity": "clear",
+   "target": "accept_full",
+   "second": null
+  },
+  "issue_source": {
+   "clarity": "contested",
+   "target": "collection_handling",
+   "second": "recording_error"
+  },
+  "discrepancy_size": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "unexplained_breaches": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  }
+ },
+ "target_words": 72,
+ "deciding": {
+  "temp_compliant": "vat_temp_c 7.1 exceeds the 6 limit and the last milking ended 2h20 before collection, just outside the 2 h window.",
+  "intake_disposition": "The only lab exceedance, SCC 430 against 400, is covered by an approved SCC exception spanning the collection date.",
+  "issue_source": "Compartment A on the collection against B on the sample, plus the volume gap with an in-date meter, fits either an entry error or a handling error.",
+  "discrepancy_size": "vat_l 5000 against meter_l 3850 is 23% of the vat figure and 30% of the meter figure, near the 25% line.",
+  "unexplained_breaches": "SCC is covered by the exception; only the vat temperature overshoot could count as one unexplained item, which splits level 1 and level 0."
+ },
+ "request": "rec-F210-0011",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.01313
+}

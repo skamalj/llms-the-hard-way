@@ -1,0 +1,166 @@
+{
+ "id": "F232-0035",
+ "family": "F232",
+ "state": {
+  "night_header": {
+   "date": "2025-09-14",
+   "prog": "P44",
+   "alloc_h": 12
+  },
+  "conditions": {
+   "limits": {
+    "hum": 85,
+    "wind": 50
+   },
+   "closures": [
+    {
+     "s": "2025-09-14T00:05Z",
+     "e": "2025-09-14T02:19Z",
+     "reason": "weather",
+     "max_hum": 91,
+     "max_wind": 30
+    }
+   ]
+  },
+  "programme_request": {
+   "A": {
+    "r": 17000,
+    "i": 17000
+   },
+   "max_see": 1.5,
+   "exception": null
+  },
+  "exposures": [
+   {
+    "t": "A",
+    "f": "r",
+    "s": 17000,
+    "start": "2025-09-14T02:20Z",
+    "see": 1.2,
+    "qa": "pass"
+   },
+   {
+    "t": "A",
+    "f": "i",
+    "s": 15700,
+    "start": "2025-09-14T07:05Z",
+    "see": 1.3,
+    "qa": "pass"
+   },
+   {
+    "t": "B",
+    "f": "r",
+    "s": 1000,
+    "see": 2.1,
+    "qa": "fail"
+   },
+   {
+    "t": "B",
+    "f": "r",
+    "s": 350,
+    "qa": null
+   },
+   {
+    "t": "B",
+    "f": "r",
+    "s": 350,
+    "qa": null
+   },
+   {
+    "t": "B",
+    "f": "r",
+    "s": 350,
+    "qa": null
+   },
+   {
+    "t": "B",
+    "f": "r",
+    "s": 350,
+    "qa": null
+   }
+  ],
+  "faults": [
+   {
+    "sub": "dome_az",
+    "start": "2025-09-14T00:06Z",
+    "end": null,
+    "cleared": false,
+    "retest": null,
+    "workaround": null,
+    "ticket": "T-7230"
+   }
+  ],
+  "notes": {
+   "observer": "A complete; B partial.",
+   "assistant": "Dome az faulted as rain began."
+  }
+ },
+ "factors": {
+  "weather_loss_hours": 2.23,
+  "fault_overlap": "none",
+  "fault_resolution_state": "open_no_workaround",
+  "maintenance_window": false,
+  "closure_reason_mismatch": "coincides_with_fault",
+  "note_claim_discrepancy": "short_small",
+  "seeing_vs_limit": "exceeded",
+  "seeing_exception_approved": false,
+  "usable_fraction": 0.79,
+  "qa_pending_count": 4,
+  "utc_date_rollover": false,
+  "assistant_note_tone": "neutral",
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "weather_loss_hours": 2.23,
+  "fault_overlap": "none",
+  "fault_resolution_state": "cleared_retested",
+  "maintenance_window": false,
+  "closure_reason_mismatch": "coincides_with_fault",
+  "note_claim_discrepancy": "short_large",
+  "seeing_vs_limit": "exceeded",
+  "seeing_exception_approved": false,
+  "usable_fraction": 0.99,
+  "qa_pending_count": 4,
+  "utc_date_rollover": false,
+  "assistant_note_tone": "neutral",
+  "boundary_case": false
+ },
+ "plan": {
+  "weather_only_loss": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "claims_supported": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "night_disposition": {
+   "clarity": "leaning",
+   "target": "requeue_targets",
+   "second": null
+  },
+  "usable_share": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  },
+  "fault_followup": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 38,
+ "deciding": {
+  "weather_only_loss": "The weather closure (humidity 91 above limit 85) supports weather, but the dome_az fault starts at 00:06, one minute after closure start at 00:05, so equipment may share the cause.",
+  "claims_supported": "A is claimed complete; A i totals 15700 s against 17000 s required (about 8% short), borderline between rounding and a real shortfall.",
+  "night_disposition": "B has only a failed 1000 s frame (seeing 2.1 over the 1.5 limit) plus pending frames, so B needs repeating while A stands.",
+  "usable_share": "QA-pass exposure is 17000+15700 = 32700 s of 43200 s (75.7%); the four pending 350 s frames would add 1400 s, bringing it to about 79%, near the 80% line.",
+  "fault_followup": "The dome_az fault is open with no workaround and retest null, which points to unusable, but exposures resumed at 02:20 and continued through the night."
+ },
+ "request": "rec-F232-0031",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.023475
+}

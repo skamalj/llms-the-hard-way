@@ -1,0 +1,142 @@
+{
+ "id": "F236-0034",
+ "family": "F236",
+ "state": {
+  "changeover": {
+   "line": "L4",
+   "from_allergens": [
+    "wheat"
+   ],
+   "to_allergens": [
+    "wheat",
+    "egg"
+   ]
+  },
+  "cleaning": {
+   "steps": [
+    {
+     "id": 1,
+     "completed": true,
+     "spec_min": 40,
+     "actual_min": 41
+    }
+   ]
+  },
+  "verification": {
+   "swabs": [
+    {
+     "id": "S1",
+     "batch": "B-4417",
+     "target": "egg",
+     "ppm": 2,
+     "limit_ppm": 10,
+     "t": "2024-07-15T12:00"
+    }
+   ]
+  },
+  "production": {
+   "line_id": "L4",
+   "start_at": "2024-07-15T08:00",
+   "end_at": "2024-07-15T14:00",
+   "first_batch": "B-4471",
+   "qty": 760.6,
+   "unit": "kg",
+   "pack_allergens": [
+    "wheat",
+    "egg"
+   ]
+  },
+  "approvals": {
+   "qa_signoff": {
+    "signed_at": "2024-07-15T07:45"
+   },
+   "deviations": [
+    {
+     "id": "D1",
+     "scope": "S1 timing",
+     "approved_at": "2024-07-15T07:30"
+    }
+   ]
+  },
+  "history": [
+   {
+    "ok": false
+   },
+   {
+    "ok": true
+   },
+   {
+    "ok": false
+   },
+   {
+    "ok": true
+   }
+  ]
+ },
+ "factors": {
+  "allergen_transition": "adds_allergen",
+  "cleaning_completion": "full",
+  "swab_outcome": "trace_below_limit",
+  "swab_timing_mismatch": true,
+  "cross_section_discrepancy": "batch_id_mismatch",
+  "exposed_quantity_kg": 760.6,
+  "approved_deviation": true,
+  "label_precaution": false,
+  "dedicated_tooling": false,
+  "qa_signoff_state": "signed_before_start",
+  "line_failure_history": 2,
+  "boundary_value": false
+ },
+ "factors_sampled": {
+  "allergen_transition": "adds_allergen",
+  "cleaning_completion": "full",
+  "swab_outcome": "all_negative",
+  "swab_timing_mismatch": true,
+  "cross_section_discrepancy": "batch_id_mismatch",
+  "exposed_quantity_kg": 760.6,
+  "approved_deviation": true,
+  "label_precaution": false,
+  "dedicated_tooling": false,
+  "qa_signoff_state": "signed_after_start",
+  "line_failure_history": 2,
+  "boundary_value": false
+ },
+ "plan": {
+  "swabs_cleared": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "line_disposition": {
+   "clarity": "clear",
+   "target": "reclean_quarantine",
+   "second": null
+  },
+  "worst_deficiency": {
+   "clarity": "clear",
+   "target": "records_only",
+   "second": null
+  },
+  "exposed_product": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  },
+  "residue_evidence": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  }
+ },
+ "target_words": 43,
+ "deciding": {
+  "swabs_cleared": "S1 passes (2 vs 10 ppm) but is timed 12:00, after the 08:00 start. Deviation D1 covers S1 timing, and its batch ID B-4417 does not match B-4471.",
+  "line_disposition": "Egg product was made for 4 h before the only passing swab, so the line is recleaned and the exposed product quarantined.",
+  "worst_deficiency": "Cleaning is complete, sign-off is before start and deviation D1 covers the swab timing. What remains is the batch ID mismatch between S1 (B-4417) and production (B-4471).",
+  "exposed_product": "760.6 kg over 6 h with the passing swab at 12:00 gives about 507 kg, right at the 500 kg boundary between levels 2 and 3.",
+  "residue_evidence": "A single egg reading of 2 ppm is above zero and below the 10 limit, which is trace. The batch mismatch leaves slight doubt."
+ },
+ "request": "rec-F236-0031",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.01363
+}

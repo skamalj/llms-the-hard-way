@@ -1,0 +1,138 @@
+{
+ "id": "F220-0044",
+ "family": "F220",
+ "state": {
+  "tray": {
+   "tray_id": "T-4417",
+   "barcode": "7301145",
+   "requested_for": "2025-03-15T10:30"
+  },
+  "set_check": {
+   "lines": [
+    {
+     "cat_code": "RT04",
+     "qty_expected": 2,
+     "qty_counted": 1
+    },
+    {
+     "cat_code": "DS11",
+     "qty_expected": 0,
+     "qty_counted": 1
+    }
+   ],
+   "variances": [
+    {
+     "cat_code": "RT04",
+     "reason": "swapped with DS11",
+     "approved_by": "A.Noor"
+    },
+    {
+     "cat_code": "DS11",
+     "reason": "swap partner",
+     "approved_by": null
+    }
+   ],
+   "packer_note": "Swap done; second sign-off still outstanding."
+  },
+  "washer": {
+   "cycle_id": "W19",
+   "a0": 3000,
+   "alarms": [],
+   "trays_processed": [
+    "7301145"
+   ]
+  },
+  "steriliser_load": {
+   "load_id": "L40",
+   "printout": null,
+   "logger": {
+    "temp_min_c": 134.0,
+    "hold_s": 180
+   },
+   "daily_test": {
+    "date": "2025-03-15",
+    "result": "pass"
+   },
+   "bi": {
+    "result": "pass"
+   },
+   "ci_result": "pass",
+   "unload_condition": "dry, intact"
+  },
+  "release_label": {
+   "tray_barcode": "7301145",
+   "load_id": "L40",
+   "sterilised_date": "2025-03-15",
+   "expiry_date": "2025-04-15",
+   "wrap_condition": "intact"
+  }
+ },
+ "factors": {
+  "set_count_discrepancies": 2,
+  "substitution_documented": true,
+  "cycle_excursion": "printout_missing",
+  "independent_logger_confirms": true,
+  "bi_status": "pass",
+  "chemical_indicator": "pass",
+  "washer_record_state": "complete",
+  "pack_integrity": "intact",
+  "label_mismatch": "none",
+  "daily_test_state": "pass_today",
+  "theatre_urgency": "routine",
+  "note_tone": "flags_concern_open",
+  "boundary_case": true
+ },
+ "factors_sampled": {
+  "set_count_discrepancies": 4,
+  "substitution_documented": true,
+  "cycle_excursion": "printout_missing",
+  "independent_logger_confirms": true,
+  "bi_status": "fail",
+  "chemical_indicator": "not_read",
+  "washer_record_state": "alarm_no_rerun",
+  "pack_integrity": "intact",
+  "label_mismatch": "expiry_inconsistent",
+  "daily_test_state": "pass_today",
+  "theatre_urgency": "routine",
+  "note_tone": "flags_concern_open",
+  "boundary_case": true
+ },
+ "plan": {
+  "cycle_in_limits": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "disposition": {
+   "clarity": "leaning",
+   "target": "release_annotated",
+   "second": null
+  },
+  "failure_stage": {
+   "clarity": "leaning",
+   "target": "no_discrepancy",
+   "second": null
+  },
+  "count_gaps": {
+   "clarity": "contested",
+   "target": "0",
+   "second": "1"
+  },
+  "sterility_doubt": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  }
+ },
+ "target_words": 85,
+ "deciding": {
+  "cycle_in_limits": "printout is null; the logger sits exactly on the limits (134.0 C, 180 s), which counts as in band but is open to dispute.",
+  "disposition": "Process evidence is complete and the swap is documented, so release with annotation is the lead; the open sign-off on DS11 is the doubt.",
+  "failure_stage": "Washer, label and indicators reconcile; the only open item is a variance sign-off, which is in a note.",
+  "count_gaps": "RT04 swap is approved by A.Noor but the DS11 variance has approved_by null, with the note saying a sign-off is outstanding; that leaves 0 or 1.",
+  "sterility_doubt": "Plan wanted compromised, but BI and CI pass and wrap is dry and intact, so only the logger-at-limit and missing printout remain (plan conflict acknowledged)."
+ },
+ "request": "rec-F220-0041",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.01309
+}

@@ -1,0 +1,130 @@
+{
+ "id": "F221-0026",
+ "family": "F221",
+ "state": {
+  "vehicle": {
+   "fleet": "B114",
+   "interval_days": 90,
+   "interval_km": 10000,
+   "odometer_km": 52010,
+   "tyre_spec": {
+    "front_kpa": 840,
+    "rear_kpa": 760
+   }
+  },
+  "inspection": {
+   "date": "2024-05-20",
+   "odometer_km": 52010,
+   "inspector_id": "I22",
+   "signoff_at": "2024-05-20T15:40"
+  },
+  "brakes": {
+   "axles": [
+    {
+     "axle": 1,
+     "lining_mm": 6.28
+    }
+   ],
+   "test": {
+    "service_pct": 62,
+    "secondary_pct": 58,
+    "parking_pct": 70
+   }
+  },
+  "tyres": [
+   {
+    "pos": "1L",
+    "serial": "T7781",
+    "date_code": "0913",
+    "min_tread_mm": 2.37,
+    "pressure_kpa": 800
+   }
+  ],
+  "defects": [
+   {
+    "id": "D41",
+    "carried": true,
+    "raised_date": "2024-02-25",
+    "status": "closed",
+    "rectified_date": "2024-02-25",
+    "technician_id": "T09"
+   }
+  ],
+  "history": {
+   "prev_date": "2024-02-25",
+   "prev_odometer_km": 42009,
+   "fitment_register": [
+    {
+     "pos": "1L",
+     "serial": "T7710"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "worst_tread_margin_mm": 1.37,
+  "worst_lining_margin_mm": 3.28,
+  "service_brake_efficiency_pct": 62.0,
+  "tyre_serial_mismatch": "one_serial_unregistered",
+  "odometer_conflict": "none",
+  "missing_element": "none",
+  "carried_defects_open": 0,
+  "rectification_unverified": false,
+  "interval_status": "on_boundary",
+  "recheck_booked": false,
+  "pressure_deviation_pct": 4.76,
+  "tyre_age_years": 11.23
+ },
+ "factors_sampled": {
+  "worst_tread_margin_mm": 1.37,
+  "worst_lining_margin_mm": 3.28,
+  "service_brake_efficiency_pct": 45.95,
+  "tyre_serial_mismatch": "one_serial_unregistered",
+  "odometer_conflict": "none",
+  "missing_element": "none",
+  "carried_defects_open": 3,
+  "rectification_unverified": false,
+  "interval_status": "km_overrun",
+  "recheck_booked": false,
+  "pressure_deviation_pct": 4.76,
+  "tyre_age_years": 11.23
+ },
+ "plan": {
+  "prior_defects_closed": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "within_interval": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "disposition": {
+   "clarity": "balanced",
+   "target": "release",
+   "second": "hold_confirm"
+  },
+  "rectify_urgency": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  },
+  "failed_checks": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 81,
+ "deciding": {
+  "prior_defects_closed": "Carried defect D41 is closed with technician T09, but rectified_date equals raised_date, so validity is doubtful.",
+  "within_interval": "Days gap is 85 of 90, but odometer gap 52010-42009=10001 km against 10000 limit, one km over.",
+  "disposition": "Sheet is signed and complete with a passing brake test, but an unregistered tyre serial and the interval point could justify a confirmation hold.",
+  "rectify_urgency": "min_tread_mm 2.37 gives margin 1.37, just over 1 mm, so next inspection is likely but near the within-seven-days boundary.",
+  "failed_checks": "Failing candidates: tyre serial T7781 not in register, km interval over by 1, doubtful defect closure, tyre date code 0913 about 11 years old; two to four count."
+ },
+ "request": "rec-F221-0026",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012316
+}

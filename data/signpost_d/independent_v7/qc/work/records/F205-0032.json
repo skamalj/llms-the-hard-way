@@ -1,0 +1,112 @@
+{
+ "id": "F205-0032",
+ "family": "F205",
+ "state": {
+  "flight": {
+   "no": "NB77",
+   "std": "2025-04-10T06:30Z",
+   "turn": "night_stop_departure"
+  },
+  "times": {
+   "fuel_start": "2025-04-10T05:20Z",
+   "last_bag": "2025-04-10T06:05Z",
+   "doors_closed": "2025-04-10T06:31Z",
+   "off_blocks": "2025-04-10T06:39Z",
+   "delay_code": "baggage",
+   "delay_min": 9
+  },
+  "load": {
+   "bags_count": 40,
+   "cargo_kg": 420,
+   "fuel_kg": 5200
+  },
+  "hold_log": [
+   {
+    "pos": "1",
+    "bag_count": 40
+   },
+   {
+    "pos": "ULD1",
+    "wt": 925,
+    "unit": "lb"
+   }
+  ],
+  "services": {
+   "fuel": {
+    "uplift_kg": 5210
+   }
+  },
+  "remarks": [
+   {
+    "role": "ramp",
+    "msg": "ULD1 weighed in lb. Late pax boarding."
+   }
+  ]
+ },
+ "factors": {
+  "bag_mismatch_size": "none",
+  "mismatch_location": "cargo_weight_vs_uld_entries",
+  "missing_record": "none",
+  "milestone_out_of_order": false,
+  "delay_minutes": 9,
+  "delay_code_fit": "unsupported",
+  "explanatory_remark": true,
+  "pending_signoff": false,
+  "dg_on_board": false,
+  "decoy_noise": "weight_units_kg_vs_lb",
+  "boundary_value": false,
+  "turn_type": "night_stop_departure"
+ },
+ "factors_sampled": {
+  "bag_mismatch_size": "moderate_3_9_bags",
+  "mismatch_location": "cargo_weight_vs_uld_entries",
+  "missing_record": "hold_log_empty",
+  "milestone_out_of_order": false,
+  "delay_minutes": -6,
+  "delay_code_fit": "supported",
+  "explanatory_remark": true,
+  "pending_signoff": false,
+  "dg_on_board": false,
+  "decoy_noise": "weight_units_kg_vs_lb",
+  "boundary_value": false,
+  "turn_type": "night_stop_departure"
+ },
+ "plan": {
+  "load_reconciled": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "delay_code_supported": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "log_disposition": {
+   "clarity": "leaning",
+   "target": "close_with_note",
+   "second": null
+  },
+  "offblock_delay": {
+   "clarity": "clear",
+   "target": "1",
+   "second": null
+  },
+  "failed_checks": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  }
+ },
+ "target_words": 86,
+ "deciding": {
+  "load_reconciled": "Bags 40 vs 40; cargo 420 kg vs ULD1 925 lb (about 419.6 kg), a unit difference noted in the remark.",
+  "delay_code_supported": "Code baggage, but last_bag 06:05 was 25 minutes before STD; the remark points to late passengers, not baggage.",
+  "log_disposition": "Remark explains the lb entry and late passenger boarding; annotate then close, with doubt over the mismatched code.",
+  "offblock_delay": "Off-blocks 06:39 vs STD 06:30 is 9 minutes late, squarely level 1.",
+  "failed_checks": "Delay code unsupported and late off-blocks fail; the loads reconcile, so it is two, with a possible third."
+ },
+ "request": "rec-F205-0031",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.010346
+}

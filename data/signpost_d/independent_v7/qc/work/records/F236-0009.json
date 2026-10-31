@@ -1,0 +1,168 @@
+{
+ "id": "F236-0009",
+ "family": "F236",
+ "state": {
+  "changeover": {
+   "line": "L3",
+   "from_allergens": [
+    "wheat",
+    "sesame"
+   ],
+   "to_allergens": [
+    "wheat"
+   ]
+  },
+  "cleaning": {
+   "steps": [
+    {
+     "n": 1,
+     "completed": true,
+     "spec_min": 20,
+     "actual_min": 20
+    },
+    {
+     "n": 2,
+     "completed": true,
+     "spec_min": 15,
+     "actual_min": 16
+    }
+   ],
+   "part_swap": false
+  },
+  "verification": {
+   "swabs": [
+    {
+     "id": "S1",
+     "target": "sesame",
+     "reading": 1.2,
+     "limit_ppm": 5,
+     "at": "2024-08-02T08:00"
+    }
+   ],
+   "atp_rlu": [
+    {
+     "value": 85
+    }
+   ]
+  },
+  "production": {
+   "line": "L3",
+   "start_at": "2024-08-02T08:00",
+   "quantity": 48,
+   "unit": "kg",
+   "packaging_allergens": [
+    "wheat"
+   ]
+  },
+  "approvals": {
+   "qa_signoff": {
+    "signed_at": "2024-08-02T07:50"
+   },
+   "deviations": [
+    {
+     "id": "D-8",
+     "scope": "L3 S1 sampled at start",
+     "approved_at": "2024-08-02T07:40"
+    }
+   ]
+  },
+  "history": [
+   {
+    "passed": true
+   },
+   {
+    "passed": true
+   },
+   {
+    "passed": false
+   },
+   {
+    "passed": true
+   },
+   {
+    "passed": true
+   },
+   {
+    "passed": true
+   },
+   {
+    "passed": false
+   },
+   {
+    "passed": true
+   },
+   {
+    "passed": true
+   },
+   {
+    "passed": true
+   }
+  ]
+ },
+ "factors": {
+  "allergen_transition": "removes_allergen",
+  "cleaning_completion": "full",
+  "swab_outcome": "trace_below_limit",
+  "swab_timing_mismatch": false,
+  "cross_section_discrepancy": "none",
+  "exposed_quantity_kg": 48.0,
+  "approved_deviation": true,
+  "label_precaution": false,
+  "dedicated_tooling": false,
+  "qa_signoff_state": "signed_before_start",
+  "line_failure_history": 2,
+  "boundary_value": false
+ },
+ "factors_sampled": {
+  "allergen_transition": "removes_allergen",
+  "cleaning_completion": "full",
+  "swab_outcome": "positive_no_retest",
+  "swab_timing_mismatch": true,
+  "cross_section_discrepancy": "none",
+  "exposed_quantity_kg": 90.88,
+  "approved_deviation": true,
+  "label_precaution": false,
+  "dedicated_tooling": false,
+  "qa_signoff_state": "missing",
+  "line_failure_history": 2,
+  "boundary_value": false
+ },
+ "plan": {
+  "swabs_cleared": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "line_disposition": {
+   "clarity": "contested",
+   "target": "hold",
+   "second": "release_conditional"
+  },
+  "worst_deficiency": {
+   "clarity": "clear",
+   "target": "none",
+   "second": null
+  },
+  "exposed_product": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  },
+  "residue_evidence": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 52,
+ "deciding": {
+  "swabs_cleared": "S1 passed (1.2 vs 5 ppm) but is timestamped exactly at start_at 08:00, covered by deviation D-8.",
+  "line_disposition": "Swab at start with an approved deviation, no may_contain label; hold versus conditional release is a toss-up.",
+  "worst_deficiency": "Cleaning complete, sign-off 07:50 before start, no mismatches, deviation approved.",
+  "exposed_product": "48 kg batch is just under 50, while swab time equals start time so some exposure is arguable.",
+  "residue_evidence": "S1 reads 1.2 ppm, above zero but well under the 5 ppm limit, against ATP 85 RLU (decoy)."
+ },
+ "request": "rec-F236-0006",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.015068
+}

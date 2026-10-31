@@ -1,0 +1,171 @@
+{
+ "id": "F232-0010",
+ "family": "F232",
+ "state": {
+  "night_header": {
+   "date": "2025-09-14",
+   "allocated_hours": 8,
+   "eng_window": [
+    "2025-09-15T08:10",
+    "2025-09-15T08:50"
+   ]
+  },
+  "conditions": {
+   "limits": {
+    "humidity_pct": 85,
+    "cloud_okta": 5
+   },
+   "closures": [
+    {
+     "start": "2025-09-15T04:40",
+     "end": "2025-09-15T08:00",
+     "reason": "weather",
+     "humidity_pct": 94,
+     "cloud_okta": 7
+    }
+   ]
+  },
+  "exposures": [
+   [
+    "T1",
+    "r",
+    3600,
+    "2025-09-15T00:30",
+    1.1,
+    "pass"
+   ],
+   [
+    "T1",
+    "g",
+    3600,
+    "2025-09-15T01:31",
+    1.0,
+    "pass"
+   ],
+   [
+    "T2",
+    "r",
+    3600,
+    "2025-09-15T02:32",
+    1.8,
+    "pass"
+   ],
+   [
+    "T2",
+    "g",
+    2450,
+    "2025-09-15T03:33",
+    1.7,
+    "pass"
+   ],
+   [
+    "T3",
+    "r",
+    1200,
+    "2025-09-15T04:15",
+    1.2,
+    null
+   ]
+  ],
+  "programme_request": {
+   "max_seeing_arcsec": 1.4,
+   "exception": {
+    "target_ids": [
+     "T2"
+    ],
+    "relaxed_seeing_arcsec": 2.0
+   },
+   "T1": {
+    "r": 3600,
+    "g": 3600
+   },
+   "T2": {
+    "r": 3600,
+    "g": 2450
+   }
+  },
+  "faults": [
+   {
+    "subsystem": "dome drive",
+    "start_utc": "2025-09-15T08:15",
+    "end_utc": "2025-09-15T08:40",
+    "cleared": true,
+    "retest_utc": null,
+    "workaround": null,
+    "ticket_ref": "ENG-3107"
+   }
+  ],
+  "notes": {
+   "observer_note": "T1 and T2 done.",
+   "night_assistant_note": "Grinding noise from dome drive about 08:20."
+  }
+ },
+ "factors": {
+  "weather_loss_hours": 3.33,
+  "fault_overlap": "none",
+  "fault_resolution_state": "cleared_no_retest",
+  "maintenance_window": true,
+  "closure_reason_mismatch": "none",
+  "note_claim_discrepancy": "none",
+  "seeing_vs_limit": "exceeded",
+  "seeing_exception_approved": true,
+  "usable_fraction": 0.46,
+  "qa_pending_count": 1,
+  "utc_date_rollover": true,
+  "assistant_note_tone": "alarmed_benign",
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "weather_loss_hours": 3.34,
+  "fault_overlap": "minor_overlap",
+  "fault_resolution_state": "open_blocking",
+  "maintenance_window": false,
+  "closure_reason_mismatch": "station_below_limits",
+  "note_claim_discrepancy": "filter_missing",
+  "seeing_vs_limit": "exceeded",
+  "seeing_exception_approved": true,
+  "usable_fraction": 0.46,
+  "qa_pending_count": 0,
+  "utc_date_rollover": true,
+  "assistant_note_tone": "alarmed_benign",
+  "boundary_case": false
+ },
+ "plan": {
+  "weather_only_loss": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "claims_supported": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "night_disposition": {
+   "clarity": "clear",
+   "target": "hold",
+   "second": null
+  },
+  "usable_share": {
+   "clarity": "clear",
+   "target": "2",
+   "second": null
+  },
+  "fault_followup": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  }
+ },
+ "target_words": 71,
+ "deciding": {
+  "weather_only_loss": "The single closure (04:40-08:00) has humidity 94 and cloud 7 above limits. The dome fault falls in the eng_window after the closure ends and explains the grinding note. Slight doubt remains from the fault timing near the end of the closure.",
+  "claims_supported": "T1 r and g are 3600 each and T2 r and g are 3600 and 2450, all matching required totals. T2 seeing of 1.7-1.8 is covered by the relaxed 2.0 exception.",
+  "night_disposition": "T3 frame at 04:15 has qa null, and the dome fault cleared with retest_utc null. Charging waits on that pending confirmation.",
+  "usable_share": "QA-pass in-constraint time is 13250 s of 28800 s (about 0.46), plainly between 40% and 80%.",
+  "fault_followup": "The dome drive fault is cleared at 08:40 with retest_utc null. Its position inside the eng_window leaves it arguable whether it is science-affecting, so level 1 narrowly beats level 0."
+ },
+ "request": "rec-F232-0006",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.020924
+}

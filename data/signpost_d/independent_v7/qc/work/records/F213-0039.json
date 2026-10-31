@@ -1,0 +1,131 @@
+{
+ "id": "F213-0039",
+ "family": "F213",
+ "state": {
+  "pool": {
+   "type": "teaching",
+   "test_interval_min": 120,
+   "limits": {
+    "ph_min": 7.2,
+    "ph_max": 7.8
+   },
+   "tolerance": {
+    "ph": 0.2
+   },
+   "micro_due": "2024-04-01"
+  },
+  "manual_tests": [
+   {
+    "time": "09:00",
+    "ph": 7.4
+   },
+   {
+    "time": "11:00",
+    "ph": 8.0
+   },
+   {
+    "time": "13:00",
+    "ph": 7.5
+   }
+  ],
+  "plant": {
+   "controller_readings": [
+    {
+     "time": "11:00",
+     "ph": 7.7
+    }
+   ],
+   "dosing_events": [
+    {
+     "time": "10:30",
+     "type": "shock"
+    }
+   ]
+  },
+  "actions": [
+   {
+    "time": "12:45",
+    "reading_ref": "11:00",
+    "retest_time": "13:00"
+   }
+  ],
+  "equipment": {
+   "kits": [
+    {
+     "kit_id": "K4",
+     "cal_due": "2024-12-01",
+     "reagent_lot": "L9"
+    }
+   ]
+  },
+  "lab_sample": null
+ },
+ "factors": {
+  "pool_type": "teaching",
+  "test_coverage_gap": 0,
+  "boundary_interval": false,
+  "log_controller_discrepancy": "borderline",
+  "discrepancy_location": "ph",
+  "excursion_severity": "clear",
+  "corrective_action_delay": "105 minutes",
+  "retest_logged": true,
+  "dosing_event_explains": false,
+  "kit_calibration_status": "in_date",
+  "lab_sample_state": "missing_when_due",
+  "out_of_order_entry": false,
+  "benign_noise": "reagent_change"
+ },
+ "factors_sampled": {
+  "pool_type": "teaching",
+  "test_coverage_gap": 2,
+  "boundary_interval": false,
+  "log_controller_discrepancy": "none",
+  "discrepancy_location": "ph",
+  "excursion_severity": "clear",
+  "corrective_action_delay": "prompt",
+  "retest_logged": true,
+  "dosing_event_explains": true,
+  "kit_calibration_status": "in_date",
+  "lab_sample_state": "missing_when_due",
+  "out_of_order_entry": false,
+  "benign_noise": "reagent_change"
+ },
+ "plan": {
+  "test_frequency_met": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "readings_reconcile": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "log_disposition": {
+   "clarity": "clear",
+   "target": "accept",
+   "second": null
+  },
+  "action_delay": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  },
+  "failed_checks": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  }
+ },
+ "target_words": 34,
+ "deciding": {
+  "test_frequency_met": "Tests at 09:00, 11:00 and 13:00 meet the 120 min interval.",
+  "readings_reconcile": "Controller 11:00 pH 7.7 vs manual 8.0 differs by 0.3, above the 0.2 tolerance, though the reading was taken after dosing.",
+  "log_disposition": "Retest at 13:00 is in limits, and the pH excursion was addressed.",
+  "action_delay": "pH 8.0 at 11:00 and action at 12:45, 105 min, near the 120 min boundary.",
+  "failed_checks": "The lab sample is null though micro_due passed; other checks are mostly satisfied."
+ },
+ "request": "rec-F213-0036",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.005798
+}

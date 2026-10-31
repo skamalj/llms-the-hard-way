@@ -1,0 +1,161 @@
+{
+ "id": "F221-0003",
+ "family": "F221",
+ "state": {
+  "vehicle": {
+   "fleet": "3306",
+   "axles": "2x4",
+   "spec_kpa": {
+    "F": 825,
+    "R": 800
+   },
+   "interval_days": 91,
+   "interval_km": 15000,
+   "odo_km": 150001
+  },
+  "inspection": {
+   "date": "2024-07-09",
+   "inspector": "I22",
+   "odo_km": 150001,
+   "signoff_at": "2024-07-09T09:50"
+  },
+  "brakes": {
+   "axles": [
+    {
+     "pos": "F",
+     "lining_mm": 7.0
+    },
+    {
+     "pos": "R",
+     "lining_mm": 5.25
+    }
+   ],
+   "test": {
+    "service_pct": 65.1,
+    "secondary_pct": 42,
+    "parking_pct": 31
+   }
+  },
+  "tyres": [
+   {
+    "pos": "FL",
+    "serial": "K71",
+    "dc": "4422",
+    "min_tread_mm": 3.4,
+    "kpa": 820
+   },
+   {
+    "pos": "FR",
+    "serial": "K72",
+    "dc": "4422",
+    "min_tread_mm": 5.0,
+    "kpa": 825
+   },
+   {
+    "pos": "RL",
+    "serial": "K90",
+    "dc": "4422",
+    "min_tread_mm": 5.3,
+    "kpa": 790
+   },
+   {
+    "pos": "RR",
+    "serial": "K74",
+    "dc": "4422",
+    "min_tread_mm": 5.1,
+    "kpa": 800
+   }
+  ],
+  "defects": [
+   {
+    "id": "D3",
+    "raised": "2024-04-20",
+    "carried": true,
+    "status": "closed",
+    "rectified": "2024-04-24",
+    "tech": "T11"
+   }
+  ],
+  "history": {
+   "prev_date": "2024-04-20",
+   "prev_odo_km": 135000,
+   "register": {
+    "FL": "K71",
+    "FR": "K72",
+    "RL": "K73",
+    "RR": "K74"
+   },
+   "rechecks": [
+    {
+     "date": "2024-07-23"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "worst_tread_margin_mm": 2.4,
+  "worst_lining_margin_mm": 2.25,
+  "service_brake_efficiency_pct": 65.07,
+  "tyre_serial_mismatch": "one_serial_unregistered",
+  "odometer_conflict": "none",
+  "missing_element": "none",
+  "carried_defects_open": 0,
+  "rectification_unverified": false,
+  "interval_status": "on_boundary",
+  "recheck_booked": true,
+  "pressure_deviation_pct": 3.49,
+  "tyre_age_years": 1.68
+ },
+ "factors_sampled": {
+  "worst_tread_margin_mm": 3.41,
+  "worst_lining_margin_mm": 2.25,
+  "service_brake_efficiency_pct": 65.07,
+  "tyre_serial_mismatch": "one_serial_unregistered",
+  "odometer_conflict": "none",
+  "missing_element": "none",
+  "carried_defects_open": 0,
+  "rectification_unverified": true,
+  "interval_status": "within",
+  "recheck_booked": true,
+  "pressure_deviation_pct": 3.49,
+  "tyre_age_years": 1.68
+ },
+ "plan": {
+  "prior_defects_closed": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "within_interval": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "disposition": {
+   "clarity": "leaning",
+   "target": "hold_confirm",
+   "second": null
+  },
+  "rectify_urgency": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  },
+  "failed_checks": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  }
+ },
+ "target_words": 59,
+ "deciding": {
+  "prior_defects_closed": "D3 is closed, rectified 2024-04-24 after being raised 2024-04-20, with technician T11 recorded.",
+  "within_interval": "80 days is fine, but the mileage gap is 150001 minus 135000 = 15001 km against 15000, over by exactly 1 km.",
+  "disposition": "RL serial K90 is not in the register (K73), so identity needs confirming before release; readings are otherwise legal.",
+  "rectify_urgency": "Worst tread is 3.4 mm, so it is below advisory but still over 1 mm clear of the limit; linings are 5.25 mm.",
+  "failed_checks": "The unregistered RL serial fails, and the 1 km mileage overrun may count as a second failure."
+ },
+ "request": "rec-F221-0001",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.013814
+}

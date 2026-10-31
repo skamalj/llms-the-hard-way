@@ -1,0 +1,125 @@
+{
+ "id": "F216-0033",
+ "family": "F216",
+ "state": {
+  "session": {
+   "type": "pharmacy",
+   "date": "2025-05-06"
+  },
+  "temp_log": {
+   "interval_min": 10,
+   "readings": [
+    [
+     "10:00",
+     7.8
+    ],
+    [
+     "10:10",
+     8.3
+    ],
+    [
+     "10:20",
+     8.5
+    ],
+    [
+     "10:30",
+     8.4
+    ],
+    [
+     "10:40",
+     8.2
+    ],
+    [
+     "10:50",
+     7.6
+    ]
+   ]
+  },
+  "stock": {
+   "lots": [
+    {
+     "lot_no": "R5",
+     "tolerance_min_out": 180,
+     "opening": 50,
+     "wasted": 0,
+     "closing": 20
+    }
+   ]
+  },
+  "administration": [
+   {
+    "time": "10:25",
+    "lot_no": "R5",
+    "doses": 30
+   }
+  ]
+ },
+ "factors": {
+  "true_excursion_minutes": 40,
+  "log_source_discrepancy": "none",
+  "buffered_probe_in_range": false,
+  "planned_maintenance": false,
+  "stability_clearance": "not_requested",
+  "doses_during_exposure": 30,
+  "stock_count_gap": 0,
+  "lot_id_mismatch": false,
+  "lots_beyond_tolerance": "none",
+  "freezing_reading": false,
+  "boundary_case": false,
+  "unit_alarm_history": 0,
+  "session_type": "pharmacy"
+ },
+ "factors_sampled": {
+  "true_excursion_minutes": 26,
+  "log_source_discrepancy": "logger_gap",
+  "buffered_probe_in_range": true,
+  "planned_maintenance": true,
+  "stability_clearance": "cleared_shortened",
+  "doses_during_exposure": 30,
+  "stock_count_gap": 2,
+  "lot_id_mismatch": false,
+  "lots_beyond_tolerance": "some",
+  "freezing_reading": false,
+  "boundary_case": false,
+  "unit_alarm_history": 0,
+  "session_type": "pharmacy"
+ },
+ "plan": {
+  "dosed_uncleared": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "stock_reconciles": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "stock_disposition": {
+   "clarity": "leaning",
+   "target": "release",
+   "second": null
+  },
+  "excursion_duration": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  },
+  "followup_urgency": {
+   "clarity": "leaning",
+   "target": "0",
+   "second": null
+  }
+ },
+ "target_words": 45,
+ "deciding": {
+  "dosed_uncleared": "30 doses at 10:25 fall after readings went above 8.0 (10:10) with no clearance section.",
+  "stock_reconciles": "R5: 50 opening - 0 wasted - 30 given = 20 closing; lot numbers match.",
+  "stock_disposition": "Roughly 40 min out against a 180 min tolerance, peak 8.5, so stock can return to use.",
+  "excursion_duration": "Four readings (10:10-10:40) above 8.0 at 10-min spacing give about 40 min, in the 30-120 band.",
+  "followup_urgency": "Mild excursion within tolerance and a balanced count; there is no outstanding action, though doses were given during it."
+ },
+ "request": "rec-F216-0031",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.014237
+}

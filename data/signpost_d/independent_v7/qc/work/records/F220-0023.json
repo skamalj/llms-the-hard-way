@@ -1,0 +1,126 @@
+{
+ "id": "F220-0023",
+ "family": "F220",
+ "state": {
+  "tray": {
+   "tray_id": "T-3318",
+   "barcode": "B3318",
+   "request_note": "On-call list, needed within the hour"
+  },
+  "set_check": {
+   "lines": [
+    {
+     "cat_code": "RT3",
+     "qty_expected": 2,
+     "qty_counted": 1
+    },
+    {
+     "cat_code": "FO7",
+     "qty_expected": 4,
+     "qty_counted": 3
+    },
+    {
+     "cat_code": "SC9",
+     "qty_expected": 2,
+     "qty_counted": 1
+    },
+    {
+     "cat_code": "CL2",
+     "qty_expected": 6,
+     "qty_counted": 7
+    }
+   ],
+   "variances": []
+  },
+  "washer": {
+   "cycle_id": "W31",
+   "a0": 3000,
+   "alarms": [],
+   "trays_processed": [
+    "B3318"
+   ]
+  },
+  "steriliser_load": {
+   "printout": {
+    "temp_min_c": 134.4,
+    "temp_max_c": 135.8,
+    "hold_s": 150,
+    "pressure_kpa": 312
+   },
+   "logger": null,
+   "bi": {
+    "result": "pass"
+   },
+   "ci_result": "pass",
+   "unload_condition": "dry"
+  }
+ },
+ "factors": {
+  "set_count_discrepancies": 4,
+  "substitution_documented": false,
+  "cycle_excursion": "short_hold",
+  "independent_logger_confirms": false,
+  "bi_status": "pass",
+  "chemical_indicator": "pass",
+  "washer_record_state": "clean",
+  "pack_integrity": "intact",
+  "label_mismatch": "none",
+  "daily_test_state": "not_logged",
+  "theatre_urgency": "emergency_on_call",
+  "note_tone": "neutral",
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "set_count_discrepancies": 0,
+  "substitution_documented": false,
+  "cycle_excursion": "none",
+  "independent_logger_confirms": false,
+  "bi_status": "pass",
+  "chemical_indicator": "not_read",
+  "washer_record_state": "barcode_not_listed",
+  "pack_integrity": "intact",
+  "label_mismatch": "expiry_inconsistent",
+  "daily_test_state": "fail_then_repaired_pass",
+  "theatre_urgency": "emergency_on_call",
+  "note_tone": "neutral",
+  "boundary_case": false
+ },
+ "plan": {
+  "cycle_in_limits": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "disposition": {
+   "clarity": "clear",
+   "target": "reprocess",
+   "second": null
+  },
+  "failure_stage": {
+   "clarity": "clear",
+   "target": "no_discrepancy",
+   "second": null
+  },
+  "count_gaps": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  },
+  "sterility_doubt": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  }
+ },
+ "target_words": 53,
+ "deciding": {
+  "cycle_in_limits": "Printout hold_s is 150 against the 180 s minimum and no logger exists, so the hold was short.",
+  "disposition": "The short hold means the sterilisation is not valid, so the tray needs a new cycle despite the BI and CI passes; the on-call urgency is a decoy.",
+  "failure_stage": "Washer is clean, but four count lines differ with no variances (pack stage) and the hold is short (steriliser stage), so no_discrepancy does not fit.",
+  "count_gaps": "Four lines differ with no variances: three short and one over, which includes the extra CL2 item. Reviewers could count it as three or four.",
+  "sterility_doubt": "BI and CI passed and the pack is dry, but the hold was short, which pushes against a low doubt level."
+ },
+ "request": "rec-F220-0021",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.014127
+}

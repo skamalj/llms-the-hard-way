@@ -1,0 +1,124 @@
+{
+ "id": "F220-0048",
+ "family": "F220",
+ "state": {
+  "set_check": {
+   "lines": [
+    {
+     "cat_code": "A1",
+     "qty_expected": 2,
+     "qty_counted": 1
+    },
+    {
+     "cat_code": "B2",
+     "qty_expected": 4,
+     "qty_counted": 3
+    },
+    {
+     "cat_code": "C3",
+     "qty_expected": 1,
+     "qty_counted": 0
+    },
+    {
+     "cat_code": "D4",
+     "qty_expected": 2,
+     "qty_counted": 3
+    }
+   ],
+   "variances": [
+    {
+     "cat_code": "D4",
+     "reason": "substitute",
+     "approved_by": "lead"
+    },
+    {
+     "cat_code": "C3",
+     "reason": "on loan",
+     "approved_by": "lead"
+    }
+   ]
+  },
+  "washer": {
+   "alarms": [
+    "door"
+   ],
+   "rerun_cycle_id": "W31"
+  },
+  "steriliser_load": {
+   "printout": {
+    "temp_min_c": 134.8,
+    "hold_s": 190
+   },
+   "ci_result": "partial",
+   "bi": null
+  }
+ },
+ "factors": {
+  "set_count_discrepancies": 4,
+  "substitution_documented": true,
+  "cycle_excursion": "none",
+  "independent_logger_confirms": true,
+  "bi_status": "not_required",
+  "chemical_indicator": "partial_change",
+  "washer_record_state": "alarm_cleared_rerun",
+  "pack_integrity": "intact",
+  "label_mismatch": "none",
+  "daily_test_state": "fail_then_repaired_pass",
+  "theatre_urgency": "routine",
+  "note_tone": "neutral",
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "set_count_discrepancies": 4,
+  "substitution_documented": true,
+  "cycle_excursion": "brief_temp_dip",
+  "independent_logger_confirms": true,
+  "bi_status": "not_required",
+  "chemical_indicator": "partial_change",
+  "washer_record_state": "alarm_cleared_rerun",
+  "pack_integrity": "intact",
+  "label_mismatch": "none",
+  "daily_test_state": "fail_then_repaired_pass",
+  "theatre_urgency": "routine",
+  "note_tone": "neutral",
+  "boundary_case": false
+ },
+ "plan": {
+  "cycle_in_limits": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "disposition": {
+   "clarity": "balanced",
+   "target": "release",
+   "second": "reprocess"
+  },
+  "failure_stage": {
+   "clarity": "clear",
+   "target": "no_discrepancy",
+   "second": null
+  },
+  "count_gaps": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  },
+  "sterility_doubt": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  }
+ },
+ "target_words": 36,
+ "deciding": {
+  "cycle_in_limits": "Printout 134.8 C minimum and 190 s hold, both in band.",
+  "disposition": "Two lines have approved variances, but A1 and B2 stay short without cover, so release versus reprocess is open.",
+  "failure_stage": "Washer alarm has a rerun reference W31 and the cycle is in band, so no stage looks unresolved, though the count lines remain open.",
+  "count_gaps": "Four discrepant lines; C3 and D4 are covered by approved variances, A1 and B2 have none, which sits between levels 2 and 3.",
+  "sterility_doubt": "ci_result is 'partial' with bi null; a partial change is a doubtful indicator, though it could be read as a single record gap."
+ },
+ "request": "rec-F220-0046",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.014949
+}

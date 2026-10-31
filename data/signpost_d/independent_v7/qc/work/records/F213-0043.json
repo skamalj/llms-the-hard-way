@@ -1,0 +1,115 @@
+{
+ "id": "F213-0043",
+ "family": "F213",
+ "state": {
+  "pool": {
+   "type": "teaching",
+   "test_interval_min": 120,
+   "opening": {
+    "open": "2024-09-12T09:00",
+    "close": "2024-09-12T15:00"
+   },
+   "limits": {
+    "free_cl_min": 1.0,
+    "free_cl_max": 3.0,
+    "ph_min": 7.2,
+    "ph_max": 7.8
+   },
+   "tolerance": {
+    "free_cl": 0.3,
+    "ph": 0.2
+   }
+  },
+  "manual_tests": [
+   {
+    "time": "2024-09-12T09:00",
+    "free_cl": 0.6,
+    "ph": 7.4
+   },
+   {
+    "time": "2024-09-12T13:30",
+    "free_cl": 1.8,
+    "ph": 7.4
+   },
+   {
+    "time": "2024-09-12T11:00",
+    "free_cl": 0.7,
+    "ph": 7.4
+   }
+  ],
+  "actions": [
+   {
+    "time": "2024-09-12T12:00",
+    "reading_ref": "2024-09-12T09:00"
+   }
+  ]
+ },
+ "factors": {
+  "pool_type": "teaching",
+  "test_coverage_gap": 1,
+  "boundary_interval": false,
+  "log_controller_discrepancy": "near_tolerance",
+  "discrepancy_location": "free_chlorine",
+  "excursion_severity": "clear",
+  "corrective_action_delay": "delayed",
+  "retest_logged": false,
+  "dosing_event_explains": false,
+  "kit_calibration_status": "in_date",
+  "lab_sample_state": "pending",
+  "out_of_order_entry": true,
+  "benign_noise": "none"
+ },
+ "factors_sampled": {
+  "pool_type": "teaching",
+  "test_coverage_gap": 3,
+  "boundary_interval": false,
+  "log_controller_discrepancy": "none",
+  "discrepancy_location": "free_chlorine",
+  "excursion_severity": "clear",
+  "corrective_action_delay": "delayed",
+  "retest_logged": false,
+  "dosing_event_explains": false,
+  "kit_calibration_status": "in_date",
+  "lab_sample_state": "clear",
+  "out_of_order_entry": true,
+  "benign_noise": "temp_swing"
+ },
+ "plan": {
+  "test_frequency_met": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "readings_reconcile": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "log_disposition": {
+   "clarity": "clear",
+   "target": "hold_for_retest",
+   "second": null
+  },
+  "action_delay": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  },
+  "failed_checks": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 25,
+ "deciding": {
+  "test_frequency_met": "Gap 11:00 to 13:30 is 150 min over the 120 min interval, and 13:30 to close is 90 min.",
+  "readings_reconcile": "No plant section, so agreement cannot be checked; the manual values are only self-consistent.",
+  "log_disposition": "Low free_cl 0.6 and 0.7 with action at 12:00 and no matching retest until 13:30.",
+  "action_delay": "Free_cl 0.6 at 09:00 with action at 12:00, 180 min, but 11:00 reading may be taken as the reference.",
+  "failed_checks": "Frequency gap, missing plant data, delayed action and no retest fail; two or three counts are arguable."
+ },
+ "request": "rec-F213-0041",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.006993
+}

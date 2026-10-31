@@ -1,0 +1,147 @@
+{
+ "id": "F224-0045",
+ "family": "F224",
+ "state": {
+  "request": {
+   "views": [
+    "BW_R"
+   ],
+   "ind": null,
+   "risk": "high",
+   "prior": "2023-12-04",
+   "date": "2025-05-12"
+  },
+  "exposures": [
+   {
+    "id": 1,
+    "v": "BW_R",
+    "kV": 70,
+    "s": 0.2,
+    "mGy": 1.52,
+    "t": "11:14"
+   },
+   {
+    "id": 2,
+    "v": "BW_R",
+    "kV": 70,
+    "s": 0.2,
+    "mGy": 1.52,
+    "t": "11:18",
+    "retake_of": 1
+   }
+  ],
+  "image_review": {
+   "grade": 2,
+   "faults": {
+    "1": [
+     "FC_OVER_DENSE"
+    ]
+   },
+   "sensor_errors": [
+    {
+     "code": "SE_07",
+     "t": "11:18"
+    }
+   ],
+   "second_grader": "done"
+  },
+  "equipment": {
+   "last_qa": "2025-02-03",
+   "qa_months": 12,
+   "output_test": "pass",
+   "drl_ref": {
+    "BW_R": 1.0
+   },
+   "console_log": [
+    {
+     "t": "11:14",
+     "kV": 70,
+     "s": 0.2
+    },
+    {
+     "t": "11:18",
+     "kV": 70,
+     "s": 0.2
+    },
+    {
+     "t": "11:19",
+     "kV": 70,
+     "s": 0.2
+    }
+   ]
+  },
+  "operator": {
+   "id": "OP45",
+   "signoff_at": "2025-05-12T12:00",
+   "prior_findings_12m": 0
+  }
+ },
+ "factors": {
+  "indication_match": "missing",
+  "recall_interval_months": 17,
+  "dose_ratio_to_drl": 1.52,
+  "console_log_discrepancy": "extra_console_exposure",
+  "retake_cause": "sensor_fault",
+  "equipment_qa_status": "in_date",
+  "approved_exception": false,
+  "patient_cooperation_flag": false,
+  "unrequested_exposure_count": 0,
+  "verbal_authorisation_logged": false,
+  "image_grade": "acceptable_minor_faults",
+  "audit_completeness": "complete",
+  "operator_prior_findings": 0
+ },
+ "factors_sampled": {
+  "indication_match": "missing",
+  "recall_interval_months": 17,
+  "dose_ratio_to_drl": 0.71,
+  "console_log_discrepancy": "extra_console_exposure",
+  "retake_cause": "cone_cut",
+  "equipment_qa_status": "in_date",
+  "approved_exception": false,
+  "patient_cooperation_flag": false,
+  "unrequested_exposure_count": 0,
+  "verbal_authorisation_logged": false,
+  "image_grade": "acceptable_minor_faults",
+  "audit_completeness": "complete",
+  "operator_prior_findings": 0
+ },
+ "plan": {
+  "justified": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "operator_retake": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "follow_up": {
+   "clarity": "balanced",
+   "target": "close_record",
+   "second": "log_trend"
+  },
+  "dose_position": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  },
+  "unjustified_count": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  }
+ },
+ "target_words": 99,
+ "deciding": {
+  "justified": "Indication is null, but BW_R is requested for a high-risk patient with a 17-month gap, over the 6-month limit. The record leans slightly towards justified.",
+  "operator_retake": "Sensor error SE_07 is logged at 11:18, the retake timestamp, and the output test passed. Only FC_OVER_DENSE on exposure 1 hints at operator technique.",
+  "follow_up": "The console shows an extra 11:19 entry with no exposure-list counterpart, close to the sensor error and the retake. It could be a harmless sensor re-fire, so the record may be closed or only logged for trend.",
+  "dose_position": "Both exposures show 1.52 mGy against a 1.0 reference, 152% and right at the 150% boundary between raised and excessive. There is no setting mismatch, so the exposure list governs.",
+  "unjustified_count": "Both listed exposures are BW_R, the requested view, so none lack a request. The extra console exposure at 11:19 has no list counterpart, so exactly one is unjustified."
+ },
+ "request": "rec-F224-0041",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.01992
+}

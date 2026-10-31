@@ -1,0 +1,144 @@
+{
+ "id": "F201-0023",
+ "family": "F201",
+ "state": {
+  "register_header": {
+   "drug": "ketamine",
+   "concentration_mg_ml": 100,
+   "schedule": 3,
+   "witness_required": false,
+   "opening_balance_ml": 30
+  },
+  "entries": [
+   {
+    "entry_id": 1,
+    "type": "receipt",
+    "qty_ml": 30,
+    "running_balance_ml": 60,
+    "signed_by": "V1",
+    "batch_no": "K4"
+   },
+   {
+    "entry_id": 2,
+    "type": "use",
+    "qty_ml": 12,
+    "patient_id": "P4",
+    "running_balance_ml": 48,
+    "signed_by": null
+   },
+   {
+    "entry_id": 3,
+    "type": "disposal",
+    "qty_ml": 6,
+    "running_balance_ml": 42,
+    "signed_by": "V1"
+   },
+   {
+    "entry_id": 4,
+    "type": "use",
+    "qty_ml": 10,
+    "patient_id": "P5",
+    "running_balance_ml": 32,
+    "signed_by": "LK-12"
+   }
+  ],
+  "clinical_records": [
+   {
+    "patient_id": "P4"
+   },
+   {
+    "patient_id": "P5"
+   }
+  ],
+  "stock_check": {
+   "counted_ml": 31,
+   "batch_no": "K4"
+  },
+  "disposals": [
+   {
+    "batch_no": "K4",
+    "qty_ml": 6,
+    "register_entry_id": 3,
+    "witness_id": null,
+    "denatured_date": "2024-05-10"
+   }
+  ],
+  "exceptions": [
+   {
+    "batch_no": "K4",
+    "qty_ml": 0.5,
+    "approved_by": "D1",
+    "valid_from": "2024-05-01",
+    "valid_to": "2024-06-30"
+   }
+  ]
+ },
+ "factors": {
+  "drug_profile": "ketamine_100mg_ml",
+  "arithmetic_slip_count": 0,
+  "unrecorded_admin": "none",
+  "clinical_records_missing": false,
+  "disposal_state": "entered_unwitnessed",
+  "unexplained_shortfall_pct": 0.8,
+  "variance_exception": "valid_partial_cover",
+  "manufacturer_overfill": false,
+  "auth_gap_count": 1,
+  "count_out_of_order": false,
+  "unit_mismatch": false,
+  "locum_signatory": true,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "drug_profile": "ketamine_100mg_ml",
+  "arithmetic_slip_count": 3,
+  "unrecorded_admin": "none",
+  "clinical_records_missing": false,
+  "disposal_state": "entered_unwitnessed",
+  "unexplained_shortfall_pct": 13.73,
+  "variance_exception": "valid_partial_cover",
+  "manufacturer_overfill": false,
+  "auth_gap_count": 2,
+  "count_out_of_order": false,
+  "unit_mismatch": false,
+  "locum_signatory": true,
+  "boundary_case": false
+ },
+ "plan": {
+  "unexplained_shortfall": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "line_disposition": {
+   "clarity": "leaning",
+   "target": "sign_off",
+   "second": null
+  },
+  "variance_cause": {
+   "clarity": "leaning",
+   "target": "no_discrepancy",
+   "second": null
+  },
+  "variance_size": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  },
+  "auth_gaps": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  }
+ },
+ "target_words": 50,
+ "deciding": {
+  "unexplained_shortfall": "Count 31 against balance 32 is 1 ml short, with a valid 0.5 ml exception covering half, so 0.5 ml is either noise or a real loss.",
+  "line_disposition": "Balances recompute, doses match, and the gap is only the signature on entry 2; the remainder is under 1%, so closing is leaning.",
+  "variance_cause": "Balances and clinical records recompute; the 6 ml disposal is logged against entry 3, leaving only a tiny remainder.",
+  "variance_size": "0.5 ml left after the exception against 60 ml handled is about 0.8%, trace unless the small remainder is ignored.",
+  "auth_gaps": "Only entry 2 has signed_by null; witness_required is false so the null disposal witness is not a gap, and locum LK-12 is valid."
+ },
+ "request": "rec-F201-0021",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011513
+}

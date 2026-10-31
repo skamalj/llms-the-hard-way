@@ -1,0 +1,155 @@
+{
+ "id": "F224-0014",
+ "family": "F224",
+ "state": {
+  "request": {
+   "views": [
+    "BW_R"
+   ],
+   "ind": "CAR_REV",
+   "risk": "low",
+   "prior_bw": "2022-02-10",
+   "date": "2024-05-10",
+   "patient_flags": [
+    "SPECIAL_CARE"
+   ],
+   "exceptions": [
+    {
+     "code": "EX_PAIN",
+     "appr": "D07"
+    }
+   ]
+  },
+  "exposures": [
+   {
+    "id": 1,
+    "view": "BW_R",
+    "t": "2024-05-10T15:00",
+    "kV": 70,
+    "s": 0.2,
+    "mGy": 0.72,
+    "retake_of": null
+   },
+   {
+    "id": 2,
+    "view": "BW_R",
+    "t": "2024-05-10T15:02",
+    "kV": 70,
+    "s": 0.2,
+    "mGy": 0.72,
+    "retake_of": 1
+   },
+   {
+    "id": 3,
+    "view": "PA_16",
+    "t": "2024-05-10T15:04",
+    "kV": 70,
+    "s": 0.2,
+    "retake_of": null
+   }
+  ],
+  "image_review": {
+   "grade": 1,
+   "faults": {
+    "1": [
+     "FC_BLUR"
+    ]
+   },
+   "sensor_errors": [],
+   "second_grader": "pending"
+  },
+  "equipment": {
+   "last_qa": "2024-03-01",
+   "qa_months": 12,
+   "output_test": "pass",
+   "drl_ref": {
+    "BW": 1.0
+   },
+   "console_log": [
+    {
+     "t": "2024-05-10T15:00",
+     "kV": 70,
+     "s": 0.4
+    },
+    {
+     "t": "2024-05-10T15:02",
+     "kV": 70,
+     "s": 0.4
+    }
+   ]
+  },
+  "operator": {
+   "id": "OP4",
+   "signoff": "2024-05-10T17:30",
+   "prior_findings_12m": 5
+  }
+ },
+ "factors": {
+  "indication_match": "match",
+  "recall_interval_months": 27,
+  "dose_ratio_to_drl": 1.44,
+  "console_log_discrepancy": "setting_mismatch",
+  "retake_cause": "patient_movement",
+  "equipment_qa_status": "in_date",
+  "approved_exception": true,
+  "patient_cooperation_flag": true,
+  "unrequested_exposure_count": 1,
+  "verbal_authorisation_logged": false,
+  "image_grade": "diagnostic",
+  "audit_completeness": "grading_pending",
+  "operator_prior_findings": 5
+ },
+ "factors_sampled": {
+  "indication_match": "match",
+  "recall_interval_months": 27,
+  "dose_ratio_to_drl": 1.44,
+  "console_log_discrepancy": "setting_mismatch",
+  "retake_cause": "patient_movement",
+  "equipment_qa_status": "in_date",
+  "approved_exception": true,
+  "patient_cooperation_flag": false,
+  "unrequested_exposure_count": 2,
+  "verbal_authorisation_logged": false,
+  "image_grade": "diagnostic",
+  "audit_completeness": "grading_pending",
+  "operator_prior_findings": 5
+ },
+ "plan": {
+  "justified": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "operator_retake": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "follow_up": {
+   "clarity": "balanced",
+   "target": "hold_confirm",
+   "second": "close_record"
+  },
+  "dose_position": {
+   "clarity": "clear",
+   "target": "2",
+   "second": null
+  },
+  "unjustified_count": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 43,
+ "deciding": {
+  "justified": "CAR_REV fits the BW_R request and the 27-month gap exceeds the 24-month low-risk recall; an approved exception exists but names no view, leaving slight doubt.",
+  "operator_retake": "The retake follows FC_BLUR with a SPECIAL_CARE patient flag, no sensor errors and QA in date, so patient movement, not technique, is the cause.",
+  "follow_up": "second_grader is pending, which would normally hold the record, but the dose and exposures are otherwise explained, so hold_confirm versus close_record is balanced.",
+  "dose_position": "The list shows 0.72 mGy at 0.2 s, but the console logs 0.4 s at the same kV, giving 1.44 mGy, or 144% of the 1.0 BW reference.",
+  "unjustified_count": "PA_16 is not in the request and has no verbal auth; the approved EX_PAIN exception lists no view, so it may or may not cover it (0 vs 1)."
+ },
+ "request": "rec-F224-0011",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.015494
+}

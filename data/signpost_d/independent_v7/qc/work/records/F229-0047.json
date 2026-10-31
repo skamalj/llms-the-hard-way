@@ -1,0 +1,109 @@
+{
+ "id": "F229-0047",
+ "family": "F229",
+ "state": {
+  "lot": {
+   "lot_id": "L-0920-03",
+   "block": "A4",
+   "pick_end": "2024-09-20T09:00"
+  },
+  "intake": {
+   "block_code": "A4",
+   "gross_kg": 3400,
+   "tare_kg": 600,
+   "net_kg": 3000,
+   "bins": [
+    {
+     "kg": 1500
+    },
+    {
+     "kg": 1500
+    }
+   ],
+   "temp_c": 6,
+   "cold_room_in": "09:40",
+   "cold_room_out": "12:30",
+   "driver_note": "Light rain on route."
+  },
+  "press": {
+   "programme": "whole_bunch_gentle",
+   "band_l_per_t": "500-580",
+   "cycle_start": "2024-09-20T13:05",
+   "juice_l": 1650
+  },
+  "transfer": {
+   "lot_ref": "L-0920-03",
+   "tank_id": "T2",
+   "transferred_l": 1630,
+   "qa_signoff": null
+  }
+ },
+ "factors": {
+  "weight_mismatch": "large_over_5pct (ticket arithmetic only; bins match net)",
+  "press_programme": "whole_bunch_gentle",
+  "yield_position": "inside_band",
+  "lot_id_drift": "none",
+  "missing_step": "qa_signoff_missing",
+  "out_of_order_timestamp": false,
+  "pick_to_press_hours": 4.08,
+  "pick_end_recorded": true,
+  "cold_held": true,
+  "rot_pct": 0.2,
+  "sorting_applied": false,
+  "note_signal": "benign_decoy",
+  "boundary_case": true
+ },
+ "factors_sampled": {
+  "weight_mismatch": "large_over_5pct",
+  "press_programme": "whole_bunch_gentle",
+  "yield_position": "above_band",
+  "lot_id_drift": "none",
+  "missing_step": "qa_signoff_missing",
+  "out_of_order_timestamp": false,
+  "pick_to_press_hours": 19.11,
+  "pick_end_recorded": true,
+  "cold_held": true,
+  "rot_pct": 0.2,
+  "sorting_applied": false,
+  "note_signal": "benign_decoy",
+  "boundary_case": true
+ },
+ "plan": {
+  "yield_consistent": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "chain_intact": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "release_decision": {
+   "clarity": "clear",
+   "target": "release_corrected",
+   "second": null
+  },
+  "pick_press_delay": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  },
+  "failed_checks": {
+   "clarity": "leaning",
+   "target": "0",
+   "second": null
+  }
+ },
+ "target_words": 42,
+ "deciding": {
+  "yield_consistent": "Net 3000 kg matches the bin sum; 1650 L is 550 L/t, inside band 500-580.",
+  "chain_intact": "lot_id, block_code and lot_ref carry through unchanged.",
+  "release_decision": "gross minus tare is 2800 against net 3000, but the bins sum to 3000, so it is a clerical ticket error; the only other gap is the null qa_signoff. Fix the record and release.",
+  "pick_press_delay": "pick_end 09:00 to cycle_start 13:05 is 4.08 h, just over the 4 h boundary between level 0 and level 1.",
+  "failed_checks": "Yield, ids and timing are fine and the bin weights agree with net; the arithmetic slip and the null signoff are clerical, so the count is probably zero."
+ },
+ "request": "rec-F229-0046",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.01255
+}

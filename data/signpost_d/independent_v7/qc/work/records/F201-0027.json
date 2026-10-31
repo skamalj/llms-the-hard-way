@@ -1,0 +1,141 @@
+{
+ "id": "F201-0027",
+ "family": "F201",
+ "state": {
+  "register_header": {
+   "drug": "fentanyl",
+   "concentration_mg_ml": 0.05,
+   "schedule": "2",
+   "witness_required": true,
+   "opening_balance_ml": 20
+  },
+  "entries": [
+   {
+    "entry_id": "E1",
+    "qty_ml": 1,
+    "patient_id": "P1",
+    "running_balance_ml": 19,
+    "signed_by": "s07",
+    "witness_id": null
+   },
+   {
+    "entry_id": "E2",
+    "qty_ml": 2,
+    "patient_id": "P2",
+    "running_balance_ml": 16,
+    "signed_by": "s07",
+    "witness_id": null
+   },
+   {
+    "entry_id": "E3",
+    "qty_ml": 1,
+    "patient_id": "P3",
+    "running_balance_ml": 14,
+    "signed_by": null,
+    "witness_id": "w2"
+   },
+   {
+    "entry_id": "E4",
+    "qty_ml": 1,
+    "patient_id": "P4",
+    "running_balance_ml": 13,
+    "signed_by": "LOC-884",
+    "witness_id": null
+   }
+  ],
+  "clinical_records": [
+   {
+    "patient_id": "P1",
+    "dose": 1,
+    "dose_unit": "ml"
+   },
+   {
+    "patient_id": "P2",
+    "dose": 2,
+    "dose_unit": "ml"
+   },
+   {
+    "patient_id": "P3",
+    "dose": 1,
+    "dose_unit": "ml"
+   },
+   {
+    "patient_id": "P4",
+    "dose": 1,
+    "dose_unit": "ml"
+   }
+  ],
+  "stock_check": {
+   "counted_ml": 14.9,
+   "overfill_allowance_ml": 0
+  }
+ },
+ "factors": {
+  "drug_profile": "fentanyl_50mcg_ml",
+  "arithmetic_slip_count": 2,
+  "unrecorded_admin": "none",
+  "clinical_records_missing": false,
+  "disposal_state": "none_needed",
+  "unexplained_shortfall_pct": 0.5,
+  "variance_exception": "none",
+  "manufacturer_overfill": false,
+  "auth_gap_count": 4,
+  "count_out_of_order": false,
+  "unit_mismatch": false,
+  "locum_signatory": true,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "drug_profile": "fentanyl_50mcg_ml",
+  "arithmetic_slip_count": 2,
+  "unrecorded_admin": "moderate_2_to_8pct",
+  "clinical_records_missing": false,
+  "disposal_state": "none_needed",
+  "unexplained_shortfall_pct": 8.46,
+  "variance_exception": "none",
+  "manufacturer_overfill": false,
+  "auth_gap_count": 1,
+  "count_out_of_order": false,
+  "unit_mismatch": false,
+  "locum_signatory": true,
+  "boundary_case": false
+ },
+ "plan": {
+  "unexplained_shortfall": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "line_disposition": {
+   "clarity": "leaning",
+   "target": "sign_off",
+   "second": null
+  },
+  "variance_cause": {
+   "clarity": "clear",
+   "target": "arithmetic_slip",
+   "second": null
+  },
+  "variance_size": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "auth_gaps": {
+   "clarity": "clear",
+   "target": "3",
+   "second": null
+  }
+ },
+ "target_words": 63,
+ "deciding": {
+  "unexplained_shortfall": "Recomputed closing is 15 ml (20 minus 5 given) against counted 14.9, leaving an unmatched 0.1 ml; no disposals or exceptions cover it.",
+  "line_disposition": "Clinical doses match entries and the count is within 0.1 ml of the recomputed balance, which favours closing the line; the slips and gaps are the doubt.",
+  "variance_cause": "E2 states 16 where 19-2=17, and E3 states 14 where 16-1=15; stated closing 13 differs from the recomputed 15 and the count of 14.9, and clinical records all match entries.",
+  "variance_size": "Residual 0.1 ml over 20 ml handled is 0.5%, close to the nil/trace boundary.",
+  "auth_gaps": "witness_required true; E1, E2 and E4 have null witness_id and E3 has null signed_by, giving 4 gaps; locum id LOC-884 is valid."
+ },
+ "request": "rec-F201-0026",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.014902
+}

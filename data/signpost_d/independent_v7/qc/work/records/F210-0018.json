@@ -1,0 +1,117 @@
+{
+ "id": "F210-0018",
+ "family": "F210",
+ "state": {
+  "collection": {
+   "compartment": 2,
+   "vat_l": 1800,
+   "meter_l": 1370,
+   "vat_temp_c": 7.8,
+   "collected_at": "2024-06-03T09:20",
+   "last_milking_end": "2024-06-03T04:30"
+  },
+  "sample": {
+   "compartment": 2,
+   "taken_at": "2024-06-03T09:25",
+   "seal_intact": true,
+   "arrival_temp_c": 11.5
+  },
+  "lab_results": {
+   "bactoscan_kcfu_ml": 180,
+   "scc_k_ml": 520,
+   "thermoduric_cfu_ml": 2500,
+   "inhibitory": "neg",
+   "retest": null
+  },
+  "farm_terms": {
+   "limits": {
+    "vat_temp_max_c": 6,
+    "bactoscan_kcfu_ml": 100,
+    "scc_k_ml": 400,
+    "thermoduric_cfu_ml": 1000
+   },
+   "approved_exceptions": [
+    {
+     "param": "scc_k_ml",
+     "valid_from": "2024-01-01",
+     "valid_to": "2024-02-29"
+    }
+   ],
+   "breaches_90d": 5
+  },
+  "equipment": {
+   "vat_thermometer_due": "2024-11-01",
+   "tanker_meter_due": "2024-09-15"
+  }
+ },
+ "factors": {
+  "vat_temp_level": "high",
+  "recent_milking": false,
+  "mismatch_site": "volume",
+  "mismatch_magnitude": "moderate",
+  "meter_calibration_overdue": false,
+  "lab_limit_breaches": 3,
+  "exception_covers_breach": false,
+  "inhibitory_status": "negative",
+  "treatment_withdrawal_active": false,
+  "retest_state": "none",
+  "sample_integrity": "warm_on_arrival",
+  "history_breaches_90d": 5,
+  "value_on_boundary": false,
+  "driver_sensory_flag": false
+ },
+ "factors_sampled": {
+  "vat_temp_level": "compliant",
+  "recent_milking": false,
+  "mismatch_site": "none",
+  "mismatch_magnitude": "moderate",
+  "meter_calibration_overdue": false,
+  "lab_limit_breaches": 2,
+  "exception_covers_breach": true,
+  "inhibitory_status": "negative",
+  "treatment_withdrawal_active": false,
+  "retest_state": "pending",
+  "sample_integrity": "warm_on_arrival",
+  "history_breaches_90d": 5,
+  "value_on_boundary": false,
+  "driver_sensory_flag": false
+ },
+ "plan": {
+  "temp_compliant": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "intake_disposition": {
+   "clarity": "balanced",
+   "target": "accept_full",
+   "second": "reject_load"
+  },
+  "issue_source": {
+   "clarity": "leaning",
+   "target": "collection_handling",
+   "second": null
+  },
+  "discrepancy_size": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  },
+  "unexplained_breaches": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  }
+ },
+ "target_words": 69,
+ "deciding": {
+  "temp_compliant": "vat_temp_c 7.8 is over the 6 limit and last_milking_end 04:30 is almost 5 h before collection, so warmth is not explained by recent milking.",
+  "intake_disposition": "Inhibitory is neg and no gross failure is shown, favouring acceptance, but three limit breaches and arrival_temp_c 11.5 leave rejection defensible.",
+  "issue_source": "Sample arrival_temp_c 11.5 with an intact seal points to handling after pick-up, though the high vat reading adds some farm-side doubt.",
+  "discrepancy_size": "vat_l 1800 vs meter_l 1370 is about 24% of the vat figure, near the 25% boundary of levels 2 and 3.",
+  "unexplained_breaches": "bactoscan 180, scc 520 and thermoduric 2500 are all over their limits; the only exception expired 2024-02-29."
+ },
+ "request": "rec-F210-0016",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.010981
+}

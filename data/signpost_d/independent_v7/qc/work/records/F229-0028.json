@@ -1,0 +1,121 @@
+{
+ "id": "F229-0028",
+ "family": "F229",
+ "state": {
+  "lot": {
+   "lot_id": "L-245",
+   "block": "B5",
+   "variety": "Chardonnay",
+   "pick_end": "2024-09-12T06:10"
+  },
+  "intake": {
+   "block_code": "B5",
+   "arrival_at": "2024-09-12T07:00",
+   "gross_kg": 7400,
+   "tare_kg": 1400,
+   "net_kg": 6000,
+   "temp_c": 5,
+   "cold_room_in": "07:10",
+   "cold_room_out": null
+  },
+  "sample": {
+   "sampled_at": "2024-09-12T07:20",
+   "brix": 22.1,
+   "ph": 3.3,
+   "ta_g_l": 7.0,
+   "rot_pct": 0.87,
+   "sort": {
+    "sorted": true,
+    "rejected_kg": 120,
+    "post_sort_rot_pct": 0.4
+   }
+  },
+  "press": {
+   "programme": "whole_bunch_gentle",
+   "band_l_per_t": "500-580",
+   "cycle_start": "2024-09-12T10:04",
+   "cycle_end": "2024-09-12T12:30",
+   "free_run_l": 2300,
+   "press_fraction_l": 970,
+   "juice_l": 3270,
+   "so2_mg_l": null,
+   "operator_note": "SO2 added at 40 mg/L at the pan."
+  },
+  "transfer": {
+   "lot_ref": "L-245",
+   "tank_id": "T6",
+   "transferred_l": 3240,
+   "transferred_at": "2024-09-12T13:00",
+   "qa_signoff": null,
+   "qa_comment": "Awaiting SO2 confirmation."
+  }
+ },
+ "factors": {
+  "weight_mismatch": "none",
+  "press_programme": "whole_bunch_gentle",
+  "yield_position": "inside_band",
+  "lot_id_drift": "none",
+  "missing_step": "so2_addition_missing",
+  "out_of_order_timestamp": false,
+  "pick_to_press_hours": 3.9,
+  "pick_end_recorded": true,
+  "cold_held": true,
+  "rot_pct": 0.87,
+  "sorting_applied": true,
+  "note_signal": "contradicts_log",
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "weight_mismatch": "none",
+  "press_programme": "whole_bunch_gentle",
+  "yield_position": "inside_band",
+  "lot_id_drift": "none",
+  "missing_step": "so2_addition_missing",
+  "out_of_order_timestamp": false,
+  "pick_to_press_hours": 19.42,
+  "pick_end_recorded": true,
+  "cold_held": true,
+  "rot_pct": 0.87,
+  "sorting_applied": true,
+  "note_signal": "contradicts_log",
+  "boundary_case": false
+ },
+ "plan": {
+  "yield_consistent": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "chain_intact": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "release_decision": {
+   "clarity": "clear",
+   "target": "hold",
+   "second": null
+  },
+  "pick_press_delay": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "failed_checks": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 159,
+ "deciding": {
+  "yield_consistent": "3270 L from 6000 kg is 545 L/t, inside 500-580; 7400-1400=6000.",
+  "chain_intact": "L-245 and B5 are identical at lot, intake and transfer.",
+  "release_decision": "so2_mg_l is null, the note claims 40 mg/L, and QA sign-off is null with the comment awaiting SO2 confirmation: one confirmation is outstanding with no fault confirmed.",
+  "pick_press_delay": "Pick end 06:10 to cycle_start 10:04 is 3.9 h, just under the 4 h boundary, so level 1 is plausible.",
+  "failed_checks": "so2_mg_l null, qa_signoff null, note contradicting the null SO2 and cold_room_out null make up to four failures, and the note may not count, giving three."
+ },
+ "request": "rec-F229-0026",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.01173
+}

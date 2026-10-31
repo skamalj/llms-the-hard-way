@@ -1,0 +1,109 @@
+{
+ "id": "F211-0040",
+ "family": "F211",
+ "state": {
+  "vehicle": {
+   "odometer_km": 40425,
+   "service_due_km": 41000
+  },
+  "check": {
+   "shift_date": "2024-06-10",
+   "sections_required": 3,
+   "sections_signed": [
+    "vehicle",
+    "clinical",
+    "drugs"
+   ],
+   "countersigned_by": "A. Reid (EMT)",
+   "crew_note": "Light bar flashed oddly, now fine."
+  },
+  "defects": [
+   {
+    "item": "blue lights",
+    "area": "vehicle_systems",
+    "status": "open",
+    "substitute_on_board": true,
+    "deferral": {
+     "authorised_by": "Duty mgr",
+     "valid_until": "2024-06-08"
+    }
+   }
+  ],
+  "stock": {
+   "lines": [
+    {
+     "item": "adrenaline",
+     "qty": 6,
+     "par_level": 6,
+     "expiry": "2024-06-30"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "checklist_completion": "all_signed_countersigned",
+  "worst_defect_tier": "critical_with_substitute",
+  "defect_area": "vehicle_systems",
+  "deferral_authorised": false,
+  "deferral_invalid": true,
+  "workshop_return_recent": false,
+  "earliest_drug_expiry_days": 20,
+  "restock_in_progress": false,
+  "service_margin_km": 575,
+  "crew_note_tone": "alarming_benign",
+  "signed_after_mobilisation": false,
+  "repeat_defect_count": 0
+ },
+ "factors_sampled": {
+  "checklist_completion": "half_or_more_signed",
+  "worst_defect_tier": "none",
+  "defect_area": "stock_and_drugs",
+  "deferral_authorised": false,
+  "deferral_invalid": true,
+  "workshop_return_recent": true,
+  "earliest_drug_expiry_days": -2,
+  "restock_in_progress": true,
+  "service_margin_km": 575,
+  "crew_note_tone": "alarming_benign",
+  "signed_after_mobilisation": false,
+  "repeat_defect_count": 2
+ },
+ "plan": {
+  "defects_controlled": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "readiness_status": {
+   "clarity": "leaning",
+   "target": "release",
+   "second": null
+  },
+  "limiting_area": {
+   "clarity": "leaning",
+   "target": "vehicle_systems",
+   "second": null
+  },
+  "check_completeness": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "defect_severity": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 29,
+ "deciding": {
+  "defects_controlled": "Open blue lights defect has a deferral with valid_until 2024-06-08, before shift_date 2024-06-10, so it is not validly deferred.",
+  "readiness_status": "All sections signed and stock in date; the crew note says the light bar is fine and a substitute is carried, which lightly favours release despite the expired deferral.",
+  "limiting_area": "Blue lights (vehicle_systems) is the only open item and the service margin is 575 km; stock expires 2024-06-30.",
+  "check_completeness": "3 of 3 signed, but countersigned_by is a crew EMT rather than a supervisor, so levels 3 and 2 are both arguable.",
+  "defect_severity": "Blue lights is critical with substitute_on_board true, but the crew note downplays the fault, leaving level 2 plausible."
+ },
+ "request": "rec-F211-0036",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.010359
+}

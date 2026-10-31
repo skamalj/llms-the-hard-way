@@ -1,0 +1,134 @@
+{
+ "id": "F204-0019",
+ "family": "F204",
+ "state": {
+  "rx": {
+   "strength": {
+    "val": 250,
+    "unit": "mg",
+    "per_ml": 5
+   },
+   "freq_per_day": 3
+  },
+  "dispensed": {
+   "strength": {
+    "val": 250,
+    "unit": "mg",
+    "per_ml": 10
+   },
+   "req_warnings": [
+    "W9"
+   ]
+  },
+  "patient": {
+   "supplies": [
+    {
+     "date": "2025-03-01",
+     "days_covered": 6
+    }
+   ],
+   "emergency_supplies": [
+    {
+     "date": "2025-03-05",
+     "days": 3
+    }
+   ]
+  },
+  "label": {
+   "freq_per_day": 3,
+   "warning_codes": [
+    "W9",
+    "W2"
+   ]
+  },
+  "check_log": {
+   "checked_at": "2025-03-07T11:00",
+   "clin_check": {
+    "by": "RPh",
+    "at": "2025-03-07T10:30"
+   },
+   "queries": [
+    {
+     "field": "strength",
+     "status": "pending"
+    }
+   ],
+   "interventions": [
+    {
+     "code": "PI4",
+     "field": "strength",
+     "accepted": true,
+     "by": "RPh"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "strength_status": "mismatch_converted",
+  "product_status": "exact",
+  "quantity_status": "exact",
+  "label_status": "extra_warning_code",
+  "prescriber_query": "pending_on_strength",
+  "pharmacist_intervention": false,
+  "clinical_check_signed": true,
+  "home_supply_days": 3,
+  "emergency_supply": true,
+  "short_expiry": false,
+  "prior_error_count": 0,
+  "high_risk_drug": false,
+  "boundary_case": true
+ },
+ "factors_sampled": {
+  "strength_status": "match_same_units",
+  "product_status": "exact",
+  "quantity_status": "short_undocumented",
+  "label_status": "correct",
+  "prescriber_query": "none",
+  "pharmacist_intervention": true,
+  "clinical_check_signed": true,
+  "home_supply_days": 8,
+  "emergency_supply": true,
+  "short_expiry": false,
+  "prior_error_count": 0,
+  "high_risk_drug": false,
+  "boundary_case": false
+ },
+ "plan": {
+  "strength_differs": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "contested",
+   "target": "hold_query",
+   "second": "release_annotated"
+  },
+  "error_category": {
+   "clarity": "balanced",
+   "target": "none_found",
+   "second": "label_error"
+  },
+  "open_discrepancies": {
+   "clarity": "contested",
+   "target": "1",
+   "second": "0"
+  },
+  "supply_urgency": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  }
+ },
+ "target_words": 43,
+ "deciding": {
+  "strength_differs": "250 mg/5 mL prescribed vs 250 mg/10 mL dispensed is half the concentration.",
+  "next_step": "A pending strength query favours hold; the accepted strength intervention favours release with annotation.",
+  "error_category": "The strength difference has an accepted intervention on it; the only leftover is the extra W2 label warning.",
+  "open_discrepancies": "Strength is covered by the pending query and the accepted intervention; the extra W2 code may count as one.",
+  "supply_urgency": "Supply 03-01 + 6 days ends 03-07; emergency 3 days from 03-05 adds to 03-10; checked 03-07 leaves about 3 days, at the 2/3 boundary."
+ },
+ "request": "rec-F204-0016",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011307
+}

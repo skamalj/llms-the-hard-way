@@ -1,0 +1,118 @@
+{
+ "id": "F204-0009",
+ "family": "F204",
+ "state": {
+  "rx": {
+   "drug": "metformin",
+   "form": "tab",
+   "strength": {
+    "val": 500,
+    "unit": "mg"
+   },
+   "dose": 1,
+   "freq_per_day": 2,
+   "qty": 28,
+   "days_intended": 28
+  },
+  "patient": {
+   "pt_id": "P77120",
+   "supplies": [
+    {
+     "date": "2025-05-01",
+     "days_covered": 28
+    }
+   ],
+   "near_miss_count": 3
+  },
+  "dispensed": {
+   "product_name": "metformin",
+   "form": "tab",
+   "strength": {
+    "val": 500,
+    "unit": "mg"
+   },
+   "pack_size": 30,
+   "packs": 1,
+   "expiry": "2025-06-30",
+   "high_risk": true
+  },
+  "label": {
+   "pt_id": "P77120",
+   "dose_qty": 1,
+   "freq_per_day": 2,
+   "qty_printed": 30
+  },
+  "check_log": {
+   "checked_at": "2025-06-10T11:30",
+   "clin_check": null
+  }
+ },
+ "factors": {
+  "strength_status": "match_same_units",
+  "product_status": "short_dated_batch",
+  "quantity_status": "over_supplied",
+  "label_status": "correct",
+  "prescriber_query": "none",
+  "pharmacist_intervention": false,
+  "clinical_check_signed": false,
+  "home_supply_days": 0,
+  "emergency_supply": false,
+  "short_expiry": true,
+  "prior_error_count": 3,
+  "high_risk_drug": true,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "strength_status": "match_same_units",
+  "product_status": "exact",
+  "quantity_status": "over_supplied",
+  "label_status": "directions_mismatch",
+  "prescriber_query": "none",
+  "pharmacist_intervention": false,
+  "clinical_check_signed": false,
+  "home_supply_days": 10,
+  "emergency_supply": true,
+  "short_expiry": false,
+  "prior_error_count": 3,
+  "high_risk_drug": true,
+  "boundary_case": false
+ },
+ "plan": {
+  "strength_differs": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "redispense",
+   "second": null
+  },
+  "error_category": {
+   "clarity": "clear",
+   "target": "product_error",
+   "second": null
+  },
+  "open_discrepancies": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  },
+  "supply_urgency": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  }
+ },
+ "target_words": 49,
+ "deciding": {
+  "strength_differs": "Both 500 mg in the same unit.",
+  "next_step": "Batch expiry 2025-06-30 falls before the check date plus 28 intended days (2025-07-08), an unresolved product issue with no pending query, so redispense; the unsigned clinical check adds a small hold doubt.",
+  "error_category": "Expiry 2025-06-30 is before the end of the intended course 2025-07-08, a short-dated batch that outranks any quantity difference.",
+  "open_discrepancies": "Short expiry is one clear issue; the pack of 30 against qty 28 is a possible second, so one or two are both defensible.",
+  "supply_urgency": "Last supply 2025-05-01 for 28 days ended 2025-05-29, so by 2025-06-10 no home supply remains."
+ },
+ "request": "rec-F204-0006",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.00979
+}

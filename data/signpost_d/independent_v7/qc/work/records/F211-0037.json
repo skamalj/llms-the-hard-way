@@ -1,0 +1,141 @@
+{
+ "id": "F211-0037",
+ "family": "F211",
+ "state": {
+  "vehicle": {
+   "callsign": "A207",
+   "odometer_km": 61431,
+   "service_due_km": 63000
+  },
+  "check": {
+   "shift_date": "2024-04-09",
+   "signed_at": "07:25",
+   "sections_required": 3,
+   "sections_signed": [
+    "vehicle",
+    "clinical",
+    "drugs"
+   ],
+   "countersigned_by": null,
+   "crew_note": "Offside light a bit temperamental, fine mostly."
+  },
+  "defects": [
+   {
+    "item": "blue lights",
+    "area": "vehicle_systems",
+    "desc": "Offside blue light intermittent; magnetic beacon in locker.",
+    "status": "open",
+    "substitute_on_board": false,
+    "deferral": {
+     "authorised_by": "Duty mgr",
+     "authorised_at": "2024-04-08",
+     "valid_until": "2024-04-12"
+    }
+   },
+   {
+    "item": "suction unit",
+    "area": "clinical_equipment",
+    "desc": "Canister seal worn.",
+    "status": "open",
+    "substitute_on_board": true,
+    "deferral": {
+     "authorised_by": "Duty mgr",
+     "authorised_at": "2024-04-08",
+     "valid_until": "2024-04-12"
+    }
+   }
+  ],
+  "stock": {
+   "lines": [
+    {
+     "item": "glucagon",
+     "qty": 2,
+     "par_level": 2,
+     "expiry": "2024-05-01"
+    }
+   ],
+   "restock_request": null
+  },
+  "activity": {
+   "first_mobilised_at": "07:05",
+   "workshop_jobs": [],
+   "prior_checks": [
+    {
+     "item": "blue lights"
+    },
+    {
+     "item": "blue lights"
+    },
+    {
+     "item": "blue lights"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "checklist_completion": "all_signed_no_countersign",
+  "worst_defect_tier": "critical_no_substitute",
+  "defect_area": "vehicle_systems",
+  "deferral_authorised": true,
+  "deferral_invalid": false,
+  "workshop_return_recent": false,
+  "earliest_drug_expiry_days": 22,
+  "restock_in_progress": false,
+  "service_margin_km": 1569,
+  "crew_note_tone": "understated_real",
+  "signed_after_mobilisation": true,
+  "repeat_defect_count": 3
+ },
+ "factors_sampled": {
+  "checklist_completion": "all_signed_countersigned",
+  "worst_defect_tier": "noncritical_equipment",
+  "defect_area": "vehicle_systems",
+  "deferral_authorised": true,
+  "deferral_invalid": false,
+  "workshop_return_recent": false,
+  "earliest_drug_expiry_days": 22,
+  "restock_in_progress": false,
+  "service_margin_km": 1569,
+  "crew_note_tone": "understated_real",
+  "signed_after_mobilisation": true,
+  "repeat_defect_count": 3
+ },
+ "plan": {
+  "defects_controlled": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "readiness_status": {
+   "clarity": "balanced",
+   "target": "hold",
+   "second": "off_road"
+  },
+  "limiting_area": {
+   "clarity": "balanced",
+   "target": "vehicle_systems",
+   "second": "clinical_equipment"
+  },
+  "check_completeness": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  },
+  "defect_severity": {
+   "clarity": "balanced",
+   "target": "4",
+   "second": "3"
+  }
+ },
+ "target_words": 58,
+ "deciding": {
+  "defects_controlled": "Both open critical defects carry deferrals authorised 2024-04-08 with valid_until 2024-04-12, before mobilisation and after the shift date.",
+  "readiness_status": "signed_at 07:25 is after first_mobilised_at 07:05 and countersigned_by is null, which points to hold; the blue lights fault open three checks running with a beacon of unclear status could push to off_road.",
+  "limiting_area": "Blue lights (vehicle_systems) open with three prior entries is balanced against the open suction unit (clinical_equipment), which has a substitute.",
+  "check_completeness": "3 of 3 sections signed, countersigned_by null.",
+  "defect_severity": "Blue lights item is critical with substitute_on_board false, but the desc mentions a magnetic beacon in the locker, which keeps level 3 plausible."
+ },
+ "request": "rec-F211-0036",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.010359
+}

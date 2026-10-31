@@ -1,0 +1,124 @@
+{
+ "id": "F211-0015",
+ "family": "F211",
+ "state": {
+  "vehicle": {
+   "callsign": "A401",
+   "odometer_km": 40356,
+   "service_due_km": 42000
+  },
+  "check": {
+   "shift_date": "2025-06-10",
+   "signed_at": "2025-06-10T07:05",
+   "sections_required": [
+    "veh",
+    "clin",
+    "drugs"
+   ],
+   "sections_signed": [
+    "veh",
+    "clin"
+   ],
+   "countersigned_by": "M. Dube",
+   "crew_note": "Defib self-test was slow, AED bag on board."
+  },
+  "defects": [
+   {
+    "item": "defibrillator",
+    "area": "clinical_equipment",
+    "desc": "Self-test fails intermittently.",
+    "status": "open",
+    "substitute_on_board": false,
+    "deferral": {
+     "authorised_by": "Duty Mgr",
+     "authorised_at": "2025-06-09T18:00",
+     "valid_until": "2025-06-08"
+    }
+   }
+  ],
+  "stock": {
+   "lines": [
+    {
+     "item": "aspirin",
+     "expiry": "2025-07-05"
+    }
+   ]
+  },
+  "activity": {
+   "first_mobilised_at": "2025-06-10T06:30",
+   "prior_checks": [
+    {
+     "defect_items": [
+      "defibrillator"
+     ]
+    }
+   ]
+  }
+ },
+ "factors": {
+  "checklist_completion": "half_or_more_signed_some_unsigned",
+  "worst_defect_tier": "critical_no_substitute",
+  "defect_area": "clinical_equipment",
+  "deferral_authorised": true,
+  "deferral_invalid": true,
+  "workshop_return_recent": false,
+  "earliest_drug_expiry_days": 25,
+  "restock_in_progress": false,
+  "service_margin_km": 1644,
+  "crew_note_tone": "understated_real",
+  "signed_after_mobilisation": true,
+  "repeat_defect_count": 1
+ },
+ "factors_sampled": {
+  "checklist_completion": "all_signed_countersigned",
+  "worst_defect_tier": "none",
+  "defect_area": "vehicle_systems",
+  "deferral_authorised": true,
+  "deferral_invalid": false,
+  "workshop_return_recent": false,
+  "earliest_drug_expiry_days": 25,
+  "restock_in_progress": false,
+  "service_margin_km": 1644,
+  "crew_note_tone": "understated_real",
+  "signed_after_mobilisation": true,
+  "repeat_defect_count": 1
+ },
+ "plan": {
+  "defects_controlled": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "readiness_status": {
+   "clarity": "contested",
+   "target": "off_road",
+   "second": "restricted"
+  },
+  "limiting_area": {
+   "clarity": "clear",
+   "target": "clinical_equipment",
+   "second": null
+  },
+  "check_completeness": {
+   "clarity": "contested",
+   "target": "1",
+   "second": "2"
+  },
+  "defect_severity": {
+   "clarity": "balanced",
+   "target": "4",
+   "second": "3"
+  }
+ },
+ "target_words": 70,
+ "deciding": {
+  "defects_controlled": "The defibrillator defect is open and its deferral valid_until 2025-06-08 is before shift_date 2025-06-10, so the deferral has expired.",
+  "readiness_status": "A critical defib fault with an expired deferral supports off_road. The AED bag mentioned in the crew note could justify restricted work, so readers split.",
+  "limiting_area": "The open defibrillator defect is the only issue. Stock expiry is 25 days out and the service margin is 1644 km.",
+  "check_completeness": "Only two of three sections are signed (drugs missing), yet countersigned_by is M. Dube. Levels 1 and 2 are both arguable.",
+  "defect_severity": "The defib is critical and open, with substitute_on_board false. The crew note mentions an AED bag, which keeps level 3 plausible against level 4."
+ },
+ "request": "rec-F211-0011",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.009403
+}

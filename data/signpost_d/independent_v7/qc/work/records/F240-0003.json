@@ -1,0 +1,121 @@
+{
+ "id": "F240-0003",
+ "family": "F240",
+ "state": {
+  "asset": {
+   "inverter_id": "INV-1A",
+   "serial": "SN100",
+   "rated_ac_kw": 800
+  },
+  "fault_event": {
+   "serial": "SN100",
+   "code": "F-COM-01",
+   "ts_start": "2024-07-01T09:00:00Z",
+   "ts_clear": null
+  },
+  "telemetry": {
+   "exp_day_kwh": 2500,
+   "exp_window_kwh": 900,
+   "act_window_kwh": 540,
+   "samples": [
+    {
+     "ts": "2024-07-01T11:55:00Z",
+     "ac_kw": 104,
+     "exp_kw": 210,
+     "poa_wm2": 180,
+     "limit_pct": 12.94
+    }
+   ]
+  },
+  "site_context": {
+   "neighbours": [
+    {
+     "inverter_id": "INV-1B",
+     "output_ratio": 0.55
+    }
+   ]
+  },
+  "history": {
+   "faults": [
+    {
+     "date": "2024-06-20",
+     "code": "F-COM-01"
+    }
+   ],
+   "work_orders": [
+    {
+     "wo_id": "WO-9",
+     "opened": "2024-06-25",
+     "completed": null,
+     "retest_ok": null
+    }
+   ]
+  }
+ },
+ "factors": {
+  "fault_class": "comms_loss",
+  "log_telemetry_mismatch": "none",
+  "grid_event_concurrent": false,
+  "maintenance_window_active": false,
+  "neighbour_cross_check": "neighbours_affected",
+  "repeat_count_30d": 4,
+  "last_repair_status": "open",
+  "current_limit_pct": 12.94,
+  "yield_loss_pct": 14.41,
+  "low_irradiance_window": true,
+  "serial_mismatch": false,
+  "boundary_placement": false
+ },
+ "factors_sampled": {
+  "fault_class": "comms_loss",
+  "log_telemetry_mismatch": "none",
+  "grid_event_concurrent": false,
+  "maintenance_window_active": false,
+  "neighbour_cross_check": "neighbours_affected",
+  "repeat_count_30d": 4,
+  "last_repair_status": "open",
+  "current_limit_pct": 12.94,
+  "yield_loss_pct": 14.41,
+  "low_irradiance_window": true,
+  "serial_mismatch": false,
+  "boundary_placement": false
+ },
+ "plan": {
+  "genuine_defect": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "post_repair_repeat": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "urgent_dispatch",
+   "second": null
+  },
+  "yield_loss": {
+   "clarity": "contested",
+   "target": "2",
+   "second": "3"
+  },
+  "capacity_unavailable": {
+   "clarity": "contested",
+   "target": "2",
+   "second": "1"
+  }
+ },
+ "target_words": 40,
+ "deciding": {
+  "genuine_defect": "Neighbour ratio 0.55 shows the cause is external to the inverter, so not a defect.",
+  "post_repair_repeat": "WO-9 has completed null, so no completed repair exists.",
+  "next_step": "ts_clear null, ongoing and heavily limited output; this is plainly an urgent dispatch case.",
+  "yield_loss": "Loss (900-540)/2500=14.4% is Material, but the 20% Severe line could be approached over a full day.",
+  "capacity_unavailable": "limit_pct 12.94 with ac_kw 104 is exporting but under 50%; the null ts_clear leaves offline in question."
+ },
+ "request": "rec-F240-0001",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.007011
+}

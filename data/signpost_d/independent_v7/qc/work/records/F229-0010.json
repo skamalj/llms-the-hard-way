@@ -1,0 +1,110 @@
+{
+ "id": "F229-0010",
+ "family": "F229",
+ "state": {
+  "lot": {
+   "lot_id": "L-3320",
+   "block": "B21",
+   "pick_end": "2024-09-25T09:00"
+  },
+  "intake": {
+   "block_code": "B21",
+   "gross_kg": 5700,
+   "tare_kg": 700,
+   "net_kg": 5000,
+   "bins": [
+    2500,
+    2475
+   ],
+   "temp_c": 6,
+   "cold_room_in": "2024-09-25T10:00",
+   "cold_room_out": "2024-09-25T16:50"
+  },
+  "sample": {
+   "rot_pct": 1.3,
+   "sort": null
+  },
+  "press": {
+   "programme": "whole_bunch_gentle",
+   "band_l_per_t": "550-620",
+   "cycle_start": "2024-09-25T17:20",
+   "juice_l": 3140,
+   "so2_mg_l": 35,
+   "operator_note": "Sorted on table."
+  },
+  "transfer": {
+   "lot_ref": "L-3320",
+   "tank_id": "T3",
+   "transferred_l": 3110,
+   "qa_signoff": "LP 20:30"
+  }
+ },
+ "factors": {
+  "weight_mismatch": "trivial_under_1pct",
+  "press_programme": "whole_bunch_gentle",
+  "yield_position": "above_band",
+  "lot_id_drift": "none",
+  "missing_step": "none",
+  "out_of_order_timestamp": false,
+  "pick_to_press_hours": 8.33,
+  "pick_end_recorded": true,
+  "cold_held": true,
+  "rot_pct": 1.3,
+  "sorting_applied": false,
+  "note_signal": "contradicts_log",
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "weight_mismatch": "trivial_under_1pct",
+  "press_programme": "whole_bunch_gentle",
+  "yield_position": "above_band",
+  "lot_id_drift": "none",
+  "missing_step": "so2_addition_missing",
+  "out_of_order_timestamp": false,
+  "pick_to_press_hours": 19.46,
+  "pick_end_recorded": true,
+  "cold_held": true,
+  "rot_pct": 1.3,
+  "sorting_applied": false,
+  "note_signal": "contradicts_log",
+  "boundary_case": false
+ },
+ "plan": {
+  "yield_consistent": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "chain_intact": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "release_decision": {
+   "clarity": "balanced",
+   "target": "release_corrected",
+   "second": "segregate"
+  },
+  "pick_press_delay": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  },
+  "failed_checks": {
+   "clarity": "leaning",
+   "target": "0",
+   "second": null
+  }
+ },
+ "target_words": 45,
+ "deciding": {
+  "yield_consistent": "3140 L is about 628 L/t on net 5000 kg, or about 631 on the bin sum of 4975 kg, slightly above the 550-620 band; the excess is marginal.",
+  "chain_intact": "L-3320 and B21 are identical at lot, intake and transfer; nothing suggests a break.",
+  "release_decision": "The 25 kg bin vs net gap is clerical, but the note 'Sorted on table' contradicts the null sort block, so segregation is arguable.",
+  "pick_press_delay": "pick_end 09:00 to cycle_start 17:20 is 8.33 h, just over the 8 h line between standard and delayed.",
+  "failed_checks": "Timestamps, ids and so2 are in order and rot is low; the yield excess and the bin discrepancy are marginal at most, so 0 is leading."
+ },
+ "request": "rec-F229-0006",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.013346
+}

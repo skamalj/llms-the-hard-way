@@ -1,0 +1,114 @@
+{
+ "id": "F204-0048",
+ "family": "F204",
+ "state": {
+  "rx": {
+   "drug": "levothyroxine",
+   "strength": {
+    "val": 0.1,
+    "unit": "mg"
+   },
+   "qty": 28
+  },
+  "patient": {
+   "supplies": [
+    {
+     "date": "2025-06-02",
+     "days_covered": 28
+    }
+   ],
+   "emergency_supplies": []
+  },
+  "dispensed": {
+   "product_name": "Eltroxin",
+   "generic_name": "levothyroxine",
+   "strength": {
+    "val": 100,
+    "unit": "mcg"
+   },
+   "pack_size": 30,
+   "packs": 1
+  },
+  "check_log": {
+   "checked_at": "2025-06-26",
+   "queries": [
+    {
+     "raised_at": "2025-06-26T09:00",
+     "field": "qty",
+     "status": "confirmed"
+    }
+   ],
+   "clin_check": {
+    "by": "RP2"
+   }
+  }
+ },
+ "factors": {
+  "strength_status": "match_converted_units",
+  "product_status": "generic_brand_equivalent",
+  "quantity_status": "over_supplied",
+  "label_status": "correct",
+  "prescriber_query": "confirmed",
+  "pharmacist_intervention": false,
+  "clinical_check_signed": true,
+  "home_supply_days": 4,
+  "emergency_supply": false,
+  "short_expiry": false,
+  "prior_error_count": 2,
+  "high_risk_drug": false,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "strength_status": "match_converted_units",
+  "product_status": "generic_brand_equivalent",
+  "quantity_status": "over_supplied",
+  "label_status": "directions_mismatch",
+  "prescriber_query": "confirmed",
+  "pharmacist_intervention": false,
+  "clinical_check_signed": true,
+  "home_supply_days": 14,
+  "emergency_supply": true,
+  "short_expiry": false,
+  "prior_error_count": 2,
+  "high_risk_drug": false,
+  "boundary_case": false
+ },
+ "plan": {
+  "strength_differs": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "balanced",
+   "target": "release",
+   "second": "redispense"
+  },
+  "error_category": {
+   "clarity": "balanced",
+   "target": "none_found",
+   "second": "product_error"
+  },
+  "open_discrepancies": {
+   "clarity": "contested",
+   "target": "1",
+   "second": "0"
+  },
+  "supply_urgency": {
+   "clarity": "clear",
+   "target": "1",
+   "second": null
+  }
+ },
+ "target_words": 37,
+ "deciding": {
+  "strength_differs": "0.1 mg equals 100 mcg and generic_name matches rx drug.",
+  "next_step": "Quantity query confirmed and clinical check signed, so release is plausible; the 30 vs 28 pack difference and brand name leave redispense arguable.",
+  "error_category": "Brand Eltroxin with matching generic_name and converted strength points to none; the 30 vs 28 pack mismatch keeps a pick error arguable.",
+  "open_discrepancies": "30 supplied vs 28 prescribed is one difference, but the confirmed qty query may have resolved it (0 or 1).",
+  "supply_urgency": "Supply 2025-06-02 plus 28 days ends 2025-06-30; checked 2025-06-26 leaves 4 days, no emergency supplies."
+ },
+ "request": "rec-F204-0046",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012264
+}

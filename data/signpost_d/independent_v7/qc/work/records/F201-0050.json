@@ -1,0 +1,135 @@
+{
+ "id": "F201-0050",
+ "family": "F201",
+ "state": {
+  "register_header": {
+   "drug": "pentobarbital",
+   "strength": "200 mg/ml",
+   "concentration_mg_ml": 200,
+   "schedule": 2,
+   "witness_required": true,
+   "branch_id": "B5",
+   "opening_balance_ml": 40
+  },
+  "entries": [
+   {
+    "entry_id": "E1",
+    "date": "2024-07-03",
+    "type": "admin",
+    "qty_ml": 6,
+    "patient_id": "Q1",
+    "running_balance_ml": 34,
+    "signed_by": "s1",
+    "witness_id": "w1",
+    "batch_no": "P2"
+   },
+   {
+    "entry_id": "E2",
+    "date": "2024-07-15",
+    "type": "admin",
+    "qty_ml": 6,
+    "patient_id": "Q2",
+    "running_balance_ml": 33,
+    "signed_by": "s1",
+    "witness_id": null,
+    "batch_no": "P2"
+   }
+  ],
+  "clinical_records": [
+   {
+    "patient_id": "Q1",
+    "date": "2024-07-03",
+    "dose": 6,
+    "dose_unit": "ml"
+   },
+   {
+    "patient_id": "Q2",
+    "date": "2024-07-15",
+    "dose": 6,
+    "dose_unit": "ml"
+   }
+  ],
+  "stock_check": {
+   "count_date": "2024-07-31",
+   "counted_ml": 24,
+   "batch_no": "P2",
+   "overfill_allowance_ml": 0
+  },
+  "disposals": [],
+  "exceptions": [
+   {
+    "batch_no": "P1",
+    "qty_ml": 4,
+    "valid_to": "2024-06-30"
+   }
+  ]
+ },
+ "factors": {
+  "drug_profile": "pentobarbital_200mg_ml",
+  "arithmetic_slip_count": 1,
+  "unrecorded_admin": "none",
+  "clinical_records_missing": false,
+  "disposal_state": "none_needed",
+  "unexplained_shortfall_pct": 10.0,
+  "variance_exception": "expired_or_other_batch",
+  "manufacturer_overfill": false,
+  "auth_gap_count": 1,
+  "count_out_of_order": false,
+  "unit_mismatch": false,
+  "locum_signatory": false,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "drug_profile": "pentobarbital_200mg_ml",
+  "arithmetic_slip_count": 0,
+  "unrecorded_admin": "moderate_2_to_8pct",
+  "clinical_records_missing": false,
+  "disposal_state": "none_needed",
+  "unexplained_shortfall_pct": 9.74,
+  "variance_exception": "expired_or_other_batch",
+  "manufacturer_overfill": false,
+  "auth_gap_count": 5,
+  "count_out_of_order": false,
+  "unit_mismatch": false,
+  "locum_signatory": false,
+  "boundary_case": false
+ },
+ "plan": {
+  "unexplained_shortfall": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "line_disposition": {
+   "clarity": "contested",
+   "target": "sign_off",
+   "second": "correct_and_sign"
+  },
+  "variance_cause": {
+   "clarity": "clear",
+   "target": "arithmetic_slip",
+   "second": null
+  },
+  "variance_size": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  },
+  "auth_gaps": {
+   "clarity": "clear",
+   "target": "1",
+   "second": null
+  }
+ },
+ "target_words": 84,
+ "deciding": {
+  "unexplained_shortfall": "Recomputed closing 28 vs counted 24; the exception is for batch P1 and expired before the period, and no clinical record or disposal accounts for the 4 ml.",
+  "line_disposition": "E2 balance is a slip but there is also an unexplained 4 ml shortage and a witness gap; neither sign_off nor correct_and_sign is clean, which is why the choice is contested.",
+  "variance_cause": "E2 running_balance 33 should be 28 after E1 34 minus 6; a 5 ml slip, larger than the 4 ml count shortfall.",
+  "variance_size": "4 ml short on 40 ml handled is exactly 10%, on the boundary between material and major.",
+  "auth_gaps": "Only E2 has witness_id null with witness_required true; E1 is fully authenticated."
+ },
+ "request": "rec-F201-0046",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.013252
+}

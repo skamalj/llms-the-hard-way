@@ -1,0 +1,103 @@
+{
+ "id": "F229-0027",
+ "family": "F229",
+ "state": {
+  "lot": {
+   "lot_id": "L-203",
+   "block": "B12",
+   "pick_end": "2024-09-10T07:00"
+  },
+  "intake": {
+   "block_code": "B-12",
+   "arrival_at": "2024-09-10T08:00",
+   "gross_kg": 9300,
+   "tare_kg": 1300,
+   "net_kg": 8000,
+   "temp_c": 6,
+   "cold_room_in": "08:10",
+   "cold_room_out": "12:30"
+  },
+  "sample": null,
+  "press": {
+   "programme": "whole_bunch_gentle",
+   "band_l_per_t": "450-550",
+   "cycle_start": "2024-09-10T13:08",
+   "juice_l": 3700,
+   "so2_mg_l": 35
+  },
+  "transfer": {
+   "lot_ref": "L-203",
+   "tank_id": "T2",
+   "transferred_l": 3660,
+   "qa_signoff": "MR 15:40"
+  }
+ },
+ "factors": {
+  "weight_mismatch": "none",
+  "press_programme": "whole_bunch_gentle",
+  "yield_position": "inside_band",
+  "lot_id_drift": "formatting_variant_in_block_code",
+  "missing_step": "sample_null",
+  "out_of_order_timestamp": false,
+  "pick_to_press_hours": 6.13,
+  "pick_end_recorded": true,
+  "cold_held": true,
+  "rot_pct": "not recorded (sample null)",
+  "sorting_applied": false,
+  "note_signal": "none",
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "weight_mismatch": "none",
+  "press_programme": "whole_bunch_gentle",
+  "yield_position": "below_band",
+  "lot_id_drift": "none",
+  "missing_step": "sample_null",
+  "out_of_order_timestamp": false,
+  "pick_to_press_hours": 20.46,
+  "pick_end_recorded": false,
+  "cold_held": true,
+  "rot_pct": 14.34,
+  "sorting_applied": false,
+  "note_signal": "none",
+  "boundary_case": false
+ },
+ "plan": {
+  "yield_consistent": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "chain_intact": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "release_decision": {
+   "clarity": "leaning",
+   "target": "release",
+   "second": null
+  },
+  "pick_press_delay": {
+   "clarity": "clear",
+   "target": "1",
+   "second": null
+  },
+  "failed_checks": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  }
+ },
+ "target_words": 25,
+ "deciding": {
+  "yield_consistent": "3700 L from 8000 kg net is 462 L/t, inside 450-550 though near the low end; 9300-1300=8000.",
+  "chain_intact": "Lot block B12 against intake block_code B-12 is only a formatting difference, while lot_id L-203 matches lot_ref; both readings are defensible.",
+  "release_decision": "Weights, yield, SO2 and QA sign-off are in order; only the null sample leaves slight doubt.",
+  "pick_press_delay": "Pick end 07:00 to cycle_start 13:08 is 6.1 h, inside 4 to under 8 h.",
+  "failed_checks": "Only the null sample is a failure, and the B12/B-12 formatting may or may not count as a second, so level 1 or 0."
+ },
+ "request": "rec-F229-0026",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.01173
+}

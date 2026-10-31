@@ -1,0 +1,132 @@
+{
+ "id": "F216-0030",
+ "family": "F216",
+ "state": {
+  "session": {
+   "id": "S105",
+   "type": "pharmacy",
+   "next_session_date": "2025-04-22"
+  },
+  "temp_log": {
+   "readings": [
+    [
+     "09:00",
+     7.6
+    ],
+    [
+     "09:10",
+     8.7
+    ],
+    [
+     "09:20",
+     8.9
+    ]
+   ],
+   "logger_gaps": [
+    [
+     "09:20",
+     "11:15"
+    ]
+   ],
+   "manual_checks": [
+    {
+     "t": "11:15",
+     "max_c": 9.0,
+     "current_c": 7.8
+    }
+   ]
+  },
+  "stock": {
+   "lots": [
+    {
+     "lot_no": "E9",
+     "opening": 40,
+     "wasted": 0,
+     "closing": 10
+    }
+   ]
+  },
+  "administration": [
+   {
+    "t": "10:00",
+    "lot_no": "E9",
+    "n": 30
+   }
+  ],
+  "excursion_actions": {
+   "start": "09:10",
+   "quarantined": true,
+   "advice_status": "CLR_SHORT",
+   "advice_received_at": "11:40",
+   "revised_expiry": "2025-05-31"
+  }
+ },
+ "factors": {
+  "true_excursion_minutes": 122,
+  "log_source_discrepancy": "logger_gap",
+  "buffered_probe_in_range": false,
+  "planned_maintenance": false,
+  "stability_clearance": "cleared_short",
+  "doses_during_exposure": 30,
+  "stock_count_gap": 0,
+  "lot_id_mismatch": false,
+  "lots_beyond_tolerance": "none",
+  "freezing_reading": false,
+  "boundary_case": true,
+  "unit_alarm_history": 2,
+  "session_type": "pharmacy"
+ },
+ "factors_sampled": {
+  "true_excursion_minutes": 92,
+  "log_source_discrepancy": "logger_gap",
+  "buffered_probe_in_range": false,
+  "planned_maintenance": false,
+  "stability_clearance": "refused",
+  "doses_during_exposure": 30,
+  "stock_count_gap": -3,
+  "lot_id_mismatch": true,
+  "lots_beyond_tolerance": "none",
+  "freezing_reading": false,
+  "boundary_case": false,
+  "unit_alarm_history": 2,
+  "session_type": "pharmacy"
+ },
+ "plan": {
+  "dosed_uncleared": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "stock_reconciles": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "stock_disposition": {
+   "clarity": "leaning",
+   "target": "release_restricted",
+   "second": null
+  },
+  "excursion_duration": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "followup_urgency": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  }
+ },
+ "target_words": 46,
+ "deciding": {
+  "dosed_uncleared": "30 doses at 10:00 fall after excursion start 09:10 and before advice_received_at 11:40.",
+  "stock_reconciles": "40 - 0 wasted - 30 given = 10 closing, and lot E9 matches in both sections.",
+  "stock_disposition": "Advice status CLR_SHORT with revised_expiry 2025-05-31 means release with a shortened use-by date.",
+  "excursion_duration": "Product is above 8.0 from 09:10, and the logger gap runs to a 11:15 manual check back in range. That is about 125 minutes if the whole gap was out, so it sits near the 120-minute boundary.",
+  "followup_urgency": "Clearance is received and the next session is far off, so the remaining action is the revised expiry relabel. The 30 doses given before clearance give doubt between routine and before-next-session."
+ },
+ "request": "rec-F216-0026",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011971
+}

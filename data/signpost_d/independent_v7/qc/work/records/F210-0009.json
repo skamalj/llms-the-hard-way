@@ -1,0 +1,111 @@
+{
+ "id": "F210-0009",
+ "family": "F210",
+ "state": {
+  "collection": {
+   "farm_id": "F-7754",
+   "collected_at": "2024-09-02T06:15",
+   "compartment": 1,
+   "vat_l": 4200,
+   "meter_l": 4200,
+   "vat_temp_c": null,
+   "last_milking_end": "2024-09-02T05:20"
+  },
+  "sample": {
+   "sample_id": "S-2210",
+   "compartment": 1,
+   "taken_at": "2024-09-02T06:17",
+   "seal_intact": true,
+   "arrival_temp_c": 3.9
+  },
+  "lab_results": {
+   "sample_id": "S-2210",
+   "bactoscan_kcfu_ml": 900,
+   "scc_k_ml": 700,
+   "thermoduric_cfu_ml": 2000,
+   "inhibitory": "confirmed_pos",
+   "retest": null
+  },
+  "farm_terms": {
+   "limits": {
+    "bactoscan_kcfu_ml": 100,
+    "scc_k_ml": 400,
+    "thermoduric_cfu_ml": 2000
+   },
+   "breaches_90d": 3
+  },
+  "equipment": {
+   "tanker_meter_due": "2024-07-01"
+  }
+ },
+ "factors": {
+  "vat_temp_level": "not_recorded",
+  "recent_milking": true,
+  "mismatch_site": "none",
+  "mismatch_magnitude": "trivial",
+  "meter_calibration_overdue": true,
+  "lab_limit_breaches": 2,
+  "exception_covers_breach": false,
+  "inhibitory_status": "confirmed_positive",
+  "treatment_withdrawal_active": false,
+  "retest_state": "none",
+  "sample_integrity": "intact",
+  "history_breaches_90d": 3,
+  "value_on_boundary": true,
+  "driver_sensory_flag": false
+ },
+ "factors_sampled": {
+  "vat_temp_level": "not_recorded",
+  "recent_milking": true,
+  "mismatch_site": "none",
+  "mismatch_magnitude": "moderate",
+  "meter_calibration_overdue": true,
+  "lab_limit_breaches": 2,
+  "exception_covers_breach": false,
+  "inhibitory_status": "not_tested",
+  "treatment_withdrawal_active": false,
+  "retest_state": "none",
+  "sample_integrity": "intact",
+  "history_breaches_90d": 3,
+  "value_on_boundary": false,
+  "driver_sensory_flag": false
+ },
+ "plan": {
+  "temp_compliant": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "intake_disposition": {
+   "clarity": "leaning",
+   "target": "reject_load",
+   "second": null
+  },
+  "issue_source": {
+   "clarity": "clear",
+   "target": "none_evident",
+   "second": null
+  },
+  "discrepancy_size": {
+   "clarity": "leaning",
+   "target": "0",
+   "second": null
+  },
+  "unexplained_breaches": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  }
+ },
+ "target_words": 49,
+ "deciding": {
+  "temp_compliant": "vat_temp_c is null, but milking ended 55 minutes earlier and sample arrival_temp_c 3.9 is cool; missing reading vs plausible compliance holds the balance.",
+  "intake_disposition": "lab inhibitory is confirmed_pos, with bactoscan 900 against a 100 limit.",
+  "issue_source": "vat_l equals meter_l, sample ids, compartments and times all agree and the seal is intact.",
+  "discrepancy_size": "vat_l 4200 equals meter_l 4200, so no difference (meter calibration overdue leaves slight doubt).",
+  "unexplained_breaches": "bactoscan 900>100 and scc 700>400 have no exceptions; thermoduric 2000 equals its limit exactly, so 2 vs 3 depends on whether that counts."
+ },
+ "request": "rec-F210-0006",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.013002
+}

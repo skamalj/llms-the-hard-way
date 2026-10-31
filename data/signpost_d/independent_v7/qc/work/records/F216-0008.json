@@ -1,0 +1,144 @@
+{
+ "id": "F216-0008",
+ "family": "F216",
+ "state": {
+  "session": {
+   "id": "OC-330",
+   "type": "outreach_coolbox",
+   "date": "2024-07-09",
+   "start": "09:30",
+   "end": "11:30",
+   "next_session_date": "2024-08-06"
+  },
+  "storage": {
+   "unit": "CB5",
+   "probe": "product",
+   "alarms_30d": 2
+  },
+  "temp_log": {
+   "start": "11:40",
+   "int_min": 10,
+   "product_c": [
+    6.2,
+    7.1,
+    8.4,
+    8.9,
+    9.3,
+    9.5,
+    9.6,
+    9.4,
+    9.2,
+    9.0,
+    8.9,
+    8.7,
+    8.5,
+    8.3,
+    7.6,
+    6.1
+   ],
+   "manual_checks": [
+    {
+     "t": "12:30",
+     "cur": 9.1
+    }
+   ]
+  },
+  "stock": {
+   "lots": [
+    {
+     "lot_no": "C1904",
+     "tol_min_out": 120,
+     "opening": 30,
+     "wasted": 2,
+     "closing": 8
+    }
+   ]
+  },
+  "administration": [
+   {
+    "t": "10:15",
+    "lot_no": "C1904",
+    "n": 10
+   },
+   {
+    "t": "11:20",
+    "lot_no": "C1904",
+    "n": 10
+   }
+  ],
+  "excursion_actions": {
+   "start": "12:00",
+   "end": "14:00",
+   "quarantined": false,
+   "advice_status": "NR"
+  }
+ },
+ "factors": {
+  "true_excursion_minutes": 120,
+  "log_source_discrepancy": "minor_offset",
+  "buffered_probe_in_range": false,
+  "planned_maintenance": false,
+  "stability_clearance": "not_requested",
+  "doses_during_exposure": 0,
+  "stock_count_gap": 0,
+  "lot_id_mismatch": false,
+  "lots_beyond_tolerance": "all",
+  "freezing_reading": false,
+  "boundary_case": false,
+  "unit_alarm_history": 2,
+  "session_type": "outreach_coolbox"
+ },
+ "factors_sampled": {
+  "true_excursion_minutes": 221,
+  "log_source_discrepancy": "minor_offset",
+  "buffered_probe_in_range": false,
+  "planned_maintenance": false,
+  "stability_clearance": "not_requested",
+  "doses_during_exposure": 25,
+  "stock_count_gap": -6,
+  "lot_id_mismatch": false,
+  "lots_beyond_tolerance": "some",
+  "freezing_reading": true,
+  "boundary_case": false,
+  "unit_alarm_history": 2,
+  "session_type": "outreach_coolbox"
+ },
+ "plan": {
+  "dosed_uncleared": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "stock_reconciles": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "stock_disposition": {
+   "clarity": "balanced",
+   "target": "discard_all",
+   "second": "release"
+  },
+  "excursion_duration": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "followup_urgency": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  }
+ },
+ "target_words": 33,
+ "deciding": {
+  "dosed_uncleared": "Last dose 11:20 precedes excursion start at 12:00 (and first out-of-range reading at 12:00); no later administration entries.",
+  "stock_reconciles": "30 opening - 2 wasted - 20 administered = 8 equals closing 8, and administration lot C1904 matches the stock lot.",
+  "stock_disposition": "Lot tol_min_out is 120 and the excursion is about 120 minutes with no stability advice requested, so discard_all and release are both defensible.",
+  "excursion_duration": "Twelve consecutive 10-minute product_c readings above 8.0 (12:00-13:50) equal 120 minutes, at the extended/prolonged boundary; manual cur 9.1 vs logger 9.5 is a minor offset.",
+  "followup_urgency": "Next session is a month away and the count reconciles, but an uncleared excursion on stock with no advice requested leaves action before the next session defensible."
+ },
+ "request": "rec-F216-0006",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.017926
+}

@@ -1,0 +1,139 @@
+{
+ "id": "F224-0001",
+ "family": "F224",
+ "state": {
+  "request": {
+   "views": [
+    "BW_L"
+   ],
+   "ind": "CARIES_SURV",
+   "risk": "moderate",
+   "prescriber": "D14",
+   "date": "2025-03-10",
+   "prior_same_view": "2024-11-08",
+   "exceptions": [],
+   "verbal_auth": [
+    {
+     "view": "PA_UR1",
+     "time": "10:14"
+    }
+   ]
+  },
+  "exposures": [
+   {
+    "id": 1,
+    "view": "BW_L",
+    "t": "10:05",
+    "dose_mGy": 1.1,
+    "retake_of": null
+   },
+   {
+    "id": 2,
+    "view": "BW_L",
+    "t": "10:09",
+    "dose_mGy": 3.02,
+    "retake_of": 1
+   },
+   {
+    "id": 3,
+    "view": "PA_UR1",
+    "t": "10:15",
+    "dose_mGy": 1.0,
+    "retake_of": null
+   }
+  ],
+  "image_review": {
+   "faults": {
+    "1": [
+     "FC_APEX_CLIPPED"
+    ],
+    "2": [],
+    "3": []
+   },
+   "sensor_err": [],
+   "final_grade": 2,
+   "second_grader": "pending"
+  },
+  "equipment": {
+   "last_qa": "2025-01-20",
+   "qa_int_m": 6,
+   "output_test": "pass",
+   "drl": {
+    "BW_L": 2.0,
+    "PA_UR1": 1.2
+   }
+  },
+  "operator": {
+   "signoff_at": "2025-03-10T11:00",
+   "prior_findings_12m": 3
+  }
+ },
+ "factors": {
+  "indication_match": "match",
+  "recall_interval_months": 4,
+  "dose_ratio_to_drl": 1.51,
+  "console_log_discrepancy": "none",
+  "retake_cause": "operator_technique",
+  "equipment_qa_status": "in_date",
+  "approved_exception": false,
+  "patient_cooperation_flag": false,
+  "unrequested_exposure_count": 1,
+  "verbal_authorisation_logged": true,
+  "image_grade": "diagnostic",
+  "audit_completeness": "second_grader_pending",
+  "operator_prior_findings": 3
+ },
+ "factors_sampled": {
+  "indication_match": "match",
+  "recall_interval_months": 4,
+  "dose_ratio_to_drl": 1.09,
+  "console_log_discrepancy": "none",
+  "retake_cause": "sensor_fault",
+  "equipment_qa_status": "in_date",
+  "approved_exception": true,
+  "patient_cooperation_flag": false,
+  "unrequested_exposure_count": 1,
+  "verbal_authorisation_logged": true,
+  "image_grade": "diagnostic",
+  "audit_completeness": "complete",
+  "operator_prior_findings": 3
+ },
+ "plan": {
+  "justified": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "operator_retake": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "follow_up": {
+   "clarity": "balanced",
+   "target": "hold_confirm",
+   "second": "operator_feedback"
+  },
+  "dose_position": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  },
+  "unjustified_count": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  }
+ },
+ "target_words": 122,
+ "deciding": {
+  "justified": "Prior BW_L 2024-11-08 to request 2025-03-10 is 4 months, under the 12 months allowed for moderate risk; no exception.",
+  "operator_retake": "Exposure 2 retakes 1, image 1 has FC_APEX_CLIPPED, no sensor errors, QA in date and output test pass, no patient flags.",
+  "follow_up": "Second grader pending (a missing confirmation) is balanced against a technique error with 3 prior findings that could merit feedback.",
+  "dose_position": "Retake dose 3.02 against BW_L reference 2.0 is 151%, right on the 150% boundary between raised and excessive.",
+  "unjustified_count": "Exposures 1 and 2 fall within a too-short interval; PA_UR1 is unrequested, and the verbal auth at 10:14 has no approver and precedes the 10:15 exposure, so it may or may not cover it."
+ },
+ "request": "rec-F224-0001",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.010096
+}

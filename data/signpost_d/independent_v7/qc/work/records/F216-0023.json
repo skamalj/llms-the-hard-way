@@ -1,0 +1,172 @@
+{
+ "id": "F216-0023",
+ "family": "F216",
+ "state": {
+  "session": {
+   "id": "OC22",
+   "type": "outreach_coolbox",
+   "date": "2024-06-03",
+   "start": "13:30",
+   "end": "15:30",
+   "next": "2024-06-03"
+  },
+  "storage": {
+   "unit": "CB1",
+   "type": "coolbox",
+   "alarms_30d": 1,
+   "maint": [
+    {
+     "kind": "icepack_swap",
+     "start": "14:00",
+     "end": "14:20",
+     "backup": "CB2"
+    }
+   ]
+  },
+  "temp_log": {
+   "interval_min": 5,
+   "readings": [
+    {
+     "t": "13:55",
+     "product_c": 7.5
+    },
+    {
+     "t": "14:00",
+     "product_c": 7.8
+    },
+    {
+     "t": "14:05",
+     "product_c": 8.2
+    },
+    {
+     "t": "14:10",
+     "product_c": 7.9
+    },
+    {
+     "t": "14:40",
+     "product_c": 6.5
+    }
+   ],
+   "manual_checks": [
+    {
+     "t": "14:30",
+     "min_c": 3.1,
+     "max_c": 8.9,
+     "current_c": 7.0
+    }
+   ],
+   "logger_gaps": [
+    {
+     "from": "14:10",
+     "to": "14:40"
+    }
+   ],
+   "backup": [
+    {
+     "t": "14:10",
+     "product_c": 5.2
+    }
+   ]
+  },
+  "stock": {
+   "lots": [
+    {
+     "lot": "R19",
+     "tol_min": 30,
+     "open": 30,
+     "waste": 2,
+     "close": 7
+    }
+   ]
+  },
+  "administration": [
+   {
+    "t": "13:40",
+    "lot": "R19",
+    "n": 16
+   },
+   {
+    "t": "14:05",
+    "lot": "R19",
+    "n": 4
+   }
+  ],
+  "excursion_actions": {
+   "start": "14:05",
+   "end": "14:10",
+   "quarantined": true,
+   "advice_req": "14:45",
+   "status": "CLR_SHORT",
+   "advice_at": "16:30",
+   "revised_expiry": "2024-06-10"
+  }
+ },
+ "factors": {
+  "true_excursion_minutes": 5,
+  "log_source_discrepancy": "logger_gap",
+  "buffered_probe_in_range": false,
+  "planned_maintenance": true,
+  "stability_clearance": "cleared_short",
+  "doses_during_exposure": 4,
+  "stock_count_gap": -1,
+  "lot_id_mismatch": false,
+  "lots_beyond_tolerance": "none",
+  "freezing_reading": false,
+  "boundary_case": false,
+  "unit_alarm_history": 1,
+  "session_type": "outreach_coolbox"
+ },
+ "factors_sampled": {
+  "true_excursion_minutes": 9,
+  "log_source_discrepancy": "logger_gap",
+  "buffered_probe_in_range": false,
+  "planned_maintenance": true,
+  "stability_clearance": "cleared_full",
+  "doses_during_exposure": 4,
+  "stock_count_gap": -6,
+  "lot_id_mismatch": false,
+  "lots_beyond_tolerance": "all",
+  "freezing_reading": false,
+  "boundary_case": false,
+  "unit_alarm_history": 1,
+  "session_type": "outreach_coolbox"
+ },
+ "plan": {
+  "dosed_uncleared": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "stock_reconciles": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "stock_disposition": {
+   "clarity": "clear",
+   "target": "release_restricted",
+   "second": null
+  },
+  "excursion_duration": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  },
+  "followup_urgency": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  }
+ },
+ "target_words": 84,
+ "deciding": {
+  "dosed_uncleared": "The 4 doses at 14:05 coincide with excursion start 14:05, before advice_at 16:30. Whether the dose preceded or followed the out-of-range reading is unclear, and the backup reading is in range.",
+  "stock_reconciles": "R19: 30-2-20 expects closing 8 but records 7. A one-vial gap on an outreach run could be unlogged waste.",
+  "stock_disposition": "Status CLR_SHORT with revised_expiry 2024-06-10 and tol_min 30 against a short exposure give release_restricted.",
+  "excursion_duration": "One 8.2 reading (5 min) at 14:05, but the 14:10-14:40 logger gap is bracketed only by manual max 8.9, so level 1 versus 0 stays uncertain.",
+  "followup_urgency": "The next session is the same date (2024-06-03) and advice with a shortened expiry arrived at 16:30, after 4 doses were already given, so same-day action is likely."
+ },
+ "request": "rec-F216-0021",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.019236
+}

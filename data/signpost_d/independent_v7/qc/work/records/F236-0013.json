@@ -1,0 +1,173 @@
+{
+ "id": "F236-0013",
+ "family": "F236",
+ "state": {
+  "changeover": {
+   "line_id": "L1",
+   "from_code": "BR30",
+   "to_code": "BR12",
+   "from_allergens": [
+    "tree_nuts"
+   ],
+   "to_allergens": [
+    "sesame"
+   ]
+  },
+  "cleaning": {
+   "steps": [
+    {
+     "step": "dry_clean",
+     "completed": true,
+     "spec_min": 30,
+     "actual_min": 32
+    },
+    {
+     "step": "wet_wash",
+     "completed": true,
+     "spec_min": 45,
+     "actual_min": 45
+    }
+   ],
+   "part_swap": false
+  },
+  "verification": {
+   "swabs": [
+    {
+     "id": "S1",
+     "target": "tree_nuts",
+     "reading": 14,
+     "limit_ppm": 10,
+     "at": "2024-03-11T06:30"
+    },
+    {
+     "id": "S1R",
+     "retest_of": "S1",
+     "target": "tree_nuts",
+     "reading": 6,
+     "limit_ppm": 10,
+     "at": "2024-03-11T07:05"
+    }
+   ],
+   "atp_rlu": [
+    220
+   ]
+  },
+  "production": {
+   "line_id": "L1",
+   "product_code": "BR12",
+   "batch": "B3318",
+   "start_at": "2024-03-11T07:00",
+   "end_at": "2024-03-11T13:00",
+   "quantity": 458.04,
+   "unit": "kg",
+   "packaging_allergens": {
+    "contains": [
+     "sesame"
+    ],
+    "may_contain": [
+     "tree_nuts"
+    ]
+   },
+   "held": false
+  },
+  "approvals": {
+   "qa_signoff": {
+    "signer": "QA2",
+    "signed_at": "2024-03-11T06:55"
+   },
+   "deviations": [
+    {
+     "id": "D17",
+     "scope": "L1 S1R retest after start",
+     "approved_at": "2024-03-11T06:50"
+    }
+   ]
+  },
+  "history": [
+   {
+    "d": "03-04",
+    "o": "BR05",
+    "i": "BR30",
+    "ok": false
+   },
+   {
+    "d": "03-06",
+    "o": "BR30",
+    "i": "BR07",
+    "ok": true
+   },
+   {
+    "d": "03-08",
+    "o": "BR07",
+    "i": "BR30",
+    "ok": false
+   }
+  ]
+ },
+ "factors": {
+  "allergen_transition": "swaps_allergen",
+  "cleaning_completion": "full",
+  "swab_outcome": "positive_retest_pass",
+  "swab_timing_mismatch": true,
+  "cross_section_discrepancy": "none",
+  "exposed_quantity_kg": 458.04,
+  "approved_deviation": true,
+  "label_precaution": true,
+  "dedicated_tooling": false,
+  "qa_signoff_state": "signed_before_start",
+  "line_failure_history": 2,
+  "boundary_value": false
+ },
+ "factors_sampled": {
+  "allergen_transition": "swaps_allergen",
+  "cleaning_completion": "full",
+  "swab_outcome": "positive_retest_fail",
+  "swab_timing_mismatch": false,
+  "cross_section_discrepancy": "none",
+  "exposed_quantity_kg": 458.04,
+  "approved_deviation": true,
+  "label_precaution": true,
+  "dedicated_tooling": false,
+  "qa_signoff_state": "signed_after_start",
+  "line_failure_history": 2,
+  "boundary_value": false
+ },
+ "plan": {
+  "swabs_cleared": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "line_disposition": {
+   "clarity": "balanced",
+   "target": "release_conditional",
+   "second": "hold"
+  },
+  "worst_deficiency": {
+   "clarity": "clear",
+   "target": "records_only",
+   "second": null
+  },
+  "exposed_product": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  },
+  "residue_evidence": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  }
+ },
+ "target_words": 132,
+ "deciding": {
+  "swabs_cleared": "The passing retest S1R was taken at 07:05, after production start at 07:00, so verification was not complete before the first production.",
+  "line_disposition": "The retest passed (6 against 10) and was covered by deviation D17, and there is a may_contain tree_nuts label, which favours release with a precaution. The late retest and two failures in the history support a hold.",
+  "worst_deficiency": "Cleaning was complete and the identifiers match. The only issue is the retest timing, which is covered by an approved deviation and amounts to a paperwork-level problem. The initial 14 ppm reading is the competing reading.",
+  "exposed_product": "A 458.04 kg batch runs 07:00-13:00 and the retest passed 5 min after start. That is about 6 kg, so level 1 is favoured, and level 0 is plausible given the approved deviation.",
+  "residue_evidence": "S1 read 14 ppm, over the 10 limit, and the retest read 6 ppm, under the limit. That is a cleared result, with the below-limit retest reading raising a trace reading as the alternative."
+ },
+ "request": "rec-F236-0011",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.016402
+}

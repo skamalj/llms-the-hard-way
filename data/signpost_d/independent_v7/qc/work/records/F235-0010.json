@@ -1,0 +1,126 @@
+{
+ "id": "F235-0010",
+ "family": "F235",
+ "state": {
+  "station": {
+   "station_id": "S512",
+   "backup": {
+    "installed": false,
+    "status": null
+   },
+   "telemetry": {
+    "batt_v": 12.9
+   }
+  },
+  "visit": {
+   "type": "reactive",
+   "visit_date": "2024-08-21",
+   "tasks_planned": 2,
+   "abort_reason": null
+  },
+  "checks": {
+   "pre": {
+    "board_m": [
+     0.602,
+     0.608
+    ],
+    "logger_m": 0.6
+   },
+   "post": null
+  },
+  "works": {
+   "tasks": [
+    {
+     "task": "reseat sensor cable",
+     "status": "done"
+    },
+    {
+     "task": "download logger",
+     "status": "done"
+    }
+   ],
+   "parts": null,
+   "bench_test": null,
+   "logger_gap_h": 8
+  },
+  "defects": [
+   {
+    "item": "primary sensor dropouts",
+    "channel": "primary_stage",
+    "reporting": true
+   }
+  ],
+  "notes": {
+   "tech_note": "Sensor is dying, drops out constantly!",
+   "supervisor_comment": "Gap overlaps the generator works window."
+  }
+ },
+ "factors": {
+  "pre_visit_offset_mm": 5.0,
+  "check_reading_spread_mm": 6.32,
+  "drift_cause": "no_drift",
+  "cause_evidence": "none",
+  "visit_completion": "full",
+  "post_visit_check_logged": false,
+  "residual_defect_class": "primary_faulty_reporting",
+  "backup_sensor_ok": false,
+  "benign_explanation": true,
+  "record_gap": "none",
+  "logger_gap_hours": 8,
+  "telemetry_decoy": "normal",
+  "note_tone": "alarming"
+ },
+ "factors_sampled": {
+  "pre_visit_offset_mm": 0.4,
+  "check_reading_spread_mm": 6.32,
+  "drift_cause": "sensor_fault",
+  "cause_evidence": "none",
+  "visit_completion": "full",
+  "post_visit_check_logged": false,
+  "residual_defect_class": "primary_degraded",
+  "backup_sensor_ok": false,
+  "benign_explanation": true,
+  "record_gap": "none",
+  "logger_gap_hours": 8,
+  "telemetry_decoy": "normal",
+  "note_tone": "alarming"
+ },
+ "plan": {
+  "sensor_fault_cause": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "visit_disposition": {
+   "clarity": "balanced",
+   "target": "sign_off_noted",
+   "second": "planned_revisit"
+  },
+  "data_treatment": {
+   "clarity": "leaning",
+   "target": "keep_as_recorded",
+   "second": null
+  },
+  "offset_size": {
+   "clarity": "contested",
+   "target": "0",
+   "second": "1"
+  },
+  "residual_defect": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "4"
+  }
+ },
+ "target_words": 83,
+ "deciding": {
+  "sensor_fault_cause": "Board mean 0.605 against logger 0.600 shows no real drift, and there is no swap or bench test, so there is no level drift to attribute to a sensor fault.",
+  "visit_disposition": "Tasks are done and the offset is small, but a primary dropout defect remains open and there is no post check, so a noted sign-off and a planned revisit are both defensible.",
+  "data_treatment": "The offset is about 5 mm with a 6 mm reading spread, so the logged values stand, with some doubt from the dropouts.",
+  "offset_size": "Board mean 0.605 minus logger 0.600 is 5 mm, exactly on the 0/1 boundary, with a 6 mm reading spread.",
+  "residual_defect": "Primary_stage dropouts are listed with reporting true, but the 8 h logger gap and the technician's note of constant dropouts make level 4 plausible."
+ },
+ "request": "rec-F235-0006",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011907
+}

@@ -1,0 +1,185 @@
+{
+ "id": "F236-0008",
+ "family": "F236",
+ "state": {
+  "changeover": {
+   "line": "L1",
+   "from_allergens": [
+    "milk",
+    "wheat"
+   ],
+   "to_allergens": [
+    "milk",
+    "wheat"
+   ]
+  },
+  "cleaning": {
+   "steps": [
+    {
+     "n": 1,
+     "completed": true
+    },
+    {
+     "n": 2,
+     "completed": true
+    },
+    {
+     "n": 3,
+     "completed": false
+    },
+    {
+     "n": 4,
+     "completed": true
+    }
+   ],
+   "part_swap": true,
+   "dedicated_set": "DS-2"
+  },
+  "verification": {
+   "required_swabs": [
+    "mixer",
+    "depositor"
+   ],
+   "swabs": [
+    {
+     "id": "S1",
+     "location": "mixer",
+     "target": "milk",
+     "reading": 0,
+     "limit_ppm": 5,
+     "at": "2024-07-12T06:50"
+    }
+   ],
+   "atp_rlu": [
+    {
+     "location": "mixer",
+     "value": 40
+    }
+   ]
+  },
+  "production": {
+   "line": "L1",
+   "first_batch": "B-2291",
+   "start_at": "2024-07-12T07:00",
+   "end_at": "2024-07-12T07:20",
+   "quantity": 38.4,
+   "unit": "kg",
+   "packaging_allergens": [
+    "milk",
+    "wheat",
+    "may_contain:milk"
+   ],
+   "held": true
+  },
+  "approvals": {
+   "qa_signoff": {
+    "signed_at": "2024-07-12T06:55"
+   },
+   "deviations": [
+    {
+     "id": "D-12",
+     "scope": "batch B-2219 depositor swab waiver",
+     "approved_at": "2024-07-11T15:00"
+    }
+   ]
+  },
+  "history": [
+   {
+    "passed": false
+   },
+   {
+    "passed": true
+   },
+   {
+    "passed": false
+   },
+   {
+    "passed": false
+   },
+   {
+    "passed": true
+   },
+   {
+    "passed": false
+   },
+   {
+    "passed": true
+   },
+   {
+    "passed": true
+   },
+   {
+    "passed": false
+   },
+   {
+    "passed": true
+   }
+  ]
+ },
+ "factors": {
+  "allergen_transition": "same_allergen_set",
+  "cleaning_completion": "one_step_skipped",
+  "swab_outcome": "negative_one_required_swab_missing",
+  "swab_timing_mismatch": false,
+  "cross_section_discrepancy": "batch_id_mismatch",
+  "exposed_quantity_kg": 38.4,
+  "approved_deviation": false,
+  "label_precaution": true,
+  "dedicated_tooling": true,
+  "qa_signoff_state": "signed_before_start",
+  "line_failure_history": 5,
+  "boundary_value": false
+ },
+ "factors_sampled": {
+  "allergen_transition": "same_allergen_set",
+  "cleaning_completion": "full",
+  "swab_outcome": "all_negative",
+  "swab_timing_mismatch": false,
+  "cross_section_discrepancy": "batch_id_mismatch",
+  "exposed_quantity_kg": 125.73,
+  "approved_deviation": false,
+  "label_precaution": true,
+  "dedicated_tooling": true,
+  "qa_signoff_state": "signed_before_start",
+  "line_failure_history": 5,
+  "boundary_value": false
+ },
+ "plan": {
+  "swabs_cleared": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "line_disposition": {
+   "clarity": "clear",
+   "target": "hold",
+   "second": null
+  },
+  "worst_deficiency": {
+   "clarity": "clear",
+   "target": "cleaning_shortfall",
+   "second": null
+  },
+  "exposed_product": {
+   "clarity": "contested",
+   "target": "1",
+   "second": "0"
+  },
+  "residue_evidence": {
+   "clarity": "leaning",
+   "target": "0",
+   "second": null
+  }
+ },
+ "target_words": 105,
+ "deciding": {
+  "swabs_cleared": "required_swabs lists mixer and depositor but only the mixer swab S1 exists; the depositor swab is absent.",
+  "line_disposition": "Batch is held and the depositor swab is the single missing confirmation; the waiver D-12 concerns a different batch.",
+  "worst_deficiency": "Cleaning step 3 completed:false, with no release breach as sign-off and swab precede start.",
+  "exposed_product": "38.4 kg made from 07:00 while verification was incomplete, but the batch is held, so level 1 or 0 is defensible.",
+  "residue_evidence": "The one swab reads 0 against a 5 ppm limit; no retest is needed."
+ },
+ "request": "rec-F236-0006",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.015068
+}

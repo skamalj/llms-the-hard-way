@@ -1,0 +1,120 @@
+{
+ "id": "F205-0006",
+ "family": "F205",
+ "state": {
+  "flight": {
+   "no": "RX214",
+   "type": "E190",
+   "std": "2024-05-14T09:10Z",
+   "turn": "quick"
+  },
+  "times": {
+   "on_blocks": "2024-05-14T07:55Z",
+   "fuel_start": "2024-05-14T08:05Z",
+   "last_bag": "2024-05-14T09:38Z",
+   "doors_closed": "2024-05-14T09:50Z",
+   "off_blocks": "2024-05-14T09:58Z",
+   "delay_code": "BAG",
+   "delay_min": 48
+  },
+  "load": {
+   "pax": 71,
+   "bags_count": 52,
+   "bags_kg": 690
+  },
+  "hold_log": [
+   {
+    "pos": "1",
+    "bags": 30,
+    "kg": 410
+   },
+   {
+    "pos": "2",
+    "bags": 14,
+    "kg": 170
+   },
+   {
+    "pos": "T",
+    "bags": 8,
+    "kg": 110,
+    "transfer": true
+   }
+  ],
+  "services": {
+   "pushback": null
+  },
+  "remarks": [
+   {
+    "role": "ramp",
+    "t": "09:40",
+    "msg": "Late bags from inbound connection, loaded last."
+   }
+  ]
+ },
+ "factors": {
+  "bag_mismatch_size": "none",
+  "mismatch_location": "loadsheet_bags_vs_hold_log",
+  "missing_record": "pushback_record_missing",
+  "milestone_out_of_order": false,
+  "delay_minutes": 48,
+  "delay_code_fit": "supported",
+  "explanatory_remark": true,
+  "pending_signoff": false,
+  "dg_on_board": false,
+  "decoy_noise": "transfer_bags_listed_separately",
+  "boundary_value": false,
+  "turn_type": "quick_turn"
+ },
+ "factors_sampled": {
+  "bag_mismatch_size": "none",
+  "mismatch_location": "loadsheet_bags_vs_hold_log",
+  "missing_record": "pushback_record_missing",
+  "milestone_out_of_order": false,
+  "delay_minutes": 98,
+  "delay_code_fit": "supported",
+  "explanatory_remark": true,
+  "pending_signoff": false,
+  "dg_on_board": false,
+  "decoy_noise": "transfer_bags_listed_separately",
+  "boundary_value": false,
+  "turn_type": "quick_turn"
+ },
+ "plan": {
+  "load_reconciled": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "delay_code_supported": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "log_disposition": {
+   "clarity": "balanced",
+   "target": "close_with_note",
+   "second": "close_clean"
+  },
+  "offblock_delay": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  },
+  "failed_checks": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 78,
+ "deciding": {
+  "load_reconciled": "Hold entries 30+14+8 transfer = 52 bags and 690 kg, equal to the loadsheet; the transfer bags are listed separately.",
+  "delay_code_supported": "Code BAG; last_bag at 09:38 is after STD 09:10, and the remark cites late connecting bags.",
+  "log_disposition": "The pushback record is null, though the delay is explained by the bag remark; close_with_note and close_clean are both defensible.",
+  "offblock_delay": "Off-blocks 09:58 against STD 09:10 is 48 minutes late.",
+  "failed_checks": "The null pushback record, the 48-minute lateness, and the bag-delay remark and separately listed transfer bags all sit near the pass/fail line, so about three checks fail, with two also defensible."
+ },
+ "request": "rec-F205-0006",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.010996
+}

@@ -1,0 +1,148 @@
+{
+ "id": "F216-0022",
+ "family": "F216",
+ "state": {
+  "session": {
+   "id": "SC58",
+   "type": "school_session",
+   "date": "2024-05-14",
+   "next": "2024-05-21"
+  },
+  "storage": {
+   "unit": "F1",
+   "probe": "product",
+   "alarms_30d": 3,
+   "last_cal": "2023-06-02"
+  },
+  "temp_log": {
+   "interval_min": 5,
+   "readings": [
+    {
+     "t": "10:15",
+     "product_c": 7.6
+    },
+    {
+     "t": "10:20",
+     "product_c": 7.9
+    },
+    {
+     "t": "10:25",
+     "product_c": 8.1
+    },
+    {
+     "t": "10:30",
+     "product_c": 7.8
+    }
+   ]
+  },
+  "stock": {
+   "lots": [
+    {
+     "lot": "H77",
+     "product": "HPV",
+     "tol_min": 0,
+     "open": 20,
+     "waste": 0,
+     "close": 1
+    },
+    {
+     "lot": "D31",
+     "product": "dTaP/IPV",
+     "tol_min": 60,
+     "open": 50,
+     "waste": 1,
+     "close": 25
+    }
+   ]
+  },
+  "administration": [
+   {
+    "t": "10:30",
+    "lot": "H77",
+    "n": 19
+   },
+   {
+    "t": "10:40",
+    "lot": "D31",
+    "n": 30
+   }
+  ],
+  "excursion_actions": {
+   "start": "10:25",
+   "end": "10:30",
+   "quarantined": true,
+   "advice_req": "10:45",
+   "status": "REF",
+   "advice_at": "11:40",
+   "revised_expiry": null
+  }
+ },
+ "factors": {
+  "true_excursion_minutes": 5,
+  "log_source_discrepancy": "none",
+  "buffered_probe_in_range": false,
+  "planned_maintenance": false,
+  "stability_clearance": "refused",
+  "doses_during_exposure": 19,
+  "stock_count_gap": 6,
+  "lot_id_mismatch": false,
+  "lots_beyond_tolerance": "some",
+  "freezing_reading": false,
+  "boundary_case": true,
+  "unit_alarm_history": 3,
+  "session_type": "school_session"
+ },
+ "factors_sampled": {
+  "true_excursion_minutes": 212,
+  "log_source_discrepancy": "none",
+  "buffered_probe_in_range": false,
+  "planned_maintenance": false,
+  "stability_clearance": "refused",
+  "doses_during_exposure": 19,
+  "stock_count_gap": 6,
+  "lot_id_mismatch": false,
+  "lots_beyond_tolerance": "all",
+  "freezing_reading": false,
+  "boundary_case": false,
+  "unit_alarm_history": 3,
+  "session_type": "school_session"
+ },
+ "plan": {
+  "dosed_uncleared": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "stock_reconciles": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "stock_disposition": {
+   "clarity": "clear",
+   "target": "partial_discard",
+   "second": null
+  },
+  "excursion_duration": {
+   "clarity": "contested",
+   "target": "0",
+   "second": "1"
+  },
+  "followup_urgency": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  }
+ },
+ "target_words": 107,
+ "deciding": {
+  "dosed_uncleared": "19 H77 doses at 10:30 follow excursion start 10:25, and advice was only refused at 11:40. The excursion was one 5-minute reading, which leaves some doubt.",
+  "stock_reconciles": "D31: 50-1-30 expects closing 19 but records 25, a gap of 6.",
+  "stock_disposition": "H77 has tol_min 0 and D31 has tol_min 60, with a 5-minute excursion and status REF. Destroy H77 and keep D31.",
+  "excursion_duration": "The only out-of-range value is a single 8.1 reading at 5-min spacing. Counted strictly it is level 1; discounted as marginal it is level 0.",
+  "followup_urgency": "The next session is 2024-05-21, a week away, but 19 doses of H77 were given and advice was refused, so the follow-up is arguably more than routine."
+ },
+ "request": "rec-F216-0021",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.019236
+}

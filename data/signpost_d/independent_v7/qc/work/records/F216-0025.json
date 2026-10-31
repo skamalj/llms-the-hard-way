@@ -1,0 +1,151 @@
+{
+ "id": "F216-0025",
+ "family": "F216",
+ "state": {
+  "session": {
+   "id": "FC09",
+   "type": "fixed_clinic",
+   "date": "2024-02-20",
+   "next": "2024-02-21"
+  },
+  "storage": {
+   "unit": "F1",
+   "alarms_30d": 2,
+   "maint": [
+    {
+     "kind": "defrost",
+     "start": "09:30",
+     "end": "10:00",
+     "backup": "F2"
+    }
+   ]
+  },
+  "temp_log": {
+   "interval_min": 5,
+   "readings": [
+    {
+     "t": "09:30",
+     "product_c": 7.8
+    },
+    {
+     "t": "09:35",
+     "product_c": 8.3
+    },
+    {
+     "t": "09:40",
+     "product_c": 8.4
+    },
+    {
+     "t": "09:45",
+     "product_c": 8.2
+    },
+    {
+     "t": "09:50",
+     "product_c": 7.6
+    }
+   ],
+   "manual_checks": [],
+   "backup": [
+    {
+     "t": "09:50",
+     "product_c": 5.4
+    }
+   ]
+  },
+  "stock": {
+   "lots": [
+    {
+     "lot": "M55",
+     "tol_min": 120,
+     "open": 60,
+     "waste": 3,
+     "close": 32
+    }
+   ]
+  },
+  "administration": [
+   {
+    "t": "09:50",
+    "lot": "M55",
+    "n": 23
+   }
+  ],
+  "excursion_actions": {
+   "start": "09:35",
+   "end": "09:45",
+   "quarantined": true,
+   "advice_req": "10:15",
+   "status": "CLR_SHORT",
+   "advice_at": "11:30",
+   "revised_expiry": "2024-03-15"
+  }
+ },
+ "factors": {
+  "true_excursion_minutes": 15,
+  "log_source_discrepancy": "manual_checks_missing",
+  "buffered_probe_in_range": false,
+  "planned_maintenance": true,
+  "stability_clearance": "cleared_short",
+  "doses_during_exposure": 0,
+  "stock_count_gap": -2,
+  "lot_id_mismatch": false,
+  "lots_beyond_tolerance": "none",
+  "freezing_reading": false,
+  "boundary_case": false,
+  "unit_alarm_history": 2,
+  "session_type": "fixed_clinic"
+ },
+ "factors_sampled": {
+  "true_excursion_minutes": 80,
+  "log_source_discrepancy": "manual_checks_missing",
+  "buffered_probe_in_range": false,
+  "planned_maintenance": true,
+  "stability_clearance": "not_requested",
+  "doses_during_exposure": 23,
+  "stock_count_gap": -6,
+  "lot_id_mismatch": false,
+  "lots_beyond_tolerance": "none",
+  "freezing_reading": false,
+  "boundary_case": true,
+  "unit_alarm_history": 2,
+  "session_type": "fixed_clinic"
+ },
+ "plan": {
+  "dosed_uncleared": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "stock_reconciles": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "stock_disposition": {
+   "clarity": "clear",
+   "target": "release_restricted",
+   "second": null
+  },
+  "excursion_duration": {
+   "clarity": "clear",
+   "target": "1",
+   "second": null
+  },
+  "followup_urgency": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  }
+ },
+ "target_words": 72,
+ "deciding": {
+  "dosed_uncleared": "The 23 doses at 09:50 follow excursion end 09:45 and an in-range reading of 7.6, but advice only arrived at 11:30 and manual_checks is empty, so use before clearance is arguable.",
+  "stock_reconciles": "M55: 60-3-23 expects closing 34 but records 32, a gap of 2 with matching lot numbers.",
+  "stock_disposition": "CLR_SHORT with revised_expiry 2024-03-15, a 15-minute excursion and tol_min 120 give release_restricted.",
+  "excursion_duration": "Readings of 8.3, 8.4 and 8.2 at 5-min spacing total 15 minutes, well under 30.",
+  "followup_urgency": "Advice has been received with a shortened expiry, but 23 doses were given before it, manual checks are missing, and the next session is 2024-02-21, so level 2 versus 1 is balanced."
+ },
+ "request": "rec-F216-0021",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.019236
+}

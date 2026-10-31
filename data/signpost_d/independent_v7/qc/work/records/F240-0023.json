@@ -1,0 +1,131 @@
+{
+ "id": "F240-0023",
+ "family": "F240",
+ "state": {
+  "asset": {
+   "inverter_id": "INV-21",
+   "serial": "K4410",
+   "model": "CS-1800",
+   "rated_ac_kw": 1800
+  },
+  "fault_event": {
+   "serial": "K4410",
+   "code": "F-ISO-02",
+   "fw_severity": 1,
+   "ts_start": "2025-06-10T10:05",
+   "ts_clear": "2025-06-10T14:20",
+   "auto_restarts": 1
+  },
+  "telemetry": {
+   "samples": [
+    {
+     "ts": "2025-06-10T10:10",
+     "ac_kw": 0,
+     "exp_kw": 1400,
+     "poa_wm2": 820,
+     "limit_pct": 0
+    },
+    {
+     "ts": "2025-06-10T14:15",
+     "ac_kw": 900,
+     "exp_kw": 1450,
+     "poa_wm2": 840,
+     "limit_pct": 50.0
+    }
+   ],
+   "exp_day_kwh": 5000,
+   "exp_window_kwh": 2100,
+   "act_window_kwh": 889
+  },
+  "site_context": {
+   "grid_events": [],
+   "neighbours": null
+  },
+  "history": {
+   "faults": [
+    {
+     "date": "2025-06-04",
+     "code": "F-ISO-02"
+    },
+    {
+     "date": "2025-06-10",
+     "code": "F-ISO-02"
+    }
+   ],
+   "work_orders": [
+    {
+     "wo_id": "WO-508",
+     "opened": "2025-06-06",
+     "completed": "2025-06-10",
+     "retest_ok": null
+    }
+   ]
+  }
+ },
+ "factors": {
+  "fault_class": "insulation_resistance",
+  "log_telemetry_mismatch": "trivial_under_5min",
+  "grid_event_concurrent": false,
+  "maintenance_window_active": false,
+  "neighbour_cross_check": "no_neighbour_data",
+  "repeat_count_30d": 2,
+  "last_repair_status": "completed_unverified",
+  "current_limit_pct": 50.0,
+  "yield_loss_pct": 24.22,
+  "low_irradiance_window": false,
+  "serial_mismatch": false,
+  "boundary_placement": false
+ },
+ "factors_sampled": {
+  "fault_class": "insulation_resistance",
+  "log_telemetry_mismatch": "trivial_under_5min",
+  "grid_event_concurrent": false,
+  "maintenance_window_active": false,
+  "neighbour_cross_check": "no_neighbour_data",
+  "repeat_count_30d": 2,
+  "last_repair_status": "completed_unverified",
+  "current_limit_pct": 39.32,
+  "yield_loss_pct": 24.22,
+  "low_irradiance_window": false,
+  "serial_mismatch": false,
+  "boundary_placement": false
+ },
+ "plan": {
+  "genuine_defect": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "post_repair_repeat": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "close_log",
+   "second": null
+  },
+  "yield_loss": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  },
+  "capacity_unavailable": {
+   "clarity": "contested",
+   "target": "1",
+   "second": "2"
+  }
+ },
+ "target_words": 93,
+ "deciding": {
+  "genuine_defect": "Insulation fault repeating twice in a week with high irradiance and no grid event suggests hardware, but neighbours is null and fw_severity is only 1.",
+  "post_repair_repeat": "WO-508 completed 2025-06-10 with retest_ok null; the F-ISO-02 fault is dated that same day, so it is unclear whether it came after the repair.",
+  "next_step": "The fault cleared at 14:20 with fw_severity 1 and one auto-restart, mildly favouring closing the log, though loss and the unverified repair leave doubt.",
+  "yield_loss": "(2100-889)/5000 = 24.22%, above the 20% line.",
+  "capacity_unavailable": "Last sample limit_pct 50.0 with ac_kw 900 of 1800 sits exactly on the boundary between level 1 and level 2."
+ },
+ "request": "rec-F240-0021",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012049
+}

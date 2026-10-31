@@ -1,0 +1,118 @@
+{
+ "id": "F230-0042",
+ "family": "F230",
+ "state": {
+  "prescriptions": [
+   {
+    "item_id": "B",
+    "drug": "senna",
+    "strength_mg": 7.5,
+    "dose_units": 2,
+    "time_critical": false,
+    "changes": []
+   }
+  ],
+  "administrations": [
+   {
+    "item_id": "B",
+    "scheduled": "08:00",
+    "given_at": "09:00",
+    "units_given": 2,
+    "strength_mg_used": 7.5,
+    "initials": "LM"
+   }
+  ],
+  "stock": {
+   "B": {
+    "opening": 10,
+    "wasted": 1,
+    "wasted_witnessed": true,
+    "closing": 7
+   }
+  },
+  "round": {
+   "open_queries": [
+    {
+     "type": "gp_callback",
+     "item_id": "B"
+    }
+   ],
+   "post_dose_obs": [
+    {
+     "type": "pulse",
+     "v": 72
+    }
+   ]
+  }
+ },
+ "factors": {
+  "dose_mismatch_type": "wrong_quantity",
+  "prescription_change_documented": false,
+  "omission_count": 0,
+  "omission_reason_valid": true,
+  "late_minutes": 60,
+  "time_critical_affected": false,
+  "stock_variance": 1,
+  "stock_variance_explained": true,
+  "signature_gaps": 0,
+  "unit_expression_decoy": "matching_units",
+  "post_dose_obs_reassuring": true,
+  "pending_query": "gp_callback_awaited",
+  "prior_errors_30d": 0,
+  "item_count": 8
+ },
+ "factors_sampled": {
+  "dose_mismatch_type": "wrong_quantity",
+  "prescription_change_documented": false,
+  "omission_count": 0,
+  "omission_reason_valid": true,
+  "late_minutes": 60,
+  "time_critical_affected": false,
+  "stock_variance": 1,
+  "stock_variance_explained": true,
+  "signature_gaps": 0,
+  "unit_expression_decoy": "matching_units",
+  "post_dose_obs_reassuring": true,
+  "pending_query": "gp_callback_awaited",
+  "prior_errors_30d": 0,
+  "item_count": 8
+ },
+ "plan": {
+  "dose_mismatch": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "stock_reconciles": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "balanced",
+   "target": "sign_off",
+   "second": "correct_and_close"
+  },
+  "open_discrepancies": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  },
+  "error_severity": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 46,
+ "deciding": {
+  "dose_mismatch": "units_given 2 and strength 7.5 match the prescription exactly.",
+  "stock_reconciles": "Opening 10 less 1 signed less 1 witnessed waste is 8, but closing is 7, so a gap of 1 remains despite the waste entry.",
+  "next_step": "Dose given exactly 60 minutes late sits on the boundary, leaving sign-off or an annotated correction defensible.",
+  "open_discrepancies": "Stock gap and open gp_callback query on B, with eight items in the round, point to several items open.",
+  "error_severity": "Given_at is exactly 60 minutes after scheduled, which is not over 60; no documentation fault is shown, though one could be read from the open query."
+ },
+ "request": "rec-F230-0041",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.005884
+}

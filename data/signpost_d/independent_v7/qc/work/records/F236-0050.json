@@ -1,0 +1,159 @@
+{
+ "id": "F236-0050",
+ "family": "F236",
+ "state": {
+  "changeover": {
+   "line": "L6",
+   "from": "P50",
+   "to": "P52",
+   "from_allergens": [
+    "wheat",
+    "egg"
+   ],
+   "to_allergens": [
+    "wheat",
+    "egg"
+   ]
+  },
+  "cleaning": {
+   "steps": [
+    {
+     "s": "dry_clean",
+     "done": true,
+     "spec_min": 20,
+     "actual_min": 20
+    },
+    {
+     "s": "wash",
+     "done": true,
+     "spec_min": 20,
+     "actual_min": 21
+    }
+   ]
+  },
+  "verification": {
+   "swabs": [
+    {
+     "id": "S1",
+     "loc": "mixer",
+     "target": "egg",
+     "reading": 0.0,
+     "limit_ppm": 2.5,
+     "at": "2025-07-15T06:00"
+    },
+    {
+     "id": "S2",
+     "loc": "depositor",
+     "target": "egg",
+     "reading": 0.05,
+     "lod_ppm": 0.1,
+     "limit_ppm": 2.5,
+     "at": "2025-07-15T06:35"
+    }
+   ]
+  },
+  "production": {
+   "line": "L5",
+   "code": "P52",
+   "batch": "B8120",
+   "start": "2025-07-15T06:10",
+   "end": "2025-07-15T07:10",
+   "qty": 120,
+   "unit": "kg",
+   "pack_allergens": [
+    "wheat",
+    "egg"
+   ],
+   "may_contain": [
+    "egg"
+   ]
+  },
+  "approvals": {
+   "qa_signoff": {
+    "by": "QA2",
+    "signed_at": "2025-07-15T06:05"
+   },
+   "deviations": []
+  },
+  "history": {
+   "passed": [
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true
+   ]
+  }
+ },
+ "factors": {
+  "allergen_transition": "same_allergen_set",
+  "cleaning_completion": "full",
+  "swab_outcome": "trace_below_limit",
+  "swab_timing_mismatch": true,
+  "cross_section_discrepancy": "line_id_mismatch",
+  "exposed_quantity_kg": 50.0,
+  "approved_deviation": false,
+  "label_precaution": true,
+  "dedicated_tooling": false,
+  "qa_signoff_state": "signed_before_start",
+  "line_failure_history": 0,
+  "boundary_value": false
+ },
+ "factors_sampled": {
+  "allergen_transition": "same_allergen_set",
+  "cleaning_completion": "one_step_skipped",
+  "swab_outcome": "trace_below_limit",
+  "swab_timing_mismatch": true,
+  "cross_section_discrepancy": "line_id_mismatch",
+  "exposed_quantity_kg": 430.51,
+  "approved_deviation": false,
+  "label_precaution": false,
+  "dedicated_tooling": false,
+  "qa_signoff_state": "signed_before_start",
+  "line_failure_history": 0,
+  "boundary_value": false
+ },
+ "plan": {
+  "swabs_cleared": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "line_disposition": {
+   "clarity": "clear",
+   "target": "release_conditional",
+   "second": null
+  },
+  "worst_deficiency": {
+   "clarity": "balanced",
+   "target": "none",
+   "second": "release_breach"
+  },
+  "exposed_product": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  },
+  "residue_evidence": {
+   "clarity": "contested",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 81,
+ "deciding": {
+  "swabs_cleared": "S2 was taken at 06:35, after production start 06:10, although its reading is under limit.",
+  "line_disposition": "The allergen set is unchanged, readings are far under limit, and a may_contain egg label is already on the pack, so conditional release.",
+  "worst_deficiency": "Cleaning is full and the history is clean (none), but the late swab S2 and the line ID mismatch (L6 vs L5) leave release breach arguable.",
+  "exposed_product": "Batch 06:10-07:10 of 120 kg with the last passing swab at 06:35 gives 25 min, about 50 kg, right on the 50 kg boundary.",
+  "residue_evidence": "S1 reads 0.0 and S2 reads 0.05, below LOD 0.1, which is negative or trace."
+ },
+ "request": "rec-F236-0046",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.015151
+}

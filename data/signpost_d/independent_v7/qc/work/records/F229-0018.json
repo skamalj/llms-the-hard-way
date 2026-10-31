@@ -1,0 +1,115 @@
+{
+ "id": "F229-0018",
+ "family": "F229",
+ "state": {
+  "lot": {
+   "lot_id": "L3-21",
+   "block_code": "B21",
+   "pick_end": "2024-09-16T05:30"
+  },
+  "intake": {
+   "block_code": "B21",
+   "gross_kg": 9100,
+   "tare_kg": 3000,
+   "net_kg": 6600,
+   "bins": [
+    2000,
+    2100,
+    2000
+   ],
+   "temp_c": 22,
+   "cold_room_in": null,
+   "cold_room_out": null
+  },
+  "sample": {
+   "rot_pct": 4.89,
+   "sort": {
+    "sorted": true,
+    "rejected_kg": 150,
+    "post_sort_rot_pct": 2.1
+   }
+  },
+  "press": {
+   "programme": "destemmed_standard",
+   "band_l_per_t": "600-680",
+   "cycle_start": "2024-09-16T21:24",
+   "cycle_end": "2024-09-17T01:10",
+   "juice_l": 3800,
+   "so2_mg_l": 40
+  },
+  "transfer": {
+   "lot_ref": "L3-21",
+   "tank_id": "T8",
+   "transferred_l": 3760,
+   "qa_signoff": "RK 02:00"
+  }
+ },
+ "factors": {
+  "weight_mismatch": "large_over_5pct",
+  "press_programme": "destemmed_standard",
+  "yield_position": "inside_band_on_bin_weight_below_band_on_ticket_net",
+  "lot_id_drift": "none",
+  "missing_step": "none",
+  "out_of_order_timestamp": false,
+  "pick_to_press_hours": 15.9,
+  "pick_end_recorded": true,
+  "cold_held": false,
+  "rot_pct": 4.89,
+  "sorting_applied": true,
+  "note_signal": "none",
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "weight_mismatch": "large_over_5pct",
+  "press_programme": "destemmed_standard",
+  "yield_position": "inside_band",
+  "lot_id_drift": "different_lot_on_transfer",
+  "missing_step": "so2_addition_missing",
+  "out_of_order_timestamp": false,
+  "pick_to_press_hours": 20.68,
+  "pick_end_recorded": true,
+  "cold_held": false,
+  "rot_pct": 4.89,
+  "sorting_applied": true,
+  "note_signal": "none",
+  "boundary_case": false
+ },
+ "plan": {
+  "yield_consistent": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "chain_intact": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "release_decision": {
+   "clarity": "contested",
+   "target": "release",
+   "second": "segregate"
+  },
+  "pick_press_delay": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "failed_checks": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  }
+ },
+ "target_words": 48,
+ "deciding": {
+  "yield_consistent": "Ticket net 6600 kg gives 576 L/t, below band, but gross minus tare and the bin sum give 6100 kg and 623 L/t, inside band.",
+  "chain_intact": "lot_id, block_code and lot_ref are all L3-21/B21 at every stage.",
+  "release_decision": "Only the net weight discrepancy is open; sorting brought rot to 2.1%, so release and segregation are both defensible.",
+  "pick_press_delay": "pick_end 05:30 to cycle_start 21:24 is 15.9 h, just under 16 h.",
+  "failed_checks": "Net weight fails to reconcile with gross minus tare and the bins; the other checks pass, and the delay sits at the boundary."
+ },
+ "request": "rec-F229-0016",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.008575
+}

@@ -1,0 +1,128 @@
+{
+ "id": "F210-0045",
+ "family": "F210",
+ "state": {
+  "collection": {
+   "collected_at": "2024-09-12T06:40",
+   "vat_l": 2800,
+   "meter_l": 2800,
+   "vat_temp_c": 6.0,
+   "last_milking_end": "2024-09-12T04:40"
+  },
+  "sample": {
+   "sample_id": "S505",
+   "taken_at": "2024-09-12T08:20",
+   "seal_intact": true,
+   "arrival_temp_c": 4.5,
+   "received_at": "2024-09-12T10:00"
+  },
+  "lab_results": {
+   "sample_id": "S505",
+   "bactoscan_kcfu_ml": 140,
+   "inhibitory": "neg",
+   "retest": {
+    "requested": true,
+    "result": null
+   }
+  },
+  "farm_terms": {
+   "limits": {
+    "vat_temp_c": 4.0,
+    "bactoscan_kcfu_ml": 100
+   },
+   "approved_exceptions": [
+    {
+     "parameter": "bactoscan_kcfu_ml",
+     "valid_from": "2024-09-01",
+     "valid_to": "2024-09-12"
+    }
+   ],
+   "treatment_register": [
+    {
+     "drug": "amoxicillin",
+     "withdrawal_end": "2024-09-15",
+     "segregated": true
+    }
+   ],
+   "breaches_90d": 2
+  },
+  "equipment": {
+   "vat_thermometer": {
+    "due": "2025-03-01"
+   },
+   "tanker_meter": {
+    "due": "2024-08-31"
+   }
+  }
+ },
+ "factors": {
+  "vat_temp_level": "high",
+  "recent_milking": true,
+  "mismatch_site": "timing",
+  "mismatch_magnitude": "large",
+  "meter_calibration_overdue": true,
+  "lab_limit_breaches": 1,
+  "exception_covers_breach": true,
+  "inhibitory_status": "negative",
+  "treatment_withdrawal_active": true,
+  "retest_state": "pending",
+  "sample_integrity": "intact",
+  "history_breaches_90d": 2,
+  "value_on_boundary": true,
+  "driver_sensory_flag": false
+ },
+ "factors_sampled": {
+  "vat_temp_level": "high",
+  "recent_milking": true,
+  "mismatch_site": "timing",
+  "mismatch_magnitude": "large",
+  "meter_calibration_overdue": true,
+  "lab_limit_breaches": 0,
+  "exception_covers_breach": true,
+  "inhibitory_status": "negative",
+  "treatment_withdrawal_active": true,
+  "retest_state": "none",
+  "sample_integrity": "intact",
+  "history_breaches_90d": 2,
+  "value_on_boundary": true,
+  "driver_sensory_flag": false
+ },
+ "plan": {
+  "temp_compliant": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "intake_disposition": {
+   "clarity": "leaning",
+   "target": "hold_retest",
+   "second": null
+  },
+  "issue_source": {
+   "clarity": "balanced",
+   "target": "collection_handling",
+   "second": "none_evident"
+  },
+  "discrepancy_size": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "unexplained_breaches": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 86,
+ "deciding": {
+  "temp_compliant": "vat_temp_c 6.0 exceeds 4.0, but last_milking_end is exactly 2 h before collected_at, on the edge of the 'within 2 h' rule.",
+  "intake_disposition": "The one bactoscan result has a retest requested with a null result, so acceptance or penalty waits for confirmation.",
+  "issue_source": "sample taken_at 08:20 is 100 min after collected_at 06:40, suggesting handling delay, while volumes and ids agree and seal is intact, so none_evident remains plausible.",
+  "discrepancy_size": "The 100 min gap between collected_at and taken_at is large relative to an expected near-zero gap; it is unclear whether this is 10-25% or 25%+ of the expected value.",
+  "unexplained_breaches": "bactoscan 140 exceeds 100, but the approved exception for bactoscan ends 2024-09-12, the collection date, so it is borderline whether it covers (0 or 1)."
+ },
+ "request": "rec-F210-0041",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011859
+}

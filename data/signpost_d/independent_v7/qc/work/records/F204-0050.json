@@ -1,0 +1,145 @@
+{
+ "id": "F204-0050",
+ "family": "F204",
+ "state": {
+  "rx": {
+   "drug": "cefalexin",
+   "strength": {
+    "val": 250,
+    "unit": "mg",
+    "per_ml": 5
+   },
+   "form": "susp",
+   "dose": 5,
+   "freq_per_day": 4,
+   "qty": 100,
+   "days_intended": 5
+  },
+  "patient": {
+   "pt_id": "P7730",
+   "supplies": [
+    {
+     "date": "2025-02-10",
+     "days_covered": 7
+    }
+   ],
+   "emergency_supplies": [
+    {
+     "date": "2025-02-17",
+     "days": 5
+    }
+   ],
+   "near_miss_count": 4
+  },
+  "dispensed": {
+   "product_name": "Cefalexin susp",
+   "strength": {
+    "val": 125,
+    "unit": "mg",
+    "per_ml": 5
+   },
+   "form": "susp",
+   "pack_size": 60,
+   "packs": 1,
+   "owing": null,
+   "expiry": "2025-12-31",
+   "req_warnings": [
+    "9",
+    "23"
+   ],
+   "high_risk": false
+  },
+  "label": {
+   "pt_id": "P7730",
+   "dose_qty": 5,
+   "freq_per_day": 3,
+   "warning_codes": [
+    "9"
+   ],
+   "qty_printed": 60
+  },
+  "check_log": {
+   "checked_at": "2025-02-15T14:05",
+   "queries": [
+    {
+     "raised_at": "2025-02-15T14:00",
+     "field": "qty",
+     "status": "pending"
+    }
+   ],
+   "interventions": [],
+   "clin_check": {
+    "by": "RP4",
+    "at": "2025-02-15T13:50"
+   }
+  }
+ },
+ "factors": {
+  "strength_status": "mismatch_converted",
+  "product_status": "exact",
+  "quantity_status": "short_undocumented",
+  "label_status": "directions_mismatch",
+  "prescriber_query": "pending",
+  "pharmacist_intervention": false,
+  "clinical_check_signed": true,
+  "home_supply_days": 7,
+  "emergency_supply": true,
+  "short_expiry": false,
+  "prior_error_count": 4,
+  "high_risk_drug": false,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "strength_status": "match_same_units",
+  "product_status": "exact",
+  "quantity_status": "exact",
+  "label_status": "directions_mismatch",
+  "prescriber_query": "none",
+  "pharmacist_intervention": false,
+  "clinical_check_signed": true,
+  "home_supply_days": 11,
+  "emergency_supply": true,
+  "short_expiry": false,
+  "prior_error_count": 4,
+  "high_risk_drug": false,
+  "boundary_case": false
+ },
+ "plan": {
+  "strength_differs": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "balanced",
+   "target": "hold_query",
+   "second": "release_annotated"
+  },
+  "error_category": {
+   "clarity": "leaning",
+   "target": "quantity_only",
+   "second": null
+  },
+  "open_discrepancies": {
+   "clarity": "clear",
+   "target": "3",
+   "second": null
+  },
+  "supply_urgency": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  }
+ },
+ "target_words": 146,
+ "deciding": {
+  "strength_differs": "rx 250 mg per 5 mL against dispensed 125 mg per 5 mL, same per_ml basis, so half the prescribed strength.",
+  "next_step": "A pending qty query supports holding; the label and strength differences and no owing slip could equally send it back for annotation or correction.",
+  "error_category": "Supplied 60 against 100 with owing null is the quantity problem; the label and strength differences compete with it.",
+  "open_discrepancies": "Strength 125 vs 250, quantity 60 vs 100 with owing null, label freq 3 vs 4 and missing warning 23: three or more.",
+  "supply_urgency": "Supply 2025-02-10 for 7 days ends 02-17, plus 5 emergency days ends 02-22; checked 02-15 leaves 7 days, at the 7-day boundary."
+ },
+ "request": "rec-F204-0046",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012264
+}

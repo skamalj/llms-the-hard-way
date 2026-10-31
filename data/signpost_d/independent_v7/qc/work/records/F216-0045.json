@@ -1,0 +1,118 @@
+{
+ "id": "F216-0045",
+ "family": "F216",
+ "state": {
+  "temp_log": {
+   "int_min": 10,
+   "prod": [
+    [
+     "10:00",
+     7.9
+    ],
+    [
+     "10:10",
+     8.1
+    ],
+    [
+     "10:20",
+     7.8
+    ]
+   ]
+  },
+  "stock": [
+   {
+    "lot": "A",
+    "tol": 5,
+    "open": 10,
+    "waste": null,
+    "close": 5
+   },
+   {
+    "lot": "B",
+    "tol": 30,
+    "open": 10,
+    "waste": 0,
+    "close": 10
+   }
+  ],
+  "administration": [
+   {
+    "t": "10:15",
+    "lot": "A",
+    "n": 4
+   }
+  ],
+  "excursion_actions": {
+   "start": "10:00",
+   "advice": "NR"
+  }
+ },
+ "factors": {
+  "true_excursion_minutes": 10,
+  "log_source_discrepancy": "manual_checks_missing",
+  "buffered_probe_in_range": false,
+  "planned_maintenance": false,
+  "stability_clearance": "not_requested",
+  "doses_during_exposure": 4,
+  "stock_count_gap": 1,
+  "lot_id_mismatch": false,
+  "lots_beyond_tolerance": "some",
+  "freezing_reading": false,
+  "boundary_case": true,
+  "unit_alarm_history": 2,
+  "session_type": "fixed_clinic"
+ },
+ "factors_sampled": {
+  "true_excursion_minutes": 207,
+  "log_source_discrepancy": "manual_checks_missing",
+  "buffered_probe_in_range": false,
+  "planned_maintenance": true,
+  "stability_clearance": "requested_pending",
+  "doses_during_exposure": 12,
+  "stock_count_gap": 2,
+  "lot_id_mismatch": false,
+  "lots_beyond_tolerance": "all",
+  "freezing_reading": false,
+  "boundary_case": true,
+  "unit_alarm_history": 2,
+  "session_type": "fixed_clinic"
+ },
+ "plan": {
+  "dosed_uncleared": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "stock_reconciles": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "stock_disposition": {
+   "clarity": "leaning",
+   "target": "partial_discard",
+   "second": null
+  },
+  "excursion_duration": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "followup_urgency": {
+   "clarity": "contested",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 25,
+ "deciding": {
+  "dosed_uncleared": "4 doses at 10:15, after staff start 10:00 and around the single 8.1 reading at 10:10, with advice NR; the excursion may already be over.",
+  "stock_reconciles": "Lot A: 10 - 4 = 6 but close is 5, with waste null (unknown); lot B balances.",
+  "stock_disposition": "Lot A has tol 5 min against a 10 min reading out of range; lot B tol 30 is fine: discard A, keep B.",
+  "excursion_duration": "Only one reading (8.1 at 10:10) is marginally above 8.0: none vs brief 10 min, with no manual checks to confirm.",
+  "followup_urgency": "A marginal single reading with unresolved lot A: routine filing vs action before the next session is contested."
+ },
+ "request": "rec-F216-0041",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012295
+}

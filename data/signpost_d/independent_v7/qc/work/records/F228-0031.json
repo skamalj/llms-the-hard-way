@@ -1,0 +1,133 @@
+{
+ "id": "F228-0031",
+ "family": "F228",
+ "state": {
+  "booking_declaration": {
+   "booking_ref": "BK7101",
+   "container_no": "MSKU1234567",
+   "vgm_kg": 20000,
+   "declared_tare_kg": 2200,
+   "declared_cargo_kg": 17800,
+   "method": 1,
+   "signatory_id": "S88",
+   "seal_no": "SL123456",
+   "submitted_at": "2024-05-09T10:00Z",
+   "amendments": []
+  },
+  "equipment": {
+   "container_no": "MSKU1234567",
+   "csc_plate_tare_kg": 2200,
+   "csc_max_gross_kg": 30480,
+   "seal_no": "SL123457"
+  },
+  "cargo_lines": [
+   {
+    "hs_code": "3926",
+    "packages": 40,
+    "package_type": "carton",
+    "gross_kg": 17800
+   }
+  ],
+  "terminal_weighing": {
+   "scale_id": "WB2",
+   "read_at": "2024-05-10T07:40Z",
+   "gross_reading_kg": 31800,
+   "tractor_tare_kg": 8000,
+   "chassis_tare_kg": 3200,
+   "chassis_registry_tare_kg": 3200,
+   "calibration_valid_to": "2024-05-01",
+   "reweigh": {
+    "status": "none",
+    "gross_reading_kg": null,
+    "read_at": null
+   }
+  },
+  "voyage_plan": {
+   "vessel_code": "NVX",
+   "voyage_no": "214E",
+   "vgm_cutoff_at": "2024-05-10T12:00Z",
+   "loading_start_at": "2024-05-10T20:30Z",
+   "review_at": "2024-05-10T08:00Z",
+   "stow_bay_row_tier": "14-02-04",
+   "deck_or_hold": "hold",
+   "tolerance_pct": 2
+  },
+  "shipper_profile": {
+   "shipper_id": "SH41",
+   "method2_authorised": false,
+   "last_audit_on": "2022-11-03",
+   "last_audit_result": "pass",
+   "discrepancies_12m": 2
+  }
+ },
+ "factors": {
+  "gap_band": "2_to_5pct",
+  "gap_direction": "understated",
+  "gap_source": "weighing",
+  "decoy_mismatch": "seal_suffix_differs",
+  "scale_calibration_valid": false,
+  "amended_vgm_on_file": false,
+  "shipper_trusted": false,
+  "prior_discrepancies": 2,
+  "hours_to_loading": 12.5,
+  "reweigh_status": "none",
+  "stow_position": "below_deck",
+  "exceeds_csc_max": false,
+  "cargo_lines_missing": false,
+  "tolerance_pct": "2"
+ },
+ "factors_sampled": {
+  "gap_band": "5_to_10pct",
+  "gap_direction": "understated",
+  "gap_source": "cargo",
+  "decoy_mismatch": "seal_suffix_differs",
+  "scale_calibration_valid": true,
+  "amended_vgm_on_file": true,
+  "shipper_trusted": false,
+  "prior_discrepancies": 2,
+  "hours_to_loading": 70.53,
+  "reweigh_status": "none",
+  "stow_position": "below_deck",
+  "exceeds_csc_max": false,
+  "cargo_lines_missing": false,
+  "tolerance_pct": "5"
+ },
+ "plan": {
+  "vgm_understated": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "disposition": {
+   "clarity": "clear",
+   "target": "hold_reweigh",
+   "second": null
+  },
+  "gap_source": {
+   "clarity": "leaning",
+   "target": "weighing_error",
+   "second": null
+  },
+  "gap_magnitude": {
+   "clarity": "clear",
+   "target": "1",
+   "second": null
+  },
+  "time_pressure": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  }
+ },
+ "target_words": 71,
+ "deciding": {
+  "vgm_understated": "calibration_valid_to 2024-05-01 precedes read_at 2024-05-10 and no completed reweigh, so the terminal reading is invalid.",
+  "disposition": "Invalid calibration with reweigh status none (not done) means hold for reweigh; plate max not exceeded, loading not started.",
+  "gap_source": "Declared tare equals plate tare and declared cargo equals cargo line sum (total 20000), so only the lapsed-calibration terminal reading (20600) disagrees; seal suffix is a decoy.",
+  "gap_magnitude": "Derived 31800-8000-3200=20600 vs vgm 20000 is 600 kg, 3%.",
+  "time_pressure": "review_at 08:00 to loading_start_at 20:30 is 12.5 h, just above the 12 h boundary, so planned vs pressing is defensible."
+ },
+ "request": "rec-F228-0031",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.014076
+}

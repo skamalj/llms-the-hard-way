@@ -1,0 +1,164 @@
+{
+ "id": "F215-0035",
+ "family": "F215",
+ "state": {
+  "bin": {
+   "crop": "barley",
+   "safe_mc_pct": 14,
+   "baseline_c": 12,
+   "intake_date": "2023-09-01",
+   "intake_cond": "dried_cleaned"
+  },
+  "cable_readings": [
+   {
+    "cable_id": "C1",
+    "cal_due": "2025-09-01",
+    "fault": true,
+    "nodes": [
+     {
+      "depth_m": 2,
+      "temp_c": [
+       26,
+       29,
+       31
+      ]
+     }
+    ]
+   },
+   {
+    "cable_id": "C2",
+    "cal_due": "2025-09-01",
+    "fault": false,
+    "nodes": [
+     {
+      "depth_m": 2,
+      "temp_c": [
+       16,
+       19,
+       22.1
+      ]
+     }
+    ]
+   }
+  ],
+  "moisture": [
+   {
+    "sample_date": "2025-01-15",
+    "method": "lab",
+    "mc_pct": 11.8
+   }
+  ],
+  "environment": {
+   "ambient_c_7d_mean": 5,
+   "co2_ppm": 500,
+   "reading_date": "2025-03-03"
+  },
+  "aeration": [
+   {
+    "start": "2024-04-10",
+    "end": "2024-04-11",
+    "fan_hours": 12,
+    "mode": "cooling"
+   },
+   {
+    "start": "2024-06-15",
+    "end": "2024-06-16",
+    "fan_hours": 12,
+    "mode": "cooling"
+   },
+   {
+    "start": "2024-09-02",
+    "end": "2024-09-03",
+    "fan_hours": 12,
+    "mode": "cooling"
+   },
+   {
+    "start": "2024-12-01",
+    "end": "2024-12-02",
+    "fan_hours": 12,
+    "mode": "cooling"
+   },
+   {
+    "start": "2025-03-01",
+    "end": null,
+    "fan_hours": 20,
+    "mode": "cooling"
+   }
+  ],
+  "pest_checks": [
+   {
+    "check_date": "2025-02-27",
+    "traps_set": 5,
+    "insects_counted": 14
+   }
+  ]
+ },
+ "factors": {
+  "peak_excess_c": 10.1,
+  "rise_trend": "steady_climb",
+  "second_cable_corroboration": false,
+  "sensor_fault_flag": true,
+  "ambient_warming": false,
+  "moisture_vs_limit": "well_below",
+  "moisture_sample_status": "overdue",
+  "aeration_running": true,
+  "co2_elevation": "normal",
+  "insect_trap_count": 14,
+  "missing_section": "none",
+  "date_order_anomaly": false,
+  "intake_condition": "dried_cleaned"
+ },
+ "factors_sampled": {
+  "peak_excess_c": 4.27,
+  "rise_trend": "single_jump",
+  "second_cable_corroboration": false,
+  "sensor_fault_flag": true,
+  "ambient_warming": false,
+  "moisture_vs_limit": "well_below",
+  "moisture_sample_status": "overdue",
+  "aeration_running": true,
+  "co2_elevation": "normal",
+  "insect_trap_count": 14,
+  "missing_section": "none",
+  "date_order_anomaly": false,
+  "intake_condition": "dried_cleaned"
+ },
+ "plan": {
+  "hotspot_active": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "moisture_safe": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "next_action": {
+   "clarity": "contested",
+   "target": "continue_monitoring",
+   "second": "turn_or_unload"
+  },
+  "recurrence_count": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  },
+  "temp_excess": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 34,
+ "deciding": {
+  "hotspot_active": "C2 is valid and in calibration and rises 16 to 19 to 22.1 with ambient at 5C. The faulty C1 is excluded as a decoy, but no other cable corroborates the rise, which leaves some doubt.",
+  "moisture_safe": "The lab sample is 11.8 against a 14 limit, well below. It is 47 days old and so overdue, which leaves some doubt.",
+  "next_action": "Fans are running and there are repeated earlier cooling runs. The valid peak is about 10C above baseline but is uncorroborated and C1 is faulty, so continued monitoring versus moving the grain is contested.",
+  "recurrence_count": "Five cooling runs are logged in 12 months (four finished plus the current one), which fits five or more. Using runs as a proxy for the issue leaves slight doubt.",
+  "temp_excess": "The valid peak is C2 at 22.1 against a 12 baseline, 10.1 above, right at the 10C boundary. The faulty C1 reading of 31 is excluded."
+ },
+ "request": "rec-F215-0031",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012344
+}

@@ -1,0 +1,131 @@
+{
+ "id": "F213-0047",
+ "family": "F213",
+ "state": {
+  "pool": {
+   "id": "CP-3",
+   "type": "competition",
+   "test_interval_min": 120,
+   "opening": {
+    "open": "2024-06-02T08:00",
+    "close": "2024-06-02T14:00"
+   },
+   "limits": {
+    "free_cl_max": 3.0,
+    "ph_max": 7.8
+   },
+   "tolerance": {
+    "free_cl": 0.3,
+    "ph": 0.2
+   },
+   "micro_due": "2024-06-20"
+  },
+  "manual_tests": [
+   {
+    "t": "08:00",
+    "free_cl": 2.5,
+    "ph": 7.4
+   },
+   {
+    "t": "10:05",
+    "free_cl": 2.6,
+    "ph": 7.7
+   },
+   {
+    "t": "12:00",
+    "free_cl": 2.5,
+    "ph": 8.2
+   },
+   {
+    "t": "14:00",
+    "free_cl": 2.6,
+    "ph": 7.5
+   }
+  ],
+  "plant": {
+   "controller_readings": [
+    {
+     "t": "12:00",
+     "free_cl": 2.5,
+     "ph": 7.6
+    }
+   ]
+  },
+  "actions": [
+   {
+    "t": "13:00",
+    "action_type": "acid_dose",
+    "reading_ref": "12:00"
+   }
+  ],
+  "lab_sample": null
+ },
+ "factors": {
+  "pool_type": "competition",
+  "test_coverage_gap": 1,
+  "boundary_interval": false,
+  "log_controller_discrepancy": "none",
+  "discrepancy_location": "ph",
+  "excursion_severity": "marginal",
+  "corrective_action_delay": "delayed",
+  "retest_logged": false,
+  "dosing_event_explains": false,
+  "kit_calibration_status": "in_date",
+  "lab_sample_state": "not_due",
+  "out_of_order_entry": false,
+  "benign_noise": "reagent_change"
+ },
+ "factors_sampled": {
+  "pool_type": "competition",
+  "test_coverage_gap": 1,
+  "boundary_interval": false,
+  "log_controller_discrepancy": "none",
+  "discrepancy_location": "ph",
+  "excursion_severity": "marginal",
+  "corrective_action_delay": "delayed",
+  "retest_logged": false,
+  "dosing_event_explains": false,
+  "kit_calibration_status": "in_date",
+  "lab_sample_state": "not_due",
+  "out_of_order_entry": false,
+  "benign_noise": "reagent_change"
+ },
+ "plan": {
+  "test_frequency_met": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "readings_reconcile": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "log_disposition": {
+   "clarity": "leaning",
+   "target": "accept",
+   "second": null
+  },
+  "action_delay": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  },
+  "failed_checks": {
+   "clarity": "contested",
+   "target": "1",
+   "second": "0"
+  }
+ },
+ "target_words": 48,
+ "deciding": {
+  "test_frequency_met": "Gap 10:05 to 12:00 is 115 min, but 08:00 to 10:05 is 125 min, just over 120.",
+  "readings_reconcile": "12:00 manual pH 8.2 vs controller 7.6, difference 0.6 exceeds tolerance 0.2.",
+  "log_disposition": "Marginal pH 8.2 vs max 7.8 was acted on; micro not yet due; minor.",
+  "action_delay": "Action at 13:00 for 12:00 reading; 60 minutes later.",
+  "failed_checks": "Reconciliation fails; the 125-minute spacing is borderline and pH excursion is without retest."
+ },
+ "request": "rec-F213-0046",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.007397
+}

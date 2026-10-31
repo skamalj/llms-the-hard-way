@@ -1,0 +1,125 @@
+{
+ "id": "F220-0026",
+ "family": "F220",
+ "state": {
+  "tray": {
+   "tray_id": "T-1041",
+   "barcode": "5001041"
+  },
+  "set_check": {
+   "lines": [
+    {
+     "cat_code": "K12",
+     "qty_expected": 2,
+     "qty_counted": 1
+    },
+    {
+     "cat_code": "R7",
+     "qty_expected": 4,
+     "qty_counted": 3
+    },
+    {
+     "cat_code": "X99",
+     "qty_expected": 0,
+     "qty_counted": 1
+    }
+   ],
+   "variances": []
+  },
+  "washer": {
+   "cycle_id": "W88",
+   "a0": 3000,
+   "alarms": [],
+   "trays_processed": [
+    "5001041"
+   ]
+  },
+  "steriliser_load": {
+   "cycle_date": "2025-03-04T23:50",
+   "printout": {
+    "temp_min_c": 134.6,
+    "hold_s": 185,
+    "pressure_kpa": null
+   },
+   "logger": null,
+   "bi": {
+    "result": "pass"
+   },
+   "ci_result": "pass",
+   "unload_condition": "dry"
+  },
+  "release_label": {
+   "tray_barcode": "5001041",
+   "sterilised_date": "2025-03-05",
+   "wrap_condition": "intact"
+  }
+ },
+ "factors": {
+  "set_count_discrepancies": 3,
+  "substitution_documented": false,
+  "cycle_excursion": "none",
+  "independent_logger_confirms": false,
+  "bi_status": "pass",
+  "chemical_indicator": "pass",
+  "washer_record_state": "complete",
+  "pack_integrity": "intact",
+  "label_mismatch": "date_off_by_one_midnight",
+  "daily_test_state": "pass_today",
+  "theatre_urgency": "next_list",
+  "note_tone": "neutral",
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "set_count_discrepancies": 2,
+  "substitution_documented": false,
+  "cycle_excursion": "none",
+  "independent_logger_confirms": false,
+  "bi_status": "missing",
+  "chemical_indicator": "pass",
+  "washer_record_state": "complete",
+  "pack_integrity": "wrap_tear",
+  "label_mismatch": "date_off_by_one_midnight",
+  "daily_test_state": "pass_today",
+  "theatre_urgency": "next_list",
+  "note_tone": "neutral",
+  "boundary_case": false
+ },
+ "plan": {
+  "cycle_in_limits": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "disposition": {
+   "clarity": "leaning",
+   "target": "hold",
+   "second": null
+  },
+  "failure_stage": {
+   "clarity": "clear",
+   "target": "no_discrepancy",
+   "second": null
+  },
+  "count_gaps": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  },
+  "sterility_doubt": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  }
+ },
+ "target_words": 32,
+ "deciding": {
+  "cycle_in_limits": "Printout temp and hold are in band, but pressure is null and logger is null, so the in-limits call rests on partial data.",
+  "disposition": "K12 and R7 short with no variances and an off-list X99 point to hold; BI, CI and wrap are fine.",
+  "failure_stage": "Washer record is complete and the cycle and indicators are clean; the unresolved issues are the count lines and the midnight label date. This conflicts with the planned no_discrepancy, which cannot hold alongside unexplained counts.",
+  "count_gaps": "K12 and R7 are short with no variances; the off-list X99 may or may not be counted as a third, which holds 2 versus 3 in balance.",
+  "sterility_doubt": "BI and CI passed, wrap intact and dry; the only gap is the label date (cycle 23:50 on 03-04, label 03-05)."
+ },
+ "request": "rec-F220-0026",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011091
+}

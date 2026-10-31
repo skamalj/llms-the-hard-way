@@ -1,0 +1,129 @@
+{
+ "id": "F204-0026",
+ "family": "F204",
+ "state": {
+  "rx": {
+   "drug": "warfarin",
+   "form": "tab",
+   "str": {
+    "val": 3,
+    "unit": "mg"
+   },
+   "dose": 1,
+   "fpd": 1,
+   "qty": 28,
+   "days": 28
+  },
+  "patient": {
+   "id": "P481",
+   "supplies": [
+    {
+     "date": "2024-05-03",
+     "days_covered": 28
+    }
+   ],
+   "emerg": [
+    {
+     "date": "2024-05-29",
+     "days": 4
+    }
+   ]
+  },
+  "dispensed": {
+   "name": "warfarin",
+   "form": "tab",
+   "str": {
+    "val": 3,
+    "unit": "mg"
+   },
+   "packs": 1,
+   "pack_size": 28,
+   "hr": true
+  },
+  "label": {
+   "pt": "P481",
+   "dose": 1,
+   "fpd": 2,
+   "qty": 28
+  },
+  "check_log": {
+   "at": "2024-05-30T10:00",
+   "clin": null,
+   "iv": [
+    {
+     "code": "I2",
+     "field": "label",
+     "acc": true
+    }
+   ]
+  }
+ },
+ "factors": {
+  "strength_status": "match_same_units",
+  "product_status": "exact",
+  "quantity_status": "exact",
+  "label_status": "directions_mismatch",
+  "prescriber_query": "none",
+  "pharmacist_intervention": false,
+  "clinical_check_signed": false,
+  "home_supply_days": 4,
+  "emergency_supply": true,
+  "short_expiry": false,
+  "prior_error_count": 4,
+  "high_risk_drug": true,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "strength_status": "match_same_units",
+  "product_status": "form_differs",
+  "quantity_status": "exact",
+  "label_status": "directions_mismatch",
+  "prescriber_query": "none",
+  "pharmacist_intervention": true,
+  "clinical_check_signed": false,
+  "home_supply_days": 4,
+  "emergency_supply": true,
+  "short_expiry": false,
+  "prior_error_count": 4,
+  "high_risk_drug": true,
+  "boundary_case": false
+ },
+ "plan": {
+  "strength_differs": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "redispense",
+   "second": null
+  },
+  "error_category": {
+   "clarity": "clear",
+   "target": "label_error",
+   "second": null
+  },
+  "open_discrepancies": {
+   "clarity": "clear",
+   "target": "1",
+   "second": null
+  },
+  "supply_urgency": {
+   "clarity": "contested",
+   "target": "1",
+   "second": "2"
+  }
+ },
+ "target_words": 46,
+ "deciding": {
+  "strength_differs": "Both strengths are 3 mg; they agree.",
+  "next_step": "Label frequency 2/day vs rx 1/day is unresolved; the intervention covers an unrelated field. The unsigned clinical check leaves some doubt.",
+  "error_category": "Only the label frequency is wrong; product and quantity are correct.",
+  "open_discrepancies": "Exactly one unresolved item: label fpd 2 vs 1.",
+  "supply_urgency": "The 28-day supply from 05-03 ended 05-31, so about 1 day remains, plus a 4-day emergency supply from 05-29. Counted together the total is about 3-5 days (soon) or about 1-2 days (urgent)."
+ },
+ "request": "rec-F204-0026",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.005248
+}

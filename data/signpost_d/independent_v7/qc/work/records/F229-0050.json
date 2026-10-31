@@ -1,0 +1,104 @@
+{
+ "id": "F229-0050",
+ "family": "F229",
+ "state": {
+  "lot": {
+   "lot_id": "L-1011-04",
+   "block": "E2",
+   "pick_end": "2024-10-10T17:00"
+  },
+  "intake": {
+   "block_code": "E5",
+   "gross_kg": 4800,
+   "tare_kg": 800,
+   "net_kg": 4000,
+   "temp_c": 5,
+   "cold_room_in": "18:10",
+   "cold_room_out": "08:40"
+  },
+  "sample": {
+   "rot_pct": 1.9
+  },
+  "press": {
+   "programme": "whole_bunch_gentle",
+   "band_l_per_t": "500-580",
+   "cycle_start": "2024-10-11T08:54",
+   "juice_l": 1990,
+   "so2_mg_l": 40
+  },
+  "transfer": {
+   "lot_ref": "L-1011-04",
+   "tank_id": "T7",
+   "transferred_l": 1960,
+   "qa_signoff": "AB 12:30"
+  }
+ },
+ "factors": {
+  "weight_mismatch": "none",
+  "press_programme": "whole_bunch_gentle",
+  "yield_position": "borderline_just_below_band",
+  "lot_id_drift": "block_code_differs_at_intake",
+  "missing_step": "none",
+  "out_of_order_timestamp": false,
+  "pick_to_press_hours": 15.9,
+  "pick_end_recorded": true,
+  "cold_held": true,
+  "rot_pct": 1.9,
+  "sorting_applied": false,
+  "note_signal": "none",
+  "boundary_case": true
+ },
+ "factors_sampled": {
+  "weight_mismatch": "none",
+  "press_programme": "whole_bunch_gentle",
+  "yield_position": "below_band",
+  "lot_id_drift": "none",
+  "missing_step": "none",
+  "out_of_order_timestamp": false,
+  "pick_to_press_hours": 15.4,
+  "pick_end_recorded": true,
+  "cold_held": true,
+  "rot_pct": 1.9,
+  "sorting_applied": false,
+  "note_signal": "none",
+  "boundary_case": true
+ },
+ "plan": {
+  "yield_consistent": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "chain_intact": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "release_decision": {
+   "clarity": "leaning",
+   "target": "segregate",
+   "second": null
+  },
+  "pick_press_delay": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "failed_checks": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 59,
+ "deciding": {
+  "yield_consistent": "4000 kg net against band 500-580 gives 2000-2320 L; juice_l 1990 is 497.5 L/t, barely under the lower edge.",
+  "chain_intact": "intake.block_code is E5 while lot.block is E2, so the block id changes at intake.",
+  "release_decision": "The block id mismatch is an unresolved fault, though the fruit is cold held, low in rot and signed off; segregating is the likelier call but not certain.",
+  "pick_press_delay": "pick_end 17:00 to cycle_start 08:54 next day is 15.9 h, right at the 16 h boundary between level 2 and level 3, though the fruit was cold held.",
+  "failed_checks": "The block mismatch and the borderline yield fail; the long delay is borderline, so the count sits between three and two."
+ },
+ "request": "rec-F229-0046",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.01255
+}

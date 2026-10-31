@@ -1,0 +1,134 @@
+{
+ "id": "F224-0025",
+ "family": "F224",
+ "state": {
+  "request": {
+   "views": [
+    "BW"
+   ],
+   "ind": "C02",
+   "risk": "high",
+   "req_date": "2025-06-03",
+   "prior_bw": "2024-07-01",
+   "patient_flags": [],
+   "exceptions": [],
+   "verbal_auth": []
+  },
+  "exposures": [
+   {
+    "id": 1,
+    "view": "BW",
+    "dose": 0.98,
+    "t": "08:41"
+   },
+   {
+    "id": 2,
+    "view": "BW",
+    "dose": 0.98,
+    "t": "08:43",
+    "retake_of": 1
+   }
+  ],
+  "image_review": {
+   "grade": 2,
+   "faults": {
+    "1": [
+     "FC_CONE_CUT"
+    ]
+   },
+   "sensor_errors": [],
+   "second_grader": "done"
+  },
+  "equipment": {
+   "last_qa": "2025-04-02",
+   "qa_months": 12,
+   "output_test": "pass",
+   "drl_ref": {
+    "BW": 1.0
+   },
+   "console_log": [
+    {
+     "t": "08:41"
+    },
+    {
+     "t": "08:43"
+    },
+    {
+     "t": "08:49"
+    }
+   ]
+  },
+  "operator": {
+   "signoff_at": null,
+   "prior_findings_12m": 2
+  }
+ },
+ "factors": {
+  "indication_match": "match",
+  "recall_interval_months": 11,
+  "dose_ratio_to_drl": 0.98,
+  "console_log_discrepancy": "extra_console_exposure",
+  "retake_cause": "cone_cut",
+  "equipment_qa_status": "in_date",
+  "approved_exception": false,
+  "patient_cooperation_flag": false,
+  "unrequested_exposure_count": 0,
+  "verbal_authorisation_logged": false,
+  "image_grade": "acceptable_minor_faults",
+  "audit_completeness": "operator_signoff_missing",
+  "operator_prior_findings": 2
+ },
+ "factors_sampled": {
+  "indication_match": "match",
+  "recall_interval_months": 11,
+  "dose_ratio_to_drl": 1.37,
+  "console_log_discrepancy": "extra_console_exposure",
+  "retake_cause": "cone_cut",
+  "equipment_qa_status": "in_date",
+  "approved_exception": false,
+  "patient_cooperation_flag": true,
+  "unrequested_exposure_count": 2,
+  "verbal_authorisation_logged": false,
+  "image_grade": "acceptable_minor_faults",
+  "audit_completeness": "complete",
+  "operator_prior_findings": 2
+ },
+ "plan": {
+  "justified": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "operator_retake": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "follow_up": {
+   "clarity": "balanced",
+   "target": "hold_confirm",
+   "second": "escalate_rpa"
+  },
+  "dose_position": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  },
+  "unjustified_count": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  }
+ },
+ "target_words": 63,
+ "deciding": {
+  "justified": "High risk allows 6 months and prior BW is 11 months earlier; indication matches BW. The extra console entry leaves some doubt.",
+  "operator_retake": "Retake of exposure 1 follows FC_CONE_CUT, with no sensor errors, no patient flags and QA in date: technique.",
+  "follow_up": "operator.signoff_at is null, a missing confirmation pointing to hold; the unexplained 08:49 console exposure makes escalation plausible.",
+  "dose_position": "BW dose 0.98 against reference 1.0 is 98%, just under the 100% boundary.",
+  "unjustified_count": "Both logged exposures are of the requested BW; only the console entry at 08:49 has no exposure-list counterpart, so one."
+ },
+ "request": "rec-F224-0021",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012999
+}

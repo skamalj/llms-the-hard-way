@@ -1,0 +1,137 @@
+{
+ "id": "F230-0031",
+ "family": "F230",
+ "state": {
+  "resident": {
+   "id": "A101",
+   "status": "home",
+   "weight_kg": 71
+  },
+  "prescriptions": [
+   {
+    "item_id": "i1",
+    "strength_mg": 3,
+    "dose_units": 1,
+    "high_risk": true,
+    "time_critical": false
+   },
+   {
+    "item_id": "i2",
+    "strength_mg": 10,
+    "dose_units": 1
+   },
+   {
+    "item_id": "i3",
+    "strength_mg": 5,
+    "dose_units": 1
+   }
+  ],
+  "administrations": [
+   {
+    "item_id": "i1",
+    "units_given": 2,
+    "strength_mg_used": 3,
+    "initials": "JM"
+   },
+   {
+    "item_id": "i2",
+    "units_given": 2,
+    "strength_mg_used": 5,
+    "initials": "JM"
+   },
+   {
+    "item_id": "i3",
+    "units_given": 1,
+    "strength_mg_used": 5,
+    "initials": null
+   }
+  ],
+  "stock": {
+   "i3": {
+    "opening": 20,
+    "wasted": 2,
+    "wasted_witnessed": true,
+    "closing": 17
+   }
+  },
+  "round": {
+   "open_queries": [],
+   "post_dose_obs": [
+    {
+     "t": "hr",
+     "v": 72
+    }
+   ]
+  }
+ },
+ "factors": {
+  "dose_mismatch_type": "duplicated",
+  "prescription_change_documented": false,
+  "omission_count": 0,
+  "omission_reason_valid": true,
+  "late_minutes": 16,
+  "time_critical_affected": false,
+  "stock_variance": -2,
+  "stock_variance_explained": true,
+  "signature_gaps": 1,
+  "unit_expression_decoy": "equivalent_split",
+  "post_dose_obs_reassuring": true,
+  "pending_query": "none",
+  "prior_errors_30d": 3,
+  "item_count": 3
+ },
+ "factors_sampled": {
+  "dose_mismatch_type": "none",
+  "prescription_change_documented": false,
+  "omission_count": 0,
+  "omission_reason_valid": true,
+  "late_minutes": 16,
+  "time_critical_affected": false,
+  "stock_variance": -2,
+  "stock_variance_explained": true,
+  "signature_gaps": 1,
+  "unit_expression_decoy": "equivalent_split",
+  "post_dose_obs_reassuring": true,
+  "pending_query": "none",
+  "prior_errors_30d": 3,
+  "item_count": 3
+ },
+ "plan": {
+  "dose_mismatch": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "stock_reconciles": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "sign_off",
+   "second": null
+  },
+  "open_discrepancies": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  },
+  "error_severity": {
+   "clarity": "balanced",
+   "target": "4",
+   "second": "3"
+  }
+ },
+ "target_words": 64,
+ "deciding": {
+  "dose_mismatch": "i1 given 2 units against prescribed 1; i2 split 2x5mg against 10mg is equivalent and not a mismatch.",
+  "stock_reconciles": "i3 closing 17 = 20 - 2 witnessed waste - 1 signed.",
+  "next_step": "Open queries empty and lateness small; the only signals are a signature gap and the i1 count, with no query to hold on.",
+  "open_discrepancies": "i1 dose differs and i3 initials are null: two items.",
+  "error_severity": "i1 is high_risk but time_critical false, so the duplicated dose sits between ordinary-drug and critical levels."
+ },
+ "request": "rec-F230-0031",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.009022
+}

@@ -1,0 +1,112 @@
+{
+ "id": "F221-0024",
+ "family": "F221",
+ "state": {
+  "vehicle": {
+   "interval_km": 10000
+  },
+  "inspection": {
+   "date": "2025-04-14",
+   "odometer_km": 142600
+  },
+  "history": {
+   "prev_date": "2025-03-03",
+   "prev_odometer_km": 130000,
+   "rechecks": [
+    "2025-04-28"
+   ]
+  },
+  "brakes": {
+   "axles": [
+    {
+     "lining_mm": 3.95
+    }
+   ],
+   "test": {
+    "service_pct": 50.75
+   }
+  },
+  "tyres": [
+   {
+    "pos": "FL",
+    "min_tread_mm": 4.94
+   }
+  ],
+  "defects": [
+   {
+    "id": "D3",
+    "carried": true,
+    "raised_date": "2025-03-03",
+    "status": "closed",
+    "rectified_date": "2025-02-27",
+    "technician_id": "T14"
+   }
+  ]
+ },
+ "factors": {
+  "worst_tread_margin_mm": 3.94,
+  "worst_lining_margin_mm": 0.95,
+  "service_brake_efficiency_pct": 50.75,
+  "tyre_serial_mismatch": "none",
+  "odometer_conflict": "none",
+  "missing_element": "none",
+  "carried_defects_open": 0,
+  "rectification_unverified": true,
+  "interval_status": "km_overrun",
+  "recheck_booked": true,
+  "pressure_deviation_pct": 3.0,
+  "tyre_age_years": 5.37
+ },
+ "factors_sampled": {
+  "worst_tread_margin_mm": 3.94,
+  "worst_lining_margin_mm": 0.95,
+  "service_brake_efficiency_pct": 50.75,
+  "tyre_serial_mismatch": "one_serial_unregistered",
+  "odometer_conflict": "none",
+  "missing_element": "tyre_position_missing",
+  "carried_defects_open": 1,
+  "rectification_unverified": false,
+  "interval_status": "within",
+  "recheck_booked": true,
+  "pressure_deviation_pct": 21.27,
+  "tyre_age_years": 5.37
+ },
+ "plan": {
+  "prior_defects_closed": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "within_interval": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "disposition": {
+   "clarity": "clear",
+   "target": "release_conditional",
+   "second": null
+  },
+  "rectify_urgency": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  },
+  "failed_checks": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  }
+ },
+ "target_words": 48,
+ "deciding": {
+  "prior_defects_closed": "D3 shows rectified_date 2025-02-27, before its raised_date of 2025-03-03, so the closure is not valid.",
+  "within_interval": "Odometer gap is 142600 minus 130000, which is 12600 km against interval_km 10000.",
+  "disposition": "Lining 3.95 mm is advisory but still legal, the tread is ample and the brake test passes. A recheck is booked for 2025-04-28.",
+  "rectify_urgency": "Axle lining_mm 3.95 leaves a margin of 0.95 mm, under 1 mm. Tread is not a concern.",
+  "failed_checks": "The invalid defect closure is the main failure. The km overrun may count as a second, which gives some doubt."
+ },
+ "request": "rec-F221-0021",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.013667
+}

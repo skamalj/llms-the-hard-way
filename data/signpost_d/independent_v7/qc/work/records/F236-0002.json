@@ -1,0 +1,141 @@
+{
+ "id": "F236-0002",
+ "family": "F236",
+ "state": {
+  "changeover": {
+   "line_id": "L4",
+   "from_code": "CK-3",
+   "to_code": "CK-8",
+   "from_allergens": [
+    "milk"
+   ],
+   "to_allergens": [
+    "egg"
+   ]
+  },
+  "cleaning": {
+   "steps": [
+    {
+     "n": 1,
+     "completed": true
+    },
+    {
+     "n": 2,
+     "completed": false
+    }
+   ],
+   "part_swap": true,
+   "dedicated_set": "DS-9"
+  },
+  "verification": {
+   "swabs": [
+    {
+     "id": "S1",
+     "target": "egg",
+     "reading": 9.8,
+     "limit_ppm": 10,
+     "at": "2024-06-11T06:40"
+    }
+   ]
+  },
+  "production": {
+   "line_id": "L4",
+   "product_code": "CK-8",
+   "start_at": "2024-06-11T06:50",
+   "qty": 610.32,
+   "unit": "kg",
+   "packaging_allergens": [
+    "egg"
+   ],
+   "may_contain": [
+    "milk"
+   ]
+  },
+  "approvals": {
+   "qa_signoff": {
+    "signed_at": "2024-06-11T06:45"
+   },
+   "deviations": [
+    {
+     "id": "D3",
+     "scope": "L4 step 2",
+     "approved_at": "2024-06-11T06:30"
+    }
+   ]
+  },
+  "history": [
+   {
+    "verification_passed": false
+   },
+   {
+    "verification_passed": true
+   }
+  ]
+ },
+ "factors": {
+  "allergen_transition": "swaps_allergen",
+  "cleaning_completion": "one_step_skipped",
+  "swab_outcome": "trace_below_limit",
+  "swab_timing_mismatch": false,
+  "cross_section_discrepancy": "none",
+  "exposed_quantity_kg": 610.32,
+  "approved_deviation": true,
+  "label_precaution": true,
+  "dedicated_tooling": true,
+  "qa_signoff_state": "signed_before_start",
+  "line_failure_history": 1,
+  "boundary_value": true
+ },
+ "factors_sampled": {
+  "allergen_transition": "swaps_allergen",
+  "cleaning_completion": "one_step_skipped",
+  "swab_outcome": "positive_no_retest",
+  "swab_timing_mismatch": false,
+  "cross_section_discrepancy": "product_code_mismatch",
+  "exposed_quantity_kg": 610.32,
+  "approved_deviation": true,
+  "label_precaution": true,
+  "dedicated_tooling": true,
+  "qa_signoff_state": "signed_before_start",
+  "line_failure_history": 1,
+  "boundary_value": false
+ },
+ "plan": {
+  "swabs_cleared": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "line_disposition": {
+   "clarity": "clear",
+   "target": "release",
+   "second": null
+  },
+  "worst_deficiency": {
+   "clarity": "leaning",
+   "target": "none",
+   "second": null
+  },
+  "exposed_product": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  },
+  "residue_evidence": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  }
+ },
+ "target_words": 52,
+ "deciding": {
+  "swabs_cleared": "The only swab S1 reads 9.8 against limit 10 at 06:40, before the 06:50 start.",
+  "line_disposition": "Swab under limit before start, QA signed 06:45, skipped step 2 covered by D3, may_contain milk label and dedicated set.",
+  "worst_deficiency": "Step 2 skipped but deviation D3 scoped to L4 step 2 was approved before start; identifiers match; the only doubt is the skipped step.",
+  "exposed_product": "Batch total 610.32 kg is near the 500 kg anchor; the swab precedes start so the exposed share is arguable between levels 2 and 3.",
+  "residue_evidence": "Reading 9.8 is just below limit 10, so trace (1) versus near-limit (2) is held in balance."
+ },
+ "request": "rec-F236-0001",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.014
+}

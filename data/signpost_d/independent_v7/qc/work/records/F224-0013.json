@@ -1,0 +1,159 @@
+{
+ "id": "F224-0013",
+ "family": "F224",
+ "state": {
+  "request": {
+   "views": [
+    "BW_R",
+    "BW_L"
+   ],
+   "ind": "PERIO_MON",
+   "risk": "low",
+   "prior_bw": "2022-01-20",
+   "date": "2024-05-20",
+   "exceptions": [],
+   "verbal_auth": [
+    {
+     "t": "2024-05-20T14:21",
+     "view": "PA_46"
+    }
+   ]
+  },
+  "exposures": [
+   {
+    "id": 1,
+    "view": "BW_R",
+    "t": "2024-05-20T14:15",
+    "kV": 70,
+    "s": 0.2,
+    "mGy": 0.66,
+    "retake_of": null
+   },
+   {
+    "id": 2,
+    "view": "BW_L",
+    "t": "2024-05-20T14:18",
+    "kV": 70,
+    "s": 0.2,
+    "mGy": 0.66,
+    "retake_of": null
+   },
+   {
+    "id": 3,
+    "view": "PA_46",
+    "t": "2024-05-20T14:21",
+    "kV": 70,
+    "s": 0.2,
+    "retake_of": null
+   }
+  ],
+  "image_review": {
+   "grade": 1,
+   "faults": {},
+   "sensor_errors": [],
+   "second_grader": "done"
+  },
+  "equipment": {
+   "unit": "U2",
+   "last_qa": "2023-04-10",
+   "qa_months": 12,
+   "output_test": "pass",
+   "service_log": [],
+   "drl_ref": {
+    "BW": 1.0,
+    "PA": 1.0
+   },
+   "console_log": [
+    {
+     "t": "2024-05-20T14:15",
+     "kV": 70,
+     "s": 0.23
+    },
+    {
+     "t": "2024-05-20T14:18",
+     "kV": 70,
+     "s": 0.23
+    },
+    {
+     "t": "2024-05-20T14:21",
+     "kV": 70,
+     "s": 0.2
+    }
+   ]
+  },
+  "operator": {
+   "id": "OP5",
+   "signoff": "2024-05-20T17:10",
+   "prior_findings_12m": 4,
+   "trained": "2022-11-03"
+  }
+ },
+ "factors": {
+  "indication_match": "partial_match",
+  "recall_interval_months": 28,
+  "dose_ratio_to_drl": 0.76,
+  "console_log_discrepancy": "setting_mismatch",
+  "retake_cause": "no_retake",
+  "equipment_qa_status": "overdue",
+  "approved_exception": false,
+  "patient_cooperation_flag": false,
+  "unrequested_exposure_count": 1,
+  "verbal_authorisation_logged": true,
+  "image_grade": "diagnostic",
+  "audit_completeness": "complete",
+  "operator_prior_findings": 4
+ },
+ "factors_sampled": {
+  "indication_match": "partial_match",
+  "recall_interval_months": 28,
+  "dose_ratio_to_drl": 0.66,
+  "console_log_discrepancy": "setting_mismatch",
+  "retake_cause": "no_retake",
+  "equipment_qa_status": "overdue",
+  "approved_exception": false,
+  "patient_cooperation_flag": false,
+  "unrequested_exposure_count": 3,
+  "verbal_authorisation_logged": false,
+  "image_grade": "diagnostic",
+  "audit_completeness": "complete",
+  "operator_prior_findings": 4
+ },
+ "plan": {
+  "justified": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "operator_retake": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "follow_up": {
+   "clarity": "balanced",
+   "target": "escalate_rpa",
+   "second": "log_trend"
+  },
+  "dose_position": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "unjustified_count": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 118,
+ "deciding": {
+  "justified": "PERIO_MON is only a partial fit for bitewings, but the 28-month gap comfortably exceeds the 24-month low-risk recall, so the request is probably supported.",
+  "operator_retake": "No retake_of is set on any exposure, so there was no retake.",
+  "follow_up": "QA last done 2023-04-10 with a 12-month interval is about 5 weeks overdue (output test passed), and the console setting mismatch is small with 4 prior findings; escalation versus trend logging is balanced.",
+  "dose_position": "The list shows 0.66 mGy at 0.2 s, but the console 0.23 s implies about 0.76 mGy against a 1.0 BW reference, right at the 75% boundary.",
+  "unjustified_count": "PA_46 is not in the requested views; verbal auth for PA_46 is stamped 14:21, the same minute as the exposure, so it may or may not count as covering it (0 vs 1)."
+ },
+ "request": "rec-F224-0011",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.015494
+}

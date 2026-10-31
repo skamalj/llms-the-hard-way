@@ -1,0 +1,108 @@
+{
+ "id": "F229-0017",
+ "family": "F229",
+ "state": {
+  "lot": {
+   "lot_id": "L2-07",
+   "block_code": "B07",
+   "pick_end": "2024-09-15T07:00"
+  },
+  "intake": {
+   "block_code": "B07",
+   "arrival_at": "2024-09-15T08:10",
+   "gross_kg": 6400,
+   "tare_kg": 2400,
+   "net_kg": 4000,
+   "temp_c": 5,
+   "cold_room_in": "2024-09-15T08:30",
+   "cold_room_out": "2024-09-15T10:50"
+  },
+  "sample": {
+   "sampled_at": "2024-09-15T08:02",
+   "rot_pct": 4.33
+  },
+  "press": {
+   "programme": "whole_bunch_gentle",
+   "band_l_per_t": "500-560",
+   "cycle_start": "2024-09-15T11:00",
+   "cycle_end": "2024-09-15T14:30",
+   "juice_l": 2010,
+   "so2_mg_l": 30,
+   "operator_note": "Scale clock 8 min slow."
+  },
+  "transfer": {
+   "lot_ref": "L2-07",
+   "tank_id": "T3",
+   "transferred_l": 1980,
+   "qa_signoff": "JM 15:10"
+  }
+ },
+ "factors": {
+  "weight_mismatch": "none",
+  "press_programme": "whole_bunch_gentle",
+  "yield_position": "inside_band_near_lower_edge",
+  "lot_id_drift": "none",
+  "missing_step": "none",
+  "out_of_order_timestamp": false,
+  "pick_to_press_hours": 4.0,
+  "pick_end_recorded": true,
+  "cold_held": true,
+  "rot_pct": 4.33,
+  "sorting_applied": false,
+  "note_signal": "explains_mismatch",
+  "boundary_case": true
+ },
+ "factors_sampled": {
+  "weight_mismatch": "none",
+  "press_programme": "whole_bunch_gentle",
+  "yield_position": "below_band",
+  "lot_id_drift": "none",
+  "missing_step": "none",
+  "out_of_order_timestamp": true,
+  "pick_to_press_hours": 24.43,
+  "pick_end_recorded": true,
+  "cold_held": true,
+  "rot_pct": 4.33,
+  "sorting_applied": false,
+  "note_signal": "explains_mismatch",
+  "boundary_case": true
+ },
+ "plan": {
+  "yield_consistent": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "chain_intact": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "release_decision": {
+   "clarity": "balanced",
+   "target": "release",
+   "second": "hold"
+  },
+  "pick_press_delay": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "failed_checks": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  }
+ },
+ "target_words": 50,
+ "deciding": {
+  "yield_consistent": "2010 L from 4000 kg is 502 L/t, just inside the 500-560 band.",
+  "chain_intact": "Identifiers match at every stage, but the sampling timestamp anomaly leaves slight doubt about sequence.",
+  "release_decision": "Data are otherwise complete and signed off; the only issue is the sampled_at/arrival_at inversion, which the note explains.",
+  "pick_press_delay": "pick_end 07:00 to cycle_start 11:00 is exactly 4.0 h, on the level 0/1 boundary.",
+  "failed_checks": "Sampled_at 08:02 is before arrival_at 08:10, which may count as one failed check; the note explains it."
+ },
+ "request": "rec-F229-0016",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.008575
+}

@@ -1,0 +1,134 @@
+{
+ "id": "F216-0026",
+ "family": "F216",
+ "state": {
+  "session": {
+   "id": "S101",
+   "type": "fixed_clinic",
+   "date": "2025-03-04",
+   "next_session_date": "2025-03-18"
+  },
+  "storage": {
+   "unit": "F1",
+   "alarms_30d": 2
+  },
+  "temp_log": {
+   "readings": [
+    {
+     "t": "10:50",
+     "air_c": 6.1,
+     "product_c": 5.2
+    },
+    {
+     "t": "10:55",
+     "air_c": 8.4,
+     "product_c": 5.9
+    },
+    {
+     "t": "11:35",
+     "air_c": 7.0,
+     "product_c": 7.6
+    }
+   ],
+   "manual_checks": [
+    {
+     "t": "11:40",
+     "min_c": 3.9,
+     "max_c": 8.2,
+     "current_c": 7.4
+    }
+   ],
+   "logger_gaps": [
+    {
+     "from": "11:00",
+     "to": "11:35"
+    }
+   ]
+  },
+  "stock": {
+   "lots": [
+    {
+     "lot_no": "A41",
+     "opening": 40,
+     "wasted": 2,
+     "closing": 10
+    }
+   ]
+  },
+  "administration": [
+   {
+    "t": "09:30",
+    "lot_no": "A41",
+    "n": 28
+   }
+  ]
+ },
+ "factors": {
+  "true_excursion_minutes": 32,
+  "log_source_discrepancy": "logger_gap",
+  "buffered_probe_in_range": true,
+  "planned_maintenance": false,
+  "stability_clearance": "not_requested",
+  "doses_during_exposure": 0,
+  "stock_count_gap": 0,
+  "lot_id_mismatch": false,
+  "lots_beyond_tolerance": "none",
+  "freezing_reading": false,
+  "boundary_case": false,
+  "unit_alarm_history": 2,
+  "session_type": "fixed_clinic"
+ },
+ "factors_sampled": {
+  "true_excursion_minutes": 17,
+  "log_source_discrepancy": "logger_gap",
+  "buffered_probe_in_range": true,
+  "planned_maintenance": false,
+  "stability_clearance": "not_requested",
+  "doses_during_exposure": 7,
+  "stock_count_gap": 0,
+  "lot_id_mismatch": false,
+  "lots_beyond_tolerance": "none",
+  "freezing_reading": false,
+  "boundary_case": false,
+  "unit_alarm_history": 2,
+  "session_type": "fixed_clinic"
+ },
+ "plan": {
+  "dosed_uncleared": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "stock_reconciles": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "stock_disposition": {
+   "clarity": "clear",
+   "target": "release",
+   "second": null
+  },
+  "excursion_duration": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  },
+  "followup_urgency": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  }
+ },
+ "target_words": 69,
+ "deciding": {
+  "dosed_uncleared": "All 28 doses were given at 09:30, before the 11:00 logger gap, and no excursion_actions exist.",
+  "stock_reconciles": "40 opening - 2 wasted - 28 given = 10 closing and the lot matches, but the single lot and 2 wasted doses leave modest doubt.",
+  "stock_disposition": "Product_c stayed in range in every reading, the air spike is buffered, and no excursion was logged or quarantined.",
+  "excursion_duration": "A 35-minute logger gap sits between in-range product readings, with manual max 8.2, so true time out of range is uncertain near the 30-minute boundary.",
+  "followup_urgency": "The unresolved logger gap needs checking soon, but the product readings either side are in range and the next session is 14 days away."
+ },
+ "request": "rec-F216-0026",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011971
+}

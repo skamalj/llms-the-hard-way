@@ -1,0 +1,133 @@
+{
+ "id": "F216-0034",
+ "family": "F216",
+ "state": {
+  "session": {
+   "type": "outreach_coolbox"
+  },
+  "storage": {
+   "alarms_30d": 4
+  },
+  "temp_log": {
+   "interval_min": 10,
+   "readings": [
+    [
+     "10:40",
+     7.5
+    ],
+    [
+     "10:50",
+     8.2
+    ],
+    [
+     "11:00",
+     8.4
+    ],
+    [
+     "11:10",
+     8.3
+    ],
+    [
+     "11:20",
+     7.6
+    ]
+   ],
+   "manual_checks": null
+  },
+  "stock": {
+   "lots": [
+    {
+     "lot_no": "B7",
+     "tolerance_min_out": 120,
+     "opening": 24,
+     "wasted": 0,
+     "closing": 15
+    }
+   ]
+  },
+  "administration": [
+   {
+    "time": "10:48",
+    "lot_no": "B7",
+    "doses": 9
+   }
+  ],
+  "excursion_actions": {
+   "start": "10:45",
+   "end": "11:15",
+   "quarantined": false,
+   "advice_requested_at": "11:20",
+   "advice_status": "CLR_SHORT",
+   "advice_received_at": "11:30",
+   "revised_expiry": "2025-06-30"
+  }
+ },
+ "factors": {
+  "true_excursion_minutes": 30,
+  "log_source_discrepancy": "manual_checks_missing",
+  "buffered_probe_in_range": false,
+  "planned_maintenance": false,
+  "stability_clearance": "cleared_shortened",
+  "doses_during_exposure": 9,
+  "stock_count_gap": 0,
+  "lot_id_mismatch": false,
+  "lots_beyond_tolerance": "none",
+  "freezing_reading": false,
+  "boundary_case": true,
+  "unit_alarm_history": 4,
+  "session_type": "outreach_coolbox"
+ },
+ "factors_sampled": {
+  "true_excursion_minutes": 163,
+  "log_source_discrepancy": "manual_checks_missing",
+  "buffered_probe_in_range": true,
+  "planned_maintenance": false,
+  "stability_clearance": "cleared_shortened",
+  "doses_during_exposure": 10,
+  "stock_count_gap": -1,
+  "lot_id_mismatch": false,
+  "lots_beyond_tolerance": "all",
+  "freezing_reading": false,
+  "boundary_case": false,
+  "unit_alarm_history": 4,
+  "session_type": "outreach_coolbox"
+ },
+ "plan": {
+  "dosed_uncleared": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "stock_reconciles": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "stock_disposition": {
+   "clarity": "contested",
+   "target": "release_restricted",
+   "second": "quarantine_hold"
+  },
+  "excursion_duration": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  },
+  "followup_urgency": {
+   "clarity": "clear",
+   "target": "0",
+   "second": null
+  }
+ },
+ "target_words": 36,
+ "deciding": {
+  "dosed_uncleared": "Doses at 10:48 are after the staff start (10:45) but before the first out-of-range logger reading (10:50); manual checks are null.",
+  "stock_reconciles": "B7: 24 - 0 - 9 = 15 equals closing, and the lot number matches.",
+  "stock_disposition": "CLR_SHORT with a revised expiry points to restricted release, but the missing manual checks and 10:48 doses leave quarantine defensible.",
+  "excursion_duration": "Three 10-minute readings above 8.0 give 30 min, exactly at the 30 min boundary between Brief and Extended.",
+  "followup_urgency": "Advice was received and the expiry revised, so the remaining action is routine filing."
+ },
+ "request": "rec-F216-0031",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.014237
+}

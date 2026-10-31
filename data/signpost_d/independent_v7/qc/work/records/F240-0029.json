@@ -1,0 +1,132 @@
+{
+ "id": "F240-0029",
+ "family": "F240",
+ "state": {
+  "asset": {
+   "inverter_id": "INV-2A",
+   "serial": "C3390",
+   "rated_ac_kw": 600
+  },
+  "fault_event": {
+   "serial": "C3390",
+   "code": "F-COM-05",
+   "fw_severity": 1,
+   "ts_start": "2024-09-03T12:00",
+   "ts_clear": "2024-09-03T12:20",
+   "auto_restarts": 1
+  },
+  "telemetry": {
+   "exp_day_kwh": 3600,
+   "exp_window_kwh": 330,
+   "act_window_kwh": 222,
+   "samples": [
+    {
+     "ts": "09:30",
+     "ac_kw": 0,
+     "exp_kw": 110,
+     "poa_wm2": 140,
+     "limit_pct": 0
+    },
+    {
+     "ts": "13:30",
+     "ac_kw": 0,
+     "exp_kw": 260,
+     "poa_wm2": 190,
+     "limit_pct": 0
+    },
+    {
+     "ts": "14:00",
+     "ac_kw": 320,
+     "exp_kw": 330,
+     "poa_wm2": 210,
+     "limit_pct": 100
+    }
+   ]
+  },
+  "site_context": {
+   "grid_events": [
+    {
+     "ts": "2024-09-03T12:02",
+     "type": "voltage_dip",
+     "magnitude_pu": 0.78
+    }
+   ],
+   "neighbours": null
+  },
+  "history": {
+   "faults": [
+    {
+     "date": "2024-08-20",
+     "code": "F-FAN-01"
+    }
+   ],
+   "work_orders": []
+  }
+ },
+ "factors": {
+  "fault_class": "comms_loss",
+  "log_telemetry_mismatch": "large_over_2h",
+  "grid_event_concurrent": true,
+  "maintenance_window_active": false,
+  "neighbour_cross_check": "no_neighbour_data",
+  "repeat_count_30d": 0,
+  "last_repair_status": "none",
+  "current_limit_pct": 100.0,
+  "yield_loss_pct": 3.0,
+  "low_irradiance_window": true,
+  "serial_mismatch": false,
+  "boundary_placement": false
+ },
+ "factors_sampled": {
+  "fault_class": "comms_loss",
+  "log_telemetry_mismatch": "large_over_2h",
+  "grid_event_concurrent": true,
+  "maintenance_window_active": false,
+  "neighbour_cross_check": "no_neighbour_data",
+  "repeat_count_30d": 0,
+  "last_repair_status": "none",
+  "current_limit_pct": 1.73,
+  "yield_loss_pct": 16.46,
+  "low_irradiance_window": true,
+  "serial_mismatch": false,
+  "boundary_placement": false
+ },
+ "plan": {
+  "genuine_defect": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "post_repair_repeat": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "scheduled_visit",
+   "second": null
+  },
+  "yield_loss": {
+   "clarity": "clear",
+   "target": "1",
+   "second": null
+  },
+  "capacity_unavailable": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 91,
+ "deciding": {
+  "genuine_defect": "A voltage dip at 12:02 overlaps ts_start, which could explain the comms loss, but the zero-output stretch runs far longer than the log and neighbour data is null, so both answers remain defensible.",
+  "post_repair_repeat": "work_orders is empty and the only prior fault is a different code (F-FAN-01): no repair on record.",
+  "next_step": "Output is back at limit_pct 100 and the loss is minor, so the likely defect does not need dispatch and can wait for the planned visit.",
+  "yield_loss": "(330-222)/3600 = 3.0%, squarely within the minor band.",
+  "capacity_unavailable": "Last sample limit_pct 100, but ac_kw 320 of 600 rated, which the low poa_wm2 of 210 largely explains."
+ },
+ "request": "rec-F240-0026",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012212
+}

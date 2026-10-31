@@ -1,0 +1,156 @@
+{
+ "id": "F236-0001",
+ "family": "F236",
+ "state": {
+  "changeover": {
+   "line_id": "L2",
+   "from_code": "BR-10",
+   "to_code": "BR-22",
+   "from_allergens": [
+    "wheat"
+   ],
+   "to_allergens": [
+    "wheat",
+    "sesame"
+   ]
+  },
+  "cleaning": {
+   "steps": [
+    {
+     "n": 1,
+     "completed": true,
+     "spec_min": 20,
+     "actual_min": 22
+    },
+    {
+     "n": 2,
+     "completed": false,
+     "spec_min": 15,
+     "actual_min": 0
+    }
+   ],
+   "part_swap": true,
+   "dedicated_set": "DS-4"
+  },
+  "verification": {
+   "swabs": [
+    {
+     "id": "S1",
+     "loc": "mixer",
+     "target": "sesame",
+     "reading": 2,
+     "limit_ppm": 10,
+     "at": "2024-05-06T06:00"
+    },
+    {
+     "id": "S2",
+     "loc": "depositor",
+     "target": "sesame",
+     "reading": 18,
+     "limit_ppm": 10,
+     "at": "2024-05-06T06:10"
+    }
+   ]
+  },
+  "production": {
+   "line_id": "L2",
+   "product_code": "BR-23",
+   "start_at": "2024-05-06T06:30",
+   "qty": 40,
+   "unit": "kg",
+   "packaging_allergens": [
+    "wheat",
+    "sesame"
+   ]
+  },
+  "approvals": {
+   "qa_signoff": {
+    "signer": "Q4",
+    "signed_at": "2024-05-06T06:20"
+   },
+   "deviations": [
+    {
+     "id": "D7",
+     "scope": "L2 step 2 and S2 depositor swab",
+     "approved_at": "2024-05-06T06:15"
+    }
+   ]
+  },
+  "history": [
+   {
+    "d": "2024-05-01",
+    "verification_passed": true
+   },
+   {
+    "d": "2024-05-03",
+    "verification_passed": true
+   }
+  ]
+ },
+ "factors": {
+  "allergen_transition": "adds_allergen",
+  "cleaning_completion": "one_step_skipped",
+  "swab_outcome": "positive_no_retest",
+  "swab_timing_mismatch": false,
+  "cross_section_discrepancy": "product_code_mismatch",
+  "exposed_quantity_kg": 0.0,
+  "approved_deviation": true,
+  "label_precaution": false,
+  "dedicated_tooling": true,
+  "qa_signoff_state": "signed_before_start",
+  "line_failure_history": 0,
+  "boundary_value": false
+ },
+ "factors_sampled": {
+  "allergen_transition": "adds_allergen",
+  "cleaning_completion": "one_step_skipped",
+  "swab_outcome": "positive_no_retest",
+  "swab_timing_mismatch": true,
+  "cross_section_discrepancy": "product_code_mismatch",
+  "exposed_quantity_kg": 129.35,
+  "approved_deviation": true,
+  "label_precaution": true,
+  "dedicated_tooling": true,
+  "qa_signoff_state": "signed_before_start",
+  "line_failure_history": 0,
+  "boundary_value": false
+ },
+ "plan": {
+  "swabs_cleared": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "line_disposition": {
+   "clarity": "leaning",
+   "target": "release",
+   "second": null
+  },
+  "worst_deficiency": {
+   "clarity": "clear",
+   "target": "cleaning_shortfall",
+   "second": null
+  },
+  "exposed_product": {
+   "clarity": "leaning",
+   "target": "0",
+   "second": null
+  },
+  "residue_evidence": {
+   "clarity": "clear",
+   "target": "3",
+   "second": null
+  }
+ },
+ "target_words": 76,
+ "deciding": {
+  "swabs_cleared": "S2 reads 18 against limit 10 with no retest entry, but deviation D7 covering the S2 swab was approved before start, so both answers are defensible.",
+  "line_disposition": "Deviation D7 approved before start, QA signed before start, dedicated tooling set and clean history favour release; the unretested over-limit swab is the doubt.",
+  "worst_deficiency": "Step 2 completed false (0 of 15 min) and S2 over limit; the code mismatch is only paperwork.",
+  "exposed_product": "Passing S1 and the deviated S2 precede the 06:30 start, so little or no exposure; the over-limit S2 leaves slight doubt.",
+  "residue_evidence": "S2 reading 18 exceeds limit 10 and no retest entry exists."
+ },
+ "request": "rec-F236-0001",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.014
+}

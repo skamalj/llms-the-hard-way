@@ -1,0 +1,179 @@
+{
+ "id": "F230-0046",
+ "family": "F230",
+ "state": {
+  "resident": {
+   "id": "RS41",
+   "weight_kg": 62,
+   "allergies": [
+    "latex"
+   ],
+   "status": "home"
+  },
+  "prescriptions": [
+   {
+    "item_id": "A1",
+    "drug": "warfarin",
+    "strength_mg": 3,
+    "dose_units": 1,
+    "high_risk": true,
+    "time_critical": false,
+    "changes": [
+     {
+      "effective": "2025-03-11",
+      "new_dose_units": 2,
+      "order_ref": null,
+      "authorised_by_role": "GP"
+     }
+    ]
+   },
+   {
+    "item_id": "A2",
+    "drug": "baclofen",
+    "strength_mg": 10,
+    "dose_units": 1
+   },
+   {
+    "item_id": "A3",
+    "drug": "senna",
+    "strength_mg": 7,
+    "dose_units": 1
+   }
+  ],
+  "administrations": [
+   {
+    "item_id": "A1",
+    "scheduled": "2025-03-11T18:00",
+    "given_at": "2025-03-11T18:18",
+    "units_given": 2,
+    "strength_mg_used": 3,
+    "code": "G",
+    "initials": "JM"
+   },
+   {
+    "item_id": "A2",
+    "scheduled": "2025-03-11T18:00",
+    "given_at": "2025-03-11T18:05",
+    "units_given": 2,
+    "strength_mg_used": 5,
+    "code": "G",
+    "initials": "JM"
+   },
+   {
+    "item_id": "A3",
+    "scheduled": "2025-03-11T18:00",
+    "given_at": "2025-03-11T18:10",
+    "units_given": 1,
+    "strength_mg_used": 7,
+    "code": "G",
+    "initials": null
+   }
+  ],
+  "stock": {
+   "A1": {
+    "opening": 28,
+    "closing": 26
+   },
+   "A2": {
+    "opening": 30,
+    "closing": 28
+   },
+   "A3": {
+    "opening": 20,
+    "closing": 19
+   }
+  },
+  "round": {
+   "id": "R-0311E",
+   "date": "2025-03-11",
+   "slot": "evening",
+   "staff_on": 4,
+   "open_queries": [
+    {
+     "type": "gp_callback",
+     "raised": "2025-03-11T18:30",
+     "item_id": "A1"
+    }
+   ],
+   "post_dose_obs": [
+    {
+     "type": "hr",
+     "value": 72
+    }
+   ]
+  },
+  "history": {
+   "errors_30d": 4
+  }
+ },
+ "factors": {
+  "dose_mismatch_type": "wrong_quantity",
+  "prescription_change_documented": false,
+  "omission_count": 0,
+  "omission_reason_valid": true,
+  "late_minutes": 18,
+  "time_critical_affected": false,
+  "stock_variance": 0,
+  "stock_variance_explained": false,
+  "signature_gaps": 1,
+  "unit_expression_decoy": "equivalent_split",
+  "post_dose_obs_reassuring": true,
+  "pending_query": "gp_callback_awaited",
+  "prior_errors_30d": 4,
+  "item_count": 3
+ },
+ "factors_sampled": {
+  "dose_mismatch_type": "none",
+  "prescription_change_documented": true,
+  "omission_count": 0,
+  "omission_reason_valid": true,
+  "late_minutes": 18,
+  "time_critical_affected": true,
+  "stock_variance": -2,
+  "stock_variance_explained": false,
+  "signature_gaps": 2,
+  "unit_expression_decoy": "equivalent_split",
+  "post_dose_obs_reassuring": true,
+  "pending_query": "gp_callback_awaited",
+  "prior_errors_30d": 4,
+  "item_count": 3
+ },
+ "plan": {
+  "dose_mismatch": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "stock_reconciles": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "sign_off",
+   "second": null
+  },
+  "open_discrepancies": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  },
+  "error_severity": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "4"
+  }
+ },
+ "target_words": 67,
+ "deciding": {
+  "dose_mismatch": "A1 given 2 units against 1 prescribed; the change to 2 units has order_ref null, so it is only weakly documented. A2 (2 x 5 mg for 10 mg) is a correct split.",
+  "stock_reconciles": "A1 28-2=26, A2 30-2=28, A3 20-1=19; all closings match.",
+  "next_step": "Open GP callback on A1 and a dose error on a high-risk item mean a clean sign-off is hard to support. This record cannot fully meet a clear sign_off plan.",
+  "open_discrepancies": "A1 (dose/order_ref null) and A3 (null initials) are unresolved. A3 is a trivial slip, so one item is also defensible.",
+  "error_severity": "A1 is a wrong quantity on a high_risk item with time_critical false. Ordinary-drug (3) versus critical (4) is balanced on that flag."
+ },
+ "request": "rec-F230-0046",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.01538
+}

@@ -1,0 +1,118 @@
+{
+ "id": "F210-0033",
+ "family": "F210",
+ "state": {
+  "collection": {
+   "collected_at": "2024-06-02T05:45",
+   "compartment": 2,
+   "vat_l": 6000,
+   "meter_l": 5200,
+   "vat_temp_c": 3.9
+  },
+  "sample": {
+   "seal_intact": false,
+   "arrival_temp_c": 4.5
+  },
+  "lab_results": {
+   "bactoscan_kcfu_ml": 300,
+   "scc_k_ml": 600,
+   "thermoduric_cfu_ml": 2000,
+   "freezing_point_mc": -490,
+   "inhibitory": "neg",
+   "retest": {
+    "requested": true,
+    "result": null
+   }
+  },
+  "farm_terms": {
+   "limits": {
+    "vat_temp_c": 4,
+    "bactoscan_kcfu_ml": 200,
+    "scc_k_ml": 400,
+    "thermoduric_cfu_ml": 1000,
+    "freezing_point_mc": -512
+   },
+   "approved_exceptions": [
+    {
+     "param": "scc_k_ml",
+     "valid_from": "2024-05-01",
+     "valid_to": "2024-06-30"
+    }
+   ],
+   "breaches_90d": 3
+  },
+  "equipment": {
+   "tanker_meter_due": "2024-12-01"
+  }
+ },
+ "factors": {
+  "vat_temp_level": "compliant",
+  "recent_milking": false,
+  "mismatch_site": "volume",
+  "mismatch_magnitude": "moderate",
+  "meter_calibration_overdue": false,
+  "lab_limit_breaches": 4,
+  "exception_covers_breach": true,
+  "inhibitory_status": "negative",
+  "treatment_withdrawal_active": false,
+  "retest_state": "pending",
+  "sample_integrity": "seal_compromised",
+  "history_breaches_90d": 3,
+  "value_on_boundary": false,
+  "driver_sensory_flag": false
+ },
+ "factors_sampled": {
+  "vat_temp_level": "compliant",
+  "recent_milking": false,
+  "mismatch_site": "volume",
+  "mismatch_magnitude": "trivial",
+  "meter_calibration_overdue": false,
+  "lab_limit_breaches": 1,
+  "exception_covers_breach": true,
+  "inhibitory_status": "negative",
+  "treatment_withdrawal_active": false,
+  "retest_state": "pending",
+  "sample_integrity": "seal_compromised",
+  "history_breaches_90d": 3,
+  "value_on_boundary": false,
+  "driver_sensory_flag": false
+ },
+ "plan": {
+  "temp_compliant": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "intake_disposition": {
+   "clarity": "balanced",
+   "target": "hold_retest",
+   "second": "reject_load"
+  },
+  "issue_source": {
+   "clarity": "leaning",
+   "target": "collection_handling",
+   "second": null
+  },
+  "discrepancy_size": {
+   "clarity": "clear",
+   "target": "2",
+   "second": null
+  },
+  "unexplained_breaches": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  }
+ },
+ "target_words": 28,
+ "deciding": {
+  "temp_compliant": "vat_temp_c 3.9 is under the limit of 4, but only narrowly.",
+  "intake_disposition": "A retest is requested with a null result, favouring hold. Four parameters breach limits, the seal is broken and history shows 3 breaches, so rejection is plausible.",
+  "issue_source": "sample.seal_intact is false, a post-pick-up handling problem. The 13% volume gap adds some doubt.",
+  "discrepancy_size": "vat_l 6000 vs meter_l 5200 is a 13% difference, in the 10 to 25% band.",
+  "unexplained_breaches": "Bactoscan, thermoduric and freezing point exceed limits without exception. The SCC exception covers only SCC, so the count is 3."
+ },
+ "request": "rec-F210-0031",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.009871
+}

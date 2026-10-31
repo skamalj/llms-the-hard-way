@@ -1,0 +1,135 @@
+{
+ "id": "F220-0008",
+ "family": "F220",
+ "state": {
+  "tray": {
+   "tray_id": "T-7710",
+   "barcode": "201945",
+   "requested_for": "2025-05-09T02:30",
+   "request_note": "On-call list needs this set within the hour"
+  },
+  "set_check": {
+   "lines": [
+    {
+     "cat_code": "K5",
+     "qty_expected": 2,
+     "qty_counted": 1
+    },
+    {
+     "cat_code": "L6",
+     "qty_expected": 4,
+     "qty_counted": 3
+    }
+   ],
+   "variances": [
+    {
+     "cat_code": "K5",
+     "reason": "broken, withdrawn",
+     "approved_by": "A.Singh"
+    }
+   ],
+   "packer_note": "All good."
+  },
+  "washer": {
+   "cycle_id": "W15",
+   "a0": 3000,
+   "alarms": [],
+   "trays_processed": [
+    "201945"
+   ]
+  },
+  "steriliser_load": {
+   "load_id": "L77",
+   "printout": {
+    "temp_min_c": 134.8,
+    "temp_max_c": 135.9,
+    "hold_s": 190
+   },
+   "logger": {
+    "temp_min_c": 134.7,
+    "hold_s": 188
+   },
+   "daily_test": {
+    "result": "pass"
+   },
+   "bi": {
+    "result": "pending",
+    "incubation_end": "2025-05-09T20:00"
+   },
+   "ci_result": "pass",
+   "unload_condition": "dry"
+  },
+  "release_label": {
+   "load_id": "L77",
+   "wrap_condition": "intact"
+  }
+ },
+ "factors": {
+  "set_count_discrepancies": 2,
+  "substitution_documented": true,
+  "cycle_excursion": "none",
+  "independent_logger_confirms": true,
+  "bi_status": "pending",
+  "chemical_indicator": "pass",
+  "washer_record_state": "complete",
+  "pack_integrity": "intact",
+  "label_mismatch": "none",
+  "daily_test_state": "pass_today",
+  "theatre_urgency": "emergency_on_call",
+  "note_tone": "reassuring_unverified",
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "set_count_discrepancies": 5,
+  "substitution_documented": false,
+  "cycle_excursion": "none",
+  "independent_logger_confirms": true,
+  "bi_status": "pass",
+  "chemical_indicator": "fail",
+  "washer_record_state": "complete",
+  "pack_integrity": "intact",
+  "label_mismatch": "none",
+  "daily_test_state": "pass_today",
+  "theatre_urgency": "emergency_on_call",
+  "note_tone": "reassuring_unverified",
+  "boundary_case": false
+ },
+ "plan": {
+  "cycle_in_limits": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "disposition": {
+   "clarity": "balanced",
+   "target": "hold",
+   "second": "reprocess"
+  },
+  "failure_stage": {
+   "clarity": "clear",
+   "target": "no_discrepancy",
+   "second": null
+  },
+  "count_gaps": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  },
+  "sterility_doubt": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  }
+ },
+ "target_words": 85,
+ "deciding": {
+  "cycle_in_limits": "Printout and logger both in band with holds of 190 s and 188 s.",
+  "disposition": "BI pending until 20:00 while the tray is otherwise sound: hold, with reprocess possible because of the L6 shortfall.",
+  "failure_stage": "Washer, label and cycle are complete; the only open item is the pending BI, which is not a failure.",
+  "count_gaps": "K5 has an approved variance; L6 short by one with no variance, perhaps more.",
+  "sterility_doubt": "BI pending (doubtful), with pass CI and dry intact pack pulling toward minor."
+ },
+ "request": "rec-F220-0006",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.009628
+}

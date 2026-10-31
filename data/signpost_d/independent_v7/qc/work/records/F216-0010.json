@@ -1,0 +1,171 @@
+{
+ "id": "F216-0010",
+ "family": "F216",
+ "state": {
+  "session": {
+   "id": "PH-418",
+   "type": "pharmacy",
+   "date": "2024-10-22",
+   "start": "13:30",
+   "end": "16:00",
+   "next_session_date": "2024-10-22",
+   "next_start": "17:30"
+  },
+  "storage": {
+   "unit": "F1",
+   "probe": "product",
+   "alarms_30d": 4,
+   "maintenance": [
+    {
+     "type": "defrost",
+     "start": "13:00",
+     "end": "15:00",
+     "backup_unit": "F2"
+    }
+   ]
+  },
+  "temp_log": {
+   "segments": [
+    {
+     "start": "13:00",
+     "int_min": 10,
+     "product_c": [
+      7.8,
+      8.6,
+      9.4,
+      10.1,
+      10.6
+     ]
+    },
+    {
+     "start": "14:50",
+     "int_min": 10,
+     "product_c": [
+      9.8,
+      9.2,
+      8.9,
+      8.6,
+      8.2,
+      7.4
+     ]
+    }
+   ],
+   "logger_gaps": [
+    {
+     "from": "13:50",
+     "to": "14:40"
+    }
+   ],
+   "manual_checks": [
+    {
+     "t": "14:45",
+     "min": 2.9,
+     "max": 11.2,
+     "cur": 9.6
+    }
+   ],
+   "backup_readings": {
+    "unit": "F2",
+    "start": "13:30",
+    "int_min": 30,
+    "product_c": [
+     5.1,
+     5.3,
+     5.2
+    ]
+   }
+  },
+  "stock": {
+   "lots": [
+    {
+     "lot_no": "D3302",
+     "tol_min_out": 60,
+     "opening": 50,
+     "wasted": 2,
+     "closing": 26
+    }
+   ]
+  },
+  "administration": [
+   {
+    "t": "14:15",
+    "lot_no": "D3302",
+    "n": 19
+   }
+  ],
+  "excursion_actions": {
+   "start": "13:10",
+   "end": null,
+   "quarantined": false,
+   "advice_status": "NR"
+  }
+ },
+ "factors": {
+  "true_excursion_minutes": 140,
+  "log_source_discrepancy": "logger_gap",
+  "buffered_probe_in_range": false,
+  "planned_maintenance": true,
+  "stability_clearance": "not_requested",
+  "doses_during_exposure": 19,
+  "stock_count_gap": -3,
+  "lot_id_mismatch": false,
+  "lots_beyond_tolerance": "all",
+  "freezing_reading": false,
+  "boundary_case": false,
+  "unit_alarm_history": 4,
+  "session_type": "pharmacy"
+ },
+ "factors_sampled": {
+  "true_excursion_minutes": 174,
+  "log_source_discrepancy": "logger_gap",
+  "buffered_probe_in_range": true,
+  "planned_maintenance": true,
+  "stability_clearance": "not_requested",
+  "doses_during_exposure": 19,
+  "stock_count_gap": -3,
+  "lot_id_mismatch": false,
+  "lots_beyond_tolerance": "all",
+  "freezing_reading": false,
+  "boundary_case": false,
+  "unit_alarm_history": 4,
+  "session_type": "pharmacy"
+ },
+ "plan": {
+  "dosed_uncleared": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "stock_reconciles": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "stock_disposition": {
+   "clarity": "balanced",
+   "target": "release",
+   "second": "discard_all"
+  },
+  "excursion_duration": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  },
+  "followup_urgency": {
+   "clarity": "clear",
+   "target": "3",
+   "second": null
+  }
+ },
+ "target_words": 71,
+ "deciding": {
+  "dosed_uncleared": "The 19-dose entry at 14:15 falls inside the logger gap (13:50-14:40) after excursion start 13:10 with no advice, but F2 backup readings are in range, so whether the stock was exposed then is unclear.",
+  "stock_reconciles": "50 - 2 - 19 = 29 expected against closing 26, a three-dose shortfall on a single matching lot.",
+  "stock_disposition": "Tolerance is 60 minutes and F1 readings exceed it, favouring discard_all, but the defrost with backup unit F2 in range makes release defensible.",
+  "excursion_duration": "Nine 10-minute readings above 8.0 before and after the gap give 90 minutes, plus a gap bracketed by manual max 11.2 (up to 50 more), likely passing 120 but uncertain.",
+  "followup_urgency": "Next session is later the same day (17:30) with 19 doses given in an unresolved exposure window, no advice requested and a 3-dose count shortfall; same-day action and possible recall."
+ },
+ "request": "rec-F216-0006",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.017926
+}

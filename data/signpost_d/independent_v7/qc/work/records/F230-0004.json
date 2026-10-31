@@ -1,0 +1,167 @@
+{
+ "id": "F230-0004",
+ "family": "F230",
+ "state": {
+  "resident": {
+   "id": "D4",
+   "status": "in_home"
+  },
+  "prescriptions": [
+   {
+    "item_id": "i1",
+    "drug": "furosemide",
+    "strength_mg": 20,
+    "dose_units": 2
+   },
+   {
+    "item_id": "i2",
+    "drug": "sertraline",
+    "strength_mg": 50,
+    "dose_units": 1
+   },
+   {
+    "item_id": "i3",
+    "drug": "baclofen",
+    "strength_mg": 10,
+    "dose_units": 2
+   },
+   {
+    "item_id": "i4",
+    "drug": "laxido",
+    "strength_mg": 0,
+    "dose_units": 1
+   }
+  ],
+  "administrations": [
+   {
+    "item_id": "i1",
+    "scheduled": "2024-07-14T08:00",
+    "given_at": "2024-07-14T08:10",
+    "units_given": 3,
+    "strength_mg_used": 20,
+    "initials": "SB"
+   },
+   {
+    "item_id": "i2",
+    "scheduled": "2024-07-14T08:00",
+    "given_at": "2024-07-14T08:12",
+    "units_given": 1,
+    "strength_mg_used": 50,
+    "initials": "SB"
+   },
+   {
+    "item_id": "i3",
+    "scheduled": "2024-07-14T08:00",
+    "given_at": "2024-07-14T08:15",
+    "units_given": 2,
+    "strength_mg_used": 5,
+    "initials": "SB"
+   },
+   {
+    "item_id": "i4",
+    "scheduled": "2024-07-14T08:00",
+    "given_at": "2024-07-14T08:20",
+    "units_given": 1,
+    "strength_mg_used": 0,
+    "initials": null
+   }
+  ],
+  "stock": {
+   "i1": {
+    "opening": 60,
+    "closing": 57
+   },
+   "i2": {
+    "opening": 28,
+    "closing": 27
+   },
+   "i3": {
+    "opening": 40,
+    "closing": 38
+   }
+  },
+  "round": {
+   "date": "2024-07-14",
+   "open_queries": [],
+   "post_dose_obs": [
+    {
+     "type": "bp_sys",
+     "value": 118
+    }
+   ]
+  },
+  "history": {
+   "errors_30d": 0
+  }
+ },
+ "factors": {
+  "dose_mismatch_type": "wrong_quantity",
+  "prescription_change_documented": false,
+  "omission_count": 0,
+  "omission_reason_valid": false,
+  "late_minutes": 20,
+  "time_critical_affected": false,
+  "stock_variance": 0,
+  "stock_variance_explained": false,
+  "signature_gaps": 1,
+  "unit_expression_decoy": "equivalent_split",
+  "post_dose_obs_reassuring": true,
+  "pending_query": "none",
+  "prior_errors_30d": 0,
+  "item_count": 4
+ },
+ "factors_sampled": {
+  "dose_mismatch_type": "wrong_quantity",
+  "prescription_change_documented": true,
+  "omission_count": 2,
+  "omission_reason_valid": false,
+  "late_minutes": 119,
+  "time_critical_affected": true,
+  "stock_variance": 2,
+  "stock_variance_explained": false,
+  "signature_gaps": 1,
+  "unit_expression_decoy": "equivalent_split",
+  "post_dose_obs_reassuring": false,
+  "pending_query": "none",
+  "prior_errors_30d": 0,
+  "item_count": 7
+ },
+ "plan": {
+  "dose_mismatch": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "stock_reconciles": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "correct_and_close",
+   "second": null
+  },
+  "open_discrepancies": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "error_severity": {
+   "clarity": "contested",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 109,
+ "deciding": {
+  "dose_mismatch": "i1 prescribed 2 units, 3 given; no change entry exists. The i3 split of 2 units at 5 mg against 10 mg is equivalent.",
+  "stock_reconciles": "i1 60-3=57, i2 28-1=27, i3 40-2=38 all match; no stock was recorded for i4.",
+  "next_step": "Stock reconciles, observations are in normal range, and the only other gap is i4's missing initials, so a documented amendment and close is appropriate.",
+  "open_discrepancies": "Only i1 (extra unit) and i4 (null initials) are open; the count of 2 against more is arguable depending on whether stock is counted.",
+  "error_severity": "i4 null initials is documentation only, while i1's extra unit is mild and observations are normal, which makes 0 versus 1 arguable."
+ },
+ "request": "rec-F230-0001",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.01078
+}

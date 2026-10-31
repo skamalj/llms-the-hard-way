@@ -1,0 +1,136 @@
+{
+ "id": "F224-0036",
+ "family": "F224",
+ "state": {
+  "request": {
+   "views": [
+    "BW_R"
+   ],
+   "indication": null,
+   "risk": "moderate",
+   "date": "2025-02-11",
+   "prior_same_view": "2024-06-10",
+   "exceptions": [
+    {
+     "code": "EX2",
+     "approver": "D12"
+    }
+   ],
+   "patient_flags": []
+  },
+  "exposures": [
+   {
+    "id": 1,
+    "view": "BW_R",
+    "ts": "10:01",
+    "kV": 70,
+    "dose_mGy": 0.85
+   },
+   {
+    "id": 2,
+    "view": "BW_R",
+    "ts": "10:04",
+    "kV": 70,
+    "dose_mGy": 0.85,
+    "retake_of": 1
+   }
+  ],
+  "image_review": {
+   "faults": {
+    "1": [
+     "FC_APEX_CLIPPED"
+    ],
+    "2": []
+   },
+   "second_grader": "done",
+   "final_grade": 2
+  },
+  "equipment": {
+   "drl_ref": {
+    "BW_R": 0.6
+   },
+   "console_log": [
+    {
+     "ts": "10:02",
+     "kV": 70
+    },
+    {
+     "ts": "10:04",
+     "kV": 70
+    }
+   ]
+  },
+  "operator": {
+   "signoff_at": "2025-02-11T11:00",
+   "prior_findings_12m": 0
+  }
+ },
+ "factors": {
+  "indication_match": "missing",
+  "recall_interval_months": 8,
+  "dose_ratio_to_drl": 1.42,
+  "console_log_discrepancy": "timestamp_drift",
+  "retake_cause": "positioning",
+  "equipment_qa_status": "in_date",
+  "approved_exception": true,
+  "patient_cooperation_flag": false,
+  "unrequested_exposure_count": 0,
+  "verbal_authorisation_logged": false,
+  "image_grade": "diagnostic",
+  "audit_completeness": "complete",
+  "operator_prior_findings": 0
+ },
+ "factors_sampled": {
+  "indication_match": "missing",
+  "recall_interval_months": 8,
+  "dose_ratio_to_drl": 1.54,
+  "console_log_discrepancy": "timestamp_drift",
+  "retake_cause": "positioning",
+  "equipment_qa_status": "in_date",
+  "approved_exception": true,
+  "patient_cooperation_flag": false,
+  "unrequested_exposure_count": 0,
+  "verbal_authorisation_logged": false,
+  "image_grade": "diagnostic",
+  "audit_completeness": "grading_pending",
+  "operator_prior_findings": 0
+ },
+ "plan": {
+  "justified": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "operator_retake": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "follow_up": {
+   "clarity": "clear",
+   "target": "log_trend",
+   "second": null
+  },
+  "dose_position": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  },
+  "unjustified_count": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  }
+ },
+ "target_words": 25,
+ "deciding": {
+  "justified": "request.indication is null (unsupported), but request.exceptions has EX2 with approver D12 and the 8-month interval is inside the moderate-risk 12 months; these hold it in balance.",
+  "operator_retake": "Retake (retake_of 1) follows FC_APEX_CLIPPED on image 1, with no sensor errors, which points to positioning; patient_flags is empty and the equipment section has no QA data, which leaves some doubt.",
+  "follow_up": "The only discrepancy is the console timestamp drift (10:01 vs 10:02), which is benign and trivial; grading is done and sign-off is present, so log for trend.",
+  "dose_position": "Dose 0.85 mGy against drl_ref BW_R 0.6 gives a ratio of about 1.42, which is in the raised band and sits close enough to 1.5 to leave some doubt.",
+  "unjustified_count": "Of the two BW_R exposures, the retake duplicates a view whose referral has no indication code, so one exposure lacks a justified request."
+ },
+ "request": "rec-F224-0036",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.017447
+}

@@ -1,0 +1,161 @@
+{
+ "id": "F215-0011",
+ "family": "F215",
+ "state": {
+  "bin": {
+   "bin_id": "B7",
+   "crop": "wheat",
+   "safe_mc_pct": 14.5,
+   "baseline_c": 15,
+   "intake_date": "2024-08-10",
+   "intake_cond": "dried_cleaned",
+   "prior_logs": [
+    "2024-03-04",
+    "2024-11-12"
+   ]
+  },
+  "cable_readings": [
+   {
+    "cable_id": "C1",
+    "cal_due": "2026-01-10",
+    "fault": true,
+    "nodes": [
+     {
+      "depth_m": 2,
+      "temp_c": [
+       38.0,
+       38.4,
+       38.9
+      ]
+     }
+    ]
+   },
+   {
+    "cable_id": "C2",
+    "cal_due": "2026-01-10",
+    "fault": false,
+    "nodes": [
+     {
+      "depth_m": 1.5,
+      "temp_c": [
+       23.2,
+       24.4,
+       25.1
+      ]
+     }
+    ]
+   },
+   {
+    "cable_id": "C3",
+    "cal_due": "2026-01-10",
+    "fault": false,
+    "nodes": [
+     {
+      "depth_m": 1.5,
+      "temp_c": [
+       16.0,
+       16.1,
+       16.0
+      ]
+     }
+    ]
+   }
+  ],
+  "moisture": [
+   {
+    "sample_date": "2025-02-24",
+    "method": "lab",
+    "mc_pct": 12.8
+   }
+  ],
+  "environment": {
+   "ambient_c_7d_mean": 4,
+   "headspace_c": 6,
+   "co2_ppm": 1100,
+   "reading_date": "2025-03-04"
+  },
+  "aeration": [
+   {
+    "start": "2025-03-02",
+    "end": null,
+    "fan_hours": 30,
+    "mode": "cool"
+   }
+  ],
+  "pest_checks": [
+   {
+    "check_date": "2025-03-01",
+    "traps_set": 6,
+    "insects_counted": 21
+   }
+  ]
+ },
+ "factors": {
+  "peak_excess_c": 10.1,
+  "rise_trend": "steady_climb",
+  "second_cable_corroboration": false,
+  "sensor_fault_flag": true,
+  "ambient_warming": false,
+  "moisture_vs_limit": "well_below",
+  "moisture_sample_status": "recent_lab",
+  "aeration_running": true,
+  "co2_elevation": "raised",
+  "insect_trap_count": 21,
+  "missing_section": "none",
+  "date_order_anomaly": false,
+  "intake_condition": "dried_cleaned"
+ },
+ "factors_sampled": {
+  "peak_excess_c": 14.34,
+  "rise_trend": "flat",
+  "second_cable_corroboration": false,
+  "sensor_fault_flag": true,
+  "ambient_warming": false,
+  "moisture_vs_limit": "well_below",
+  "moisture_sample_status": "recent_lab",
+  "aeration_running": true,
+  "co2_elevation": "raised",
+  "insect_trap_count": 21,
+  "missing_section": "none",
+  "date_order_anomaly": true,
+  "intake_condition": "dried_cleaned"
+ },
+ "plan": {
+  "hotspot_active": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "moisture_safe": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "next_action": {
+   "clarity": "balanced",
+   "target": "turn_or_unload",
+   "second": "hold_recheck"
+  },
+  "recurrence_count": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  },
+  "temp_excess": {
+   "clarity": "contested",
+   "target": "2",
+   "second": "3"
+  }
+ },
+ "target_words": 40,
+ "deciding": {
+  "hotspot_active": "Valid cable C2 climbs 23.2 to 25.1 and CO2 is raised, but neighbour C3 is flat at about 16 and C1 spike is faulty; ambient is cold.",
+  "moisture_safe": "Recent lab sample 12.8% against 14.5% wheat limit.",
+  "next_action": "Valid rising C2 at 10.1 C over baseline with fans already running supports unloading, but lack of corroboration supports recheck first.",
+  "recurrence_count": "prior_logs has two entries, the earlier dated exactly 12 months before the reading date, so it may count as 1 or 2.",
+  "temp_excess": "Valid C2 peak 25.1 vs baseline 15 is 10.1, just over the 10 C boundary; C1 38.9 is faulty and excluded."
+ },
+ "request": "rec-F215-0011",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.010532
+}

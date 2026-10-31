@@ -1,0 +1,103 @@
+{
+ "id": "F205-0005",
+ "family": "F205",
+ "state": {
+  "flight": {
+   "no": "PA55",
+   "reg": "SE-RPB",
+   "type": "E190",
+   "std": "2024-11-03T07:00:00Z",
+   "turn": "full_turn"
+  },
+  "times": {
+   "on_blocks": "2024-11-03T05:50:00Z",
+   "fuel_start": "2024-11-03T06:10:00Z",
+   "boarding_start": "2024-11-03T06:25:00Z",
+   "last_bag": "2024-11-03T07:50:00Z",
+   "doors_closed": "2024-11-03T07:55:00Z",
+   "off_blocks": "2024-11-03T08:01:00Z",
+   "delay_code": "baggage",
+   "delay_min": 61
+  },
+  "load": {
+   "pax_total": 96,
+   "bags_count": 78,
+   "bags_kg": 1530,
+   "captain_accepted": true
+  },
+  "hold_log": [],
+  "remarks": [
+   {
+    "role": "ramp",
+    "t": "07:48",
+    "msg": "Transfer bags arrived late from connecting flight."
+   }
+  ]
+ },
+ "factors": {
+  "bag_mismatch_size": "trivial_1_2_bags",
+  "mismatch_location": "loadsheet_bags_vs_hold_log",
+  "missing_record": "hold_log_empty",
+  "milestone_out_of_order": false,
+  "delay_minutes": 61,
+  "delay_code_fit": "supported",
+  "explanatory_remark": false,
+  "pending_signoff": false,
+  "dg_on_board": false,
+  "decoy_noise": "transfer_bags_listed_separately",
+  "boundary_value": false,
+  "turn_type": "full_turn"
+ },
+ "factors_sampled": {
+  "bag_mismatch_size": "trivial_1_2_bags",
+  "mismatch_location": "loadsheet_bags_vs_hold_log",
+  "missing_record": "hold_log_empty",
+  "milestone_out_of_order": false,
+  "delay_minutes": 34,
+  "delay_code_fit": "supported",
+  "explanatory_remark": false,
+  "pending_signoff": false,
+  "dg_on_board": false,
+  "decoy_noise": "transfer_bags_listed_separately",
+  "boundary_value": false,
+  "turn_type": "full_turn"
+ },
+ "plan": {
+  "load_reconciled": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "delay_code_supported": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "log_disposition": {
+   "clarity": "balanced",
+   "target": "hold_confirm",
+   "second": "close_with_note"
+  },
+  "offblock_delay": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "failed_checks": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 87,
+ "deciding": {
+  "load_reconciled": "Loadsheet shows 78 bags/1530 kg but hold_log is empty, so nothing matches.",
+  "delay_code_supported": "Code 'baggage' with last_bag at 07:50, 50 min after STD, and a remark of late transfer bags, though the remark gives no explanation of the load gap.",
+  "log_disposition": "Empty hold log must be confirmed, but the remark about late bags could support annotating and closing, so hold or note is open.",
+  "offblock_delay": "Off-blocks 08:01 against STD 07:00 is 61 min, just over 60 and near the level 2/3 boundary.",
+  "failed_checks": "Hold log empty and load mismatch fail, plus delay size and others; the count is near the three/four edge."
+ },
+ "request": "rec-F205-0001",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.006657
+}

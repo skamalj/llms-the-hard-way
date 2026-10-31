@@ -1,0 +1,128 @@
+{
+ "id": "F216-0031",
+ "family": "F216",
+ "state": {
+  "session": {
+   "type": "fixed_clinic",
+   "date": "2025-03-04",
+   "next": "2025-03-11"
+  },
+  "storage": {
+   "maint": [
+    {
+     "type": "defrost",
+     "start": "09:05",
+     "end": "09:25",
+     "backup": "F2"
+    }
+   ]
+  },
+  "temp_log": {
+   "interval_min": 10,
+   "readings": [
+    [
+     "09:00",
+     7.9
+    ],
+    [
+     "09:10",
+     8.4
+    ],
+    [
+     "09:20",
+     8.3
+    ],
+    [
+     "09:30",
+     7.8
+    ]
+   ]
+  },
+  "stock": {
+   "lots": [
+    {
+     "lot_no": "A1",
+     "tolerance_min_out": 120,
+     "opening": 20,
+     "wasted": 1,
+     "closing": 12
+    }
+   ]
+  },
+  "administration": [
+   {
+    "time": "08:50",
+    "lot_no": "A1",
+    "doses": 4
+   }
+  ]
+ },
+ "factors": {
+  "true_excursion_minutes": 20,
+  "log_source_discrepancy": "none",
+  "buffered_probe_in_range": false,
+  "planned_maintenance": true,
+  "stability_clearance": "not_requested",
+  "doses_during_exposure": 0,
+  "stock_count_gap": 3,
+  "lot_id_mismatch": false,
+  "lots_beyond_tolerance": "none",
+  "freezing_reading": false,
+  "boundary_case": false,
+  "unit_alarm_history": 0,
+  "session_type": "fixed_clinic"
+ },
+ "factors_sampled": {
+  "true_excursion_minutes": 212,
+  "log_source_discrepancy": "none",
+  "buffered_probe_in_range": false,
+  "planned_maintenance": true,
+  "stability_clearance": "requested_pending",
+  "doses_during_exposure": 4,
+  "stock_count_gap": 3,
+  "lot_id_mismatch": false,
+  "lots_beyond_tolerance": "some",
+  "freezing_reading": true,
+  "boundary_case": false,
+  "unit_alarm_history": 0,
+  "session_type": "fixed_clinic"
+ },
+ "plan": {
+  "dosed_uncleared": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "stock_reconciles": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "stock_disposition": {
+   "clarity": "leaning",
+   "target": "release",
+   "second": null
+  },
+  "excursion_duration": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  },
+  "followup_urgency": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  }
+ },
+ "target_words": 28,
+ "deciding": {
+  "dosed_uncleared": "The only dose entry (08:50) precedes the first out-of-range reading (09:10), though the defrost window is close behind.",
+  "stock_reconciles": "Lot A1: 20 opening - 1 wasted - 4 given = 15 expected, but closing is 12, a 3-dose gap.",
+  "stock_disposition": "Only two readings (8.4, 8.3) are over 8.0 during a defrost, against a 120 min tolerance; no clearance was needed.",
+  "excursion_duration": "Two 10-minute readings above 8.0 give about 20 min, under 30.",
+  "followup_urgency": "The unexplained 3-dose count gap needs checking soon, though the next session is a week away."
+ },
+ "request": "rec-F216-0031",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.014237
+}

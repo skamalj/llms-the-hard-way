@@ -1,0 +1,138 @@
+{
+ "id": "F204-0042",
+ "family": "F204",
+ "state": {
+  "rx": {
+   "drug": "prednisolone",
+   "strength": {
+    "val": 10,
+    "unit": "mg"
+   },
+   "form": "tab",
+   "dose": 1,
+   "freq_per_day": 1,
+   "qty": 28
+  },
+  "patient": {
+   "pt_id": "P20517",
+   "supplies": [
+    {
+     "date": "2025-04-01",
+     "days_covered": 14
+    }
+   ],
+   "emergency_supplies": [
+    {
+     "date": "2025-04-15",
+     "days": 2
+    }
+   ],
+   "near_miss_count": 0
+  },
+  "dispensed": {
+   "product_name": "prednisolone",
+   "strength": {
+    "val": 5,
+    "unit": "mg"
+   },
+   "form": "tab",
+   "pack_size": 14,
+   "packs": 1,
+   "owing": null
+  },
+  "label": {
+   "pt_id": "P20517",
+   "qty_printed": 14
+  },
+  "check_log": {
+   "checked_at": "2025-04-15T10:00",
+   "clin_check": {
+    "by": "RPh1",
+    "at": "2025-04-15T09:40"
+   },
+   "queries": [
+    {
+     "raised_at": "2025-04-15T09:50",
+     "field": "qty",
+     "status": "pending"
+    }
+   ],
+   "interventions": [
+    {
+     "code": "STR",
+     "field": "strength",
+     "accepted": true,
+     "by": "RPh1"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "strength_status": "mismatch_same_units",
+  "product_status": "exact",
+  "quantity_status": "short_undocumented",
+  "label_status": "correct",
+  "prescriber_query": "pending",
+  "pharmacist_intervention": true,
+  "clinical_check_signed": true,
+  "home_supply_days": 1,
+  "emergency_supply": true,
+  "short_expiry": false,
+  "prior_error_count": 0,
+  "high_risk_drug": false,
+  "boundary_case": true
+ },
+ "factors_sampled": {
+  "strength_status": "match_same_units",
+  "product_status": "exact",
+  "quantity_status": "short_undocumented",
+  "label_status": "patient_id_mismatch",
+  "prescriber_query": "none",
+  "pharmacist_intervention": false,
+  "clinical_check_signed": true,
+  "home_supply_days": 0,
+  "emergency_supply": true,
+  "short_expiry": false,
+  "prior_error_count": 0,
+  "high_risk_drug": false,
+  "boundary_case": true
+ },
+ "plan": {
+  "strength_differs": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "hold_query",
+   "second": null
+  },
+  "error_category": {
+   "clarity": "leaning",
+   "target": "quantity_only",
+   "second": null
+  },
+  "open_discrepancies": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "supply_urgency": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  }
+ },
+ "target_words": 51,
+ "deciding": {
+  "strength_differs": "Rx 10 mg against dispensed 5 mg in the same unit. The accepted strength intervention leaves some room for doubt.",
+  "next_step": "A pending query on qty covers the short supply, so the item is held for that confirmation.",
+  "error_category": "Quantity of 14 against 28 with owing null is the open difference. The label and product are correct, and the strength difference was intervened on, which makes it arguably a product issue.",
+  "open_discrepancies": "The short quantity is open. The strength difference is intervened on but may still count, and the quantity gap may be counted as separate items, so 2 or 3 is defensible.",
+  "supply_urgency": "The 14-day supply from 04-01 ended 04-14. A 2-day emergency supply from 04-15 covers 04-15 and 04-16, so 1 day remains after today, or 0 by a stricter count."
+ },
+ "request": "rec-F204-0041",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.015225
+}

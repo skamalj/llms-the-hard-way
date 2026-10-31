@@ -1,0 +1,153 @@
+{
+ "id": "F236-0035",
+ "family": "F236",
+ "state": {
+  "changeover": {
+   "line": "L6",
+   "from_allergens": [
+    "wheat"
+   ],
+   "to_allergens": [
+    "wheat"
+   ]
+  },
+  "cleaning": {
+   "steps": [
+    {
+     "id": 1,
+     "completed": true,
+     "spec_min": 30,
+     "actual_min": 30
+    },
+    {
+     "id": 2,
+     "completed": true,
+     "spec_min": 15,
+     "actual_min": 18
+    }
+   ]
+  },
+  "verification": {
+   "swabs": [
+    {
+     "id": "S1",
+     "batch": "B-921",
+     "loc": "mixer",
+     "target": "wheat",
+     "ppm": 0,
+     "limit_ppm": 10,
+     "t": "2024-09-03T06:40"
+    },
+    {
+     "id": "S2",
+     "batch": "B-921",
+     "loc": "depositor",
+     "target": "wheat",
+     "ppm": 0,
+     "limit_ppm": 10,
+     "t": "2024-09-03T08:00"
+    }
+   ]
+  },
+  "production": {
+   "line_id": "L6",
+   "start_at": "2024-09-03T07:00",
+   "end_at": "2024-09-03T11:00",
+   "first_batch": "B-912",
+   "qty": 285.96,
+   "unit": "kg",
+   "pack_allergens": [
+    "wheat"
+   ]
+  },
+  "approvals": {
+   "qa_signoff": {
+    "signed_at": "2024-09-03T06:50"
+   },
+   "deviations": []
+  },
+  "history": [
+   {
+    "ok": false
+   },
+   {
+    "ok": true
+   },
+   {
+    "ok": false
+   },
+   {
+    "ok": false
+   },
+   {
+    "ok": true
+   }
+  ]
+ },
+ "factors": {
+  "allergen_transition": "same_allergen_set",
+  "cleaning_completion": "full",
+  "swab_outcome": "all_negative",
+  "swab_timing_mismatch": true,
+  "cross_section_discrepancy": "batch_id_mismatch",
+  "exposed_quantity_kg": 285.96,
+  "approved_deviation": false,
+  "label_precaution": false,
+  "dedicated_tooling": false,
+  "qa_signoff_state": "signed_before_start",
+  "line_failure_history": 3,
+  "boundary_value": false
+ },
+ "factors_sampled": {
+  "allergen_transition": "same_allergen_set",
+  "cleaning_completion": "full",
+  "swab_outcome": "positive_retest_fail",
+  "swab_timing_mismatch": false,
+  "cross_section_discrepancy": "batch_id_mismatch",
+  "exposed_quantity_kg": 285.96,
+  "approved_deviation": false,
+  "label_precaution": false,
+  "dedicated_tooling": false,
+  "qa_signoff_state": "signed_before_start",
+  "line_failure_history": 3,
+  "boundary_value": false
+ },
+ "plan": {
+  "swabs_cleared": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "line_disposition": {
+   "clarity": "clear",
+   "target": "hold",
+   "second": null
+  },
+  "worst_deficiency": {
+   "clarity": "clear",
+   "target": "records_only",
+   "second": null
+  },
+  "exposed_product": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  },
+  "residue_evidence": {
+   "clarity": "leaning",
+   "target": "0",
+   "second": null
+  }
+ },
+ "target_words": 87,
+ "deciding": {
+  "swabs_cleared": "Mixer swab S1 passed at 06:40 before the 07:00 start, but depositor swab S2 is timed 08:00, after start. Both are 0 ppm, so either reading is defensible.",
+  "line_disposition": "All swabs read 0 ppm and cleaning is complete. The swabs reference batch B-921 while production is B-912, so hold until the link is confirmed.",
+  "worst_deficiency": "No over-limit reading, no skipped steps and sign-off before start. The main issue is the batch ID mismatch (B-921 vs B-912), which is a records issue.",
+  "exposed_product": "285.96 kg over 07:00 to 11:00 with the depositor swab passing at 08:00 gives about 71 kg unverified: 50 to 500 kg. S1 passing earlier leaves some doubt.",
+  "residue_evidence": "Both wheat readings are 0 ppm against a limit of 10, with no retest needed."
+ },
+ "request": "rec-F236-0031",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.01363
+}

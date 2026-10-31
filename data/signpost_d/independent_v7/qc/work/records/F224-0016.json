@@ -1,0 +1,101 @@
+{
+ "id": "F224-0016",
+ "family": "F224",
+ "state": {
+  "request": {
+   "views": [
+    "BW"
+   ],
+   "ind": "C03",
+   "risk": "moderate",
+   "req": "2024-03-04",
+   "prior": "2023-05-10"
+  },
+  "exposures": [
+   {
+    "view": "BW",
+    "mGy": 0.9,
+    "t": "09:12"
+   },
+   {
+    "view": "PA",
+    "mGy": 0.4,
+    "t": "09:14"
+   }
+  ],
+  "equipment": {
+   "output_test": "fail",
+   "drl": {
+    "BW": 1.2
+   }
+  }
+ },
+ "factors": {
+  "indication_match": "partial_match",
+  "recall_interval_months": 10,
+  "dose_ratio_to_drl": 0.75,
+  "console_log_discrepancy": "none",
+  "retake_cause": "no_retake",
+  "equipment_qa_status": "failed_last_test",
+  "approved_exception": false,
+  "patient_cooperation_flag": false,
+  "unrequested_exposure_count": 1,
+  "verbal_authorisation_logged": false,
+  "image_grade": "diagnostic",
+  "audit_completeness": "complete",
+  "operator_prior_findings": 1
+ },
+ "factors_sampled": {
+  "indication_match": "missing",
+  "recall_interval_months": 10,
+  "dose_ratio_to_drl": 1.5,
+  "console_log_discrepancy": "none",
+  "retake_cause": "positioning",
+  "equipment_qa_status": "in_date",
+  "approved_exception": false,
+  "patient_cooperation_flag": false,
+  "unrequested_exposure_count": 2,
+  "verbal_authorisation_logged": false,
+  "image_grade": "non_diagnostic",
+  "audit_completeness": "complete",
+  "operator_prior_findings": 1
+ },
+ "plan": {
+  "justified": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "operator_retake": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "follow_up": {
+   "clarity": "clear",
+   "target": "escalate_rpa",
+   "second": null
+  },
+  "dose_position": {
+   "clarity": "contested",
+   "target": "0",
+   "second": "1"
+  },
+  "unjustified_count": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  }
+ },
+ "target_words": 32,
+ "deciding": {
+  "justified": "C03 on a BW request is plausible but the prior BW was 10 months earlier against 12 allowed at moderate risk; these two hold it in balance.",
+  "operator_retake": "No retake_of entries in exposures, so no retake occurred.",
+  "follow_up": "equipment.output_test is fail, an equipment breach that needs adviser referral.",
+  "dose_position": "BW 0.9 mGy against drl 1.2 gives 0.75, exactly on the Low/Typical boundary.",
+  "unjustified_count": "PA exposure has no request view and no verbal auth; one lacks a request, but the indication's support for the BW leaves 0 arguable."
+ },
+ "request": "rec-F224-0016",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011721
+}

@@ -1,0 +1,147 @@
+{
+ "id": "F236-0047",
+ "family": "F236",
+ "state": {
+  "changeover": {
+   "line": "L1",
+   "from": "P21",
+   "to": "P22",
+   "from_allergens": [
+    "egg",
+    "milk"
+   ],
+   "to_allergens": [
+    "milk"
+   ],
+   "planned_batch": "B5531"
+  },
+  "cleaning": {
+   "steps": [
+    {
+     "s": "dry_clean",
+     "done": true,
+     "spec_min": 20,
+     "actual_min": 20
+    },
+    {
+     "s": "rinse",
+     "done": false,
+     "spec_min": 20,
+     "actual_min": 0
+    }
+   ]
+  },
+  "verification": {
+   "swabs": [
+    {
+     "id": "S1",
+     "loc": "oven_belt",
+     "target": "egg",
+     "reading": 0.3,
+     "lod_ppm": 0.25,
+     "limit_ppm": 2.5,
+     "at": "2025-04-10T05:15"
+    }
+   ],
+   "atp_rlu": [
+    85
+   ]
+  },
+  "production": {
+   "line": "L1",
+   "code": "P22",
+   "batch": "B5513",
+   "start": "2025-04-10T05:45",
+   "end": "2025-04-10T06:45",
+   "qty": 49.6,
+   "unit": "kg",
+   "pack_allergens": [
+    "milk"
+   ]
+  },
+  "approvals": {
+   "qa_signoff": null,
+   "deviations": []
+  },
+  "history": {
+   "passed": [
+    true,
+    true,
+    true,
+    false,
+    true,
+    true,
+    true,
+    true,
+    false,
+    true
+   ]
+  }
+ },
+ "factors": {
+  "allergen_transition": "removes_allergen",
+  "cleaning_completion": "one_step_skipped",
+  "swab_outcome": "trace_below_limit",
+  "swab_timing_mismatch": false,
+  "cross_section_discrepancy": "batch_id_mismatch",
+  "exposed_quantity_kg": 49.6,
+  "approved_deviation": false,
+  "label_precaution": false,
+  "dedicated_tooling": false,
+  "qa_signoff_state": "missing",
+  "line_failure_history": 2,
+  "boundary_value": false
+ },
+ "factors_sampled": {
+  "allergen_transition": "removes_allergen",
+  "cleaning_completion": "one_step_skipped",
+  "swab_outcome": "trace_below_limit",
+  "swab_timing_mismatch": true,
+  "cross_section_discrepancy": "batch_id_mismatch",
+  "exposed_quantity_kg": 714.04,
+  "approved_deviation": false,
+  "label_precaution": false,
+  "dedicated_tooling": false,
+  "qa_signoff_state": "missing",
+  "line_failure_history": 2,
+  "boundary_value": false
+ },
+ "plan": {
+  "swabs_cleared": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "line_disposition": {
+   "clarity": "leaning",
+   "target": "release",
+   "second": null
+  },
+  "worst_deficiency": {
+   "clarity": "clear",
+   "target": "cleaning_shortfall",
+   "second": null
+  },
+  "exposed_product": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  },
+  "residue_evidence": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  }
+ },
+ "target_words": 59,
+ "deciding": {
+  "swabs_cleared": "The only swab reads 0.3 against limit 2.5 at 05:15, before start 05:45.",
+  "line_disposition": "Swab is under limit and the batch is small, but the skipped rinse and batch ID mismatch leave some doubt.",
+  "worst_deficiency": "The rinse step has done false and actual_min 0 against spec 20.",
+  "exposed_product": "Qty 49.6 kg with no sign-off verifying clean sits just under the 50 kg boundary.",
+  "residue_evidence": "Reading 0.3 is barely above LOD 0.25 and far below limit 2.5, so it is trace or effectively negative."
+ },
+ "request": "rec-F236-0046",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.015151
+}

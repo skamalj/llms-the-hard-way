@@ -1,0 +1,126 @@
+{
+ "id": "F224-0020",
+ "family": "F224",
+ "state": {
+  "request": {
+   "views": [
+    "BW"
+   ],
+   "ind": "C05",
+   "risk": "moderate",
+   "req": "2024-04-09",
+   "prior": "2021-10-05",
+   "flags": []
+  },
+  "exposures": [
+   {
+    "view": "BW",
+    "mGy": 1.8,
+    "t": "13:00"
+   },
+   {
+    "view": "BW",
+    "mGy": 1.8,
+    "t": "13:03",
+    "retake_of": "13:00"
+   },
+   {
+    "view": "PA",
+    "mGy": 0.6,
+    "t": "13:05"
+   },
+   {
+    "view": "PA",
+    "mGy": 0.6,
+    "t": "13:07"
+   }
+  ],
+  "image_review": {
+   "grade": 2,
+   "faults": [
+    "FC_BLUR"
+   ],
+   "second_grader": "done"
+  },
+  "equipment": {
+   "last_qa": "2024-02-01",
+   "qa_months": 6,
+   "output_test": "pass",
+   "drl": {
+    "BW": 1.2
+   }
+  },
+  "operator": {
+   "signoff_at": "2024-04-09T14:00",
+   "prior_findings_12m": 5
+  }
+ },
+ "factors": {
+  "indication_match": "partial_match",
+  "recall_interval_months": 30,
+  "dose_ratio_to_drl": 1.5,
+  "console_log_discrepancy": "none",
+  "retake_cause": "patient_movement",
+  "equipment_qa_status": "in_date",
+  "approved_exception": false,
+  "patient_cooperation_flag": false,
+  "unrequested_exposure_count": 2,
+  "verbal_authorisation_logged": false,
+  "image_grade": "diagnostic",
+  "audit_completeness": "complete",
+  "operator_prior_findings": 5
+ },
+ "factors_sampled": {
+  "indication_match": "partial_match",
+  "recall_interval_months": 30,
+  "dose_ratio_to_drl": 1.64,
+  "console_log_discrepancy": "none",
+  "retake_cause": "patient_movement",
+  "equipment_qa_status": "failed_last_test",
+  "approved_exception": false,
+  "patient_cooperation_flag": false,
+  "unrequested_exposure_count": 1,
+  "verbal_authorisation_logged": false,
+  "image_grade": "diagnostic",
+  "audit_completeness": "complete",
+  "operator_prior_findings": 5
+ },
+ "plan": {
+  "justified": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "operator_retake": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "follow_up": {
+   "clarity": "leaning",
+   "target": "operator_feedback",
+   "second": null
+  },
+  "dose_position": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  },
+  "unjustified_count": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 54,
+ "deciding": {
+  "justified": "Interval is 30 months against 12 allowed, supporting the BW, but C05 only loosely fits the BW request.",
+  "operator_retake": "Retake of 13:00 with FC_BLUR suggests movement, but the empty patient flags list gives no cooperation evidence, so operator cause remains plausible.",
+  "follow_up": "Equipment passes and the record is complete, while 5 prior findings and unrequested PAs favour operator feedback.",
+  "dose_position": "BW 1.8 mGy against drl 1.2 gives exactly 1.5, on the Raised/Excessive boundary.",
+  "unjustified_count": "Two PA exposures are absent from request views; the BW retake at 13:03 may or may not count as a third."
+ },
+ "request": "rec-F224-0016",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011721
+}

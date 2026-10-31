@@ -1,0 +1,136 @@
+{
+ "id": "F240-0009",
+ "family": "F240",
+ "state": {
+  "asset": {
+   "inverter_id": "INV-3-05",
+   "serial": "S305",
+   "rated_ac_kw": 1000
+  },
+  "fault_event": {
+   "serial": "S305",
+   "code": "F-GRD-07",
+   "fw_severity": 4,
+   "ts_start": "2024-09-20T09:00",
+   "ts_clear": null,
+   "auto_restarts": 6
+  },
+  "telemetry": {
+   "exp_day_kwh": 8000,
+   "exp_window_kwh": 3000,
+   "act_window_kwh": 1950,
+   "samples": [
+    {
+     "ts": "2024-09-20T11:55",
+     "ac_kw": 4,
+     "exp_kw": 900,
+     "poa_wm2": 820,
+     "limit_pct": 1.5
+    }
+   ]
+  },
+  "site_context": {
+   "grid_events": [],
+   "neighbours": [
+    {
+     "inverter_id": "INV-3-06",
+     "output_ratio": 0.99
+    }
+   ]
+  },
+  "history": {
+   "faults": [
+    {
+     "date": "2024-09-05",
+     "code": "F-GRD-07"
+    },
+    {
+     "date": "2024-09-09",
+     "code": "F-GRD-07"
+    },
+    {
+     "date": "2024-09-14",
+     "code": "F-GRD-07"
+    },
+    {
+     "date": "2024-09-18",
+     "code": "F-GRD-07"
+    }
+   ],
+   "work_orders": [
+    {
+     "wo_id": "WO-455",
+     "opened": "2024-08-30",
+     "completed": "2024-09-02",
+     "retest_ok": null
+    }
+   ]
+  }
+ },
+ "factors": {
+  "fault_class": "grid_overvoltage",
+  "log_telemetry_mismatch": "none",
+  "grid_event_concurrent": false,
+  "maintenance_window_active": false,
+  "neighbour_cross_check": "neighbours_normal",
+  "repeat_count_30d": 4,
+  "last_repair_status": "completed_unverified",
+  "current_limit_pct": 1.5,
+  "yield_loss_pct": 13.07,
+  "low_irradiance_window": false,
+  "serial_mismatch": false,
+  "boundary_placement": false
+ },
+ "factors_sampled": {
+  "fault_class": "grid_overvoltage",
+  "log_telemetry_mismatch": "none",
+  "grid_event_concurrent": true,
+  "maintenance_window_active": false,
+  "neighbour_cross_check": "neighbours_normal",
+  "repeat_count_30d": 4,
+  "last_repair_status": "completed_unverified",
+  "current_limit_pct": 84.04,
+  "yield_loss_pct": 13.07,
+  "low_irradiance_window": true,
+  "serial_mismatch": false,
+  "boundary_placement": false
+ },
+ "plan": {
+  "genuine_defect": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "post_repair_repeat": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "urgent_dispatch",
+   "second": null
+  },
+  "yield_loss": {
+   "clarity": "clear",
+   "target": "2",
+   "second": null
+  },
+  "capacity_unavailable": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  }
+ },
+ "target_words": 77,
+ "deciding": {
+  "genuine_defect": "No grid events, neighbours at 0.99 and 820 W/m2 irradiance, with 6 auto-restarts and fw_severity 4: the inverter alone is faulting.",
+  "post_repair_repeat": "WO-455 completed 2024-09-02 and four matching F-GRD-07 faults follow on 09-05, 09-09, 09-14 and 09-18.",
+  "next_step": "ts_clear is null, so the fault is still active, with a repeat fault after repair, 13% yield lost and output near zero.",
+  "yield_loss": "(3000-1950)/8000 = 13.1%, well inside 5% to under 20%.",
+  "capacity_unavailable": "Last sample ac_kw 4 of 1000 with limit_pct 1.5 is technically exporting but practically offline, so level 2 versus 3 is close."
+ },
+ "request": "rec-F240-0006",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012222
+}

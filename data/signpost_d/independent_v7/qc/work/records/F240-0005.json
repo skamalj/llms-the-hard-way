@@ -1,0 +1,139 @@
+{
+ "id": "F240-0005",
+ "family": "F240",
+ "state": {
+  "asset": {
+   "inverter_id": "INV-2E",
+   "serial": "SN808",
+   "rated_ac_kw": 1000
+  },
+  "fault_event": {
+   "serial": "SN880",
+   "code": "F-OV-07",
+   "ts_start": "2024-09-04T10:00:00Z",
+   "ts_clear": "2024-09-04T13:00:00Z"
+  },
+  "telemetry": {
+   "exp_day_kwh": 4000,
+   "exp_window_kwh": 1996,
+   "act_window_kwh": 1000,
+   "samples": [
+    {
+     "ts": "2024-09-04T07:00:00Z",
+     "ac_kw": 0,
+     "exp_kw": 100,
+     "poa_wm2": 120,
+     "limit_pct": 0
+    },
+    {
+     "ts": "2024-09-04T13:50:00Z",
+     "ac_kw": 883,
+     "exp_kw": 1000,
+     "poa_wm2": 300,
+     "limit_pct": 88.35
+    }
+   ]
+  },
+  "site_context": {
+   "grid_events": [
+    {
+     "ts": "2024-09-04T10:00:00Z",
+     "type": "overvoltage",
+     "magnitude_pu": 1.1
+    }
+   ],
+   "neighbours": [
+    {
+     "inverter_id": "INV-2D",
+     "output_ratio": 0.97
+    }
+   ]
+  },
+  "history": {
+   "faults": [
+    {
+     "date": "2024-08-20",
+     "code": "F-OV-07"
+    },
+    {
+     "date": "2024-09-01",
+     "code": "F-OV-07"
+    }
+   ],
+   "work_orders": [
+    {
+     "wo_id": "WO-70",
+     "opened": "2024-08-25",
+     "completed": "2024-08-30",
+     "retest_ok": true
+    }
+   ]
+  }
+ },
+ "factors": {
+  "fault_class": "grid_overvoltage",
+  "log_telemetry_mismatch": "large_over_2h",
+  "grid_event_concurrent": true,
+  "maintenance_window_active": false,
+  "neighbour_cross_check": "neighbours_normal",
+  "repeat_count_30d": 3,
+  "last_repair_status": "completed_verified",
+  "current_limit_pct": 88.35,
+  "yield_loss_pct": 24.91,
+  "low_irradiance_window": true,
+  "serial_mismatch": true,
+  "boundary_placement": false
+ },
+ "factors_sampled": {
+  "fault_class": "grid_overvoltage",
+  "log_telemetry_mismatch": "large_over_2h",
+  "grid_event_concurrent": true,
+  "maintenance_window_active": false,
+  "neighbour_cross_check": "neighbours_normal",
+  "repeat_count_30d": 3,
+  "last_repair_status": "completed_verified",
+  "current_limit_pct": 88.35,
+  "yield_loss_pct": 24.91,
+  "low_irradiance_window": true,
+  "serial_mismatch": true,
+  "boundary_placement": false
+ },
+ "plan": {
+  "genuine_defect": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "post_repair_repeat": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "close_log",
+   "second": null
+  },
+  "yield_loss": {
+   "clarity": "clear",
+   "target": "3",
+   "second": null
+  },
+  "capacity_unavailable": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  }
+ },
+ "target_words": 36,
+ "deciding": {
+  "genuine_defect": "Concurrent 1.1 pu grid overvoltage and serial mismatch point external, while normal neighbours and repeat codes keep a defect plausible.",
+  "post_repair_repeat": "WO-70 completed 2024-08-30 and F-OV-07 on 2024-09-01, but the serial mismatch clouds attribution.",
+  "next_step": "Cleared, grid event concurrent, repair verified; close_log is favoured with some doubt from repeats.",
+  "yield_loss": "Loss (1996-1000)/4000=24.9% is well above 20%, Severe.",
+  "capacity_unavailable": "Last sample 883 kW at 88.35% limit conflicts with the 0 kW zero-output samples earlier, so the closing state is partial at best."
+ },
+ "request": "rec-F240-0001",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.007011
+}

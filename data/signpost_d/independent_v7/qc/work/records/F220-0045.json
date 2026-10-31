@@ -1,0 +1,124 @@
+{
+ "id": "F220-0045",
+ "family": "F220",
+ "state": {
+  "tray": {
+   "tray_id": "T-5093",
+   "barcode": "6620871",
+   "requested_for": "2025-03-14T09:20",
+   "request_note": "On-call list needs this set within the hour"
+  },
+  "set_check": {
+   "lines": [
+    {
+     "cat_code": "HK3",
+     "qty_expected": 2,
+     "qty_counted": 1
+    },
+    {
+     "cat_code": "SP9",
+     "qty_expected": 1,
+     "qty_counted": 2
+    }
+   ],
+   "variances": [
+    {
+     "cat_code": "HK3",
+     "reason": "swap",
+     "approved_by": "S.Obi"
+    },
+    {
+     "cat_code": "SP9",
+     "reason": "swap",
+     "approved_by": "S.Obi"
+    }
+   ],
+   "packer_note": "Swap signed."
+  },
+  "washer": {
+   "trays_processed": [
+    "6620871"
+   ]
+  },
+  "steriliser_load": {
+   "printout": null,
+   "logger": {
+    "temp_min_c": 135.4,
+    "hold_s": 200
+   },
+   "bi": {
+    "result": "pass"
+   },
+   "ci_result": "pass",
+   "unload_condition": "dry, intact"
+  }
+ },
+ "factors": {
+  "set_count_discrepancies": 2,
+  "substitution_documented": true,
+  "cycle_excursion": "printout_missing",
+  "independent_logger_confirms": true,
+  "bi_status": "pass",
+  "chemical_indicator": "pass",
+  "washer_record_state": "complete",
+  "pack_integrity": "intact",
+  "label_mismatch": "none",
+  "daily_test_state": "pass_today",
+  "theatre_urgency": "emergency_on_call",
+  "note_tone": "flags_concern_resolved",
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "set_count_discrepancies": 2,
+  "substitution_documented": true,
+  "cycle_excursion": "printout_missing",
+  "independent_logger_confirms": true,
+  "bi_status": "pass",
+  "chemical_indicator": "pass",
+  "washer_record_state": "barcode_not_listed",
+  "pack_integrity": "wrap_tear",
+  "label_mismatch": "none",
+  "daily_test_state": "pass_today",
+  "theatre_urgency": "emergency_on_call",
+  "note_tone": "flags_concern_resolved",
+  "boundary_case": false
+ },
+ "plan": {
+  "cycle_in_limits": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "disposition": {
+   "clarity": "balanced",
+   "target": "reprocess",
+   "second": "release_annotated"
+  },
+  "failure_stage": {
+   "clarity": "balanced",
+   "target": "no_discrepancy",
+   "second": "steriliser_stage"
+  },
+  "count_gaps": {
+   "clarity": "clear",
+   "target": "0",
+   "second": null
+  },
+  "sterility_doubt": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 36,
+ "deciding": {
+  "cycle_in_limits": "printout is null, but the logger shows 135.4 C and a 200 s hold, both in band; the answer leans true.",
+  "disposition": "Both discrepant lines have approved variances and all indicators pass, so release_annotated is plausible; the missing printout keeps a stricter option in view (plan conflict acknowledged).",
+  "failure_stage": "Washer lists the barcode and the swaps are signed; only the null printout leaves a steriliser-stage doubt.",
+  "count_gaps": "HK3 and SP9 each have a variance approved_by S.Obi, so no unexplained discrepancy remains.",
+  "sterility_doubt": "BI and CI pass and the unload is dry and intact; the only gap is the missing printout, covered by the logger."
+ },
+ "request": "rec-F220-0041",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.01309
+}

@@ -1,0 +1,110 @@
+{
+ "id": "F210-0035",
+ "family": "F210",
+ "state": {
+  "collection": {
+   "collected_at": "2024-07-09T08:00",
+   "vat_l": 4200,
+   "meter_l": 4200,
+   "vat_temp_c": 7.0,
+   "last_milking_end": "2024-07-09T07:00"
+  },
+  "sample": {
+   "sample_id": "S550",
+   "taken_at": "2024-07-09T08:40",
+   "seal_intact": true,
+   "arrival_temp_c": 4.8
+  },
+  "lab_results": {
+   "sample_id": "S550",
+   "bactoscan_kcfu_ml": 90,
+   "scc_k_ml": 404,
+   "fat_pct": 4.1,
+   "protein_pct": 3.4,
+   "inhibitory": "neg",
+   "retest": null
+  },
+  "farm_terms": {
+   "limits": {
+    "vat_temp_c": 6,
+    "bactoscan_kcfu_ml": 100,
+    "scc_k_ml": 400
+   },
+   "breaches_90d": 6
+  },
+  "equipment": {
+   "tanker_meter_due": "2025-01-20",
+   "vat_thermometer_due": "2025-02-01"
+  }
+ },
+ "factors": {
+  "vat_temp_level": "borderline",
+  "recent_milking": true,
+  "mismatch_site": "timing",
+  "mismatch_magnitude": "moderate",
+  "meter_calibration_overdue": false,
+  "lab_limit_breaches": 1,
+  "exception_covers_breach": false,
+  "inhibitory_status": "negative",
+  "treatment_withdrawal_active": false,
+  "retest_state": "none",
+  "sample_integrity": "intact",
+  "history_breaches_90d": 6,
+  "value_on_boundary": false,
+  "driver_sensory_flag": false
+ },
+ "factors_sampled": {
+  "vat_temp_level": "borderline",
+  "recent_milking": true,
+  "mismatch_site": "timing",
+  "mismatch_magnitude": "trivial",
+  "meter_calibration_overdue": false,
+  "lab_limit_breaches": 2,
+  "exception_covers_breach": false,
+  "inhibitory_status": "negative",
+  "treatment_withdrawal_active": false,
+  "retest_state": "none",
+  "sample_integrity": "seal_compromised",
+  "history_breaches_90d": 6,
+  "value_on_boundary": false,
+  "driver_sensory_flag": false
+ },
+ "plan": {
+  "temp_compliant": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "intake_disposition": {
+   "clarity": "contested",
+   "target": "accept_full",
+   "second": "hold_retest"
+  },
+  "issue_source": {
+   "clarity": "leaning",
+   "target": "none_evident",
+   "second": null
+  },
+  "discrepancy_size": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  },
+  "unexplained_breaches": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 94,
+ "deciding": {
+  "temp_compliant": "vat_temp_c 7.0 is over 6, but last_milking_end was one hour before collection, so the warmth is explained.",
+  "intake_disposition": "SCC 404 vs 400 is marginal, supporting accept_full, while breaches_90d 6 and the 40-minute sampling gap support a hold.",
+  "issue_source": "Sample IDs match and the seal is intact. Only the sample time is late, and no result clearly falls outside limits.",
+  "discrepancy_size": "sample.taken_at is 40 minutes after collected_at, a moderate timing gap against the expected simultaneous sampling.",
+  "unexplained_breaches": "Only SCC 404 vs limit 400, a 1% excess that could be rounding. Bactoscan 90 is under its limit."
+ },
+ "request": "rec-F210-0031",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.009871
+}

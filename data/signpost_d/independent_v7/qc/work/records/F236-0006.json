@@ -1,0 +1,171 @@
+{
+ "id": "F236-0006",
+ "family": "F236",
+ "state": {
+  "changeover": {
+   "line": "L2",
+   "from_allergens": [
+    "milk"
+   ],
+   "to_allergens": [
+    "sesame"
+   ],
+   "to_code": "BR-210"
+  },
+  "cleaning": {
+   "steps": [
+    {
+     "n": 1,
+     "completed": true,
+     "spec_min": 20,
+     "actual_min": 22
+    },
+    {
+     "n": 2,
+     "completed": true,
+     "spec_min": 15,
+     "actual_min": 15
+    }
+   ],
+   "part_swap": true,
+   "dedicated_set": "DS-4"
+  },
+  "verification": {
+   "swabs": [
+    {
+     "id": "S1",
+     "target": "sesame",
+     "reading": 10,
+     "limit_ppm": 10,
+     "at": "2024-05-06T06:40"
+    },
+    {
+     "id": "S2",
+     "retest_of": "S1",
+     "target": "sesame",
+     "reading": 2,
+     "limit_ppm": 10,
+     "at": "2024-05-06T06:50"
+    }
+   ]
+  },
+  "production": {
+   "line": "L2",
+   "product_code": "BR-201",
+   "start_at": "2024-05-06T07:00",
+   "quantity": 316.39,
+   "unit": "kg"
+  },
+  "approvals": {
+   "qa_signoff": {
+    "signer": "QA7",
+    "signed_at": "2024-05-06T06:55"
+   },
+   "deviations": [
+    {
+     "id": "D-5",
+     "scope": "L2 S1 retest",
+     "approved_at": "2024-05-06T06:45"
+    }
+   ]
+  },
+  "history": [
+   {
+    "passed": false
+   },
+   {
+    "passed": true
+   },
+   {
+    "passed": false
+   },
+   {
+    "passed": true
+   },
+   {
+    "passed": true
+   },
+   {
+    "passed": false
+   },
+   {
+    "passed": true
+   },
+   {
+    "passed": true
+   },
+   {
+    "passed": false
+   },
+   {
+    "passed": true
+   }
+  ]
+ },
+ "factors": {
+  "allergen_transition": "swaps_allergen",
+  "cleaning_completion": "full",
+  "swab_outcome": "over_limit_retest_pass",
+  "swab_timing_mismatch": false,
+  "cross_section_discrepancy": "product_code_mismatch",
+  "exposed_quantity_kg": 316.39,
+  "approved_deviation": true,
+  "label_precaution": false,
+  "dedicated_tooling": true,
+  "qa_signoff_state": "signed_before_start",
+  "line_failure_history": 4,
+  "boundary_value": true
+ },
+ "factors_sampled": {
+  "allergen_transition": "swaps_allergen",
+  "cleaning_completion": "full",
+  "swab_outcome": "all_negative",
+  "swab_timing_mismatch": true,
+  "cross_section_discrepancy": "product_code_mismatch",
+  "exposed_quantity_kg": 316.39,
+  "approved_deviation": true,
+  "label_precaution": false,
+  "dedicated_tooling": true,
+  "qa_signoff_state": "signed_after_start",
+  "line_failure_history": 4,
+  "boundary_value": true
+ },
+ "plan": {
+  "swabs_cleared": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "line_disposition": {
+   "clarity": "leaning",
+   "target": "hold",
+   "second": null
+  },
+  "worst_deficiency": {
+   "clarity": "balanced",
+   "target": "cleaning_shortfall",
+   "second": "none"
+  },
+  "exposed_product": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  },
+  "residue_evidence": {
+   "clarity": "clear",
+   "target": "2",
+   "second": null
+  }
+ },
+ "target_words": 37,
+ "deciding": {
+  "swabs_cleared": "S1 over/at limit but retest S2 (2 ppm) at 06:50, before start_at 07:00.",
+  "line_disposition": "Product code BR-201 differs from to_code BR-210, so one confirmation is outstanding; otherwise checks pass.",
+  "worst_deficiency": "S1 reading equals limit (10 ppm) but retest passed under an approved deviation; only the code mismatch remains, so cleaning_shortfall vs none is balanced.",
+  "exposed_product": "Retest passed 10 minutes before start and sign-off preceded start, so little or no product preceded verification.",
+  "residue_evidence": "S1 reading 10 equals limit 10 and retest S2 passed at 2 ppm."
+ },
+ "request": "rec-F236-0006",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.015068
+}

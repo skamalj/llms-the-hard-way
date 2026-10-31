@@ -1,0 +1,173 @@
+{
+ "id": "F216-0012",
+ "family": "F216",
+ "state": {
+  "session": {
+   "id": "S-2291",
+   "site": "OR4",
+   "session_type": "outreach_coolbox",
+   "date": "2025-05-19",
+   "start": "11:30",
+   "end": "15:00",
+   "next_session_date": "2025-05-21"
+  },
+  "storage": {
+   "unit": "CB-07",
+   "unit_type": "coolbox",
+   "probe_config": "product",
+   "alarms_30d": 5
+  },
+  "temp_log": {
+   "readings": [
+    [
+     "11:55",
+     6.1,
+     5.2
+    ],
+    [
+     "12:05",
+     9.3,
+     6.8
+    ],
+    [
+     "12:55",
+     9.0,
+     7.1
+    ],
+    [
+     "13:30",
+     5.0,
+     4.6
+    ]
+   ],
+   "manual_checks": [
+    {
+     "time": "13:00",
+     "min_c": 2.4,
+     "max_c": 9.1,
+     "current_c": 6.9
+    }
+   ],
+   "logger_gaps": [
+    [
+     "12:10",
+     "12:50"
+    ]
+   ]
+  },
+  "stock": {
+   "lots": [
+    {
+     "lot_no": "A4412",
+     "shelf": "lid",
+     "tolerance_min_out": 30,
+     "opening": 40,
+     "wasted": 2,
+     "closing": 12
+    },
+    {
+     "lot_no": "B7730",
+     "shelf": "base",
+     "tolerance_min_out": 90,
+     "opening": 30,
+     "wasted": 0,
+     "closing": 21
+    }
+   ]
+  },
+  "administration": [
+   {
+    "time": "11:50",
+    "lot_no": "A4412",
+    "doses": 11
+   },
+   {
+    "time": "11:45",
+    "lot_no": "B7730",
+    "doses": 9
+   },
+   {
+    "time": "12:20",
+    "lot_no": "A4412",
+    "doses": 9
+   }
+  ],
+  "excursion_actions": {
+   "start": "12:10",
+   "end": "13:00",
+   "quarantined": false,
+   "advice_requested_at": "12:40",
+   "advice_status": "REF",
+   "advice_received_at": "14:10",
+   "revised_expiry": null
+  }
+ },
+ "factors": {
+  "true_excursion_minutes": 0,
+  "log_source_discrepancy": "logger_gap",
+  "buffered_probe_in_range": true,
+  "planned_maintenance": false,
+  "stability_clearance": "refused",
+  "doses_during_exposure": 9,
+  "stock_count_gap": 6,
+  "lot_id_mismatch": false,
+  "lots_beyond_tolerance": "some",
+  "freezing_reading": false,
+  "boundary_case": false,
+  "unit_alarm_history": 5,
+  "session_type": "outreach_coolbox"
+ },
+ "factors_sampled": {
+  "true_excursion_minutes": 256,
+  "log_source_discrepancy": "logger_gap",
+  "buffered_probe_in_range": true,
+  "planned_maintenance": true,
+  "stability_clearance": "cleared_full",
+  "doses_during_exposure": 9,
+  "stock_count_gap": 6,
+  "lot_id_mismatch": false,
+  "lots_beyond_tolerance": "none",
+  "freezing_reading": false,
+  "boundary_case": false,
+  "unit_alarm_history": 5,
+  "session_type": "outreach_coolbox"
+ },
+ "plan": {
+  "dosed_uncleared": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "stock_reconciles": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "stock_disposition": {
+   "clarity": "balanced",
+   "target": "partial_discard",
+   "second": "discard_all"
+  },
+  "excursion_duration": {
+   "clarity": "leaning",
+   "target": "0",
+   "second": null
+  },
+  "followup_urgency": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  }
+ },
+ "target_words": 97,
+ "deciding": {
+  "dosed_uncleared": "9 doses of A4412 at 12:20, after excursion start 12:10 and before advice received 14:10 (status REF, no clearance).",
+  "stock_reconciles": "A4412: 40-2-(11+9)=18 expected vs closing 12, gap of 6; B7730 balances.",
+  "stock_disposition": "Advice refused; manual max 9.1 inside the 12:10-12:50 logger gap, with A4412 tolerance 30 min and B7730 tolerance 90 min against an unknown exposure, so partial vs all is balanced.",
+  "excursion_duration": "All logged product_c readings are within 2-8 (air spikes only), so summed minutes are 0; only the logger gap and manual max 9.1 leave doubt.",
+  "followup_urgency": "Next session 2025-05-21, two days out; refused advice with 9 doses given in the window pulls toward earlier action, so before-next-session vs within 24 h is balanced."
+ },
+ "request": "rec-F216-0011",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.017698
+}

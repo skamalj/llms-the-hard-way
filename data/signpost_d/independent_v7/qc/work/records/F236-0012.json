@@ -1,0 +1,141 @@
+{
+ "id": "F236-0012",
+ "family": "F236",
+ "state": {
+  "changeover": {
+   "line_id": "L4",
+   "to_code": "BR21",
+   "from_allergens": [
+    "sesame",
+    "wheat"
+   ],
+   "to_allergens": [
+    "wheat"
+   ]
+  },
+  "cleaning": {
+   "steps": [
+    {
+     "step": "wash",
+     "completed": true,
+     "spec_min": 40,
+     "actual_min": 42
+    }
+   ],
+   "part_swap": true,
+   "set_id": "DT-7"
+  },
+  "verification": {
+   "swabs": [
+    {
+     "id": "S1",
+     "target": "sesame",
+     "reading": 12,
+     "limit_ppm": 10,
+     "at": "2024-04-02T06:10"
+    },
+    {
+     "id": "S1R",
+     "retest_of": "S1",
+     "target": "sesame",
+     "reading": 4,
+     "limit_ppm": 10,
+     "at": "2024-04-02T06:40"
+    }
+   ]
+  },
+  "production": {
+   "line_id": "L4",
+   "product_code": "BR21",
+   "start_at": "2024-04-02T07:00",
+   "quantity": 980570,
+   "unit": "g",
+   "packaging_allergens": {
+    "may_contain": [
+     "sesame"
+    ]
+   },
+   "held": true
+  },
+  "approvals": {
+   "qa_signoff": {
+    "signer": "QA1",
+    "signed_at": "2024-04-02T06:50"
+   }
+  },
+  "history": [
+   {
+    "d": "03-28",
+    "o": "BR08",
+    "i": "BR02",
+    "ok": false
+   }
+  ]
+ },
+ "factors": {
+  "allergen_transition": "removes_allergen",
+  "cleaning_completion": "full",
+  "swab_outcome": "positive_retest_pass",
+  "swab_timing_mismatch": false,
+  "cross_section_discrepancy": "quantity_unit_mismatch",
+  "exposed_quantity_kg": 980.57,
+  "approved_deviation": false,
+  "label_precaution": true,
+  "dedicated_tooling": true,
+  "qa_signoff_state": "signed_before_start",
+  "line_failure_history": 1,
+  "boundary_value": false
+ },
+ "factors_sampled": {
+  "allergen_transition": "removes_allergen",
+  "cleaning_completion": "full",
+  "swab_outcome": "trace_below_limit",
+  "swab_timing_mismatch": false,
+  "cross_section_discrepancy": "quantity_unit_mismatch",
+  "exposed_quantity_kg": 980.57,
+  "approved_deviation": false,
+  "label_precaution": true,
+  "dedicated_tooling": true,
+  "qa_signoff_state": "signed_before_start",
+  "line_failure_history": 1,
+  "boundary_value": false
+ },
+ "plan": {
+  "swabs_cleared": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "line_disposition": {
+   "clarity": "clear",
+   "target": "hold",
+   "second": null
+  },
+  "worst_deficiency": {
+   "clarity": "balanced",
+   "target": "records_only",
+   "second": "cleaning_shortfall"
+  },
+  "exposed_product": {
+   "clarity": "clear",
+   "target": "3",
+   "second": null
+  },
+  "residue_evidence": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 49,
+ "deciding": {
+  "swabs_cleared": "S1 read 12 against a limit of 10, and retest S1R (retest_of S1) read 4 at 06:40, before the 07:00 start.",
+  "line_disposition": "The batch is flagged held and the quantity is recorded as 980570 with unit g where kg is expected. The unit has to be confirmed before release, while the swabs and sign-off are in order.",
+  "worst_deficiency": "The unit mismatch is a paperwork issue. The initial over-limit sesame swab could be read as a cleaning shortfall, but the retest passed.",
+  "exposed_product": "The retest passed at 06:40 and production started at 07:00, so on the swab times no product preceded verification. The 980 kg batch quantity is large, but the unit is unclear. This level is weakly settled by the record.",
+  "residue_evidence": "S1 read 12 ppm against a 10 ppm limit and the retest S1R read 4 ppm, which is a cleared result. The over-limit first reading is the only reason to read it higher."
+ },
+ "request": "rec-F236-0011",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.016402
+}

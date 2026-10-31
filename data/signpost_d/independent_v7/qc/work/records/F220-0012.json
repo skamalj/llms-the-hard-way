@@ -1,0 +1,133 @@
+{
+ "id": "F220-0012",
+ "family": "F220",
+ "state": {
+  "tray": {
+   "tray_id": "T2",
+   "set_code": "LAP-3",
+   "barcode": "B2",
+   "requested_for": "2025-04-02T14:00",
+   "theatre": "Th4",
+   "request_note": "Routine list."
+  },
+  "set_check": {
+   "lines": [
+    {
+     "cat_code": "S1",
+     "qty_expected": 3,
+     "qty_counted": 2
+    },
+    {
+     "cat_code": "S7",
+     "qty_expected": 1,
+     "qty_counted": 2
+    }
+   ],
+   "variances": [
+    {
+     "cat_code": "S7",
+     "reason": "spare",
+     "approved_by": "J. Ames"
+    }
+   ],
+   "packer_note": "Counted, ok."
+  },
+  "washer": {
+   "cycle_id": "W7",
+   "a0": 600,
+   "alarms": [
+    "low_flow"
+   ],
+   "trays_processed": [
+    "B2"
+   ],
+   "rerun_cycle_id": "W8"
+  },
+  "steriliser_load": {
+   "load_id": "L2",
+   "steriliser_id": "A2",
+   "printout": null,
+   "logger": null,
+   "daily_test": null,
+   "bi": {
+    "result": "pending",
+    "incubation_end": "2025-04-03T08:00"
+   },
+   "ci_result": "pass",
+   "unload_condition": "dry"
+  },
+  "release_label": {
+   "tray_barcode": "B2",
+   "load_id": "L2",
+   "wrap_condition": "intact"
+  }
+ },
+ "factors": {
+  "set_count_discrepancies": 2,
+  "substitution_documented": true,
+  "cycle_excursion": "missing_cycle_data",
+  "independent_logger_confirms": false,
+  "bi_status": "pending",
+  "chemical_indicator": "pass",
+  "washer_record_state": "alarm_cleared_rerun",
+  "pack_integrity": "intact",
+  "label_mismatch": "none",
+  "daily_test_state": "not_logged",
+  "theatre_urgency": "routine",
+  "note_tone": "neutral",
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "set_count_discrepancies": 2,
+  "substitution_documented": false,
+  "cycle_excursion": "brief_temp_dip",
+  "independent_logger_confirms": false,
+  "bi_status": "pending",
+  "chemical_indicator": "pass",
+  "washer_record_state": "alarm_cleared_rerun",
+  "pack_integrity": "intact",
+  "label_mismatch": "expiry_inconsistent",
+  "daily_test_state": "not_logged",
+  "theatre_urgency": "routine",
+  "note_tone": "neutral",
+  "boundary_case": false
+ },
+ "plan": {
+  "cycle_in_limits": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "disposition": {
+   "clarity": "contested",
+   "target": "release",
+   "second": "reprocess"
+  },
+  "failure_stage": {
+   "clarity": "balanced",
+   "target": "no_discrepancy",
+   "second": "wash_stage"
+  },
+  "count_gaps": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  },
+  "sterility_doubt": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  }
+ },
+ "target_words": 86,
+ "deciding": {
+  "cycle_in_limits": "steriliser_load printout and logger are both null; no cycle data exist to show limits were met.",
+  "disposition": "Release is defensible given CI pass, dry intact wrap and cleared washer alarm; reprocess is defensible given no cycle data, a pending BI and no daily test.",
+  "failure_stage": "Washer alarm low_flow has rerun W8 listed (mitigated), but the rerun's own result is not shown, which keeps wash_stage plausible.",
+  "count_gaps": "S1 is short by one with no variance; S7 has an approved variance, leaving one unexplained.",
+  "sterility_doubt": "BI pending with a future incubation_end and no cycle printout or logger; CI passed and the wrap is dry, so none failed."
+ },
+ "request": "rec-F220-0011",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.010891
+}

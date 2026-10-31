@@ -1,0 +1,145 @@
+{
+ "id": "F230-0002",
+ "family": "F230",
+ "state": {
+  "resident": {
+   "id": "B2",
+   "status": "in_home"
+  },
+  "prescriptions": [
+   {
+    "item_id": "i1",
+    "drug": "warfarin",
+    "strength_mg": 1,
+    "dose_units": 2,
+    "high_risk": true
+   },
+   {
+    "item_id": "i2",
+    "drug": "co-codamol",
+    "strength_mg": 10,
+    "dose_units": 2
+   },
+   {
+    "item_id": "i3",
+    "drug": "vitD",
+    "strength_mg": 1,
+    "dose_units": 1
+   }
+  ],
+  "administrations": [
+   {
+    "item_id": "i1",
+    "scheduled": "2024-05-10T18:00",
+    "given_at": "2024-05-10T18:05",
+    "units_given": 2,
+    "strength_mg_used": 1,
+    "initials": "KM"
+   },
+   {
+    "item_id": "i1",
+    "scheduled": "2024-05-10T18:00",
+    "given_at": "2024-05-10T18:20",
+    "units_given": 2,
+    "strength_mg_used": 1,
+    "initials": "RP"
+   },
+   {
+    "item_id": "i2",
+    "scheduled": "2024-05-10T18:00",
+    "given_at": "2024-05-10T19:15",
+    "units_given": 2,
+    "strength_mg_used": 5,
+    "initials": "KM"
+   }
+  ],
+  "stock": {
+   "i1": {
+    "opening": 30,
+    "closing": 25,
+    "wasted": 1,
+    "wasted_witnessed": true
+   }
+  },
+  "round": {
+   "date": "2024-05-10",
+   "open_queries": [
+    {
+     "type": "pharmacy",
+     "raised": "2024-05-10T20:00",
+     "item_id": "i3"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "dose_mismatch_type": "duplicate_entry",
+  "prescription_change_documented": false,
+  "omission_count": 0,
+  "omission_reason_valid": false,
+  "late_minutes": 75,
+  "time_critical_affected": true,
+  "stock_variance": -1,
+  "stock_variance_explained": true,
+  "signature_gaps": 0,
+  "unit_expression_decoy": "equivalent_split",
+  "post_dose_obs_reassuring": false,
+  "pending_query": "pharmacy_query_open",
+  "prior_errors_30d": 3,
+  "item_count": 3
+ },
+ "factors_sampled": {
+  "dose_mismatch_type": "duplicate_entry",
+  "prescription_change_documented": false,
+  "omission_count": 0,
+  "omission_reason_valid": false,
+  "late_minutes": 75,
+  "time_critical_affected": false,
+  "stock_variance": -1,
+  "stock_variance_explained": true,
+  "signature_gaps": 0,
+  "unit_expression_decoy": "equivalent_split",
+  "post_dose_obs_reassuring": false,
+  "pending_query": "pharmacy_query_open",
+  "prior_errors_30d": 3,
+  "item_count": 4
+ },
+ "plan": {
+  "dose_mismatch": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "stock_reconciles": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "contested",
+   "target": "sign_off",
+   "second": "clinical_escalation"
+  },
+  "open_discrepancies": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  },
+  "error_severity": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "4"
+  }
+ },
+ "target_words": 72,
+ "deciding": {
+  "dose_mismatch": "i1 has two entries for the same scheduled time (18:05 and 18:20); the i2 split of 2 units at 5 mg against 10 mg is equivalent.",
+  "stock_reconciles": "i1: 30 opening minus 4 signed minus 1 witnessed waste equals 25 closing; stock is given for i1 only, which leaves some doubt.",
+  "next_step": "The warfarin duplicate is a high-risk item, so escalation is arguable; the open pharmacy query on i3 and the lack of any observations support sign-off or waiting.",
+  "open_discrepancies": "The i1 duplicate is the only clear item; the i3 query is unrelated and unresolved, so 1 or 0 is plausible.",
+  "error_severity": "i1 duplicate dose of a high-risk item: wrong level of 3 or 4 depends on whether high_risk counts as time-critical; i2 is 75 minutes late."
+ },
+ "request": "rec-F230-0001",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.01078
+}

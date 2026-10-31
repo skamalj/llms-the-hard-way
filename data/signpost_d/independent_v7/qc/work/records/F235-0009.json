@@ -1,0 +1,150 @@
+{
+ "id": "F235-0009",
+ "family": "F235",
+ "state": {
+  "station": {
+   "station_id": "S047",
+   "gauge_type": "pressure",
+   "backup": {
+    "type": "float",
+    "installed": true,
+    "last_value_m": 0.87,
+    "status": "stale"
+   },
+   "telemetry": {
+    "batt_v": 12.6
+   }
+  },
+  "visit": {
+   "type": "reactive",
+   "visit_date": "2024-07-09",
+   "tasks_planned": 3,
+   "abort_reason": null
+  },
+  "checks": {
+   "pre": {
+    "board_m": [
+     0.955,
+     0.955
+    ],
+    "logger_m": 0.914
+   },
+   "post": {
+    "board_m": [
+     0.955,
+     0.955
+    ],
+    "logger_m": 0.954
+   }
+  },
+  "works": {
+   "tasks": [
+    {
+     "task": "swap transducer",
+     "status": "done"
+    },
+    {
+     "task": "reconnect backup",
+     "status": "done"
+    },
+    {
+     "task": "download logger",
+     "status": "done"
+    }
+   ],
+   "parts": [
+    {
+     "part": "transducer",
+     "serial_out": "K09",
+     "serial_in": "K44"
+    }
+   ],
+   "bench_test": null,
+   "logger_gap_h": 93
+  },
+  "defects": [
+   {
+    "item": "backup sensor stale",
+    "channel": "secondary",
+    "reporting": false
+   },
+   {
+    "item": "primary cable connector corroded",
+    "channel": "primary_stage",
+    "reporting": true
+   }
+  ],
+  "notes": {
+   "tech_note": "Logger badly out, sensor clearly failing!",
+   "supervisor_comment": "Weed cut upstream 5 days earlier; removed sensor bench result not yet back."
+  }
+ },
+ "factors": {
+  "pre_visit_offset_mm": 41.0,
+  "check_reading_spread_mm": 0.4,
+  "drift_cause": "sensor_fault",
+  "cause_evidence": "single_indicator",
+  "visit_completion": "full",
+  "post_visit_check_logged": true,
+  "residual_defect_class": "secondary_degraded_with_primary_connector_concern",
+  "backup_sensor_ok": false,
+  "benign_explanation": true,
+  "record_gap": "none",
+  "logger_gap_hours": 93,
+  "telemetry_decoy": "normal",
+  "note_tone": "alarming"
+ },
+ "factors_sampled": {
+  "pre_visit_offset_mm": 21.49,
+  "check_reading_spread_mm": 0.4,
+  "drift_cause": "no_drift",
+  "cause_evidence": "single_indicator",
+  "visit_completion": "full",
+  "post_visit_check_logged": true,
+  "residual_defect_class": "none",
+  "backup_sensor_ok": false,
+  "benign_explanation": true,
+  "record_gap": "none",
+  "logger_gap_hours": 93,
+  "telemetry_decoy": "normal",
+  "note_tone": "alarming"
+ },
+ "plan": {
+  "sensor_fault_cause": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "visit_disposition": {
+   "clarity": "clear",
+   "target": "hold",
+   "second": null
+  },
+  "data_treatment": {
+   "clarity": "leaning",
+   "target": "mark_provisional",
+   "second": null
+  },
+  "offset_size": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "residual_defect": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  }
+ },
+ "target_words": 115,
+ "deciding": {
+  "sensor_fault_cause": "Post check agrees after the transducer swap, but the bench test is null and a weed cut upstream offers a channel explanation.",
+  "visit_disposition": "Bench test is null and the supervisor says the removed sensor's result is not back, so one confirmation is missing.",
+  "data_treatment": "The cause is unconfirmed, with the bench result pending and a weed cut as an alternative, so the values stay provisional.",
+  "offset_size": "Board mean 0.955 minus logger 0.914 is 41 mm, just over the 40 mm boundary.",
+  "residual_defect": "The backup is stale and not reporting, and a corroded primary connector is listed with the primary still reporting, which sits between levels 2 and 3."
+ },
+ "request": "rec-F235-0006",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011907
+}

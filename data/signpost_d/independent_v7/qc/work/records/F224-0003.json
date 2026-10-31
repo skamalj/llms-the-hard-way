@@ -1,0 +1,120 @@
+{
+ "id": "F224-0003",
+ "family": "F224",
+ "state": {
+  "request": {
+   "views": [
+    "PA_UL6"
+   ],
+   "ind": "ORTHO_ASSESS",
+   "risk": "moderate",
+   "date": "2025-04-02",
+   "prior_same_view": "2024-04-02",
+   "patient_flags": [
+    "GAG_REFLEX"
+   ]
+  },
+  "exposures": [
+   {
+    "id": 1,
+    "view": "PA_UL6",
+    "t": "11:00",
+    "dose_mGy": 1.0,
+    "retake_of": null
+   },
+   {
+    "id": 2,
+    "view": "PA_UL6",
+    "t": "11:02",
+    "dose_mGy": 2.27,
+    "retake_of": 1
+   }
+  ],
+  "image_review": {
+   "sensor_err": [
+    {
+     "code": "E41",
+     "t": "11:00"
+    }
+   ]
+  },
+  "equipment": {
+   "qa": "in_date",
+   "drl": {
+    "PA_UL6": 1.5
+   }
+  },
+  "operator": {
+   "signoff_at": "2025-04-02T12:00",
+   "prior_findings_12m": 4
+  }
+ },
+ "factors": {
+  "indication_match": "mismatch",
+  "recall_interval_months": 12,
+  "dose_ratio_to_drl": 1.51,
+  "console_log_discrepancy": "none",
+  "retake_cause": "sensor_fault",
+  "equipment_qa_status": "in_date",
+  "approved_exception": false,
+  "patient_cooperation_flag": true,
+  "unrequested_exposure_count": 0,
+  "verbal_authorisation_logged": false,
+  "image_grade": "diagnostic",
+  "audit_completeness": "complete",
+  "operator_prior_findings": 4
+ },
+ "factors_sampled": {
+  "indication_match": "mismatch",
+  "recall_interval_months": 12,
+  "dose_ratio_to_drl": 1.52,
+  "console_log_discrepancy": "timestamp_drift",
+  "retake_cause": "sensor_fault",
+  "equipment_qa_status": "overdue",
+  "approved_exception": false,
+  "patient_cooperation_flag": true,
+  "unrequested_exposure_count": 2,
+  "verbal_authorisation_logged": true,
+  "image_grade": "diagnostic",
+  "audit_completeness": "complete",
+  "operator_prior_findings": 4
+ },
+ "plan": {
+  "justified": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "operator_retake": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "follow_up": {
+   "clarity": "clear",
+   "target": "operator_feedback",
+   "second": null
+  },
+  "dose_position": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "unjustified_count": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  }
+ },
+ "target_words": 26,
+ "deciding": {
+  "justified": "Indication ORTHO_ASSESS does not fit a PA_UL6 periapical request.",
+  "operator_retake": "Sensor error E41 at 11:00 precedes retake 2, but GAG_REFLEX is also flagged, so a reader may keep some doubt.",
+  "follow_up": "Indication-view mismatch with 4 prior findings, sign-off complete and QA in date, points to operator feedback.",
+  "dose_position": "Retake dose 2.27 against reference 1.5 is 151%, at the 150% boundary.",
+  "unjustified_count": "The mismatched request leaves the first exposure unjustified; whether the sensor-fault retake counts separately is open (1 versus 0 or 2)."
+ },
+ "request": "rec-F224-0001",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.010096
+}

@@ -1,0 +1,147 @@
+{
+ "id": "F204-0023",
+ "family": "F204",
+ "state": {
+  "rx": {
+   "drug": "warfarin",
+   "strength": {
+    "val": 3,
+    "unit": "mg",
+    "per_ml": null
+   },
+   "form": "tab",
+   "dose": 1,
+   "freq_per_day": 1,
+   "qty": 56,
+   "days_intended": 56,
+   "issued": "2025-05-08"
+  },
+  "patient": {
+   "pt_id": "P9034",
+   "age": 74,
+   "supplies": [
+    {
+     "date": "2025-05-01",
+     "days_covered": 10
+    }
+   ],
+   "emergency_supplies": [],
+   "near_miss_count": 0
+  },
+  "dispensed": {
+   "product_name": "Warfarin 5mg tablets",
+   "strength": {
+    "val": 5,
+    "unit": "mg",
+    "per_ml": null
+   },
+   "form": "tab",
+   "pack_size": 28,
+   "packs": 1,
+   "owing": {
+    "qty": 28,
+    "slip_no": "OW552"
+   },
+   "batch": "W2290",
+   "expiry": "2026-11-30",
+   "req_warnings": [
+    "W1",
+    "W8"
+   ],
+   "high_risk": true
+  },
+  "label": {
+   "pt_id": "P9034",
+   "dose_qty": 1,
+   "freq_per_day": 1,
+   "warning_codes": [
+    "W1",
+    "W8"
+   ],
+   "qty_printed": 28
+  },
+  "check_log": {
+   "checked_at": "2025-05-10T16:40",
+   "clin_check": {
+    "by": "RPh7",
+    "at": "2025-05-09T11:05"
+   },
+   "queries": [
+    {
+     "raised_at": "2025-05-10T16:15",
+     "field": "strength",
+     "status": "pending"
+    }
+   ],
+   "interventions": []
+  }
+ },
+ "factors": {
+  "strength_status": "mismatch_same_units",
+  "product_status": "exact",
+  "quantity_status": "owing_documented",
+  "label_status": "match",
+  "prescriber_query": "pending",
+  "pharmacist_intervention": false,
+  "clinical_check_signed": true,
+  "home_supply_days": 1,
+  "emergency_supply": false,
+  "short_expiry": false,
+  "prior_error_count": 0,
+  "high_risk_drug": true,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "strength_status": "match_same_units",
+  "product_status": "form_differs",
+  "quantity_status": "owing_documented",
+  "label_status": "warning_code_missing",
+  "prescriber_query": "none",
+  "pharmacist_intervention": false,
+  "clinical_check_signed": true,
+  "home_supply_days": 10,
+  "emergency_supply": false,
+  "short_expiry": false,
+  "prior_error_count": 0,
+  "high_risk_drug": true,
+  "boundary_case": false
+ },
+ "plan": {
+  "strength_differs": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "balanced",
+   "target": "hold_query",
+   "second": "redispense"
+  },
+  "error_category": {
+   "clarity": "leaning",
+   "target": "product_error",
+   "second": null
+  },
+  "open_discrepancies": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  },
+  "supply_urgency": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  }
+ },
+ "target_words": 138,
+ "deciding": {
+  "strength_differs": "rx 3 mg against dispensed 5 mg in the same unit; the strengths differ, though a pending strength query leaves a little doubt.",
+  "next_step": "A pending query on strength supports hold_query, but the pack is plainly 5 mg against 3 mg prescribed, so returning it for re-pick is also defensible.",
+  "error_category": "Wrong strength picked (5 mg for 3 mg); quantity is covered by owing slip OW552 and the label matches.",
+  "open_discrepancies": "Only the strength field is unresolved; the 28 owing is documented and label dose, warnings and patient id match.",
+  "supply_urgency": "Last supply 2025-05-01 plus 10 days covers through 05-10, and checked_at is 05-10 16:40, so today's dose is the last, between 1 day and none."
+ },
+ "request": "rec-F204-0021",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.01334
+}

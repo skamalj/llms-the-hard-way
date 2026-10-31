@@ -1,0 +1,149 @@
+{
+ "id": "F240-0049",
+ "family": "F240",
+ "state": {
+  "asset": {
+   "inverter_id": "INV-6-11",
+   "serial": "S640",
+   "rated_ac_kw": 1000
+  },
+  "fault_event": {
+   "serial": "S640",
+   "code": "F-COM-03",
+   "fw_severity": 2,
+   "ts_start": "2025-07-08T17:40",
+   "ts_clear": null
+  },
+  "telemetry": {
+   "samples": [
+    {
+     "ts": "2025-07-08T17:10",
+     "ac_kw": 0,
+     "exp_kw": 80,
+     "poa_wm2": 300,
+     "limit_pct": 0
+    },
+    {
+     "ts": "2025-07-08T18:00",
+     "ac_kw": 0,
+     "exp_kw": 30,
+     "poa_wm2": 150,
+     "limit_pct": 0
+    }
+   ],
+   "exp_day_kwh": 4000,
+   "exp_window_kwh": 45,
+   "act_window_kwh": 5
+  },
+  "site_context": {
+   "grid_events": [],
+   "maint_windows": [
+    {
+     "from": "2025-07-08",
+     "to": "2025-07-09",
+     "scope": "BLK-2"
+    }
+   ],
+   "neighbours": [
+    {
+     "inverter_id": "INV-6-12",
+     "output_ratio": 1.0
+    }
+   ]
+  },
+  "history": {
+   "faults": [
+    {
+     "date": "2025-06-20",
+     "code": "F-COM-03"
+    },
+    {
+     "date": "2025-06-30",
+     "code": "F-COM-03"
+    },
+    {
+     "date": "2025-07-03",
+     "code": "F-COM-03"
+    },
+    {
+     "date": "2025-07-07",
+     "code": "F-COM-03"
+    }
+   ],
+   "work_orders": [
+    {
+     "wo_id": "W9",
+     "opened": "2025-06-28",
+     "completed": "2025-07-01",
+     "retest_ok": null
+    }
+   ]
+  }
+ },
+ "factors": {
+  "fault_class": "comms_loss",
+  "log_telemetry_mismatch": "moderate_15_60min",
+  "grid_event_concurrent": false,
+  "maintenance_window_active": false,
+  "neighbour_cross_check": "neighbours_normal",
+  "repeat_count_30d": 4,
+  "last_repair_status": "completed_unverified",
+  "current_limit_pct": 0.0,
+  "yield_loss_pct": 1.0,
+  "low_irradiance_window": false,
+  "serial_mismatch": false,
+  "boundary_placement": false
+ },
+ "factors_sampled": {
+  "fault_class": "comms_loss",
+  "log_telemetry_mismatch": "moderate_15_60min",
+  "grid_event_concurrent": false,
+  "maintenance_window_active": true,
+  "neighbour_cross_check": "neighbours_affected",
+  "repeat_count_30d": 4,
+  "last_repair_status": "open",
+  "current_limit_pct": 95.39,
+  "yield_loss_pct": 20.91,
+  "low_irradiance_window": false,
+  "serial_mismatch": false,
+  "boundary_placement": false
+ },
+ "plan": {
+  "genuine_defect": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "post_repair_repeat": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "hold_confirm",
+   "second": null
+  },
+  "yield_loss": {
+   "clarity": "contested",
+   "target": "0",
+   "second": "1"
+  },
+  "capacity_unavailable": {
+   "clarity": "clear",
+   "target": "3",
+   "second": null
+  }
+ },
+ "target_words": 58,
+ "deciding": {
+  "genuine_defect": "Four F-COM-03 faults in 30 days with neighbour ratio 1.0 and no grid event; the maintenance window is for BLK-2. Comms loss could still be external.",
+  "post_repair_repeat": "F-COM-03 on 2025-07-03 and 2025-07-07 follow W9 completed 2025-07-01.",
+  "next_step": "W9 has retest_ok null and the log is uncleared: the one missing confirmation is the repair retest.",
+  "yield_loss": "(45-5)/4000 = 1.0%, on the level 0/1 boundary.",
+  "capacity_unavailable": "Last sample ac_kw 0 and limit_pct 0, with ts_clear null: offline at log close."
+ },
+ "request": "rec-F240-0046",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011636
+}

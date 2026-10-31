@@ -1,0 +1,135 @@
+{
+ "id": "F240-0026",
+ "family": "F240",
+ "state": {
+  "asset": {
+   "inverter_id": "INV-4B",
+   "serial": "S7731",
+   "rated_ac_kw": 2500
+  },
+  "fault_event": {
+   "serial": "S7731",
+   "code": "F-TMP-03",
+   "fw_severity": 2,
+   "ts_start": "2024-06-11T10:00",
+   "ts_clear": "2024-06-11T11:10",
+   "auto_restarts": 2
+  },
+  "telemetry": {
+   "exp_day_kwh": 15000,
+   "exp_window_kwh": 6000,
+   "act_window_kwh": 5220,
+   "samples": [
+    {
+     "ts": "10:20",
+     "ac_kw": 0,
+     "exp_kw": 2400,
+     "limit_pct": 0
+    },
+    {
+     "ts": "11:20",
+     "ac_kw": 1225,
+     "exp_kw": 2500,
+     "limit_pct": 49
+    }
+   ]
+  },
+  "site_context": {
+   "maint_windows": [
+    {
+     "from": "2024-06-11",
+     "to": "2024-06-12",
+     "scope": "BLK-7"
+    }
+   ],
+   "neighbours": [
+    {
+     "inverter_id": "INV-4A",
+     "output_ratio": 0.98
+    }
+   ]
+  },
+  "history": {
+   "faults": [
+    {
+     "date": "2024-06-02",
+     "code": "F-TMP-03"
+    }
+   ],
+   "work_orders": [
+    {
+     "wo_id": "W81",
+     "opened": "2024-05-25",
+     "completed": "2024-05-28",
+     "retest_ok": null
+    }
+   ]
+  }
+ },
+ "factors": {
+  "fault_class": "igbt_overtemp",
+  "log_telemetry_mismatch": "moderate_15_60min",
+  "grid_event_concurrent": false,
+  "maintenance_window_active": false,
+  "neighbour_cross_check": "neighbours_normal",
+  "repeat_count_30d": 1,
+  "last_repair_status": "completed_unverified",
+  "current_limit_pct": 49.0,
+  "yield_loss_pct": 5.2,
+  "low_irradiance_window": false,
+  "serial_mismatch": false,
+  "boundary_placement": false
+ },
+ "factors_sampled": {
+  "fault_class": "igbt_overtemp",
+  "log_telemetry_mismatch": "moderate_15_60min",
+  "grid_event_concurrent": false,
+  "maintenance_window_active": true,
+  "neighbour_cross_check": "neighbours_affected",
+  "repeat_count_30d": 0,
+  "last_repair_status": "completed_unverified",
+  "current_limit_pct": 8.27,
+  "yield_loss_pct": 26.28,
+  "low_irradiance_window": false,
+  "serial_mismatch": false,
+  "boundary_placement": false
+ },
+ "plan": {
+  "genuine_defect": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "post_repair_repeat": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "balanced",
+   "target": "watch_list",
+   "second": "hold_confirm"
+  },
+  "yield_loss": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  },
+  "capacity_unavailable": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  }
+ },
+ "target_words": 65,
+ "deciding": {
+  "genuine_defect": "Overtemp code with no grid event, neighbours at 0.98 and the only maintenance window on another block: points to this inverter's hardware.",
+  "post_repair_repeat": "Same F-TMP-03 logged 2024-06-02, after WO W81 completed 2024-05-28.",
+  "next_step": "Fault cleared but still derated; the repair retest_ok is null, so a confirmation is missing (hold_confirm), versus an ordinary recheck (watch_list).",
+  "yield_loss": "(6000-5220)/15000 = 5.2%, right at the 5% boundary between minor and material.",
+  "capacity_unavailable": "Last sample limit_pct 49 and ac_kw 1225 of 2500 rated, just under the 50% boundary."
+ },
+ "request": "rec-F240-0026",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012212
+}

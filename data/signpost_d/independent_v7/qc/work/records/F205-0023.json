@@ -1,0 +1,95 @@
+{
+ "id": "F205-0023",
+ "family": "F205",
+ "state": {
+  "flight": {
+   "std": "2025-07-01T08:00Z",
+   "revised_std": "2025-07-01T08:20Z"
+  },
+  "times": {
+   "last_bag": "2025-07-01T07:10Z",
+   "off_blocks": "2025-07-01T08:04Z",
+   "delay_code": "baggage"
+  },
+  "load": {
+   "cargo_kg": 800,
+   "captain_accepted": true
+  },
+  "hold_log": [
+   {
+    "uld": "AKE1",
+    "cargo_kg": 410
+   },
+   {
+    "uld": "AKE2",
+    "cargo_kg": 330
+   }
+  ]
+ },
+ "factors": {
+  "bag_mismatch_size": "moderate_3_9_bags",
+  "mismatch_location": "cargo_weight_vs_uld_entries",
+  "missing_record": "none",
+  "milestone_out_of_order": false,
+  "delay_minutes": 4,
+  "delay_code_fit": "contradicted",
+  "explanatory_remark": false,
+  "pending_signoff": false,
+  "dg_on_board": false,
+  "decoy_noise": "revised_std_in_schedule",
+  "boundary_value": true,
+  "turn_type": "full_turn"
+ },
+ "factors_sampled": {
+  "bag_mismatch_size": "moderate_3_9_bags",
+  "mismatch_location": "cargo_weight_vs_uld_entries",
+  "missing_record": "none",
+  "milestone_out_of_order": false,
+  "delay_minutes": 21,
+  "delay_code_fit": "contradicted",
+  "explanatory_remark": false,
+  "pending_signoff": false,
+  "dg_on_board": false,
+  "decoy_noise": "revised_std_in_schedule",
+  "boundary_value": true,
+  "turn_type": "full_turn"
+ },
+ "plan": {
+  "load_reconciled": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "delay_code_supported": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "log_disposition": {
+   "clarity": "clear",
+   "target": "hold_confirm",
+   "second": null
+  },
+  "offblock_delay": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  },
+  "failed_checks": {
+   "clarity": "clear",
+   "target": "1",
+   "second": null
+  }
+ },
+ "target_words": 25,
+ "deciding": {
+  "load_reconciled": "Loadsheet cargo 800 kg against ULD entries summing to 740 kg.",
+  "delay_code_supported": "Code baggage, but last_bag at 07:10 is 50 minutes before STD, so baggage did not run late.",
+  "log_disposition": "A single cargo weight difference with no remark needs confirmation; signoff is present and nothing else is wrong.",
+  "offblock_delay": "off_blocks 08:04 against original STD 08:00 is 4 minutes, at the 3/4 boundary; revised_std 08:20 is a decoy that would make it on time.",
+  "failed_checks": "The cargo weight mismatch is the one check that clearly fails."
+ },
+ "request": "rec-F205-0021",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.007988
+}

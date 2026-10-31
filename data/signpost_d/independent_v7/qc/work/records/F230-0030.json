@@ -1,0 +1,174 @@
+{
+ "id": "F230-0030",
+ "family": "F230",
+ "state": {
+  "prescriptions": [
+   {
+    "item_id": "E1",
+    "strength_mg": 10,
+    "dose_units": 1,
+    "changes": [
+     {
+      "effective": "2024-09-15",
+      "new_dose_units": 2,
+      "order_ref": "O-4",
+      "authorised_by_role": "GP"
+     }
+    ]
+   },
+   {
+    "item_id": "E2",
+    "dose_units": 1,
+    "changes": [
+     {
+      "effective": "2024-09-10",
+      "withhold": true,
+      "order_ref": "W-1",
+      "authorised_by_role": "GP"
+     }
+    ]
+   },
+   {
+    "item_id": "E3",
+    "dose_units": 1,
+    "changes": [
+     {
+      "effective": "2024-09-10",
+      "withhold": true,
+      "order_ref": "W-2",
+      "authorised_by_role": "GP"
+     }
+    ]
+   },
+   {
+    "item_id": "E4",
+    "strength_mg": 10,
+    "dose_units": 1,
+    "changes": [
+     {
+      "effective": "2024-09-10",
+      "withhold": true,
+      "order_ref": "W-3",
+      "authorised_by_role": "GP"
+     }
+    ]
+   }
+  ],
+  "administrations": [
+   {
+    "item_id": "E1",
+    "scheduled": "2024-09-12T08:00",
+    "given_at": "2024-09-12T08:52",
+    "units_given": 2,
+    "strength_mg_used": 10,
+    "initials": null
+   },
+   {
+    "item_id": "E2",
+    "units_given": 0,
+    "code": "W",
+    "initials": "PN"
+   },
+   {
+    "item_id": "E3",
+    "units_given": 0,
+    "code": "W",
+    "initials": "PN"
+   },
+   {
+    "item_id": "E4",
+    "units_given": 0,
+    "code": "W",
+    "initials": "PN"
+   }
+  ],
+  "stock": {
+   "E4": {
+    "opening": 9,
+    "wasted": 3,
+    "wasted_witnessed": true,
+    "closing": 6
+   }
+  },
+  "round": {
+   "date": "2024-09-12",
+   "open_queries": [],
+   "post_dose_obs": [
+    {
+     "type": "pulse",
+     "value": 120
+    }
+   ]
+  }
+ },
+ "factors": {
+  "dose_mismatch_type": "wrong_quantity",
+  "prescription_change_documented": false,
+  "omission_count": 3,
+  "omission_reason_valid": true,
+  "late_minutes": 52,
+  "time_critical_affected": false,
+  "stock_variance": 0,
+  "stock_variance_explained": true,
+  "signature_gaps": 1,
+  "unit_expression_decoy": "matching_units",
+  "post_dose_obs_reassuring": false,
+  "pending_query": "none",
+  "prior_errors_30d": 1,
+  "item_count": 4
+ },
+ "factors_sampled": {
+  "dose_mismatch_type": "none",
+  "prescription_change_documented": true,
+  "omission_count": 3,
+  "omission_reason_valid": true,
+  "late_minutes": 52,
+  "time_critical_affected": false,
+  "stock_variance": -3,
+  "stock_variance_explained": true,
+  "signature_gaps": 1,
+  "unit_expression_decoy": "matching_units",
+  "post_dose_obs_reassuring": false,
+  "pending_query": "none",
+  "prior_errors_30d": 1,
+  "item_count": 4
+ },
+ "plan": {
+  "dose_mismatch": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "stock_reconciles": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "balanced",
+   "target": "hold",
+   "second": "correct_and_close"
+  },
+  "open_discrepancies": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  },
+  "error_severity": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 102,
+ "deciding": {
+  "dose_mismatch": "E1's change to 2 units takes effect 2024-09-15, after the round date of 2024-09-12, so 1 unit is in force and 2 were given.",
+  "stock_reconciles": "E4: 9 opening minus 3 wasted (witnessed) equals the closing count of 6; only one item has a stock section.",
+  "next_step": "E1's dose and missing initials could be corrected and closed, but the pulse of 120 after the dose suggests holding for confirmation.",
+  "open_discrepancies": "E1 is the clear open item; the missing initials and the abnormal pulse may or may not count as a second.",
+  "error_severity": "E2-E4 are validly withheld with order refs (W) and E1 is 52 min late (under 60), leaving level 0 versus the missing-initials level 1, but the E1 over-dose pulls the other way."
+ },
+ "request": "rec-F230-0026",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.010755
+}

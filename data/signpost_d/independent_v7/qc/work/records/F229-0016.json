@@ -1,0 +1,106 @@
+{
+ "id": "F229-0016",
+ "family": "F229",
+ "state": {
+  "lot": {
+   "lot_id": "L1-03",
+   "block_code": "B12",
+   "pick_end": "2024-09-14T06:00"
+  },
+  "intake": {
+   "block_code": "B-12",
+   "gross_kg": 7200,
+   "tare_kg": 2200,
+   "net_kg": 5000,
+   "bins": [
+    2500,
+    2500
+   ],
+   "temp_c": 6,
+   "cold_room_in": "2024-09-14T08:00",
+   "cold_room_out": "2024-09-14T21:40"
+  },
+  "press": {
+   "programme": "destemmed_standard",
+   "band_l_per_t": "600-680",
+   "cycle_start": "2024-09-14T22:06",
+   "cycle_end": null,
+   "juice_l": 3200,
+   "so2_mg_l": null
+  },
+  "transfer": {
+   "lot_ref": "L1-03",
+   "tank_id": "T5",
+   "transferred_l": 3150,
+   "qa_signoff": null
+  }
+ },
+ "factors": {
+  "weight_mismatch": "none",
+  "press_programme": "destemmed_standard",
+  "yield_position": "inside_band",
+  "lot_id_drift": "cosmetic_format_difference_B12_vs_B-12",
+  "missing_step": "press_end_null_so2_null_qa_signoff_null",
+  "out_of_order_timestamp": false,
+  "pick_to_press_hours": 16.1,
+  "pick_end_recorded": true,
+  "cold_held": true,
+  "rot_pct": 3.59,
+  "sorting_applied": false,
+  "note_signal": "none",
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "weight_mismatch": "none",
+  "press_programme": "destemmed_standard",
+  "yield_position": "inside_band",
+  "lot_id_drift": "block_code_differs_at_intake",
+  "missing_step": "press_end_null",
+  "out_of_order_timestamp": false,
+  "pick_to_press_hours": 24.65,
+  "pick_end_recorded": true,
+  "cold_held": true,
+  "rot_pct": 3.59,
+  "sorting_applied": false,
+  "note_signal": "none",
+  "boundary_case": false
+ },
+ "plan": {
+  "yield_consistent": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "chain_intact": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "release_decision": {
+   "clarity": "balanced",
+   "target": "release_corrected",
+   "second": "hold"
+  },
+  "pick_press_delay": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "failed_checks": {
+   "clarity": "clear",
+   "target": "3",
+   "second": null
+  }
+ },
+ "target_words": 40,
+ "deciding": {
+  "yield_consistent": "3200 L from 5000 kg is 640 L/t, inside the 600-680 band; weights reconcile.",
+  "chain_intact": "Only a hyphen formatting difference, B12 vs B-12; lot_ref and lot_id match.",
+  "release_decision": "Null cycle_end, so2 and qa_signoff are record gaps with no fruit fault shown, so correcting the record and moving on is close to holding for confirmation.",
+  "pick_press_delay": "pick_end 06:00 to cycle_start 22:06 is 16.1 h, right at the 16 h boundary.",
+  "failed_checks": "Null cycle_end, null so2, null qa_signoff and a delay of 16 h or more make four fails."
+ },
+ "request": "rec-F229-0016",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.008575
+}

@@ -1,0 +1,145 @@
+{
+ "id": "F235-0001",
+ "family": "F235",
+ "state": {
+  "station": {
+   "station_id": "S1141",
+   "river": "Alder",
+   "gauge_type": "pressure",
+   "backup": {
+    "type": "float",
+    "installed": true,
+    "last_value_m": 1.51,
+    "status": "reporting"
+   },
+   "telemetry": {
+    "batt_v": 12.8,
+    "rssi_dbm": -78
+   }
+  },
+  "visit": {
+   "visit_id": "V-2291",
+   "type": "reactive",
+   "visit_date": "2024-05-14",
+   "tasks_planned": 3,
+   "abort_reason": null
+  },
+  "checks": {
+   "pre": {
+    "board_m": [
+     1.512,
+     1.513
+    ],
+    "logger_m": 1.443,
+    "time": "10:05"
+   },
+   "post": null
+  },
+  "works": {
+   "tasks": [
+    {
+     "task": "swap transducer",
+     "status": "done"
+    },
+    {
+     "task": "clear stilling well",
+     "status": "part_done"
+    },
+    {
+     "task": "control survey",
+     "status": "not_started"
+    }
+   ],
+   "parts": [
+    {
+     "part": "PT",
+     "serial_out": "7731",
+     "serial_in": "8820"
+    }
+   ],
+   "bench_test": null,
+   "logger_gap_h": 30
+  },
+  "defects": [
+   {
+    "item": "float backup slow response",
+    "channel": "secondary",
+    "reporting": true,
+    "raised": "2024-05-14"
+   }
+  ],
+  "notes": {
+   "tech_note": "Gravel bar has built up again, stage reads low.",
+   "supervisor_comment": "Visit logged.",
+   "signed_off": "2024-05-16"
+  }
+ },
+ "factors": {
+  "pre_visit_offset_mm": 69.5,
+  "check_reading_spread_mm": 1.0,
+  "drift_cause": "sensor_fault",
+  "cause_evidence": "single_indicator",
+  "visit_completion": "partial",
+  "post_visit_check_logged": false,
+  "residual_defect_class": "secondary_channel",
+  "backup_sensor_ok": true,
+  "benign_explanation": false,
+  "record_gap": "none",
+  "logger_gap_hours": 30,
+  "telemetry_decoy": "normal",
+  "note_tone": "alarming"
+ },
+ "factors_sampled": {
+  "pre_visit_offset_mm": 69.86,
+  "check_reading_spread_mm": 1.2,
+  "drift_cause": "channel_change",
+  "cause_evidence": "none",
+  "visit_completion": "partial",
+  "post_visit_check_logged": false,
+  "residual_defect_class": "primary_degraded",
+  "backup_sensor_ok": true,
+  "benign_explanation": false,
+  "record_gap": "none",
+  "logger_gap_hours": 30,
+  "telemetry_decoy": "normal",
+  "note_tone": "alarming"
+ },
+ "plan": {
+  "sensor_fault_cause": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "visit_disposition": {
+   "clarity": "balanced",
+   "target": "sign_off",
+   "second": "urgent_revisit"
+  },
+  "data_treatment": {
+   "clarity": "leaning",
+   "target": "reject_period",
+   "second": null
+  },
+  "offset_size": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  },
+  "residual_defect": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  }
+ },
+ "target_words": 129,
+ "deciding": {
+  "sensor_fault_cause": "Transducer was swapped, but no bench test of the old unit and no post check, so sensor fault is not confirmed. The gravel bar claim is unconfirmed and the control survey was not started.",
+  "visit_disposition": "Sign-off date is present and the main task was done, but the post check is null, a task is not started and the offset was gross; these hold it between sign-off and urgent revisit.",
+  "data_treatment": "Pre offset about 69.5 mm, a 30 h logger gap, no post check and an unconfirmed cause: no verified offset or start point, so rejecting the period is favoured.",
+  "offset_size": "Board mean 1.5125 m minus logger 1.443 m is about 69.5 mm, so 40 mm or more.",
+  "residual_defect": "Only defect is the float backup, channel secondary, slow but still reporting; primary was replaced."
+ },
+ "request": "rec-F235-0001",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.009871
+}

@@ -1,0 +1,135 @@
+{
+ "id": "F201-0017",
+ "family": "F201",
+ "state": {
+  "register_header": {
+   "drug": "ketamine",
+   "concentration_mg_ml": 100,
+   "schedule": 2,
+   "witness_required": true,
+   "branch_id": "E1",
+   "opening_balance_ml": 100
+  },
+  "entries": [
+   {
+    "entry_id": "E1",
+    "date": "2025-04-03",
+    "type": "use",
+    "qty_ml": 4,
+    "running_balance_ml": 96,
+    "signed_by": "S1",
+    "witness_id": "W1"
+   },
+   {
+    "entry_id": "E2",
+    "date": "2025-04-10",
+    "type": "use",
+    "qty_ml": 6,
+    "running_balance_ml": 88,
+    "signed_by": null,
+    "witness_id": "W1"
+   },
+   {
+    "entry_id": "E3",
+    "date": "2025-04-17",
+    "type": "use",
+    "qty_ml": 5,
+    "running_balance_ml": 80,
+    "signed_by": "S1",
+    "witness_id": "W2"
+   },
+   {
+    "entry_id": "E4",
+    "date": "2025-04-27",
+    "type": "use",
+    "qty_ml": 5,
+    "running_balance_ml": 72,
+    "signed_by": "S2",
+    "witness_id": null
+   }
+  ],
+  "stock_check": {
+   "count_date": "2025-04-22",
+   "counted_ml": 68,
+   "overfill_allowance_ml": 1
+  },
+  "disposals": [
+   {
+    "qty_ml": 10,
+    "reason_code": "expired",
+    "removed_date": "2025-04-15",
+    "register_entry_id": null,
+    "witness_id": null
+   }
+  ],
+  "exceptions": []
+ },
+ "factors": {
+  "drug_profile": "ketamine_100mg_ml",
+  "arithmetic_slip_count": 3,
+  "unrecorded_admin": "none",
+  "clinical_records_missing": false,
+  "disposal_state": "removed_unlogged",
+  "unexplained_shortfall_pct": 10.98,
+  "variance_exception": "none",
+  "manufacturer_overfill": true,
+  "auth_gap_count": 2,
+  "count_out_of_order": true,
+  "unit_mismatch": false,
+  "locum_signatory": false,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "drug_profile": "ketamine_100mg_ml",
+  "arithmetic_slip_count": 3,
+  "unrecorded_admin": "none",
+  "clinical_records_missing": false,
+  "disposal_state": "removed_unlogged",
+  "unexplained_shortfall_pct": 10.98,
+  "variance_exception": "valid_full_cover",
+  "manufacturer_overfill": true,
+  "auth_gap_count": 1,
+  "count_out_of_order": true,
+  "unit_mismatch": false,
+  "locum_signatory": false,
+  "boundary_case": false
+ },
+ "plan": {
+  "unexplained_shortfall": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "line_disposition": {
+   "clarity": "leaning",
+   "target": "correct_and_sign",
+   "second": null
+  },
+  "variance_cause": {
+   "clarity": "contested",
+   "target": "arithmetic_slip",
+   "second": "undocumented_disposal"
+  },
+  "variance_size": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  },
+  "auth_gaps": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  }
+ },
+ "target_words": 68,
+ "deciding": {
+  "unexplained_shortfall": "Recomputed balance 80 vs counted 68 with 1 ml overfill leaves 11 ml short; no exceptions exist and no clinical or register entry matches it.",
+  "line_disposition": "Three balance slips are clerical, but the unlogged 10 ml removal and the early count date weaken a simple annotation; correct_and_sign only modestly favoured.",
+  "variance_cause": "Stated balances are off by 2, 3 and 5 ml against recomputation while the 10 ml unlogged removal (register_entry_id null) sits in the same shortfall; both are defensible.",
+  "variance_size": "11 ml remaining against 100 ml handled, just above 10%, with the count taken before the last entry making it less certain.",
+  "auth_gaps": "E2 signed_by null and E4 witness_id null with witness_required true: two gaps."
+ },
+ "request": "rec-F201-0016",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.014093
+}

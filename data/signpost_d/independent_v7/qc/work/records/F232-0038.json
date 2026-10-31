@@ -1,0 +1,163 @@
+{
+ "id": "F232-0038",
+ "family": "F232",
+ "state": {
+  "night_header": {
+   "local_date": "2025-09-02",
+   "programme_id": "P08",
+   "allocated_hours": 10,
+   "eng_window": [
+    "02:00",
+    "03:00"
+   ]
+  },
+  "conditions": {
+   "closures": [
+    {
+     "start_utc": "2025-09-02T02:03",
+     "end_utc": "2025-09-02T03:18",
+     "reason": "weather"
+    }
+   ]
+  },
+  "exposures": [
+   {
+    "frame_id": 1,
+    "target_id": "A",
+    "start_utc": "2025-09-02T00:00",
+    "exptime_s": 7020,
+    "filter": "r",
+    "seeing_arcsec": 1.6,
+    "qa": "pass"
+   },
+   {
+    "frame_id": 2,
+    "target_id": "A",
+    "start_utc": "2025-09-02T03:20",
+    "exptime_s": 7020,
+    "filter": "r",
+    "seeing_arcsec": 1.6,
+    "qa": "pass"
+   },
+   {
+    "frame_id": 3,
+    "target_id": "A",
+    "start_utc": "2025-09-02T05:20",
+    "exptime_s": 7020,
+    "filter": "r",
+    "seeing_arcsec": 1.5,
+    "qa": "pass"
+   },
+   {
+    "frame_id": 4,
+    "target_id": "A",
+    "start_utc": "2025-09-02T07:20",
+    "exptime_s": 7020,
+    "filter": "r",
+    "seeing_arcsec": 1.6,
+    "qa": "pass"
+   }
+  ],
+  "programme_request": {
+   "targets": [
+    {
+     "target_id": "A",
+     "filters": [
+      "r"
+     ],
+     "total_exptime_s": 28000,
+     "max_seeing_arcsec": 1.2
+    }
+   ],
+   "exception": {
+    "target_ids": [
+     "A"
+    ],
+    "relaxed_seeing_arcsec": 1.8
+   }
+  },
+  "faults": [
+   {
+    "subsystem": "dome_shutter",
+    "start_utc": "2025-09-02T02:02",
+    "end_utc": "2025-09-02T02:40",
+    "cleared": true,
+    "retest_utc": null,
+    "workaround": null,
+    "ticket_ref": "T-640"
+   }
+  ],
+  "notes": {
+   "observer_note": "Target A complete.",
+   "night_assistant_note": "Shutter stuck at 02:02, freed after reset."
+  }
+ },
+ "factors": {
+  "weather_loss_hours": 1.25,
+  "fault_overlap": "minor_overlap",
+  "fault_resolution_state": "cleared_no_retest",
+  "maintenance_window": true,
+  "closure_reason_mismatch": "coincides_with_fault",
+  "note_claim_discrepancy": "none",
+  "seeing_vs_limit": "exceeded",
+  "seeing_exception_approved": true,
+  "usable_fraction": 0.78,
+  "qa_pending_count": 0,
+  "utc_date_rollover": false,
+  "assistant_note_tone": "alarmed_real",
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "weather_loss_hours": 6.25,
+  "fault_overlap": "minor_overlap",
+  "fault_resolution_state": "cleared_no_retest",
+  "maintenance_window": true,
+  "closure_reason_mismatch": "coincides_with_fault",
+  "note_claim_discrepancy": "short_large",
+  "seeing_vs_limit": "exceeded",
+  "seeing_exception_approved": true,
+  "usable_fraction": 0.74,
+  "qa_pending_count": 1,
+  "utc_date_rollover": false,
+  "assistant_note_tone": "alarmed_real",
+  "boundary_case": false
+ },
+ "plan": {
+  "weather_only_loss": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "claims_supported": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "night_disposition": {
+   "clarity": "balanced",
+   "target": "charge_full",
+   "second": "reschedule_night"
+  },
+  "usable_share": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  },
+  "fault_followup": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  }
+ },
+ "target_words": 25,
+ "deciding": {
+  "weather_only_loss": "The weather closure 02:03-03:18 has no station values, and the dome_shutter fault starts at 02:02, one minute before it, though the fault lies inside the eng_window.",
+  "claims_supported": "Four r frames total 28080 s against 28000 s requested for A; the filter matches and seeing is covered by the approved exception to 1.8.",
+  "night_disposition": "The 1.25 h closure overlaps a short, cleared fault inside the eng_window and all data stands, so a full charge is plausible, though a reader might weigh the loss differently.",
+  "usable_share": "Passing frames within the relaxed seeing total 28080 s of 36000 s allocated, 78%, just below the 80% boundary.",
+  "fault_followup": "dome_shutter is cleared at 02:40 with retest_utc null, but frames after it passed QA and it sits in the eng_window."
+ },
+ "request": "rec-F232-0036",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.018358
+}

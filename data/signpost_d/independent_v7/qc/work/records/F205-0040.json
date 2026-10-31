@@ -1,0 +1,98 @@
+{
+ "id": "F205-0040",
+ "family": "F205",
+ "state": {
+  "flight": {
+   "std": "2025-08-15T12:40",
+   "revised_std": "2025-08-15T13:10",
+   "turn": "quick_turn"
+  },
+  "times": {
+   "fuel_start": "12:20",
+   "off_blocks": "12:44",
+   "delay_code": "FUEL",
+   "delay_min": 4
+  },
+  "load": {
+   "bags_count": 30,
+   "captain_accepted": true
+  },
+  "hold_log": [
+   {
+    "bag_count": 30
+   }
+  ],
+  "services": {
+   "pushback": null
+  },
+  "remarks": [
+   "Tug log lost; pushed back 12:44 by ramp lead."
+  ]
+ },
+ "factors": {
+  "bag_mismatch_size": "none",
+  "mismatch_location": "loadsheet_bags_vs_hold_log",
+  "missing_record": "pushback_record_missing",
+  "milestone_out_of_order": false,
+  "delay_minutes": 4,
+  "delay_code_fit": "supported",
+  "explanatory_remark": true,
+  "pending_signoff": false,
+  "dg_on_board": false,
+  "decoy_noise": "revised_std_in_schedule",
+  "boundary_value": true,
+  "turn_type": "quick_turn"
+ },
+ "factors_sampled": {
+  "bag_mismatch_size": "large_10_plus_bags",
+  "mismatch_location": "loadsheet_bags_vs_hold_log",
+  "missing_record": "pushback_record_missing",
+  "milestone_out_of_order": false,
+  "delay_minutes": 97,
+  "delay_code_fit": "supported",
+  "explanatory_remark": true,
+  "pending_signoff": false,
+  "dg_on_board": false,
+  "decoy_noise": "revised_std_in_schedule",
+  "boundary_value": false,
+  "turn_type": "quick_turn"
+ },
+ "plan": {
+  "load_reconciled": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "delay_code_supported": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "log_disposition": {
+   "clarity": "clear",
+   "target": "close_with_note",
+   "second": null
+  },
+  "offblock_delay": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  },
+  "failed_checks": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  }
+ },
+ "target_words": 38,
+ "deciding": {
+  "load_reconciled": "Loadsheet bags_count 30 equals the single hold entry of 30 bags.",
+  "delay_code_supported": "Code FUEL with fuel_start 12:20 late for a 12:40 quick turn.",
+  "log_disposition": "The only gap, the null pushback record, is explained in the remark naming who pushed back and when. Annotate and close.",
+  "offblock_delay": "Off-blocks 12:44 against the original STD 12:40 is 4 minutes, just over the on-time limit of 3. The revised STD of 13:10 is a decoy.",
+  "failed_checks": "Two checks fail: the pushback record is null, and off-blocks are over 3 minutes late. Others hold, so level 2 is likely."
+ },
+ "request": "rec-F205-0036",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.01
+}

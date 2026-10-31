@@ -1,0 +1,155 @@
+{
+ "id": "F240-0032",
+ "family": "F240",
+ "state": {
+  "asset": {
+   "inverter_id": "INV-12",
+   "serial": "SN7731",
+   "rated_ac_kw": 2000
+  },
+  "fault_event": {
+   "serial": "SN7731",
+   "code": "F-OVV-03",
+   "fw_severity": 3,
+   "ts_start": "2025-06-03T10:00",
+   "ts_clear": "2025-06-03T10:20",
+   "auto_restarts": 2
+  },
+  "telemetry": {
+   "samples": [
+    {
+     "ts": "2025-06-03T09:50",
+     "ac_kw": 90,
+     "exp_kw": 245,
+     "poa_wm2": 118,
+     "limit_pct": 100
+    },
+    {
+     "ts": "2025-06-03T10:10",
+     "ac_kw": 0,
+     "exp_kw": 250,
+     "poa_wm2": 120,
+     "limit_pct": 0
+    },
+    {
+     "ts": "2025-06-03T10:50",
+     "ac_kw": 0,
+     "exp_kw": 255,
+     "poa_wm2": 122,
+     "limit_pct": 0
+    }
+   ],
+   "exp_day_kwh": 4000,
+   "exp_window_kwh": 230,
+   "act_window_kwh": 14
+  },
+  "site_context": {
+   "grid_events": [
+    {
+     "ts": "2025-06-03T10:00",
+     "type": "overvoltage",
+     "magnitude_pu": 1.03
+    }
+   ],
+   "maint_windows": [
+    {
+     "from": "2025-06-03T08:00",
+     "to": "2025-06-03T12:00",
+     "scope": "BLK-C"
+    }
+   ],
+   "neighbours": [
+    {
+     "inverter_id": "INV-11",
+     "output_ratio": 0.99
+    }
+   ]
+  },
+  "history": {
+   "faults": [
+    {
+     "date": "2025-05-20",
+     "code": "F-OVV-03"
+    },
+    {
+     "date": "2025-06-02",
+     "code": "F-OVV-03"
+    }
+   ],
+   "work_orders": [
+    {
+     "wo_id": "WO-31",
+     "opened": "2025-05-30",
+     "completed": "2025-06-02",
+     "retest_ok": null
+    }
+   ]
+  }
+ },
+ "factors": {
+  "fault_class": "grid_overvoltage",
+  "log_telemetry_mismatch": "moderate_15_60min",
+  "grid_event_concurrent": true,
+  "maintenance_window_active": false,
+  "neighbour_cross_check": "neighbours_normal",
+  "repeat_count_30d": 2,
+  "last_repair_status": "completed_unverified",
+  "current_limit_pct": 0.0,
+  "yield_loss_pct": 5.4,
+  "low_irradiance_window": true,
+  "serial_mismatch": false,
+  "boundary_placement": true
+ },
+ "factors_sampled": {
+  "fault_class": "grid_overvoltage",
+  "log_telemetry_mismatch": "moderate_15_60min",
+  "grid_event_concurrent": true,
+  "maintenance_window_active": false,
+  "neighbour_cross_check": "neighbours_normal",
+  "repeat_count_30d": 2,
+  "last_repair_status": "none",
+  "current_limit_pct": 81.15,
+  "yield_loss_pct": 15.49,
+  "low_irradiance_window": true,
+  "serial_mismatch": false,
+  "boundary_placement": true
+ },
+ "plan": {
+  "genuine_defect": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "post_repair_repeat": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "urgent_dispatch",
+   "second": null
+  },
+  "yield_loss": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  },
+  "capacity_unavailable": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 91,
+ "deciding": {
+  "genuine_defect": "Grid event is only 1.03 pu while neighbour INV-11 runs at 0.99 ratio, and the same code has recurred, pointing to this unit; the maintenance window covers a different block.",
+  "post_repair_repeat": "F-OVV-03 logged 2025-06-02, the same day WO-31 was completed, and again on 2025-06-03; repair is unverified (retest_ok null).",
+  "next_step": "Output is zero after a repeat on a recently repaired unit with a neighbour-normal comparison, favouring dispatch; the small grid event adds some doubt.",
+  "yield_loss": "(230-14)/4000 = 5.4%, close to the 5% boundary between minor and material.",
+  "capacity_unavailable": "Samples show ac_kw 0 and limit_pct 0 at 10:50, yet ts_clear is 10:20 and the zero stretch outruns it, so offline versus a restarted derate is arguable."
+ },
+ "request": "rec-F240-0031",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012764
+}

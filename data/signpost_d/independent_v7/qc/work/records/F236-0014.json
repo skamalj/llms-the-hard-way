@@ -1,0 +1,128 @@
+{
+ "id": "F236-0014",
+ "family": "F236",
+ "state": {
+  "changeover": {
+   "line_id": "L3",
+   "from_allergens": [
+    "soya"
+   ],
+   "to_allergens": [
+    "egg",
+    "milk"
+   ]
+  },
+  "cleaning": {
+   "steps": [
+    {
+     "step": "dry_clean",
+     "completed": true
+    },
+    {
+     "step": "wet_wash",
+     "completed": false
+    }
+   ]
+  },
+  "verification": {
+   "swabs": [
+    {
+     "id": "S1",
+     "target": "egg",
+     "reading": 2,
+     "limit_ppm": 10,
+     "at": "2024-06-02T06:15"
+    }
+   ]
+  },
+  "production": {
+   "line_id": "L3",
+   "start_at": "2024-06-02T06:00",
+   "end_at": "2024-06-02T14:00",
+   "quantity": 1005.12,
+   "unit": "kg",
+   "packaging_allergens": {
+    "contains": [
+     "egg"
+    ]
+   }
+  },
+  "approvals": {
+   "qa_signoff": {
+    "signed_at": "2024-06-02T05:50"
+   },
+   "deviations": [
+    {
+     "scope": "L3 S1 swab after start",
+     "approved_at": "2024-06-02T05:45"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "allergen_transition": "swaps_allergen",
+  "cleaning_completion": "one_step_skipped",
+  "swab_outcome": "trace_below_limit",
+  "swab_timing_mismatch": true,
+  "cross_section_discrepancy": "label_allergen_mismatch",
+  "exposed_quantity_kg": 1005.12,
+  "approved_deviation": true,
+  "label_precaution": false,
+  "dedicated_tooling": false,
+  "qa_signoff_state": "signed_before_start",
+  "line_failure_history": 0,
+  "boundary_value": false
+ },
+ "factors_sampled": {
+  "allergen_transition": "swaps_allergen",
+  "cleaning_completion": "one_step_skipped",
+  "swab_outcome": "trace_below_limit",
+  "swab_timing_mismatch": false,
+  "cross_section_discrepancy": "label_allergen_mismatch",
+  "exposed_quantity_kg": 1005.12,
+  "approved_deviation": true,
+  "label_precaution": false,
+  "dedicated_tooling": false,
+  "qa_signoff_state": "signed_before_start",
+  "line_failure_history": 0,
+  "boundary_value": false
+ },
+ "plan": {
+  "swabs_cleared": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "line_disposition": {
+   "clarity": "leaning",
+   "target": "hold",
+   "second": null
+  },
+  "worst_deficiency": {
+   "clarity": "leaning",
+   "target": "cleaning_shortfall",
+   "second": null
+  },
+  "exposed_product": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  },
+  "residue_evidence": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 50,
+ "deciding": {
+  "swabs_cleared": "The only swab reads 2 against a limit of 10, but it was taken at 06:15, after the 06:00 start. An approved deviation for that swab and the pass are the reasons to lean true. Only egg was swabbed, not milk.",
+  "line_disposition": "The packaging states only egg although the incoming product also contains milk, and the wet_wash step was not completed. The batch should be held until these are corrected.",
+  "worst_deficiency": "The wet_wash step has completed false, which is a skipped clean step. The label omission and the late swab are lesser or covered issues.",
+  "exposed_product": "The swab passed 15 min into a 1005 kg batch spanning 06:00-14:00, which is roughly 30 kg made before it. That is under 50 kg.",
+  "residue_evidence": "The one swab reads 2 ppm against a limit of 10, which is a trace below limit. No failed or retested swab appears, but the skipped wash and the unswabbed milk target leave some doubt."
+ },
+ "request": "rec-F236-0011",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.016402
+}

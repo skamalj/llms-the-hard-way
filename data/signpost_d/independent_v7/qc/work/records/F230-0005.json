@@ -1,0 +1,129 @@
+{
+ "id": "F230-0005",
+ "family": "F230",
+ "state": {
+  "administrations": [
+   {
+    "item_id": "i1",
+    "scheduled": "2024-08-02T08:00",
+    "given_at": "2024-08-02T08:01",
+    "units_given": 1,
+    "initials": "MH"
+   },
+   {
+    "item_id": "i1",
+    "scheduled": "2024-08-02T08:00",
+    "given_at": "2024-08-02T08:01",
+    "units_given": 1,
+    "initials": "MH"
+   },
+   {
+    "item_id": "i2",
+    "scheduled": "2024-08-02T08:00",
+    "given_at": "2024-08-02T08:02",
+    "units_given": 2,
+    "strength_mg_used": 5,
+    "initials": null
+   }
+  ],
+  "prescriptions": [
+   {
+    "item_id": "i1",
+    "strength_mg": 10,
+    "dose_units": 1
+   },
+   {
+    "item_id": "i2",
+    "strength_mg": 10,
+    "dose_units": 2
+   }
+  ],
+  "stock": {
+   "i1": {
+    "opening": 30,
+    "closing": 25,
+    "wasted": 3,
+    "wasted_witnessed": false
+   }
+  },
+  "round": {
+   "open_queries": [
+    {
+     "type": "recount",
+     "raised": "2024-08-02T09:00",
+     "item_id": "i1"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "dose_mismatch_type": "duplicate_entry",
+  "prescription_change_documented": false,
+  "omission_count": 0,
+  "omission_reason_valid": false,
+  "late_minutes": 1,
+  "time_critical_affected": false,
+  "stock_variance": -3,
+  "stock_variance_explained": false,
+  "signature_gaps": 1,
+  "unit_expression_decoy": "equivalent_split",
+  "post_dose_obs_reassuring": false,
+  "pending_query": "stock_recount_due",
+  "prior_errors_30d": 2,
+  "item_count": 2
+ },
+ "factors_sampled": {
+  "dose_mismatch_type": "duplicate_entry",
+  "prescription_change_documented": false,
+  "omission_count": 3,
+  "omission_reason_valid": false,
+  "late_minutes": 1,
+  "time_critical_affected": true,
+  "stock_variance": -3,
+  "stock_variance_explained": true,
+  "signature_gaps": 0,
+  "unit_expression_decoy": "equivalent_split",
+  "post_dose_obs_reassuring": false,
+  "pending_query": "stock_recount_due",
+  "prior_errors_30d": 2,
+  "item_count": 9
+ },
+ "plan": {
+  "dose_mismatch": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "stock_reconciles": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "correct_and_close",
+   "second": null
+  },
+  "open_discrepancies": {
+   "clarity": "contested",
+   "target": "2",
+   "second": "3"
+  },
+  "error_severity": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  }
+ },
+ "target_words": 25,
+ "deciding": {
+  "dose_mismatch": "i1 has two entries for the same scheduled time, which suggests a duplicate, though both could be a double-recording slip; the i2 split is equivalent.",
+  "stock_reconciles": "i1: 30 minus 2 signed minus 3 unwitnessed waste gives 25, which matches closing, but unwitnessed waste and a recount query leave doubt.",
+  "next_step": "The doses are on time and the problem looks like a recording slip, with a null initial on i2, so amend and close.",
+  "open_discrepancies": "i1 duplicate and stock recount and i2 missing initials give 2; a third from the unwitnessed waste is arguable.",
+  "error_severity": "i2 has null initials with the correct dose, which is a documentation issue; no lateness over 60 minutes."
+ },
+ "request": "rec-F230-0001",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.01078
+}

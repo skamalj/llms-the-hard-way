@@ -1,0 +1,121 @@
+{
+ "id": "F224-0006",
+ "family": "F224",
+ "state": {
+  "request": {
+   "views": [
+    "BW_R"
+   ],
+   "ind": "ENDO_PA",
+   "risk": "low",
+   "req": "2024-03-05",
+   "prior_bw": "2022-03-01"
+  },
+  "exposures": [
+   {
+    "v": "BW_R",
+    "mGy": 1.3,
+    "t": "10:02"
+   },
+   {
+    "v": "PA_21",
+    "mGy": 1.65,
+    "t": "10:04"
+   },
+   {
+    "v": "PA_21",
+    "mGy": 1.65,
+    "t": "10:06",
+    "retake_of": "10:04"
+   }
+  ],
+  "image_review": {
+   "grade": 2,
+   "faults": [
+    "FC_CONE_CUT"
+   ],
+   "second_grader": "done"
+  },
+  "equipment": {
+   "qa": "2024-01-10",
+   "int": 12,
+   "test": "pass",
+   "drl": {
+    "BW_R": 1.2,
+    "PA_21": 1.5
+   }
+  },
+  "operator": {
+   "signoff": "2024-03-05T12:00",
+   "prior": 0
+  }
+ },
+ "factors": {
+  "indication_match": "mismatch",
+  "recall_interval_months": 24,
+  "dose_ratio_to_drl": 1.1,
+  "console_log_discrepancy": "none",
+  "retake_cause": "positioning",
+  "equipment_qa_status": "in_date",
+  "approved_exception": false,
+  "patient_cooperation_flag": false,
+  "unrequested_exposure_count": 2,
+  "verbal_authorisation_logged": false,
+  "image_grade": "acceptable_minor_faults",
+  "audit_completeness": "complete",
+  "operator_prior_findings": 0
+ },
+ "factors_sampled": {
+  "indication_match": "match",
+  "recall_interval_months": 24,
+  "dose_ratio_to_drl": 0.91,
+  "console_log_discrepancy": "none",
+  "retake_cause": "positioning",
+  "equipment_qa_status": "in_date",
+  "approved_exception": false,
+  "patient_cooperation_flag": false,
+  "unrequested_exposure_count": 1,
+  "verbal_authorisation_logged": false,
+  "image_grade": "acceptable_minor_faults",
+  "audit_completeness": "grading_pending",
+  "operator_prior_findings": 4
+ },
+ "plan": {
+  "justified": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "operator_retake": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "follow_up": {
+   "clarity": "leaning",
+   "target": "close_record",
+   "second": null
+  },
+  "dose_position": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  },
+  "unjustified_count": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 56,
+ "deciding": {
+  "justified": "request.ind ENDO_PA does not fit the only requested view BW_R; no exception or verbal authorisation.",
+  "operator_retake": "Retake of PA_21 follows FC_CONE_CUT with no sensor error and in-date QA, but the retaken view was itself unrequested and nothing excludes other causes.",
+  "follow_up": "Audit complete (second grader done, sign-off present), QA in date, no console discrepancy, operator has no prior findings; only the indication issue remains.",
+  "dose_position": "BW 1.3/1.2 = 1.08 and PA 1.65/1.5 = 1.10, both just over reference level.",
+  "unjustified_count": "PA_21 logged twice with no request (2); BW_R also lacks a matching indication, which would make 3."
+ },
+ "request": "rec-F224-0006",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012025
+}

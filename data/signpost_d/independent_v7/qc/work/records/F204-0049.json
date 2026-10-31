@@ -1,0 +1,120 @@
+{
+ "id": "F204-0049",
+ "family": "F204",
+ "state": {
+  "rx": {
+   "drug": "trimethoprim",
+   "strength": {
+    "val": 2.5,
+    "unit": "mg",
+    "per_ml": 5
+   },
+   "form": "liq",
+   "qty": 150
+  },
+  "patient": {
+   "supplies": [
+    {
+     "date": "2025-04-01",
+     "days_covered": 30
+    }
+   ]
+  },
+  "dispensed": {
+   "product_name": "Trimethoprim susp",
+   "strength": {
+    "val": 600,
+    "unit": "mcg",
+    "per_ml": 1
+   },
+   "form": "liq",
+   "pack_size": 100,
+   "packs": 1,
+   "owing": {
+    "qty": 50,
+    "slip_no": "OW-88"
+   }
+  },
+  "check_log": {
+   "checked_at": "2025-04-25",
+   "queries": [
+    {
+     "raised_at": "2025-04-25T09:10",
+     "field": "strength",
+     "status": "pending"
+    }
+   ],
+   "clin_check": {
+    "by": "RP3"
+   }
+  }
+ },
+ "factors": {
+  "strength_status": "mismatch_converted",
+  "product_status": "exact",
+  "quantity_status": "owing_documented",
+  "label_status": "correct",
+  "prescriber_query": "pending",
+  "pharmacist_intervention": false,
+  "clinical_check_signed": true,
+  "home_supply_days": 6,
+  "emergency_supply": false,
+  "short_expiry": false,
+  "prior_error_count": 2,
+  "high_risk_drug": false,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "strength_status": "match_converted_units",
+  "product_status": "exact",
+  "quantity_status": "owing_documented",
+  "label_status": "correct",
+  "prescriber_query": "pending",
+  "pharmacist_intervention": false,
+  "clinical_check_signed": true,
+  "home_supply_days": 8,
+  "emergency_supply": false,
+  "short_expiry": false,
+  "prior_error_count": 2,
+  "high_risk_drug": false,
+  "boundary_case": false
+ },
+ "plan": {
+  "strength_differs": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "hold_query",
+   "second": null
+  },
+  "error_category": {
+   "clarity": "leaning",
+   "target": "none_found",
+   "second": null
+  },
+  "open_discrepancies": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  },
+  "supply_urgency": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  }
+ },
+ "target_words": 50,
+ "deciding": {
+  "strength_differs": "2.5 mg per 5 mL is 0.5 mg/mL against 600 mcg (0.6 mg) per mL, close but not equal.",
+  "next_step": "Query on the strength field is pending, so the item waits on the hold shelf for that one confirmation.",
+  "error_category": "Same drug and form, owing slip covers the quantity; the only open item is the strength query already pending.",
+  "open_discrepancies": "Strength is open under a pending query; the supplied 100 with owing 50 and no label section leave a second point (label not shown) unsettled.",
+  "supply_urgency": "Supply 2025-04-01 for 30 days ends 2025-05-01; checked 2025-04-25 leaves 6 days."
+ },
+ "request": "rec-F204-0046",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012264
+}

@@ -1,0 +1,121 @@
+{
+ "id": "F228-0014",
+ "family": "F228",
+ "state": {
+  "booking_declaration": {
+   "vgm_kg": 25000,
+   "declared_tare_kg": 3800,
+   "declared_cargo_kg": 21200,
+   "seal_no": "KT550731",
+   "amendments": []
+  },
+  "equipment": {
+   "csc_plate_tare_kg": 3800,
+   "csc_max_gross_kg": 30480,
+   "seal_no": "KT550731X"
+  },
+  "cargo_lines": [
+   {
+    "packages": 80,
+    "gross_kg": 21200
+   }
+  ],
+  "terminal_weighing": {
+   "read_at": "2025-04-02T07:15:00Z",
+   "gross_reading_kg": 39100,
+   "tractor_tare_kg": 8000,
+   "chassis_tare_kg": 5600,
+   "chassis_registry_tare_kg": 6100,
+   "calibration_valid_to": "2025-10-01",
+   "reweigh": {
+    "status": "requested",
+    "gross_reading_kg": null,
+    "read_at": null
+   }
+  },
+  "voyage_plan": {
+   "vgm_cutoff_at": "2025-04-03T12:00:00Z",
+   "loading_start_at": "2025-04-04T08:00:00Z",
+   "review_at": "2025-04-02T08:00:00Z",
+   "stow_bay_row_tier": "10-06-02",
+   "deck_or_hold": "hold",
+   "tolerance_pct": 5
+  },
+  "shipper_profile": {
+   "method2_authorised": false,
+   "last_audit_on": "2023-06-20",
+   "last_audit_result": "pass",
+   "discrepancies_12m": 3
+  }
+ },
+ "factors": {
+  "gap_band": "near_anchor",
+  "gap_direction": "understated",
+  "gap_source": "weighing",
+  "decoy_mismatch": "seal_suffix_differs",
+  "scale_calibration_valid": true,
+  "amended_vgm_on_file": false,
+  "shipper_trusted": false,
+  "prior_discrepancies": 3,
+  "hours_to_loading": 48.0,
+  "reweigh_status": "requested_not_done",
+  "stow_position": "below_deck",
+  "exceeds_csc_max": false,
+  "cargo_lines_missing": false,
+  "tolerance_pct": "5"
+ },
+ "factors_sampled": {
+  "gap_band": "near_anchor",
+  "gap_direction": "understated",
+  "gap_source": "cargo",
+  "decoy_mismatch": "seal_suffix_differs",
+  "scale_calibration_valid": true,
+  "amended_vgm_on_file": false,
+  "shipper_trusted": false,
+  "prior_discrepancies": 3,
+  "hours_to_loading": 54.47,
+  "reweigh_status": "done_matches_terminal",
+  "stow_position": "below_deck",
+  "exceeds_csc_max": false,
+  "cargo_lines_missing": false,
+  "tolerance_pct": "5"
+ },
+ "plan": {
+  "vgm_understated": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "disposition": {
+   "clarity": "balanced",
+   "target": "hold_reweigh",
+   "second": "amend_and_load"
+  },
+  "gap_source": {
+   "clarity": "clear",
+   "target": "weighing_error",
+   "second": null
+  },
+  "gap_magnitude": {
+   "clarity": "contested",
+   "target": "1",
+   "second": "0"
+  },
+  "time_pressure": {
+   "clarity": "contested",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 87,
+ "deciding": {
+  "vgm_understated": "Derived 25500 uses chassis_tare_kg 5600 vs registry 6100; with the registry tare it is 25000, equal to vgm, so the reading is unreliable and the gap is under tolerance.",
+  "disposition": "Reweigh is requested but not done (null reading) which favours hold; the gap is near 2% with 48 hours left, so amend_and_load is also defensible.",
+  "gap_source": "Chassis tare 5600 differs from registry 6100 by 500 kg, while declared tare equals plate and cargo lines equal declared cargo.",
+  "gap_magnitude": "500 kg on 25000 is 2.0%, exactly the boundary between levels 0 and 1.",
+  "time_pressure": "review_at to loading_start_at is exactly 48 hours, the boundary between levels 0 and 1."
+ },
+ "request": "rec-F228-0011",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.014651
+}

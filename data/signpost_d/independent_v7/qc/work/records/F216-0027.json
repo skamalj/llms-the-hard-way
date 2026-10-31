@@ -1,0 +1,163 @@
+{
+ "id": "F216-0027",
+ "family": "F216",
+ "state": {
+  "session": {
+   "id": "S102",
+   "type": "fixed_clinic",
+   "date": "2025-03-06",
+   "next_session_date": "2025-03-27"
+  },
+  "storage": {
+   "unit": "F2",
+   "alarms_30d": 2,
+   "maintenance": [
+    {
+     "type": "defrost",
+     "from": "09:00",
+     "to": "09:40",
+     "backup_unit": "B2"
+    }
+   ]
+  },
+  "temp_log": {
+   "readings": [
+    {
+     "t": "09:05",
+     "air_c": 9.0,
+     "product_c": 7.8
+    },
+    {
+     "t": "09:10",
+     "air_c": 10.2,
+     "product_c": 8.4
+    },
+    {
+     "t": "09:15",
+     "air_c": 10.8,
+     "product_c": 8.6
+    },
+    {
+     "t": "09:20",
+     "air_c": 10.5,
+     "product_c": 8.5
+    },
+    {
+     "t": "09:25",
+     "air_c": 9.6,
+     "product_c": 8.3
+    },
+    {
+     "t": "09:30",
+     "air_c": 8.4,
+     "product_c": 7.9
+    }
+   ],
+   "backup_B2": [
+    {
+     "t": "09:15",
+     "product_c": 5.1
+    }
+   ]
+  },
+  "stock": {
+   "lots": [
+    {
+     "lot_no": "B77",
+     "opening": 60,
+     "wasted": 1,
+     "closing": 36
+    }
+   ]
+  },
+  "administration": [
+   {
+    "t": "09:25",
+    "lot_no": "B77",
+    "n": 12
+   },
+   {
+    "t": "09:45",
+    "lot_no": "B77",
+    "n": 8
+   }
+  ],
+  "excursion_actions": {
+   "start": "09:10",
+   "end": "09:30",
+   "quarantined": true,
+   "advice_requested_at": "09:50",
+   "advice_status": "PEND",
+   "advice_received_at": null,
+   "revised_expiry": null
+  }
+ },
+ "factors": {
+  "true_excursion_minutes": 20,
+  "log_source_discrepancy": "none",
+  "buffered_probe_in_range": false,
+  "planned_maintenance": true,
+  "stability_clearance": "pending",
+  "doses_during_exposure": 20,
+  "stock_count_gap": -3,
+  "lot_id_mismatch": false,
+  "lots_beyond_tolerance": "none",
+  "freezing_reading": false,
+  "boundary_case": true,
+  "unit_alarm_history": 2,
+  "session_type": "fixed_clinic"
+ },
+ "factors_sampled": {
+  "true_excursion_minutes": 167,
+  "log_source_discrepancy": "none",
+  "buffered_probe_in_range": true,
+  "planned_maintenance": true,
+  "stability_clearance": "cleared_full",
+  "doses_during_exposure": 20,
+  "stock_count_gap": -3,
+  "lot_id_mismatch": false,
+  "lots_beyond_tolerance": "none",
+  "freezing_reading": false,
+  "boundary_case": true,
+  "unit_alarm_history": 2,
+  "session_type": "fixed_clinic"
+ },
+ "plan": {
+  "dosed_uncleared": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "stock_reconciles": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "stock_disposition": {
+   "clarity": "leaning",
+   "target": "quarantine_hold",
+   "second": null
+  },
+  "excursion_duration": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  },
+  "followup_urgency": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 75,
+ "deciding": {
+  "dosed_uncleared": "Doses at 09:25 and 09:45 fall after excursion start 09:10, and advice_received_at is null with status PEND.",
+  "stock_reconciles": "60 - 1 wasted - 20 given = 39 expected, but closing is 36, a gap of 3.",
+  "stock_disposition": "Advice is PEND and the stock is quarantined, so exposure is unresolved. The defrost with backup B2 in range at 09:15 gives some doubt.",
+  "excursion_duration": "Product_c is above 8.0 at four 5-minute readings (09:10 to 09:25), about 20 minutes, under 30. The defrost and the boundary give some doubt.",
+  "followup_urgency": "Advice is pending and the next session is 21 days away, which supports routine handling. The open request and the 3-dose gap support action before the next session."
+ },
+ "request": "rec-F216-0026",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011971
+}

@@ -1,0 +1,115 @@
+{
+ "id": "F220-0025",
+ "family": "F220",
+ "state": {
+  "tray": {
+   "tray_id": "T-5120",
+   "request_note": "Next list"
+  },
+  "set_check": {
+   "lines": [
+    {
+     "cat_code": "HK2",
+     "qty_expected": 2,
+     "qty_counted": 1
+    }
+   ],
+   "variances": [
+    {
+     "cat_code": "HK2",
+     "reason": "pair ordered later",
+     "approved_by": "SSD lead"
+    }
+   ]
+  },
+  "washer": {
+   "alarms": [
+    "conductivity"
+   ],
+   "rerun_cycle_id": null,
+   "trays_processed": [
+    "B5120"
+   ]
+  },
+  "steriliser_load": {
+   "printout": null,
+   "logger": {
+    "temp_min_c": 135.2,
+    "hold_s": 240
+   },
+   "daily_test": {
+    "result": "pass"
+   },
+   "ci_result": "pass",
+   "unload_condition": "dry"
+  }
+ },
+ "factors": {
+  "set_count_discrepancies": 1,
+  "substitution_documented": true,
+  "cycle_excursion": "printout_missing",
+  "independent_logger_confirms": true,
+  "bi_status": "not_required",
+  "chemical_indicator": "pass",
+  "washer_record_state": "alarm_no_rerun",
+  "pack_integrity": "intact",
+  "label_mismatch": "none",
+  "daily_test_state": "pass_today",
+  "theatre_urgency": "next_list",
+  "note_tone": "neutral",
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "set_count_discrepancies": 0,
+  "substitution_documented": true,
+  "cycle_excursion": "printout_missing",
+  "independent_logger_confirms": true,
+  "bi_status": "not_required",
+  "chemical_indicator": "pass",
+  "washer_record_state": "alarm_no_rerun",
+  "pack_integrity": "intact",
+  "label_mismatch": "none",
+  "daily_test_state": "pass_today",
+  "theatre_urgency": "next_list",
+  "note_tone": "neutral",
+  "boundary_case": false
+ },
+ "plan": {
+  "cycle_in_limits": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "disposition": {
+   "clarity": "contested",
+   "target": "release_annotated",
+   "second": "release"
+  },
+  "failure_stage": {
+   "clarity": "clear",
+   "target": "wash_stage",
+   "second": null
+  },
+  "count_gaps": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  },
+  "sterility_doubt": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  }
+ },
+ "target_words": 56,
+ "deciding": {
+  "cycle_in_limits": "The printout is null but the logger clearly shows 135.2 C min and a 240 s hold, well inside the band.",
+  "disposition": "The count variance is approved and documented, which suggests release_annotated, but the unresolved washer alarm makes plain release also defensible.",
+  "failure_stage": "Washer alarm conductivity has rerun_cycle_id null, which is the earliest unresolved issue and comes before any pack or steriliser matter.",
+  "count_gaps": "HK2 is short by one, but the variance is approved by the SSD lead with a loose reason ('pair ordered later'), so it counts as 0 or 1.",
+  "sterility_doubt": "CI passed, the pack is dry and the logger is in band. The unresolved washer alarm is a record gap (level 1), though it could be read as an unresolved indicator-like doubt (level 2)."
+ },
+ "request": "rec-F220-0021",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.014127
+}

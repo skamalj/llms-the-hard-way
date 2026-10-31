@@ -1,0 +1,163 @@
+{
+ "id": "F224-0026",
+ "family": "F224",
+ "state": {
+  "request": {
+   "views": [
+    "BW_R"
+   ],
+   "ind": "PER_ABS",
+   "risk": "low",
+   "prior": "2021-03-02",
+   "date": "2024-03-05",
+   "exc": [
+    {
+     "code": "EX2",
+     "appr": "D17"
+    }
+   ],
+   "verbal_auth": [
+    {
+     "t": "10:12",
+     "view": "PA_21"
+    }
+   ],
+   "flags": []
+  },
+  "exposures": [
+   {
+    "v": "BW_R",
+    "t": "10:05",
+    "s": 0.16,
+    "mGy": 0.99
+   },
+   {
+    "v": "PA_21",
+    "t": "10:14",
+    "s": 0.16,
+    "mGy": 0.99
+   },
+   {
+    "v": "PA_21",
+    "t": "10:16",
+    "s": 0.16,
+    "mGy": 0.99,
+    "retake_of": 2
+   }
+  ],
+  "image_review": {
+   "grade": 3,
+   "sensor_err": [
+    {
+     "t": "10:16",
+     "code": "SE41"
+    }
+   ],
+   "second_grader": "done"
+  },
+  "equipment": {
+   "qa": "2024-01-10",
+   "int": 12,
+   "test": "pass",
+   "service": [
+    {
+     "open": true
+    }
+   ],
+   "drl": {
+    "BW_R": 1.0,
+    "PA_21": 1.0
+   },
+   "console": [
+    {
+     "t": "10:05",
+     "kV": 70,
+     "s": 0.1
+    },
+    {
+     "t": "10:14",
+     "kV": 70,
+     "s": 0.1
+    },
+    {
+     "t": "10:16",
+     "kV": 70,
+     "s": 0.1
+    }
+   ]
+  },
+  "operator": {
+   "id": "O3",
+   "signoff": "2024-03-05T11:00",
+   "prior_findings": 0
+  }
+ },
+ "factors": {
+  "indication_match": "mismatch",
+  "recall_interval_months": 36,
+  "dose_ratio_to_drl": 0.62,
+  "console_log_discrepancy": "setting_mismatch",
+  "retake_cause": "sensor_fault",
+  "equipment_qa_status": "under_service",
+  "approved_exception": true,
+  "patient_cooperation_flag": false,
+  "unrequested_exposure_count": 2,
+  "verbal_authorisation_logged": true,
+  "image_grade": "non_diagnostic",
+  "audit_completeness": "complete",
+  "operator_prior_findings": 0
+ },
+ "factors_sampled": {
+  "indication_match": "mismatch",
+  "recall_interval_months": 36,
+  "dose_ratio_to_drl": 0.99,
+  "console_log_discrepancy": "setting_mismatch",
+  "retake_cause": "cone_cut",
+  "equipment_qa_status": "under_service",
+  "approved_exception": true,
+  "patient_cooperation_flag": false,
+  "unrequested_exposure_count": 2,
+  "verbal_authorisation_logged": true,
+  "image_grade": "non_diagnostic",
+  "audit_completeness": "complete",
+  "operator_prior_findings": 0
+ },
+ "plan": {
+  "justified": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "operator_retake": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "follow_up": {
+   "clarity": "leaning",
+   "target": "operator_feedback",
+   "second": null
+  },
+  "dose_position": {
+   "clarity": "clear",
+   "target": "0",
+   "second": null
+  },
+  "unjustified_count": {
+   "clarity": "leaning",
+   "target": "0",
+   "second": null
+  }
+ },
+ "target_words": 38,
+ "deciding": {
+  "justified": "request.ind PER_ABS (periapical indication) does not fit the only requested view BW_R, a bitewing.",
+  "operator_retake": "Sensor error SE41 is logged at the 10:16 retake timestamp and the unit has an open service visit; no operator-type fault code.",
+  "follow_up": "Indication/view mismatch is a referral-side error pointing to feedback; the open service visit, exception and verbal authorisation leave some doubt.",
+  "dose_position": "Listed dose 0.99 vs DRL 1.0, but the console shows 0.10 s against the listed 0.16 s, implying about 0.62 of the reference level, which governs.",
+  "unjustified_count": "The two PA_21 exposures are not requested but are covered by verbal_auth for PA_21 at 10:12 and by exception EX2; doubt remains over the mismatched BW_R request."
+ },
+ "request": "rec-F224-0026",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.0162
+}

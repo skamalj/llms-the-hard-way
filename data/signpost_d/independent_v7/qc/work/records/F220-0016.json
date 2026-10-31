@@ -1,0 +1,121 @@
+{
+ "id": "F220-0016",
+ "family": "F220",
+ "state": {
+  "tray": {
+   "tray_id": "T-1041",
+   "barcode": "88120417",
+   "requested_for": "2025-03-11T08:00"
+  },
+  "set_check": {
+   "lines": [
+    {
+     "cat_code": "RT22",
+     "qty_expected": 2,
+     "qty_counted": 1
+    }
+   ],
+   "variances": [
+    {
+     "cat_code": "RT22",
+     "reason": "on loan",
+     "approved_by": null
+    }
+   ],
+   "packer_note": "One short, not sure."
+  },
+  "washer": {
+   "cycle_id": "W5510",
+   "a0": 3000,
+   "alarms": [],
+   "trays_processed": [
+    "88120417"
+   ]
+  },
+  "steriliser_load": {
+   "printout": {
+    "temp_min_c": 134.0,
+    "temp_max_c": 135.2,
+    "hold_s": 180,
+    "pressure_kpa": 290
+   },
+   "logger": {
+    "temp_min_c": 134.1,
+    "hold_s": 181
+   },
+   "bi": {
+    "result": "pass"
+   },
+   "ci_result": "partial_change",
+   "unload_condition": "damp at seam"
+  }
+ },
+ "factors": {
+  "set_count_discrepancies": 1,
+  "substitution_documented": false,
+  "cycle_excursion": "pressure_fault",
+  "independent_logger_confirms": true,
+  "bi_status": "pass",
+  "chemical_indicator": "partial_change",
+  "washer_record_state": "complete",
+  "pack_integrity": "damp_seam_ambiguous",
+  "label_mismatch": "none",
+  "daily_test_state": "pass_today",
+  "theatre_urgency": "routine",
+  "note_tone": "flags_concern_open",
+  "boundary_case": true
+ },
+ "factors_sampled": {
+  "set_count_discrepancies": 4,
+  "substitution_documented": false,
+  "cycle_excursion": "pressure_fault",
+  "independent_logger_confirms": true,
+  "bi_status": "pass",
+  "chemical_indicator": "partial_change",
+  "washer_record_state": "complete",
+  "pack_integrity": "intact",
+  "label_mismatch": "none",
+  "daily_test_state": "pass_today",
+  "theatre_urgency": "routine",
+  "note_tone": "flags_concern_open",
+  "boundary_case": true
+ },
+ "plan": {
+  "cycle_in_limits": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "disposition": {
+   "clarity": "clear",
+   "target": "release",
+   "second": null
+  },
+  "failure_stage": {
+   "clarity": "clear",
+   "target": "pack_stage",
+   "second": null
+  },
+  "count_gaps": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  },
+  "sterility_doubt": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 52,
+ "deciding": {
+  "cycle_in_limits": "Printout pressure 290 kPa is low for the band and hold is exactly 180 s, but the logger is in band (134.1 C, 181 s), so true is modestly favoured.",
+  "disposition": "Washer and BI are fine, but the unapproved variance, partial CI and damp seam do not reconcile cleanly, so the planned release is only weakly supported.",
+  "failure_stage": "Washer record lists the tray cleanly, so the earliest unresolved issue is the RT22 count 1 of 2 with an unapproved variance (pack stage).",
+  "count_gaps": "One RT22 line short; the variance reason 'on loan' has approved_by null, so it counts as one unexplained gap or arguably zero.",
+  "sterility_doubt": "CI partial_change with a damp seam at unload sits between an unreadable or partial indicator (2) and a wet pack (3)."
+ },
+ "request": "rec-F220-0016",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.013754
+}

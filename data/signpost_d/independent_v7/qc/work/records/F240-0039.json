@@ -1,0 +1,144 @@
+{
+ "id": "F240-0039",
+ "family": "F240",
+ "state": {
+  "asset": {
+   "inverter_id": "INV-15",
+   "serial": "SN-27764",
+   "rated_ac_kw": 4000
+  },
+  "fault_event": {
+   "serial": "SN-27764",
+   "code": "F-COM-04",
+   "fw_severity": 1,
+   "ts_start": "2024-05-14T10:00",
+   "ts_clear": "2024-05-14T12:00",
+   "auto_restarts": 1
+  },
+  "telemetry": {
+   "samples": [
+    {
+     "ts": "2024-05-14T10:00",
+     "ac_kw": 0,
+     "exp_kw": 3000,
+     "poa_wm2": 800,
+     "limit_pct": 0
+    },
+    {
+     "ts": "2024-05-14T12:00",
+     "ac_kw": 1120,
+     "exp_kw": 3200,
+     "poa_wm2": 850,
+     "limit_pct": 30
+    }
+   ],
+   "exp_day_kwh": 15000,
+   "exp_window_kwh": 6600,
+   "act_window_kwh": 3000
+  },
+  "site_context": {
+   "grid_events": [],
+   "maint_windows": [],
+   "neighbours": [
+    {
+     "inverter_id": "INV-14",
+     "output_ratio": 0.99
+    },
+    {
+     "inverter_id": "INV-16",
+     "output_ratio": 1.0
+    }
+   ]
+  },
+  "history": {
+   "faults": [
+    {
+     "date": "2024-05-02",
+     "code": "F-COM-04"
+    },
+    {
+     "date": "2024-05-09",
+     "code": "F-COM-04"
+    },
+    {
+     "date": "2024-05-14",
+     "code": "F-COM-04"
+    }
+   ],
+   "work_orders": [
+    {
+     "wo_id": "WO-3307",
+     "opened": "2024-05-14",
+     "completed": "2024-05-17",
+     "retest_ok": true
+    }
+   ]
+  }
+ },
+ "factors": {
+  "fault_class": "comms_loss",
+  "log_telemetry_mismatch": "none",
+  "grid_event_concurrent": false,
+  "maintenance_window_active": false,
+  "neighbour_cross_check": "neighbours_normal",
+  "repeat_count_30d": 3,
+  "last_repair_status": "completed_verified",
+  "current_limit_pct": 30.0,
+  "yield_loss_pct": 24.0,
+  "low_irradiance_window": false,
+  "serial_mismatch": false,
+  "boundary_placement": false
+ },
+ "factors_sampled": {
+  "fault_class": "comms_loss",
+  "log_telemetry_mismatch": "none",
+  "grid_event_concurrent": false,
+  "maintenance_window_active": false,
+  "neighbour_cross_check": "neighbours_normal",
+  "repeat_count_30d": 3,
+  "last_repair_status": "completed_verified",
+  "current_limit_pct": 99.05,
+  "yield_loss_pct": 1.72,
+  "low_irradiance_window": false,
+  "serial_mismatch": false,
+  "boundary_placement": false
+ },
+ "plan": {
+  "genuine_defect": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "post_repair_repeat": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "balanced",
+   "target": "close_log",
+   "second": "watch_list"
+  },
+  "yield_loss": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  },
+  "capacity_unavailable": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  }
+ },
+ "target_words": 117,
+ "deciding": {
+  "genuine_defect": "Comms-loss code F-COM-04 with firmware severity 1 and normal neighbours points away from hardware, but three occurrences in 30 days leave some doubt.",
+  "post_repair_repeat": "WO-3307 completed 2024-05-17 with retest_ok true, and all three F-COM-04 entries (05-02, 05-09, 05-14) predate that completion.",
+  "next_step": "The log cleared at 12:00 and the repair was verified, which favours closing; the limit still at 30% and three prior faults make a watch-list recheck plausible.",
+  "yield_loss": "(6600-3000)/15000 = 24%, above the 20% line but not far.",
+  "capacity_unavailable": "The last sample shows limit_pct 30 and ac_kw 1120 of rated 4000 (28%), so it is derated below 50% but still exporting."
+ },
+ "request": "rec-F240-0036",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.016661
+}

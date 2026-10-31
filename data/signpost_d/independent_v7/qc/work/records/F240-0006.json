@@ -1,0 +1,139 @@
+{
+ "id": "F240-0006",
+ "family": "F240",
+ "state": {
+  "asset": {
+   "inverter_id": "INV-2-07",
+   "serial": "S771",
+   "rated_ac_kw": 1000
+  },
+  "fault_event": {
+   "serial": "S771",
+   "code": "F-TMP-03",
+   "fw_severity": 2,
+   "ts_start": "2024-06-11T10:00",
+   "ts_clear": "2024-06-11T10:40",
+   "auto_restarts": 3
+  },
+  "telemetry": {
+   "exp_day_kwh": 8000,
+   "exp_window_kwh": 430,
+   "act_window_kwh": 30,
+   "samples": [
+    {
+     "ts": "2024-06-11T10:15",
+     "ac_kw": 0,
+     "exp_kw": 900,
+     "limit_pct": 0
+    },
+    {
+     "ts": "2024-06-11T11:15",
+     "ac_kw": 0,
+     "exp_kw": 910,
+     "limit_pct": 39.25
+    }
+   ]
+  },
+  "site_context": {
+   "maint_windows": [
+    {
+     "from": "2024-06-11T08:00",
+     "to": "2024-06-11T12:00",
+     "scope": "INV-2-07"
+    }
+   ],
+   "neighbours": [
+    {
+     "inverter_id": "INV-2-08",
+     "output_ratio": 0.98
+    }
+   ]
+  },
+  "history": {
+   "faults": [
+    {
+     "date": "2024-05-28",
+     "code": "F-TMP-03"
+    },
+    {
+     "date": "2024-06-03",
+     "code": "F-TMP-03"
+    }
+   ],
+   "work_orders": [
+    {
+     "wo_id": "WO-881",
+     "opened": "2024-06-01",
+     "completed": "2024-06-03",
+     "retest_ok": null
+    }
+   ]
+  }
+ },
+ "factors": {
+  "fault_class": "igbt_overtemp",
+  "log_telemetry_mismatch": "moderate_15_60min",
+  "grid_event_concurrent": false,
+  "maintenance_window_active": true,
+  "neighbour_cross_check": "neighbours_normal",
+  "repeat_count_30d": 2,
+  "last_repair_status": "completed_unverified",
+  "current_limit_pct": 39.25,
+  "yield_loss_pct": 5.0,
+  "low_irradiance_window": false,
+  "serial_mismatch": false,
+  "boundary_placement": true
+ },
+ "factors_sampled": {
+  "fault_class": "igbt_overtemp",
+  "log_telemetry_mismatch": "moderate_15_60min",
+  "grid_event_concurrent": false,
+  "maintenance_window_active": true,
+  "neighbour_cross_check": "neighbours_normal",
+  "repeat_count_30d": 2,
+  "last_repair_status": "completed_unverified",
+  "current_limit_pct": 39.25,
+  "yield_loss_pct": 31.32,
+  "low_irradiance_window": false,
+  "serial_mismatch": false,
+  "boundary_placement": false
+ },
+ "plan": {
+  "genuine_defect": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "post_repair_repeat": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "close_log",
+   "second": null
+  },
+  "yield_loss": {
+   "clarity": "contested",
+   "target": "1",
+   "second": "2"
+  },
+  "capacity_unavailable": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 85,
+ "deciding": {
+  "genuine_defect": "Maintenance window scoped to INV-2-07 covers the event and neighbours are normal, but the overtemp code is repeated twice in 30 days.",
+  "post_repair_repeat": "A matching fault is dated 2024-06-03, the same day WO-881 was completed, with retest_ok null; before or after the repair is unclear.",
+  "next_step": "Fault cleared at 10:40 with a maintenance window covering the inverter and normal neighbours, so close_log is favoured, but the repeat history leaves some doubt.",
+  "yield_loss": "(430-30)/8000 = 5.0%, exactly on the minor/material boundary.",
+  "capacity_unavailable": "Last sample shows ac_kw 0 (offline) yet limit_pct 39.25 and ts_clear 35 min earlier; offline versus derated below 50% are both plausible."
+ },
+ "request": "rec-F240-0006",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012222
+}

@@ -1,0 +1,106 @@
+{
+ "id": "F210-0040",
+ "family": "F210",
+ "state": {
+  "collection": {
+   "collected_at": "2024-08-14T07:10",
+   "vat_temp_c": 5.1,
+   "last_milking_end": "2024-08-14T05:40"
+  },
+  "sample": {
+   "sample_id": "S48213",
+   "seal_intact": false
+  },
+  "lab_results": {
+   "sample_id": "S48231",
+   "scc_k_ml": 310,
+   "bactoscan_kcfu_ml": 118,
+   "inhibitory": "neg",
+   "retest": null
+  },
+  "farm_terms": {
+   "limits": {
+    "vat_temp_c": 6,
+    "scc_k_ml": 250,
+    "bactoscan_kcfu_ml": 100
+   },
+   "treatment_register": [
+    {
+     "withdrawal_end": "2024-08-16",
+     "segregated": true
+    }
+   ],
+   "breaches_90d": 5
+  }
+ },
+ "factors": {
+  "vat_temp_level": "compliant",
+  "recent_milking": true,
+  "mismatch_site": "sample_id",
+  "mismatch_magnitude": "trivial",
+  "meter_calibration_overdue": false,
+  "lab_limit_breaches": 2,
+  "exception_covers_breach": false,
+  "inhibitory_status": "negative",
+  "treatment_withdrawal_active": true,
+  "retest_state": "none",
+  "sample_integrity": "seal_compromised",
+  "history_breaches_90d": 5,
+  "value_on_boundary": false,
+  "driver_sensory_flag": false
+ },
+ "factors_sampled": {
+  "vat_temp_level": "compliant",
+  "recent_milking": true,
+  "mismatch_site": "sample_id",
+  "mismatch_magnitude": "trivial",
+  "meter_calibration_overdue": false,
+  "lab_limit_breaches": 3,
+  "exception_covers_breach": false,
+  "inhibitory_status": "negative",
+  "treatment_withdrawal_active": true,
+  "retest_state": "none",
+  "sample_integrity": "seal_compromised",
+  "history_breaches_90d": 5,
+  "value_on_boundary": false,
+  "driver_sensory_flag": false
+ },
+ "plan": {
+  "temp_compliant": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "intake_disposition": {
+   "clarity": "clear",
+   "target": "accept_full",
+   "second": null
+  },
+  "issue_source": {
+   "clarity": "contested",
+   "target": "farm_practice",
+   "second": "recording_error"
+  },
+  "discrepancy_size": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  },
+  "unexplained_breaches": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  }
+ },
+ "target_words": 49,
+ "deciding": {
+  "temp_compliant": "vat_temp_c 5.1 is under limit 6.",
+  "intake_disposition": "Two results exceed limits (scc 310, bactoscan 118) with no exception, but the broken seal and swapped sample ids make the results unreliable for a penalty.",
+  "issue_source": "Sample ids S48213 vs S48231 are a transposition (recording), but 5 breaches in 90 days and an active treatment withdrawal point to farm practice; both are defensible.",
+  "discrepancy_size": "scc 310 vs limit 250 is 24% over, within 10 to under 25% (bactoscan 18% over).",
+  "unexplained_breaches": "scc and bactoscan both exceed limits with no exception (2), but the id mismatch and broken seal make the second arguably unattributable (1)."
+ },
+ "request": "rec-F210-0036",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011911
+}

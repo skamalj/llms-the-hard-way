@@ -1,0 +1,163 @@
+{
+ "id": "F224-0021",
+ "family": "F224",
+ "state": {
+  "request": {
+   "views": [
+    "BW"
+   ],
+   "ind": "C02",
+   "risk": "low",
+   "req_date": "2025-03-10",
+   "prior_bw": "2023-04-20",
+   "prescriber": "D07",
+   "exceptions": [],
+   "verbal_auth": []
+  },
+  "exposures": [
+   {
+    "id": 1,
+    "view": "BW",
+    "kV": 70,
+    "s": 0.08,
+    "dose": 0.77,
+    "t": "09:12"
+   },
+   {
+    "id": 2,
+    "view": "BW",
+    "kV": 70,
+    "s": 0.08,
+    "dose": 0.77,
+    "t": "09:14",
+    "retake_of": 1
+   },
+   {
+    "id": 3,
+    "view": "PA",
+    "region": "16",
+    "dose": 1.15,
+    "t": "09:18"
+   },
+   {
+    "id": 4,
+    "view": "PA",
+    "region": "26",
+    "dose": 1.15,
+    "t": "09:20"
+   }
+  ],
+  "image_review": {
+   "grade": 2,
+   "faults": {
+    "1": [
+     "FC_CONE_CUT"
+    ],
+    "2": []
+   },
+   "sensor_errors": [],
+   "second_grader": "done"
+  },
+  "equipment": {
+   "unit": "U3",
+   "last_qa": "2025-01-15",
+   "qa_months": 12,
+   "output_test": "pass",
+   "service_log": [
+    {
+     "open": "2025-03-10",
+     "status": "visit_open"
+    }
+   ],
+   "drl_ref": {
+    "BW": 1.0,
+    "PA": 1.5
+   },
+   "console_log": [
+    {
+     "t": "09:13",
+     "kV": 70,
+     "s": 0.08
+    },
+    {
+     "t": "09:14",
+     "kV": 70,
+     "s": 0.08
+    }
+   ]
+  },
+  "operator": {
+   "id": "O21",
+   "signoff_at": "2025-03-10T10:05",
+   "prior_findings_12m": 0
+  }
+ },
+ "factors": {
+  "indication_match": "match",
+  "recall_interval_months": 23,
+  "dose_ratio_to_drl": 0.77,
+  "console_log_discrepancy": "timestamp_drift",
+  "retake_cause": "cone_cut",
+  "equipment_qa_status": "under_service",
+  "approved_exception": false,
+  "patient_cooperation_flag": false,
+  "unrequested_exposure_count": 2,
+  "verbal_authorisation_logged": false,
+  "image_grade": "acceptable_minor_faults",
+  "audit_completeness": "complete",
+  "operator_prior_findings": 0
+ },
+ "factors_sampled": {
+  "indication_match": "match",
+  "recall_interval_months": 25,
+  "dose_ratio_to_drl": 0.86,
+  "console_log_discrepancy": "timestamp_drift",
+  "retake_cause": "no_retake",
+  "equipment_qa_status": "under_service",
+  "approved_exception": false,
+  "patient_cooperation_flag": false,
+  "unrequested_exposure_count": 2,
+  "verbal_authorisation_logged": false,
+  "image_grade": "acceptable_minor_faults",
+  "audit_completeness": "complete",
+  "operator_prior_findings": 0
+ },
+ "plan": {
+  "justified": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "operator_retake": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "follow_up": {
+   "clarity": "balanced",
+   "target": "close_record",
+   "second": "log_trend"
+  },
+  "dose_position": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  },
+  "unjustified_count": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  }
+ },
+ "target_words": 97,
+ "deciding": {
+  "justified": "Low-risk patient: prior BW 2023-04-20 to request 2025-03-10 is about 23 months, just under the 24-month allowance; indication matches BW. Boundary value holds it in balance.",
+  "operator_retake": "Retake of exposure 1 with FC_CONE_CUT and no sensor errors points to technique, but the unit has an open service visit, so equipment remains plausible.",
+  "follow_up": "Console times differ by 1 minute (benign drift), operator signed off, second grader done; close_record versus a trend note for the unrequested PA views and open service visit.",
+  "dose_position": "BW dose 0.77 against reference 1.0 is a ratio of 0.77, right at the 75% boundary between low and typical.",
+  "unjustified_count": "Two PA exposures are absent from views [BW] with no verbal auth or exception; the BW exposures at 23 months are borderline and could make it three."
+ },
+ "request": "rec-F224-0021",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012999
+}

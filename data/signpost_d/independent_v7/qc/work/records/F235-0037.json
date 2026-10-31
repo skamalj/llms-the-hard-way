@@ -1,0 +1,150 @@
+{
+ "id": "F235-0037",
+ "family": "F235",
+ "state": {
+  "station": {
+   "station_id": "S207",
+   "river": "Aln",
+   "gauge_type": "bubbler",
+   "backup": {
+    "installed": false,
+    "status": null
+   },
+   "telemetry": {
+    "batt_v": 12.7,
+    "rssi_dbm": -84
+   }
+  },
+  "visit": {
+   "type": "routine",
+   "tasks_planned": 3,
+   "arrive": "09:10",
+   "depart": "11:40",
+   "abort_reason": null
+  },
+  "checks": {
+   "pre": {
+    "board_m": [
+     1.409,
+     1.413
+    ],
+    "logger_m": 1.351,
+    "time": "09:20"
+   },
+   "post": {
+    "board_m": [
+     1.409,
+     1.411
+    ],
+    "logger_m": 1.351,
+    "time": "11:30"
+   }
+  },
+  "works": {
+   "tasks": [
+    {
+     "task": "purge and clean line",
+     "status": "done"
+    },
+    {
+     "task": "board inspection",
+     "status": "done"
+    },
+    {
+     "task": "data download",
+     "status": "done"
+    }
+   ],
+   "parts": [],
+   "bench_test": null,
+   "logger_gap_h": 95
+  },
+  "defects": [
+   {
+    "item": "stage output noisy, cause unclear",
+    "channel": "primary_stage",
+    "reporting": true,
+    "raised": "2024-05-14"
+   },
+   {
+    "item": "backup lead corroded",
+    "channel": "secondary",
+    "reporting": false,
+    "raised": "2024-05-14"
+   }
+  ],
+  "notes": {
+   "tech_note": "All fine; logger trace tracks the upstream station, board reading probably local.",
+   "supervisor_comment": "Log noise for the next routine visit.",
+   "signed_off": "2024-05-16"
+  }
+ },
+ "factors": {
+  "pre_visit_offset_mm": 60.0,
+  "check_reading_spread_mm": 4.0,
+  "drift_cause": "channel_change",
+  "cause_evidence": "none",
+  "visit_completion": "full",
+  "post_visit_check_logged": true,
+  "residual_defect_class": "primary_faulty_ambiguous",
+  "backup_sensor_ok": false,
+  "benign_explanation": false,
+  "record_gap": "none",
+  "logger_gap_hours": 95,
+  "telemetry_decoy": "normal",
+  "note_tone": "reassuring"
+ },
+ "factors_sampled": {
+  "pre_visit_offset_mm": 8.76,
+  "check_reading_spread_mm": 4.26,
+  "drift_cause": "channel_change",
+  "cause_evidence": "none",
+  "visit_completion": "full",
+  "post_visit_check_logged": true,
+  "residual_defect_class": "none",
+  "backup_sensor_ok": false,
+  "benign_explanation": false,
+  "record_gap": "none",
+  "logger_gap_hours": 95,
+  "telemetry_decoy": "normal",
+  "note_tone": "reassuring"
+ },
+ "plan": {
+  "sensor_fault_cause": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "visit_disposition": {
+   "clarity": "clear",
+   "target": "sign_off_noted",
+   "second": null
+  },
+  "data_treatment": {
+   "clarity": "leaning",
+   "target": "keep_as_recorded",
+   "second": null
+  },
+  "offset_size": {
+   "clarity": "clear",
+   "target": "3",
+   "second": null
+  },
+  "residual_defect": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 177,
+ "deciding": {
+  "sensor_fault_cause": "No swap or bench test, noisy primary output unexplained, and an offset that persists after the visit; fault and channel change both plausible.",
+  "visit_disposition": "All tasks done, post check logged, signed off with a minor point left for the next routine visit.",
+  "data_treatment": "Logger trace tracks the upstream station and the offset is unchanged before and after, so values stand with some doubt.",
+  "offset_size": "Board mean 1.411 minus logger 1.351 is 60 mm.",
+  "residual_defect": "Primary stage defect is reporting but of unclear cause, alongside a non-reporting secondary item; level 3 or 2."
+ },
+ "request": "rec-F235-0036",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.008256
+}

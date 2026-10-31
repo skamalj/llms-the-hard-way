@@ -1,0 +1,110 @@
+{
+ "id": "F229-0031",
+ "family": "F229",
+ "state": {
+  "lot": {
+   "lot_id": "L114",
+   "pick_start": "2024-09-14T06:00",
+   "pick_end": null
+  },
+  "intake": {
+   "block_code": "B7",
+   "arrival_at": "2024-09-14T20:30",
+   "gross_kg": 6200,
+   "tare_kg": 2200,
+   "net_kg": 4000,
+   "temp_c": 22,
+   "cold_room_in": null,
+   "cold_room_out": null
+  },
+  "sample": {
+   "sampled_at": "2024-09-14T19:50",
+   "rot_pct": 10.6,
+   "sort": {
+    "rejected_kg": 150,
+    "post_sort_rot_pct": 3.0
+   }
+  },
+  "press": {
+   "programme": "destemmed_standard",
+   "band_l_per_t": "600-680",
+   "cycle_start": "2024-09-15T10:00",
+   "juice_l": 2380,
+   "operator_note": "No sorting done."
+  },
+  "transfer": {
+   "lot_ref": "L114",
+   "tank_id": "T3",
+   "transferred_l": 2350,
+   "qa_signoff": "KM 11:40"
+  }
+ },
+ "factors": {
+  "weight_mismatch": "none",
+  "press_programme": "destemmed_standard",
+  "yield_position": "below_band",
+  "lot_id_drift": "none",
+  "missing_step": "none",
+  "out_of_order_timestamp": true,
+  "pick_to_press_hours": "unknown; at least 13.5 from arrival, 28 from pick start",
+  "pick_end_recorded": false,
+  "cold_held": false,
+  "rot_pct": 10.6,
+  "sorting_applied": true,
+  "note_signal": "contradicts_log",
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "weight_mismatch": "none",
+  "press_programme": "destemmed_standard",
+  "yield_position": "inside_band",
+  "lot_id_drift": "none",
+  "missing_step": "none",
+  "out_of_order_timestamp": true,
+  "pick_to_press_hours": 21.57,
+  "pick_end_recorded": false,
+  "cold_held": false,
+  "rot_pct": 10.6,
+  "sorting_applied": true,
+  "note_signal": "contradicts_log",
+  "boundary_case": false
+ },
+ "plan": {
+  "yield_consistent": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "chain_intact": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "release_decision": {
+   "clarity": "leaning",
+   "target": "release_corrected",
+   "second": null
+  },
+  "pick_press_delay": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "failed_checks": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  }
+ },
+ "target_words": 25,
+ "deciding": {
+  "yield_consistent": "2380 L from 4000 kg net is 595 L/t, just under the 600-680 band.",
+  "chain_intact": "lot_id L114 and block B7 carry through; transfer lot_ref is L114.",
+  "release_decision": "The only anomalies look clerical (sampled_at 19:50 precedes arrival 20:30, note says no sorting while the sort block exists); QA signed off.",
+  "pick_press_delay": "pick_end is null. Arrival to press start is 13.5 h, pick_start to press is 28 h, so level 2 and level 3 are both defensible.",
+  "failed_checks": "Yield is marginally below band; the weights reconcile, ids match and no step is missing. The sampled_at before arrival_at timestamp is a possible second failure."
+ },
+ "request": "rec-F229-0031",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.010164
+}

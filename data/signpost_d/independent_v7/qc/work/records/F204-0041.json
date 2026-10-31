@@ -1,0 +1,146 @@
+{
+ "id": "F204-0041",
+ "family": "F204",
+ "state": {
+  "rx": {
+   "drug": "levothyroxine",
+   "strength": {
+    "val": 0.1,
+    "unit": "mg"
+   },
+   "form": "tab",
+   "dose": 1,
+   "freq_per_day": 1,
+   "qty": 28
+  },
+  "patient": {
+   "pt_id": "P48213",
+   "supplies": [
+    {
+     "date": "2025-03-01",
+     "days_covered": 28
+    }
+   ],
+   "emergency_supplies": [
+    {
+     "date": "2025-03-30",
+     "days": 1
+    }
+   ],
+   "near_miss_count": 3
+  },
+  "dispensed": {
+   "product_name": "Euthyrox",
+   "generic_name": "levothyroxine",
+   "strength": {
+    "val": 50,
+    "unit": "mcg"
+   },
+   "form": "tab",
+   "pack_size": 28,
+   "packs": 1,
+   "req_warnings": [
+    "W1"
+   ]
+  },
+  "label": {
+   "pt_id": "P48213",
+   "dose_qty": 1,
+   "freq_per_day": 2,
+   "warning_codes": [
+    "W1"
+   ],
+   "qty_printed": 28
+  },
+  "check_log": {
+   "checked_at": "2025-03-30T09:10",
+   "clin_check": {
+    "by": "RPh2",
+    "at": "2025-03-30T08:50"
+   },
+   "queries": [
+    {
+     "raised_at": "2025-03-30T09:00",
+     "field": "label.freq_per_day",
+     "status": "pending"
+    }
+   ],
+   "interventions": [
+    {
+     "code": "DOSE",
+     "field": "strength",
+     "accepted": true,
+     "by": "RPh2"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "strength_status": "mismatch_converted",
+  "product_status": "generic_brand_equivalent",
+  "quantity_status": "exact",
+  "label_status": "frequency_mismatch",
+  "prescriber_query": "pending",
+  "pharmacist_intervention": true,
+  "clinical_check_signed": true,
+  "home_supply_days": 0,
+  "emergency_supply": true,
+  "short_expiry": false,
+  "prior_error_count": 3,
+  "high_risk_drug": false,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "strength_status": "mismatch_converted",
+  "product_status": "generic_brand_equivalent",
+  "quantity_status": "exact",
+  "label_status": "correct",
+  "prescriber_query": "none",
+  "pharmacist_intervention": true,
+  "clinical_check_signed": true,
+  "home_supply_days": 2,
+  "emergency_supply": true,
+  "short_expiry": false,
+  "prior_error_count": 3,
+  "high_risk_drug": false,
+  "boundary_case": false
+ },
+ "plan": {
+  "strength_differs": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "hold_query",
+   "second": null
+  },
+  "error_category": {
+   "clarity": "clear",
+   "target": "label_error",
+   "second": null
+  },
+  "open_discrepancies": {
+   "clarity": "contested",
+   "target": "2",
+   "second": "1"
+  },
+  "supply_urgency": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 110,
+ "deciding": {
+  "strength_differs": "Rx 0.1 mg (100 mcg) against dispensed 50 mcg: unequal after conversion. An accepted strength intervention leaves some doubt.",
+  "next_step": "Pending query on label.freq_per_day covers the label discrepancy, so the item waits for confirmation.",
+  "error_category": "Label freq_per_day 2 against rx 1 is the only unresolved difference. Strength was handled by the accepted intervention, and the product and quantity (28) agree.",
+  "open_discrepancies": "The label frequency is one open item. The strength difference, though intervened on, may be counted as a second.",
+  "supply_urgency": "The last 28-day supply from 03-01 ended 03-28. A 1-day emergency supply dated 03-30 leaves 0 days, or arguably 1 if today's dose is counted."
+ },
+ "request": "rec-F204-0041",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.015225
+}

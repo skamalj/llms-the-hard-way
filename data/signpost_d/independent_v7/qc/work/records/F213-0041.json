@@ -1,0 +1,153 @@
+{
+ "id": "F213-0041",
+ "family": "F213",
+ "state": {
+  "pool": {
+   "type": "leisure",
+   "test_interval_min": 120,
+   "opening": {
+    "open": "2024-06-10T09:00",
+    "close": "2024-06-10T17:00"
+   },
+   "limits": {
+    "free_cl_min": 1.0,
+    "free_cl_max": 3.0,
+    "ph_min": 7.0,
+    "ph_max": 7.6
+   },
+   "tolerance": {
+    "free_cl": 0.3,
+    "ph": 0.2
+   },
+   "micro_due": "2024-06-08"
+  },
+  "manual_tests": [
+   {
+    "time": "2024-06-10T09:00",
+    "free_cl": 1.8,
+    "ph": 7.3,
+    "temp_c": 28,
+    "kit_id": "K1"
+   },
+   {
+    "time": "2024-06-10T11:00",
+    "free_cl": 1.9,
+    "ph": 7.3,
+    "temp_c": 30,
+    "kit_id": "K1"
+   },
+   {
+    "time": "2024-06-10T13:00",
+    "free_cl": 1.8,
+    "ph": 7.4,
+    "temp_c": 32,
+    "kit_id": "K1"
+   },
+   {
+    "time": "2024-06-10T15:20",
+    "free_cl": 1.8,
+    "ph": 7.3,
+    "temp_c": 31,
+    "kit_id": "K1"
+   }
+  ],
+  "plant": {
+   "controller_readings": [
+    {
+     "time": "2024-06-10T13:00",
+     "free_cl": 1.9,
+     "ph": 7.4
+    },
+    {
+     "time": "2024-06-10T15:20",
+     "free_cl": 1.8,
+     "ph": 7.3
+    }
+   ]
+  },
+  "equipment": {
+   "kits": [
+    {
+     "kit_id": "K1",
+     "cal_due": "2024-12-01"
+    }
+   ]
+  },
+  "actions": [],
+  "lab_sample": {
+   "sampled_on": "2024-06-07",
+   "result_on": "2024-06-09",
+   "tvc_37": 2400,
+   "coliforms": 12,
+   "pseudomonas": 30
+  }
+ },
+ "factors": {
+  "pool_type": "leisure",
+  "test_coverage_gap": 1,
+  "boundary_interval": false,
+  "log_controller_discrepancy": "none",
+  "discrepancy_location": "free_chlorine",
+  "excursion_severity": "none",
+  "corrective_action_delay": "none needed",
+  "retest_logged": false,
+  "dosing_event_explains": false,
+  "kit_calibration_status": "in_date",
+  "lab_sample_state": "positive",
+  "out_of_order_entry": false,
+  "benign_noise": "temp_swing"
+ },
+ "factors_sampled": {
+  "pool_type": "leisure",
+  "test_coverage_gap": 1,
+  "boundary_interval": false,
+  "log_controller_discrepancy": "none",
+  "discrepancy_location": "free_chlorine",
+  "excursion_severity": "marginal",
+  "corrective_action_delay": "prompt",
+  "retest_logged": false,
+  "dosing_event_explains": false,
+  "kit_calibration_status": "in_date",
+  "lab_sample_state": "positive",
+  "out_of_order_entry": false,
+  "benign_noise": "temp_swing"
+ },
+ "plan": {
+  "test_frequency_met": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "readings_reconcile": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "log_disposition": {
+   "clarity": "leaning",
+   "target": "require_closure",
+   "second": null
+  },
+  "action_delay": {
+   "clarity": "leaning",
+   "target": "0",
+   "second": null
+  },
+  "failed_checks": {
+   "clarity": "leaning",
+   "target": "0",
+   "second": null
+  }
+ },
+ "target_words": 36,
+ "deciding": {
+  "test_frequency_met": "Last gap is 140 min against a 120 min interval, only slightly over; the rest are exact.",
+  "readings_reconcile": "Controller and manual free_cl and pH agree within tolerance at both matched times.",
+  "log_disposition": "Lab sample tvc_37 2400, coliforms 12 and pseudomonas 30 are positive counts with no actions or retest logged.",
+  "action_delay": "All manual free_cl and pH values sit inside pool.limits, so no action needed.",
+  "failed_checks": "Only possible fail is the 20 min extra gap and the positive lab counts; no discrepancy or kit problem."
+ },
+ "request": "rec-F213-0041",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.006993
+}

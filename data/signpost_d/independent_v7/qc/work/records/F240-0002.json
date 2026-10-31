@@ -1,0 +1,142 @@
+{
+ "id": "F240-0002",
+ "family": "F240",
+ "state": {
+  "asset": {
+   "inverter_id": "INV-7C",
+   "serial": "SN9020",
+   "model": "CX-1500",
+   "rated_ac_kw": 1500
+  },
+  "fault_event": {
+   "serial": "SN9020",
+   "code": "F-TMP-04",
+   "fw_severity": 3,
+   "ts_start": "2024-06-03T10:00:00Z",
+   "ts_clear": "2024-06-03T13:00:00Z",
+   "auto_restarts": 1
+  },
+  "telemetry": {
+   "exp_day_kwh": 6000,
+   "exp_window_kwh": 2300,
+   "act_window_kwh": 1825,
+   "samples": [
+    {
+     "ts": "2024-06-03T12:55:00Z",
+     "ac_kw": 1114,
+     "exp_kw": 1500,
+     "poa_wm2": 930,
+     "limit_pct": 74.28
+    }
+   ]
+  },
+  "site_context": {
+   "grid_events": [],
+   "maint_windows": [
+    {
+     "from": "2024-06-03T08:00:00Z",
+     "to": "2024-06-03T16:00:00Z",
+     "scope": "BLK-9"
+    }
+   ],
+   "neighbours": [
+    {
+     "inverter_id": "INV-7B",
+     "output_ratio": 0.98
+    }
+   ]
+  },
+  "history": {
+   "faults": [
+    {
+     "date": "2024-05-20",
+     "code": "F-TMP-04"
+    },
+    {
+     "date": "2024-06-01",
+     "code": "F-TMP-04"
+    }
+   ],
+   "work_orders": [
+    {
+     "wo_id": "WO-221",
+     "opened": "2024-05-15",
+     "completed": "2024-05-18",
+     "retest_ok": true
+    },
+    {
+     "wo_id": "WO-240",
+     "opened": "2024-06-02",
+     "completed": null,
+     "retest_ok": null
+    }
+   ]
+  }
+ },
+ "factors": {
+  "fault_class": "igbt_overtemp",
+  "log_telemetry_mismatch": "none",
+  "grid_event_concurrent": false,
+  "maintenance_window_active": false,
+  "neighbour_cross_check": "neighbours_normal",
+  "repeat_count_30d": 2,
+  "last_repair_status": "open",
+  "current_limit_pct": 74.28,
+  "yield_loss_pct": 7.91,
+  "low_irradiance_window": false,
+  "serial_mismatch": false,
+  "boundary_placement": false
+ },
+ "factors_sampled": {
+  "fault_class": "igbt_overtemp",
+  "log_telemetry_mismatch": "none",
+  "grid_event_concurrent": false,
+  "maintenance_window_active": false,
+  "neighbour_cross_check": "neighbours_normal",
+  "repeat_count_30d": 2,
+  "last_repair_status": "open",
+  "current_limit_pct": 74.28,
+  "yield_loss_pct": 7.91,
+  "low_irradiance_window": false,
+  "serial_mismatch": false,
+  "boundary_placement": false
+ },
+ "plan": {
+  "genuine_defect": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "post_repair_repeat": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "contested",
+   "target": "close_log",
+   "second": "scheduled_visit"
+  },
+  "yield_loss": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  },
+  "capacity_unavailable": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  }
+ },
+ "target_words": 111,
+ "deciding": {
+  "genuine_defect": "No grid event, normal neighbours and repeat overtemp code suggest hardware, though loss is moderate and an open work order is pending, leaving some doubt.",
+  "post_repair_repeat": "WO-221 completed 2024-05-18 and F-TMP-04 logged 2024-06-01 and again 2024-06-03 after it.",
+  "next_step": "Cleared event with an open work order and a 74.28% limit leaves close_log and scheduled_visit both defensible.",
+  "yield_loss": "Computed loss (2300-1825)/6000=7.9%, which sits in the Material band under the thresholds.",
+  "capacity_unavailable": "Last sample limit_pct 74.28 with ac_kw 1114 of 1500 rated shows partial output; whether it counts as 50-100% or lower is debatable."
+ },
+ "request": "rec-F240-0001",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.007011
+}

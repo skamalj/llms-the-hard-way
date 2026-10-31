@@ -1,0 +1,146 @@
+{
+ "id": "F232-0044",
+ "family": "F232",
+ "state": {
+  "night_header": {
+   "date": "2025-08-20",
+   "alloc_h": 8,
+   "eng_window": null
+  },
+  "conditions": {
+   "limits": {
+    "humidity_pct": 85
+   },
+   "closures": [
+    {
+     "start": "2025-08-20T23:00Z",
+     "end": "2025-08-21T03:08Z",
+     "reason": "weather",
+     "humidity_pct": 90
+    }
+   ]
+  },
+  "exposures": [
+   {
+    "target_id": "T4",
+    "start_utc": "2025-08-20T21:00Z",
+    "exptime_s": 1800,
+    "filter": "g",
+    "seeing_arcsec": 0.9,
+    "qa": null
+   },
+   {
+    "target_id": "T4",
+    "start_utc": "2025-08-20T21:40Z",
+    "exptime_s": 1800,
+    "filter": "g",
+    "seeing_arcsec": 0.95,
+    "qa": null
+   },
+   {
+    "target_id": "T4",
+    "start_utc": "2025-08-20T22:15Z",
+    "exptime_s": 1800,
+    "filter": "g",
+    "seeing_arcsec": 0.9,
+    "qa": null
+   }
+  ],
+  "programme_request": {
+   "targets": [
+    {
+     "target_id": "T4",
+     "filters": [
+      "g"
+     ],
+     "total_s": 5400,
+     "max_seeing_arcsec": 1.4
+    }
+   ],
+   "exception": null
+  },
+  "faults": [
+   {
+    "subsystem": "camera_readout",
+    "start_utc": "2025-08-21T03:05Z",
+    "end_utc": null,
+    "cleared": false,
+    "retest_utc": null,
+    "workaround": null,
+    "ticket_ref": "ENG-455"
+   }
+  ],
+  "notes": {
+   "observer_note": "T4 complete.",
+   "night_assistant_note": "Readout dropouts from 03:05; single-amp mode also failed."
+  }
+ },
+ "factors": {
+  "weather_loss_hours": 4.13,
+  "fault_overlap": "minor",
+  "fault_resolution_state": "open_no_workaround",
+  "maintenance_window": false,
+  "closure_reason_mismatch": "none",
+  "note_claim_discrepancy": "none",
+  "seeing_vs_limit": "well_within",
+  "seeing_exception_approved": false,
+  "usable_fraction": 0.0,
+  "qa_pending_count": 3,
+  "utc_date_rollover": false,
+  "assistant_note_tone": "alarmed_real",
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "weather_loss_hours": 4.13,
+  "fault_overlap": "major_overlap",
+  "fault_resolution_state": "cleared_retested",
+  "maintenance_window": true,
+  "closure_reason_mismatch": "coincides_with_fault",
+  "note_claim_discrepancy": "none",
+  "seeing_vs_limit": "well_within",
+  "seeing_exception_approved": false,
+  "usable_fraction": 0.88,
+  "qa_pending_count": 3,
+  "utc_date_rollover": false,
+  "assistant_note_tone": "alarmed_real",
+  "boundary_case": false
+ },
+ "plan": {
+  "weather_only_loss": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "claims_supported": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "night_disposition": {
+   "clarity": "leaning",
+   "target": "reschedule_night",
+   "second": null
+  },
+  "usable_share": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "fault_followup": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 73,
+ "deciding": {
+  "weather_only_loss": "The weather closure 23:00-03:08 (humidity 90 over 85) explains most loss, but the camera fault begins 03:05 and is open, so the later remaining night is lost to equipment.",
+  "claims_supported": "T4 g frames total 5400 s, matching the request, but all three have qa null.",
+  "night_disposition": "Open camera_readout fault from 03:05 with no end leaves roughly the second half of the night unusable, over half the 8 h allocation, though pending QA adds some doubt.",
+  "usable_share": "All three exposures have qa null, so no frame is confirmed usable; if they pass they would give only 5400 s of 28800 s (about 19%).",
+  "fault_followup": "Fault open with workaround null and the note says single-amp mode failed; whether the instrument is entirely unusable or only degraded balances level 3 against 2."
+ },
+ "request": "rec-F232-0041",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.016245
+}

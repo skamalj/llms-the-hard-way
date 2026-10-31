@@ -1,0 +1,141 @@
+{
+ "id": "F236-0043",
+ "family": "F236",
+ "state": {
+  "changeover": {
+   "line": "L4",
+   "from_code": "C3",
+   "to_code": "C9",
+   "from_allergens": [
+    "sesame",
+    "wheat"
+   ],
+   "to_allergens": [
+    "wheat"
+   ]
+  },
+  "cleaning": {
+   "steps": [
+    {
+     "id": "wash",
+     "completed": true,
+     "spec_min": 30,
+     "actual_min": 34
+    }
+   ],
+   "part_swap": false
+  },
+  "verification": {
+   "swabs": [
+    {
+     "id": "S1",
+     "allergen": "sesame",
+     "reading": 4,
+     "limit_ppm": 10,
+     "at": "2025-04-10T06:40"
+    }
+   ]
+  },
+  "production": {
+   "line": "L4",
+   "start_at": "2025-04-10T07:00",
+   "qty": 500,
+   "unit": "kg"
+  },
+  "approvals": {
+   "qa_signoff": {
+    "signer": "Q03",
+    "signed_at": "2025-04-10T06:50"
+   },
+   "deviations": []
+  },
+  "history": [
+   {
+    "out": "C3",
+    "in": "C8",
+    "ok": true
+   },
+   {
+    "ok": false
+   },
+   {
+    "ok": false
+   },
+   {
+    "ok": false
+   },
+   {
+    "ok": false
+   },
+   {
+    "ok": false
+   }
+  ]
+ },
+ "factors": {
+  "allergen_transition": "removes_allergen",
+  "cleaning_completion": "full",
+  "swab_outcome": "trace_below_limit",
+  "swab_timing_mismatch": false,
+  "cross_section_discrepancy": "history_code_mismatch",
+  "exposed_quantity_kg": 500.0,
+  "approved_deviation": false,
+  "label_precaution": false,
+  "dedicated_tooling": false,
+  "qa_signoff_state": "signed_before_start",
+  "line_failure_history": 5,
+  "boundary_value": true
+ },
+ "factors_sampled": {
+  "allergen_transition": "removes_allergen",
+  "cleaning_completion": "full",
+  "swab_outcome": "trace_below_limit",
+  "swab_timing_mismatch": false,
+  "cross_section_discrepancy": "none",
+  "exposed_quantity_kg": 475.85,
+  "approved_deviation": true,
+  "label_precaution": false,
+  "dedicated_tooling": false,
+  "qa_signoff_state": "signed_before_start",
+  "line_failure_history": 5,
+  "boundary_value": true
+ },
+ "plan": {
+  "swabs_cleared": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "line_disposition": {
+   "clarity": "contested",
+   "target": "release_conditional",
+   "second": "release"
+  },
+  "worst_deficiency": {
+   "clarity": "leaning",
+   "target": "records_only",
+   "second": null
+  },
+  "exposed_product": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "residue_evidence": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  }
+ },
+ "target_words": 80,
+ "deciding": {
+  "swabs_cleared": "The single sesame swab reads 4 against limit 10 at 06:40, before the 07:00 start, and the cleaning was complete.",
+  "line_disposition": "The swab passed and sign-off came before start, which supports release. Five failed changeovers in history and a trace reading support a precautionary control. Both are defensible.",
+  "worst_deficiency": "The latest history entry shows in-code C8, but this changeover's to_code is C9. That paperwork mismatch is the only issue.",
+  "exposed_product": "qty is exactly 500 kg, the boundary between levels 2 and 3, with the swab before start.",
+  "residue_evidence": "The sesame reading of 4 ppm is above zero and under the limit of 10, so a trace."
+ },
+ "request": "rec-F236-0041",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011984
+}

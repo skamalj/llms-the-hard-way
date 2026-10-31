@@ -1,0 +1,142 @@
+{
+ "id": "F216-0041",
+ "family": "F216",
+ "state": {
+  "session": {
+   "id": "S101",
+   "type": "outreach_coolbox",
+   "date": "2024-05-14",
+   "next": "2024-05-28"
+  },
+  "storage": {
+   "alarms_30d": 1
+  },
+  "temp_log": {
+   "int_min": 5,
+   "readings": [
+    [
+     "10:00",
+     7.6
+    ],
+    [
+     "10:05",
+     8.4
+    ],
+    [
+     "10:10",
+     8.7
+    ],
+    [
+     "10:15",
+     8.6
+    ],
+    [
+     "10:20",
+     8.3
+    ],
+    [
+     "10:25",
+     8.2
+    ],
+    [
+     "10:30",
+     7.4
+    ]
+   ],
+   "manual_checks": []
+  },
+  "stock": [
+   {
+    "lot": "A1",
+    "tol": 60,
+    "open": 20,
+    "waste": 1,
+    "close": 13
+   }
+  ],
+  "administration": [
+   {
+    "t": "10:15",
+    "lot": "A1",
+    "n": 3
+   }
+  ],
+  "excursion_actions": {
+   "start": "10:05",
+   "end": "10:30",
+   "quarantined": true,
+   "advice_req": "11:00",
+   "advice": "PEND",
+   "advice_at": null,
+   "revised_expiry": null
+  }
+ },
+ "factors": {
+  "true_excursion_minutes": 25,
+  "log_source_discrepancy": "manual_checks_missing",
+  "buffered_probe_in_range": false,
+  "planned_maintenance": false,
+  "stability_clearance": "requested_pending",
+  "doses_during_exposure": 3,
+  "stock_count_gap": 3,
+  "lot_id_mismatch": false,
+  "lots_beyond_tolerance": "none",
+  "freezing_reading": false,
+  "boundary_case": false,
+  "unit_alarm_history": 1,
+  "session_type": "outreach_coolbox"
+ },
+ "factors_sampled": {
+  "true_excursion_minutes": 101,
+  "log_source_discrepancy": "manual_checks_missing",
+  "buffered_probe_in_range": true,
+  "planned_maintenance": false,
+  "stability_clearance": "cleared_shortened",
+  "doses_during_exposure": 3,
+  "stock_count_gap": 3,
+  "lot_id_mismatch": false,
+  "lots_beyond_tolerance": "some",
+  "freezing_reading": false,
+  "boundary_case": false,
+  "unit_alarm_history": 1,
+  "session_type": "outreach_coolbox"
+ },
+ "plan": {
+  "dosed_uncleared": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "stock_reconciles": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "stock_disposition": {
+   "clarity": "clear",
+   "target": "quarantine_hold",
+   "second": null
+  },
+  "excursion_duration": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  },
+  "followup_urgency": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 92,
+ "deciding": {
+  "dosed_uncleared": "3 doses at 10:15, after excursion start 10:05, with advice PEND and no advice_at.",
+  "stock_reconciles": "A1: 20 open - 1 waste - 3 given = 16, but close is 13; manual checks empty adds slight doubt.",
+  "stock_disposition": "advice PEND, quarantined true, no revised expiry: exposure unresolved, so hold.",
+  "excursion_duration": "Five 5-min readings above 8.0 (10:05-10:25) = 25 min, under 30; staff end time 10:30 and missing manual checks leave slight doubt.",
+  "followup_urgency": "Doses given from uncleared stock and advice pending, but only 3 doses and a short 25 min excursion: recall (3) vs within 24h (2) is balanced."
+ },
+ "request": "rec-F216-0041",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012295
+}

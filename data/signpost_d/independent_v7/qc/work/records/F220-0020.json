@@ -1,0 +1,126 @@
+{
+ "id": "F220-0020",
+ "family": "F220",
+ "state": {
+  "tray": {
+   "tray_id": "T-4420",
+   "barcode": "31208876",
+   "requested_for": "2025-03-11T10:30",
+   "request_note": "On-call, needed within the hour"
+  },
+  "set_check": {
+   "lines": [
+    {
+     "cat_code": "DR09",
+     "qty_expected": 2,
+     "qty_counted": 1
+    },
+    {
+     "cat_code": "HK12",
+     "qty_expected": 1,
+     "qty_counted": 1
+    }
+   ],
+   "variances": [
+    {
+     "cat_code": "HK12",
+     "reason": "substitute hook",
+     "approved_by": null
+    }
+   ]
+  },
+  "washer": {
+   "alarms": [
+    "E14"
+   ],
+   "trays_processed": [
+    "31208876"
+   ],
+   "rerun_cycle_id": "W9011"
+  },
+  "steriliser_load": {
+   "printout": {
+    "temp_min_c": 134.0,
+    "temp_max_c": 135.5,
+    "hold_s": 172
+   },
+   "logger": {
+    "temp_min_c": 134.0,
+    "hold_s": 171
+   },
+   "bi": {
+    "result": "pass"
+   },
+   "ci_result": "pass",
+   "unload_condition": "dry"
+  }
+ },
+ "factors": {
+  "set_count_discrepancies": 1,
+  "substitution_documented": true,
+  "cycle_excursion": "short_hold",
+  "independent_logger_confirms": false,
+  "bi_status": "pass",
+  "chemical_indicator": "pass",
+  "washer_record_state": "alarm_cleared_rerun",
+  "pack_integrity": "intact",
+  "label_mismatch": "none",
+  "daily_test_state": "not_logged",
+  "theatre_urgency": "emergency_on_call",
+  "note_tone": "flags_concern_open",
+  "boundary_case": true
+ },
+ "factors_sampled": {
+  "set_count_discrepancies": 1,
+  "substitution_documented": true,
+  "cycle_excursion": "none",
+  "independent_logger_confirms": false,
+  "bi_status": "fail",
+  "chemical_indicator": "partial_change",
+  "washer_record_state": "alarm_cleared_rerun",
+  "pack_integrity": "condensate_dried_retested",
+  "label_mismatch": "none",
+  "daily_test_state": "not_logged",
+  "theatre_urgency": "emergency_on_call",
+  "note_tone": "flags_concern_open",
+  "boundary_case": true
+ },
+ "plan": {
+  "cycle_in_limits": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "disposition": {
+   "clarity": "clear",
+   "target": "reprocess",
+   "second": null
+  },
+  "failure_stage": {
+   "clarity": "clear",
+   "target": "pack_stage",
+   "second": null
+  },
+  "count_gaps": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  },
+  "sterility_doubt": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  }
+ },
+ "target_words": 55,
+ "deciding": {
+  "cycle_in_limits": "Printout hold 172 s and logger hold 171 s are both under the 180 s minimum.",
+  "disposition": "Short hold on both printout and logger, plus an unexplained DR09 shortage, requires a new cycle; urgency is irrelevant.",
+  "failure_stage": "Washer alarm E14 has rerun W9011, but the DR09 count 1 of 2 is unexplained and arises before the steriliser, so pack stage is earliest.",
+  "count_gaps": "DR09 is short with no variance, and the HK12 substitution has approved_by null: one or two unexplained gaps.",
+  "sterility_doubt": "BI and CI passed and unload is dry; a missing daily test log is the one record gap, which leans to Minor despite the short hold."
+ },
+ "request": "rec-F220-0016",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.013754
+}

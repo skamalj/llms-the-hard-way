@@ -1,0 +1,119 @@
+{
+ "id": "F240-0004",
+ "family": "F240",
+ "state": {
+  "asset": {
+   "inverter_id": "INV-5D",
+   "serial": "SN55",
+   "rated_ac_kw": 1200
+  },
+  "fault_event": {
+   "serial": "SN55",
+   "code": "F-OV-07",
+   "ts_start": "2024-08-02T08:30:00Z",
+   "ts_clear": null
+  },
+  "telemetry": {
+   "exp_day_kwh": 4000,
+   "exp_window_kwh": 2000,
+   "act_window_kwh": 943,
+   "samples": [
+    {
+     "ts": "2024-08-02T12:00:00Z",
+     "ac_kw": 542,
+     "exp_kw": 1150,
+     "poa_wm2": 900,
+     "limit_pct": 45.18
+    }
+   ]
+  },
+  "site_context": {
+   "grid_events": [],
+   "neighbours": [
+    {
+     "inverter_id": "INV-5C",
+     "output_ratio": 0.99
+    }
+   ]
+  },
+  "history": {
+   "faults": [
+    {
+     "date": "2024-07-12",
+     "code": "F-OV-07"
+    },
+    {
+     "date": "2024-07-20",
+     "code": "F-OV-07"
+    }
+   ],
+   "work_orders": []
+  }
+ },
+ "factors": {
+  "fault_class": "grid_overvoltage",
+  "log_telemetry_mismatch": "none",
+  "grid_event_concurrent": false,
+  "maintenance_window_active": false,
+  "neighbour_cross_check": "neighbours_normal",
+  "repeat_count_30d": 6,
+  "last_repair_status": "none",
+  "current_limit_pct": 45.18,
+  "yield_loss_pct": 26.43,
+  "low_irradiance_window": false,
+  "serial_mismatch": false,
+  "boundary_placement": false
+ },
+ "factors_sampled": {
+  "fault_class": "grid_overvoltage",
+  "log_telemetry_mismatch": "none",
+  "grid_event_concurrent": false,
+  "maintenance_window_active": false,
+  "neighbour_cross_check": "neighbours_normal",
+  "repeat_count_30d": 6,
+  "last_repair_status": "none",
+  "current_limit_pct": 45.18,
+  "yield_loss_pct": 26.43,
+  "low_irradiance_window": false,
+  "serial_mismatch": false,
+  "boundary_placement": false
+ },
+ "plan": {
+  "genuine_defect": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "post_repair_repeat": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "balanced",
+   "target": "hold_confirm",
+   "second": "urgent_dispatch"
+  },
+  "yield_loss": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  },
+  "capacity_unavailable": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 55,
+ "deciding": {
+  "genuine_defect": "Neighbours at 0.99 and no grid event while only this inverter repeatedly faults point to hardware.",
+  "post_repair_repeat": "Rejected design: no completed repair exists, which contradicts the plan; repeat codes only partly support it.",
+  "next_step": "Defect likely with ongoing 45% limit; a confirmation is plausible before dispatch, so hold_confirm and urgent_dispatch both fit.",
+  "yield_loss": "Loss (2000-943)/4000=26.4%, Severe, though a lower figure remains possible if the day recovers.",
+  "capacity_unavailable": "limit_pct 45.18 with ac_kw 542 of 1200 is below 50%, but ts_clear null leaves the end state unclear."
+ },
+ "request": "rec-F240-0001",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.007011
+}

@@ -1,0 +1,136 @@
+{
+ "id": "F204-0039",
+ "family": "F204",
+ "state": {
+  "rx": {
+   "drug": "promethazine",
+   "strength": {
+    "val": 12.5,
+    "unit": "mg",
+    "per_ml": 5
+   },
+   "form": "syrup",
+   "dose": 5,
+   "freq_per_day": 2,
+   "qty": 100,
+   "days": 10
+  },
+  "patient": {
+   "pt_id": "P13876",
+   "supplies": [
+    {
+     "date": "2024-06-10",
+     "days_covered": 7
+    }
+   ],
+   "near_miss_count": 1
+  },
+  "dispensed": {
+   "product_name": "Trimeprazine syrup",
+   "strength": {
+    "val": 2.4,
+    "unit": "mg",
+    "per_ml": 1
+   },
+   "form": "syrup",
+   "pack_size": 100,
+   "packs": 1,
+   "expiry": "2026-02-28",
+   "req_warnings": [
+    2,
+    19
+   ],
+   "high_risk": false
+  },
+  "label": {
+   "pt_id": "P13876",
+   "dose_qty": 5,
+   "freq_per_day": 2,
+   "warning_codes": [
+    2
+   ],
+   "qty_printed": 100
+  },
+  "check_log": {
+   "checked_at": "2024-06-17T11:05",
+   "clin_check": null,
+   "queries": [],
+   "interventions": [
+    {
+     "code": "CL4",
+     "field": "address",
+     "accepted": true,
+     "by": "RPh"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "strength_status": "mismatch_converted",
+  "product_status": "different_drug",
+  "quantity_status": "exact",
+  "label_status": "warning_code_missing",
+  "prescriber_query": "none",
+  "pharmacist_intervention": false,
+  "clinical_check_signed": false,
+  "home_supply_days": 0,
+  "emergency_supply": false,
+  "short_expiry": false,
+  "prior_error_count": 1,
+  "high_risk_drug": false,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "strength_status": "mismatch_converted",
+  "product_status": "different_drug",
+  "quantity_status": "exact",
+  "label_status": "warning_code_missing",
+  "prescriber_query": "none",
+  "pharmacist_intervention": true,
+  "clinical_check_signed": false,
+  "home_supply_days": 2,
+  "emergency_supply": false,
+  "short_expiry": false,
+  "prior_error_count": 1,
+  "high_risk_drug": false,
+  "boundary_case": false
+ },
+ "plan": {
+  "strength_differs": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "release_annotated",
+   "second": null
+  },
+  "error_category": {
+   "clarity": "clear",
+   "target": "product_error",
+   "second": null
+  },
+  "open_discrepancies": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  },
+  "supply_urgency": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 68,
+ "deciding": {
+  "strength_differs": "2.4 mg/mL equals 12 mg/5 mL against 12.5 mg/5 mL prescribed, a close but real gap of 0.5 mg.",
+  "next_step": "The wrong drug and missing warning 19 are unresolved and the only intervention is on address, so it must be re-picked and relabelled rather than annotated.",
+  "error_category": "Trimeprazine was dispensed for promethazine, a wrong-drug pick that outranks the label gap.",
+  "open_discrepancies": "Product, strength and the missing warning code 19 on the label are each unresolved, with the near-equal strength the only doubt.",
+  "supply_urgency": "Supply of 7 days from 2024-06-10 checked 2024-06-17 is just exhausted, though the last dose day is arguable (0 or 1 day)."
+ },
+ "request": "rec-F204-0036",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.014175
+}

@@ -1,0 +1,140 @@
+{
+ "id": "F201-0028",
+ "family": "F201",
+ "state": {
+  "register_header": {
+   "drug": "ketamine",
+   "concentration_mg_ml": 100,
+   "witness_required": true,
+   "opening_balance_ml": 10
+  },
+  "entries": [
+   {
+    "entry_id": "E1",
+    "qty_ml": 1,
+    "patient_id": "P1",
+    "running_balance_ml": 9,
+    "signed_by": null,
+    "witness_id": "w1"
+   },
+   {
+    "entry_id": "E2",
+    "qty_ml": 1,
+    "patient_id": "P2",
+    "running_balance_ml": 9,
+    "signed_by": "s3",
+    "witness_id": null
+   },
+   {
+    "entry_id": "E3",
+    "qty_ml": 1,
+    "patient_id": "P3",
+    "running_balance_ml": 7.5,
+    "signed_by": null,
+    "witness_id": "w1"
+   },
+   {
+    "entry_id": "E4",
+    "qty_ml": 1,
+    "patient_id": "P4",
+    "running_balance_ml": 6.5,
+    "signed_by": "s3",
+    "witness_id": null
+   }
+  ],
+  "clinical_records": [
+   {
+    "patient_id": "P1",
+    "dose": 1,
+    "dose_unit": "ml"
+   },
+   {
+    "patient_id": "P2",
+    "dose": 1,
+    "dose_unit": "ml"
+   },
+   {
+    "patient_id": "P3",
+    "dose": 1,
+    "dose_unit": "ml"
+   },
+   {
+    "patient_id": "P4",
+    "dose": 1,
+    "dose_unit": "ml"
+   }
+  ],
+  "stock_check": {
+   "counted_ml": 6,
+   "overfill_allowance_ml": 0.1
+  }
+ },
+ "factors": {
+  "drug_profile": "ketamine_100mg_ml",
+  "arithmetic_slip_count": 2,
+  "unrecorded_admin": "none",
+  "clinical_records_missing": false,
+  "disposal_state": "none_needed",
+  "unexplained_shortfall_pct": 0.0,
+  "variance_exception": "none",
+  "manufacturer_overfill": true,
+  "auth_gap_count": 4,
+  "count_out_of_order": false,
+  "unit_mismatch": false,
+  "locum_signatory": false,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "drug_profile": "ketamine_100mg_ml",
+  "arithmetic_slip_count": 2,
+  "unrecorded_admin": "large_over_10pct",
+  "clinical_records_missing": false,
+  "disposal_state": "none_needed",
+  "unexplained_shortfall_pct": 6.49,
+  "variance_exception": "none",
+  "manufacturer_overfill": true,
+  "auth_gap_count": 4,
+  "count_out_of_order": false,
+  "unit_mismatch": false,
+  "locum_signatory": false,
+  "boundary_case": false
+ },
+ "plan": {
+  "unexplained_shortfall": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "line_disposition": {
+   "clarity": "balanced",
+   "target": "sign_off",
+   "second": "correct_and_sign"
+  },
+  "variance_cause": {
+   "clarity": "leaning",
+   "target": "arithmetic_slip",
+   "second": null
+  },
+  "variance_size": {
+   "clarity": "leaning",
+   "target": "0",
+   "second": null
+  },
+  "auth_gaps": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 31,
+ "deciding": {
+  "unexplained_shortfall": "Stated closing 6.5 ml exceeds counted 6 ml, which looks like a shortfall, but recomputed closing 10-4=6 equals the count, so the gap comes from the running balances.",
+  "line_disposition": "Count matches recomputed balance and doses match entries, so only the running-balance slips and signature gaps remain, between closing and annotating.",
+  "variance_cause": "E2 states 9 after 9 minus 1, and E3 states 7.5 after 9 minus 1; stated balance is 0.5 above recomputed, and the count agrees with the recomputed figure.",
+  "variance_size": "Recomputed 6 vs counted 6 with 0.1 overfill allowance leaves no variance.",
+  "auth_gaps": "witness_required true; E1 and E3 lack signed_by and E2 and E4 lack witness_id, 4 gaps, with 3 versus 4 arguable over how strictly they are counted."
+ },
+ "request": "rec-F201-0026",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.014902
+}

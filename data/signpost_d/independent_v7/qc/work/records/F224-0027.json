@@ -1,0 +1,146 @@
+{
+ "id": "F224-0027",
+ "family": "F224",
+ "state": {
+  "request": {
+   "views": [
+    "BW_R"
+   ],
+   "ind": "PER_ABS",
+   "risk": "moderate",
+   "prior": "2023-01-10",
+   "date": "2024-05-14",
+   "exc": [
+    {
+     "code": "EX_IND",
+     "appr": "D04"
+    }
+   ],
+   "flags": null
+  },
+  "exposures": [
+   {
+    "v": "BW_R",
+    "t": "11:00",
+    "kV": 70,
+    "s": 0.16,
+    "mGy": 1.3
+   },
+   {
+    "v": "PA_11",
+    "t": "11:04",
+    "mGy": 1.4
+   },
+   {
+    "v": "PA_12",
+    "t": "11:07",
+    "mGy": 1.35
+   },
+   {
+    "v": "PA_12",
+    "t": "11:09",
+    "mGy": 1.35,
+    "retake_of": 3
+   }
+  ],
+  "image_review": {
+   "grade": 2,
+   "faults": [
+    "FC_APEX_CLIPPED"
+   ],
+   "sensor_err": [],
+   "second_grader": "done"
+  },
+  "equipment": {
+   "qa": "2024-03-01",
+   "int": 12,
+   "test": "pass",
+   "service": [],
+   "drl": {
+    "BW_R": 1.0,
+    "PA_11": 1.0,
+    "PA_12": 1.0
+   },
+   "console": [
+    {
+     "t": "11:01",
+     "kV": 70,
+     "s": 0.16
+    }
+   ]
+  },
+  "operator": {
+   "id": "O7",
+   "signoff": "2024-05-14T12:00",
+   "prior_findings": 3
+  }
+ },
+ "factors": {
+  "indication_match": "mismatch",
+  "recall_interval_months": 16,
+  "dose_ratio_to_drl": 1.35,
+  "console_log_discrepancy": "timestamp_drift",
+  "retake_cause": "positioning",
+  "equipment_qa_status": "in_date",
+  "approved_exception": true,
+  "patient_cooperation_flag": false,
+  "unrequested_exposure_count": 3,
+  "verbal_authorisation_logged": false,
+  "image_grade": "acceptable_minor_faults",
+  "audit_completeness": "complete",
+  "operator_prior_findings": 3
+ },
+ "factors_sampled": {
+  "indication_match": "mismatch",
+  "recall_interval_months": 16,
+  "dose_ratio_to_drl": 1.7,
+  "console_log_discrepancy": "timestamp_drift",
+  "retake_cause": "no_retake",
+  "equipment_qa_status": "in_date",
+  "approved_exception": true,
+  "patient_cooperation_flag": false,
+  "unrequested_exposure_count": 2,
+  "verbal_authorisation_logged": false,
+  "image_grade": "acceptable_minor_faults",
+  "audit_completeness": "complete",
+  "operator_prior_findings": 3
+ },
+ "plan": {
+  "justified": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "operator_retake": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "follow_up": {
+   "clarity": "contested",
+   "target": "log_trend",
+   "second": "hold_confirm"
+  },
+  "dose_position": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  },
+  "unjustified_count": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  }
+ },
+ "target_words": 78,
+ "deciding": {
+  "justified": "BW_R is 16 months after the prior view (moderate risk allows 12) and approved exception EX_IND by D04 covers the indication mismatch; the exception's scope leaves doubt.",
+  "operator_retake": "Retake of PA_12 with FC_APEX_CLIPPED, QA in date and no sensor error point to technique, but no patient_flags field either way and only a drifted console entry keep the cause uncertain.",
+  "follow_up": "Audit is complete and the console drift is 1 minute, so log_trend fits; the three uncovered exposures and 3 prior findings make a confirmation hold defensible.",
+  "dose_position": "Doses 1.3 to 1.4 mGy against DRL 1.0 for all views, about 1.35 of the reference level.",
+  "unjustified_count": "PA_11, PA_12 and the PA_12 retake are not in views_requested and request has no verbal_auth, giving three unrequested exposures."
+ },
+ "request": "rec-F224-0026",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.0162
+}

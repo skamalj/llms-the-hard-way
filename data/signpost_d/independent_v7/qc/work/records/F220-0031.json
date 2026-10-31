@@ -1,0 +1,143 @@
+{
+ "id": "F220-0031",
+ "family": "F220",
+ "state": {
+  "tray": {
+   "tray_id": "T-4471",
+   "set_code": "ORTH-B",
+   "barcode": "880143",
+   "requested_for": "2025-03-11T13:00",
+   "theatre": "T3",
+   "request_note": "Next list."
+  },
+  "set_check": {
+   "lines": [
+    {
+     "cat_code": "FC12",
+     "qty_expected": 4,
+     "qty_counted": 3
+    },
+    {
+     "cat_code": "RT07",
+     "qty_expected": 2,
+     "qty_counted": 1
+    },
+    {
+     "cat_code": "SC02",
+     "qty_expected": 2,
+     "qty_counted": 1
+    }
+   ],
+   "variances": [
+    {
+     "cat_code": "SC02",
+     "reason": "substituted",
+     "approved_by": "J.Ames"
+    },
+    {
+     "cat_code": "RT07",
+     "reason": "in repair",
+     "approved_by": null
+    }
+   ],
+   "packer_note": "Forceps shortage flagged, since resolved."
+  },
+  "washer": {
+   "cycle_id": "W-221",
+   "a0": 3000,
+   "alarms": [
+    "door_fault"
+   ],
+   "trays_processed": [
+    "880143"
+   ],
+   "rerun_cycle_id": null
+  },
+  "steriliser_load": {
+   "load_id": "L-90",
+   "printout": null,
+   "logger": null,
+   "daily_test": {
+    "date": "2025-03-10",
+    "result": "pass"
+   },
+   "implant_load": false,
+   "bi": null,
+   "ci_result": "pass",
+   "unload_condition": "outer wrap nicked, inner wrap intact"
+  },
+  "release_label": {
+   "tray_barcode": "880134",
+   "load_id": "L-90",
+   "wrap_condition": "outer wrap nicked"
+  }
+ },
+ "factors": {
+  "set_count_discrepancies": 3,
+  "substitution_documented": true,
+  "cycle_excursion": "printout_null",
+  "independent_logger_confirms": false,
+  "bi_status": "not_required",
+  "chemical_indicator": "pass",
+  "washer_record_state": "alarm_no_rerun",
+  "pack_integrity": "wrap_tear",
+  "label_mismatch": "tray_barcode_differs",
+  "daily_test_state": "pass_today",
+  "theatre_urgency": "next_list",
+  "note_tone": "flags_concern_resolved",
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "set_count_discrepancies": 1,
+  "substitution_documented": true,
+  "cycle_excursion": "none",
+  "independent_logger_confirms": true,
+  "bi_status": "not_required",
+  "chemical_indicator": "pass",
+  "washer_record_state": "complete",
+  "pack_integrity": "wrap_tear",
+  "label_mismatch": "tray_barcode_differs",
+  "daily_test_state": "pass_today",
+  "theatre_urgency": "next_list",
+  "note_tone": "flags_concern_resolved",
+  "boundary_case": true
+ },
+ "plan": {
+  "cycle_in_limits": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "disposition": {
+   "clarity": "clear",
+   "target": "hold",
+   "second": null
+  },
+  "failure_stage": {
+   "clarity": "clear",
+   "target": "wash_stage",
+   "second": null
+  },
+  "count_gaps": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  },
+  "sterility_doubt": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 98,
+ "deciding": {
+  "cycle_in_limits": "steriliser_load.printout and logger are both null, so no cycle data exist to show the hold stayed in band.",
+  "disposition": "Washer alarm door_fault has rerun_cycle_id null and the label barcode 880134 differs from tray 880143, so the tray stays quarantined until confirmed.",
+  "failure_stage": "washer.alarms lists door_fault with no rerun, the earliest unresolved item in process order.",
+  "count_gaps": "Three short lines; SC02 is covered by an approved variance, RT07 has approved_by null and FC12 has no variance, leaving two unexplained.",
+  "sterility_doubt": "Outer wrap nicked with the inner wrap intact (compromised vs. breached is debatable) set against a missing printout and logger (doubtful); the two are held in balance."
+ },
+ "request": "rec-F220-0031",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.014351
+}

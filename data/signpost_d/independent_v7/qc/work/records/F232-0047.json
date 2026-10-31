@@ -1,0 +1,138 @@
+{
+ "id": "F232-0047",
+ "family": "F232",
+ "state": {
+  "night_header": {
+   "date": "2025-06-02",
+   "alloc_h": 10
+  },
+  "conditions": {
+   "closures": [
+    {
+     "s": "2025-06-03T04:00Z",
+     "e": "2025-06-03T05:54Z",
+     "reason": "weather",
+     "hum": 93,
+     "lim": 85
+    }
+   ]
+  },
+  "exposures": [
+   {
+    "t": "T1",
+    "f": "r",
+    "s": 23200,
+    "qa": "pass",
+    "seeing_max": 1.0
+   },
+   {
+    "t": "T2",
+    "f": "r",
+    "s": 5600,
+    "qa": "pass",
+    "seeing_max": 1.1
+   },
+   {
+    "t": "T2",
+    "f": "r",
+    "s": 400,
+    "qa": null
+   }
+  ],
+  "programme_request": [
+   {
+    "t": "T1",
+    "f": "r",
+    "total_s": 23200,
+    "max_seeing": 1.5
+   },
+   {
+    "t": "T2",
+    "f": "r",
+    "total_s": 6000,
+    "max_seeing": 1.5
+   }
+  ],
+  "faults": [
+   {
+    "sub": "guider",
+    "start": "2025-06-03T05:10Z",
+    "end": null,
+    "cleared": false,
+    "workaround": "hand guiding, short exps"
+   }
+  ],
+  "notes": {
+   "observer": "T1, T2 done.",
+   "assistant": "Guider lost lock, trailing on long frames."
+  }
+ },
+ "factors": {
+  "weather_loss_hours": 1.9,
+  "fault_overlap": "none",
+  "fault_resolution_state": "open_workaround",
+  "maintenance_window": false,
+  "closure_reason_mismatch": "none",
+  "note_claim_discrepancy": "short_small",
+  "seeing_vs_limit": "well_within",
+  "seeing_exception_approved": false,
+  "usable_fraction": 0.8,
+  "qa_pending_count": 1,
+  "utc_date_rollover": true,
+  "assistant_note_tone": "alarmed_real",
+  "boundary_case": true
+ },
+ "factors_sampled": {
+  "weather_loss_hours": 6.84,
+  "fault_overlap": "none",
+  "fault_resolution_state": "open_workaround",
+  "maintenance_window": false,
+  "closure_reason_mismatch": "none",
+  "note_claim_discrepancy": "short_large",
+  "seeing_vs_limit": "well_within",
+  "seeing_exception_approved": false,
+  "usable_fraction": 0.13,
+  "qa_pending_count": 1,
+  "utc_date_rollover": true,
+  "assistant_note_tone": "alarmed_real",
+  "boundary_case": true
+ },
+ "plan": {
+  "weather_only_loss": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "claims_supported": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "night_disposition": {
+   "clarity": "leaning",
+   "target": "requeue_targets",
+   "second": null
+  },
+  "usable_share": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "fault_followup": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 49,
+ "deciding": {
+  "weather_only_loss": "The closure is supported (humidity 93 over 85). The guider fault starts at 05:10 inside the closure, with no exposures to lose, but the ongoing trailing leaves doubt about whether equipment cost any time.",
+  "claims_supported": "T2 r passing frames total 5600 s against a required 6000 s. The 400 s pending frame (qa null) would make it exactly 6000 s, so the claim holds only if that frame passes.",
+  "night_disposition": "Technical loss is small and weather is supported, but T2 is possibly short, which points to repeating only the named target. Pending QA adds some doubt.",
+  "usable_share": "Passing time is 23200+5600 = 28800 s = 8.0 h of 10 h, exactly 80%. This sits on the level 2/3 boundary.",
+  "fault_followup": "The guider fault is open with no end or retest. The workaround 'hand guiding, short exps' is weak but real, so it could be level 2 or 3."
+ },
+ "request": "rec-F232-0046",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.014179
+}

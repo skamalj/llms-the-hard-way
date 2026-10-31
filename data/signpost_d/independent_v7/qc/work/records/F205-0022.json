@@ -1,0 +1,113 @@
+{
+ "id": "F205-0022",
+ "family": "F205",
+ "state": {
+  "flight": {
+   "no": "QT88",
+   "std": "2025-05-12T14:30Z"
+  },
+  "times": {
+   "fuel_start": "2025-05-12T14:05Z",
+   "doors_closed": "2025-05-12T15:25Z",
+   "off_blocks": "2025-05-12T15:34Z",
+   "delay_code": "fuelling"
+  },
+  "load": {
+   "bags_count": 60,
+   "bags_kg": 900,
+   "fuel_kg": 6400,
+   "captain_accepted": true
+  },
+  "hold_log": [
+   {
+    "pos": "1",
+    "bags": 30,
+    "kg": 440
+   },
+   {
+    "pos": "2",
+    "bags": 30,
+    "kg": 447
+   }
+  ],
+  "services": {
+   "fuel": {
+    "uplift_kg": 6350,
+    "end": "2025-05-12T15:10Z"
+   },
+   "pushback": null
+  },
+  "remarks": [
+   {
+    "role": "fueller",
+    "msg": "Bowser queue, uplift started late and finished 15:10."
+   }
+  ]
+ },
+ "factors": {
+  "bag_mismatch_size": "none",
+  "mismatch_location": "fuel_uplift_vs_loadsheet_fuel",
+  "missing_record": "pushback_record_missing",
+  "milestone_out_of_order": false,
+  "delay_minutes": 64,
+  "delay_code_fit": "supported",
+  "explanatory_remark": true,
+  "pending_signoff": false,
+  "dg_on_board": false,
+  "decoy_noise": "rounding_within_tolerance",
+  "boundary_value": false,
+  "turn_type": "quick_turn"
+ },
+ "factors_sampled": {
+  "bag_mismatch_size": "none",
+  "mismatch_location": "fuel_uplift_vs_loadsheet_fuel",
+  "missing_record": "pushback_record_missing",
+  "milestone_out_of_order": false,
+  "delay_minutes": 55,
+  "delay_code_fit": "no_code_logged",
+  "explanatory_remark": true,
+  "pending_signoff": false,
+  "dg_on_board": false,
+  "decoy_noise": "rounding_within_tolerance",
+  "boundary_value": false,
+  "turn_type": "quick_turn"
+ },
+ "plan": {
+  "load_reconciled": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "delay_code_supported": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "log_disposition": {
+   "clarity": "leaning",
+   "target": "hold_confirm",
+   "second": null
+  },
+  "offblock_delay": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  },
+  "failed_checks": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 59,
+ "deciding": {
+  "load_reconciled": "Bag counts match, but hold weights sum to 887 kg against 900 kg (1.4%) and fuel uplift is 6350 against 6400; near tolerance, so both answers are plausible.",
+  "delay_code_supported": "Code fuelling with fuel_start 14:05 (35 min after the planned slot) and fuel end 15:10 supports it, though fuelling ended before doors_closed by 75 min.",
+  "log_disposition": "services.pushback is null, a single record to confirm before closing.",
+  "offblock_delay": "off_blocks 15:34 against STD 14:30 is 64 minutes late, just over 60.",
+  "failed_checks": "Missing pushback record, weight difference and a delay over 60 minutes may be counted, giving two or three failures."
+ },
+ "request": "rec-F205-0021",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.007988
+}

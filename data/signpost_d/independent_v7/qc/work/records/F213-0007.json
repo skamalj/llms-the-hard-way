@@ -1,0 +1,135 @@
+{
+ "id": "F213-0007",
+ "family": "F213",
+ "state": {
+  "pool": {
+   "type": "leisure",
+   "test_interval_min": 120,
+   "opening": {
+    "open": "2024-06-01T10:00",
+    "close": "2024-06-01T16:00"
+   },
+   "limits": {
+    "free_cl_min": 1.0,
+    "free_cl_max": 3.0,
+    "ph_min": 7.2,
+    "ph_max": 7.8
+   },
+   "tolerance": {
+    "free_cl": 0.5,
+    "ph": 0.2
+   }
+  },
+  "manual_tests": [
+   {
+    "time": "2024-06-01T10:10",
+    "free_cl": 1.8,
+    "ph": 7.4,
+    "temp_c": 28
+   },
+   {
+    "time": "2024-06-01T12:05",
+    "free_cl": 0.8,
+    "ph": 7.4,
+    "temp_c": 30
+   },
+   {
+    "time": "2024-06-01T13:10",
+    "free_cl": 1.6,
+    "ph": 7.5,
+    "temp_c": 31
+   },
+   {
+    "time": "2024-06-01T15:00",
+    "free_cl": 1.7,
+    "ph": 7.5,
+    "temp_c": 29
+   }
+  ],
+  "plant": {
+   "controller_readings": [
+    {
+     "time": "2024-06-01T12:05",
+     "free_cl": 0.9,
+     "ph": 7.4
+    }
+   ]
+  },
+  "actions": [
+   {
+    "time": "2024-06-01T12:35",
+    "action_type": "dose",
+    "reading_ref": "2024-06-01T12:05",
+    "retest_time": "2024-06-01T13:10"
+   }
+  ]
+ },
+ "factors": {
+  "pool_type": "leisure",
+  "test_coverage_gap": 0,
+  "boundary_interval": false,
+  "log_controller_discrepancy": "none",
+  "discrepancy_location": "free_chlorine",
+  "excursion_severity": "marginal",
+  "corrective_action_delay": "boundary_30",
+  "retest_logged": true,
+  "dosing_event_explains": false,
+  "kit_calibration_status": "in_date",
+  "lab_sample_state": "clear",
+  "out_of_order_entry": false,
+  "benign_noise": "temp_swing"
+ },
+ "factors_sampled": {
+  "pool_type": "leisure",
+  "test_coverage_gap": 0,
+  "boundary_interval": false,
+  "log_controller_discrepancy": "none",
+  "discrepancy_location": "free_chlorine",
+  "excursion_severity": "none",
+  "corrective_action_delay": "prompt",
+  "retest_logged": true,
+  "dosing_event_explains": false,
+  "kit_calibration_status": "in_date",
+  "lab_sample_state": "clear",
+  "out_of_order_entry": false,
+  "benign_noise": "temp_swing"
+ },
+ "plan": {
+  "test_frequency_met": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "readings_reconcile": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "log_disposition": {
+   "clarity": "balanced",
+   "target": "accept_with_query",
+   "second": "hold_for_retest"
+  },
+  "action_delay": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  },
+  "failed_checks": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  }
+ },
+ "target_words": 43,
+ "deciding": {
+  "test_frequency_met": "Tests at 10:10, 12:05, 13:10 and 15:00 keep every gap under 120 min, but nothing is logged after 15:00 before the 16:00 close.",
+  "readings_reconcile": "Controller 12:05 reads 0.9 chlorine and pH 7.4 against manual 0.8 and 7.4, within tolerance.",
+  "log_disposition": "The retest is within limits, but a 30 min action delay and a free chlorine dip may need a query, or the retest could be seen as confirming the outcome.",
+  "action_delay": "Free chlorine of 0.8 at 12:05 is below the 1.0 minimum. Action was logged at 12:35, exactly 30 min later, on the prompt/delayed boundary.",
+  "failed_checks": "The only possible failed check is the action timing at exactly 30 min. Frequency, reconciliation, kit and lab all pass."
+ },
+ "request": "rec-F213-0006",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.007037
+}

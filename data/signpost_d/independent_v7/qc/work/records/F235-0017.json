@@ -1,0 +1,138 @@
+{
+ "id": "F235-0017",
+ "family": "F235",
+ "state": {
+  "station": {
+   "backup": {
+    "installed": true,
+    "last_value_m": 1.49,
+    "status": "stale"
+   },
+   "telemetry": {
+    "batt_v": 12.8,
+    "rssi_dbm": -84
+   }
+  },
+  "visit": {
+   "type": "routine",
+   "tasks_planned": 4,
+   "abort_reason": null
+  },
+  "checks": {
+   "pre": {
+    "board_m": [
+     1.512,
+     1.524
+    ],
+    "logger_m": 1.477
+   },
+   "post": {
+    "board_m": [
+     1.515,
+     1.517
+    ],
+    "logger_m": 1.516
+   }
+  },
+  "works": {
+   "tasks": [
+    {
+     "task": "swap transducer",
+     "status": "done"
+    },
+    {
+     "task": "clean intake",
+     "status": "done"
+    },
+    {
+     "task": "replace backup sensor",
+     "status": "not_started"
+    },
+    {
+     "task": "backup calibration",
+     "status": "not_started"
+    }
+   ],
+   "logger_gap_h": 25
+  },
+  "defects": [
+   {
+    "item": "backup sensor stale",
+    "channel": "secondary",
+    "reporting": false
+   }
+  ],
+  "notes": {
+   "tech_note": "Primary now reads true.",
+   "supervisor_comment": "Weeds cut last week; backup replacement to be scheduled."
+  }
+ },
+ "factors": {
+  "pre_visit_offset_mm": 41.0,
+  "check_reading_spread_mm": 12.0,
+  "drift_cause": "sensor_fault",
+  "cause_evidence": "single_indicator",
+  "visit_completion": "partial",
+  "post_visit_check_logged": true,
+  "residual_defect_class": "secondary_channel",
+  "backup_sensor_ok": false,
+  "benign_explanation": true,
+  "record_gap": "none",
+  "logger_gap_hours": 25,
+  "telemetry_decoy": "normal",
+  "note_tone": "reassuring"
+ },
+ "factors_sampled": {
+  "pre_visit_offset_mm": 34.07,
+  "check_reading_spread_mm": 11.87,
+  "drift_cause": "datum_disturbance",
+  "cause_evidence": "single_indicator",
+  "visit_completion": "partial",
+  "post_visit_check_logged": true,
+  "residual_defect_class": "none",
+  "backup_sensor_ok": false,
+  "benign_explanation": true,
+  "record_gap": "none",
+  "logger_gap_hours": 25,
+  "telemetry_decoy": "normal",
+  "note_tone": "reassuring"
+ },
+ "plan": {
+  "sensor_fault_cause": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "visit_disposition": {
+   "clarity": "clear",
+   "target": "planned_revisit",
+   "second": null
+  },
+  "data_treatment": {
+   "clarity": "balanced",
+   "target": "apply_correction",
+   "second": "reject_period"
+  },
+  "offset_size": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "residual_defect": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  }
+ },
+ "target_words": 95,
+ "deciding": {
+  "sensor_fault_cause": "Transducer swap followed by post check agreeing with board points to sensor fault; no bench test, and a weed cut offers a minor alternative.",
+  "visit_disposition": "Two backup tasks not_started and supervisor says replacement to be scheduled; primary works, so a routine revisit is clear.",
+  "data_treatment": "Post check gives a correction value, but the 12 mm board spread and unknown start point over 25 h make rejecting the period defensible.",
+  "offset_size": "Board mean 1.518 minus logger 1.477 is 41 mm, just over the 40 mm boundary, with a 12 mm spread blurring it.",
+  "residual_defect": "Only defect is a stale backup sensor on the secondary channel while the primary reads correctly; the secondary channel is not clearly lost."
+ },
+ "request": "rec-F235-0016",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.009383
+}

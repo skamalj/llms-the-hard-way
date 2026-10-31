@@ -1,0 +1,118 @@
+{
+ "id": "F230-0041",
+ "family": "F230",
+ "state": {
+  "prescriptions": [
+   {
+    "item_id": "A",
+    "drug": "warfarin",
+    "strength_mg": 3,
+    "dose_units": 1,
+    "time_critical": true,
+    "changes": []
+   }
+  ],
+  "administrations": [
+   {
+    "item_id": "A",
+    "scheduled": "18:00",
+    "given_at": "18:17",
+    "units_given": 1,
+    "initials": "KP"
+   },
+   {
+    "item_id": "A",
+    "scheduled": "18:00",
+    "given_at": "18:20",
+    "units_given": 1,
+    "initials": null
+   }
+  ],
+  "stock": {
+   "A": {
+    "opening": 20,
+    "received": 0,
+    "closing": 15
+   }
+  },
+  "round": {
+   "open_queries": [],
+   "post_dose_obs": [
+    {
+     "type": "INR",
+     "v": 2.4
+    }
+   ]
+  }
+ },
+ "factors": {
+  "dose_mismatch_type": "duplicate_entry",
+  "prescription_change_documented": false,
+  "omission_count": 0,
+  "omission_reason_valid": false,
+  "late_minutes": 17,
+  "time_critical_affected": true,
+  "stock_variance": 3,
+  "stock_variance_explained": false,
+  "signature_gaps": 1,
+  "unit_expression_decoy": "equivalent_split",
+  "post_dose_obs_reassuring": true,
+  "pending_query": "none",
+  "prior_errors_30d": 3,
+  "item_count": 4
+ },
+ "factors_sampled": {
+  "dose_mismatch_type": "duplicate_entry",
+  "prescription_change_documented": false,
+  "omission_count": 0,
+  "omission_reason_valid": false,
+  "late_minutes": 17,
+  "time_critical_affected": true,
+  "stock_variance": 3,
+  "stock_variance_explained": false,
+  "signature_gaps": 1,
+  "unit_expression_decoy": "equivalent_split",
+  "post_dose_obs_reassuring": true,
+  "pending_query": "none",
+  "prior_errors_30d": 3,
+  "item_count": 4
+ },
+ "plan": {
+  "dose_mismatch": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "stock_reconciles": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "next_step": {
+   "clarity": "balanced",
+   "target": "sign_off",
+   "second": "report_incident"
+  },
+  "open_discrepancies": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  },
+  "error_severity": {
+   "clarity": "clear",
+   "target": "4",
+   "second": null
+  }
+ },
+ "target_words": 63,
+ "deciding": {
+  "dose_mismatch": "Item A has two entries for the same scheduled time, 18:00.",
+  "stock_reconciles": "Closing 15 against opening 20 less two signed doses leaves a gap of 3; the unexplained gap is partly offset by the duplicate entry.",
+  "next_step": "Duplicate on a time-critical item suggests an incident, but the null initials on the second entry leave a recording-error reading.",
+  "open_discrepancies": "Item A duplicate plus stock gap and signature gap could be counted as one or two items.",
+  "error_severity": "Duplicate entry on warfarin, flagged time_critical true."
+ },
+ "request": "rec-F230-0041",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.005884
+}

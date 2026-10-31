@@ -1,0 +1,138 @@
+{
+ "id": "F240-0033",
+ "family": "F240",
+ "state": {
+  "asset": {
+   "inverter_id": "INV-7",
+   "rated_ac_kw": 500
+  },
+  "fault_event": {
+   "code": "F-ISO-02",
+   "fw_severity": 2,
+   "ts_start": "2025-07-14T08:00",
+   "ts_clear": null
+  },
+  "telemetry": {
+   "samples": [
+    {
+     "ts": "2025-07-14T08:00",
+     "ac_kw": 100,
+     "exp_kw": 100,
+     "poa_wm2": 150,
+     "limit_pct": 100
+    },
+    {
+     "ts": "2025-07-14T15:45",
+     "ac_kw": 6,
+     "exp_kw": 100,
+     "poa_wm2": 150,
+     "limit_pct": 1
+    }
+   ],
+   "exp_day_kwh": 2000,
+   "exp_window_kwh": 800,
+   "act_window_kwh": 106
+  },
+  "site_context": {
+   "grid_events": [
+    {
+     "ts": "2025-07-14T08:01",
+     "type": "voltage_dip",
+     "magnitude_pu": 0.9
+    }
+   ],
+   "neighbours": [
+    {
+     "inverter_id": "INV-6",
+     "output_ratio": 0.7
+    },
+    {
+     "inverter_id": "INV-8",
+     "output_ratio": 0.72
+    }
+   ]
+  },
+  "history": {
+   "faults": [
+    {
+     "date": "2025-06-03",
+     "code": "F-ISO-02"
+    }
+   ],
+   "work_orders": [
+    {
+     "wo_id": "WO-8",
+     "opened": "2025-06-01",
+     "completed": "2025-06-03",
+     "retest_ok": true
+    }
+   ]
+  }
+ },
+ "factors": {
+  "fault_class": "insulation_resistance",
+  "log_telemetry_mismatch": "none",
+  "grid_event_concurrent": true,
+  "maintenance_window_active": false,
+  "neighbour_cross_check": "neighbours_affected",
+  "repeat_count_30d": 1,
+  "last_repair_status": "completed_verified",
+  "current_limit_pct": 1.0,
+  "yield_loss_pct": 34.7,
+  "low_irradiance_window": true,
+  "serial_mismatch": false,
+  "boundary_placement": false
+ },
+ "factors_sampled": {
+  "fault_class": "insulation_resistance",
+  "log_telemetry_mismatch": "none",
+  "grid_event_concurrent": true,
+  "maintenance_window_active": false,
+  "neighbour_cross_check": "neighbours_affected",
+  "repeat_count_30d": 0,
+  "last_repair_status": "completed_verified",
+  "current_limit_pct": 96.36,
+  "yield_loss_pct": 34.7,
+  "low_irradiance_window": true,
+  "serial_mismatch": false,
+  "boundary_placement": false
+ },
+ "plan": {
+  "genuine_defect": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "post_repair_repeat": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "scheduled_visit",
+   "second": null
+  },
+  "yield_loss": {
+   "clarity": "clear",
+   "target": "3",
+   "second": null
+  },
+  "capacity_unavailable": {
+   "clarity": "contested",
+   "target": "2",
+   "second": "3"
+  }
+ },
+ "target_words": 44,
+ "deciding": {
+  "genuine_defect": "Voltage dip at 08:01 coincides with fault start and both neighbours output at about 0.7, so an external cause is favoured over an inverter defect.",
+  "post_repair_repeat": "One F-ISO-02 entry dated 2025-06-03, the same date as WO-8 completion, with no time order, so before or after the repair is ambiguous.",
+  "next_step": "Log is uncleared and the unit is almost offline with a likely hardware cause, so a scheduled visit is chosen.",
+  "yield_loss": "(800-106)/2000 = 34.7%, well over the 20% line.",
+  "capacity_unavailable": "Last sample ac_kw 6 with limit_pct 1, a trickle of export against zero, so level 2 and level 3 are both defensible."
+ },
+ "request": "rec-F240-0031",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012764
+}

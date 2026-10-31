@@ -1,0 +1,141 @@
+{
+ "id": "F235-0029",
+ "family": "F235",
+ "state": {
+  "station": {
+   "station_id": "S1456",
+   "river": "Aire Lode",
+   "gauge_type": "pressure",
+   "backup": {
+    "installed": false,
+    "status": null
+   },
+   "telemetry": {
+    "batt_v": 12.6,
+    "rssi_dbm": -83
+   }
+  },
+  "visit": {
+   "visit_id": "V-4402",
+   "type": "reactive",
+   "visit_date": "2024-06-18",
+   "tasks_planned": 3,
+   "abort_reason": null
+  },
+  "checks": {
+   "pre": {
+    "board_m": [
+     1.51,
+     1.511
+    ],
+    "logger_m": 1.508,
+    "time": "08:45"
+   },
+   "post": {
+    "board_m": [
+     1.511,
+     1.511
+    ],
+    "logger_m": null,
+    "time": "13:20"
+   }
+  },
+  "works": {
+   "tasks": [
+    {
+     "task": "check cable",
+     "status": "done"
+    },
+    {
+     "task": "replace transducer",
+     "status": "part_done"
+    },
+    {
+     "task": "recalibrate",
+     "status": "not_started"
+    }
+   ],
+   "logger_gap_h": 21
+  },
+  "defects": [
+   {
+    "item": "stage transducer no output",
+    "channel": "primary_stage",
+    "reporting": false,
+    "raised": "2024-06-18"
+   }
+  ],
+  "notes": {
+   "tech_note": "Replacement unit not on van; sensor dead after cable test.",
+   "signed_off": null
+  }
+ },
+ "factors": {
+  "pre_visit_offset_mm": 2.5,
+  "check_reading_spread_mm": 1.0,
+  "drift_cause": "no_drift",
+  "cause_evidence": "none",
+  "visit_completion": "partial",
+  "post_visit_check_logged": true,
+  "residual_defect_class": "primary_not_reporting",
+  "backup_sensor_ok": false,
+  "benign_explanation": false,
+  "record_gap": "none",
+  "logger_gap_hours": 21,
+  "telemetry_decoy": "normal",
+  "note_tone": "neutral"
+ },
+ "factors_sampled": {
+  "pre_visit_offset_mm": 53.95,
+  "check_reading_spread_mm": 1.4,
+  "drift_cause": "sensor_fault",
+  "cause_evidence": "none",
+  "visit_completion": "partial",
+  "post_visit_check_logged": true,
+  "residual_defect_class": "cosmetic",
+  "backup_sensor_ok": false,
+  "benign_explanation": false,
+  "record_gap": "none",
+  "logger_gap_hours": 21,
+  "telemetry_decoy": "normal",
+  "note_tone": "neutral"
+ },
+ "plan": {
+  "sensor_fault_cause": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "visit_disposition": {
+   "clarity": "clear",
+   "target": "urgent_revisit",
+   "second": null
+  },
+  "data_treatment": {
+   "clarity": "clear",
+   "target": "mark_provisional",
+   "second": null
+  },
+  "offset_size": {
+   "clarity": "leaning",
+   "target": "0",
+   "second": null
+  },
+  "residual_defect": {
+   "clarity": "leaning",
+   "target": "4",
+   "second": null
+  }
+ },
+ "target_words": 89,
+ "deciding": {
+  "sensor_fault_cause": "Pre check offset is about 2.5 mm, so there was no drift to attribute to the sensor.",
+  "visit_disposition": "Transducer replacement part_done, recalibrate not_started, primary stage defect not reporting and no backup sensor, so a live fault needs a crew within days.",
+  "data_treatment": "The primary sensor is dead with a null post logger value, so values stay but are unverified.",
+  "offset_size": "Board mean 1.5105 against logger 1.508 is about 2.5 mm; the spread of 1 mm leaves slight doubt.",
+  "residual_defect": "Primary_stage defect has reporting false, meaning no values, and the post logger reading is null."
+ },
+ "request": "rec-F235-0026",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.009179
+}

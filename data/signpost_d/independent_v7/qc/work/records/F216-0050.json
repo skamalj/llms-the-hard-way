@@ -1,0 +1,137 @@
+{
+ "id": "F216-0050",
+ "family": "F216",
+ "state": {
+  "session": {
+   "type": "fixed_clinic",
+   "date": "2025-02-06",
+   "next": "2025-02-13"
+  },
+  "storage": {
+   "alarms_30d": 1
+  },
+  "temp_log": {
+   "int_min": 10,
+   "product_c": [
+    [
+     "10:10",
+     7.2
+    ],
+    [
+     "10:20",
+     8.1
+    ],
+    [
+     "10:30",
+     7.7
+    ],
+    [
+     "10:40",
+     7.0
+    ]
+   ]
+  },
+  "stock": [
+   {
+    "lot": "D3",
+    "tol_min": 120,
+    "open": 50,
+    "wasted": 1,
+    "close": 35
+   },
+   {
+    "lot": "D4",
+    "tol_min": 120,
+    "open": 20,
+    "wasted": 0,
+    "close": 20
+   }
+  ],
+  "administration": [
+   {
+    "t": "10:25",
+    "lot": "D3",
+    "n": 8
+   },
+   {
+    "t": "10:40",
+    "lot": "D3",
+    "n": 6
+   }
+  ],
+  "excursion_actions": {
+   "start": "10:20",
+   "end": "10:30",
+   "quarantined": false,
+   "advice_status": "NR"
+  }
+ },
+ "factors": {
+  "true_excursion_minutes": 10,
+  "log_source_discrepancy": "none",
+  "buffered_probe_in_range": false,
+  "planned_maintenance": false,
+  "stability_clearance": "not_requested",
+  "doses_during_exposure": 14,
+  "stock_count_gap": 0,
+  "lot_id_mismatch": false,
+  "lots_beyond_tolerance": "none",
+  "freezing_reading": false,
+  "boundary_case": false,
+  "unit_alarm_history": 1,
+  "session_type": "fixed_clinic"
+ },
+ "factors_sampled": {
+  "true_excursion_minutes": 10,
+  "log_source_discrepancy": "none",
+  "buffered_probe_in_range": false,
+  "planned_maintenance": false,
+  "stability_clearance": "cleared_shortened",
+  "doses_during_exposure": 14,
+  "stock_count_gap": 6,
+  "lot_id_mismatch": false,
+  "lots_beyond_tolerance": "some",
+  "freezing_reading": false,
+  "boundary_case": false,
+  "unit_alarm_history": 1,
+  "session_type": "fixed_clinic"
+ },
+ "plan": {
+  "dosed_uncleared": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "stock_reconciles": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "stock_disposition": {
+   "clarity": "leaning",
+   "target": "release",
+   "second": null
+  },
+  "excursion_duration": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "followup_urgency": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  }
+ },
+ "target_words": 110,
+ "deciding": {
+  "dosed_uncleared": "Doses at 10:25 and 10:40 come after the excursion start at 10:20, and advice_status is NR with no clearance received.",
+  "stock_reconciles": "D3: 50 - 1 - 14 = 35, equal to closing. D4: 20 - 0 - 0 = 20, equal to closing. All lot numbers match.",
+  "stock_disposition": "A single 8.1 reading for about 10 minutes sits far inside tol_min of 120, so release is likely. Some doubt remains because no advice was requested and doses were given during the logged excursion.",
+  "excursion_duration": "One product_c reading of 8.1 is barely above 8.0 at a 10-minute interval. It could count as brief (level 1) or be treated as negligible (level 0).",
+  "followup_urgency": "A marginal excursion with 14 doses given and no advice requested could be handled before the next session on 2025-02-13, or within 24 hours. Both are defensible."
+ },
+ "request": "rec-F216-0046",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.01442
+}

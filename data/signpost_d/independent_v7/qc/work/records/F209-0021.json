@@ -1,0 +1,142 @@
+{
+ "id": "F209-0021",
+ "family": "F209",
+ "state": {
+  "unit": {
+   "asset_id": "C-114",
+   "type": "co2",
+   "capacity_kg": 5,
+   "manufacture_date": "2015-03-02",
+   "full_weight_kg": 14
+  },
+  "visit": {
+   "visit_date": "2025-06-12",
+   "tech_cert_no": "T-5531",
+   "tech_cert_expiry": "2026-01-31",
+   "service_type": "overhaul",
+   "checks": {
+    "weight_kg": 12.3,
+    "seal_ok": true,
+    "tamper_tag_ok": true,
+    "hose_ok": null,
+    "corrosion": "none",
+    "discharge_done": true,
+    "hydro_test_done": true
+   }
+  },
+  "tag": {
+   "tag_asset_id": "C-114",
+   "tag_service_date": "2025-06-12",
+   "tag_next_due": "2026-06-12",
+   "tag_service_type": "overhaul"
+  },
+  "history": [
+   {
+    "date": "2023-03-08",
+    "service_type": "basic",
+    "result": "pass"
+   },
+   {
+    "date": "2024-03-10",
+    "service_type": "basic",
+    "result": "pass"
+   }
+  ],
+  "register": {
+   "reg_asset_id": "C-114",
+   "reg_type": "co2",
+   "reg_capacity_kg": 5,
+   "floor": 2,
+   "zone": "B",
+   "zone_risk_class": "electrical",
+   "deferral": {
+    "approved": true,
+    "ref": "D-88",
+    "expires": "2025-08-30"
+   },
+   "exemption": {
+    "approved": true,
+    "ref": "X-12",
+    "expires": "2026-01-01"
+   }
+  },
+  "remedial": [
+   {
+    "action_code": "recharge",
+    "raised": "2025-06-12",
+    "completed": "2025-06-12",
+    "replacement_asset_id": null
+   }
+  ]
+ },
+ "factors": {
+  "unit_type": "co2",
+  "unit_age_years": 10,
+  "service_level_gap": "matched",
+  "days_past_due": -79,
+  "deferral_approved": true,
+  "injected_mismatch_count": 0,
+  "physical_defect": "weight_loss",
+  "defect_rectified_on_visit": true,
+  "type_location_mismatch": false,
+  "location_exemption_on_file": true,
+  "record_gap": "checks_incomplete",
+  "technician_cert_status": "valid",
+  "out_of_order_dates": false,
+  "borderline_case": false
+ },
+ "factors_sampled": {
+  "unit_type": "co2",
+  "unit_age_years": 20,
+  "service_level_gap": "matched",
+  "days_past_due": 125,
+  "deferral_approved": true,
+  "injected_mismatch_count": 4,
+  "physical_defect": "weight_loss",
+  "defect_rectified_on_visit": true,
+  "type_location_mismatch": false,
+  "location_exemption_on_file": true,
+  "record_gap": "checks_incomplete",
+  "technician_cert_status": "valid",
+  "out_of_order_dates": false,
+  "borderline_case": true
+ },
+ "plan": {
+  "left_compliant": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "hold_confirm",
+   "second": null
+  },
+  "service_level_due": {
+   "clarity": "clear",
+   "target": "overhaul",
+   "second": null
+  },
+  "visit_lateness": {
+   "clarity": "leaning",
+   "target": "0",
+   "second": null
+  },
+  "mismatch_count": {
+   "clarity": "leaning",
+   "target": "0",
+   "second": null
+  }
+ },
+ "target_words": 35,
+ "deciding": {
+  "left_compliant": "Weight 12.3 is under 90% of 14 kg, but a recharge remedial was raised and completed on the visit date; overhaul with discharge and hydro done.",
+  "next_step": "One detail is missing: checks.hose_ok is null; everything else is consistent, so one confirmation is needed. Could be accepted by a lenient reader.",
+  "service_level_due": "Manufacture 2015-03-02 to visit 2025-06-12 gives age 10 on a CO2 unit with no prior overhaul in history, so the overhaul was due and was done.",
+  "visit_lateness": "The last basic service of 2024-03-10 makes it due 2025-03-10, but the approved deferral runs to 2025-08-30, after the visit, so it was on time. A reader ignoring the deferral would see 94 days late.",
+  "mismatch_count": "Asset ids, types, capacity 5 vs 5, tag date vs visit date and full weight all agree; the null hose_ok is a gap, not a cross-section disagreement."
+ },
+ "request": "rec-F209-0021",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.014759
+}

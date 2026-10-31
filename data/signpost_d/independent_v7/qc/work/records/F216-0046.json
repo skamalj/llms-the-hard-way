@@ -1,0 +1,123 @@
+{
+ "id": "F216-0046",
+ "family": "F216",
+ "state": {
+  "session": {
+   "type": "school_session",
+   "next": "2025-03-20"
+  },
+  "storage": {
+   "alarms_30d": 2
+  },
+  "temp_log": {
+   "int_min": 10,
+   "product_c": [
+    [
+     "09:00",
+     5.1
+    ],
+    [
+     "09:10",
+     8.6
+    ],
+    [
+     "09:20",
+     8.4
+    ],
+    [
+     "09:30",
+     6.0
+    ]
+   ]
+  },
+  "stock": [
+   {
+    "lot": "A1",
+    "open": 40,
+    "wasted": 2,
+    "close": 28
+   }
+  ],
+  "administration": [
+   {
+    "t": "10:15",
+    "lot": "A1",
+    "n": 6
+   }
+  ],
+  "excursion_actions": {
+   "quarantined": false,
+   "advice_status": "CLR_SHORT",
+   "advice_received_at": "09:50",
+   "revised_expiry": "2025-06-30"
+  }
+ },
+ "factors": {
+  "true_excursion_minutes": 20,
+  "log_source_discrepancy": "none",
+  "buffered_probe_in_range": false,
+  "planned_maintenance": false,
+  "stability_clearance": "cleared_shortened",
+  "doses_during_exposure": 0,
+  "stock_count_gap": -4,
+  "lot_id_mismatch": false,
+  "lots_beyond_tolerance": "none",
+  "freezing_reading": false,
+  "boundary_case": false,
+  "unit_alarm_history": 2,
+  "session_type": "school_session"
+ },
+ "factors_sampled": {
+  "true_excursion_minutes": 179,
+  "log_source_discrepancy": "minor_offset",
+  "buffered_probe_in_range": true,
+  "planned_maintenance": true,
+  "stability_clearance": "requested_pending",
+  "doses_during_exposure": 11,
+  "stock_count_gap": -4,
+  "lot_id_mismatch": false,
+  "lots_beyond_tolerance": "some",
+  "freezing_reading": false,
+  "boundary_case": false,
+  "unit_alarm_history": 2,
+  "session_type": "school_session"
+ },
+ "plan": {
+  "dosed_uncleared": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "stock_reconciles": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "stock_disposition": {
+   "clarity": "clear",
+   "target": "release_restricted",
+   "second": null
+  },
+  "excursion_duration": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  },
+  "followup_urgency": {
+   "clarity": "clear",
+   "target": "0",
+   "second": null
+  }
+ },
+ "target_words": 32,
+ "deciding": {
+  "dosed_uncleared": "The only dose entry is at 10:15, after the CLR_SHORT advice received at 09:50. The excursion started around 09:10. Some doubt remains because the excursion end time is not entered.",
+  "stock_reconciles": "Lot A1: 40 opening - 2 wasted - 6 given = 32, but closing is 28, a 4-dose gap.",
+  "stock_disposition": "Advice status CLR_SHORT with a revised_expiry of 2025-06-30 gives release with a shortened use-by date.",
+  "excursion_duration": "Two product_c readings (8.6 and 8.4) on a 10-minute interval are out of range, about 20 minutes and under 30. The interval is coarse, so some doubt remains.",
+  "followup_urgency": "Clearance is already received and doses were given after it. Only the count gap remains, and the record shows no urgent trigger."
+ },
+ "request": "rec-F216-0046",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.01442
+}

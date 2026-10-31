@@ -1,0 +1,105 @@
+{
+ "id": "F229-0033",
+ "family": "F229",
+ "state": {
+  "lot": {
+   "lot_id": "L330",
+   "pick_end": "2024-09-25T15:00"
+  },
+  "intake": {
+   "block_code": "M2",
+   "gross_kg": 5400,
+   "tare_kg": 2400,
+   "net_kg": 3000,
+   "temp_c": 24,
+   "cold_room_in": null,
+   "cold_room_out": null
+  },
+  "sample": {
+   "sampled_at": "2024-09-25T16:10",
+   "rot_pct": 6.6,
+   "sort": null
+  },
+  "press": {
+   "programme": "whole_bunch_gentle",
+   "band_l_per_t": "500-580",
+   "cycle_start": "2024-09-26T04:00",
+   "juice_l": 1600,
+   "operator_note": "Fruit sorted on table."
+  },
+  "transfer": {
+   "lot_ref": "L330",
+   "tank_id": "T2",
+   "transferred_l": 1570,
+   "qa_signoff": null
+  }
+ },
+ "factors": {
+  "weight_mismatch": "none",
+  "press_programme": "whole_bunch_gentle",
+  "yield_position": "inside_band",
+  "lot_id_drift": "none",
+  "missing_step": "qa_signoff_missing",
+  "out_of_order_timestamp": false,
+  "pick_to_press_hours": 13.0,
+  "pick_end_recorded": true,
+  "cold_held": false,
+  "rot_pct": 6.6,
+  "sorting_applied": false,
+  "note_signal": "contradicts_log",
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "weight_mismatch": "none",
+  "press_programme": "whole_bunch_gentle",
+  "yield_position": "inside_band",
+  "lot_id_drift": "block_code_differs_at_intake",
+  "missing_step": "qa_signoff_missing",
+  "out_of_order_timestamp": false,
+  "pick_to_press_hours": 23.04,
+  "pick_end_recorded": true,
+  "cold_held": false,
+  "rot_pct": 6.6,
+  "sorting_applied": false,
+  "note_signal": "contradicts_log",
+  "boundary_case": false
+ },
+ "plan": {
+  "yield_consistent": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "chain_intact": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "release_decision": {
+   "clarity": "leaning",
+   "target": "segregate",
+   "second": null
+  },
+  "pick_press_delay": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  },
+  "failed_checks": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  }
+ },
+ "target_words": 66,
+ "deciding": {
+  "yield_consistent": "1600 L from 3000 kg is 533 L/t, inside the 500-580 band.",
+  "chain_intact": "L330 and M2 appear unchanged at lot, intake and transfer lot_ref.",
+  "release_decision": "Rot is 6.6% with a null sort block, unsorted and ambient at 24 C, while the note claims sorting on the table. QA signoff is null, so fruit fault leans segregate.",
+  "pick_press_delay": "pick_end 15:00 to cycle_start 04:00 next day is 13 h, which is level 2.",
+  "failed_checks": "Missing qa_signoff is one failure. Whether the note contradicting the sort block counts as a second failure is unclear, so level 1 versus level 0 is balanced."
+ },
+ "request": "rec-F229-0031",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.010164
+}

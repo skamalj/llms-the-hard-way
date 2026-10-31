@@ -1,0 +1,111 @@
+{
+ "id": "F210-0049",
+ "family": "F210",
+ "state": {
+  "collection": {
+   "collected_at": "2024-08-12T07:30",
+   "last_milking_end": "2024-08-12T06:00",
+   "vat_l": 4000,
+   "meter_l": 3000,
+   "vat_temp_c": null
+  },
+  "sample": {
+   "sample_id": "S4",
+   "seal_intact": true,
+   "arrival_temp_c": 11.2
+  },
+  "lab_results": {
+   "sample_id": "S4",
+   "scc_k_ml": 400,
+   "bactoscan_kcfu_ml": 70,
+   "inhibitory": "neg",
+   "retest": null
+  },
+  "farm_terms": {
+   "limits": {
+    "scc_k_ml": 400,
+    "bactoscan_kcfu_ml": 100
+   },
+   "treatment_register": [
+    {
+     "withdrawal_end": "2024-08-14",
+     "segregated": false
+    }
+   ],
+   "breaches_90d": 4
+  },
+  "equipment": {
+   "meter_due": "2024-06-01"
+  }
+ },
+ "factors": {
+  "vat_temp_level": "not_recorded",
+  "recent_milking": true,
+  "mismatch_site": "volume",
+  "mismatch_magnitude": "large",
+  "meter_calibration_overdue": true,
+  "lab_limit_breaches": 0,
+  "exception_covers_breach": false,
+  "inhibitory_status": "negative",
+  "treatment_withdrawal_active": true,
+  "retest_state": "none",
+  "sample_integrity": "warm_on_arrival",
+  "history_breaches_90d": 4,
+  "value_on_boundary": true,
+  "driver_sensory_flag": false
+ },
+ "factors_sampled": {
+  "vat_temp_level": "compliant",
+  "recent_milking": true,
+  "mismatch_site": "volume",
+  "mismatch_magnitude": "trivial",
+  "meter_calibration_overdue": true,
+  "lab_limit_breaches": 0,
+  "exception_covers_breach": false,
+  "inhibitory_status": "negative",
+  "treatment_withdrawal_active": true,
+  "retest_state": "none",
+  "sample_integrity": "warm_on_arrival",
+  "history_breaches_90d": 4,
+  "value_on_boundary": false,
+  "driver_sensory_flag": false
+ },
+ "plan": {
+  "temp_compliant": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "intake_disposition": {
+   "clarity": "leaning",
+   "target": "reject_load",
+   "second": null
+  },
+  "issue_source": {
+   "clarity": "leaning",
+   "target": "recording_error",
+   "second": null
+  },
+  "discrepancy_size": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "unexplained_breaches": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  }
+ },
+ "target_words": 42,
+ "deciding": {
+  "temp_compliant": "vat_temp_c is null; no reading recorded.",
+  "intake_disposition": "Withdrawal active to 2024-08-14 with segregated false, plus sample arrival 11.2 C; leans reject_load though results are otherwise within limits.",
+  "issue_source": "Vat 4000 vs meter 3000 with meter_due 2024-06-01 before collection; points to meter recording error, though the treatment entry gives some doubt.",
+  "discrepancy_size": "Meter 3000 vs vat 4000 is exactly 25% lower, on the line between levels 2 and 3.",
+  "unexplained_breaches": "scc 400 equals its 400 limit, so it is at the boundary and not clearly above; zero or one."
+ },
+ "request": "rec-F210-0046",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.009978
+}

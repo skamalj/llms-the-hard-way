@@ -1,0 +1,136 @@
+{
+ "id": "F224-0005",
+ "family": "F224",
+ "state": {
+  "request": {
+   "views": [
+    "BW_L"
+   ],
+   "ind": "CARIES_SURV",
+   "risk": "low",
+   "date": "2025-06-05",
+   "prior_same_view": "2022-12-01",
+   "verbal_auth": [
+    {
+     "view": "PA_UL1",
+     "time": "14:20"
+    }
+   ]
+  },
+  "exposures": [
+   {
+    "id": 1,
+    "view": "BW_L",
+    "t": "14:00",
+    "dose_mGy": 1.1,
+    "retake_of": null
+   },
+   {
+    "id": 2,
+    "view": "BW_L",
+    "t": "14:03",
+    "dose_mGy": 1.38,
+    "retake_of": 1
+   },
+   {
+    "id": 3,
+    "view": "PA_UL1",
+    "t": "14:10",
+    "dose_mGy": 0.9
+   },
+   {
+    "id": 4,
+    "view": "PA_UL2",
+    "t": "14:12",
+    "dose_mGy": 0.9
+   }
+  ],
+  "image_review": {
+   "faults": {
+    "1": [
+     "FC_CONE_CUT"
+    ]
+   },
+   "sensor_err": []
+  },
+  "equipment": {
+   "qa": "in_date",
+   "output_test": "pass",
+   "drl": {
+    "BW_L": 1.0
+   }
+  },
+  "operator": {
+   "signoff_at": "2025-06-05T15:00",
+   "prior_findings_12m": 4
+  }
+ },
+ "factors": {
+  "indication_match": "match",
+  "recall_interval_months": 30,
+  "dose_ratio_to_drl": 1.38,
+  "console_log_discrepancy": "none",
+  "retake_cause": "operator_technique",
+  "equipment_qa_status": "in_date",
+  "approved_exception": false,
+  "patient_cooperation_flag": false,
+  "unrequested_exposure_count": 2,
+  "verbal_authorisation_logged": true,
+  "image_grade": "diagnostic",
+  "audit_completeness": "complete",
+  "operator_prior_findings": 4
+ },
+ "factors_sampled": {
+  "indication_match": "match",
+  "recall_interval_months": 30,
+  "dose_ratio_to_drl": 1.41,
+  "console_log_discrepancy": "none",
+  "retake_cause": "no_retake",
+  "equipment_qa_status": "in_date",
+  "approved_exception": false,
+  "patient_cooperation_flag": true,
+  "unrequested_exposure_count": 2,
+  "verbal_authorisation_logged": true,
+  "image_grade": "diagnostic",
+  "audit_completeness": "operator_signoff_missing",
+  "operator_prior_findings": 4
+ },
+ "plan": {
+  "justified": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "operator_retake": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "follow_up": {
+   "clarity": "clear",
+   "target": "operator_feedback",
+   "second": null
+  },
+  "dose_position": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  },
+  "unjustified_count": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  }
+ },
+ "target_words": 44,
+ "deciding": {
+  "justified": "BW_L with CARIES_SURV and 30 months since the prior view exceed the 24 months for low risk, so the requested view is supported; the unrequested views add some doubt.",
+  "operator_retake": "Retake 2 follows FC_CONE_CUT with no sensor error, QA in date, output pass and no patient flags.",
+  "follow_up": "Sign-off is complete and the equipment is clean; a cone-cut retake plus unrequested exposures with 4 prior findings points to feedback.",
+  "dose_position": "Retake dose 1.38 against reference 1.0 is 138%, raised but not near enough to 150% to be contested.",
+  "unjustified_count": "PA_UL1 and PA_UL2 are unrequested, and the verbal auth at 14:20 comes after the 14:10 exposure so covers neither; counting the repeat BW_L retake would make three."
+ },
+ "request": "rec-F224-0001",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.010096
+}

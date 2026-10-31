@@ -1,0 +1,208 @@
+{
+ "id": "F216-0032",
+ "family": "F216",
+ "state": {
+  "session": {
+   "id": "SC-0412",
+   "type": "school_session",
+   "date": "2025-02-11",
+   "next": "2025-02-12"
+  },
+  "storage": {
+   "unit": "F3",
+   "alarms_30d": 4,
+   "maint": [
+    {
+     "type": "defrost",
+     "start": "07:55",
+     "end": "10:05",
+     "backup": "B2"
+    }
+   ],
+   "backup_c": [
+    [
+     "09:00",
+     8.9
+    ]
+   ]
+  },
+  "temp_log": {
+   "interval_min": 10,
+   "product_c": [
+    [
+     "07:50",
+     6.5
+    ],
+    [
+     "08:00",
+     8.3
+    ],
+    [
+     "08:10",
+     8.9
+    ],
+    [
+     "08:20",
+     9.1
+    ],
+    [
+     "08:30",
+     9.4
+    ],
+    [
+     "08:40",
+     9.6
+    ],
+    [
+     "08:50",
+     9.2
+    ],
+    [
+     "09:00",
+     8.8
+    ],
+    [
+     "09:10",
+     7.0
+    ],
+    [
+     "09:20",
+     1.2
+    ],
+    [
+     "09:30",
+     0.4
+    ],
+    [
+     "09:40",
+     -0.3
+    ],
+    [
+     "09:50",
+     -0.5
+    ],
+    [
+     "10:00",
+     -0.2
+    ],
+    [
+     "10:10",
+     4.0
+    ]
+   ]
+  },
+  "stock": {
+   "lots": [
+    {
+     "lot_no": "MM41",
+     "product": "MMR",
+     "shelf": 2,
+     "tolerance_min_out": 60,
+     "freeze_sensitive": true,
+     "opening": 30,
+     "wasted": 1,
+     "closing": 21
+    },
+    {
+     "lot_no": "DT09",
+     "product": "dTaP",
+     "shelf": 3,
+     "tolerance_min_out": 45,
+     "freeze_sensitive": true,
+     "opening": 20,
+     "wasted": 0,
+     "closing": 19
+    }
+   ]
+  },
+  "administration": [
+   {
+    "time": "07:58",
+    "lot_no": "MM41",
+    "doses": 8
+   },
+   {
+    "time": "07:58",
+    "lot_no": "DT09",
+    "doses": 4
+   }
+  ],
+  "excursion_actions": {
+   "start": "07:55",
+   "end": "10:03",
+   "quarantined": true,
+   "advice_requested_at": null,
+   "advice_status": "NR",
+   "advice_received_at": null,
+   "revised_expiry": null
+  }
+ },
+ "factors": {
+  "true_excursion_minutes": 123,
+  "log_source_discrepancy": "none",
+  "buffered_probe_in_range": false,
+  "planned_maintenance": true,
+  "stability_clearance": "not_requested",
+  "doses_during_exposure": 0,
+  "stock_count_gap": -3,
+  "lot_id_mismatch": false,
+  "lots_beyond_tolerance": "all",
+  "freezing_reading": true,
+  "boundary_case": true,
+  "unit_alarm_history": 4,
+  "session_type": "school_session"
+ },
+ "factors_sampled": {
+  "true_excursion_minutes": 123,
+  "log_source_discrepancy": "none",
+  "buffered_probe_in_range": false,
+  "planned_maintenance": true,
+  "stability_clearance": "not_requested",
+  "doses_during_exposure": 12,
+  "stock_count_gap": -3,
+  "lot_id_mismatch": false,
+  "lots_beyond_tolerance": "all",
+  "freezing_reading": true,
+  "boundary_case": true,
+  "unit_alarm_history": 4,
+  "session_type": "school_session"
+ },
+ "plan": {
+  "dosed_uncleared": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "stock_reconciles": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "stock_disposition": {
+   "clarity": "clear",
+   "target": "discard_all",
+   "second": null
+  },
+  "excursion_duration": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  },
+  "followup_urgency": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 139,
+ "deciding": {
+  "dosed_uncleared": "Doses at 07:58 fall after the staff-entered start (07:55) but before the first out-of-range logger reading (08:00); no clearance requested.",
+  "stock_reconciles": "MM41 balances (30-1-8=21), but DT09 shows 19 closing against 16 expected, a 3-dose surplus; the other lot balances, so this leans false.",
+  "stock_disposition": "Both lots are freeze-sensitive, product_c reaches -0.5, and the roughly 120+ min out exceeds both tolerances (60 and 45); no advice requested.",
+  "excursion_duration": "Logger readings outside 2-8 from 08:00 to 10:00 (13 readings at 10 min) with staff times of 128 min sit right at the 120 min boundary.",
+  "followup_urgency": "Next school session is the following day and 12 children were dosed near the excursion start, so same-day versus 24-hour action are both defensible."
+ },
+ "request": "rec-F216-0031",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.014237
+}

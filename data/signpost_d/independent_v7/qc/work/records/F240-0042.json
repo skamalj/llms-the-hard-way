@@ -1,0 +1,154 @@
+{
+ "id": "F240-0042",
+ "family": "F240",
+ "state": {
+  "asset": {
+   "inverter_id": "INV-A1-03",
+   "serial": "SN30417",
+   "rated_ac_kw": 1500
+  },
+  "fault_event": {
+   "serial": "SN30417",
+   "code": "F-ISO-02",
+   "fw_severity": 3,
+   "ts_start": "2024-11-05T13:00:00Z",
+   "ts_clear": "2024-11-05T16:02:00Z",
+   "auto_restarts": 3
+  },
+  "telemetry": {
+   "samples": [
+    {
+     "ts": "2024-11-05T13:02:00Z",
+     "ac_kw": 0,
+     "exp_kw": 60,
+     "poa_wm2": 90,
+     "limit_pct": 0
+    },
+    {
+     "ts": "2024-11-05T16:00:00Z",
+     "ac_kw": 0,
+     "exp_kw": 20,
+     "poa_wm2": 35,
+     "limit_pct": 0
+    }
+   ],
+   "exp_day_kwh": 1000,
+   "exp_window_kwh": 49,
+   "act_window_kwh": 0
+  },
+  "site_context": {
+   "grid_events": [],
+   "maint_windows": [
+    {
+     "from": "2024-11-05T12:30:00Z",
+     "to": "2024-11-05T16:30:00Z",
+     "scope": "INV-A1-03"
+    }
+   ],
+   "neighbours": [
+    {
+     "inverter_id": "INV-A1-02",
+     "output_ratio": 0.98
+    }
+   ]
+  },
+  "history": {
+   "faults": [
+    {
+     "date": "2024-10-21",
+     "code": "F-ISO-02"
+    },
+    {
+     "date": "2024-10-26",
+     "code": "F-ISO-02"
+    },
+    {
+     "date": "2024-10-30",
+     "code": "F-ISO-02"
+    },
+    {
+     "date": "2024-11-02",
+     "code": "F-ISO-02"
+    },
+    {
+     "date": "2024-11-05",
+     "code": "F-ISO-02"
+    }
+   ],
+   "work_orders": [
+    {
+     "wo_id": "WO-3150",
+     "opened": "2024-10-16",
+     "completed": "2024-10-18",
+     "retest_ok": null
+    }
+   ]
+  }
+ },
+ "factors": {
+  "fault_class": "insulation_resistance",
+  "log_telemetry_mismatch": "trivial_under_5min",
+  "grid_event_concurrent": false,
+  "maintenance_window_active": true,
+  "neighbour_cross_check": "neighbours_normal",
+  "repeat_count_30d": 5,
+  "last_repair_status": "completed_unverified",
+  "current_limit_pct": 0.0,
+  "yield_loss_pct": 4.9,
+  "low_irradiance_window": true,
+  "serial_mismatch": false,
+  "boundary_placement": false
+ },
+ "factors_sampled": {
+  "fault_class": "insulation_resistance",
+  "log_telemetry_mismatch": "trivial_under_5min",
+  "grid_event_concurrent": true,
+  "maintenance_window_active": true,
+  "neighbour_cross_check": "neighbours_affected",
+  "repeat_count_30d": 5,
+  "last_repair_status": "completed_unverified",
+  "current_limit_pct": 24.6,
+  "yield_loss_pct": 20.95,
+  "low_irradiance_window": true,
+  "serial_mismatch": false,
+  "boundary_placement": false
+ },
+ "plan": {
+  "genuine_defect": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "post_repair_repeat": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "balanced",
+   "target": "close_log",
+   "second": "hold_confirm"
+  },
+  "yield_loss": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  },
+  "capacity_unavailable": {
+   "clarity": "clear",
+   "target": "3",
+   "second": null
+  }
+ },
+ "target_words": 36,
+ "deciding": {
+  "genuine_defect": "Five F-ISO-02 faults in 30 days, no grid events and neighbours at 0.98 output point to this inverter's hardware.",
+  "post_repair_repeat": "WO-3150 completed 2024-10-18 and all five F-ISO-02 entries are dated after it; retest_ok is null.",
+  "next_step": "The maintenance window covers this inverter and the log has cleared, which supports close_log. Unverified repair and repeated faults keep hold_confirm open.",
+  "yield_loss": "49 kWh lost against 1000 kWh expected day = 4.9%, just under the 5% boundary, with low poa_wm2.",
+  "capacity_unavailable": "Last sample ac_kw 0 and limit_pct 0, so offline at log close."
+ },
+ "request": "rec-F240-0041",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.017446
+}

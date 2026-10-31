@@ -1,0 +1,128 @@
+{
+ "id": "F213-0022",
+ "family": "F213",
+ "state": {
+  "pool": {
+   "type": "spa",
+   "test_interval_min": 60,
+   "opening": {
+    "open": "2024-06-02T10:00",
+    "close": "2024-06-02T14:00"
+   },
+   "limits": {
+    "free_cl_min": 3.0,
+    "free_cl_max": 5.0
+   },
+   "tolerance": {
+    "free_cl": 0.3
+   },
+   "micro_due": "2024-05-30"
+  },
+  "manual_tests": [
+   {
+    "time": "2024-06-02T10:00",
+    "free_cl": 3.5,
+    "temp_c": 36
+   },
+   {
+    "time": "2024-06-02T12:30",
+    "free_cl": 2.0,
+    "temp_c": 39
+   },
+   {
+    "time": "2024-06-02T12:00",
+    "free_cl": 3.4,
+    "temp_c": 38
+   },
+   {
+    "time": "2024-06-02T14:00",
+    "free_cl": 3.5,
+    "temp_c": 36
+   }
+  ],
+  "plant": {
+   "controller_readings": [
+    {
+     "time": "2024-06-02T12:30",
+     "free_cl": 2.6
+    }
+   ]
+  },
+  "actions": [
+   {
+    "time": "2024-06-02T12:45",
+    "action_type": "top_up",
+    "reading_ref": "2024-06-02T12:30"
+   }
+  ],
+  "lab_sample": null
+ },
+ "factors": {
+  "pool_type": "spa",
+  "test_coverage_gap": 1,
+  "boundary_interval": false,
+  "log_controller_discrepancy": "large",
+  "discrepancy_location": "free_cl",
+  "excursion_severity": "clear",
+  "corrective_action_delay": "prompt",
+  "retest_logged": false,
+  "dosing_event_explains": false,
+  "kit_calibration_status": "in_date",
+  "lab_sample_state": "missing_when_due",
+  "out_of_order_entry": true,
+  "benign_noise": "temp_swing"
+ },
+ "factors_sampled": {
+  "pool_type": "spa",
+  "test_coverage_gap": 1,
+  "boundary_interval": false,
+  "log_controller_discrepancy": "none",
+  "discrepancy_location": "temperature",
+  "excursion_severity": "clear",
+  "corrective_action_delay": "prompt",
+  "retest_logged": false,
+  "dosing_event_explains": false,
+  "kit_calibration_status": "in_date",
+  "lab_sample_state": "missing_when_due",
+  "out_of_order_entry": true,
+  "benign_noise": "temp_swing"
+ },
+ "plan": {
+  "test_frequency_met": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "readings_reconcile": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "log_disposition": {
+   "clarity": "balanced",
+   "target": "hold_for_retest",
+   "second": "accept_with_query"
+  },
+  "action_delay": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "failed_checks": {
+   "clarity": "clear",
+   "target": "1",
+   "second": null
+  }
+ },
+ "target_words": 30,
+ "deciding": {
+  "test_frequency_met": "Gaps 10:00 to 12:00 exceed the 60 min interval; 12:30 entry is out of order.",
+  "readings_reconcile": "Manual 2.0 vs controller 2.6 at 12:30 differs by 0.6, over 0.3 tolerance; wrongly listed order adds doubt.",
+  "log_disposition": "lab_sample null past micro_due; low chlorine without retest.",
+  "action_delay": "Action 12:45 is 15 min after the 12:30 reading, but the 12:30 entry is out of order and the 12:00 manual test sits between, so the true start is arguable.",
+  "failed_checks": "Several overlapping issues, but in this record only one check is cleanly failed."
+ },
+ "request": "rec-F213-0021",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.006667
+}

@@ -1,0 +1,101 @@
+{
+ "id": "F205-0035",
+ "family": "F205",
+ "state": {
+  "flight": {
+   "std": "2025-06-01T09:00Z"
+  },
+  "times": {
+   "off_blocks": "2025-06-01T09:16Z",
+   "delay_code": "catering",
+   "delay_min": 16
+  },
+  "load": {
+   "cargo_kg": 300,
+   "notoc": null
+  },
+  "hold_log": [
+   {
+    "pos": "3",
+    "wt": 300,
+    "dg": true
+   }
+  ],
+  "services": {
+   "catering": {
+    "end": "2025-06-01T09:08Z"
+   }
+  },
+  "remarks": [
+   {
+    "msg": "Catering truck late 12 min."
+   }
+  ]
+ },
+ "factors": {
+  "bag_mismatch_size": "none",
+  "mismatch_location": "cargo_weight_vs_uld_entries",
+  "missing_record": "notoc_missing",
+  "milestone_out_of_order": false,
+  "delay_minutes": 16,
+  "delay_code_fit": "supported",
+  "explanatory_remark": true,
+  "pending_signoff": false,
+  "dg_on_board": true,
+  "decoy_noise": "rounding_within_tolerance",
+  "boundary_value": true,
+  "turn_type": "full_turn"
+ },
+ "factors_sampled": {
+  "bag_mismatch_size": "none",
+  "mismatch_location": "cargo_weight_vs_uld_entries",
+  "missing_record": "none",
+  "milestone_out_of_order": false,
+  "delay_minutes": 93,
+  "delay_code_fit": "supported",
+  "explanatory_remark": true,
+  "pending_signoff": false,
+  "dg_on_board": true,
+  "decoy_noise": "rounding_within_tolerance",
+  "boundary_value": false,
+  "turn_type": "full_turn"
+ },
+ "plan": {
+  "load_reconciled": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "delay_code_supported": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "log_disposition": {
+   "clarity": "clear",
+   "target": "hold_confirm",
+   "second": null
+  },
+  "offblock_delay": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  },
+  "failed_checks": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 32,
+ "deciding": {
+  "load_reconciled": "Cargo 300 kg in the loadsheet equals the 300 kg hold entry.",
+  "delay_code_supported": "Code catering; catering end 09:08 and a remark of the truck being 12 minutes late support it, though the 16-minute delay is not fully covered.",
+  "log_disposition": "Hold entry flagged dg:true but load.notoc is null; the missing NOTOC must be confirmed before closing.",
+  "offblock_delay": "Off-blocks 09:16 vs STD 09:00 is 16 minutes, just across the 15/16 boundary.",
+  "failed_checks": "The missing NOTOC with dg on board fails, and the late off-blocks and a partly covered delay code may also count, giving two or three."
+ },
+ "request": "rec-F205-0031",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.010346
+}

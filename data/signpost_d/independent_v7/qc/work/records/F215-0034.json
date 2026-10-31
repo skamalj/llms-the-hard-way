@@ -1,0 +1,149 @@
+{
+ "id": "F215-0034",
+ "family": "F215",
+ "state": {
+  "bin": {
+   "crop": "wheat",
+   "safe_mc_pct": 15,
+   "baseline_c": 14,
+   "intake_date": "2024-10-02",
+   "intake_cond": "blended"
+  },
+  "cable_readings": [
+   {
+    "cable_id": "C1",
+    "cal_due": "2025-09-01",
+    "fault": false,
+    "nodes": [
+     {
+      "depth_m": 1,
+      "temp_c": [
+       23,
+       25,
+       26.5
+      ]
+     },
+     {
+      "depth_m": 3,
+      "temp_c": [
+       null,
+       null,
+       null
+      ]
+     }
+    ]
+   },
+   {
+    "cable_id": "C2",
+    "cal_due": "2025-09-01",
+    "fault": false,
+    "nodes": [
+     {
+      "depth_m": 1,
+      "temp_c": [
+       15,
+       15.5,
+       16
+      ]
+     }
+    ]
+   }
+  ],
+  "moisture": [
+   {
+    "sample_date": "2025-01-28",
+    "method": "handheld",
+    "mc_pct": 14.8
+   }
+  ],
+  "environment": {
+   "ambient_c_7d_mean": 4,
+   "headspace_c": 6,
+   "co2_ppm": 1700,
+   "reading_date": "2025-02-03"
+  },
+  "aeration": [
+   {
+    "start": "2025-01-30",
+    "end": null,
+    "fan_hours": 60,
+    "mode": "cooling"
+   }
+  ],
+  "pest_checks": [
+   {
+    "check_date": "2025-01-31",
+    "traps_set": 6,
+    "insects_counted": 36
+   }
+  ]
+ },
+ "factors": {
+  "peak_excess_c": 12.5,
+  "rise_trend": "steady_climb",
+  "second_cable_corroboration": false,
+  "sensor_fault_flag": false,
+  "ambient_warming": false,
+  "moisture_vs_limit": "within_0_5_pct",
+  "moisture_sample_status": "handheld_only",
+  "aeration_running": true,
+  "co2_elevation": "high",
+  "insect_trap_count": 36,
+  "missing_section": "cable_nodes_partial",
+  "date_order_anomaly": false,
+  "intake_condition": "blended"
+ },
+ "factors_sampled": {
+  "peak_excess_c": 8.09,
+  "rise_trend": "flat",
+  "second_cable_corroboration": false,
+  "sensor_fault_flag": false,
+  "ambient_warming": false,
+  "moisture_vs_limit": "within_0_5_pct",
+  "moisture_sample_status": "handheld_only",
+  "aeration_running": true,
+  "co2_elevation": "high",
+  "insect_trap_count": 36,
+  "missing_section": "cable_nodes_partial",
+  "date_order_anomaly": false,
+  "intake_condition": "blended"
+ },
+ "plan": {
+  "hotspot_active": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "moisture_safe": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "next_action": {
+   "clarity": "balanced",
+   "target": "aerate",
+   "second": "turn_or_unload"
+  },
+  "recurrence_count": {
+   "clarity": "leaning",
+   "target": "0",
+   "second": null
+  },
+  "temp_excess": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  }
+ },
+ "target_words": 43,
+ "deciding": {
+  "hotspot_active": "C1 at 1 m climbs 23 to 26.5 with ambient at 4C and CO2 at 1700. C2 rises only mildly and C1's 3 m node returns no data, so corroboration is limited.",
+  "moisture_safe": "The only sample is handheld at 14.8 against a 15 limit. It is almost at the limit and unverified by lab, which holds the answer in balance.",
+  "next_action": "Fans are already running (60 hours) and the peak is 12.5 above baseline with high CO2, so continued aeration or moving the grain are both defensible. The missing C1 3 m node leaves the extent unknown.",
+  "recurrence_count": "The only aeration entry is the current run, with no earlier logged episodes, so it is probably a first occurrence.",
+  "temp_excess": "The peak valid node is 26.5 against a 14 baseline, 12.5 above and clearly past the 10C boundary."
+ },
+ "request": "rec-F215-0031",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012344
+}

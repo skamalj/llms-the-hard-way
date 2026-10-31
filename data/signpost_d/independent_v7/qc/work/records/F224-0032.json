@@ -1,0 +1,182 @@
+{
+ "id": "F224-0032",
+ "family": "F224",
+ "state": {
+  "request": {
+   "views": [
+    "BW_L",
+    "BW_R"
+   ],
+   "ind": "CAR_SURV",
+   "risk": "moderate",
+   "date": "2025-03-10",
+   "prior_bw": "2022-04-12",
+   "exc": [
+    {
+     "code": "EXC_VERBAL",
+     "appr": "D114"
+    }
+   ],
+   "verbal_auth": [
+    {
+     "view": "PA_36",
+     "t": "10:11"
+    }
+   ],
+   "flags": [
+    "SPECIAL_CARE"
+   ]
+  },
+  "exposures": [
+   {
+    "id": 1,
+    "view": "BW_L",
+    "t": "10:02:10",
+    "kV": 70,
+    "s": 0.16,
+    "dose": 1.52
+   },
+   {
+    "id": 2,
+    "view": "BW_L",
+    "t": "10:04:30",
+    "kV": 70,
+    "s": 0.16,
+    "dose": 1.52,
+    "retake_of": 1
+   },
+   {
+    "id": 3,
+    "view": "BW_R",
+    "t": "10:06:20",
+    "kV": 70,
+    "s": 0.16,
+    "dose": 1.52
+   },
+   {
+    "id": 4,
+    "view": "PA_36",
+    "t": "10:12:50",
+    "kV": 70,
+    "s": 0.16,
+    "dose": 1.9
+   }
+  ],
+  "image_review": {
+   "grade": 2,
+   "faults": {
+    "1": [
+     "FC_BLUR"
+    ]
+   },
+   "sensor_err": [],
+   "grader2": "done"
+  },
+  "equipment": {
+   "unit": "U7",
+   "qa": "2025-01-20",
+   "int": 12,
+   "test": "pass",
+   "drl": {
+    "BW": 1.2,
+    "PA": 1.5
+   },
+   "console": [
+    {
+     "t": "10:02:10",
+     "kV": 60,
+     "s": 0.1
+    },
+    {
+     "t": "10:04:30",
+     "kV": 60,
+     "s": 0.1
+    },
+    {
+     "t": "10:06:20",
+     "kV": 60,
+     "s": 0.1
+    },
+    {
+     "t": "10:12:50",
+     "kV": 60,
+     "s": 0.1
+    }
+   ]
+  },
+  "operator": {
+   "id": "OP22",
+   "signoff": "2025-03-10T17:30",
+   "prior": 1,
+   "trained": "2024-06-01"
+  }
+ },
+ "factors": {
+  "indication_match": "match",
+  "recall_interval_months": 35,
+  "dose_ratio_to_drl": 1.27,
+  "console_log_discrepancy": "setting_mismatch",
+  "retake_cause": "patient_movement",
+  "equipment_qa_status": "in_date",
+  "approved_exception": true,
+  "patient_cooperation_flag": true,
+  "unrequested_exposure_count": 1,
+  "verbal_authorisation_logged": true,
+  "image_grade": "diagnostic",
+  "audit_completeness": "complete",
+  "operator_prior_findings": 1
+ },
+ "factors_sampled": {
+  "indication_match": "match",
+  "recall_interval_months": 35,
+  "dose_ratio_to_drl": 1.27,
+  "console_log_discrepancy": "setting_mismatch",
+  "retake_cause": "patient_movement",
+  "equipment_qa_status": "failed_last_test",
+  "approved_exception": true,
+  "patient_cooperation_flag": false,
+  "unrequested_exposure_count": 3,
+  "verbal_authorisation_logged": true,
+  "image_grade": "diagnostic",
+  "audit_completeness": "complete",
+  "operator_prior_findings": 1
+ },
+ "plan": {
+  "justified": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "operator_retake": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "follow_up": {
+   "clarity": "leaning",
+   "target": "operator_feedback",
+   "second": null
+  },
+  "dose_position": {
+   "clarity": "leaning",
+   "target": "0",
+   "second": null
+  },
+  "unjustified_count": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 189,
+ "deciding": {
+  "justified": "CAR_SURV fits bitewings and the 35-month gap far exceeds the 12 months allowed for moderate risk.",
+  "operator_retake": "Retake of exposure 1 has FC_BLUR, SPECIAL_CARE is flagged, no sensor errors, and equipment QA passed, so the cause is the patient.",
+  "follow_up": "Listed settings (70 kV, 0.16 s) differ from the console (60 kV, 0.10 s) at every timestamp, and PA_36 was added on verbal authorisation. This points to feedback on recording and request practice, not an equipment breach.",
+  "dose_position": "The listed dose is 1.52 against a reference of 1.2 (ratio 1.27). The console settings imply roughly half of that, about 55-60% of reference, and the console governs.",
+  "unjustified_count": "The only unrequested exposure is PA_36 at 10:12:50, after the 10:11 verbal authorisation and with an approved EXC_VERBAL entry; whether this counts as justified holds the 0 versus 1 balance."
+ },
+ "request": "rec-F224-0031",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.016012
+}

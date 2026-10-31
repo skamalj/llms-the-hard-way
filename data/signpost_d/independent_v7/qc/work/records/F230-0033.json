@@ -1,0 +1,130 @@
+{
+ "id": "F230-0033",
+ "family": "F230",
+ "state": {
+  "resident": {
+   "id": "C330",
+   "status": "home"
+  },
+  "prescriptions": [
+   {
+    "item_id": "x",
+    "strength_mg": 10,
+    "dose_units": 1,
+    "times": [
+     "08:00"
+    ]
+   },
+   {
+    "item_id": "y",
+    "strength_mg": 5,
+    "dose_units": 2
+   }
+  ],
+  "administrations": [
+   {
+    "item_id": "x",
+    "scheduled": "08:00",
+    "given_at": "09:12",
+    "units_given": 1,
+    "strength_mg_used": 10,
+    "initials": "LB"
+   },
+   {
+    "item_id": "y",
+    "units_given": 1,
+    "strength_mg_used": 10,
+    "initials": "LB"
+   }
+  ],
+  "stock": {
+   "x": {
+    "opening": 14,
+    "closing": 13
+   },
+   "y": {
+    "opening": 9,
+    "closing": 8
+   }
+  },
+  "round": {
+   "open_queries": [
+    {
+     "type": "pharmacy",
+     "raised": "2024-05-02T09:30",
+     "item_id": "y"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "dose_mismatch_type": "none",
+  "prescription_change_documented": false,
+  "omission_count": 0,
+  "omission_reason_valid": true,
+  "late_minutes": 72,
+  "time_critical_affected": false,
+  "stock_variance": 0,
+  "stock_variance_explained": true,
+  "signature_gaps": 0,
+  "unit_expression_decoy": "equivalent_split",
+  "post_dose_obs_reassuring": true,
+  "pending_query": "pharmacy_query_open",
+  "prior_errors_30d": 3,
+  "item_count": 2
+ },
+ "factors_sampled": {
+  "dose_mismatch_type": "none",
+  "prescription_change_documented": false,
+  "omission_count": 2,
+  "omission_reason_valid": false,
+  "late_minutes": 54,
+  "time_critical_affected": true,
+  "stock_variance": 2,
+  "stock_variance_explained": false,
+  "signature_gaps": 0,
+  "unit_expression_decoy": "equivalent_split",
+  "post_dose_obs_reassuring": true,
+  "pending_query": "none",
+  "prior_errors_30d": 3,
+  "item_count": 5
+ },
+ "plan": {
+  "dose_mismatch": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "stock_reconciles": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "hold",
+   "second": null
+  },
+  "open_discrepancies": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  },
+  "error_severity": {
+   "clarity": "clear",
+   "target": "2",
+   "second": null
+  }
+ },
+ "target_words": 38,
+ "deciding": {
+  "dose_mismatch": "Item y given 1 unit of 10mg against 2x5mg, an equivalent split; x matches, so no real difference.",
+  "stock_reconciles": "x 14-1=13 and y 9-1=8 match closing counts.",
+  "next_step": "Open pharmacy query on item y is unanswered, so the outcome waits on it.",
+  "open_discrepancies": "Item y has a query open; x is 72 min late but correctly dosed, so one or two items.",
+  "error_severity": "x given 08:00 scheduled at 09:12, 72 min late, dose correct, not time-critical."
+ },
+ "request": "rec-F230-0031",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.009022
+}

@@ -1,0 +1,138 @@
+{
+ "id": "F220-0030",
+ "family": "F220",
+ "state": {
+  "tray": {
+   "barcode": "8002045",
+   "requested_for": "2025-07-20T10:00"
+  },
+  "set_check": {
+   "lines": [
+    {
+     "cat_code": "P6",
+     "qty_expected": 2,
+     "qty_counted": 1
+    },
+    {
+     "cat_code": "P8",
+     "qty_expected": 1,
+     "qty_counted": 0
+    }
+   ],
+   "variances": [
+    {
+     "cat_code": "P6",
+     "reason": "one retired",
+     "approved_by": "M. Hale"
+    },
+    {
+     "cat_code": "P8",
+     "reason": "on loan",
+     "approved_by": null
+    }
+   ],
+   "packer_note": "Complete, double checked."
+  },
+  "washer": {
+   "cycle_id": "W33",
+   "alarms": [],
+   "trays_processed": [
+    "8002045"
+   ]
+  },
+  "steriliser_load": {
+   "printout": {
+    "temp_min_c": 134.8,
+    "hold_s": 200,
+    "pressure_kpa": 212
+   },
+   "logger": {
+    "temp_min_c": 134.7,
+    "hold_s": 200
+   },
+   "daily_test": {
+    "result": "pass"
+   },
+   "bi": {
+    "result": "pending",
+    "incubation_end": "2025-07-21T06:00"
+   },
+   "ci_result": "partial_change",
+   "unload_condition": "dry"
+  },
+  "release_label": {
+   "tray_barcode": "8002045",
+   "sterilised_date": "2025-07-19",
+   "expiry_date": "2025-07-12",
+   "wrap_condition": "intact"
+  }
+ },
+ "factors": {
+  "set_count_discrepancies": 2,
+  "substitution_documented": true,
+  "cycle_excursion": "none",
+  "independent_logger_confirms": true,
+  "bi_status": "pending",
+  "chemical_indicator": "partial_change",
+  "washer_record_state": "complete",
+  "pack_integrity": "intact",
+  "label_mismatch": "expiry_inconsistent",
+  "daily_test_state": "pass_today",
+  "theatre_urgency": "routine",
+  "note_tone": "reassuring_unverified",
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "set_count_discrepancies": 2,
+  "substitution_documented": true,
+  "cycle_excursion": "none",
+  "independent_logger_confirms": true,
+  "bi_status": "pending",
+  "chemical_indicator": "partial_change",
+  "washer_record_state": "complete",
+  "pack_integrity": "intact",
+  "label_mismatch": "expiry_inconsistent",
+  "daily_test_state": "pass_today",
+  "theatre_urgency": "routine",
+  "note_tone": "reassuring_unverified",
+  "boundary_case": false
+ },
+ "plan": {
+  "cycle_in_limits": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "disposition": {
+   "clarity": "balanced",
+   "target": "release",
+   "second": "release_annotated"
+  },
+  "failure_stage": {
+   "clarity": "clear",
+   "target": "pack_stage",
+   "second": null
+  },
+  "count_gaps": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  },
+  "sterility_doubt": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 45,
+ "deciding": {
+  "cycle_in_limits": "Printout 134.8 C, 200 s and 212 kPa are all in band and the logger confirms 134.7 and 200 s.",
+  "disposition": "The documented variance and clean cycle support release, but the unapproved P8 variance, expiry mismatch, partial CI and pending BI make an annotated release plausible. This sits uneasily with the planned release/release_annotated balance.",
+  "failure_stage": "The washer is complete; the expiry date (2025-07-12) precedes the sterilised date (2025-07-19), the earliest unresolved pack-stage issue.",
+  "count_gaps": "P6 is covered by a variance approved by M. Hale; P8 has a variance with approved_by null, so 1 versus 2 stays balanced depending on whether P8 is counted.",
+  "sterility_doubt": "The BI is pending and the CI shows partial_change, with the pack intact and dry; this is doubtful, and the pending BI plus partial CI is the only basis for the compromised reading."
+ },
+ "request": "rec-F220-0026",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011091
+}

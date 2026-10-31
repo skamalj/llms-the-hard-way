@@ -1,0 +1,178 @@
+{
+ "id": "F236-0011",
+ "family": "F236",
+ "state": {
+  "changeover": {
+   "line_id": "L2",
+   "from_code": "BR14",
+   "to_code": "BR09",
+   "from_allergens": [
+    "wheat",
+    "milk"
+   ],
+   "to_allergens": [
+    "wheat"
+   ]
+  },
+  "cleaning": {
+   "steps": [
+    {
+     "step": "dry_clean",
+     "completed": true,
+     "spec_min": 25,
+     "actual_min": 18
+    },
+    {
+     "step": "wet_wash",
+     "completed": true,
+     "spec_min": 30,
+     "actual_min": 30
+    }
+   ],
+   "part_swap": false
+  },
+  "verification": {
+   "swabs": [
+    {
+     "id": "S1",
+     "loc": "mixer",
+     "target": "milk",
+     "reading": 3,
+     "limit_ppm": 10,
+     "at": "2024-05-06T07:50"
+    },
+    {
+     "id": "S2",
+     "loc": "depositor",
+     "target": "milk",
+     "reading": 0,
+     "limit_ppm": 10,
+     "at": "2024-05-06T09:50"
+    }
+   ]
+  },
+  "production": {
+   "line_id": "L2",
+   "product_code": "BR09",
+   "batch": "B5521",
+   "start_at": "2024-05-06T08:00",
+   "end_at": "2024-05-06T10:00",
+   "quantity": 524.22,
+   "unit": "kg",
+   "packaging_allergens": {
+    "contains": [
+     "wheat"
+    ],
+    "may_contain": [
+     "milk"
+    ]
+   },
+   "held": false
+  },
+  "approvals": {
+   "qa_signoff": {
+    "signer": "QA3",
+    "signed_at": "2024-05-06T07:55"
+   },
+   "deviations": [
+    {
+     "id": "D41",
+     "scope": "L2 S2 depositor swab post-start",
+     "approved_at": "2024-05-06T07:45"
+    }
+   ]
+  },
+  "history": [
+   {
+    "d": "04-22",
+    "o": "BR02",
+    "i": "BR14",
+    "ok": false
+   },
+   {
+    "d": "04-26",
+    "o": "BR14",
+    "i": "BR03",
+    "ok": true
+   },
+   {
+    "d": "04-30",
+    "o": "BR03",
+    "i": "BR14",
+    "ok": false
+   },
+   {
+    "d": "05-02",
+    "o": "BR14",
+    "i": "BR06",
+    "ok": false
+   }
+  ]
+ },
+ "factors": {
+  "allergen_transition": "removes_allergen",
+  "cleaning_completion": "duration_short",
+  "swab_outcome": "trace_below_limit",
+  "swab_timing_mismatch": true,
+  "cross_section_discrepancy": "none",
+  "exposed_quantity_kg": 524.22,
+  "approved_deviation": true,
+  "label_precaution": true,
+  "dedicated_tooling": false,
+  "qa_signoff_state": "signed_before_start",
+  "line_failure_history": 3,
+  "boundary_value": false
+ },
+ "factors_sampled": {
+  "allergen_transition": "removes_allergen",
+  "cleaning_completion": "duration_short",
+  "swab_outcome": "positive_no_retest",
+  "swab_timing_mismatch": true,
+  "cross_section_discrepancy": "label_allergen_mismatch",
+  "exposed_quantity_kg": 524.22,
+  "approved_deviation": true,
+  "label_precaution": true,
+  "dedicated_tooling": false,
+  "qa_signoff_state": "signed_before_start",
+  "line_failure_history": 3,
+  "boundary_value": false
+ },
+ "plan": {
+  "swabs_cleared": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "line_disposition": {
+   "clarity": "leaning",
+   "target": "release",
+   "second": null
+  },
+  "worst_deficiency": {
+   "clarity": "balanced",
+   "target": "release_breach",
+   "second": "cleaning_shortfall"
+  },
+  "exposed_product": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "residue_evidence": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  }
+ },
+ "target_words": 101,
+ "deciding": {
+  "swabs_cleared": "Both swabs are below the 10 ppm limit, but S2 (09:50) is timed after production start 08:00; deviation D41 approved before start covers that late swab. This holds it in balance.",
+  "line_disposition": "Swabs are below limit, QA sign-off is before start, the deviation is approved and a may_contain milk label is present, so release is favoured. The short dry clean and the history of failures leave some doubt.",
+  "worst_deficiency": "Production started 08:00 while S2 was only taken at 09:50, which points to a release breach. The dry_clean step ran 18 of 25 min, which points to a cleaning shortfall. The approved deviation softens the first.",
+  "exposed_product": "The batch is 524.22 kg over 08:00-10:00 and the last swab is at 09:50, so nearly all product was made before the final swab. That is just over 500 kg, near the level 2/3 boundary.",
+  "residue_evidence": "The milk swab S1 reads 3 ppm against a 10 ppm limit and S2 reads 0. That is a trace above zero and below the limit, with no retest needed."
+ },
+ "request": "rec-F236-0011",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.016402
+}

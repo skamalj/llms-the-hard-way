@@ -1,0 +1,141 @@
+{
+ "id": "F230-0026",
+ "family": "F230",
+ "state": {
+  "prescriptions": [
+   {
+    "item_id": "A",
+    "strength_mg": 10,
+    "dose_units": 1,
+    "changes": []
+   },
+   {
+    "item_id": "B",
+    "strength_mg": 5,
+    "dose_units": 1,
+    "changes": [
+     {
+      "effective": "2024-04-20",
+      "new_dose_units": 1,
+      "order_ref": "O-77",
+      "authorised_by_role": "GP"
+     }
+    ]
+   }
+  ],
+  "administrations": [
+   {
+    "item_id": "A",
+    "scheduled": "2024-05-02T08:00",
+    "given_at": "2024-05-02T08:09",
+    "units_given": 2,
+    "strength_mg_used": 10,
+    "code": "G",
+    "initials": "KT"
+   },
+   {
+    "item_id": "B",
+    "scheduled": "2024-05-02T08:00",
+    "given_at": "2024-05-02T08:05",
+    "units_given": 1,
+    "strength_mg_used": 5,
+    "code": "G",
+    "initials": "KT"
+   }
+  ],
+  "stock": {
+   "A": {
+    "opening": 30,
+    "closing": 28
+   },
+   "B": {
+    "opening": 20,
+    "closing": 19
+   }
+  },
+  "round": {
+   "date": "2024-05-02",
+   "open_queries": [
+    {
+     "type": "pharmacy",
+     "raised": "2024-05-02T08:10",
+     "item_id": "B"
+    }
+   ],
+   "post_dose_obs": []
+  },
+  "history": {
+   "errors_30d": 3
+  }
+ },
+ "factors": {
+  "dose_mismatch_type": "wrong_quantity",
+  "prescription_change_documented": true,
+  "omission_count": 0,
+  "omission_reason_valid": false,
+  "late_minutes": 9,
+  "time_critical_affected": false,
+  "stock_variance": 0,
+  "stock_variance_explained": false,
+  "signature_gaps": 0,
+  "unit_expression_decoy": "matching_units",
+  "post_dose_obs_reassuring": false,
+  "pending_query": "pharmacy_query_open",
+  "prior_errors_30d": 3,
+  "item_count": 2
+ },
+ "factors_sampled": {
+  "dose_mismatch_type": "wrong_quantity",
+  "prescription_change_documented": true,
+  "omission_count": 2,
+  "omission_reason_valid": false,
+  "late_minutes": 9,
+  "time_critical_affected": false,
+  "stock_variance": 1,
+  "stock_variance_explained": false,
+  "signature_gaps": 0,
+  "unit_expression_decoy": "matching_units",
+  "post_dose_obs_reassuring": false,
+  "pending_query": "pharmacy_query_open",
+  "prior_errors_30d": 3,
+  "item_count": 6
+ },
+ "plan": {
+  "dose_mismatch": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "stock_reconciles": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "sign_off",
+   "second": null
+  },
+  "open_discrepancies": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "error_severity": {
+   "clarity": "clear",
+   "target": "0",
+   "second": null
+  }
+ },
+ "target_words": 48,
+ "deciding": {
+  "dose_mismatch": "Item A prescribed 1 unit of 10 mg with no change entry, but 2 units were given.",
+  "stock_reconciles": "A: 30-2=28 and B: 20-1=19 both match closing counts; only the small number of items leaves slight doubt.",
+  "next_step": "Evidence is mixed: the only open query is a pharmacy query on B, while A shows a wrong quantity.",
+  "open_discrepancies": "A has a dose mismatch and B has an open pharmacy query, so the count is borderline.",
+  "error_severity": "The record shows no omissions or late doses; A's quantity is the only deviation and is not flagged high risk."
+ },
+ "request": "rec-F230-0026",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.010755
+}

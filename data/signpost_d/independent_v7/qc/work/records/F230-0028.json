@@ -1,0 +1,145 @@
+{
+ "id": "F230-0028",
+ "family": "F230",
+ "state": {
+  "prescriptions": [
+   {
+    "item_id": "C1",
+    "strength_mg": 10,
+    "dose_units": 1,
+    "high_risk": true,
+    "time_critical": false,
+    "changes": [
+     {
+      "effective": "2024-07-03",
+      "new_dose_units": 1,
+      "order_ref": "O-52",
+      "authorised_by_role": "GP"
+     }
+    ]
+   },
+   {
+    "item_id": "C2",
+    "dose_units": 1
+   },
+   {
+    "item_id": "C3",
+    "dose_units": 1
+   },
+   {
+    "item_id": "C4",
+    "dose_units": 1
+   }
+  ],
+  "administrations": [
+   {
+    "item_id": "C1",
+    "scheduled": "2024-07-03T08:00",
+    "given_at": "2024-07-03T08:47",
+    "units_given": 1,
+    "strength_mg_used": 20,
+    "initials": null
+   },
+   {
+    "item_id": "C2",
+    "units_given": 0,
+    "code": "N",
+    "initials": null
+   },
+   {
+    "item_id": "C3",
+    "units_given": 0,
+    "code": "O",
+    "initials": "RA"
+   },
+   {
+    "item_id": "C4",
+    "units_given": 0,
+    "code": "R",
+    "initials": "RA"
+   }
+  ],
+  "stock": {
+   "C2": {
+    "opening": 10,
+    "wasted": 3,
+    "wasted_witnessed": true,
+    "closing": 7
+   }
+  },
+  "round": {
+   "date": "2024-07-03",
+   "open_queries": []
+  }
+ },
+ "factors": {
+  "dose_mismatch_type": "wrong_strength",
+  "prescription_change_documented": true,
+  "omission_count": 3,
+  "omission_reason_valid": false,
+  "late_minutes": 47,
+  "time_critical_affected": false,
+  "stock_variance": 0,
+  "stock_variance_explained": true,
+  "signature_gaps": 2,
+  "unit_expression_decoy": "none_present",
+  "post_dose_obs_reassuring": false,
+  "pending_query": "none",
+  "prior_errors_30d": 2,
+  "item_count": 4
+ },
+ "factors_sampled": {
+  "dose_mismatch_type": "wrong_strength",
+  "prescription_change_documented": true,
+  "omission_count": 3,
+  "omission_reason_valid": false,
+  "late_minutes": 47,
+  "time_critical_affected": false,
+  "stock_variance": -3,
+  "stock_variance_explained": true,
+  "signature_gaps": 2,
+  "unit_expression_decoy": "none_present",
+  "post_dose_obs_reassuring": false,
+  "pending_query": "none",
+  "prior_errors_30d": 2,
+  "item_count": 7
+ },
+ "plan": {
+  "dose_mismatch": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "stock_reconciles": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "balanced",
+   "target": "report_incident",
+   "second": "clinical_escalation"
+  },
+  "open_discrepancies": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  },
+  "error_severity": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "4"
+  }
+ },
+ "target_words": 53,
+ "deciding": {
+  "dose_mismatch": "C1 given 20 mg against a 10 mg prescription, but a change dated the same day as the round leaves the dose in force open to doubt.",
+  "stock_reconciles": "C2: 10 opening minus 3 wasted (witnessed) equals the closing count of 7.",
+  "next_step": "The erroneous C1 is high_risk but not time_critical, so reporting an incident and clinical escalation are both plausible.",
+  "open_discrepancies": "C1 plus three omission codes (N, O, R) with no supporting withhold order or hospital status make four items.",
+  "error_severity": "The ordinary-drug dose error and omissions sit at level 3, but C1's high_risk flag makes level 4 plausible."
+ },
+ "request": "rec-F230-0026",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.010755
+}

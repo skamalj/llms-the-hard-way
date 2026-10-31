@@ -1,0 +1,116 @@
+{
+ "id": "F235-0032",
+ "family": "F235",
+ "state": {
+  "station": {
+   "id": "ST-2210",
+   "river": "Aln",
+   "backup": {
+    "installed": true,
+    "status": "stale"
+   }
+  },
+  "checks": {
+   "pre": {
+    "board_m": [
+     1.205,
+     1.211
+    ],
+    "logger_m": 1.197
+   },
+   "post": {
+    "board_m": [
+     1.204,
+     1.21
+    ],
+    "logger_m": 1.206
+   }
+  },
+  "works": {
+   "tasks": [
+    {
+     "task": "swap transducer",
+     "status": "done"
+    }
+   ],
+   "bench_test": {
+    "result_mm_error": 10
+   }
+  },
+  "defects": [
+   {
+    "item": "backup stale",
+    "channel": "secondary",
+    "reporting": false
+   }
+  ]
+ },
+ "factors": {
+  "pre_visit_offset_mm": 11.0,
+  "check_reading_spread_mm": 6.0,
+  "drift_cause": "sensor_fault",
+  "cause_evidence": "single_indicator",
+  "visit_completion": "full",
+  "post_visit_check_logged": true,
+  "residual_defect_class": "secondary_channel",
+  "backup_sensor_ok": false,
+  "benign_explanation": false,
+  "record_gap": "none",
+  "logger_gap_hours": 77,
+  "telemetry_decoy": "normal",
+  "note_tone": "neutral"
+ },
+ "factors_sampled": {
+  "pre_visit_offset_mm": 32.87,
+  "check_reading_spread_mm": 5.75,
+  "drift_cause": "channel_change",
+  "cause_evidence": "corroborated",
+  "visit_completion": "full",
+  "post_visit_check_logged": true,
+  "residual_defect_class": "secondary_channel",
+  "backup_sensor_ok": false,
+  "benign_explanation": false,
+  "record_gap": "none",
+  "logger_gap_hours": 77,
+  "telemetry_decoy": "normal",
+  "note_tone": "neutral"
+ },
+ "plan": {
+  "sensor_fault_cause": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "visit_disposition": {
+   "clarity": "contested",
+   "target": "sign_off_noted",
+   "second": "hold"
+  },
+  "data_treatment": {
+   "clarity": "leaning",
+   "target": "apply_correction",
+   "second": null
+  },
+  "offset_size": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  },
+  "residual_defect": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  }
+ },
+ "target_words": 37,
+ "deciding": {
+  "sensor_fault_cause": "Transducer swapped, post check agrees (1.207 vs 1.206) and bench error 10 mm matches the offset; no notes or survey to add certainty.",
+  "visit_disposition": "Post check agrees, but a stale secondary backup is open, so noted sign-off versus hold is split.",
+  "data_treatment": "Offset of about 11 mm is verified by bench test and post check, supporting a shift.",
+  "offset_size": "Board mean 1.208 minus logger 1.197 = 11 mm, in the 5-15 mm band.",
+  "residual_defect": "Secondary channel defect, reporting false, while primary logger now agrees with the board."
+ },
+ "request": "rec-F235-0031",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011654
+}

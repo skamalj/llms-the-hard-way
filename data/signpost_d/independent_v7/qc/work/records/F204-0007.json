@@ -1,0 +1,119 @@
+{
+ "id": "F204-0007",
+ "family": "F204",
+ "state": {
+  "rx": {
+   "strength": {
+    "val": 10,
+    "unit": "mg"
+   },
+   "qty": 56
+  },
+  "patient": {
+   "supplies": [
+    {
+     "date": "2025-05-01",
+     "days_covered": 10
+    }
+   ],
+   "emergency_supplies": [
+    {
+     "date": "2025-05-11",
+     "days": 2
+    }
+   ]
+  },
+  "dispensed": {
+   "strength": {
+    "val": 5,
+    "unit": "mg"
+   },
+   "pack_size": 28,
+   "packs": 1,
+   "owing": null
+  },
+  "check_log": {
+   "checked_at": "2025-05-11T14:00",
+   "queries": [
+    {
+     "field": "strength",
+     "status": "confirmed"
+    }
+   ],
+   "interventions": [
+    {
+     "field": "qty",
+     "accepted": true
+    }
+   ]
+  }
+ },
+ "factors": {
+  "strength_status": "differs_same_units",
+  "product_status": "exact",
+  "quantity_status": "short_undocumented",
+  "label_status": "correct",
+  "prescriber_query": "confirmed",
+  "pharmacist_intervention": true,
+  "clinical_check_signed": true,
+  "home_supply_days": 2,
+  "emergency_supply": true,
+  "short_expiry": false,
+  "prior_error_count": 2,
+  "high_risk_drug": true,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "strength_status": "match_same_units",
+  "product_status": "exact",
+  "quantity_status": "short_undocumented",
+  "label_status": "correct",
+  "prescriber_query": "confirmed",
+  "pharmacist_intervention": true,
+  "clinical_check_signed": true,
+  "home_supply_days": 4,
+  "emergency_supply": true,
+  "short_expiry": false,
+  "prior_error_count": 2,
+  "high_risk_drug": true,
+  "boundary_case": false
+ },
+ "plan": {
+  "strength_differs": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "release_annotated",
+   "second": null
+  },
+  "error_category": {
+   "clarity": "balanced",
+   "target": "quantity_only",
+   "second": "product_error"
+  },
+  "open_discrepancies": {
+   "clarity": "contested",
+   "target": "1",
+   "second": "2"
+  },
+  "supply_urgency": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  }
+ },
+ "target_words": 25,
+ "deciding": {
+  "strength_differs": "Rx 10 mg versus dispensed 5 mg in the same unit, so the pack strength does not equal the prescribed strength.",
+  "next_step": "The strength query is confirmed and an accepted intervention is logged on qty, so both are resolved and the item can be released with annotation.",
+  "error_category": "Quantity is 28 against 56 prescribed with owing null, while the strength mismatch is only covered by a confirmed query; quantity-only and product error are both defensible.",
+  "open_discrepancies": "Short quantity (owing null) and the 10 vs 5 mg strength are each covered by a log entry; whether they count as one or two open items is arguable.",
+  "supply_urgency": "Supply of 10 days from 2025-05-01 ended 05-11, and the emergency supply of 2 days leaves about 2 days at the 05-11 check, near the 1 to 2 and 3 to 7 day boundary."
+ },
+ "request": "rec-F204-0006",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.00979
+}

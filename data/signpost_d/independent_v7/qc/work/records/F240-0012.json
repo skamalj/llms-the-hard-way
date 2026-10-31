@@ -1,0 +1,145 @@
+{
+ "id": "F240-0012",
+ "family": "F240",
+ "state": {
+  "asset": {
+   "inverter_id": "INV-12",
+   "serial": "SN2210",
+   "rated_ac_kw": 2000,
+   "block": "B3"
+  },
+  "fault_event": {
+   "serial": "SN2210",
+   "code": "F-DCG-03",
+   "fw_severity": 3,
+   "ts_start": "2024-03-05T07:00:00Z",
+   "ts_clear": "2024-03-05T11:00:00Z",
+   "auto_restarts": 2
+  },
+  "telemetry": {
+   "samples": [
+    {
+     "ts": "2024-03-05T07:00:00Z",
+     "ac_kw": 0,
+     "exp_kw": 300,
+     "poa_wm2": 120,
+     "limit_pct": 0
+    },
+    {
+     "ts": "2024-03-05T11:00:00Z",
+     "ac_kw": 1350,
+     "exp_kw": 380,
+     "poa_wm2": 140,
+     "limit_pct": 75
+    }
+   ],
+   "exp_day_kwh": 9000,
+   "exp_window_kwh": 1200,
+   "act_window_kwh": 10
+  },
+  "site_context": {
+   "grid_events": [
+    {
+     "ts": "2024-03-05T06:58:00Z",
+     "type": "voltage_dip",
+     "magnitude_pu": 0.82
+    }
+   ],
+   "maint_windows": [
+    {
+     "from": "2024-03-05T06:00:00Z",
+     "to": "2024-03-05T12:00:00Z",
+     "scope": "INV-12"
+    }
+   ],
+   "neighbours": [
+    {
+     "inverter_id": "INV-11",
+     "output_ratio": 0.7
+    }
+   ]
+  },
+  "history": {
+   "faults": [
+    {
+     "date": "2024-02-20",
+     "code": "F-DCG-03"
+    }
+   ],
+   "work_orders": [
+    {
+     "wo_id": "W7",
+     "opened": "2024-02-22",
+     "completed": "2024-02-25",
+     "retest_ok": null
+    }
+   ]
+  }
+ },
+ "factors": {
+  "fault_class": "dc_ground_fault",
+  "log_telemetry_mismatch": "none",
+  "grid_event_concurrent": true,
+  "maintenance_window_active": true,
+  "neighbour_cross_check": "neighbours_affected",
+  "repeat_count_30d": 1,
+  "last_repair_status": "completed_unverified",
+  "current_limit_pct": 75.0,
+  "yield_loss_pct": 13.2,
+  "low_irradiance_window": true,
+  "serial_mismatch": false,
+  "boundary_placement": true
+ },
+ "factors_sampled": {
+  "fault_class": "dc_ground_fault",
+  "log_telemetry_mismatch": "none",
+  "grid_event_concurrent": true,
+  "maintenance_window_active": true,
+  "neighbour_cross_check": "neighbours_affected",
+  "repeat_count_30d": 1,
+  "last_repair_status": "completed_unverified",
+  "current_limit_pct": 0.01,
+  "yield_loss_pct": 17.17,
+  "low_irradiance_window": true,
+  "serial_mismatch": false,
+  "boundary_placement": true
+ },
+ "plan": {
+  "genuine_defect": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "post_repair_repeat": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "balanced",
+   "target": "close_log",
+   "second": "hold_confirm"
+  },
+  "yield_loss": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  },
+  "capacity_unavailable": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 129,
+ "deciding": {
+  "genuine_defect": "The grid dip at 06:58, the maintenance window on INV-12 and neighbours at 0.7 favour an external cause. The earlier DC ground fault history keeps a defect plausible.",
+  "post_repair_repeat": "The only matching fault, 2024-02-20, is before the repair completed 2024-02-25.",
+  "next_step": "The repair is unverified (retest null). Closing the log and holding to confirm are both defensible.",
+  "yield_loss": "The computed loss is (1200-10)/9000 = 13.2%, in the 5-20% band.",
+  "capacity_unavailable": "The last sample shows 1350 of 2000 kW and a 75% limit, a mild derate. Full output cannot be confirmed, so levels 0 and 1 are both plausible."
+ },
+ "request": "rec-F240-0011",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.00554
+}

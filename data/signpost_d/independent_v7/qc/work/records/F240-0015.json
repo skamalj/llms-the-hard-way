@@ -1,0 +1,118 @@
+{
+ "id": "F240-0015",
+ "family": "F240",
+ "state": {
+  "asset": {
+   "inverter_id": "INV-30",
+   "rated_ac_kw": 1000
+  },
+  "fault_event": {
+   "code": "F-COM-01"
+  },
+  "telemetry": {
+   "exp_day_kwh": 4000,
+   "exp_window_kwh": 1500,
+   "act_window_kwh": 526,
+   "last": {
+    "ac_kw": 656,
+    "limit_pct": 66
+   }
+  },
+  "site_context": {
+   "grid_events": [
+    {
+     "type": "freq_dip"
+    }
+   ],
+   "maint_windows": [
+    {
+     "scope": "INV-30"
+    }
+   ]
+  },
+  "history": {
+   "faults": [
+    {
+     "code": "F-COM-01"
+    },
+    {
+     "code": "F-COM-01"
+    },
+    {
+     "code": "F-COM-01"
+    }
+   ],
+   "work_orders": [
+    {
+     "completed": null
+    }
+   ]
+  }
+ },
+ "factors": {
+  "fault_class": "comms_loss",
+  "log_telemetry_mismatch": "none",
+  "grid_event_concurrent": true,
+  "maintenance_window_active": true,
+  "neighbour_cross_check": "neighbours_normal",
+  "repeat_count_30d": 3,
+  "last_repair_status": "open",
+  "current_limit_pct": 66.0,
+  "yield_loss_pct": 24.34,
+  "low_irradiance_window": true,
+  "serial_mismatch": false,
+  "boundary_placement": false
+ },
+ "factors_sampled": {
+  "fault_class": "comms_loss",
+  "log_telemetry_mismatch": "none",
+  "grid_event_concurrent": true,
+  "maintenance_window_active": true,
+  "neighbour_cross_check": "neighbours_normal",
+  "repeat_count_30d": 3,
+  "last_repair_status": "open",
+  "current_limit_pct": 65.65,
+  "yield_loss_pct": 24.34,
+  "low_irradiance_window": true,
+  "serial_mismatch": false,
+  "boundary_placement": false
+ },
+ "plan": {
+  "genuine_defect": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "post_repair_repeat": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "watch_list",
+   "second": null
+  },
+  "yield_loss": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  },
+  "capacity_unavailable": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  }
+ },
+ "target_words": 34,
+ "deciding": {
+  "genuine_defect": "Not clear from the record. The grid event and maintenance window point externally, while the 3 repeats point to a defect.",
+  "post_repair_repeat": "The work order is still open (completed null), so no completed repair exists.",
+  "next_step": "Not clear from the record. Cause is unclear and the output is derated, which fits watch_list.",
+  "yield_loss": "The computed loss is (1500-526)/4000 = 24.3%, which does not fit the planned level.",
+  "capacity_unavailable": "The last sample shows 656 kW at a 66% limit, which does not match the planned level."
+ },
+ "request": "rec-F240-0011",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.00554
+}

@@ -1,0 +1,136 @@
+{
+ "id": "F216-0048",
+ "family": "F216",
+ "state": {
+  "session": {
+   "type": "outreach_coolbox",
+   "start": "07:45",
+   "end": "08:15",
+   "next": "2025-05-14"
+  },
+  "storage": {
+   "alarms_30d": 3
+  },
+  "temp_log": {
+   "start": "07:30",
+   "int_min": 10,
+   "product_c": [
+    5.0,
+    5.3,
+    5.8,
+    6.2,
+    8.3,
+    8.6,
+    8.8,
+    8.9,
+    9.0,
+    8.7,
+    8.6,
+    8.5,
+    8.4,
+    8.4,
+    8.3,
+    8.2,
+    6.0
+   ]
+  },
+  "stock": [
+   {
+    "lot": "C9",
+    "tol_min": 120,
+    "open": 60,
+    "wasted": 2,
+    "close": 30
+   }
+  ],
+  "administration": [
+   {
+    "t": "07:50",
+    "lot": "C9",
+    "n": 15
+   },
+   {
+    "t": "08:05",
+    "lot": "C9",
+    "n": 13
+   }
+  ],
+  "excursion_actions": {
+   "start": "08:10",
+   "end": "10:10",
+   "quarantined": true,
+   "advice_requested_at": "10:30",
+   "advice_status": "CLR_SHORT",
+   "advice_received_at": "14:00",
+   "revised_expiry": "2025-07-31"
+  }
+ },
+ "factors": {
+  "true_excursion_minutes": 125,
+  "log_source_discrepancy": "none",
+  "buffered_probe_in_range": false,
+  "planned_maintenance": false,
+  "stability_clearance": "cleared_shortened",
+  "doses_during_exposure": 0,
+  "stock_count_gap": 0,
+  "lot_id_mismatch": false,
+  "lots_beyond_tolerance": "none",
+  "freezing_reading": false,
+  "boundary_case": false,
+  "unit_alarm_history": 3,
+  "session_type": "outreach_coolbox"
+ },
+ "factors_sampled": {
+  "true_excursion_minutes": 33,
+  "log_source_discrepancy": "none",
+  "buffered_probe_in_range": false,
+  "planned_maintenance": true,
+  "stability_clearance": "requested_pending",
+  "doses_during_exposure": 28,
+  "stock_count_gap": 5,
+  "lot_id_mismatch": false,
+  "lots_beyond_tolerance": "none",
+  "freezing_reading": false,
+  "boundary_case": false,
+  "unit_alarm_history": 3,
+  "session_type": "outreach_coolbox"
+ },
+ "plan": {
+  "dosed_uncleared": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "stock_reconciles": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "stock_disposition": {
+   "clarity": "contested",
+   "target": "release_restricted",
+   "second": "discard_all"
+  },
+  "excursion_duration": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "followup_urgency": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  }
+ },
+ "target_words": 57,
+ "deciding": {
+  "dosed_uncleared": "Both dose entries (07:50 and 08:05) precede the excursion start at 08:10, and the session ended at 08:15.",
+  "stock_reconciles": "Lot C9: 60 - 2 wasted - 28 given (15 + 13) = 30, which equals the closing count, and the lot numbers match.",
+  "stock_disposition": "CLR_SHORT advice with a revised_expiry supports release_restricted. The exposure of about 120-130 minutes sits at the lot's tol_min of 120, so discarding is also defensible.",
+  "excursion_duration": "Twelve consecutive product_c readings above 8 (08:10-10:00) on a 10-minute interval give about 120-130 minutes, right at the 120 boundary between level 2 and level 3.",
+  "followup_urgency": "Advice arrived at 14:00 and a revised expiry must be applied to the quarantined lot. The next session is far off, so action within 24 hours fits better than same-day action, since no doses fell inside the excursion."
+ },
+ "request": "rec-F216-0046",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.01442
+}

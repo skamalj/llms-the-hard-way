@@ -1,0 +1,153 @@
+{
+ "id": "F236-0004",
+ "family": "F236",
+ "state": {
+  "changeover": {
+   "line_id": "L3",
+   "from_code": "MF-2",
+   "to_code": "MF-6",
+   "from_allergens": [
+    "wheat",
+    "milk"
+   ],
+   "to_allergens": [
+    "wheat",
+    "milk"
+   ]
+  },
+  "cleaning": {
+   "steps": [
+    {
+     "n": 1,
+     "completed": true,
+     "spec_min": 25,
+     "actual_min": 26
+    },
+    {
+     "n": 2,
+     "completed": true,
+     "spec_min": 15,
+     "actual_min": 15
+    }
+   ],
+   "part_swap": false
+  },
+  "verification": {
+   "swabs": [
+    {
+     "id": "S1",
+     "target": "milk",
+     "reading": 0,
+     "limit_ppm": 10,
+     "lod_ppm": 0.5,
+     "at": "2024-07-02T05:40"
+    },
+    {
+     "id": "S2",
+     "target": "wheat",
+     "reading": 0.5,
+     "limit_ppm": 10,
+     "lod_ppm": 0.5,
+     "at": "2024-07-02T05:45"
+    }
+   ],
+   "atp_rlu": [
+    45
+   ]
+  },
+  "production": {
+   "line_id": "L3",
+   "product_code": "MF-6",
+   "start_at": "2024-07-02T06:00",
+   "qty": 1024.61,
+   "unit": "kg",
+   "packaging_allergens": [
+    "wheat",
+    "milk"
+   ]
+  },
+  "approvals": {
+   "qa_signoff": {
+    "signed_at": "2024-07-02T05:55"
+   },
+   "deviations": []
+  },
+  "history": [
+   {
+    "verification_passed": true
+   },
+   {
+    "verification_passed": true
+   },
+   {
+    "verification_passed": false
+   }
+  ]
+ },
+ "factors": {
+  "allergen_transition": "same_allergen_set",
+  "cleaning_completion": "full",
+  "swab_outcome": "all_negative",
+  "swab_timing_mismatch": false,
+  "cross_section_discrepancy": "none",
+  "exposed_quantity_kg": 0.0,
+  "approved_deviation": false,
+  "label_precaution": false,
+  "dedicated_tooling": false,
+  "qa_signoff_state": "signed_before_start",
+  "line_failure_history": 1,
+  "boundary_value": true
+ },
+ "factors_sampled": {
+  "allergen_transition": "same_allergen_set",
+  "cleaning_completion": "full",
+  "swab_outcome": "all_negative",
+  "swab_timing_mismatch": false,
+  "cross_section_discrepancy": "product_code_mismatch",
+  "exposed_quantity_kg": 1024.61,
+  "approved_deviation": false,
+  "label_precaution": true,
+  "dedicated_tooling": false,
+  "qa_signoff_state": "signed_after_start",
+  "line_failure_history": 5,
+  "boundary_value": true
+ },
+ "plan": {
+  "swabs_cleared": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "line_disposition": {
+   "clarity": "clear",
+   "target": "release",
+   "second": null
+  },
+  "worst_deficiency": {
+   "clarity": "clear",
+   "target": "none",
+   "second": null
+  },
+  "exposed_product": {
+   "clarity": "clear",
+   "target": "2",
+   "second": null
+  },
+  "residue_evidence": {
+   "clarity": "contested",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 65,
+ "deciding": {
+  "swabs_cleared": "S1 and S2 both below limit 10 and timed 05:40 and 05:45, before the 06:00 start; S2 sits at the detection limit, which leaves slight doubt.",
+  "line_disposition": "Swabs under limit before start, cleaning complete at spec, QA signed 05:55, matching identifiers.",
+  "worst_deficiency": "All steps completed at spec, swabs pre-start and under limit, QA signed before start, codes and lines match.",
+  "exposed_product": "Both swabs precede the 06:00 start, so none of the 1024.61 kg batch was made before verification.",
+  "residue_evidence": "S2 reads 0.5 ppm, exactly equal to lod_ppm 0.5 and far below limit 10, so negative (0) versus trace (1) is open."
+ },
+ "request": "rec-F236-0001",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.014
+}

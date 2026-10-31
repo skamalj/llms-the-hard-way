@@ -1,0 +1,117 @@
+{
+ "id": "F205-0010",
+ "family": "F205",
+ "state": {
+  "flight": {
+   "no": "HV906",
+   "std": "2024-09-03T16:00Z",
+   "turn": "full"
+  },
+  "times": {
+   "fuel_start": "2024-09-03T15:05Z",
+   "doors_closed": "2024-09-03T16:48Z",
+   "last_bag": "2024-09-03T16:55Z",
+   "off_blocks": "2024-09-03T17:01Z",
+   "delay_code": "FUEL",
+   "delay_min": 61
+  },
+  "load": {
+   "pax": 120,
+   "bags_count": 78,
+   "bags_kg": 1010,
+   "fuel_kg": 6800,
+   "captain_accepted": true
+  },
+  "hold_log": [
+   {
+    "pos": "1",
+    "bags": 40,
+    "kg": 520
+   },
+   {
+    "pos": "2",
+    "bags": 36,
+    "kg": 488
+   }
+  ],
+  "services": {
+   "fuel": {
+    "start": "15:05",
+    "end": "16:10",
+    "uplift_kg": 5900
+   }
+  },
+  "remarks": [
+   {
+    "role": "ramp",
+    "msg": "Bowser arrived late, fuelling started 15:05."
+   }
+  ]
+ },
+ "factors": {
+  "bag_mismatch_size": "exactly_2_bags",
+  "mismatch_location": "fuel_uplift_vs_loadsheet_fuel",
+  "missing_record": "none",
+  "milestone_out_of_order": true,
+  "delay_minutes": 61,
+  "delay_code_fit": "ambiguous",
+  "explanatory_remark": true,
+  "pending_signoff": false,
+  "dg_on_board": false,
+  "decoy_noise": "none",
+  "boundary_value": true,
+  "turn_type": "full_turn"
+ },
+ "factors_sampled": {
+  "bag_mismatch_size": "large_10_plus_bags",
+  "mismatch_location": "fuel_uplift_vs_loadsheet_fuel",
+  "missing_record": "none",
+  "milestone_out_of_order": true,
+  "delay_minutes": 78,
+  "delay_code_fit": "ambiguous",
+  "explanatory_remark": true,
+  "pending_signoff": false,
+  "dg_on_board": false,
+  "decoy_noise": "none",
+  "boundary_value": false,
+  "turn_type": "full_turn"
+ },
+ "plan": {
+  "load_reconciled": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "delay_code_supported": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "log_disposition": {
+   "clarity": "clear",
+   "target": "investigate",
+   "second": null
+  },
+  "offblock_delay": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  },
+  "failed_checks": {
+   "clarity": "clear",
+   "target": "2",
+   "second": null
+  }
+ },
+ "target_words": 61,
+ "deciding": {
+  "load_reconciled": "Loadsheet shows 78 bags against 40+36 = 76 in the hold, a 2-bag gap at the boundary, while the weights are close (1010 kg against 1008 kg).",
+  "delay_code_supported": "Code FUEL and the remark of a late bowser agree with fuel_start 15:05, but fuel ended 16:10, long before off-blocks at 17:01, which leaves some doubt.",
+  "log_disposition": "Loadsheet fuel 6800 kg against uplift 5900 kg is unexplained, doors_closed 16:48 precedes last_bag 16:55, and the delay attribution is questionable.",
+  "offblock_delay": "Off-blocks 17:01 against STD 16:00 is 61 minutes, one minute past the 60-minute boundary.",
+  "failed_checks": "Fuel figures differ, milestone order is wrong, and the 2-bag gap is borderline, so two or three checks fail."
+ },
+ "request": "rec-F205-0006",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.010996
+}

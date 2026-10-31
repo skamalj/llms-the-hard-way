@@ -1,0 +1,146 @@
+{
+ "id": "F232-0024",
+ "family": "F232",
+ "state": {
+  "night_header": {
+   "date": "2025-09-02",
+   "alloc_h": 10
+  },
+  "conditions": {
+   "closures": [
+    {
+     "s": "20:40",
+     "e": "21:35",
+     "reason": "weather"
+    }
+   ],
+   "hourly": "cloud 6 during closure; limit 3"
+  },
+  "exposures": [
+   {
+    "start_utc": "2025-09-03T02:00",
+    "tgt": "T2",
+    "filt": "r",
+    "exp_s": 13500,
+    "seeing": 1.0,
+    "qa": "pass"
+   },
+   {
+    "start_utc": "2025-09-03T06:00",
+    "tgt": "T2",
+    "filt": "r",
+    "exp_s": 13500,
+    "seeing": 1.1,
+    "qa": "pass"
+   },
+   {
+    "tgt": "T2",
+    "filt": "r",
+    "exp_s": 900,
+    "qa": null
+   },
+   {
+    "tgt": "T2",
+    "filt": "r",
+    "exp_s": 900,
+    "qa": null
+   },
+   {
+    "tgt": "T2",
+    "filt": "r",
+    "exp_s": 900,
+    "qa": null
+   }
+  ],
+  "programme_request": {
+   "T2": {
+    "filters": [
+     "r"
+    ],
+    "total_s": 27000,
+    "max_seeing": 1.5
+   }
+  },
+  "faults": [
+   {
+    "sub": "guider",
+    "start": "03:00",
+    "end": null,
+    "cleared": false,
+    "workaround": "manual offsets"
+   }
+  ],
+  "notes": {
+   "observer": "T2 complete.",
+   "assistant": "Guider drifting."
+  }
+ },
+ "factors": {
+  "weather_loss_hours": 0.9,
+  "fault_overlap": "minor_overlap",
+  "fault_resolution_state": "open_workaround",
+  "maintenance_window": false,
+  "closure_reason_mismatch": "none",
+  "note_claim_discrepancy": "none",
+  "seeing_vs_limit": "well_within",
+  "seeing_exception_approved": false,
+  "usable_fraction": 0.8,
+  "qa_pending_count": 3,
+  "utc_date_rollover": true,
+  "assistant_note_tone": "neutral",
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "weather_loss_hours": 1.83,
+  "fault_overlap": "major_overlap",
+  "fault_resolution_state": "open_workaround",
+  "maintenance_window": false,
+  "closure_reason_mismatch": "none",
+  "note_claim_discrepancy": "short_large",
+  "seeing_vs_limit": "well_within",
+  "seeing_exception_approved": false,
+  "usable_fraction": 0.98,
+  "qa_pending_count": 3,
+  "utc_date_rollover": true,
+  "assistant_note_tone": "neutral",
+  "boundary_case": false
+ },
+ "plan": {
+  "weather_only_loss": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "claims_supported": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "night_disposition": {
+   "clarity": "balanced",
+   "target": "hold",
+   "second": "requeue_targets"
+  },
+  "usable_share": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  },
+  "fault_followup": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  }
+ },
+ "target_words": 57,
+ "deciding": {
+  "weather_only_loss": "The closure 20:40-21:35 is supported by cloud 6 against limit 3, but the open guider fault from 03:00 may have cost some time, so the record is balanced.",
+  "claims_supported": "T2 requires 27000 s in r, and two qa-pass frames give exactly 27000 s.",
+  "night_disposition": "Three frames have qa null and the guider fault is open with a workaround, so holding and requeuing both remain defensible.",
+  "usable_share": "27000 s passes against 36000 s allocation, which is 75%. The three pending frames add 2700 s, taking it to 82.5%, so levels 2 and 3 are both plausible.",
+  "fault_followup": "The guider fault is open with manual offsets as a workaround and observing continued."
+ },
+ "request": "rec-F232-0021",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.01228
+}

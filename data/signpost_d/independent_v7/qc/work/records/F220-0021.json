@@ -1,0 +1,126 @@
+{
+ "id": "F220-0021",
+ "family": "F220",
+ "state": {
+  "tray": {
+   "tray_id": "T-1041",
+   "barcode": "B1041",
+   "request_note": "Routine list"
+  },
+  "set_check": {
+   "lines": [
+    {
+     "cat_code": "FC12",
+     "qty_expected": 2,
+     "qty_counted": 2
+    }
+   ],
+   "variances": [],
+   "packer_note": "All there, checked twice."
+  },
+  "washer": {
+   "cycle_id": "W88",
+   "a0": 3000,
+   "alarms": [
+    "door"
+   ],
+   "trays_processed": [
+    "B1041"
+   ],
+   "rerun_cycle_id": "W89"
+  },
+  "steriliser_load": {
+   "printout": {
+    "temp_min_c": 134.6,
+    "temp_max_c": 136.2,
+    "hold_s": 210,
+    "pressure_kpa": 310
+   },
+   "logger": null,
+   "daily_test": {
+    "date": "2025-03-10",
+    "result": "fail",
+    "repair_ref": "RP7",
+    "retest": "pass"
+   },
+   "bi": {
+    "lot": "L3",
+    "result": "pass"
+   },
+   "ci_result": null,
+   "unload_condition": "wet; re-dried, retested"
+  },
+  "release_label": {
+   "tray_barcode": "B1041",
+   "wrap_condition": "intact"
+  }
+ },
+ "factors": {
+  "set_count_discrepancies": 0,
+  "substitution_documented": true,
+  "cycle_excursion": "none",
+  "independent_logger_confirms": false,
+  "bi_status": "pass",
+  "chemical_indicator": "not_read",
+  "washer_record_state": "alarm_cleared_rerun",
+  "pack_integrity": "wet_on_unload",
+  "label_mismatch": "none",
+  "daily_test_state": "fail_then_repaired_pass",
+  "theatre_urgency": "routine",
+  "note_tone": "reassuring_unverified",
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "set_count_discrepancies": 0,
+  "substitution_documented": true,
+  "cycle_excursion": "none",
+  "independent_logger_confirms": false,
+  "bi_status": "pass",
+  "chemical_indicator": "not_read",
+  "washer_record_state": "alarm_cleared_rerun",
+  "pack_integrity": "intact",
+  "label_mismatch": "expiry_inconsistent",
+  "daily_test_state": "fail_then_repaired_pass",
+  "theatre_urgency": "routine",
+  "note_tone": "reassuring_unverified",
+  "boundary_case": false
+ },
+ "plan": {
+  "cycle_in_limits": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "disposition": {
+   "clarity": "leaning",
+   "target": "release",
+   "second": null
+  },
+  "failure_stage": {
+   "clarity": "leaning",
+   "target": "steriliser_stage",
+   "second": null
+  },
+  "count_gaps": {
+   "clarity": "leaning",
+   "target": "0",
+   "second": null
+  },
+  "sterility_doubt": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  }
+ },
+ "target_words": 51,
+ "deciding": {
+  "cycle_in_limits": "Printout is in band (134.6-136.2 C, 210 s) but there is no logger to confirm it, and the daily steriliser test failed before a repair and retest.",
+  "disposition": "Counts match, the washer alarm has a rerun, BI passed and the wet pack was re-dried and retested, which leans to release with some doubt.",
+  "failure_stage": "Washer alarm is cleared by rerun W89, counts and label agree, so the only residual issue is the wet unload at the steriliser.",
+  "count_gaps": "The only line has expected 2 and counted 2, and there are no variances.",
+  "sterility_doubt": "unload_condition says wet, which is a compromised pack, mitigated only by re-drying and retest; BI is pass and the CI result is null."
+ },
+ "request": "rec-F220-0021",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.014127
+}

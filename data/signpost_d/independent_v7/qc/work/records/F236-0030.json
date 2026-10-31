@@ -1,0 +1,140 @@
+{
+ "id": "F236-0030",
+ "family": "F236",
+ "state": {
+  "changeover": {
+   "line": "L6",
+   "from_code": "BR-70",
+   "to_code": "BR-71",
+   "from_allergens": [
+    "milk"
+   ],
+   "to_allergens": [
+    "sesame"
+   ]
+  },
+  "cleaning": {
+   "steps": [
+    {
+     "id": "strip",
+     "done": true
+    },
+    {
+     "id": "foam",
+     "done": false
+    },
+    {
+     "id": "rinse",
+     "done": true
+    }
+   ]
+  },
+  "verification": {
+   "swabs": [
+    {
+     "id": "S1",
+     "target": "milk",
+     "ppm": 0.5,
+     "lod_ppm": 0.5,
+     "limit_ppm": 5,
+     "at": "2025-08-20T09:00"
+    }
+   ]
+  },
+  "production": {
+   "product_code": "BR-77",
+   "start_at": "2025-08-20T09:00",
+   "end_at": "2025-08-20T09:20",
+   "qty": 12,
+   "unit": "kg",
+   "packaging_allergens": [
+    "sesame",
+    "may_contain:milk"
+   ]
+  },
+  "approvals": {
+   "qa_signoff": {
+    "at": "2025-08-20T08:50"
+   },
+   "deviations": []
+  },
+  "history": [
+   false,
+   false,
+   false,
+   false,
+   true,
+   true,
+   true,
+   true,
+   true,
+   true
+  ]
+ },
+ "factors": {
+  "allergen_transition": "swaps_allergen",
+  "cleaning_completion": "one_step_skipped",
+  "swab_outcome": "all_negative",
+  "swab_timing_mismatch": false,
+  "cross_section_discrepancy": "product_code_mismatch",
+  "exposed_quantity_kg": 12.0,
+  "approved_deviation": false,
+  "label_precaution": true,
+  "dedicated_tooling": false,
+  "qa_signoff_state": "signed_before_start",
+  "line_failure_history": 4,
+  "boundary_value": false
+ },
+ "factors_sampled": {
+  "allergen_transition": "swaps_allergen",
+  "cleaning_completion": "one_step_skipped",
+  "swab_outcome": "all_negative",
+  "swab_timing_mismatch": false,
+  "cross_section_discrepancy": "product_code_mismatch",
+  "exposed_quantity_kg": 1177.19,
+  "approved_deviation": true,
+  "label_precaution": false,
+  "dedicated_tooling": false,
+  "qa_signoff_state": "signed_before_start",
+  "line_failure_history": 4,
+  "boundary_value": false
+ },
+ "plan": {
+  "swabs_cleared": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "line_disposition": {
+   "clarity": "clear",
+   "target": "release_conditional",
+   "second": null
+  },
+  "worst_deficiency": {
+   "clarity": "clear",
+   "target": "cleaning_shortfall",
+   "second": null
+  },
+  "exposed_product": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  },
+  "residue_evidence": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 25,
+ "deciding": {
+  "swabs_cleared": "The only swab S1 read at 09:00, exactly at start 09:00 and below limit 5; timing at the start leaves slight doubt.",
+  "line_disposition": "Packaging has may_contain:milk, an added precautionary label control; swab is clean and sign-off precedes start.",
+  "worst_deficiency": "The foam step has done:false (skipped), outweighing the product_code BR-77 vs BR-71 mismatch.",
+  "exposed_product": "12 kg batch from 09:00, same minute as the passing swab, so zero or under 50 kg depending on timing.",
+  "residue_evidence": "S1 ppm 0.5 equals lod_ppm 0.5, which is borderline between negative and a trace reading, far below limit 5."
+ },
+ "request": "rec-F236-0026",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012594
+}

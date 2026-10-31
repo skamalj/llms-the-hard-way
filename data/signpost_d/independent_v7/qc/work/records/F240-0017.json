@@ -1,0 +1,159 @@
+{
+ "id": "F240-0017",
+ "family": "F240",
+ "state": {
+  "asset": {
+   "id": "INV-A1-02",
+   "sn": "M7731",
+   "rated_ac_kw": 1000,
+   "block": "A1"
+  },
+  "fault_event": {
+   "sn": "M7731",
+   "code": "F-GRD-OV",
+   "fw_sev": 3,
+   "ts_start": "2025-06-11T06:30",
+   "ts_clear": null,
+   "auto_restarts": 4
+  },
+  "telemetry": {
+   "samples": [
+    {
+     "ts": "06:30",
+     "ac_kw": 60,
+     "exp_kw": 70,
+     "poa": 90,
+     "limit_pct": 10
+    },
+    {
+     "ts": "07:30",
+     "ac_kw": 40,
+     "exp_kw": 110,
+     "poa": 140,
+     "limit_pct": 5
+    }
+   ],
+   "exp_day_kwh": 3000,
+   "exp_window_kwh": 420,
+   "act_window_kwh": 250
+  },
+  "site_context": {
+   "grid_events": [],
+   "maint": [
+    {
+     "from": "2025-06-11T06:00",
+     "to": "2025-06-11T12:00",
+     "scope": "INV-A1-02"
+    }
+   ],
+   "neighbours": [
+    {
+     "id": "INV-A1-01",
+     "ratio": 0.7
+    }
+   ]
+  },
+  "history": {
+   "faults": [
+    {
+     "date": "2025-05-20",
+     "code": "F-GRD-OV"
+    },
+    {
+     "date": "2025-05-24",
+     "code": "F-GRD-OV"
+    },
+    {
+     "date": "2025-05-29",
+     "code": "F-GRD-OV"
+    },
+    {
+     "date": "2025-06-04",
+     "code": "F-GRD-OV"
+    },
+    {
+     "date": "2025-06-08",
+     "code": "F-GRD-OV"
+    },
+    {
+     "date": "2025-06-11",
+     "code": "F-GRD-OV"
+    }
+   ],
+   "work_orders": [
+    {
+     "wo": "W-3307",
+     "opened": "2025-06-09",
+     "completed": "2025-06-11",
+     "retest_ok": null
+    }
+   ]
+  }
+ },
+ "factors": {
+  "fault_class": "grid_overvoltage",
+  "log_telemetry_mismatch": "trivial_under_5min",
+  "grid_event_concurrent": false,
+  "maintenance_window_active": true,
+  "neighbour_cross_check": "neighbours_affected",
+  "repeat_count_30d": 6,
+  "last_repair_status": "completed_unverified",
+  "current_limit_pct": 5.0,
+  "yield_loss_pct": 5.67,
+  "low_irradiance_window": true,
+  "serial_mismatch": false,
+  "boundary_placement": false
+ },
+ "factors_sampled": {
+  "fault_class": "grid_overvoltage",
+  "log_telemetry_mismatch": "trivial_under_5min",
+  "grid_event_concurrent": false,
+  "maintenance_window_active": true,
+  "neighbour_cross_check": "neighbours_affected",
+  "repeat_count_30d": 6,
+  "last_repair_status": "none",
+  "current_limit_pct": 73.4,
+  "yield_loss_pct": 15.51,
+  "low_irradiance_window": true,
+  "serial_mismatch": false,
+  "boundary_placement": false
+ },
+ "plan": {
+  "genuine_defect": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "post_repair_repeat": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "hold_confirm",
+   "second": null
+  },
+  "yield_loss": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  },
+  "capacity_unavailable": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  }
+ },
+ "target_words": 43,
+ "deciding": {
+  "genuine_defect": "Overvoltage code with a neighbour ratio of 0.7 and a maintenance window on the unit points to an external cause. Six repeats of the same code and no logged grid event leave a defect plausible.",
+  "post_repair_repeat": "W-3307 was completed 2025-06-11 with retest_ok null, and the latest F-GRD-OV is also dated 2025-06-11. The date-only entries cannot show which came first.",
+  "next_step": "ts_clear is null, the window covers INV-A1-02 and the repair is unverified. The one confirmation missing is whether the work in the window caused the fault or the fault came after it.",
+  "yield_loss": "(420-250)/3000 = 5.7%, just above the 5% line.",
+  "capacity_unavailable": "The last sample shows limit_pct 5 and 40 kW, so the unit is barely exporting. It is close to offline with no clear cut."
+ },
+ "request": "rec-F240-0016",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.01584
+}

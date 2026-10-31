@@ -1,0 +1,185 @@
+{
+ "id": "F230-0021",
+ "family": "F230",
+ "state": {
+  "resident": {
+   "id": "A11",
+   "room": 4,
+   "weight_kg": 71,
+   "allergies": [
+    "latex"
+   ],
+   "status": "home"
+  },
+  "prescriptions": [
+   {
+    "item_id": "i1",
+    "drug": "levodopa",
+    "strength_mg": 100,
+    "dose_units": 1,
+    "time_critical": true
+   },
+   {
+    "item_id": "i2",
+    "drug": "senna",
+    "strength_mg": 7.5,
+    "dose_units": 2
+   },
+   {
+    "item_id": "i3",
+    "drug": "ramipril",
+    "strength_mg": 5,
+    "dose_units": 1,
+    "changes": [
+     {
+      "effective": "2024-05-01",
+      "new_dose_units": 1,
+      "order_ref": "OR-77",
+      "authorised_by_role": "GP"
+     }
+    ]
+   },
+   {
+    "item_id": "i4",
+    "drug": "vitamin D",
+    "strength_mg": 1,
+    "dose_units": 1
+   }
+  ],
+  "administrations": [
+   {
+    "item_id": "i1",
+    "scheduled": "08:00",
+    "units_given": 0,
+    "code": "R",
+    "initials": null
+   },
+   {
+    "item_id": "i2",
+    "scheduled": "08:00",
+    "units_given": 0,
+    "code": "N",
+    "initials": null
+   },
+   {
+    "item_id": "i3",
+    "scheduled": "08:00",
+    "given_at": "09:24",
+    "units_given": 1,
+    "strength_mg_used": 5,
+    "initials": "MB"
+   },
+   {
+    "item_id": "i4",
+    "scheduled": "08:00",
+    "given_at": "08:05",
+    "units_given": 1,
+    "strength_mg_used": 1,
+    "initials": "MB"
+   }
+  ],
+  "stock": {
+   "i1": {
+    "opening": 28,
+    "closing": 28
+   },
+   "i2": {
+    "opening": 40,
+    "closing": 40
+   },
+   "i3": {
+    "opening": 30,
+    "closing": 29
+   },
+   "i4": {
+    "opening": 20,
+    "closing": 19
+   }
+  },
+  "round": {
+   "round_id": "R-0612",
+   "date": "2024-06-12",
+   "slot": "08:00",
+   "open_queries": [],
+   "post_dose_obs": [
+    {
+     "type": "bp_sys",
+     "value": 88
+    }
+   ]
+  },
+  "history": {
+   "errors_30d": 3
+  }
+ },
+ "factors": {
+  "dose_mismatch_type": "none",
+  "prescription_change_documented": true,
+  "omission_count": 2,
+  "omission_reason_valid": false,
+  "late_minutes": 84,
+  "time_critical_affected": true,
+  "stock_variance": 0,
+  "stock_variance_explained": true,
+  "signature_gaps": 2,
+  "unit_expression_decoy": "matching_units",
+  "post_dose_obs_reassuring": false,
+  "pending_query": "none",
+  "prior_errors_30d": 3,
+  "item_count": 4
+ },
+ "factors_sampled": {
+  "dose_mismatch_type": "none",
+  "prescription_change_documented": true,
+  "omission_count": 2,
+  "omission_reason_valid": false,
+  "late_minutes": 84,
+  "time_critical_affected": false,
+  "stock_variance": 0,
+  "stock_variance_explained": true,
+  "signature_gaps": 2,
+  "unit_expression_decoy": "matching_units",
+  "post_dose_obs_reassuring": false,
+  "pending_query": "none",
+  "prior_errors_30d": 3,
+  "item_count": 4
+ },
+ "plan": {
+  "dose_mismatch": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "stock_reconciles": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "sign_off",
+   "second": null
+  },
+  "open_discrepancies": {
+   "clarity": "clear",
+   "target": "2",
+   "second": null
+  },
+  "error_severity": {
+   "clarity": "clear",
+   "target": "4",
+   "second": null
+  }
+ },
+ "target_words": 72,
+ "deciding": {
+  "dose_mismatch": "Given units and strength match prescription (i3 1 x 5 mg, change OR-77 documented; i4 1 x 1 mg); the only zero-unit entries are omissions, not wrong doses.",
+  "stock_reconciles": "Closing equals opening minus signed doses for all four items (i3 30 to 29, i4 20 to 19, i1 and i2 unchanged); nothing else is recorded, so only modest confidence.",
+  "next_step": "No open queries, no stock gap and no wrong-dose entries, so nothing is pending and the record closes.",
+  "open_discrepancies": "Two items (i1, i2) have R/N omission codes with units 0, null initials and no hospital status or withhold order; i3 late 84 min is a possible third, still two or three items.",
+  "error_severity": "i1 levodopa is time_critical and was omitted with code R and no supporting order, which is the critical level."
+ },
+ "request": "rec-F230-0021",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.021823
+}

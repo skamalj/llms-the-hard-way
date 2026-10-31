@@ -1,0 +1,132 @@
+{
+ "id": "F229-0007",
+ "family": "F229",
+ "state": {
+  "lot": {
+   "lot_id": "L-2713",
+   "block": "B07",
+   "variety": "Chardonnay",
+   "crew": "C2",
+   "pick_date": "2024-09-20",
+   "pick_start": "2024-09-20T07:00",
+   "pick_end": "2024-09-20T14:00"
+  },
+  "intake": {
+   "ticket_no": "WB-8841",
+   "block_code": "B07",
+   "arrival_at": "2024-09-20T15:10",
+   "gross_kg": 9800,
+   "tare_kg": 1400,
+   "net_kg": 8900,
+   "bins": [
+    1400,
+    1400,
+    1400,
+    1400,
+    1400,
+    1400
+   ],
+   "temp_c": 6,
+   "cold_room_in": "2024-09-20T15:30",
+   "cold_room_out": "2024-09-21T07:45",
+   "driver_note": "Crew changed at midday."
+  },
+  "sample": {
+   "sampled_at": "2024-09-20T15:25",
+   "brix": 21.8,
+   "ph": 3.3,
+   "ta_g_l": 7.1,
+   "rot_pct": 3.8,
+   "mog_pct": 0.6,
+   "sort": null
+  },
+  "press": {
+   "press_id": "P2",
+   "programme": "destemmed_standard",
+   "band_l_per_t": "600-680",
+   "cycle_start": "2024-09-21T08:30",
+   "cycle_end": "2024-09-21T12:40",
+   "free_run_l": 3900,
+   "press_fraction_l": 1900,
+   "juice_l": 5800,
+   "so2_mg_l": null,
+   "operator_note": "Light rain on press pad; minor bearing noise."
+  },
+  "transfer": {
+   "lot_ref": "L-2731",
+   "tank_id": "T4",
+   "transferred_l": 5740,
+   "transferred_at": "2024-09-21T13:20",
+   "qa_signoff": "RT 13:40",
+   "qa_comment": "Tank T4 as planned."
+  }
+ },
+ "factors": {
+  "weight_mismatch": "large_over_5pct",
+  "press_programme": "destemmed_standard",
+  "yield_position": "above_band",
+  "lot_id_drift": "transposed_digit_in_tank_log",
+  "missing_step": "so2_addition_missing",
+  "out_of_order_timestamp": false,
+  "pick_to_press_hours": 18.5,
+  "pick_end_recorded": true,
+  "cold_held": true,
+  "rot_pct": 3.8,
+  "sorting_applied": false,
+  "note_signal": "benign_decoy",
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "weight_mismatch": "large_over_5pct",
+  "press_programme": "destemmed_standard",
+  "yield_position": "above_band",
+  "lot_id_drift": "transposed_digit_in_tank_log",
+  "missing_step": "so2_addition_missing",
+  "out_of_order_timestamp": false,
+  "pick_to_press_hours": 8.99,
+  "pick_end_recorded": false,
+  "cold_held": true,
+  "rot_pct": 3.8,
+  "sorting_applied": false,
+  "note_signal": "benign_decoy",
+  "boundary_case": false
+ },
+ "plan": {
+  "yield_consistent": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "chain_intact": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "release_decision": {
+   "clarity": "leaning",
+   "target": "release_corrected",
+   "second": null
+  },
+  "pick_press_delay": {
+   "clarity": "clear",
+   "target": "3",
+   "second": null
+  },
+  "failed_checks": {
+   "clarity": "clear",
+   "target": "3",
+   "second": null
+  }
+ },
+ "target_words": 190,
+ "deciding": {
+  "yield_consistent": "5800 L is about 652 L/t on the ticket net of 8900 kg but about 690 L/t on the bin sum of 8400 kg, against a 600-680 band; the answer depends on which weight is trusted.",
+  "chain_intact": "transfer.lot_ref L-2731 vs lot_id L-2713 is a transposed digit, but block, tank and volumes line up, so it may be a typo.",
+  "release_decision": "Mismatches look clerical (ticket net 8900 vs bins 8400, transposed lot_ref, null so2), so correct the record and release, though some doubt remains.",
+  "pick_press_delay": "pick_end 14:00 on 09-20 to cycle_start 08:30 on 09-21 is 18.5 h, so overnight, even with cold holding.",
+  "failed_checks": "Weights do not reconcile (8900 vs 8400), lot_ref differs, so2 is null and the delay is over 16 h, giving at least four failures."
+ },
+ "request": "rec-F229-0006",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.013346
+}

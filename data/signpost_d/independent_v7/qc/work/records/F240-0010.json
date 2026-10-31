@@ -1,0 +1,125 @@
+{
+ "id": "F240-0010",
+ "family": "F240",
+ "state": {
+  "asset": {
+   "inverter_id": "INV-5-09",
+   "serial": "S509",
+   "rated_ac_kw": 500
+  },
+  "fault_event": {
+   "serial": "S509",
+   "code": "F-FAN-01",
+   "fw_severity": 2,
+   "ts_start": "2024-10-03T08:00",
+   "ts_clear": "2024-10-03T08:20",
+   "auto_restarts": 1
+  },
+  "telemetry": {
+   "exp_day_kwh": 5000,
+   "exp_window_kwh": 400,
+   "act_window_kwh": 250,
+   "samples": [
+    {
+     "ts": "2024-10-03T09:00",
+     "ac_kw": 98,
+     "exp_kw": 130,
+     "poa_wm2": 180,
+     "limit_pct": 75
+    }
+   ]
+  },
+  "site_context": {
+   "maint_windows": [
+    {
+     "from": "2024-10-03",
+     "to": "2024-10-04",
+     "scope": "BLOCK-7"
+    }
+   ],
+   "neighbours": null
+  },
+  "history": {
+   "faults": [
+    {
+     "date": "2024-09-10",
+     "code": "F-FAN-01"
+    }
+   ],
+   "work_orders": [
+    {
+     "wo_id": "WO-612",
+     "opened": "2024-09-08",
+     "completed": "2024-09-10",
+     "retest_ok": null
+    }
+   ]
+  }
+ },
+ "factors": {
+  "fault_class": "fan_failure",
+  "log_telemetry_mismatch": "none",
+  "grid_event_concurrent": false,
+  "maintenance_window_active": false,
+  "neighbour_cross_check": "no_data",
+  "repeat_count_30d": 1,
+  "last_repair_status": "completed_unverified",
+  "current_limit_pct": 75.0,
+  "yield_loss_pct": 3.0,
+  "low_irradiance_window": true,
+  "serial_mismatch": false,
+  "boundary_placement": false
+ },
+ "factors_sampled": {
+  "fault_class": "fan_failure",
+  "log_telemetry_mismatch": "none",
+  "grid_event_concurrent": false,
+  "maintenance_window_active": true,
+  "neighbour_cross_check": "neighbours_affected",
+  "repeat_count_30d": 1,
+  "last_repair_status": "completed_unverified",
+  "current_limit_pct": 39.99,
+  "yield_loss_pct": 10.15,
+  "low_irradiance_window": true,
+  "serial_mismatch": false,
+  "boundary_placement": false
+ },
+ "plan": {
+  "genuine_defect": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "post_repair_repeat": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "hold_confirm",
+   "second": null
+  },
+  "yield_loss": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  },
+  "capacity_unavailable": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  }
+ },
+ "target_words": 58,
+ "deciding": {
+  "genuine_defect": "A fan fault code recurs with a thermal-style derate, no grid event, and the only maintenance window is for another block; neighbour data is missing, leaving some doubt.",
+  "post_repair_repeat": "Matching F-FAN-01 dated 2024-09-10, the same day WO-612 completed, with retest_ok null.",
+  "next_step": "neighbours is null, so the neighbour cross-check is the single missing confirmation.",
+  "yield_loss": "(400-250)/5000 = 3.0%, within the minor band.",
+  "capacity_unavailable": "Last sample limit_pct 75 with ac_kw 98 of rated 500, a derate within 50% to under 100%."
+ },
+ "request": "rec-F240-0006",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012222
+}

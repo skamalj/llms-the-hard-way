@@ -1,0 +1,118 @@
+{
+ "id": "F229-0038",
+ "family": "F229",
+ "state": {
+  "lot": {
+   "lot_id": "L2231",
+   "block": "B-07",
+   "variety": "Syrah",
+   "pick_date": "2024-09-20",
+   "pick_start": "05:30",
+   "pick_end": null
+  },
+  "intake": {
+   "block_code": "B07",
+   "arrival_at": "2024-09-20T15:10",
+   "gross_kg": 9900,
+   "tare_kg": 1900,
+   "net_kg": 8000,
+   "bins": [
+    2000,
+    2000,
+    2000,
+    2000
+   ],
+   "temp_c": 24
+  },
+  "sample": {
+   "rot_pct": 9.18,
+   "sort": {
+    "sorted": true,
+    "rejected_kg": 120,
+    "post_sort_rot_pct": 2.1
+   }
+  },
+  "press": {
+   "programme": "destemmed_standard",
+   "band_l_per_t": "600-680",
+   "cycle_start": "2024-09-21T00:40",
+   "cycle_end": "2024-09-21T05:00",
+   "juice_l": 4500,
+   "so2_mg_l": 35
+  },
+  "transfer": {
+   "lot_ref": "L2231",
+   "tank_id": "T3",
+   "transferred_l": 4460,
+   "qa_signoff": "MK 09:00"
+  }
+ },
+ "factors": {
+  "weight_mismatch": "none",
+  "press_programme": "destemmed_standard",
+  "yield_position": "below_band",
+  "lot_id_drift": "block_code_differs_at_intake",
+  "missing_step": "none",
+  "out_of_order_timestamp": false,
+  "pick_to_press_hours": 11.0,
+  "pick_end_recorded": false,
+  "cold_held": false,
+  "rot_pct": 9.18,
+  "sorting_applied": true,
+  "note_signal": "none",
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "weight_mismatch": "none",
+  "press_programme": "destemmed_standard",
+  "yield_position": "inside_band",
+  "lot_id_drift": "block_code_differs_at_intake",
+  "missing_step": "none",
+  "out_of_order_timestamp": false,
+  "pick_to_press_hours": 20.59,
+  "pick_end_recorded": false,
+  "cold_held": false,
+  "rot_pct": 9.18,
+  "sorting_applied": true,
+  "note_signal": "none",
+  "boundary_case": false
+ },
+ "plan": {
+  "yield_consistent": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "chain_intact": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "release_decision": {
+   "clarity": "clear",
+   "target": "release_corrected",
+   "second": null
+  },
+  "pick_press_delay": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  },
+  "failed_checks": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 71,
+ "deciding": {
+  "yield_consistent": "4500 L on 8000 kg is about 562 L/t, below the 600-680 band, though the sorting rejects may explain some of the gap.",
+  "chain_intact": "intake.block_code 'B07' against lot.block 'B-07' is only a hyphen difference; lot_ref and the rest match.",
+  "release_decision": "The issues are clerical (block code format, borderline yield). Sorting was applied, QA has signed off, and the transfer volume is normal.",
+  "pick_press_delay": "pick_end is null; arrival_at 15:10 to cycle_start 00:40 is about 9.5 h, a lower bound, so level 2 is likely.",
+  "failed_checks": "Yield below band, the block code format difference and the long delay may count; whether the format difference counts separates two-three from four."
+ },
+ "request": "rec-F229-0036",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.00959
+}

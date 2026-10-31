@@ -1,0 +1,169 @@
+{
+ "id": "F232-0012",
+ "family": "F232",
+ "state": {
+  "night_header": {
+   "date": "2031-06-11",
+   "programme_id": "P22",
+   "allocated_hours": 8,
+   "eng_window": null
+  },
+  "conditions": {
+   "limits": {
+    "hum": 85,
+    "wind": 50,
+    "cloud": 4
+   },
+   "closures": [
+    {
+     "start": "2031-06-12T03:30Z",
+     "end": "2031-06-12T10:00Z",
+     "reason": "weather",
+     "hum_range": [
+      52,
+      66
+     ],
+     "wind_max": 28,
+     "cloud_max": 2
+    }
+   ]
+  },
+  "exposures": [
+   {
+    "t": "T1",
+    "f": "g",
+    "utc": "2031-06-12T02:05Z",
+    "s": 600,
+    "see": 1.19,
+    "qa": "pass"
+   },
+   {
+    "t": "T1",
+    "f": "r",
+    "utc": "2031-06-12T02:20Z",
+    "s": 1200,
+    "see": 1.24,
+    "qa": null
+   },
+   {
+    "t": "T1",
+    "f": "r",
+    "utc": "2031-06-12T02:45Z",
+    "s": 1200,
+    "see": 1.26,
+    "qa": null
+   },
+   {
+    "t": "T1",
+    "f": "i",
+    "utc": "2031-06-12T03:10Z",
+    "s": 900,
+    "see": 1.3,
+    "qa": null
+   },
+   {
+    "t": "T2",
+    "f": "r",
+    "utc": "2031-06-12T03:20Z",
+    "s": 1200,
+    "see": 1.28,
+    "qa": null
+   }
+  ],
+  "programme_request": {
+   "T1": {
+    "f": [
+     "g",
+     "r",
+     "i"
+    ],
+    "s_each": 1800,
+    "max_see": 1.2
+   },
+   "exception": null
+  },
+  "faults": [
+   {
+    "subsystem": "camera_shutter",
+    "start_utc": "2031-06-12T05:10Z",
+    "end_utc": null,
+    "cleared": false,
+    "retest_utc": null,
+    "workaround": null,
+    "ticket_ref": "T-6012"
+   }
+  ],
+  "notes": {
+   "observer_note": "T1 complete.",
+   "night_assistant_note": "Grinding from shutter ~05:10, camera stopped responding."
+  }
+ },
+ "factors": {
+  "weather_loss_hours": 6.5,
+  "fault_overlap": "minor",
+  "fault_resolution_state": "open_blocking",
+  "maintenance_window": false,
+  "closure_reason_mismatch": "station_below_limits",
+  "note_claim_discrepancy": "short_large",
+  "seeing_vs_limit": "near_boundary",
+  "seeing_exception_approved": false,
+  "usable_fraction": 0.02,
+  "qa_pending_count": 4,
+  "utc_date_rollover": true,
+  "assistant_note_tone": "alarmed_real",
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "weather_loss_hours": 6.5,
+  "fault_overlap": "none",
+  "fault_resolution_state": "open_workaround",
+  "maintenance_window": false,
+  "closure_reason_mismatch": "none",
+  "note_claim_discrepancy": "short_large",
+  "seeing_vs_limit": "near_boundary",
+  "seeing_exception_approved": false,
+  "usable_fraction": 0.76,
+  "qa_pending_count": 4,
+  "utc_date_rollover": true,
+  "assistant_note_tone": "alarmed_benign",
+  "boundary_case": false
+ },
+ "plan": {
+  "weather_only_loss": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "claims_supported": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "night_disposition": {
+   "clarity": "clear",
+   "target": "charge_partial",
+   "second": null
+  },
+  "usable_share": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  },
+  "fault_followup": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  }
+ },
+ "target_words": 126,
+ "deciding": {
+  "weather_only_loss": "The 6.5 h 'weather' closure has humidity 52-66, wind max 28 and cloud max 2, all below limits (85/50/4). A shutter fault opened inside it at 05:10Z, so the cause is unsupported.",
+  "claims_supported": "T1 is claimed complete, but the exposures total g 600 s and i 900 s against 1800 s each required, a large shortfall.",
+  "night_disposition": "The closure is logged as weather and the exposures that were taken stand. The plan's charge_partial is difficult to reconcile with the unsupported closure and the blocking fault.",
+  "usable_share": "Only one 600 s g frame passes QA, at seeing 1.19 against a 1.2 limit, so about 2% of 8 h. Four other frames have seeing of 1.24-1.3 (over the limit) and QA null, which leaves level 0 or 1 both defensible.",
+  "fault_followup": "The camera_shutter fault is open with no workaround (null) and the camera stopped responding, so the instrument is unusable."
+ },
+ "request": "rec-F232-0011",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.016611
+}

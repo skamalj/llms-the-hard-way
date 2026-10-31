@@ -1,0 +1,137 @@
+{
+ "id": "F232-0046",
+ "family": "F232",
+ "state": {
+  "night_header": {
+   "date": "2025-03-11",
+   "alloc_h": 8,
+   "eng_window": [
+    "03:00",
+    "07:30"
+   ]
+  },
+  "conditions": {
+   "closures": [
+    {
+     "s": "22:10",
+     "e": "22:28",
+     "reason": "weather",
+     "hum": 92,
+     "hum_lim": 85
+    }
+   ]
+  },
+  "exposures": [
+   {
+    "t": "T1",
+    "f": "r",
+    "s": 12600,
+    "seeing_max": 1.3,
+    "qa": "pass"
+   },
+   {
+    "t": "T1",
+    "f": "r",
+    "s": 1800,
+    "seeing": 1.9,
+    "qa": "fail"
+   },
+   {
+    "t": "T2",
+    "f": "r",
+    "s": 600,
+    "qa": null
+   }
+  ],
+  "programme_request": [
+   {
+    "t": "T1",
+    "f": "r",
+    "total_s": 12600,
+    "max_seeing": 1.5
+   }
+  ],
+  "faults": [
+   {
+    "sub": "focus",
+    "start": "03:05",
+    "end": null,
+    "cleared": false,
+    "retest": null,
+    "workaround": "manual offsets, slow",
+    "ticket": "E-412"
+   }
+  ],
+  "notes": {
+   "observer": "T1 done."
+  }
+ },
+ "factors": {
+  "weather_loss_hours": 0.3,
+  "fault_overlap": "none",
+  "fault_resolution_state": "open_workaround",
+  "maintenance_window": true,
+  "closure_reason_mismatch": "none",
+  "note_claim_discrepancy": "none",
+  "seeing_vs_limit": "exceeded",
+  "seeing_exception_approved": false,
+  "usable_fraction": 0.44,
+  "qa_pending_count": 1,
+  "utc_date_rollover": false,
+  "assistant_note_tone": "neutral",
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "weather_loss_hours": 0.3,
+  "fault_overlap": "none",
+  "fault_resolution_state": "cleared_no_retest",
+  "maintenance_window": true,
+  "closure_reason_mismatch": "none",
+  "note_claim_discrepancy": "none",
+  "seeing_vs_limit": "exceeded",
+  "seeing_exception_approved": false,
+  "usable_fraction": 0.61,
+  "qa_pending_count": 1,
+  "utc_date_rollover": false,
+  "assistant_note_tone": "neutral",
+  "boundary_case": false
+ },
+ "plan": {
+  "weather_only_loss": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "claims_supported": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "night_disposition": {
+   "clarity": "clear",
+   "target": "reschedule_night",
+   "second": null
+  },
+  "usable_share": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  },
+  "fault_followup": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  }
+ },
+ "target_words": 69,
+ "deciding": {
+  "weather_only_loss": "The only closure (22:10-22:28) is supported by humidity 92 over the limit of 85. The later lost time sits inside eng_window, which gives a scheduled-work reading and leaves some doubt because of the open focus fault.",
+  "claims_supported": "T1 r passing frames total 12600 s, equal to programme_request total_s 12600, and T1 is the only target the note claims.",
+  "night_disposition": "No exposures after the focus fault at 03:05. About 4.5 h of the 8 h allocation is lost to the fault, which is over half, so a replacement night is needed.",
+  "usable_share": "Passing in-limit T1 time is 12600 s = 3.5 h of 8 h, about 44%. This is just above the 40% boundary, and the 1.9 arcsec frame failed.",
+  "fault_followup": "Focus fault is open (end null, cleared false, no retest). The workaround 'manual offsets, slow' is ambiguous, so it could be read as keeping observing possible or as effectively unusable."
+ },
+ "request": "rec-F232-0046",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.014179
+}
