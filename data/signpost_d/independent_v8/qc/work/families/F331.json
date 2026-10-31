@@ -1,0 +1,338 @@
+{
+ "id": "F331",
+ "domain": "storm damage insurance claim intake",
+ "role": "Household storm claims intake handler at a home insurer, reviewing each newly lodged claim file before it is routed",
+ "setting": "A regional home insurer receives storm damage claims after wind, hail and heavy rain events. The intake handler opens one claim file at a time. The file holds policy details, the claimant's loss report, an automated weather lookup, property history, a contractor estimate and a checklist of lodged documents. The handler checks whether the storm is corroborated and whether damage predates it. They then decide how the claim proceeds and how urgently make-safe work is needed. Signals are often indirect: dates in one section must be compared with dates in another, estimates with benchmarks, and survey notes with the claimed damage area.",
+ "questions": {
+  "weather_corroborated": {
+   "type": "noul",
+   "instructions": "Recorded weather at the property supports a storm on the loss date.",
+   "criteria": {
+    "true": "Station data near property shows qualifying storm that day.",
+    "false": "No qualifying event, distant station only, or dates differ."
+   }
+  },
+  "pre_existing_damage": {
+   "type": "noul",
+   "instructions": "File evidence shows claimed damage existed before the reported storm.",
+   "criteria": {
+    "true": "Earlier survey or claim records the same damage area.",
+    "false": "No dated evidence places the damage before the storm."
+   }
+  },
+  "intake_route": {
+   "type": "choice",
+   "instructions": "How should this claim proceed after intake review?",
+   "criteria": {
+    "fast_track": "File complete, cover and weather confirmed, estimate within benchmark.",
+    "hold_for_info": "Exactly one required document or confirmation is still outstanding.",
+    "field_inspection": "File complete but damage extent or cost needs on-site assessment.",
+    "refer_investigation": "Dates, statements or history conflict in ways suggesting misrepresentation."
+   }
+  },
+  "source_support": {
+   "type": "score",
+   "instructions": "How many independent sources confirm the information in this record?",
+   "criteria": [
+    "No independent source confirms the information",
+    "Exactly one independent source confirms it",
+    "Two or three independent sources confirm it",
+    "Four or more independent sources confirm it"
+   ]
+  },
+  "makesafe_urgency": {
+   "type": "score",
+   "instructions": "How urgently does the property need emergency make-safe work?",
+   "criteria": [
+    "No breach to roof, walls or windows recorded",
+    "Breach recorded, temporary repair already completed",
+    "Breach open, no temporary repair, home still habitable",
+    "Breach open and home recorded as unsafe to occupy"
+   ]
+  }
+ },
+ "factors": [
+  {
+   "name": "weather_match",
+   "description": "How the automated weather lookup relates to the claimed loss date and location: qualifying gusts at a nearby station on the date, a qualifying event only at a distant station, no qualifying event, or a qualifying event one or more days away from the claimed date.",
+   "kind": "categorical",
+   "values": [
+    "confirmed_near",
+    "distant_station_only",
+    "no_event",
+    "date_offset"
+   ],
+   "weights": [
+    0.45,
+    0.2,
+    0.15,
+    0.2
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S5",
+    "S6",
+    "S7"
+   ]
+  },
+  {
+   "name": "report_lag_days",
+   "description": "Days between the claimed loss date and the date the claim was lodged; long lags are alarming but can be explained by the claimant being away.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 120,
+   "p_true": 0,
+   "skills": [
+    "S2",
+    "S6"
+   ]
+  },
+  {
+   "name": "policy_status",
+   "description": "Policy state at the loss date: active with storm cover, within a lapse grace period, storm cover excluded by endorsement, or policy inception dated after the loss date (out-of-order dates).",
+   "kind": "categorical",
+   "values": [
+    "active",
+    "grace_period",
+    "storm_excluded",
+    "incepted_after_loss"
+   ],
+   "weights": [
+    0.7,
+    0.12,
+    0.08,
+    0.1
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S2",
+    "S5",
+    "S7"
+   ]
+  },
+  {
+   "name": "prior_condition_evidence",
+   "description": "What property history shows about the claimed damage area before the storm: nothing on file, a clean dated survey, a survey noting wear in the same area, or a previous claim on the same area that was never repaired.",
+   "kind": "categorical",
+   "values": [
+    "none_on_file",
+    "clean_survey",
+    "survey_notes_wear",
+    "unrepaired_prior_claim"
+   ],
+   "weights": [
+    0.35,
+    0.25,
+    0.22,
+    0.18
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S5",
+    "S6",
+    "S3"
+   ]
+  },
+  {
+   "name": "missing_item",
+   "description": "Which required intake item is absent: none, damage photos, contractor estimate (estimate section null), proof of ownership, or two items at once.",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "photos",
+    "contractor_estimate",
+    "proof_of_ownership",
+    "two_items"
+   ],
+   "weights": [
+    0.45,
+    0.15,
+    0.15,
+    0.13,
+    0.12
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S2",
+    "S4"
+   ]
+  },
+  {
+   "name": "estimate_ratio",
+   "description": "Contractor estimate total divided by the insurer's desk benchmark for the declared damage; high values are alarming.",
+   "kind": "number",
+   "values": [],
+   "weights": [],
+   "min": 0.4,
+   "max": 3.2,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S6"
+   ]
+  },
+  {
+   "name": "estimate_uplift_explained",
+   "description": "Whether the file carries a benign reason for a high estimate, such as listed-building materials, scaffold access or post-storm labour surcharge noted by the contractor and matched by a property flag.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3"
+   ]
+  },
+  {
+   "name": "envelope_breach_state",
+   "description": "State of the building envelope after the storm: no breach, breach with temporary repair done, breach open but occupied, breach open and recorded unsafe.",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "temp_repaired",
+    "open_habitable",
+    "open_unsafe"
+   ],
+   "weights": [
+    0.3,
+    0.3,
+    0.25,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S4",
+    "S7",
+    "S2"
+   ]
+  },
+  {
+   "name": "temp_repair_dated_before_loss",
+   "description": "Whether a temporary repair invoice is dated before the claimed loss date, an out-of-order sign that the damage predates the storm or the date is wrong.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.12,
+   "skills": [
+    "S2",
+    "S5",
+    "S6"
+   ]
+  },
+  {
+   "name": "prior_claims_3y",
+   "description": "Number of storm or water claims on this property in the last three years.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 4,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S6"
+   ]
+  },
+  {
+   "name": "prior_claims_verified",
+   "description": "Whether earlier claims were each settled against a verified named storm, which lowers concern about repeat claiming.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3"
+   ]
+  },
+  {
+   "name": "statement_consistency",
+   "description": "How the claimant's free-text statement fits the rest of the file: consistent, minor discrepancy (time of day, which room), or contradicting photos or weather timing.",
+   "kind": "categorical",
+   "values": [
+    "consistent",
+    "minor_discrepancy",
+    "contradicts_file"
+   ],
+   "weights": [
+    0.55,
+    0.3,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S5",
+    "S6",
+    "S4"
+   ]
+  },
+  {
+   "name": "claimant_away_note",
+   "description": "Whether the statement explains a long reporting lag (holiday, hospital stay, second home), mitigating report_lag_days.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3"
+   ]
+  }
+ ],
+ "sections": [
+  {
+   "name": "policy",
+   "description": "Policy number, inception and renewal dates, status, storm cover flag, excess, endorsements."
+  },
+  {
+   "name": "loss_report",
+   "description": "Loss date, lodged date, peril, damaged areas list, occupancy state, and the claimant's short free-text statement."
+  },
+  {
+   "name": "weather_check",
+   "description": "Automated lookup: station id, distance_km, event_date, max_gust_mph, rain_mm, hail_flag, threshold_met."
+  },
+  {
+   "name": "property_history",
+   "description": "Property flags, last survey date and short survey note, and a list of prior claims with dates, areas and settlement basis."
+  },
+  {
+   "name": "estimate",
+   "description": "Contractor estimate total, desk benchmark, line items, temp repair entries with dates, short contractor note; null when not supplied."
+  },
+  {
+   "name": "intake_docs",
+   "description": "Checklist of required documents with received booleans and received dates."
+  }
+ ],
+ "rendering_notes": "weather_match: weather_check.event_date and distance_km compared with loss_report.loss_date; confirmed_near = same date, distance_km under 10, threshold_met true; distant_station_only = threshold_met true but distance_km 25-60; date_offset = event_date 1-4 days from loss_date; no_event = threshold_met false with low max_gust_mph. Never write 'corroborated' anywhere. report_lag_days: shown only as loss_report.loss_date versus lodged_date. claimant_away_note appears as a sentence in loss_report.claimant_statement (e.g. 'We were abroad until the 14th and found the ceiling down on return'); absent otherwise. policy_status: policy.status plus policy.inception_date; incepted_after_loss shows an inception date later than loss_date with status 'active' (decoy: status looks fine); storm_excluded shows endorsements list containing 'END-STX storm exclusion' while storm_cover may be omitted. prior_condition_evidence: property_history.last_survey_date (before loss) and survey_note (e.g. 'rear slope tiles slipped, ridge mortar failing'); damaged areas in loss_report must be compared with note and prior_claims[].area; unrepaired_prior_claim shows a prior claim on the same area with settlement 'cash_settled' and no repair_completed date. missing_item: intake_docs entries with received false; contractor_estimate missing renders the estimate section as null; two_items marks two entries false. estimate_ratio: estimate.total versus estimate.desk_benchmark, never as a ratio field. estimate_uplift_explained: estimate.contractor_note mentions listed slate or scaffold access AND property_history.flags includes 'listed_building' or 'three_storey'; when false the note is generic or empty. envelope_breach_state: loss_report.occupancy ('occupied','occupied_partial','vacated_unsafe') plus damaged_areas items with breach booleans and estimate.temp_repairs entries; temp_repaired shows a dated tarpaulin or boarding line. temp_repair_dated_before_loss: a temp_repairs date earlier than loss_date. prior_claims_3y: length of property_history.prior_claims within three years; prior_claims_verified appears as each claim's settlement_basis 'named_storm_verified' versus 'claimant_account'. statement_consistency: the claimant_statement mentions a time, room or cause that matches or conflicts with damaged_areas, weather timing or photo captions in intake_docs. Decoys: vulnerable-occupant flag in loss_report, policy excess size, hail_flag when only wind damage is claimed, rain_mm alone, high prior_claims_3y when verified, long lag when explained. No field may state a route, urgency, fraud suspicion or pre-existence verdict; free text uses plain first-person or trade wording, at most one sentence each, three free-text fields maximum.",
+ "skills": [
+  "S2",
+  "S3",
+  "S4",
+  "S5",
+  "S6",
+  "S7"
+ ],
+ "shared_scale": "source_support",
+ "design_cost": 0.122908
+}

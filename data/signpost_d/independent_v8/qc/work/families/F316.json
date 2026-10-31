@@ -1,0 +1,329 @@
+{
+ "id": "F316",
+ "domain": "road gritting run logs",
+ "role": "Winter service duty officer at a county highways depot, reviewing each completed gritting run log before sign-off",
+ "setting": "After every precautionary or reactive salting run, the vehicle's run log arrives at the duty desk. It combines the planned route, the latest road-surface forecast, telematics from the spreader, the salt loading and return figures, and short notes from the driver and depot. The duty officer checks one log at a time. They decide whether the log can be signed off, how much priority road was left deficient, how soon any gap will freeze, and what follow-up to order before conditions deteriorate.",
+ "questions": {
+  "treated_before_freeze": {
+   "type": "noul",
+   "instructions": "Every priority section was treated before its forecast freeze time.",
+   "criteria": {
+    "true": "All priority sections logged treated before freeze.",
+    "false": "A priority section untreated, or treated after freeze."
+   }
+  },
+  "salt_reconciles": {
+   "type": "noul",
+   "instructions": "Salt used matches approved spread rate across treated area, within 10%.",
+   "criteria": {
+    "true": "Net tonnage within 10% of expected usage.",
+    "false": "Gap over 10%, or a tonnage figure unconfirmed."
+   }
+  },
+  "follow_up": {
+   "type": "choice",
+   "instructions": "What follow-up should be ordered on this gritting run?",
+   "criteria": {
+    "sign_off": "Log accepted as complete; no further action required.",
+    "sign_off_noted": "Accepted, with a minor discrepancy recorded for depot correction.",
+    "hold": "Sign-off withheld until one missing confirmation is received.",
+    "partial_retreat": "Named missed priority sections re-treated only; rest accepted.",
+    "full_rerun": "Whole route re-treated because log cannot support coverage."
+   }
+  },
+  "deficient_length": {
+   "type": "score",
+   "instructions": "How much priority road was missed or treated below approved rate?",
+   "criteria": [
+    "None: no priority road missed or undertreated",
+    "Minor: under 2 km of priority road affected",
+    "Moderate: 2 to 10 km of priority road affected",
+    "Major: over 10 km affected, or run abandoned"
+   ]
+  },
+  "freeze_proximity": {
+   "type": "score",
+   "instructions": "How soon will the earliest untreated priority road reach freezing?",
+   "criteria": [
+    "No untreated priority road, or no freeze within 12 hours",
+    "Earliest untreated road freezes in 6 to 12 hours",
+    "Earliest untreated road freezes in 2 to 6 hours",
+    "Under 2 hours to freezing, or already frozen"
+   ]
+  }
+ },
+ "factors": [
+  {
+   "name": "missed_extent",
+   "description": "Total length of priority road with no spreading recorded, or a logged rate below the approved rate, after closures and partner coverage are excluded",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "under_2km",
+    "2_to_10km",
+    "over_10km"
+   ],
+   "weights": [
+    0.35,
+    0.25,
+    0.25,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S4",
+    "S7"
+   ]
+  },
+  {
+   "name": "missed_section_mitigated",
+   "description": "Whether an apparently untreated section is covered by a benign explanation: an approved road closure reference, or treatment logged by a second vehicle or a neighbouring authority under a mutual-aid agreement",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S6"
+   ]
+  },
+  {
+   "name": "salt_gap",
+   "description": "Difference between net salt used (loaded minus returned) and the expected quantity (rate x treated length x width)",
+   "kind": "categorical",
+   "values": [
+    "under_3pct",
+    "3_to_10pct",
+    "over_10pct",
+    "figure_missing"
+   ],
+   "weights": [
+    0.3,
+    0.25,
+    0.3,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S5"
+   ]
+  },
+  {
+   "name": "rate_exception_approved",
+   "description": "Whether a reduced spread rate was authorised for this run, for example pre-wetted salt or residual salt from an earlier run. This changes the expected tonnage and can explain a low usage figure.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.45,
+   "skills": [
+    "S3",
+    "S1",
+    "S6"
+   ]
+  },
+  {
+   "name": "finish_vs_freeze_min",
+   "description": "Minutes between the last priority section's treatment end time in telematics and that zone's forecast freeze time. Negative means treatment ended after the freeze time.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": -90,
+   "max": 180,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S5",
+    "S6"
+   ]
+  },
+  {
+   "name": "hours_to_freeze_untreated",
+   "description": "Hours from log review time until the earliest untreated priority section's zone reaches 0°C under the latest forecast revision. Values cluster near the 2, 6 and 12 hour boundaries in some records.",
+   "kind": "number",
+   "values": [],
+   "weights": [],
+   "min": -1,
+   "max": 16,
+   "p_true": 0,
+   "skills": [
+    "S6",
+    "S7"
+   ]
+  },
+  {
+   "name": "forecast_revised",
+   "description": "Whether a later forecast revision moved the freeze time. A warmer revision delays it and acts as mitigation; a colder revision brings it forward.",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "warmer",
+    "colder"
+   ],
+   "weights": [
+    0.5,
+    0.25,
+    0.25
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S1",
+    "S6"
+   ]
+  },
+  {
+   "name": "crosscheck_mismatch",
+   "description": "Where a cross-section discrepancy sits, if anywhere. Some are trivial: registration spacing, or kg against tonnes with equal values. Others are material: a section code missing from telematics, or a log date differing from the telematics date.",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "reg_format",
+    "unit_kg_t",
+    "section_code",
+    "date_mismatch"
+   ],
+   "weights": [
+    0.3,
+    0.15,
+    0.15,
+    0.25,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1"
+   ]
+  },
+  {
+   "name": "driver_note_type",
+   "description": "Content of the driver's free-text note",
+   "kind": "categorical",
+   "values": [
+    "blank",
+    "routine",
+    "alarming_resolved",
+    "alarming_unresolved"
+   ],
+   "weights": [
+    0.2,
+    0.35,
+    0.25,
+    0.2
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S6"
+   ]
+  },
+  {
+   "name": "follow_up_run_scheduled",
+   "description": "Whether a subsequent run covering the same route is already scheduled to finish before the forecast freeze time, which reduces the need for extra dispatch",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S4"
+   ]
+  },
+  {
+   "name": "pending_confirmation",
+   "description": "Whether one key datum is awaiting confirmation, so that a single answer would settle the log. Examples: a weighbridge ticket number is null, or a partner authority's coverage is not yet confirmed.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.3,
+   "skills": [
+    "S4",
+    "S5"
+   ]
+  },
+  {
+   "name": "gps_dropouts",
+   "description": "Count of telematics signal dropouts during the run. Some overlap priority sections and leave coverage unproven; others fall on non-priority or transit stretches as decoys.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 4,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S6"
+   ]
+  },
+  {
+   "name": "nonpriority_untreated",
+   "description": "Whether some non-priority (secondary network) sections were left untreated. This is a decoy that does not count towards priority deficiency.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.4,
+   "skills": [
+    "S1",
+    "S7"
+   ]
+  }
+ ],
+ "sections": [
+  {
+   "name": "run_header",
+   "description": "run_id, route_code, vehicle_reg, driver_id, run_date, decision_ref, run_type (precautionary/reactive), reviewed_at timestamp"
+  },
+  {
+   "name": "plan",
+   "description": "List of route sections: section_code, length_km, width_m, priority (P1/P2/secondary), planned_rate_gm2, forecast_zone"
+  },
+  {
+   "name": "forecast",
+   "description": "Per-zone rst_min_c and freeze_time, plus a revisions list with issued_at and the revised freeze_time per zone"
+  },
+  {
+   "name": "telematics",
+   "description": "List of treated segments (section_code, start, end, spread_on, logged_rate_gm2), a dropouts list with start, end and nearest_section, and the telematics vehicle_reg and date"
+  },
+  {
+   "name": "materials",
+   "description": "loaded_t, returned_t (null if unknown), weighbridge_ticket, rate_exception object (approved_by, reduced_rate_gm2, reason) or null"
+  },
+  {
+   "name": "notes",
+   "description": "driver_note and depot_note one-line free text, plus a closures list (section_code, closure_ref, authority) and partner_cover list"
+  }
+ ],
+ "rendering_notes": "missed_extent appears only indirectly. Plan sections with priority P1/P2 either have no matching telematics segment, have spread_on false, or have logged_rate_gm2 below the planned rate (or below reduced_rate_gm2 where a rate_exception exists). The reader must sum the lengths. When missed_section_mitigated is true, the missing section appears in notes.closures with a closure_ref, or in partner_cover with a vehicle or authority and times. Such a section is not counted as missed. salt_gap is never stated: the reader computes expected tonnes as rate × length_km × 1000 × width_m / 1e6 over the treated sections, and compares it with loaded_t minus returned_t. figure_missing sets returned_t or weighbridge_ticket to null. rate_exception_approved fills materials.rate_exception; otherwise it is null. Where it exists, a low usage figure becomes consistent, and it changes which rate counts as undertreated. finish_vs_freeze_min arises from the last P1/P2 telematics end time against forecast.freeze_time for that section's zone, using the latest revision. hours_to_freeze_untreated is derived from run_header.reviewed_at and the revised freeze_time of the zone holding the earliest untreated priority section. forecast_revised adds an entry to forecast.revisions; the original freeze_time remains visible as a decoy. crosscheck_mismatch places the discrepancy between run_header and telematics (vehicle_reg, date), between plan and telematics (section_code such as A417-06 against A417-6, or a code absent altogether), or in materials units (loaded given in kg in the depot_note against tonnes in materials). reg_format and unit_kg_t with equal values are trivial; section_code and date_mismatch are material. driver_note_type gives one sentence. alarming_resolved reads like 'Spinner jammed near Holt Lane, cleared after ten minutes and section re-run', with a matching second telematics segment. alarming_unresolved reads like 'Chute blocked from the roundabout onwards, returned to depot' with no further segments. Routine and blank notes carry no signal. follow_up_run_scheduled appears in the depot_note, for example 'Run R2 booked out 03:30 on same route', with no explicit link to the gap. pending_confirmation appears as a null weighbridge_ticket, or a partner_cover entry with confirmed: false. gps_dropouts are listed with nearest_section; only dropouts on priority sections with no other segment evidence leave coverage unproven. Untreated nonpriority sections carry the 'secondary' priority and are decoys. No field may state completion status, deficiency, urgency, reconciliation result or recommended action. There are no fields like 'status: incomplete', 'missed_km' or 'priority: urgent'; every answer must be derived by comparing sections.",
+ "skills": [
+  "S1",
+  "S3",
+  "S4",
+  "S5",
+  "S6",
+  "S7"
+ ],
+ "shared_scale": null,
+ "design_cost": 0.161416
+}

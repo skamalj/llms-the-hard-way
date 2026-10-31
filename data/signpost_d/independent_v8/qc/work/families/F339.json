@@ -1,0 +1,316 @@
+{
+ "id": "F339",
+ "domain": "animal shelter adoption applications",
+ "role": "Adoption counsellor at a rehoming centre, reviewing one submitted adoption application at a time against the requested animal's placement profile before a match is confirmed",
+ "setting": "A mid-sized animal rehoming centre takes adoption applications through its case system. Each application links one household to one animal. The counsellor compares the household's details with the animal's placement requirements and checks the status of the home visit, landlord consent, references and prior adoption history. They also check any behaviour-team overrides, then decide what happens next. Records are structured only, with no free-text notes.",
+ "questions": {
+  "home_visit_valid": {
+   "type": "noul",
+   "instructions": "A current home visit confirms the stated household details.",
+   "criteria": {
+    "true": "Visit completed within 180 days, after submission, details matching.",
+    "false": "Visit missing, pending, stale, misdated, or details differ."
+   }
+  },
+  "species_consent": {
+   "type": "noul",
+   "instructions": "Documented permission exists to keep this species at the address.",
+   "criteria": {
+    "true": "Owner occupier, or landlord consent naming this species.",
+    "false": "Consent absent, pending, or covering another species only."
+   }
+  },
+  "disposition": {
+   "type": "choice",
+   "instructions": "What should happen with this application at this stage?",
+   "criteria": {
+    "decline": "A disqualifying finding stands with no recorded override or mitigation.",
+    "hold_pending": "At least one required check or document remains outstanding.",
+    "approve_conditional": "All checks complete; a waived or minor mismatch needs agreed conditions.",
+    "approve": "All checks complete and no unresolved mismatch remains."
+   }
+  },
+  "source_support": {
+   "type": "score",
+   "instructions": "How many independent sources confirm the information in this record?",
+   "criteria": [
+    "No independent source confirms the information",
+    "Exactly one independent source confirms it",
+    "Two or three independent sources confirm it",
+    "Four or more independent sources confirm it"
+   ]
+  },
+  "requirement_conflicts": {
+   "type": "score",
+   "instructions": "How many placement requirements do the household details contradict?",
+   "criteria": [
+    "No placement requirement contradicted by household details",
+    "Exactly one placement requirement contradicted by household details",
+    "Exactly two placement requirements contradicted by household details",
+    "Three or more placement requirements contradicted by household details"
+   ]
+  }
+ },
+ "factors": [
+  {
+   "name": "home_visit_state",
+   "description": "State of the home visit: done within 180 days, done but older than 180 days, booked but not done, not started, or the visit object null",
+   "kind": "categorical",
+   "values": [
+    "completed_current",
+    "completed_stale",
+    "scheduled",
+    "not_started",
+    "section_null"
+   ],
+   "weights": [
+    0.4,
+    0.15,
+    0.2,
+    0.15,
+    0.1
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S2",
+    "S4",
+    "S5"
+   ]
+  },
+  {
+   "name": "visit_date_out_of_order",
+   "description": "The home visit is dated before the application submission date, so it cannot have assessed this application",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.15,
+   "skills": [
+    "S2",
+    "S5"
+   ]
+  },
+  {
+   "name": "visit_detail_mismatch",
+   "description": "The household details recorded by the visit differ from those the applicant declared, such as a different adult count or garden status",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.2,
+   "skills": [
+    "S5",
+    "S6"
+   ]
+  },
+  {
+   "name": "tenure_consent",
+   "description": "Housing tenure and landlord consent status for keeping the animal",
+   "kind": "categorical",
+   "values": [
+    "owner_occupier",
+    "rent_consent_species_match",
+    "rent_consent_other_species",
+    "rent_consent_pending",
+    "rent_no_record"
+   ],
+   "weights": [
+    0.35,
+    0.25,
+    0.1,
+    0.15,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S2",
+    "S5"
+   ]
+  },
+  {
+   "name": "tenancy_pet_clause",
+   "description": "The tenancy record carries a general pets-permitted flag that names no species, a partial mitigation when no consent record exists",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S6"
+   ]
+  },
+  {
+   "name": "contradicted_requirements",
+   "description": "Number of the animal's placement requirements that the household data contradicts, e.g. a child under the minimum age, a cat present, hours alone over the maximum, or no garden",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 3,
+   "p_true": 0,
+   "skills": [
+    "S4",
+    "S7"
+   ]
+  },
+  {
+   "name": "behaviour_override",
+   "description": "A behaviour-team override is recorded for one contradicted requirement, approving the placement despite it",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S4"
+   ]
+  },
+  {
+   "name": "threshold_boundary",
+   "description": "A household value sits exactly on a requirement limit, such as the youngest child's age equalling the minimum or hours alone equalling the maximum",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.2,
+   "skills": [
+    "S6"
+   ]
+  },
+  {
+   "name": "reference_status",
+   "description": "Completion of personal references and the vet reference",
+   "kind": "categorical",
+   "values": [
+    "all_returned",
+    "one_outstanding",
+    "none_returned",
+    "references_null"
+   ],
+   "weights": [
+    0.45,
+    0.3,
+    0.15,
+    0.1
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S2",
+    "S4"
+   ]
+  },
+  {
+   "name": "prior_returns",
+   "description": "The applicant's history of returning previously adopted animals and the coded reason",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "one_benign_reason",
+    "one_behaviour_reason",
+    "two_or_more"
+   ],
+   "weights": [
+    0.55,
+    0.2,
+    0.15,
+    0.1
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S6"
+   ]
+  },
+  {
+   "name": "trusted_repeat_adopter",
+   "description": "The applicant has an earlier completed adoption with a positive six-month follow-up logged",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.45,
+   "skills": [
+    "S3"
+   ]
+  },
+  {
+   "name": "hold_days_remaining",
+   "description": "Days left on the animal's reservation hold; time pressure that does not change any answer",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 14,
+   "p_true": 0,
+   "skills": [
+    "S7"
+   ]
+  },
+  {
+   "name": "other_pet_vacc_unknown",
+   "description": "Vaccination status of the applicant's existing pets is null; a decoy unless the animal profile requires vaccinated companions",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.3,
+   "skills": [
+    "S2"
+   ]
+  }
+ ],
+ "sections": [
+  {
+   "name": "application",
+   "description": "Application id, submitted date, animal_ref, channel, hold_expires date"
+  },
+  {
+   "name": "household",
+   "description": "Declared adults, children with ages, other_pets list, housing type, tenure, garden, hours_alone"
+  },
+  {
+   "name": "animal",
+   "description": "Species, age_months, and placement requirements: no_cats, no_dogs, min_child_age, needs_garden, max_hours_alone"
+  },
+  {
+   "name": "checks",
+   "description": "home_visit object, landlord_consent object, references list, vet_reference status"
+  },
+  {
+   "name": "history",
+   "description": "prior_adoptions list with outcome codes, return_reason codes, follow_up results"
+  },
+  {
+   "name": "overrides",
+   "description": "List of behaviour-team overrides: requirement key, approver_role, date"
+  }
+ ],
+ "rendering_notes": "home_visit_state appears in checks.home_visit.status and date (stale means more than 180 days before application.submitted); section_null sets checks.home_visit to null. visit_date_out_of_order puts home_visit.date before application.submitted, with status 'completed'. visit_detail_mismatch makes home_visit.observed (adults, garden, other_pets_count) differ from the household section. tenure_consent maps to household.tenure plus checks.landlord_consent {status, species_covered, date}; rent_no_record sets landlord_consent to null. tenancy_pet_clause appears as household.tenancy_pets_permitted true with no species, which leaves species_consent contested when no consent record exists. contradicted_requirements is never stated: it must be derived by comparing animal requirements with household fields such as children ages against min_child_age, other_pets species against no_cats, hours_alone against max_hours_alone, and garden against needs_garden. behaviour_override adds one entry to overrides naming a contradicted requirement key. The override does not change the conflict count, but it can move disposition from decline to approve_conditional. threshold_boundary sets a value exactly equal to its limit. reference_status sets each references item status to returned or awaiting, or makes the list null. prior_returns appears as history.prior_adoptions entries with outcome 'returned' and return_reason codes: owner_bereavement and relocation_abroad are benign, behaviour_incompatibility is not. trusted_repeat_adopter adds a completed adoption with follow_up 'satisfactory'. Decoys: hold_days_remaining via application.hold_expires, other_pets vaccinated null, channel, and animal age_months. No field may state an eligibility verdict, risk rating, conflict count or recommended disposition. The returned references, vet reference and home visit also serve as independent sources for the shared source_support scale.",
+ "skills": [
+  "S2",
+  "S3",
+  "S4",
+  "S5",
+  "S6",
+  "S7"
+ ],
+ "shared_scale": "source_support",
+ "design_cost": 0.121488
+}

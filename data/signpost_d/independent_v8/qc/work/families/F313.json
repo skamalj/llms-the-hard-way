@@ -1,0 +1,331 @@
+{
+ "id": "F313",
+ "domain": "building control site inspections",
+ "role": "Building control surveyor reviewing a single stage inspection record before deciding whether the builder may proceed to the next notifiable stage",
+ "setting": "A building control team inspects new-build and extension work at statutory stages (foundations, damp-proof course, drainage, frame, insulation, pre-plaster, completion). After each site visit an inspection record is compiled from the project file, the approved specification, the surveyor's site readings, the defect list, uploaded evidence and the builder's progress log. A reviewing surveyor reads one record at a time and decides whether the stage can be signed off, how serious any open defects are, and whether key claims about sequence and conformity are supported.",
+ "questions": {
+  "inspected_before_cover": {
+   "type": "noul",
+   "instructions": "The stage was inspected before follow-on work covered it.",
+   "criteria": {
+    "true": "Inspection date clearly precedes any logged covering work.",
+    "false": "Covered first, same-day order unclear, or dates missing."
+   }
+  },
+  "matches_spec": {
+   "type": "noul",
+   "instructions": "Measured as-built details match the approved specification for this stage.",
+   "criteria": null
+  },
+  "next_step": {
+   "type": "choice",
+   "instructions": "What should happen next with this stage inspection?",
+   "criteria": {
+    "sign_off": "Stage compliant, fully evidenced; builder proceeds without any conditions.",
+    "conditional_pass": "Only workmanship items open, evidence complete; check at next visit.",
+    "hold": "No regulatory defect, but one certificate or confirmation awaited.",
+    "reinspect": "Regulatory defect or early cover-up; revisit before work proceeds."
+   }
+  },
+  "defect_severity": {
+   "type": "score",
+   "instructions": "How severe is the worst defect still open at this stage?",
+   "criteria": [
+    "None: no open defect recorded against this stage",
+    "Workmanship: open items all tagged workmanship, no regulation area",
+    "Regulatory: worst open item tagged energy, ventilation or drainage",
+    "Life_safety: any open item tagged structure or fire"
+   ]
+  },
+  "pending_age": {
+   "type": "score",
+   "instructions": "How long has this record been waiting without any decision?",
+   "criteria": [
+    "Logged less than 24 hours ago",
+    "Waiting between one and seven days",
+    "Waiting between eight and thirty days",
+    "Waiting more than thirty days without decision"
+   ]
+  }
+ },
+ "factors": [
+  {
+   "name": "stage_type",
+   "description": "Which notifiable stage the visit covered; changes which spec values, tests and covering events are relevant.",
+   "kind": "categorical",
+   "values": [
+    "foundations",
+    "damp_proof_course",
+    "drainage",
+    "structural_frame",
+    "insulation",
+    "pre_plaster",
+    "completion"
+   ],
+   "weights": [
+    0.18,
+    0.1,
+    0.16,
+    0.14,
+    0.16,
+    0.14,
+    0.12
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S7"
+   ]
+  },
+  {
+   "name": "cover_sequence",
+   "description": "Order of inspection versus the builder's logged covering event (concrete poured, trench backfilled, boards fixed, plaster started).",
+   "kind": "categorical",
+   "values": [
+    "inspected_before_cover",
+    "same_day_ambiguous",
+    "covered_before_inspection",
+    "cover_date_missing"
+   ],
+   "weights": [
+    0.55,
+    0.15,
+    0.2,
+    0.1
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S2",
+    "S5",
+    "S6"
+   ]
+  },
+  {
+   "name": "spec_deviation",
+   "description": "How the surveyor's measured values differ from the approved specification for the stage.",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "unit_only",
+    "within_tolerance",
+    "material_shortfall",
+    "wrong_product"
+   ],
+   "weights": [
+    0.4,
+    0.1,
+    0.15,
+    0.2,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S5"
+   ]
+  },
+  {
+   "name": "tolerance_boundary",
+   "description": "A measured value sits exactly on the stated tolerance limit, leaving conformity arguable.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.15,
+   "skills": [
+    "S6",
+    "S1"
+   ]
+  },
+  {
+   "name": "engineer_letter",
+   "description": "An engineer's or designer's letter accepting the as-built change is uploaded; mitigates structural or product deviations.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S5",
+    "S6"
+   ]
+  },
+  {
+   "name": "variation_status",
+   "description": "Status of an amended-plan variation covering the deviation, if any.",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "submitted_pending",
+    "approved"
+   ],
+   "weights": [
+    0.6,
+    0.2,
+    0.2
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S2",
+    "S4"
+   ]
+  },
+  {
+   "name": "worst_open_defect",
+   "description": "Regulation area of the most serious defect genuinely still open at this stage.",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "workmanship",
+    "regulatory",
+    "life_safety"
+   ],
+   "weights": [
+    0.35,
+    0.25,
+    0.25,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S4",
+    "S7"
+   ]
+  },
+  {
+   "name": "closed_status_conflict",
+   "description": "A defect marked closed in the list is described as still outstanding in a free-text note, or vice versa.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.3,
+   "skills": [
+    "S1",
+    "S6"
+   ]
+  },
+  {
+   "name": "evidence_gap",
+   "description": "What supporting evidence is missing for the stage.",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "test_cert_pending",
+    "photos_absent",
+    "evidence_section_null"
+   ],
+   "weights": [
+    0.5,
+    0.2,
+    0.15,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S2",
+    "S4"
+   ]
+  },
+  {
+   "name": "identifier_mismatch",
+   "description": "Plot or project reference on the inspection differs from the project section.",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "ref_typo",
+    "plot_differs"
+   ],
+   "weights": [
+    0.75,
+    0.15,
+    0.1
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1"
+   ]
+  },
+  {
+   "name": "prior_failed_visits",
+   "description": "Count of earlier failed or aborted visits for this same stage in the history list.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 3,
+   "p_true": 0,
+   "skills": [
+    "S7",
+    "S6"
+   ]
+  },
+  {
+   "name": "note_hedging",
+   "description": "Surveyor note uses hedged wording about what could actually be seen, weakening any conformity claim.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.35,
+   "skills": [
+    "S5",
+    "S6"
+   ]
+  }
+ ],
+ "sections": [
+  {
+   "name": "project",
+   "description": "Project ref, plot number, work type, plan approval status and any variation with its status."
+  },
+  {
+   "name": "approved_spec",
+   "description": "Key approved values for the stage, e.g. depth_mm, insulation_mm, product, pipe_dia_mm, tolerance_mm."
+  },
+  {
+   "name": "inspection",
+   "description": "Visit date, stage, plot_ref, surveyor id, measured values with units, and free-text surveyor_note."
+  },
+  {
+   "name": "defects",
+   "description": "List of items with id, reg_area tag, status open/closed, raised date and a one-line note."
+  },
+  {
+   "name": "evidence",
+   "description": "Photo count and dates, test certificates with status, engineer letter, builder_message; may be null."
+  },
+  {
+   "name": "site_progress",
+   "description": "Builder's logged covering events with dates and list of previous visits for this stage with results."
+  }
+ ],
+ "rendering_notes": "stage_type sets inspection.stage and decides which approved_spec fields and site_progress cover event appear (foundations: concrete_poured; drainage: backfilled plus air_test cert; insulation: boards_fixed; pre_plaster: plaster_started). cover_sequence appears only through comparing inspection.visit_date with site_progress.cover_events[].date: same_day_ambiguous gives equal dates with no times; cover_date_missing gives date null or the event absent. spec_deviation is shown by inspection.measured values against approved_spec: unit_only renders e.g. 0.15 m against 150 mm (conforming); within_tolerance stays inside approved_spec.tolerance_mm; material_shortfall falls below it; wrong_product names a different product string in measured.product. tolerance_boundary puts the reading exactly on the limit. engineer_letter appears as evidence.engineer_letter {date, scope} or null; variation_status as project.variation {ref, status} or null; a pending variation does not make a deviation conform. worst_open_defect is rendered through defects[] reg_area tags (workmanship, energy, ventilation, drainage, structure, fire) and status; closed_status_conflict marks an item closed while its note or the surveyor_note says it was not rectified, so the true open set must be inferred. evidence_gap: test_cert_pending gives a certificate with status awaiting; photos_absent gives photo_count 0; evidence_section_null makes the whole evidence section null. identifier_mismatch alters inspection.plot_ref against project.plot (typo: transposed digit). prior_failed_visits fills site_progress.previous_visits with result fail or aborted. note_hedging adds phrases like 'appeared to be' or 'partly obscured by spoil' to surveyor_note. Decoys: evidence.builder_message always sounds confident ('all done to drawings'), photo dates may precede the visit, defects of other stages may appear with status closed, and a high photo count never proves conformity. Records never contain an outcome, sign-off, severity, risk or compliance field; no field states whether work was covered early or matches spec.",
+ "skills": [
+  "S1",
+  "S2",
+  "S4",
+  "S5",
+  "S6",
+  "S7"
+ ],
+ "shared_scale": "pending_age",
+ "design_cost": 0.12678
+}

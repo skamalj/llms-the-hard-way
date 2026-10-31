@@ -1,0 +1,305 @@
+{
+ "id": "F321",
+ "domain": "telecom mast site access visits",
+ "role": "Site access controller at a mast infrastructure operator, closing out individual engineer visits to telecom mast sites",
+ "setting": "Each record is one completed or abandoned access visit to a rooftop or greenfield mast site. The controller reconciles the issued access permit against gate attendance, personnel certification, logged works and the close-out checklist, then decides whether the visit can be closed, held, rebooked or referred for compliance review.",
+ "questions": {
+  "within_scope": {
+   "type": "noul",
+   "instructions": "Works logged on site stayed within the permit's authorised scope.",
+   "criteria": {
+    "true": "Every logged task and equipment item appears on permit",
+    "false": "A logged task or item is absent from permit"
+   }
+  },
+  "certs_in_date": {
+   "type": "noul",
+   "instructions": "Every climber held in-date height certification on the visit date.",
+   "criteria": null
+  },
+  "closeout_action": {
+   "type": "choice",
+   "instructions": "What close-out action should the controller take on this visit?",
+   "criteria": {
+    "close_visit": "All sections reconcile; sign-out, keys and photos complete.",
+    "hold_confirm": "Exactly one gap or minor mismatch awaits confirmation before closing.",
+    "book_revisit": "Records otherwise reconcile but authorised works were left unfinished.",
+    "refer_compliance": "Unauthorised works, lapsed certification or out-of-window access found."
+   }
+  },
+  "scope_completion": {
+   "type": "score",
+   "instructions": "What share of the permit's scoped tasks were signed off?",
+   "criteria": [
+    "None: no scoped task signed off as complete",
+    "Minority: fewer than half of scoped tasks signed off",
+    "Majority: half or more signed off, at least one open",
+    "Complete: every scoped task signed off as complete"
+   ]
+  },
+  "pending_age": {
+   "type": "score",
+   "instructions": "How long has this record been waiting without any decision?",
+   "criteria": [
+    "Logged less than 24 hours ago",
+    "Waiting between one and seven days",
+    "Waiting between eight and thirty days",
+    "Waiting more than thirty days without decision"
+   ]
+  }
+ },
+ "factors": [
+  {
+   "name": "scope_mismatch",
+   "description": "Difference between permit scope tasks/equipment and works log entries; trivial is a task-code formatting variant of an authorised task",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "trivial_code_variant",
+    "extra_task",
+    "different_equipment"
+   ],
+   "weights": [
+    0.45,
+    0.2,
+    0.2,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S5",
+    "S6"
+   ]
+  },
+  {
+   "name": "window_deviation",
+   "description": "Gate badge-in/out times against permit window",
+   "kind": "categorical",
+   "values": [
+    "within",
+    "early_under_15min",
+    "overran_window",
+    "entry_outside_window"
+   ],
+   "weights": [
+    0.5,
+    0.2,
+    0.18,
+    0.12
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S2",
+    "S6"
+   ]
+  },
+  {
+   "name": "cert_status",
+   "description": "Height certification state of each climber relative to visit date",
+   "kind": "categorical",
+   "values": [
+    "all_valid",
+    "expires_on_visit_date",
+    "expired_before_visit",
+    "cert_record_null"
+   ],
+   "weights": [
+    0.55,
+    0.12,
+    0.18,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S2",
+    "S5",
+    "S6"
+   ]
+  },
+  {
+   "name": "scoped_task_count",
+   "description": "Number of tasks listed on the permit scope",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 1,
+   "max": 6,
+   "p_true": 0,
+   "skills": [
+    "S4",
+    "S7"
+   ]
+  },
+  {
+   "name": "completion_fraction",
+   "description": "Share of scoped tasks with status complete in works log; rounded to whole tasks",
+   "kind": "number",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 1,
+   "p_true": 0,
+   "skills": [
+    "S4",
+    "S6"
+   ]
+  },
+  {
+   "name": "signout_missing",
+   "description": "Gate sign-out timestamp is null although sign-in exists",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.22,
+   "skills": [
+    "S2",
+    "S4"
+   ]
+  },
+  {
+   "name": "key_return",
+   "description": "State of site key or combination lock reset at close-out",
+   "kind": "categorical",
+   "values": [
+    "returned",
+    "returned_late",
+    "not_recorded"
+   ],
+   "weights": [
+    0.65,
+    0.15,
+    0.2
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S2",
+    "S4"
+   ]
+  },
+  {
+   "name": "photo_shortfall",
+   "description": "Close-out photos uploaded minus photos required by task types; negative means shortfall",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": -4,
+   "max": 3,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S4"
+   ]
+  },
+  {
+   "name": "badge_id_mismatch",
+   "description": "A badge ID at the gate does not match any engineer named on permit",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.15,
+   "skills": [
+    "S1",
+    "S5"
+   ]
+  },
+  {
+   "name": "variation_approved",
+   "description": "Mitigation: a scope variation reference exists in close-out covering the extra task or equipment",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S5",
+    "S6"
+   ]
+  },
+  {
+   "name": "landlord_notice",
+   "description": "Notice to site landlord relative to required lead time",
+   "kind": "categorical",
+   "values": [
+    "given_in_time",
+    "given_late",
+    "not_required",
+    "null"
+   ],
+   "weights": [
+    0.5,
+    0.15,
+    0.25,
+    0.1
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S2",
+    "S7"
+   ]
+  },
+  {
+   "name": "weather_hold_logged",
+   "description": "Decoy: wind-speed hold logged mid-visit; explains time gaps but not unfinished tasks unless flagged as cause",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.3,
+   "skills": [
+    "S6",
+    "S7"
+   ]
+  }
+ ],
+ "sections": [
+  {
+   "name": "permit",
+   "description": "Permit ID, site ID, window start/end, named engineers, scoped tasks with codes and equipment refs, landlord notice date"
+  },
+  {
+   "name": "attendance",
+   "description": "Gate events list: badge_id, event type, timestamp; weather holds with wind_mps"
+  },
+  {
+   "name": "personnel",
+   "description": "Per engineer: engineer_id, badge_id, role, height_cert_expiry, rescue_cert_expiry"
+  },
+  {
+   "name": "works",
+   "description": "Logged tasks: task_code, equipment_ref, status, started_at, completed_at"
+  },
+  {
+   "name": "closeout",
+   "description": "Sign-out time, key_status, photos_required, photos_uploaded, variation_ref, submitted_at"
+  }
+ ],
+ "rendering_notes": "scope_mismatch shows only by comparing permit.scoped_tasks[].task_code/equipment_ref with works[].task_code/equipment_ref; trivial variant e.g. 'ANT-SWP-03' vs 'ANTSWP3'. variation_approved appears as closeout.variation_ref (string or null) whose suffix matches the extra task code; it rescues within_scope only when it covers that exact item. window_deviation shows via attendance timestamps against permit.window_start/window_end; never as a flag. cert_status via personnel[].height_cert_expiry vs visit date, or null. scoped_task_count and completion_fraction via count of works entries with status 'complete' matching scoped codes; incomplete tasks show status 'in_progress' or 'not_started' with null completed_at. signout_missing: closeout.signout_at null and no 'out' gate event. key_return via closeout.key_status ('returned','returned_late') or null. photo_shortfall via photos_required vs photos_uploaded integers. badge_id_mismatch: an attendance badge_id absent from personnel. landlord_notice via permit.landlord_notice_date vs window_start (or null/'n/a'). Decoys: weather holds, rescue_cert_expiry (not asked), extra unrelated equipment refs in personnel. Precedence for closeout_action: refer_compliance over book_revisit over hold_confirm over close_visit; two or more minor gaps with complete works still lean hold_confirm. No field states risk, compliance outcome, completion share or recommended action; record is pure JSON with no free text.",
+ "skills": [
+  "S1",
+  "S2",
+  "S4",
+  "S5",
+  "S6",
+  "S7"
+ ],
+ "shared_scale": "pending_age",
+ "design_cost": 0.098296
+}

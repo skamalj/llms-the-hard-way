@@ -1,0 +1,306 @@
+{
+ "id": "F312",
+ "domain": "community project grant progress reports",
+ "role": "Grants monitoring officer at a community foundation reviewing interim progress reports before releasing the next payment tranche",
+ "setting": "A regional community foundation funds small neighbourhood projects (food clubs, youth sport, green spaces, digital inclusion) in tranches. Each grantee submits an interim progress report with spend by budget heading, receipts, and milestone status. The officer reviews one report at a time against the original award, approved variations and earlier reports, then decides whether the next tranche can be released.",
+ "questions": {
+  "unapproved_spend": {
+   "type": "noul",
+   "instructions": "Grant money was spent under a heading with no approval.",
+   "criteria": {
+    "true": "Spend on unlisted heading, no approved variation covers it",
+    "false": "All spend sits within approved or variation-covered headings"
+   }
+  },
+  "tranche_decision": {
+   "type": "choice",
+   "instructions": "What should happen to this progress report and next tranche?",
+   "criteria": {
+    "accept": "Report reconciles; next tranche released with no follow-up needed.",
+    "accept_conditions": "Tranche released; minor gaps must be fixed in next report.",
+    "hold": "Tranche withheld until specific missing evidence or explanation arrives.",
+    "refer_panel": "Escalated to grants panel over possible misuse or failed delivery."
+   }
+  },
+  "variance_cause": {
+   "type": "choice",
+   "instructions": "What mainly explains the difference between profiled and reported spend?",
+   "criteria": {
+    "no_variance": "Reported spend within 10% of the profiled spend to date.",
+    "approved_change": "Gap covered by an approved budget or timetable variation.",
+    "delivery_slip": "No variation; gap matches late milestones deferring planned costs.",
+    "unexplained": "Gap with no matching approved variation or milestone delay."
+   }
+  },
+  "evidence_gap": {
+   "type": "score",
+   "instructions": "How large is the gap between reported and receipted spend?",
+   "criteria": [
+    "Gap is zero or under 1% of reported spend",
+    "Gap from 1% to under 5% of reported spend",
+    "Gap from 5% to 15% of reported spend",
+    "Gap above 15% of reported spend"
+   ]
+  },
+  "milestone_delay": {
+   "type": "score",
+   "instructions": "How overdue is the worst open milestone against its current due date?",
+   "criteria": [
+    "On time: no open milestone past its current due date",
+    "Minor: worst open milestone 1 to 30 days overdue",
+    "Significant: worst open milestone 31 to 90 days overdue",
+    "Severe: an open milestone more than 90 days overdue"
+   ]
+  }
+ },
+ "factors": [
+  {
+   "name": "receipt_gap_band",
+   "description": "Size of the difference between total_reported_gbp in the report and the sum of receipts in evidence, as a share of reported spend; boundary values sit exactly at 1%, 5% or 15%.",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "trivial_under_1pct",
+    "small_1_to_5pct",
+    "moderate_5_to_15pct",
+    "large_over_15pct",
+    "on_boundary"
+   ],
+   "weights": [
+    0.2,
+    0.15,
+    0.22,
+    0.2,
+    0.13,
+    0.1
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S4",
+    "S6"
+   ]
+  },
+  {
+   "name": "gap_location",
+   "description": "Where the receipt gap arises: a receipt missing for one line, a receipt amount differing from its line, a duplicated receipt id, or spend_lines not summing to total_reported_gbp.",
+   "kind": "categorical",
+   "values": [
+    "missing_receipt",
+    "amount_differs",
+    "duplicate_receipt",
+    "lines_vs_total"
+   ],
+   "weights": [
+    0.35,
+    0.3,
+    0.15,
+    0.2
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1"
+   ]
+  },
+  {
+   "name": "offheading_spend",
+   "description": "A spend line or receipt uses a heading code absent from grant.approved_headings.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.35,
+   "skills": [
+    "S1",
+    "S5"
+   ]
+  },
+  {
+   "name": "heading_variation_on_file",
+   "description": "An approved budget variation in variations adds or reallocates to the off-heading code before the spend date; when off-heading spend is present this mitigates it.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S5"
+   ]
+  },
+  {
+   "name": "spend_profile_position",
+   "description": "Reported spend to date compared with the profile in grant.spend_profile for the report period end.",
+   "kind": "categorical",
+   "values": [
+    "within_10pct",
+    "underspend",
+    "overspend"
+   ],
+   "weights": [
+    0.4,
+    0.4,
+    0.2
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S7"
+   ]
+  },
+  {
+   "name": "budget_variation_covers_gap",
+   "description": "An approved variation re-profiles spend or extends timetable so the profile gap is accounted for; only meaningful when spend is outside 10% of profile.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.45,
+   "skills": [
+    "S3",
+    "S7"
+   ]
+  },
+  {
+   "name": "worst_overdue_days_original",
+   "description": "Days the worst open milestone is past its original_due at report.period_to; 0 means none overdue.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 150,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S4"
+   ]
+  },
+  {
+   "name": "revised_date_approved",
+   "description": "The worst overdue milestone has an approved timetable variation with a later revised_due, so lateness is measured against the revised date.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S1"
+   ]
+  },
+  {
+   "name": "partial_completion",
+   "description": "Open milestones show status in_progress with pct_complete between 30 and 90 rather than not_started.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.45,
+   "skills": [
+    "S4"
+   ]
+  },
+  {
+   "name": "grant_ref_mismatch",
+   "description": "One receipt or the bank statement carries a grant_ref or payee account differing from grant.ref or grant.payee_account_last4.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.15,
+   "skills": [
+    "S1"
+   ]
+  },
+  {
+   "name": "prior_issue_count",
+   "description": "Number of earlier reports in history with outcome held or accepted_conditions.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 3,
+   "p_true": 0,
+   "skills": [
+    "S6",
+    "S7"
+   ]
+  },
+  {
+   "name": "outputs_shortfall_decoy",
+   "description": "Beneficiary counts in outputs fall below pro-rata target; half the time outputs.measurement_window_closed is false, making the shortfall uninformative.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.4,
+   "skills": [
+    "S3",
+    "S6"
+   ]
+  },
+  {
+   "name": "overdue_on_boundary",
+   "description": "The worst overdue figure measured against the current due date lands exactly on 30 or 31 or 90 or 91 days, or the variation approval date falls after period_to.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.15,
+   "skills": [
+    "S6"
+   ]
+  }
+ ],
+ "sections": [
+  {
+   "name": "grant",
+   "description": "Award details: ref, programme, award_gbp, period dates, approved_headings with budgets, spend_profile, tranches paid, payee account."
+  },
+  {
+   "name": "report",
+   "description": "This report: report_id, period_to, submitted date, spend_lines by heading, total_reported_gbp, outputs counts."
+  },
+  {
+   "name": "evidence",
+   "description": "Receipts list with id, heading, amount_gbp, date, grant_ref; bank_statement object or null."
+  },
+  {
+   "name": "milestones",
+   "description": "List of milestones with original_due, revised_due, status, pct_complete, completed_on."
+  },
+  {
+   "name": "variations",
+   "description": "List of variation requests: type, heading or milestone_id, new values, approved boolean, approved_on."
+  },
+  {
+   "name": "history",
+   "description": "Prior reports with report_id, period_to, outcome and tranche released."
+  }
+ ],
+ "rendering_notes": "grant: ref, programme, award_gbp, period_start, period_end, approved_headings [{code, budget_gbp}], spend_profile [{to_date, cumulative_gbp}], tranches_paid_gbp, payee_account_last4. report: report_id, period_to, submitted, spend_lines [{heading, reported_gbp}], total_reported_gbp, outputs {participants, sessions, target_participants, measurement_window_closed}. evidence: receipts [{receipt_id, heading, amount_gbp, date, grant_ref}], bank_statement {account_last4, closing_balance_gbp} or null. milestones: [{milestone_id, original_due, revised_due (null unless a variation exists), status (complete/in_progress/not_started), pct_complete, completed_on}]. variations: [{var_id, type (budget/timetable), heading or milestone_id, new_budget_gbp or new_due, approved, approved_on}]; unapproved or pending variations are decoys and must not count. history: prior_reports [{report_id, period_to, outcome (accepted/accepted_conditions/held/referred), tranche_released_gbp}]. receipt_gap_band is realised by gap_location: a missing receipt for one line, a receipt amount differing from its spend line, a receipt_id listed twice, or spend_lines summing differently from total_reported_gbp; the reader must sum receipts and compare. offheading_spend appears as a heading code in spend_lines or receipts absent from approved_headings; heading_variation_on_file adds an approved budget variation for that code dated before the receipt date (sometimes a pending one as decoy). spend_profile_position compares total_reported_gbp with the spend_profile entry at period_to; budget_variation_covers_gap renders as an approved re-profile or timetable variation. milestone lateness is computed from report.period_to minus current due (revised_due if its variation is approved, else original_due); revised_date_approved controls this; partial_completion sets pct_complete. grant_ref_mismatch alters one receipt grant_ref or bank_statement.account_last4. Decoys: outputs shortfall while measurement_window_closed is false, completed milestones that were late (closed, so not counted), pending variations, small rounding pence differences. Answer logic: variance_cause is no_variance within 10% of profile, approved_change if an approved variation covers it, delivery_slip if no variation but open late milestones exist, else unexplained. tranche_decision: accept when gap under 1%, no uncovered off-heading spend, delay On time, no ref mismatch; accept_conditions for small gap or Minor delay or partial milestones; hold when one item (missing receipt, moderate gap, Significant delay) needs confirmation; refer_panel for large gap, uncovered off-heading spend with moderate or large gap, Severe delay without revision, or ref mismatch with prior_issue_count of 2 or more. No field may state a risk rating, a variance category, a gap percentage, an overdue day count or a recommended decision; all must be derived. No free-text notes or comments appear anywhere.",
+ "skills": [
+  "S1",
+  "S3",
+  "S4",
+  "S5",
+  "S6",
+  "S7"
+ ],
+ "shared_scale": null,
+ "design_cost": 0.156476
+}

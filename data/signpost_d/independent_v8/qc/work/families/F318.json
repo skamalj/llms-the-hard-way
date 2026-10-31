@@ -1,0 +1,308 @@
+{
+ "id": "F318",
+ "domain": "canal lock maintenance visits",
+ "role": "Waterways asset inspector reviewing completed lock maintenance visit records before closure",
+ "setting": "An inland waterways operator sends crews to canal locks for inspections, planned repairs and reactive call-outs. Each visit produces a structured record covering the work order, the crew's visit log, materials issued and returned, post-work checks, and the lock's asset history. The inspector reviews one visit record at a time. They check that the sections agree with each other and decide whether the lock can return to navigation, what happens to the record, how soon a crew must return, and how many unexplained mismatches the record contains.",
+ "questions": {
+  "safe_to_reopen": {
+   "type": "noul",
+   "instructions": "The lock can safely return to unrestricted navigation now.",
+   "criteria": {
+    "true": "Defects cleared and post-work checks pass without contradictions.",
+    "false": "Open defect, failed or missing check, or conflicting records."
+   }
+  },
+  "record_disposition": {
+   "type": "choice",
+   "instructions": "What should happen to this visit record next?",
+   "criteria": {
+    "close_visit": "Records reconcile and ordered work complete; close as logged.",
+    "close_with_followup": "Close visit but raise a separate minor follow-up job.",
+    "hold_query": "Closure held until the crew confirms one specific point.",
+    "reopen_revisit": "Visit not accepted; crew must return and redo work."
+   }
+  },
+  "return_urgency": {
+   "type": "choice",
+   "instructions": "How soon must a crew next attend this lock?",
+   "criteria": {
+    "next_scheduled": "No extra attendance; the next planned inspection cycle suffices.",
+    "within_month": "Extra attendance within 28 days for non-restricting outstanding work.",
+    "within_week": "Return within 7 days; restriction or covered defect pending.",
+    "immediate": "Crew needed within 24 hours; uncovered unsafe condition present."
+   }
+  },
+  "affected_scope": {
+   "type": "score",
+   "instructions": "How many people or units does this issue directly affect?",
+   "criteria": [
+    "Affects one person or unit only",
+    "Affects two to five people or units",
+    "Affects six to twenty people or units",
+    "Affects more than twenty people or units"
+   ]
+  },
+  "section_mismatches": {
+   "type": "score",
+   "instructions": "How many unexplained mismatches exist between the record's sections?",
+   "criteria": [
+    "No unexplained mismatches between any sections",
+    "Exactly one unexplained mismatch between sections",
+    "Exactly two unexplained mismatches between sections",
+    "Three or more unexplained mismatches between sections"
+   ]
+  }
+ },
+ "factors": [
+  {
+   "name": "visit_type",
+   "description": "Kind of visit ordered. It shapes which tasks and checks are expected and how alarming an open defect is.",
+   "kind": "categorical",
+   "values": [
+    "routine_inspection",
+    "planned_repair",
+    "reactive_callout",
+    "winter_stoppage"
+   ],
+   "weights": [
+    0.3,
+    0.3,
+    0.25,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S7"
+   ]
+  },
+  {
+   "name": "tasks_ordered",
+   "description": "Number of tasks listed on the work order. These are reconciled against the task statuses in the visit log.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 2,
+   "max": 8,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S7"
+   ]
+  },
+  {
+   "name": "completion_state",
+   "description": "True state of the ordered work: all done, some outstanding, a temporary fix only, or nothing done.",
+   "kind": "categorical",
+   "values": [
+    "all_done",
+    "some_outstanding",
+    "temporary_fix",
+    "none_done"
+   ],
+   "weights": [
+    0.4,
+    0.3,
+    0.2,
+    0.1
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S4",
+    "S5"
+   ]
+  },
+  {
+   "name": "parts_qty_mismatch",
+   "description": "Gap between parts recorded as fitted and parts issued minus returned. Ranges from none, to trivial pack rounding, to a moderate gap, to large missing items.",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "trivial",
+    "moderate",
+    "large"
+   ],
+   "weights": [
+    0.4,
+    0.25,
+    0.2,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1"
+   ]
+  },
+  {
+   "name": "hours_gap",
+   "description": "Difference in hours between the crew timesheet total and the arrival-to-departure span multiplied by crew size. Values under 0.5 are normal rounding.",
+   "kind": "number",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 4,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S6"
+   ]
+  },
+  {
+   "name": "asset_ref_mismatch",
+   "description": "Whether the asset reference on a work-order task differs from the one on the matching post-check. An example is gate HG2 ordered but HG1 checked.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.15,
+   "skills": [
+    "S1"
+   ]
+  },
+  {
+   "name": "post_check_result",
+   "description": "Outcome of the post-work functional check on the worked asset.",
+   "kind": "categorical",
+   "values": [
+    "passed",
+    "passed_advisory",
+    "failed",
+    "not_logged"
+   ],
+   "weights": [
+    0.45,
+    0.2,
+    0.2,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S4",
+    "S5"
+   ]
+  },
+  {
+   "name": "leakage_ratio",
+   "description": "Measured gate leakage as a multiple of the lock's leakage limit. Values above 1.0 are the main alarming signal.",
+   "kind": "number",
+   "values": [],
+   "weights": [],
+   "min": 0.3,
+   "max": 2.5,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S6"
+   ]
+  },
+  {
+   "name": "leakage_mitigation",
+   "description": "Whether a benign explanation for the leakage reading is present. Examples are a reading taken while the river level was above the flood marker, or a gauge whose calibration expired before the reading and was re-read within limit.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3"
+   ]
+  },
+  {
+   "name": "navigation_notice_in_force",
+   "description": "Whether a navigation closure or restriction notice is still in force and covers the outstanding work. If so, an open defect does not endanger boaters.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S4"
+   ]
+  },
+  {
+   "name": "deferral_approved",
+   "description": "Whether outstanding or temporary tasks carry a recorded supervisor approval reference and a deferral due date.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S4"
+   ]
+  },
+  {
+   "name": "prior_same_defect",
+   "description": "Number of visits in the past 12 months that logged the same defect code on the same asset.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 4,
+   "p_true": 0,
+   "skills": [
+    "S6",
+    "S7"
+   ]
+  },
+  {
+   "name": "boundary_case",
+   "description": "Whether key values sit exactly on scale anchors. Examples are a leakage ratio of exactly 1.0, a deferral due date exactly 7 or 28 days out, or an hours gap of exactly 0.5.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.2,
+   "skills": [
+    "S6"
+   ]
+  }
+ ],
+ "sections": [
+  {
+   "name": "work_order",
+   "description": "Ordered visit: identifiers, visit type, task list with asset references and planned quantities, navigation notice."
+  },
+  {
+   "name": "visit_log",
+   "description": "Crew attendance times, crew size, timesheet hours, and per-task status with deferral details."
+  },
+  {
+   "name": "materials",
+   "description": "Parts issued from stores, returned to stores, and recorded as fitted per task."
+  },
+  {
+   "name": "checks",
+   "description": "Post-work check results per asset, leakage reading and limit, river level, gauge calibration."
+  },
+  {
+   "name": "asset_history",
+   "description": "Prior visits to this lock with defect codes, and the currently open defect list."
+  }
+ ],
+ "rendering_notes": "Record layout by section:\n- work_order: wo_id, lock_id, visit_type, raised (ISO date), tasks[{task_id, task_code, asset_ref, qty_planned}], nav_notice{in_force, from, to, scope_assets[]}.\n- visit_log: arrived and departed (ISO datetimes), crew_size, timesheet_hours, task_status[{task_id, status: done|deferred|temp_fix|not_started, deferral_ref (string or null), deferral_due (date or null)}].\n- materials: issued[{part_no, task_id, qty}], returned[{part_no, qty}], fitted[{part_no, task_id, qty}].\n- checks: post_checks[{asset_ref, result: pass|pass_advisory|fail, checked_at}] (empty or missing entry when not_logged), leakage_ls, leakage_limit_ls, river_level_m, flood_marker_m, gauge_cal_due.\n- asset_history: prior_visits[{date, asset_ref, defect_code}], open_defects[{defect_code, asset_ref, raised}].\n\nHow each factor appears:\n- tasks_ordered is the length of work_order.tasks.\n- completion_state appears only through task_status values.\n- parts_qty_mismatch appears as fitted not equal to issued minus returned for a part number, or as a fitted part with no issue line.\n- hours_gap appears as timesheet_hours against the visit span multiplied by crew_size.\n- asset_ref_mismatch appears as a task asset_ref that differs from its post_check asset_ref.\n- leakage_ratio appears as leakage_ls divided by leakage_limit_ls.\n- leakage_mitigation appears as river_level_m above flood_marker_m, or as gauge_cal_due earlier than checked_at.\n- navigation_notice_in_force appears as nav_notice.in_force with scope_assets covering the open asset and a to date after the visit.\n- deferral_approved appears as a non-null deferral_ref and deferral_due.\n- prior_same_defect is a count within prior_visits.\n- boundary_case places values exactly on anchors.\n- Mismatches that have a recorded explanation do not count as unexplained. Examples are a parts return dated after the visit, or a deferral with a ref.\n\nDecoys: wo_id formats, lock flight number, crew_size changes with consistent hours, river_level_m when leakage is within limit, old closed defects in prior_visits, and trivial pack-rounding part quantities.\n\nNo field may state an answer. There must be no fields such as safe, urgency, mismatch_count, disposition, or overall status. No free-text notes appear anywhere.",
+ "skills": [
+  "S1",
+  "S3",
+  "S4",
+  "S5",
+  "S6",
+  "S7"
+ ],
+ "shared_scale": "affected_scope",
+ "design_cost": 0.138776
+}

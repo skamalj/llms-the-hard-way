@@ -1,0 +1,344 @@
+{
+ "id": "F323",
+ "domain": "beehive inspection records",
+ "role": "Regional apiary health inspector reviewing submitted hive inspection records",
+ "setting": "A regional bee health service receives inspection records for individual colonies from field inspectors and registered beekeepers. The inspector reads one record at a time. They decide whether notifiable brood disease is actually confirmed, whether the colony is queenright, what follow-up action to issue, and how heavy the varroa burden is. Records combine field observations, mite washes, treatment logs, laboratory submissions and inspection history. These parts often disagree, arrive out of order or are missing.",
+ "questions": {
+  "notifiable_confirmed": {
+   "type": "noul",
+   "instructions": "Notifiable foul brood is confirmed by a recorded test result.",
+   "criteria": {
+    "true": "Positive lab or field kit result for AFB or EFB",
+    "false": "Only symptoms, pending sample, or negative tests recorded"
+   }
+  },
+  "queenright": {
+   "type": "noul",
+   "instructions": "Colony is queenright on evidence from the latest inspection.",
+   "criteria": {
+    "true": "Queen seen or eggs present at latest inspection",
+    "false": "No queen or eggs; only cells, larvae or assumption"
+   }
+  },
+  "next_action": {
+   "type": "choice",
+   "instructions": "What follow-up action should the inspector issue for this colony?",
+   "criteria": {
+    "sign_off": "No outstanding disease or queen finding; record closed without revisit",
+    "revisit_hold": "One finding awaits confirmation; colony rechecked within fourteen days",
+    "treatment_order": "Confirmed non-notifiable problem; beekeeper must treat and report back",
+    "standstill_order": "Notifiable disease confirmed; apiary movements stopped pending destruction or shook swarm"
+   }
+  },
+  "source_support": {
+   "type": "score",
+   "instructions": "How many independent sources confirm the information in this record?",
+   "criteria": [
+    "No independent source confirms the information",
+    "Exactly one independent source confirms it",
+    "Two or three independent sources confirm it",
+    "Four or more independent sources confirm it"
+   ]
+  },
+  "mite_load": {
+   "type": "score",
+   "instructions": "What is the varroa mite load per hundred bees sampled?",
+   "criteria": [
+    "Under 1 mite per 100 bees",
+    "1 to under 3 mites per 100 bees",
+    "3 to under 6 mites per 100 bees",
+    "6 or more mites per 100 bees"
+   ]
+  }
+ },
+ "factors": [
+  {
+   "name": "brood_symptom",
+   "description": "Brood abnormality recorded at inspection, from none through benign conditions to suspected foul brood signs",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "chalkbrood",
+    "sacbrood",
+    "scattered_pattern",
+    "sunken_perforated_cappings",
+    "ropy_larvae"
+   ],
+   "weights": [
+    0.25,
+    0.15,
+    0.1,
+    0.15,
+    0.2,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S6",
+    "S7"
+   ]
+  },
+  {
+   "name": "lab_status",
+   "description": "State of the laboratory submission for brood samples, including absent and pending",
+   "kind": "categorical",
+   "values": [
+    "not_sampled",
+    "pending",
+    "negative",
+    "positive_efb",
+    "positive_afb"
+   ],
+   "weights": [
+    0.25,
+    0.25,
+    0.25,
+    0.15,
+    0.1
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S2",
+    "S4",
+    "S5"
+   ]
+  },
+  {
+   "name": "field_kit_result",
+   "description": "Result of the on-site lateral flow test kit, which is indicative only and can disagree with the lab",
+   "kind": "categorical",
+   "values": [
+    "not_used",
+    "negative",
+    "positive_efb",
+    "positive_afb"
+   ],
+   "weights": [
+    0.4,
+    0.3,
+    0.2,
+    0.1
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S5",
+    "S6"
+   ]
+  },
+  {
+   "name": "queen_evidence",
+   "description": "Strongest queen evidence observed at the latest inspection",
+   "kind": "categorical",
+   "values": [
+    "queen_seen",
+    "eggs_only",
+    "open_larvae_no_eggs",
+    "capped_queen_cells",
+    "nothing_seen"
+   ],
+   "weights": [
+    0.25,
+    0.25,
+    0.2,
+    0.15,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S5",
+    "S6"
+   ]
+  },
+  {
+   "name": "recent_requeen",
+   "description": "Colony was requeened or a virgin queen introduced within 21 days before inspection, a benign reason for no eggs",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S4"
+   ]
+  },
+  {
+   "name": "wash_mites",
+   "description": "Mites counted in the most recent valid alcohol or sugar wash",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 30,
+   "p_true": 0,
+   "skills": [
+    "S6",
+    "S7"
+   ]
+  },
+  {
+   "name": "wash_bees",
+   "description": "Bees in the wash sample; the load must be computed against this count rather than assumed to be 300",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 200,
+   "max": 400,
+   "p_true": 0,
+   "skills": [
+    "S6",
+    "S7"
+   ]
+  },
+  {
+   "name": "treatment_timing",
+   "description": "Whether a varroa treatment was applied and where it falls relative to the washes",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "before_latest_wash",
+    "after_latest_wash"
+   ],
+   "weights": [
+    0.4,
+    0.3,
+    0.3
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S2",
+    "S3"
+   ]
+  },
+  {
+   "name": "benign_brood_explanation",
+   "description": "A recorded cold snap, colony move or recent split that plausibly explains a scattered or chilled brood pattern",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3"
+   ]
+  },
+  {
+   "name": "missing_part",
+   "description": "Which required part of the record is null or absent, if any",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "lab_section_null",
+    "brood_observations_null",
+    "queen_fields_null",
+    "history_empty"
+   ],
+   "weights": [
+    0.55,
+    0.15,
+    0.1,
+    0.1,
+    0.1
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S2"
+   ]
+  },
+  {
+   "name": "dates_out_of_order",
+   "description": "A lab result dated before the sample was sent, or a sample sent before the inspection date",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.2,
+   "skills": [
+    "S2",
+    "S5"
+   ]
+  },
+  {
+   "name": "nearby_outbreak_km",
+   "description": "Distance to the nearest confirmed foul brood apiary, alarming when close but not proof for this colony",
+   "kind": "number",
+   "values": [],
+   "weights": [],
+   "min": 0.5,
+   "max": 20,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S6"
+   ]
+  },
+  {
+   "name": "prior_positive_count",
+   "description": "Number of earlier inspections in history with a confirmed disease or a treatment order",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 3,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S6",
+    "S7"
+   ]
+  }
+ ],
+ "sections": [
+  {
+   "name": "apiary",
+   "description": "Apiary identifier, region, hive count, movement plans and distance to nearest confirmed outbreak"
+  },
+  {
+   "name": "inspection",
+   "description": "Inspection date, inspector grade, brood frames, symptom codes, field kit result and queen observations"
+  },
+  {
+   "name": "colony_events",
+   "description": "Requeening, splits, moves and weather events with dates"
+  },
+  {
+   "name": "varroa",
+   "description": "List of wash records and list of treatments, each dated"
+  },
+  {
+   "name": "lab",
+   "description": "Sample identifier, sent date, result code and result date; may be null"
+  },
+  {
+   "name": "history",
+   "description": "List of earlier inspections with date, outcome code and any order issued"
+  }
+ ],
+ "rendering_notes": "brood_symptom appears as inspection.symptom_codes (a list, possibly empty) plus inspection.brood_frames_affected. lab_status appears as lab.result: null when pending, or the whole lab object null when not sampled. If missing_part is lab_section_null, lab is null even when symptoms suggest a sample was taken. field_kit_result appears as inspection.lfd_result (null when not used). A positive kit with a negative or pending lab must leave notifiable_confirmed contested or false, not true. queen_evidence appears as inspection.queen_seen (bool), eggs_present (bool), open_larvae (bool) and queen_cells_capped (integer). recent_requeen appears as colony_events entries of type requeen or virgin_introduced with a date; the inspector must compare that date with inspection.date. wash_mites and wash_bees appear as varroa.washes[] {date, method, bees_sampled, mites}. Only washes dated after any treatment count. When treatment_timing is after_latest_wash, the latest wash predates treatment and still sets mite_load, but the colony action may soften. A per-100 load is never stated; the reader must compute it, and values near 1, 3 or 6 are deliberate boundary cases. benign_brood_explanation appears as colony_events entries of type cold_night, moved or split near the inspection date. missing_part nulls the named object or fields, or empties history. dates_out_of_order shows as lab.result_date earlier than lab.sent_date, or lab.sent_date earlier than inspection.date, which casts doubt on the result. nearby_outbreak_km appears as apiary.nearest_confirmed_km. prior_positive_count appears as history entries with outcome codes such as efb_confirmed or treatment_ordered. Decoys: apiary.hive_count, inspection.temperament, inspection.stores_frames, inspection.weather_on_day, inspector grade and apiary.movement_planned carry no direct bearing on the answers. No field ever states confirmation, queenright status, recommended action or a mite load figure; answers must be inferred from raw observations, dates and cross-section comparisons.",
+ "skills": [
+  "S2",
+  "S3",
+  "S4",
+  "S5",
+  "S6",
+  "S7"
+ ],
+ "shared_scale": "source_support",
+ "design_cost": 0.117756
+}

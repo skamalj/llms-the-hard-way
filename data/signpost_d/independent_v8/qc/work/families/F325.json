@@ -1,0 +1,337 @@
+{
+ "id": "F325",
+ "domain": "fish farm water quality checks",
+ "role": "Site water quality supervisor at a marine finfish farm, reviewing each pen's logged water check one record at a time and deciding whether the reading is trustworthy, what caused any deviation and what the pen team should do next.",
+ "setting": "A sea-loch salmon and trout farm runs scheduled water checks on every pen several times a day. A technician takes a handheld probe profile, the pen's fixed logger keeps its own trace, and the shift supervisor signs the check off. Each record pulls together the pen's stocking and limits, the check readings, the instrument and calibration details, site conditions, the last seven checks and short free-text notes from the sampler and feed team. The supervisor must decide from these sections, which often disagree, whether the pen has a real problem and how to respond.",
+ "questions": {
+  "genuine_do_breach": {
+   "type": "noul",
+   "instructions": "Dissolved oxygen in the pen genuinely fell below its welfare threshold.",
+   "criteria": null
+  },
+  "next_step": {
+   "type": "choice",
+   "instructions": "What should the site team do with this pen next?",
+   "criteria": {
+    "file_routine": "Readings valid and within limits; keep normal check schedule.",
+    "resample_first": "Validity in doubt; repeat check with calibrated probe before acting.",
+    "reduce_feeding": "Valid mild deficit; cut feed and recheck within the shift.",
+    "start_oxygenation": "Valid serious deficit; start supplementary oxygen and alert manager."
+   }
+  },
+  "deviation_cause": {
+   "type": "choice",
+   "instructions": "What most likely explains the main deviation recorded at this pen?",
+   "criteria": {
+    "no_deviation": "All valid readings sit within the pen's set limits.",
+    "instrument_fault": "Probe failed, overdue or disagrees with the fixed logger.",
+    "recording_error": "Value mistyped, wrong unit or mismatched between record sections.",
+    "environmental_event": "Bloom, warm water, slack tide or storm drives the change.",
+    "husbandry_load": "Feeding, crowding, treatment or biomass level drives the change."
+   }
+  },
+  "persistence": {
+   "type": "score",
+   "instructions": "How persistent is the out-of-range condition across the last seven checks?",
+   "criteria": [
+    "None: no checks out of range in last seven",
+    "Single: exactly one of last seven checks out of range",
+    "Recurring: two or three of last seven out of range",
+    "Sustained: four or more of last seven out of range"
+   ]
+  },
+  "evidence_completeness": {
+   "type": "score",
+   "instructions": "How complete is the required evidence behind this water check?",
+   "criteria": [
+    "Three or more required elements missing or invalid",
+    "Exactly two required elements missing or invalid",
+    "Exactly one required element missing or invalid",
+    "Every required element present, valid and correctly dated"
+   ]
+  }
+ },
+ "factors": [
+  {
+   "name": "stock_stage",
+   "description": "Life stage of the fish in the pen, which sets the dissolved oxygen and ammonia limits stored in the pen section (smolt strictest, broodstock next, grower and harvest-size least strict).",
+   "kind": "categorical",
+   "values": [
+    "smolt",
+    "grower",
+    "harvest_size",
+    "broodstock"
+   ],
+   "weights": [
+    0.25,
+    0.4,
+    0.2,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S7"
+   ]
+  },
+  {
+   "name": "true_do_margin",
+   "description": "Actual dissolved oxygen minus the pen's minimum, in mg/L; negative means a real deficit. Under -2 counts as serious, -2 to 0 as mild.",
+   "kind": "number",
+   "values": [],
+   "weights": [],
+   "min": -4,
+   "max": 3,
+   "p_true": 0,
+   "skills": [
+    "S5",
+    "S6",
+    "S7"
+   ]
+  },
+  {
+   "name": "primary_cause",
+   "description": "The single underlying driver of whatever looks abnormal in the record, or none when nothing is genuinely abnormal.",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "instrument",
+    "recording",
+    "environmental",
+    "husbandry"
+   ],
+   "weights": [
+    0.24,
+    0.18,
+    0.17,
+    0.21,
+    0.2
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S7"
+   ]
+  },
+  {
+   "name": "cross_section_mismatch",
+   "description": "Kind of disagreement between corresponding values in different sections: probe reading vs logger trace, unit vs pen limit unit, value in note vs value in readings, pen id in check vs pen section.",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "rounding_only",
+    "unit_confusion",
+    "large_transcription",
+    "pen_id_mismatch"
+   ],
+   "weights": [
+    0.3,
+    0.22,
+    0.16,
+    0.18,
+    0.14
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1"
+   ]
+  },
+  {
+   "name": "calibration_state",
+   "description": "Status of the handheld probe's calibration relative to the sample time: current, past due date, failed last calibration, or calibration block absent.",
+   "kind": "categorical",
+   "values": [
+    "current",
+    "overdue",
+    "failed",
+    "absent"
+   ],
+   "weights": [
+    0.5,
+    0.2,
+    0.12,
+    0.18
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S2",
+    "S3"
+   ]
+  },
+  {
+   "name": "logger_alarm_raised",
+   "description": "Whether the fixed pen logger raised a low-oxygen or high-ammonia alarm flag around the check time; an alarming signal that is often not decisive on its own.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S5"
+   ]
+  },
+  {
+   "name": "mitigation_present",
+   "description": "Whether a field in the record lowers concern about the alarming signal; sampled independently of the alarm so the alarm appears with and without mitigation about equally.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S6"
+   ]
+  },
+  {
+   "name": "mitigation_kind",
+   "description": "Form the mitigation takes when present: aeration already running, an approved bath-treatment window with expected oxygen dip, a documented slack-tide sample timing, or a passed repeat check shortly after.",
+   "kind": "categorical",
+   "values": [
+    "aeration_running",
+    "approved_treatment_window",
+    "documented_slack_tide",
+    "passed_repeat_check"
+   ],
+   "weights": [
+    0.25,
+    0.25,
+    0.25,
+    0.25
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S3"
+   ]
+  },
+  {
+   "name": "history_out_of_range",
+   "description": "Number of the last seven checks (including the current one) in which any core parameter was outside the pen's limits.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 7,
+   "p_true": 0,
+   "skills": [
+    "S4",
+    "S7"
+   ]
+  },
+  {
+   "name": "missing_required",
+   "description": "Count of required elements missing, null or invalid: sampler id, depth profile, valid calibration, supervisor sign-off, full set of core parameters.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 4,
+   "p_true": 0,
+   "skills": [
+    "S2",
+    "S4"
+   ]
+  },
+  {
+   "name": "date_order_fault",
+   "description": "Whether a timestamp shows a step out of order, such as calibration logged after the sample or sign-off before sampling; the affected element counts as invalid.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.2,
+   "skills": [
+    "S2"
+   ]
+  },
+  {
+   "name": "boundary_case",
+   "description": "Whether a deciding value sits on a scale edge: oxygen within 0.1 mg/L of the minimum, history count at the 1/2 or 3/4 boundary, or mitigation and alarm evenly balanced.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.22,
+   "skills": [
+    "S6"
+   ]
+  },
+  {
+   "name": "note_tone",
+   "description": "How the free-text notes relate to the data: neutral, alarming wording with a benign explanation, reassuring wording contradicted by readings, or concern consistent with readings.",
+   "kind": "categorical",
+   "values": [
+    "neutral",
+    "alarming_benign",
+    "reassuring_contradicted",
+    "consistent_concern"
+   ],
+   "weights": [
+    0.3,
+    0.25,
+    0.2,
+    0.25
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S3",
+    "S5"
+   ]
+  }
+ ],
+ "sections": [
+  {
+   "name": "pen",
+   "description": "Pen identity, species, life stage, biomass, stocking density and the set limits for oxygen, ammonia and temperature."
+  },
+  {
+   "name": "check",
+   "description": "The current check: pen id, sampled_at, sampler_id, depth profile list and core readings with units."
+  },
+  {
+   "name": "instrument",
+   "description": "Probe serial, last calibration date and result, cal_due date, and the fixed logger's trace and alarm flags."
+  },
+  {
+   "name": "conditions",
+   "description": "Site context: tide state, water temperature trend, algal advisory, weather, active treatment or aeration windows, recent feeding."
+  },
+  {
+   "name": "history",
+   "description": "List of the previous six checks with date, lowest oxygen, ammonia and an in_limits boolean."
+  },
+  {
+   "name": "notes",
+   "description": "Short free-text lines from the sampler, the feed team and the supervisor sign-off."
+  }
+ ],
+ "rendering_notes": "stock_stage appears as pen.stage with limits in pen.limits (do_min_mg_l, tan_max_mg_l, temp_max_c); the reader must compare readings to these limits, never a computed pass/fail. true_do_margin drives check.readings.do_mg_l and check.depth_profile (list of {depth_m, do_mg_l}); the lowest valid depth reading is the one that counts. primary_cause is never stated: instrument shows via instrument.cal_result 'fail', cal_due before sampled_at, or probe vs instrument.logger_do_mg_l gap over 1 mg/L; recording shows via cross_section_mismatch; environmental via conditions.algal_advisory, conditions.temp_trend_c_24h or conditions.tide 'slack_low'; husbandry via pen.density_kg_m3 high, conditions.feed_kg_last_6h above usual, or a treatment entry. cross_section_mismatch: rounding_only differs by under 0.2 mg/L between probe and note (trivial, ignore); unit_confusion records do as '%sat' in check.readings.do_unit while limits are mg/L; large_transcription puts one value in notes.sampler and a different one in check.readings; pen_id_mismatch has check.pen_id differing from pen.pen_id by one character. calibration_state lives in instrument.last_cal (date), instrument.cal_result and instrument.cal_due; absent sets instrument.last_cal to null. logger_alarm_raised appears as instrument.logger_flags list containing 'LOW_DO' or 'HIGH_TAN'; this is a decoy unless readings and calibration back it. mitigation_present and mitigation_kind show in conditions (aeration.active true with started_at before sample, treatment_window with approved_by and expected_do_dip_mg_l, tide 'slack_low' with note of sample timing) or as history entry/notes line recording a passed repeat check within two hours. history_out_of_range is shown only as six history items each with in_limits boolean plus the current check, which the reader must judge against limits; never total it. missing_required renders as null or absent fields (check.sampler_id null, check.depth_profile empty, notes.signoff null, a core reading null, instrument block missing). date_order_fault renders as instrument.last_cal later than check.sampled_at, or notes.signoff_at earlier than sampled_at. boundary_case sets the lowest oxygen within 0.1 mg/L of do_min, or history at a band edge, or pairs alarm with mitigation of matching weight. note_tone shapes notes.sampler and notes.feed_team one-sentence lines, e.g. 'fish sluggish at feed' alongside a recent grading entry, or 'all fine, good oxygen' beside a low reading. Decoys: logger_flags, alarming note wording, rounding-only differences, a prior out-of-range day explained in history. No field may hold a risk level, verdict, cause label, recommended action or completeness score.",
+ "skills": [
+  "S1",
+  "S2",
+  "S3",
+  "S4",
+  "S5",
+  "S6",
+  "S7"
+ ],
+ "shared_scale": null,
+ "design_cost": 0.174784
+}

@@ -1,0 +1,325 @@
+{
+ "id": "F335",
+ "domain": "radio station content scheduling",
+ "role": "Continuity scheduler reviewing one booked segment in a station's playout log before lock",
+ "setting": "A regional commercial radio group builds hourly playout logs days in advance. Each booked segment (commercial, sponsored feature, pre-recorded show, news package or promo trailer) arrives as a structured record from the traffic system. Before the log locks for automated playout, the continuity scheduler checks the segment on its own. The checks cover asset readiness, length against the booked slot, music rights, sponsor and regulated-copy approval, and content rules for the daypart. The scheduler then decides what happens to the segment.",
+ "questions": {
+  "asset_fits": {
+   "type": "noul",
+   "instructions": "The segment's asset is verified and fits its booked slot length.",
+   "criteria": null
+  },
+  "disposition": {
+   "type": "choice",
+   "instructions": "What should the scheduler do with this booked segment?",
+   "criteria": {
+    "approve": "No unresolved checks; air exactly as booked without changes.",
+    "approve_adjusted": "Air after applying logged trim point or adjacent filler absorption.",
+    "hold": "Exactly one confirmation outstanding and playout lock still ahead.",
+    "reschedule": "Content valid elsewhere; move to compliant or later slot.",
+    "pull": "Remove from log; asset or clearance unusable in any slot."
+   }
+  },
+  "main_blocker": {
+   "type": "choice",
+   "instructions": "Which single issue most blocks the segment from airing as booked?",
+   "criteria": {
+    "no_blocker": "Every check resolved; segment ready and cleared as booked.",
+    "asset_timing": "Asset readiness or length is the only unresolved blocker.",
+    "rights_clearance": "Rights or approval gap blocks airing; no content breach.",
+    "content_compliance": "Content conflicts with slot rules and has no approved exception."
+   }
+  },
+  "lock_urgency": {
+   "type": "score",
+   "instructions": "How close is this segment to its playout lock deadline?",
+   "criteria": [
+    "Routine: playout lock more than 72 hours away",
+    "Soon: playout lock between 24 and 72 hours away",
+    "Pressing: playout lock between 2 and 24 hours away",
+    "Critical: lock under 2 hours away or already passed"
+   ]
+  },
+  "open_checks": {
+   "type": "score",
+   "instructions": "How many prerequisite checks remain unresolved for this segment?",
+   "criteria": [
+    "No prerequisite checks remain unresolved",
+    "Exactly one prerequisite check remains unresolved",
+    "Exactly two prerequisite checks remain unresolved",
+    "Exactly three prerequisite checks remain unresolved",
+    "Four or more prerequisite checks remain unresolved"
+   ]
+  }
+ },
+ "factors": [
+  {
+   "name": "item_type",
+   "description": "Kind of booked segment. Sets which clearances apply: commercials and sponsored features need copy or sponsor approval, while shows and trailers carry music rights.",
+   "kind": "categorical",
+   "values": [
+    "commercial",
+    "sponsored_feature",
+    "prerecorded_show",
+    "news_package",
+    "promo_trailer"
+   ],
+   "weights": [
+    0.3,
+    0.2,
+    0.2,
+    0.15,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S7"
+   ]
+  },
+  {
+   "name": "hours_to_lock",
+   "description": "Hours between review.reviewed_at and the lock time. Lock time is slot.slot_start minus slot.lock_lead_h. Values cluster near 2, 24 and 72 so that some records fall on a boundary.",
+   "kind": "number",
+   "values": [],
+   "weights": [],
+   "min": -4,
+   "max": 120,
+   "p_true": 0,
+   "skills": [
+    "S4",
+    "S6",
+    "S7"
+   ]
+  },
+  {
+   "name": "asset_status",
+   "description": "State of the audio asset. A missing asset appears as item.asset as null. An uploaded but unchecked asset has qc_passed false and no qc_at.",
+   "kind": "categorical",
+   "values": [
+    "verified",
+    "uploaded_unchecked",
+    "missing"
+   ],
+   "weights": [
+    0.6,
+    0.25,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S2",
+    "S4"
+   ]
+  },
+  {
+   "name": "duration_delta_s",
+   "description": "Asset duration minus booked slot length, in seconds. Tolerance is plus or minus 2 seconds, so values of 2 to 4 sit on the boundary.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": -40,
+   "max": 90,
+   "p_true": 0,
+   "skills": [
+    "S6",
+    "S4"
+   ]
+  },
+  {
+   "name": "trim_point_logged",
+   "description": "Asset has a logged edit point that brings it within tolerance. Mitigates an overrun.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3"
+   ]
+  },
+  {
+   "name": "flex_filler_adjacent",
+   "description": "The next item is a flexible sweeper or bed that can absorb or pad the difference. Mitigates a length mismatch of up to 15 seconds.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3"
+   ]
+  },
+  {
+   "name": "rights_state",
+   "description": "Music rights status for tracks within the asset.",
+   "kind": "categorical",
+   "values": [
+    "cleared",
+    "not_required",
+    "pending_request_logged",
+    "expired"
+   ],
+   "weights": [
+    0.45,
+    0.2,
+    0.2,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S2",
+    "S4"
+   ]
+  },
+  {
+   "name": "copy_approval_state",
+   "description": "Sponsor or regulated-copy approval, for commercial and sponsored items. In the approved_after_slot case the approval is dated after slot_start, which is out of order and therefore unresolved.",
+   "kind": "categorical",
+   "values": [
+    "approved",
+    "not_applicable",
+    "awaiting",
+    "rejected",
+    "approved_after_slot"
+   ],
+   "weights": [
+    0.4,
+    0.2,
+    0.2,
+    0.1,
+    0.1
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S2",
+    "S5"
+   ]
+  },
+  {
+   "name": "content_flag",
+   "description": "Content attribute that may conflict with the slot's daypart rules. Examples are explicit lyrics before the watershed, an alcohol product in a children's daypart, and political material during an election restriction.",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "explicit_lyrics",
+    "alcohol_product",
+    "political_content"
+   ],
+   "weights": [
+    0.55,
+    0.15,
+    0.15,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S6"
+   ]
+  },
+  {
+   "name": "compliance_exception_approved",
+   "description": "An approved exception covering the content flag for this slot, such as an edited radio version on file or compliance sign-off. Mitigates the content conflict.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3"
+   ]
+  },
+  {
+   "name": "asset_replaced_after_approval",
+   "description": "Change log shows the asset version was replaced after clearance or approval was granted, so that approval no longer covers what will air.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.2,
+   "skills": [
+    "S2",
+    "S5",
+    "S6"
+   ]
+  },
+  {
+   "name": "clearances_missing",
+   "description": "The whole clearances section is null. Rights and copy approval are then unresolved wherever they apply.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.12,
+   "skills": [
+    "S2"
+   ]
+  },
+  {
+   "name": "prior_clean_airings",
+   "description": "Count of earlier airings of the same asset without incident. This is a decoy: it reassures but resolves no current check.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 14,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S6"
+   ]
+  }
+ ],
+ "sections": [
+  {
+   "name": "slot",
+   "description": "Booked position: station_id, slot_start, slot_length_s, daypart, watershed_active, election_restriction, lock_lead_h."
+  },
+  {
+   "name": "item",
+   "description": "Segment details: item_type, booking_ref, asset object (asset_id, version, duration_s, qc_passed, qc_at, edit_points list) and content_tags list."
+  },
+  {
+   "name": "clearances",
+   "description": "Approvals: music_rights object, copy_approval object, exceptions list with scope and approved_at; may be null."
+  },
+  {
+   "name": "schedule_context",
+   "description": "Neighbouring items: prev_item and next_item with type, flex flag and min/max duration."
+  },
+  {
+   "name": "history",
+   "description": "Asset airing count, last_aired, and change_log list of timestamped version or approval events."
+  },
+  {
+   "name": "review",
+   "description": "Review metadata: reviewed_at, reviewer_desk, log_version."
+  }
+ ],
+ "rendering_notes": "hours_to_lock is never stated. The reader must compute it as slot.slot_start minus slot.lock_lead_h, compared with review.reviewed_at.\n\nAsset and length:\n- asset_status shows up as item.asset being null (missing), or as qc_passed false with qc_at null (unchecked).\n- duration_delta_s shows only as item.asset.duration_s against slot.slot_length_s.\n- trim_point_logged appears as an entry in item.asset.edit_points with an out_s value that brings duration within 2 seconds; otherwise edit_points is empty or holds unusable cue points (decoy).\n- flex_filler_adjacent appears as schedule_context.next_item.flex true, with min/max duration bounds that cover the gap.\n\nClearances:\n- rights_state appears in clearances.music_rights.status, with request_logged_at for pending and valid_until earlier than slot_start for expired.\n- copy_approval_state appears in clearances.copy_approval.status and approved_at. For approved_after_slot the status reads approved, but approved_at is later than slot.slot_start.\n- content_flag appears as a tag in item.content_tags, to be read against slot.daypart, watershed_active or election_restriction. A tag with no matching restriction is a decoy.\n- compliance_exception_approved appears as an entry in clearances.exceptions whose scope matches the tag and slot.\n- asset_replaced_after_approval appears in history.change_log as a version_replaced event timestamped after the approval event. Its item.asset.version differs from the version named in the approval.\n- clearances_missing makes clearances null.\n\nDecoys: prior_clean_airings appears in history.airing_count and last_aired, and is a decoy. prev_item details, log_version and reviewer_desk are also decoys.\n\nCounting open_checks: there are five prerequisite checks: asset verified, length fit, music rights, copy approval and content compliance.\n- not_required and not_applicable count as resolved.\n- An approved exception resolves the content check.\n- A trim point, or a covering filler, resolves the length check.\n- Pending, expired, awaiting, rejected, approved_after_slot, stale approval or a null section counts as unresolved.\n- A missing asset leaves both the asset and the length checks unresolved.\n\nmain_blocker precedence: content_compliance over rights_clearance over asset_timing.\n\nNo record may contain a status, risk, urgency, disposition or 'ready' field that states an answer. Every judgement must come from comparing fields across sections.",
+ "skills": [
+  "S2",
+  "S3",
+  "S4",
+  "S5",
+  "S6",
+  "S7"
+ ],
+ "shared_scale": null,
+ "design_cost": 0.16002
+}

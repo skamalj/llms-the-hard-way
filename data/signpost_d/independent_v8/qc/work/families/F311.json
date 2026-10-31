@@ -1,0 +1,285 @@
+{
+ "id": "F311",
+ "domain": "polling-station closing reports",
+ "role": "Verification supervisor at a constituency count centre, reviewing each polling station's closing report as its ballot box is received and verified",
+ "setting": "On election night each polling station sends its sealed ballot box with a closing report: station details, a timeline of close and transport, the presiding officer's ballot paper account, seal and packet records, and the count centre's own verification figures. The supervisor checks one report at a time and decides whether custody held, what kind of figure problem exists, how large any unexplained gap is, how much required paperwork is missing, and what to do with the box before it joins the count.",
+ "questions": {
+  "custody_unbroken": {
+   "type": "noul",
+   "instructions": "Ballot box custody was unbroken from close of poll to verification.",
+   "criteria": null
+  },
+  "box_disposition": {
+   "type": "choice",
+   "instructions": "What should happen to this box before it joins the count?",
+   "criteria": {
+    "accept": "Figures reconcile, custody intact and paperwork complete; send to count.",
+    "accept_noted": "Only minor explained or clerical issues; accept and log note.",
+    "hold_query": "One missing item or fact needs presiding officer confirmation first.",
+    "recount_box": "Unexplained gap in figures requires the box to be re-verified.",
+    "refer_ro": "Custody break or seal doubt needs the returning officer's decision."
+   }
+  },
+  "figure_problem": {
+   "type": "choice",
+   "instructions": "What is the most serious figure problem in this report?",
+   "criteria": {
+    "none": "Account lines, totals and verified count all agree exactly.",
+    "arithmetic_slip": "Account lines mis-summed or mis-copied, but papers physically reconcile.",
+    "explained_variance": "Verified count differs, fully accounted for by recorded hand-ins.",
+    "unexplained_variance": "Verified count differs and some gap remains with no record."
+   }
+  },
+  "unexplained_gap": {
+   "type": "score",
+   "instructions": "How large is the unexplained gap between account and verified count?",
+   "criteria": [
+    "Nil: no unexplained gap between account and count",
+    "Minor: unexplained gap of one or two papers",
+    "Notable: unexplained gap of three to nine papers",
+    "Major: unexplained gap of ten or more papers"
+   ]
+  },
+  "paperwork_shortfall": {
+   "type": "score",
+   "instructions": "How many required closing items are missing or unsigned?",
+   "criteria": [
+    "All required items present and signed",
+    "Exactly one required item missing or unsigned",
+    "Two required items missing or unsigned",
+    "Three or four required items missing or unsigned",
+    "Five or more required items missing or unsigned"
+   ]
+  }
+ },
+ "factors": [
+  {
+   "name": "raw_variance",
+   "description": "Verified ballot count minus the account's expected papers in box; zero most often, small values common, occasional large values",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": -12,
+   "max": 14,
+   "p_true": 0,
+   "skills": [
+    "S4",
+    "S6",
+    "S7"
+   ]
+  },
+  {
+   "name": "postal_handin_recorded",
+   "description": "Postal vote packs handed in at the station and placed in the box are recorded; when variance is positive the recorded number covers all or only part of it",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S4",
+    "S6"
+   ]
+  },
+  {
+   "name": "clerical_slip",
+   "description": "Account component lines do not sum to the declared total, or the reception transcription differs from the account, while papers physically reconcile",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.3,
+   "skills": [
+    "S4",
+    "S7"
+   ]
+  },
+  {
+   "name": "missing_items",
+   "description": "Number of required closing items (seal record, spoilt envelope, unused papers packet, counterfoil packet, corresponding number list, declaration) absent or unsigned",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 5,
+   "p_true": 0,
+   "skills": [
+    "S2",
+    "S4"
+   ]
+  },
+  {
+   "name": "ballot_account_null",
+   "description": "The whole ballot paper account section arrives null; counts as one missing required item and forces reliance on counterfoil figures",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.1,
+   "skills": [
+    "S2",
+    "S6"
+   ]
+  },
+  {
+   "name": "seal_mismatch",
+   "description": "Seal number recorded at close differs from the seal number found on arrival at the count centre",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.3,
+   "skills": [
+    "S3",
+    "S5"
+   ]
+  },
+  {
+   "name": "seal_replacement_witnessed",
+   "description": "A replacement seal is logged before departure with a witness and a time; present with roughly half of seal mismatches, and sometimes with no mismatch as a decoy",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S5",
+    "S6"
+   ]
+  },
+  {
+   "name": "transit_gap_min",
+   "description": "Minutes between recorded close of poll and box receipt at the count centre",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 15,
+   "max": 200,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S5",
+    "S6"
+   ]
+  },
+  {
+   "name": "remote_station",
+   "description": "Station is far from the count centre or reached by boat or single-track road, making a long transit gap plausible",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3"
+   ]
+  },
+  {
+   "name": "close_status",
+   "description": "How the poll closed: on time, legitimately extended for a queue at close, closed early with no flag, or close time not recorded",
+   "kind": "categorical",
+   "values": [
+    "on_time",
+    "queue_extension",
+    "early_close",
+    "close_time_null"
+   ],
+   "weights": [
+    0.55,
+    0.2,
+    0.1,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S2",
+    "S3",
+    "S5"
+   ]
+  },
+  {
+   "name": "agent_objection",
+   "description": "A candidate's agent present at sealing registered an objection flag, without resolving detail",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.2,
+   "skills": [
+    "S6"
+   ]
+  },
+  {
+   "name": "prior_queries",
+   "description": "Count of queries raised against this station at previous elections; a decoy that should not drive decisions alone",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 3,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S7"
+   ]
+  },
+  {
+   "name": "po_first_time",
+   "description": "Presiding officer is serving for the first time; a decoy that raises suspicion without being evidence",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.35,
+   "skills": [
+    "S6",
+    "S7"
+   ]
+  }
+ ],
+ "sections": [
+  {
+   "name": "station",
+   "description": "Station code, ward, election date, distance and transport mode to count centre, presiding officer tenure, prior query count"
+  },
+  {
+   "name": "timeline",
+   "description": "ISO timestamps for scheduled close, actual close, queue flag and count, box departure and box receipt"
+  },
+  {
+   "name": "ballot_account",
+   "description": "Presiding officer's figures: papers received, issued, spoilt, tendered, unused, and declared expected papers in box; may be null"
+  },
+  {
+   "name": "seals_and_packets",
+   "description": "Seal number at close, replacement seal list, agent objection flag, postal hand-in count, required item list with present and signed flags"
+  },
+  {
+   "name": "verification",
+   "description": "Count centre figures: seal on arrival, ballots counted, counterfoils counted, reception transcription of account total"
+  }
+ ],
+ "rendering_notes": "raw_variance appears only as the difference between verification.ballots_counted and ballot_account.expected_in_box (or, if the account is null, counterfoils_counted minus spoilt and tendered); never as a stored variance field. postal_handin_recorded shows as seals_and_packets.postal_handin_count (0 when absent); unexplained gap = |variance minus hand-ins|, so a partial hand-in count leaves a remaining gap. clerical_slip shows as ballot_account lines (issued, spoilt, unused, tendered) not summing to received, or verification.account_total_transcribed differing from ballot_account.expected_in_box while physical counts agree. missing_items shows in seals_and_packets.required_items, a list of objects {item, present, signed}; absent items have present false, unsigned have signed false; ballot_account_null renders the ballot_account section as null and the account item as present false. seal_mismatch shows as seals_and_packets.seal_at_close differing from verification.seal_on_arrival; seal_replacement_witnessed adds an entry to seals_and_packets.replacement_seals {seal_no, logged_at, witness_role} with logged_at before timeline.box_departed_at; when there is no mismatch a replacement entry may still appear as a decoy. transit_gap_min is derived from timeline.poll_closed_at and timeline.box_received_at; remote_station shows as station.distance_km above 25 and station.transport such as boat or single_track. Custody holds when seals match or a witnessed replacement seal matches the arrival seal, close time is recorded, and transit is at most 60 minutes, or at most 180 for remote stations. close_status: on_time gives poll_closed_at at scheduled close; queue_extension gives a later close with timeline.queue_at_close true and queue_count above 0 (legitimate); early_close gives a close before schedule with queue_at_close false; close_time_null sets poll_closed_at to null. agent_objection shows as seals_and_packets.agent_objection_at_sealing true with no detail. prior_queries and po_first_time are decoys in station.prior_query_count and station.po_tenure. Records never contain free text, status, risk, reconciled or custody fields; no field states a disposition, gap size or verdict.",
+ "skills": [
+  "S2",
+  "S3",
+  "S4",
+  "S5",
+  "S6",
+  "S7"
+ ],
+ "shared_scale": null,
+ "design_cost": 0.17238
+}

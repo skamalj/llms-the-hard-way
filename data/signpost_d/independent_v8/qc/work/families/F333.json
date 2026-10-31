@@ -1,0 +1,339 @@
+{
+ "id": "F333",
+ "domain": "student accommodation room inspections",
+ "role": "Residential deposit and condition reviewer for a university-linked student accommodation provider. Reviews each completed room inspection record before deposit deductions are released and works orders are confirmed.",
+ "setting": "Each record covers one study bedroom or studio at one inspection point, usually checkout and sometimes mid-term or pre-arrival. It brings together the room details, tenancy dates, the signed check-in inventory, the inspector's checkout grading with photo references, the draft deposit charge lines and the estate works-order log for that room. The reviewer compares these sections to decide whether charges stand, what caused the condition found, how serious the worst defect is and how far the draft charges depart from what the evidence supports. Nothing in the record states a conclusion. Every judgement rests on cross-checking grades, dates, amounts and works orders.",
+ "questions": {
+  "checkin_clean": {
+   "type": "noul",
+   "instructions": "Every charged item was graded undamaged in the check-in inventory.",
+   "criteria": null
+  },
+  "disposition": {
+   "type": "choice",
+   "instructions": "What should happen to this inspection report and its charges?",
+   "criteria": {
+    "approve_as_drafted": "Findings and charge lines match evidence; release without any change.",
+    "adjust_and_approve": "Some lines wrong but correctable using figures already in record.",
+    "hold_for_evidence": "Exactly one missing photo, signature or grade must be obtained.",
+    "order_reinspection": "Checkout inspection missing, misdated or multiply incomplete; room needs revisiting."
+   }
+  },
+  "main_cause": {
+   "type": "choice",
+   "instructions": "What is the main cause of the room's recorded condition findings?",
+   "criteria": {
+    "no_defect": "Checkout grade equals check-in grade for every listed item.",
+    "fair_wear": "Grade drops by one step, consistent with tenancy length.",
+    "resident_damage": "Newly damaged at checkout with no related prior works order.",
+    "building_fault": "Defect matches a works order for fabric or building services.",
+    "prior_occupant": "Defect already graded damaged in this tenancy's check-in inventory."
+   }
+  },
+  "defect_severity": {
+   "type": "score",
+   "instructions": "How severe is the worst defect recorded at this inspection?",
+   "criteria": [
+    "Cosmetic: no defect, or marks and scuffs only",
+    "Functional: an item needs repair, room still usable",
+    "Habitability: fixture failure stops normal use of room",
+    "Safety: smoke detector, electrics or fire door failed"
+   ]
+  },
+  "charge_gap": {
+   "type": "score",
+   "instructions": "How large is the gap between proposed and evidenced charges?",
+   "criteria": [
+    "Proposed total equals evidenced line totals exactly",
+    "Difference from £0.01 up to £25.00",
+    "Difference above £25.00 up to £100.00",
+    "Difference above £100.00"
+   ]
+  }
+ },
+ "factors": [
+  {
+   "name": "inspection_type",
+   "description": "Which inspection point the record represents. Checkout carries charges. Mid-term and pre-arrival mostly carry works orders and zero or small charges.",
+   "kind": "categorical",
+   "values": [
+    "checkout",
+    "mid_term",
+    "pre_arrival"
+   ],
+   "weights": [
+    0.65,
+    0.2,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S7"
+   ]
+  },
+  {
+   "name": "checkin_inventory_state",
+   "description": "Completeness of the check-in inventory: complete and signed on arrival, partial (some items ungraded), missing (section null), or signed more than 7 days after tenancy start.",
+   "kind": "categorical",
+   "values": [
+    "complete",
+    "partial",
+    "missing",
+    "signed_late"
+   ],
+   "weights": [
+    0.55,
+    0.2,
+    0.12,
+    0.13
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S2",
+    "S5"
+   ]
+  },
+  {
+   "name": "prior_damage_on_charged_item",
+   "description": "Number of charged items that were already graded damaged or fair at check-in, contradicting a charge for new damage.",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "one_item",
+    "two_or_more"
+   ],
+   "weights": [
+    0.6,
+    0.28,
+    0.12
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S5"
+   ]
+  },
+  {
+   "name": "charge_discrepancy",
+   "description": "Size of the mismatch between the summary total and the evidenced line totals. Sources vary: wrong qty, unit rate differing from the rate card, a line total arithmetic error, or a line for an item absent from the checkout grades.",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "small_under_25",
+    "medium_25_to_100",
+    "large_over_100"
+   ],
+   "weights": [
+    0.35,
+    0.25,
+    0.25,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S4"
+   ]
+  },
+  {
+   "name": "worst_defect_tier",
+   "description": "Tier of the worst defect at checkout grading.",
+   "kind": "categorical",
+   "values": [
+    "cosmetic",
+    "functional",
+    "habitability",
+    "safety"
+   ],
+   "weights": [
+    0.35,
+    0.33,
+    0.18,
+    0.14
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S7",
+    "S4"
+   ]
+  },
+  {
+   "name": "true_cause",
+   "description": "Underlying cause of the main finding, expressed only through grade changes, tenancy length and works-order links.",
+   "kind": "categorical",
+   "values": [
+    "no_defect",
+    "fair_wear",
+    "resident_damage",
+    "building_fault",
+    "prior_occupant"
+   ],
+   "weights": [
+    0.15,
+    0.25,
+    0.3,
+    0.17,
+    0.13
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S7",
+    "S1"
+   ]
+  },
+  {
+   "name": "predating_works_order",
+   "description": "A works order for the same location and category was raised before tenancy start. This mitigates a resident-damage reading of an alarming defect.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S1"
+   ]
+  },
+  {
+   "name": "safety_fault_remedied",
+   "description": "For safety or habitability defects, a works order shows the fault completed the same day with a passed retest. This lowers urgency but not tier.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S4"
+   ]
+  },
+  {
+   "name": "photo_coverage",
+   "description": "Share of charged lines that carry at least one photo reference in the checkout inspection.",
+   "kind": "categorical",
+   "values": [
+    "full",
+    "all_but_one",
+    "half_or_less"
+   ],
+   "weights": [
+    0.55,
+    0.28,
+    0.17
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S2",
+    "S4"
+   ]
+  },
+  {
+   "name": "tenancy_months",
+   "description": "Length of occupancy in months, which shifts one-step grade drops between fair wear and resident damage.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 1,
+   "max": 12,
+   "p_true": 0,
+   "skills": [
+    "S6",
+    "S3"
+   ]
+  },
+  {
+   "name": "date_out_of_order",
+   "description": "Checkout inspection dated before key return, or check-in inventory dated after the first works order raised by the resident.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.15,
+   "skills": [
+    "S2"
+   ]
+  },
+  {
+   "name": "deposit_dispute_lodged",
+   "description": "Resident has lodged a deposit dispute. The flag alone decides nothing but raises the cost of approving weak charges.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.35,
+   "skills": [
+    "S6",
+    "S3"
+   ]
+  },
+  {
+   "name": "boundary_case",
+   "description": "Places a value on a scale edge: gap exactly £25.00 or £100.00, one-step grade drop at 6 months, or a works order location naming an adjacent room. Judges may split.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.2,
+   "skills": [
+    "S6"
+   ]
+  }
+ ],
+ "sections": [
+  {
+   "name": "room",
+   "description": "room_id, block, room_type, floor, next_occupancy_date, rate_card_ref."
+  },
+  {
+   "name": "tenancy",
+   "description": "resident_ref, start_date, end_date, key_return_date, deposit_held, deposit_dispute_lodged."
+  },
+  {
+   "name": "checkin_inventory",
+   "description": "signed_date, signed_by_resident, items list of item_code, location, grade (good/fair/damaged/null); may be null."
+  },
+  {
+   "name": "checkout_inspection",
+   "description": "inspection_type, inspection_date, inspector_id, items list of item_code, location, grade, defect_category, photo_refs."
+  },
+  {
+   "name": "proposed_charges",
+   "description": "lines of item_code, reason_code, qty, unit_rate, line_total; summary_total; rate_card_ref."
+  },
+  {
+   "name": "works_orders",
+   "description": "list of wo_id, raised_date, location, category, priority_code, status, completed_date, retest_passed."
+  }
+ ],
+ "rendering_notes": "inspection_type sits in checkout_inspection.inspection_type. checkin_inventory_state shows as a complete item list with signed_date at or before tenancy.start_date. A partial state has null grades on some items, missing makes checkin_inventory null, and signed_late puts signed_date more than 7 days after start_date. prior_damage_on_charged_item appears only by matching item_code between proposed_charges.lines and checkin_inventory.items, where grade is fair or damaged; it is never flagged. charge_discrepancy is placed in varying spots: qty in a line differing from the count in checkout items, unit_rate differing from the rate card (shown via a line with a mismatched rate_card_ref), line_total not equal to qty times unit_rate, summary_total not equal to the sum of lines, or a line for an item graded good at checkout. Evidenced charges are lines whose item is graded worse at checkout than check-in and carry a photo_ref. worst_defect_tier is conveyed through defect_category values (scuff, stain, broken_fitting, no_hot_water, heater_fail, smoke_detector_fail, socket_scorched, fire_door_closer) and never through a severity field. true_cause emerges from grade pairs, tenancy_months (start to end dates) and works-order links by location and category. predating_works_order is a works order with raised_date before start_date at the same location. safety_fault_remedied is status completed, with completed_date equal to inspection_date and retest_passed true. photo_coverage shows as empty photo_refs lists. date_out_of_order shows only as raw dates. Decoys: priority_code on unrelated works orders, next_occupancy_date pressure, deposit_dispute_lodged, high deposit_held, and works orders for other locations in the room. No field states disposition, cause, severity rank, evidenced total or gap, and no free-text notes appear anywhere.",
+ "skills": [
+  "S1",
+  "S2",
+  "S3",
+  "S4",
+  "S5",
+  "S6",
+  "S7"
+ ],
+ "shared_scale": null,
+ "design_cost": 0.141548
+}

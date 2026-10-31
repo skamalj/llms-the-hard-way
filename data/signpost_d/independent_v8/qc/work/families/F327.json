@@ -1,0 +1,338 @@
+{
+ "id": "F327",
+ "domain": "community hall booking requests",
+ "role": "Bookings officer for a charitable village hall trust, reviewing each hire request before it is confirmed, held or turned away",
+ "setting": "A small hall trust runs a main hall, a committee room and a kitchen annexe for private parties, clubs, classes and fundraisers. Requests arrive through an online form that builds a structured record from the applicant's account, the event details, the requested slot, uploaded documents, payment ledger and past hire history. The officer works through one request at a time, decides what happens to it, what staffing the hall must provide on the day, and how complete and well-sized it is. Records hold no free text; every judgement rests on fields, dates, counts and cross-section comparisons.",
+ "questions": {
+  "cover_valid": {
+   "type": "noul",
+   "instructions": "Public liability cover is in force for the whole event date.",
+   "criteria": null
+  },
+  "disposition": {
+   "type": "choice",
+   "instructions": "What should the bookings officer do with this request?",
+   "criteria": {
+    "decline": "Unresolved arrears or unsettled damage claim bars this hirer outright.",
+    "hold_for_docs": "Hirer eligible and slot free, but required documents incomplete.",
+    "offer_alternative": "Hirer eligible but requested slot clashes with a firm booking.",
+    "approve_conditional": "Slot free, documents supplied; approval needs caps, staffing or verification.",
+    "approve": "Slot free, documents verified, no caps or extra staffing required."
+   }
+  },
+  "supervision": {
+   "type": "choice",
+   "instructions": "What level of caretaker presence should the hall arrange?",
+   "criteria": {
+    "self_access": "Trusted regular hirer collects key; no staff attend at all.",
+    "open_and_lock": "Caretaker unlocks and locks up only; no cover during event.",
+    "on_call": "Caretaker reachable by phone, able to attend within minutes.",
+    "on_site": "Caretaker remains on the premises for the whole hire."
+   }
+  },
+  "doc_completeness": {
+   "type": "score",
+   "instructions": "How complete is the required documentation for this event?",
+   "criteria": [
+    "None: no required document has been uploaded.",
+    "Partial: some uploaded, at least one absent or expired.",
+    "Unverified: all uploaded and in date, one or more unverified.",
+    "Complete: all uploaded, in date and office-verified."
+   ]
+  },
+  "attendance_load": {
+   "type": "score",
+   "instructions": "How does expected attendance compare with the room's capacity?",
+   "criteria": [
+    "Attendance below half of room capacity",
+    "Attendance from half to under 80% of capacity",
+    "Attendance from 80% up to full capacity",
+    "Attendance above capacity by no more than 10%",
+    "Attendance exceeds capacity by more than 10%"
+   ]
+  }
+ },
+ "factors": [
+  {
+   "name": "event_type",
+   "description": "Kind of hire; drives which documents are required (alcohol authorisation, safeguarding policy, food hygiene certificate) and the baseline staffing need.",
+   "kind": "categorical",
+   "values": [
+    "children_party",
+    "private_celebration",
+    "community_meeting",
+    "fitness_class",
+    "fundraiser_with_bar",
+    "faith_gathering",
+    "jumble_sale"
+   ],
+   "weights": [
+    0.17,
+    0.18,
+    0.15,
+    0.14,
+    0.14,
+    0.1,
+    0.12
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S7"
+   ]
+  },
+  {
+   "name": "attendance_ratio",
+   "description": "Expected attendance divided by the capacity of the requested room; about a fifth of records sit within two percentage points of 50%, 80%, 100% or 110% so judges may split.",
+   "kind": "number",
+   "values": [],
+   "weights": [],
+   "min": 0.3,
+   "max": 1.25,
+   "p_true": 0,
+   "skills": [
+    "S4",
+    "S6",
+    "S7"
+   ]
+  },
+  {
+   "name": "insurance_state",
+   "description": "Source and validity of public liability cover: own certificate valid, own certificate expiring before the event, no certificate, hall hirer scheme opted into with premium paid, or opted in but premium unpaid.",
+   "kind": "categorical",
+   "values": [
+    "own_cert_valid",
+    "own_cert_expires_before_event",
+    "cert_missing",
+    "hall_scheme_paid",
+    "hall_scheme_unpaid"
+   ],
+   "weights": [
+    0.3,
+    0.15,
+    0.15,
+    0.22,
+    0.18
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S2",
+    "S3",
+    "S5"
+   ]
+  },
+  {
+   "name": "other_docs_missing",
+   "description": "Number of required non-insurance documents (alcohol authorisation, safeguarding policy, food hygiene certificate) absent, null-dated or expired before the event; capped by how many the event actually requires.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 3,
+   "p_true": 0,
+   "skills": [
+    "S2",
+    "S4"
+   ]
+  },
+  {
+   "name": "docs_unverified",
+   "description": "At least one uploaded, in-date document has verified_on null, meaning the office has not yet checked it.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.4,
+   "skills": [
+    "S4"
+   ]
+  },
+  {
+   "name": "verification_out_of_order",
+   "description": "A document's verified_on date precedes its uploaded_on date, or the deposit_paid_on precedes request_received; an out-of-order verification must be treated as unverified.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.18,
+   "skills": [
+    "S2",
+    "S6"
+   ]
+  },
+  {
+   "name": "slot_clash",
+   "description": "Overlap with another booking in the same room and time window: none, firm (confirmed) clash, provisional clash whose hold has already expired, or provisional clash still live.",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "firm_clash",
+    "provisional_lapsed",
+    "provisional_live"
+   ],
+   "weights": [
+    0.5,
+    0.18,
+    0.16,
+    0.16
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S6"
+   ]
+  },
+  {
+   "name": "hirer_track_record",
+   "description": "Applicant's history with the hall: first-time hirer, regular hirer with no incidents, or regular hirer with at least one recorded damage or overstay incident.",
+   "kind": "categorical",
+   "values": [
+    "first_time",
+    "regular_clean",
+    "regular_with_incident"
+   ],
+   "weights": [
+    0.35,
+    0.4,
+    0.25
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S7"
+   ]
+  },
+  {
+   "name": "incident_settled",
+   "description": "Mitigation for a past incident: the damage claim has a settled_on date before the request date. Only meaningful when the hirer has an incident.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3"
+   ]
+  },
+  {
+   "name": "arrears_state",
+   "description": "Overdue balance on the hirer's account: none, overdue with no plan, or overdue with an agreed payment plan and no missed instalments.",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "arrears_unresolved",
+    "arrears_payment_plan"
+   ],
+   "weights": [
+    0.7,
+    0.15,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S7"
+   ]
+  },
+  {
+   "name": "alcohol_late_finish",
+   "description": "Whether alcohol is served and whether the event ends after 23:00, the hall's standard closing time.",
+   "kind": "categorical",
+   "values": [
+    "neither",
+    "alcohol_only",
+    "late_only",
+    "both"
+   ],
+   "weights": [
+    0.45,
+    0.2,
+    0.15,
+    0.2
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S6"
+   ]
+  },
+  {
+   "name": "external_bar_staffed",
+   "description": "Mitigation for alcohol: an external licensed bar operator supplies its own staff (staff_count at least 2). Only meaningful when alcohol is served.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3"
+   ]
+  },
+  {
+   "name": "days_to_event",
+   "description": "Days between request_received and the event date; short lead times make an unverified document harder to resolve and appear as decoy urgency.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 3,
+   "max": 120,
+   "p_true": 0,
+   "skills": [
+    "S6",
+    "S7"
+   ]
+  }
+ ],
+ "sections": [
+  {
+   "name": "applicant",
+   "description": "Hirer account: id, hirer_type, first_booking_date, hirer_scheme_opt_in."
+  },
+  {
+   "name": "event",
+   "description": "Event details: category, expected_attendance, alcohol_served, bar_operator, finish_time, under_18s_present, catering."
+  },
+  {
+   "name": "booking_slot",
+   "description": "Requested room, room_capacity, date, start, end, request_received and a clashes list."
+  },
+  {
+   "name": "documents",
+   "description": "List of uploaded documents with doc_type, uploaded_on, expires_on, verified_on."
+  },
+  {
+   "name": "payment",
+   "description": "hire_fee, deposit_due, deposit_paid_on, overdue_balance, payment_plan, scheme_premium_paid."
+  },
+  {
+   "name": "history",
+   "description": "past_bookings_count and an incidents list with date, type, claim_amount, settled_on."
+  }
+ ],
+ "rendering_notes": "event_type shows as event.category plus derived flags (under_18s_present true for children_party; catering 'hot_food' for some celebrations and fundraisers; alcohol_served from alcohol_late_finish). attendance_ratio is never shown; render event.expected_attendance and booking_slot.room_capacity as integers so the reader must divide. insurance_state appears as a documents entry of doc_type 'public_liability' (expires_on before booking_slot.date when expiring; entry absent when missing) or, for scheme cases, applicant.hirer_scheme_opt_in true with payment.scheme_premium_paid true or false and no certificate entry. cover_valid is true only for own_cert_valid or hall_scheme_paid. Required non-insurance documents are not listed anywhere: the reader infers them (alcohol_authorisation if alcohol_served and bar_operator.type is 'self'; safeguarding_policy if under_18s_present; food_hygiene if catering is 'hot_food'); other_docs_missing renders as an absent entry, an entry with uploaded_on null, or expires_on before the event. docs_unverified renders as verified_on null; verification_out_of_order renders as verified_on earlier than uploaded_on, or deposit_paid_on earlier than request_received (a ledger decoy that does not by itself change disposition). slot_clash renders in booking_slot.clashes as entries with status 'confirmed' or 'provisional' and hold_expires; a lapsed provisional has hold_expires before request_received and does not block the slot; a live provisional is contested between hold and offer_alternative. Clashes on the same date but non-overlapping times are decoys. hirer_track_record renders via history.past_bookings_count (0 for first-time, with applicant.first_booking_date null) and history.incidents; incident_settled renders as settled_on date or null. arrears_state renders as payment.overdue_balance above 0 with payment_plan null or a plan object (agreed_on, instalments_missed 0). alcohol_late_finish renders via event.alcohol_served and event.finish_time; external_bar_staffed via event.bar_operator {type:'external', staff_count}. days_to_event is implied by request_received and booking_slot.date. Disposition precedence: unresolved arrears or unsettled incident claim gives decline; else firm or live clash gives offer_alternative; else any missing or expired document gives hold_for_docs; else unverified documents, attendance above capacity, or alcohol/late finish needing on_site or on_call staffing gives approve_conditional; otherwise approve. Supervision: on_site for both alcohol and late finish without external staffed bar, attendance above capacity, or unsettled incident; on_call for alcohol or late finish mitigated by external staff, or first-time hirer at 80% or more of capacity; self_access only for regular_clean hirers with neither alcohol nor late finish and attendance under 80%; open_and_lock otherwise. Decoys: hirer_type, hire_fee size, large past_bookings_count alongside an unsettled incident, room name, short lead time. No record may carry fields such as status, risk, recommended_action, docs_complete, supervision_level or capacity_percentage.",
+ "skills": [
+  "S2",
+  "S3",
+  "S4",
+  "S5",
+  "S6",
+  "S7"
+ ],
+ "shared_scale": null,
+ "design_cost": 0.199336
+}

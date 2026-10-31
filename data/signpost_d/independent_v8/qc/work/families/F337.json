@@ -1,0 +1,300 @@
+{
+ "id": "F337",
+ "domain": "seismograph station data quality reviews",
+ "role": "Seismic network data quality analyst reviewing one station-day quality-control packet at a time before archive release",
+ "setting": "A regional seismograph network collects continuous waveform data from broadband and strong-motion stations. Each day an automated QC pass assembles a packet per station covering metadata, acquisition statistics, waveform metrics, the field maintenance log and short operator notes. The analyst checks that the sections agree, decides whether the day's data can be released to the public archive, and judges how much of the data is actually usable. Summary fields are produced by different subsystems and are not always in step with each other or with the field log.",
+ "questions": {
+  "response_valid": {
+   "type": "noul",
+   "instructions": "Instrument response metadata matches the sensor currently installed at the site.",
+   "criteria": {
+    "true": "Serial, gain and epoch agree with latest install.",
+    "false": "Metadata conflicts with, predates or lacks logged install."
+   }
+  },
+  "gaps_explained": {
+   "type": "noul",
+   "instructions": "Every data gap overlaps a logged outage, visit or telemetry fault.",
+   "criteria": null
+  },
+  "disposition": {
+   "type": "choice",
+   "instructions": "What should happen to this station-day's waveform data in the archive?",
+   "criteria": {
+    "release": "No unresolved issues; data fit for unrestricted archive use.",
+    "release_flagged": "Problems confined to identified segments; flag those, publish the rest.",
+    "hold": "Usability depends on one pending confirmation or metadata correction.",
+    "quarantine": "Data untrustworthy throughout; withhold entirely and request field repair."
+   }
+  },
+  "usable_fraction": {
+   "type": "score",
+   "instructions": "What share of expected channel-hours is usable after removing gaps and faults?",
+   "criteria": [
+    "Minimal: under 50% of expected channel-hours usable",
+    "Low: 50% to under 90% usable",
+    "High: 90% to under 99% usable",
+    "Complete: 99% or more channel-hours usable"
+   ]
+  },
+  "pending_age": {
+   "type": "score",
+   "instructions": "How long has this record been waiting without any decision?",
+   "criteria": [
+    "Logged less than 24 hours ago",
+    "Waiting between one and seven days",
+    "Waiting between eight and thirty days",
+    "Waiting more than thirty days without decision"
+   ]
+  }
+ },
+ "factors": [
+  {
+   "name": "sensor_metadata_state",
+   "description": "Whether the response metadata reflects the sensor actually installed: no swap, swap with metadata updated, swap with stale metadata still pointing at the old serial, or a mistyped serial differing by one character from the log.",
+   "kind": "categorical",
+   "values": [
+    "no_swap",
+    "swap_updated",
+    "swap_stale",
+    "serial_typo"
+   ],
+   "weights": [
+    0.45,
+    0.2,
+    0.2,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S5"
+   ]
+  },
+  {
+   "name": "maintenance_log_present",
+   "description": "Whether the maintenance_log section is populated; when false it is null, so swaps or outages cannot be verified and absence counts against explanatory claims.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.78,
+   "skills": [
+    "S2",
+    "S5"
+   ]
+  },
+  {
+   "name": "gap_coverage",
+   "description": "How the gaps in the acquisition list relate to logged outages: no gaps, all gaps inside logged outages, at least one gap with no matching log entry, or a gap that overruns its logged outage by a few minutes.",
+   "kind": "categorical",
+   "values": [
+    "no_gaps",
+    "all_logged",
+    "some_unlogged",
+    "minor_overrun"
+   ],
+   "weights": [
+    0.25,
+    0.3,
+    0.25,
+    0.2
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S5",
+    "S6"
+   ]
+  },
+  {
+   "name": "true_usable_fraction",
+   "description": "Actual fraction of expected channel-hours free of gaps, dead channels and clipping, derivable only by combining the gap list with per-channel QC flags.",
+   "kind": "number",
+   "values": [],
+   "weights": [],
+   "min": 0.3,
+   "max": 1.0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S4",
+    "S6"
+   ]
+  },
+  {
+   "name": "completeness_summary_drift",
+   "description": "Percentage points by which the acquisition completeness_pct summary overstates the completeness implied by the gap list; zero in many records, a decoy when non-zero.",
+   "kind": "number",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 8,
+   "p_true": 0,
+   "skills": [
+    "S1"
+   ]
+  },
+  {
+   "name": "timing_quality",
+   "description": "GPS timing state over the day: locked throughout, intermittent lock with short drift, or lock lost for hours making timestamps doubtful.",
+   "kind": "categorical",
+   "values": [
+    "locked",
+    "intermittent",
+    "lost_hours"
+   ],
+   "weights": [
+    0.6,
+    0.25,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S7",
+    "S4"
+   ]
+  },
+  {
+   "name": "calibration_status",
+   "description": "State of the daily or post-visit calibration pulse: passed, not yet run, failed, or dated before the logged sensor swap so it tests the old sensor.",
+   "kind": "categorical",
+   "values": [
+    "passed",
+    "not_run",
+    "failed",
+    "predates_swap"
+   ],
+   "weights": [
+    0.5,
+    0.2,
+    0.12,
+    0.18
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S2",
+    "S4"
+   ]
+  },
+  {
+   "name": "noise_excess_db",
+   "description": "How far the channel noise PSD sits above the station baseline in dB; high values look alarming whether or not a benign cause is documented.",
+   "kind": "number",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 25,
+   "p_true": 0,
+   "skills": [
+    "S7",
+    "S6"
+   ]
+  },
+  {
+   "name": "benign_noise_cause_logged",
+   "description": "Mitigation: whether an operator note or log entry documents a known temporary noise source (roadworks, storm, nearby generator) covering the noisy period.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S6",
+    "S1"
+   ]
+  },
+  {
+   "name": "operator_note_consistency",
+   "description": "Whether operator notes are absent, agree with the structured data, or assert something the data contradicts (e.g. 'sensor swapped Tuesday' when the log dates it Thursday).",
+   "kind": "categorical",
+   "values": [
+    "absent",
+    "consistent",
+    "contradicts_data"
+   ],
+   "weights": [
+    0.3,
+    0.45,
+    0.25
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S5"
+   ]
+  },
+  {
+   "name": "dead_channels",
+   "description": "Number of components flagged dead or flatlined in qc_metrics for most of the day.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 3,
+   "p_true": 0,
+   "skills": [
+    "S4",
+    "S7"
+   ]
+  },
+  {
+   "name": "boundary_case",
+   "description": "When true, the generator places the usable fraction within half a point of a level threshold or a gap edge within two minutes of its outage edge, leaving judges split.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.25,
+   "skills": [
+    "S6"
+   ]
+  }
+ ],
+ "sections": [
+  {
+   "name": "station",
+   "description": "Network and station codes, digitiser, and per-channel sensor serial, gain, azimuth and response epoch start."
+  },
+  {
+   "name": "acquisition",
+   "description": "Station-day date, expected channel-hours, completeness_pct summary, gap list per channel, GPS lock percentage."
+  },
+  {
+   "name": "qc_metrics",
+   "description": "Per-channel noise PSD deviation, spike count, dead flag, clipped minutes, and calibration pulse date and result."
+  },
+  {
+   "name": "maintenance_log",
+   "description": "Field visit and outage entries with dates, actions, installed serial and outage windows; null when unavailable."
+  },
+  {
+   "name": "operator_notes",
+   "description": "One to three one-sentence free-text remarks from station operators or field technicians."
+  }
+ ],
+ "rendering_notes": "station.channels[] lists cha, sensor_serial, gain_counts_per_ms, azimuth_deg, response_epoch_start (ISO). sensor_metadata_state shows only by comparing station.channels[].sensor_serial and response_epoch_start with the latest maintenance_log entry where action='sensor_swap' (sensor_serial_installed, date): swap_stale keeps the old serial and an epoch before the swap date; serial_typo differs by one character; never add a 'metadata_ok' field. acquisition has day, channel_hours_expected, completeness_pct, gaps[{cha,start,end}], gps_lock_pct; gap_coverage is visible only by matching gaps against maintenance_log outage_start/outage_end (minor_overrun: gap ends 3-15 minutes after the logged window, under 2 minutes when boundary_case). completeness_summary_drift inflates completeness_pct above what the gap list implies, so completeness_pct is a decoy and the gap list plus qc flags govern usable_fraction. true_usable_fraction is never printed; it is implied by gap durations, qc_metrics[].dead=true channels (dead_channels) and clipped_minutes. timing_quality appears as gps_lock_pct and timing_quality_mean (lost_hours under 80% lock). calibration_status appears in qc_metrics.cal_pulse {date, result}: not_run gives date null and result null; predates_swap gives a date earlier than the swap log date with result 'pass', a decoy. noise_excess_db shows as qc_metrics[].psd_dev_db; benign_noise_cause_logged appears only as an operator note or log note naming the source and time window, present in about half of noisy records. operator_note_consistency: contradicts_data notes state a date, serial or outage that disagrees with the log. When maintenance_log_present is false the section is null and swaps or outages cannot be confirmed, so gaps_explained is false whenever gaps exist. Expected answers: disposition release only with no unresolved conflict; release_flagged when faults are confined to listed segments or channels; hold when exactly one item (stale metadata, missing cal pulse, unlogged gap) needs confirmation; quarantine when timing lost for hours, all channels dead or calibration failed. Records never contain fields like 'quality', 'risk', 'disposition', 'usable_pct' or 'explained'; dates are ISO, unknowns null, numbers numeric.",
+ "skills": [
+  "S1",
+  "S2",
+  "S4",
+  "S5",
+  "S6",
+  "S7"
+ ],
+ "shared_scale": "pending_age",
+ "design_cost": 0.1239
+}
