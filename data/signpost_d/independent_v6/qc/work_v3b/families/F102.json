@@ -1,0 +1,343 @@
+{
+ "id": "F102",
+ "domain": "passenger lift service visit logs",
+ "role": "Maintenance contract compliance reviewer at a lift servicing firm, auditing each technician's submitted visit log before it is filed against the client contract.",
+ "setting": "A regional lift maintenance contractor services passenger lifts in offices, flats and hospitals. Technicians submit a structured visit log from a handheld device after every routine service, breakdown callout, repair return or post-entrapment attendance. The reviewer opens one log at a time. The reviewer compares the asset record, visit timings, check results, parts issued, controller fault history and departure handover, then decides whether the lift was evidenced safe, what to do with the log, what the visit's main fault category was, and how many values disagree across sections.",
+ "questions": {
+  "fit_for_service": {
+   "type": "noul",
+   "instructions": "Lift was demonstrably safe to return to passenger service.",
+   "criteria": {
+    "true": "Safety checks pass or retest, and a test run is logged.",
+    "false": "Safety item failed unretested, or the evidence is missing."
+   }
+  },
+  "log_disposition": {
+   "type": "choice",
+   "instructions": "What should happen to this visit log now?",
+   "criteria": {
+    "accept": "Log consistent and complete; file without any further action.",
+    "accept_followup": "Log sound, but non-safety work remains booked for later.",
+    "hold_query": "One missing item or mismatch needs technician confirmation first.",
+    "reject_revisit": "Safety work unfinished or log unreliable; send an engineer back."
+   }
+  },
+  "fault_category": {
+   "type": "choice",
+   "instructions": "Which category best describes the main fault this visit addressed?",
+   "criteria": {
+    "no_fault_found": "No fault confirmed; routine visit or fault not reproduced.",
+    "wear_component": "Fault traced to a worn part such as rollers or contacts.",
+    "safety_circuit": "Fault in an interlock, brake, governor or other safety device.",
+    "external_cause": "Fault caused by building power, water ingress or passenger misuse."
+   }
+  },
+  "action_due": {
+   "type": "score",
+   "instructions": "How soon must the next action on this record take place?",
+   "criteria": [
+    "No action needed within the next 30 days",
+    "Action needed within 8 to 30 days",
+    "Action needed within 1 to 7 days",
+    "Action needed today or already overdue"
+   ]
+  },
+  "mismatch_count": {
+   "type": "score",
+   "instructions": "How many values disagree between sections of this visit log?",
+   "criteria": [
+    "No values disagree between any two sections",
+    "Exactly one value disagrees between sections",
+    "Two or three values disagree between sections",
+    "Four or more values disagree between sections"
+   ]
+  }
+ },
+ "factors": [
+  {
+   "name": "lift_type",
+   "description": "Drive type of the lift. Decides which checks apply; for example, the governor test is not applicable on some hydraulic units.",
+   "kind": "categorical",
+   "values": [
+    "traction_geared",
+    "traction_mrl",
+    "hydraulic",
+    "platform"
+   ],
+   "weights": [
+    0.3,
+    0.35,
+    0.25,
+    0.1
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S7",
+    "S3"
+   ]
+  },
+  {
+   "name": "visit_type",
+   "description": "Reason for attendance. Shapes which checks and fault entries are expected.",
+   "kind": "categorical",
+   "values": [
+    "routine",
+    "breakdown_callout",
+    "repair_return",
+    "post_entrapment"
+   ],
+   "weights": [
+    0.4,
+    0.3,
+    0.2,
+    0.1
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S7"
+   ]
+  },
+  {
+   "name": "mismatch_n",
+   "description": "Number of injected disagreements between corresponding values in different sections. Never flagged in the record.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 5,
+   "p_true": 0,
+   "skills": [
+    "S1"
+   ]
+  },
+  {
+   "name": "mismatch_location",
+   "description": "Where the injected mismatches sit.",
+   "kind": "categorical",
+   "values": [
+    "parts_vs_checks",
+    "asset_ids",
+    "times_vs_outage",
+    "faults_vs_checks",
+    "mixed"
+   ],
+   "weights": [
+    0.22,
+    0.15,
+    0.2,
+    0.18,
+    0.25
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1"
+   ]
+  },
+  {
+   "name": "mismatch_magnitude",
+   "description": "Size of each mismatch. Trivial means a one-minute clock skew or rounding of a 0.5 mm reading. Moderate means a quantity off by one or a time off by 20 minutes. Large means a wrong lift id, or a part fitted to a component never checked.",
+   "kind": "categorical",
+   "values": [
+    "trivial",
+    "moderate",
+    "large"
+   ],
+   "weights": [
+    0.35,
+    0.4,
+    0.25
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S6"
+   ]
+  },
+  {
+   "name": "safety_check_fail",
+   "description": "A safety-critical check is recorded as fail or out of tolerance on first test. Covers the door interlock, brake, overspeed governor, alarm line and door reversal.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.35,
+   "skills": [
+    "S3",
+    "S5"
+   ]
+  },
+  {
+   "name": "mitigation_present",
+   "description": "A field that lowers concern about an alarming signal. Examples: a later retest pass with a timestamp, isolation applied with the lift held out of service, an approved concession reference, or the check marked not applicable for this lift type.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S5"
+   ]
+  },
+  {
+   "name": "work_completion",
+   "description": "How far the logged work got: finished, part awaited, time ran out, or not started.",
+   "kind": "categorical",
+   "values": [
+    "complete",
+    "partial_parts_awaited",
+    "partial_time",
+    "not_started"
+   ],
+   "weights": [
+    0.5,
+    0.22,
+    0.18,
+    0.1
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S4"
+   ]
+  },
+  {
+   "name": "fault_origin",
+   "description": "The true main cause the visit addressed. It is exactly one per record, inferred from controller codes, failed checks and the components on the parts issued.",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "wear",
+    "safety_circuit",
+    "building_supply"
+   ],
+   "weights": [
+    0.3,
+    0.3,
+    0.22,
+    0.18
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S7",
+    "S6"
+   ]
+  },
+  {
+   "name": "prior_occurrences",
+   "description": "Times the same fault code appeared in the prior 90 days. Repeats suggest an unresolved root cause.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 4,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S6"
+   ]
+  },
+  {
+   "name": "boundary_reading",
+   "description": "A measured value sits exactly on its tolerance limit, such as levelling at 10 mm against a 10 mm limit. This leaves the pass or fail call open.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.25,
+   "skills": [
+    "S6",
+    "S5"
+   ]
+  },
+  {
+   "name": "documentation_gap",
+   "description": "A single missing piece of evidence: no customer sign-off, no parts section at all, or no test run recorded.",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "missing_signoff",
+    "missing_parts",
+    "missing_test_run"
+   ],
+   "weights": [
+    0.55,
+    0.15,
+    0.15,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S4",
+    "S1",
+    "S5"
+   ]
+  },
+  {
+   "name": "decoy_alarm",
+   "description": "An alarming-looking but benign field. Examples: a high count of nuisance door-obstruction codes, a thorough examination date that is old but still in date, or a long outage that matches a booked modernisation window.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.4,
+   "skills": [
+    "S3"
+   ]
+  }
+ ],
+ "sections": [
+  {
+   "name": "asset",
+   "description": "Lift id, site ref, drive type, rated load kg, floors served, last thorough examination date and next due date."
+  },
+  {
+   "name": "visit",
+   "description": "Visit id, lift id echoed, visit type, technician id, date, arrive and depart times, outage start and end, booked window ref."
+  },
+  {
+   "name": "checks",
+   "description": "List of check items with code, result pass/fail/na, reading, limit, unit, tested_at, and optional retest result and time."
+  },
+  {
+   "name": "parts",
+   "description": "List of parts fitted with part code, component, qty fitted, qty issued from van stock, and status fitted or on order."
+  },
+  {
+   "name": "faults",
+   "description": "Controller fault log entries with code, component, count since last visit, prior_90d count, cleared boolean."
+  },
+  {
+   "name": "handover",
+   "description": "Departure state: returned_to_service, isolation_applied, test_runs count, concession ref, signoff_present, followup_booked date."
+  }
+ ],
+ "rendering_notes": "Rendering by factor:\n- lift_type: shown in asset.drive. Some checks render as na; for example, the governor check is na on hydraulic lifts and is not a failure.\n- visit_type: shown in visit.type. post_entrapment visits should carry door and alarm checks.\n- mismatch_n, mismatch_location and mismatch_magnitude: rendered by altering one side of a corresponding pair. Pairs include asset.lift_id vs visit.lift_id, visit.depart vs visit.outage_end vs handover returned_to_service, parts.qty_fitted vs qty_issued, parts.component vs the checks or faults components, and checks.tested_at outside the arrive/depart span. Trivial mismatches still count toward mismatch_count. Mismatches are never labelled.\n- safety_check_fail: a checks item with result fail or a reading beyond its limit.\n- mitigation_present: a checks retest pass with a later timestamp, handover.isolation_applied true with returned_to_service false, a handover.concession_ref, or na justified by drive type. With the same failure and no mitigation, fit_for_service is false. A retest timestamp after visit.depart is itself a mismatch, and the mitigation does not count.\n- work_completion: parts status on_order, unchecked items with null results, or test_runs 0.\n- fault_origin: inferred only from fault codes, failed checks and part components. There is no cause field. Building_supply shows as power-loss or pit-water codes with clean device checks.\n- prior_occurrences: shown in faults.prior_90d.\n- boundary_reading: a reading equal to its limit.\n- documentation_gap: signoff_present false, a parts list absent (null) despite a wear fault, or test_runs null.\n- decoy_alarm: a high count on the door-obstruction code with cleared true, an old but in-date examination, or a long outage matching visit.booked_window.\n\nAnswer rules:\n- fit_for_service is true only when there are no unretested safety fails, test_runs is at least 1, returned_to_service is true and the lift id is consistent.\n- log_disposition: reject_revisit for unresolved safety or large mismatches; hold_query for exactly one gap or one unexplained moderate mismatch; accept_followup for safe logs with non-safety parts awaited; accept otherwise. Boundary readings and repeat codes create contested cases.\n\nNo field states a risk level, disposition, category or mismatch total; all are derived by comparison. No free-text fields.",
+ "skills": [
+  "S1",
+  "S3",
+  "S4",
+  "S5",
+  "S6",
+  "S7"
+ ],
+ "shared_scale": "action_due",
+ "design_cost": 0.131844
+}
