@@ -1,0 +1,327 @@
+{
+ "id": "F207",
+ "domain": "museum object loan condition reports",
+ "role": "Incoming loans conservator at the borrowing museum, reviewing each arrival condition report against the lender's outgoing report and transit record before an object goes on display",
+ "setting": "A borrowing museum receives loaned objects for temporary exhibitions. Each loan produces one record joining the lender's outgoing condition report, the crate logger and courier record, the borrower's arrival examination, any lender-approved variations and a 12-month issue log for the object. The conservator reviews one record at a time and decides whether new damage is real, whether transit breached the agreed environment, what to do with the object and how serious any change is.",
+ "questions": {
+  "new_damage": {
+   "type": "noul",
+   "instructions": "The arrival report records damage not documented by the lender beforehand.",
+   "criteria": {
+    "true": "At least one arrival defect absent from outgoing text and photos",
+    "false": "Every arrival defect is documented in outgoing text or photos"
+   }
+  },
+  "transit_breach": {
+   "type": "noul",
+   "instructions": "Crate logger data shows the agreed environmental limits were breached.",
+   "criteria": {
+    "true": "Readings outside limits longer than the agreed allowance",
+    "false": "No excursion, excursion within allowance, or data unusable"
+   }
+  },
+  "disposition": {
+   "type": "choice",
+   "instructions": "What should happen to the object after this arrival review?",
+   "criteria": {
+    "install": "Proceed to installation under the standard loan agreement terms",
+    "install_conditions": "Install only with added monitoring or handling restrictions agreed",
+    "hold_crated": "Keep off display until one missing check or confirmation arrives",
+    "return_lender": "Withdraw from exhibition and arrange return or lender-directed treatment"
+   }
+  },
+  "recurrence_count": {
+   "type": "score",
+   "instructions": "How often has this same issue been logged in 12 months?",
+   "criteria": [
+    "First occurrence; not logged in prior 12 months",
+    "Logged once before within the past 12 months",
+    "Logged two to four times in 12 months",
+    "Logged five or more times in 12 months"
+   ]
+  },
+  "change_severity": {
+   "type": "score",
+   "instructions": "How serious is the condition change since the outgoing report?",
+   "criteria": [
+    "No new or worsened defects recorded on arrival",
+    "New defects all cosmetic: dust, abrasion or bloom",
+    "Structural or loss defect, total area under 2 cm²",
+    "Structural or loss defect, total area 2 cm² or more"
+   ]
+  }
+ },
+ "factors": [
+  {
+   "name": "object_medium",
+   "description": "Material class of the loaned object; changes which defect types and RH limits are typical, so the same questions apply across very different objects",
+   "kind": "categorical",
+   "values": [
+    "panel_painting",
+    "canvas_painting",
+    "works_on_paper",
+    "ceramic",
+    "metalwork",
+    "textile",
+    "natural_history"
+   ],
+   "weights": [
+    0.15,
+    0.2,
+    0.15,
+    0.15,
+    0.12,
+    0.13,
+    0.1
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S7"
+   ]
+  },
+  {
+   "name": "new_defect_count",
+   "description": "Number of arrival defects with no matching outgoing defect id",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 4,
+   "p_true": 0,
+   "skills": [
+    "S4",
+    "S7"
+   ]
+  },
+  {
+   "name": "worst_new_defect_class",
+   "description": "Most serious class among unmatched arrival defects",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "cosmetic",
+    "structural_loss"
+   ],
+   "weights": [
+    0.3,
+    0.35,
+    0.35
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S4"
+   ]
+  },
+  {
+   "name": "loss_area_cm2",
+   "description": "Summed area of structural or loss defects on arrival; often sampled close to the 2 cm² boundary",
+   "kind": "number",
+   "values": [],
+   "weights": [],
+   "min": 0.1,
+   "max": 5,
+   "p_true": 0,
+   "skills": [
+    "S4",
+    "S6"
+   ]
+  },
+  {
+   "name": "defect_in_lender_photos",
+   "description": "Unmatched arrival defect is visible in the lender's outgoing photo set though the written report omitted it; benign explanation for apparent new damage",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S5"
+   ]
+  },
+  {
+   "name": "logger_outcome",
+   "description": "What the crate logger recorded relative to agreed limits",
+   "kind": "categorical",
+   "values": [
+    "within_limits",
+    "excursion_within_allowance",
+    "breach",
+    "data_gap"
+   ],
+   "weights": [
+    0.3,
+    0.25,
+    0.3,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S2",
+    "S5",
+    "S6"
+   ]
+  },
+  {
+   "name": "excursion_explained",
+   "description": "Logger mounted outside the inner case, or courier event log shows a brief customs door opening matching the excursion window; lowers concern about a breach reading",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S6"
+   ]
+  },
+  {
+   "name": "outgoing_report_status",
+   "description": "Whether the lender's outgoing report exists and was signed",
+   "kind": "categorical",
+   "values": [
+    "present_signed",
+    "present_unsigned",
+    "missing"
+   ],
+   "weights": [
+    0.65,
+    0.2,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S2",
+    "S5"
+   ]
+  },
+  {
+   "name": "courier_sequence",
+   "description": "Order of crate opening and courier sign-off; an out-of-order or absent courier weakens the chain of custody",
+   "kind": "categorical",
+   "values": [
+    "normal",
+    "opened_before_courier",
+    "courier_absent"
+   ],
+   "weights": [
+    0.65,
+    0.2,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S2"
+   ]
+  },
+  {
+   "name": "acclimatisation_hours",
+   "description": "Hours the crate rested before opening, compared with the agreement's required hours (usually 24); short rest means examination was premature",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 48,
+   "p_true": 0,
+   "skills": [
+    "S2",
+    "S4"
+   ]
+  },
+  {
+   "name": "lender_variation_approved",
+   "description": "Lender has approved a display variation (reduced lux, case mounting, extra monitoring) covering the observed condition; makes conditional installation available",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S4"
+   ]
+  },
+  {
+   "name": "signal_balance",
+   "description": "Whether the record's signals point clearly one way or sit in balance (e.g. breach plus explanation, area at 1.9 to 2.1 cm², unsigned report with matching photos)",
+   "kind": "categorical",
+   "values": [
+    "clear",
+    "balanced"
+   ],
+   "weights": [
+    0.7,
+    0.3
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S6"
+   ]
+  },
+  {
+   "name": "prior_issue_entries",
+   "description": "Number of entries in the 12-month issue log with the same issue code as the current worst change; feeds the shared recurrence scale",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 4,
+   "p_true": 0,
+   "skills": [
+    "S7"
+   ]
+  }
+ ],
+ "sections": [
+  {
+   "name": "loan",
+   "description": "Loan reference, object id, medium, lender code and agreed limits: rh_min, rh_max, temp_min_c, temp_max_c, max_excursion_min, acclim_hours_req"
+  },
+  {
+   "name": "outgoing_report",
+   "description": "Lender's pre-dispatch report: examined_at, signed_by_lender, defects list (id, class, location, area_cm2) and photo_set with defect_ids_visible; null if not received"
+  },
+  {
+   "name": "transit",
+   "description": "Courier and crate record: courier_present, crate_opened_at, courier_signoff_at, logger position, rh_min_obs, rh_max_obs, minutes_outside, gap_minutes, events list of codes"
+  },
+  {
+   "name": "arrival_report",
+   "description": "Borrower's examination: examined_at, rest_hours, defects list (id, class, location, area_cm2, matched_outgoing_id or null, photo_ref)"
+  },
+  {
+   "name": "approvals",
+   "description": "Lender-approved variations list: code, scope_location, approved_at; empty list if none"
+  },
+  {
+   "name": "issue_log",
+   "description": "12-month log of condition issues for this object: date, issue_code, loan_ref"
+  }
+ ],
+ "rendering_notes": "object_medium appears as loan.medium; RH and temperature limits in loan vary plausibly by medium. new_defect_count is never stated: it is the count of arrival_report.defects with matched_outgoing_id null. worst_new_defect_class and loss_area_cm2 appear as defect class codes (dust, abrasion, bloom = cosmetic; flake_loss, lifting, crack, tear, chip = structural/loss) and area_cm2 values the reader must sum. defect_in_lender_photos shows as an unmatched arrival defect at a location whose id or location appears in outgoing_report.photo_set.defect_ids_visible or a photo location tag, while the written defects list omits it. logger_outcome is shown only via rh_min_obs/rh_max_obs, minutes_outside and gap_minutes, to be compared with loan limits and max_excursion_min; data_gap means gap_minutes large and minutes_outside null. excursion_explained appears as transit.logger.position = 'crate_exterior' or an events entry such as 'CUSTOMS_OPEN' timed within the excursion window. outgoing_report_status: present_signed has signed_by_lender true; unsigned has false; missing sets outgoing_report to null, so all arrival defects have null matches but cannot prove new damage. courier_sequence shows via crate_opened_at earlier than courier_signoff_at's paired arrival or courier_present false with courier_signoff_at null. acclimatisation_hours appears as arrival_report.rest_hours, compared with loan.acclim_hours_req. lender_variation_approved appears as an approvals entry whose scope_location matches a defect location; decoy approvals with non-matching locations or approved_at after examined_at also occur. prior_issue_entries appear as issue_log rows with matching issue_code, mixed with decoy rows of other codes or older than 12 months. Decoys: cosmetic defects with large area_cm2 (dust spread) that do not raise severity, excursions on temperature only within limits, matched defects with slightly different area. No record contains fields like severity, verdict, breach_flag, new_damage or recommended_action; all answers must be derived by comparing sections.",
+ "skills": [
+  "S2",
+  "S3",
+  "S4",
+  "S5",
+  "S6",
+  "S7"
+ ],
+ "shared_scale": "recurrence_count",
+ "design_cost": 0.11826
+}

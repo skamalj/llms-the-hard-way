@@ -1,0 +1,318 @@
+{
+ "id": "F230",
+ "domain": "care home medication rounds",
+ "role": "Deputy care home manager (registered nurse) auditing one resident's completed medication round record the following morning",
+ "setting": "A residential and nursing care home keeps an electronic medication administration record. Each morning the deputy manager audits completed rounds one resident at a time. Each record joins the resident's details, current prescriptions and amendments, the doses signed during the round, item stock counts, round details with open queries and post-dose observations, and a short error history. The reviewer must decide whether the record closes cleanly, needs correcting, is held for confirmation, or triggers an incident report or clinical escalation.",
+ "questions": {
+  "dose_mismatch": {
+   "type": "noul",
+   "instructions": "A dose given this round differed from the prescription in force.",
+   "criteria": null
+  },
+  "stock_reconciles": {
+   "type": "noul",
+   "instructions": "Every item's closing stock reconciles with opening, receipts and signed doses.",
+   "criteria": {
+    "true": "Each closing count equals expected after recorded movements",
+    "false": "At least one closing count differs from expected"
+   }
+  },
+  "next_step": {
+   "type": "choice",
+   "instructions": "What should the reviewer do with this round record next?",
+   "criteria": {
+    "sign_off": "No discrepancies found; record is complete and can close.",
+    "correct_and_close": "Recording slip only; amend with annotation, then close record.",
+    "hold": "One open query must be answered before outcome is decided.",
+    "report_incident": "Confirmed error on an ordinary drug; file internal incident report.",
+    "clinical_escalation": "Confirmed error on time-critical or high-risk drug; seek GP advice."
+   }
+  },
+  "open_discrepancies": {
+   "type": "score",
+   "instructions": "How many items still have an unresolved discrepancy after review?",
+   "criteria": [
+    "No item has an unresolved discrepancy",
+    "Exactly one item has an unresolved discrepancy",
+    "Two or three items have unresolved discrepancies",
+    "Four or more items have unresolved discrepancies"
+   ]
+  },
+  "error_severity": {
+   "type": "score",
+   "instructions": "How severe is the worst error found in this round?",
+   "criteria": [
+    "None: every dose correct or validly withheld",
+    "Documentation: dose correct but signature or code missing",
+    "Timing: correct dose given over 60 minutes late",
+    "Dose: ordinary drug omitted, duplicated or wrong strength",
+    "Critical: time-critical drug omitted, duplicated or wrong strength"
+   ]
+  }
+ },
+ "factors": [
+  {
+   "name": "dose_mismatch_type",
+   "description": "Whether and how units_given in an administration entry departs from the prescribed dose_units for that item",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "wrong_quantity",
+    "wrong_strength",
+    "duplicate_entry"
+   ],
+   "weights": [
+    0.5,
+    0.2,
+    0.15,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S5",
+    "S7"
+   ]
+  },
+  {
+   "name": "prescription_change_documented",
+   "description": "Whether a dated amendment with an order reference makes the apparently mismatched dose correct for this round",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S5",
+    "S6"
+   ]
+  },
+  {
+   "name": "omission_count",
+   "description": "Number of scheduled doses with no administration entry or a not-given code",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 3,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S4",
+    "S7"
+   ]
+  },
+  {
+   "name": "omission_reason_valid",
+   "description": "Whether omissions carry a code backed elsewhere, such as resident status hospital or a withhold order",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S5"
+   ]
+  },
+  {
+   "name": "late_minutes",
+   "description": "Largest gap in minutes between scheduled and given_at time across the round",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 150,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S6"
+   ]
+  },
+  {
+   "name": "time_critical_affected",
+   "description": "Whether the item carrying the worst error is flagged time_critical or high_risk in prescriptions",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.35,
+   "skills": [
+    "S7",
+    "S6"
+   ]
+  },
+  {
+   "name": "stock_variance",
+   "description": "Closing count minus expected count for the most discrepant item; zero means reconciled",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": -3,
+   "max": 3,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S5"
+   ]
+  },
+  {
+   "name": "stock_variance_explained",
+   "description": "Whether a witnessed wasted or returned movement in stock accounts for the variance",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S6"
+   ]
+  },
+  {
+   "name": "signature_gaps",
+   "description": "Number of administration entries missing initials, or missing second initials for controlled drugs",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 2,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S4"
+   ]
+  },
+  {
+   "name": "unit_expression_decoy",
+   "description": "How a correct dose is expressed: same units as prescribed, or an equivalent split such as two 5 mg tablets for 10 mg",
+   "kind": "categorical",
+   "values": [
+    "matching_units",
+    "equivalent_split",
+    "none_present"
+   ],
+   "weights": [
+    0.45,
+    0.3,
+    0.25
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1"
+   ]
+  },
+  {
+   "name": "post_dose_obs_reassuring",
+   "description": "Whether a post-dose observation (blood glucose, pulse, INR due date) after the error lies within normal range",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S6"
+   ]
+  },
+  {
+   "name": "pending_query",
+   "description": "Open query on the round whose answer would change the outcome",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "stock_recount_due",
+    "gp_callback_awaited",
+    "pharmacy_query_open"
+   ],
+   "weights": [
+    0.55,
+    0.15,
+    0.15,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S4",
+    "S6"
+   ]
+  },
+  {
+   "name": "prior_errors_30d",
+   "description": "Count of medication incidents for this resident in the past 30 days; context only, never decisive",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 4,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S7"
+   ]
+  },
+  {
+   "name": "item_count",
+   "description": "Number of prescribed items on the round, setting how many places discrepancies can hide",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 3,
+   "max": 10,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S4"
+   ]
+  }
+ ],
+ "sections": [
+  {
+   "name": "resident",
+   "description": "Resident id, room, dob, weight_kg, allergies list, status and status_since date"
+  },
+  {
+   "name": "prescriptions",
+   "description": "List of items: item_id, drug, strength_mg, form, dose_units, times, prn, time_critical, high_risk, controlled, changes list"
+  },
+  {
+   "name": "administrations",
+   "description": "List of entries: item_id, scheduled, given_at, units_given, strength_mg_used, code, initials, second_initials"
+  },
+  {
+   "name": "stock",
+   "description": "Per item: opening, received, wasted, wasted_witnessed, returned, closing"
+  },
+  {
+   "name": "round",
+   "description": "Round_id, date, slot, started, finished, staff_on, open_queries list, post_dose_obs list"
+  },
+  {
+   "name": "history",
+   "description": "Errors_30d, refusals_7d, last_audit date, last_audit_passed boolean"
+  }
+ ],
+ "rendering_notes": "prescriptions holds item_count items; administrations has one entry per scheduled dose. dose_mismatch_type shows only as units_given or strength_mg_used differing from the matching prescription item, or a second entry for the same item_id and scheduled time; it is never labelled. prescription_change_documented appears as a changes entry {effective, new_dose_units, order_ref, authorised_by_role}; when false, either no change exists or the effective date falls after the round date or order_ref is null. omission_count shows as missing entries or code values R, H, W, N or O with units_given 0; omission_reason_valid is true only when the code is supported elsewhere (H with resident.status hospital and status_since before the round; W with a changes entry carrying a withhold order_ref); a code alone does not count. late_minutes is derived from scheduled versus given_at; place values near 60 regularly to create boundary cases. time_critical_affected is the time_critical or high_risk flag on the erroneous item. stock_variance shows as closing differing from opening + received - wasted - returned - doses signed; stock_variance_explained true adds a wasted or returned amount equal to the gap with wasted_witnessed true; a wasted amount with wasted_witnessed false is a contested case. signature_gaps shows as null initials, or null second_initials on a controlled item. unit_expression_decoy: equivalent_split records units_given 2 with strength_mg_used 5 against a 10 mg prescription, which is correct and not a mismatch. post_dose_obs_reassuring appears in round.post_dose_obs as a numeric value within or outside normal range for its type, with no range label. pending_query appears in round.open_queries with type, raised timestamp and item_id; none means an empty list. prior_errors_30d, refusals_7d and last_audit_passed are decoys giving context and never decide an answer. Decoys also include allergies (never matching a prescribed drug), weight_kg and staff_on. No field states an error, severity, discrepancy, reconciliation result or recommended action; records contain no free-text fields, only codes, numbers, ISO timestamps, booleans and nulls.",
+ "skills": [
+  "S1",
+  "S3",
+  "S4",
+  "S5",
+  "S6",
+  "S7"
+ ],
+ "shared_scale": null,
+ "design_cost": 0.149216
+}

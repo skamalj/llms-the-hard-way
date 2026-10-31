@@ -1,0 +1,357 @@
+{
+ "id": "F228",
+ "domain": "shipping container weight verification at a port",
+ "role": "VGM verification officer at a container terminal's export gate and yard planning desk",
+ "setting": "A container terminal checks each export container's shipper-declared verified gross mass (VGM) before it is released to vessel stowage. The officer reviews one container record at a time. Each record holds the shipper's declaration, the container's equipment data, the shipper's cargo lines, the terminal's own weighbridge reading, the voyage and stowage plan, and the shipper's history. The officer derives the terminal gross mass and compares it with the declaration. They decide whether the declaration is understated, what happens to the container, which source explains any gap, how large the gap is, and how much time pressure applies before loading.",
+ "questions": {
+  "vgm_understated": {
+   "type": "noul",
+   "instructions": "Latest declared VGM understates valid terminal-derived mass beyond permitted tolerance.",
+   "criteria": {
+    "true": "Valid terminal mass exceeds latest declared VGM beyond tolerance.",
+    "false": "Within tolerance, overstated, or terminal reading not valid."
+   }
+  },
+  "disposition": {
+   "type": "choice",
+   "instructions": "What should happen to this container before vessel loading?",
+   "criteria": {
+    "release": "Latest declared VGM accepted; container proceeds to stowage unchanged.",
+    "amend_and_load": "Valid terminal mass replaces declared VGM; container loads this voyage.",
+    "hold_reweigh": "Container held in yard awaiting reweigh, recalibration or missing documents.",
+    "shut_out": "Container removed from this sailing; mass unacceptable or cutoff missed."
+   }
+  },
+  "gap_source": {
+   "type": "choice",
+   "instructions": "Which single source mainly explains any weight gap found?",
+   "criteria": {
+    "no_material_gap": "Gap under 2%, so no source needs attributing.",
+    "tare_error": "Declared container tare differs from the CSC plate tare.",
+    "cargo_error": "Declared cargo mass disagrees with the summed cargo lines.",
+    "weighing_error": "Terminal reading unreliable: lapsed calibration or wrong chassis tare."
+   }
+  },
+  "gap_magnitude": {
+   "type": "score",
+   "instructions": "How large is the gap between declared and terminal mass?",
+   "criteria": [
+    "Absolute gap under 2% of declared VGM",
+    "Absolute gap 2% to under 5% of declared VGM",
+    "Absolute gap 5% to under 10% of declared VGM",
+    "Absolute gap 10% or more of declared VGM"
+   ]
+  },
+  "time_pressure": {
+   "type": "score",
+   "instructions": "How much time pressure applies before this container's planned loading?",
+   "criteria": [
+    "Relaxed: planned loading more than 48 hours away",
+    "Planned: planned loading 12 to 48 hours away",
+    "Pressing: planned loading 2 to under 12 hours away",
+    "Critical: under 2 hours, or loading already started"
+   ]
+  }
+ },
+ "factors": [
+  {
+   "name": "gap_band",
+   "description": "Size of the absolute gap between terminal-derived gross mass and the original declared VGM. Some draws land within 0.2 percentage points of the 2%, 5% or 10% anchors.",
+   "kind": "categorical",
+   "values": [
+    "under_1pct",
+    "1_to_2pct",
+    "near_anchor",
+    "2_to_5pct",
+    "5_to_10pct",
+    "10pct_plus"
+   ],
+   "weights": [
+    0.22,
+    0.13,
+    0.15,
+    0.22,
+    0.17,
+    0.11
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S4",
+    "S6"
+   ]
+  },
+  {
+   "name": "gap_direction",
+   "description": "Whether terminal mass exceeds the declaration (understated) or falls below it (overstated).",
+   "kind": "categorical",
+   "values": [
+    "understated",
+    "overstated"
+   ],
+   "weights": [
+    0.65,
+    0.35
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S5"
+   ]
+  },
+  {
+   "name": "gap_source",
+   "description": "Which section the material gap traces to: declared tare against the plate, declared cargo against the cargo lines, or a terminal weighing fault.",
+   "kind": "categorical",
+   "values": [
+    "tare",
+    "cargo",
+    "weighing"
+   ],
+   "weights": [
+    0.33,
+    0.42,
+    0.25
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S7"
+   ]
+  },
+  {
+   "name": "decoy_mismatch",
+   "description": "Trivial cross-section inconsistency that does not explain the gap.",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "package_count_off_by_one",
+    "tare_diff_under_40kg",
+    "timestamp_offset_differs",
+    "seal_suffix_differs"
+   ],
+   "weights": [
+    0.3,
+    0.2,
+    0.2,
+    0.15,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1"
+   ]
+  },
+  {
+   "name": "scale_calibration_valid",
+   "description": "Whether the weighbridge calibration certificate was in date at the reading time. A lapsed certificate invalidates the terminal reading.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.78,
+   "skills": [
+    "S3",
+    "S5",
+    "S4"
+   ]
+  },
+  {
+   "name": "amended_vgm_on_file",
+   "description": "Mitigation: the shipper filed a corrected VGM before cutoff that matches terminal mass within tolerance.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S5"
+   ]
+  },
+  {
+   "name": "shipper_trusted",
+   "description": "Mitigation: the shipper is an authorised Method 2 weigher with a clean audit in the last 12 months.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S6"
+   ]
+  },
+  {
+   "name": "prior_discrepancies",
+   "description": "Count of VGM discrepancies logged against this shipper in the past 12 months.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 6,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S7"
+   ]
+  },
+  {
+   "name": "hours_to_loading",
+   "description": "Hours from the review timestamp to the planned loading start. Some draws sit exactly on the 2, 12 or 48 hour anchors, and some are negative (loading already started).",
+   "kind": "number",
+   "values": [],
+   "weights": [],
+   "min": -3,
+   "max": 96,
+   "p_true": 0,
+   "skills": [
+    "S7",
+    "S6"
+   ]
+  },
+  {
+   "name": "reweigh_status",
+   "description": "State of any second weighing.",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "requested_not_done",
+    "done_matches_terminal",
+    "done_matches_declared"
+   ],
+   "weights": [
+    0.45,
+    0.2,
+    0.2,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S4",
+    "S3"
+   ]
+  },
+  {
+   "name": "stow_position",
+   "description": "Planned stowage location; high deck tiers make an understated mass more consequential.",
+   "kind": "categorical",
+   "values": [
+    "below_deck",
+    "deck_low_tier",
+    "deck_high_tier"
+   ],
+   "weights": [
+    0.45,
+    0.3,
+    0.25
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S7",
+    "S6"
+   ]
+  },
+  {
+   "name": "exceeds_csc_max",
+   "description": "Whether terminal-derived mass exceeds the CSC plate maximum gross mass.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.1,
+   "skills": [
+    "S1",
+    "S7"
+   ]
+  },
+  {
+   "name": "cargo_lines_missing",
+   "description": "Whether the cargo_lines section is absent or null, preventing a cargo-side cross-check.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.12,
+   "skills": [
+    "S4",
+    "S6"
+   ]
+  },
+  {
+   "name": "tolerance_pct",
+   "description": "Terminal policy tolerance applied to VGM gaps for this service.",
+   "kind": "categorical",
+   "values": [
+    "3",
+    "5"
+   ],
+   "weights": [
+    0.5,
+    0.5
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S5",
+    "S6"
+   ]
+  }
+ ],
+ "sections": [
+  {
+   "name": "booking_declaration",
+   "description": "Shipper VGM submission: booking_ref, container_no, vgm_kg, declared_tare_kg, declared_cargo_kg, method, signatory_id, submitted_at, and an amendments list of {vgm_kg, submitted_at}."
+  },
+  {
+   "name": "equipment",
+   "description": "Container data: container_no, iso_type, csc_plate_tare_kg, csc_max_gross_kg, seal_no."
+  },
+  {
+   "name": "cargo_lines",
+   "description": "Shipper cargo list of {hs_code, packages, package_type, gross_kg}; may be null."
+  },
+  {
+   "name": "terminal_weighing",
+   "description": "Gate weighbridge data: scale_id, read_at, gross_reading_kg, tractor_tare_kg, chassis_tare_kg, chassis_registry_tare_kg, calibration_valid_to, plus a reweigh object {status, gross_reading_kg, read_at}."
+  },
+  {
+   "name": "voyage_plan",
+   "description": "Vessel and stowage: vessel_code, voyage_no, vgm_cutoff_at, loading_start_at, review_at, stow_bay_row_tier, deck_or_hold, tolerance_pct."
+  },
+  {
+   "name": "shipper_profile",
+   "description": "Shipper standing: shipper_id, method2_authorised, last_audit_on, last_audit_result, discrepancies_12m."
+  }
+ ],
+ "rendering_notes": "No field states the gap, its percentage, the source, a risk level or a recommended action. The reader must derive terminal mass as gross_reading_kg minus tractor_tare_kg minus chassis_tare_kg, or use reweigh.gross_reading_kg when a completed reweigh exists. Gap and gap_magnitude are measured against the original vgm_kg in booking_declaration. vgm_understated is judged against the latest amendment if one exists, otherwise against vgm_kg. The gap_band and gap_direction factors set the difference between derived terminal mass and vgm_kg. The gap_source factor places the cause. For tare, declared_tare_kg differs from csc_plate_tare_kg by roughly the gap. For cargo, declared_cargo_kg differs from the sum of cargo_lines gross_kg, while that sum plus plate tare matches terminal mass. For weighing, either calibration_valid_to precedes read_at or chassis_tare_kg differs from chassis_registry_tare_kg, so declared figures reconcile with cargo lines and plate. When the gap is under 2% the source is not material and gap_source is no_material_gap. The decoy_mismatch factor adds a trivial inconsistency elsewhere: packages off by one with unchanged weight, a sub-40 kg tare difference, a different timezone offset on timestamps, or a seal suffix differing between equipment and declaration. When scale_calibration_valid is false, calibration_valid_to is set before read_at; the terminal reading is then invalid, so vgm_understated is false unless a completed reweigh exists. When amended_vgm_on_file is true, the amendments list holds an entry before vgm_cutoff_at matching terminal mass within tolerance_pct. The shipper_trusted factor shows as method2_authorised true with a last_audit_on within 12 months and a pass result. prior_discrepancies appears as discrepancies_12m. hours_to_loading is the difference between loading_start_at and review_at; it is never given as a number. reweigh_status fills the reweigh object, with status requested and null readings for requested_not_done. stow_position is encoded in stow_bay_row_tier and deck_or_hold. When exceeds_csc_max is true, derived terminal mass is above csc_max_gross_kg, which should drive shut_out. When cargo_lines_missing is true, cargo_lines is null. tolerance_pct sits in voyage_plan. Mitigating fields appear with and without alarming gaps about equally. Disposition guide: release when the gap is within tolerance or a matching amendment is on file. Use amend_and_load for a valid reading beyond tolerance, within plate maximum, with time remaining. Use hold_reweigh for an invalid calibration, a requested reweigh not yet done, or missing cargo lines with a gap beyond tolerance. Use shut_out when plate maximum is exceeded, or when loading has started with a large unresolved gap. Boundary gaps, trusted shippers with a moderate gap on a high deck tier, and readings exactly at tolerance are deliberately contestable.",
+ "skills": [
+  "S1",
+  "S3",
+  "S4",
+  "S5",
+  "S6",
+  "S7"
+ ],
+ "shared_scale": null,
+ "design_cost": 0.174608
+}

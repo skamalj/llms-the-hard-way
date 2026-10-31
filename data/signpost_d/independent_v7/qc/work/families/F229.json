@@ -1,0 +1,331 @@
+{
+ "id": "F229",
+ "domain": "vineyard harvest and pressing logs",
+ "role": "Press-house lot reviewer at a winery, checking each pressing lot log before its juice is released from settling to fermentation",
+ "setting": "During vintage, each fruit delivery is weighed, sampled, pressed and pumped to a settling tank. The reviewer works through one lot log at a time and compares the vineyard pick record, weighbridge ticket, intake sample, press cycle and tank transfer. Problems include weights that do not reconcile, juice yields that do not fit the press programme, identifiers that change between stages, missing steps, out-of-order timestamps and long gaps between picking and pressing. Operator notes may explain a discrepancy or contradict the logged data.",
+ "questions": {
+  "yield_consistent": {
+   "type": "noul",
+   "instructions": "Juice yield reconciles with the net fruit weight recorded at intake.",
+   "criteria": {
+    "true": "Litres per tonne fall inside the programme's stated band",
+    "false": "Yield outside band, or net weight fails to reconcile"
+   }
+  },
+  "chain_intact": {
+   "type": "noul",
+   "instructions": "Lot and block identifiers carry through unchanged from intake to tank.",
+   "criteria": null
+  },
+  "release_decision": {
+   "type": "choice",
+   "instructions": "What should happen next to this lot's pressed juice?",
+   "criteria": {
+    "release": "No discrepancies found; juice moves to its logged tank.",
+    "release_corrected": "Only clerical mismatches; fix record, juice moves on regardless.",
+    "hold": "One confirmation outstanding, no fault confirmed; juice stays settling.",
+    "segregate": "Fruit or process fault found; isolate juice from intended blend."
+   }
+  },
+  "pick_press_delay": {
+   "type": "score",
+   "instructions": "How long did fruit wait between end of picking and pressing?",
+   "criteria": [
+    "Prompt: press started under 4 hours after picking ended",
+    "Standard: 4 to under 8 hours after picking ended",
+    "Delayed: 8 to under 16 hours after picking ended",
+    "Overnight: 16 hours or more after picking ended"
+   ]
+  },
+  "failed_checks": {
+   "type": "score",
+   "instructions": "How many of the standard checks on this record failed?",
+   "criteria": [
+    "No standard checks failed",
+    "Exactly one standard check failed",
+    "Two or three standard checks failed",
+    "Four or more standard checks failed"
+   ]
+  }
+ },
+ "factors": [
+  {
+   "name": "weight_mismatch",
+   "description": "Discrepancy between weighbridge gross minus tare and the recorded net_kg, or between the bin count and the summed bin weights",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "trivial_under_1pct",
+    "moderate_1_to_5pct",
+    "large_over_5pct"
+   ],
+   "weights": [
+    0.45,
+    0.2,
+    0.2,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S5"
+   ]
+  },
+  {
+   "name": "press_programme",
+   "description": "Press programme used, which sets the expected litres-per-tonne band shown in the press section",
+   "kind": "categorical",
+   "values": [
+    "whole_bunch_gentle",
+    "destemmed_standard",
+    "red_drained_pomace"
+   ],
+   "weights": [
+    0.35,
+    0.45,
+    0.2
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S7",
+    "S1"
+   ]
+  },
+  {
+   "name": "yield_position",
+   "description": "Where the actual juice litres per tonne of net fruit sit relative to the programme band",
+   "kind": "categorical",
+   "values": [
+    "inside_band",
+    "just_on_edge",
+    "below_band",
+    "above_band"
+   ],
+   "weights": [
+    0.5,
+    0.15,
+    0.17,
+    0.18
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S5",
+    "S6"
+   ]
+  },
+  {
+   "name": "lot_id_drift",
+   "description": "Whether the lot or block identifier changes between the pick record, weighbridge ticket, press log and tank transfer",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "transposed_digit_in_tank_log",
+    "block_code_differs_at_intake",
+    "different_lot_on_transfer"
+   ],
+   "weights": [
+    0.6,
+    0.15,
+    0.13,
+    0.12
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S5"
+   ]
+  },
+  {
+   "name": "missing_step",
+   "description": "A required step or section is absent or null, such as the intake sample, the SO2 addition, the press cycle end or the QA sign-off",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "sample_null",
+    "so2_addition_missing",
+    "press_end_null",
+    "qa_signoff_missing"
+   ],
+   "weights": [
+    0.5,
+    0.12,
+    0.13,
+    0.1,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S2",
+    "S4"
+   ]
+  },
+  {
+   "name": "out_of_order_timestamp",
+   "description": "A timestamp sequence is impossible, for example a sample taken after the press started or a press start before weighbridge arrival",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.14,
+   "skills": [
+    "S2",
+    "S1"
+   ]
+  },
+  {
+   "name": "pick_to_press_hours",
+   "description": "True hours from end of picking to press cycle start, derived from the pick record and the press log",
+   "kind": "number",
+   "values": [],
+   "weights": [],
+   "min": 1,
+   "max": 30,
+   "p_true": 0,
+   "skills": [
+    "S7",
+    "S1",
+    "S6"
+   ]
+  },
+  {
+   "name": "pick_end_recorded",
+   "description": "Whether the pick record carries a pick_end time; if absent, only the weighbridge arrival bounds the delay",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.8,
+   "skills": [
+    "S2",
+    "S6"
+   ]
+  },
+  {
+   "name": "cold_held",
+   "description": "Mitigation: fruit was held in the cold room before pressing, shown by low intake temperature and a cold-room entry",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S4",
+    "S6"
+   ]
+  },
+  {
+   "name": "rot_pct",
+   "description": "Bunch rot percentage in the intake sample",
+   "kind": "number",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 15,
+   "p_true": 0,
+   "skills": [
+    "S7",
+    "S4"
+   ]
+  },
+  {
+   "name": "sorting_applied",
+   "description": "Mitigation: fruit passed over the sorting table, with a post-sort rot figure and rejected-kg logged",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S4",
+    "S5",
+    "S6"
+   ]
+  },
+  {
+   "name": "note_signal",
+   "description": "What the free-text notes contribute: nothing relevant, a benign decoy, a claim that contradicts logged data, or an explanation that resolves a mismatch",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "benign_decoy",
+    "contradicts_log",
+    "explains_mismatch"
+   ],
+   "weights": [
+    0.35,
+    0.25,
+    0.2,
+    0.2
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S5",
+    "S6"
+   ]
+  },
+  {
+   "name": "boundary_case",
+   "description": "Places one key value exactly on a threshold, such as a delay of exactly 8.0 hours or a yield at the band limit",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.2,
+   "skills": [
+    "S6"
+   ]
+  }
+ ],
+ "sections": [
+  {
+   "name": "lot",
+   "description": "Lot id, vineyard block code, variety, crew, pick_date, pick_start, pick_end (nullable)"
+  },
+  {
+   "name": "intake",
+   "description": "Weighbridge ticket: ticket_no, block_code, arrival_at, gross_kg, tare_kg, net_kg, bins list, temp_c, cold_room_in/out, driver_note"
+  },
+  {
+   "name": "sample",
+   "description": "Intake sample: sampled_at, brix, ph, ta_g_l, rot_pct, mog_pct, sort block (sorted, rejected_kg, post_sort_rot_pct); may be null"
+  },
+  {
+   "name": "press",
+   "description": "Press cycle: press_id, programme, band_l_per_t, cycle_start, cycle_end, free_run_l, press_fraction_l, juice_l, so2_mg_l, operator_note"
+  },
+  {
+   "name": "transfer",
+   "description": "Tank transfer: lot_ref, tank_id, transferred_l, transferred_at, qa_signoff (initials/time or null), qa_comment"
+  }
+ ],
+ "rendering_notes": "weight_mismatch appears only as raw numbers: gross_kg, tare_kg, net_kg and per-bin kg in intake.bins; the reader must do the arithmetic. press_programme sets press.programme and press.band_l_per_t (for example '600-680'); yield_position is reflected through juice_l against net_kg and is never stated as a ratio. transferred_l may differ slightly from juice_l as a decoy within normal lees loss. lot_id_drift alters lot.lot_id, intake.block_code, transfer.lot_ref or the tank log id at one stage only. missing_step renders as a null section (sample: null), a null field (cycle_end, so2_mg_l, qa_signoff) or an omitted key. out_of_order_timestamp shifts sampled_at, cycle_start or arrival_at so the sequence is impossible. pick_to_press_hours comes from lot.pick_end and press.cycle_start; when pick_end_recorded is false, pick_end is null and only intake.arrival_at gives a lower bound, which may leave the delay level contested. cold_held renders as intake.temp_c of 4-8 with cold_room_in and cold_room_out times, otherwise temp_c of 16-30 and null cold-room fields. rot_pct goes in sample.rot_pct; sorting_applied fills sample.sort with rejected_kg and post_sort_rot_pct, which net_kg may or may not already reflect. Free text (driver_note, operator_note, qa_comment) is one sentence each. A contradicting note claims something the log disproves, such as 'sorted on table' with a null sort block, or names another tank. An explaining note accounts for a mismatch, such as 'bin 7 reweighed, ticket amended'. Benign decoys mention weather, a crew change or minor press noise. No record contains a delay figure, a yield ratio, a release status, a risk rating or a pass/fail field; the reviewer must derive every answer from the compared values.",
+ "skills": [
+  "S1",
+  "S2",
+  "S4",
+  "S5",
+  "S6",
+  "S7"
+ ],
+ "shared_scale": "failed_checks",
+ "design_cost": 0.135072
+}

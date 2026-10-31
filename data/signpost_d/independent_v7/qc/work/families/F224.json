@@ -1,0 +1,333 @@
+{
+ "id": "F224",
+ "domain": "dental radiograph quality audits",
+ "role": "Dental radiography clinical audit reviewer, working through individual exposure episodes for a multi-surgery dental group's radiation protection audit",
+ "setting": "Each record is one radiographic episode from a dental surgery: the referral and justification entries, the logged exposures, the image quality grading, the X-ray unit's QA status and console log, and the operator's audit history. The reviewer reconciles these sections, weighs documented exceptions and equipment context, and decides justification, retake cause, follow-up, dose position and unjustified exposure count. There are no free-text fields; all evidence is in coded values, numbers, dates and flags.",
+ "questions": {
+  "justified": {
+   "type": "noul",
+   "instructions": "The exposure was clinically justified by the recorded referral details.",
+   "criteria": {
+    "true": "Indication code and recall interval support the requested view",
+    "false": "Indication missing, mismatched to view, or interval too short"
+   }
+  },
+  "operator_retake": {
+   "type": "noul",
+   "instructions": "The retake was caused by operator technique, not equipment or patient.",
+   "criteria": {
+    "true": "Fault codes and equipment checks point to operator technique",
+    "false": "No retake, or equipment, patient or unclear cause"
+   }
+  },
+  "follow_up": {
+   "type": "choice",
+   "instructions": "What follow-up should the auditor assign to this exposure record?",
+   "criteria": {
+    "close_record": "No discrepancies, or all fully explained; audit closes without action.",
+    "log_trend": "Trivial unexplained discrepancy; recorded for trend review, no contact.",
+    "hold_confirm": "One missing confirmation or sign-off must arrive before closing.",
+    "operator_feedback": "Confirmed technique or justification error; operator receives targeted feedback.",
+    "escalate_rpa": "Unmitigated dose, equipment or repeated exposure breach referred to adviser."
+   }
+  },
+  "dose_position": {
+   "type": "score",
+   "instructions": "Where does the verified patient dose sit against the reference level?",
+   "criteria": [
+    "Low: verified dose below 75% of reference level",
+    "Typical: verified dose from 75% to 100%",
+    "Raised: verified dose above 100%, up to 150%",
+    "Excessive: verified dose above 150% of reference level"
+   ]
+  },
+  "unjustified_count": {
+   "type": "score",
+   "instructions": "How many logged exposures lack a matching justified request?",
+   "criteria": [
+    "Every logged exposure matches a justified request",
+    "Exactly one logged exposure lacks a justified request",
+    "Exactly two logged exposures lack justified requests",
+    "Three or more logged exposures lack justified requests"
+   ]
+  }
+ },
+ "factors": [
+  {
+   "name": "indication_match",
+   "description": "How well the referral indication code fits the requested view type (e.g. caries screening code against a bitewing versus a periapical for an unrelated tooth).",
+   "kind": "categorical",
+   "values": [
+    "match",
+    "partial_match",
+    "mismatch",
+    "missing"
+   ],
+   "weights": [
+    0.45,
+    0.2,
+    0.2,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S5",
+    "S6"
+   ]
+  },
+  {
+   "name": "recall_interval_months",
+   "description": "Months since the previous radiograph of the same view and region, compared with the minimum interval implied by the recorded caries risk category.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 1,
+   "max": 36,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S5",
+    "S6"
+   ]
+  },
+  {
+   "name": "dose_ratio_to_drl",
+   "description": "True ratio of patient dose to the diagnostic reference level for the view; values near 0.75, 1.0 and 1.5 sit on scale boundaries.",
+   "kind": "number",
+   "values": [],
+   "weights": [],
+   "min": 0.4,
+   "max": 2.0,
+   "p_true": 0,
+   "skills": [
+    "S6",
+    "S7"
+   ]
+  },
+  {
+   "name": "console_log_discrepancy",
+   "description": "Disagreement between the exposure list and the unit's console log: none, small time-stamp drift, mismatched kV or exposure time (shifting verified dose), or an extra exposure in the console log absent from the exposure list.",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "timestamp_drift",
+    "setting_mismatch",
+    "extra_console_exposure"
+   ],
+   "weights": [
+    0.4,
+    0.2,
+    0.22,
+    0.18
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S6"
+   ]
+  },
+  {
+   "name": "retake_cause",
+   "description": "Underlying cause of any repeat exposure, signalled indirectly by image fault codes, sensor error entries and patient flags.",
+   "kind": "categorical",
+   "values": [
+    "no_retake",
+    "positioning",
+    "cone_cut",
+    "patient_movement",
+    "sensor_fault",
+    "exposure_setting"
+   ],
+   "weights": [
+    0.35,
+    0.15,
+    0.12,
+    0.14,
+    0.12,
+    0.12
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S5",
+    "S6"
+   ]
+  },
+  {
+   "name": "equipment_qa_status",
+   "description": "State of the X-ray unit's periodic QA at exposure date: in date, overdue, failed last output test, or operating under a logged service visit.",
+   "kind": "categorical",
+   "values": [
+    "in_date",
+    "overdue",
+    "failed_last_test",
+    "under_service"
+   ],
+   "weights": [
+    0.55,
+    0.18,
+    0.12,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S7"
+   ]
+  },
+  {
+   "name": "approved_exception",
+   "description": "A documented clinical override (e.g. prescriber-approved shorter recall for symptomatic patient or higher-dose setting for large patient) exists, mitigating interval or dose concerns.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S6"
+   ]
+  },
+  {
+   "name": "patient_cooperation_flag",
+   "description": "Patient record flags limited cooperation, gag reflex or special care need, offering a benign explanation for movement or positioning faults.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S5"
+   ]
+  },
+  {
+   "name": "unrequested_exposure_count",
+   "description": "Number of logged exposures that do not correspond to any requested view before mitigation by verbal authorisation.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 3,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S7"
+   ]
+  },
+  {
+   "name": "verbal_authorisation_logged",
+   "description": "A timestamped prescriber authorisation entry covers additional exposures, turning otherwise unrequested exposures into justified ones when its time and view match.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.48,
+   "skills": [
+    "S3",
+    "S1"
+   ]
+  },
+  {
+   "name": "image_grade",
+   "description": "Recorded diagnostic quality grade of the final image after any retake.",
+   "kind": "categorical",
+   "values": [
+    "diagnostic",
+    "acceptable_minor_faults",
+    "non_diagnostic"
+   ],
+   "weights": [
+    0.55,
+    0.3,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S4",
+    "S7"
+   ]
+  },
+  {
+   "name": "audit_completeness",
+   "description": "Whether all audit inputs are present: complete, image grading pending second reviewer, or operator sign-off missing.",
+   "kind": "categorical",
+   "values": [
+    "complete",
+    "grading_pending",
+    "operator_signoff_missing"
+   ],
+   "weights": [
+    0.6,
+    0.2,
+    0.2
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S4"
+   ]
+  },
+  {
+   "name": "operator_prior_findings",
+   "description": "Count of prior confirmed audit findings for the operator in the last 12 months, raising weight of a new technique error.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 5,
+   "p_true": 0,
+   "skills": [
+    "S6",
+    "S7"
+   ]
+  }
+ ],
+ "sections": [
+  {
+   "name": "request",
+   "description": "Referral: requested views, indication code, caries risk category, prescriber id, request date, prior same-view date, exception and verbal authorisation entries."
+  },
+  {
+   "name": "exposures",
+   "description": "List of logged exposures with view, region, kV, mA, exposure time, recorded dose estimate, timestamp and retake_of reference."
+  },
+  {
+   "name": "image_review",
+   "description": "Final image grade, fault codes per image, second grader status, sensor error codes."
+  },
+  {
+   "name": "equipment",
+   "description": "Unit id, last QA date, QA interval, last output test result, service log entries, view reference levels, console log entries."
+  },
+  {
+   "name": "operator",
+   "description": "Operator id, role, sign-off timestamp or null, prior findings count, last training date."
+  }
+ ],
+ "rendering_notes": "indication_match: request.indication_code against request.views_requested; never labelled as matching. recall_interval_months: derived from request.prior_same_view_date versus request.request_date, compared with request.caries_risk (high allows 6 months, moderate 12, low 24). dose_ratio_to_drl: exposures[].dose_est_mGy against equipment.drl_ref[view]; the auditor must compute the ratio, and where console_log_discrepancy is setting_mismatch the console kV/exposure_s imply a different verified dose than the exposure list, so equipment.console_log values govern. console_log_discrepancy: equipment.console_log[] entries compared with exposures[] by timestamp, kV and time; timestamp_drift is under 2 minutes and benign; extra_console_exposure adds an entry with no exposure-list counterpart, which also counts as unjustified. retake_cause: exposures[].retake_of set non-null, with image_review.fault_codes (e.g. FC_APEX_CLIPPED, FC_CONE_CUT, FC_BLUR, FC_OVER_DENSE) and image_review.sensor_errors; sensor_fault shows a sensor error code at the retake timestamp; patient_movement shows FC_BLUR, ambiguous when patient_cooperation_flag is absent. equipment_qa_status: equipment.last_qa_date plus qa_interval_months versus exposure date, equipment.last_output_test (pass/fail), equipment.service_log with open visit window. approved_exception: request.exceptions[] entry with code and approver id, or empty list. patient_cooperation_flag: request.patient_flags list (e.g. GAG_REFLEX, SPECIAL_CARE). unrequested_exposure_count: exposures whose view/region is absent from request.views_requested; verbal_authorisation_logged appears as request.verbal_auth[] with time and view, and only covers exposures with matching view and later timestamp, so sometimes it covers some but not all. image_grade: image_review.final_grade (1/2/3 coded). audit_completeness: image_review.second_grader_status 'pending' or operator.signoff_at null. operator_prior_findings: operator.prior_findings_12m. Decoys: equipment.unit_serial, room id, sensor size, patient age band, operator.last_training_date (usually unrelated), and timestamp_drift entries that look like discrepancies but are harmless. No field may state justification, retake cause attribution, dose percentage, unjustified count or recommended action; no summary, risk or outcome fields. Mismatches are never flagged by the record itself.",
+ "skills": [
+  "S1",
+  "S3",
+  "S4",
+  "S5",
+  "S6",
+  "S7"
+ ],
+ "shared_scale": null,
+ "design_cost": 0.143472
+}

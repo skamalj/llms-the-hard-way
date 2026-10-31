@@ -1,0 +1,397 @@
+{
+ "id": "F208",
+ "domain": "university thesis submission checks",
+ "role": "Doctoral examinations officer in a university graduate school, checking each final thesis deposit before it is released to examiners",
+ "setting": "A research-degrees office at an invented university. Doctoral candidates deposit a final thesis through an online portal. For each deposit, the officer reconciles the deposit against registration records, automated document checks, approvals and free-text notes. The officer then decides whether the thesis goes to examiners, is held, is returned or is referred onwards, and how urgent the processing is.",
+ "questions": {
+  "ethics_covered": {
+   "type": "noul",
+   "instructions": "Ethics approval covered every reported human-participant data collection date.",
+   "criteria": {
+    "true": "Approval, including amendments, spans all collection dates, or no participants",
+    "false": "Collection falls outside approval, or required approval not found"
+   }
+  },
+  "overlap_explained": {
+   "type": "noul",
+   "instructions": "Similarity overlap is explained by the candidate's own listed prior publications.",
+   "criteria": {
+    "true": "Matched sources are the candidate's declared publications",
+    "false": "Matched sources unlisted or third-party, or explanation merely asserted"
+   }
+  },
+  "next_step": {
+   "type": "choice",
+   "instructions": "What should the officer do with this deposit next?",
+   "criteria": {
+    "accept_for_exam": "No failed requirements; forward thesis to nominated examiners now",
+    "forward_conditional": "Only cosmetic format defects; forward, with corrections due before viva",
+    "hold_query": "One confirmation outstanding, such as pending extension or sign-off",
+    "return_student": "Substantive requirement failed; candidate must revise and redeposit",
+    "refer_panel": "Unexplained similarity or ethics breach; refer to integrity panel"
+   }
+  },
+  "failed_reqs": {
+   "type": "score",
+   "instructions": "How many formal submission requirements does the deposit currently fail?",
+   "criteria": [
+    "None: every listed formal requirement passes after reconciliation",
+    "Single: exactly one formal requirement fails",
+    "Several: two or three formal requirements fail",
+    "Many: four or more formal requirements fail"
+   ]
+  },
+  "urgency": {
+   "type": "score",
+   "instructions": "How urgent is processing relative to the effective registration end date?",
+   "criteria": [
+    "More than 90 days before effective end date",
+    "Between 31 and 90 days before effective end date",
+    "Between 0 and 30 days before effective end date",
+    "Effective end date already passed on deposit date"
+   ]
+  }
+ },
+ "factors": [
+  {
+   "name": "word_count_gap",
+   "description": "Size of the discrepancy between the word count the candidate declared at deposit and the word count measured by the automated PDF check",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "trivial_under_1pct",
+    "moderate_1_to_8pct",
+    "large_over_8pct"
+   ],
+   "weights": [
+    0.3,
+    0.3,
+    0.25,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1"
+   ]
+  },
+  {
+   "name": "length_status",
+   "description": "Where the measured word count sits against the programme limit, and whether any excess has been authorised",
+   "kind": "categorical",
+   "values": [
+    "under_limit",
+    "over_excess_approved",
+    "over_excess_pending",
+    "over_unapproved",
+    "at_limit_boundary"
+   ],
+   "weights": [
+    0.4,
+    0.15,
+    0.15,
+    0.2,
+    0.1
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S3",
+    "S4",
+    "S6"
+   ]
+  },
+  {
+   "name": "ethics_coverage",
+   "description": "How the reported data collection dates relate to the dates of the ethics approval on file",
+   "kind": "categorical",
+   "values": [
+    "no_participants",
+    "fully_covered",
+    "collection_after_expiry",
+    "collection_before_approval",
+    "no_ref_found"
+   ],
+   "weights": [
+    0.25,
+    0.3,
+    0.2,
+    0.1,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S5"
+   ]
+  },
+  {
+   "name": "ethics_amendment",
+   "description": "Whether a recorded ethics amendment extends the approval far enough to cover dates that would otherwise fall outside it",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S5"
+   ]
+  },
+  {
+   "name": "similarity_pct",
+   "description": "Overall overlap percentage reported by the text-matching tool; the threshold for review is 25%",
+   "kind": "number",
+   "values": [],
+   "weights": [],
+   "min": 3,
+   "max": 45,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S6"
+   ]
+  },
+  {
+   "name": "overlap_source",
+   "description": "Where the largest matched sources come from, compared with the candidate's declared publications",
+   "kind": "categorical",
+   "values": [
+    "own_pubs_full_match",
+    "own_pubs_partial_match",
+    "asserted_not_listed",
+    "third_party_sources"
+   ],
+   "weights": [
+    0.3,
+    0.25,
+    0.2,
+    0.25
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S3",
+    "S5",
+    "S6"
+   ]
+  },
+  {
+   "name": "signoff_alignment",
+   "description": "Whether the supervisor's sign-off refers to the version actually deposited",
+   "kind": "categorical",
+   "values": [
+    "matches_final",
+    "predates_final_minor_edits",
+    "predates_final_major_edits",
+    "missing"
+   ],
+   "weights": [
+    0.4,
+    0.25,
+    0.2,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S4",
+    "S6"
+   ]
+  },
+  {
+   "name": "registration_window",
+   "description": "Days between the deposit date and the base enrolment end date, before any extension is applied",
+   "kind": "categorical",
+   "values": [
+    "over_90",
+    "d31_to_90",
+    "d0_to_30",
+    "lapsed"
+   ],
+   "weights": [
+    0.3,
+    0.3,
+    0.25,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S7"
+   ]
+  },
+  {
+   "name": "extension_status",
+   "description": "Status of any request to extend the registration end date",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "approved",
+    "pending",
+    "refused"
+   ],
+   "weights": [
+    0.4,
+    0.25,
+    0.25,
+    0.1
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S4",
+    "S6"
+   ]
+  },
+  {
+   "name": "format_defects",
+   "description": "Number of failed cosmetic format checks, drawn from margins, abstract length, missing declaration page and front-matter order",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 4,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S4",
+    "S7"
+   ]
+  },
+  {
+   "name": "title_mismatch",
+   "description": "Difference between the deposited title and the approved title held in registration",
+   "kind": "categorical",
+   "values": [
+    "identical",
+    "trivial_wording",
+    "substantive_change_approved",
+    "substantive_change_unapproved"
+   ],
+   "weights": [
+    0.5,
+    0.25,
+    0.1,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S3"
+   ]
+  },
+  {
+   "name": "fees_state",
+   "description": "Tuition fee position at the time of deposit",
+   "kind": "categorical",
+   "values": [
+    "cleared",
+    "outstanding_with_plan",
+    "outstanding_no_plan"
+   ],
+   "weights": [
+    0.65,
+    0.2,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S4"
+   ]
+  },
+  {
+   "name": "note_tone",
+   "description": "Content of the free-text notes, which may sound alarming but be benign, or sound reassuring but be irrelevant",
+   "kind": "categorical",
+   "values": [
+    "neutral",
+    "alarming_benign",
+    "reassuring_irrelevant",
+    "informative_mitigating"
+   ],
+   "weights": [
+    0.3,
+    0.25,
+    0.25,
+    0.2
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S6"
+   ]
+  },
+  {
+   "name": "prior_deposits",
+   "description": "Count of earlier deposits of this thesis that were withdrawn or returned",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 2,
+   "p_true": 0,
+   "skills": [
+    "S7"
+   ]
+  }
+ ],
+ "sections": [
+  {
+   "name": "candidate",
+   "description": "Identifier, programme, degree, approved thesis title and declared publications list"
+  },
+  {
+   "name": "registration",
+   "description": "Enrolment end date, extension request with status and new date, fee position"
+  },
+  {
+   "name": "deposit",
+   "description": "Deposit date, version id, deposited title, declared word count, student_statement free text"
+  },
+  {
+   "name": "checks",
+   "description": "Automated results: measured word count, word limit, similarity percentage with top sources, format check list"
+  },
+  {
+   "name": "approvals",
+   "description": "Supervisor sign-off with version id and date, ethics reference, approval and expiry dates, amendments, collection dates"
+  },
+  {
+   "name": "notes",
+   "description": "Short free text: supervisor_comment and officer_log line, plus prior_deposits history list"
+  }
+ ],
+ "rendering_notes": "word_count_gap: deposit.words_declared is compared with checks.words_measured; the gap is never flagged. length_status: checks.words_measured is compared with checks.word_limit. Approved or pending excess appears only in registration.excess_request {status, words_allowed}. at_limit_boundary places the measured count within 0.5% of the limit, so judges may split. ethics_coverage: approvals.ethics {ref, approved_on, expires_on, amendments[]} is compared with approvals.collection [{from, to}]. no_participants shows an empty collection list and ref null. no_ref_found shows collection dates with ref null. ethics_amendment adds an amendments entry whose new_expiry covers the otherwise uncovered dates (p 0.5), so the same expiry gap appears both mitigated and unmitigated. similarity_pct goes in checks.similarity.pct. overlap_source goes in checks.similarity.top_sources [{title, pct}], which must be compared with candidate.publications[]. asserted_not_listed means a student_statement claims own prior work but the sources are absent from publications; this makes overlap_explained false. signoff_alignment: approvals.signoff {version_id, date} is compared with deposit.version_id and deposit.deposited_on. A predates-final case may be explained by supervisor_comment ('minor typo fixes after sign-off'). registration_window and extension_status: the effective end date is registration.end_date, or registration.extension.new_end if status is approved. A pending extension leaves urgency contested and makes hold_query natural. format_defects goes in checks.format [{item, pass}]. title_mismatch: candidate.approved_title is compared with deposit.title, and a title change approval appears in registration.title_change. fees_state goes in registration.fees {status, plan_ref}. The formal requirements counted for failed_reqs are: word limit without approved excess; each failed format item; sign-off missing or predating major edits; unapproved substantive title change; ethics gap; fees outstanding without plan. Similarity is an integrity matter, not a formal requirement. For next_step, apply the most serious applicable option, so that only one fits. Decoys: alarming_benign notes (e.g. 'chapter 3 rewritten in a panic last week'); reassuring_irrelevant notes (e.g. 'supervisor very happy with progress'); prior_deposits history; high similarity fully explained by own publications. No field may state a verdict, risk, urgency, failure count or recommended action. Check results appear only as raw values or per-item pass booleans, as a real portal would show them. Unknown values are null, dates are ISO, and numbers are numbers.",
+ "skills": [
+  "S1",
+  "S3",
+  "S4",
+  "S5",
+  "S6",
+  "S7"
+ ],
+ "shared_scale": null,
+ "design_cost": 0.1509
+}

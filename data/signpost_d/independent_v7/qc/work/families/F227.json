@@ -1,0 +1,305 @@
+{
+ "id": "F227",
+ "domain": "apprenticeship progress reviews",
+ "role": "Progress review assessor at an apprenticeship training provider, checking one completed quarterly progress review record per apprentice before it is signed off on the provider's system",
+ "setting": "A training provider delivers apprenticeship standards to apprentices placed with many employers. Every twelve weeks each apprentice has a three-way progress review between the apprentice, the employer mentor and the provider tutor. The review record collects the apprentice's profile, the agreed programme plan, logged progress, attendance and the review meeting details. Before the record is accepted, an assessor reviews it. They work out whether off-the-job hours and knowledge, skills and behaviour (KSB) sign-offs are keeping pace with the plan, and allow for approved breaks or documented absences. They then decide what happens to the record. The record holds structured fields only, with no free-text notes.",
+ "questions": {
+  "gateway_on_track": {
+   "type": "noul",
+   "instructions": "The apprentice is on track to reach gateway by planned date.",
+   "criteria": null
+  },
+  "review_disposition": {
+   "type": "choice",
+   "instructions": "What should happen to this progress review record next?",
+   "criteria": {
+    "sign_off": "Progress on plan and record complete; accept without actions.",
+    "sign_off_actions": "Accept record but set targeted catch-up actions for next period.",
+    "hold_evidence": "Withhold sign-off until one missing item or signature arrives.",
+    "support_plan": "Open formal support plan with dated recovery targets and checkpoints.",
+    "refer_manager": "Refer to programme manager for break or withdrawal decision."
+   }
+  },
+  "slippage_source": {
+   "type": "choice",
+   "instructions": "Which party's shortfall chiefly explains any slippage this period?",
+   "criteria": {
+    "no_slippage": "Hours and KSB sign-offs both on plan this period.",
+    "apprentice": "Unauthorised missed sessions or evidence not submitted by apprentice.",
+    "employer": "Off-the-job time not released or workplace tasks not assigned.",
+    "provider": "Sessions cancelled by provider or assessor sign-offs left outstanding."
+   }
+  },
+  "otj_shortfall": {
+   "type": "score",
+   "instructions": "How far do logged off-the-job hours fall below pro-rata target?",
+   "criteria": [
+    "Met: logged hours at or above pro-rata target",
+    "Minor: shortfall under 10% of pro-rata target",
+    "Significant: shortfall from 10% to 25% of target",
+    "Severe: shortfall above 25% of pro-rata target"
+   ]
+  },
+  "ksb_coverage": {
+   "type": "score",
+   "instructions": "What share of KSBs due by now is signed off?",
+   "criteria": [
+    "Under half of due KSBs signed off",
+    "Half to under 70% of due KSBs signed off",
+    "70% to under 85% of due KSBs signed off",
+    "85% to under 100% of due KSBs signed off",
+    "Every KSB due by now is signed off"
+   ]
+  }
+ },
+ "factors": [
+  {
+   "name": "otj_shortfall_pct",
+   "description": "True shortfall of logged off-the-job hours against the pro-rata target after approved breaks are deducted, as a percentage of target; 0 or below means met",
+   "kind": "number",
+   "values": [],
+   "weights": [],
+   "min": -10,
+   "max": 45,
+   "p_true": 0,
+   "skills": [
+    "S4",
+    "S6",
+    "S7"
+   ]
+  },
+  {
+   "name": "ksb_signed_share",
+   "description": "Fraction of KSBs scheduled as due by the review date that appear in the signed-off list",
+   "kind": "number",
+   "values": [],
+   "weights": [],
+   "min": 0.3,
+   "max": 1,
+   "p_true": 0,
+   "skills": [
+    "S4",
+    "S6",
+    "S7"
+   ]
+  },
+  {
+   "name": "mitigation_present",
+   "description": "Whether an alarming shortfall or absence pattern is accompanied by an approved or documented explanation",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3"
+   ]
+  },
+  {
+   "name": "mitigation_type",
+   "description": "Form the mitigation takes when present",
+   "kind": "categorical",
+   "values": [
+    "approved_break_in_learning",
+    "documented_medical_absence",
+    "employer_shutdown_window",
+    "hours_pending_verification"
+   ],
+   "weights": [
+    0.3,
+    0.3,
+    0.2,
+    0.2
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S4"
+   ]
+  },
+  {
+   "name": "slippage_cause",
+   "description": "Which party actually caused any slippage, including a mixed case where two parties contribute roughly equally",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "apprentice",
+    "employer",
+    "provider",
+    "mixed"
+   ],
+   "weights": [
+    0.25,
+    0.25,
+    0.2,
+    0.15,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S6",
+    "S7"
+   ]
+  },
+  {
+   "name": "employer_input_missing",
+   "description": "Employer input section is null and the employer did not attend the review",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.25,
+   "skills": [
+    "S2",
+    "S4"
+   ]
+  },
+  {
+   "name": "signoff_out_of_order",
+   "description": "A signature date in the review meeting precedes the meeting date, or the provider signed before the apprentice",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.15,
+   "skills": [
+    "S2"
+   ]
+  },
+  {
+   "name": "functional_skills_state",
+   "description": "English and maths functional skills status needed before gateway",
+   "kind": "categorical",
+   "values": [
+    "exempt",
+    "passed",
+    "booked_no_result",
+    "not_started"
+   ],
+   "weights": [
+    0.25,
+    0.35,
+    0.25,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S2",
+    "S5"
+   ]
+  },
+  {
+   "name": "weeks_to_gateway",
+   "description": "Weeks between the review date and the planned gateway date; negative means gateway date already passed",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": -4,
+   "max": 40,
+   "p_true": 0,
+   "skills": [
+    "S5",
+    "S7"
+   ]
+  },
+  {
+   "name": "prior_reviews_with_actions",
+   "description": "Count of earlier reviews in history that were signed off with catch-up actions or a support plan",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 4,
+   "p_true": 0,
+   "skills": [
+    "S6",
+    "S7"
+   ]
+  },
+  {
+   "name": "boundary_case",
+   "description": "Shortfall or KSB share placed exactly on or within one unit of a scale threshold, or hours borderline only once pending entries are counted",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.2,
+   "skills": [
+    "S6"
+   ]
+  },
+  {
+   "name": "decoy_signal",
+   "description": "An eye-catching field that does not bear on the decisions",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "high_unit_grades",
+    "recent_mentor_change",
+    "many_absences_all_authorised",
+    "extra_unplanned_ksbs_signed"
+   ],
+   "weights": [
+    0.4,
+    0.15,
+    0.15,
+    0.15,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S6"
+   ]
+  }
+ ],
+ "sections": [
+  {
+   "name": "apprentice",
+   "description": "Learner identifiers, standard code and level, start_date, planned_gateway, contracted_hrs_wk, fs_english and fs_maths status objects"
+  },
+  {
+   "name": "plan",
+   "description": "otj_target_total_hrs, planned_weeks, ksbs_due list of codes with due_by dates, breaks list with start, end, approved flag"
+  },
+  {
+   "name": "progress",
+   "description": "otj_logged_hrs, otj_verified_hrs, otj_pending_hrs, ksbs_signed list of code and signed_on date, unit_grades list"
+  },
+  {
+   "name": "attendance",
+   "description": "sessions_scheduled, sessions_attended, sessions_cancelled_by_provider, absences list with date, reason_code, authorised, cert_ref"
+  },
+  {
+   "name": "review_meeting",
+   "description": "review_date, employer_attended, signatures object with apprentice, mentor, tutor dates, prior_reviews list with date and outcome_code"
+  },
+  {
+   "name": "employer_input",
+   "description": "mentor_id, mentor_changed_on, otj_hrs_released, workplace_tasks_assigned, shutdown_from, shutdown_to; null when employer absent"
+  }
+ ],
+ "rendering_notes": "Never state a pace, risk, shortfall percentage, on-track flag or recommended outcome. The assessor must derive them.\n\nOff-the-job shortfall (otj_shortfall_pct): render it indirectly. The record gives plan.otj_target_total_hrs and plan.planned_weeks. The weeks elapsed follow from apprentice.start_date to review_meeting.review_date. The pro-rata target is the total target multiplied by elapsed weeks less approved break weeks, divided by planned weeks. Set progress.otj_logged_hrs so the derived shortfall matches the factor. Unapproved breaks appear in plan.breaks with approved:false and must not reduce the target.\n\nKSB share (ksb_signed_share): set by the overlap between plan.ksbs_due entries with due_by on or before the review date and progress.ksbs_signed codes. extra_unplanned_ksbs_signed adds signed codes that are not yet due; these must not count.\n\nMitigation (mitigation_present, p 0.5): the alarming signal, such as low hours or a run of absences, appears equally often with and without it.\n- approved_break_in_learning: an approved:true entry in plan.breaks.\n- documented_medical_absence: absences with reason_code \"MED\", authorised:true and a cert_ref.\n- employer_shutdown_window: employer_input.shutdown_from and shutdown_to overlap the period.\n- hours_pending_verification: progress.otj_pending_hrs is large. Logged hours already include pending hours, so the shortfall scale is unchanged, but pending hours point to hold_evidence rather than support_plan.\n\nslippage_cause shows up through comparisons, never through a label:\n- apprentice: unauthorised absences, or few signed KSBs despite sessions held.\n- employer: employer_input.otj_hrs_released below the hours needed, or workplace_tasks_assigned low.\n- provider: attendance.sessions_cancelled_by_provider high, or ksbs whose evidence dates passed but which are unsigned.\n- mixed: two of these at similar strength.\n\nMissing or out-of-order items:\n- employer_input_missing: employer_input is null, employer_attended is false and signatures.mentor is null.\n- signoff_out_of_order: a signature date earlier than review_date.\n- functional skills: booked_no_result shows exam_date set and result null; not_started shows both null.\n\nweeks_to_gateway is the gap between apprentice.planned_gateway and review_date.\n\nprior_reviews_with_actions sets the count of review_meeting.prior_reviews entries with outcome_code ACT or SUP.\n\nDecoys:\n- unit_grades: high grades.\n- mentor_changed_on: a recent date.\n- many_absences_all_authorised: authorised absences with no shortfall.\n- extra_unplanned_ksbs_signed: signed KSBs not yet due.\nNone of these alone justifies concern.\n\nboundary_case places values on a threshold, for example exactly 85% of due KSBs, a 10.0% shortfall, or a shortfall near 25% before pending hours are counted, so that judges may split.\n\ngateway_on_track holds only when all of the following are true:\n- the KSB share is at least 85%;\n- the shortfall is under 10%;\n- functional skills are passed, exempt, or booked with an exam_date before planned_gateway;\n- the gateway date has not passed.\n\nreview_disposition:\n- hold_evidence: exactly one missing signature, record or verification.\n- refer_manager: a severe shortfall or KSB share under 50% with two or more prior action reviews, or a gateway date already passed.",
+ "skills": [
+  "S2",
+  "S3",
+  "S4",
+  "S5",
+  "S6",
+  "S7"
+ ],
+ "shared_scale": null,
+ "design_cost": 0.159372
+}

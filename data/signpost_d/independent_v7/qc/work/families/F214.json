@@ -1,0 +1,362 @@
+{
+ "id": "F214",
+ "domain": "highway bridge structural inspection records",
+ "role": "Bridge inspection review engineer at a regional highways authority, checking each submitted inspection record before it is accepted into the structures asset register",
+ "setting": "Contract inspectors submit general and principal inspection records for highway bridges and culverts. The review engineer reads one record at a time. Each record contains the structure inventory, inspection details, element ratings with measured defects, a photo log, active restrictions and works, and short inspector remarks. The engineer decides whether the ratings agree with the measurements, whether any defect is actively growing, what happens to the record, how severe the worst defect is, and when the structure should next be inspected.",
+ "questions": {
+  "ratings_consistent": {
+   "type": "noul",
+   "instructions": "Element condition ratings agree with the logged defect measurements throughout.",
+   "criteria": null
+  },
+  "active_deterioration": {
+   "type": "noul",
+   "instructions": "A recorded defect has grown beyond tolerance since the previous inspection.",
+   "criteria": {
+    "true": "Defect growth since prior record exceeds stated measurement tolerance.",
+    "false": "Growth within tolerance, unmeasured, or no prior measurement exists."
+   }
+  },
+  "record_disposition": {
+   "type": "choice",
+   "instructions": "What should happen to this inspection record next?",
+   "criteria": {
+    "accept": "Filed unchanged; next inspection at the standard routine interval.",
+    "accept_monitor": "Filed, with an interim monitoring visit added before next interval.",
+    "hold_query": "Filing paused pending one clarification or missing item from inspector.",
+    "reinspect": "Record rejected; site visit repeated to re-measure or complete elements.",
+    "refer_restriction": "Passed to structures engineer to assess load or lane restriction."
+   }
+  },
+  "defect_severity": {
+   "type": "score",
+   "instructions": "How severe is the worst confirmed defect on the structure?",
+   "criteria": [
+    "No defect beyond surface staining or hairline cracking.",
+    "Cracking or spalling, no reinforcement or steel exposed.",
+    "Steel exposed, section loss below ten per cent.",
+    "Section loss of ten per cent or more."
+   ]
+  },
+  "next_inspection": {
+   "type": "score",
+   "instructions": "How soon should the next inspection of this structure occur?",
+   "criteria": [
+    "Standard: at the routine 24-month interval.",
+    "Shortened: within 12 months of this inspection.",
+    "Early: within 6 months of this inspection.",
+    "Priority: within 4 weeks of this inspection.",
+    "Immediate: within 7 days of this inspection."
+   ]
+  }
+ },
+ "factors": [
+  {
+   "name": "structure_type",
+   "description": "Form of the bridge, which determines element list, typical defects and how section loss is expressed",
+   "kind": "categorical",
+   "values": [
+    "rc_slab",
+    "prestressed_beam",
+    "steel_girder",
+    "masonry_arch",
+    "composite_deck"
+   ],
+   "weights": [
+    0.25,
+    0.2,
+    0.2,
+    0.15,
+    0.2
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S7"
+   ]
+  },
+  {
+   "name": "worst_defect_band",
+   "description": "True severity of the worst defect as shown by the measurements, before any rating or mitigation is considered",
+   "kind": "categorical",
+   "values": [
+    "staining_hairline",
+    "crack_spall",
+    "exposed_steel_minor_loss",
+    "major_section_loss"
+   ],
+   "weights": [
+    0.25,
+    0.35,
+    0.28,
+    0.12
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S4",
+    "S7"
+   ]
+  },
+  {
+   "name": "reconciliation_gap",
+   "description": "Size of the mismatch between corresponding values in different sections; never flagged in the record",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "trivial_unit_or_rounding",
+    "moderate_one_band",
+    "large_contradiction"
+   ],
+   "weights": [
+    0.33,
+    0.2,
+    0.32,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S5"
+   ]
+  },
+  {
+   "name": "gap_location",
+   "description": "Where the mismatch sits when one exists",
+   "kind": "categorical",
+   "values": [
+    "rating_vs_defect_size",
+    "photo_caption_vs_defect",
+    "element_id_vs_inventory",
+    "inspection_date_vs_prior_date",
+    "remark_vs_listed_defects"
+   ],
+   "weights": [
+    0.3,
+    0.2,
+    0.15,
+    0.15,
+    0.2
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1"
+   ]
+  },
+  {
+   "name": "growth_vs_tolerance",
+   "description": "Change in worst defect size against the prior measurement, relative to the stated measurement tolerance",
+   "kind": "categorical",
+   "values": [
+    "no_prior_measurement",
+    "within_tolerance",
+    "at_tolerance_boundary",
+    "exceeds_tolerance"
+   ],
+   "weights": [
+    0.2,
+    0.35,
+    0.15,
+    0.3
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S5",
+    "S6"
+   ]
+  },
+  {
+   "name": "mitigation_present",
+   "description": "Whether a field lowers concern about the alarming defect; sampled independently of severity",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3"
+   ]
+  },
+  {
+   "name": "mitigation_type",
+   "description": "Form of mitigation when present",
+   "kind": "categorical",
+   "values": [
+    "approved_weight_restriction",
+    "temporary_propping",
+    "repair_order_scheduled",
+    "historic_defect_previously_assessed",
+    "drainage_staining_explanation"
+   ],
+   "weights": [
+    0.2,
+    0.15,
+    0.25,
+    0.2,
+    0.2
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S3"
+   ]
+  },
+  {
+   "name": "access_limited",
+   "description": "Some elements were not inspected because of water level, possession refusal or traffic management",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.3,
+   "skills": [
+    "S4",
+    "S6"
+   ]
+  },
+  {
+   "name": "photo_coverage",
+   "description": "Whether the worst defect is evidenced by a matching photo",
+   "kind": "categorical",
+   "values": [
+    "complete",
+    "partial",
+    "missing_for_worst"
+   ],
+   "weights": [
+    0.5,
+    0.3,
+    0.2
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S4"
+   ]
+  },
+  {
+   "name": "remark_tone",
+   "description": "Wording of the inspector remark, which may sound more or less alarming than the measurements",
+   "kind": "categorical",
+   "values": [
+    "neutral_factual",
+    "alarming_without_measure",
+    "reassuring_despite_measure",
+    "hedged_uncertain"
+   ],
+   "weights": [
+    0.4,
+    0.2,
+    0.2,
+    0.2
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S6"
+   ]
+  },
+  {
+   "name": "months_since_prior",
+   "description": "Interval since the previous inspection, used to judge growth rate and overdue status",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 6,
+   "max": 60,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S7"
+   ]
+  },
+  {
+   "name": "boundary_value",
+   "description": "A key measurement sits exactly on a scale threshold, such as 10 per cent section loss or growth equal to tolerance",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.2,
+   "skills": [
+    "S6"
+   ]
+  },
+  {
+   "name": "route_class",
+   "description": "Class of carried road, affecting how quickly restriction or inspection is warranted",
+   "kind": "categorical",
+   "values": [
+    "minor_road",
+    "b_road",
+    "a_road",
+    "trunk_dual"
+   ],
+   "weights": [
+    0.3,
+    0.25,
+    0.3,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S7"
+   ]
+  }
+ ],
+ "sections": [
+  {
+   "name": "structure",
+   "description": "Inventory: str_id, name, type, spans, route_class, element_ids list, year_built"
+  },
+  {
+   "name": "inspection",
+   "description": "insp_date, insp_type, inspector_ref, prior_insp_date, access_notes, elements_not_inspected list, tol_mm"
+  },
+  {
+   "name": "elements",
+   "description": "List of element_id, cond_rating 1-5, defects list with type, size_mm, prior_size_mm, loss_pct, photo_ref"
+  },
+  {
+   "name": "photo_log",
+   "description": "List of photo_ref, element_id, taken_date, caption (one short sentence)"
+  },
+  {
+   "name": "restrictions_works",
+   "description": "Active weight or lane restrictions, temporary works, works orders with planned dates, monitoring sensors"
+  },
+  {
+   "name": "notes",
+   "description": "inspector_remark and prior_report_extract, one or two sentences each; optional next_insp_proposed_months"
+  }
+ ],
+ "rendering_notes": "worst_defect_band appears only as size_mm, loss_pct and defect type in elements.defects; never as a severity label. reconciliation_gap and gap_location appear as a disagreement between sections. Examples include a cond_rating of 2 beside loss_pct 12, a caption saying spall where the defect says crack, a defect element_id absent from structure.element_ids, a prior_insp_date later than insp_date, or a remark naming a defect not listed. Trivial gaps are mm against cm, or 0.3 against 0.25 within rounding. growth_vs_tolerance comes from size_mm minus prior_size_mm compared with inspection.tol_mm; no_prior_measurement means prior_size_mm is null. A boundary case puts growth exactly at tol_mm or loss_pct exactly at 10. Mitigation appears in restrictions_works (restriction, propping, works order dated within months) or in prior_report_extract (defect noted as historic and assessed, or staining traced to a drainage outlet). Mitigation is sampled at 0.5, so the same severe defect appears with and without it. Mitigation can lower next_inspection and disposition, but never changes defect_severity or ratings_consistent. access_limited fills elements_not_inspected and access_notes, and favours hold_query or reinspect depending on whether critical elements were missed. Missing photos for the worst defect favour hold_query. Decoys: remark_tone wording can be alarming without measurement or reassuring despite large loss_pct. next_insp_proposed_months, when present in about half of records, is the inspector's own view and is sometimes wrong. year_built and route_class add context but do not settle answers alone. No field may state a disposition, a severity band, a growth verdict, a consistency flag or the review engineer's interval. Records use numbers as numbers, ISO dates and null for unmeasured values.",
+ "skills": [
+  "S1",
+  "S3",
+  "S4",
+  "S5",
+  "S6",
+  "S7"
+ ],
+ "shared_scale": null,
+ "design_cost": 0.148008
+}

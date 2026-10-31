@@ -1,0 +1,315 @@
+{
+ "id": "F223",
+ "domain": "allotment plot tenancy inspections",
+ "role": "Allotment site officer for a borough allotments service, reviewing one plot inspection record at a time to decide tenancy enforcement steps",
+ "setting": "A municipal allotments team inspects let plots several times a year against a tenancy cultivation standard: at least 75% of bed area under cultivation. Officers review each inspection record alongside the tenancy file, prior notices, hazards found and any messages from the tenant. They decide whether the plot is in breach, whether the formal warning steps allow a notice to quit, what to do next, and how much of the plot is uncultivated. Approved medical exemptions and a 180-day new-tenancy grace period excuse a cultivation shortfall. In the dormant season (November to February), beds under sheet or mulch count as cultivated; in the growing season they do not.",
+ "questions": {
+  "cultivation_breach": {
+   "type": "noul",
+   "instructions": "Plot is below the cultivation standard without a valid exemption.",
+   "criteria": {
+    "true": "Shortfall confirmed; no approved exemption or grace period applies",
+    "false": "Standard met, shortfall excused, or evidence incomplete"
+   }
+  },
+  "notice_ladder_met": {
+   "type": "noul",
+   "instructions": "Warning steps are complete, so a notice to quit is now permitted.",
+   "criteria": {
+    "true": "Warning served, deadline passed, re-inspected after deadline",
+    "false": "A warning step missing, still open, or dated out of order"
+   }
+  },
+  "next_action": {
+   "type": "choice",
+   "instructions": "What should the officer do next with this tenancy?",
+   "criteria": {
+    "no_action": "Plot meets standard or shortfall excused, and no unmitigated hazard",
+    "hold_recheck": "A deciding fact is unconfirmed; book a dated recheck first",
+    "warning_notice": "Confirmed unexcused breach or hazard, warning steps not yet complete",
+    "final_notice": "Breach persists after a properly served and expired warning"
+   }
+  },
+  "recurrence_count": {
+   "type": "score",
+   "instructions": "How often has this same issue been logged in 12 months?",
+   "criteria": [
+    "First occurrence; not logged in prior 12 months",
+    "Logged once before within the past 12 months",
+    "Logged two to four times in 12 months",
+    "Logged five or more times in 12 months"
+   ]
+  },
+  "uncultivated_extent": {
+   "type": "score",
+   "instructions": "What share of the plot's bed area is uncultivated this visit?",
+   "criteria": [
+    "Under 25% of bed area uncultivated",
+    "25% to under 50% of bed area uncultivated",
+    "50% to under 75% of bed area uncultivated",
+    "75% or more of bed area uncultivated"
+   ]
+  }
+ },
+ "factors": [
+  {
+   "name": "cultivated_share",
+   "description": "True share of bed area under cultivation at this visit. It is never printed as a percentage and must be computed from the beds list (area_m2 and state).",
+   "kind": "number",
+   "values": [],
+   "weights": [],
+   "min": 0.05,
+   "max": 1.0,
+   "p_true": 0,
+   "skills": [
+    "S4",
+    "S6",
+    "S7"
+   ]
+  },
+  {
+   "name": "inspection_season",
+   "description": "Whether the visit falls in the growing season (March to October) or the dormant season (November to February). This decides whether covered beds count as cultivated.",
+   "kind": "categorical",
+   "values": [
+    "growing_season",
+    "dormant_season"
+   ],
+   "weights": [
+    0.7,
+    0.3
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S6"
+   ]
+  },
+  {
+   "name": "covered_bed_count",
+   "description": "Number of beds under sheet, mulch or green manure. These count as cultivated only in the dormant season, so a value near the 75% line can flip the breach.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 4,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S6",
+    "S4"
+   ]
+  },
+  {
+   "name": "exemption_state",
+   "description": "Status of any excuse for a shortfall. An approved exemption or a tenancy under 180 days old excuses the shortfall. A pending exemption needs confirmation. An expired one looks like approval but no longer applies.",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "medical_approved",
+    "medical_pending",
+    "medical_expired",
+    "new_tenancy_grace"
+   ],
+   "weights": [
+    0.4,
+    0.17,
+    0.15,
+    0.11,
+    0.17
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S5",
+    "S2"
+   ]
+  },
+  {
+   "name": "warning_ladder",
+   "description": "State of prior formal warnings about cultivation. Only a warning that was served and whose deadline has passed supports a notice to quit. A warning logged without a service date does not count.",
+   "kind": "categorical",
+   "values": [
+    "no_prior_warning",
+    "served_deadline_passed",
+    "served_deadline_open",
+    "logged_without_service_date"
+   ],
+   "weights": [
+    0.38,
+    0.32,
+    0.15,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S2",
+    "S5",
+    "S4"
+   ]
+  },
+  {
+   "name": "reinspection_out_of_order",
+   "description": "The follow-up re-inspection is dated before the warning deadline, or before the service date, which invalidates the ladder even when a warning exists.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.25,
+   "skills": [
+    "S2",
+    "S5"
+   ]
+  },
+  {
+   "name": "hazard_type",
+   "description": "Any hazard found on the plot. An unmitigated hazard alone justifies a warning, even when cultivation is fine.",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "sharps_or_glass",
+    "suspected_asbestos_sheet",
+    "unsafe_shed",
+    "rubbish_pile"
+   ],
+   "weights": [
+    0.5,
+    0.1,
+    0.1,
+    0.15,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S7"
+   ]
+  },
+  {
+   "name": "hazard_mitigated",
+   "description": "Whether a found hazard is already being handled. Examples: a removal booked with a date, a structure approved by the site committee, or waste staged for a scheduled site skip day.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S6"
+   ]
+  },
+  {
+   "name": "photo_evidence_missing",
+   "description": "The inspection photo set is null or empty, so the bed states cannot be verified for an enforcement step.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.2,
+   "skills": [
+    "S2",
+    "S4"
+   ]
+  },
+  {
+   "name": "tenant_reply",
+   "description": "The tenant's latest message. Possible replies: an offered improvement plan, a dispute of the findings, or a claim of illness with no exemption filed. The illness claim makes an excuse merely possible, not established.",
+   "kind": "categorical",
+   "values": [
+    "no_reply",
+    "plan_offered",
+    "disputes_findings",
+    "reports_illness_unverified"
+   ],
+   "weights": [
+    0.35,
+    0.25,
+    0.2,
+    0.2
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S5",
+    "S6"
+   ]
+  },
+  {
+   "name": "prior_visit_cultivated_share",
+   "description": "Cultivated share at the previous visit, shown in history. This is a trend decoy: an improving trend does not excuse a current shortfall.",
+   "kind": "number",
+   "values": [],
+   "weights": [],
+   "min": 0.05,
+   "max": 1.0,
+   "p_true": 0,
+   "skills": [
+    "S6",
+    "S7"
+   ]
+  },
+  {
+   "name": "rent_arrears_gbp",
+   "description": "Outstanding plot rent. This is a decoy that alarms readers but does not bear on the cultivation breach, the warning ladder or the uncultivated extent.",
+   "kind": "number",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 120,
+   "p_true": 0,
+   "skills": [
+    "S7",
+    "S3"
+   ]
+  }
+ ],
+ "sections": [
+  {
+   "name": "tenancy",
+   "description": "Plot id, site, plot size, start date, rent status and an exemption object, with type, status and dates"
+  },
+  {
+   "name": "inspection",
+   "description": "Visit date, officer initials, photos list or null, previous visit summary, and a short officer_note"
+  },
+  {
+   "name": "beds",
+   "description": "List of beds with bed_id, area_m2 and state (cultivated, covered, weedy, bare, overgrown)"
+  },
+  {
+   "name": "hazards",
+   "description": "List of hazards found, each with type, location, action_booked date or null, and committee_approval flag"
+  },
+  {
+   "name": "notices",
+   "description": "List of prior notices with kind, issued_on, served_on or null, deadline, and reinspected_on"
+  },
+  {
+   "name": "correspondence",
+   "description": "One to three one-sentence messages from the tenant or the office, each dated"
+  }
+ ],
+ "rendering_notes": "cultivated_share is realised only through beds[].area_m2 and beds[].state. The reader sums the areas, and no percentage field ever appears. covered_bed_count sets how many beds have state 'covered'. inspection.visit_date sets inspection_season, and the season is never named. In dormant-season visits, covered beds count as cultivated; in growing-season visits they count as uncultivated. Weedy, bare and overgrown beds are always uncultivated. Place some records within 3 points of the 75% line so the covered beds decide the outcome. exemption_state appears in tenancy.exemption as {type, status, approved_on, expires_on}. medical_pending has status 'requested' and approved_on null. medical_expired has status 'approved' but expires_on before visit_date. This is a decoy. new_tenancy_grace is shown only by tenancy.start_date falling within 180 days of visit_date, with exemption null. warning_ladder appears in notices[]: served_deadline_open has a deadline after visit_date; logged_without_service_date has served_on null. When reinspection_out_of_order is true, reinspected_on falls before the deadline or before served_on. hazard_type fills hazards[]. hazard_mitigated sets action_booked to a future date or committee_approval to true. Otherwise action_booked is null and committee_approval is false. photo_evidence_missing sets inspection.photos to null. In this case the officer_note may still describe the beds confidently, as a decoy. tenant_reply appears as a correspondence message. 'reports_illness_unverified' mentions an illness, but tenancy.exemption stays null or requested. prior_visit_cultivated_share appears as inspection.previous_visit.cultivated_beds out of total beds. rent_arrears_gbp appears as tenancy.rent_status.arrears_gbp. The officer_note should sound alarming or reassuring independently of the true answer. No record may contain fields such as breach, eligible_for_notice, recommended_action, uncultivated_pct or severity, and no message states the decision.",
+ "skills": [
+  "S2",
+  "S3",
+  "S4",
+  "S5",
+  "S6",
+  "S7"
+ ],
+ "shared_scale": "recurrence_count",
+ "design_cost": 0.158828
+}

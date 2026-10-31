@@ -1,0 +1,347 @@
+{
+ "id": "F209",
+ "domain": "fire extinguisher service records in office buildings",
+ "role": "Fire safety compliance reviewer for a managing agent's office portfolio, checking each extinguisher service record returned by the maintenance contractor before it is filed to the building's fire log",
+ "setting": "A property management firm runs a portfolio of multi-tenant office buildings. An external contractor services portable fire extinguishers and uploads one structured record per unit per visit. The reviewer opens one record at a time. Each record combines the unit's identity and specification, the visit's check results, the replacement tag fitted, the unit's prior service history, the building register entry and any remedial actions. The reviewer must decide whether the unit was left compliant, what happens to the record next, which service level was actually due, how late the visit was, and how many cross-section values disagree. Records contain no free text, only coded fields, numbers, dates, booleans and nulls.",
+ "questions": {
+  "left_compliant": {
+   "type": "noul",
+   "instructions": "The unit was left compliant and in service after this visit.",
+   "criteria": null
+  },
+  "next_step": {
+   "type": "choice",
+   "instructions": "What should the reviewer do with this service record next?",
+   "criteria": {
+    "accept_record": "Record consistent and unit compliant; file without further action.",
+    "hold_confirm": "Exactly one detail needs contractor confirmation before filing.",
+    "schedule_revisit": "Work incomplete or wrong; technician must return to the unit.",
+    "withdraw_unit": "Unit unsafe or expired; remove from service and replace now."
+   }
+  },
+  "service_level_due": {
+   "type": "choice",
+   "instructions": "Which service level was due for this unit at the visit?",
+   "criteria": {
+    "interim_check": "Basic service not yet due; visual inspection only required.",
+    "basic_service": "Annual basic service due; no age-based extended work due.",
+    "extended_service": "Five-yearly discharge or extended service due by unit age.",
+    "overhaul": "CO2 ten-year overhaul with pressure test due by age.",
+    "replacement": "Unit beyond twenty-year life; replacement due instead of service."
+   }
+  },
+  "visit_lateness": {
+   "type": "score",
+   "instructions": "How far past its applicable due date was the service visit?",
+   "criteria": [
+    "On time: visit on or before the applicable due date",
+    "Slightly late: visit 1 to 30 days past due",
+    "Late: visit 31 to 90 days past due",
+    "Severely late: visit more than 90 days past due"
+   ]
+  },
+  "mismatch_count": {
+   "type": "score",
+   "instructions": "How many corresponding values disagree between sections of this record?",
+   "criteria": [
+    "No corresponding values disagree between sections",
+    "Exactly one corresponding value disagrees",
+    "Two or three corresponding values disagree",
+    "Four or more corresponding values disagree"
+   ]
+  }
+ },
+ "factors": [
+  {
+   "name": "unit_type",
+   "description": "Extinguisher medium; decides which checks apply (gauge pressure for stored-pressure types, weight loss for CO2) and which age-based service schedule applies.",
+   "kind": "categorical",
+   "values": [
+    "water",
+    "foam",
+    "co2",
+    "dry_powder",
+    "wet_chemical"
+   ],
+   "weights": [
+    0.2,
+    0.25,
+    0.3,
+    0.15,
+    0.1
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S7"
+   ]
+  },
+  {
+   "name": "unit_age_years",
+   "description": "Whole years between manufacture_date and the visit date; at 5, 10 and 15 years non-CO2 units need extended service, CO2 at 10 years needs overhaul, and any unit 20 years or older needs replacement. Ages placed one month either side of a threshold are common.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 22,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S6",
+    "S7"
+   ]
+  },
+  {
+   "name": "service_level_gap",
+   "description": "Relation between the service_type the technician recorded and the level actually due by age and history: matched, under-performed (lower level done than due) or over-performed (higher level done than needed).",
+   "kind": "categorical",
+   "values": [
+    "matched",
+    "under_performed",
+    "over_performed"
+   ],
+   "weights": [
+    0.6,
+    0.28,
+    0.12
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S4",
+    "S7"
+   ]
+  },
+  {
+   "name": "days_past_due",
+   "description": "Days between the unit's due date (last basic service in history plus 12 months, or the deferral expiry if one applies) and the visit date; negative means early. Clustered values sit on 0, 30/31 and 90/91.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": -75,
+   "max": 210,
+   "p_true": 0,
+   "skills": [
+    "S2",
+    "S6"
+   ]
+  },
+  {
+   "name": "deferral_approved",
+   "description": "An approved service deferral is on file in the register that moves the applicable due date later, so a visit that looks late against history may be on time.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.45,
+   "skills": [
+    "S3",
+    "S6"
+   ]
+  },
+  {
+   "name": "injected_mismatch_count",
+   "description": "Number of corresponding values deliberately made to disagree across sections: asset id on tag vs unit, type in register vs unit, capacity vs register, floor or zone vs register, tag service date vs visit date, recorded full weight vs specification. Some are trivial (one day, one floor letter), some large.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 5,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S6"
+   ]
+  },
+  {
+   "name": "physical_defect",
+   "description": "Alarming condition found at the visit, shown through numbers and booleans: pressure outside the gauge green band, seal or tamper tag missing, hose condition failed, corrosion flag, or CO2 weight loss above 10%.",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "low_pressure",
+    "seal_broken",
+    "hose_damaged",
+    "corrosion",
+    "weight_loss"
+   ],
+   "weights": [
+    0.45,
+    0.13,
+    0.12,
+    0.1,
+    0.1,
+    0.1
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S7"
+   ]
+  },
+  {
+   "name": "defect_rectified_on_visit",
+   "description": "When a defect exists, a remedial action dated the same day as the visit is marked completed (recharge, new seal, new hose or a replacement unit id), lowering concern; otherwise the action is open or absent.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S4"
+   ]
+  },
+  {
+   "name": "type_location_mismatch",
+   "description": "The unit's medium is unsuitable for the risk class the register gives its location (for example water in a zone classed electrical, or no wet chemical in a kitchen zone).",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.25,
+   "skills": [
+    "S1",
+    "S3"
+   ]
+  },
+  {
+   "name": "location_exemption_on_file",
+   "description": "The register holds an approved, unexpired risk-assessment exemption for the location, which makes an apparent type-location mismatch acceptable; present on mismatched and matched units about equally.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S5"
+   ]
+  },
+  {
+   "name": "record_gap",
+   "description": "An incomplete part of the record: some check fields null, tag section null or tag date not updated, remedial action raised but uncompleted, or history list empty for a unit older than one year.",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "checks_incomplete",
+    "tag_not_updated",
+    "remedial_open",
+    "history_missing"
+   ],
+   "weights": [
+    0.5,
+    0.14,
+    0.12,
+    0.14,
+    0.1
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S2",
+    "S4"
+   ]
+  },
+  {
+   "name": "technician_cert_status",
+   "description": "Status of the technician's competence certificate relative to the visit date: valid, expired before the visit, or valid but expiring within 30 days after it (a decoy that does not invalidate the visit).",
+   "kind": "categorical",
+   "values": [
+    "valid",
+    "expired_before_visit",
+    "expiring_soon"
+   ],
+   "weights": [
+    0.72,
+    0.1,
+    0.18
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S2",
+    "S3",
+    "S5"
+   ]
+  },
+  {
+   "name": "out_of_order_dates",
+   "description": "Dates in the record occur in an impossible order: a remedial action completed before it was raised, a tag service date before the previous history entry, or a visit date before the manufacture date of a replacement unit.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.15,
+   "skills": [
+    "S2",
+    "S1"
+   ]
+  },
+  {
+   "name": "borderline_case",
+   "description": "Places one deciding value exactly on an open boundary: pressure equal to the green band limit, weight loss exactly 10%, age within a month of a service threshold, or lateness exactly on a level edge, leaving judges split.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.2,
+   "skills": [
+    "S6",
+    "S4"
+   ]
+  }
+ ],
+ "sections": [
+  {
+   "name": "unit",
+   "description": "Asset identity and specification: asset_id, type, capacity_kg, manufacture_date, full_weight_kg, gauge_green_min_bar, gauge_green_max_bar."
+  },
+  {
+   "name": "visit",
+   "description": "The service visit: visit_date, tech_cert_no, tech_cert_expiry, service_type, and a checks object with pressure_bar, weight_kg, seal_ok, tamper_tag_ok, hose_ok, corrosion, discharge_done, hydro_test_done."
+  },
+  {
+   "name": "tag",
+   "description": "Service label fitted at the visit: tag_asset_id, tag_service_date, tag_next_due, tag_service_type; may be null."
+  },
+  {
+   "name": "history",
+   "description": "List of prior visits, each with date, service_type and result code (pass, fail, rectified)."
+  },
+  {
+   "name": "register",
+   "description": "Building register entry: reg_asset_id, reg_type, reg_capacity_kg, floor, zone, zone_risk_class, deferral {approved, ref, expires}, exemption {approved, ref, expires}."
+  },
+  {
+   "name": "remedial",
+   "description": "List of actions, each with action_code, raised, completed (date or null), replacement_asset_id (or null)."
+  }
+ ],
+ "rendering_notes": "No free-text fields: every value is a code, number, date, boolean or null. unit_type appears as unit.type and, possibly altered, as register.reg_type. unit_age_years is never stated; it must be computed from unit.manufacture_date and visit.visit_date. service_level_gap shows only as visit.service_type plus discharge_done and hydro_test_done booleans, to be compared with the level implied by age and by the last extended or overhaul entry in history. days_past_due is never stated; the due date is derived from the most recent basic or higher entry in history plus 12 months, replaced by register.deferral.expires when deferral.approved is true and the expiry is later; tag_next_due is a decoy that may itself be wrong. injected_mismatch_count is realised by altering the counterpart fields (tag_asset_id vs asset_id, reg_type vs type, reg_capacity_kg vs capacity_kg, tag_service_date vs visit_date, register floor and zone vs replacement unit location codes, full_weight_kg vs reg_capacity_kg-implied weight); mismatches are never flagged and vary in size; formatting differences such as 2 vs 2.0 are not mismatches. physical_defect shows as numbers outside unit gauge bounds, weight_kg below 90% of full_weight_kg for CO2, or false booleans in checks; gauge fields are null for CO2 and weight below 90% is irrelevant for stored-pressure types, which acts as a decoy. defect_rectified_on_visit shows as a remedial entry with raised equal to visit_date and completed set; when false the entry has completed null or is missing. type_location_mismatch shows only by comparing unit.type with register.zone_risk_class; location_exemption_on_file is register.exemption with approved true and expires after visit_date, and it also appears on correctly matched units as a decoy. record_gap appears as nulls in checks, a null tag section, a tag_service_date older than visit_date, an open remedial entry, or an empty history list. technician_cert_status is visible only by comparing visit.tech_cert_expiry with visit_date; expiring_soon is a decoy. out_of_order_dates appears as remedial completed earlier than raised, or tag or history dates in impossible order. borderline_case places the relevant value exactly on a threshold. Answers are never stated: there is no compliant, overdue, risk, status or result field for the current visit, and history result codes describe only past visits.",
+ "skills": [
+  "S1",
+  "S2",
+  "S3",
+  "S4",
+  "S5",
+  "S6",
+  "S7"
+ ],
+ "shared_scale": null,
+ "design_cost": 0.168748
+}

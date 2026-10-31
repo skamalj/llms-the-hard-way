@@ -1,0 +1,322 @@
+{
+ "id": "F205",
+ "domain": "airport ground-handling aircraft turnaround logs",
+ "role": "Ground-handling turnaround quality auditor, reviewing each closed turnaround log the morning after the flight departs",
+ "setting": "A regional airport ground handler closes a digital turnaround log for every departure. It holds the flight schedule, timestamped milestones, the final loadsheet summary, hold loading entries, service records (fuel, catering, cleaning, pushback) and short remarks typed by ramp staff. The auditor reviews one log at a time. The task is to reconcile the sections, spot missing or out-of-order steps, check whether the recorded delay attribution holds up, and decide whether the log can be closed, needs a confirmation, or must go to investigation. Logs are not pre-flagged, and discrepancies are never labelled as such.",
+ "questions": {
+  "load_reconciled": {
+   "type": "noul",
+   "instructions": "Loadsheet bag count and weights match the hold loading records.",
+   "criteria": {
+    "true": "Bag counts and hold weights agree within tolerance.",
+    "false": "A count or weight differs, or hold log absent."
+   }
+  },
+  "delay_code_supported": {
+   "type": "noul",
+   "instructions": "Recorded delay code is supported by the logged activity timestamps.",
+   "criteria": null
+  },
+  "log_disposition": {
+   "type": "choice",
+   "instructions": "What should happen to this turnaround log next?",
+   "criteria": {
+    "close_clean": "No discrepancies found; log accepted exactly as recorded.",
+    "close_with_note": "Minor discrepancy fully explained in remarks; annotate, then close.",
+    "hold_confirm": "One missing signature or record must be confirmed before closing.",
+    "investigate": "Unexplained discrepancy affecting load, safety records or delay attribution."
+   }
+  },
+  "offblock_delay": {
+   "type": "score",
+   "instructions": "How late was actual off-blocks against scheduled departure time?",
+   "criteria": [
+    "On time: off-blocks early or up to 3 minutes late",
+    "Minor: off-blocks 4 to 15 minutes late",
+    "Significant: off-blocks 16 to 60 minutes late",
+    "Severe: off-blocks more than 60 minutes late"
+   ]
+  },
+  "failed_checks": {
+   "type": "score",
+   "instructions": "How many of the standard checks on this record failed?",
+   "criteria": [
+    "No standard checks failed",
+    "Exactly one standard check failed",
+    "Two or three standard checks failed",
+    "Four or more standard checks failed"
+   ]
+  }
+ },
+ "factors": [
+  {
+   "name": "bag_mismatch_size",
+   "description": "Size of the difference between the loadsheet bag count or weight and the summed hold log entries",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "trivial_1_2_bags",
+    "moderate_3_9_bags",
+    "large_10_plus_bags"
+   ],
+   "weights": [
+    0.35,
+    0.25,
+    0.25,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S5",
+    "S7"
+   ]
+  },
+  {
+   "name": "mismatch_location",
+   "description": "Which pair of corresponding values carries the discrepancy, when one exists",
+   "kind": "categorical",
+   "values": [
+    "loadsheet_bags_vs_hold_log",
+    "cargo_weight_vs_uld_entries",
+    "pax_count_vs_boarding_close",
+    "fuel_uplift_vs_loadsheet_fuel"
+   ],
+   "weights": [
+    0.35,
+    0.25,
+    0.2,
+    0.2
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1"
+   ]
+  },
+  {
+   "name": "missing_record",
+   "description": "A required section or service record that is null or absent",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "fuel_record_null",
+    "pushback_record_missing",
+    "notoc_missing",
+    "hold_log_empty"
+   ],
+   "weights": [
+    0.5,
+    0.15,
+    0.13,
+    0.1,
+    0.12
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S2",
+    "S4"
+   ]
+  },
+  {
+   "name": "milestone_out_of_order",
+   "description": "One milestone timestamp precedes a step it depends on, e.g. doors closed before last bag loaded",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.25,
+   "skills": [
+    "S2",
+    "S5"
+   ]
+  },
+  {
+   "name": "delay_minutes",
+   "description": "Actual off-blocks minus scheduled departure in minutes; negative means early",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": -6,
+   "max": 130,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S6",
+    "S7"
+   ]
+  },
+  {
+   "name": "delay_code_fit",
+   "description": "Whether the logged delay code matches which milestone actually ran late",
+   "kind": "categorical",
+   "values": [
+    "supported",
+    "contradicted",
+    "ambiguous",
+    "no_code_logged"
+   ],
+   "weights": [
+    0.4,
+    0.25,
+    0.2,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S5",
+    "S6"
+   ]
+  },
+  {
+   "name": "explanatory_remark",
+   "description": "Mitigation: a remark explains the discrepancy, e.g. bags offloaded for a no-show passenger",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S4",
+    "S5",
+    "S6"
+   ]
+  },
+  {
+   "name": "pending_signoff",
+   "description": "Captain loadsheet acceptance or dispatcher sign-off not yet recorded",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.3,
+   "skills": [
+    "S2",
+    "S4"
+   ]
+  },
+  {
+   "name": "dg_on_board",
+   "description": "Dangerous goods carried, making a NOTOC and its signature mandatory",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.2,
+   "skills": [
+    "S2",
+    "S7"
+   ]
+  },
+  {
+   "name": "decoy_noise",
+   "description": "A harmless apparent difference that reconciles on inspection",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "weight_units_kg_vs_lb",
+    "rounding_within_tolerance",
+    "revised_std_in_schedule",
+    "transfer_bags_listed_separately"
+   ],
+   "weights": [
+    0.3,
+    0.18,
+    0.2,
+    0.16,
+    0.16
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S6"
+   ]
+  },
+  {
+   "name": "boundary_value",
+   "description": "Delay or mismatch placed exactly on a scale or tolerance threshold",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.2,
+   "skills": [
+    "S6"
+   ]
+  },
+  {
+   "name": "turn_type",
+   "description": "Kind of turnaround, which changes the expected milestones and services",
+   "kind": "categorical",
+   "values": [
+    "full_turn",
+    "quick_turn",
+    "transit_through",
+    "night_stop_departure"
+   ],
+   "weights": [
+    0.4,
+    0.3,
+    0.15,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S7"
+   ]
+  }
+ ],
+ "sections": [
+  {
+   "name": "flight",
+   "description": "Flight number, aircraft reg and type, stand, STA, STD, any revised STD, turn type"
+  },
+  {
+   "name": "times",
+   "description": "List of milestones with ISO timestamps: on_blocks, doors_open, fuel_start, boarding_start, last_bag, doors_closed, off_blocks; delay_code and delay_min"
+  },
+  {
+   "name": "load",
+   "description": "Final loadsheet summary: pax_total, bags_count, bags_kg, cargo_kg, fuel_kg, captain_accepted, notoc"
+  },
+  {
+   "name": "hold_log",
+   "description": "List of hold or ULD entries with position, bag_count, weight, weight_unit, transfer flag"
+  },
+  {
+   "name": "services",
+   "description": "Fuel uplift record, catering, cleaning and pushback records, each possibly null"
+  },
+  {
+   "name": "remarks",
+   "description": "One to three short free-text messages from ramp staff with author role and time"
+  }
+ ],
+ "rendering_notes": "bag_mismatch_size and mismatch_location show only as differences between load figures and hold_log entries summed by the reader, never as a 'mismatch' field. pax_count_vs_boarding_close compares load.pax_total with a boarding count in a remark. fuel_uplift_vs_loadsheet_fuel compares services.fuel.uplift_kg with load.fuel_kg. missing_record renders the field as null or omits the list entry. A missing notoc matters only when dg_on_board shows through a hold_log entry flagged dg:true or a remark mentioning lithium or UN numbers. milestone_out_of_order is visible only by comparing timestamps. delay_minutes is rendered as times.off_blocks against flight.std. If revised_std is present, it is a decoy: the scale still uses the original std. The delay_min field may be rounded or slightly wrong; the timestamps are authoritative. delay_code_fit: the code names a handler activity, e.g. 'baggage' or 'fuelling', and the reader checks whether that milestone ran late. no_code_logged means the delay_code_supported claim is false. explanatory_remark appears in the remarks section, with the same alarming discrepancy rendered with and without it. A remark that only speculates, e.g. 'possibly offloaded', does not count as an explanation. pending_signoff renders as captain_accepted:null or a dispatcher signoff:null. decoy_noise is a weight in lb in one hold entry, totals within 1%, transfer bags listed separately but included in the loadsheet total, or a revised STD. boundary_value puts the delay at exactly 3, 15/16 or 60 minutes, or a bag difference of exactly 2. No record may contain fields such as status, risk, severity, disposition or 'reconciled'. The answers must be derived from the data.",
+ "skills": [
+  "S1",
+  "S2",
+  "S4",
+  "S5",
+  "S6",
+  "S7"
+ ],
+ "shared_scale": "failed_checks",
+ "design_cost": 0.123128
+}

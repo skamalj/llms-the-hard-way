@@ -1,0 +1,328 @@
+{
+ "id": "F212",
+ "domain": "court hearing bundle readiness checks",
+ "role": "Hearing bundle checker in a civil and family court listing office, reviewing each lodged bundle before it is released to the judge for pre-reading",
+ "setting": "Parties lodge electronic hearing bundles against case-management directions that set a lodging deadline, a page limit and a list of required documents. The checker opens one bundle record at a time, reconciles the directions, the lodgement details, the bundle index, the lodged files and the parties' confirmations, and decides whether the bundle can go to the judge, needs office correction, must wait for a party, or needs judicial direction.",
+ "questions": {
+  "directed_docs_covered": {
+   "type": "noul",
+   "instructions": "All directed documents are lodged or covered by recorded permission.",
+   "criteria": {
+    "true": "Each required document is lodged or has covering permission",
+    "false": "A required document is absent with no valid permission"
+   }
+  },
+  "bundle_disposition": {
+   "type": "choice",
+   "instructions": "What should the bundle checker do with this bundle now?",
+   "criteria": {
+    "accept": "Nothing outstanding; bundle goes forward to the judge unchanged",
+    "accept_with_fixes": "Only clerical defects the office can correct or annotate itself",
+    "hold": "Items await party action; no judicial direction is needed",
+    "refer_judge": "Missing directed material, unextended breach, or objection needs judicial direction"
+   }
+  },
+  "agreement_status": {
+   "type": "choice",
+   "instructions": "What is the parties' agreement status for the bundle contents?",
+   "criteria": {
+    "agreed": "Every party confirmed the lodged version with nothing disputed",
+    "agreed_subject": "All parties confirmed, but disputed documents are listed separately",
+    "unilateral": "A party has not confirmed and has lodged no objection",
+    "disputed": "A party has recorded an objection to the bundle contents"
+   }
+  },
+  "index_mismatch": {
+   "type": "score",
+   "instructions": "How many index entries disagree with the lodged files?",
+   "criteria": [
+    "No index entry disagrees with the lodged files",
+    "Exactly one index entry disagrees with lodged files",
+    "Two to four index entries disagree with files",
+    "Five or more index entries disagree with files"
+   ]
+  },
+  "lodging_lateness": {
+   "type": "score",
+   "instructions": "How late was the bundle lodged against its effective deadline?",
+   "criteria": [
+    "On time: lodged by the effective deadline",
+    "Slightly late: lodged one working day after effective deadline",
+    "Late: lodged two to four working days late",
+    "Very late: lodged five or more working days late"
+   ]
+  }
+ },
+ "factors": [
+  {
+   "name": "index_discrepancy_count",
+   "description": "Number of index entries that disagree with lodged files (missing file, unindexed file, date differs, or page span differs from file page count)",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 7,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S4"
+   ]
+  },
+  {
+   "name": "discrepancy_kind",
+   "description": "Typical form the discrepancies take: trivial date or one-page span slips versus substantive wrong-document or unindexed-file mismatches",
+   "kind": "categorical",
+   "values": [
+    "date_slip",
+    "page_span",
+    "ref_mismatch",
+    "mixed"
+   ],
+   "weights": [
+    0.3,
+    0.3,
+    0.2,
+    0.2
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S6"
+   ]
+  },
+  {
+   "name": "directed_doc_missing",
+   "description": "Whether one document required by directions has no matching lodged file",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.4,
+   "skills": [
+    "S1",
+    "S5"
+   ]
+  },
+  {
+   "name": "late_doc_permission",
+   "description": "Recorded permission to lodge a required document late: none, covering the missing item, naming a different item, or expired before lodgement",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "covers_item",
+    "covers_other_item",
+    "expired"
+   ],
+   "weights": [
+    0.3,
+    0.45,
+    0.13,
+    0.12
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S5",
+    "S6"
+   ]
+  },
+  {
+   "name": "lodgement_offset_days",
+   "description": "Working days between the original deadline and the lodgement, negative when early",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": -3,
+   "max": 7,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S4"
+   ]
+  },
+  {
+   "name": "deadline_extension",
+   "description": "Whether an order extended the lodging deadline by one to four working days",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S1"
+   ]
+  },
+  {
+   "name": "after_hours_lodgement",
+   "description": "Whether the lodgement timestamp falls after the 16:00 court close, shifting it to the next working day",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.25,
+   "skills": [
+    "S1",
+    "S6"
+   ]
+  },
+  {
+   "name": "confirmation_state",
+   "description": "Parties' confirmation of the bundle: all confirmed current version, one confirmed an earlier version only, one silent, or objection logged",
+   "kind": "categorical",
+   "values": [
+    "all_current",
+    "one_stale",
+    "one_silent",
+    "objection"
+   ],
+   "weights": [
+    0.35,
+    0.2,
+    0.25,
+    0.2
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S4",
+    "S6"
+   ]
+  },
+  {
+   "name": "disputed_items_count",
+   "description": "Number of documents parties list as disputed in their confirmations",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 3,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S4"
+   ]
+  },
+  {
+   "name": "page_ratio",
+   "description": "Total pages of lodged files divided by the original page limit",
+   "kind": "number",
+   "values": [],
+   "weights": [],
+   "min": 0.7,
+   "max": 1.6,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S3"
+   ]
+  },
+  {
+   "name": "page_extension_granted",
+   "description": "Whether an order raised the page limit for this hearing",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3"
+   ]
+  },
+  {
+   "name": "declared_total_mismatch",
+   "description": "Whether the lodging party's declared page total differs from the sum of file page counts",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.35,
+   "skills": [
+    "S1",
+    "S6"
+   ]
+  },
+  {
+   "name": "days_to_hearing",
+   "description": "Calendar days from lodgement to the hearing date; adds pressure but decides no question alone",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 1,
+   "max": 21,
+   "p_true": 0,
+   "skills": [
+    "S6",
+    "S7"
+   ]
+  },
+  {
+   "name": "hearing_type",
+   "description": "Kind of hearing, varying record shape and the documents directions require",
+   "kind": "categorical",
+   "values": [
+    "final_hearing",
+    "interim_application",
+    "case_management",
+    "dispute_resolution",
+    "fact_finding"
+   ],
+   "weights": [
+    0.3,
+    0.25,
+    0.15,
+    0.15,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S7"
+   ]
+  }
+ ],
+ "sections": [
+  {
+   "name": "case",
+   "description": "Case number, jurisdiction, hearing type, hearing date, time estimate and judge tier"
+  },
+  {
+   "name": "directions",
+   "description": "Bundle deadline, page limit, required document refs and a list of later extension orders"
+  },
+  {
+   "name": "lodgement",
+   "description": "Lodging timestamp, lodging party, bundle version, declared page total and lodged files list"
+  },
+  {
+   "name": "index",
+   "description": "Bundle index entries with tab, doc ref, title, document date and page range"
+  },
+  {
+   "name": "parties",
+   "description": "Each party's role, representation, confirmed version, confirmation date, objection date and disputed refs"
+  }
+ ],
+ "rendering_notes": "case: case_no, jurisdiction, hearing_type (hearing_type), hearing_date (lodgement date plus days_to_hearing), time_estimate_hrs, judge_tier; all decoys except hearing_date. directions: bundle_deadline (original ISO date), page_limit (integer), required_docs (list of doc_ref codes such as 'D07'), extensions (list of {type: 'deadline'|'pages'|'late_doc', ordered_on, new_deadline|new_limit|doc_ref+until}). deadline_extension adds a 'deadline' entry; page_extension_granted adds a 'pages' entry with new_limit set so roughly half of over-limit bundles become compliant; late_doc_permission adds a 'late_doc' entry whose doc_ref matches the missing item (covers_item), names another ref (covers_other_item), or has an until date before lodged_at (expired). lodgement: lodged_at (ISO datetime; after_hours_lodgement puts time after 16:00, counting as next working day), lodged_by, version (integer), declared_page_total (equals sum of file page_count unless declared_total_mismatch; this is a decoy for page checks, which use file counts), files (list of {doc_ref, doc_date, page_count}); directed_doc_missing removes one required ref from files. Lateness is computed in working days from the effective deadline (latest 'deadline' extension, else bundle_deadline) and the working-day-adjusted lodgement; weekends are skipped, so calendar gaps mislead. index: entries {tab, doc_ref, title, doc_date, pages_from, pages_to}; index_discrepancy_count mismatches are planted by discrepancy_kind: doc_date differs from file, span (pages_to - pages_from + 1) differs from file page_count, an index ref with no file, or a file with no index entry. Title wording or capitalisation differences between index and directions are decoys and never count. A missing directed document is not itself an index mismatch unless the index lists it. parties: list of {role, rep, confirmed_version, confirmed_on, objection_on, disputed_refs}; confirmation_state sets one party's confirmed_version below lodgement.version (one_stale, contested between agreed and unilateral), confirmed_version null with objection_on null (one_silent), or objection_on set (objection); disputed_items_count populates disputed_refs. No field may state readiness, lateness, mismatch counts, agreement status or a recommended action; no 'status', 'is_late', 'compliant' or 'ready' fields. Use null for unknown values, numbers as numbers, no free-text notes.",
+ "skills": [
+  "S1",
+  "S3",
+  "S4",
+  "S5",
+  "S6",
+  "S7"
+ ],
+ "shared_scale": null,
+ "design_cost": 0.182812
+}

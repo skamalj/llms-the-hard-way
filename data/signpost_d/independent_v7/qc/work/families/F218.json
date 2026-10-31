@@ -1,0 +1,347 @@
+{
+ "id": "F218",
+ "domain": "tree felling licence applications to a forestry authority",
+ "role": "Felling licence officer at a regional forestry authority, determining one tree felling licence application at a time",
+ "setting": "A forestry authority receives applications to fell trees on private and public holdings. Each application lists the compartments to be felled, the claimed ownership or consent, the restocking proposal and known site constraints, and may carry the officer's own site check. The officer cross-checks the sections against each other, weighs alarming constraints against evidence that lowers concern, and decides how to proceed.",
+ "questions": {
+  "consent_established": {
+   "type": "noul",
+   "instructions": "Owner or consent to fell is evidenced for every compartment.",
+   "criteria": {
+    "true": "Every listed compartment matches current title or consent",
+    "false": "A compartment lacks matching, current ownership or consent evidence"
+   }
+  },
+  "disposition": {
+   "type": "choice",
+   "instructions": "What should the officer do with this application now?",
+   "criteria": {
+    "approve": "All checks pass; licence issued without additional conditions.",
+    "approve_conditions": "Acceptable only if bound by restocking, timing or species conditions.",
+    "hold": "One curable missing item or confirmation blocks determination.",
+    "refuse": "Incurable defect such as no consent or unmitigated harm."
+   }
+  },
+  "consultation_tier": {
+   "type": "choice",
+   "instructions": "Which highest consultation tier must precede determining this application?",
+   "criteria": {
+    "none": "No designation, species finding or area threshold is engaged.",
+    "internal_review": "Species finding or adjoining designation, checked by in-house ecologist.",
+    "statutory_consultee": "Felling inside a designation, conservation area or tree order.",
+    "public_register": "Total felled area at or above 5 ha, listed publicly."
+   }
+  },
+  "discrepancy_size": {
+   "type": "score",
+   "instructions": "How far does the recorded value differ from the expected value?",
+   "criteria": [
+    "Matches expected value, or differs by under 2%",
+    "Differs from expected value by 2% to under 10%",
+    "Differs from expected value by 10% to under 25%",
+    "Differs from expected value by 25% or more"
+   ]
+  },
+  "restock_shortfall": {
+   "type": "score",
+   "instructions": "How large is the restocking shortfall against the felled area?",
+   "criteria": [
+    "Restocking area meets or exceeds felled area",
+    "Shortfall below 10% of felled area",
+    "Shortfall from 10% to 30% of felled area",
+    "Shortfall above 30%, or no restocking proposed"
+   ]
+  }
+ },
+ "factors": [
+  {
+   "name": "consent_coverage",
+   "description": "Whether every compartment in the proposal is matched by a current title or consent record in the holding section; failures are never flagged, only visible by comparing ids, dates and ownership basis",
+   "kind": "categorical",
+   "values": [
+    "full",
+    "compartment_missing",
+    "consent_expired",
+    "tenant_no_landlord_consent",
+    "id_typo_only"
+   ],
+   "weights": [
+    0.45,
+    0.15,
+    0.15,
+    0.13,
+    0.12
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S5",
+    "S6"
+   ]
+  },
+  {
+   "name": "area_discrepancy_pct",
+   "description": "Percentage difference between the applicant's compartment area and the officer's measured area in the site check",
+   "kind": "number",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 40,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S6"
+   ]
+  },
+  {
+   "name": "volume_discrepancy_pct",
+   "description": "Percentage difference between declared timber volume and the site check estimate; often a decoy unrelated to the disposition",
+   "kind": "number",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 50,
+   "p_true": 0,
+   "skills": [
+    "S1"
+   ]
+  },
+  {
+   "name": "restocking_shortfall_band",
+   "description": "How the proposed restocking area compares with the total felled area, including cases with no restocking block at all",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "under_10",
+    "10_to_30",
+    "over_30",
+    "no_plan"
+   ],
+   "weights": [
+    0.35,
+    0.2,
+    0.2,
+    0.13,
+    0.12
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S4",
+    "S6"
+   ]
+  },
+  {
+   "name": "restock_exemption",
+   "description": "Whether a valid restocking exemption applies (dangerous trees, approved conversion to open habitat), which makes a shortfall acceptable for disposition though the shortfall score still reflects the raw gap",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.45,
+   "skills": [
+    "S3",
+    "S4"
+   ]
+  },
+  {
+   "name": "designation_status",
+   "description": "Relationship of the felling site to statutory designations and protected-tree orders",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "adjoining",
+    "within_designation",
+    "conservation_area",
+    "tree_order"
+   ],
+   "weights": [
+    0.4,
+    0.2,
+    0.15,
+    0.13,
+    0.12
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S7"
+   ]
+  },
+  {
+   "name": "designation_mitigation",
+   "description": "Prior written agreement from the relevant consultee or an approved woodland management plan covering the compartments is on file",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3"
+   ]
+  },
+  {
+   "name": "species_signal",
+   "description": "State of the protected species evidence for the site",
+   "kind": "categorical",
+   "values": [
+    "not_required",
+    "survey_clear",
+    "roost_found_with_plan",
+    "roost_found_no_plan",
+    "survey_out_of_date"
+   ],
+   "weights": [
+    0.3,
+    0.25,
+    0.17,
+    0.13,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S4",
+    "S7"
+   ]
+  },
+  {
+   "name": "felled_area_total_ha",
+   "description": "Total area to be felled across all compartments; values near 5 ha are frequent so the public register threshold is often on the boundary, especially when applicant and measured areas straddle it",
+   "kind": "number",
+   "values": [],
+   "weights": [],
+   "min": 0.2,
+   "max": 12,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S6"
+   ]
+  },
+  {
+   "name": "missing_items",
+   "description": "Count of required supporting documents absent from the documents list (map, species survey, consent letter, restocking map)",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 3,
+   "p_true": 0,
+   "skills": [
+    "S4"
+   ]
+  },
+  {
+   "name": "timing_conflict",
+   "description": "Whether the proposed felling window overlaps the bird nesting season set in constraints, or the restock-by date precedes the felling end date",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "nesting_overlap",
+    "restock_date_before_felling",
+    "both"
+   ],
+   "weights": [
+    0.55,
+    0.2,
+    0.15,
+    0.1
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S4"
+   ]
+  },
+  {
+   "name": "prior_breach_count",
+   "description": "Number of previous unlicensed felling notices against the applicant; alarming but often paired with resolution evidence",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 3,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S7"
+   ]
+  },
+  {
+   "name": "prior_breach_resolved",
+   "description": "Whether earlier breach notices were closed with restocking verified; sampled independently of breach count",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3"
+   ]
+  },
+  {
+   "name": "days_to_deadline",
+   "description": "Days remaining until the statutory determination date; a decoy that adds pressure but decides none of the questions",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": -10,
+   "max": 90,
+   "p_true": 0,
+   "skills": [
+    "S7"
+   ]
+  }
+ ],
+ "sections": [
+  {
+   "name": "application",
+   "description": "Reference, received and determination dates, applicant type, agent, prior notices and attached documents list"
+  },
+  {
+   "name": "holding",
+   "description": "List of title or consent records with compartment ids, basis, holder and expiry"
+  },
+  {
+   "name": "felling",
+   "description": "List of compartments with id, area_ha, species, felling_type, tree_count, volume_m3 and proposed window dates"
+  },
+  {
+   "name": "restocking",
+   "description": "Proposed restock area, species mix, restock-by date and exemption code or null"
+  },
+  {
+   "name": "constraints",
+   "description": "Designations list, tree order and conservation area flags, nesting season dates, species survey date and result"
+  },
+  {
+   "name": "site_check",
+   "description": "Officer inspection date, measured area_ha, estimated volume_m3 and tree count, or null if not inspected"
+  }
+ ],
+ "rendering_notes": "consent_coverage appears only by comparing felling[].cpt_id with holding[].cpt_ids, holding[].basis (freehold, lease, consent_letter), holding[].expiry against application.received, and holding[].landlord_consent_ref (null for tenant_no_landlord_consent); id_typo_only renders a near-identical id such as C-07 vs C07 that a sensible judge may accept. area_discrepancy_pct is the gap between sum of felling[].area_ha and site_check.area_ha; volume_discrepancy_pct between felling[].volume_m3 and site_check.volume_m3. felled_area_total_ha is never given as a total; it must be summed, and in boundary records the applicant sum and measured area fall either side of 5.0. restocking_shortfall_band shows as restocking.area_ha against the felled sum; no_plan renders restocking.area_ha as null with species []. restock_exemption renders as restocking.exemption_code (e.g. DT2, OHC1) with a matching felling_type or as null. designation_status appears in constraints.designations[] (each with type and relation: within or adjoining), constraints.tree_order and constraints.conservation_area booleans. designation_mitigation renders as constraints.consultee_agreement_ref or holding[].mgmt_plan_ref, null when absent. species_signal uses constraints.species_survey {date, result: clear|roost|null, mitigation_plan_ref}; out of date means survey date more than 24 months before received. missing_items is visible only by comparing application.documents[] with what the case requires. timing_conflict is visible by comparing felling[].window_start/window_end with constraints.nesting_start/nesting_end and restocking.restock_by. prior_breach_count and prior_breach_resolved render as application.prior_notices[] with status open or closed and restock_verified booleans. Decoys: volume discrepancies, days_to_deadline via application.determine_by, tree_count differences, agent presence, species mix details. Never include fields naming the answer: no consent_ok, recommended_decision, consultation_tier, shortfall_band, risk or priority fields. Dates ISO, areas and volumes as numbers, unknowns as null; no free-text fields.",
+ "skills": [
+  "S1",
+  "S3",
+  "S4",
+  "S5",
+  "S6",
+  "S7"
+ ],
+ "shared_scale": "discrepancy_size",
+ "design_cost": 0.137552
+}

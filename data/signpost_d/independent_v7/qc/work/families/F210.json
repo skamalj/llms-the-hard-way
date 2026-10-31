@@ -1,0 +1,344 @@
+{
+ "id": "F210",
+ "domain": "milk collection tanker tests at dairy farms",
+ "role": "Milk intake quality controller at a dairy processing site, reviewing one farm collection record at a time",
+ "setting": "Each record covers a single farm pick-up by a collection tanker: the driver's on-farm readings and checks, the sealed sample taken for the lab, the lab results, the farm's contract limits and approved exceptions, and the calibration state of farm and tanker equipment. The controller decides whether the vat milk was held at a compliant temperature, what happens to the collection at intake, which source best explains the main inconsistency, and how many results breach limits without a recorded explanation.",
+ "questions": {
+  "temp_compliant": {
+   "type": "noul",
+   "instructions": "Vat milk was held at compliant temperature before collection.",
+   "criteria": {
+    "true": "Vat temperature within limit, or warm only after recent milking.",
+    "false": "Over limit without recent milking, or temperature reading missing."
+   }
+  },
+  "intake_disposition": {
+   "type": "choice",
+   "instructions": "What should happen to this farm collection at intake?",
+   "criteria": {
+    "accept_full": "All results within limits or covered; pay standard price.",
+    "accept_deduction": "Confirmed quality band breach without exception; accept with price penalty.",
+    "hold_retest": "One result awaits confirmation before acceptance or penalty is decided.",
+    "reject_load": "Confirmed inhibitory positive or gross failure; milk not accepted."
+   }
+  },
+  "issue_source": {
+   "type": "choice",
+   "instructions": "Which single source best explains the main inconsistency in this record?",
+   "criteria": {
+    "none_evident": "Sections agree and no result falls outside contract limits.",
+    "recording_error": "Mismatch traced to meter, timestamp or identifier entry, not milk.",
+    "collection_handling": "Seal, sample temperature or compartment problem arising after pick-up.",
+    "farm_practice": "Vat cooling, hygiene, treatment or dilution on farm explains it."
+   }
+  },
+  "discrepancy_size": {
+   "type": "score",
+   "instructions": "How far does the recorded value differ from the expected value?",
+   "criteria": [
+    "Matches expected value, or differs by under 2%",
+    "Differs from expected value by 2% to under 10%",
+    "Differs from expected value by 10% to under 25%",
+    "Differs from expected value by 25% or more"
+   ]
+  },
+  "unexplained_breaches": {
+   "type": "score",
+   "instructions": "How many test parameters exceed contract limits without a recorded explanation?",
+   "criteria": [
+    "No unexplained parameter above its contract limit",
+    "One unexplained parameter above its contract limit",
+    "Two unexplained parameters above their contract limits",
+    "Three or more unexplained parameters above limits"
+   ]
+  }
+ },
+ "factors": [
+  {
+   "name": "vat_temp_level",
+   "description": "Vat temperature read by the driver at pick-up relative to the 6.0 °C limit: compliant, on or just above the limit (6.0-7.0), or clearly high (above 7.0).",
+   "kind": "categorical",
+   "values": [
+    "compliant",
+    "borderline",
+    "high",
+    "not_recorded"
+   ],
+   "weights": [
+    0.45,
+    0.2,
+    0.27,
+    0.08
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S5",
+    "S6",
+    "S7"
+   ]
+  },
+  {
+   "name": "recent_milking",
+   "description": "Last milking ended within 2 hours of collection, which permits a vat up to 10 °C; mitigates a warm vat reading.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S5"
+   ]
+  },
+  {
+   "name": "mismatch_site",
+   "description": "Where corresponding values across sections disagree: farm vat volume vs tanker meter, sample id on seal vs lab, sample time vs collection time, compartment on sample vs collection, or none.",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "volume",
+    "sample_id",
+    "timing",
+    "compartment"
+   ],
+   "weights": [
+    0.3,
+    0.3,
+    0.13,
+    0.14,
+    0.13
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1"
+   ]
+  },
+  {
+   "name": "mismatch_magnitude",
+   "description": "Size of the cross-section disagreement: trivial (rounding, under 0.5% volume or minutes), moderate (1-3% volume or a transposed digit), large (over 5% volume or a different sample).",
+   "kind": "categorical",
+   "values": [
+    "trivial",
+    "moderate",
+    "large"
+   ],
+   "weights": [
+    0.4,
+    0.35,
+    0.25
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S6"
+   ]
+  },
+  {
+   "name": "meter_calibration_overdue",
+   "description": "Tanker meter or farm vat dipstick calibration is past due, offering a benign equipment explanation for a volume mismatch.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S1",
+    "S3"
+   ]
+  },
+  {
+   "name": "lab_limit_breaches",
+   "description": "Raw count of lab parameters (bactoscan, cell count, freezing point, thermoduric count) over contract limits before considering exceptions.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 3,
+   "p_true": 0,
+   "skills": [
+    "S4",
+    "S7"
+   ]
+  },
+  {
+   "name": "exception_covers_breach",
+   "description": "An in-date approved exception (e.g. cell count derogation under a mastitis plan, seasonal freezing point allowance) covers one of the breached parameters.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S4"
+   ]
+  },
+  {
+   "name": "inhibitory_status",
+   "description": "Inhibitory substance screen result on the farm sample.",
+   "kind": "categorical",
+   "values": [
+    "negative",
+    "presumptive_positive",
+    "confirmed_positive",
+    "not_tested"
+   ],
+   "weights": [
+    0.65,
+    0.15,
+    0.08,
+    0.12
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S4",
+    "S5",
+    "S7"
+   ]
+  },
+  {
+   "name": "treatment_withdrawal_active",
+   "description": "Farm treatment register lists a cow whose withdrawal period ends after the collection date, with or without a recorded segregation of her milk.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.45,
+   "skills": [
+    "S3",
+    "S1"
+   ]
+  },
+  {
+   "name": "retest_state",
+   "description": "State of any confirmatory retest on a flagged result: none requested, pending, completed confirming, completed clearing.",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "pending",
+    "confirmed",
+    "cleared"
+   ],
+   "weights": [
+    0.5,
+    0.2,
+    0.15,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S4"
+   ]
+  },
+  {
+   "name": "sample_integrity",
+   "description": "Condition of the lab sample on arrival: sealed and cold, arrival temperature above 8 °C, or seal broken or missing.",
+   "kind": "categorical",
+   "values": [
+    "intact",
+    "warm_on_arrival",
+    "seal_compromised"
+   ],
+   "weights": [
+    0.7,
+    0.18,
+    0.12
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S3"
+   ]
+  },
+  {
+   "name": "history_breaches_90d",
+   "description": "Number of collections in the last 90 days with a limit breach; context only, decoy when current results are clean.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 6,
+   "p_true": 0,
+   "skills": [
+    "S6",
+    "S7"
+   ]
+  },
+  {
+   "name": "value_on_boundary",
+   "description": "A deciding value (vat temperature, cell count or freezing point) sits exactly on its contract limit, where the contract wording leaves pass or fail open.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.25,
+   "skills": [
+    "S6"
+   ]
+  },
+  {
+   "name": "driver_sensory_flag",
+   "description": "Driver marked smell or appearance as not normal at pick-up; often uncorroborated by lab results, sometimes matching a high bactoscan.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.3,
+   "skills": [
+    "S3",
+    "S7"
+   ]
+  }
+ ],
+ "sections": [
+  {
+   "name": "collection",
+   "description": "Pick-up details: farm_id, route_id, tanker_id, compartment, collected_at, vat_l, meter_l, vat_temp_c, last_milking_end, driver_checks."
+  },
+  {
+   "name": "sample",
+   "description": "Lab sample record: sample_id, farm_id, compartment, taken_at, seal_no, seal_intact, arrival_temp_c, received_at."
+  },
+  {
+   "name": "lab_results",
+   "description": "Lab analysis: sample_id, tested_at, bactoscan_kcfu_ml, scc_k_ml, freezing_point_mc, thermoduric_cfu_ml, fat_pct, protein_pct, inhibitory, retest."
+  },
+  {
+   "name": "farm_terms",
+   "description": "Contract limits, approved_exceptions list with valid_from/valid_to, treatment_register entries, breaches_90d count."
+  },
+  {
+   "name": "equipment",
+   "description": "Calibration dates and due dates for vat thermometer, vat dipstick and tanker meter; last cooling service."
+  }
+ ],
+ "rendering_notes": "vat_temp_level appears only as collection.vat_temp_c (null when not_recorded); recent_milking is inferred from collection.last_milking_end vs collected_at (within 2 h or not), never flagged. mismatch_site and mismatch_magnitude show as disagreement between collection.vat_l and collection.meter_l, sample.sample_id vs lab_results.sample_id, sample.taken_at vs collection.collected_at, or sample.compartment vs collection.compartment; size follows magnitude; records with mismatch_site none have all pairs agreeing exactly or within rounding. meter_calibration_overdue shows as equipment.*.due date earlier than collected_at. lab_limit_breaches show as lab values above farm_terms.limits; exception_covers_breach adds an approved_exceptions entry naming one breached parameter with dates spanning the collection (sometimes a decoy entry that has expired or names a different parameter). inhibitory_status is lab_results.inhibitory as 'neg', 'presumptive_pos', 'confirmed_pos' or null; retest_state is lab_results.retest {requested, result} with null result when pending. treatment_withdrawal_active appears as a treatment_register entry with withdrawal_end after collected_at, with a segregated boolean true or false. sample_integrity appears via sample.seal_intact and sample.arrival_temp_c. history_breaches_90d is farm_terms.breaches_90d. value_on_boundary sets one value exactly equal to its limit. driver_sensory_flag is collection.driver_checks.smell_ok or appearance_ok false. Decoys: fat_pct and protein_pct (payment only, no limits), route_id, tanker_id, driver_checks.agitation_min, last cooling service date, breaches_90d when current results are clean, expired exceptions. No free-text fields. The record never states compliance, disposition, cause, breach counts or price outcome; there is no status, risk or verdict field.",
+ "skills": [
+  "S1",
+  "S3",
+  "S4",
+  "S5",
+  "S6",
+  "S7"
+ ],
+ "shared_scale": "discrepancy_size",
+ "design_cost": 0.140992
+}

@@ -1,0 +1,328 @@
+{
+ "id": "F225",
+ "domain": "waste transfer notes at a recycling centre",
+ "role": "Weighbridge compliance officer checking incoming waste transfer notes at a municipal recycling centre",
+ "setting": "Each record is one inbound delivery: the producer's waste transfer note, the carrier's registration details, the weighbridge ticket, the load inspection, the site permit extract and the producer's delivery history. The officer reviews one delivery at a time. They decide whether the declared waste code is borne out by inspection, what to do with the load, what follow-up is needed, how far the weighed quantity departs from the declared one, and how many required note entries are missing.",
+ "questions": {
+  "code_matches_load": {
+   "type": "noul",
+   "instructions": "Declared EWC code matches the material recorded at load inspection.",
+   "criteria": null
+  },
+  "load_disposition": {
+   "type": "choice",
+   "instructions": "What should the site do with this load and note?",
+   "criteria": {
+    "accept": "Tip normally; documents complete and load matches the note.",
+    "accept_conditional": "Tip with downgrade or surcharge; documents complete, load quality short.",
+    "hold": "Quarantine load pending one outstanding document or confirmation.",
+    "reject": "Turn the load away; it cannot lawfully be received."
+   }
+  },
+  "follow_up": {
+   "type": "choice",
+   "instructions": "What follow-up with the producer or carrier does this note need?",
+   "criteria": {
+    "none": "No follow-up; note and load raise no issues.",
+    "file_note": "Log a minor discrepancy internally without contacting anyone.",
+    "request_amendment": "Ask producer to reissue a corrected transfer note.",
+    "formal_warning": "Send written duty-of-care warning to producer or carrier.",
+    "regulator_referral": "Refer the note and load to the environmental regulator."
+   }
+  },
+  "weight_variance": {
+   "type": "score",
+   "instructions": "How far does weighbridge net weight differ from declared quantity?",
+   "criteria": [
+    "Negligible: net within 5% of declared quantity",
+    "Minor: net differs by over 5% up to 15%",
+    "Major: net differs by over 15% up to 40%",
+    "Gross: net differs from declared by over 40%"
+   ]
+  },
+  "doc_gaps": {
+   "type": "score",
+   "instructions": "How many required transfer note entries are missing or null?",
+   "criteria": [
+    "All required note entries present and completed",
+    "Exactly one required entry missing or null",
+    "Two or three required entries missing or null",
+    "Four or more required entries missing or null"
+   ]
+  }
+ },
+ "factors": [
+  {
+   "name": "weight_discrepancy_pct",
+   "description": "Absolute percentage gap between the quantity declared on the note and weighbridge gross minus tare.",
+   "kind": "number",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 60,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S4",
+    "S7"
+   ]
+  },
+  {
+   "name": "unit_convention_differs",
+   "description": "Note declares the quantity in tonnes while the weighbridge reports kg, so the reader must convert before comparing.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.35,
+   "skills": [
+    "S1"
+   ]
+  },
+  {
+   "name": "code_mismatch",
+   "description": "How the declared EWC code relates to the material observed at inspection.",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "same_chapter_other_entry",
+    "different_chapter",
+    "hazardous_mirror_entry"
+   ],
+   "weights": [
+    0.5,
+    0.2,
+    0.18,
+    0.12
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S5",
+    "S7"
+   ]
+  },
+  {
+   "name": "inspection_status",
+   "description": "Whether the load inspection was carried out and recorded fully.",
+   "kind": "categorical",
+   "values": [
+    "complete",
+    "partial",
+    "not_done"
+   ],
+   "weights": [
+    0.6,
+    0.25,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S2",
+    "S4",
+    "S5"
+   ]
+  },
+  {
+   "name": "contamination_pct",
+   "description": "Share of non-target material estimated at inspection; drives downgrade or surcharge.",
+   "kind": "number",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 35,
+   "p_true": 0,
+   "skills": [
+    "S4",
+    "S7"
+   ]
+  },
+  {
+   "name": "missing_doc_items",
+   "description": "Number of required note entries left null or absent, drawn from producer_sig, carrier_sig, ewc_code, sic_code, qty, carrier_reg_no, transfer_date and producer_postcode.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 6,
+   "p_true": 0,
+   "skills": [
+    "S2",
+    "S4"
+   ]
+  },
+  {
+   "name": "carrier_reg_state",
+   "description": "Carrier registration status on the delivery date.",
+   "kind": "categorical",
+   "values": [
+    "valid",
+    "expired_before_delivery",
+    "not_on_register"
+   ],
+   "weights": [
+    0.65,
+    0.25,
+    0.1
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S2",
+    "S7"
+   ]
+  },
+  {
+   "name": "renewal_receipt_present",
+   "description": "A renewal application receipt dated before expiry is on file, mitigating an expired registration.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S6"
+   ]
+  },
+  {
+   "name": "signature_after_delivery",
+   "description": "The producer signature timestamp falls after the weighbridge time_in, showing the note was completed out of order.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.18,
+   "skills": [
+    "S2",
+    "S5"
+   ]
+  },
+  {
+   "name": "moisture_allowance_agreed",
+   "description": "The contract carries an agreed moisture tolerance covering wet-weather weight gains, mitigating an overweight load.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S6"
+   ]
+  },
+  {
+   "name": "producer_prior_rejections",
+   "description": "Count of rejected or held loads from this producer in the last 12 months.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 6,
+   "p_true": 0,
+   "skills": [
+    "S6",
+    "S7"
+   ]
+  },
+  {
+   "name": "vehicle_reg_mismatch",
+   "description": "How the vehicle registration on the note compares with the weighbridge ANPR read.",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "transposed_chars",
+    "different_vehicle"
+   ],
+   "weights": [
+    0.75,
+    0.15,
+    0.1
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S3"
+   ]
+  },
+  {
+   "name": "code_on_permit",
+   "description": "Whether the declared EWC code appears on the site permit's accepted list.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.85,
+   "skills": [
+    "S1",
+    "S2",
+    "S7"
+   ]
+  },
+  {
+   "name": "boundary_placement",
+   "description": "Places weight_discrepancy_pct or contamination_pct within 0.5 points of a level threshold, or balances one mitigation against one alarm.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.2,
+   "skills": [
+    "S6",
+    "S4"
+   ]
+  }
+ ],
+ "sections": [
+  {
+   "name": "transfer_note",
+   "description": "Producer's note: note_id, transfer_date, producer details, sic_code, ewc_code, qty, qty_unit, container, signatures with timestamps."
+  },
+  {
+   "name": "carrier",
+   "description": "Carrier name, carrier_reg_no, reg_tier, reg_expiry, renewal_receipt_date, vehicle_reg."
+  },
+  {
+   "name": "weighbridge",
+   "description": "Ticket_no, time_in, time_out, anpr_reg, gross_kg, tare_kg, tare_source."
+  },
+  {
+   "name": "inspection",
+   "description": "Inspected_at, observed_ewc, primary_material, contamination_pct, prohibited_items, photos_count; null if not done."
+  },
+  {
+   "name": "site_permit",
+   "description": "Permit_ref, accepted_ewc list, daily_cap_t, tonnage_today_t, contract moisture_allowance_pct."
+  },
+  {
+   "name": "producer_history",
+   "description": "Deliveries_12m, rejections_12m, holds_12m, last_rejection_date, list of recent ticket_nos."
+  }
+ ],
+ "rendering_notes": "weight_discrepancy_pct is never stated. It shows only as transfer_note.qty and qty_unit against weighbridge.gross_kg minus tare_kg; when unit_convention_differs, qty is in t and must be converted. moisture_allowance_agreed sets site_permit.moisture_allowance_pct to a value (for example 8) or null. code_mismatch shows as inspection.observed_ewc and primary_material differing from transfer_note.ewc_code; hazardous_mirror_entry uses an asterisked code observed against a non-asterisked declared code. inspection_status not_done sets inspection to null. Partial keeps photos_count but sets observed_ewc and contamination_pct to null, which makes code_matches_load false. missing_doc_items nulls that many required note fields, chosen at random from the listed set. carrier_reg_state shows via carrier.reg_expiry against transfer_date, or carrier_reg_no null or flagged reg_found:false. renewal_receipt_present fills carrier.renewal_receipt_date before reg_expiry. signature_after_delivery makes transfer_note.producer_sig_at later than weighbridge.time_in. vehicle_reg_mismatch alters anpr_reg against carrier.vehicle_reg; transposed_chars is a benign typo. code_on_permit controls whether ewc_code appears in site_permit.accepted_ewc. producer_prior_rejections fills producer_history counts. Decoys: container type, tare_source (stored or fresh), ticket number sequence, tonnage_today_t near but below daily_cap_t, a wet-weather flag in weighbridge without any contract allowance, last_rejection_date older than 12 months, and trivial weight gaps under 1%. Mismatches are never flagged. No field may name an outcome: no variance_pct, missing_count, compliant, risk, status_ok or recommended_action fields. No free-text notes or comments anywhere.",
+ "skills": [
+  "S1",
+  "S2",
+  "S3",
+  "S4",
+  "S5",
+  "S6",
+  "S7"
+ ],
+ "shared_scale": null,
+ "design_cost": 0.156768
+}

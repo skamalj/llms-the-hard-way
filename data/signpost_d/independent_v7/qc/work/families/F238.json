@@ -1,0 +1,335 @@
+{
+ "id": "F238",
+ "domain": "sports pitch condition inspections before matches",
+ "role": "County league match-day pitch inspector",
+ "setting": "A regional grassroots and semi-professional league requires every home club to log a pre-match pitch inspection record, combining the groundstaff's own report with the appointed inspector's independent zone readings, a hazard list, a remediation log and the short-range forecast. The inspector reviews one record at a time before kick-off and decides whether the fixture is playable and what happens next.",
+ "questions": {
+  "playable_as_is": {
+   "type": "noul",
+   "instructions": "The pitch is playable at kick-off without any further remedial work.",
+   "criteria": null
+  },
+  "readings_agree": {
+   "type": "noul",
+   "instructions": "Groundstaff readings agree with the inspector's own measurements within tolerance.",
+   "criteria": {
+    "true": "Every shared measurement matches within its stated tolerance",
+    "false": "At least one shared measurement differs beyond tolerance"
+   }
+  },
+  "fixture_decision": {
+   "type": "choice",
+   "instructions": "What should happen to the fixture after this inspection?",
+   "criteria": {
+    "proceed": "No open defects; match goes ahead on the main pitch.",
+    "proceed_conditions": "Goes ahead on main pitch once named fixes or coning completed.",
+    "reinspect": "Decision deferred to a timed second inspection before kick-off.",
+    "switch_pitch": "Main pitch unfit; fixture moves to the certified alternate pitch.",
+    "postpone": "Main pitch unfit and no alternate; fixture is postponed."
+   }
+  },
+  "failing_zones": {
+   "type": "score",
+   "instructions": "How many inspected pitch zones fail at least one surface check?",
+   "criteria": [
+    "No inspected zone fails any surface check",
+    "Exactly one inspected zone fails a check",
+    "Two or three inspected zones fail checks",
+    "Four or more inspected zones fail checks"
+   ]
+  },
+  "hazard_severity": {
+   "type": "score",
+   "instructions": "How serious is the worst player-safety hazard recorded on the pitch?",
+   "criteria": [
+    "None: no hazard recorded on the playing surface",
+    "Cosmetic: affects appearance only, not footing or ball",
+    "Minor: alters ball roll or footing, no injury mechanism",
+    "Significant: could cause slips or twists if left unmarked",
+    "Critical: hole, hard object or frozen ground risking injury"
+   ]
+  }
+ },
+ "factors": [
+  {
+   "name": "sport",
+   "description": "Sport and code being played, which sets the zone layout and threshold table (grass height, firmness band, line widths).",
+   "kind": "categorical",
+   "values": [
+    "football",
+    "rugby_union",
+    "rugby_league",
+    "field_hockey_grass"
+   ],
+   "weights": [
+    0.45,
+    0.25,
+    0.15,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S7"
+   ]
+  },
+  {
+   "name": "reading_mismatch",
+   "description": "Size of the gap between a groundstaff-reported value and the inspector's independent reading of the same quantity.",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "within_tolerance",
+    "moderate",
+    "large"
+   ],
+   "weights": [
+    0.3,
+    0.25,
+    0.3,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S5"
+   ]
+  },
+  {
+   "name": "mismatch_field",
+   "description": "Which shared quantity carries the mismatch, so discrepancies sit in varied places.",
+   "kind": "categorical",
+   "values": [
+    "firmness_gmax",
+    "grass_height_mm",
+    "standing_water_pct",
+    "surface_temp_c",
+    "goal_crossbar_mm",
+    "line_width_mm"
+   ],
+   "weights": [
+    0.22,
+    0.2,
+    0.2,
+    0.13,
+    0.12,
+    0.13
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1"
+   ]
+  },
+  {
+   "name": "worst_hazard",
+   "description": "Category of the most serious hazard among the listed items, expressed through hazard type codes rather than a severity label.",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "cosmetic",
+    "minor",
+    "significant",
+    "critical"
+   ],
+   "weights": [
+    0.15,
+    0.15,
+    0.3,
+    0.25,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S7",
+    "S4"
+   ]
+  },
+  {
+   "name": "failing_zone_count",
+   "description": "Number of inspected zones whose inspector readings breach at least one threshold for the sport.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 6,
+   "p_true": 0,
+   "skills": [
+    "S4",
+    "S1"
+   ]
+  },
+  {
+   "name": "hazard_mitigated",
+   "description": "Whether the most alarming hazard is accompanied by mitigation: remediation logged and verified, area outside the playing lines, approved league exception, or a benign cause such as sprinkler residue already draining.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3"
+   ]
+  },
+  {
+   "name": "remediation_status",
+   "description": "State of work on open defects as shown by the remediation log.",
+   "kind": "categorical",
+   "values": [
+    "not_needed",
+    "not_started",
+    "in_progress",
+    "complete_unverified",
+    "complete_verified"
+   ],
+   "weights": [
+    0.2,
+    0.15,
+    0.25,
+    0.2,
+    0.2
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S4",
+    "S3"
+   ]
+  },
+  {
+   "name": "weather_trend",
+   "description": "Forecast direction between inspection and kick-off: drying or thawing, stable, or worsening rain or frost.",
+   "kind": "categorical",
+   "values": [
+    "improving",
+    "stable",
+    "deteriorating"
+   ],
+   "weights": [
+    0.3,
+    0.4,
+    0.3
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S6"
+   ]
+  },
+  {
+   "name": "alternate_pitch_available",
+   "description": "Whether the venue has a certified alternate pitch free at kick-off time.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.35,
+   "skills": [
+    "S7"
+   ]
+  },
+  {
+   "name": "hours_to_kickoff",
+   "description": "Time between the inspection timestamp and scheduled kick-off, deciding whether a reinspection or fix is feasible.",
+   "kind": "number",
+   "values": [],
+   "weights": [],
+   "min": 0.75,
+   "max": 28,
+   "p_true": 0,
+   "skills": [
+    "S4",
+    "S6"
+   ]
+  },
+  {
+   "name": "note_contradiction",
+   "description": "Whether a free-text note contradicts the structured data, e.g. claims a zone cleared while the hazard list shows it open, or mentions a defect missing from the list.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.3,
+   "skills": [
+    "S1",
+    "S5"
+   ]
+  },
+  {
+   "name": "boundary_reading",
+   "description": "Whether a deciding reading sits exactly on its threshold or the tolerance edge, leaving judges split.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.2,
+   "skills": [
+    "S6"
+   ]
+  },
+  {
+   "name": "prior_postponements",
+   "description": "Postponements at this venue earlier in the season; context and decoy that should not alone drive the decision.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 3,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S6"
+   ]
+  }
+ ],
+ "sections": [
+  {
+   "name": "fixture",
+   "description": "Fixture id, sport, competition, venue id, pitch id, kick-off datetime, alternate pitch details and season postponement count."
+  },
+  {
+   "name": "groundstaff_report",
+   "description": "Club groundstaff's own summary readings, report time and a one-sentence comment."
+  },
+  {
+   "name": "inspector_readings",
+   "description": "Inspector's timestamped readings per zone with thresholds and tolerances, plus a short free-text note."
+  },
+  {
+   "name": "hazards",
+   "description": "List of logged hazards with zone, type code, size, inside_playing_lines flag and exception reference."
+  },
+  {
+   "name": "remediation_log",
+   "description": "List of remediation actions with zone, action code, started, completed and verified_by fields."
+  },
+  {
+   "name": "forecast",
+   "description": "Hourly forecast to kick-off: rain_mm, air_temp_c, ground_frost flag and source."
+  }
+ ],
+ "rendering_notes": "fixture: sport, kickoff (ISO datetime), alt_pitch {id, certified bool, free bool} or null when none; alternate_pitch_available shows only as alt_pitch certified and free both true. prior_postponements as season_ppd integer (decoy). groundstaff_report: gmax, grass_mm, standing_water_pct, surface_temp_c, crossbar_mm, line_mm, reported_at, comment (one sentence). inspector_readings: inspected_at (hours_to_kickoff derived from this against fixture.kickoff, never stated), zones list of 6-9 entries {zone, gmax, grass_mm, standing_water_pct, surface_temp_c}, goals {crossbar_mm}, lines {width_mm}, thresholds object per sport with tolerance values, note (one sentence). reading_mismatch and mismatch_field appear only by comparing groundstaff values with the inspector's average or worst zone value of the same quantity; within_tolerance gaps are decoys. failing_zone_count is never stated; it must be counted by checking each zone against thresholds; boundary_reading places one value exactly on a threshold or tolerance edge. hazards: worst_hazard expressed through type codes (e.g. divot_scar, uneven_seam, surface_hole, glass_found, frozen_patch, worn_goalmouth) and size_cm; some hazards sit outside the playing lines (inside_lines false) as low-impact decoys. hazard_mitigated shows as exception_ref non-null, a matching remediation entry with verified_by, inside_lines false, or a forecast drying trend explaining standing water; it applies to the most alarming hazard about half the time. remediation_log: remediation_status shown by started/completed timestamps and verified_by null or initials; empty list when not_needed; in_progress has completed null. weather_trend appears only as hourly rain_mm and air_temp_c values and ground_frost flags, never a trend label. note_contradiction places a conflicting claim in inspector_readings.note or groundstaff_report.comment (e.g. 'goalmouth relaid and firm' while the hazard list keeps worn_goalmouth open). Unknown readings use null. No field ever states playable, decision, severity, failing count, agreement or risk.",
+ "skills": [
+  "S1",
+  "S3",
+  "S4",
+  "S5",
+  "S6",
+  "S7"
+ ],
+ "shared_scale": null,
+ "design_cost": 0.136716
+}

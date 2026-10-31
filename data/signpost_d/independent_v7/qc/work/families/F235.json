@@ -1,0 +1,341 @@
+{
+ "id": "F235",
+ "domain": "river level gauge maintenance visits",
+ "role": "Hydrometric data quality officer reviewing completed river level gauge maintenance visit records",
+ "setting": "A regional river monitoring service sends field technicians to telemetered river level gauging stations for routine and reactive maintenance. Each visit produces a structured record: station details, visit logistics, check readings taken against the fixed staff board before and after work, the task list and parts used, defects left open, and short free-text notes from the technician and the duty supervisor. The data quality officer reviews one visit record at a time to decide whether the visit can be signed off, how the stage data since the previous visit should be treated, how large the pre-visit error was, and how serious any remaining defect is. Flood warning relies on these gauges, so open faults and doubtful data matter, but many alarming entries have ordinary explanations recorded elsewhere in the record.",
+ "questions": {
+  "sensor_fault_cause": {
+   "type": "noul",
+   "instructions": "Recorded level drift stems from a sensor fault, not channel change.",
+   "criteria": null
+  },
+  "visit_disposition": {
+   "type": "choice",
+   "instructions": "What should happen next with this maintenance visit record?",
+   "criteria": {
+    "sign_off": "Visit complete and verified; close the record with no follow-up.",
+    "sign_off_noted": "Close the record but log a minor point for next routine visit.",
+    "hold": "Keep the record open pending one missing confirmation or reading.",
+    "planned_revisit": "Book a routine return visit to finish outstanding work.",
+    "urgent_revisit": "Dispatch a crew within days to fix a live measurement fault."
+   }
+  },
+  "data_treatment": {
+   "type": "choice",
+   "instructions": "How should the stage data since the last visit be treated?",
+   "criteria": {
+    "keep_as_recorded": "Logged values stand unchanged because checks show them within tolerance.",
+    "apply_correction": "Shift logged values by a verified offset with known start point.",
+    "mark_provisional": "Keep values but flag them as unverified until cause confirmed.",
+    "reject_period": "Withdraw logged values for the affected period as unusable."
+   }
+  },
+  "offset_size": {
+   "type": "score",
+   "instructions": "How large was the pre-visit logger offset against the staff board?",
+   "criteria": [
+    "Negligible: offset under 5 mm between logger and board",
+    "Minor: offset from 5 mm to under 15 mm",
+    "Significant: offset from 15 mm to under 40 mm",
+    "Gross: offset of 40 mm or more"
+   ]
+  },
+  "residual_defect": {
+   "type": "score",
+   "instructions": "How severe is the worst defect left unresolved at the station?",
+   "criteria": [
+    "No unresolved defect listed after the visit",
+    "Cosmetic or housing defect only, readings unaffected",
+    "Secondary channel degraded, primary stage sensor working",
+    "Primary stage sensor faulty but still reporting values",
+    "Primary stage sensor not reporting any values"
+   ]
+  }
+ },
+ "factors": [
+  {
+   "name": "pre_visit_offset_mm",
+   "description": "True absolute difference between logger stage and staff board reading on arrival, before any adjustment; clustered near the 5, 15 and 40 mm boundaries in a share of records.",
+   "kind": "number",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 75,
+   "p_true": 0,
+   "skills": [
+    "S6",
+    "S7"
+   ]
+  },
+  {
+   "name": "check_reading_spread_mm",
+   "description": "Disagreement between the two staff board readings taken on arrival (wave action, surge); a large spread near a boundary leaves the offset level contested.",
+   "kind": "number",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 12,
+   "p_true": 0,
+   "skills": [
+    "S6"
+   ]
+  },
+  {
+   "name": "drift_cause",
+   "description": "Actual cause of any drift: pressure transducer fault, channel change (gravel deposition, scour, weed growth), disturbed staff board datum, or no real drift.",
+   "kind": "categorical",
+   "values": [
+    "sensor_fault",
+    "channel_change",
+    "datum_disturbance",
+    "no_drift"
+   ],
+   "weights": [
+    0.3,
+    0.25,
+    0.15,
+    0.3
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S5",
+    "S7"
+   ]
+  },
+  {
+   "name": "cause_evidence",
+   "description": "How well the record supports the drift cause: nothing beyond the offset, one indicator (e.g. sensor swapped and new one agrees), or corroborated by two independent checks (bench test plus level survey).",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "single_indicator",
+    "corroborated"
+   ],
+   "weights": [
+    0.3,
+    0.4,
+    0.3
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S5",
+    "S6"
+   ]
+  },
+  {
+   "name": "visit_completion",
+   "description": "Share of planned tasks done: all, some (work started but unfinished), or visit aborted on site (high flow, access refused, unsafe bank).",
+   "kind": "categorical",
+   "values": [
+    "full",
+    "partial",
+    "aborted"
+   ],
+   "weights": [
+    0.5,
+    0.35,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S4",
+    "S2"
+   ]
+  },
+  {
+   "name": "post_visit_check_logged",
+   "description": "Whether a staff board check after the work was recorded; when absent the visit cannot be verified and typically needs a hold.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.65,
+   "skills": [
+    "S2",
+    "S4"
+   ]
+  },
+  {
+   "name": "residual_defect_class",
+   "description": "Worst defect still open at departure: none, cosmetic (kiosk door, signage), secondary channel (rain gauge, water temperature), primary stage sensor faulty but reporting, primary stage sensor offline.",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "cosmetic",
+    "secondary_channel",
+    "primary_degraded",
+    "primary_offline"
+   ],
+   "weights": [
+    0.3,
+    0.2,
+    0.2,
+    0.18,
+    0.12
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S7",
+    "S4"
+   ]
+  },
+  {
+   "name": "backup_sensor_ok",
+   "description": "Whether an independent backup stage sensor (radar or shaft encoder) is installed and reporting normally; lowers urgency of primary faults without changing their severity.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3"
+   ]
+  },
+  {
+   "name": "benign_explanation",
+   "description": "Presence of a recorded ordinary reason for an alarming signal: approved temporary offset from the hydrometry lead, recent weed cut, known flood debris event, planned works window on the reach.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S6"
+   ]
+  },
+  {
+   "name": "record_gap",
+   "description": "Which part of the record is missing or out of order: nothing, post-visit checks null, defects list absent, parts list null although a sensor swap is claimed, or supervisor sign-off dated before the visit.",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "post_checks_null",
+    "defects_missing",
+    "parts_null_with_swap",
+    "signoff_before_visit"
+   ],
+   "weights": [
+    0.55,
+    0.12,
+    0.1,
+    0.11,
+    0.12
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S2"
+   ]
+  },
+  {
+   "name": "logger_gap_hours",
+   "description": "Hours of missing logger data during or around the visit; short gaps are normal during swaps, long gaps bear on data treatment.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 96,
+   "p_true": 0,
+   "skills": [
+    "S4",
+    "S7"
+   ]
+  },
+  {
+   "name": "telemetry_decoy",
+   "description": "Battery voltage and signal strength values that sometimes look poor but have no bearing on stage accuracy unless the primary sensor is offline.",
+   "kind": "categorical",
+   "values": [
+    "normal",
+    "low_battery",
+    "weak_signal",
+    "both_low"
+   ],
+   "weights": [
+    0.55,
+    0.15,
+    0.15,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S3"
+   ]
+  },
+  {
+   "name": "note_tone",
+   "description": "Tone of the technician's free-text note, independent of the true state: alarming, neutral or reassuring; sometimes names a cause the evidence does not support.",
+   "kind": "categorical",
+   "values": [
+    "alarming",
+    "neutral",
+    "reassuring"
+   ],
+   "weights": [
+    0.3,
+    0.4,
+    0.3
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S5",
+    "S6"
+   ]
+  }
+ ],
+ "sections": [
+  {
+   "name": "station",
+   "description": "Station id, river, gauge type, backup sensor fields, telemetry battery and signal values."
+  },
+  {
+   "name": "visit",
+   "description": "Visit id, type, dates, crew, planned task count, arrival and departure times, abort reason."
+  },
+  {
+   "name": "checks",
+   "description": "Pre and post visit staff board and logger stage readings with timestamps."
+  },
+  {
+   "name": "works",
+   "description": "Task list with status per task, parts fitted with serials, bench test results."
+  },
+  {
+   "name": "defects",
+   "description": "List of defects open at departure with channel affected and reporting state."
+  },
+  {
+   "name": "notes",
+   "description": "Short free text: technician note, supervisor comment, sign-off date."
+  }
+ ],
+ "rendering_notes": "station: {station_id, river, gauge_type, backup: {type, installed, last_value_m, status}, telemetry: {batt_v, rssi_dbm, last_tx}}. backup_sensor_ok drives backup.installed and status ('reporting'/'stale'/null). telemetry_decoy sets batt_v (e.g. 11.4 vs 12.8) and rssi_dbm; these are decoys. visit: {visit_id, type ('routine'/'reactive'), planned_date, visit_date, arrive, depart, tasks_planned, abort_reason or null}; visit_completion shows only through works.tasks statuses and abort_reason, never as a summary field. checks: {pre: {board_m: [r1, r2], logger_m, time}, post: {board_m, logger_m, time} or null}; pre_visit_offset_mm is never stated, the reviewer must subtract logger_m from the mean of board_m (metres to 3 decimals); check_reading_spread_mm is the gap between r1 and r2. post is null when post_visit_check_logged is false or record_gap is post_checks_null. works: {tasks: [{task, status ('done'/'part_done'/'not_started')}], parts: [{part, serial_out, serial_in}] or null, bench_test: {result_mm_error, date} or null, logger_gap_h}. drift_cause and cause_evidence surface indirectly: sensor fault via a swapped transducer whose bench_test shows error matching the offset and post check agreeing; channel change via a task like 'control survey' with noted bed level change and a sensor bench test within spec; datum disturbance via 'board relevelled' task with survey difference; single_indicator records show only one of these, none shows none. defects: [{item, channel ('primary_stage'/'secondary'/'housing'), reporting (true/false), raised}] or absent when record_gap is defects_missing; residual_defect_class maps to the worst entry. notes: {tech_note, supervisor_comment, signed_off} where tech_note and supervisor_comment are one sentence each; note_tone sets wording of tech_note and may assert a cause ('gravel bar has built up again') that the readings do not confirm; benign_explanation appears as a supervisor_comment such as an approved temporary offset reference, a recent weed cut or a works window, about half the time alongside alarming signals. signoff_before_visit puts signed_off earlier than visit_date. No field may state the disposition, the data treatment, the offset band, a defect severity rating or the confirmed drift cause; no 'risk', 'priority' or 'status: ok' summaries beyond per-task and per-defect states a real field system would hold.",
+ "skills": [
+  "S2",
+  "S3",
+  "S4",
+  "S5",
+  "S6",
+  "S7"
+ ],
+ "shared_scale": null,
+ "design_cost": 0.155128
+}

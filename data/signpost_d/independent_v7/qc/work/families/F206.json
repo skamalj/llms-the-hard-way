@@ -1,0 +1,353 @@
+{
+ "id": "F206",
+ "domain": "concrete pour records on construction sites",
+ "role": "Site quality engineer for the main contractor, reviewing each completed concrete pour record before the element is signed off for the next construction stage",
+ "setting": "A multi-storey frame and groundworks site where every pour of a slab, column, wall or footing produces a structured record. It combines the pour summary, the ready-mix supplier's delivery tickets, on-site slump and cube testing, weather and curing conditions, and the approvals logged against the pour. The engineer cross-checks these sections and decides whether the element can be released, held, investigated or rejected. They also gauge how far the volumes reconcile and how far strength verification has progressed.",
+ "questions": {
+  "mix_conforms": {
+   "type": "noul",
+   "instructions": "Every placed load was the specified mix or an approved substitute.",
+   "criteria": null
+  },
+  "overrun_unmitigated": {
+   "type": "noul",
+   "instructions": "A load exceeded the discharge time limit with no recorded mitigation.",
+   "criteria": {
+    "true": "A load discharged past the limit, with no retarder or extension.",
+    "false": "All loads within limit, or every overrun covered by mitigation."
+   }
+  },
+  "disposition": {
+   "type": "choice",
+   "instructions": "What disposition should this pour record receive at review?",
+   "criteria": {
+    "release": "All checks consistent; no deviation or outstanding item remains.",
+    "conditional_release": "Minor deviation resolved by added curing, records or monitoring.",
+    "hold": "Awaiting one confirmation, such as results or late sign-off.",
+    "investigate": "Unresolved deviation needing in-situ testing such as cores or rebound.",
+    "reject": "Confirmed nonconformity requiring breakout or replacement of the element."
+   }
+  },
+  "volume_gap": {
+   "type": "score",
+   "instructions": "How far does net ticketed volume differ from recorded placed volume?",
+   "criteria": [
+    "Within 2% of the recorded placed volume",
+    "More than 2%, up to 5% difference",
+    "More than 5%, up to 10% difference",
+    "More than 10% difference from placed volume"
+   ]
+  },
+  "strength_progress": {
+   "type": "score",
+   "instructions": "How far has strength verification progressed for this pour?",
+   "criteria": [
+    "None: no cube sets taken at the pour",
+    "Sampled: cubes taken, no strength results logged yet",
+    "Early: 7-day results logged, no 28-day results yet",
+    "Partial: 28-day results logged for some sets only",
+    "Complete: 28-day results logged for every cube set"
+   ]
+  }
+ },
+ "factors": [
+  {
+   "name": "ticket_count",
+   "description": "Number of delivery tickets (truck loads) for the pour; more tickets give more places for a mismatch to hide.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 2,
+   "max": 12,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S7"
+   ]
+  },
+  {
+   "name": "mix_mismatch",
+   "description": "How ticket mix codes compare with the specified mix in the pour section: none, a trivial formatting difference for the same mix, one load of a different class, or several loads of a different class.",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "trivial_format",
+    "one_load_wrong",
+    "several_loads_wrong"
+   ],
+   "weights": [
+    0.35,
+    0.2,
+    0.3,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S5"
+   ]
+  },
+  {
+   "name": "substitution_approved",
+   "description": "Whether approvals hold a mix substitution matching the off-spec code for this element; when false, a decoy substitution for a different element may still appear.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S5"
+   ]
+  },
+  {
+   "name": "volume_discrepancy_pct",
+   "description": "Percentage gap between net ticketed volume (sum of ticket volumes minus returned concrete) and placed volume in the pour section, rounded to one decimal; values sometimes land exactly on 2.0, 5.0 or 10.0.",
+   "kind": "number",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 14,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S4",
+    "S6"
+   ]
+  },
+  {
+   "name": "returned_concrete_present",
+   "description": "Whether one or more tickets record returned concrete that must be subtracted before comparison; this explains apparent gaps between the gross ticket sum and placed volume.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.45,
+   "skills": [
+    "S1",
+    "S3"
+   ]
+  },
+  {
+   "name": "discharge_overrun",
+   "description": "Worst gap between ticket batch time and discharge end time compared with the pour's maximum discharge minutes: none, marginal (within 5 minutes over), one load clearly over, or several loads over.",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "marginal",
+    "one_clear",
+    "several"
+   ],
+   "weights": [
+    0.35,
+    0.2,
+    0.3,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S6"
+   ]
+  },
+  {
+   "name": "overrun_mitigated",
+   "description": "Whether overrunning loads carry a retarder admixture on the ticket or a matching discharge extension in approvals; when false, a decoy plasticiser or an extension dated for another pour may appear.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S5"
+   ]
+  },
+  {
+   "name": "cube_progress",
+   "description": "State of cube testing: no sets taken, sets taken with no results, 7-day results only, 28-day results for some sets, or 28-day results for all sets.",
+   "kind": "categorical",
+   "values": [
+    "none_taken",
+    "sampled_no_results",
+    "seven_day_only",
+    "partial_28",
+    "complete_28"
+   ],
+   "weights": [
+    0.08,
+    0.22,
+    0.27,
+    0.23,
+    0.2
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S4",
+    "S7"
+   ]
+  },
+  {
+   "name": "cube_result_status",
+   "description": "Where results exist, how they compare with the specified characteristic strength: all clear, one result marginally low, or the set mean below specification.",
+   "kind": "categorical",
+   "values": [
+    "all_pass",
+    "marginal_low",
+    "mean_fail"
+   ],
+   "weights": [
+    0.6,
+    0.25,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S6",
+    "S7"
+   ]
+  },
+  {
+   "name": "site_water",
+   "description": "Water added on site per ticket against the supplier allowance: none, within allowance, beyond allowance with a logged approval, or beyond allowance without approval.",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "within_allowance",
+    "beyond_approved",
+    "beyond_unapproved"
+   ],
+   "weights": [
+    0.4,
+    0.3,
+    0.15,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S7"
+   ]
+  },
+  {
+   "name": "weather_exposure",
+   "description": "Ambient conditions and protection: normal, cold below 5 °C with frost protection logged, cold without protection, or hot above 30 °C with curing compound applied.",
+   "kind": "categorical",
+   "values": [
+    "normal",
+    "cold_protected",
+    "cold_unprotected",
+    "hot_cured"
+   ],
+   "weights": [
+    0.5,
+    0.2,
+    0.15,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S7"
+   ]
+  },
+  {
+   "name": "prepour_signoff",
+   "description": "Pre-pour inspection timestamp compared with the first discharge time: signed before the pour, signed after the pour started, or missing.",
+   "kind": "categorical",
+   "values": [
+    "before_pour",
+    "after_pour",
+    "missing"
+   ],
+   "weights": [
+    0.6,
+    0.25,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S4"
+   ]
+  },
+  {
+   "name": "slump_outliers",
+   "description": "Number of loads whose site slump falls outside the specified slump range.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 3,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S6"
+   ]
+  },
+  {
+   "name": "slump_retest_passed",
+   "description": "Whether out-of-range loads have a logged retest within range before placement; mitigates slump outliers.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S4"
+   ]
+  }
+ ],
+ "sections": [
+  {
+   "name": "pour",
+   "description": "Pour id, element, grid ref, pour date, spec mix, planned and placed m3, max discharge minutes, slump range, cube sets required."
+  },
+  {
+   "name": "delivery_tickets",
+   "description": "List of loads: ticket_no, mix_code, vol_m3, returned_m3, batch_time, discharge_end, admixtures list, water_added_l, water_allow_l."
+  },
+  {
+   "name": "site_tests",
+   "description": "Slump checks per ticket with retest entries, concrete temperature, and cube sets with 7d and 28d results arrays (null if pending)."
+  },
+  {
+   "name": "conditions",
+   "description": "Ambient min and max °C, frost_protection boolean, curing_method, curing_start time."
+  },
+  {
+   "name": "approvals",
+   "description": "Pre-pour check signed_at, substitutions list, discharge_extensions list, water_additions list, each with element ref and date."
+  }
+ ],
+ "rendering_notes": "pour.spec_mix holds the specified class (e.g. C32/40); mix_mismatch shows only in delivery_tickets[].mix_code. trivial_format renders the same class differently (e.g. 'C32/40 S3' or a supplier code that maps to it); wrong loads carry another class. substitution_approved adds an approvals.substitutions entry whose from/to codes and element ref match; when false, a decoy entry may name another element or another code. volume_discrepancy_pct is realised by setting pour.placed_vol_m3 against sum(vol_m3) minus sum(returned_m3); returned_concrete_present puts non-zero returned_m3 on tickets, so the gross sum looks wrong while the net sum matches, or the reverse. No computed volume or gap field exists. discharge_overrun is realised only through batch_time and discharge_end against pour.max_discharge_min; no elapsed-minutes field is shown. overrun_mitigated adds a retarder in that ticket's admixtures or an approvals.discharge_extensions entry with matching ticket_no and date; decoys are plasticiser admixtures and extensions for another date or pour. cube_progress drives which site_tests.cube_sets exist and which result arrays are null; the number of sets taken may be below pour.cube_sets_required. cube_result_status sets result values against the class implied by spec_mix; no pass or fail flag is shown. site_water appears as water_added_l versus water_allow_l per ticket, with any approval in approvals.water_additions. weather_exposure appears in conditions only. prepour_signoff sets approvals.prepour_signed_at relative to the earliest discharge time, or null. slump_outliers set site_tests slump values outside pour.slump_range, and slump_retest_passed adds a later in-range retest for the same ticket. Records never carry fields such as status, compliant, risk, disposition, overrun or discrepancy; every answer must be derived by comparing sections. Identifiers, timestamps and units stay consistent apart from the planted mismatches; all volumes are in m3, and unknowns are null.",
+ "skills": [
+  "S1",
+  "S3",
+  "S4",
+  "S5",
+  "S6",
+  "S7"
+ ],
+ "shared_scale": null,
+ "design_cost": 0.161712
+}

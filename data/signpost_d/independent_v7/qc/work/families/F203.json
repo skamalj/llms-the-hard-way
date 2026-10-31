@@ -1,0 +1,317 @@
+{
+ "id": "F203",
+ "domain": "inter-library loan requests between public libraries",
+ "role": "Lending-side inter-library loan coordinator at a regional public library hub, reviewing each incoming loan request from a partner library",
+ "setting": "A network of public library authorities shares stock through reciprocal lending agreements. A partner library submits a request on behalf of one of its patrons, and the request lands in the lending hub's queue. The coordinator opens one request record at a time. Each record shows the borrowing library's agreement and loan history, the patron verification, the requested copy's condition and local demand, other copies held across the network, and the courier estimate. For each request the coordinator decides whether to lend, on what terms, how tight the timing is, and how much the lending library would lose if the copy went missing.",
+ "questions": {
+  "borrower_good_standing": {
+   "type": "noul",
+   "instructions": "The requesting library is in good standing to receive this loan.",
+   "criteria": null
+  },
+  "disposition": {
+   "type": "choice",
+   "instructions": "What should happen to this inter-library loan request?",
+   "criteria": {
+    "decline": "Refuse outright; item cannot be lent or borrower barred.",
+    "redirect": "Pass request to another network library holding a lendable copy.",
+    "hold": "Pause pending one missing confirmation or record before deciding.",
+    "lend_conditional": "Lend, but only with a restriction or extra safeguard attached.",
+    "lend": "Lend on standard terms with no added conditions."
+   }
+  },
+  "loan_restriction": {
+   "type": "choice",
+   "instructions": "Which loan restriction should apply if this item is lent?",
+   "criteria": {
+    "standard_loan": "Normal loan period with renewals allowed as usual.",
+    "no_renewal": "Fixed loan period; borrower may not request renewal.",
+    "library_use_only": "Item read only on the borrowing library's premises.",
+    "copy_supplied": "Send a scan or photocopy instead of the item."
+   }
+  },
+  "time_slack": {
+   "type": "score",
+   "instructions": "How much slack remains before the patron's need-by date?",
+   "criteria": [
+    "Missed: estimated arrival falls after need-by date",
+    "Tight: arrival 0 to 3 days before need-by",
+    "Workable: arrival 4 to 14 days before need-by",
+    "Open: over 14 days spare, or no need-by"
+   ]
+  },
+  "replacement_difficulty": {
+   "type": "score",
+   "instructions": "How hard would the lent copy be to replace if lost?",
+   "criteria": [
+    "Four or more other lendable copies in network",
+    "One to three other lendable copies in network",
+    "No other network copy; still in print",
+    "No network copy; out of print, secondhand listed",
+    "No network copy; out of print, none secondhand"
+   ]
+  }
+ },
+ "factors": [
+  {
+   "name": "agreement_status",
+   "description": "State of the reciprocal lending agreement between the borrowing library and the hub: active, lapsed, or past expiry with a renewal submitted before the expiry date.",
+   "kind": "categorical",
+   "values": [
+    "active",
+    "renewal_pending",
+    "lapsed"
+   ],
+   "weights": [
+    0.6,
+    0.25,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S2",
+    "S3",
+    "S5"
+   ]
+  },
+  {
+   "name": "borrower_overdue_count",
+   "description": "Number of items the borrowing library holds from the hub that are past their due date.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 4,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S5",
+    "S6"
+   ]
+  },
+  {
+   "name": "overdue_mitigated",
+   "description": "Whether the overdue items carry a return-in-transit scan or an accepted renewal dated before the due date, so they do not count against the borrower. Applies only when the overdue count is above zero.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S5"
+   ]
+  },
+  {
+   "name": "patron_verification",
+   "description": "Whether the patron's membership is verified, still awaiting verification, or the patron section is missing entirely from the request.",
+   "kind": "categorical",
+   "values": [
+    "verified",
+    "pending",
+    "missing"
+   ],
+   "weights": [
+    0.65,
+    0.2,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S2",
+    "S4"
+   ]
+  },
+  {
+   "name": "item_condition",
+   "description": "Physical condition grade of the requested copy.",
+   "kind": "categorical",
+   "values": [
+    "good",
+    "worn",
+    "fragile",
+    "rebind_required"
+   ],
+   "weights": [
+    0.45,
+    0.25,
+    0.2,
+    0.1
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S4",
+    "S7"
+   ]
+  },
+  {
+   "name": "conservation_cleared",
+   "description": "Whether a recent conservation check passed the copy for travel in a protective box. This offsets fragile or worn condition.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S6"
+   ]
+  },
+  {
+   "name": "local_holds_queue",
+   "description": "Number of the hub's own patrons with holds queued on this copy.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 6,
+   "p_true": 0,
+   "skills": [
+    "S4",
+    "S7"
+   ]
+  },
+  {
+   "name": "network_other_copies",
+   "description": "Count of other copies across the network whose status is lendable. Copies marked on_loan or reference_only are not counted.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 6,
+   "p_true": 0,
+   "skills": [
+    "S6",
+    "S7"
+   ]
+  },
+  {
+   "name": "print_status",
+   "description": "Supplier and secondhand market status for the title, which matters only when no other network copy is lendable.",
+   "kind": "categorical",
+   "values": [
+    "in_print",
+    "out_of_print_secondhand",
+    "out_of_print_none"
+   ],
+   "weights": [
+    0.5,
+    0.3,
+    0.2
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S7"
+   ]
+  },
+  {
+   "name": "request_scope",
+   "description": "Whether the patron needs the whole item or only a chapter or article that could be supplied as a copy.",
+   "kind": "categorical",
+   "values": [
+    "whole_item",
+    "chapter_or_article"
+   ],
+   "weights": [
+    0.75,
+    0.25
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S4",
+    "S7"
+   ]
+  },
+  {
+   "name": "copyright_declaration_present",
+   "description": "For chapter or article requests, whether the patron's signed copyright declaration is on file. Its absence blocks supplying a copy until it is received.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.6,
+   "skills": [
+    "S2",
+    "S4"
+   ]
+  },
+  {
+   "name": "need_by_slack_days",
+   "description": "Days between the courier's estimated arrival date and the patron's need-by date. Values are oversampled at the 0/-1, 3/4 and 14/15 boundaries so that some records sit on a scale edge.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": -5,
+   "max": 30,
+   "p_true": 0,
+   "skills": [
+    "S6",
+    "S7"
+   ]
+  },
+  {
+   "name": "need_by_missing",
+   "description": "Whether the request has no need-by date at all, recorded as null.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.2,
+   "skills": [
+    "S2"
+   ]
+  }
+ ],
+ "sections": [
+  {
+   "name": "request",
+   "description": "Request identifiers, submission date, need-by date and requested scope."
+  },
+  {
+   "name": "borrower_library",
+   "description": "Borrowing library's agreement terms and its current open loans from the hub."
+  },
+  {
+   "name": "patron",
+   "description": "Requesting patron's membership and verification details; may be null."
+  },
+  {
+   "name": "item",
+   "description": "Requested copy's bibliographic data, condition, conservation check and local holds."
+  },
+  {
+   "name": "holdings_network",
+   "description": "Other copies across the network with status, plus supplier print status."
+  },
+  {
+   "name": "logistics",
+   "description": "Courier route, dispatch date and estimated arrival at the borrowing library."
+  }
+ ],
+ "rendering_notes": "Agreement: agreement_status renders as borrower_library.agreement {status: active|expired, expires_on, renewal_submitted_on}. For renewal_pending, status is 'expired' but renewal_submitted_on is a date earlier than expires_on. For lapsed, status is 'expired' and renewal_submitted_on is null or dated after expires_on, so the out-of-order date is the signal.\n\nOverdue loans: borrower_library.open_loans is a list of {loan_id, due_on, renewed_on, return_scan_on}. The overdue count shows only as loans whose due_on is earlier than request.submitted_on. When overdue_mitigated is true, each overdue loan carries a return_scan_on or a renewed_on dated before due_on; otherwise both are null. Decoy: borrower_library.loans_last_12m is a large, irrelevant count.\n\nPatron: verified shows as patron {member_id, home_branch, verified_on: date}. Pending shows verified_on as null. Missing makes the whole patron section null.\n\nItem condition: item.condition_grade holds the grade. item.conservation_check is {checked_on, outcome, box_supplied}. When conservation_cleared is true, outcome is 'pass' and box_supplied is true, with checked_on within 60 days of submitted_on. Otherwise the check is null, or it is older than 60 days with outcome 'refer'.\n\nLocal holds: item.local_holds is an integer. Decoys: item.list_price and item.acquired_on.\n\nNetwork copies: holdings_network.copies is a list of {library_code, status}, where status is lendable, on_loan or reference_only. Only lendable entries count toward network_other_copies, and the list is padded with on_loan and reference_only decoys. holdings_network.supplier_status renders print_status as in_print, out_of_print, or out_of_print with secondhand_listings as an integer count, where 0 means none.\n\nScope and copyright: request.scope gives whole_item or extract, with page_range when the scope is an extract. request.copyright_declaration_on is a date or null.\n\nTiming: slack is never stated. The reader computes it from request.need_by against logistics.est_arrival. need_by_missing sets request.need_by to null. Decoy: logistics.route_code.\n\nNo field may state standing, a recommended action, a restriction, urgency or scarcity. There is no 'eligible', 'priority', 'risk' or 'recommendation' field anywhere. No free-text fields.",
+ "skills": [
+  "S2",
+  "S3",
+  "S4",
+  "S5",
+  "S6",
+  "S7"
+ ],
+ "shared_scale": null,
+ "design_cost": 0.1458
+}

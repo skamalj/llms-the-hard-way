@@ -1,0 +1,323 @@
+{
+ "id": "F226",
+ "domain": "scaffold handover inspections",
+ "role": "Site temporary works inspector reviewing scaffold handover records before the principal contractor accepts each scaffold for use",
+ "setting": "On a large construction site, scaffold erectors submit a handover record for each completed or altered scaffold. The inspector reads one record at a time, comparing the approved design against the as-built inspection, the defect list, the supporting documents and the free-text notes. They then decide whether the scaffold can be tagged and released, released with limits, held for one confirmation, or refused. Records come from many erection gangs and differ widely in size and type, from small independent tied lifts to multi-bay access scaffolds with loading bays. The erector's proposed tag is frequently optimistic, and erector notes can explain a departure from design without anyone having formally approved it.",
+ "questions": {
+  "design_conformity": {
+   "type": "noul",
+   "instructions": "Every departure from design is either absent or covered by approved variation.",
+   "criteria": {
+    "true": "No departures, or each lies within an approved variation's scope.",
+    "false": "Some departure is unapproved or falls outside variation scope."
+   }
+  },
+  "handover_decision": {
+   "type": "choice",
+   "instructions": "What should be done with this scaffold handover?",
+   "criteria": {
+    "accept_full": "Green tag issued; whole scaffold released at design load.",
+    "accept_restricted": "Released with written limits on lifts, load or access.",
+    "hold": "Not released until one outstanding confirmation is received.",
+    "reject": "Refused; erector must complete remedial work before resubmission."
+   }
+  },
+  "limiting_issue": {
+   "type": "choice",
+   "instructions": "Which most severe class of issue does the record show?",
+   "criteria": {
+    "none_found": "No open defect, document gap or unapproved design departure.",
+    "paperwork_only": "Only documents missing or expired; structure itself recorded sound.",
+    "component_defect": "Local missing or damaged parts; design dimensions all met.",
+    "design_departure": "Unapproved difference from design in ties, height, lifts or load."
+   }
+  },
+  "discrepancy_size": {
+   "type": "score",
+   "instructions": "How far does the recorded value differ from the expected value?",
+   "criteria": [
+    "Matches expected value, or differs by under 2%",
+    "Differs from expected value by 2% to under 10%",
+    "Differs from expected value by 10% to under 25%",
+    "Differs from expected value by 25% or more"
+   ]
+  },
+  "releasable_share": {
+   "type": "score",
+   "instructions": "What share of the scaffold's lifts can be released for use?",
+   "criteria": [
+    "No lift can be released for use",
+    "Fewer than half of the lifts releasable",
+    "Half or more releasable, but not every lift",
+    "Every lift releasable for its design use"
+   ]
+  }
+ },
+ "factors": [
+  {
+   "name": "lift_height_mismatch",
+   "description": "Difference between design lifts and maximum height in the design section and the lifts counted and height measured in as_built. Values range from none, through one extra lift, to a height over the maximum with the lift count unchanged (for example, a deeper top lift).",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "one_extra_lift",
+    "height_over_max",
+    "fewer_lifts_than_design"
+   ],
+   "weights": [
+    0.5,
+    0.18,
+    0.17,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S7"
+   ]
+  },
+  {
+   "name": "tie_shortfall",
+   "description": "Number of ties fitted in as_built below design.ties_required. Zero means the counts agree. The shortfall is never stated directly and must be worked out by comparing the two counts.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 6,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S6"
+   ]
+  },
+  {
+   "name": "load_class_mismatch",
+   "description": "Agreement between the load class on the design, the load class on the proposed tag in as_built, and the boarding recorded (for example, a heavy-duty class claimed with a single-board platform width).",
+   "kind": "categorical",
+   "values": [
+    "match",
+    "tag_above_design",
+    "boarding_below_class"
+   ],
+   "weights": [
+    0.6,
+    0.2,
+    0.2
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1"
+   ]
+  },
+  {
+   "name": "approved_variation",
+   "description": "Whether design.variation holds an approved temporary works variation (with reference, approver and scope) covering a departure. The scope sometimes covers only part of the actual departure, for example ties on elevation A while the shortfall is on elevation B.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S5",
+    "S1"
+   ]
+  },
+  {
+   "name": "open_defect_count",
+   "description": "Number of entries in the defects list for guardrails, toe boards, boards, brick guards, ladder access or base plates that are not marked closed.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 4,
+   "p_true": 0,
+   "skills": [
+    "S4",
+    "S7"
+   ]
+  },
+  {
+   "name": "rectification_state",
+   "description": "State of defects that have been raised. Either all are closed and reinspected; some are closed by the erector but not yet reinspected; or the defects remain open.",
+   "kind": "categorical",
+   "values": [
+    "all_closed_reinspected",
+    "closed_not_reinspected",
+    "still_open",
+    "no_defects_raised"
+   ],
+   "weights": [
+    0.25,
+    0.25,
+    0.25,
+    0.25
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S4",
+    "S3"
+   ]
+  },
+  {
+   "name": "affected_lift_fraction",
+   "description": "Fraction of lifts carrying an open defect or an unapproved departure. This fraction decides how much of the scaffold can be released, and it must be derived from the lift numbers in the defect entries against the total lifts counted.",
+   "kind": "number",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 1,
+   "p_true": 0,
+   "skills": [
+    "S4",
+    "S6",
+    "S1"
+   ]
+  },
+  {
+   "name": "document_gap",
+   "description": "A single missing or invalid supporting document: the tie pull test is absent, the design drawing reference on the scaffold section does not match the design section, or the inspector's competence card expired before the inspection date.",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "tie_test_missing",
+    "drawing_ref_mismatch",
+    "inspector_card_expired"
+   ],
+   "weights": [
+    0.45,
+    0.2,
+    0.2,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S4"
+   ]
+  },
+  {
+   "name": "tie_test_result",
+   "description": "Result of the tie pull test in docs. A pass dated after the inspection mitigates a small tie shortfall. A fail is serious. The test can also be not done.",
+   "kind": "categorical",
+   "values": [
+    "pass",
+    "fail",
+    "not_done"
+   ],
+   "weights": [
+    0.55,
+    0.15,
+    0.3
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S1"
+   ]
+  },
+  {
+   "name": "erector_explanation",
+   "description": "Whether notes.erector_note gives a benign-sounding reason for a departure, such as ties removed under permit for cladding fixing or a top lift raised at the client's request. The note is not a formal approval and only mitigates when it agrees with a variation entry.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S5"
+   ]
+  },
+  {
+   "name": "alarming_remark_resolved",
+   "description": "Whether notes.inspector_remark mentions an alarming event (wind gusts overnight, a vehicle strike near the base, a board found split) that the same remark or the defect list shows was checked and cleared.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S7"
+   ]
+  },
+  {
+   "name": "boundary_case",
+   "description": "Whether the record sits on a threshold. Examples: exactly half of the lifts affected; a tie shortfall of one with the pull test not done; or a variation whose scope wording plausibly but not clearly covers the departure.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.25,
+   "skills": [
+    "S6"
+   ]
+  },
+  {
+   "name": "prior_red_tags",
+   "description": "Count of earlier red tags on this scaffold ID in the scaffold history. This is a decoy: a history of red tags raises attention but does not decide any question on its own.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 3,
+   "p_true": 0,
+   "skills": [
+    "S7",
+    "S3"
+   ]
+  }
+ ],
+ "sections": [
+  {
+   "name": "scaffold",
+   "description": "Identity and context: scaffold_id, location, drawing_ref, type, bays, prior_red_tags, last_handover date."
+  },
+  {
+   "name": "design",
+   "description": "Approved design: drawing_ref, rev, design_lifts, max_height_m, ties_required, load_class, and a variation object or null."
+  },
+  {
+   "name": "as_built",
+   "description": "Inspection findings: inspected_on, inspector, lifts_counted, height_m, ties_fitted, boarding_width_boards, base_condition, tag_proposed."
+  },
+  {
+   "name": "defects",
+   "description": "List of defect entries: lift, item, raised_on, status, closed_on, reinspected (boolean or null)."
+  },
+  {
+   "name": "docs",
+   "description": "Supporting documents: handover_cert_signed, inspector_card_expiry, and tie_test as an object with date, ties_tested and result, or null."
+  },
+  {
+   "name": "notes",
+   "description": "Free text: erector_note and inspector_remark, each one or two sentences, either possibly null."
+  }
+ ],
+ "rendering_notes": "How each factor appears in the record:\n- lift_height_mismatch: shown only through design.design_lifts and design.max_height_m against as_built.lifts_counted and as_built.height_m.\n- tie_shortfall: shown only through design.ties_required against as_built.ties_fitted.\n- load_class_mismatch: shown through design.load_class against as_built.tag_proposed.load_class and as_built.boarding_width_boards.\n- approved_variation: design.variation is filled in with ref, approved_by and scope text when true, and null when false. When the scope covers only part of the departure, the mismatch is in the scope text (elevation, lift numbers) against where the departure sits.\n- open_defect_count and rectification_state: shown through defects[].status, closed_on and reinspected. 'Closed' with reinspected false or null counts as partial.\n- affected_lift_fraction: must be derived from defects[].lift and any departure lifts against as_built.lifts_counted.\n- document_gap: appears in one of these ways: docs.tie_test is null; scaffold.drawing_ref differs from design.drawing_ref by revision or number; or docs.inspector_card_expiry falls before as_built.inspected_on.\n- tie_test_result: docs.tie_test.result is 'pass' or 'fail', or tie_test is null.\n- erector_explanation: notes.erector_note text.\n- alarming_remark_resolved: notes.inspector_remark text, with resolution stated in the same remark or shown by a closed, reinspected defect.\n- boundary_case: values are set exactly on the thresholds.\n- prior_red_tags: scaffold.prior_red_tags.\n\nDecoys:\n- as_built.tag_proposed is the erector's proposal and is often green when it should not be. It must never be read as the answer.\n- prior_red_tags is a decoy.\n- The erector_note sounds authoritative but is not an approval.\n- Alarming words in inspector_remark are often already resolved.\n- Trivial mismatches also appear and should be noticed but not over-weighted, for example a height differing by 0.1 m within rounding.\n\nRules for decisions:\n- The record must never contain fields such as risk, decision, conforms, releasable or severity.\n- Hold applies when exactly one confirmation is outstanding: a tie test, reinspection of closed defects, or a corrected drawing reference.\n- Accept_restricted applies when physical problems are confined to identifiable lifts.\n- Reject applies to an unapproved structural departure or a failed tie test.\n- For the limiting_issue question, the most severe class present is the answer.\n- The shared discrepancy_size scale applies to the most prominent recorded-versus-expected pair, usually ties fitted against ties required, or height measured against maximum height.\n- About half of the records with an alarming departure should carry mitigation (an approved variation, a passing tie test or a resolved remark).\n- Some records should have no mismatch at all.",
+ "skills": [
+  "S1",
+  "S3",
+  "S4",
+  "S5",
+  "S6",
+  "S7"
+ ],
+ "shared_scale": "discrepancy_size",
+ "design_cost": 0.155804
+}

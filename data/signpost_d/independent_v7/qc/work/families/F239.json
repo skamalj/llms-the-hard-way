@@ -1,0 +1,300 @@
+{
+ "id": "F239",
+ "domain": "archive digitisation quality checks",
+ "role": "Digitisation quality assurance officer at a county record office, reviewing one captured archival item at a time before images are released to the online catalogue",
+ "setting": "A record office digitisation studio photographs bound volumes, loose papers, maps, photographic prints and parchment rolls. Each captured item produces a QC record that brings together catalogue metadata, capture session details, automated image metrics, the conservation condition report, prior rework history and delivery packaging status. The officer reviews each record and decides whether the image set is complete and sound, whether flagged faults belong to the original document or to the capture, what happens to the item next, and how much of it must be rescanned.",
+ "questions": {
+  "pages_complete": {
+   "type": "noul",
+   "instructions": "Every catalogued page of the item is present in the captured images.",
+   "criteria": {
+    "true": "Counts match, or each gap is a documented lacuna",
+    "false": "Unexplained shortfall, or page count not yet verified"
+   }
+  },
+  "defects_original": {
+   "type": "noul",
+   "instructions": "Flagged image defects arise from the original document, not from capture.",
+   "criteria": {
+    "true": "Every flagged page has a matching condition entry",
+    "false": "Any flagged page lacks a condition entry, or none flagged"
+   }
+  },
+  "disposition": {
+   "type": "choice",
+   "instructions": "What should happen to this captured item next?",
+   "criteria": {
+    "accept": "All checks complete and passed; release images to the catalogue",
+    "accept_conditional": "Checks complete, only minor non-blocking faults; release and log fixes",
+    "hold": "One check or confirmation still outstanding; pause release until it arrives",
+    "recapture": "Confirmed capture fault blocks release; return item to the studio"
+   }
+  },
+  "recurrence_count": {
+   "type": "score",
+   "instructions": "How often has this same issue been logged in 12 months?",
+   "criteria": [
+    "First occurrence; not logged in prior 12 months",
+    "Logged once before within the past 12 months",
+    "Logged two to four times in 12 months",
+    "Logged five or more times in 12 months"
+   ]
+  },
+  "recapture_share": {
+   "type": "score",
+   "instructions": "What share of the item's images needs recapturing?",
+   "criteria": [
+    "No images need recapturing",
+    "Fewer than 5% of images need recapturing",
+    "Between 5% and 25% of images",
+    "More than 25% of images need recapturing"
+   ]
+  }
+ },
+ "factors": [
+  {
+   "name": "item_format",
+   "description": "Physical format of the archival item, which changes typical page counts, defect types and handling constraints",
+   "kind": "categorical",
+   "values": [
+    "bound_volume",
+    "loose_sheets",
+    "map_plan",
+    "photographic_print",
+    "parchment_roll"
+   ],
+   "weights": [
+    0.35,
+    0.25,
+    0.15,
+    0.15,
+    0.1
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S7"
+   ]
+  },
+  {
+   "name": "page_count_gap",
+   "description": "Catalogued page or leaf count minus the number of captured images (0 means counts agree)",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 6,
+   "p_true": 0,
+   "skills": [
+    "S2",
+    "S5"
+   ]
+  },
+  {
+   "name": "gap_documented",
+   "description": "Whether the conservation report lists missing or excised leaves that account for the shortfall",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S5"
+   ]
+  },
+  {
+   "name": "page_count_verified",
+   "description": "Whether a physical foliation check has been recorded; when false the captured-count comparison is null",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.8,
+   "skills": [
+    "S2",
+    "S4"
+   ]
+  },
+  {
+   "name": "defect_image_share",
+   "description": "Share of captured images flagged by automated checks for blur, skew, glare, cropping or gutter shadow",
+   "kind": "number",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0.4,
+   "p_true": 0,
+   "skills": [
+    "S4",
+    "S6"
+   ]
+  },
+  {
+   "name": "defects_match_condition",
+   "description": "Whether the flagged image numbers coincide with pages the conservation report records as foxed, torn, cockled or tightly bound",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S5"
+   ]
+  },
+  {
+   "name": "colour_target_status",
+   "description": "Result of the colour reference target captured in the session: within limit, within 0.3 of the delta-E limit, over limit, or no target logged",
+   "kind": "categorical",
+   "values": [
+    "pass",
+    "marginal",
+    "fail",
+    "not_captured"
+   ],
+   "weights": [
+    0.5,
+    0.2,
+    0.18,
+    0.12
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S2",
+    "S6"
+   ]
+  },
+  {
+   "name": "recalibrated_after",
+   "description": "Whether the device was recalibrated and a later target in the same session passed, covering the item's images",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3"
+   ]
+  },
+  {
+   "name": "checksum_state",
+   "description": "State of the delivery package fixity check",
+   "kind": "categorical",
+   "values": [
+    "verified",
+    "pending",
+    "mismatch"
+   ],
+   "weights": [
+    0.65,
+    0.22,
+    0.13
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S2",
+    "S4"
+   ]
+  },
+  {
+   "name": "qc_signoff_before_capture_end",
+   "description": "Whether the QC sign-off timestamp precedes the final capture timestamp, meaning later images were never reviewed",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.15,
+   "skills": [
+    "S2"
+   ]
+  },
+  {
+   "name": "prior_rework_count",
+   "description": "Number of earlier rework entries for this item in the history list",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 3,
+   "p_true": 0,
+   "skills": [
+    "S4",
+    "S7"
+   ]
+  },
+  {
+   "name": "capture_ppi",
+   "description": "Capture resolution in pixels per inch; the specification minimum for the format is 400, and most values exceed it",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 300,
+   "max": 800,
+   "p_true": 0,
+   "skills": [
+    "S7"
+   ]
+  },
+  {
+   "name": "boundary_case",
+   "description": "Whether the record is deliberately placed on a scale edge: defect share at exactly 5% or 25%, or a lacuna note covering only part of the gap",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.25,
+   "skills": [
+    "S6"
+   ]
+  }
+ ],
+ "sections": [
+  {
+   "name": "item",
+   "description": "Catalogue reference, format, date range, catalogued leaf count and access restrictions"
+  },
+  {
+   "name": "capture",
+   "description": "Session id, device, operator grade, ppi, start and end timestamps, colour target results"
+  },
+  {
+   "name": "qc_metrics",
+   "description": "Images captured, foliation check, per-image automated flags and QC sign-off timestamp"
+  },
+  {
+   "name": "conservation",
+   "description": "Condition report date, per-page condition entries and recorded lacunae"
+  },
+  {
+   "name": "rework_history",
+   "description": "List of earlier rework events with date, reason code and images affected"
+  },
+  {
+   "name": "delivery",
+   "description": "Derivative generation status, package checksum state and target catalogue release date"
+  }
+ ],
+ "rendering_notes": "item.leaf_count_catalogued against qc_metrics.images_captured carries page_count_gap indirectly; qc_metrics.foliation_check is an object {done: bool, checked_on: date or null}, and when page_count_verified is false it is {done:false, checked_on:null} with qc_metrics.images_expected set to null. gap_documented appears as conservation.lacunae, a list of {leaf_ref, kind: excised|missing|blank_unfoliated}; its length matches the gap when true, is empty or unrelated when false, and covers only part of the gap when boundary_case applies. defect_image_share is rendered as qc_metrics.flags, a list of {image_no, code: blur|skew|glare|crop|gutter}, whose length relative to images_captured gives the share; never state the percentage. defects_match_condition shows as conservation.entries [{leaf_ref, condition: foxing|tear|cockle|tight_binding|fading}] whose leaf refs either align with flagged image numbers (via item.image_leaf_offset) or do not. colour_target_status appears in capture.targets as a list of {taken_at, delta_e, limit}; not_captured gives an empty list; recalibrated_after adds capture.recalibrations [{at}] and a second passing target taken later. checksum_state is delivery.fixity {algorithm, state, checked_at or null}. qc_signoff_before_capture_end appears only as qc_metrics.signed_off_at earlier than capture.ended_at. prior_rework_count is the length of rework_history.events; it informs the separate recurrence scale and is a decoy for the current disposition. Decoys: capture.operator_grade (senior or trainee, unrelated to outcomes), capture.ppi above 400 for most records (only below-400 values matter for the format), item.access_restriction, delivery.release_target_date close by (urgency does not change the correct answer). No field may state the disposition, recapture share, completeness or defect origin; no summary fields such as status: fail or qc_result: ok beyond per-check values a real studio system would log. No free-text fields.",
+ "skills": [
+  "S2",
+  "S3",
+  "S4",
+  "S5",
+  "S6",
+  "S7"
+ ],
+ "shared_scale": "recurrence_count",
+ "design_cost": 0.111024
+}
