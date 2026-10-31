@@ -1,0 +1,319 @@
+{
+ "id": "F106",
+ "domain": "warehouse cycle counts against the stock system",
+ "role": "Inventory control analyst at a regional distribution centre, reviewing each cycle count variance before any stock adjustment posts to the warehouse management system",
+ "setting": "A multi-temperature distribution centre runs daily blind cycle counts by bin location. When a count differs from the book quantity, the system raises a variance record. The record holds the count task and policy limits, a system snapshot taken at task release, the individual count lines, stock movements posted around the count, the location's recent count history and short free-text notes from the counter and shift supervisor. The analyst decides whether the difference is real, whether it has been independently confirmed, what happens next, how much money is genuinely unexplained and how soon it will hurt an outbound order.",
+ "questions": {
+  "variance_real": {
+   "type": "noul",
+   "instructions": "The book-to-count difference survives reconciliation of movements and units.",
+   "criteria": null
+  },
+  "recount_confirms": {
+   "type": "noul",
+   "instructions": "An independent recount confirms the first count within tolerance.",
+   "criteria": {
+    "true": "Different counter's recount matches first count within tolerance.",
+    "false": "No recount, same counter, in progress, or counts disagree."
+   }
+  },
+  "disposition": {
+   "type": "choice",
+   "instructions": "What should happen to this count before any adjustment posts?",
+   "criteria": {
+    "close_no_change": "Difference explained by timing or units; book quantity stands unchanged.",
+    "post_adjustment": "Verified difference below value limit, no repeat; post as counted.",
+    "hold_confirm": "Exactly one outstanding check, such as a recount, would settle it.",
+    "full_recount": "Count lines conflict or are unusable; fresh location count required.",
+    "escalate": "Verified difference over value limit, or third variance in 90 days."
+   }
+  },
+  "variance_value": {
+   "type": "score",
+   "instructions": "How large is the unexplained variance value after reconciling movements?",
+   "criteria": [
+    "Under £50 unexplained at standard cost",
+    "£50 to £499 unexplained at standard cost",
+    "£500 to £4,999 unexplained at standard cost",
+    "£5,000 or more unexplained at standard cost"
+   ]
+  },
+  "service_urgency": {
+   "type": "score",
+   "instructions": "How soon will the stock difference affect an outbound order?",
+   "criteria": [
+    "None: no open allocation exceeds counted quantity",
+    "Distant: shortfall hits allocation shipping over 7 days out",
+    "Near: shortfall hits allocation shipping in 48h–7 days",
+    "Imminent: shortfall hits allocation shipping within 48 hours",
+    "Live: released pick already short against this location"
+   ]
+  }
+ },
+ "factors": [
+  {
+   "name": "true_variance",
+   "description": "The actual physical difference between bin contents and book once timing and unit effects are removed",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "small_shortage",
+    "large_shortage",
+    "overage"
+   ],
+   "weights": [
+    0.3,
+    0.3,
+    0.2,
+    0.2
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S7"
+   ]
+  },
+  {
+   "name": "timing_artefact",
+   "description": "Movements posted between the snapshot and the count time explain part or all of the apparent difference",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "partial",
+    "full"
+   ],
+   "weights": [
+    0.5,
+    0.25,
+    0.25
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S4"
+   ]
+  },
+  {
+   "name": "uom_mismatch",
+   "description": "Count lines recorded in a different unit of measure from the book quantity, inflating or shrinking the raw difference",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "case_vs_each",
+    "inner_vs_each"
+   ],
+   "weights": [
+    0.65,
+    0.2,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1"
+   ]
+  },
+  {
+   "name": "recount_status",
+   "description": "State of any second count on the location",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "same_counter",
+    "independent_agree",
+    "independent_disagree",
+    "in_progress"
+   ],
+   "weights": [
+    0.25,
+    0.15,
+    0.3,
+    0.15,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S4",
+    "S5"
+   ]
+  },
+  {
+   "name": "mitigation_present",
+   "description": "A benign explanation exists elsewhere in the record for an alarming shortage or overage",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3"
+   ]
+  },
+  {
+   "name": "mitigation_kind",
+   "description": "Form the mitigation takes when present: open putaway task, quarantine transfer pending, matching overage in an adjacent bin, or approved write-off reference",
+   "kind": "categorical",
+   "values": [
+    "open_putaway",
+    "quarantine_pending",
+    "adjacent_overage",
+    "approved_writeoff"
+   ],
+   "weights": [
+    0.3,
+    0.25,
+    0.3,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S1"
+   ]
+  },
+  {
+   "name": "unit_cost",
+   "description": "Standard cost per each in pounds, driving the value of any difference",
+   "kind": "number",
+   "values": [],
+   "weights": [],
+   "min": 0.4,
+   "max": 420,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S7"
+   ]
+  },
+  {
+   "name": "prior_variances_90d",
+   "description": "Number of earlier posted variances on the same location and SKU in the past 90 days",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 4,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S6",
+    "S7"
+   ]
+  },
+  {
+   "name": "allocation_timing",
+   "description": "Whether open order demand on the location exceeds the counted quantity, and when it ships",
+   "kind": "categorical",
+   "values": [
+    "no_shortfall",
+    "over_7d",
+    "48h_to_7d",
+    "under_48h",
+    "released_short"
+   ],
+   "weights": [
+    0.35,
+    0.2,
+    0.18,
+    0.15,
+    0.12
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S7",
+    "S4"
+   ]
+  },
+  {
+   "name": "boundary_case",
+   "description": "Reconciled value or quantity lands within a few units or pounds of a policy limit or scale threshold",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.2,
+   "skills": [
+    "S6"
+   ]
+  },
+  {
+   "name": "alarming_note",
+   "description": "Counter or supervisor note uses alarming wording such as suspected theft, independent of the facts",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.35,
+   "skills": [
+    "S3",
+    "S5",
+    "S6"
+   ]
+  },
+  {
+   "name": "blind_count",
+   "description": "Whether the counter saw the book quantity before counting, weakening trust in an agreeing count",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.75,
+   "skills": [
+    "S5",
+    "S6"
+   ]
+  }
+ ],
+ "sections": [
+  {
+   "name": "count_task",
+   "description": "Task id, location, SKU, count date, counter id, blind flag and policy limits tolerance_pct and value_limit_gbp"
+  },
+  {
+   "name": "system_snapshot",
+   "description": "Book quantity, book UOM, pack sizes, standard cost, snapshot timestamp and open allocations with ship dates"
+  },
+  {
+   "name": "count_lines",
+   "description": "List of count attempts with attempt number, counter id, quantity, UOM and timestamp"
+  },
+  {
+   "name": "movements",
+   "description": "Transactions on the location or SKU around the count: type, quantity, UOM, posted time, linked task or reference"
+  },
+  {
+   "name": "location_history",
+   "description": "Prior counts and posted adjustments on this location and SKU over 90 days, plus adjacent bin results"
+  },
+  {
+   "name": "notes",
+   "description": "Up to three one-sentence free-text fields: counter_note, supervisor_note, linked_ref_note"
+  }
+ ],
+ "rendering_notes": "true_variance is never stated; it emerges only after the analyst converts count_lines quantities into the book UOM using system_snapshot.pack_each_per_case or pack_each_per_inner, then subtracts or adds movements whose posted_at falls between system_snapshot.taken_at and the count line timestamp. timing_artefact shows as such movements (picks, putaways, transfers) in movements; for 'full' they net the whole raw difference, for 'partial' only some; decoy movements posted before the snapshot or after the count must be ignored. uom_mismatch appears as count_lines[].uom differing from system_snapshot.book_uom without comment. recount_status shows as a second count_lines entry: same counter_id (same_counter), different counter_id agreeing or disagreeing within count_task.tolerance_pct, or a line with qty null and status 'assigned' (in_progress); none means a single line. mitigation_present with mitigation_kind renders as an open putaway task in movements with status 'open', a quarantine transfer reference in linked_ref_note, an equal and opposite overage in location_history.adjacent_bins, or a write-off approval id in movements; it appears with the same alarming shortages about half the time, and an adjacent overage only mitigates if SKU and quantity actually match. unit_cost is system_snapshot.std_cost_each; variance_value must be computed from reconciled eaches times cost, never from the raw difference. prior_variances_90d is the count of entries in location_history.adjustments with posted true and date within 90 days of count date; some entries are unposted or outside the window as decoys. allocation_timing is shown only through system_snapshot.open_allocations (qty, ship_by datetime, pick_status) compared with the reconciled counted quantity and the count date. boundary_case places reconciled values within about 3% of £50, £500, £5,000, value_limit_gbp or the tolerance band so judges may split. alarming_note puts wording like 'looks like stock walked' in counter_note or supervisor_note regardless of facts; notes may also be bland when the variance is real. blind_count is count_task.blind true or false; a non-blind agreeing recount is weaker evidence. No field may state the verdict, the disposition, a severity, a risk rating or a reconciled variance; the system only shows raw counted quantity, book quantity and a raw_diff that is deliberately unreconciled. Some records have no mismatch at all across sections.",
+ "skills": [
+  "S1",
+  "S3",
+  "S4",
+  "S5",
+  "S6",
+  "S7"
+ ],
+ "shared_scale": null,
+ "design_cost": 0.14224
+}

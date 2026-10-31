@@ -1,0 +1,313 @@
+{
+ "id": "F107",
+ "domain": "laboratory instrument calibration records",
+ "role": "Metrology release reviewer at a contract analytical laboratory, signing off one instrument calibration record at a time before the instrument returns to routine testing",
+ "setting": "Each record is one calibration event for one bench instrument (balance, pipette, pH meter, thermometer, HPLC detector or pressure gauge). It was performed in-house or by an external calibration provider. The reviewer checks four things: the readings against tolerance, the reference standard's validity, the environmental conditions and the sign-off sequence. They then decide whether the instrument goes back into use and whether earlier results need an impact assessment.",
+ "questions": {
+  "ref_traceable": {
+   "type": "noul",
+   "instructions": "The reference standard was within its calibration on the test date.",
+   "criteria": {
+    "true": "Standard certificate validity covers the recorded test date.",
+    "false": "Standard expired, unrecorded, or validity starts after test."
+   }
+  },
+  "prior_impact": {
+   "type": "noul",
+   "instructions": "As-found error likely compromised results reported since the previous calibration.",
+   "criteria": {
+    "true": "As-found out of tolerance, reportable use, no interim check.",
+    "false": "Within tolerance, unused, or interim check confirmed earlier results."
+   }
+  },
+  "disposition": {
+   "type": "choice",
+   "instructions": "What disposition should the instrument receive after this review?",
+   "criteria": {
+    "release": "All checks complete; return to service without any restrictions.",
+    "release_restricted": "Return to service only within the range where points passed.",
+    "hold": "Keep out of service until one missing item is supplied.",
+    "withdraw": "Remove from service; as-left failure or broken traceability needs recalibration."
+   }
+  },
+  "check_age": {
+   "type": "score",
+   "instructions": "How long since this record's key details were last verified?",
+   "criteria": [
+    "Last verified within the past 7 days",
+    "Last verified between 8 and 30 days ago",
+    "Last verified between 31 and 90 days ago",
+    "Last verified over 90 days ago, or never"
+   ]
+  },
+  "found_deviation": {
+   "type": "score",
+   "instructions": "How large was the worst as-found deviation relative to tolerance?",
+   "criteria": [
+    "Worst as-found error at most half the tolerance",
+    "Above half the tolerance, still within the limit",
+    "Beyond tolerance, less than twice the limit",
+    "At or beyond twice the tolerance limit"
+   ]
+  }
+ },
+ "factors": [
+  {
+   "name": "instrument_class",
+   "description": "Type of instrument calibrated. It changes the units, the number of test points and the tolerance style (absolute or percentage), so the same questions apply across very different records.",
+   "kind": "categorical",
+   "values": [
+    "analytical_balance",
+    "piston_pipette",
+    "ph_meter",
+    "digital_thermometer",
+    "hplc_uv_detector",
+    "pressure_gauge"
+   ],
+   "weights": [
+    0.2,
+    0.2,
+    0.15,
+    0.15,
+    0.15,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S7"
+   ]
+  },
+  {
+   "name": "as_found_ratio",
+   "description": "Worst as-found error divided by that point's tolerance, across all test points. Values cluster near the 0.5, 1.0 and 2.0 boundaries in some records.",
+   "kind": "number",
+   "values": [],
+   "weights": [],
+   "min": 0.05,
+   "max": 2.6,
+   "p_true": 0,
+   "skills": [
+    "S4",
+    "S6"
+   ]
+  },
+  {
+   "name": "as_left_state",
+   "description": "Outcome after any adjustment. Either every point passes, one point stays out, the instrument was adjusted but the after-adjustment readings were never taken, or the after-adjustment block is null.",
+   "kind": "categorical",
+   "values": [
+    "all_within",
+    "one_point_out",
+    "adjusted_not_retested",
+    "as_left_missing"
+   ],
+   "weights": [
+    0.5,
+    0.2,
+    0.15,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S2",
+    "S4"
+   ]
+  },
+  {
+   "name": "failing_point_outside_use_range",
+   "description": "Whether any failing as-left point lies outside the operating range the laboratory declares for this instrument. If so, use within the passed range remains defensible.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S4",
+    "S6"
+   ]
+  },
+  {
+   "name": "ref_std_validity",
+   "description": "How the reference standard's certificate dates relate to the test date. The certificate may be valid, may have expired before the test, may expire on the test date itself, may have a validity start after the test (a sequence error), or the standard may not be recorded at all.",
+   "kind": "categorical",
+   "values": [
+    "valid",
+    "expired_before_test",
+    "expires_on_test_date",
+    "issued_after_test",
+    "not_recorded"
+   ],
+   "weights": [
+    0.55,
+    0.12,
+    0.1,
+    0.08,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S2",
+    "S5",
+    "S6"
+   ]
+  },
+  {
+   "name": "reportable_use_since_last",
+   "description": "Whether the usage log shows reportable sample runs between the previous calibration and this one.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.6,
+   "skills": [
+    "S5"
+   ]
+  },
+  {
+   "name": "interim_check_passed",
+   "description": "Whether a documented intermediate check (for example a check weight or buffer verification) passed after the last reportable run. This mitigates an out-of-tolerance as-found reading.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S5"
+   ]
+  },
+  {
+   "name": "pending_item",
+   "description": "A single outstanding item that blocks release when everything else is fine. It may be a missing second signature, a missing environmental log, or an external certificate not yet attached.",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "second_signature_missing",
+    "env_log_missing",
+    "provider_cert_missing"
+   ],
+   "weights": [
+    0.55,
+    0.15,
+    0.15,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S2",
+    "S4"
+   ]
+  },
+  {
+   "name": "env_condition",
+   "description": "Ambient conditions during the calibration. They were either within limits, outside limits with a documented correction applied, or outside limits with no correction.",
+   "kind": "categorical",
+   "values": [
+    "within_limits",
+    "excursion_corrected",
+    "excursion_uncorrected"
+   ],
+   "weights": [
+    0.6,
+    0.2,
+    0.2
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S6"
+   ]
+  },
+  {
+   "name": "sequence_error",
+   "description": "Whether the approval timestamp precedes the performed date, or the adjustment date precedes the as-found reading date. Either shows steps recorded out of order.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.18,
+   "skills": [
+    "S2"
+   ]
+  },
+  {
+   "name": "prior_oot_count",
+   "description": "Number of earlier out-of-tolerance findings in the instrument's history list. This is mostly a decoy that tempts reviewers to over-escalate.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 4,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S6"
+   ]
+  },
+  {
+   "name": "days_since_verified",
+   "description": "Days between the review date and the latest verification of the record's key details: the performed date, or the most recent interim check if later. This feeds the shared check_age scale.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 900,
+   "p_true": 0,
+   "skills": [
+    "S7"
+   ]
+  }
+ ],
+ "sections": [
+  {
+   "name": "instrument",
+   "description": "Asset ID, class, model, location, declared operating range, calibration interval in days."
+  },
+  {
+   "name": "standards",
+   "description": "List of reference standards used, each with ID, certificate number, valid_from and valid_to."
+  },
+  {
+   "name": "environment",
+   "description": "Recorded temperature and humidity, limits, correction_applied flag, or null if not logged."
+  },
+  {
+   "name": "readings",
+   "description": "Test points with nominal, as_found, as_left, tolerance and unit; adjustment record with date."
+  },
+  {
+   "name": "history",
+   "description": "Previous calibration date, prior out-of-tolerance events, usage runs since last, interim checks."
+  },
+  {
+   "name": "approval",
+   "description": "Performed_by, performed_date, reviewed_by, second_signoff, approved_at timestamp, provider certificate ref."
+  }
+ ],
+ "rendering_notes": "as_found_ratio is never stated. It must be computed per point as abs(as_found - nominal) / tolerance in readings.points, and the worst point decides found_deviation. as_left_state shows in the as_left values: points within or beyond tolerance, readings.adjustment.performed=true with as_left equal to as_found or null, or the whole as_left array null. failing_point_outside_use_range shows only by comparing the failing point's nominal with instrument.use_range_min and instrument.use_range_max. ref_std_validity shows only through standards[].valid_from and valid_to against approval.performed_date. For not_recorded, the standards list is empty or null. reportable_use_since_last shows as history.usage_runs_since_last (0 versus a positive count with reportable=true). interim_check_passed shows as a history.interim_checks entry dated after the last run with result 'pass'. If the check is absent, failed, or dated before the last run, it does not mitigate. pending_item shows as approval.second_signoff null, environment null, or approval.provider_cert_ref null on an external calibration. env_condition shows as readings in the environment section compared with its limits, plus the correction_applied boolean. sequence_error shows as approval.approved_at earlier than performed_date, or readings.adjustment.date earlier than readings.as_found_date. prior_oot_count is a list of dated history.oot_events. It is a decoy: it never decides any question by itself. days_since_verified is derived from performed_date or the latest interim check date relative to review_date. Further decoys: manufacturer and model, the number of test points, many near-boundary passing points, and a large as-found error on a point outside the use range. Records never contain an overall result, pass/fail verdict, risk rating, disposition, impact flag or traceability status field. Every answer must be inferred by comparing fields across sections. Use ISO dates, numbers as numbers and null for unknowns. There are no free-text fields.",
+ "skills": [
+  "S2",
+  "S3",
+  "S4",
+  "S5",
+  "S6",
+  "S7"
+ ],
+ "shared_scale": "check_age",
+ "design_cost": 0.122804
+}

@@ -1,0 +1,356 @@
+{
+ "id": "F108",
+ "domain": "wildlife survey records submitted by field volunteers",
+ "role": "County species records verifier at a regional biological records centre",
+ "setting": "Volunteers submit wildlife survey visits through an online recording portal. Each submission covers one visit to one site and lists the species observed, any attached media, the conditions recorded and the observer's recording profile. The verifier opens one submission at a time and decides whether it can enter the county database. To do this they reconcile counts, grid references, dates and taxon codes across sections and weigh the evidence against local record history. They also check the visit against the stated survey method's limits.",
+ "questions": {
+  "id_supported": {
+   "type": "noul",
+   "instructions": "Identification of the principal species is supported by attached evidence.",
+   "criteria": {
+    "true": "Photo, audio or specimen clearly matches the listed taxon.",
+    "false": "Evidence absent, ambiguous, or points to another taxon."
+   }
+  },
+  "protocol_met": {
+   "type": "noul",
+   "instructions": "Visit conditions met the stated survey method's weather and timing limits.",
+   "criteria": {
+    "true": "Temperature, wind, cloud and visit times all within limits.",
+    "false": "At least one condition outside limits or unrecorded."
+   }
+  },
+  "verification_action": {
+   "type": "choice",
+   "instructions": "What should the verifier do with this submission?",
+   "criteria": {
+    "accept": "All checks consistent; record enters database at submitted resolution.",
+    "accept_downgraded": "Accepted, but taxon or grid reference reduced to coarser level.",
+    "query_observer": "Held pending one specific confirmation obtainable from the submitter.",
+    "refer_panel": "Rarity or conflicting evidence needs specialist taxon panel review.",
+    "reject": "Evidence contradicts identification or core fields cannot be reconciled."
+   }
+  },
+  "local_rarity": {
+   "type": "score",
+   "instructions": "How unusual is the principal species for this location?",
+   "criteria": [
+    "Routine: recorded within 10 km in past five years",
+    "Uncommon: last record within 10 km over five years ago",
+    "Notable: none within 10 km, inside national range",
+    "Exceptional: outside the species' documented national range"
+   ]
+  },
+  "discrepancy_count": {
+   "type": "score",
+   "instructions": "How many cross-section discrepancies does the submission contain?",
+   "criteria": [
+    "No mismatches between any record sections",
+    "Exactly one mismatch between record sections",
+    "Two or three mismatches between sections",
+    "Four or more mismatches between sections"
+   ]
+  }
+ },
+ "factors": [
+  {
+   "name": "evidence_type",
+   "description": "Strongest form of supporting evidence attached for the principal species.",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "poor_photo",
+    "clear_photo",
+    "audio_with_sonogram",
+    "specimen_retained"
+   ],
+   "weights": [
+    0.22,
+    0.2,
+    0.3,
+    0.15,
+    0.13
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S5",
+    "S3",
+    "S7"
+   ]
+  },
+  {
+   "name": "evidence_taxon_match",
+   "description": "Whether the taxon labelled on the media agrees with the taxon code listed in observations.",
+   "kind": "categorical",
+   "values": [
+    "matches",
+    "ambiguous_congener",
+    "different_taxon"
+   ],
+   "weights": [
+    0.62,
+    0.26,
+    0.12
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S5",
+    "S6"
+   ]
+  },
+  {
+   "name": "rarity_tier",
+   "description": "True local status of the principal species, expressed through nearest prior record distance, last record year and range flag.",
+   "kind": "categorical",
+   "values": [
+    "routine",
+    "uncommon",
+    "notable",
+    "exceptional"
+   ],
+   "weights": [
+    0.38,
+    0.27,
+    0.22,
+    0.13
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S7",
+    "S4",
+    "S6"
+   ]
+  },
+  {
+   "name": "observer_accredited",
+   "description": "Observer holds current accreditation for the taxon group concerned; a mitigating signal for weak evidence or rarity.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S6"
+   ]
+  },
+  {
+   "name": "mismatch_count",
+   "description": "Number of genuine cross-section discrepancies planted in the record.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 5,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S4"
+   ]
+  },
+  {
+   "name": "mismatch_magnitude",
+   "description": "Size of the largest planted discrepancy, from rounding-level to clearly incompatible values.",
+   "kind": "categorical",
+   "values": [
+    "trivial",
+    "moderate",
+    "large"
+   ],
+   "weights": [
+    0.4,
+    0.38,
+    0.22
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S6",
+    "S3"
+   ]
+  },
+  {
+   "name": "mismatch_site",
+   "description": "Primary location of the first planted discrepancy; further mismatches are drawn from the remaining locations.",
+   "kind": "categorical",
+   "values": [
+    "total_vs_tally_sum",
+    "grid_ref_vs_gps_centroid",
+    "visit_date_vs_media_date",
+    "taxon_code_vs_media_label",
+    "life_stage_vs_month"
+   ],
+   "weights": [
+    0.24,
+    0.22,
+    0.2,
+    0.18,
+    0.16
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1"
+   ]
+  },
+  {
+   "name": "weather_compliance",
+   "description": "How recorded conditions compare with the method's temperature, wind and cloud limits.",
+   "kind": "categorical",
+   "values": [
+    "all_within",
+    "on_boundary",
+    "one_outside",
+    "unrecorded"
+   ],
+   "weights": [
+    0.45,
+    0.2,
+    0.22,
+    0.13
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S5",
+    "S6",
+    "S4"
+   ]
+  },
+  {
+   "name": "visit_window",
+   "description": "Visit start and end times relative to the method's permitted time window.",
+   "kind": "categorical",
+   "values": [
+    "within",
+    "edge_under_15min",
+    "outside"
+   ],
+   "weights": [
+    0.6,
+    0.22,
+    0.18
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S5",
+    "S6"
+   ]
+  },
+  {
+   "name": "corroborating_record",
+   "description": "Another observer logged the same taxon at the same site within seven days; mitigates rarity and weak evidence.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3"
+   ]
+  },
+  {
+   "name": "prior_rejections",
+   "description": "Count of this observer's earlier submissions rejected in the last three years.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 6,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S6"
+   ]
+  },
+  {
+   "name": "extra_media_held",
+   "description": "Observer has flagged further unattached media held offline, making a single query resolvable.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.4,
+   "skills": [
+    "S4",
+    "S3"
+   ]
+  },
+  {
+   "name": "season_fit",
+   "description": "Whether the visit month and recorded life stage fit the species' known phenology.",
+   "kind": "categorical",
+   "values": [
+    "in_season",
+    "shoulder",
+    "out_of_season"
+   ],
+   "weights": [
+    0.6,
+    0.25,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S6",
+    "S1",
+    "S3"
+   ]
+  }
+ ],
+ "sections": [
+  {
+   "name": "survey",
+   "description": "Visit metadata: submission_id, site_ref, grid_ref, grid_precision_m, visit_date, start_time, end_time, method_code."
+  },
+  {
+   "name": "observer",
+   "description": "Recorder profile: observer_id, taxon_groups_accredited list, records_submitted, records_rejected_3y, media_held_offline flag."
+  },
+  {
+   "name": "observations",
+   "description": "List of entries with taxon_code, tally list per transect section, total_count, life_stage, detection_mode, plus is_principal flag."
+  },
+  {
+   "name": "evidence",
+   "description": "Media list (media_id, kind, label_taxon, capture_date, quality_px or sonogram flag), specimen_ref, gps_track centroid and point count."
+  },
+  {
+   "name": "site_context",
+   "description": "Local history: habitat_code, nearest_prior_km, last_prior_year, in_national_range, recent_nearby_records list with observer_id and date."
+  },
+  {
+   "name": "conditions",
+   "description": "Recorded weather and method limits: temp_c, wind_beaufort, cloud_oktas, plus method_limits object with min_temp_c, max_wind, window_start, window_end."
+  }
+ ],
+ "rendering_notes": "evidence_type sets evidence.media kinds and quality_px (poor_photo under 800 px), sonogram flag for audio, or specimen_ref non-null; none gives an empty media list and null specimen_ref. evidence_taxon_match sets media[].label_taxon equal to, a congener of, or a different genus from the principal observations taxon_code. rarity_tier appears only through site_context.nearest_prior_km (under or over 10), last_prior_year relative to visit_date (within or beyond five years) and in_national_range; there is never a rarity field. observer_accredited shows as the principal taxon's group being present or absent in observer.taxon_groups_accredited. Each mismatch is planted unannounced, as follows. total_vs_tally_sum: total_count differs from the sum of the tally list. grid_ref_vs_gps_centroid: survey.grid_ref is offset from evidence.gps_track centroid; trivial means within grid_precision_m, large means over 1 km. visit_date_vs_media_date: capture_date differs from visit_date by 1 to 30 days. taxon_code_vs_media_label: overlaps evidence_taxon_match and should be counted once. life_stage_vs_month: for example larva recorded in a month when only adults occur. Mismatches are counted by section pair, and some records have zero. weather_compliance and visit_window are shown by comparing conditions values and survey times with conditions.method_limits. on_boundary places a value exactly at a limit, so whether limits are inclusive is left open; unrecorded gives null values. corroborating_record adds an entry to site_context.recent_nearby_records with a different observer_id, the same taxon and a date within seven days; when false, that list holds other taxa or older dates. prior_rejections shows in observer.records_rejected_3y beside records_submitted, so the rate matters, not the raw count. extra_media_held sets observer.media_held_offline true. season_fit is inferred from visit_date month against life_stage. Decoys: non-principal observation entries carrying their own harmless count differences rounded identically, habitat_code, cloud_oktas when the method sets no cloud limit, gps_track point count, and a high records_submitted total that says nothing about accuracy. The record never contains verification_status, confidence, rarity, risk, protocol_ok or recommended_action fields; every answer must be derived by comparing fields.",
+ "skills": [
+  "S1",
+  "S3",
+  "S4",
+  "S5",
+  "S6",
+  "S7"
+ ],
+ "shared_scale": null,
+ "design_cost": 0.140536
+}
