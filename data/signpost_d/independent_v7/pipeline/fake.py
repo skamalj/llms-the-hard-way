@@ -50,6 +50,9 @@ def fake_call(model, system, user, schema, tag):
         st = {"header": {"ref": tag, "date": "2026-10-01"}, "detail": {"qty": rng.randint(1, 9), "unit": "box"},
               "history": [{"n": rng.randint(0, 5)}], "notes": {"text": "word " * rng.randint(2, 15)}}
         return _ok({"record_json": json.dumps(st), "factors": [{"name": "f0", "value": "b"}]})
+    if tag.startswith("review"):
+        q = schema["properties"]["flags"]["items"]["properties"]["question"]["enum"]
+        return _ok({"flags": [] if rng.random() < 0.8 else [{"code": "not_answerable", "question": rng.choice(q), "note": "fake"}]})
     if tag.startswith("judge"):
         out = {}
         for name, sub in schema["properties"].items():
