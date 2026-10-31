@@ -31,7 +31,7 @@ BASE_SEED = 20261031_28
 JUDGE_MAX_TOKENS = 12000
 REVIEW_MAX_TOKENS = 8000
 EST_JUDGE = 0.004   # per-request ceilings at batch rates, for the budget check only
-EST_REVIEW = 0.02
+EST_REVIEW = 0.012  # pilot-2-sized Sonnet requests cost about $0.008 at batch rates
 
 REVIEW_SYSTEM = """You check records for a training set against a short list of rules. You do not answer the questions and you do not rewrite anything: you only report problems.
 
