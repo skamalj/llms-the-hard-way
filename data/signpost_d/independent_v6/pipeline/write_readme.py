@@ -124,6 +124,10 @@ Skill shares of families: {fmt(st['skills_share_of_families'])}. Domains: {st['d
 
 The same softness pushes the contested share above 40%. The record writer also often fails to make a planned-true statement read as true to sceptical judges, so `true` is top less often than the target.
 
+Two smaller deviations:
+- **Records are longer than asked.** The median is {st['record_words']['median']} words against R22.2.2's "about 70", and p90 is {st['record_words']['p90']} against about 160, although none exceeds 320. The writer adds context fields.
+- **Near-duplicate pairs:** {st['near_duplicate_record_pairs']} record pairs within a family share more than half their field values; they are left in and counted here.
+
 The team chose to run this pilot as it stands and judge it by the R22.7 model ranges. If the label shape must match R22.4.3 more closely, the fix to try next is a family redesign with one-dimensional, anchored scales (crisp level boundaries a record can sit clearly inside), followed by another smoke test.
 
 ## Cost
