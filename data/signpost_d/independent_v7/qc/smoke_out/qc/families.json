@@ -1,0 +1,644 @@
+{
+ "F201": {
+  "id": "F201",
+  "domain": "veterinary practice controlled-drug registers",
+  "role": "Veterinary practice controlled-drug accountable clinician, reviewing one drug's register line per audit period",
+  "setting": "A multi-branch small-animal and equine practice group runs a monthly controlled-drug audit. For each drug, strength and branch, the reviewer opens one record bundling the register page, the patient records that cite that drug, the physical stock count, disposal records and any approved variance exceptions. The reviewer decides whether the line can be closed, how large and of what kind any discrepancy is, and how complete the authentication is. The figures in the record are the only evidence.",
+  "questions": {
+   "unexplained_shortfall": {
+    "type": "noul",
+    "instructions": "Evidence shows an unexplained stock shortfall on this register line.",
+    "criteria": null
+   },
+   "line_disposition": {
+    "type": "choice",
+    "instructions": "What should the reviewer do with this register line now?",
+    "criteria": {
+     "sign_off": "Line fully reconciles and every entry is properly authenticated.",
+     "correct_and_sign": "Only clerical slips, fixable by dated annotation without further evidence.",
+     "hold_pending": "One missing confirmation must arrive before the line can close.",
+     "escalate": "Unexplained loss or unlogged removal needs a director or regulator report."
+    }
+   },
+   "variance_cause": {
+    "type": "choice",
+    "instructions": "Which cause accounts for the largest share of the variance?",
+    "criteria": {
+     "no_discrepancy": "Closing count matches the register once documented adjustments are applied.",
+     "arithmetic_slip": "Largest variance comes from a running balance miscalculated between entries.",
+     "unrecorded_administration": "Largest variance matches clinical-record doses missing from the register.",
+     "undocumented_disposal": "Largest variance matches stock removed without any register disposal entry.",
+     "unexplained_loss": "Largest variance has no matching counterpart anywhere in the record."
+    }
+   },
+   "variance_size": {
+    "type": "score",
+    "instructions": "How large is the unreconciled variance relative to volume handled?",
+    "criteria": [
+     "Nil: no variance remains after documented adjustments",
+     "Trace: remaining variance below 2% of volume handled",
+     "Material: remaining variance from 2% up to 10%",
+     "Major: remaining variance above 10% of volume handled"
+    ]
+   },
+   "auth_gaps": {
+    "type": "score",
+    "instructions": "How many register entries lack a required signature or witness?",
+    "criteria": [
+     "Every entry carries all required signatures and witnesses",
+     "Exactly one entry lacks a signature or witness",
+     "Two or three entries lack a signature or witness",
+     "Four or more entries lack a signature or witness"
+    ]
+   }
+  },
+  "factors": [
+   {
+    "name": "drug_profile",
+    "description": "Drug, strength and schedule of the line; sets whether administrations need a witness and the typical volumes handled.",
+    "kind": "categorical",
+    "values": [
+     "ketamine_100mg_ml",
+     "methadone_10mg_ml",
+     "buprenorphine_0.3mg_ml",
+     "pentobarbital_200mg_ml",
+     "fentanyl_50mcg_ml",
+     "midazolam_5mg_ml"
+    ],
+    "weights": [
+     0.22,
+     0.2,
+     0.2,
+     0.16,
+     0.1,
+     0.12
+    ],
+    "min": 0,
+    "max": 0,
+    "p_true": 0,
+    "skills": [
+     "S7"
+    ]
+   },
+   {
+    "name": "arithmetic_slip_count",
+    "description": "Number of entries whose running balance does not equal the prior balance minus or plus that entry's quantity.",
+    "kind": "integer",
+    "values": [],
+    "weights": [],
+    "min": 0,
+    "max": 3,
+    "p_true": 0,
+    "skills": [
+     "S1",
+     "S4"
+    ]
+   },
+   {
+    "name": "unrecorded_admin",
+    "description": "Volume of doses present in clinical records for this drug and period with no matching register entry.",
+    "kind": "categorical",
+    "values": [
+     "none",
+     "trivial_under_1pct",
+     "moderate_2_to_8pct",
+     "large_over_10pct"
+    ],
+    "weights": [
+     0.45,
+     0.2,
+     0.22,
+     0.13
+    ],
+    "min": 0,
+    "max": 0,
+    "p_true": 0,
+    "skills": [
+     "S1",
+     "S6"
+    ]
+   },
+   {
+    "name": "clinical_records_missing",
+    "description": "Clinical records section arrives null because the practice-management export failed, so administrations cannot be cross-checked.",
+    "kind": "boolean",
+    "values": [],
+    "weights": [],
+    "min": 0,
+    "max": 0,
+    "p_true": 0.15,
+    "skills": [
+     "S2",
+     "S4"
+    ]
+   },
+   {
+    "name": "disposal_state",
+    "description": "Status of expired or broken stock leaving the line: none needed, witnessed and entered, entered without witness, or removed with no register entry.",
+    "kind": "categorical",
+    "values": [
+     "none_needed",
+     "witnessed_complete",
+     "entered_unwitnessed",
+     "removed_unlogged"
+    ],
+    "weights": [
+     0.45,
+     0.25,
+     0.15,
+     0.15
+    ],
+    "min": 0,
+    "max": 0,
+    "p_true": 0,
+    "skills": [
+     "S1",
+     "S2"
+    ]
+   },
+   {
+    "name": "unexplained_shortfall_pct",
+    "description": "Shortfall of physical count against the corrected register balance that matches no clinical record, disposal or exception, as a percentage of volume handled.",
+    "kind": "number",
+    "values": [],
+    "weights": [],
+    "min": 0,
+    "max": 15,
+    "p_true": 0,
+    "skills": [
+     "S1",
+     "S5",
+     "S6"
+    ]
+   },
+   {
+    "name": "variance_exception",
+    "description": "Approved variance exception (breakage report or spillage sign-off) and whether it is in date and covers the full or partial shortfall.",
+    "kind": "categorical",
+    "values": [
+     "none",
+     "valid_full_cover",
+     "valid_partial_cover",
+     "expired_or_other_batch"
+    ],
+    "weights": [
+     0.45,
+     0.25,
+     0.18,
+     0.12
+    ],
+    "min": 0,
+    "max": 0,
+    "p_true": 0,
+    "skills": [
+     "S3",
+     "S4"
+    ]
+   },
+   {
+    "name": "manufacturer_overfill",
+    "description": "Batch carries a documented manufacturer overfill allowance, producing a small surplus that offsets apparent shortfall or creates a benign overage.",
+    "kind": "boolean",
+    "values": [],
+    "weights": [],
+    "min": 0,
+    "max": 0,
+    "p_true": 0.5,
+    "skills": [
+     "S3",
+     "S1"
+    ]
+   },
+   {
+    "name": "auth_gap_count",
+    "description": "Number of register entries missing the administering signature or, for drugs requiring it, the witness id.",
+    "kind": "integer",
+    "values": [],
+    "weights": [],
+    "min": 0,
+    "max": 5,
+    "p_true": 0,
+    "skills": [
+     "S2",
+     "S4"
+    ]
+   },
+   {
+    "name": "count_out_of_order",
+    "description": "Physical stock count dated before the final register entry of the period, so the count does not reflect the closing balance.",
+    "kind": "boolean",
+    "values": [],
+    "weights": [],
+    "min": 0,
+    "max": 0,
+    "p_true": 0.15,
+    "skills": [
+     "S2",
+     "S6"
+    ]
+   },
+   {
+    "name": "unit_mismatch",
+    "description": "Clinical records state doses in mg or mcg while the register uses ml, requiring conversion via the header concentration.",
+    "kind": "boolean",
+    "values": [],
+    "weights": [],
+    "min": 0,
+    "max": 0,
+    "p_true": 0.4,
+    "skills": [
+     "S1"
+    ]
+   },
+   {
+    "name": "locum_signatory",
+    "description": "Some entries signed by a locum staff id that looks unfamiliar but appears in the branch roster for those dates.",
+    "kind": "boolean",
+    "values": [],
+    "weights": [],
+    "min": 0,
+    "max": 0,
+    "p_true": 0.4,
+    "skills": [
+     "S3"
+    ]
+   },
+   {
+    "name": "boundary_case",
+    "description": "Remaining variance placed within 0.3 percentage points of 2% or 10%, or two causes of nearly equal volume.",
+    "kind": "boolean",
+    "values": [],
+    "weights": [],
+    "min": 0,
+    "max": 0,
+    "p_true": 0.2,
+    "skills": [
+     "S6"
+    ]
+   }
+  ],
+  "sections": [
+   {
+    "name": "register_header",
+    "description": "Drug, strength, concentration_mg_ml, schedule, witness_required, branch_id, page_id, period_start, period_end, opening_balance_ml."
+   },
+   {
+    "name": "entries",
+    "description": "List of register lines: entry_id, date, type, qty_ml, patient_id, running_balance_ml, signed_by, witness_id, batch_no."
+   },
+   {
+    "name": "clinical_records",
+    "description": "List of patient dose records: patient_id, date, dose, dose_unit, route, clinician_id; or null when export failed."
+   },
+   {
+    "name": "stock_check",
+    "description": "Physical count: count_date, counted_ml, counted_by, checked_by, batch_no, overfill_allowance_ml."
+   },
+   {
+    "name": "disposals",
+    "description": "List of disposal events: batch_no, qty_ml, reason_code, removed_date, register_entry_id, witness_id, denatured_date."
+   },
+   {
+    "name": "exceptions",
+    "description": "List of approved variance exceptions: exception_id, batch_no, qty_ml, reason_code, approved_by, valid_from, valid_to."
+   }
+  ],
+  "rendering_notes": "drug_profile sets register_header fields including witness_required (true for schedule 2 drugs) and plausible entry volumes. arithmetic_slip_count appears only as running_balance_ml values inconsistent with the previous balance and qty_ml; the reviewer must recompute. unrecorded_admin appears as clinical_records items whose patient_id and date have no entries line; when unit_mismatch is true the dose is in mg or mcg and must be divided by concentration_mg_ml to compare, and some correctly recorded doses are also shown in mg as decoys. clinical_records_missing renders clinical_records as null; this is a single missing confirmation (hold) unless other signals escalate. disposal_state: witnessed_complete has a disposals item with register_entry_id, witness_id and denatured_date; entered_unwitnessed has register_entry_id but witness_id null (counts as a missing confirmation, not variance); removed_unlogged has a disposals item with register_entry_id null and no matching entries line, so its qty_ml sits inside the count shortfall. unexplained_shortfall_pct is realised only as stock_check.counted_ml being lower than the recomputed balance by an amount not matched by any clinical record, disposal or exception. variance_exception renders exceptions items; expired_or_other_batch has valid_to before the event or a different batch_no, so it is a decoy that must not be applied; valid_partial_cover covers only part of the shortfall. manufacturer_overfill sets stock_check.overfill_allowance_ml above zero and may produce a small count surplus that is benign. auth_gap_count renders signed_by null or, where witness_required is true, witness_id null; witness_id null is not a gap when witness_required is false (decoy). count_out_of_order sets stock_check.count_date earlier than the last entries date, making the comparison unreliable and favouring hold. locum_signatory uses a staff id format unlike the others yet valid, a decoy against escalation. Remaining variance for variance_size is the recomputed closing balance minus counted_ml, after applying valid exceptions and overfill allowance, divided by opening_balance_ml plus receipts. No field states a reconciled status, variance percentage, cause, risk level or disposition; there are no free-text fields; unknown values are null.",
+  "skills": [
+   "S1",
+   "S2",
+   "S3",
+   "S4",
+   "S5",
+   "S6",
+   "S7"
+  ],
+  "shared_scale": null
+ },
+ "F202": {
+  "id": "F202",
+  "domain": "railway track patrol inspection reports",
+  "role": "Track section manager reviewing each completed track patrol report before it is closed or actioned",
+  "setting": "A regional rail infrastructure maintainer runs foot patrols over its plain-line track. After each patrol, the patroller files a report listing the booked section, a GPS walk trace, defects found with measurements and an assigned priority, and a short free-text comment. The track section manager reviews one report at a time. They check the defects against the response limits in the local standard and the patrol against its booking. Using site context such as existing speed restrictions, recent repairs and defect history, they decide what happens next. All organisations, routes and people are invented.",
+  "questions": {
+   "priority_supported": {
+    "type": "noul",
+    "instructions": "Recorded measurements support the priority the patroller assigned to each defect.",
+    "criteria": {
+     "true": "Every defect's measurement falls within its assigned priority band.",
+     "false": "Any measurement missing, unit-mismatched or in another band."
+    }
+   },
+   "next_step": {
+    "type": "choice",
+    "instructions": "What should the reviewer do with this patrol report next?",
+    "criteria": {
+     "close_report": "No outstanding defect exceeds limits; report needs no follow-up.",
+     "monitor_next_patrol": "Outstanding defect within monitor band only; recheck at next patrol.",
+     "hold_query": "Decision hinges on one unconfirmed item; query patroller first.",
+     "raise_repair": "Confirmed outstanding defect beyond monitor band; book repair work."
+    }
+   },
+   "worst_category": {
+    "type": "choice",
+    "instructions": "Which category is the report's highest-band defect, by measurement?",
+    "criteria": {
+     "lineside": "Vegetation, drainage, fencing or cess condition outside the track.",
+     "track_component": "Fastenings, sleepers, ballast or joint components degraded or missing.",
+     "track_geometry": "Twist, gauge, top or line measured beyond tolerance.",
+     "rail_integrity": "Cracks, squats, breaks or head damage in the rail itself."
+    }
+   },
+   "discrepancy_size": {
+    "type": "score",
+    "instructions": "How far does the recorded value differ from the expected value?",
+    "criteria": [
+     "Matches expected value, or differs by under 2%",
+     "Differs from expected value by 2% to under 10%",
+     "Differs from expected value by 10% to under 25%",
+     "Differs from expected value by 25% or more"
+    ]
+   },
+   "response_urgency": {
+    "type": "score",
+    "instructions": "How soon must the worst outstanding confirmed defect be attended?",
+    "criteria": [
+     "No outstanding defect exceeds any listed response threshold",
+     "Exceeds monitor limit only; attend within 28 days",
+     "Exceeds seven-day limit but not the immediate limit",
+     "Exceeds immediate limit; attend within 36 hours"
+    ]
+   }
+  },
+  "factors": [
+   {
+    "name": "measured_band",
+    "description": "True response band of the worst defect, judged by its measurement against the standards table",
+    "kind": "categorical",
+    "values": [
+     "below_monitor",
+     "monitor",
+     "seven_day",
+     "immediate"
+    ],
+    "weights": [
+     0.2,
+     0.3,
+     0.3,
+     0.2
+    ],
+    "min": 0,
+    "max": 0,
+    "p_true": 0,
+    "skills": [
+     "S4",
+     "S7"
+    ]
+   },
+   {
+    "name": "worst_defect_category",
+    "description": "Category of the defect with the highest measured band",
+    "kind": "categorical",
+    "values": [
+     "lineside",
+     "track_component",
+     "track_geometry",
+     "rail_integrity"
+    ],
+    "weights": [
+     0.2,
+     0.3,
+     0.3,
+     0.2
+    ],
+    "min": 0,
+    "max": 0,
+    "p_true": 0,
+    "skills": [
+     "S7"
+    ]
+   },
+   {
+    "name": "priority_vs_measurement",
+    "description": "How the patroller's assigned priority relates to the measured band for at least one defect",
+    "kind": "categorical",
+    "values": [
+     "match",
+     "overstated",
+     "understated",
+     "measurement_missing"
+    ],
+    "weights": [
+     0.4,
+     0.2,
+     0.25,
+     0.15
+    ],
+    "min": 0,
+    "max": 0,
+    "p_true": 0,
+    "skills": [
+     "S1",
+     "S5"
+    ]
+   },
+   {
+    "name": "unit_mismatch",
+    "description": "A defect measurement is logged in a unit different from the standards table, e.g. inches vs mm or 1-in-N vs mm over base",
+    "kind": "boolean",
+    "values": [],
+    "weights": [],
+    "min": 0,
+    "max": 0,
+    "p_true": 0.2,
+    "skills": [
+     "S1"
+    ]
+   },
+   {
+    "name": "location_mismatch",
+    "description": "Difference between a defect's mileage and the walked range or the mileage quoted in the note",
+    "kind": "categorical",
+    "values": [
+     "none",
+     "trivial",
+     "outside_walked_range"
+    ],
+    "weights": [
+     0.6,
+     0.25,
+     0.15
+    ],
+    "min": 0,
+    "max": 0,
+    "p_true": 0,
+    "skills": [
+     "S1",
+     "S4"
+    ]
+   },
+   {
+    "name": "coverage_gap_pct",
+    "description": "Percentage of booked mileage not covered by the GPS walk trace",
+    "kind": "number",
+    "values": [],
+    "weights": [],
+    "min": 0,
+    "max": 40,
+    "p_true": 0,
+    "skills": [
+     "S1",
+     "S4"
+    ]
+   },
+   {
+    "name": "mitigation_present",
+    "description": "Whether site context holds a fact that lowers concern about the worst defect",
+    "kind": "boolean",
+    "values": [],
+    "weights": [],
+    "min": 0,
+    "max": 0,
+    "p_true": 0.5,
+    "skills": [
+     "S3"
+    ]
+   },
+   {
+    "name": "mitigation_kind",
+    "description": "Form of mitigation when present",
+    "kind": "categorical",
+    "values": [
+     "repaired_since_signed_off",
+     "esr_already_imposed",
+     "inside_active_worksite",
+     "geometry_run_clear_recent"
+    ],
+    "weights": [
+     0.3,
+     0.25,
+     0.2,
+     0.25
+    ],
+    "min": 0,
+    "max": 0,
+    "p_true": 0,
+    "skills": [
+     "S3",
+     "S6"
+    ]
+   },
+   {
+    "name": "repeat_history",
+    "description": "Count of earlier reports logging the same defect type within 0.05 miles",
+    "kind": "integer",
+    "values": [],
+    "weights": [],
+    "min": 0,
+    "max": 4,
+    "p_true": 0,
+    "skills": [
+     "S3",
+     "S6"
+    ]
+   },
+   {
+    "name": "photo_evidence",
+    "description": "Whether the worst defect has a photo attached",
+    "kind": "boolean",
+    "values": [],
+    "weights": [],
+    "min": 0,
+    "max": 0,
+    "p_true": 0.6,
+    "skills": [
+     "S5"
+    ]
+   },
+   {
+    "name": "note_stance",
+    "description": "How the patroller's free-text comment relates to the structured entries",
+    "kind": "categorical",
+    "values": [
+     "consistent",
+     "softens",
+     "contradicts_entry"
+    ],
+    "weights": [
+     0.55,
+     0.25,
+     0.2
+    ],
+    "min": 0,
+    "max": 0,
+    "p_true": 0,
+    "skills": [
+     "S1",
+     "S6"
+    ]
+   },
+   {
+    "name": "boundary_case",
+    "description": "Worst measurement sits exactly on a threshold in the standards table",
+    "kind": "boolean",
+    "values": [],
+    "weights": [],
+    "min": 0,
+    "max": 0,
+    "p_true": 0.2,
+    "skills": [
+     "S6"
+    ]
+   },
+   {
+    "name": "decoy_alarm",
+    "description": "Alarming but irrelevant context such as heavy rain, high line speed or a late-running train",
+    "kind": "boolean",
+    "values": [],
+    "weights": [],
+    "min": 0,
+    "max": 0,
+    "p_true": 0.45,
+    "skills": [
+     "S3"
+    ]
+   }
+  ],
+  "sections": [
+   {
+    "name": "patrol",
+    "description": "Patrol id, patroller id, date, ELR, booked start and end mileage, frequency, weather, line speed"
+   },
+   {
+    "name": "walk_trace",
+    "description": "GPS walked start and end mileage, gap list with mileages, duration in minutes"
+   },
+   {
+    "name": "defects",
+    "description": "List of defects: id, type, category, mileage, measurement, unit, assigned priority, photo flag"
+   },
+   {
+    "name": "site_context",
+    "description": "Active ESRs, worksites, recent repairs with sign-off, last geometry run, prior defect history"
+   },
+   {
+    "name": "standards",
+    "description": "Per defect type thresholds for monitor, seven-day and immediate bands with units"
+   },
+   {
+    "name": "remarks",
+    "description": "Patroller free-text comment, one to three sentences, and optional gang sign-off line"
+   }
+  ],
+  "rendering_notes": "Every record has 1 to 4 defect entries; the worst is the highest measured band against standards (ties broken rail_integrity > track_geometry > track_component > lineside). measured_band appears only as defects[].measurement compared with standards thresholds; boundary_case puts the value exactly on a threshold, and the table never says whether limits are inclusive. priority_vs_measurement shows in defects[].priority (P1 immediate, P2 seven-day, P3 monitor, P4 none) disagreeing with the band; measurement_missing sets measurement null. unit_mismatch logs the unit differently from standards[].unit and makes priority_supported false. location_mismatch shifts defects[].mileage against walk_trace start/end or the mileage quoted in remarks.comment. coverage_gap_pct shows only as walk_trace walked mileage or gaps against patrol booked mileage; a gap covering a defect's mileage, or an outside_walked_range location, means hold_query. Mitigation appears in site_context. repaired_since_signed_off: a repair entry at the defect mileage with a sign-off line in remarks; the defect is no longer outstanding, so urgency and next_step drop. esr_already_imposed: an ESR covering the mileage; urgency stays but monitor may be defensible over raise_repair (contested). inside_active_worksite: a possession covering it. geometry_run_clear_recent: a geometry run within 14 days showing no exceedance, contested against the patroller's measurement. The same alarming measurement appears with and without mitigation at about 50/50. repeat_history appears as site_context.history count and dates; 2 or more nudges monitor towards raise_repair. note_stance softens means the comment downplays a defect; contradicts_entry means the comment quotes a different value or mileage, which needs a query. Decoys: patrol.weather, patrol.line_speed_mph, late-train remarks, defects[].priority itself and photo_flag; none of these settles an answer alone. The record never states the band, urgency, category of the worst defect, a review outcome or a risk label; only the raw fields above appear.",
+  "skills": [
+   "S1",
+   "S3",
+   "S4",
+   "S5",
+   "S6",
+   "S7"
+  ],
+  "shared_scale": "discrepancy_size"
+ }
+}
