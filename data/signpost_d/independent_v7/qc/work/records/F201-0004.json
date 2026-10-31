@@ -1,0 +1,112 @@
+{
+ "id": "F201-0004",
+ "family": "F201",
+ "state": {
+  "register_header": {
+   "drug": "fentanyl",
+   "mcg_ml": 50,
+   "sched": 2,
+   "witness_required": true,
+   "opening_balance_ml": 50
+  },
+  "entries": [
+   {
+    "id": "e1",
+    "type": "receipt",
+    "qty_ml": 50,
+    "bal": 100,
+    "signed_by": "D1",
+    "witness_id": null
+   },
+   {
+    "id": "e2",
+    "type": "use",
+    "qty_ml": 12,
+    "bal": 88,
+    "signed_by": "LOC-31",
+    "witness_id": "D2"
+   },
+   {
+    "id": "e3",
+    "type": "use",
+    "qty_ml": 18,
+    "bal": 78,
+    "signed_by": "D1",
+    "witness_id": "D2"
+   }
+  ],
+  "clinical_records": null,
+  "stock_check": {
+   "counted_ml": 68,
+   "overfill_allowance_ml": 1
+  }
+ },
+ "factors": {
+  "drug_profile": "fentanyl_50mcg_ml",
+  "arithmetic_slip_count": 1,
+  "unrecorded_admin": "none",
+  "clinical_records_missing": true,
+  "disposal_state": "none_needed",
+  "unexplained_shortfall_pct": 1.0,
+  "variance_exception": "none",
+  "manufacturer_overfill": true,
+  "auth_gap_count": 1,
+  "count_out_of_order": false,
+  "unit_mismatch": false,
+  "locum_signatory": true,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "drug_profile": "fentanyl_50mcg_ml",
+  "arithmetic_slip_count": 1,
+  "unrecorded_admin": "none",
+  "clinical_records_missing": true,
+  "disposal_state": "none_needed",
+  "unexplained_shortfall_pct": 1.93,
+  "variance_exception": "none",
+  "manufacturer_overfill": true,
+  "auth_gap_count": 4,
+  "count_out_of_order": false,
+  "unit_mismatch": false,
+  "locum_signatory": true,
+  "boundary_case": false
+ },
+ "plan": {
+  "unexplained_shortfall": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "line_disposition": {
+   "clarity": "leaning",
+   "target": "hold_pending",
+   "second": null
+  },
+  "variance_cause": {
+   "clarity": "clear",
+   "target": "arithmetic_slip",
+   "second": null
+  },
+  "variance_size": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  },
+  "auth_gaps": {
+   "clarity": "contested",
+   "target": "1",
+   "second": "0"
+  }
+ },
+ "target_words": 65,
+ "deciding": {
+  "unexplained_shortfall": "Recomputed closing is 70 ml (100-12-18); count 68 ml plus 1 ml overfill leaves 1 ml, which is close to nothing. The register shows 78 ml because of a slip, not a loss. Clinical records are missing, so some doubt remains.",
+  "line_disposition": "clinical_records is null, which is one missing confirmation. e1 also lacks a witness, so hold rather than a simple annotation.",
+  "variance_cause": "e3 balance of 78 should be 70 (88-18), an 8 ml miscalculation that accounts for nearly all of the gap between the register and the count.",
+  "variance_size": "Register closing 78 vs count 68 is a 10 ml gap over 100 ml handled, on the 10% boundary; against the recomputed 70 ml only 1 ml is left.",
+  "auth_gaps": "Only e1 has witness_id null with witness_required true. The other entries are signed and witnessed, and the locum id LOC-31 is valid. Whether to count e1 as a gap on a receipt entry is the open point."
+ },
+ "request": "rec-F201-0001",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.015345
+}
