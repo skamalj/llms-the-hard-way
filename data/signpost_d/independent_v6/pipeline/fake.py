@@ -37,7 +37,7 @@ def fake_call(model, system, user, schema, tag):
                  "weights": [1, 1, 1], "min": 0, "max": 10, "p_true": 0.5, "skills": ["S1"]} for i in range(10)]
         return _ok({"role": "a reviewer", "setting": "a setting", "questions": qs, "factors": facs,
                     "sections": [{"name": n, "description": "d"} for n in ("header", "detail", "history", "notes")], "rendering_notes": "notes", "skills": ["S1"]})
-    if tag.startswith("record"):
+    if tag.startswith("record") or tag.startswith("rework"):
         st = {"header": {"ref": tag, "date": "2026-10-01"}, "detail": {"qty": rng.randint(1, 9), "unit": "box"},
               "history": [{"n": rng.randint(0, 5)}], "notes": {"text": "word " * rng.randint(2, 15)}}
         return _ok({"record_json": json.dumps(st), "factors": [{"name": "f0", "value": "b"}]})

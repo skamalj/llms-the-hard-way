@@ -153,6 +153,54 @@ def do_judge(work, fam, idx, persona):
     return f"fail judge {rid} {persona['id']}"
 
 
+def gold_of(work, fam, rid):
+    personas = [x["id"] for x in R.PERSONAS]
+    js = [load(p(work, "judgments", rid, f"{pid}.json")) for pid in personas]
+    if any(j is None for j in js):
+        return None
+    return {n: R.mean_gold([j["probabilities"][n] for j in js], R.options_of(q)) for n, q in fam["questions"].items()}
+
+
+def do_rework(work, fam, idx, rnd):
+    """Rewrite a record whose measured gold missed its plan; the old record and judgments move to round folders."""
+    rid = f"{fam['id']}-{idx:04d}"
+    rp = p(work, "records", f"{rid}.json")
+    rec = load(rp)
+    if rec is None:
+        return "norecord"
+    if rec.get("rework_round", 0) >= rnd:
+        return "skip"
+    golds = gold_of(work, fam, rid)
+    if golds is None:
+        return "nojudgments"
+    misses = R.plan_misses(fam, rec["plan"], golds)
+    if not misses:
+        return "onplan"
+    system, user, schema = R.rework_messages(fam, rec, golds, misses)
+    for _ in range(3):
+        r = call("sonnet", system, user, schema, effort="medium", tag=f"rework{rnd} {rid}")
+        if not r["ok"]:
+            continue
+        try:
+            state = json.loads(r["data"]["record_json"])
+        except json.JSONDecodeError:
+            continue
+        why = R.check_record(state, fam, rec["target_words"])
+        if why:
+            user = user.split("\n\nA previous attempt was rejected")[0] + f"\n\nA previous attempt was rejected: {why}. Fix that."
+            continue
+        hist = p(work, f"records_r{rnd - 1}", f"{rid}.json")
+        save(hist, rec)
+        jdir = os.path.join(work, "judgments", rid)
+        os.makedirs(os.path.join(work, f"judgments_r{rnd - 1}"), exist_ok=True)
+        os.replace(jdir, os.path.join(work, f"judgments_r{rnd - 1}", rid))
+        new = dict(rec, state=state, factors=R.final_factors(fam, rec["factors_sampled"], r["data"]["factors"]), rework_round=rnd,
+                   rework_misses=rec.get("rework_misses", []) + [misses], cost=(rec.get("cost") or 0) + r["cost"])
+        save(rp, new)
+        return "reworked"
+    return f"fail rework {rid}"
+
+
 def run_jobs(jobs, workers, limit):
     t0, counts = time.time(), {}
     with cf.ThreadPoolExecutor(max_workers=workers) as ex:
@@ -164,7 +212,7 @@ def run_jobs(jobs, workers, limit):
                 res = f"error {type(e).__name__}: {e}"
             tag = res.split(" ")[0]
             counts[tag] = counts.get(tag, 0) + 1
-            if tag not in ("ok", "skip", "norecord"):
+            if tag not in ("ok", "skip", "norecord", "onplan", "reworked", "nojudgments"):
                 print(res, flush=True)
     return {"elapsed_s": round(time.time() - t0), "counts": counts}
 
@@ -172,7 +220,8 @@ def run_jobs(jobs, workers, limit):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--work", required=True)
-    ap.add_argument("--stage", choices=["scales", "families", "records", "judge"], required=True)
+    ap.add_argument("--stage", choices=["scales", "families", "records", "judge", "rework"], required=True)
+    ap.add_argument("--round", type=int, default=1, help="rework round (1, 2, ...)")
     ap.add_argument("--per-family", type=int, default=36)
     ap.add_argument("--families", default="", help="comma-separated family ids (default all)")
     ap.add_argument("--workers", type=int, default=12)
@@ -194,6 +243,8 @@ def main():
         fams = [f for f in fams if f]
         if args.stage == "records":
             jobs = [(do_record, (args.work, f, i)) for f in fams for i in range(1, args.per_family + 1)]
+        elif args.stage == "rework":
+            jobs = [(do_rework, (args.work, f, i, args.round)) for f in fams for i in range(1, args.per_family + 1)]
         else:
             jobs = [(do_judge, (args.work, f, i, per)) for f in fams for i in range(1, args.per_family + 1) for per in R.PERSONAS]
         res = run_jobs(jobs, args.workers, None)

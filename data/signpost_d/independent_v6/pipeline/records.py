@@ -97,6 +97,7 @@ Rules:
 - Express every factor value faithfully in the record (directly or through the fields that imply it). Add a few realistic fields that decide nothing.
 - For a statement planned true, the record must actually support it; for one planned false, the record must undermine it or leave it unsupported.
 - Low and lowest levels, first options and "no problem" outcomes are often the plan: then the record is genuinely clean on that point.
+- For a "clear" or "leaning" decision on a scale or a choice, include the field a real system would show that places the case on the planned level or option (a deadline or due time, a stated limit or threshold, a count, a measured value, a status), and leave out extra alarms that would fit a different level. One decisive signal reads more clearly than several competing ones.
 - For a "clear" decision make the deciding signal unmistakable. For "leaning", give one answer the weight of evidence with a real reason for doubt. For "balanced" and "contested", put signals in genuine balance (an aggravating and a mitigating signal of similar weight, or a value near a boundary the question leaves open) so that the planned answers are both defensible. Never resolve a planned contest with a decisive extra field.
 - Short free text, where the family uses it, is one or two sentences per field.
 - Keep to the target length (count every key and value word): records are short. Leave out anything a reviewer does not need."""
@@ -297,3 +298,52 @@ def mean_gold(judgments: list, opts: list) -> dict:
         k = max(g, key=g.get)
         g[k] = round(g[k] + drift, 4)
     return g
+
+
+# ----------------------------------------------------------------------------- rework (R22.4.2 step 4)
+
+BUCKETS = ["contested", "balanced", "leaning", "clear"]
+
+
+def bucket(top_p: float) -> str:
+    return "contested" if top_p < 0.5 else "balanced" if top_p < 0.7 else "leaning" if top_p < 0.9 else "clear"
+
+
+def plan_misses(fam: dict, plan: dict, golds: dict) -> list:
+    """Questions whose measured gold misses the plan: two or more clarity buckets away, or (planned clear or leaning)
+    with a different top answer from the planned one."""
+    out = []
+    for name, p in plan.items():
+        g = golds[name]
+        top = max(g, key=g.get)
+        b = bucket(g[top])
+        far = abs(BUCKETS.index(b) - BUCKETS.index(p["clarity"])) >= 2
+        wrong = p["clarity"] in ("clear", "leaning") and top != p["target"]
+        if far or wrong:
+            out.append(name)
+    return out
+
+
+REWORK_NOTE = """
+
+PREVIOUS ATTEMPT
+Your earlier record for this plan is below, with how five independent reviewers actually judged it (their mean probabilities). Some decisions missed the plan. Revise the record so that the planned judgments hold, changing as little as needed: to make a decision clearer, add the decisive field a real system would show or remove a competing signal; to make it more balanced, add a genuine counter-signal. Keep the decisions that already match. Return the full revised record and the final factor values.
+
+EARLIER RECORD
+{record}
+
+HOW IT WAS JUDGED (plan -> measured)
+{judged}"""
+
+
+def rework_messages(fam: dict, rec: dict, golds: dict, misses: list):
+    system, user, schema = render_messages(fam, rec["factors_sampled"], rec["plan"], rec["target_words"])
+    lines = []
+    for name, p in rec["plan"].items():
+        g = golds[name]
+        top = max(g, key=g.get)
+        flag = "  <- missed" if name in misses else ""
+        dist = ", ".join(f"{o}: {v:.2f}" for o, v in g.items())
+        lines.append(f"- {name}: planned {p['clarity']} on {p['target']}; measured top {top} at {g[top]:.2f} ({dist}){flag}")
+    user += REWORK_NOTE.format(record=json.dumps(rec["state"], ensure_ascii=False), judged="\n".join(lines))
+    return system, user, schema
