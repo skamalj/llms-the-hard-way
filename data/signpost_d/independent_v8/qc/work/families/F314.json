@@ -1,0 +1,318 @@
+{
+ "id": "F314",
+ "domain": "gas safety certificates for rented homes",
+ "role": "Lettings compliance officer at a residential letting agency, checking each landlord's annual gas safety record before it is filed against a tenancy",
+ "setting": "The agency manages several thousand rented homes. For each property, the officer opens one structured gas safety record: the property's appliance inventory, the tenancy dates, the certificate as entered from the engineer's form, the per-appliance check results, the engineer's registration snapshot and the property's gas history. The officer must decide whether the certificate can be relied on, how urgently the next inspection is needed, how serious any open defect is, and what to do next. Records are assembled automatically from separate systems, so values often disagree between sections without any warning. No record contains free-text notes; every field is a code, number, date, boolean or null.",
+ "questions": {
+  "covers_all_appliances": {
+   "type": "noul",
+   "instructions": "Certificate covers every landlord gas appliance listed for the property.",
+   "criteria": null
+  },
+  "engineer_valid": {
+   "type": "noul",
+   "instructions": "Engineer held valid registration for these appliance types on inspection date.",
+   "criteria": {
+    "true": "Registration active, identifiers match, categories cover every appliance checked.",
+    "false": "Registration lapsed, identifiers differ, or a category is missing."
+   }
+  },
+  "next_step": {
+   "type": "choice",
+   "instructions": "What should the compliance officer do with this certificate next?",
+   "criteria": {
+    "accept": "Everything reconciles and no defects are open; file as compliant.",
+    "accept_with_works": "Certificate valid; only advisory items open, needing scheduled remedial works.",
+    "hold": "Exactly one mismatch or missing detail needs landlord or engineer confirmation.",
+    "reinspect": "Two or more gaps, expiry passed, or invalid engineer; reinspect fully.",
+    "emergency_isolation": "Dangerous or at-risk appliance in service without isolation; disconnect immediately."
+   }
+  },
+  "renewal_urgency": {
+   "type": "score",
+   "instructions": "How soon must a fresh gas safety inspection be completed?",
+   "criteria": [
+    "More than 60 days remain before true expiry",
+    "Between 29 and 60 days remain before expiry",
+    "Between 1 and 28 days remain before expiry",
+    "True expiry date reached or already passed"
+   ]
+  },
+  "open_hazard": {
+   "type": "score",
+   "instructions": "How serious is the worst defect still open on the certificate?",
+   "criteria": [
+    "None: no open defects recorded on any appliance",
+    "Advisory: all open items classed not to current standard",
+    "Contained: worst open defect at risk, appliance isolated",
+    "Live risk: at-risk defect open, appliance still in service",
+    "Dangerous: immediately dangerous defect open on any appliance"
+   ]
+  }
+ },
+ "factors": [
+  {
+   "name": "inventory_mismatch",
+   "description": "Disagreement between the property's appliance inventory and the appliances checked on the certificate: none, an inventory appliance absent from the certificate, an extra appliance on the certificate, the same appliance with a different location, or a serial or model mismatch suggesting a replaced unit",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "missing_from_cert",
+    "extra_on_cert",
+    "location_mismatch",
+    "serial_mismatch"
+   ],
+   "weights": [
+    0.34,
+    0.22,
+    0.12,
+    0.16,
+    0.16
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S5",
+    "S4"
+   ]
+  },
+  {
+   "name": "tenant_owned_appliance",
+   "description": "Whether an inventory appliance missing from the certificate is flagged as tenant-owned, which takes it outside the landlord's duty and explains the gap benignly; drawn independently so the flag sometimes sits on an appliance that is on the certificate (decoy)",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.45,
+   "skills": [
+    "S3",
+    "S1",
+    "S5"
+   ]
+  },
+  {
+   "name": "date_misalignment",
+   "description": "Inconsistency among dates in different sections: none, certificate issue date earlier than the inspection date, printed expiry not equal to inspection date plus 12 months, or inspection dated after the tenancy start with no prior certificate in history",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "issued_before_inspection",
+    "expiry_miscomputed",
+    "inspected_after_move_in"
+   ],
+   "weights": [
+    0.45,
+    0.15,
+    0.22,
+    0.18
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S4"
+   ]
+  },
+  {
+   "name": "days_to_true_expiry",
+   "description": "Days from the record's review date to the true expiry, computed as inspection date plus 12 months (not the printed expiry field); negative means expired",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": -45,
+   "max": 340,
+   "p_true": 0,
+   "skills": [
+    "S7",
+    "S4",
+    "S1"
+   ]
+  },
+  {
+   "name": "renewal_booked",
+   "description": "Whether a renewal inspection appointment is already booked for a date before true expiry; lowers the action needed when expiry is close but does not change the urgency band",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S4"
+   ]
+  },
+  {
+   "name": "engineer_status",
+   "description": "Registration state of the engineer on the inspection date: active with matching categories, lapsed before the inspection date, active but lacking a category for one appliance type checked, or licence number on the certificate differing from the registration snapshot",
+   "kind": "categorical",
+   "values": [
+    "active_matching",
+    "lapsed_on_date",
+    "category_missing",
+    "id_mismatch"
+   ],
+   "weights": [
+    0.55,
+    0.15,
+    0.15,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S5",
+    "S7"
+   ]
+  },
+  {
+   "name": "worst_defect_class",
+   "description": "Highest defect classification recorded across appliance checks: none, not to current standard, at risk, or immediately dangerous",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "ncs",
+    "at_risk",
+    "immediately_dangerous"
+   ],
+   "weights": [
+    0.38,
+    0.27,
+    0.23,
+    0.12
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S7",
+    "S4"
+   ]
+  },
+  {
+   "name": "defect_isolated",
+   "description": "Whether the appliance carrying the worst defect has a recorded isolation: supply turned off or capped, with a warning label code and responsible person acknowledgement; the alarming defect appears with and without this about equally",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S4"
+   ]
+  },
+  {
+   "name": "remedial_completed",
+   "description": "Whether a remedial completion entry in history, dated after the inspection and signed by a registered engineer, closes the worst defect; sometimes the entry references a different appliance identifier and so does not close it",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.45,
+   "skills": [
+    "S3",
+    "S1",
+    "S4"
+   ]
+  },
+  {
+   "name": "combustion_reading",
+   "description": "Flue gas analyser reading on one appliance relative to the action threshold: normal, borderline near the threshold, high with a passing retest recorded, or high with no retest yet the appliance outcome marked pass",
+   "kind": "categorical",
+   "values": [
+    "normal",
+    "borderline",
+    "high_retest_pass",
+    "high_no_retest"
+   ],
+   "weights": [
+    0.5,
+    0.18,
+    0.16,
+    0.16
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S3",
+    "S6"
+   ]
+  },
+  {
+   "name": "prior_defect_count",
+   "description": "Number of earlier certificates in history that recorded a defect on the same boiler; alarming on its own but mitigated when the boiler install date postdates them",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 4,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S7"
+   ]
+  },
+  {
+   "name": "boundary_case",
+   "description": "Whether one deciding value is placed exactly on an anchor the scales leave open: true expiry exactly 28 or 60 days away, registration expiring on the inspection date itself, or a combustion reading equal to the threshold",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.22,
+   "skills": [
+    "S6",
+    "S4"
+   ]
+  }
+ ],
+ "sections": [
+  {
+   "name": "property",
+   "description": "Property reference, dwelling type, and appliance inventory list with ids, types, locations, serials, ownership and install dates"
+  },
+  {
+   "name": "tenancy",
+   "description": "Tenancy reference, start and end dates, occupancy status and review date of this record"
+  },
+  {
+   "name": "certificate",
+   "description": "Certificate number, inspection, issue and printed expiry dates, engineer licence number and overall outcome code"
+  },
+  {
+   "name": "appliance_checks",
+   "description": "Per-appliance results: appliance id, location, serial, flue type, analyser reading, threshold, retest, defect class, isolation status"
+  },
+  {
+   "name": "engineer",
+   "description": "Registration snapshot: licence number, business id, registration valid-from and valid-to dates, list of category codes"
+  },
+  {
+   "name": "history",
+   "description": "Prior certificates with dates and defect classes, remedial completion entries, and any booked renewal appointment"
+  }
+ ],
+ "rendering_notes": "inventory_mismatch: compare property.inventory[] with appliance_checks[] by appliance_id, location and serial; missing_from_cert omits one inventory id from checks, extra_on_cert adds a check id not in inventory, location_mismatch keeps the id but changes location code (e.g. kitchen vs utility), serial_mismatch keeps id and location but alters serial and model, with no flag. tenant_owned_appliance: property.inventory[].owned_by = \"tenant\" on one appliance; when it is the missing one the gap is excused, otherwise it is a decoy. date_misalignment: certificate.inspection_date, certificate.issue_date, certificate.expiry_date, tenancy.start_date and history.prior_certificates[] dates; expiry_miscomputed prints an expiry a few days to several weeks off inspection plus 12 months. days_to_true_expiry: derived from certificate.inspection_date and tenancy.review_date only; never print a days-remaining field. renewal_booked: history.renewal_booking {date, status} or null. engineer_status: certificate.engineer_licence vs engineer.licence_no; engineer.valid_to vs inspection_date; engineer.categories[] vs appliance_checks[].appliance_type and flue_type. worst_defect_class: appliance_checks[].defect_class in {null, \"NCS\", \"AR\", \"ID\"}; defect_isolated: appliance_checks[].isolation {supply_off, capped, label_code, acknowledged_by_role}, partially filled in some records; remedial_completed: history.remedials[] {appliance_id, completed_on, engineer_licence}, which only closes a defect when appliance_id matches and completed_on is after inspection. combustion_reading: appliance_checks[].analyser {ratio, threshold, retest_ratio}; high_no_retest pairs a reading above threshold with outcome \"pass\". prior_defect_count: history.prior_certificates[].defects on the boiler id, with property.inventory[].install_date sometimes after them. boundary_case sets the relevant value exactly on 28 or 60 days, valid_to equal to inspection_date, or ratio equal to threshold. Decoys: certificate.overall_outcome (engineer's own pass/fail, can contradict appliance-level data), tenant ownership flags on certified appliances, old defects on replaced boilers, label codes without supply_off. The record never contains fields such as compliance_status, risk_level, urgency, recommended_action or hazard_rating, and no notes or free text of any kind.",
+ "skills": [
+  "S1",
+  "S3",
+  "S4",
+  "S5",
+  "S6",
+  "S7"
+ ],
+ "shared_scale": null,
+ "design_cost": 0.155376
+}

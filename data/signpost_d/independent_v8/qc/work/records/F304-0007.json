@@ -1,0 +1,125 @@
+{
+ "id": "F304-0007",
+ "family": "F304",
+ "state": {
+  "request": {
+   "ref": "T2210",
+   "appt_type": "theatre_transfer",
+   "appt_time": "2025-04-02T15:00",
+   "vehicle_class": "wheelchair_veh",
+   "crew_requested": "double_crew",
+   "mobility_booked": "wheelchair",
+   "equipment": []
+  },
+  "patient": {
+   "mobility_assessed": "wheelchair",
+   "assessed_on": "2025-03-28",
+   "weight_kg": 84,
+   "oxygen_lpm": 0,
+   "monitoring": null,
+   "fit_to_travel_signed": null
+  },
+  "journey": {
+   "window_end": "2025-04-02T13:08",
+   "est_duration_min": 40,
+   "manual_est_min": 20,
+   "late_tolerance_min": 0,
+   "reslot_same_day": false
+  },
+  "history": [
+   {
+    "date": "2025-02-06",
+    "outcome": "aborted",
+    "reason": "sats low en route"
+   },
+   {
+    "date": "2025-02-20",
+    "outcome": "aborted",
+    "reason": "sats low en route"
+   },
+   {
+    "date": "2025-03-06",
+    "outcome": "aborted",
+    "reason": "needed oxygen"
+   },
+   {
+    "date": "2025-03-19",
+    "outcome": "aborted",
+    "reason": "breathless on transfer"
+   }
+  ],
+  "notes": {
+   "ward_note": "May need own oxygen cylinder; fit-to-travel awaiting anaesthetist sign-off."
+  }
+ },
+ "factors": {
+  "mobility_alignment": "matches",
+  "secondary_discrepancy": "equipment_unlisted",
+  "eligibility_concern": false,
+  "eligibility_exception": false,
+  "clinical_support": "transfer_assist",
+  "crew_request_gap": "correct",
+  "buffer_minutes": 72.0,
+  "duration_estimate_split": true,
+  "late_tolerance": false,
+  "appointment_type": "theatre_transfer",
+  "same_day_reslot": false,
+  "confirmation_pending": true,
+  "prior_aborts": 4,
+  "aborts_related": true
+ },
+ "factors_sampled": {
+  "mobility_alignment": "overstated",
+  "secondary_discrepancy": "equipment_unlisted",
+  "eligibility_concern": false,
+  "eligibility_exception": false,
+  "clinical_support": "transfer_assist",
+  "crew_request_gap": "correct",
+  "buffer_minutes": 72.46,
+  "duration_estimate_split": true,
+  "late_tolerance": false,
+  "appointment_type": "theatre_transfer",
+  "same_day_reslot": true,
+  "confirmation_pending": false,
+  "prior_aborts": 4,
+  "aborts_related": true
+ },
+ "plan": {
+  "vehicle_fit": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "disposition": {
+   "clarity": "clear",
+   "target": "hold",
+   "second": null
+  },
+  "crew_config": {
+   "clarity": "balanced",
+   "target": "double_crew",
+   "second": "clinical_escort"
+  },
+  "time_pressure": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  },
+  "delay_impact": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 91,
+ "deciding": {
+  "vehicle_fit": "Wheelchair vehicle matches a wheelchair assessment from 2025-03-28, but the unlisted cylinder and oxygen-related aborts leave some doubt.",
+  "disposition": "fit_to_travel_signed is null and the ward note says sign-off is awaited, so hold.",
+  "crew_config": "Wheelchair, oxygen 0 and no monitoring point to double crew. The ward note's possible oxygen cylinder and the oxygen-related aborts could justify a clinical escort.",
+  "time_pressure": "Window end 13:08 plus 40 min gives 72 min spare (level 1). The manual estimate of 20 min gives 92 min (level 0).",
+  "delay_impact": "Theatre transfer with no same-day reslot. Reading it as a lost theatre slot (3) or a lost session (2) are both defensible."
+ },
+ "request": "rec-F304-0006",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012989
+}

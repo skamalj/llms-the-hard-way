@@ -1,0 +1,108 @@
+{
+ "id": "F338-0052",
+ "family": "F338",
+ "state": {
+  "site": {
+   "pollutant": "SO2",
+   "tier": "indicative"
+  },
+  "visit": {
+   "date": "2024-05-10",
+   "maint_window": true
+  },
+  "reference": {
+   "standard_id": "CYL-4471",
+   "unit": "ppb",
+   "cert_expiry": "2024-04-14"
+  },
+  "checks": [
+   {
+    "type": "as_found",
+    "ref_id": "CYL-9028",
+    "ref_conc": 200,
+    "unit": "ppb",
+    "reading": 114,
+    "tol": 10
+   },
+   {
+    "type": "as_left",
+    "ref_id": "CYL-9028",
+    "ref_conc": 200,
+    "unit": "ppb",
+    "reading": 181,
+    "tol": 10
+   }
+  ],
+  "history": {
+   "last_visit_date": "2024-01-21"
+  }
+ },
+ "factors": {
+  "pollutant": "SO2",
+  "as_found_ratio": 0.57,
+  "as_left_status": "one_point_fail",
+  "cylinder_id_mismatch": "different_standard",
+  "cert_expiry_offset_days": -26,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "maintenance_window",
+  "days_since_last_visit": 110,
+  "visit_completeness": "complete",
+  "prior_fail_count": 0,
+  "timestamp_mismatch": "none",
+  "site_priority": "indicative"
+ },
+ "factors_sampled": {
+  "pollutant": "SO2",
+  "as_found_ratio": 0.57,
+  "as_left_status": "one_point_fail",
+  "cylinder_id_mismatch": "different_standard",
+  "cert_expiry_offset_days": -26,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "maintenance_window",
+  "days_since_last_visit": 110,
+  "visit_completeness": "complete",
+  "prior_fail_count": 0,
+  "timestamp_mismatch": "none",
+  "site_priority": "indicative"
+ },
+ "plan": {
+  "data_accepted": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "reference_valid": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "recalibrate",
+   "second": null
+  },
+  "flag_extent": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "return_urgency": {
+   "clarity": "contested",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 36,
+ "deciding": {
+  "data_accepted": "Maintenance window flagged with no failures in history, so prior data stands.",
+  "reference_valid": "Check ref_id differs entirely and certificate expired 26 days before visit, though expiry is recent.",
+  "next_step": "As-left reading 181 vs 200 with tolerance 10 fails, so repeat on site.",
+  "flag_extent": "110 days since last visit with a questionable reference; flagging 8-30 versus over 30 days is open.",
+  "return_urgency": "Indicative tier with a maintenance window supports routine, but the as-left fail argues for a planned visit."
+ },
+ "request": "rec-F338-0051",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.005014
+}

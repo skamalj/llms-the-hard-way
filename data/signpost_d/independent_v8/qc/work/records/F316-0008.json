@@ -1,0 +1,149 @@
+{
+ "id": "F316-0008",
+ "family": "F316",
+ "state": {
+  "run_header": {
+   "run_id": "G305",
+   "run_type": "reactive",
+   "reviewed_at": "2025-01-20T23:30"
+  },
+  "plan": [
+   {
+    "code": "C5-01",
+    "km": 4,
+    "w": 7,
+    "prio": "P1",
+    "rate": 20,
+    "zone": "Z1"
+   },
+   {
+    "code": "C5-02",
+    "km": 1.2,
+    "w": 6,
+    "prio": "P2",
+    "rate": 20,
+    "zone": "Z2"
+   },
+   {
+    "code": "C5-S3",
+    "km": 3,
+    "w": 6,
+    "prio": "secondary",
+    "rate": 20,
+    "zone": "Z2"
+   }
+  ],
+  "forecast": {
+   "zones": [
+    {
+     "zone": "Z1",
+     "freeze": "2025-01-21T00:29"
+    },
+    {
+     "zone": "Z2",
+     "freeze": "2025-01-21T03:16"
+    }
+   ],
+   "revisions": []
+  },
+  "telematics": {
+   "segments": [
+    {
+     "code": "C5-02",
+     "end": "21:50",
+     "on": true,
+     "rate": 14
+    },
+    {
+     "code": "C5-01",
+     "end": "22:28",
+     "on": true,
+     "rate": 20
+    }
+   ],
+   "dropouts": [
+    "C5-S3"
+   ]
+  },
+  "materials": {
+   "loaded_t": 1.0,
+   "returned_t": 0.15,
+   "ticket": null,
+   "rate_exception": null
+  },
+  "notes": {
+   "driver": "Routine run, no faults.",
+   "depot": "Run R2 booked out 02:00 on same route",
+   "closures": [],
+   "partner_cover": []
+  }
+ },
+ "factors": {
+  "missed_extent": "under_2km (1.2 km undertreated)",
+  "missed_section_mitigated": false,
+  "salt_gap": "over_10pct",
+  "rate_exception_approved": false,
+  "finish_vs_freeze_min": 121,
+  "hours_to_freeze_untreated": 3.77,
+  "forecast_revised": "none",
+  "crosscheck_mismatch": "none",
+  "driver_note_type": "routine",
+  "follow_up_run_scheduled": true,
+  "pending_confirmation": true,
+  "gps_dropouts": 1,
+  "nonpriority_untreated": true
+ },
+ "factors_sampled": {
+  "missed_extent": "2_to_10km",
+  "missed_section_mitigated": false,
+  "salt_gap": "over_10pct",
+  "rate_exception_approved": false,
+  "finish_vs_freeze_min": 121,
+  "hours_to_freeze_untreated": 3.76,
+  "forecast_revised": "none",
+  "crosscheck_mismatch": "none",
+  "driver_note_type": "routine",
+  "follow_up_run_scheduled": true,
+  "pending_confirmation": true,
+  "gps_dropouts": 1,
+  "nonpriority_untreated": true
+ },
+ "plan": {
+  "treated_before_freeze": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "salt_reconciles": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "follow_up": {
+   "clarity": "balanced",
+   "target": "hold",
+   "second": "sign_off_noted"
+  },
+  "deficient_length": {
+   "clarity": "clear",
+   "target": "1",
+   "second": null
+  },
+  "freeze_proximity": {
+   "clarity": "clear",
+   "target": "2",
+   "second": null
+  }
+ },
+ "target_words": 87,
+ "deciding": {
+  "treated_before_freeze": "Last priority segment ended 22:28, 121 min before the Z1 freeze at 00:29; the P2 section was spread but at low rate, which leaves a little doubt.",
+  "salt_reconciles": "Net 0.85 t against about 0.70 t expected is over 20% too high, and the weighbridge ticket is null.",
+  "follow_up": "Null ticket and a 1.2 km low-rate section favour hold, but a booked 02:00 R2 run makes sign_off_noted plausible.",
+  "deficient_length": "C5-02 is 1.2 km P2 logged at 14 against a planned 20 with no exception; nothing else is short.",
+  "freeze_proximity": "Undertreated C5-02 in Z2 freezes at 03:16, 3.8 h after the 23:30 review."
+ },
+ "request": "rec-F316-0006",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.020312
+}

@@ -1,0 +1,110 @@
+{
+ "id": "F338-0003",
+ "family": "F338",
+ "state": {
+  "site": {
+   "pollutant": "SO2",
+   "tier": "standard"
+  },
+  "visit": {
+   "date": "2024-06-20",
+   "start": "10:00",
+   "end": "11:00",
+   "sequence_status": "complete"
+  },
+  "reference": {
+   "standard_id": "CYL-31746",
+   "cert_expiry": "2025-03-02"
+  },
+  "checks": [
+   {
+    "phase": "as_found",
+    "ref_id": "CYL-31764",
+    "ref_conc": 400,
+    "reading": 449,
+    "tol": 40,
+    "ts": "11:12"
+   }
+  ],
+  "history": {
+   "last_visit_date": "2024-03-11",
+   "results": [
+    "fail",
+    "fail",
+    "fail",
+    "fail"
+   ]
+  },
+  "instrument": {
+   "enclosure_temp_max": 34
+  }
+ },
+ "factors": {
+  "pollutant": "SO2",
+  "as_found_ratio": 1.12,
+  "as_left_status": "not_recorded",
+  "cylinder_id_mismatch": "transposed_digit",
+  "cert_expiry_offset_days": 255,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "enclosure_temp_excursion",
+  "days_since_last_visit": 101,
+  "visit_completeness": "complete",
+  "prior_fail_count": 4,
+  "timestamp_mismatch": "minutes_outside",
+  "site_priority": "standard"
+ },
+ "factors_sampled": {
+  "pollutant": "SO2",
+  "as_found_ratio": 1.12,
+  "as_left_status": "not_recorded",
+  "cylinder_id_mismatch": "transposed_digit",
+  "cert_expiry_offset_days": 255,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "enclosure_temp_excursion",
+  "days_since_last_visit": 101,
+  "visit_completeness": "complete",
+  "prior_fail_count": 4,
+  "timestamp_mismatch": "minutes_outside",
+  "site_priority": "standard"
+ },
+ "plan": {
+  "data_accepted": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "reference_valid": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "close_visit",
+   "second": null
+  },
+  "flag_extent": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  },
+  "return_urgency": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  }
+ },
+ "target_words": 25,
+ "deciding": {
+  "data_accepted": "As-found error 49 vs tol 40 is marginal, and the temperature max of 34 offers a drift explanation; the as-left list is missing.",
+  "reference_valid": "Check ref_id CYL-31764 transposes digits of standard_id CYL-31746 and the as-found ts 11:12 lies outside the visit end of 11:00, against an in-date certificate.",
+  "next_step": "Visit status complete with in-date certificate and temperature-explained drift; the record is closed.",
+  "flag_extent": "101 days since the last visit; four history fails and temperature excursion leave the flag between 30 days and over 30 days.",
+  "return_urgency": "Missing as-left and id mismatch, with four prior fails; 3-7 days versus 1-2 days is balanced."
+ },
+ "request": "rec-F338-0001",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.005738
+}

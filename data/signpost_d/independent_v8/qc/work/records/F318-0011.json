@@ -1,0 +1,170 @@
+{
+ "id": "F318-0011",
+ "family": "F318",
+ "state": {
+  "work_order": {
+   "wo_id": "WO-4412",
+   "visit_type": "reactive_callout",
+   "tasks": [
+    {
+     "task_id": 1,
+     "asset_ref": "BG-A"
+    },
+    {
+     "task_id": 2,
+     "asset_ref": "PD-N"
+    },
+    {
+     "task_id": 3,
+     "asset_ref": "PD-S"
+    }
+   ],
+   "nav_notice": {
+    "in_force": false
+   },
+   "booked_passages_7d": 22
+  },
+  "visit_log": {
+   "arrived": "2024-03-04T08:00",
+   "departed": "2024-03-04T12:00",
+   "crew_size": 2,
+   "timesheet_hours": 7.7,
+   "task_status": [
+    {
+     "task_id": 1,
+     "status": "done"
+    },
+    {
+     "task_id": 2,
+     "status": "done"
+    },
+    {
+     "task_id": 3,
+     "status": "done"
+    }
+   ]
+  },
+  "materials": {
+   "issued": [
+    {
+     "part_no": "SL-20",
+     "qty": 6
+    }
+   ],
+   "returned": [
+    {
+     "part_no": "SL-20",
+     "qty": 1
+    }
+   ],
+   "fitted": [
+    {
+     "part_no": "SL-20",
+     "qty": 4
+    }
+   ]
+  },
+  "checks": {
+   "post_checks": [
+    {
+     "asset_ref": "BG-A",
+     "result": "pass"
+    },
+    {
+     "asset_ref": "PD-N",
+     "result": "pass"
+    },
+    {
+     "asset_ref": "PD-S",
+     "result": "pass"
+    }
+   ],
+   "leakage_ls": 12.3,
+   "leakage_limit_ls": 5,
+   "river_level_m": 1.1,
+   "flood_marker_m": 1.8
+  },
+  "asset_history": {
+   "prior_visits": [
+    {
+     "date": "2023-11-02",
+     "asset_ref": "PD-S",
+     "defect_code": "LK1"
+    },
+    {
+     "date": "2023-06-10",
+     "asset_ref": "PD-S",
+     "defect_code": "LK1"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "visit_type": "reactive_callout",
+  "tasks_ordered": 3,
+  "completion_state": "all_done",
+  "parts_qty_mismatch": "moderate",
+  "hours_gap": 0.31,
+  "asset_ref_mismatch": false,
+  "post_check_result": "passed",
+  "leakage_ratio": 2.46,
+  "leakage_mitigation": false,
+  "navigation_notice_in_force": false,
+  "deferral_approved": false,
+  "prior_same_defect": 2,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "visit_type": "reactive_callout",
+  "tasks_ordered": 3,
+  "completion_state": "all_done",
+  "parts_qty_mismatch": "moderate",
+  "hours_gap": 0.31,
+  "asset_ref_mismatch": false,
+  "post_check_result": "passed",
+  "leakage_ratio": 2.46,
+  "leakage_mitigation": false,
+  "navigation_notice_in_force": false,
+  "deferral_approved": false,
+  "prior_same_defect": 2,
+  "boundary_case": false
+ },
+ "plan": {
+  "safe_to_reopen": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "record_disposition": {
+   "clarity": "balanced",
+   "target": "close_visit",
+   "second": "hold_query"
+  },
+  "return_urgency": {
+   "clarity": "clear",
+   "target": "immediate",
+   "second": null
+  },
+  "affected_scope": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "section_mismatches": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  }
+ },
+ "target_words": 69,
+ "deciding": {
+  "safe_to_reopen": "Post-checks all pass, but leakage 12.3 against a 5 limit with no flood level or calibration excuse; the checks and leakage conflict.",
+  "record_disposition": "All three tasks done and the records broadly reconcile, but the leakage over the limit and the SL-20 quantity gap could justify a query.",
+  "return_urgency": "Leakage is 2.46 times the limit, river level is below the flood marker, and no nav notice or deferral covers it, so it is an uncovered unsafe condition.",
+  "affected_scope": "booked_passages_7d is 22, just above the 20 boundary between level 2 and level 3.",
+  "section_mismatches": "SL-20 fitted 4 against issued 6 minus returned 1 is one unexplained gap; the 0.3 h timesheet shortfall is small enough to ignore."
+ },
+ "request": "rec-F318-0011",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.010812
+}

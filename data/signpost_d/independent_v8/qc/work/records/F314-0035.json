@@ -1,0 +1,141 @@
+{
+ "id": "F314-0035",
+ "family": "F314",
+ "state": {
+  "property": {
+   "inventory": [
+    {
+     "id": "A1",
+     "type": "boiler",
+     "serial": "S1",
+     "location": "kitchen"
+    },
+    {
+     "id": "A2",
+     "type": "fire",
+     "serial": "F8",
+     "location": "lounge"
+    }
+   ]
+  },
+  "tenancy": {
+   "review_date": "2025-06-12"
+  },
+  "certificate": {
+   "inspection_date": "2024-08-10",
+   "issue_date": "2024-08-05",
+   "expiry_date": "2025-08-10",
+   "engineer_licence": "G9"
+  },
+  "appliance_checks": [
+   {
+    "appliance_id": "A1",
+    "serial": "S1",
+    "location": "utility",
+    "analyser": {
+     "ratio": 0.0039,
+     "threshold": 0.004,
+     "retest_ratio": null
+    }
+   },
+   {
+    "appliance_id": "A2",
+    "serial": "F8",
+    "location": "lounge",
+    "defect_class": "ID",
+    "isolation": {
+     "supply_off": false,
+     "label_code": "L1"
+    }
+   }
+  ],
+  "engineer": {
+   "licence_no": "G9",
+   "valid_to": "2026-05-01",
+   "categories": [
+    "boiler",
+    "fire"
+   ]
+  },
+  "history": {
+   "prior_certificates": [
+    {
+     "d": "2023-08-01",
+     "defects": [
+      "A1"
+     ]
+    }
+   ],
+   "renewal_booking": {
+    "date": "2025-07-20",
+    "status": "booked"
+   }
+  }
+ },
+ "factors": {
+  "inventory_mismatch": "location_mismatch",
+  "tenant_owned_appliance": false,
+  "date_misalignment": "issued_before_inspection",
+  "days_to_true_expiry": 59,
+  "renewal_booked": true,
+  "engineer_status": "active_matching",
+  "worst_defect_class": "ID",
+  "defect_isolated": false,
+  "remedial_completed": false,
+  "combustion_reading": "borderline",
+  "prior_defect_count": 1,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "inventory_mismatch": "location_mismatch",
+  "tenant_owned_appliance": false,
+  "date_misalignment": "issued_before_inspection",
+  "days_to_true_expiry": 269,
+  "renewal_booked": true,
+  "engineer_status": "active_matching",
+  "worst_defect_class": "none",
+  "defect_isolated": false,
+  "remedial_completed": false,
+  "combustion_reading": "borderline",
+  "prior_defect_count": 1,
+  "boundary_case": false
+ },
+ "plan": {
+  "covers_all_appliances": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "engineer_valid": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "accept",
+   "second": null
+  },
+  "renewal_urgency": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  },
+  "open_hazard": {
+   "clarity": "leaning",
+   "target": "4",
+   "second": null
+  }
+ },
+ "target_words": 81,
+ "deciding": {
+  "covers_all_appliances": "Both A1 and A2 are checked with matching ids and serials; only A1's location differs (utility vs kitchen), which is a small gap.",
+  "engineer_valid": "Licence G9 matches, valid_to 2026-05-01 is after inspection and categories cover boiler and fire; the issue date before inspection casts slight doubt.",
+  "next_step": "Licence numbers match, a renewal is booked and the certificate reconciles on its identifiers, so it can be filed.",
+  "renewal_urgency": "True expiry 2025-08-10 against review 2025-06-12 is 59 days, one day inside the 60-day anchor.",
+  "open_hazard": "A2 carries an ID defect with supply_off false; the L1 label code does not isolate it, so a dangerous defect is open and in service."
+ },
+ "request": "rec-F314-0031",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.010763
+}

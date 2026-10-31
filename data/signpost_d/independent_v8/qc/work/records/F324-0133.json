@@ -1,0 +1,161 @@
+{
+ "id": "F324-0133",
+ "family": "F324",
+ "state": {
+  "zone": {
+   "dripper_count": 400,
+   "dripper_rate_lph": 2.0
+  },
+  "schedule": {
+   "starts": [
+    "06:00",
+    "08:00",
+    "10:00",
+    "12:00"
+   ],
+   "planned_ml_per_dripper": [
+    250,
+    250,
+    0.25,
+    250
+   ],
+   "planned_valve_s": 120,
+   "drain_target_pct": {
+    "min": 20,
+    "max": 30
+   },
+   "overrides": [
+    {
+     "approved_by_role": "head_grower",
+     "reduction_pct": 8
+    }
+   ]
+  },
+  "controller_log": {
+   "date": "2025-06-10",
+   "valve_open_s": [
+    120,
+    120,
+    120,
+    120
+   ],
+   "delivered_l": [
+    89.6,
+    90.4,
+    90.1,
+    89.9
+   ],
+   "line_pressure_bar": [
+    2.0,
+    null,
+    2.0,
+    null
+   ],
+   "spec_bar": 2.0,
+   "daily_total_l": 360.0,
+   "meter_total_l": 359.8
+  },
+  "drainage": {
+   "drain_pct": [
+    8,
+    9,
+    7
+   ]
+  },
+  "sensors": {
+   "meter_last_calibrated": "2024-10-07",
+   "ec_spike": {
+    "t": "09:05",
+    "value": 4.8
+   }
+  },
+  "maintenance": {
+   "windows": [
+    {
+     "type": "flush",
+     "start": "09:00",
+     "end": "09:20"
+    },
+    {
+     "type": "valve_service",
+     "start": "07:45",
+     "end": "08:30"
+    }
+   ],
+   "alarms": [
+    {
+     "code": "EC_HIGH",
+     "acknowledged": true,
+     "cleared": true
+    }
+   ],
+   "recent_work_orders": []
+  }
+ },
+ "factors": {
+  "delivery_shortfall_pct": 10.0,
+  "mismatch_location": "unit_mismatch",
+  "fault_cause": "none",
+  "approved_override": true,
+  "maintenance_window_active": true,
+  "drain_offset_points": -12.0,
+  "off_tolerance_cycles": 1,
+  "meter_calibration_age_days": 246,
+  "confirmation_pending": false,
+  "pressure_state": "partly_missing",
+  "benign_alarm_decoy": "ec_spike_in_flush",
+  "recent_work_orders": 0
+ },
+ "factors_sampled": {
+  "delivery_shortfall_pct": 11.05,
+  "mismatch_location": "unit_mismatch",
+  "fault_cause": "none",
+  "approved_override": true,
+  "maintenance_window_active": true,
+  "drain_offset_points": -12.01,
+  "off_tolerance_cycles": 4,
+  "meter_calibration_age_days": 246,
+  "confirmation_pending": false,
+  "pressure_state": "partly_missing",
+  "benign_alarm_decoy": "ec_spike_in_flush",
+  "recent_work_orders": 0
+ },
+ "plan": {
+  "under_dosed": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "emitter_clogging": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "next_action": {
+   "clarity": "leaning",
+   "target": "sign_off",
+   "second": null
+  },
+  "drain_deviation": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  },
+  "off_plan_cycles": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 103,
+ "deciding": {
+  "under_dosed": "Override with reduction_pct 8 is approved, but metered 360 L vs 400 L plan is 90% and the meter was last calibrated 246 days ago.",
+  "emitter_clogging": "Valve times are full and drain is low at about 8%, which fits clogging, but pressure is null on two cycles and the shortfall is largely covered by the approved reduction.",
+  "next_action": "Totals reconcile (meter 359.8 vs 360.0), the EC alarm is acknowledged and cleared, and the EC spike sits inside the flush window; the cycle 3 planned value of 0.25 is a unit slip. The low drain and old calibration leave some doubt.",
+  "drain_deviation": "Drain samples 8, 9, 7 have mean 8 against band minimum 20, so 12 points below.",
+  "off_plan_cycles": "Against 100 L plan, only cycle 1 at 89.6 L (10.4% off) is over the line and the rest are at 9.6% or less; cycle 3's 0.25 planned is a unit slip, not a real over-dose."
+ },
+ "request": "rec-F324-0131",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.014612
+}

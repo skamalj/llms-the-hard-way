@@ -1,0 +1,148 @@
+{
+ "id": "F338-0043",
+ "family": "F338",
+ "state": {
+  "site": {
+   "pol": "SO2",
+   "tier": "compliance",
+   "int_d": 90
+  },
+  "visit": {
+   "date": "2024-07-08",
+   "start": "08:30",
+   "end": "10:15",
+   "seq": "complete"
+  },
+  "reference": {
+   "id": "S-7715",
+   "conc": 150,
+   "unit": "ppb",
+   "exp": "2025-07-31"
+  },
+  "checks": [
+   {
+    "t": "af_zero",
+    "ref_id": "S-7715",
+    "ref": 0,
+    "unit": "ppb",
+    "read": 1.0,
+    "tol": 2,
+    "ts": "2024-07-08T08:40"
+   },
+   {
+    "t": "af_span",
+    "ref_id": "S-7715",
+    "ref": 150,
+    "unit": "ppb",
+    "read": 155.5,
+    "tol": 3,
+    "ts": "2024-07-08T08:55"
+   },
+   {
+    "t": "al_span",
+    "ref_id": "S-7715",
+    "ref": 150,
+    "unit": "ppb",
+    "read": 152.9,
+    "tol": 3,
+    "ts": "2024-07-08T10:22"
+   },
+   {
+    "t": "al_prec",
+    "ref_id": "S-7715",
+    "ref": 75,
+    "unit": "ppb",
+    "read": 77.0,
+    "tol": 3,
+    "ts": "2024-07-08T10:10"
+   }
+  ],
+  "history": {
+   "last": "2024-04-27",
+   "results": [
+    "pass",
+    "pass",
+    "pass"
+   ],
+   "auto": [
+    {
+     "d": "2024-07-03",
+     "r": "pass"
+    }
+   ]
+  },
+  "instrument": {
+   "fw": "2.8",
+   "tmin": 15,
+   "tmax": 26
+  }
+ },
+ "factors": {
+  "pollutant": "SO2",
+  "as_found_ratio": 1.83,
+  "as_left_status": "marginal",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 388,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "none",
+  "days_since_last_visit": 72,
+  "visit_completeness": "complete",
+  "prior_fail_count": 0,
+  "timestamp_mismatch": "minutes_outside",
+  "site_priority": "compliance"
+ },
+ "factors_sampled": {
+  "pollutant": "SO2",
+  "as_found_ratio": 1.83,
+  "as_left_status": "marginal",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 388,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "none",
+  "days_since_last_visit": 72,
+  "visit_completeness": "complete",
+  "prior_fail_count": 0,
+  "timestamp_mismatch": "minutes_outside",
+  "site_priority": "compliance"
+ },
+ "plan": {
+  "data_accepted": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "reference_valid": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "contested",
+   "target": "withdraw",
+   "second": "close_flagged"
+  },
+  "flag_extent": {
+   "clarity": "clear",
+   "target": "3",
+   "second": null
+  },
+  "return_urgency": {
+   "clarity": "leaning",
+   "target": "4",
+   "second": null
+  }
+ },
+ "target_words": 67,
+ "deciding": {
+  "data_accepted": "As-found span 155.5 vs 150 with tol 3 (1.83x) but autochecks pass and prior history is clean; one as-left timestamp 10:22 falls after the 10:15 end.",
+  "reference_valid": "All ref_ids equal S-7715, units are ppb throughout, expiry 2025-07-31 is far after the visit.",
+  "next_step": "As-left span 152.9 vs tol 3 is marginal and the as-found error plus the late timestamp raise doubts about the analyser; workshop removal vs close with flags is a toss-up.",
+  "flag_extent": "Compliance site, as-found out of tolerance, 72 days since the last visit with no drift explanation and no recent history of problems, so the whole interval is suspect (over 30 days).",
+  "return_urgency": "Compliance-tier site with a marginal as-left and an out-of-tolerance as-found points to a same-day return, though passing autochecks give a little doubt."
+ },
+ "request": "rec-F338-0041",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.008854
+}

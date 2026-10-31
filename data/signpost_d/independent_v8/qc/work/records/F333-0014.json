@@ -1,0 +1,140 @@
+{
+ "id": "F333-0014",
+ "family": "F333",
+ "state": {
+  "tenancy": {
+   "start_date": "2025-03-01",
+   "end_date": "2025-03-31",
+   "deposit_dispute_lodged": true
+  },
+  "checkin_inventory": {
+   "signed_date": "2025-02-28",
+   "items": [
+    {
+     "item_code": "TAP",
+     "location": "ensuite",
+     "grade": "good"
+    },
+    {
+     "item_code": "DESK",
+     "location": "bedroom",
+     "grade": "good"
+    }
+   ]
+  },
+  "checkout_inspection": {
+   "inspection_type": "checkout",
+   "inspection_date": "2025-03-31",
+   "items": [
+    {
+     "item_code": "TAP",
+     "location": "ensuite",
+     "grade": "good",
+     "defect_category": "no_hot_water",
+     "photo_refs": [
+      "d1"
+     ]
+    },
+    {
+     "item_code": "DESK",
+     "location": "bedroom",
+     "grade": "damaged",
+     "defect_category": "broken_fitting",
+     "photo_refs": [
+      "d2"
+     ]
+    }
+   ]
+  },
+  "proposed_charges": {
+   "lines": [
+    {
+     "item_code": "DESK",
+     "qty": 1,
+     "unit_rate": 45,
+     "line_total": 45
+    }
+   ],
+   "summary_total": 45
+  },
+  "works_orders": [
+   {
+    "wo_id": "W3",
+    "raised_date": "2025-02-20",
+    "location": "ensuite",
+    "category": "plumbing",
+    "status": "completed",
+    "completed_date": "2025-03-31",
+    "retest_passed": true
+   }
+  ]
+ },
+ "factors": {
+  "inspection_type": "checkout",
+  "checkin_inventory_state": "complete",
+  "prior_damage_on_charged_item": "none",
+  "charge_discrepancy": "none",
+  "worst_defect_tier": "habitability",
+  "true_cause": "resident_damage",
+  "predating_works_order": true,
+  "safety_fault_remedied": true,
+  "photo_coverage": "full",
+  "tenancy_months": 1,
+  "date_out_of_order": false,
+  "deposit_dispute_lodged": true,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "inspection_type": "checkout",
+  "checkin_inventory_state": "complete",
+  "prior_damage_on_charged_item": "none",
+  "charge_discrepancy": "small_under_25",
+  "worst_defect_tier": "habitability",
+  "true_cause": "prior_occupant",
+  "predating_works_order": true,
+  "safety_fault_remedied": true,
+  "photo_coverage": "full",
+  "tenancy_months": 1,
+  "date_out_of_order": false,
+  "deposit_dispute_lodged": true,
+  "boundary_case": false
+ },
+ "plan": {
+  "checkin_clean": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "disposition": {
+   "clarity": "clear",
+   "target": "approve_as_drafted",
+   "second": null
+  },
+  "main_cause": {
+   "clarity": "contested",
+   "target": "no_defect",
+   "second": "building_fault"
+  },
+  "defect_severity": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  },
+  "charge_gap": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  }
+ },
+ "target_words": 65,
+ "deciding": {
+  "checkin_clean": "Charged DESK graded good at check-in, signed before start.",
+  "disposition": "DESK worsened good to damaged with photo d2; line total 45 matches qty times rate.",
+  "main_cause": "DESK damage is new in one month with no related works order, but ensuite TAP no_hot_water links to plumbing order W3, so split.",
+  "defect_severity": "no_hot_water in ensuite, repaired same day; versus broken desk fitting being functional.",
+  "charge_gap": "Charge £45 matches evidenced DESK line; the TAP defect is uncharged, so gap is zero or small."
+ },
+ "request": "rec-F333-0011",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.006805
+}

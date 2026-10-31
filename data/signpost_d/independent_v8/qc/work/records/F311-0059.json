@@ -1,0 +1,144 @@
+{
+ "id": "F311-0059",
+ "family": "F311",
+ "state": {
+  "station": {
+   "code": "IS-31",
+   "distance_km": 38,
+   "transport": "single_track",
+   "prior_query_count": 0
+  },
+  "timeline": {
+   "scheduled_close_at": "2024-05-02T22:00",
+   "poll_closed_at": "2024-05-02T22:00",
+   "queue_at_close": false,
+   "box_departed_at": "2024-05-02T22:20",
+   "box_received_at": "2024-05-02T22:30"
+  },
+  "ballot_account": {
+   "received": 520,
+   "issued": 400,
+   "spoilt": 2,
+   "tendered": 1,
+   "unused": 117,
+   "expected_in_box": 400
+  },
+  "seals_and_packets": {
+   "seal_at_close": "C0912",
+   "replacement_seals": [
+    {
+     "seal_no": "C0921",
+     "logged_at": "2024-05-02T22:10",
+     "witness_role": null
+    }
+   ],
+   "postal_handin_count": 7,
+   "required_items": [
+    {
+     "item": "account",
+     "present": true,
+     "signed": true
+    },
+    {
+     "item": "seal_log",
+     "present": false,
+     "signed": false
+    },
+    {
+     "item": "spoilt_packet",
+     "present": false,
+     "signed": false
+    },
+    {
+     "item": "tendered_list",
+     "present": false,
+     "signed": false
+    },
+    {
+     "item": "unused_packet",
+     "present": false,
+     "signed": false
+    },
+    {
+     "item": "poll_diary",
+     "present": true,
+     "signed": null
+    }
+   ]
+  },
+  "verification": {
+   "seal_on_arrival": "C0921",
+   "ballots_counted": 407,
+   "counterfoils_counted": 407,
+   "account_total_transcribed": 401
+  }
+ },
+ "factors": {
+  "raw_variance": 7,
+  "postal_handin_recorded": true,
+  "clerical_slip": true,
+  "missing_items": 4,
+  "ballot_account_null": false,
+  "seal_mismatch": true,
+  "seal_replacement_witnessed": true,
+  "transit_gap_min": 30,
+  "remote_station": true,
+  "close_status": "on_time",
+  "agent_objection": false,
+  "prior_queries": 0,
+  "po_first_time": false
+ },
+ "factors_sampled": {
+  "raw_variance": -7,
+  "postal_handin_recorded": true,
+  "clerical_slip": false,
+  "missing_items": 4,
+  "ballot_account_null": false,
+  "seal_mismatch": true,
+  "seal_replacement_witnessed": true,
+  "transit_gap_min": 30,
+  "remote_station": true,
+  "close_status": "on_time",
+  "agent_objection": false,
+  "prior_queries": 0,
+  "po_first_time": false
+ },
+ "plan": {
+  "custody_unbroken": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "box_disposition": {
+   "clarity": "balanced",
+   "target": "accept_noted",
+   "second": "recount_box"
+  },
+  "figure_problem": {
+   "clarity": "balanced",
+   "target": "explained_variance",
+   "second": "arithmetic_slip"
+  },
+  "unexplained_gap": {
+   "clarity": "contested",
+   "target": "0",
+   "second": "1"
+  },
+  "paperwork_shortfall": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "4"
+  }
+ },
+ "target_words": 72,
+ "deciding": {
+  "custody_unbroken": "Replacement seal C0921 matches arrival and was logged before departure, but its witness_role is null, so the witnessing is doubtful against the changed seal.",
+  "box_disposition": "Hand-ins of 7 account for the +7 count, so accept with a note is plausible, while the seal doubt and the one-paper transcription difference make a recount arguable.",
+  "figure_problem": "Counted 407 vs expected 400 is covered by postal_handin_count 7, but account_total_transcribed 401 differs from 400 while counts agree, so a slip also competes.",
+  "unexplained_gap": "Variance 7 less hand-ins 7 is nil; the transcription 401 vs 400 might be read as one paper unaccounted for.",
+  "paperwork_shortfall": "Four items are absent; poll_diary has signed null, which counts as a fifth only if read as unsigned (3-4 vs 5 boundary)."
+ },
+ "request": "rec-F311-0056",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011548
+}

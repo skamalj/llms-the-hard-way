@@ -1,0 +1,127 @@
+{
+ "id": "F318-0004",
+ "family": "F318",
+ "state": {
+  "work_order": {
+   "wo_id": "RI-55",
+   "lock_id": "L21",
+   "visit_type": "routine_inspection",
+   "tasks": 7,
+   "nav_notice": {
+    "in_force": false
+   }
+  },
+  "visit_log": {
+   "arrived": "2024-04-03T08:00",
+   "departed": "2024-04-03T14:00",
+   "crew_size": 3,
+   "timesheet_hours": 15.9,
+   "task_status": [
+    {
+     "task_id": 1,
+     "status": "deferred",
+     "deferral_ref": "DF-31",
+     "deferral_due": "2024-04-28"
+    },
+    {
+     "task_id": 2,
+     "status": "done"
+    }
+   ]
+  },
+  "checks": {
+   "post_checks": [
+    {
+     "asset_ref": "PD-1",
+     "result": "fail"
+    }
+   ],
+   "leakage_ls": 8,
+   "leakage_limit_ls": 15
+  },
+  "asset_history": {
+   "prior_visits": [
+    {
+     "asset_ref": "PD-1",
+     "defect_code": "PADDLE"
+    },
+    {
+     "asset_ref": "PD-1",
+     "defect_code": "PADDLE"
+    },
+    {
+     "asset_ref": "PD-1",
+     "defect_code": "PADDLE"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "visit_type": "routine_inspection",
+  "tasks_ordered": 7,
+  "completion_state": "some_outstanding",
+  "parts_qty_mismatch": "none",
+  "hours_gap": 2.14,
+  "asset_ref_mismatch": false,
+  "post_check_result": "failed",
+  "leakage_ratio": 0.56,
+  "leakage_mitigation": true,
+  "navigation_notice_in_force": false,
+  "deferral_approved": true,
+  "prior_same_defect": 3,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "visit_type": "routine_inspection",
+  "tasks_ordered": 7,
+  "completion_state": "some_outstanding",
+  "parts_qty_mismatch": "none",
+  "hours_gap": 2.14,
+  "asset_ref_mismatch": false,
+  "post_check_result": "failed",
+  "leakage_ratio": 0.56,
+  "leakage_mitigation": true,
+  "navigation_notice_in_force": false,
+  "deferral_approved": true,
+  "prior_same_defect": 3,
+  "boundary_case": false
+ },
+ "plan": {
+  "safe_to_reopen": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "record_disposition": {
+   "clarity": "clear",
+   "target": "reopen_revisit",
+   "second": null
+  },
+  "return_urgency": {
+   "clarity": "clear",
+   "target": "within_month",
+   "second": null
+  },
+  "affected_scope": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  },
+  "section_mismatches": {
+   "clarity": "clear",
+   "target": "3",
+   "second": null
+  }
+ },
+ "target_words": 81,
+ "deciding": {
+  "safe_to_reopen": "Leakage 8 vs 15, deferral DF-31 approved; PD-1 fail adds doubt.",
+  "record_disposition": "PD-1 failed after three prior paddle defects; work not accepted.",
+  "return_urgency": "Deferral due 2024-04-28 sets non-restricting work within a month.",
+  "affected_scope": "One asset PD-1 with repeat defects; two to five units.",
+  "section_mismatches": "Hours 15.9 vs 18, five tasks with no status, failed check without notice; three or more."
+ },
+ "request": "rec-F318-0001",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.006497
+}

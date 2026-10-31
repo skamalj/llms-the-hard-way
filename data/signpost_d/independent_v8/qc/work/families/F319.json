@@ -1,0 +1,342 @@
+{
+ "id": "F319",
+ "domain": "wind turbine blade inspections",
+ "role": "Blade integrity engineer reviewing individual rotor blade inspection reports",
+ "setting": "An onshore and offshore wind operator's blade engineering desk. Drone and rope-access crews inspect blades and submit one structured report per blade. The engineer reviews each report alone and decides on disposition, damage mechanism, worst defect depth and repair urgency. The engineer also judges whether damage has grown since the last inspection, using the asset record, the inspection details, the findings list, the inspection and repair history, and the maintenance and lightning-protection status.",
+ "questions": {
+  "damage_worsened": {
+   "type": "noul",
+   "instructions": "Damage on this blade has measurably worsened since the previous inspection.",
+   "criteria": null
+  },
+  "disposition": {
+   "type": "choice",
+   "instructions": "What should happen to this blade following this inspection?",
+   "criteria": {
+    "no_action": "Findings within tolerance; normal inspection cycle continues unchanged.",
+    "monitor": "Defect logged for targeted re-inspection; no repair yet warranted.",
+    "hold_confirm": "One missing measurement, image zone or test needs confirming first.",
+    "planned_repair": "Repair booked in next maintenance campaign; turbine keeps running.",
+    "stop_turbine": "Structural threat present; turbine halted or curtailed until repaired."
+   }
+  },
+  "damage_mechanism": {
+   "type": "choice",
+   "instructions": "Which damage mechanism best explains the most severe recorded finding?",
+   "criteria": {
+    "coating_wear": "Topcoat, filler or paint loss without erosion or impact pattern.",
+    "erosion": "Rain or particle wear concentrated along the leading edge outboard.",
+    "lightning": "Burn marks, receptor damage or exit holes from a strike.",
+    "structural": "Cracks, delamination or bondline separation driven by fatigue loading."
+   }
+  },
+  "defect_depth": {
+   "type": "score",
+   "instructions": "How deep does the most severe recorded defect penetrate?",
+   "criteria": [
+    "Surface: topcoat or filler only, laminate not exposed",
+    "Laminate: outer laminate exposed, no fibre breakage recorded",
+    "Fibre: fibre layers broken, core and spar cap intact",
+    "Core: damage reaches sandwich core or spar cap"
+   ]
+  },
+  "repair_urgency": {
+   "type": "score",
+   "instructions": "How soon must the worst finding be repaired or re-examined?",
+   "criteria": [
+    "No action before next scheduled annual inspection",
+    "Action required within the next twelve months",
+    "Action required within the next three months",
+    "Action required within the next four weeks",
+    "Immediate action before the turbine runs again"
+   ]
+  }
+ },
+ "factors": [
+  {
+   "name": "worst_depth",
+   "description": "True penetration of the most severe defect. Rendered only as measured depth_mm against laminate_thickness_mm, layers_affected and core_visible on the worst finding.",
+   "kind": "categorical",
+   "values": [
+    "surface",
+    "laminate",
+    "fibre",
+    "core"
+   ],
+   "weights": [
+    0.3,
+    0.3,
+    0.25,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S7",
+    "S4"
+   ]
+  },
+  {
+   "name": "mechanism",
+   "description": "Underlying cause of the worst finding. Inferred from zone, chord position, burn/soot flags, receptor status and crack orientation, never named directly.",
+   "kind": "categorical",
+   "values": [
+    "coating_wear",
+    "erosion",
+    "lightning",
+    "structural"
+   ],
+   "weights": [
+    0.2,
+    0.35,
+    0.2,
+    0.25
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S7",
+    "S6"
+   ]
+  },
+  {
+   "name": "growth_state",
+   "description": "How the worst finding compares with the same zone and radius in the previous inspection. Covers no growth, growth under 10%, growth over 10%, or no comparable baseline.",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "slight",
+    "marked",
+    "no_baseline"
+   ],
+   "weights": [
+    0.3,
+    0.2,
+    0.3,
+    0.2
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S5",
+    "S2"
+   ]
+  },
+  {
+   "name": "baseline_defect",
+   "description": "How a baseline can fail even when history exists. The previous record may cover a different zone, carry a date after the current inspection, or list a different blade serial.",
+   "kind": "categorical",
+   "values": [
+    "valid",
+    "zone_mismatch",
+    "date_out_of_order",
+    "serial_mismatch"
+   ],
+   "weights": [
+    0.7,
+    0.12,
+    0.1,
+    0.08
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S2",
+    "S5"
+   ]
+  },
+  {
+   "name": "coverage_gap",
+   "description": "Some blade zones were not imaged or were imaged at unusable resolution. Shown as null image counts or a low quality score for one zone.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.3,
+   "skills": [
+    "S2",
+    "S4"
+   ]
+  },
+  {
+   "name": "mitigation_present",
+   "description": "A field that lowers concern about an alarming finding is present.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3"
+   ]
+  },
+  {
+   "name": "mitigation_type",
+   "description": "Form the mitigation takes when present. Options are temporary leading-edge tape applied, turbine already curtailed, an approved OEM tolerance concession, or a passing ultrasonic check within 30 days.",
+   "kind": "categorical",
+   "values": [
+    "temp_tape",
+    "curtailed",
+    "oem_concession",
+    "recent_ut_pass"
+   ],
+   "weights": [
+    0.3,
+    0.25,
+    0.2,
+    0.25
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S3"
+   ]
+  },
+  {
+   "name": "lps_result",
+   "description": "Lightning protection system continuity test outcome on this blade. A missing test matters when burn marks are present.",
+   "kind": "categorical",
+   "values": [
+    "pass",
+    "fail",
+    "not_tested"
+   ],
+   "weights": [
+    0.6,
+    0.15,
+    0.25
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S2",
+    "S3"
+   ]
+  },
+  {
+   "name": "repair_state",
+   "description": "Status of prior repair work on the worst finding: none started, partially completed, or completed but quality check not yet logged.",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "partial",
+    "complete_unverified"
+   ],
+   "weights": [
+    0.55,
+    0.25,
+    0.2
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S4",
+    "S2"
+   ]
+  },
+  {
+   "name": "boundary_case",
+   "description": "Puts the worst measurement within 5% of a depth or length threshold, or makes the inspector remark disagree with measured values. This leaves judges split.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.25,
+   "skills": [
+    "S6"
+   ]
+  },
+  {
+   "name": "note_tone",
+   "description": "Tone of free-text inspector and work notes, independent of actual severity. Acts as a decoy.",
+   "kind": "categorical",
+   "values": [
+    "alarmist",
+    "neutral",
+    "understated"
+   ],
+   "weights": [
+    0.25,
+    0.5,
+    0.25
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S6"
+   ]
+  },
+  {
+   "name": "finding_count",
+   "description": "Number of findings listed on the blade. Mostly minor; a high count does not imply a deep worst defect.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 1,
+   "max": 9,
+   "p_true": 0,
+   "skills": [
+    "S7",
+    "S3"
+   ]
+  },
+  {
+   "name": "season_exposure",
+   "description": "Whether the site enters its high-wind or high-rain season within 60 days. Raises urgency for erosion and structural damage.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.45,
+   "skills": [
+    "S7"
+   ]
+  }
+ ],
+ "sections": [
+  {
+   "name": "asset",
+   "description": "Turbine and blade identity: site, turbine_id, blade_pos, blade_serial, blade_model, commissioned date."
+  },
+  {
+   "name": "inspection",
+   "description": "Current inspection: date, method, crew, zones list with image_count and quality_score, inspector_note free text."
+  },
+  {
+   "name": "findings",
+   "description": "List of defects with zone, radius_m, chord_pos, length_mm, depth_mm, laminate_thickness_mm, layers_affected, flags, remark."
+  },
+  {
+   "name": "history",
+   "description": "Previous inspection summary with date, blade_serial and matched findings, plus repair log entries."
+  },
+  {
+   "name": "maintenance",
+   "description": "LPS test result, curtailment status, concessions, temporary measures, open work order and work_note free text."
+  }
+ ],
+ "rendering_notes": "worst_depth: the finding with the greatest depth_mm/laminate_thickness_mm carries the signal. Surface means depth_mm below 0.5 and layers_affected 0. Laminate means layers_affected 0 with laminate_exposed true. Fibre means layers_affected of 1 or more with core_visible false. Core means core_visible true or spar_cap_affected true. No category or grade field is ever shown. mechanism: erosion is shown as zone 'LE', radius_m in the outer third and chord_pos near 0. Lightning is shown as flags containing 'soot' or 'pinhole' near the tip receptor, with maintenance.lps.result possibly 'fail'. Structural is shown as flags 'crack' with orientation 'spanwise' or 'chordwise' at the trailing edge or bondline, or 'delam_tap'. Coating wear is shown as paint loss flags with no LE concentration. growth_state: history.previous.findings holds the same zone and radius_m with an older length_mm and depth_mm. Growth over 10% on either value marks worsening. no_baseline renders history.previous as null. baseline_defect: zone_mismatch means the previous inspection covered different zones only. date_out_of_order means history.previous.date is later than inspection.date. serial_mismatch means history.previous.blade_serial differs from asset.blade_serial. Any of these makes the worsening claim unsupported. coverage_gap: one entry in inspection.zones has image_count null or quality_score below 0.4. If that zone could hide the worst defect, hold_confirm is natural. mitigation: rendered in maintenance as temp_measures [{type:'le_tape', applied:date}], curtailment.active true with a reduced rpm_limit, concessions [{ref, max_length_mm}] where the finding is within the limit, or ndt_checks [{method:'UT', date, result:'pass'}] within 30 days. The same deep or long finding appears with and without mitigation at about equal rates. lps_result: shown as maintenance.lps.result pass, fail or null. Null is evidence of a missing step when soot flags exist. repair_state: history.repairs entries with status 'in_progress' and percent_complete give partial. A status of 'complete' with qc_signed null gives complete_unverified. boundary_case: the worst depth_mm sits within 5% of the laminate boundary, or a remark says 'cosmetic only' while layers_affected is 1. season_exposure: asset.site_season_start date within 60 days of inspection.date. Decoys: finding_count inflates with small paint chips. inspector_note and work_note follow note_tone, so alarmist wording may accompany surface damage and understated wording may accompany core damage. Image counts and drone model are irrelevant. No field ever states disposition, mechanism, depth category, urgency or a worsening verdict. Free-text fields are at most one or two sentences and describe observations, never conclusions about the five questions.",
+ "skills": [
+  "S2",
+  "S3",
+  "S4",
+  "S5",
+  "S6",
+  "S7"
+ ],
+ "shared_scale": null,
+ "design_cost": 0.142204
+}

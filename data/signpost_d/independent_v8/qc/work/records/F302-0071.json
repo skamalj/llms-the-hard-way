@@ -1,0 +1,128 @@
+{
+ "id": "F302-0071",
+ "family": "F302",
+ "state": {
+  "subject": {
+   "scr": "S101",
+   "ini": "AB"
+  },
+  "consent": {
+   "ini": "BA",
+   "form": "v3",
+   "current": "v3",
+   "signed": "2024-05-02"
+  },
+  "visit": {
+   "date": "2024-05-03",
+   "review": "2024-05-20",
+   "window_days": 14
+  },
+  "labs": [
+   {
+    "test": "ALT",
+    "value": 40,
+    "unit": "U/L",
+    "threshold": 40,
+    "fmt": "<=",
+    "collected": "2024-05-03",
+    "req_scr": "S101",
+    "batch_n": 8
+   },
+   {
+    "test": "CREAT",
+    "value": 106,
+    "unit": "umol/L",
+    "collected": "2024-05-03"
+   }
+  ],
+  "eligibility": {
+   "criteria": [
+    {
+     "id": "E4",
+     "op": "lt",
+     "recorded_value": 40,
+     "met": true
+    },
+    {
+     "id": "E5",
+     "recorded_value": 1.2,
+     "unit": "mg/dL"
+    }
+   ],
+   "signoff": {
+    "signed": false
+   },
+   "queries": [
+    {
+     "status": "open"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "lab_reconciliation": "unit_only",
+  "consent_status": "current_ok",
+  "window_days_remaining": -4,
+  "collection_date_mismatch": "within_window",
+  "prohibited_conmed": false,
+  "washout_completed": false,
+  "out_of_range_lab": true,
+  "valid_repeat_on_file": "valid_repeat_in_range",
+  "boundary_value": true,
+  "identifier_mismatch": "initials_transposed",
+  "investigator_signoff": "unsigned",
+  "open_query_count": 1
+ },
+ "factors_sampled": {
+  "lab_reconciliation": "unit_only",
+  "consent_status": "current_ok",
+  "window_days_remaining": 10,
+  "collection_date_mismatch": "within_window",
+  "prohibited_conmed": false,
+  "washout_completed": false,
+  "out_of_range_lab": true,
+  "valid_repeat_on_file": "valid_repeat_in_range",
+  "boundary_value": true,
+  "identifier_mismatch": "initials_transposed",
+  "investigator_signoff": "unsigned",
+  "open_query_count": 1
+ },
+ "plan": {
+  "eligibility_proven": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "screen_fail",
+   "second": null
+  },
+  "primary_issue": {
+   "clarity": "leaning",
+   "target": "documentation",
+   "second": null
+  },
+  "affected_scope": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  },
+  "window_left": {
+   "clarity": "leaning",
+   "target": "0",
+   "second": null
+  }
+ },
+ "target_words": 49,
+ "deciding": {
+  "eligibility_proven": "ALT 40 equals threshold while criterion operator is lt, so E4 is unmet despite met:true; sign-off is unsigned.",
+  "next_step": "Boundary ALT value fails the strict lt criterion on valid data, so the subject is excluded.",
+  "primary_issue": "Subject initials AB versus consent initials BA is a documentation defect that outranks the clinical value.",
+  "affected_scope": "labs batch_n 8 indicates the shared lab batch touches roughly eight subjects.",
+  "window_left": "Consent signed 2024-05-02 plus 14 days ends 2024-05-16, before the review date 2024-05-20, so the window is closed."
+ },
+ "request": "rec-F302-0071",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.008937
+}

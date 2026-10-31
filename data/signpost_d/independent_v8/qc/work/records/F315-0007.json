@@ -1,0 +1,117 @@
+{
+ "id": "F315-0007",
+ "family": "F315",
+ "state": {
+  "report": {
+   "ref": "F2",
+   "received_at": "2025-05-20",
+   "source": "cms_auto",
+   "fault_code": null,
+   "units_reported": [
+    "U21",
+    "U22",
+    "U23"
+   ]
+  },
+  "asset": {
+   "unit_id": "U22",
+   "site_category": "residential_street",
+   "planned_works": null
+  },
+  "cms": {
+   "node_id": "N22",
+   "status_code": "LF",
+   "last_comms_at": "2025-05-20T02:10"
+  },
+  "history": [
+   {
+    "job_ref": "J14",
+    "raised": "2025-03-18",
+    "attended": "2025-03-20",
+    "completed": "2025-03-21",
+    "outcome_code": "LAMP"
+   }
+  ],
+  "job": {
+   "job_ref": "J30",
+   "stage": "ATT",
+   "attended_at": "2025-05-21T09:00",
+   "completed_at": null,
+   "hazard_code": null
+  },
+  "supply": {
+   "dno_incident_ref": null,
+   "dno_status": null,
+   "feeder_units_dark": 3,
+   "feeder_id": "FD4"
+  }
+ },
+ "factors": {
+  "dark_unit_count": 3,
+  "dno_incident_logged": false,
+  "cms_state": "lamp_fail",
+  "days_since_last_repair": 60,
+  "last_repair_state": "completed",
+  "hazard_observed": "none",
+  "hazard_made_safe": false,
+  "site_category": "residential_street",
+  "planned_works_active": false,
+  "current_job_stage": "attended_unresolved",
+  "dates_out_of_order": false,
+  "duplicate_of_open_job": false,
+  "report_source": "cms_auto"
+ },
+ "factors_sampled": {
+  "dark_unit_count": 2,
+  "dno_incident_logged": false,
+  "cms_state": "normal_burning",
+  "days_since_last_repair": 228,
+  "last_repair_state": "no_record",
+  "hazard_observed": "none",
+  "hazard_made_safe": true,
+  "site_category": "junction_or_crossing",
+  "planned_works_active": false,
+  "current_job_stage": "not_attended",
+  "dates_out_of_order": false,
+  "duplicate_of_open_job": false,
+  "report_source": "cms_auto"
+ },
+ "plan": {
+  "supply_side_fault": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "repeat_failure": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "next_action": {
+   "clarity": "clear",
+   "target": "routine_repair",
+   "second": null
+  },
+  "source_support": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "repair_progress": {
+   "clarity": "clear",
+   "target": "1",
+   "second": null
+  }
+ },
+ "target_words": 128,
+ "deciding": {
+  "supply_side_fault": "feeder_units_dark is 3 and three units are listed, but no DNO incident ref is logged.",
+  "repeat_failure": "J14 completed 2025-03-21, 60 days before the 2025-05-20 report.",
+  "next_action": "cms LF confirms the fault, hazard_code is null, the site is residential and no linked job exists.",
+  "source_support": "The cms report, the cms LF reading, the feeder count and the job attendance are four items, but the report and the reading may share one source, which holds level 3 against 2.",
+  "repair_progress": "Job stage ATT with attended_at and completed_at null, while cms still shows LF."
+ },
+ "request": "rec-F315-0006",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.009142
+}

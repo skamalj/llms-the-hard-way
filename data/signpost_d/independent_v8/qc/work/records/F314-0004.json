@@ -1,0 +1,131 @@
+{
+ "id": "F314-0004",
+ "family": "F314",
+ "state": {
+  "property": {
+   "inv": [
+    {
+     "id": "A1",
+     "type": "boiler",
+     "loc": "kitchen",
+     "owner": "landlord"
+    },
+    {
+     "id": "A2",
+     "type": "hob",
+     "owner": "tenant"
+    }
+   ]
+  },
+  "tenancy": {
+   "review": "2024-02-01"
+  },
+  "certificate": {
+   "licence": "GS7305",
+   "inspected": "2023-02-01",
+   "expiry": "2024-02-01",
+   "outcome": "pass"
+  },
+  "appliance_checks": [
+   {
+    "id": "A1",
+    "type": "boiler",
+    "flue": "open",
+    "ratio": 0.0031,
+    "threshold": 0.004,
+    "defect": "ID",
+    "isolation": {
+     "supply_off": false,
+     "label_code": "L1"
+    }
+   }
+  ],
+  "engineer": {
+   "licence": "GS7305",
+   "valid_to": "2025-06-30",
+   "cats": [
+    "boiler",
+    "flue_rs"
+   ]
+  },
+  "history": {
+   "remedials": [
+    {
+     "id": "A1",
+     "done": "2023-02-01",
+     "licence": "GS7305"
+    }
+   ],
+   "renewal_booking": {
+    "date": "2024-02-15",
+    "status": "confirmed"
+   }
+  }
+ },
+ "factors": {
+  "inventory_mismatch": "missing_from_cert",
+  "tenant_owned_appliance": true,
+  "date_misalignment": "none",
+  "days_to_true_expiry": 0,
+  "renewal_booked": true,
+  "engineer_status": "category_missing",
+  "worst_defect_class": "immediately_dangerous",
+  "defect_isolated": false,
+  "remedial_completed": false,
+  "combustion_reading": "normal",
+  "prior_defect_count": 1,
+  "boundary_case": true
+ },
+ "factors_sampled": {
+  "inventory_mismatch": "location_mismatch",
+  "tenant_owned_appliance": true,
+  "date_misalignment": "none",
+  "days_to_true_expiry": 278,
+  "renewal_booked": true,
+  "engineer_status": "category_missing",
+  "worst_defect_class": "ncs",
+  "defect_isolated": true,
+  "remedial_completed": true,
+  "combustion_reading": "normal",
+  "prior_defect_count": 1,
+  "boundary_case": true
+ },
+ "plan": {
+  "covers_all_appliances": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "engineer_valid": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "next_step": {
+   "clarity": "balanced",
+   "target": "accept",
+   "second": "emergency_isolation"
+  },
+  "renewal_urgency": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  },
+  "open_hazard": {
+   "clarity": "contested",
+   "target": "4",
+   "second": "3"
+  }
+ },
+ "target_words": 72,
+ "deciding": {
+  "covers_all_appliances": "Only the tenant-owned hob A2 is absent from checks; landlord boiler A1 is covered.",
+  "engineer_valid": "Licence matches and is valid, but categories list boiler and flue_rs while A1 has an open flue; the open-flue category is not clearly covered.",
+  "next_step": "Outcome pass and a same-day remedial for A1 suggest filing, but the ID defect with only a label and supply_off false suggests emergency isolation.",
+  "renewal_urgency": "Review 2024-02-01 equals the 12-month expiry from 2023-02-01, so expiry is reached (3) or sits at the final day (2); a booking exists for 2024-02-15.",
+  "open_hazard": "ID defect on A1, still in service, with a remedial dated the inspection day, not after, so it does not formally close; a reviewer could treat it as a live risk (3) or as dangerous (4)."
+ },
+ "request": "rec-F314-0001",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011584
+}

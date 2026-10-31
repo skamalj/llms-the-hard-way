@@ -1,0 +1,142 @@
+{
+ "id": "F325-0007",
+ "family": "F325",
+ "state": {
+  "pen": {
+   "pen_id": "B2",
+   "stage": "broodstock",
+   "limits": {
+    "do_min_mg_l": 6.5,
+    "tan_max_mg_l": 0.5,
+    "temp_max_c": 14
+   }
+  },
+  "check": {
+   "pen_id": "B2",
+   "sampled_at": "2025-05-20T14:00",
+   "sampler_id": "S07",
+   "readings": {
+    "do_mg_l": 8.2,
+    "do_unit": "mg/L",
+    "tan_mg_l": 0.2
+   },
+   "depth_profile": [
+    {
+     "depth_m": 2,
+     "do_mg_l": 8.2
+    }
+   ]
+  },
+  "instrument": {
+   "last_cal": "2025-05-10",
+   "cal_result": "pass",
+   "cal_due": "2025-06-10"
+  },
+  "conditions": {
+   "treatment_window": {
+    "approved_by": "VET3",
+    "expected_do_dip_mg_l": 1.5,
+    "ended_at": "2025-05-20T09:00"
+   }
+  },
+  "history": [
+   {
+    "do": 5.2,
+    "in_limits": false
+   },
+   {
+    "do": 5.6,
+    "in_limits": false
+   },
+   {
+    "do": 5.9,
+    "in_limits": false
+   },
+   {
+    "do": 6.5,
+    "in_limits": false
+   },
+   {
+    "do": 8.0,
+    "in_limits": true
+   },
+   {
+    "do": 8.1,
+    "in_limits": true
+   }
+  ],
+  "notes": {
+   "sampler": "Dips looked scary but pen fine now, 8.1.",
+   "signoff": "SUP2",
+   "signoff_at": "2025-05-20T13:58"
+  }
+ },
+ "factors": {
+  "stock_stage": "broodstock",
+  "true_do_margin": 1.7,
+  "primary_cause": "husbandry",
+  "cross_section_mismatch": "rounding_only",
+  "calibration_state": "current",
+  "logger_alarm_raised": false,
+  "mitigation_present": true,
+  "mitigation_kind": "approved_treatment_window",
+  "history_out_of_range": 3,
+  "missing_required": 0,
+  "date_order_fault": true,
+  "boundary_case": true,
+  "note_tone": "alarming_benign"
+ },
+ "factors_sampled": {
+  "stock_stage": "broodstock",
+  "true_do_margin": 1.7,
+  "primary_cause": "none",
+  "cross_section_mismatch": "rounding_only",
+  "calibration_state": "overdue",
+  "logger_alarm_raised": false,
+  "mitigation_present": false,
+  "mitigation_kind": "approved_treatment_window",
+  "history_out_of_range": 6,
+  "missing_required": 2,
+  "date_order_fault": true,
+  "boundary_case": true,
+  "note_tone": "alarming_benign"
+ },
+ "plan": {
+  "genuine_do_breach": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "file_routine",
+   "second": null
+  },
+  "deviation_cause": {
+   "clarity": "leaning",
+   "target": "husbandry_load",
+   "second": null
+  },
+  "persistence": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  },
+  "evidence_completeness": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 81,
+ "deciding": {
+  "genuine_do_breach": "Four history checks logged DO of 5.2 to 6.5 against a 6.5 limit, so DO did fall below it earlier. The current 8.2 is fine, and the dips fit the treatment window, which leaves some doubt.",
+  "next_step": "The current reading, 8.2 against a 6.5 limit, is valid with a passed calibration, and the treatment window has ended. File routinely.",
+  "deviation_cause": "An approved treatment window with an expected 1.5 mg/L dip matches the earlier low values. No instrument, environmental or recording signal is present.",
+  "persistence": "Four history entries are flagged out of limits, but the 6.5 entry equals do_min, so it may be in limits. That gives 3 or 4 of 7, i.e. level 2 or 3.",
+  "evidence_completeness": "Everything is present and calibration is current. Only signoff_at (13:58) precedes sampled_at (14:00), a small ordering fault that could be read as skew or as an invalid element."
+ },
+ "request": "rec-F325-0006",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.014093
+}

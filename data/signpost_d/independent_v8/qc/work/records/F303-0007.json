@@ -1,0 +1,146 @@
+{
+ "id": "F303-0007",
+ "family": "F303",
+ "state": {
+  "order": {
+   "rx": {
+    "modality": "portable_cylinder",
+    "flow_lpm": 1.5,
+    "hrs_day": 24,
+    "rx_expiry": "2026-02-01"
+   },
+   "items_ordered": [
+    {
+     "sku": "CYL-HX2300",
+     "qty": 2
+    }
+   ],
+   "account": {
+    "billing_hold": true,
+    "arrears_gbp": 120
+   }
+  },
+  "visit": {
+   "visit_date": "2025-04-02",
+   "items_left": [
+    {
+     "sku": "CYL-HX2300",
+     "qty": 2
+    }
+   ],
+   "install_checks": {
+    "flow_verified": true,
+    "alarm_tested": false,
+    "training_given": true,
+    "completed_at": "2025-04-02T11:20"
+   },
+   "patient_signature": "on_file"
+  },
+  "site_assessment": {
+   "hazards": [
+    {
+     "code": "SMOKING",
+     "status": "open"
+    },
+    {
+     "code": "HEATER",
+     "status": "open"
+    },
+    {
+     "code": "NAKED_FLAME",
+     "status": "open"
+    },
+    {
+     "code": "NO_SIGNAGE",
+     "status": null
+    }
+   ]
+  },
+  "equipment": {
+   "flow_setting_lpm": 1.5,
+   "cylinders_on_site": [
+    {
+     "size": "HX 2300 L",
+     "fill_pct": 95
+    },
+    {
+     "size": "HX 2300 L",
+     "fill_pct": 100
+    }
+   ]
+  },
+  "supply_plan": {
+   "next_delivery_date": "2025-04-03"
+  }
+ },
+ "factors": {
+  "rx_alignment": "modality_ambiguous",
+  "items_shortfall": "none",
+  "setup_state": "alarm_untested",
+  "supply_hours": 49.8,
+  "concentrator_fault": false,
+  "fault_mitigated": false,
+  "hazards_found": 4,
+  "hazard_mitigation": false,
+  "hazard_status_missing": true,
+  "handover_gap": false,
+  "timeline_out_of_order": false,
+  "next_delivery": "booked_in_time",
+  "dependency_level": "continuous",
+  "billing_hold": true
+ },
+ "factors_sampled": {
+  "rx_alignment": "modality_mismatch",
+  "items_shortfall": "one_short",
+  "setup_state": "all_logged",
+  "supply_hours": 194.8,
+  "concentrator_fault": false,
+  "fault_mitigated": false,
+  "hazards_found": 2,
+  "hazard_mitigation": true,
+  "hazard_status_missing": false,
+  "handover_gap": false,
+  "timeline_out_of_order": false,
+  "next_delivery": "booked_in_time",
+  "dependency_level": "continuous",
+  "billing_hold": true
+ },
+ "plan": {
+  "rx_match": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "hold_confirm",
+   "second": null
+  },
+  "fulfilment": {
+   "clarity": "clear",
+   "target": "setup_incomplete",
+   "second": null
+  },
+  "supply_runway": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  },
+  "open_hazards": {
+   "clarity": "balanced",
+   "target": "4",
+   "second": "3"
+  }
+ },
+ "target_words": 46,
+ "deciding": {
+  "rx_match": "Rx modality portable_cylinder versus large HX 2300 L cylinders; flow setting 1.5 equals the prescribed 1.5 lpm, so it is plausible but debatable.",
+  "next_step": "One hazard status is null and the Rx modality question is open, so a phone confirmation fits; alarm_tested false adds some doubt toward a revisit.",
+  "fulfilment": "Both ordered cylinders are in items_left, but alarm_tested is false, so setup is incomplete.",
+  "supply_runway": "Cylinders hold about 4485 L against 2160 L/day (1.5 lpm x 24 h), roughly 49.8 hours, right at the 48-hour boundary.",
+  "open_hazards": "Three hazards are open and the fourth has a null status, so the count is 3 or 4."
+ },
+ "request": "rec-F303-0006",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.021867
+}

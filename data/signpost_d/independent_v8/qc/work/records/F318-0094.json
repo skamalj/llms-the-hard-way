@@ -1,0 +1,147 @@
+{
+ "id": "F318-0094",
+ "family": "F318",
+ "state": {
+  "work_order": {
+   "wo_id": "WO-6002",
+   "lock_id": "L03",
+   "visit_type": "winter_stoppage",
+   "tasks": [
+    {
+     "task_id": "T1",
+     "asset_ref": "MG-1"
+    },
+    {
+     "task_id": "T2",
+     "asset_ref": "MG-2"
+    },
+    {
+     "task_id": "T3",
+     "asset_ref": "MG-3"
+    },
+    {
+     "task_id": "T4",
+     "asset_ref": "MG-4"
+    },
+    {
+     "task_id": "T5",
+     "asset_ref": "MG-5"
+    },
+    {
+     "task_id": "T6",
+     "asset_ref": "MG-6"
+    },
+    {
+     "task_id": "T7",
+     "asset_ref": "MG-7"
+    }
+   ],
+   "nav_notice": {
+    "in_force": false,
+    "from": "2023-12-01",
+    "to": "2024-01-10",
+    "scope_assets": [
+     "MG-1",
+     "MG-2",
+     "MG-3",
+     "MG-4",
+     "MG-5",
+     "MG-6"
+    ]
+   }
+  },
+  "visit_log": {
+   "arrived": "2024-01-22T07:00",
+   "departed": "2024-01-22T15:00",
+   "crew_size": 3,
+   "timesheet_hours": 27.76,
+   "task_status": [
+    "T1-T7 done"
+   ]
+  },
+  "checks": {
+   "post_checks": [
+    "MG-1..MG-7 pass"
+   ],
+   "checked_at": "2024-01-22T14:30",
+   "leakage_ls": 22,
+   "leakage_limit_ls": 10,
+   "river_level_m": 2.4,
+   "flood_marker_m": 1.9,
+   "gauge_cal_due": "2024-01-05"
+  },
+  "asset_history": {
+   "prior_visits": [
+    "4 earlier MG-3 seep visits"
+   ]
+  }
+ },
+ "factors": {
+  "visit_type": "winter_stoppage",
+  "tasks_ordered": 7,
+  "completion_state": "all_done",
+  "parts_qty_mismatch": "none",
+  "hours_gap": 3.76,
+  "asset_ref_mismatch": false,
+  "post_check_result": "passed",
+  "leakage_ratio": 2.2,
+  "leakage_mitigation": true,
+  "navigation_notice_in_force": false,
+  "deferral_approved": false,
+  "prior_same_defect": 4,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "visit_type": "winter_stoppage",
+  "tasks_ordered": 7,
+  "completion_state": "all_done",
+  "parts_qty_mismatch": "none",
+  "hours_gap": 3.76,
+  "asset_ref_mismatch": false,
+  "post_check_result": "passed",
+  "leakage_ratio": 2.2,
+  "leakage_mitigation": true,
+  "navigation_notice_in_force": true,
+  "deferral_approved": false,
+  "prior_same_defect": 4,
+  "boundary_case": false
+ },
+ "plan": {
+  "safe_to_reopen": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "record_disposition": {
+   "clarity": "clear",
+   "target": "close_visit",
+   "second": null
+  },
+  "return_urgency": {
+   "clarity": "leaning",
+   "target": "immediate",
+   "second": null
+  },
+  "affected_scope": {
+   "clarity": "contested",
+   "target": "2",
+   "second": "1"
+  },
+  "section_mismatches": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 65,
+ "deciding": {
+  "safe_to_reopen": "All seven checks pass and river 2.4 is above the flood marker 1.9, which explains leakage of 22 against a limit of 10. The gauge calibration lapsed on 2024-01-05, which leaves some doubt.",
+  "record_disposition": "All seven tasks are done, every check passes and there are no deferrals or parts lines. Closing as logged is clear.",
+  "return_urgency": "Leakage is more than double the limit and the notice expired on 2024-01-10, so no cover remains. The high river offers some mitigation, so immediate is leaning rather than clear.",
+  "affected_scope": "scope_assets lists 6 assets, right at the 5/6 anchor, while seven tasks were done. Both level 1 and level 2 are defensible.",
+  "section_mismatches": "Timesheet 27.76h against 8h x 3 crew (24h) is one mismatch. Gauge_cal_due precedes checked_at, and 22 l/s leakage against a 10 limit with passing checks is a third, though the high river explains it in part."
+ },
+ "request": "rec-F318-0091",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.015276
+}

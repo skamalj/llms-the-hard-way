@@ -1,0 +1,136 @@
+{
+ "id": "F338-0126",
+ "family": "F338",
+ "state": {
+  "site": {
+   "pol": "O3",
+   "tier": "standard",
+   "interval_days": 90
+  },
+  "visit": {
+   "date": "2025-03-20",
+   "start": "09:00",
+   "end": "11:00",
+   "seq": "complete"
+  },
+  "reference": {
+   "id": "C-4471",
+   "conc": 80,
+   "unit": "ppb",
+   "cert_expiry": "2025-04-29"
+  },
+  "checks": [
+   {
+    "t": "as_found",
+    "type": "span",
+    "ref_id": "C-4471",
+    "ref": 80,
+    "unit": "ppb",
+    "read": 82,
+    "tol": 8,
+    "ts": "2025-03-20T09:20"
+   },
+   {
+    "t": "as_left",
+    "type": "span",
+    "ref_id": "C-4471",
+    "ref": 80,
+    "unit": "ppb",
+    "read": 87,
+    "tol": 8,
+    "ts": "2025-03-20T10:30"
+   }
+  ],
+  "history": {
+   "last": "2024-12-29",
+   "results": [
+    "pass",
+    "fail",
+    "fail",
+    "pass"
+   ],
+   "autochecks": [
+    {
+     "d": "2025-02-10",
+     "r": "fail"
+    },
+    {
+     "d": "2025-02-11",
+     "r": "fail"
+    },
+    {
+     "d": "2025-03-14",
+     "r": "pass"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "pollutant": "O3",
+  "as_found_ratio": 0.24,
+  "as_left_status": "marginal",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 40,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": false,
+  "drift_explanation": "none",
+  "days_since_last_visit": 81,
+  "visit_completeness": "complete",
+  "prior_fail_count": 2,
+  "timestamp_mismatch": "none",
+  "site_priority": "standard"
+ },
+ "factors_sampled": {
+  "pollutant": "O3",
+  "as_found_ratio": 0.24,
+  "as_left_status": "marginal",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 40,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": false,
+  "drift_explanation": "none",
+  "days_since_last_visit": 81,
+  "visit_completeness": "complete",
+  "prior_fail_count": 2,
+  "timestamp_mismatch": "none",
+  "site_priority": "standard"
+ },
+ "plan": {
+  "data_accepted": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "reference_valid": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "close_visit",
+   "second": null
+  },
+  "flag_extent": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  },
+  "return_urgency": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  }
+ },
+ "target_words": 62,
+ "deciding": {
+  "data_accepted": "history.autochecks has two early fail entries in February followed by a gap to mid-March, and 81 days passed since the last visit, so data cannot be accepted as is.",
+  "reference_valid": "checks ref_id equals reference.id, units are ppb in both, and cert_expiry 2025-04-29 is after the visit date.",
+  "next_step": "As-found is within tolerance (2 vs 8) and as-left is inside tolerance (7 vs 8), with a complete sequence. The marginal as-left and the autocheck fails leave some doubt over a clean close.",
+  "flag_extent": "The February autocheck fails are short and isolated, so 1-7 days fits. The 81-day interval and the gap in autochecks to mid-March make 8-30 days plausible.",
+  "return_urgency": "The as-left reading at 7 of 8 tolerance is marginal at a standard-tier site, so an extra visit is needed. Eight to thirty days and three to seven days are both defensible."
+ },
+ "request": "rec-F338-0126",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.0108
+}

@@ -1,0 +1,134 @@
+{
+ "id": "F338-0135",
+ "family": "F338",
+ "state": {
+  "site": {
+   "pol": "SO2",
+   "tier": "indicative",
+   "svc_days": 45
+  },
+  "visit": {
+   "date": "2024-07-15",
+   "start": "11:00",
+   "end": "12:00",
+   "seq": "partial",
+   "mw": false
+  },
+  "reference": {
+   "std_id": "CY55038",
+   "exp": "2025-08-11",
+   "unit": "ppb"
+  },
+  "checks": [
+   {
+    "t": "as_found_zero",
+    "ref_id": "CY55038",
+    "ref": 0,
+    "rd": 9,
+    "tol": 3,
+    "unit": "ppb",
+    "ts": "2024-07-15T11:10"
+   },
+   {
+    "t": "as_left_zero",
+    "ref_id": "CY55038",
+    "ref": 0,
+    "rd": 1,
+    "tol": 3,
+    "unit": "ppb",
+    "ts": "2024-07-15T11:45"
+   }
+  ],
+  "history": {
+   "last": "2024-05-31",
+   "res": [
+    "fail",
+    "fail",
+    "pass",
+    "fail"
+   ],
+   "auto": [
+    {
+     "d": "2024-06-10",
+     "r": "fail"
+    },
+    {
+     "d": "2024-06-11",
+     "r": "fail"
+    }
+   ]
+  },
+  "instrument": {
+   "tmin": 12,
+   "tmax": 37
+  }
+ },
+ "factors": {
+  "pollutant": "SO2",
+  "as_found_ratio": 3.0,
+  "as_left_status": "all_pass",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 392,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": false,
+  "drift_explanation": "enclosure_temp_excursion",
+  "days_since_last_visit": 45,
+  "visit_completeness": "zero_only",
+  "prior_fail_count": 3,
+  "timestamp_mismatch": "none",
+  "site_priority": "indicative"
+ },
+ "factors_sampled": {
+  "pollutant": "SO2",
+  "as_found_ratio": 3.0,
+  "as_left_status": "all_pass",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 392,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": false,
+  "drift_explanation": "enclosure_temp_excursion",
+  "days_since_last_visit": 45,
+  "visit_completeness": "zero_only",
+  "prior_fail_count": 3,
+  "timestamp_mismatch": "none",
+  "site_priority": "indicative"
+ },
+ "plan": {
+  "data_accepted": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "reference_valid": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "contested",
+   "target": "close_flagged",
+   "second": "withdraw"
+  },
+  "flag_extent": {
+   "clarity": "contested",
+   "target": "1",
+   "second": "2"
+  },
+  "return_urgency": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  }
+ },
+ "target_words": 70,
+ "deciding": {
+  "data_accepted": "As-found zero 9 vs tol 3 (3x) and autochecks failed in June, so the data cannot stand uncorrected.",
+  "reference_valid": "ID, unit and expiry (over a year ahead) all agree.",
+  "next_step": "As-left zero passes, but enclosure max 37 C and repeated autocheck failures could mean flagging or withdrawal.",
+  "flag_extent": "Autochecks failed 10-11 June in a 45-day interval; flag a week or the weeks since.",
+  "return_urgency": "Enclosure temperature excursion with indicative tier; return in 3-7 days vs 1-2 days is open."
+ },
+ "request": "rec-F338-0131",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.006448
+}

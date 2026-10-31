@@ -1,0 +1,162 @@
+{
+ "id": "F318-0129",
+ "family": "F318",
+ "state": {
+  "work_order": {
+   "visit_type": "winter_stoppage",
+   "tasks": [
+    {
+     "task_id": 1,
+     "asset_ref": "GATE-1"
+    },
+    {
+     "task_id": 2,
+     "asset_ref": "SLUICE-1"
+    },
+    {
+     "task_id": 3,
+     "asset_ref": "PAD-1"
+    }
+   ],
+   "nav_notice": {
+    "in_force": true,
+    "to": "2025-02-28",
+    "scope_assets": [
+     "GATE-1"
+    ]
+   }
+  },
+  "visit_log": {
+   "arrived": "2025-01-14T08:00",
+   "departed": "2025-01-14T12:00",
+   "crew_size": 2,
+   "timesheet_hours": 7.29,
+   "task_status": [
+    {
+     "task_id": 1,
+     "status": "done"
+    },
+    {
+     "task_id": 2,
+     "status": "done"
+    },
+    {
+     "task_id": 3,
+     "status": "done"
+    }
+   ]
+  },
+  "checks": {
+   "post_checks": [
+    {
+     "asset_ref": "GATE-1",
+     "result": "pass"
+    },
+    {
+     "asset_ref": "SLUICE-1",
+     "result": "fail"
+    },
+    {
+     "asset_ref": "PAD-1",
+     "result": "pass"
+    }
+   ],
+   "leakage_ls": 16.4,
+   "leakage_limit_ls": 10
+  },
+  "asset_history": {
+   "prior_visits": [
+    {
+     "asset_ref": "SLUICE-1",
+     "defect_code": "LK1"
+    },
+    {
+     "asset_ref": "SLUICE-1",
+     "defect_code": "LK1"
+    },
+    {
+     "asset_ref": "SLUICE-1",
+     "defect_code": "LK1"
+    },
+    {
+     "asset_ref": "SLUICE-1",
+     "defect_code": "LK1"
+    }
+   ],
+   "open_defects": [
+    {
+     "defect_code": "LK1",
+     "asset_ref": "SLUICE-1"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "visit_type": "winter_stoppage",
+  "tasks_ordered": 3,
+  "completion_state": "all_done",
+  "parts_qty_mismatch": "none",
+  "hours_gap": 0.71,
+  "asset_ref_mismatch": false,
+  "post_check_result": "failed",
+  "leakage_ratio": 1.64,
+  "leakage_mitigation": false,
+  "navigation_notice_in_force": true,
+  "deferral_approved": false,
+  "prior_same_defect": 4,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "visit_type": "winter_stoppage",
+  "tasks_ordered": 5,
+  "completion_state": "some_outstanding",
+  "parts_qty_mismatch": "none",
+  "hours_gap": 0.71,
+  "asset_ref_mismatch": false,
+  "post_check_result": "failed",
+  "leakage_ratio": 1.64,
+  "leakage_mitigation": false,
+  "navigation_notice_in_force": true,
+  "deferral_approved": false,
+  "prior_same_defect": 4,
+  "boundary_case": false
+ },
+ "plan": {
+  "safe_to_reopen": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "record_disposition": {
+   "clarity": "clear",
+   "target": "close_visit",
+   "second": null
+  },
+  "return_urgency": {
+   "clarity": "clear",
+   "target": "immediate",
+   "second": null
+  },
+  "affected_scope": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "section_mismatches": {
+   "clarity": "contested",
+   "target": "1",
+   "second": "0"
+  }
+ },
+ "target_words": 42,
+ "deciding": {
+  "safe_to_reopen": "SLUICE-1 post_check is fail, leakage 16.4 against limit 10, and open defect LK1 on SLUICE-1.",
+  "record_disposition": "All three ordered tasks are done and parts and asset refs reconcile, so the visit record closes as logged.",
+  "return_urgency": "Failed SLUICE-1 with leakage 1.64x limit and the notice scope covering only GATE-1 leaves the unsafe condition uncovered.",
+  "affected_scope": "A leaking sluice on a lock under winter stoppage may affect all users of the waterway section; no user count is recorded.",
+  "section_mismatches": "Timesheet 7.29h vs 4h x 2 = 8h is a 0.71h gap that may be rounding or one mismatch; nothing else disagrees."
+ },
+ "request": "rec-F318-0126",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.015823
+}

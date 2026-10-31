@@ -1,0 +1,145 @@
+{
+ "id": "F337-0057",
+ "family": "F337",
+ "state": {
+  "station": {
+   "channels": [
+    {
+     "cha": "BHZ",
+     "sensor_serial": "T5530",
+     "gain_counts_per_ms": 1200,
+     "azimuth_deg": 0,
+     "response_epoch_start": "2023-11-20"
+    },
+    {
+     "cha": "BHN",
+     "sensor_serial": "T5531",
+     "gain_counts_per_ms": 1200,
+     "azimuth_deg": 0,
+     "response_epoch_start": "2023-11-20"
+    }
+   ]
+  },
+  "acquisition": {
+   "day": "2024-06-02",
+   "queued_since": "2024-06-03",
+   "asof": "2024-06-11",
+   "channel_hours_expected": 48,
+   "completeness_pct": 98.5,
+   "gaps": [
+    {
+     "cha": "BHZ",
+     "start": "2024-06-02T01:00",
+     "end": "2024-06-02T03:25"
+    }
+   ],
+   "gps_lock_pct": 79.4,
+   "timing_quality_mean": 0.78
+  },
+  "qc_metrics": [
+   {
+    "cha": "BHZ",
+    "psd_dev_db": 13.27,
+    "spike_count": 9,
+    "dead": false,
+    "clipped_minutes": 0,
+    "cal_pulse": {
+     "date": "2024-02-02",
+     "result": "pass"
+    }
+   },
+   {
+    "cha": "BHN",
+    "psd_dev_db": 2.1,
+    "spike_count": 1,
+    "dead": false,
+    "clipped_minutes": 0,
+    "cal_pulse": {
+     "date": "2024-02-02",
+     "result": "pass"
+    }
+   }
+  ],
+  "maintenance_log": [
+   {
+    "date": "2023-11-20",
+    "action": "site_visit"
+   },
+   {
+    "date": "2024-06-02",
+    "action": "outage",
+    "outage_start": "2024-06-02T01:00",
+    "outage_end": "2024-06-02T03:15"
+   }
+  ],
+  "operator_notes": [
+   "Quarry blasting 09:00-11:00 raised noise on BHZ."
+  ]
+ },
+ "factors": {
+  "sensor_metadata_state": "no_swap",
+  "maintenance_log_present": true,
+  "gap_coverage": "minor_overrun",
+  "true_usable_fraction": 0.95,
+  "completeness_summary_drift": 3.44,
+  "timing_quality": "lost_hours",
+  "calibration_status": "passed",
+  "noise_excess_db": 13.27,
+  "benign_noise_cause_logged": true,
+  "operator_note_consistency": "consistent",
+  "dead_channels": 0,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "sensor_metadata_state": "no_swap",
+  "maintenance_log_present": true,
+  "gap_coverage": "some_unlogged",
+  "true_usable_fraction": 0.86,
+  "completeness_summary_drift": 3.44,
+  "timing_quality": "locked",
+  "calibration_status": "predates_swap",
+  "noise_excess_db": 13.27,
+  "benign_noise_cause_logged": true,
+  "operator_note_consistency": "consistent",
+  "dead_channels": 3,
+  "boundary_case": false
+ },
+ "plan": {
+  "response_valid": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "gaps_explained": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "disposition": {
+   "clarity": "balanced",
+   "target": "quarantine",
+   "second": "release_flagged"
+  },
+  "usable_fraction": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  },
+  "pending_age": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  }
+ },
+ "target_words": 56,
+ "deciding": {
+  "response_valid": "Serials and epochs match the 2023-11-20 install and the log has no sensor_swap entry.",
+  "gaps_explained": "The BHZ gap 01:00-03:25 overlaps the logged outage 01:00-03:15 but runs 10 minutes past it.",
+  "disposition": "gps_lock_pct 79.4 and timing_quality_mean 0.78 sit just under the 80% lock level, pointing to quarantine, while only one channel has a logged-gap fault and the cal pulse passed, so flagging is defensible.",
+  "usable_fraction": "A 2.4 h gap in 48 channel-hours leaves about 95% usable; completeness_pct 98.5 is inflated.",
+  "pending_age": "queued_since 2024-06-03 to asof 2024-06-11 is 8 days, right at the one-to-seven versus eight-to-thirty boundary."
+ },
+ "request": "rec-F337-0056",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.013764
+}

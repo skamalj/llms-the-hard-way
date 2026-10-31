@@ -1,0 +1,136 @@
+{
+ "id": "F316-0062",
+ "family": "F316",
+ "state": {
+  "run_header": {
+   "run_date": "2025-02-03",
+   "reviewed_at": "2025-02-04T01:40"
+  },
+  "plan": [
+   {
+    "section_code": "C2-01",
+    "length_km": 4.0,
+    "width_m": 7,
+    "priority": "P1",
+    "planned_rate_gm2": 20,
+    "forecast_zone": "Z1"
+   },
+   {
+    "section_code": "C2-02",
+    "length_km": 1.2,
+    "width_m": 7,
+    "priority": "P1",
+    "planned_rate_gm2": 20,
+    "forecast_zone": "Z2"
+   }
+  ],
+  "forecast": {
+   "Z1": {
+    "freeze_time": "2025-02-03T23:30"
+   },
+   "Z2": {
+    "freeze_time": "2025-02-04T12:40"
+   },
+   "revisions": [
+    {
+     "issued_at": "2025-02-03T21:00",
+     "Z1": "2025-02-04T00:10",
+     "Z2": "2025-02-04T13:30"
+    }
+   ]
+  },
+  "telematics": {
+   "date": "2025-02-02",
+   "segments": [
+    {
+     "section_code": "C2-02",
+     "spread_on": true,
+     "end": "2025-02-04T01:05",
+     "logged_rate_gm2": 14
+    },
+    {
+     "section_code": "C2-01",
+     "spread_on": true,
+     "end": "2025-02-04T01:16",
+     "logged_rate_gm2": 20
+    }
+   ]
+  },
+  "materials": {
+   "loaded_t": 0.8,
+   "returned_t": 0.12,
+   "weighbridge_ticket": "WB204"
+  },
+  "notes": {
+   "depot_note": "Rerun booked 03:30, same route."
+  }
+ },
+ "factors": {
+  "missed_extent": "under_2km (1.2 km under-rate)",
+  "missed_section_mitigated": false,
+  "salt_gap": "under_3pct",
+  "rate_exception_approved": false,
+  "finish_vs_freeze_min": "66 (after revised Z1 freeze)",
+  "hours_to_freeze_untreated": "11.8 (Z2 revised freeze 13:30)",
+  "forecast_revised": "warmer",
+  "crosscheck_mismatch": "date_mismatch",
+  "driver_note_type": "routine",
+  "follow_up_run_scheduled": true,
+  "pending_confirmation": false,
+  "gps_dropouts": 0,
+  "nonpriority_untreated": false
+ },
+ "factors_sampled": {
+  "missed_extent": "none",
+  "missed_section_mitigated": false,
+  "salt_gap": "under_3pct",
+  "rate_exception_approved": false,
+  "finish_vs_freeze_min": 66,
+  "hours_to_freeze_untreated": 5.53,
+  "forecast_revised": "warmer",
+  "crosscheck_mismatch": "date_mismatch",
+  "driver_note_type": "routine",
+  "follow_up_run_scheduled": true,
+  "pending_confirmation": false,
+  "gps_dropouts": 3,
+  "nonpriority_untreated": false
+ },
+ "plan": {
+  "treated_before_freeze": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "salt_reconciles": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "follow_up": {
+   "clarity": "clear",
+   "target": "sign_off_noted",
+   "second": null
+  },
+  "deficient_length": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  },
+  "freeze_proximity": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  }
+ },
+ "target_words": 49,
+ "deciding": {
+  "treated_before_freeze": "C2-01 ended 01:16, 66 minutes after the revised Z1 freeze of 00:10. The original 23:30 time is superseded by the revision.",
+  "salt_reconciles": "Expected 0.56 t for C2-01 plus 0.118 t for C2-02 at the logged rate, 0.678 t, against net 0.68 t. The telematics date 2025-02-02 differs from run_date 2025-02-03, which leaves some doubt.",
+  "follow_up": "The depot note books a rerun at 03:30. The date mismatch and the under-rate section are the only items to record, and no confirmation is outstanding.",
+  "deficient_length": "C2-02 (1.2 km P1) was logged at 14 against a planned 20 and there is no rate exception, so the affected priority length is under 2 km.",
+  "freeze_proximity": "The under-rate C2-02 is in Z2, revised freeze 13:30, about 11.8 hours after the 01:40 review. That is just inside the 6 to 12 hour band and the road was partly treated, so level 0 is also plausible."
+ },
+ "request": "rec-F316-0061",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.017095
+}

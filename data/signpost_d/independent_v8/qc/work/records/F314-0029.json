@@ -1,0 +1,192 @@
+{
+ "id": "F314-0029",
+ "family": "F314",
+ "state": {
+  "property": {
+   "inventory": [
+    {
+     "id": "B1",
+     "type": "boiler",
+     "loc": "kitchen",
+     "serial": "R5521",
+     "owned_by": "landlord",
+     "install_date": "2019-03-12"
+    },
+    {
+     "id": "A2",
+     "type": "fire",
+     "loc": "lounge",
+     "serial": "F3318",
+     "owned_by": "landlord"
+    },
+    {
+     "id": "C1",
+     "type": "cooker",
+     "loc": "kitchen",
+     "serial": "C770",
+     "owned_by": "tenant"
+    }
+   ]
+  },
+  "tenancy": {
+   "start_date": "2022-10-01",
+   "review_date": "2025-05-03"
+  },
+  "certificate": {
+   "inspection_date": "2024-05-31",
+   "issue_date": "2024-05-31",
+   "expiry_date": "2025-06-14",
+   "engineer_licence": "GS480112",
+   "overall_outcome": "pass"
+  },
+  "appliance_checks": [
+   {
+    "appliance_id": "B1",
+    "loc": "kitchen",
+    "serial": "R5521",
+    "defect_class": null,
+    "analyser": {
+     "ratio": 0.002,
+     "threshold": 0.004
+    }
+   },
+   {
+    "appliance_id": "A2",
+    "loc": "lounge",
+    "serial": "F3318",
+    "defect_class": "ID",
+    "isolation": {
+     "supply_off": null,
+     "capped": false,
+     "label_code": "WARN",
+     "acknowledged_by_role": "tenant"
+    }
+   },
+   {
+    "appliance_id": "C1",
+    "loc": "kitchen",
+    "serial": "C770",
+    "defect_class": null
+   }
+  ],
+  "engineer": {
+   "licence_no": "GS-480112",
+   "business_id": "BX771",
+   "valid_from": "2023-09-01",
+   "valid_to": "2025-08-31",
+   "categories": [
+    "boiler",
+    "fire",
+    "cooker"
+   ]
+  },
+  "history": {
+   "prior_certificates": [
+    {
+     "date": "2023-05-28",
+     "defects": [
+      {
+       "id": "B1",
+       "class": "NCS"
+      }
+     ]
+    },
+    {
+     "date": "2022-05-30",
+     "defects": [
+      {
+       "id": "B1",
+       "class": "NCS"
+      }
+     ]
+    },
+    {
+     "date": "2021-06-01",
+     "defects": [
+      {
+       "id": "B1",
+       "class": "AR"
+      }
+     ]
+    }
+   ],
+   "remedials": [
+    {
+     "appliance_id": "A2",
+     "completed_on": "2024-02-10",
+     "engineer_licence": "GS-480112"
+    }
+   ],
+   "renewal_booking": {
+    "date": "2025-05-20",
+    "status": "booked"
+   }
+  }
+ },
+ "factors": {
+  "inventory_mismatch": "none",
+  "tenant_owned_appliance": true,
+  "date_misalignment": "expiry_miscomputed",
+  "days_to_true_expiry": 28,
+  "renewal_booked": true,
+  "engineer_status": "id_mismatch",
+  "worst_defect_class": "ID",
+  "defect_isolated": false,
+  "remedial_completed": false,
+  "combustion_reading": "normal",
+  "prior_defect_count": 3,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "inventory_mismatch": "none",
+  "tenant_owned_appliance": true,
+  "date_misalignment": "expiry_miscomputed",
+  "days_to_true_expiry": 38,
+  "renewal_booked": true,
+  "engineer_status": "id_mismatch",
+  "worst_defect_class": "none",
+  "defect_isolated": true,
+  "remedial_completed": true,
+  "combustion_reading": "normal",
+  "prior_defect_count": 3,
+  "boundary_case": false
+ },
+ "plan": {
+  "covers_all_appliances": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "engineer_valid": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "hold",
+   "second": null
+  },
+  "renewal_urgency": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  },
+  "open_hazard": {
+   "clarity": "balanced",
+   "target": "4",
+   "second": "3"
+  }
+ },
+ "target_words": 200,
+ "deciding": {
+  "covers_all_appliances": "All three inventory ids appear in the checks with matching location and serial; C1 is tenant-owned but certified, a minor distraction.",
+  "engineer_valid": "Certificate GS480112 vs snapshot GS-480112 differ only in the hyphen; registration spans inspection and categories cover all three appliance types.",
+  "next_step": "The printed expiry 2025-06-14 does not match inspection plus 12 months (2025-05-31), the single discrepancy that needs confirmation.",
+  "renewal_urgency": "True expiry 2025-05-31 is 28 days after review 2025-05-03 (level 2); the printed expiry would leave 42 days (level 1).",
+  "open_hazard": "A2 defect_class ID with supply_off null, capped false and only a WARN label; the remedial on A2 predates inspection, so it does not close the defect."
+ },
+ "request": "rec-F314-0026",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.013876
+}

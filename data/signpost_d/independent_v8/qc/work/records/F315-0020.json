@@ -1,0 +1,118 @@
+{
+ "id": "F315-0020",
+ "family": "F315",
+ "state": {
+  "report": {
+   "ref": "FR-2209",
+   "received_at": "2025-09-18T23:05",
+   "source": "police",
+   "fault_code": "DOOR",
+   "units_reported": [
+    "D5",
+    "D6"
+   ]
+  },
+  "asset": {
+   "unit_id": "D5",
+   "site_category": "residential",
+   "planned_works": null
+  },
+  "cms": {
+   "node_id": "N05",
+   "status_code": "OK",
+   "last_comms_at": "2025-09-18T23:00"
+  },
+  "history": [
+   {
+    "job_ref": "J3302",
+    "raised": "2025-07-20",
+    "attended": "2025-07-22",
+    "completed": "2025-07-27",
+    "outcome_code": "FIX"
+   }
+  ],
+  "job": {
+   "job_ref": "J3860",
+   "stage": "RAISED",
+   "attended_at": null,
+   "completed_at": null,
+   "hazard_code": "DOOR",
+   "made_safe": true,
+   "isolated_at": null
+  },
+  "supply": {
+   "dno_incident_ref": null,
+   "dno_status": null,
+   "feeder_units_dark": 2,
+   "feeder_id": "F44"
+  }
+ },
+ "factors": {
+  "dark_unit_count": 2,
+  "dno_incident_logged": false,
+  "cms_state": "normal_burning",
+  "days_since_last_repair": 53,
+  "last_repair_state": "completed",
+  "hazard_observed": "door_open",
+  "hazard_made_safe": true,
+  "site_category": "residential",
+  "planned_works_active": false,
+  "current_job_stage": "not_attended",
+  "dates_out_of_order": false,
+  "duplicate_of_open_job": false,
+  "report_source": "police"
+ },
+ "factors_sampled": {
+  "dark_unit_count": 2,
+  "dno_incident_logged": false,
+  "cms_state": "normal_burning",
+  "days_since_last_repair": 53,
+  "last_repair_state": "completed",
+  "hazard_observed": "none",
+  "hazard_made_safe": true,
+  "site_category": "residential",
+  "planned_works_active": false,
+  "current_job_stage": "not_attended",
+  "dates_out_of_order": false,
+  "duplicate_of_open_job": false,
+  "report_source": "police"
+ },
+ "plan": {
+  "supply_side_fault": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "repeat_failure": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "next_action": {
+   "clarity": "contested",
+   "target": "urgent_make_safe",
+   "second": "close_report"
+  },
+  "source_support": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "repair_progress": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  }
+ },
+ "target_words": 68,
+ "deciding": {
+  "supply_side_fault": "Plan requires clear true but record has only 2 dark and no DNO incident; the record as written leaves this doubtful.",
+  "repeat_failure": "Completed repair 2025-07-27 is 53 days before report, inside 84 days, but CMS OK on the unit weakens that the unit failed.",
+  "next_action": "DOOR hazard with isolated_at null and made_safe true is a conflict; CMS OK suggests close, open hazard suggests urgent.",
+  "source_support": "Only the police report asserts the fault; CMS OK contradicts it, so zero or one.",
+  "repair_progress": "Job RAISED and not attended; only the older repair J3302 completed, so level 1 or 2 is debatable."
+ },
+ "request": "rec-F315-0016",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.00598
+}

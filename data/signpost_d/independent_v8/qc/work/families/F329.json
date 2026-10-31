@@ -1,0 +1,318 @@
+{
+ "id": "F329",
+ "domain": "job application screening",
+ "role": "Application screener in an in-house recruitment team, reviewing one candidate application at a time against its job requisition before shortlisting",
+ "setting": "A mid-sized employer's applicant tracking system holds each application as a structured record. It contains the requisition's mandatory requirements, the applicant's declared details, their employment history and qualifications, and the state of pre-screen checks: right to work, references and skills assessment. The screener must decide whether the application meets the requisition, whether the applicant's claims hold together across sections, and what happens next. Records arrive at varying levels of completeness: checks may be pending, sections may be null, and dates may fall out of order.",
+ "questions": {
+  "meets_mandatory": {
+   "type": "noul",
+   "instructions": "Applicant meets every mandatory requirement stated on the requisition.",
+   "criteria": {
+    "true": "Every mandatory requirement is evidenced as met.",
+    "false": "At least one requirement is unmet or unevidenced."
+   }
+  },
+  "experience_consistent": {
+   "type": "noul",
+   "instructions": "Claimed total experience matches the sum of listed employment periods.",
+   "criteria": null
+  },
+  "next_step": {
+   "type": "choice",
+   "instructions": "What should happen next with this application at screening?",
+   "criteria": {
+    "reject": "A mandatory requirement is evidenced as unmet in the record.",
+    "hold": "A mandatory requirement cannot be confirmed; information is missing or conflicting.",
+    "conditional_shortlist": "All mandatory requirements met; some required checks are still outstanding.",
+    "shortlist": "All mandatory requirements met and every required check completed."
+   }
+  },
+  "discrepancy_count": {
+   "type": "score",
+   "instructions": "How many cross-section discrepancies does this application record contain?",
+   "criteria": [
+    "None: no corresponding value differs between any sections",
+    "One: exactly one corresponding value differs between sections",
+    "Two: exactly two corresponding values differ across sections",
+    "Many: three or more corresponding values differ across sections"
+   ]
+  },
+  "pending_age": {
+   "type": "score",
+   "instructions": "How long has this record been waiting without any decision?",
+   "criteria": [
+    "Logged less than 24 hours ago",
+    "Waiting between one and seven days",
+    "Waiting between eight and thirty days",
+    "Waiting more than thirty days without decision"
+   ]
+  }
+ },
+ "factors": [
+  {
+   "name": "mandatory_req_status",
+   "description": "Whether the applicant meets the requisition's mandatory requirements (minimum experience, qualification level, licence): all met, one clearly unmet, or one that cannot be confirmed from the record",
+   "kind": "categorical",
+   "values": [
+    "all_met",
+    "one_unmet",
+    "one_unevidenced"
+   ],
+   "weights": [
+    0.5,
+    0.25,
+    0.25
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S4",
+    "S5",
+    "S7"
+   ]
+  },
+  {
+   "name": "experience_gap_months",
+   "description": "Difference in months between applicant.claimed_experience_years and the summed employment_history periods; within plus or minus 3 months counts as matching, and values of 3 to 5 months sit on the boundary",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": -24,
+   "max": 30,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S5",
+    "S6"
+   ]
+  },
+  {
+   "name": "history_date_error",
+   "description": "An employment_history entry has an end date before its start date, or a role starts after the application's submitted_at",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.2,
+   "skills": [
+    "S2",
+    "S1"
+   ]
+  },
+  {
+   "name": "qualification_conflict",
+   "description": "How the applicant's declared highest qualification compares with the qualifications list: consistent, a title wording variant (decoy), a conflicting award year, or a listed level below the declared one",
+   "kind": "categorical",
+   "values": [
+    "consistent",
+    "title_variant",
+    "award_year_conflict",
+    "level_lower"
+   ],
+   "weights": [
+    0.4,
+    0.2,
+    0.2,
+    0.2
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S6"
+   ]
+  },
+  {
+   "name": "equivalent_experience_waiver",
+   "description": "Requisition accepts equivalent experience in lieu of the minimum qualification level; this mitigates a lower qualification only when experience comfortably exceeds the minimum",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S5",
+    "S6"
+   ]
+  },
+  {
+   "name": "rtw_check_state",
+   "description": "State of the right-to-work check: verified, pending, section null, or verified against a document that expires before the requisition start date",
+   "kind": "categorical",
+   "values": [
+    "verified",
+    "pending",
+    "section_missing",
+    "doc_expires_before_start"
+   ],
+   "weights": [
+    0.45,
+    0.25,
+    0.15,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S2",
+    "S4",
+    "S1"
+   ]
+  },
+  {
+   "name": "references_received",
+   "description": "Number of references received, compared with requisition.references_required (always 2)",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 2,
+   "p_true": 0,
+   "skills": [
+    "S2",
+    "S4"
+   ]
+  },
+  {
+   "name": "assessment_status",
+   "description": "Skills assessment state: not required by the requisition, passed, scored below the cutoff, scheduled for a future date, or required but never taken",
+   "kind": "categorical",
+   "values": [
+    "not_required",
+    "passed",
+    "below_cutoff",
+    "scheduled",
+    "not_taken"
+   ],
+   "weights": [
+    0.2,
+    0.35,
+    0.15,
+    0.15,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S2",
+    "S4",
+    "S7"
+   ]
+  },
+  {
+   "name": "identity_mismatch",
+   "description": "Applicant identifiers compared with those in the screening checks: none, a name capitalisation or order variant (decoy), a different email, or a different date of birth",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "name_format_variant",
+    "email_differs",
+    "dob_differs"
+   ],
+   "weights": [
+    0.5,
+    0.2,
+    0.15,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S6"
+   ]
+  },
+  {
+   "name": "req_ref_mismatch",
+   "description": "application_meta.req_id_ref differs from requisition.req_id, for example after a reposted vacancy",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.12,
+   "skills": [
+    "S1"
+   ]
+  },
+  {
+   "name": "submission_timing",
+   "description": "Submission relative to the closing date: on time, after closing with a recorded extension, or after closing without one",
+   "kind": "categorical",
+   "values": [
+    "on_time",
+    "after_close_extended",
+    "after_close_no_extension"
+   ],
+   "weights": [
+    0.7,
+    0.15,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S2",
+    "S6"
+   ]
+  },
+  {
+   "name": "prior_applications",
+   "description": "Count of earlier applications by the same applicant; a decoy with no bearing on eligibility",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 3,
+   "p_true": 0,
+   "skills": [
+    "S7"
+   ]
+  }
+ ],
+ "sections": [
+  {
+   "name": "requisition",
+   "description": "Vacancy details: req_id, role_title, closing_date, start_date, mandatory requirements, references_required, assessment_required, equivalent_experience_accepted"
+  },
+  {
+   "name": "applicant",
+   "description": "Declared details: applicant_id, full_name, email, dob, claimed_experience_years, declared_qual_level, licence_held"
+  },
+  {
+   "name": "employment_history",
+   "description": "List of roles with employer_ref, title, start, end (null when current)"
+  },
+  {
+   "name": "qualifications",
+   "description": "List of awards with title, level, awarded_year, verified boolean"
+  },
+  {
+   "name": "screening_checks",
+   "description": "Pre-screen checks: rtw object, references object, assessment object; any may be null"
+  },
+  {
+   "name": "application_meta",
+   "description": "Process data: req_id_ref, submitted_at, stage_entered_at, source, prior_applications, closing_extension_granted"
+  }
+ ],
+ "rendering_notes": "Use numbers as numbers, ISO dates throughout, null for unknown values, and no free-text fields. mandatory_req_status shows only indirectly: requisition.mandatory holds min_experience_years, min_qual_level (integer 2-7) and licence_required. 'one_unmet' is rendered as the history sum, the qualifications list level or applicant.licence_held clearly falling short. 'one_unevidenced' is rendered as licence_held null, or as the only qualification at the required level having verified false. experience_gap_months is rendered as claimed_experience_years with one decimal place against history periods the reader must sum; current roles run to submitted_at. history_date_error puts an end date before its start date, or a start date after submitted_at. qualification_conflict compares applicant.declared_qual_level with the qualifications list. The title_variant decoy, such as 'BSc Logistics' against 'Bachelor of Science (Logistics)', is not a discrepancy. equivalent_experience_waiver appears as requisition.equivalent_experience_accepted. rtw_check_state is rendered in screening_checks.rtw.status and doc_expiry against requisition.start_date; section_missing sets rtw to null. references_received is rendered as screening_checks.references.received alongside requisition.references_required. assessment_status is rendered through assessment.status, score, cutoff and scheduled_for, gated by requisition.assessment_required. identity_mismatch compares applicant email and dob with rtw.email_on_file and rtw.dob_on_file. A name_format_variant, such as a different case or surname first, is a decoy and not a discrepancy. req_ref_mismatch is rendered as application_meta.req_id_ref differing from requisition.req_id. submission_timing compares submitted_at with closing_date and closing_extension_granted. prior_applications is a pure decoy. For discrepancy_count, count only these: an experience gap beyond 3 months, a qualification year conflict, a qualification level conflict, a differing email, a differing dob, a req_id mismatch and an rtw doc_expiry before start_date. Never include fields such as eligible, recommendation, discrepancies, risk or shortlist_status. stage_entered_at supports the shared pending_age scale and must not imply any decision.",
+ "skills": [
+  "S1",
+  "S2",
+  "S4",
+  "S5",
+  "S6",
+  "S7"
+ ],
+ "shared_scale": "pending_age",
+ "design_cost": 0.135316
+}

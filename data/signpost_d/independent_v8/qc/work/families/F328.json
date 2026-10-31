@@ -1,0 +1,327 @@
+{
+ "id": "F328",
+ "domain": "fleet telematics driving reports",
+ "role": "Fleet driver safety coach at a regional haulage operator, reviewing one vehicle-week telematics driving report at a time",
+ "setting": "Each week the depot's telematics platform produces a driving report per vehicle and assigned driver. The coach checks flagged speed, harsh-handling and driving-hours events against trip logs, digital tachograph entries, device health and supervisor notes. The coach decides whether the flags are genuine, what caused the worst event, how serious the speed and hours exposure is, and what follow-up to arrange. Many flags are softened or explained by other parts of the record, such as stale map limits, logged roadworks, card swaps, double-manned shifts or device faults.",
+ "questions": {
+  "driver_attributed": {
+   "type": "noul",
+   "instructions": "The reported driver was at the wheel during flagged speed events.",
+   "criteria": {
+    "true": "Card, trip and tacho records place this driver there.",
+    "false": "Another card, an unlogged swap, or no linking evidence."
+   }
+  },
+  "follow_up": {
+   "type": "choice",
+   "instructions": "What follow-up should the coach arrange for this driver?",
+   "criteria": {
+    "no_action": "No confirmed breach remains once exceptions and faults are applied.",
+    "hold_verify": "A possible breach hinges on one unconfirmed record or claim.",
+    "coaching": "Confirmed breach, and no completed coaching on the same issue.",
+    "formal_review": "Serious breach, or confirmed breach recurring after completed coaching."
+   }
+  },
+  "worst_event_cause": {
+   "type": "choice",
+   "instructions": "What best explains the most significant flagged event in this report?",
+   "criteria": {
+    "driver_choice": "Driver behaviour, with no supporting external or technical explanation.",
+    "road_conditions": "Logged traffic, weather or roadworks context accounts for the event.",
+    "map_data": "Posted limit on the event conflicts with a newer limit record.",
+    "device_fault": "Device health or calibration issue makes the reading unreliable."
+   }
+  },
+  "speed_excess": {
+   "type": "score",
+   "instructions": "How far over the posted limit was the worst unmitigated speed event?",
+   "criteria": [
+    "No unmitigated event above the posted limit",
+    "Worst unmitigated event under 10% over limit",
+    "Worst unmitigated event 10% to 20% over limit",
+    "Worst unmitigated event more than 20% over limit"
+   ]
+  },
+  "hours_exposure": {
+   "type": "score",
+   "instructions": "How long was the longest driving stint without a qualifying break?",
+   "criteria": [
+    "Clear: longest unbroken stint under three hours",
+    "Close: unbroken stint from three to 4.5 hours",
+    "Breach: unbroken stint over 4.5, up to 5.5 hours",
+    "Serious: unbroken stint longer than 5.5 hours"
+   ]
+  }
+ },
+ "factors": [
+  {
+   "name": "driver_assignment",
+   "description": "Whether the driver named in report_meta matches the driver cards on trips and the tachograph at flagged event times.",
+   "kind": "categorical",
+   "values": [
+    "match",
+    "card_swap_logged",
+    "second_driver_on_shift",
+    "mismatch_unexplained",
+    "card_missing"
+   ],
+   "weights": [
+    0.45,
+    0.15,
+    0.12,
+    0.15,
+    0.13
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S5",
+    "S6"
+   ]
+  },
+  {
+   "name": "raw_speed_excess_pct",
+   "description": "Percentage by which the worst recorded speed exceeds the posted limit attached to that event, before any mitigation.",
+   "kind": "number",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 35,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S7"
+   ]
+  },
+  {
+   "name": "speed_mitigation",
+   "description": "Whether the worst speed event has a mitigating explanation elsewhere in the record.",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "map_limit_outdated",
+    "temp_limit_ended",
+    "emergency_diversion_logged"
+   ],
+   "weights": [
+    0.5,
+    0.2,
+    0.15,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S1"
+   ]
+  },
+  {
+   "name": "harsh_event_count",
+   "description": "Number of harsh braking, acceleration and cornering events flagged in the period.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 14,
+   "p_true": 0,
+   "skills": [
+    "S7",
+    "S3"
+   ]
+  },
+  {
+   "name": "harsh_context_logged",
+   "description": "Whether the harsh events cluster at times and places carrying a congestion, weather or roadworks tag.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3"
+   ]
+  },
+  {
+   "name": "device_health",
+   "description": "Condition of the telematics unit during the period.",
+   "kind": "categorical",
+   "values": [
+    "ok",
+    "gps_drift",
+    "accelerometer_recalibrated",
+    "intermittent_dropouts"
+   ],
+   "weights": [
+    0.55,
+    0.15,
+    0.15,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S3"
+   ]
+  },
+  {
+   "name": "telematics_stint_hours",
+   "description": "Longest continuous ignition-on driving stint according to the trip log.",
+   "kind": "number",
+   "values": [],
+   "weights": [],
+   "min": 1.5,
+   "max": 6.5,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S4"
+   ]
+  },
+  {
+   "name": "tacho_break_reconciles",
+   "description": "Whether the tachograph records a qualifying break or a driver changeover inside the telematics stint, shortening the real unbroken stint.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S1"
+   ]
+  },
+  {
+   "name": "prior_coaching_count",
+   "description": "Number of completed coaching sessions on the same issue in the last 12 months.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 4,
+   "p_true": 0,
+   "skills": [
+    "S7",
+    "S4"
+   ]
+  },
+  {
+   "name": "coaching_status",
+   "description": "State of any coaching already raised for the current issue.",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "scheduled",
+    "partly_completed",
+    "completed"
+   ],
+   "weights": [
+    0.4,
+    0.2,
+    0.2,
+    0.2
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S4"
+   ]
+  },
+  {
+   "name": "boundary_value",
+   "description": "Whether a deciding value is placed exactly on a scale threshold, such as 10.0% over the limit, a 3.0 or 4.5 hour stint, or a break of exactly 45 minutes.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.25,
+   "skills": [
+    "S6"
+   ]
+  },
+  {
+   "name": "note_content",
+   "description": "What the supervisor note or driver comment asserts about the flagged events.",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "benign_explanation_supported",
+    "unverified_claim",
+    "contradicts_data"
+   ],
+   "weights": [
+    0.3,
+    0.25,
+    0.25,
+    0.2
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S5",
+    "S6"
+   ]
+  },
+  {
+   "name": "distance_discrepancy_pct",
+   "description": "Gap between odometer distance and summed GPS trip distance. Mostly a decoy; large values hint at a device fault.",
+   "kind": "number",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 20,
+   "p_true": 0,
+   "skills": [
+    "S1"
+   ]
+  }
+ ],
+ "sections": [
+  {
+   "name": "report_meta",
+   "description": "Report id, period start and end dates, vehicle registration, assigned driver id, depot."
+  },
+  {
+   "name": "vehicle_device",
+   "description": "Unit serial, firmware, last calibration date, health flags, odometer start and end."
+  },
+  {
+   "name": "trips",
+   "description": "List of trips with start and end timestamps, gps_km, driver_card id and ignition-on minutes."
+  },
+  {
+   "name": "events",
+   "description": "List of flagged speed and harsh events with time, type, recorded_mph, posted_limit_mph, map_ver and context tags."
+  },
+  {
+   "name": "tacho_summary",
+   "description": "Driver card entries with drive and break intervals, plus any second driver on shift."
+  },
+  {
+   "name": "notes_history",
+   "description": "Free-text supervisor_note and driver_comment, coaching record list, limit_updates list."
+  }
+ ],
+ "rendering_notes": "driver_assignment shows only as a comparison: report_meta.driver_id against trips[].driver_card and tacho_summary card entries at event times. A swap appears as a tacho card change with a logged swap time. A second driver appears as tacho_summary.second_driver. An unexplained mismatch has a different card with no swap entry. card_missing leaves driver_card null. raw_speed_excess_pct is never stated; it must be computed from events[].recorded_mph against posted_limit_mph. speed_mitigation map_limit_outdated appears as notes_history.limit_updates holding a newer limit for the same road segment with a date before the event, while events[].map_ver is older. temp_limit_ended shows a roadworks tag whose end date precedes the event, so the posted 50 should have reverted to 70. emergency_diversion_logged appears as a dated diversion line in supervisor_note. The coach must apply these to find the worst unmitigated event; roughly half of records with a high raw excess carry a mitigation. harsh_event_count is the length of the harsh entries in events. harsh_context_logged adds congestion, weather or roadworks tags to those entries. device_health appears in vehicle_device.health_flags and last_calibration date; a recalibration dated mid-period casts doubt on earlier harsh readings only. GPS drift may also show as an implausible gps_km. distance_discrepancy_pct appears as odometer end minus start against summed trips[].gps_km; small gaps are decoys. telematics_stint_hours is derived from consecutive trips separated by short stops. tacho_break_reconciles appears as a break of 45 minutes or more, or a driver changeover, in tacho_summary inside that span, which the coach must line up by timestamp. boundary_value puts excess at exactly 10.0%, or stints and breaks exactly on 3.0 h, 4.5 h or 45 min. prior_coaching_count and coaching_status appear in the notes_history coaching record list with dates and status (scheduled, partly_completed with modules done of total, completed). note_content is one or two sentences: either a claim backed by a tag or limit update elsewhere, an assertion with no supporting field, or a statement contradicting the event times. Decoys: firmware version, depot name, small odometer gaps, high harsh counts that carry context tags, and a speeding event on a trip driven by another card. The record never contains a driver score, risk rating, severity, cause label, breach flag or recommended action, and never states the unbroken stint length or the excess percentage directly.",
+ "skills": [
+  "S1",
+  "S3",
+  "S4",
+  "S5",
+  "S6",
+  "S7"
+ ],
+ "shared_scale": null,
+ "design_cost": 0.14554
+}

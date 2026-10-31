@@ -1,0 +1,159 @@
+{
+ "id": "F314-0045",
+ "family": "F314",
+ "state": {
+  "property": {
+   "ref": "P-5120",
+   "inventory": [
+    {
+     "id": "A1",
+     "type": "boiler",
+     "loc": "kitchen",
+     "serial": "RT66021",
+     "owned_by": "landlord"
+    },
+    {
+     "id": "A2",
+     "type": "fire",
+     "loc": "lounge",
+     "serial": "GF7710",
+     "owned_by": "landlord"
+    },
+    {
+     "id": "A3",
+     "type": "cooker",
+     "loc": "kitchen",
+     "serial": "CK5502",
+     "owned_by": "landlord"
+    }
+   ]
+  },
+  "tenancy": {
+   "start_date": "2024-02-01",
+   "review_date": "2025-05-15"
+  },
+  "certificate": {
+   "no": "C-6603",
+   "inspection_date": "2024-07-15",
+   "issue_date": "2024-07-12",
+   "expiry_date": "2025-07-12",
+   "engineer_licence": "GS-52007",
+   "overall_outcome": "pass"
+  },
+  "appliance_checks": [
+   {
+    "id": "A1",
+    "loc": "kitchen",
+    "serial": "RT66021",
+    "analyser": {
+     "ratio": 0.0031,
+     "threshold": 0.002,
+     "retest_ratio": null
+    },
+    "defect_class": "ID",
+    "isolation": {
+     "supply_off": false
+    }
+   },
+   {
+    "id": "A2",
+    "loc": "lounge",
+    "serial": "GF7710",
+    "defect_class": null
+   }
+  ],
+  "engineer": {
+   "licence_no": "GS-52007",
+   "valid_from": "2022-06-01",
+   "valid_to": "2026-05-31",
+   "categories": [
+    "boiler",
+    "fire"
+   ]
+  },
+  "history": {
+   "prior_certificates": [
+    {
+     "date": "2023-07-10",
+     "defects": [
+      "A1:NCS"
+     ]
+    }
+   ],
+   "remedials": [
+    {
+     "appliance_id": "A2",
+     "completed_on": "2024-08-01",
+     "engineer_licence": "GS-52007"
+    }
+   ],
+   "renewal_booking": null
+  }
+ },
+ "factors": {
+  "inventory_mismatch": "missing_from_cert",
+  "tenant_owned_appliance": false,
+  "date_misalignment": "issued_before_inspection",
+  "days_to_true_expiry": 61,
+  "renewal_booked": false,
+  "engineer_status": "active_matching",
+  "worst_defect_class": "immediately_dangerous",
+  "defect_isolated": false,
+  "remedial_completed": false,
+  "combustion_reading": "high_no_retest",
+  "prior_defect_count": 1,
+  "boundary_case": true
+ },
+ "factors_sampled": {
+  "inventory_mismatch": "location_mismatch",
+  "tenant_owned_appliance": false,
+  "date_misalignment": "issued_before_inspection",
+  "days_to_true_expiry": 294,
+  "renewal_booked": false,
+  "engineer_status": "active_matching",
+  "worst_defect_class": "ncs",
+  "defect_isolated": false,
+  "remedial_completed": true,
+  "combustion_reading": "high_no_retest",
+  "prior_defect_count": 1,
+  "boundary_case": false
+ },
+ "plan": {
+  "covers_all_appliances": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "engineer_valid": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "accept",
+   "second": null
+  },
+  "renewal_urgency": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "open_hazard": {
+   "clarity": "balanced",
+   "target": "4",
+   "second": "3"
+  }
+ },
+ "target_words": 77,
+ "deciding": {
+  "covers_all_appliances": "Inventory lists A1, A2 and A3 (landlord-owned cooker), but appliance_checks has only A1 and A2.",
+  "engineer_valid": "Licence matches, valid_to 2026-05-31 is after inspection, and categories boiler and fire cover the checked appliances; the cooker was not checked.",
+  "next_step": "Outcome is pass but A1 shows an ID class defect and a ratio of 0.0031 over 0.002, with no retest and supply_off false; the record cannot support filing.",
+  "renewal_urgency": "Review 2025-05-15 against inspection 2024-07-15 leaves 61 days to true expiry, one day above the 60-day boundary, and the printed expiry is 3 days early.",
+  "open_hazard": "A1 is ID with supply_off false and ratio above threshold with no retest; the only remedial closes A2, not A1."
+ },
+ "request": "rec-F314-0041",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.014965
+}

@@ -1,0 +1,307 @@
+{
+ "id": "F324",
+ "domain": "greenhouse irrigation logs",
+ "role": "Fertigation supervisor reviewing each greenhouse zone's daily irrigation log before sign-off",
+ "setting": "A glasshouse vegetable and cut-flower operation runs drip fertigation through many substrate zones. Each morning the fertigation supervisor opens the previous day's log for one zone at a time. A log combines the zone's fixed set-up, the planned schedule, the controller's per-cycle record, drain measurements, sensor readings and the maintenance register. The supervisor must check whether the zone got the water it was meant to get and, if not, why. They then decide whether to sign off, watch, hold, retune or send a technician. Nothing in the log states a verdict. The supervisor must reconcile figures across sections, such as planned against metered volume, dripper counts against per-dripper doses and drain targets against measured drain. They must also weigh alarming readings against approved overrides, maintenance windows and calibration status.",
+ "questions": {
+  "under_dosed": {
+   "type": "noul",
+   "instructions": "Zone received materially less water than scheduled across the logged day.",
+   "criteria": {
+    "true": "Metered delivery below 90% of plan without approved reduction",
+    "false": "Delivery within 10% of plan, or reduction was approved"
+   }
+  },
+  "emitter_clogging": {
+   "type": "noul",
+   "instructions": "Emitter clogging is the most likely cause of the shortfall.",
+   "criteria": {
+    "true": "Low per-dripper flow with normal pressure and valve opening",
+    "false": "Pressure, valve, entry error or no shortfall explains readings"
+   }
+  },
+  "next_action": {
+   "type": "choice",
+   "instructions": "What should the supervisor do with this zone's daily log?",
+   "criteria": {
+    "sign_off": "All sections reconcile and readings sit within tolerance",
+    "monitor": "Small deviation within tolerance edges; recheck at next routine walk",
+    "hold_for_check": "One unconfirmed reading blocks a decision until manually verified",
+    "adjust_schedule": "Confirmed deviation correctable by changing dose or setpoints only",
+    "dispatch_repair": "Confirmed hardware fault needing physical work in the zone"
+   }
+  },
+  "drain_deviation": {
+   "type": "score",
+   "instructions": "How far was measured drain fraction outside its target band?",
+   "criteria": [
+    "In band: drain fraction inside the target band",
+    "Slight: outside band by under 5 percentage points",
+    "Marked: outside band by 5 to 15 points",
+    "Severe: outside band by more than 15 points"
+   ]
+  },
+  "off_plan_cycles": {
+   "type": "score",
+   "instructions": "How many cycles delivered volume more than 10% off plan?",
+   "criteria": [
+    "None of the day's cycles outside tolerance",
+    "Exactly one cycle outside volume tolerance",
+    "Two or three cycles outside volume tolerance",
+    "Four or more cycles outside volume tolerance"
+   ]
+  }
+ },
+ "factors": [
+  {
+   "name": "delivery_shortfall_pct",
+   "description": "True percentage by which metered daily delivery fell short of the planned dose; never shown directly, it must be derived by comparing schedule totals with controller and meter figures",
+   "kind": "number",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 35,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S6"
+   ]
+  },
+  {
+   "name": "mismatch_location",
+   "description": "Where the cross-section discrepancy hides: no discrepancy, per-cycle sum differs from controller daily total, flow meter total differs from controller total, unit mismatch between mL per dripper and L per zone, or dripper count in zone section differs from the count the schedule assumes",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "cycle_sum_vs_total",
+    "meter_vs_controller",
+    "unit_mismatch",
+    "dripper_count_mismatch"
+   ],
+   "weights": [
+    0.25,
+    0.2,
+    0.2,
+    0.15,
+    0.2
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1"
+   ]
+  },
+  {
+   "name": "fault_cause",
+   "description": "Underlying cause of any delivery anomaly; shapes the joint pattern of pressure, valve state, per-dripper flow and schedule entries",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "emitter_clogging",
+    "low_supply_pressure",
+    "valve_fault",
+    "sensor_drift",
+    "schedule_entry_error"
+   ],
+   "weights": [
+    0.25,
+    0.2,
+    0.15,
+    0.12,
+    0.13,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S5",
+    "S7"
+   ]
+  },
+  {
+   "name": "approved_override",
+   "description": "A grower-approved dose reduction or light-sum skip is logged in the schedule overrides list, which legitimately explains lower delivery",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S5"
+   ]
+  },
+  {
+   "name": "maintenance_window_active",
+   "description": "An acid flush or line purge window overlaps one or more cycles in the maintenance register, explaining abnormal volumes or EC on those cycles",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.45,
+   "skills": [
+    "S3",
+    "S4"
+   ]
+  },
+  {
+   "name": "drain_offset_points",
+   "description": "Measured mean drain percentage minus the nearest edge of the target drain band; zero or inside band means no deviation, values near 5 and 15 sit on scale boundaries",
+   "kind": "number",
+   "values": [],
+   "weights": [],
+   "min": -22,
+   "max": 22,
+   "p_true": 0,
+   "skills": [
+    "S4",
+    "S6",
+    "S7"
+   ]
+  },
+  {
+   "name": "off_tolerance_cycles",
+   "description": "Number of cycles whose delivered volume differs from planned by more than 10%, before allowing for maintenance windows or overrides",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 6,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S4",
+    "S6"
+   ]
+  },
+  {
+   "name": "meter_calibration_age_days",
+   "description": "Days since the zone flow meter was last calibrated; beyond the site interval of 180 days the meter reading is not trusted on its own",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 5,
+   "max": 400,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S4",
+    "S6"
+   ]
+  },
+  {
+   "name": "confirmation_pending",
+   "description": "A manual drain-cup or dripper catch test has been ordered but its result field is still null",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.35,
+   "skills": [
+    "S4",
+    "S5"
+   ]
+  },
+  {
+   "name": "pressure_state",
+   "description": "State of the line pressure readings for the day: within spec, below spec, or missing for some cycles",
+   "kind": "categorical",
+   "values": [
+    "normal",
+    "low",
+    "partly_missing"
+   ],
+   "weights": [
+    0.55,
+    0.25,
+    0.2
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S5",
+    "S6"
+   ]
+  },
+  {
+   "name": "benign_alarm_decoy",
+   "description": "An alarming-looking but harmless entry: none, low tank alarm acknowledged and cleared, EC spike confined to a flush cycle, or high substrate moisture right after a manual hand-watering",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "tank_alarm_cleared",
+    "ec_spike_in_flush",
+    "post_handwater_moisture"
+   ],
+   "weights": [
+    0.4,
+    0.2,
+    0.2,
+    0.2
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S3"
+   ]
+  },
+  {
+   "name": "recent_work_orders",
+   "description": "Count of closed work orders on this zone's drip lines in the past 30 days; repeat faults argue for repair over schedule tweaks",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 4,
+   "p_true": 0,
+   "skills": [
+    "S6",
+    "S7"
+   ]
+  }
+ ],
+ "sections": [
+  {
+   "name": "zone",
+   "description": "Fixed zone set-up: zone_id, crop, substrate, dripper_count, dripper_rate_lph, valve_id, meter_id"
+  },
+  {
+   "name": "schedule",
+   "description": "Planned day: cycles list with start and planned_ml_per_dripper, drain_target_pct band, ec_target, overrides list"
+  },
+  {
+   "name": "controller_log",
+   "description": "Per-cycle record: start, valve_open_s, delivered_l, line_pressure_bar; plus daily_total_l and meter_total_l"
+  },
+  {
+   "name": "drainage",
+   "description": "Drain measurements: drain_pct per sample, drain_ec, drain_ph, catch_test object with ordered and result"
+  },
+  {
+   "name": "sensors",
+   "description": "Substrate moisture and EC readings with timestamps, meter_last_calibrated date, sensor_status flags"
+  },
+  {
+   "name": "maintenance",
+   "description": "Register entries: windows with type, start and end; alarms with code, acknowledged, cleared; recent_work_orders list"
+  }
+ ],
+ "rendering_notes": "delivery_shortfall_pct appears only via arithmetic. Compare planned_ml_per_dripper times zone.dripper_count with controller_log.delivered_l per cycle, then daily_total_l and meter_total_l. mismatch_location places a discrepancy in exactly one spot. For cycle_sum_vs_total, the per-cycle delivered_l values do not sum to daily_total_l. For meter_vs_controller, meter_total_l differs from daily_total_l. For unit_mismatch, one cycle's planned value is logged in L where mL is expected, so a naive reading looks like a huge over-dose. For dripper_count_mismatch, zone.dripper_count differs from a dripper_count_assumed field in schedule. When the value is none, everything reconciles to within 1%. fault_cause is never named. Emitter_clogging shows as normal line_pressure_bar and full valve_open_s but low delivered_l per dripper and low drain_pct. Low_supply_pressure shows as line_pressure_bar below spec_bar. Valve_fault shows as valve_open_s short of planned duration. Sensor_drift shows as a meter disagreeing with catch_test or moisture trends while the controller looks normal. Schedule_entry_error shows as one cycle's planned_ml out of line with its siblings. approved_override appears as an entry in schedule.overrides with approved_by_role and reduction_pct; when it is false the overrides list is empty or holds an unrelated past-dated entry as a decoy. maintenance_window_active appears as a maintenance.windows entry whose time range overlaps specific cycle start times; some decoy windows fall on other dates or other zones. drain_offset_points sets drainage.drain_pct samples against schedule.drain_target_pct min and max; the reader computes the mean and the distance to the band. off_tolerance_cycles is the count of cycles whose delivered differs from planned by over 10%, and it must be counted. Cycles inside a maintenance window still count toward the score question, though they mitigate the action and the true/false questions. meter_calibration_age_days is shown as sensors.meter_last_calibrated, an ISO date alongside the log date, with no age field. confirmation_pending shows as drainage.catch_test.ordered true and result null. pressure_state partly_missing renders as null line_pressure_bar on some cycles. benign_alarm_decoy places an alarm with acknowledged and cleared true, an EC spike timed inside a flush window, or a moisture spike preceded by a hand-water event. recent_work_orders lists closed orders with dates, some older than 30 days as decoys. No field may state shortfall, cause, deviation level, cycle-fault count, urgency or recommended action. The only status-like fields are those a real controller shows: alarm codes, acknowledged and cleared flags, and sensor_status ok/stale. Numbers are numbers, dates are ISO, unknowns are null, and there are no free-text fields.",
+ "skills": [
+  "S1",
+  "S3",
+  "S4",
+  "S5",
+  "S6",
+  "S7"
+ ],
+ "shared_scale": null,
+ "design_cost": 0.146996
+}

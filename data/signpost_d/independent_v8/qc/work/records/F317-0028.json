@@ -1,0 +1,161 @@
+{
+ "id": "F317-0028",
+ "family": "F317",
+ "state": {
+  "vehicle": {
+   "fleet_no": "T1890",
+   "class": "E",
+   "odometer_km": 60300,
+   "last_exam_type": "B",
+   "last_exam_date": "2024-11-20"
+  },
+  "exam": {
+   "exam_id": "EX655",
+   "exam_type": "C",
+   "due_at_km": 61046,
+   "opened_at": "2025-04-22",
+   "items": [
+    {
+     "item_code": "BR01",
+     "result": "pass",
+     "signed_by": null,
+     "signed_at": null
+    },
+    {
+     "item_code": "DR02",
+     "result": "pass",
+     "signed_by": null,
+     "signed_at": null
+    },
+    {
+     "item_code": "PN03",
+     "result": null,
+     "signed_by": null,
+     "signed_at": null
+    },
+    {
+     "item_code": "RG04",
+     "result": null,
+     "signed_by": null,
+     "signed_at": null
+    },
+    {
+     "item_code": "EL05",
+     "result": null,
+     "signed_by": null,
+     "signed_at": null
+    }
+   ]
+  },
+  "defects": [
+   {
+    "defect_id": "D3",
+    "subsystem": "brakes",
+    "safety_critical": true,
+    "raised_at": "2025-04-10",
+    "status": "closed",
+    "closed_at": "2025-04-18",
+    "retest_at": "2025-04-18",
+    "retest_result": "pass"
+   },
+   {
+    "defect_id": "D4",
+    "subsystem": "pantograph",
+    "safety_critical": false,
+    "raised_at": "2025-04-15",
+    "status": "closed",
+    "closed_at": "2025-04-20",
+    "retest_at": null,
+    "retest_result": null
+   }
+  ],
+  "work_orders": [
+   {
+    "wo_id": "W3",
+    "defect_ref": "D3",
+    "subsystem": "running_gear",
+    "completed_at": "2025-04-17",
+    "status": "done"
+   }
+  ],
+  "concessions": [],
+  "release": {
+   "duty_id": "P07",
+   "duty_type": "peak_diagram",
+   "depart_at": "2025-04-23T05:15",
+   "odo_reading_km": 61044,
+   "brake_test_at": "2025-04-22T21:30",
+   "brake_test_result": "pass"
+  }
+ },
+ "factors": {
+  "km_to_exam_due": 2,
+  "odometer_disagreement": "large",
+  "exam_signed_fraction": 0.0,
+  "exam_record_missing": false,
+  "worst_defect_subsystem": "brakes",
+  "worst_defect_state": "closed_retested",
+  "worst_defect_safety_critical": true,
+  "retest_out_of_order": false,
+  "concession_present": false,
+  "concession_flaw": "none",
+  "wo_crossref_mismatch": "subsystem_differs",
+  "planned_duty_type": "peak_diagram",
+  "recent_brake_test_pass": true,
+  "balanced_signals": false
+ },
+ "factors_sampled": {
+  "km_to_exam_due": 746,
+  "odometer_disagreement": "large",
+  "exam_signed_fraction": 0.96,
+  "exam_record_missing": false,
+  "worst_defect_subsystem": "brakes",
+  "worst_defect_state": "closed_retested",
+  "worst_defect_safety_critical": true,
+  "retest_out_of_order": false,
+  "concession_present": false,
+  "concession_flaw": "none",
+  "wo_crossref_mismatch": "subsystem_differs",
+  "planned_duty_type": "peak_diagram",
+  "recent_brake_test_pass": true,
+  "balanced_signals": false
+ },
+ "plan": {
+  "sc_defects_cleared": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "release_decision": {
+   "clarity": "balanced",
+   "target": "hold",
+   "second": "release_restricted"
+  },
+  "worst_subsystem": {
+   "clarity": "balanced",
+   "target": "none",
+   "second": "pantograph"
+  },
+  "exam_completion": {
+   "clarity": "contested",
+   "target": "0",
+   "second": "1"
+  },
+  "exam_mileage": {
+   "clarity": "contested",
+   "target": "1",
+   "second": "2"
+  }
+ },
+ "target_words": 71,
+ "deciding": {
+  "sc_defects_cleared": "D3 safety-critical closed 04-18 with retest pass same day, after WO completion 04-17.",
+  "release_decision": "WO W3 lists running_gear while D3 is brakes (trivial cross-reference error, points to hold); no concession exists, but brake test pass and closed defects give some case for release_restricted.",
+  "worst_subsystem": "All defects closed; pantograph D4 closed with no retest recorded, so none vs pantograph.",
+  "exam_completion": "No item has signer or timestamp; two items carry results only, so level 0 vs 1.",
+  "exam_mileage": "Due 61046; vehicle odo 60300 vs later release odo 61044 (2 km left); large gap makes level 1 vs 2 arguable."
+ },
+ "request": "rec-F317-0026",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.013879
+}

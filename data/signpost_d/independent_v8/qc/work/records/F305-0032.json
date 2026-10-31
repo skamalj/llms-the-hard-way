@@ -1,0 +1,147 @@
+{
+ "id": "F305-0032",
+ "family": "F305",
+ "state": {
+  "session": {
+   "id": "S-8814",
+   "pt": "P-0452",
+   "chair": 2,
+   "needle_on": "2025-06-10T10:00",
+   "washback": "2025-06-10T14:05",
+   "review_ts": "2025-06-11T14:30",
+   "rn": [
+    "N07"
+   ]
+  },
+  "prescription": {
+   "duration_min": 240,
+   "dialysate_k": 2.0,
+   "qb_ml_min": 300,
+   "target_uf_ml": 2200,
+   "dry_weight_kg": 77.5
+  },
+  "machine": {
+   "settings": {
+    "dialysate_k": 2.1
+   },
+   "qb_actual": 260,
+   "uf_removed_ml": 2250,
+   "washback_ml": 200,
+   "alarms": [
+    {
+     "code": "PUMP_STOP",
+     "t": "11:20"
+    },
+    {
+     "code": "PUMP_RESUME",
+     "t": "11:23"
+    },
+    {
+     "code": "QB_REDUCED",
+     "reason": "ART_PRESSURE_HIGH",
+     "t": "12:00"
+    }
+   ]
+  },
+  "observations": {
+   "pre_kg": 79.0,
+   "post_kg": 77.4,
+   "bp": [
+    {
+     "t": "10:00",
+     "sys": 128
+    },
+    {
+     "t": "12:30",
+     "sys": 121
+    }
+   ],
+   "interventions": []
+  },
+  "checks": [
+   {
+    "code": "ID",
+    "done": true,
+    "t": "09:35"
+   },
+   {
+    "code": "ACCESS",
+    "done": true,
+    "t": "09:40"
+   },
+   {
+    "code": "MACH",
+    "done": true,
+    "t": "09:30"
+   }
+  ]
+ },
+ "factors": {
+  "time_shortfall_min": -2,
+  "machine_pause_min": 3,
+  "uf_weight_gap_kg": 0.45,
+  "post_weight_missing": false,
+  "missing_check": "none",
+  "check_logged_after_start": false,
+  "prescription_mismatch": "dialysate_k",
+  "mismatch_magnitude": "trivial",
+  "hypotension_episodes": 0,
+  "hypotension_mitigated": true,
+  "circuit_clotted": false,
+  "prior_short_sessions": 0,
+  "documented_flow_reduction": true
+ },
+ "factors_sampled": {
+  "time_shortfall_min": 34,
+  "machine_pause_min": 3,
+  "uf_weight_gap_kg": 0.76,
+  "post_weight_missing": false,
+  "missing_check": "none",
+  "check_logged_after_start": false,
+  "prescription_mismatch": "dialysate_k",
+  "mismatch_magnitude": "trivial",
+  "hypotension_episodes": 2,
+  "hypotension_mitigated": false,
+  "circuit_clotted": false,
+  "prior_short_sessions": 2,
+  "documented_flow_reduction": true
+ },
+ "plan": {
+  "uf_reconciles": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "checks_before_start": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "log_disposition": {
+   "clarity": "clear",
+   "target": "hold_query",
+   "second": null
+  },
+  "time_shortfall": {
+   "clarity": "clear",
+   "target": "0",
+   "second": null
+  },
+  "pending_age": {
+   "clarity": "contested",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 61,
+ "deciding": {
+  "uf_reconciles": "Loss 79.0-77.4=1.6 kg; net UF 2250-200=2050 ml gives gap 0.45, inside 0.5; without washback subtraction gap is 0.65.",
+  "checks_before_start": "All three checks done with timestamps 09:30-09:40, before needle_on 10:00.",
+  "log_disposition": "Delivered dialysate_k 2.1 vs prescribed 2.0 is a single small inconsistent entry needing nurse confirmation. No hypotension, no shortfall, all checks present.",
+  "time_shortfall": "Clock 245 min minus 3 min pause = 242 effective vs 240 prescribed; no shortfall.",
+  "pending_age": "washback 2025-06-10T14:05, review_ts 2025-06-11T14:30: about 24.5 h, right at the 24 h boundary."
+ },
+ "request": "rec-F305-0031",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.014158
+}

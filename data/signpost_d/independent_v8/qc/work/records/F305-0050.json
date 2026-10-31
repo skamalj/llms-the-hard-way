@@ -1,0 +1,119 @@
+{
+ "id": "F305-0050",
+ "family": "F305",
+ "state": {
+  "session": {
+   "needle_on": "2025-06-10T07:50",
+   "washback": "2025-06-10T11:46",
+   "review_at": "2025-06-11T11:50"
+  },
+  "prescription": {
+   "duration_min": 240,
+   "dialysate_k": 2.0
+  },
+  "machine": {
+   "dialysate_k": 4.0,
+   "alarms": [
+    {
+     "c": "PUMP_STOP",
+     "t": "09:00"
+    },
+    {
+     "c": "PUMP_RESUME",
+     "t": "09:12"
+    }
+   ]
+  },
+  "observations": {
+   "pre_kg": 68.0,
+   "post_kg": null
+  },
+  "checks": [
+   {
+    "c": "prime",
+    "done": true,
+    "t": "2025-06-10T07:40"
+   },
+   {
+    "c": "access",
+    "done": true,
+    "t": "2025-06-10T07:49"
+   }
+  ],
+  "history": [
+   {
+    "d": "2025-06-03",
+    "p": 240,
+    "e": 220
+   }
+  ]
+ },
+ "factors": {
+  "time_shortfall_min": 16,
+  "machine_pause_min": 12,
+  "uf_weight_gap_kg": "unknown",
+  "post_weight_missing": true,
+  "missing_check": "none",
+  "check_logged_after_start": false,
+  "prescription_mismatch": "dialysate_k",
+  "mismatch_magnitude": "clinically_relevant",
+  "hypotension_episodes": 0,
+  "hypotension_mitigated": false,
+  "circuit_clotted": false,
+  "prior_short_sessions": 1,
+  "documented_flow_reduction": false
+ },
+ "factors_sampled": {
+  "time_shortfall_min": 65,
+  "machine_pause_min": 18,
+  "uf_weight_gap_kg": 1.11,
+  "post_weight_missing": true,
+  "missing_check": "none",
+  "check_logged_after_start": false,
+  "prescription_mismatch": "dialyser_model",
+  "mismatch_magnitude": "trivial",
+  "hypotension_episodes": 2,
+  "hypotension_mitigated": false,
+  "circuit_clotted": false,
+  "prior_short_sessions": 1,
+  "documented_flow_reduction": false
+ },
+ "plan": {
+  "uf_reconciles": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "checks_before_start": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "log_disposition": {
+   "clarity": "clear",
+   "target": "incident_report",
+   "second": null
+  },
+  "time_shortfall": {
+   "clarity": "contested",
+   "target": "2",
+   "second": "1"
+  },
+  "pending_age": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  }
+ },
+ "target_words": 25,
+ "deciding": {
+  "uf_reconciles": "post_kg is null and no uf_removed_ml is recorded, so reconciliation cannot be shown.",
+  "checks_before_start": "Both checks stamped before needle_on 07:50; access check only 1 minute before.",
+  "log_disposition": "Delivered dialysate_k 4.0 vs prescribed 2.0, a wrong relevant setting, so incident report.",
+  "time_shortfall": "Clock 236 min minus 12 min pause = 224 vs 240, short by 16, at the level 1/2 edge.",
+  "pending_age": "Washback 2025-06-10T11:46 to review_at 2025-06-11T11:50 is about 24 hours, at the 24 hour line."
+ },
+ "request": "rec-F305-0046",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.01425
+}

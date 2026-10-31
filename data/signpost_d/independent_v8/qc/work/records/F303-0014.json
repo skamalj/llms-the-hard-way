@@ -1,0 +1,134 @@
+{
+ "id": "F303-0014",
+ "family": "F303",
+ "state": {
+  "order": {
+   "prescription": {
+    "modality": "concentrator+cylinder",
+    "flow_lpm": 2,
+    "hours_per_day": 16
+   },
+   "items_ordered": [
+    {
+     "sku": "CONC5",
+     "qty": 1
+    },
+    {
+     "sku": "CD460",
+     "qty": 3
+    }
+   ]
+  },
+  "visit": {
+   "visit_date": "2025-04-08",
+   "items_left": [
+    {
+     "sku": "CD460",
+     "qty": 3,
+     "serial": "D41"
+    }
+   ],
+   "install_checks": null,
+   "patient_signature": "on_file",
+   "handover_at": "15:40"
+  },
+  "site_assessment": {
+   "hazards": []
+  },
+  "equipment": {
+   "concentrator": null,
+   "fault_log": [],
+   "cylinders_on_site": [
+    {
+     "size": "CD 460 L",
+     "fill_pct": 100
+    },
+    {
+     "size": "CD 460 L",
+     "fill_pct": 100
+    },
+    {
+     "size": "CD 460 L",
+     "fill_pct": 100
+    },
+    {
+     "size": "ZD 300 L",
+     "fill_pct": 40
+    }
+   ]
+  },
+  "supply_plan": {
+   "next_delivery_date": "2025-04-11"
+  }
+ },
+ "factors": {
+  "rx_alignment": "cylinders_match_concentrator_missing",
+  "items_shortfall": "one_short",
+  "setup_state": "checks_null",
+  "supply_hours": 12.5,
+  "concentrator_fault": false,
+  "fault_mitigated": false,
+  "hazards_found": 0,
+  "hazard_mitigation": false,
+  "hazard_status_missing": false,
+  "handover_gap": false,
+  "timeline_out_of_order": false,
+  "next_delivery": "booked_too_late",
+  "dependency_level": "ambulatory",
+  "billing_hold": false
+ },
+ "factors_sampled": {
+  "rx_alignment": "exact",
+  "items_shortfall": "none",
+  "setup_state": "checks_null",
+  "supply_hours": 59.31,
+  "concentrator_fault": false,
+  "fault_mitigated": false,
+  "hazards_found": 0,
+  "hazard_mitigation": true,
+  "hazard_status_missing": false,
+  "handover_gap": false,
+  "timeline_out_of_order": false,
+  "next_delivery": "booked_too_late",
+  "dependency_level": "ambulatory",
+  "billing_hold": false
+ },
+ "plan": {
+  "rx_match": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "urgent_dispatch",
+   "second": null
+  },
+  "fulfilment": {
+   "clarity": "clear",
+   "target": "items_short",
+   "second": null
+  },
+  "supply_runway": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  },
+  "open_hazards": {
+   "clarity": "leaning",
+   "target": "0",
+   "second": null
+  }
+ },
+ "target_words": 74,
+ "deciding": {
+  "rx_match": "The prescription is concentrator+cylinder. Cylinders were left but the concentrator was not, so the match is only partial.",
+  "next_step": "The concentrator was not left, and cylinders hold only about 12.5 h of use while the next delivery is 3 days away, so same-day dispatch.",
+  "fulfilment": "items_ordered has CONC5 and CD460, and items_left has only CD460.",
+  "supply_runway": "About 1500 L at 2 lpm is about 12.5 h of use, near the 12 h boundary between levels 0 and 1.",
+  "open_hazards": "The hazards list is empty. The only doubt is that no assessment time is recorded."
+ },
+ "request": "rec-F303-0011",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.014864
+}

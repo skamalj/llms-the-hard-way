@@ -1,0 +1,113 @@
+{
+ "id": "F340-0028",
+ "family": "F340",
+ "state": {
+  "booking": {
+   "microchip": "941000021436587",
+   "dog_name": "Pepper",
+   "check_in": "2025-05-02T09:00",
+   "checkout": "2025-05-09",
+   "owner_contact": {
+    "reachable_during_stay": true,
+    "confirm_call_done": false
+   }
+  },
+  "declaration": {
+   "weight_kg": 9.4,
+   "medications": [
+    {
+     "drug": "thyroxine",
+     "doses_per_day": 1,
+     "next_due": "2025-05-03T02:00",
+     "supplied_count": 6
+    }
+   ]
+  },
+  "vaccination": {
+   "chip_on_cert": "941000021463587",
+   "name_on_cert": "Pepper",
+   "core_expiry": "2025-04-16",
+   "titre_result": null
+  },
+  "vet_history": {
+   "current_prescriptions": [
+    "thyroxine"
+   ]
+  },
+  "arrival_check": {
+   "measured_weight_kg": 9.9,
+   "cough": false
+  },
+  "intake_notes": [
+   "Chip on certificate looks different to me."
+  ]
+ },
+ "factors": {
+  "vacc_expiry_offset_days": -23,
+  "titre_exemption_on_file": false,
+  "certificate_id_mismatch": "transposed_digit",
+  "arrival_cough_observed": false,
+  "cough_benign_explanation": "none",
+  "weight_discrepancy_pct": 5.29,
+  "medication_state": "supplied_short_count",
+  "next_dose_hours": 17,
+  "neuter_status_conflict": false,
+  "owner_reachable": true,
+  "prior_incident_count": 1,
+  "note_tone": "flags_concern",
+  "balanced_signals": false
+ },
+ "factors_sampled": {
+  "vacc_expiry_offset_days": -23,
+  "titre_exemption_on_file": true,
+  "certificate_id_mismatch": "transposed_digit",
+  "arrival_cough_observed": false,
+  "cough_benign_explanation": "collar_pulling_noted",
+  "weight_discrepancy_pct": 5.29,
+  "medication_state": "supplied_short_count",
+  "next_dose_hours": 17,
+  "neuter_status_conflict": false,
+  "owner_reachable": false,
+  "prior_incident_count": 1,
+  "note_tone": "flags_concern",
+  "balanced_signals": false
+ },
+ "plan": {
+  "vacc_cover_valid": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "declaration_consistent": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "admission_disposition": {
+   "clarity": "leaning",
+   "target": "hold_pending",
+   "second": null
+  },
+  "discrepancy_count": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  },
+  "action_urgency": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 47,
+ "deciding": {
+  "vacc_cover_valid": "core_expiry 2025-04-16 is well before checkout 2025-05-09, titre_result is null, and the cert chip 941000021463587 differs from booking chip 941000021436587.",
+  "declaration_consistent": "Thyroxine is declared once daily with supplied_count 6 for a 7-night stay, which does not cover the stay; weight is within 10 percent.",
+  "admission_disposition": "The certificate cannot be matched to the dog and cover has lapsed, but the owner is reachable and the call is not yet done, so the dog waits at reception for confirmation.",
+  "discrepancy_count": "The transposed chip is one clear mismatch; the one-dose medication shortfall may count as a second, which is arguable.",
+  "action_urgency": "The medication shortfall only bites at the end of the stay, so no action may be needed during the stay; the owner call over the chip could be read as action within 48 hours."
+ },
+ "request": "rec-F340-0026",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011752
+}

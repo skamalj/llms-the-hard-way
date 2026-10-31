@@ -1,0 +1,141 @@
+{
+ "id": "F337-0024",
+ "family": "F337",
+ "state": {
+  "station": {
+   "channels": [
+    {
+     "cha": "HHZ",
+     "sensor_serial": "M33",
+     "response_epoch_start": "2024-05-20"
+    },
+    {
+     "cha": "HHN",
+     "sensor_serial": "M33",
+     "response_epoch_start": "2024-05-20"
+    },
+    {
+     "cha": "HHE",
+     "sensor_serial": "M33",
+     "response_epoch_start": "2024-05-20"
+    },
+    {
+     "cha": "HNZ",
+     "sensor_serial": "G5",
+     "response_epoch_start": "2019-08-01"
+    }
+   ]
+  },
+  "acquisition": {
+   "day": "2024-03-02",
+   "channel_hours_expected": 96,
+   "completeness_pct": 100.0,
+   "gaps": [],
+   "gps_lock_pct": 61,
+   "qc_generated": "2024-03-03",
+   "as_of": "2024-05-15"
+  },
+  "qc_metrics": {
+   "channels": [
+    {
+     "cha": "HHZ",
+     "psd_dev_db": 4.47,
+     "dead": true,
+     "clipped_minutes": 0
+    },
+    {
+     "cha": "HHN",
+     "dead": true
+    },
+    {
+     "cha": "HHE",
+     "dead": false,
+     "clipped_minutes": 40
+    },
+    {
+     "cha": "HNZ",
+     "dead": false
+    }
+   ],
+   "cal_pulse": {
+    "date": "2024-03-01",
+    "result": "fail"
+   }
+  },
+  "maintenance_log": [
+   {
+    "date": "2024-05-20",
+    "action": "site_visit"
+   }
+  ],
+  "operator_notes": [
+   "Digitiser clock drifting since late February."
+  ]
+ },
+ "factors": {
+  "sensor_metadata_state": "no_swap",
+  "maintenance_log_present": true,
+  "gap_coverage": "no_gaps",
+  "true_usable_fraction": 0.49,
+  "completeness_summary_drift": 6.18,
+  "timing_quality": "lost_hours",
+  "calibration_status": "failed",
+  "noise_excess_db": 4.47,
+  "benign_noise_cause_logged": false,
+  "operator_note_consistency": "consistent",
+  "dead_channels": 2,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "sensor_metadata_state": "no_swap",
+  "maintenance_log_present": true,
+  "gap_coverage": "no_gaps",
+  "true_usable_fraction": 0.99,
+  "completeness_summary_drift": 6.18,
+  "timing_quality": "lost_hours",
+  "calibration_status": "failed",
+  "noise_excess_db": 4.47,
+  "benign_noise_cause_logged": false,
+  "operator_note_consistency": "consistent",
+  "dead_channels": 3,
+  "boundary_case": false
+ },
+ "plan": {
+  "response_valid": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "gaps_explained": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "disposition": {
+   "clarity": "balanced",
+   "target": "quarantine",
+   "second": "release"
+  },
+  "usable_fraction": {
+   "clarity": "contested",
+   "target": "0",
+   "second": "1"
+  },
+  "pending_age": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  }
+ },
+ "target_words": 97,
+ "deciding": {
+  "response_valid": "Epoch 2024-05-20 matches a logged site_visit, but the log has no sensor_swap entry confirming an install, so the metadata is unsupported yet plausible.",
+  "gaps_explained": "The gaps list is empty, so no gap lacks a logged cause; the flat completeness_pct of 100 leaves slight doubt given dead channels.",
+  "disposition": "gps_lock_pct 61 (lost timing) and cal_pulse fail point to quarantine, while an empty gap list and full completeness_pct give some basis for release.",
+  "usable_fraction": "Two of four channels flagged dead (48 of 96 h) plus 40 min clipped on HHE gives about 49%, at the 50% boundary.",
+  "pending_age": "qc_generated 2024-03-03 vs as_of 2024-05-15 is about 73 days, over 30."
+ },
+ "request": "rec-F337-0021",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.015145
+}

@@ -1,0 +1,142 @@
+{
+ "id": "F317-0003",
+ "family": "F317",
+ "state": {
+  "vehicle": {
+   "fleet_no": "T0932",
+   "odometer_km": 40040
+  },
+  "exam": {
+   "exam_id": "EX-118",
+   "due_at_km": 41000,
+   "items": [
+    {
+     "item_code": "A1",
+     "result": "ok",
+     "signed_by": "p2",
+     "signed_at": null
+    },
+    {
+     "item_code": "A2",
+     "result": "ok",
+     "signed_by": null,
+     "signed_at": null
+    },
+    {
+     "item_code": "A3",
+     "result": "ok",
+     "signed_by": null,
+     "signed_at": null
+    }
+   ]
+  },
+  "defects": [
+   {
+    "defect_id": "D-300",
+    "subsystem": "saloon_doors",
+    "safety_critical": true,
+    "status": "closed",
+    "retest_at": "2025-05-08",
+    "retest_result": "pass"
+   }
+  ],
+  "work_orders": [
+   {
+    "wo_id": "WO-5",
+    "defect_ref": "D-300",
+    "subsystem": "saloon_doors",
+    "completed_at": "2025-05-09"
+   },
+   {
+    "wo_id": "WO-6",
+    "defect_ref": "D-399",
+    "status": "done"
+   }
+  ],
+  "concessions": [
+   {
+    "conc_id": "C-2",
+    "fleet_no": "T0932",
+    "defect_ref": "D-300",
+    "valid_until": "2025-05-01"
+   }
+  ],
+  "release": {
+   "duty_type": "off_peak",
+   "depart_at": "2025-05-12T10:00",
+   "odo_reading_km": 40040,
+   "brake_test_at": "2025-05-12T06:00",
+   "brake_test_result": "pass"
+  }
+ },
+ "factors": {
+  "km_to_exam_due": 960,
+  "odometer_disagreement": "none",
+  "exam_signed_fraction": 0.0,
+  "exam_record_missing": false,
+  "worst_defect_subsystem": "none",
+  "worst_defect_state": "closed_retested",
+  "worst_defect_safety_critical": true,
+  "retest_out_of_order": true,
+  "concession_present": true,
+  "concession_flaw": "expired",
+  "wo_crossref_mismatch": "defect_ref_unknown",
+  "planned_duty_type": "off_peak",
+  "recent_brake_test_pass": true,
+  "balanced_signals": true
+ },
+ "factors_sampled": {
+  "km_to_exam_due": 960,
+  "odometer_disagreement": "none",
+  "exam_signed_fraction": 0.71,
+  "exam_record_missing": false,
+  "worst_defect_subsystem": "saloon_doors",
+  "worst_defect_state": "open_wo_in_progress",
+  "worst_defect_safety_critical": false,
+  "retest_out_of_order": false,
+  "concession_present": true,
+  "concession_flaw": "expired",
+  "wo_crossref_mismatch": "defect_ref_unknown",
+  "planned_duty_type": "off_peak",
+  "recent_brake_test_pass": true,
+  "balanced_signals": true
+ },
+ "plan": {
+  "sc_defects_cleared": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "release_decision": {
+   "clarity": "clear",
+   "target": "hold",
+   "second": null
+  },
+  "worst_subsystem": {
+   "clarity": "leaning",
+   "target": "none",
+   "second": null
+  },
+  "exam_completion": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "exam_mileage": {
+   "clarity": "clear",
+   "target": "0",
+   "second": null
+  }
+ },
+ "target_words": 66,
+ "deciding": {
+  "sc_defects_cleared": "D-300 retest_at 2025-05-08 is earlier than WO-5 completed_at 2025-05-09, so the retest preceded the repair and does not count.",
+  "release_decision": "One confirmation is missing (valid retest); the concession expired 2025-05-01 and WO-6 references unknown D-399; brake test passed, so hold.",
+  "worst_subsystem": "D-300 is closed with a pass, so none is leading, but the out-of-order retest leaves some doubt about the doors.",
+  "exam_completion": "No item has a signed_at; only A1 has signed_by, so level 0 leads and level 1 stays plausible.",
+  "exam_mileage": "Due 41000 minus odo 40040 leaves 960 km, more than 500."
+ },
+ "request": "rec-F317-0001",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011125
+}

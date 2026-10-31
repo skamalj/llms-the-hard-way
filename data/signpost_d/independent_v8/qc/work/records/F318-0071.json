@@ -1,0 +1,186 @@
+{
+ "id": "F318-0071",
+ "family": "F318",
+ "state": {
+  "work_order": {
+   "wo_id": "WO-4412",
+   "visit_type": "routine_inspection",
+   "tasks": [
+    {
+     "task_id": 1,
+     "asset_ref": "PAD-A",
+     "qty_planned": 2
+    },
+    {
+     "task_id": 2,
+     "asset_ref": "GATE-N",
+     "qty_planned": 1
+    },
+    {
+     "task_id": 3,
+     "asset_ref": "PAD-B",
+     "qty_planned": 4
+    },
+    {
+     "task_id": 4,
+     "asset_ref": "GATE-S",
+     "qty_planned": 1
+    },
+    {
+     "task_id": 5,
+     "asset_ref": "BYW",
+     "qty_planned": 1
+    },
+    {
+     "task_id": 6,
+     "asset_ref": "CULV",
+     "qty_planned": 1
+    },
+    {
+     "task_id": 7,
+     "asset_ref": "SILL",
+     "qty_planned": 1
+    }
+   ],
+   "nav_notice": {
+    "in_force": true,
+    "to": "2025-03-20",
+    "scope_assets": [
+     "PAD-A"
+    ]
+   }
+  },
+  "visit_log": {
+   "arrived": "2025-03-04T08:00",
+   "departed": "2025-03-04T12:00",
+   "crew_size": 3,
+   "timesheet_hours": 9.83,
+   "task_status": [
+    {
+     "task_id": 1,
+     "status": "not_started"
+    },
+    {
+     "task_id": 2,
+     "status": "not_started"
+    },
+    {
+     "task_id": 7,
+     "status": "not_started"
+    }
+   ]
+  },
+  "materials": {
+   "issued": [
+    {
+     "part_no": "S-20",
+     "qty": 12
+    }
+   ],
+   "returned": [
+    {
+     "part_no": "S-20",
+     "qty": 2
+    }
+   ],
+   "fitted": [
+    {
+     "part_no": "S-20",
+     "qty": 3
+    }
+   ]
+  },
+  "checks": {
+   "post_checks": [
+    {
+     "asset_ref": "PAD-A",
+     "result": "pass"
+    }
+   ],
+   "leakage_ls": 17,
+   "leakage_limit_ls": 9,
+   "river_level_m": 1.1,
+   "flood_marker_m": 1.8
+  },
+  "asset_history": {
+   "prior_visits": [
+    {
+     "asset_ref": "PAD-A",
+     "defect_code": "LK"
+    },
+    {
+     "asset_ref": "PAD-A",
+     "defect_code": "LK"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "visit_type": "routine_inspection",
+  "tasks_ordered": 7,
+  "completion_state": "none_done",
+  "parts_qty_mismatch": "large",
+  "hours_gap": 2.17,
+  "asset_ref_mismatch": false,
+  "post_check_result": "passed",
+  "leakage_ratio": 1.89,
+  "leakage_mitigation": false,
+  "navigation_notice_in_force": true,
+  "deferral_approved": false,
+  "prior_same_defect": 2,
+  "boundary_case": true
+ },
+ "factors_sampled": {
+  "visit_type": "routine_inspection",
+  "tasks_ordered": 7,
+  "completion_state": "none_done",
+  "parts_qty_mismatch": "large",
+  "hours_gap": 2.17,
+  "asset_ref_mismatch": false,
+  "post_check_result": "passed",
+  "leakage_ratio": 1.89,
+  "leakage_mitigation": false,
+  "navigation_notice_in_force": true,
+  "deferral_approved": false,
+  "prior_same_defect": 2,
+  "boundary_case": true
+ },
+ "plan": {
+  "safe_to_reopen": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "record_disposition": {
+   "clarity": "balanced",
+   "target": "hold_query",
+   "second": "close_with_followup"
+  },
+  "return_urgency": {
+   "clarity": "balanced",
+   "target": "within_week",
+   "second": "next_scheduled"
+  },
+  "affected_scope": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  },
+  "section_mismatches": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  }
+ },
+ "target_words": 83,
+ "deciding": {
+  "safe_to_reopen": "PAD-A post-check passes, but leakage 17 vs limit 9 with no mitigation, and a nav notice in force, give some doubt.",
+  "record_disposition": "Parts and hours discrepancies and untouched tasks suggest a query; a minor follow-up is also plausible given the passing check.",
+  "return_urgency": "Leakage is nearly 1.9x the limit with a notice in force, which argues for within a week; the passing check keeps next_scheduled plausible.",
+  "affected_scope": "Single lock with one notice-covered asset, PAD-A; it could be read as one unit or a few users.",
+  "section_mismatches": "Unexplained: fitted 3 vs issued 12 minus returned 2, timesheet 9.83h vs 12h span, and not_started tasks with a pass and no status for 4 of the 7 tasks."
+ },
+ "request": "rec-F318-0071",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.007518
+}

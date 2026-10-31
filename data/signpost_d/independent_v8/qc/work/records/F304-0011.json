@@ -1,0 +1,120 @@
+{
+ "id": "F304-0011",
+ "family": "F304",
+ "state": {
+  "request": {
+   "ref": "T1187",
+   "appt_type": "inter-site transfer",
+   "appt_time": "14:00",
+   "vehicle_class": "wheelchair",
+   "crew_requested": "clinical_escort",
+   "mobility_booked": "walking",
+   "equipment": [],
+   "dest": "SITE-B"
+  },
+  "patient": {
+   "mobility_assessed": "wheelchair",
+   "assessed_on": "2025-04-02",
+   "weight_kg": 82,
+   "oxygen_lpm": 0,
+   "monitoring": null,
+   "own_transport_available": false,
+   "exemption": {
+    "code": "EX-4",
+    "approved_by": "matron",
+    "approved_on": "2025-03-20"
+   }
+  },
+  "journey": {
+   "window_end": "13:15",
+   "est_duration_min": 44,
+   "manual_est_min": 46,
+   "late_tolerance_min": 15,
+   "destination": {
+    "code": "SITE-C",
+    "reslot_same_day": false
+   }
+  },
+  "history": [
+   {
+    "date": "2025-02-11",
+    "outcome": "aborted",
+    "vehicle_class": "car",
+    "reason": "patient needed wheelchair"
+   }
+  ],
+  "notes": {
+   "control_note": "Theatre list moved; receiving unit will hold slot 15 min."
+  }
+ },
+ "factors": {
+  "mobility_alignment": "understated",
+  "secondary_discrepancy": "address_material",
+  "eligibility_concern": false,
+  "eligibility_exception": true,
+  "clinical_support": "transfer_assist",
+  "crew_request_gap": "over_one_step",
+  "buffer_minutes": 1.0,
+  "duration_estimate_split": true,
+  "late_tolerance": true,
+  "appointment_type": "inter-site transfer",
+  "same_day_reslot": false,
+  "confirmation_pending": false,
+  "prior_aborts": 1,
+  "aborts_related": true
+ },
+ "factors_sampled": {
+  "mobility_alignment": "understated",
+  "secondary_discrepancy": "address_material",
+  "eligibility_concern": false,
+  "eligibility_exception": true,
+  "clinical_support": "transfer_assist",
+  "crew_request_gap": "over_one_step",
+  "buffer_minutes": 149.0,
+  "duration_estimate_split": true,
+  "late_tolerance": true,
+  "appointment_type": "discharge",
+  "same_day_reslot": true,
+  "confirmation_pending": true,
+  "prior_aborts": 1,
+  "aborts_related": true
+ },
+ "plan": {
+  "vehicle_fit": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "disposition": {
+   "clarity": "clear",
+   "target": "amend_confirm",
+   "second": null
+  },
+  "crew_config": {
+   "clarity": "clear",
+   "target": "double_crew",
+   "second": null
+  },
+  "time_pressure": {
+   "clarity": "contested",
+   "target": "2",
+   "second": "3"
+  },
+  "delay_impact": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 93,
+ "deciding": {
+  "vehicle_fit": "Wheelchair vehicle matches mobility_assessed wheelchair, assessed 2025-04-02, no equipment needs; the walking in mobility_booked is only a booking-field understatement.",
+  "disposition": "request.dest SITE-B conflicts with journey.destination SITE-C, a correctable address mismatch; no null confirmation fields are outstanding.",
+  "crew_config": "Wheelchair transfer with oxygen_lpm 0, monitoring null and weight 82 means double crew; the clinical_escort request is excessive.",
+  "time_pressure": "Appt 14:00 less window_end 13:15 is 45 min against est 44 (1 min spare) or manual_est 46 (1 min late); the boundary between on-time and late is held by the two estimates.",
+  "delay_impact": "Inter-site transfer with reslot_same_day false points to a lost slot, but the 15 min late_tolerance and the unit holding the slot soften it."
+ },
+ "request": "rec-F304-0011",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012558
+}

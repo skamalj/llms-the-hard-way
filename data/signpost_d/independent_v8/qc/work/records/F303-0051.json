@@ -1,0 +1,159 @@
+{
+ "id": "F303-0051",
+ "family": "F303",
+ "state": {
+  "order": {
+   "id": "O-4417",
+   "prescription": {
+    "modality": "concentrator",
+    "flow_lpm": 2,
+    "hours_per_day": 8,
+    "rx_expiry": "2026-03-01"
+   },
+   "items_ordered": [
+    {
+     "sku": "CONC-5",
+     "qty": 1
+    },
+    {
+     "sku": "CYL-HX",
+     "qty": 1
+    }
+   ],
+   "account": {
+    "billing_hold": false
+   }
+  },
+  "visit": {
+   "id": "V-9081",
+   "visit_date": "2025-06-10",
+   "arrived_at": "09:05",
+   "departed_at": "09:50",
+   "items_left": [
+    {
+     "sku": "CYL-HX",
+     "qty": 1,
+     "serial": "HX8812"
+    }
+   ],
+   "install_checks": {
+    "flow_verified": true,
+    "alarm_tested": true,
+    "training_given": true,
+    "completed_at": "09:45"
+   },
+   "patient_signature": "on_file",
+   "handover_at": "09:48"
+  },
+  "site_assessment": {
+   "assessed_at": "09:15",
+   "hazards": [
+    {
+     "code": "SMOKING",
+     "status": "open",
+     "fix": null
+    },
+    {
+     "code": "HEAT_SRC",
+     "status": "open",
+     "fix": null
+    },
+    {
+     "code": "NO_SIGN",
+     "status": "open",
+     "fix": null
+    },
+    {
+     "code": "NO_SMOKE_ALARM",
+     "status": "open",
+     "fix": "alarm_fitted"
+    }
+   ]
+  },
+  "equipment": {
+   "concentrator": null,
+   "fault_log": [],
+   "cylinders_on_site": [
+    {
+     "size": "HX 2300 L",
+     "fill_pct": 100
+    }
+   ]
+  },
+  "supply_plan": {
+   "next_delivery_date": "2025-06-11",
+   "window": "08-12",
+   "route_day": "Wed"
+  }
+ },
+ "factors": {
+  "rx_alignment": "modality_mismatch",
+  "items_shortfall": "one_short",
+  "setup_state": "all_logged",
+  "supply_hours": "about 19 usage hours (57 calendar hours), cylinder only",
+  "concentrator_fault": false,
+  "fault_mitigated": false,
+  "hazards_found": 4,
+  "hazard_mitigation": false,
+  "hazard_status_missing": false,
+  "handover_gap": false,
+  "timeline_out_of_order": false,
+  "next_delivery": "booked_in_time",
+  "dependency_level": "nocturnal",
+  "billing_hold": false
+ },
+ "factors_sampled": {
+  "rx_alignment": "exact",
+  "items_shortfall": "one_short",
+  "setup_state": "all_logged",
+  "supply_hours": 245.43,
+  "concentrator_fault": false,
+  "fault_mitigated": false,
+  "hazards_found": 5,
+  "hazard_mitigation": false,
+  "hazard_status_missing": false,
+  "handover_gap": false,
+  "timeline_out_of_order": false,
+  "next_delivery": "booked_in_time",
+  "dependency_level": "nocturnal",
+  "billing_hold": false
+ },
+ "plan": {
+  "rx_match": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "balanced",
+   "target": "hold_confirm",
+   "second": "close_record"
+  },
+  "fulfilment": {
+   "clarity": "contested",
+   "target": "items_short",
+   "second": "nothing_delivered"
+  },
+  "supply_runway": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  },
+  "open_hazards": {
+   "clarity": "balanced",
+   "target": "4",
+   "second": "3"
+  }
+ },
+ "target_words": 103,
+ "deciding": {
+  "rx_match": "Rx modality is concentrator but only a cylinder was left and equipment.concentrator is null.",
+  "next_step": "The concentrator is not left, but the next delivery is booked for the next day. Phone confirmation that it is covered versus closing is held in balance.",
+  "fulfilment": "Ordered CONC-5 and CYL-HX, only CYL-HX left. Items short, though a reader could say the prescribed concentrator was not delivered.",
+  "supply_runway": "Only one full HX 2300 L cylinder at 2 lpm for 8 h/day: about 19 usage hours, or about 57 calendar hours, so the 48-hour boundary is open.",
+  "open_hazards": "All four hazards are status open. One has fix alarm_fitted while still open, so it counts as three or four."
+ },
+ "request": "rec-F303-0051",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.017494
+}

@@ -1,0 +1,127 @@
+{
+ "id": "F338-0053",
+ "family": "F338",
+ "state": {
+  "site": {
+   "pollutant": "SO2",
+   "tier": "standard"
+  },
+  "visit": {
+   "id": "V-3318",
+   "date": "2024-08-12",
+   "start": "09:00",
+   "end": "11:30",
+   "seq": "partial"
+  },
+  "reference": {
+   "standard_id": "CYL-2206",
+   "unit": "ppb",
+   "cert_expiry": "2024-11-20"
+  },
+  "checks": [
+   {
+    "type": "as_found",
+    "ref_id": "CYL-2206",
+    "ref_conc": 400,
+    "unit": "ppm",
+    "reading": 452,
+    "tol": 12
+   },
+   {
+    "type": "as_left",
+    "ref_id": "CYL-2206",
+    "ref_conc": 400,
+    "unit": "ppm",
+    "reading": 399,
+    "tol": 12
+   }
+  ],
+  "history": {
+   "last_visit_date": "2024-07-14",
+   "results": [
+    "fail",
+    "pass",
+    "fail",
+    "fail",
+    "fail"
+   ],
+   "autochecks": [
+    {
+     "d": "2024-08-08",
+     "r": "pass"
+    }
+   ]
+  },
+  "instrument": {
+   "temp_max": 24
+  }
+ },
+ "factors": {
+  "pollutant": "SO2",
+  "as_found_ratio": 3.87,
+  "as_left_status": "all_pass",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 100,
+  "unit_mismatch": true,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "none",
+  "days_since_last_visit": 29,
+  "visit_completeness": "multipoint_missing",
+  "prior_fail_count": 4,
+  "timestamp_mismatch": "none",
+  "site_priority": "standard"
+ },
+ "factors_sampled": {
+  "pollutant": "SO2",
+  "as_found_ratio": 3.87,
+  "as_left_status": "all_pass",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 100,
+  "unit_mismatch": true,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "none",
+  "days_since_last_visit": 29,
+  "visit_completeness": "multipoint_missing",
+  "prior_fail_count": 4,
+  "timestamp_mismatch": "none",
+  "site_priority": "standard"
+ },
+ "plan": {
+  "data_accepted": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "reference_valid": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "hold",
+   "second": null
+  },
+  "flag_extent": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "return_urgency": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  }
+ },
+ "target_words": 98,
+ "deciding": {
+  "data_accepted": "As-found 452 vs 400 exceeds tolerance 12 with no drift explanation, but autochecks pass and 4 prior fails are ambiguous.",
+  "reference_valid": "IDs match and expiry is 100 days ahead; only the ppm/ppb unit label raises doubt.",
+  "next_step": "Visit seq partial with no zero or span points in checks, so confirmation is outstanding.",
+  "flag_extent": "29 days since last visit with unexplained as-found failure; flagging 8-30 or over 30 days is both plausible.",
+  "return_urgency": "Missing multipoint and unexplained as-found deviation at a standard site call for a return within one to two days."
+ },
+ "request": "rec-F338-0051",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.005014
+}

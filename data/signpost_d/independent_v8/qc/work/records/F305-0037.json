@@ -1,0 +1,165 @@
+{
+ "id": "F305-0037",
+ "family": "F305",
+ "state": {
+  "session": {
+   "id": "S202",
+   "date": "2024-03-01",
+   "needle_on": "07:30",
+   "washback": "11:15",
+   "review_date": "2024-03-15"
+  },
+  "prescription": {
+   "duration_min": 240,
+   "dialyser": "F7HPS",
+   "target_uf_ml": 2900
+  },
+  "machine": {
+   "dialyser": "F8HPS",
+   "uf_removed_ml": 2900,
+   "washback_ml": 200,
+   "alarms": [
+    {
+     "c": "PUMP_STOP",
+     "t": "09:00"
+    },
+    {
+     "c": "PUMP_RESUME",
+     "t": "09:21"
+    }
+   ]
+  },
+  "observations": {
+   "pre_kg": 80.0,
+   "post_kg": 77.2,
+   "bp": [
+    {
+     "t": "08:05",
+     "s": 86
+    },
+    {
+     "t": "08:20",
+     "s": 104
+    },
+    {
+     "t": "09:35",
+     "s": 88
+    },
+    {
+     "t": "09:50",
+     "s": 102
+    }
+   ],
+   "interventions": [
+    {
+     "t": "08:06",
+     "saline_bolus_ml": 150
+    },
+    {
+     "t": "09:36",
+     "saline_bolus_ml": 150
+    }
+   ]
+  },
+  "checks": [
+   {
+    "code": "water_chlorine_test",
+    "done": true,
+    "t": "07:10"
+   },
+   {
+    "code": "machine_disinfection",
+    "done": true,
+    "t": "07:05"
+   }
+  ],
+  "history": [
+   {
+    "d": "2024-02-26",
+    "presc": 240,
+    "eff": 205,
+    "post": 77.9
+   },
+   {
+    "d": "2024-02-23",
+    "presc": 240,
+    "eff": 210,
+    "post": 78.0
+   },
+   {
+    "d": "2024-02-21",
+    "presc": 240,
+    "eff": 240,
+    "post": 78.1
+   }
+  ]
+ },
+ "factors": {
+  "time_shortfall_min": 36,
+  "machine_pause_min": 21,
+  "uf_weight_gap_kg": 0.4,
+  "post_weight_missing": false,
+  "missing_check": "none",
+  "check_logged_after_start": false,
+  "prescription_mismatch": "dialyser_model",
+  "mismatch_magnitude": "trivial",
+  "hypotension_episodes": 2,
+  "hypotension_mitigated": true,
+  "circuit_clotted": false,
+  "prior_short_sessions": 2,
+  "documented_flow_reduction": false
+ },
+ "factors_sampled": {
+  "time_shortfall_min": 56,
+  "machine_pause_min": 21,
+  "uf_weight_gap_kg": 0.44,
+  "post_weight_missing": true,
+  "missing_check": "machine_disinfection",
+  "check_logged_after_start": false,
+  "prescription_mismatch": "dialyser_model",
+  "mismatch_magnitude": "trivial",
+  "hypotension_episodes": 2,
+  "hypotension_mitigated": true,
+  "circuit_clotted": false,
+  "prior_short_sessions": 3,
+  "documented_flow_reduction": false
+ },
+ "plan": {
+  "uf_reconciles": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "checks_before_start": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "log_disposition": {
+   "clarity": "balanced",
+   "target": "refer_prescriber",
+   "second": "sign_off"
+  },
+  "time_shortfall": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  },
+  "pending_age": {
+   "clarity": "clear",
+   "target": "2",
+   "second": null
+  }
+ },
+ "target_words": 51,
+ "deciding": {
+  "uf_reconciles": "Net UF 2900-200-300 saline=2400 ml against weight loss 80.0-77.2=2.8 kg: gap 0.4 kg, close to the limit.",
+  "checks_before_start": "Both checks are done at 07:10 and 07:05, before needle_on at 07:30.",
+  "log_disposition": "Two earlier short sessions in history and a 36 min shortfall point to referral. The two hypotensive readings were followed by boluses and recovery, and the dialyser is a near-identical model, which keeps sign_off defensible.",
+  "time_shortfall": "Clock time 07:30-11:15 is 225 min, minus the 21 min pause gives 204 against 240. That is 36 short, modestly over the 30 min line.",
+  "pending_age": "Session date 2024-03-01 and review date 2024-03-15 are 14 days apart."
+ },
+ "request": "rec-F305-0036",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.013998
+}

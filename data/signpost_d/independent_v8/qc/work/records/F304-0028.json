@@ -1,0 +1,110 @@
+{
+ "id": "F304-0028",
+ "family": "F304",
+ "state": {
+  "request": {
+   "appt_type": "dialysis",
+   "appt_time": "15:00",
+   "vehicle_class": "wheelchair_van",
+   "crew_requested": "specialist",
+   "mobility_booked": "wheelchair",
+   "equipment": [
+    "o2 6lpm"
+   ]
+  },
+  "patient": {
+   "mobility_assessed": "wheelchair",
+   "assessed_on": "2025-03-03",
+   "weight_kg": 158,
+   "oxygen_lpm": 6,
+   "monitoring": null,
+   "exemption": {
+    "code": "E4",
+    "approved_by": "DrLim",
+    "approved_on": "2025-02-01"
+   }
+  },
+  "journey": {
+   "window_end": "14:20",
+   "est_duration_min": 40,
+   "late_tolerance_min": 10,
+   "destination": {
+    "reslot_same_day": false
+   }
+  },
+  "notes": {
+   "ward_note": "Needs own oxygen cylinder.",
+   "control_note": "Unit may squeeze in a late chair."
+  }
+ },
+ "factors": {
+  "mobility_alignment": "matches",
+  "secondary_discrepancy": "unlisted_equipment_material",
+  "eligibility_concern": false,
+  "eligibility_exception": true,
+  "clinical_support": "oxygen_6lpm_near_bariatric",
+  "crew_request_gap": "over_one_step",
+  "buffer_minutes": 0.0,
+  "duration_estimate_split": false,
+  "late_tolerance": true,
+  "appointment_type": "dialysis",
+  "same_day_reslot": false,
+  "confirmation_pending": false,
+  "prior_aborts": 0,
+  "aborts_related": false
+ },
+ "factors_sampled": {
+  "mobility_alignment": "overstated",
+  "secondary_discrepancy": "ward_trivial",
+  "eligibility_concern": false,
+  "eligibility_exception": true,
+  "clinical_support": "high_flow_oxygen",
+  "crew_request_gap": "over_one_step",
+  "buffer_minutes": 134.75,
+  "duration_estimate_split": false,
+  "late_tolerance": true,
+  "appointment_type": "discharge",
+  "same_day_reslot": false,
+  "confirmation_pending": false,
+  "prior_aborts": 0,
+  "aborts_related": true
+ },
+ "plan": {
+  "vehicle_fit": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "disposition": {
+   "clarity": "clear",
+   "target": "amend_confirm",
+   "second": null
+  },
+  "crew_config": {
+   "clarity": "balanced",
+   "target": "clinical_escort",
+   "second": "specialist_team"
+  },
+  "time_pressure": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  },
+  "delay_impact": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  }
+ },
+ "target_words": 80,
+ "deciding": {
+  "vehicle_fit": "Wheelchair booked and assessed on 2025-03-03 agree; wheelchair van fits.",
+  "disposition": "ward_note needs own oxygen cylinder, absent from request equipment; correctable, nothing pending.",
+  "crew_config": "oxygen_lpm 6 and weight 158 just under 160 limit; escort vs specialist both plausible.",
+  "time_pressure": "Window end 14:20 plus 40 min equals 15:00 exactly, boundary of late vs under 30 min.",
+  "delay_impact": "Dialysis with reslot false, but control_note about a possible late chair softens loss."
+ },
+ "request": "rec-F304-0026",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.0103
+}

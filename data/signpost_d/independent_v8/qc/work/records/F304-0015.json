@@ -1,0 +1,100 @@
+{
+ "id": "F304-0015",
+ "family": "F304",
+ "state": {
+  "request": {
+   "ref": "T5530",
+   "appt_type": "inter-site transfer",
+   "appt_time": "10:00",
+   "vehicle_class": "car",
+   "crew_requested": "single",
+   "mobility_booked": "walking"
+  },
+  "patient": {
+   "mobility_assessed": "walking",
+   "assessed_on": "2025-01-20",
+   "oxygen_lpm": 0,
+   "monitoring": null
+  },
+  "journey": {
+   "window_end": "08:45",
+   "est_duration_min": 46,
+   "destination": {
+    "reslot_same_day": false
+   }
+  },
+  "notes": {
+   "ward_note": "Site B slot now 10:30; no later transfer slot."
+  }
+ },
+ "factors": {
+  "mobility_alignment": "matches (assessment about 80 days old)",
+  "secondary_discrepancy": "time_material",
+  "eligibility_concern": false,
+  "eligibility_exception": false,
+  "clinical_support": "none",
+  "crew_request_gap": "correct",
+  "buffer_minutes": 29.0,
+  "duration_estimate_split": false,
+  "late_tolerance": false,
+  "appointment_type": "inter-site transfer",
+  "same_day_reslot": false,
+  "confirmation_pending": false,
+  "prior_aborts": 0,
+  "aborts_related": false
+ },
+ "factors_sampled": {
+  "mobility_alignment": "matches",
+  "secondary_discrepancy": "ward_trivial",
+  "eligibility_concern": false,
+  "eligibility_exception": false,
+  "clinical_support": "low_flow_oxygen",
+  "crew_request_gap": "under_one_step",
+  "buffer_minutes": -41.97,
+  "duration_estimate_split": false,
+  "late_tolerance": true,
+  "appointment_type": "dialysis",
+  "same_day_reslot": false,
+  "confirmation_pending": false,
+  "prior_aborts": 0,
+  "aborts_related": false
+ },
+ "plan": {
+  "vehicle_fit": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "disposition": {
+   "clarity": "clear",
+   "target": "amend_confirm",
+   "second": null
+  },
+  "crew_config": {
+   "clarity": "leaning",
+   "target": "single_crew",
+   "second": null
+  },
+  "time_pressure": {
+   "clarity": "contested",
+   "target": "2",
+   "second": "1"
+  },
+  "delay_impact": {
+   "clarity": "clear",
+   "target": "3",
+   "second": null
+  }
+ },
+ "target_words": 41,
+ "deciding": {
+  "vehicle_fit": "Car and walking match the assessment, but assessed_on 2025-01-20 is about 80 days old, so a reader could go either way.",
+  "disposition": "request.appt_time 10:00 conflicts with ward_note slot 10:30, a 30 min correctable difference; nothing is pending.",
+  "crew_config": "Walking patient, oxygen_lpm 0 and monitoring null point to single crew; the old assessment leaves slight doubt.",
+  "time_pressure": "Against 10:00, window_end 08:45 less est 46 leaves 29 min; against the 10:30 slot it would be 59 min, so the two timings split the level.",
+  "delay_impact": "Ward_note says no later transfer slot and reslot_same_day is false, so a late arrival loses the transfer slot; there is no late_tolerance."
+ },
+ "request": "rec-F304-0011",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012558
+}

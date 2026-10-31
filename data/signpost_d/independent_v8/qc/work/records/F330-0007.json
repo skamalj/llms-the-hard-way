@@ -1,0 +1,132 @@
+{
+ "id": "F330-0007",
+ "family": "F330",
+ "state": {
+  "request": {
+   "emp_ref": "E12",
+   "grade": "G6",
+   "cost_centre": "CC-410",
+   "trip_ref": "T-5",
+   "requested_total": 850
+  },
+  "lines": [
+   {
+    "date": "2024-06-01",
+    "amount_gbp": 300,
+    "cost_centre": "CC-410"
+   },
+   {
+    "date": "2024-06-09",
+    "amount_gbp": 280,
+    "cost_centre": "CC-410"
+   },
+   {
+    "date": "2024-06-04",
+    "amount_gbp": 270,
+    "cost_centre": "CC-410B"
+   }
+  ],
+  "policy": {
+   "cap_gbp": 200,
+   "cap_unit": "night",
+   "units": 3,
+   "reviewer_limit_gbp": 500
+  },
+  "travel": {
+   "trip_ref": "T-5",
+   "depart": "2024-06-03",
+   "return": "2024-06-06",
+   "disruption": null,
+   "alt_check": {
+    "options_seen": 3,
+    "compliant_found": true
+   },
+   "client_recharge": {
+    "billable": true,
+    "client_code": "CL-2"
+   }
+  },
+  "approvals": {
+   "line_mgr": {
+    "approved": null
+   },
+   "pre_approval": {
+    "ref": "PA-3",
+    "trip_ref": "T-5",
+    "max_gbp": 300,
+    "valid_to": "2024-06-07"
+   }
+  },
+  "history": {
+   "exceptions_12m": 6
+  }
+ },
+ "factors": {
+  "breach_type": "hotel_rate_over_cap",
+  "true_excess_pct": 41.7,
+  "amount_mismatch": "none",
+  "reference_mismatch": "two_line_dates_outside_trip_and_cost_centre_suffix",
+  "pre_approval_state": "valid_covers",
+  "external_disruption": false,
+  "compliant_option": "available",
+  "missing_item": "line_manager_approval",
+  "excess_vs_authority": "well_within",
+  "client_rechargeable": true,
+  "prior_exceptions_12m": 6,
+  "booking_lead_days": 37,
+  "employee_grade": "G6"
+ },
+ "factors_sampled": {
+  "breach_type": "hotel_rate_over_cap",
+  "true_excess_pct": 42.39,
+  "amount_mismatch": "none",
+  "reference_mismatch": "line_date_outside_trip",
+  "pre_approval_state": "max_below_excess",
+  "external_disruption": true,
+  "compliant_option": "none_available",
+  "missing_item": "line_manager_approval",
+  "excess_vs_authority": "above_limit",
+  "client_rechargeable": true,
+  "prior_exceptions_12m": 6,
+  "booking_lead_days": 37,
+  "employee_grade": "G6"
+ },
+ "plan": {
+  "preapproval_covers": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "outside_control": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "excess_disposition": {
+   "clarity": "contested",
+   "target": "hold_for_info",
+   "second": "decline_excess"
+  },
+  "excess_size": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  },
+  "discrepancy_count": {
+   "clarity": "contested",
+   "target": "2",
+   "second": "3"
+  }
+ },
+ "target_words": 35,
+ "deciding": {
+  "preapproval_covers": "pre_approval trip_ref T-5 matches, valid_to 2024-06-07 after depart, max_gbp 300 exceeds the 250 excess",
+  "outside_control": "disruption null and alt_check compliant_found true",
+  "excess_disposition": "line_mgr.approved null is a single named missing approval (hold), but the compliant option found and the date problems support declining",
+  "excess_size": "line sum 850 against cap 200x3=600 gives about 42%",
+  "discrepancy_count": "two line dates outside 06-03 to 06-06 give two; the cost_centre CC-410B versus CC-410 is a possible third"
+ },
+ "request": "rec-F330-0006",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011339
+}

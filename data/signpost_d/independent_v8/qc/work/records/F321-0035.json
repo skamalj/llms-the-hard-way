@@ -1,0 +1,135 @@
+{
+ "id": "F321-0035",
+ "family": "F321",
+ "state": {
+  "permit": {
+   "id": "P-7745",
+   "site_id": "S059",
+   "window_start": "2025-02-03T08:00",
+   "window_end": "2025-02-03T16:00",
+   "engineers": [
+    "E51"
+   ],
+   "scoped_tasks": [
+    {
+     "task_code": "PWR-CHK-03",
+     "equipment_ref": "PSU-3"
+    }
+   ],
+   "landlord_notice_date": "2025-01-27"
+  },
+  "attendance": {
+   "events": [
+    {
+     "badge_id": "B51",
+     "type": "in",
+     "ts": "2025-02-03T08:05"
+    },
+    {
+     "badge_id": "B51",
+     "type": "out",
+     "ts": "2025-02-03T13:20"
+    }
+   ]
+  },
+  "personnel": [
+   {
+    "engineer_id": "E51",
+    "badge_id": "B51",
+    "role": "climber",
+    "height_cert_expiry": "2025-02-03"
+   }
+  ],
+  "works": [
+   {
+    "task_code": "PWR-CHK-03",
+    "equipment_ref": "PSU-3",
+    "status": "complete",
+    "started_at": "2025-02-03T08:40",
+    "completed_at": "2025-02-03T12:50"
+   },
+   {
+    "task_code": "CAB-LBL-01",
+    "equipment_ref": "CAB-5",
+    "status": "not_started",
+    "started_at": null,
+    "completed_at": null
+   }
+  ],
+  "closeout": {
+   "signout_at": "2025-02-03T13:20",
+   "key_status": "returned",
+   "photos_required": 5,
+   "photos_uploaded": 5,
+   "variation_ref": null,
+   "submitted_at": "2025-02-03T14:00",
+   "extract_at": "2025-02-11T07:00"
+  }
+ },
+ "factors": {
+  "scope_mismatch": "extra_task",
+  "window_deviation": "within",
+  "cert_status": "expires_on_visit_date",
+  "scoped_task_count": 1,
+  "completion_fraction": 1.0,
+  "signout_missing": false,
+  "key_return": "returned",
+  "photo_shortfall": 0,
+  "badge_id_mismatch": false,
+  "variation_approved": false,
+  "landlord_notice": "given_in_time",
+  "weather_hold_logged": false
+ },
+ "factors_sampled": {
+  "scope_mismatch": "extra_task",
+  "window_deviation": "overran_window",
+  "cert_status": "expires_on_visit_date",
+  "scoped_task_count": 1,
+  "completion_fraction": 0.69,
+  "signout_missing": false,
+  "key_return": "returned",
+  "photo_shortfall": 0,
+  "badge_id_mismatch": true,
+  "variation_approved": false,
+  "landlord_notice": "given_in_time",
+  "weather_hold_logged": false
+ },
+ "plan": {
+  "within_scope": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "certs_in_date": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "closeout_action": {
+   "clarity": "clear",
+   "target": "close_visit",
+   "second": null
+  },
+  "scope_completion": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  },
+  "pending_age": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  }
+ },
+ "target_words": 54,
+ "deciding": {
+  "within_scope": "Works lists CAB-LBL-01 on CAB-5, absent from the permit and with no variation_ref, though it is not_started and unperformed.",
+  "certs_in_date": "E51 height_cert_expiry 2025-02-03 equals the visit date, so the certificate was in date that day, with no margin.",
+  "closeout_action": "Entry and exit are within the window, signout_at is present, key returned, photos 5 of 5, and the only scoped task is complete.",
+  "scope_completion": "The only scoped task PWR-CHK-03 is complete with completed_at; the extra not_started entry is unscoped.",
+  "pending_age": "submitted_at 2025-02-03T14:00 against extract_at 2025-02-11T07:00 is about 7.7 days, near the one-week boundary."
+ },
+ "request": "rec-F321-0031",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.014915
+}

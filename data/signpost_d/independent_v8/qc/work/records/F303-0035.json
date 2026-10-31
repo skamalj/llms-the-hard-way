@@ -1,0 +1,134 @@
+{
+ "id": "F303-0035",
+ "family": "F303",
+ "state": {
+  "order": {
+   "prescription": {
+    "modality": "cylinder",
+    "flow_lpm": 2,
+    "hours_per_day": 24
+   },
+   "items_ordered": [
+    {
+     "sku": "CD460",
+     "qty": 5
+    }
+   ],
+   "account": {
+    "billing_hold": true,
+    "arrears_gbp": 85
+   }
+  },
+  "visit": {
+   "items_left": [
+    {
+     "sku": "CD460",
+     "qty": 4
+    }
+   ],
+   "install_checks": {
+    "flow_verified": true,
+    "alarm_tested": null,
+    "training_given": true,
+    "completed_at": "11:10"
+   }
+  },
+  "site_assessment": {
+   "hazards": [
+    {
+     "code": "HEAT",
+     "status": "open",
+     "fix": null
+    },
+    {
+     "code": "TUBE",
+     "status": "resolved_on_visit",
+     "fix": "cylinder_relocated"
+    }
+   ]
+  },
+  "equipment": {
+   "flow_setting_lpm": 2,
+   "cylinders_on_site": [
+    {
+     "size": "CD 460 L",
+     "fill_pct": 100,
+     "qty": 4
+    }
+   ]
+  },
+  "supply_plan": {
+   "next_delivery_date": "2025-07-03"
+  }
+ },
+ "factors": {
+  "rx_alignment": "exact",
+  "items_shortfall": "one_short",
+  "setup_state": "test_not_logged",
+  "supply_hours": 15.3,
+  "concentrator_fault": false,
+  "fault_mitigated": false,
+  "hazards_found": 2,
+  "hazard_mitigation": true,
+  "hazard_status_missing": false,
+  "handover_gap": false,
+  "timeline_out_of_order": false,
+  "next_delivery": "booked_in_time",
+  "dependency_level": "continuous",
+  "billing_hold": true
+ },
+ "factors_sampled": {
+  "rx_alignment": "flow_mismatch",
+  "items_shortfall": "one_short",
+  "setup_state": "test_not_logged",
+  "supply_hours": 36.0,
+  "concentrator_fault": false,
+  "fault_mitigated": true,
+  "hazards_found": 4,
+  "hazard_mitigation": false,
+  "hazard_status_missing": true,
+  "handover_gap": false,
+  "timeline_out_of_order": false,
+  "next_delivery": "booked_in_time",
+  "dependency_level": "continuous",
+  "billing_hold": true
+ },
+ "plan": {
+  "rx_match": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "hold_confirm",
+   "second": null
+  },
+  "fulfilment": {
+   "clarity": "clear",
+   "target": "items_short",
+   "second": null
+  },
+  "supply_runway": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  },
+  "open_hazards": {
+   "clarity": "clear",
+   "target": "1",
+   "second": null
+  }
+ },
+ "target_words": 32,
+ "deciding": {
+  "rx_match": "Cylinder modality and 2 lpm Rx match CD460 cylinders and flow_setting_lpm 2.",
+  "next_step": "alarm_tested null is a single fact to confirm by phone, but the missing cylinder could also call for a revisit.",
+  "fulfilment": "CD460 ordered qty 5, only 4 left.",
+  "supply_runway": "4 x CD 460 L at 100% = 1840 L; at 120 L/h that is about 15 h, close to the 12 h boundary.",
+  "open_hazards": "HEAT open; TUBE resolved_on_visit with fix cylinder_relocated."
+ },
+ "request": "rec-F303-0031",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.01485
+}

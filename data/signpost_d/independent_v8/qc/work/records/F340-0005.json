@@ -1,0 +1,103 @@
+{
+ "id": "F340-0005",
+ "family": "F340",
+ "state": {
+  "booking": {
+   "dog_name": "Bela",
+   "microchip": "826004100228915",
+   "checkin": "2025-11-03",
+   "checkout": "2025-11-08",
+   "owner_contact": {
+    "reachable_during_stay": true,
+    "confirm_call_done": false
+   }
+  },
+  "declaration": {
+   "weight_kg": 11.0,
+   "medications": []
+  },
+  "vaccination": {
+   "chip_on_cert": "826004100229815",
+   "name_on_cert": "Bella",
+   "core_expiry": "2025-10-12",
+   "titre_result": {
+    "date": "2025-06-02",
+    "accepted_by": "kennel vet"
+   }
+  },
+  "arrival_check": {
+   "measured_weight_kg": 13.0,
+   "cough": false,
+   "temp_c": 38.5,
+   "prior_stay_incidents": 1
+  }
+ },
+ "factors": {
+  "vacc_expiry_offset_days": -27,
+  "titre_exemption_on_file": true,
+  "certificate_id_mismatch": "transposed_digit",
+  "arrival_cough_observed": false,
+  "cough_benign_explanation": "none",
+  "weight_discrepancy_pct": 18.18,
+  "medication_state": "none_needed",
+  "next_dose_hours": 31,
+  "neuter_status_conflict": false,
+  "owner_reachable": true,
+  "prior_incident_count": 1,
+  "note_tone": "neutral",
+  "balanced_signals": false
+ },
+ "factors_sampled": {
+  "vacc_expiry_offset_days": -27,
+  "titre_exemption_on_file": false,
+  "certificate_id_mismatch": "different_chip",
+  "arrival_cough_observed": false,
+  "cough_benign_explanation": "none",
+  "weight_discrepancy_pct": 18.18,
+  "medication_state": "none_needed",
+  "next_dose_hours": 31,
+  "neuter_status_conflict": false,
+  "owner_reachable": true,
+  "prior_incident_count": 1,
+  "note_tone": "neutral",
+  "balanced_signals": false
+ },
+ "plan": {
+  "vacc_cover_valid": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "declaration_consistent": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "admission_disposition": {
+   "clarity": "clear",
+   "target": "hold_pending",
+   "second": null
+  },
+  "discrepancy_count": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  },
+  "action_urgency": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 55,
+ "deciding": {
+  "vacc_cover_valid": "core_expiry 2025-10-12 is before checkout 2025-11-08, but an accepted titre is on file; the certificate chip has swapped digits and the name is spelled differently, so it may not be this dog's.",
+  "declaration_consistent": "Declared weight 11.0 kg versus measured 13.0 kg is an 18 percent gap, but nothing else in the declaration conflicts and no vet history is present to check it against.",
+  "admission_disposition": "The certificate chip differs from the booking by transposed digits and the name by one letter. This single item needs owner confirmation, the owner is reachable and the confirm call is not done, so the dog waits at reception.",
+  "discrepancy_count": "Four open mismatches: certificate chip against booking chip, certificate name against dog name, weight 11.0 against 13.0, and expiry before checkout.",
+  "action_urgency": "The mismatches could be cleared by phoning the reachable owner, with no dose or symptom forcing speed; whether this needs action during the stay or within 48 hours is a close call."
+ },
+ "request": "rec-F340-0001",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.015022
+}

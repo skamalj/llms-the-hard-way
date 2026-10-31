@@ -1,0 +1,345 @@
+{
+ "id": "F317",
+ "domain": "tram depot vehicle checks",
+ "role": "Depot release examiner at a tram depot, who reviews one vehicle check record at a time before deciding whether a tram may leave for service.",
+ "setting": "A city tram depot where each tram gets a pre-service fitness check record. The record pulls together the vehicle's mileage, the current scheduled exam sign-offs, open and closed defects, repair work orders, engineering concessions and the planned duty. The examiner must reconcile these sections, notice missing or out-of-sequence steps and weigh mitigations such as valid concessions, recent brake tests or low-demand duties. Records contain no free text, only coded fields, identifiers, dates and numbers.",
+ "questions": {
+  "sc_defects_cleared": {
+   "type": "noul",
+   "instructions": "Every safety-critical defect on this tram is closed and properly retested.",
+   "criteria": null
+  },
+  "release_decision": {
+   "type": "choice",
+   "instructions": "What release decision should the depot examiner make for this tram?",
+   "criteria": {
+    "release": "Fit for any planned duty with no restrictions applied",
+    "release_restricted": "Runs only under a valid concession restriction or limited duty",
+    "hold": "Kept in depot until one outstanding confirmation is recorded",
+    "withdraw": "Taken out of service for repair before any running"
+   }
+  },
+  "worst_subsystem": {
+   "type": "choice",
+   "instructions": "Which subsystem holds the most severe unresolved defect on this tram?",
+   "criteria": {
+    "none": "No defect is open or awaiting retest on any subsystem",
+    "saloon_doors": "Worst unresolved defect concerns passenger doors, interlocks or steps",
+    "pantograph": "Worst unresolved defect concerns pantograph, collector head or roof gear",
+    "running_gear": "Worst unresolved defect concerns wheels, bogies, suspension or couplers",
+    "brakes": "Worst unresolved defect concerns service, emergency or track brakes"
+   }
+  },
+  "exam_completion": {
+   "type": "score",
+   "instructions": "How much of the current scheduled exam is signed off?",
+   "criteria": [
+    "Not started: no exam items signed off yet",
+    "Partial: fewer than half of exam items signed",
+    "Substantial: half or more signed, at least one outstanding",
+    "Complete: every exam item signed with a timestamp"
+   ]
+  },
+  "exam_mileage": {
+   "type": "score",
+   "instructions": "How close is the tram's odometer to its exam due mileage?",
+   "criteria": [
+    "More than 500 km left before exam due",
+    "Between 0 and 500 km left before due",
+    "Past due mileage by 200 km or less",
+    "Past due mileage by more than 200 km"
+   ]
+  }
+ },
+ "factors": [
+  {
+   "name": "km_to_exam_due",
+   "description": "Exam due mileage minus current odometer; negative means overrun. Values near 0, 500 and -200 sit on scale boundaries.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": -600,
+   "max": 1500,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S6",
+    "S7"
+   ]
+  },
+  {
+   "name": "odometer_disagreement",
+   "description": "Gap between vehicle odometer and the reading captured at release: none, trivial (under 20 km) or large (over 300 km), sometimes moving the record across a mileage threshold.",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "trivial",
+    "large"
+   ],
+   "weights": [
+    0.5,
+    0.3,
+    0.2
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S6"
+   ]
+  },
+  {
+   "name": "exam_signed_fraction",
+   "description": "Share of current exam items that carry a signature and timestamp.",
+   "kind": "number",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 1,
+   "p_true": 0,
+   "skills": [
+    "S4",
+    "S7"
+   ]
+  },
+  {
+   "name": "exam_record_missing",
+   "description": "The exam section is null although an exam is due or open.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.1,
+   "skills": [
+    "S2"
+   ]
+  },
+  {
+   "name": "worst_defect_subsystem",
+   "description": "Subsystem of the most severe unresolved defect, or none if all are cleared.",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "saloon_doors",
+    "pantograph",
+    "running_gear",
+    "brakes"
+   ],
+   "weights": [
+    0.25,
+    0.2,
+    0.15,
+    0.2,
+    0.2
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S7"
+   ]
+  },
+  {
+   "name": "worst_defect_state",
+   "description": "Lifecycle state of that defect: closed and retested, closed with no retest, open with work in progress, or open with no work order.",
+   "kind": "categorical",
+   "values": [
+    "closed_retested",
+    "closed_no_retest",
+    "open_wo_in_progress",
+    "open_no_wo"
+   ],
+   "weights": [
+    0.3,
+    0.25,
+    0.25,
+    0.2
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S2",
+    "S4"
+   ]
+  },
+  {
+   "name": "worst_defect_safety_critical",
+   "description": "Whether the worst defect is flagged safety-critical rather than comfort or cosmetic.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.55,
+   "skills": [
+    "S3",
+    "S5",
+    "S7"
+   ]
+  },
+  {
+   "name": "retest_out_of_order",
+   "description": "Retest timestamp precedes the work order completion time, so the retest cannot count.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.15,
+   "skills": [
+    "S2",
+    "S5"
+   ]
+  },
+  {
+   "name": "concession_present",
+   "description": "An engineering concession exists that covers the worst defect with a running restriction.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3"
+   ]
+  },
+  {
+   "name": "concession_flaw",
+   "description": "When a concession is present, whether it is undermined: expired before departure, wrong fleet number, or wrong defect reference.",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "expired",
+    "wrong_fleet_no",
+    "wrong_defect_ref"
+   ],
+   "weights": [
+    0.55,
+    0.15,
+    0.15,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S3"
+   ]
+  },
+  {
+   "name": "wo_crossref_mismatch",
+   "description": "Work order linked to the defect disagrees with it: different subsystem code, or a defect reference not found in the defect list.",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "subsystem_differs",
+    "defect_ref_unknown"
+   ],
+   "weights": [
+    0.65,
+    0.2,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S2"
+   ]
+  },
+  {
+   "name": "planned_duty_type",
+   "description": "Duty the tram is booked for; shunt and spare duties are low-impact, peak diagrams high-impact.",
+   "kind": "categorical",
+   "values": [
+    "depot_shunt",
+    "spare",
+    "off_peak",
+    "peak_diagram"
+   ],
+   "weights": [
+    0.15,
+    0.2,
+    0.3,
+    0.35
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S7"
+   ]
+  },
+  {
+   "name": "recent_brake_test_pass",
+   "description": "A passing brake test was logged within 24 hours before departure; mitigates brake concern but never closes a defect.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3"
+   ]
+  },
+  {
+   "name": "balanced_signals",
+   "description": "Generator places mitigations and concerns in even balance, or a value exactly on a threshold, so judges may split.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.2,
+   "skills": [
+    "S6"
+   ]
+  }
+ ],
+ "sections": [
+  {
+   "name": "vehicle",
+   "description": "Fleet number, class, current odometer_km and last completed exam type and date."
+  },
+  {
+   "name": "exam",
+   "description": "Current scheduled exam: exam_id, exam_type, due_at_km, opened_at and items list with item_code, result, signed_by, signed_at; may be null."
+  },
+  {
+   "name": "defects",
+   "description": "List of defects with defect_id, fleet_no, subsystem, safety_critical, raised_at, status, closed_at, retest_at, retest_result."
+  },
+  {
+   "name": "work_orders",
+   "description": "List of repair orders with wo_id, defect_ref, subsystem, opened_at, completed_at, status and parts list."
+  },
+  {
+   "name": "concessions",
+   "description": "List of engineering concessions with conc_id, fleet_no, defect_ref, restriction_code, valid_from, valid_until; may be empty or null."
+  },
+  {
+   "name": "release",
+   "description": "Planned duty: duty_id, duty_type, depart_at, odo_reading_km, brake_test_at, brake_test_result."
+  }
+ ],
+ "rendering_notes": "km_to_exam_due is never shown; it must be derived from exam.due_at_km minus vehicle.odometer_km. odometer_disagreement appears as release.odo_reading_km differing from vehicle.odometer_km; the later timestamped reading (release) is authoritative, so large gaps can shift the mileage band. exam_signed_fraction appears as the count of exam.items with non-null signed_by and signed_at against total items; some items carry a result but null signed_at as decoys. exam_record_missing renders exam as null while vehicle.last_exam_date is old. worst_defect_subsystem, worst_defect_state and worst_defect_safety_critical appear in one defects entry (status, closed_at, retest_at, retest_result, safety_critical) plus its linked work_orders entry; severity ranking for ties is safety_critical first, then earliest raised_at, and the generator avoids true ties. Closed cosmetic defects and closed-retested older defects act as decoys. retest_out_of_order shows defects.retest_at earlier than work_orders.completed_at. concession_present adds a concessions entry; concession_flaw shows as valid_until before release.depart_at, fleet_no differing from vehicle.fleet_no, or defect_ref not matching the defect. wo_crossref_mismatch shows work_orders.subsystem differing from defects.subsystem or defect_ref absent from defects. planned_duty_type appears as release.duty_type. recent_brake_test_pass appears as release.brake_test_result 'pass' with brake_test_at within 24 hours of depart_at; it appears with and without brake defects. No field states release status, fitness, overdue status, severity or completion percentage; there is no free text anywhere. Answers follow from reconciliation: a valid concession allows release_restricted but never makes the true/false claim true; one missing confirmation (closed without retest, small exam gap, trivial cross-reference error) points to hold; open safety-critical defects without valid concession, or overrun beyond 200 km, point to withdraw.",
+ "skills": [
+  "S1",
+  "S2",
+  "S3",
+  "S4",
+  "S5",
+  "S6",
+  "S7"
+ ],
+ "shared_scale": null,
+ "design_cost": 0.167612
+}

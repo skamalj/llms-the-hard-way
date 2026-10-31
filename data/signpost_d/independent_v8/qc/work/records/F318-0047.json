@@ -1,0 +1,181 @@
+{
+ "id": "F318-0047",
+ "family": "F318",
+ "state": {
+  "work_order": {
+   "wo_id": "WO-221",
+   "visit_type": "routine_inspection",
+   "tasks": [
+    {
+     "task_id": 1,
+     "asset_ref": "GATE-A"
+    },
+    {
+     "task_id": 2,
+     "asset_ref": "GATE-B"
+    },
+    {
+     "task_id": 3,
+     "asset_ref": "PAD-A"
+    },
+    {
+     "task_id": 4,
+     "asset_ref": "PAD-B"
+    },
+    {
+     "task_id": 5,
+     "asset_ref": "WEIR-1"
+    }
+   ],
+   "nav_notice": {
+    "in_force": true,
+    "to": "2025-06-01",
+    "scope_assets": [
+     "GATE-A",
+     "GATE-B",
+     "PAD-A",
+     "PAD-B",
+     "WEIR-1"
+    ]
+   }
+  },
+  "visit_log": {
+   "arrived": "2025-05-06T09:00",
+   "departed": "2025-05-06T12:00",
+   "crew_size": 2,
+   "timesheet_hours": 6.9,
+   "task_status": [
+    {
+     "task_id": 1,
+     "status": "done"
+    },
+    {
+     "task_id": 2,
+     "status": "done"
+    },
+    {
+     "task_id": 3,
+     "status": "done"
+    },
+    {
+     "task_id": 4,
+     "status": "not_started",
+     "deferral_ref": null,
+     "deferral_due": null
+    },
+    {
+     "task_id": 5,
+     "status": "not_started",
+     "deferral_ref": null,
+     "deferral_due": null
+    }
+   ]
+  },
+  "materials": {
+   "issued": [
+    {
+     "part_no": "P1",
+     "task_id": 1,
+     "qty": 10
+    }
+   ],
+   "returned": [],
+   "fitted": [
+    {
+     "part_no": "P1",
+     "task_id": 1,
+     "qty": 4
+    }
+   ]
+  },
+  "checks": {
+   "post_checks": [],
+   "leakage_ls": 31,
+   "leakage_limit_ls": 30,
+   "river_level_m": 3.1,
+   "flood_marker_m": 2.9
+  },
+  "asset_history": {
+   "prior_visits": [
+    {
+     "date": "2024-09-01",
+     "asset_ref": "GATE-A",
+     "defect_code": "GT-4"
+    },
+    {
+     "date": "2024-02-11",
+     "asset_ref": "GATE-A",
+     "defect_code": "GT-4"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "visit_type": "routine_inspection",
+  "tasks_ordered": 5,
+  "completion_state": "some_outstanding",
+  "parts_qty_mismatch": "large",
+  "hours_gap": 0.9,
+  "asset_ref_mismatch": false,
+  "post_check_result": "not_logged",
+  "leakage_ratio": 1.03,
+  "leakage_mitigation": true,
+  "navigation_notice_in_force": true,
+  "deferral_approved": false,
+  "prior_same_defect": 2,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "visit_type": "routine_inspection",
+  "tasks_ordered": 5,
+  "completion_state": "some_outstanding",
+  "parts_qty_mismatch": "large",
+  "hours_gap": 0.9,
+  "asset_ref_mismatch": false,
+  "post_check_result": "not_logged",
+  "leakage_ratio": 1.03,
+  "leakage_mitigation": true,
+  "navigation_notice_in_force": true,
+  "deferral_approved": false,
+  "prior_same_defect": 2,
+  "boundary_case": false
+ },
+ "plan": {
+  "safe_to_reopen": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "record_disposition": {
+   "clarity": "clear",
+   "target": "reopen_revisit",
+   "second": null
+  },
+  "return_urgency": {
+   "clarity": "leaning",
+   "target": "next_scheduled",
+   "second": null
+  },
+  "affected_scope": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  },
+  "section_mismatches": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 48,
+ "deciding": {
+  "safe_to_reopen": "post_checks is empty and two tasks are not_started, so no check supports reopening; the notice stays in force. Leakage 31 against limit 30 is slightly over but the river is above the flood marker.",
+  "record_disposition": "Two of five tasks were not started with no deferral ref, parts fitted 4 of 10 issued with none returned, and no checks were logged, so the visit cannot be accepted and the crew must return.",
+  "return_urgency": "The nav notice covers all five assets until 2025-06-01, so the lock is already restricted and leakage is near the limit with flood mitigation. The next planned cycle is likely enough, though outstanding tasks add doubt.",
+  "affected_scope": "The nav notice scope_assets lists 5 assets, at the top of the two-to-five band and close to the six-to-twenty band.",
+  "section_mismatches": "Two clear mismatches: P1 fitted 4 versus issued 10 and returned 0, and timesheet 6.9h versus 3h x 2 = 6h. A third is arguable: the not_started tasks 4 and 5 carry no deferral ref."
+ },
+ "request": "rec-F318-0046",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.014361
+}

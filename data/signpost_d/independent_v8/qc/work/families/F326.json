@@ -1,0 +1,331 @@
+{
+ "id": "F326",
+ "domain": "tree preservation order applications",
+ "role": "Local planning authority tree officer determining applications for works to protected trees",
+ "setting": "A district council's arboricultural team receives applications to fell, reduce or prune trees covered by tree preservation orders. The tree officer opens one application record at a time, compares the applicant's tree schedule with the order register entry and the submitted arboricultural report, checks site constraints and the property's enforcement history, and decides on the evidence, the decision to issue, the inspection priority and the extent of works proposed.",
+ "questions": {
+  "evidence_supports_works": {
+   "type": "noul",
+   "instructions": "Current arboricultural evidence supports the full extent of works applied for.",
+   "criteria": {
+    "true": "Recent report recommends works at least this extensive",
+    "false": "Report absent, stale, or recommends lighter works"
+   }
+  },
+  "decision": {
+   "type": "choice",
+   "instructions": "What decision should be issued on this application?",
+   "criteria": {
+    "refuse": "Works unjustified or harmful to amenity; consent withheld entirely",
+    "request_info": "Decision held pending one missing or out-of-date item",
+    "grant_conditional": "Works acceptable only if scaled back or made subject to conditions",
+    "grant_as_applied": "Works justified as submitted; consent issued without any changes"
+   }
+  },
+  "inspection_priority": {
+   "type": "choice",
+   "instructions": "How quickly should an officer site inspection be scheduled?",
+   "criteria": {
+    "standard_queue": "No hazard reported; determination deadline over four weeks away",
+    "schedule_soon": "No hazard reported; determination deadline two to four weeks away",
+    "expedite": "Deadline under two weeks, or hazard already made safe",
+    "emergency_visit": "Highway or imminent-failure hazard reported with no interim safety measures"
+   }
+  },
+  "affected_scope": {
+   "type": "score",
+   "instructions": "How many people or units does this issue directly affect?",
+   "criteria": [
+    "Affects one person or unit only",
+    "Affects two to five people or units",
+    "Affects six to twenty people or units",
+    "Affects more than twenty people or units"
+   ]
+  },
+  "works_extent": {
+   "type": "score",
+   "instructions": "What is the greatest extent of works proposed on any tree?",
+   "criteria": [
+    "Deadwood removal, cleaning or crown lift only",
+    "Crown reduction of 1 to 20 percent",
+    "Crown reduction of 21 to 30 percent",
+    "Reduction above 30 percent, or felling"
+   ]
+  }
+ },
+ "factors": [
+  {
+   "name": "order_coverage",
+   "description": "Whether the trees listed in the application all appear in the order register entry; some listed trees may be absent or only covered by an area designation",
+   "kind": "categorical",
+   "values": [
+    "all_listed",
+    "area_designation_only",
+    "one_tree_absent",
+    "order_ref_wrong"
+   ],
+   "weights": [
+    0.5,
+    0.2,
+    0.18,
+    0.12
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S6"
+   ]
+  },
+  {
+   "name": "schedule_report_discrepancy",
+   "description": "Mismatch between the applicant's tree schedule and the arboricultural report for the same tree: none, stem diameter differs slightly, species differs, or report recommends lighter works than applied for",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "dbh_minor",
+    "species_differs",
+    "report_lighter_works"
+   ],
+   "weights": [
+    0.35,
+    0.2,
+    0.15,
+    0.3
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S5"
+   ]
+  },
+  {
+   "name": "condition_grade",
+   "description": "Arboricultural condition grade of the principal tree as recorded in the report",
+   "kind": "categorical",
+   "values": [
+    "good",
+    "fair",
+    "poor",
+    "dead"
+   ],
+   "weights": [
+    0.3,
+    0.35,
+    0.25,
+    0.1
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S7"
+   ]
+  },
+  {
+   "name": "max_reduction_pct",
+   "description": "Largest crown reduction proposed on any tree in the schedule; 0 means minor pruning only, 100 means felling; values cluster near 20 and 30 for boundary cases",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 100,
+   "p_true": 0,
+   "skills": [
+    "S4",
+    "S6",
+    "S7"
+   ]
+  },
+  {
+   "name": "damage_claim",
+   "description": "Applicant cites subsidence or structural damage to a building attributed to the tree",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.4,
+   "skills": [
+    "S3",
+    "S5"
+   ]
+  },
+  {
+   "name": "engineer_evidence",
+   "description": "Structural engineer's monitoring and root identification confirming tree involvement; present for roughly half of damage claims, absent otherwise",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S5"
+   ]
+  },
+  {
+   "name": "bat_roost_potential",
+   "description": "Report or constraints layer flags features with potential to support roosting bats",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.4,
+   "skills": [
+    "S3"
+   ]
+  },
+  {
+   "name": "ecology_survey_clear",
+   "description": "A dated emergence survey found no roost, lowering concern about the bat flag",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S4"
+   ]
+  },
+  {
+   "name": "prior_contraventions",
+   "description": "Number of recorded unauthorised works to protected trees at the property",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 3,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S7"
+   ]
+  },
+  {
+   "name": "contravention_resolved",
+   "description": "Replacement planting required after a past contravention has been verified as completed",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3"
+   ]
+  },
+  {
+   "name": "report_age_months",
+   "description": "Months between the arboricultural survey date and the application received date; over 12 counts as stale",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 30,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S4",
+    "S5"
+   ]
+  },
+  {
+   "name": "days_to_deadline",
+   "description": "Days between today's review date and the statutory determination date",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 2,
+   "max": 56,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S7"
+   ]
+  },
+  {
+   "name": "reported_hazard",
+   "description": "Hazard condition noted in the report or site constraints",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "minor_deadwood",
+    "limb_over_highway",
+    "imminent_failure"
+   ],
+   "weights": [
+    0.5,
+    0.2,
+    0.18,
+    0.12
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S7"
+   ]
+  },
+  {
+   "name": "interim_measures",
+   "description": "Cordon, propping or emergency limb removal already in place, making a reported hazard safe",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S6"
+   ]
+  }
+ ],
+ "sections": [
+  {
+   "name": "application",
+   "description": "Reference, received date, determination date, review date, applicant type, cited grounds codes"
+  },
+  {
+   "name": "tree_schedule",
+   "description": "List of trees applied for: applicant tree id, species, dbh_cm, works code, reduction_pct"
+  },
+  {
+   "name": "order_register",
+   "description": "Order reference, confirmed flag, designation type, list of protected tree ids with species and dbh_cm"
+  },
+  {
+   "name": "arb_report",
+   "description": "Survey date, per-tree condition grade, dbh_cm, recommended works and reduction_pct, hazard code, bat features flag"
+  },
+  {
+   "name": "site_constraints",
+   "description": "Conservation area flag, highway adjacency, ecology survey record, interim measures, engineer monitoring record"
+  },
+  {
+   "name": "case_history",
+   "description": "Prior applications count, contraventions list with dates and replanting verification status"
+  }
+ ],
+ "rendering_notes": "order_coverage: compare tree_schedule ids and species with order_register.trees; one_tree_absent shows a schedule id missing from the register list; area_designation_only shows designation 'area' with an empty trees list; order_ref_wrong shows application.order_ref differing from order_register.order_ref by a digit. schedule_report_discrepancy: same tree id carries different dbh_cm (under 10%), species, or a lower reduction_pct or lighter works code in arb_report than in tree_schedule; never flagged. condition_grade appears only in arb_report.trees[].condition. max_reduction_pct appears as tree_schedule[].reduction_pct, with works code 'fell' for 100 and 'deadwood'/'lift' for 0. damage_claim appears as grounds code 'SUBS' in application.grounds; engineer_evidence as site_constraints.engineer_monitoring object with months_monitored and roots_identified, or null. bat_roost_potential as arb_report.bat_features true; ecology_survey_clear as site_constraints.ecology_survey with date and roost_found false, or null. prior_contraventions as case_history.contraventions list; contravention_resolved as replant_verified true/false per item. report_age_months is derived from arb_report.survey_date versus application.received; days_to_deadline from application.review_date versus application.determination_due. reported_hazard as arb_report hazard code plus site_constraints.highway_adjacent; interim_measures as site_constraints.interim_measures list (cordon, prop) or empty. Decoys: order_register.confirmed false (a provisional order still protects), conservation_area flag (irrelevant when the order applies), prior_applications count (approved applications are not contraventions), minor_deadwood hazard code, small dbh differences. No record may contain a recommendation, priority, risk rating, justified flag or decision field; the report gives only measurements, grades and recommended works.",
+ "skills": [
+  "S1",
+  "S3",
+  "S4",
+  "S5",
+  "S6",
+  "S7"
+ ],
+ "shared_scale": "affected_scope",
+ "design_cost": 0.141928
+}

@@ -1,0 +1,147 @@
+{
+ "id": "F303-0055",
+ "family": "F303",
+ "state": {
+  "order": {
+   "prescription": {
+    "modality": "cylinder",
+    "flow_lpm": 3,
+    "hours_per_day": 8,
+    "rx_expiry": "2026-02-01"
+   },
+   "items_ordered": [
+    {
+     "sku": "CYL-HX",
+     "qty": 1
+    }
+   ]
+  },
+  "visit": {
+   "items_left": [
+    {
+     "sku": "CYL-HX",
+     "qty": 1,
+     "serial": "HX55"
+    }
+   ],
+   "install_checks": {
+    "flow_verified": true,
+    "alarm_tested": null,
+    "training_given": true,
+    "completed_at": "15:20"
+   },
+   "patient_signature": null
+  },
+  "site_assessment": {
+   "hazards": [
+    {
+     "code": "SMOKING",
+     "status": "open",
+     "fix": null
+    },
+    {
+     "code": "HEAT_SRC",
+     "status": "open",
+     "fix": null
+    },
+    {
+     "code": "NO_SIGN",
+     "status": "open",
+     "fix": null
+    },
+    {
+     "code": "CYL_STORAGE",
+     "status": "open",
+     "fix": "cylinder_relocated"
+    },
+    {
+     "code": "RUG",
+     "status": "resolved_on_visit",
+     "fix": "firebreak_fitted"
+    }
+   ]
+  },
+  "equipment": {
+   "flow_setting_lpm": 2,
+   "cylinders_on_site": [
+    {
+     "size": "HX 2300 L",
+     "fill_pct": 90
+    }
+   ]
+  },
+  "supply_plan": {
+   "next_delivery_date": "2025-09-04"
+  }
+ },
+ "factors": {
+  "rx_alignment": "flow_mismatch",
+  "items_shortfall": "none",
+  "setup_state": "test_not_logged",
+  "supply_hours": "about 11.5 usage hours (about 35 calendar hours), cylinder only",
+  "concentrator_fault": false,
+  "fault_mitigated": false,
+  "hazards_found": 5,
+  "hazard_mitigation": false,
+  "hazard_status_missing": false,
+  "handover_gap": true,
+  "timeline_out_of_order": false,
+  "next_delivery": "booked_in_time",
+  "dependency_level": "ambulatory",
+  "billing_hold": false
+ },
+ "factors_sampled": {
+  "rx_alignment": "flow_mismatch",
+  "items_shortfall": "one_short",
+  "setup_state": "test_not_logged",
+  "supply_hours": 58.6,
+  "concentrator_fault": false,
+  "fault_mitigated": true,
+  "hazards_found": 5,
+  "hazard_mitigation": false,
+  "hazard_status_missing": false,
+  "handover_gap": true,
+  "timeline_out_of_order": false,
+  "next_delivery": "booked_in_time",
+  "dependency_level": "ambulatory",
+  "billing_hold": false
+ },
+ "plan": {
+  "rx_match": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "close_record",
+   "second": null
+  },
+  "fulfilment": {
+   "clarity": "clear",
+   "target": "setup_incomplete",
+   "second": null
+  },
+  "supply_runway": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "open_hazards": {
+   "clarity": "balanced",
+   "target": "4",
+   "second": "3"
+  }
+ },
+ "target_words": 42,
+ "deciding": {
+  "rx_match": "Rx flow_lpm is 3 but equipment.flow_setting_lpm is 2, while the modality (cylinder) matches.",
+  "next_step": "The record shows no explicit outstanding-visit field. The only gaps are the null signature and null alarm test, which weakly favour closing. This is a weak fit, because the open hazards and null alarm test argue against it.",
+  "fulfilment": "The one ordered CYL-HX was left, but install_checks.alarm_tested is null, so setup is not finished.",
+  "supply_runway": "One HX 2300 L cylinder at 90% is 2070 L. At 3 lpm for 8 h/day that is about 11.5 usage hours or about 35 calendar hours, so level 0 or 1.",
+  "open_hazards": "Four hazards are open and RUG is resolved. CYL_STORAGE is open with fix cylinder_relocated, so the count is four or three."
+ },
+ "request": "rec-F303-0051",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.017494
+}

@@ -1,0 +1,305 @@
+{
+ "id": "F305",
+ "domain": "dialysis unit session logs",
+ "role": "Haemodialysis charge nurse doing end-of-shift sign-off of completed session logs",
+ "setting": "A hospital satellite haemodialysis unit. Each treatment produces a structured session log from the dialysis machine export, the chairside observation chart and the pre-treatment checklist. Before a log is closed, the charge nurse reviews it alone. The nurse reconciles delivered treatment against the prescription, confirms the safety checks and decides whether the log can be signed off, queried, referred or reported.",
+ "questions": {
+  "uf_reconciles": {
+   "type": "noul",
+   "instructions": "Machine fluid removal agrees with the recorded weight loss within 0.5 kg.",
+   "criteria": {
+    "true": "Both weights present; net UF within 0.5 kg of change.",
+    "false": "Post weight missing, or the gap exceeds 0.5 kg."
+   }
+  },
+  "checks_before_start": {
+   "type": "noul",
+   "instructions": "All mandatory pre-treatment checks were documented before the treatment start time.",
+   "criteria": null
+  },
+  "log_disposition": {
+   "type": "choice",
+   "instructions": "What should happen to this session log at review?",
+   "criteria": {
+    "sign_off": "All sections reconcile; no open checks or clinical findings remain.",
+    "hold_query": "One missing or inconsistent entry needs confirmation from the treating nurse.",
+    "refer_prescriber": "Clinical finding needs nephrologist review before the patient's next session.",
+    "incident_report": "Safety event or wrong setting delivered requires a formal incident report."
+   }
+  },
+  "time_shortfall": {
+   "type": "score",
+   "instructions": "How far did delivered treatment time fall short of prescription?",
+   "criteria": [
+    "Full: effective time within 5 minutes of prescribed",
+    "Minor: effective time short by 6 to 15 minutes",
+    "Moderate: effective time short by 16 to 30 minutes",
+    "Major: effective time short by over 30 minutes"
+   ]
+  },
+  "pending_age": {
+   "type": "score",
+   "instructions": "How long has this record been waiting without any decision?",
+   "criteria": [
+    "Logged less than 24 hours ago",
+    "Waiting between one and seven days",
+    "Waiting between eight and thirty days",
+    "Waiting more than thirty days without decision"
+   ]
+  }
+ },
+ "factors": [
+  {
+   "name": "time_shortfall_min",
+   "description": "Minutes by which effective treatment time (needling-on to washback, minus machine pauses) falls short of the prescribed duration. Values cluster near the 5, 15 and 30-minute boundaries.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 75,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S4",
+    "S6",
+    "S7"
+   ]
+  },
+  {
+   "name": "machine_pause_min",
+   "description": "Total minutes the blood pump was stopped, recorded only as paired stop/resume entries in the machine alarm list and not deducted anywhere else.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 25,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S6"
+   ]
+  },
+  {
+   "name": "uf_weight_gap_kg",
+   "description": "Absolute gap between net machine UF (UF removed minus saline boluses and washback) and pre-weight minus post-weight. Values often sit near the 0.5 kg line.",
+   "kind": "number",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 2,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S5",
+    "S6"
+   ]
+  },
+  {
+   "name": "post_weight_missing",
+   "description": "Post-treatment weight not recorded, so fluid removal cannot be verified.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.15,
+   "skills": [
+    "S2",
+    "S5"
+   ]
+  },
+  {
+   "name": "missing_check",
+   "description": "Which mandatory pre-treatment check, if any, has no entry at all.",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "water_chlorine_test",
+    "machine_disinfection",
+    "second_checker",
+    "access_assessment"
+   ],
+   "weights": [
+    0.6,
+    0.1,
+    0.1,
+    0.12,
+    0.08
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S2",
+    "S4"
+   ]
+  },
+  {
+   "name": "check_logged_after_start",
+   "description": "A check is present but its timestamp falls after the treatment start time, showing it was done out of order or back-filled.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.18,
+   "skills": [
+    "S2",
+    "S5",
+    "S6"
+   ]
+  },
+  {
+   "name": "prescription_mismatch",
+   "description": "Which machine setting, if any, differs from the prescription section.",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "dialysate_k",
+    "blood_flow",
+    "heparin_dose",
+    "dialyser_model"
+   ],
+   "weights": [
+    0.6,
+    0.1,
+    0.12,
+    0.1,
+    0.08
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S7"
+   ]
+  },
+  {
+   "name": "mismatch_magnitude",
+   "description": "Size of any setting mismatch. Trivial means rounding-level, such as blood flow 10 ml/min off or heparin 100 units off. Relevant means a different dialysate potassium bath, blood flow off by 50+ ml/min, or a different dialyser.",
+   "kind": "categorical",
+   "values": [
+    "trivial",
+    "clinically_relevant"
+   ],
+   "weights": [
+    0.5,
+    0.5
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S6"
+   ]
+  },
+  {
+   "name": "hypotension_episodes",
+   "description": "Count of chairside systolic readings below 90 mmHg in the observation list.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 4,
+   "p_true": 0,
+   "skills": [
+    "S4",
+    "S7"
+   ]
+  },
+  {
+   "name": "hypotension_mitigated",
+   "description": "A saline bolus and a UF-rate reduction are logged after the low reading, and the next systolic reading has recovered above 100 mmHg.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S4",
+    "S6"
+   ]
+  },
+  {
+   "name": "circuit_clotted",
+   "description": "The extracorporeal circuit clotted and a line or dialyser change was logged, with blood loss not returned.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.1,
+   "skills": [
+    "S7"
+   ]
+  },
+  {
+   "name": "prior_short_sessions",
+   "description": "Number of the last six sessions in history with effective time short by more than 15 minutes.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 4,
+   "p_true": 0,
+   "skills": [
+    "S6",
+    "S7"
+   ]
+  },
+  {
+   "name": "documented_flow_reduction",
+   "description": "Decoy: blood flow was reduced mid-session with a coded access-pressure reason. It looks like a prescription mismatch but is an accepted adjustment.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.4,
+   "skills": [
+    "S1",
+    "S6"
+   ]
+  }
+ ],
+ "sections": [
+  {
+   "name": "session",
+   "description": "Session id, patient ref, chair, date, needle_on and washback timestamps, nurse ids."
+  },
+  {
+   "name": "prescription",
+   "description": "Prescribed duration_min, dialyser, dialysate_k and _ca, qb_ml_min, heparin_units, target_uf_ml, dry_weight_kg."
+  },
+  {
+   "name": "machine",
+   "description": "Delivered settings, uf_removed_ml, washback_ml, and alarms list of coded events with timestamps."
+  },
+  {
+   "name": "observations",
+   "description": "pre_kg, post_kg, list of bp readings with times, interventions list such as saline_bolus_ml."
+  },
+  {
+   "name": "checks",
+   "description": "Pre-treatment checklist entries: check code, done boolean, timestamp, checker ids."
+  },
+  {
+   "name": "history",
+   "description": "Last six sessions: date, prescribed_min, effective_min, post_kg."
+  }
+ ],
+ "rendering_notes": "time_shortfall_min is never stated. The reviewer derives effective time from session.needle_on and session.washback minus paired PUMP_STOP/PUMP_RESUME entries in machine.alarms (machine_pause_min), then compares it with prescription.duration_min. Clock duration alone is a decoy whenever pauses exist. uf_weight_gap_kg is rendered through machine.uf_removed_ml, machine.washback_ml, observations.interventions saline_bolus_ml, observations.pre_kg and observations.post_kg. When post_weight_missing applies, post_kg is null. missing_check omits that entry from the checks list entirely. check_logged_after_start gives one check a timestamp later than session.needle_on, with done true. prescription_mismatch shows as a machine.settings value differing from the matching prescription field, at the magnitude set by mismatch_magnitude. documented_flow_reduction adds an alarm QB_REDUCED with code ART_PRESSURE_HIGH and a lower machine.qb_actual. This differs from the prescription but is acceptable and must not count as a mismatch. Hypotension shows only as bp readings below 90 systolic; mitigation shows as an interventions entry plus the next reading. circuit_clotted shows as a CIRCUIT_CLOT alarm, a LINE_CHANGE event and an increased blood_loss_ml. prior_short_sessions lives only in the history list. For disposition, take the highest applicable option. A wrong relevant setting or an unreturned clot is an incident. Unmitigated hypotension, repeated short sessions or major shortfall are referrals. A single missing value or check is a hold. No field may state a status, shortfall, risk, verdict or summary flag, and there are no free-text fields; only codes, numbers, booleans, timestamps and nulls.",
+ "skills": [
+  "S1",
+  "S2",
+  "S4",
+  "S5",
+  "S6",
+  "S7"
+ ],
+ "shared_scale": "pending_age",
+ "design_cost": 0.126996
+}

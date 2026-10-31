@@ -1,0 +1,152 @@
+{
+ "id": "F338-0038",
+ "family": "F338",
+ "state": {
+  "site": {
+   "pollutant": "CO",
+   "tier": "indicative",
+   "service_interval_days": 90
+  },
+  "visit": {
+   "date": "2024-07-02",
+   "start": "10:00",
+   "end": "12:30",
+   "sequence_status": "complete",
+   "maintenance_window": false
+  },
+  "reference": {
+   "standard_id": "CY30915",
+   "cert_expiry": "2024-07-15",
+   "unit": "ppm"
+  },
+  "checks": [
+   {
+    "type": "as_found_span",
+    "ref_id": "CY30915",
+    "ref_conc": 40,
+    "unit": "ppb",
+    "reading": 55.2,
+    "tol": 2,
+    "ts": "10:20"
+   },
+   {
+    "type": "as_found_zero",
+    "ref_id": "CY30915",
+    "ref_conc": 0,
+    "unit": "ppm",
+    "reading": 0.2,
+    "tol": 0.5,
+    "ts": "10:30"
+   },
+   {
+    "type": "as_left_span",
+    "ref_id": "CY30915",
+    "ref_conc": 40,
+    "unit": "ppm",
+    "reading": 40.3,
+    "tol": 2,
+    "ts": "11:50"
+   },
+   {
+    "type": "as_left_zero",
+    "ref_id": "CY30915",
+    "ref_conc": 0,
+    "unit": "ppm",
+    "reading": 0.1,
+    "tol": 0.5,
+    "ts": "12:00"
+   }
+  ],
+  "history": {
+   "last_visit_date": "2024-04-09",
+   "results": [
+    "pass",
+    "fail",
+    "pass",
+    "fail"
+   ],
+   "autochecks": [
+    {
+     "d": "2024-06-28",
+     "r": "pass"
+    },
+    {
+     "d": "2024-06-29",
+     "r": "pass"
+    }
+   ]
+  },
+  "instrument": {
+   "enclosure_temp_min": 15,
+   "enclosure_temp_max": 26
+  }
+ },
+ "factors": {
+  "pollutant": "CO",
+  "as_found_ratio": 1.38,
+  "as_left_status": "all_pass",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 13,
+  "unit_mismatch": true,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "none",
+  "days_since_last_visit": 84,
+  "visit_completeness": "complete",
+  "prior_fail_count": 2,
+  "timestamp_mismatch": "none",
+  "site_priority": "indicative"
+ },
+ "factors_sampled": {
+  "pollutant": "CO",
+  "as_found_ratio": 1.38,
+  "as_left_status": "all_pass",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 13,
+  "unit_mismatch": true,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "none",
+  "days_since_last_visit": 84,
+  "visit_completeness": "complete",
+  "prior_fail_count": 2,
+  "timestamp_mismatch": "none",
+  "site_priority": "indicative"
+ },
+ "plan": {
+  "data_accepted": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "reference_valid": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "recalibrate",
+   "second": null
+  },
+  "flag_extent": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  },
+  "return_urgency": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  }
+ },
+ "target_words": 108,
+ "deciding": {
+  "data_accepted": "As-left points are all within tolerance and autochecks pass, but the as-found span 55.2 vs 40 is well out, which makes acceptance doubtful.",
+  "reference_valid": "Identifier matches and the certificate is in date for 13 days, but the as-found span check is logged in ppb against a ppm standard; this may be a labelling slip.",
+  "next_step": "The as-left points pass but the as-found span was off and the reference unit conflict may undermine the calibration, so repeating on site is favoured.",
+  "flag_extent": "84 days since the last visit with no drift explanation and a span deviation of about 38%; flagging could be 8 to 30 days or only up to 7 days of data.",
+  "return_urgency": "Indicative site with a unit conflict on the reference check; a return within 3 to 7 days is favoured."
+ },
+ "request": "rec-F338-0036",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.005764
+}

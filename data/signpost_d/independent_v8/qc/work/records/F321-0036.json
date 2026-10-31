@@ -1,0 +1,135 @@
+{
+ "id": "F321-0036",
+ "family": "F321",
+ "state": {
+  "permit": {
+   "permit_id": "P-2291",
+   "window_start": "2025-02-10T08:00",
+   "window_end": "2025-02-10T16:00",
+   "scoped_tasks": [
+    {
+     "task_code": "ANT-ALN-01",
+     "equipment_ref": "A11"
+    },
+    {
+     "task_code": "CAB-INS-02",
+     "equipment_ref": "C07"
+    }
+   ]
+  },
+  "attendance": [
+   {
+    "badge_id": "B41",
+    "event": "in",
+    "ts": "2025-02-10T05:50"
+   },
+   {
+    "badge_id": "B41",
+    "event": "out",
+    "ts": "2025-02-10T15:10"
+   }
+  ],
+  "personnel": [
+   {
+    "engineer_id": "E7",
+    "badge_id": "B41",
+    "height_cert_expiry": "2025-02-10"
+   }
+  ],
+  "works": [
+   {
+    "task_code": "ANT-ALN-01",
+    "equipment_ref": "A11",
+    "status": "complete",
+    "completed_at": "2025-02-10T11:00"
+   },
+   {
+    "task_code": "CAB-INS-02",
+    "equipment_ref": "C07",
+    "status": "in_progress",
+    "completed_at": null
+   },
+   {
+    "task_code": "ANT-SWP-03",
+    "equipment_ref": "A12",
+    "status": "complete",
+    "completed_at": "2025-02-10T13:00"
+   }
+  ],
+  "closeout": {
+   "signout_at": "2025-02-10T15:10",
+   "key_status": "returned_late",
+   "photos_required": 6,
+   "photos_uploaded": 10,
+   "variation_ref": "VAR-77-ANT-SWP-03",
+   "submitted_at": "2025-03-02T09:00",
+   "pulled_at": "2025-04-01T09:00"
+  }
+ },
+ "factors": {
+  "scope_mismatch": "extra_task",
+  "window_deviation": "early_over_15min",
+  "cert_status": "expires_on_visit_date",
+  "scoped_task_count": 2,
+  "completion_fraction": 0.5,
+  "signout_missing": false,
+  "key_return": "returned_late",
+  "photo_shortfall": -4,
+  "badge_id_mismatch": false,
+  "variation_approved": true,
+  "landlord_notice": "not_required",
+  "weather_hold_logged": false
+ },
+ "factors_sampled": {
+  "scope_mismatch": "extra_task",
+  "window_deviation": "within",
+  "cert_status": "expires_on_visit_date",
+  "scoped_task_count": 2,
+  "completion_fraction": 0.19,
+  "signout_missing": false,
+  "key_return": "returned_late",
+  "photo_shortfall": -4,
+  "badge_id_mismatch": false,
+  "variation_approved": true,
+  "landlord_notice": "not_required",
+  "weather_hold_logged": false
+ },
+ "plan": {
+  "within_scope": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "certs_in_date": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "closeout_action": {
+   "clarity": "clear",
+   "target": "refer_compliance",
+   "second": null
+  },
+  "scope_completion": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  },
+  "pending_age": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 81,
+ "deciding": {
+  "within_scope": "Extra task ANT-SWP-03/A12 is not on the permit, but variation_ref ends with that exact code; this covers it, only modestly.",
+  "certs_in_date": "height_cert_expiry equals the visit date 2025-02-10, so in date on the day, though on the last day.",
+  "closeout_action": "Gate 'in' at 05:50 is over two hours before window_start 08:00, which is out-of-window access.",
+  "scope_completion": "One of two scoped tasks complete, the other in_progress; exactly half, the boundary of level 1 and 2, with an extra task complete.",
+  "pending_age": "submitted_at 2025-03-02 against pulled_at 2025-04-01 is 30 days, right on the 8-30 versus over-30 boundary."
+ },
+ "request": "rec-F321-0036",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.010168
+}

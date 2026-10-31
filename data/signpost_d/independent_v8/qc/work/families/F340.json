@@ -1,0 +1,317 @@
+{
+ "id": "F340",
+ "domain": "kennel boarding intake checks",
+ "role": "Kennel intake officer at a dog boarding kennel, checking each arrival's booking, paperwork and drop-off health check before the dog enters the kennel block",
+ "setting": "A mid-sized boarding kennel admits dogs for stays of 1 to 21 nights. At drop-off the owner hands over a vaccination certificate and a signed health declaration. A kennel assistant then weighs and examines the dog and adds short notes. The intake officer reviews the combined intake record, one dog at a time. The officer decides whether the paperwork holds together, whether vaccine cover lasts the whole stay, how the dog should be admitted, how many loose ends remain and how quickly staff must act on them.",
+ "questions": {
+  "vacc_cover_valid": {
+   "type": "noul",
+   "instructions": "Accepted vaccination or titre cover remains valid through the checkout date.",
+   "criteria": {
+    "true": "Vaccine or accepted titre cover extends past checkout",
+    "false": "Cover lapses before checkout or certificate cannot be matched"
+   }
+  },
+  "declaration_consistent": {
+   "type": "noul",
+   "instructions": "Owner declaration agrees with arrival check and vet history on health.",
+   "criteria": {
+    "true": "Meds, conditions match; weight within 10 percent",
+    "false": "At least one declared health detail conflicts with records"
+   }
+  },
+  "admission_disposition": {
+   "type": "choice",
+   "instructions": "Which admission disposition should the intake officer apply to this dog?",
+   "criteria": {
+    "admit_standard": "All checks pass; dog joins the general kennel routine",
+    "admit_conditions": "Paperwork complete; admit with medication plan or extra monitoring",
+    "hold_pending": "One confirmation outstanding; dog waits at reception until resolved",
+    "isolation_admit": "Unexplained active symptoms; admit only to the isolation block",
+    "refuse": "Dog cannot be boarded on this booking; returns home"
+   }
+  },
+  "discrepancy_count": {
+   "type": "score",
+   "instructions": "How many unresolved cross-section discrepancies does the record contain?",
+   "criteria": [
+    "Clean: no unresolved mismatches between any sections",
+    "Single: exactly one unresolved cross-section mismatch",
+    "Few: two or three unresolved mismatches",
+    "Many: four or more unresolved mismatches"
+   ]
+  },
+  "action_urgency": {
+   "type": "score",
+   "instructions": "How soon must staff act on the most pressing outstanding issue?",
+   "criteria": [
+    "No outstanding issue requires action during the stay",
+    "Action required within 48 hours of arrival",
+    "Action required before the end of arrival day",
+    "Action required before dog leaves reception area"
+   ]
+  }
+ },
+ "factors": [
+  {
+   "name": "vacc_expiry_offset_days",
+   "description": "Days between the core vaccine expiry on the certificate and the booked checkout date. Negative means cover lapses before checkout. Values near zero are boundary cases.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": -30,
+   "max": 60,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S5",
+    "S6"
+   ]
+  },
+  {
+   "name": "titre_exemption_on_file",
+   "description": "A titre test result accepted by the kennel's vet is on file and stands in for an expired booster.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.45,
+   "skills": [
+    "S3",
+    "S5"
+   ]
+  },
+  {
+   "name": "certificate_id_mismatch",
+   "description": "The microchip number or dog name on the vaccination certificate differs from the booking. The difference may be a single transposed digit or a wholly different number.",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "transposed_digit",
+    "name_spelling_only",
+    "different_chip"
+   ],
+   "weights": [
+    0.55,
+    0.15,
+    0.15,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S6"
+   ]
+  },
+  {
+   "name": "arrival_cough_observed",
+   "description": "The assistant recorded a cough or nasal discharge at the drop-off examination.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.35,
+   "skills": [
+    "S3",
+    "S5",
+    "S7"
+   ]
+  },
+  {
+   "name": "cough_benign_explanation",
+   "description": "Evidence elsewhere in the record that gives a benign cause for the arrival symptom, for example a recent intranasal vaccine or a known tracheal condition on vet history. When this is not none, the symptom is explained.",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "intranasal_vaccine_within_7d",
+    "vet_history_tracheal_collapse",
+    "collar_pulling_noted"
+   ],
+   "weights": [
+    0.5,
+    0.2,
+    0.15,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S6"
+   ]
+  },
+  {
+   "name": "weight_discrepancy_pct",
+   "description": "Percentage gap between the weight on the owner declaration and the weight measured at arrival. Gaps of 10 percent or less are within tolerance.",
+   "kind": "number",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 25,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S6"
+   ]
+  },
+  {
+   "name": "medication_state",
+   "description": "Whether medication listed in vet history or the notes is declared and supplied correctly. Short count means fewer doses were handed over than the stay length needs.",
+   "kind": "categorical",
+   "values": [
+    "none_needed",
+    "declared_and_supplied",
+    "supplied_short_count",
+    "in_vet_history_not_declared",
+    "declared_not_supplied"
+   ],
+   "weights": [
+    0.35,
+    0.25,
+    0.15,
+    0.13,
+    0.12
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S4",
+    "S7"
+   ]
+  },
+  {
+   "name": "next_dose_hours",
+   "description": "Hours from arrival until the next medication dose is due. Only rendered when medication applies. It drives urgency.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 1,
+   "max": 72,
+   "p_true": 0,
+   "skills": [
+    "S4",
+    "S7"
+   ]
+  },
+  {
+   "name": "neuter_status_conflict",
+   "description": "Neuter status on the declaration differs from vet history. This matters for group-play allocation.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.2,
+   "skills": [
+    "S1"
+   ]
+  },
+  {
+   "name": "owner_reachable",
+   "description": "The owner's contact is logged as reachable during the stay, with a confirmation call ticked. This lets a single missing confirmation be cleared quickly rather than forcing refusal.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S4"
+   ]
+  },
+  {
+   "name": "prior_incident_count",
+   "description": "Number of logged incidents from earlier stays at this kennel, for example a scuffle or refusing food.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 4,
+   "p_true": 0,
+   "skills": [
+    "S6",
+    "S7"
+   ]
+  },
+  {
+   "name": "note_tone",
+   "description": "Character of the free-text intake notes. Reassuring_unverified notes claim something is fine without supporting evidence elsewhere. Flags_concern notes raise a worry that may or may not be backed by the structured fields.",
+   "kind": "categorical",
+   "values": [
+    "neutral",
+    "reassuring_unverified",
+    "flags_concern"
+   ],
+   "weights": [
+    0.45,
+    0.3,
+    0.25
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S5"
+   ]
+  },
+  {
+   "name": "balanced_signals",
+   "description": "The record is built so that signals sit on a boundary that sensible judges could read either way. Examples are a weight gap of exactly 10 percent, vaccine expiry on the checkout day, or a mitigation dated on the edge of its validity window.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.25,
+   "skills": [
+    "S6"
+   ]
+  }
+ ],
+ "sections": [
+  {
+   "name": "booking",
+   "description": "Booking reference, dog name, microchip, breed, check-in and checkout dates, nights, owner contact and reachability flag."
+  },
+  {
+   "name": "declaration",
+   "description": "Owner-signed health declaration: weight_kg, neutered, conditions list, medications list with doses and supplied_count."
+  },
+  {
+   "name": "vaccination",
+   "description": "Certificate details: chip_on_cert, name_on_cert, core_expiry, kc_vaccine type and date, titre_result object or null."
+  },
+  {
+   "name": "vet_history",
+   "description": "Summary from the dog's own vet: neutered, known_conditions, current_prescriptions, last_visit date."
+  },
+  {
+   "name": "arrival_check",
+   "description": "Drop-off examination: measured_weight_kg, cough, nasal_discharge, temp_c, coat_skin, prior_stay_incidents count."
+  },
+  {
+   "name": "intake_notes",
+   "description": "List of 1 to 3 one-sentence free-text messages from the assistant or the owner at drop-off."
+  }
+ ],
+ "rendering_notes": "Rendering of each factor:\n- vacc_expiry_offset_days: render as vaccination.core_expiry, an ISO date computed from booking.checkout. Never print the offset itself.\n- titre_exemption_on_file: render as vaccination.titre_result = {\"date\":..., \"accepted_by\":\"kennel vet\"}. When the factor is false, use null.\n- certificate_id_mismatch: render as vaccination.chip_on_cert and vaccination.name_on_cert, to be compared against booking.microchip and booking.dog_name.\n- arrival_cough_observed: render as arrival_check.cough=true, with optional nasal_discharge.\n- cough_benign_explanation: place the explanation in a different section from the symptom. Use vaccination.kc_vaccine {\"route\":\"intranasal\",\"date\":...} within 7 days of check-in, or vet_history.known_conditions including \"tracheal collapse\", or an intake_notes line about a slip collar and heavy pulling. Never say directly that the cough is benign.\n- weight_discrepancy_pct: render as declaration.weight_kg versus arrival_check.measured_weight_kg.\n- medication_state: render as declaration.medications against vet_history.current_prescriptions. Render supplied_count against the doses the stay length needs.\n- next_dose_hours: render as a due time in the medication entry or an intake note.\n- neuter_status_conflict: render as declaration.neutered versus vet_history.neutered.\n- owner_reachable: render as booking.owner_contact.reachable_during_stay and confirm_call_done booleans.\n- prior_incident_count: render as arrival_check.prior_stay_incidents.\n- note_tone: set the wording of intake_notes.\n\nDecoys:\n- temp_c is always within normal range.\n- coat_skin is always \"clear\" or a harmless remark.\n- breed may suggest health problems, but those problems are never real.\n- Reassuring notes such as \"owner says jabs are all up to date\" do not count as evidence.\n- Concerned notes may be contradicted by the structured fields.\n- last_visit dates are irrelevant unless they are linked to a medication.\n\nDecision rules for consistent labels:\n- Vet history is authoritative over the declaration.\n- A discrepancy counts as resolved only if another field explains it. Examples are an accepted titre, or a note that the chip was re-scanned and matches.\n- A weight gap of 10 percent or less is not a discrepancy.\n- Disposition, applied in order of severity:\n  - refuse: wrong dog's certificate, or lapsed cover with no titre and no reachable owner.\n  - isolation_admit: cough with no benign explanation.\n  - hold_pending: exactly one item needs owner confirmation and the owner is reachable.\n  - admit_conditions: medication, prior incidents of 2 or more, or explained symptoms needing monitoring.\n  - admit_standard: otherwise.\n\nNever include fields such as risk, status_ok, disposition, discrepancies or urgency. Records must never state an answer.",
+ "skills": [
+  "S1",
+  "S3",
+  "S4",
+  "S5",
+  "S6",
+  "S7"
+ ],
+ "shared_scale": null,
+ "design_cost": 0.143408
+}

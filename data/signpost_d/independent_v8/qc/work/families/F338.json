@@ -1,0 +1,336 @@
+{
+ "id": "F338",
+ "domain": "air quality monitor calibration visits",
+ "role": "Network quality assurance officer reviewing field calibration visit records for ambient gas analysers",
+ "setting": "A regional ambient air monitoring network runs gas analysers for NO2, O3, SO2 and CO at roadside, urban background and industrial sites. Field technicians visit each site to run as-found checks, adjust the analyser, then run as-left checks against a certified reference standard. The visit record is uploaded to the network's data management system. The QA officer reviews each record one at a time. They decide whether data collected since the previous visit can stand, whether the reference standard was valid, what happens to the record next, how much prior data must be flagged, and how quickly a technician must return.",
+ "questions": {
+  "data_accepted": {
+   "type": "noul",
+   "instructions": "Data since the previous visit can be accepted without correction or flagging.",
+   "criteria": null
+  },
+  "reference_valid": {
+   "type": "noul",
+   "instructions": "The reference standard used was certified, in date and correctly identified.",
+   "criteria": {
+    "true": "Identifier, units and expiry agree with the certificate record.",
+    "false": "Identifier, units or expiry disagree, or certificate details absent."
+   }
+  },
+  "next_step": {
+   "type": "choice",
+   "instructions": "What should happen to this calibration visit record next?",
+   "criteria": {
+    "close_visit": "Results acceptable and no prior data needs flagging.",
+    "close_flagged": "Results acceptable after adjustment, but some prior data needs flagging.",
+    "hold": "Keep open; exactly one confirmation or document still outstanding.",
+    "recalibrate": "Calibration incomplete or as-left failed; repeat on site.",
+    "withdraw": "Analyser faulty beyond site adjustment; remove for workshop repair."
+   }
+  },
+  "flag_extent": {
+   "type": "score",
+   "instructions": "How many days of prior data require flagging or correction?",
+   "criteria": [
+    "No days of prior data require flagging",
+    "One to seven days require flagging",
+    "Eight to thirty days require flagging",
+    "More than thirty days require flagging"
+   ]
+  },
+  "return_urgency": {
+   "type": "score",
+   "instructions": "How soon must a technician return to this site?",
+   "criteria": [
+    "Routine: next scheduled visit, no additional attendance needed",
+    "Planned: extra visit needed in eight to thirty days",
+    "Prompt: return needed in three to seven days",
+    "Urgent: return needed within one to two days",
+    "Immediate: return needed on the same day"
+   ]
+  }
+ },
+ "factors": [
+  {
+   "name": "pollutant",
+   "description": "Gas measured by the analyser; sets typical span concentration, units and tolerance conventions.",
+   "kind": "categorical",
+   "values": [
+    "NO2",
+    "O3",
+    "SO2",
+    "CO"
+   ],
+   "weights": [
+    0.35,
+    0.25,
+    0.2,
+    0.2
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S7"
+   ]
+  },
+  {
+   "name": "as_found_ratio",
+   "description": "Worst as-found deviation from reference expressed as a multiple of the point tolerance; below 1 is within tolerance.",
+   "kind": "number",
+   "values": [],
+   "weights": [],
+   "min": 0.1,
+   "max": 4,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S4",
+    "S6"
+   ]
+  },
+  {
+   "name": "as_left_status",
+   "description": "Outcome of as-left checks after adjustment: all within tolerance, marginal (within 10% of the limit), one point outside, or not recorded.",
+   "kind": "categorical",
+   "values": [
+    "all_pass",
+    "marginal",
+    "one_point_fail",
+    "not_recorded"
+   ],
+   "weights": [
+    0.5,
+    0.2,
+    0.18,
+    0.12
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S4",
+    "S6"
+   ]
+  },
+  {
+   "name": "cylinder_id_mismatch",
+   "description": "Agreement between the reference identifier logged in the checks and the one in the reference section: identical, transposed digit, or a different standard entirely.",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "transposed_digit",
+    "different_standard"
+   ],
+   "weights": [
+    0.65,
+    0.2,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S6"
+   ]
+  },
+  {
+   "name": "cert_expiry_offset_days",
+   "description": "Certificate expiry date minus visit date; negative means the standard had expired, values near zero sit on the boundary.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": -45,
+   "max": 400,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S6"
+   ]
+  },
+  {
+   "name": "unit_mismatch",
+   "description": "Reference concentration logged in the checks in different units from the certificate (ppb against ppm, or ppm against mg/m3) without conversion.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.2,
+   "skills": [
+    "S1"
+   ]
+  },
+  {
+   "name": "interim_autocheck_pass",
+   "description": "Whether nightly automatic span checks between visits passed until shortly before the visit, limiting the window over which drift could have affected data.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S4"
+   ]
+  },
+  {
+   "name": "drift_explanation",
+   "description": "Benign context for an out-of-tolerance as-found result: none, a logged maintenance window, a recorded enclosure temperature excursion, or an approved extended service interval.",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "maintenance_window",
+    "enclosure_temp_excursion",
+    "approved_extended_interval"
+   ],
+   "weights": [
+    0.5,
+    0.18,
+    0.17,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S6"
+   ]
+  },
+  {
+   "name": "days_since_last_visit",
+   "description": "Interval between the previous valid calibration and this visit, which bounds how much data may need flagging.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 10,
+   "max": 120,
+   "p_true": 0,
+   "skills": [
+    "S4",
+    "S7"
+   ]
+  },
+  {
+   "name": "visit_completeness",
+   "description": "How much of the planned check sequence was carried out: full sequence, zero only, multipoint missing, or aborted by power loss.",
+   "kind": "categorical",
+   "values": [
+    "complete",
+    "zero_only",
+    "multipoint_missing",
+    "aborted_power"
+   ],
+   "weights": [
+    0.6,
+    0.13,
+    0.15,
+    0.12
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S4"
+   ]
+  },
+  {
+   "name": "prior_fail_count",
+   "description": "Number of failed as-found or as-left results for this analyser in the past twelve months of history.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 4,
+   "p_true": 0,
+   "skills": [
+    "S6",
+    "S7"
+   ]
+  },
+  {
+   "name": "timestamp_mismatch",
+   "description": "Agreement between the visit date and times and the timestamps on individual check points: consistent, minutes outside the visit window, or a different calendar day.",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "minutes_outside",
+    "different_day"
+   ],
+   "weights": [
+    0.65,
+    0.2,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S6"
+   ]
+  },
+  {
+   "name": "site_priority",
+   "description": "Regulatory tier of the site; higher tiers raise the cost of lost data and the urgency of return visits.",
+   "kind": "categorical",
+   "values": [
+    "indicative",
+    "standard",
+    "compliance"
+   ],
+   "weights": [
+    0.25,
+    0.45,
+    0.3
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S7"
+   ]
+  }
+ ],
+ "sections": [
+  {
+   "name": "site",
+   "description": "Site identifier, pollutant, site tier, scheduled service interval and any approved interval extension."
+  },
+  {
+   "name": "visit",
+   "description": "Visit identifier, date, start and end times, technician code, sequence status and maintenance window flag."
+  },
+  {
+   "name": "reference",
+   "description": "Reference standard identifier, certified concentration, unit, certificate number and expiry date."
+  },
+  {
+   "name": "checks",
+   "description": "List of as-found and as-left points with type, reference concentration, unit, reading, tolerance and timestamp."
+  },
+  {
+   "name": "history",
+   "description": "Previous visit date and outcome, twelve-month result list and nightly autocheck log entries."
+  },
+  {
+   "name": "instrument",
+   "description": "Analyser serial, model, firmware, last service date and enclosure temperature minimum and maximum."
+  }
+ ],
+ "rendering_notes": "pollutant appears as site.pollutant and drives typical span values in checks. as_found_ratio is never stated: render as_found points in checks with ref_conc, reading and tolerance (absolute, in the point's unit), so the reader must compute deviation; spread the worst point across zero, span or precision types. as_left_status is rendered through the as_left points in the same way; not_recorded means the as_left list is empty or the points have null readings. cylinder_id_mismatch shows as checks[].ref_id differing from reference.standard_id (one transposed digit, or a wholly different identifier); in most records they match exactly. cert_expiry_offset_days is rendered only through reference.cert_expiry against visit.date. unit_mismatch shows as checks[].unit differing from reference.unit while ref_conc carries the unconverted figure. interim_autocheck_pass appears as history.autochecks, a list of dated entries with result pass or fail; when true, passes run until a few days before the visit; when false, the list has early failures or a gap. drift_explanation appears as visit.maintenance_window true, instrument.enclosure_temp_max above 30 or min below 10, or site.approved_interval_days greater than site.service_interval_days; when none, these fields sit at ordinary values. days_since_last_visit is visit.date minus history.last_visit_date. visit_completeness appears as visit.sequence_status (complete, partial, aborted) together with which check types are present in checks; a partial label alone does not say which points are missing. prior_fail_count is the count of fail entries in history.results. timestamp_mismatch appears as checks[].ts outside visit.start to visit.end, or on a different date. site_priority is site.tier. Decoys: instrument.firmware recently changed, technician code, certificate number format, instrument.last_service_date, pass entries far back in history, and small rounding differences under 1% between reading and ref_conc that do not matter. Never include fields that state an answer, such as overall_result, data_valid, flag_days, revisit_due or reference_ok. Deviation percentages and expiry status are never precomputed. No free-text fields: all content is identifiers, numbers, dates, enums and booleans, with null for unknown values.",
+ "skills": [
+  "S1",
+  "S3",
+  "S4",
+  "S5",
+  "S6",
+  "S7"
+ ],
+ "shared_scale": null,
+ "design_cost": 0.150972
+}

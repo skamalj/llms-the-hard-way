@@ -1,0 +1,142 @@
+{
+ "id": "F303-0037",
+ "family": "F303",
+ "state": {
+  "order": {
+   "id": "O-7714",
+   "prescription": {
+    "modality": "portable",
+    "flow_lpm": 2,
+    "hours_per_day": 6,
+    "rx_expiry": "2025-03-01"
+   },
+   "items_ordered": [
+    {
+     "sku": "POC-2",
+     "qty": 1
+    },
+    {
+     "sku": "CYL-CD",
+     "qty": 2
+    }
+   ]
+  },
+  "visit": {
+   "visit_date": "2024-09-10",
+   "arrived_at": "09:00",
+   "departed_at": "09:40",
+   "items_left": [
+    {
+     "sku": "CYL-CD",
+     "qty": 2,
+     "serial": "C-118"
+    }
+   ],
+   "install_checks": {
+    "flow_verified": true,
+    "alarm_tested": null,
+    "training_given": true,
+    "completed_at": "09:35"
+   },
+   "patient_signature": "on_file",
+   "handover_at": "09:38"
+  },
+  "site_assessment": {
+   "assessed_at": "09:10",
+   "hazards": [
+    {
+     "code": "NO_SMOKE_SIGN",
+     "status": null,
+     "fix": "firebreak_fitted"
+    }
+   ]
+  },
+  "equipment": {
+   "fault_log": [
+    {
+     "code": "LOW_PURITY",
+     "retest_passed": true
+    }
+   ],
+   "cylinders_on_site": [
+    {
+     "size": "CD 460 L",
+     "fill_pct": 50
+    }
+   ]
+  },
+  "supply_plan": {
+   "next_delivery_date": null
+  }
+ },
+ "factors": {
+  "rx_alignment": "exact",
+  "items_shortfall": "one_short",
+  "setup_state": "test_not_logged",
+  "supply_hours": 21.18,
+  "concentrator_fault": true,
+  "fault_mitigated": true,
+  "hazards_found": 1,
+  "hazard_mitigation": true,
+  "hazard_status_missing": true,
+  "handover_gap": false,
+  "timeline_out_of_order": false,
+  "next_delivery": "not_booked",
+  "dependency_level": "ambulatory",
+  "billing_hold": false
+ },
+ "factors_sampled": {
+  "rx_alignment": "exact",
+  "items_shortfall": "one_short",
+  "setup_state": "test_not_logged",
+  "supply_hours": 21.18,
+  "concentrator_fault": true,
+  "fault_mitigated": true,
+  "hazards_found": 0,
+  "hazard_mitigation": true,
+  "hazard_status_missing": true,
+  "handover_gap": false,
+  "timeline_out_of_order": false,
+  "next_delivery": "not_booked",
+  "dependency_level": "ambulatory",
+  "billing_hold": false
+ },
+ "plan": {
+  "rx_match": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "close_record",
+   "second": null
+  },
+  "fulfilment": {
+   "clarity": "balanced",
+   "target": "items_short",
+   "second": "nothing_delivered"
+  },
+  "supply_runway": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  },
+  "open_hazards": {
+   "clarity": "clear",
+   "target": "1",
+   "second": null
+  }
+ },
+ "target_words": 96,
+ "deciding": {
+  "rx_match": "Prescription is portable but only cylinders were left and no POC unit; mismatch leaning.",
+  "next_step": "Plan requires close_record; no stronger follow-up signals are provided in the record.",
+  "fulfilment": "Portable unit POC-2 missing from items_left while cylinders left; items_short vs nothing_delivered is borderline.",
+  "supply_runway": "One CD 460 L cylinder at 50 percent at 2 lpm gives about 1.9 hours of supply per fill, near the 12-hour boundary region.",
+  "open_hazards": "Single hazard with null status but firebreak_fitted fix code; one open."
+ },
+ "request": "rec-F303-0036",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.006749
+}

@@ -1,0 +1,168 @@
+{
+ "id": "F328-0029",
+ "family": "F328",
+ "state": {
+  "report_meta": {
+   "driver_id": "D88",
+   "period": "2025-03-10/16"
+  },
+  "vehicle_device": {
+   "odo_start": 45000,
+   "odo_end": 45520
+  },
+  "trips": [
+   {
+    "start": "2025-03-12T05:45",
+    "end": "08:30",
+    "card": "D2",
+    "gps_km": 241.1
+   },
+   {
+    "start": "2025-03-12T08:36",
+    "end": "11:17",
+    "card": "D2",
+    "gps_km": 239.2
+   }
+  ],
+  "events": [
+   {
+    "t": "2025-03-12T09:50",
+    "type": "speed",
+    "mph": 85,
+    "limit": 70,
+    "map_ver": "24.3",
+    "seg": "A1",
+    "tag": "congestion"
+   },
+   {
+    "t": "2025-03-12T06:10",
+    "type": "harsh",
+    "tag": "rain"
+   },
+   {
+    "t": "2025-03-12T06:40",
+    "type": "harsh",
+    "tag": "rain"
+   },
+   {
+    "t": "2025-03-12T07:05",
+    "type": "harsh",
+    "tag": "congestion"
+   },
+   {
+    "t": "2025-03-12T07:50",
+    "type": "harsh",
+    "tag": "congestion"
+   },
+   {
+    "t": "2025-03-12T08:55",
+    "type": "harsh",
+    "tag": "rain"
+   },
+   {
+    "t": "2025-03-12T09:20",
+    "type": "harsh",
+    "tag": "congestion"
+   },
+   {
+    "t": "2025-03-12T10:15",
+    "type": "harsh",
+    "tag": "congestion"
+   },
+   {
+    "t": "2025-03-12T10:40",
+    "type": "harsh",
+    "tag": "rain"
+   }
+  ],
+  "tacho_summary": {
+   "card": "D2",
+   "drive": "05:45-11:17"
+  },
+  "notes_history": {
+   "supervisor_note": "D88 drove the full shift.",
+   "limit_updates": [
+    {
+     "seg": "A1",
+     "limit": 75,
+     "date": "2025-02-10"
+    }
+   ],
+   "coaching": [
+    {
+     "date": "2024-11-04",
+     "topic": "speed",
+     "status": "completed"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "driver_assignment": "mismatch_unexplained",
+  "raw_speed_excess_pct": 21.4,
+  "speed_mitigation": "map_limit_outdated",
+  "harsh_event_count": 8,
+  "harsh_context_logged": true,
+  "device_health": "ok",
+  "telematics_stint_hours": 5.53,
+  "tacho_break_reconciles": false,
+  "prior_coaching_count": 1,
+  "coaching_status": "completed",
+  "boundary_value": true,
+  "note_content": "contradicts_data",
+  "distance_discrepancy_pct": 8.27
+ },
+ "factors_sampled": {
+  "driver_assignment": "match",
+  "raw_speed_excess_pct": 21.3,
+  "speed_mitigation": "none",
+  "harsh_event_count": 8,
+  "harsh_context_logged": true,
+  "device_health": "ok",
+  "telematics_stint_hours": 2.99,
+  "tacho_break_reconciles": true,
+  "prior_coaching_count": 0,
+  "coaching_status": "completed",
+  "boundary_value": true,
+  "note_content": "contradicts_data",
+  "distance_discrepancy_pct": 8.26
+ },
+ "plan": {
+  "driver_attributed": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "follow_up": {
+   "clarity": "clear",
+   "target": "no_action",
+   "second": null
+  },
+  "worst_event_cause": {
+   "clarity": "contested",
+   "target": "map_data",
+   "second": "road_conditions"
+  },
+  "speed_excess": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  },
+  "hours_exposure": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 72,
+ "deciding": {
+  "driver_attributed": "Both trips and the tacho carry card D2 with no swap entry, while the supervisor note says D88 drove the whole shift, so the note leaves some doubt.",
+  "follow_up": "All flagged speed and the long stint sit on card D2, not D88, so no breach is confirmed against the reported driver.",
+  "worst_event_cause": "The speed event has a congestion tag and an older map_ver 24.3 with limit 70, while A1 limit_updates give 75 dated 2025-02-10. Road conditions and map data are both plausible.",
+  "speed_excess": "85 in the posted 70 is 21.4% over, but against the updated 75 it is 13.3%, so level 3 vs level 2.",
+  "hours_exposure": "Trips 05:45-11:17 with a 6-minute stop and a single tacho drive block give about 5.53 h, just past 5.5 h with no break."
+ },
+ "request": "rec-F328-0026",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.022907
+}

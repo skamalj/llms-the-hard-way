@@ -1,0 +1,168 @@
+{
+ "id": "F318-0118",
+ "family": "F318",
+ "state": {
+  "work_order": {
+   "lock_id": "L7",
+   "visit_type": "winter_stoppage",
+   "bookings_7d": 20,
+   "tasks": [
+    {
+     "task_id": "T1",
+     "asset_ref": "G1"
+    },
+    {
+     "task_id": "T2",
+     "asset_ref": "G2"
+    },
+    {
+     "task_id": "T3",
+     "asset_ref": "G3"
+    },
+    {
+     "task_id": "T4",
+     "asset_ref": "P1"
+    }
+   ],
+   "nav_notice": {
+    "in_force": false
+   }
+  },
+  "visit_log": {
+   "arrived": "2025-02-03T09:00",
+   "departed": "2025-02-03T12:00",
+   "crew_size": 3,
+   "timesheet_hours": 8.34,
+   "task_status": [
+    {
+     "task_id": "T1",
+     "status": "done"
+    },
+    {
+     "task_id": "T2",
+     "status": "done"
+    },
+    {
+     "task_id": "T3",
+     "status": "done"
+    },
+    {
+     "task_id": "T4",
+     "status": "done"
+    }
+   ]
+  },
+  "checks": {
+   "post_checks": [
+    {
+     "asset_ref": "G1",
+     "result": "pass",
+     "checked_at": "2025-02-03T11:30"
+    },
+    {
+     "asset_ref": "G2",
+     "result": "pass",
+     "checked_at": "2025-02-03T11:40"
+    },
+    {
+     "asset_ref": "G3",
+     "result": "pass",
+     "checked_at": "2025-02-03T11:50"
+    }
+   ],
+   "leakage_ls": 22.1,
+   "leakage_limit_ls": 10,
+   "river_level_m": 2.1,
+   "flood_marker_m": 2.8,
+   "gauge_cal_due": "2025-06-01"
+  },
+  "asset_history": {
+   "prior_visits": [
+    {
+     "date": "2023-11-02",
+     "asset_ref": "G2",
+     "defect_code": "LK3"
+    },
+    {
+     "date": "2024-04-18",
+     "asset_ref": "G2",
+     "defect_code": "LK3"
+    },
+    {
+     "date": "2024-10-09",
+     "asset_ref": "G2",
+     "defect_code": "LK3"
+    }
+   ],
+   "open_defects": []
+  }
+ },
+ "factors": {
+  "visit_type": "winter_stoppage",
+  "tasks_ordered": 4,
+  "completion_state": "all_done",
+  "parts_qty_mismatch": "none",
+  "hours_gap": 0.66,
+  "asset_ref_mismatch": false,
+  "post_check_result": "passed",
+  "leakage_ratio": 2.21,
+  "leakage_mitigation": false,
+  "navigation_notice_in_force": false,
+  "deferral_approved": false,
+  "prior_same_defect": 3,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "visit_type": "winter_stoppage",
+  "tasks_ordered": 4,
+  "completion_state": "all_done",
+  "parts_qty_mismatch": "none",
+  "hours_gap": 0.66,
+  "asset_ref_mismatch": false,
+  "post_check_result": "passed",
+  "leakage_ratio": 2.21,
+  "leakage_mitigation": false,
+  "navigation_notice_in_force": false,
+  "deferral_approved": false,
+  "prior_same_defect": 3,
+  "boundary_case": false
+ },
+ "plan": {
+  "safe_to_reopen": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "record_disposition": {
+   "clarity": "contested",
+   "target": "hold_query",
+   "second": "reopen_revisit"
+  },
+  "return_urgency": {
+   "clarity": "contested",
+   "target": "next_scheduled",
+   "second": "within_week"
+  },
+  "affected_scope": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  },
+  "section_mismatches": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 74,
+ "deciding": {
+  "safe_to_reopen": "All logged checks pass and no open defects, but leakage is 22.1 vs a limit of 10 with river below the flood marker and gauge calibration current, and task T4 has no check.",
+  "record_disposition": "Leakage over twice the limit despite passing checks and a missing P1 check could mean a query to the crew or a return to redo work; no deferral ref exists.",
+  "return_urgency": "No notice or open defect favours the next cycle, but LK3 on G2 has recurred three times and leakage is high, which supports a week.",
+  "affected_scope": "bookings_7d is 20, exactly at the boundary between the six-to-twenty and over-twenty bands.",
+  "section_mismatches": "Timesheet 8.34 h vs 9 h span, T4 P1 with no post check, and leakage 22.1 vs limit 10 against all-pass checks; counting the first as minor gives two, otherwise three."
+ },
+ "request": "rec-F318-0116",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.017141
+}

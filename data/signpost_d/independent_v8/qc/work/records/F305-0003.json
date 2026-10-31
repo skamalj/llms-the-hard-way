@@ -1,0 +1,199 @@
+{
+ "id": "F305-0003",
+ "family": "F305",
+ "state": {
+  "session": {
+   "id": "S7003",
+   "date": "2025-02-11",
+   "needle_on": "2025-02-11T07:30",
+   "washback": "2025-02-11T11:04",
+   "review_date": "2025-03-03"
+  },
+  "prescription": {
+   "duration_min": 240,
+   "dialysate_k": 2.0,
+   "qb_ml_min": 350,
+   "dry_weight_kg": 78.0
+  },
+  "machine": {
+   "settings": {
+    "dialysate_k": 4.0,
+    "qb_actual": 300
+   },
+   "uf_removed_ml": 2800,
+   "washback_ml": 200,
+   "alarms": [
+    {
+     "code": "PUMP_STOP",
+     "t": "2025-02-11T09:12"
+    },
+    {
+     "code": "PUMP_RESUME",
+     "t": "2025-02-11T09:20"
+    },
+    {
+     "code": "QB_REDUCED",
+     "reason": "ART_PRESSURE_HIGH",
+     "t": "2025-02-11T10:00"
+    }
+   ]
+  },
+  "observations": {
+   "pre_kg": 80.2,
+   "post_kg": 78.2,
+   "bp": [
+    [
+     "07:40",
+     126
+    ],
+    [
+     "09:45",
+     84
+    ],
+    [
+     "10:00",
+     102
+    ]
+   ],
+   "interventions": [
+    {
+     "t": "09:46",
+     "saline_bolus_ml": 200
+    }
+   ]
+  },
+  "checks": [
+   {
+    "code": "ID",
+    "done": true,
+    "t": "2025-02-11T07:15",
+    "by": [
+     "N3"
+    ]
+   },
+   {
+    "code": "DIALYSATE",
+    "done": true,
+    "t": "2025-02-11T07:20",
+    "by": [
+     "N3"
+    ]
+   },
+   {
+    "code": "ACCESS",
+    "done": true,
+    "t": "2025-02-11T07:28",
+    "by": [
+     "N3",
+     "N9"
+    ]
+   }
+  ],
+  "history": [
+   [
+    "2025-01-20",
+    240,
+    205,
+    78.3
+   ],
+   [
+    "2025-01-23",
+    240,
+    238,
+    78.1
+   ],
+   [
+    "2025-01-27",
+    240,
+    210,
+    78.4
+   ],
+   [
+    "2025-01-30",
+    240,
+    208,
+    78.2
+   ],
+   [
+    "2025-02-03",
+    240,
+    236,
+    78.0
+   ],
+   [
+    "2025-02-06",
+    240,
+    212,
+    78.2
+   ]
+  ]
+ },
+ "factors": {
+  "time_shortfall_min": 34,
+  "machine_pause_min": 8,
+  "uf_weight_gap_kg": 0.4,
+  "post_weight_missing": false,
+  "missing_check": "second_checker",
+  "check_logged_after_start": false,
+  "prescription_mismatch": "dialysate_k",
+  "mismatch_magnitude": "clinically_relevant",
+  "hypotension_episodes": 1,
+  "hypotension_mitigated": true,
+  "circuit_clotted": false,
+  "prior_short_sessions": 4,
+  "documented_flow_reduction": true
+ },
+ "factors_sampled": {
+  "time_shortfall_min": 23,
+  "machine_pause_min": 8,
+  "uf_weight_gap_kg": 0.16,
+  "post_weight_missing": true,
+  "missing_check": "second_checker",
+  "check_logged_after_start": false,
+  "prescription_mismatch": "none",
+  "mismatch_magnitude": "clinically_relevant",
+  "hypotension_episodes": 1,
+  "hypotension_mitigated": true,
+  "circuit_clotted": false,
+  "prior_short_sessions": 4,
+  "documented_flow_reduction": true
+ },
+ "plan": {
+  "uf_reconciles": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "checks_before_start": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "log_disposition": {
+   "clarity": "clear",
+   "target": "incident_report",
+   "second": null
+  },
+  "time_shortfall": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  },
+  "pending_age": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  }
+ },
+ "target_words": 78,
+ "deciding": {
+  "uf_reconciles": "Net UF 2800-200-200=2400 ml against weight change 80.2-78.2=2.0 kg gives a gap of about 0.4 kg, inside the limit but near it.",
+  "checks_before_start": "ID, DIALYSATE and ACCESS are all timestamped before 07:30, but no separate second-checker entry exists. Only the ACCESS check shows two checker ids.",
+  "log_disposition": "machine.settings.dialysate_k is 4.0 against a prescribed 2.0, a wrong relevant setting delivered, which requires an incident report.",
+  "time_shortfall": "Needle to washback is 214 min minus an 8 min pause gives 206 effective against 240, a 34 min shortfall, modestly past 30.",
+  "pending_age": "session.date is 2025-02-11 and review_date is 2025-03-03, 20 days."
+ },
+ "request": "rec-F305-0001",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.017728
+}

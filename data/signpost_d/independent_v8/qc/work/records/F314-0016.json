@@ -1,0 +1,136 @@
+{
+ "id": "F314-0016",
+ "family": "F314",
+ "state": {
+  "property": {
+   "inv": [
+    {
+     "id": "A1",
+     "type": "boiler",
+     "loc": "kitchen",
+     "own": "landlord"
+    },
+    {
+     "id": "A2",
+     "type": "hob",
+     "loc": "kitchen",
+     "own": "tenant"
+    }
+   ]
+  },
+  "tenancy": {
+   "start": "2023-09-01",
+   "review": "2025-06-10"
+  },
+  "certificate": {
+   "insp": "2024-06-30",
+   "expiry": "2025-06-30",
+   "lic": "G123",
+   "outcome": "pass"
+  },
+  "engineer": {
+   "lic": "G123",
+   "valid_to": "2024-06-30",
+   "cat": [
+    "boiler",
+    "hob"
+   ]
+  },
+  "appliance_checks": [
+   {
+    "id": "A1",
+    "loc": "utility",
+    "ratio": 0.011,
+    "thr": 0.008,
+    "retest": null,
+    "defect": "AR",
+    "iso": null
+   },
+   {
+    "id": "A2",
+    "loc": "kitchen",
+    "defect": null
+   }
+  ],
+  "history": {
+   "prior": [
+    {
+     "date": "2023-06-20",
+     "defects": [
+      "A1"
+     ]
+    }
+   ],
+   "booking": {
+    "date": "2025-06-24",
+    "status": "booked"
+   }
+  }
+ },
+ "factors": {
+  "inventory_mismatch": "location_mismatch",
+  "tenant_owned_appliance": true,
+  "date_misalignment": "inspected_after_move_in",
+  "days_to_true_expiry": 20,
+  "renewal_booked": true,
+  "engineer_status": "valid_to_equals_inspection",
+  "worst_defect_class": "AR",
+  "defect_isolated": false,
+  "remedial_completed": false,
+  "combustion_reading": "high_no_retest",
+  "prior_defect_count": 1,
+  "boundary_case": true
+ },
+ "factors_sampled": {
+  "inventory_mismatch": "location_mismatch",
+  "tenant_owned_appliance": true,
+  "date_misalignment": "inspected_after_move_in",
+  "days_to_true_expiry": 251,
+  "renewal_booked": true,
+  "engineer_status": "active_matching",
+  "worst_defect_class": "none",
+  "defect_isolated": false,
+  "remedial_completed": true,
+  "combustion_reading": "high_no_retest",
+  "prior_defect_count": 1,
+  "boundary_case": false
+ },
+ "plan": {
+  "covers_all_appliances": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "engineer_valid": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "next_step": {
+   "clarity": "balanced",
+   "target": "emergency_isolation",
+   "second": "hold"
+  },
+  "renewal_urgency": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  },
+  "open_hazard": {
+   "clarity": "contested",
+   "target": "4",
+   "second": "3"
+  }
+ },
+ "target_words": 52,
+ "deciding": {
+  "covers_all_appliances": "Inventory boiler A1 is in the kitchen but the check for A1 is in the utility; the tenant-owned hob does not excuse this.",
+  "engineer_valid": "Licence G123 matches and categories cover both appliances, but valid_to equals the inspection date, which holds it in balance.",
+  "next_step": "A1 has an AR defect, no isolation and a ratio above threshold with no retest, so emergency isolation is defensible; the single location mismatch keeps hold plausible.",
+  "renewal_urgency": "Inspection 2024-06-30 and review 2025-06-10 leave 20 days, in the 1-28 range; a booking on 06-24 adds slight doubt.",
+  "open_hazard": "A1 is classed AR, in service with no isolation, and its ratio exceeds threshold with no retest and a pass outcome; level 3 or level 4 are both defensible."
+ },
+ "request": "rec-F314-0016",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.018406
+}

@@ -1,0 +1,186 @@
+{
+ "id": "F318-0079",
+ "family": "F318",
+ "state": {
+  "work_order": {
+   "wo_id": "WS-318",
+   "visit_type": "winter_stoppage",
+   "booked_passages_7d": 21,
+   "tasks": [
+    {
+     "task_id": "t1",
+     "asset_ref": "G1"
+    },
+    {
+     "task_id": "t2",
+     "asset_ref": "G2"
+    },
+    {
+     "task_id": "t3",
+     "asset_ref": "P1"
+    },
+    {
+     "task_id": "t4",
+     "asset_ref": "P2"
+    },
+    {
+     "task_id": "t5",
+     "asset_ref": "S1"
+    }
+   ],
+   "nav_notice": {
+    "in_force": false
+   }
+  },
+  "visit_log": {
+   "arrived": "2025-01-22T08:00",
+   "departed": "2025-01-22T14:00",
+   "crew_size": 3,
+   "timesheet_hours": 15.46,
+   "task_status": [
+    {
+     "task_id": "t1",
+     "status": "done"
+    },
+    {
+     "task_id": "t2",
+     "status": "done"
+    },
+    {
+     "task_id": "t3",
+     "status": "done"
+    },
+    {
+     "task_id": "t4",
+     "status": "done"
+    },
+    {
+     "task_id": "t5",
+     "status": "done"
+    }
+   ]
+  },
+  "materials": {
+   "issued": [
+    {
+     "part_no": "K4",
+     "task_id": "t3",
+     "qty": 12
+    }
+   ],
+   "returned": [
+    {
+     "part_no": "K4",
+     "qty": 2
+    }
+   ],
+   "fitted": [
+    {
+     "part_no": "K4",
+     "task_id": "t3",
+     "qty": 9
+    }
+   ]
+  },
+  "checks": {
+   "post_checks": [
+    {
+     "asset_ref": "G1",
+     "result": "pass"
+    },
+    {
+     "asset_ref": "G2",
+     "result": "pass"
+    },
+    {
+     "asset_ref": "P1",
+     "result": "pass"
+    },
+    {
+     "asset_ref": "P2",
+     "result": "pass"
+    },
+    {
+     "asset_ref": "S1",
+     "result": "pass"
+    }
+   ],
+   "leakage_ls": 16,
+   "leakage_limit_ls": 20,
+   "river_level_m": 2.7,
+   "flood_marker_m": 3.0
+  },
+  "asset_history": {
+   "prior_visits": [],
+   "open_defects": []
+  }
+ },
+ "factors": {
+  "visit_type": "winter_stoppage",
+  "tasks_ordered": 5,
+  "completion_state": "all_done",
+  "parts_qty_mismatch": "moderate",
+  "hours_gap": 2.54,
+  "asset_ref_mismatch": false,
+  "post_check_result": "passed",
+  "leakage_ratio": 0.8,
+  "leakage_mitigation": false,
+  "navigation_notice_in_force": false,
+  "deferral_approved": false,
+  "prior_same_defect": 0,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "visit_type": "winter_stoppage",
+  "tasks_ordered": 5,
+  "completion_state": "all_done",
+  "parts_qty_mismatch": "moderate",
+  "hours_gap": 2.54,
+  "asset_ref_mismatch": false,
+  "post_check_result": "passed",
+  "leakage_ratio": 2.49,
+  "leakage_mitigation": false,
+  "navigation_notice_in_force": true,
+  "deferral_approved": false,
+  "prior_same_defect": 0,
+  "boundary_case": false
+ },
+ "plan": {
+  "safe_to_reopen": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "record_disposition": {
+   "clarity": "balanced",
+   "target": "hold_query",
+   "second": "close_visit"
+  },
+  "return_urgency": {
+   "clarity": "leaning",
+   "target": "next_scheduled",
+   "second": null
+  },
+  "affected_scope": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "section_mismatches": {
+   "clarity": "contested",
+   "target": "2",
+   "second": "1"
+  }
+ },
+ "target_words": 69,
+ "deciding": {
+  "safe_to_reopen": "All five checks pass, leakage 16 against limit 20, no open defects and no nav notice.",
+  "record_disposition": "K4 issued 12, returned 2 and fitted 9 leaves one unit unaccounted for, and hours differ from crew time. A query is favoured, but with all work done and checks passed, closing is also defensible.",
+  "return_urgency": "No open defects, no prior visits, passing checks and leakage within limit, so the next scheduled cycle suffices.",
+  "affected_scope": "booked_passages_7d is 21, just over the 20 boundary, and five assets were worked. The count could be read as level 3 or level 2.",
+  "section_mismatches": "Timesheet 15.46h against 6h x 3 = 18h is a clear unexplained gap. The K4 shortfall of one unit might be counted as a second mismatch or as rounding."
+ },
+ "request": "rec-F318-0076",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.014218
+}

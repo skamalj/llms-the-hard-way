@@ -1,0 +1,121 @@
+{
+ "id": "F338-0128",
+ "family": "F338",
+ "state": {
+  "site": {
+   "pol": "SO2",
+   "tier": "indicative"
+  },
+  "visit": {
+   "date": "2025-05-14",
+   "seq": "complete"
+  },
+  "reference": {
+   "id": "S-218",
+   "unit": "ppb",
+   "cert_expiry": "2025-06-22"
+  },
+  "checks": [
+   {
+    "t": "as_found",
+    "type": "span",
+    "ref_id": "S-218",
+    "ref": 100,
+    "unit": "ppb",
+    "read": 113,
+    "tol": 15
+   },
+   {
+    "t": "as_left",
+    "type": "span",
+    "ref_id": "S-218",
+    "ref": 100,
+    "unit": "ppb",
+    "read": 101,
+    "tol": 15
+   }
+  ],
+  "history": {
+   "last": "2025-03-17",
+   "results": [
+    "fail",
+    "fail",
+    "pass"
+   ],
+   "autochecks": [
+    {
+     "d": "2025-03-20",
+     "r": "fail"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "pollutant": "SO2",
+  "as_found_ratio": 0.87,
+  "as_left_status": "all_pass",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 39,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": false,
+  "drift_explanation": "none",
+  "days_since_last_visit": 58,
+  "visit_completeness": "complete",
+  "prior_fail_count": 2,
+  "timestamp_mismatch": "none",
+  "site_priority": "indicative"
+ },
+ "factors_sampled": {
+  "pollutant": "SO2",
+  "as_found_ratio": 3.78,
+  "as_left_status": "not_recorded",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 39,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": false,
+  "drift_explanation": "none",
+  "days_since_last_visit": 58,
+  "visit_completeness": "complete",
+  "prior_fail_count": 2,
+  "timestamp_mismatch": "none",
+  "site_priority": "indicative"
+ },
+ "plan": {
+  "data_accepted": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "reference_valid": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "next_step": {
+   "clarity": "contested",
+   "target": "close_visit",
+   "second": "withdraw"
+  },
+  "flag_extent": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  },
+  "return_urgency": {
+   "clarity": "clear",
+   "target": "1",
+   "second": null
+  }
+ },
+ "target_words": 27,
+ "deciding": {
+  "data_accepted": "As-found span deviates 13 against tol 15, within tolerance. The only autocheck entry is a fail on 2025-03-20, so some doubt remains.",
+  "reference_valid": "The ref_id matches and the units agree. Expiry on 2025-06-22 is valid but only 39 days away, and certificate details are sparse, which leaves modest doubt.",
+  "next_step": "As-left is fine (1 vs 15) and as-found is within tolerance, which supports close. Two prior fails and an autocheck failure with no later entries support removal for repair instead.",
+  "flag_extent": "The autocheck fail dated 2025-03-20 followed by no passes, with 58 days since the last visit, points to more than 30 days needing flagging.",
+  "return_urgency": "The as-left passed, the site is indicative tier, and expiry is 39 days away, so the extra visit is planned in 8-30 days."
+ },
+ "request": "rec-F338-0126",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.0108
+}

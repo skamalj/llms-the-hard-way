@@ -1,0 +1,362 @@
+{
+ "id": "F320",
+ "domain": "water main leak repairs",
+ "role": "Repair close-out reviewer in a water utility's distribution network team, checking each completed leak repair job record before it is signed off",
+ "setting": "A regional water utility logs every water main leak repair as a structured job record assembled from the field crew's handheld, the network control room's valve log, the laboratory sample system and the highways reinstatement tracker. Before a job can be closed, a reviewer must make five decisions about it. Is third-party damage supported? What close-out action is needed? What should the asset team do next for the main? How long was supply interrupted? How far has the site been reinstated? Records arrive one at a time. No section carries free-text notes, so every judgement rests on comparing coded fields, times, sizes, lists and flags across sections.",
+ "questions": {
+  "third_party_cause": {
+   "type": "noul",
+   "instructions": "The leak was caused by third-party damage to the main.",
+   "criteria": {
+    "true": "Strike marks or puncture, with works active before report.",
+    "false": "No physical evidence, or works only after report."
+   }
+  },
+  "closeout_action": {
+   "type": "choice",
+   "instructions": "What should happen to this repair job at close-out review?",
+   "criteria": {
+    "close": "Tests, samples and reinstatement all complete and mutually consistent.",
+    "close_with_actions": "Safety checks confirmed; only reinstatement or record tidying outstanding.",
+    "hold": "One test, sample or approval result still needs confirming.",
+    "reopen": "Failed test, unapproved fitting or quality fault requires revisit."
+   }
+  },
+  "asset_followup": {
+   "type": "choice",
+   "instructions": "What follow-up should the asset team plan for this main?",
+   "criteria": {
+    "none": "Isolated or external failure; no asset work beyond repair.",
+    "monitor": "Deploy acoustic loggers and review the main after a quarter.",
+    "condition_survey": "Commission an excavated condition survey of the affected section.",
+    "expedite_replacement": "Bring the main's replacement forward in the capital programme."
+   }
+  },
+  "interruption_duration": {
+   "type": "score",
+   "instructions": "How long were customers without supply during the repair?",
+   "criteria": [
+    "No properties lost supply at any point",
+    "Supply off for under 3 hours",
+    "Supply off for 3 to 12 hours",
+    "Supply off for more than 12 hours"
+   ]
+  },
+  "reinstatement_stage": {
+   "type": "score",
+   "instructions": "How far has the excavation site been reinstated?",
+   "criteria": [
+    "Open: excavation still open or only fenced off",
+    "Temporary: backfilled with temporary surface, no permanent layer",
+    "Permanent: permanent surface laid, inspection not yet logged",
+    "Signed_off: permanent surface laid and inspection logged as passed"
+   ]
+  }
+ },
+ "factors": [
+  {
+   "name": "fitting_size_mismatch",
+   "description": "Gap between the main's nominal diameter in the asset section and the size range of the repair fitting recorded in the repair section; trivial cases are unit rounding (inches vs mm) inside tolerance, major cases are a fitting range that excludes the main's outside diameter",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "trivial_rounding",
+    "major"
+   ],
+   "weights": [
+    0.5,
+    0.25,
+    0.25
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S3"
+   ]
+  },
+  {
+   "name": "substitution_approved",
+   "description": "Whether an approved material or fitting substitution reference with an approver code exists for the repair, which legitimises a fitting or material that differs from the asset record",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S6"
+   ]
+  },
+  {
+   "name": "pressure_test_outcome",
+   "description": "Sequence of post-repair pressure test results logged against the job",
+   "kind": "categorical",
+   "values": [
+    "pass_first",
+    "fail_then_pass",
+    "fail_no_retest",
+    "not_logged"
+   ],
+   "weights": [
+    0.4,
+    0.25,
+    0.15,
+    0.2
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S4"
+   ]
+  },
+  {
+   "name": "water_quality_state",
+   "description": "Post-repair chlorine residual and bacteriological sample position: clear, low residual followed by flushing and a passing resample, low residual with no resample, or sample taken but result pending",
+   "kind": "categorical",
+   "values": [
+    "clear",
+    "low_residual_resample_pass",
+    "low_residual_no_resample",
+    "result_pending"
+   ],
+   "weights": [
+    0.4,
+    0.25,
+    0.15,
+    0.2
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S4"
+   ]
+  },
+  {
+   "name": "interruption_hours",
+   "description": "True supply interruption length from the first isolation valve shut to the last valve reopened affecting customers; zero when the repair was done under pressure or with full rezoning; values cluster near the 3 and 12 hour boundaries in a share of records",
+   "kind": "number",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 20,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S6",
+    "S7"
+   ]
+  },
+  {
+   "name": "estimate_drift",
+   "description": "How far the planned interruption estimate in the job section departs from the actual valve times; a decoy that is sometimes small and sometimes crosses a scale boundary",
+   "kind": "categorical",
+   "values": [
+    "matches",
+    "minor",
+    "crosses_boundary"
+   ],
+   "weights": [
+    0.4,
+    0.3,
+    0.3
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1"
+   ]
+  },
+  {
+   "name": "reinstatement_state",
+   "description": "Actual reinstatement progress shown by the layer records and inspection list",
+   "kind": "categorical",
+   "values": [
+    "open",
+    "temporary",
+    "permanent_uninspected",
+    "signed_off"
+   ],
+   "weights": [
+    0.15,
+    0.3,
+    0.3,
+    0.25
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S4",
+    "S7"
+   ]
+  },
+  {
+   "name": "failure_cause",
+   "description": "True underlying cause of the leak, shown only through fracture type, strike marks, pipe wall condition and ground readings in the findings section",
+   "kind": "categorical",
+   "values": [
+    "third_party",
+    "corrosion",
+    "joint_failure",
+    "ground_movement"
+   ],
+   "weights": [
+    0.25,
+    0.3,
+    0.25,
+    0.2
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S5",
+    "S7"
+   ]
+  },
+  {
+   "name": "third_party_permit_timing",
+   "description": "Whether street works permits within 50 m exist and whether their start date falls before or after the leak was first reported; post-report permits are decoys",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "before_report",
+    "after_report"
+   ],
+   "weights": [
+    0.35,
+    0.35,
+    0.3
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S5"
+   ]
+  },
+  {
+   "name": "strike_marks_ambiguous",
+   "description": "Strike mark evidence is recorded as 'possible' rather than yes or no, or a puncture fracture sits on a heavily pitted pipe wall, leaving third-party cause contestable",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.3,
+   "skills": [
+    "S5",
+    "S6"
+   ]
+  },
+  {
+   "name": "prior_bursts_5y",
+   "description": "Number of earlier bursts logged on the same main ID in the five years before this report",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 6,
+   "p_true": 0,
+   "skills": [
+    "S7",
+    "S6"
+   ]
+  },
+  {
+   "name": "replacement_scheduled",
+   "description": "Whether the main already sits in the capital replacement programme with a planned year, which lowers the need for new asset follow-up despite a poor burst history",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3"
+   ]
+  },
+  {
+   "name": "prior_external_share",
+   "description": "Proportion of prior bursts coded as third-party damage rather than structural failure; a high share mitigates an alarming burst count",
+   "kind": "number",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 1,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S6"
+   ]
+  },
+  {
+   "name": "date_inconsistency",
+   "description": "Inconsistency between timestamps across sections: none, trivial (UTC vs local hour offset), or material (repair completed or surface laid before excavation opened, or inspection dated before surfacing)",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "trivial_offset",
+    "material"
+   ],
+   "weights": [
+    0.55,
+    0.25,
+    0.2
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S4"
+   ]
+  }
+ ],
+ "sections": [
+  {
+   "name": "job",
+   "description": "Job reference, main ID, report and attendance timestamps, planned interruption estimate, nearby street works permits list"
+  },
+  {
+   "name": "asset",
+   "description": "Main material, nominal diameter, outside diameter in mm, install year, burst history list, replacement programme entry"
+  },
+  {
+   "name": "findings",
+   "description": "Excavation opened timestamp, depth, fracture type code, strike marks code, wall pitting grade, soil and ground movement readings"
+  },
+  {
+   "name": "repair",
+   "description": "Fitting type, fitting size range, fitting material, substitution reference, completion timestamp, pressure tests list"
+  },
+  {
+   "name": "network_ops",
+   "description": "Valve operations list with shut and open times, properties affected, rezoning flag, flushing log, water quality samples list"
+  },
+  {
+   "name": "reinstatement",
+   "description": "Surface layers list with type and laid date, highways inspection list with date and result"
+  }
+ ],
+ "rendering_notes": "fitting_size_mismatch: asset.od_mm (number) versus repair.fitting_range_mm {min,max}; trivial_rounding shows the range given in inches in repair.fitting_range_in alongside a near-boundary mm value inside tolerance; major puts asset.od_mm outside the range. substitution_approved: repair.substitution_ref string plus approver_code when true, null when false; it appears with and without mismatches about equally. pressure_test_outcome: repair.pressure_tests list of {test_at, test_bar, held_mins, result}; not_logged is an empty list. water_quality_state: network_ops.samples list of {taken_at, cl_residual_mgl, bact_result} where bact_result is 'pass', 'fail' or null for pending; flushing appears as network_ops.flushing list of {start, end}; low residual is below 0.2 mg/l. interruption_hours: derived only from network_ops.valve_ops list of {valve_id, op:'shut'|'open', at, customer_side:boolean}; the reviewer must take the earliest customer-side shut and latest customer-side open; network_ops.rezoned true with no customer-side valves means zero interruption; network_ops.properties_affected is a count and never a duration. estimate_drift: job.planned_interruption_mins is a decoy that may sit on the other side of 3 h or 12 h from the real duration. reinstatement_state: reinstatement.layers list of {layer:'temp_bitmac'|'base'|'wearing_course', laid_on} and reinstatement.inspections list of {on, result}; open means an empty layers list with job.barriers_in_place true; there is no stage or status field. failure_cause and strike_marks_ambiguous: findings.fracture_type ('puncture','circumferential','longitudinal','joint_pullout','pitting_hole'), findings.strike_marks ('yes','no','possible'), findings.wall_pitting_grade 0-4, findings.ground_movement_mm; there is no cause field. third_party_permit_timing: job.nearby_permits list of {permit_ref, works_type, start_on, distance_m}, compared with job.reported_at; after_report permits are decoys. prior_bursts_5y and prior_external_share: asset.burst_history list of {on, cause_code}, including some entries older than five years as decoys. replacement_scheduled: asset.replacement_programme {scheme_ref, planned_year} or null. date_inconsistency: findings.excavated_at, repair.completed_at, reinstatement layer and inspection dates; trivial cases show a one-hour offset with a 'Z' suffix on one field only. Records never contain fields such as cause, risk, priority, recommendation, close_out_status, interruption_band or reinstatement_stage; every answer must be inferred by comparing sections. Unknown values are null, not omitted. No free-text fields are present.",
+ "skills": [
+  "S1",
+  "S3",
+  "S4",
+  "S5",
+  "S6",
+  "S7"
+ ],
+ "shared_scale": null,
+ "design_cost": 0.157652
+}

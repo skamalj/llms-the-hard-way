@@ -1,0 +1,141 @@
+{
+ "id": "F305-0046",
+ "family": "F305",
+ "state": {
+  "session": {
+   "needle_on": "2025-03-03T08:00",
+   "washback": "2025-03-03T11:56",
+   "review_at": "2025-03-10T23:30"
+  },
+  "prescription": {
+   "duration_min": 240,
+   "dialysate_k": 2.0
+  },
+  "machine": {
+   "dialysate_k": 2.0,
+   "uf_removed_ml": 2700,
+   "washback_ml": 200,
+   "alarms": [
+    {
+     "c": "PUMP_STOP",
+     "t": "2025-03-03T09:30"
+    },
+    {
+     "c": "PUMP_RESUME",
+     "t": "2025-03-03T09:48"
+    }
+   ]
+  },
+  "observations": {
+   "pre_kg": 74.0,
+   "post_kg": 72.0,
+   "bp": [
+    [
+     "09:10",
+     86
+    ],
+    [
+     "10:00",
+     84
+    ],
+    [
+     "10:50",
+     85
+    ]
+   ],
+   "interventions": []
+  },
+  "checks": [
+   {
+    "c": "prime",
+    "done": true,
+    "t": "2025-03-03T07:50"
+   },
+   {
+    "c": "access_assessment",
+    "done": true,
+    "t": "2025-03-03T08:00"
+   }
+  ],
+  "history": [
+   {
+    "d": "2025-02-24",
+    "p": 240,
+    "e": 205
+   },
+   {
+    "d": "2025-02-17",
+    "p": 240,
+    "e": 240
+   }
+  ]
+ },
+ "factors": {
+  "time_shortfall_min": 22,
+  "machine_pause_min": 18,
+  "uf_weight_gap_kg": 0.5,
+  "post_weight_missing": false,
+  "missing_check": "none",
+  "check_logged_after_start": false,
+  "prescription_mismatch": "none",
+  "mismatch_magnitude": "trivial",
+  "hypotension_episodes": 3,
+  "hypotension_mitigated": false,
+  "circuit_clotted": false,
+  "prior_short_sessions": 1,
+  "documented_flow_reduction": false
+ },
+ "factors_sampled": {
+  "time_shortfall_min": 51,
+  "machine_pause_min": 18,
+  "uf_weight_gap_kg": 1.44,
+  "post_weight_missing": false,
+  "missing_check": "none",
+  "check_logged_after_start": false,
+  "prescription_mismatch": "dialysate_k",
+  "mismatch_magnitude": "clinically_relevant",
+  "hypotension_episodes": 3,
+  "hypotension_mitigated": false,
+  "circuit_clotted": false,
+  "prior_short_sessions": 1,
+  "documented_flow_reduction": false
+ },
+ "plan": {
+  "uf_reconciles": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "checks_before_start": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "log_disposition": {
+   "clarity": "clear",
+   "target": "refer_prescriber",
+   "second": null
+  },
+  "time_shortfall": {
+   "clarity": "clear",
+   "target": "2",
+   "second": null
+  },
+  "pending_age": {
+   "clarity": "contested",
+   "target": "1",
+   "second": "2"
+  }
+ },
+ "target_words": 34,
+ "deciding": {
+  "uf_reconciles": "Net UF 2700-200=2500 ml against weight loss 2.0 kg: gap sits right at the 0.5 kg limit.",
+  "checks_before_start": "Both checks done; access_assessment timestamp equals needle_on exactly, the earlier prime check precedes it.",
+  "log_disposition": "Three systolic readings 84-86, no interventions or recovery reading, so unmitigated hypotension; settings match prescription.",
+  "time_shortfall": "Clock 236 min minus 18 min pause = 218 effective vs 240 prescribed, short by 22.",
+  "pending_age": "Washback 2025-03-03T11:56 to review_at 2025-03-10T23:30 is about 7.5 days, on the 7/8 day boundary."
+ },
+ "request": "rec-F305-0046",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.01425
+}

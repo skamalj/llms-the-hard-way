@@ -1,0 +1,137 @@
+{
+ "id": "F303-0005",
+ "family": "F303",
+ "state": {
+  "order": {
+   "rx": {
+    "modality": "cylinder",
+    "flow_lpm": 2,
+    "hrs_day": 24
+   },
+   "items": [
+    {
+     "sku": "CD460",
+     "qty": 3
+    }
+   ]
+  },
+  "visit": {
+   "items_left": [
+    {
+     "sku": "CD460",
+     "qty": 3,
+     "serial": "D1"
+    }
+   ],
+   "install_checks": {
+    "flow_verified": true,
+    "alarm_tested": true,
+    "training_given": false,
+    "completed_at": "2025-08-09T14:05"
+   },
+   "patient_signature": null
+  },
+  "site_assessment": {
+   "hazards": [
+    {
+     "code": "SMOKING",
+     "status": "open",
+     "fix": null
+    },
+    {
+     "code": "GAS_HOB",
+     "status": "open",
+     "fix": null
+    },
+    {
+     "code": "HEAT_SRC",
+     "status": null,
+     "fix": null
+    }
+   ]
+  },
+  "equipment": {
+   "flow_setting_lpm": 3,
+   "cylinders_on_site": [
+    {
+     "size": "CD 460 L",
+     "fill_pct": 100,
+     "qty": 3
+    }
+   ]
+  },
+  "supply_plan": {
+   "next_delivery_date": "2025-08-10"
+  }
+ },
+ "factors": {
+  "rx_alignment": "flow_mismatch",
+  "items_shortfall": "none",
+  "setup_state": "training_missing",
+  "supply_hours": 11.5,
+  "concentrator_fault": false,
+  "fault_mitigated": false,
+  "hazards_found": 3,
+  "hazard_mitigation": false,
+  "hazard_status_missing": true,
+  "handover_gap": true,
+  "timeline_out_of_order": false,
+  "next_delivery": "booked_in_time",
+  "dependency_level": "continuous",
+  "billing_hold": false
+ },
+ "factors_sampled": {
+  "rx_alignment": "exact",
+  "items_shortfall": "one_short",
+  "setup_state": "training_missing",
+  "supply_hours": 242.58,
+  "concentrator_fault": false,
+  "fault_mitigated": false,
+  "hazards_found": 3,
+  "hazard_mitigation": false,
+  "hazard_status_missing": false,
+  "handover_gap": true,
+  "timeline_out_of_order": false,
+  "next_delivery": "booked_in_time",
+  "dependency_level": "continuous",
+  "billing_hold": false
+ },
+ "plan": {
+  "rx_match": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "book_revisit",
+   "second": null
+  },
+  "fulfilment": {
+   "clarity": "clear",
+   "target": "setup_incomplete",
+   "second": null
+  },
+  "supply_runway": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "open_hazards": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  }
+ },
+ "target_words": 42,
+ "deciding": {
+  "rx_match": "flow_setting_lpm is 3 against a prescribed 2 lpm.",
+  "next_step": "training_given is false, so a return visit is needed; the next delivery is booked for the following day, so the visit is not same-day.",
+  "fulfilment": "All 3 CD460 ordered were left, but training_given is false.",
+  "supply_runway": "Three CD 460 L cylinders at 100% hold 1380 L; at 2 lpm for 24 h/day (2880 L/day) that is about 11.5 hours, just under the 12-hour boundary.",
+  "open_hazards": "Two hazards are open and the third has a null status, so the count is 2 or 3."
+ },
+ "request": "rec-F303-0001",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012731
+}

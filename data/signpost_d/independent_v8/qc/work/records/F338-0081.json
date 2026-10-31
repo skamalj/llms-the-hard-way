@@ -1,0 +1,143 @@
+{
+ "id": "F338-0081",
+ "family": "F338",
+ "state": {
+  "site": {
+   "id": "S114",
+   "pollutant": "O3",
+   "tier": "standard",
+   "service_interval_days": 90
+  },
+  "visit": {
+   "id": "V2231",
+   "date": "2025-03-20",
+   "start": "09:10",
+   "end": "11:40",
+   "sequence_status": "complete",
+   "maintenance_window": false
+  },
+  "reference": {
+   "standard_id": "CYL-4471",
+   "conc": 80,
+   "unit": "ppb",
+   "cert_expiry": "2025-11-14"
+  },
+  "checks": [
+   {
+    "phase": "as_found",
+    "type": "span",
+    "ref_id": "CYL-4471",
+    "unit": "ppb",
+    "ref_conc": 80,
+    "reading": 85.7,
+    "tol": 2.5,
+    "ts": "2025-03-20T09:30"
+   },
+   {
+    "phase": "as_left",
+    "type": "span",
+    "ref_id": "CYL-4471",
+    "unit": "ppb",
+    "ref_conc": 80,
+    "reading": 82.4,
+    "tol": 2.5,
+    "ts": "2025-03-20T11:00"
+   }
+  ],
+  "history": {
+   "last_visit_date": "2025-02-10",
+   "results": [
+    "pass",
+    "pass",
+    "pass"
+   ],
+   "autochecks": [
+    {
+     "d": "2025-02-18",
+     "r": "fail"
+    },
+    {
+     "d": "2025-02-25",
+     "r": "fail"
+    },
+    {
+     "d": "2025-03-14",
+     "r": "pass"
+    }
+   ]
+  },
+  "instrument": {
+   "serial": "A778",
+   "temp_min": 12,
+   "temp_max": 34
+  }
+ },
+ "factors": {
+  "pollutant": "O3",
+  "as_found_ratio": 2.28,
+  "as_left_status": "marginal",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 239,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": false,
+  "drift_explanation": "enclosure_temp_excursion",
+  "days_since_last_visit": 38,
+  "visit_completeness": "complete",
+  "prior_fail_count": 0,
+  "timestamp_mismatch": "none",
+  "site_priority": "standard"
+ },
+ "factors_sampled": {
+  "pollutant": "O3",
+  "as_found_ratio": 2.28,
+  "as_left_status": "marginal",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 239,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": false,
+  "drift_explanation": "enclosure_temp_excursion",
+  "days_since_last_visit": 38,
+  "visit_completeness": "complete",
+  "prior_fail_count": 0,
+  "timestamp_mismatch": "none",
+  "site_priority": "standard"
+ },
+ "plan": {
+  "data_accepted": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "reference_valid": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "close_visit",
+   "second": null
+  },
+  "flag_extent": {
+   "clarity": "clear",
+   "target": "3",
+   "second": null
+  },
+  "return_urgency": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  }
+ },
+ "target_words": 95,
+ "deciding": {
+  "data_accepted": "As-found span read 85.7 against 80 with tolerance 2.5, about 2.3 times tolerance. Enclosure max of 34 offers a drift explanation, and the as-left is just inside tolerance.",
+  "reference_valid": "Check ref_id matches standard_id, units are ppb throughout, and the certificate expires 2025-11-14, well after the visit.",
+  "next_step": "The sequence is complete and the as-left span is inside tolerance (2.4 vs 2.5), so the visit can close. The thin as-left margin and the large as-found error leave doubt.",
+  "flag_extent": "The visit is 38 days after the last one and the as-found failed, so the whole interval is suspect. 38 days is above 30.",
+  "return_urgency": "The as-left margin is thin and the autochecks failed in February. This points to an extra visit soon, but the temperature excursion explains the drift, so a planned visit in 8-30 days is also defensible."
+ },
+ "request": "rec-F338-0081",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.00981
+}

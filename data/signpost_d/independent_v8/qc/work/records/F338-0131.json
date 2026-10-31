@@ -1,0 +1,133 @@
+{
+ "id": "F338-0131",
+ "family": "F338",
+ "state": {
+  "site": {
+   "id": "S114",
+   "pol": "NO2",
+   "tier": "standard",
+   "svc_days": 120,
+   "appr_days": 120
+  },
+  "visit": {
+   "date": "2024-06-20",
+   "start": "09:00",
+   "end": "10:30",
+   "seq": "complete",
+   "mw": false
+  },
+  "reference": {
+   "std_id": "CY48213",
+   "conc": 200,
+   "unit": "ppb",
+   "exp": "2024-07-24"
+  },
+  "checks": [
+   {
+    "t": "as_found_zero",
+    "ref_id": "CY48213",
+    "ref": 0,
+    "rd": 14,
+    "tol": 5,
+    "unit": "ppb",
+    "ts": "2024-06-20T09:10"
+   },
+   {
+    "t": "as_left_zero",
+    "ref_id": "CY48213",
+    "ref": 0,
+    "rd": 4,
+    "tol": 5,
+    "unit": "ppb",
+    "ts": "2024-06-20T10:34"
+   }
+  ],
+  "history": {
+   "last": "2024-02-22",
+   "res": [
+    "pass",
+    "pass",
+    "fail",
+    "pass"
+   ],
+   "auto": [
+    {
+     "d": "2024-06-16",
+     "r": "pass"
+    }
+   ]
+  },
+  "instrument": {
+   "tmin": 16,
+   "tmax": 26
+  }
+ },
+ "factors": {
+  "pollutant": "NO2",
+  "as_found_ratio": 2.8,
+  "as_left_status": "marginal",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 34,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "none",
+  "days_since_last_visit": 119,
+  "visit_completeness": "zero_only",
+  "prior_fail_count": 1,
+  "timestamp_mismatch": "minutes_outside",
+  "site_priority": "standard"
+ },
+ "factors_sampled": {
+  "pollutant": "NO2",
+  "as_found_ratio": 2.8,
+  "as_left_status": "marginal",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 34,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "none",
+  "days_since_last_visit": 119,
+  "visit_completeness": "zero_only",
+  "prior_fail_count": 1,
+  "timestamp_mismatch": "minutes_outside",
+  "site_priority": "standard"
+ },
+ "plan": {
+  "data_accepted": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "reference_valid": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "close_visit",
+   "second": null
+  },
+  "flag_extent": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  },
+  "return_urgency": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "4"
+  }
+ },
+ "target_words": 97,
+ "deciding": {
+  "data_accepted": "As-found zero reads 14 against tolerance 5 (2.8x), yet autochecks pass through June and the as-left zero is within tolerance, so the data is arguably acceptable.",
+  "reference_valid": "IDs, units and expiry (34 days ahead) match, but the as-left timestamp at 10:34 is just after the 10:30 end, leaving doubt.",
+  "next_step": "Only a single zero point exists in each set, and the as-left is within tolerance, so the record closes without further action.",
+  "flag_extent": "The as-found zero failed after 119 days, a long interval; the flag could span 30 days or the whole interval, which is borderline between levels 2 and 3.",
+  "return_urgency": "As-left zero of 4 sits at 5 tolerance, and the as-found was 2.8x the limit; the return could be within 1-2 days or same day."
+ },
+ "request": "rec-F338-0131",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.006448
+}

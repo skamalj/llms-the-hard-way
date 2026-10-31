@@ -1,0 +1,118 @@
+{
+ "id": "F304-0022",
+ "family": "F304",
+ "state": {
+  "request": {
+   "ref": "B2208",
+   "appt_type": "discharge",
+   "appt_time": "13:00",
+   "vehicle_class": "car",
+   "crew_requested": "single",
+   "mobility_booked": "walking_aid",
+   "equipment": [],
+   "pickup": "W12"
+  },
+  "patient": {
+   "mobility_assessed": "walking_aid",
+   "assessed_on": "2023-06-14",
+   "oxygen_lpm": null,
+   "monitoring": null,
+   "own_transport_available": true,
+   "exemption": {
+    "code": "MOB-2",
+    "approved_by": "TM4",
+    "approved_on": "2025-01-20"
+   },
+   "ward": "Ward 12"
+  },
+  "journey": {
+   "window_end": "11:00",
+   "est_duration_min": 40,
+   "manual_est_min": 28,
+   "late_tolerance_min": 0,
+   "destination": {
+    "reslot_same_day": true
+   }
+  },
+  "history": [
+   {
+    "date": "2025-02-11",
+    "outcome": "aborted",
+    "reason": "patient not ready"
+   }
+  ],
+  "notes": {
+   "ward_note": "Uses wheelchair for longer distances."
+  }
+ },
+ "factors": {
+  "mobility_alignment": "stale",
+  "secondary_discrepancy": "ward_trivial",
+  "eligibility_concern": true,
+  "eligibility_exception": true,
+  "clinical_support": "none",
+  "crew_request_gap": "under_one_step",
+  "buffer_minutes": "80 (92 with manual estimate)",
+  "duration_estimate_split": true,
+  "late_tolerance": false,
+  "appointment_type": "discharge",
+  "same_day_reslot": true,
+  "confirmation_pending": false,
+  "prior_aborts": 1,
+  "aborts_related": false
+ },
+ "factors_sampled": {
+  "mobility_alignment": "matches",
+  "secondary_discrepancy": "ward_trivial",
+  "eligibility_concern": true,
+  "eligibility_exception": true,
+  "clinical_support": "cardiac_monitoring",
+  "crew_request_gap": "under_one_step",
+  "buffer_minutes": 75.2,
+  "duration_estimate_split": true,
+  "late_tolerance": false,
+  "appointment_type": "discharge",
+  "same_day_reslot": true,
+  "confirmation_pending": false,
+  "prior_aborts": 1,
+  "aborts_related": false
+ },
+ "plan": {
+  "vehicle_fit": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "disposition": {
+   "clarity": "balanced",
+   "target": "amend_confirm",
+   "second": "confirm"
+  },
+  "crew_config": {
+   "clarity": "balanced",
+   "target": "single_crew",
+   "second": "double_crew"
+  },
+  "time_pressure": {
+   "clarity": "leaning",
+   "target": "0",
+   "second": null
+  },
+  "delay_impact": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  }
+ },
+ "target_words": 67,
+ "deciding": {
+  "vehicle_fit": "Assessment dated 2023-06-14 is long out of date, so fit cannot be accepted even though booked and assessed values agree.",
+  "disposition": "Only the W12 against Ward 12 variant is visible (confirm), but the stale assessment needs correcting before dispatch (amend_confirm); exemption MOB-2 covers eligibility.",
+  "crew_config": "Single crew requested for walking_aid; ward note says wheelchair used for longer distances (double_crew); no oxygen or monitoring.",
+  "time_pressure": "Window end 11:00, estimate 40 (manual 28) against 13:00 gives 80 to 92 min spare, mostly above 90.",
+  "delay_impact": "Discharge with reslot_same_day true."
+ },
+ "request": "rec-F304-0021",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.010623
+}

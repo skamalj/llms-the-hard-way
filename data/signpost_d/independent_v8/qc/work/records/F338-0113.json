@@ -1,0 +1,138 @@
+{
+ "id": "F338-0113",
+ "family": "F338",
+ "state": {
+  "site": {
+   "pollutant": "CO",
+   "tier": "standard",
+   "service_interval_days": 28,
+   "approved_interval_days": 28
+  },
+  "visit": {
+   "id": "V-2291",
+   "date": "2024-07-18",
+   "start": "08:30",
+   "end": "10:00",
+   "sequence_status": "complete",
+   "maintenance_window": false
+  },
+  "reference": {
+   "standard_id": "CY-55208",
+   "unit": "ppm",
+   "cert_expiry": "2024-06-12"
+  },
+  "checks": [
+   {
+    "phase": "as_found",
+    "type": "span",
+    "ref_id": "CY-55280",
+    "unit": "ppm",
+    "ref_conc": 40,
+    "reading": 46.7,
+    "tol": 2.0,
+    "ts": "2024-07-18T08:50"
+   },
+   {
+    "phase": "as_left",
+    "type": "span",
+    "ref_id": "CY-55280",
+    "unit": "ppm",
+    "ref_conc": 40,
+    "reading": 40.3,
+    "tol": 2.0,
+    "ts": "2024-07-18T09:40"
+   }
+  ],
+  "history": {
+   "last_visit_date": "2024-07-08",
+   "results": [
+    "pass",
+    "fail",
+    "pass",
+    "fail"
+   ],
+   "autochecks": [
+    {
+     "d": "2024-07-09",
+     "r": "fail"
+    },
+    {
+     "d": "2024-07-10",
+     "r": "pass"
+    }
+   ]
+  },
+  "instrument": {
+   "enclosure_temp_max": 34,
+   "enclosure_temp_min": 12
+  }
+ },
+ "factors": {
+  "pollutant": "CO",
+  "as_found_ratio": 3.35,
+  "as_left_status": "all_pass",
+  "cylinder_id_mismatch": "transposed_digit",
+  "cert_expiry_offset_days": -36,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": false,
+  "drift_explanation": "enclosure_temp_excursion",
+  "days_since_last_visit": 10,
+  "visit_completeness": "complete",
+  "prior_fail_count": 2,
+  "timestamp_mismatch": "none",
+  "site_priority": "standard"
+ },
+ "factors_sampled": {
+  "pollutant": "CO",
+  "as_found_ratio": 3.35,
+  "as_left_status": "all_pass",
+  "cylinder_id_mismatch": "transposed_digit",
+  "cert_expiry_offset_days": -36,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": false,
+  "drift_explanation": "enclosure_temp_excursion",
+  "days_since_last_visit": 10,
+  "visit_completeness": "complete",
+  "prior_fail_count": 2,
+  "timestamp_mismatch": "none",
+  "site_priority": "standard"
+ },
+ "plan": {
+  "data_accepted": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "reference_valid": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "close_visit",
+   "second": null
+  },
+  "flag_extent": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  },
+  "return_urgency": {
+   "clarity": "contested",
+   "target": "1",
+   "second": "2"
+  }
+ },
+ "target_words": 60,
+ "deciding": {
+  "data_accepted": "As-found 46.7 vs 40 is out of tolerance, but the enclosure max of 34 explains drift, only 10 days elapsed and as-left passes, so acceptance is leaning.",
+  "reference_valid": "Check ref_id CY-55280 transposes digits against standard_id CY-55208 and cert_expiry is 36 days before the visit; the as-left reading is nonetheless close to nominal.",
+  "next_step": "Visit complete and as-left within tolerance at 40.3 vs 40; closing is leaning, though the reference issues leave some doubt.",
+  "flag_extent": "Only 10 days since last visit, with an autocheck fail on 2024-07-09 and a pass the next day; either a few days or the full 10 days could be flagged.",
+  "return_urgency": "Expired cert and mismatched ID may warrant a planned extra visit in 8-30 days, while the temperature excursion and a passing as-left argue for a prompt or no return; contested."
+ },
+ "request": "rec-F338-0111",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.006857
+}

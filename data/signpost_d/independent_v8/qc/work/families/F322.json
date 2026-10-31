@@ -1,0 +1,339 @@
+{
+ "id": "F322",
+ "domain": "crop scouting reports",
+ "role": "Crop protection agronomist at an arable advisory practice, reviewing one field scouting report at a time before issuing a treatment recommendation to the grower",
+ "setting": "Field scouts walk cereal, oilseed rape and pulse fields on contract farms and upload structured reports from a handheld app. Each report covers one field visit: the field and crop details, how the visit was carried out, what was counted or seen at each sample point, the reference threshold for the target at that growth stage, the spray history, and short free-text notes from the scout and the grower. The agronomist reads each report in isolation and must decide whether the identification holds up, whether earlier control has failed, what to do next, how urgent it is and how heavy the confirmed pressure is. Sections often disagree slightly because scouts key in stages, units and field codes by hand.",
+ "questions": {
+  "id_supported": {
+   "type": "noul",
+   "instructions": "The scout's note corroborates the target recorded in the observations.",
+   "criteria": null
+  },
+  "resistance_suspected": {
+   "type": "noul",
+   "instructions": "Survival after the last application points to suspected resistance in the target.",
+   "criteria": {
+    "true": "Target persists despite correctly timed, full-rate, rain-free application.",
+    "false": "No prior spray, good control, or failure explained otherwise."
+   }
+  },
+  "next_step": {
+   "type": "choice",
+   "instructions": "What should happen next with this field after this report?",
+   "criteria": {
+    "no_action": "Target absent or well below threshold; no follow-up visit scheduled.",
+    "monitor": "Below threshold but present; revisit on routine scouting interval.",
+    "hold_confirm": "Decision rests on one outstanding check, such as lab ID.",
+    "spot_treat": "Threshold exceeded only in mapped patches or headlands; treat those.",
+    "full_treat": "Threshold exceeded across the field; whole-field application recommended."
+   }
+  },
+  "window_urgency": {
+   "type": "score",
+   "instructions": "How many days remain before the effective treatment window closes?",
+   "criteria": [
+    "More than 14 days, or no window applies",
+    "Window closes in 8 to 14 days",
+    "Window closes in 4 to 7 days",
+    "Window closes within 3 days"
+   ]
+  },
+  "pressure_level": {
+   "type": "score",
+   "instructions": "How does confirmed pressure compare with the action threshold for this stage?",
+   "criteria": [
+    "Absent: target not found at any sample point",
+    "Trace: present but below half the threshold",
+    "Approaching: half the threshold up to just below it",
+    "Exceeded: from threshold up to twice the threshold",
+    "Heavy: more than twice the threshold"
+   ]
+  }
+ },
+ "factors": [
+  {
+   "name": "pressure_ratio",
+   "description": "True mean pressure across valid sample points divided by the action threshold for the recorded growth stage; drives pressure_level and much of next_step",
+   "kind": "number",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 3.5,
+   "p_true": 0,
+   "skills": [
+    "S4",
+    "S7"
+   ]
+  },
+  {
+   "name": "near_boundary",
+   "description": "When true, pressure_ratio is placed within 8% of 0.5, 1.0 or 2.0, or days_to_window_close sits on 3, 7 or 14, so judges may split between neighbouring levels",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.25,
+   "skills": [
+    "S6"
+   ]
+  },
+  {
+   "name": "section_mismatch",
+   "description": "Which pair of corresponding values disagrees between sections, if any",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "count_unit",
+    "growth_stage",
+    "field_id",
+    "visit_date",
+    "note_target",
+    "area_ha"
+   ],
+   "weights": [
+    0.3,
+    0.15,
+    0.15,
+    0.1,
+    0.1,
+    0.12,
+    0.08
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1"
+   ]
+  },
+  {
+   "name": "mismatch_magnitude",
+   "description": "How much the mismatch matters: trivial (typo-level, no effect on answers), moderate (shifts one level), large (changes threshold or target)",
+   "kind": "categorical",
+   "values": [
+    "trivial",
+    "moderate",
+    "large"
+   ],
+   "weights": [
+    0.4,
+    0.35,
+    0.25
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S6"
+   ]
+  },
+  {
+   "name": "mitigation_present",
+   "description": "Whether a field lowers concern about the alarming pressure signal; sampled independently of pressure so high counts appear with and without it",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3"
+   ]
+  },
+  {
+   "name": "mitigation_type",
+   "description": "Form the mitigation takes when present",
+   "kind": "categorical",
+   "values": [
+    "beneficials_above_ratio",
+    "within_protection_period",
+    "past_susceptible_stage",
+    "headland_only_sampling",
+    "harvest_interval_blocks_spray"
+   ],
+   "weights": [
+    0.25,
+    0.2,
+    0.2,
+    0.2,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S4"
+   ]
+  },
+  {
+   "name": "prior_spray_outcome",
+   "description": "Result of the most recent application against the same target",
+   "kind": "categorical",
+   "values": [
+    "no_prior_spray",
+    "good_control",
+    "poor_control_explained",
+    "poor_control_unexplained",
+    "reinfestation_likely"
+   ],
+   "weights": [
+    0.3,
+    0.25,
+    0.18,
+    0.15,
+    0.12
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S5",
+    "S6",
+    "S3"
+   ]
+  },
+  {
+   "name": "confirmation_outstanding",
+   "description": "One pending check (lab diagnosis, trap download, second count) on which the decision rests",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.3,
+   "skills": [
+    "S4"
+   ]
+  },
+  {
+   "name": "points_shortfall",
+   "description": "Number of sample points short of the protocol requirement (0 means full coverage)",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 6,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S4"
+   ]
+  },
+  {
+   "name": "days_to_window_close",
+   "description": "Days from the visit date until the effective window closes, derived from stage, forecast and harvest interval",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 21,
+   "p_true": 0,
+   "skills": [
+    "S7",
+    "S4"
+   ]
+  },
+  {
+   "name": "note_quality",
+   "description": "How well the scout's free-text note describes symptoms for the recorded target",
+   "kind": "categorical",
+   "values": [
+    "specific_matching",
+    "vague",
+    "describes_other_target",
+    "hedged_possible"
+   ],
+   "weights": [
+    0.4,
+    0.22,
+    0.18,
+    0.2
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S5",
+    "S1"
+   ]
+  },
+  {
+   "name": "spatial_pattern",
+   "description": "Distribution of affected sample points across the field",
+   "kind": "categorical",
+   "values": [
+    "uniform",
+    "patchy_headland",
+    "patchy_scattered",
+    "single_hotspot"
+   ],
+   "weights": [
+    0.35,
+    0.25,
+    0.25,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S4",
+    "S7"
+   ]
+  },
+  {
+   "name": "grower_alarm",
+   "description": "Grower message expresses alarm or requests an immediate spray, independent of actual pressure; a decoy",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.4,
+   "skills": [
+    "S3",
+    "S6"
+   ]
+  }
+ ],
+ "sections": [
+  {
+   "name": "field",
+   "description": "Field code, crop, variety, area_ha, drilling date and growth stage as held on the farm record"
+  },
+  {
+   "name": "visit",
+   "description": "Visit date, scout code, field code as keyed, BBCH stage as keyed, sample points required and walked, weather at visit"
+  },
+  {
+   "name": "observations",
+   "description": "List of sample points with target, count, count_unit, incidence_pct, location tag and beneficials count"
+  },
+  {
+   "name": "threshold_ref",
+   "description": "Target, stage range, action threshold with unit, beneficial ratio rule, latest timing stage and harvest interval days"
+  },
+  {
+   "name": "spray_history",
+   "description": "List of prior applications with product code, target, date, rate_pct_label, rain_within_6h, protection_days and outcome_check"
+  },
+  {
+   "name": "notes",
+   "description": "scout_note (one or two sentences), grower_msg (one sentence or null), lab_status (pending, received or null)"
+  }
+ ],
+ "rendering_notes": "pressure_ratio appears only as per-point counts in observations.count against threshold_ref.threshold; the reader must average valid points, converting units where count_unit differs (per plant vs per 10 plants vs per leaf). Never include a mean, ratio or 'above threshold' field. near_boundary sets the computed mean within 8% of a level boundary, or makes days_to_window_close land exactly on 3, 7 or 14. section_mismatch: count_unit puts observations.count_unit at odds with threshold_ref unit; growth_stage makes visit.bbch differ from field.growth_stage (large if it moves into a different threshold_ref stage range); field_id makes visit.field_code differ from field.field_code (trivial = transposed digit with same crop, large = code belonging to another crop); visit_date makes the visit date precede a spray dated as already checked; note_target names a different organism in scout_note than observations.target; area_ha puts a different area in notes or spray_history. Mismatches are never flagged. mitigation_present renders by type: beneficials_above_ratio as beneficials counts meeting the threshold_ref.beneficial_rule; within_protection_period as a spray whose date plus protection_days covers the visit; past_susceptible_stage as visit stage beyond threshold_ref.latest_timing_stage; headland_only_sampling as all high counts tagged 'headland' with clean in-field points; harvest_interval_blocks_spray as harvest_interval_days exceeding days to expected harvest, which also sets window_urgency. The same high counts occur with and without mitigation equally often. prior_spray_outcome renders through spray_history: explained failures show rain_within_6h true, rate_pct_label below 100, or application outside the stage window; unexplained failures show full rate, dry, in-window application with outcome_check 'survivors'; reinfestation_likely shows good outcome_check followed by a long gap and fresh counts only at headland points. confirmation_outstanding renders as lab_status 'pending' or a scout_note saying a trap was not downloaded. points_shortfall shows as visit.points_walked below points_required; a large shortfall with borderline counts supports hold_confirm. days_to_window_close is never stated; derive from visit date, latest_timing_stage, drilling date and harvest interval. note_quality: hedged_possible notes use words like 'possibly' or 'could be', making id_supported false; describes_other_target describes symptoms of another organism. spatial_pattern shows in location tags. Decoys: grower_alarm messages ('needs spraying today'), weather fields, variety names, and beneficials counts below the rule. No field may state a disposition, urgency, severity, resistance verdict or identification confidence.",
+ "skills": [
+  "S1",
+  "S3",
+  "S4",
+  "S5",
+  "S6",
+  "S7"
+ ],
+ "shared_scale": null,
+ "design_cost": 0.149672
+}

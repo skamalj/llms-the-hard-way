@@ -1,0 +1,131 @@
+{
+ "id": "F318-0021",
+ "family": "F318",
+ "state": {
+  "work_order": {
+   "visit_type": "reactive_callout",
+   "tasks": [
+    {
+     "task_id": 1,
+     "asset_ref": "PD1"
+    },
+    {
+     "task_id": 2,
+     "asset_ref": "PD1"
+    },
+    {
+     "task_id": 3,
+     "asset_ref": "BG2"
+    },
+    {
+     "task_id": 4,
+     "asset_ref": "BG2"
+    },
+    {
+     "task_id": 5,
+     "asset_ref": "SL1"
+    }
+   ]
+  },
+  "visit_log": {
+   "crew_size": 2,
+   "timesheet_hours": 4.58,
+   "arrived": "2024-05-02T08:00",
+   "departed": "2024-05-02T12:00"
+  },
+  "materials": {
+   "issued": [
+    {
+     "part_no": "P7",
+     "qty": 10
+    }
+   ],
+   "returned": [
+    {
+     "part_no": "P7",
+     "qty": 2
+    }
+   ],
+   "fitted": [
+    {
+     "part_no": "P7",
+     "qty": 5
+    }
+   ]
+  },
+  "checks": {
+   "leakage_ls": 6.1,
+   "leakage_limit_ls": 3,
+   "river_level_m": 2.4,
+   "flood_marker_m": 2.0
+  }
+ },
+ "factors": {
+  "visit_type": "reactive_callout",
+  "tasks_ordered": 5,
+  "completion_state": "all_done",
+  "parts_qty_mismatch": "moderate",
+  "hours_gap": 3.42,
+  "asset_ref_mismatch": false,
+  "post_check_result": "failed",
+  "leakage_ratio": 2.04,
+  "leakage_mitigation": true,
+  "navigation_notice_in_force": false,
+  "deferral_approved": false,
+  "prior_same_defect": 1,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "visit_type": "reactive_callout",
+  "tasks_ordered": 5,
+  "completion_state": "all_done",
+  "parts_qty_mismatch": "moderate",
+  "hours_gap": 3.42,
+  "asset_ref_mismatch": false,
+  "post_check_result": "passed",
+  "leakage_ratio": 2.04,
+  "leakage_mitigation": true,
+  "navigation_notice_in_force": false,
+  "deferral_approved": false,
+  "prior_same_defect": 1,
+  "boundary_case": false
+ },
+ "plan": {
+  "safe_to_reopen": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "record_disposition": {
+   "clarity": "balanced",
+   "target": "hold_query",
+   "second": "reopen_revisit"
+  },
+  "return_urgency": {
+   "clarity": "clear",
+   "target": "within_week",
+   "second": null
+  },
+  "affected_scope": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "section_mismatches": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  }
+ },
+ "target_words": 48,
+ "deciding": {
+  "safe_to_reopen": "Leakage 6.1 against limit 3 and no post_checks logged.",
+  "record_disposition": "Parts mismatch and 3.42 hour gap, and leakage over limit despite high river; hold or revisit both plausible.",
+  "return_urgency": "Leakage is double the limit with no notice or deferral covering it, so a return within a week.",
+  "affected_scope": "A single lock with leakage; one unit versus a few boaters.",
+  "section_mismatches": "Two mismatches: parts fitted 5 vs 8 net, and timesheet hours vs span times crew."
+ },
+ "request": "rec-F318-0021",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.004557
+}

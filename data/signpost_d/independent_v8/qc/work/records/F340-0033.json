@@ -1,0 +1,115 @@
+{
+ "id": "F340-0033",
+ "family": "F340",
+ "state": {
+  "booking": {
+   "ref": "BK-3302",
+   "dog": "Bella",
+   "microchip": "941000012345671",
+   "checkin": "2025-05-06",
+   "checkout": "2025-05-10",
+   "owner_contact": {
+    "reachable_during_stay": true,
+    "confirm_call_done": false
+   }
+  },
+  "declaration": {
+   "weight_kg": 14.2,
+   "neutered": true,
+   "conditions": [],
+   "medications": []
+  },
+  "vaccination": {
+   "chip_on_cert": "941000012345617",
+   "name_on_cert": "Belle",
+   "core_expiry": "2025-05-21",
+   "titre_result": {
+    "date": "2025-01-15",
+    "accepted_by": "kennel vet"
+   }
+  },
+  "vet_history": {
+   "neutered": true,
+   "known_conditions": [],
+   "current_prescriptions": []
+  },
+  "arrival_check": {
+   "measured_weight_kg": 12.97,
+   "cough": false,
+   "temp_c": 38.5,
+   "prior_stay_incidents": 1
+  },
+  "intake_notes": [
+   "Chip scanned at desk reads ...617, same as the certificate, not the booking.",
+   "Owner says this is Bella's first stay here."
+  ]
+ },
+ "factors": {
+  "vacc_expiry_offset_days": 11,
+  "titre_exemption_on_file": true,
+  "certificate_id_mismatch": "chip_and_name_differ",
+  "arrival_cough_observed": false,
+  "cough_benign_explanation": "none",
+  "weight_discrepancy_pct": 8.65,
+  "medication_state": "none_needed",
+  "next_dose_hours": 21,
+  "neuter_status_conflict": false,
+  "owner_reachable": true,
+  "prior_incident_count": 1,
+  "note_tone": "flags_concern",
+  "balanced_signals": true
+ },
+ "factors_sampled": {
+  "vacc_expiry_offset_days": 11,
+  "titre_exemption_on_file": true,
+  "certificate_id_mismatch": "none",
+  "arrival_cough_observed": true,
+  "cough_benign_explanation": "none",
+  "weight_discrepancy_pct": 8.65,
+  "medication_state": "in_vet_history_not_declared",
+  "next_dose_hours": 21,
+  "neuter_status_conflict": false,
+  "owner_reachable": true,
+  "prior_incident_count": 2,
+  "note_tone": "flags_concern",
+  "balanced_signals": true
+ },
+ "plan": {
+  "vacc_cover_valid": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "declaration_consistent": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "admission_disposition": {
+   "clarity": "contested",
+   "target": "admit_standard",
+   "second": "refuse"
+  },
+  "discrepancy_count": {
+   "clarity": "clear",
+   "target": "3",
+   "second": null
+  },
+  "action_urgency": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  }
+ },
+ "target_words": 40,
+ "deciding": {
+  "vacc_cover_valid": "Expiry 2025-05-21 is after checkout and an accepted titre is on file; the cert chip and name mismatch with booking leave some doubt.",
+  "declaration_consistent": "Declared 14.2 kg against measured 12.97 kg is under 10%; conditions, medications and neutered all agree with vet history.",
+  "admission_disposition": "Cert chip differs from booking chip (refuse), but the desk scan matches the cert and the dog has no symptoms or medication (admit_standard); both are defensible.",
+  "discrepancy_count": "Four or more unresolved items: booking chip vs cert chip, booking chip vs desk scan, Bella vs Belle, and the first-stay claim vs prior_stay_incidents=1.",
+  "action_urgency": "Nothing is time-critical on arrival, but the booking and certificate identity records need correcting; a 48-hour window is the most likely."
+ },
+ "request": "rec-F340-0031",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.014176
+}

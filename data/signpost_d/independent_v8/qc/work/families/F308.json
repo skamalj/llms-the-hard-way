@@ -1,0 +1,318 @@
+{
+ "id": "F308",
+ "domain": "exam access arrangement requests",
+ "role": "Exams officer reviewing access arrangement applications for a secondary school and sixth-form centre",
+ "setting": "Before each exam series, the exams officer reviews one candidate's access arrangement application at a time. Arrangements include extra time, a reader, a scribe, a word processor and rest breaks. The officer checks the request against the specialist assessment, the candidate's exam entries, the centre's register of approved assessors and the record of the candidate's normal way of working in internal tests. They then decide whether the application can be submitted to the awarding body, and in what form.",
+ "questions": {
+  "normal_working": {
+   "type": "noul",
+   "instructions": "Requested arrangements reflect the candidate's established normal way of working.",
+   "criteria": {
+    "true": "Usage log or recent onset supports each arrangement",
+    "false": "Some arrangement lacks usage or valid recent-onset reason"
+   }
+  },
+  "assessor_valid": {
+   "type": "noul",
+   "instructions": "The assessment was conducted by an assessor on the centre register.",
+   "criteria": {
+    "true": "Assessor identifier matches an active register entry",
+    "false": "Identifier absent, unmatched or registration lapsed then"
+   }
+  },
+  "disposition": {
+   "type": "choice",
+   "instructions": "How far can this application proceed towards submission?",
+   "criteria": {
+    "decline": "Evidence contradicts need or candidate is ineligible for arrangements",
+    "refer_reassess": "Assessment invalid or expired; new specialist assessment required first",
+    "hold": "Single confirmation outstanding, such as signature or identity correction",
+    "approve_reduced": "Evidence supports some arrangements or a lower extra-time percentage",
+    "approve_full": "Every requested arrangement fully supported and records reconcile"
+   }
+  },
+  "time_pressure": {
+   "type": "score",
+   "instructions": "How soon is the candidate's first affected exam?",
+   "criteria": [
+    "Routine: first affected exam more than 60 days away",
+    "Planned: first affected exam 31 to 60 days away",
+    "Pressing: first affected exam 8 to 30 days away",
+    "Critical: first affected exam within 7 days"
+   ]
+  },
+  "unsupported_items": {
+   "type": "score",
+   "instructions": "How many requested arrangements lack matching current supporting evidence?",
+   "criteria": [
+    "Every requested arrangement matched by current evidence",
+    "Exactly one arrangement unsupported or only partly supported",
+    "Exactly two arrangements unsupported or partly supported",
+    "Three or more arrangements lack supporting evidence"
+   ]
+  }
+ },
+ "factors": [
+  {
+   "name": "arrangement_count",
+   "description": "Number of distinct arrangements listed in the request",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 1,
+   "max": 4,
+   "p_true": 0,
+   "skills": [
+    "S4",
+    "S7"
+   ]
+  },
+  {
+   "name": "extra_time_gap",
+   "description": "Requested extra-time percentage compared with the percentage the assessment recommends",
+   "kind": "categorical",
+   "values": [
+    "match",
+    "not_requested",
+    "request_exceeds_by_one_band",
+    "request_exceeds_by_two_bands"
+   ],
+   "weights": [
+    0.45,
+    0.2,
+    0.25,
+    0.1
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S4"
+   ]
+  },
+  {
+   "name": "low_score_count",
+   "description": "Number of standardised scores below 85 in the assessment results that underpin the arrangements; some records hold a score of exactly 85",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "one",
+    "one_at_85_boundary",
+    "two_plus"
+   ],
+   "weights": [
+    0.2,
+    0.3,
+    0.15,
+    0.35
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S6"
+   ]
+  },
+  {
+   "name": "assessment_window",
+   "description": "Assessment date relative to the start of the candidate's course of study",
+   "kind": "categorical",
+   "values": [
+    "within_window",
+    "within_14_days_of_window_edge",
+    "before_window"
+   ],
+   "weights": [
+    0.65,
+    0.15,
+    0.2
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S6"
+   ]
+  },
+  {
+   "name": "assessor_registered",
+   "description": "Assessor identifier on the evidence appears in the centre register with active dates covering the assessment date",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.8,
+   "skills": [
+    "S1",
+    "S5"
+   ]
+  },
+  {
+   "name": "usage_level",
+   "description": "Count of internal tests in the usage log where each requested arrangement was actually used",
+   "kind": "categorical",
+   "values": [
+    "none_logged",
+    "sporadic",
+    "consistent"
+   ],
+   "weights": [
+    0.25,
+    0.3,
+    0.45
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S5",
+    "S4"
+   ]
+  },
+  {
+   "name": "recent_onset",
+   "description": "Need arose recently (new diagnosis or injury), so no usage history is expected; shown by onset date and arrangement type",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S5"
+   ]
+  },
+  {
+   "name": "identity_mismatch",
+   "description": "Discrepancy between candidate details in the candidate section and in the evidence section",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "name_spelling",
+    "dob_differs",
+    "candidate_number_differs"
+   ],
+   "weights": [
+    0.55,
+    0.2,
+    0.13,
+    0.12
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S4"
+   ]
+  },
+  {
+   "name": "consent_missing",
+   "description": "Candidate data-sharing consent not yet signed",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.25,
+   "skills": [
+    "S4"
+   ]
+  },
+  {
+   "name": "entry_scope_mismatch",
+   "description": "Request lists papers or subjects that do not appear in the candidate's exam entries",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.3,
+   "skills": [
+    "S1"
+   ]
+  },
+  {
+   "name": "days_to_first_exam",
+   "description": "Days from review date to the earliest entered exam that the request covers",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 2,
+   "max": 120,
+   "p_true": 0,
+   "skills": [
+    "S7"
+   ]
+  },
+  {
+   "name": "prior_decline",
+   "description": "A previous application for this candidate was declined",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.35,
+   "skills": [
+    "S3"
+   ]
+  },
+  {
+   "name": "prior_decline_superseded",
+   "description": "A newer assessment dated after the prior decline exists, removing the decline's relevance",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S6"
+   ]
+  }
+ ],
+ "sections": [
+  {
+   "name": "candidate",
+   "description": "Candidate number, name, date of birth, year group, course start date"
+  },
+  {
+   "name": "request",
+   "description": "List of requested arrangements with type, extra_time_pct, papers covered, consent_signed, onset_date"
+  },
+  {
+   "name": "evidence",
+   "description": "Assessment record: assessor_id, assessed_on, candidate name and DOB as recorded, standardised scores, recommended arrangements"
+  },
+  {
+   "name": "centre",
+   "description": "Registered assessors list with ids and active_from/active_to dates, review_date, prior application outcomes"
+  },
+  {
+   "name": "usage_history",
+   "description": "Internal tests list with date, subject and arrangements actually used"
+  },
+  {
+   "name": "entries",
+   "description": "Entered exams with paper code, subject and scheduled date"
+  }
+ ],
+ "rendering_notes": "arrangement_count sets the length of request.arrangements. extra_time_gap appears as request.arrangements[].extra_time_pct compared against evidence.recommended[].extra_time_pct (bands 25, 50). low_score_count appears as evidence.scores[] with test name and standard_score; scores of exactly 85 sit on the boundary. assessment_window is evident only by comparing evidence.assessed_on with candidate.course_start. assessor_registered is evident only by matching evidence.assessor_id against centre.assessors[] and their active dates; unregistered cases show either a non-matching id or a lapsed active_to date. usage_level appears as how many usage_history.tests[] list each arrangement in arrangements_used. recent_onset sets request.onset_date within about 8 weeks of review_date, sometimes with a temporary arrangement type such as scribe_injury. identity_mismatch places a differing name, DOB or candidate number in evidence versus candidate. consent_missing sets request.consent_signed false or null. entry_scope_mismatch lists a paper code in request papers_covered that is absent from entries. days_to_first_exam is derived from centre.review_date against the earliest matching entries date. prior_decline appears in centre.prior_applications[] with outcome declined and a date; prior_decline_superseded puts evidence.assessed_on after that date. Decoys: a prior decline that has been superseded; low usage paired with a recent onset; name spelling differences such as hyphenation; unused rest-break columns; entries for unrelated subjects with near dates. No field states validity, eligibility, urgency, support counts or a recommended decision. Do not include free-text fields.",
+ "skills": [
+  "S1",
+  "S3",
+  "S4",
+  "S5",
+  "S6",
+  "S7"
+ ],
+ "shared_scale": null,
+ "design_cost": 0.107908
+}

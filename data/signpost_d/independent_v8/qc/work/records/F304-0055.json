@@ -1,0 +1,135 @@
+{
+ "id": "F304-0055",
+ "family": "F304",
+ "state": {
+  "request": {
+   "appt_type": "chemo_transfer",
+   "appt_time": "2024-08-20T11:00",
+   "vehicle_class": "ambulance",
+   "crew_requested": "clinical_escort",
+   "mobility_booked": "stretcher",
+   "equipment": [
+    "cardiac monitor"
+   ],
+   "pickup_code": "A-W7"
+  },
+  "patient": {
+   "mobility_assessed": "stretcher",
+   "assessed_on": "2024-07-10",
+   "oxygen_lpm": 0,
+   "monitoring": "cardiac",
+   "own_transport_available": true,
+   "current_location": "A-W9",
+   "fit_to_travel_signed": null,
+   "exemption": {
+    "code": "STR1",
+    "approved_by": "LH",
+    "approved_on": "2024-06-01"
+   }
+  },
+  "journey": {
+   "window_end": "2024-08-20T09:50",
+   "est_duration_min": 40,
+   "late_tolerance_min": 15,
+   "destination": {
+    "reslot_same_day": false
+   }
+  },
+  "history": [
+   {
+    "date": "2024-06-04",
+    "outcome": "aborted",
+    "reason": "arrhythmia alert en route"
+   },
+   {
+    "date": "2024-06-25",
+    "outcome": "aborted",
+    "reason": "arrhythmia alert en route"
+   },
+   {
+    "date": "2024-07-16",
+    "outcome": "aborted",
+    "reason": "arrhythmia alert en route"
+   },
+   {
+    "date": "2024-08-06",
+    "outcome": "aborted",
+    "reason": "arrhythmia alert en route"
+   }
+  ],
+  "notes": {
+   "ward_note": "Fit-to-travel form awaiting doctor signature.",
+   "control_note": "Site B holds slot 15 min; patient-specific cycle 3 drug made, no other slot today."
+  }
+ },
+ "factors": {
+  "mobility_alignment": "matches",
+  "secondary_discrepancy": "address_material",
+  "eligibility_concern": true,
+  "eligibility_exception": true,
+  "clinical_support": "cardiac_monitoring",
+  "crew_request_gap": "correct",
+  "buffer_minutes": 30.0,
+  "duration_estimate_split": false,
+  "late_tolerance": true,
+  "appointment_type": "chemo_transfer",
+  "same_day_reslot": false,
+  "confirmation_pending": true,
+  "prior_aborts": 4,
+  "aborts_related": true
+ },
+ "factors_sampled": {
+  "mobility_alignment": "missing",
+  "secondary_discrepancy": "address_material",
+  "eligibility_concern": true,
+  "eligibility_exception": true,
+  "clinical_support": "none",
+  "crew_request_gap": "correct",
+  "buffer_minutes": 3.22,
+  "duration_estimate_split": false,
+  "late_tolerance": true,
+  "appointment_type": "chemotherapy",
+  "same_day_reslot": false,
+  "confirmation_pending": true,
+  "prior_aborts": 4,
+  "aborts_related": true
+ },
+ "plan": {
+  "vehicle_fit": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "disposition": {
+   "clarity": "leaning",
+   "target": "hold",
+   "second": null
+  },
+  "crew_config": {
+   "clarity": "clear",
+   "target": "clinical_escort",
+   "second": null
+  },
+  "time_pressure": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  },
+  "delay_impact": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 62,
+ "deciding": {
+  "vehicle_fit": "Stretcher ambulance with a cardiac monitor matches the assessment, which is about six weeks old, and four aborts for arrhythmia alerts add modest doubt.",
+  "disposition": "fit_to_travel_signed is null with a matching ward_note, so hold takes precedence over the pickup A-W7 vs location A-W9 mismatch; exemption STR1 covers eligibility.",
+  "crew_config": "Monitoring 'cardiac' with no weight issue means a clinical escort, as requested.",
+  "time_pressure": "Window_end 09:50 plus 40 min leaves 30 min before 11:00, on the 1/2 edge with a 15 min tolerance.",
+  "delay_impact": "The control note says a patient-specific drug is made with no other slot today, pointing to critical; a lost chemo session could rate as high."
+ },
+ "request": "rec-F304-0051",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012042
+}

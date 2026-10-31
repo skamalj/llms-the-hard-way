@@ -1,0 +1,144 @@
+{
+ "id": "F338-0102",
+ "family": "F338",
+ "state": {
+  "site": {
+   "id": "S208",
+   "pollutant": "SO2",
+   "tier": "standard",
+   "service_interval_days": 90,
+   "approved_interval_days": 120
+  },
+  "visit": {
+   "date": "2025-06-18",
+   "start": "10:00",
+   "end": "12:40",
+   "sequence_status": "complete",
+   "maintenance_window": false
+  },
+  "reference": {
+   "standard_id": "CYL8350",
+   "unit": "ppb",
+   "cert_expiry": "2026-02-20"
+  },
+  "checks": [
+   {
+    "type": "as_found_span",
+    "ref_id": "CYL8350",
+    "ref_conc": 100,
+    "unit": "ppb",
+    "reading": 101.5,
+    "tol": 10,
+    "ts": "2025-06-18T10:30"
+   },
+   {
+    "type": "as_left_span",
+    "ref_id": "CYL8350",
+    "ref_conc": 100,
+    "unit": "ppb",
+    "reading": 100.2,
+    "tol": 10,
+    "ts": "2025-06-18T12:00"
+   }
+  ],
+  "history": {
+   "last_visit_date": "2025-03-06",
+   "results": [
+    {
+     "d": "2024-06-12",
+     "r": "pass"
+    },
+    {
+     "d": "2024-09-10",
+     "r": "fail"
+    },
+    {
+     "d": "2024-12-05",
+     "r": "fail"
+    },
+    {
+     "d": "2025-03-06",
+     "r": "pass"
+    }
+   ],
+   "autochecks": [
+    {
+     "d": "2025-06-14",
+     "r": "pass"
+    }
+   ]
+  },
+  "instrument": {
+   "enclosure_temp_max": 27,
+   "enclosure_temp_min": 14
+  }
+ },
+ "factors": {
+  "pollutant": "SO2",
+  "as_found_ratio": 0.15,
+  "as_left_status": "all_pass",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 247,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "approved_extended_interval",
+  "days_since_last_visit": 104,
+  "visit_completeness": "complete",
+  "prior_fail_count": 2,
+  "timestamp_mismatch": "none",
+  "site_priority": "standard"
+ },
+ "factors_sampled": {
+  "pollutant": "SO2",
+  "as_found_ratio": 0.15,
+  "as_left_status": "all_pass",
+  "cylinder_id_mismatch": "transposed_digit",
+  "cert_expiry_offset_days": 247,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "approved_extended_interval",
+  "days_since_last_visit": 104,
+  "visit_completeness": "complete",
+  "prior_fail_count": 0,
+  "timestamp_mismatch": "none",
+  "site_priority": "standard"
+ },
+ "plan": {
+  "data_accepted": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "reference_valid": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "contested",
+   "target": "close_visit",
+   "second": "withdraw"
+  },
+  "flag_extent": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  },
+  "return_urgency": {
+   "clarity": "contested",
+   "target": "1",
+   "second": "0"
+  }
+ },
+ "target_words": 47,
+ "deciding": {
+  "data_accepted": "As-found span 101.5 vs 100 (tol 10) is well within tolerance and autochecks pass, but the 104-day gap and earlier fails leave some doubt.",
+  "reference_valid": "ref_id CYL8350 matches reference.standard_id on all checks, units are ppb throughout, and cert_expiry 2026-02-20 is well after the visit.",
+  "next_step": "Complete sequence with as-left passing supports close_visit, while two fails in the twelve-month results make withdrawal for workshop repair defensible.",
+  "flag_extent": "Interval of 104 days against a 90-day service interval (120 approved) and the recent fail history point to roughly 8-30 days of prior data to flag, but as-found is good.",
+  "return_urgency": "All checks pass and the interval is approved, so routine is plausible; the fail history in results supports a planned extra visit."
+ },
+ "request": "rec-F338-0101",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011284
+}

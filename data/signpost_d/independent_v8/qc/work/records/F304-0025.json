@@ -1,0 +1,102 @@
+{
+ "id": "F304-0025",
+ "family": "F304",
+ "state": {
+  "request": {
+   "ref": "B3317",
+   "appt_type": "dialysis",
+   "appt_time": "09:00",
+   "vehicle_class": "wheelchair",
+   "crew_requested": "escort",
+   "equipment": []
+  },
+  "patient": {
+   "mobility_assessed": "wheelchair",
+   "assessed_on": "2025-04-10",
+   "oxygen_lpm": 2,
+   "exemption": {
+    "code": "DIAL-3"
+   }
+  },
+  "journey": {
+   "window_end": "07:50",
+   "est_duration_min": 42,
+   "destination": {
+    "reslot_same_day": true
+   }
+  },
+  "notes": {
+   "ward_note": "Chair time 09:30."
+  }
+ },
+ "factors": {
+  "mobility_alignment": "matches",
+  "secondary_discrepancy": "time_material",
+  "eligibility_concern": false,
+  "eligibility_exception": true,
+  "clinical_support": "oxygen 2 lpm",
+  "crew_request_gap": "correct",
+  "buffer_minutes": "28 (58 against ward note time)",
+  "duration_estimate_split": false,
+  "late_tolerance": false,
+  "appointment_type": "dialysis",
+  "same_day_reslot": true,
+  "confirmation_pending": false,
+  "prior_aborts": 0,
+  "aborts_related": false
+ },
+ "factors_sampled": {
+  "mobility_alignment": "matches",
+  "secondary_discrepancy": "time_material",
+  "eligibility_concern": false,
+  "eligibility_exception": true,
+  "clinical_support": "none",
+  "crew_request_gap": "correct",
+  "buffer_minutes": 100.24,
+  "duration_estimate_split": true,
+  "late_tolerance": false,
+  "appointment_type": "dialysis",
+  "same_day_reslot": true,
+  "confirmation_pending": false,
+  "prior_aborts": 0,
+  "aborts_related": false
+ },
+ "plan": {
+  "vehicle_fit": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "disposition": {
+   "clarity": "clear",
+   "target": "amend_confirm",
+   "second": null
+  },
+  "crew_config": {
+   "clarity": "clear",
+   "target": "clinical_escort",
+   "second": null
+  },
+  "time_pressure": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  },
+  "delay_impact": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  }
+ },
+ "target_words": 25,
+ "deciding": {
+  "vehicle_fit": "Wheelchair matches assessment, but patient oxygen_lpm 2 is absent from the empty equipment list.",
+  "disposition": "Request appt_time 09:00 against ward note 09:30 is a 30-minute mismatch, correctable, with nothing pending.",
+  "crew_config": "oxygen_lpm 2 with no high flow and no weight recorded, so clinical escort.",
+  "time_pressure": "Window end 07:50 plus 42 min gives 28 min spare against 09:00, but 58 against 09:30.",
+  "delay_impact": "Dialysis with reslot_same_day true."
+ },
+ "request": "rec-F304-0021",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.010623
+}

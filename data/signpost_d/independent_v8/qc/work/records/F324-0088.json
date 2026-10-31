@@ -1,0 +1,179 @@
+{
+ "id": "F324-0088",
+ "family": "F324",
+ "state": {
+  "zone": {
+   "dripper_count": 100,
+   "dripper_rate_lph": 1.8
+  },
+  "schedule": {
+   "cycles": [
+    {
+     "start": "06:00",
+     "planned_ml_per_dripper": 50
+    },
+    {
+     "start": "09:00",
+     "planned_ml_per_dripper": 50
+    },
+    {
+     "start": "12:00",
+     "planned_ml_per_dripper": 50
+    }
+   ],
+   "drain_target_pct": {
+    "min": 20,
+    "max": 30
+   },
+   "overrides": [
+    {
+     "approved_by_role": "head_grower",
+     "reduction_pct": 15
+    }
+   ]
+  },
+  "controller_log": {
+   "cycles": [
+    {
+     "start": "06:00",
+     "valve_open_s": 100,
+     "delivered_l": 4.5,
+     "line_pressure_bar": 2.0
+    },
+    {
+     "start": "09:00",
+     "valve_open_s": 100,
+     "delivered_l": 4.6,
+     "line_pressure_bar": 2.0
+    },
+    {
+     "start": "12:00",
+     "valve_open_s": 100,
+     "delivered_l": 4.6,
+     "line_pressure_bar": 2.0
+    }
+   ],
+   "daily_total_l": 13.7,
+   "meter_total_l": 13.1
+  },
+  "drainage": {
+   "drain_pct": [
+    4.5,
+    5.1
+   ]
+  },
+  "sensors": {
+   "log_date": "2025-04-22",
+   "meter_last_calibrated": "2024-11-25",
+   "moisture": [
+    {
+     "t": "07:55",
+     "vwc_pct": 58
+    }
+   ],
+   "events": [
+    {
+     "type": "hand_water",
+     "t": "07:40"
+    }
+   ]
+  },
+  "maintenance": {
+   "windows": [
+    {
+     "type": "filter_flush",
+     "start": "2025-04-22T08:50",
+     "end": "2025-04-22T09:20"
+    }
+   ],
+   "alarms": [
+    {
+     "code": "MOIST_HIGH",
+     "t": "07:55",
+     "acknowledged": true,
+     "cleared": true
+    }
+   ],
+   "recent_work_orders": [
+    {
+     "closed": "2025-04-10"
+    },
+    {
+     "closed": "2025-03-02"
+    },
+    {
+     "closed": "2024-12-15"
+    },
+    {
+     "closed": "2024-09-01"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "delivery_shortfall_pct": 8.67,
+  "mismatch_location": "meter_vs_controller",
+  "fault_cause": "emitter_clogging",
+  "approved_override": true,
+  "maintenance_window_active": true,
+  "drain_offset_points": -15.2,
+  "off_tolerance_cycles": 1,
+  "meter_calibration_age_days": 148,
+  "confirmation_pending": false,
+  "pressure_state": "normal",
+  "benign_alarm_decoy": "post_handwater_moisture",
+  "recent_work_orders": 4
+ },
+ "factors_sampled": {
+  "delivery_shortfall_pct": 14.51,
+  "mismatch_location": "meter_vs_controller",
+  "fault_cause": "emitter_clogging",
+  "approved_override": true,
+  "maintenance_window_active": true,
+  "drain_offset_points": -13.03,
+  "off_tolerance_cycles": 5,
+  "meter_calibration_age_days": 148,
+  "confirmation_pending": false,
+  "pressure_state": "low",
+  "benign_alarm_decoy": "post_handwater_moisture",
+  "recent_work_orders": 4
+ },
+ "plan": {
+  "under_dosed": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "emitter_clogging": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "next_action": {
+   "clarity": "balanced",
+   "target": "monitor",
+   "second": "hold_for_check"
+  },
+  "drain_deviation": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "off_plan_cycles": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 53,
+ "deciding": {
+  "under_dosed": "Controller total is 13.7 L of 15 L planned (91%), the meter shows 13.1 L (87%), and an approved 15% reduction allows down to 85%, so the delivery sits within what was approved.",
+  "emitter_clogging": "Pressure is 2.0 bar, valve time is full at 100 s, per-dripper delivery is low and drain is very low. The shortfall is small and covered by the override, so it is not certain.",
+  "next_action": "The small deviation sits within the approved reduction, which favours a watch. The meter reads 0.6 L below the controller and drain is very low, which argues for a check.",
+  "drain_deviation": "Drain mean is 4.8% against a 20-30 band, 15.2 points below, right at the 15-point boundary.",
+  "off_plan_cycles": "The 4.5 L cycle is exactly 10% low, not over, and the other two are 8% low. Zero or one cycle can be argued."
+ },
+ "request": "rec-F324-0086",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.01774
+}

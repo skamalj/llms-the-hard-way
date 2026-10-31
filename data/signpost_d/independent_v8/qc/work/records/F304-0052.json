@@ -1,0 +1,129 @@
+{
+ "id": "F304-0052",
+ "family": "F304",
+ "state": {
+  "request": {
+   "appt_type": "inter_site_transfer",
+   "appt_time": "2024-06-12T08:00",
+   "vehicle_class": "wheelchair_car",
+   "crew_requested": "single",
+   "mobility_booked": "wheelchair",
+   "equipment": [],
+   "pickup": "W12"
+  },
+  "patient": {
+   "mobility_assessed": "wheelchair",
+   "assessed_on": "2024-06-05",
+   "oxygen_lpm": 0,
+   "monitoring": null,
+   "own_transport_available": true,
+   "exemption": null,
+   "current_location": "Ward 12"
+  },
+  "journey": {
+   "window_end": "2024-06-12T06:00",
+   "est_duration_min": 25,
+   "manual_est_min": 40,
+   "late_tolerance_min": 0,
+   "destination": {
+    "reslot_same_day": false
+   }
+  },
+  "history": [
+   {
+    "date": "2024-03-02",
+    "outcome": "aborted",
+    "reason": "could not transfer to car seat"
+   },
+   {
+    "date": "2024-03-16",
+    "outcome": "aborted",
+    "reason": "could not transfer to car seat"
+   },
+   {
+    "date": "2024-04-10",
+    "outcome": "aborted",
+    "reason": "could not transfer to car seat"
+   },
+   {
+    "date": "2024-05-01",
+    "outcome": "aborted",
+    "reason": "could not transfer to car seat"
+   }
+  ],
+  "notes": {
+   "ward_note": "Dialysis access surgery at Site B; theatre slot, none free today.",
+   "referrer_note": "Family could drive him."
+  }
+ },
+ "factors": {
+  "mobility_alignment": "matches",
+  "secondary_discrepancy": "ward_trivial",
+  "eligibility_concern": true,
+  "eligibility_exception": false,
+  "clinical_support": "transfer_assist",
+  "crew_request_gap": "under_one_step",
+  "buffer_minutes": 80.25,
+  "duration_estimate_split": true,
+  "late_tolerance": false,
+  "appointment_type": "inter_site_transfer",
+  "same_day_reslot": false,
+  "confirmation_pending": false,
+  "prior_aborts": 4,
+  "aborts_related": true
+ },
+ "factors_sampled": {
+  "mobility_alignment": "matches",
+  "secondary_discrepancy": "ward_trivial",
+  "eligibility_concern": true,
+  "eligibility_exception": false,
+  "clinical_support": "transfer_assist",
+  "crew_request_gap": "under_one_step",
+  "buffer_minutes": 80.25,
+  "duration_estimate_split": true,
+  "late_tolerance": false,
+  "appointment_type": "dialysis",
+  "same_day_reslot": false,
+  "confirmation_pending": false,
+  "prior_aborts": 4,
+  "aborts_related": true
+ },
+ "plan": {
+  "vehicle_fit": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "disposition": {
+   "clarity": "leaning",
+   "target": "decline",
+   "second": null
+  },
+  "crew_config": {
+   "clarity": "leaning",
+   "target": "double_crew",
+   "second": null
+  },
+  "time_pressure": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  },
+  "delay_impact": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  }
+ },
+ "target_words": 39,
+ "deciding": {
+  "vehicle_fit": "Booked wheelchair matches a recent assessment, but four earlier aborts for failing to transfer to a car seat leave doubt about the wheelchair_car class.",
+  "disposition": "own_transport_available true plus referrer_note about family driving, with exemption null; W12 vs Ward 12 is a decoy.",
+  "crew_config": "Wheelchair transfer with oxygen_lpm 0 and no monitoring means double crew; single was requested.",
+  "time_pressure": "Manual estimate 40 min gives 80 min spare (06:00 + 40 vs 08:00), within 30 to 90, though the 25 min estimate would give 95.",
+  "delay_impact": "The ward_note describes a theatre slot with none free today, so a lost transfer is critical."
+ },
+ "request": "rec-F304-0051",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012042
+}

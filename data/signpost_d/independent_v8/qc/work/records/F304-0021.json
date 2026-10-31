@@ -1,0 +1,125 @@
+{
+ "id": "F304-0021",
+ "family": "F304",
+ "state": {
+  "request": {
+   "ref": "B7141",
+   "appt_type": "chemotherapy",
+   "appt_time": "14:00",
+   "vehicle_class": "wheelchair",
+   "crew_requested": "double",
+   "mobility_booked": "wheelchair",
+   "equipment": [],
+   "pickup": "W12",
+   "dest": "SITEB-ONC"
+  },
+  "patient": {
+   "mobility_assessed": "walking_aid",
+   "assessed_on": "2025-03-02",
+   "oxygen_lpm": null,
+   "monitoring": null,
+   "own_transport_available": true,
+   "exemption": null
+  },
+  "journey": {
+   "window_start": "12:30",
+   "window_end": "13:00",
+   "est_duration_min": 38,
+   "destination": {
+    "code": "SITEA-ONC",
+    "reslot_same_day": false
+   }
+  },
+  "history": [
+   {
+    "date": "2025-02-10",
+    "outcome": "aborted",
+    "reason": "patient declined wheelchair"
+   },
+   {
+    "date": "2025-02-24",
+    "outcome": "aborted",
+    "reason": "walked to pickup unaided"
+   },
+   {
+    "date": "2025-03-03",
+    "outcome": "aborted",
+    "reason": "vehicle unsuitable"
+   }
+  ],
+  "notes": {
+   "ward_note": "Exemption request lodged, awaiting approval; clinic asks for oximetry en route.",
+   "referrer_note": null
+  }
+ },
+ "factors": {
+  "mobility_alignment": "overstated",
+  "secondary_discrepancy": "address_material",
+  "eligibility_concern": true,
+  "eligibility_exception": false,
+  "clinical_support": "none recorded; oximetry requested in note",
+  "crew_request_gap": "correct",
+  "buffer_minutes": 22.0,
+  "duration_estimate_split": false,
+  "late_tolerance": false,
+  "appointment_type": "chemotherapy",
+  "same_day_reslot": false,
+  "confirmation_pending": true,
+  "prior_aborts": 3,
+  "aborts_related": true
+ },
+ "factors_sampled": {
+  "mobility_alignment": "overstated",
+  "secondary_discrepancy": "address_material",
+  "eligibility_concern": false,
+  "eligibility_exception": false,
+  "clinical_support": "none",
+  "crew_request_gap": "correct",
+  "buffer_minutes": 46.29,
+  "duration_estimate_split": false,
+  "late_tolerance": false,
+  "appointment_type": "theatre_transfer",
+  "same_day_reslot": false,
+  "confirmation_pending": false,
+  "prior_aborts": 3,
+  "aborts_related": true
+ },
+ "plan": {
+  "vehicle_fit": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "disposition": {
+   "clarity": "balanced",
+   "target": "hold",
+   "second": "decline"
+  },
+  "crew_config": {
+   "clarity": "balanced",
+   "target": "clinical_escort",
+   "second": "single_crew"
+  },
+  "time_pressure": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  },
+  "delay_impact": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  }
+ },
+ "target_words": 80,
+ "deciding": {
+  "vehicle_fit": "Wheelchair booked against recent walking_aid assessment, and 3 prior aborts over vehicle; but assessment could be understated by the ward.",
+  "disposition": "Exemption request awaiting approval (hold) versus own_transport_available true with no exemption on file (decline); address mismatch also present.",
+  "crew_config": "oxygen and monitoring null, walking aid (single_crew) versus ward note asking for oximetry en route (clinical_escort).",
+  "time_pressure": "Window end 13:00 plus 38 min gives 13:38 against 14:00 arrival, about 22 min spare.",
+  "delay_impact": "Chemotherapy appointment with reslot_same_day false, so session likely lost."
+ },
+ "request": "rec-F304-0021",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.010623
+}

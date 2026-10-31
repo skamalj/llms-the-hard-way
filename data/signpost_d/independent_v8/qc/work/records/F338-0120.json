@@ -1,0 +1,150 @@
+{
+ "id": "F338-0120",
+ "family": "F338",
+ "state": {
+  "site": {
+   "pollutant": "SO2",
+   "tier": "compliance",
+   "service_interval_days": 90,
+   "approved_interval_days": 130
+  },
+  "visit": {
+   "date": "2024-10-15",
+   "start": "09:00",
+   "end": "11:30",
+   "sequence_status": "complete"
+  },
+  "reference": {
+   "standard_id": "C-3305",
+   "unit": "ppb",
+   "cert_expiry": "2025-02-05"
+  },
+  "checks": [
+   {
+    "t": "as_found",
+    "type": "span",
+    "ref_id": "C-3305",
+    "ref_conc": 200,
+    "unit": "ppb",
+    "reading": 218.7,
+    "tol": 6,
+    "ts": "2024-10-15T09:20"
+   },
+   {
+    "t": "as_left",
+    "type": "zero",
+    "ref_id": "C-3305",
+    "ref_conc": 0,
+    "unit": "ppb",
+    "reading": 0.5,
+    "tol": 2,
+    "ts": "2024-10-15T10:20"
+   },
+   {
+    "t": "as_left",
+    "type": "span",
+    "ref_id": "C-3305",
+    "ref_conc": 200,
+    "unit": "ppb",
+    "reading": 201.0,
+    "tol": 6,
+    "ts": "2024-10-15T10:40"
+   },
+   {
+    "t": "as_left",
+    "type": "precision",
+    "ref_id": "C-3305",
+    "ref_conc": 100,
+    "unit": "ppb",
+    "reading": 105.4,
+    "tol": 5,
+    "ts": "2024-10-15T11:00"
+   }
+  ],
+  "history": {
+   "last_visit_date": "2024-06-17",
+   "results": [
+    "fail",
+    "pass",
+    "fail",
+    "fail",
+    "pass",
+    "fail"
+   ],
+   "autochecks": [
+    {
+     "d": "2024-10-10",
+     "r": "pass"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "pollutant": "SO2",
+  "as_found_ratio": 3.11,
+  "as_left_status": "one_point_fail",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 113,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "approved_extended_interval",
+  "days_since_last_visit": 120,
+  "visit_completeness": "complete",
+  "prior_fail_count": 4,
+  "timestamp_mismatch": "none",
+  "site_priority": "compliance"
+ },
+ "factors_sampled": {
+  "pollutant": "SO2",
+  "as_found_ratio": 3.11,
+  "as_left_status": "one_point_fail",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 113,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "approved_extended_interval",
+  "days_since_last_visit": 120,
+  "visit_completeness": "complete",
+  "prior_fail_count": 4,
+  "timestamp_mismatch": "none",
+  "site_priority": "compliance"
+ },
+ "plan": {
+  "data_accepted": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "reference_valid": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "balanced",
+   "target": "recalibrate",
+   "second": "close_flagged"
+  },
+  "flag_extent": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  },
+  "return_urgency": {
+   "clarity": "contested",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 63,
+ "deciding": {
+  "data_accepted": "As-found span deviation of 18.7 against tol 6 is about three times tolerance and the as-left precision point is out at 105.4 against tol 5, but autochecks pass and the interval was approved to 130 days.",
+  "reference_valid": "ref_id C-3305 and ppb units match on every check and cert_expiry is 113 days after the visit; the only doubt is the modest remaining certificate life.",
+  "next_step": "One as-left precision point is out of tolerance (105.4 vs 100, tol 5) while zero and span pass, so repeat on site or close with flagging are both plausible.",
+  "flag_extent": "120 days since last visit within an approved 130-day interval, passing autochecks to 2024-10-10, and a large as-found drift, so flagging is likely about a week but could be more.",
+  "return_urgency": "Only one as-left precision point is slightly out and the interval was approved, so routine or a planned extra visit are both defensible."
+ },
+ "request": "rec-F338-0116",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011178
+}

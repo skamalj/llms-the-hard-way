@@ -1,0 +1,112 @@
+{
+ "id": "F315-0024",
+ "family": "F315",
+ "state": {
+  "report": {
+   "received_at": "2025-05-06T04:50",
+   "source": "night_scout",
+   "fault_code": "CABLE",
+   "units_reported": [
+    "U9"
+   ]
+  },
+  "asset": {
+   "unit_id": "U9",
+   "site_category": "underpass_or_subway"
+  },
+  "cms": {
+   "status_code": "OK",
+   "last_comms_at": "2025-05-06T09:00"
+  },
+  "history": [
+   {
+    "job_ref": "J-300",
+    "completed": "2025-02-25"
+   },
+   {
+    "job_ref": "J-355",
+    "completed": null,
+    "outcome_code": "OPEN"
+   }
+  ],
+  "job": {
+   "stage": "RECT",
+   "completed_at": "2025-05-06T07:30",
+   "hazard_code": "CABLE",
+   "made_safe": true,
+   "isolated_at": "2025-05-06T06:00",
+   "linked_job_ref": "J-355"
+  },
+  "supply": {
+   "feeder_units_dark": 2
+  }
+ },
+ "factors": {
+  "dark_unit_count": 2,
+  "dno_incident_logged": false,
+  "cms_state": "normal_burning",
+  "days_since_last_repair": 70,
+  "last_repair_state": "completed",
+  "hazard_observed": "cable_exposed",
+  "hazard_made_safe": true,
+  "site_category": "underpass_or_subway",
+  "planned_works_active": false,
+  "current_job_stage": "rectified_unconfirmed",
+  "dates_out_of_order": false,
+  "duplicate_of_open_job": true,
+  "report_source": "night_scout"
+ },
+ "factors_sampled": {
+  "dark_unit_count": 6,
+  "dno_incident_logged": true,
+  "cms_state": "normal_burning",
+  "days_since_last_repair": 121,
+  "last_repair_state": "attended_not_completed",
+  "hazard_observed": "cable_exposed",
+  "hazard_made_safe": true,
+  "site_category": "underpass_or_subway",
+  "planned_works_active": false,
+  "current_job_stage": "rectified_unconfirmed",
+  "dates_out_of_order": false,
+  "duplicate_of_open_job": true,
+  "report_source": "night_scout"
+ },
+ "plan": {
+  "supply_side_fault": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "repeat_failure": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "next_action": {
+   "clarity": "leaning",
+   "target": "close_report",
+   "second": null
+  },
+  "source_support": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "repair_progress": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 51,
+ "deciding": {
+  "supply_side_fault": "feeder_units_dark is 2 with no DNO ref; cms shows OK, so unit-side is slightly favoured.",
+  "repeat_failure": "history J-300 completed 2025-02-25, 70 days before the report.",
+  "next_action": "job.linked_job_ref J-355 matches an open history entry and cms reads OK.",
+  "source_support": "the scout report stands largely alone while cms and supply figures only partly corroborate.",
+  "repair_progress": "job RECT with completed_at 07:30 and cms OK at 09:00 after it, though cms may reflect the earlier temporary fix; 3 versus 2."
+ },
+ "request": "rec-F315-0021",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.008512
+}

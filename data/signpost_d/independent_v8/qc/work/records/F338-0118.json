@@ -1,0 +1,128 @@
+{
+ "id": "F338-0118",
+ "family": "F338",
+ "state": {
+  "site": {
+   "pollutant": "NO2",
+   "tier": "standard",
+   "service_interval_days": 90,
+   "approved_interval_days": 120
+  },
+  "visit": {
+   "date": "2024-09-10",
+   "start": "13:00",
+   "end": "14:00",
+   "sequence_status": "partial"
+  },
+  "reference": {
+   "standard_id": "C-5832",
+   "unit": "ppb",
+   "cert_expiry": "2025-01-31"
+  },
+  "checks": [
+   {
+    "t": "as_found",
+    "type": "zero",
+    "ref_id": "C-5382",
+    "ref_conc": 0,
+    "unit": "ppb",
+    "reading": 8.2,
+    "tol": 2.5,
+    "ts": "2024-09-09T13:20"
+   },
+   {
+    "t": "as_left",
+    "type": "zero",
+    "ref_id": "C-5382",
+    "ref_conc": 0,
+    "unit": "ppb",
+    "reading": 2.4,
+    "tol": 2.5,
+    "ts": "2024-09-09T13:40"
+   }
+  ],
+  "history": {
+   "last_visit_date": "2024-06-09",
+   "results": [
+    "fail",
+    "pass",
+    "fail",
+    "fail"
+   ],
+   "autochecks": [
+    {
+     "d": "2024-09-06",
+     "r": "pass"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "pollutant": "NO2",
+  "as_found_ratio": 3.28,
+  "as_left_status": "marginal",
+  "cylinder_id_mismatch": "transposed_digit",
+  "cert_expiry_offset_days": 143,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "approved_extended_interval",
+  "days_since_last_visit": 93,
+  "visit_completeness": "zero_only",
+  "prior_fail_count": 3,
+  "timestamp_mismatch": "different_day",
+  "site_priority": "standard"
+ },
+ "factors_sampled": {
+  "pollutant": "NO2",
+  "as_found_ratio": 3.28,
+  "as_left_status": "marginal",
+  "cylinder_id_mismatch": "transposed_digit",
+  "cert_expiry_offset_days": 143,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "approved_extended_interval",
+  "days_since_last_visit": 93,
+  "visit_completeness": "zero_only",
+  "prior_fail_count": 3,
+  "timestamp_mismatch": "different_day",
+  "site_priority": "standard"
+ },
+ "plan": {
+  "data_accepted": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "reference_valid": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "hold",
+   "second": null
+  },
+  "flag_extent": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "return_urgency": {
+   "clarity": "clear",
+   "target": "0",
+   "second": null
+  }
+ },
+ "target_words": 42,
+ "deciding": {
+  "data_accepted": "As-found zero 8.2 against tol 2.5 is over three times tolerance, but autochecks pass, the interval was approved to 120 days, and the as-left zero is within tolerance.",
+  "reference_valid": "checks ref_id C-5382 differs from reference standard_id C-5832 by one transposed digit, likely a typo; expiry 2025-01-31 and units are fine.",
+  "next_step": "The ref_id transposition and check timestamps dated 2024-09-09 (a day before the visit) are outstanding confirmations, with only zero points run, so keep the record open.",
+  "flag_extent": "93 days since last visit under an approved 120-day interval with passing autochecks, but the as-found zero was well out of tolerance.",
+  "return_urgency": "Standard-tier site with the as-left zero inside tolerance means the next scheduled visit is enough."
+ },
+ "request": "rec-F338-0116",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011178
+}

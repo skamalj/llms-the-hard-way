@@ -1,0 +1,144 @@
+{
+ "id": "F305-0013",
+ "family": "F305",
+ "state": {
+  "session": {
+   "id": "S-2086",
+   "date": "2025-06-05",
+   "needle_on": "2025-06-05T07:30",
+   "washback": "2025-06-05T11:05",
+   "review_ts": "2025-06-20T10:00"
+  },
+  "prescription": {
+   "duration_min": 240,
+   "qb": 300,
+   "target_uf_ml": 2400
+  },
+  "machine": {
+   "qb_actual": 260,
+   "uf_removed_ml": 2400,
+   "washback_ml": 200,
+   "alarms": [
+    {
+     "event": "QB_REDUCED",
+     "code": "ART_PRESSURE_HIGH"
+    },
+    {
+     "event": "PUMP_STOP",
+     "t": "2025-06-05T09:00"
+    },
+    {
+     "event": "PUMP_RESUME",
+     "t": "2025-06-05T09:05"
+    }
+   ]
+  },
+  "observations": {
+   "pre_kg": 71.9,
+   "post_kg": 70.1,
+   "bp": [
+    [
+     "07:30",
+     138
+    ],
+    [
+     "11:00",
+     122
+    ]
+   ],
+   "interventions": []
+  },
+  "checks": [
+   {
+    "code": "machine_alarm_test",
+    "done": true,
+    "t": "2025-06-05T07:10"
+   },
+   {
+    "code": "water_chlorine_test",
+    "done": true,
+    "t": "2025-06-05T07:32"
+   }
+  ],
+  "history": [
+   {
+    "d": "2025-06-03",
+    "presc_min": 240,
+    "eff_min": 240
+   },
+   {
+    "d": "2025-05-31",
+    "presc_min": 240,
+    "eff_min": 238
+   }
+  ]
+ },
+ "factors": {
+  "time_shortfall_min": 30,
+  "machine_pause_min": 5,
+  "uf_weight_gap_kg": 0.4,
+  "post_weight_missing": false,
+  "missing_check": "none",
+  "check_logged_after_start": true,
+  "prescription_mismatch": "none",
+  "mismatch_magnitude": "trivial",
+  "hypotension_episodes": 0,
+  "hypotension_mitigated": false,
+  "circuit_clotted": false,
+  "prior_short_sessions": 0,
+  "documented_flow_reduction": true
+ },
+ "factors_sampled": {
+  "time_shortfall_min": 7,
+  "machine_pause_min": 5,
+  "uf_weight_gap_kg": 1.9,
+  "post_weight_missing": false,
+  "missing_check": "water_chlorine_test",
+  "check_logged_after_start": true,
+  "prescription_mismatch": "none",
+  "mismatch_magnitude": "trivial",
+  "hypotension_episodes": 0,
+  "hypotension_mitigated": true,
+  "circuit_clotted": true,
+  "prior_short_sessions": 0,
+  "documented_flow_reduction": true
+ },
+ "plan": {
+  "uf_reconciles": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "checks_before_start": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "log_disposition": {
+   "clarity": "clear",
+   "target": "sign_off",
+   "second": null
+  },
+  "time_shortfall": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  },
+  "pending_age": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  }
+ },
+ "target_words": 74,
+ "deciding": {
+  "uf_reconciles": "Net UF 2400-200=2200 ml against weight change 1.8 kg gives a gap of 0.4 kg, inside the limit but near it.",
+  "checks_before_start": "water_chlorine_test is marked done but stamped 07:32, two minutes after needle_on 07:30; the other check is before start.",
+  "log_disposition": "No mismatch, no hypotension, no clot and no prior short sessions; QB reduction is documented, so nothing blocks sign_off.",
+  "time_shortfall": "Clock 215 min minus a 5 min pause gives 210 effective vs 240, exactly 30 short, at the level 2/3 boundary.",
+  "pending_age": "Washback 2025-06-05 to review_ts 2025-06-20 is about 15 days, mid level 2."
+ },
+ "request": "rec-F305-0011",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.015305
+}

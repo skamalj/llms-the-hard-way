@@ -1,0 +1,171 @@
+{
+ "id": "F324-0023",
+ "family": "F324",
+ "state": {
+  "zone": {
+   "zone_id": "Z07",
+   "dripper_count": 200,
+   "dripper_rate_lph": 1.6,
+   "spec_bar": 1.5,
+   "meter_id": "M7"
+  },
+  "schedule": {
+   "cycles": [
+    {
+     "start": "07:00",
+     "planned_ml_per_dripper": 400
+    },
+    {
+     "start": "10:00",
+     "planned_ml_per_dripper": 400
+    },
+    {
+     "start": "13:00",
+     "planned_ml_per_dripper": 400
+    },
+    {
+     "start": "16:00",
+     "planned_ml_per_dripper": 400
+    }
+   ],
+   "drain_target_pct": {
+    "min": 20,
+    "max": 30
+   },
+   "overrides": [
+    {
+     "approved_by_role": "head_grower",
+     "reduction_pct": 15,
+     "date": "2025-05-19"
+    }
+   ]
+  },
+  "controller_log": {
+   "date": "2025-05-19",
+   "cycles": [
+    {
+     "start": "07:00",
+     "valve_open_s": 300,
+     "delivered_l": 78,
+     "line_pressure_bar": 1.2
+    },
+    {
+     "start": "10:00",
+     "valve_open_s": 300,
+     "delivered_l": 79,
+     "line_pressure_bar": 1.1
+    },
+    {
+     "start": "13:00",
+     "valve_open_s": 300,
+     "delivered_l": 77,
+     "line_pressure_bar": 1.2
+    },
+    {
+     "start": "16:00",
+     "valve_open_s": 300,
+     "delivered_l": 78,
+     "line_pressure_bar": 1.1
+    }
+   ],
+   "daily_total_l": 312,
+   "meter_total_l": 270
+  },
+  "drainage": {
+   "drain_pct": [
+    4.5,
+    5.5
+   ],
+   "drain_ec": 3.1,
+   "drain_ph": 5.9,
+   "catch_test": {
+    "ordered": false,
+    "result": null
+   }
+  },
+  "sensors": {
+   "meter_last_calibrated": "2025-01-23",
+   "sensor_status": "ok"
+  },
+  "maintenance": {
+   "windows": [],
+   "alarms": [
+    {
+     "code": "P_LOW",
+     "acknowledged": true,
+     "cleared": false
+    }
+   ],
+   "recent_work_orders": [
+    "2025-04-02",
+    "2024-11-15"
+   ]
+  }
+ },
+ "factors": {
+  "delivery_shortfall_pct": 15.6,
+  "mismatch_location": "meter_vs_controller",
+  "fault_cause": "low_supply_pressure",
+  "approved_override": true,
+  "maintenance_window_active": false,
+  "drain_offset_points": -15.0,
+  "off_tolerance_cycles": 0,
+  "meter_calibration_age_days": 117,
+  "confirmation_pending": false,
+  "pressure_state": "low",
+  "benign_alarm_decoy": "none",
+  "recent_work_orders": 2
+ },
+ "factors_sampled": {
+  "delivery_shortfall_pct": 28.85,
+  "mismatch_location": "meter_vs_controller",
+  "fault_cause": "low_supply_pressure",
+  "approved_override": true,
+  "maintenance_window_active": false,
+  "drain_offset_points": -21.29,
+  "off_tolerance_cycles": 5,
+  "meter_calibration_age_days": 117,
+  "confirmation_pending": true,
+  "pressure_state": "low",
+  "benign_alarm_decoy": "none",
+  "recent_work_orders": 2
+ },
+ "plan": {
+  "under_dosed": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "emitter_clogging": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "next_action": {
+   "clarity": "balanced",
+   "target": "sign_off",
+   "second": "monitor"
+  },
+  "drain_deviation": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "off_plan_cycles": {
+   "clarity": "leaning",
+   "target": "0",
+   "second": null
+  }
+ },
+ "target_words": 200,
+ "deciding": {
+  "under_dosed": "Held in balance: the controller total is 312 L against 320 L planned, but meter_total_l is 270 L (84%). An approved 15% reduction would put the expected volume at 272 L, which the meter matches. The meter was last calibrated 117 days ago and no catch test has been run, so the two totals are unresolved.",
+  "emitter_clogging": "Valves are fully open at 300 s and pressure is 1.1 to 1.2 bar against a 1.5 spec. Controller delivery is near plan and the only shortfall is on the meter. Low supply pressure fits better than clogging.",
+  "next_action": "Held in balance: the approved reduction and near-plan controller delivery favour sign-off. The meter and controller disagree, the P_LOW alarm is acknowledged but not cleared, and pressure is low, which favour monitoring.",
+  "drain_deviation": "drain_pct 4.5 and 5.5 average 5 against a band minimum of 20, so 15 points below. That sits at the boundary between 5 to 15 and more than 15.",
+  "off_plan_cycles": "Controller delivered_l is 77 to 79 L against 80 L planned on every cycle, all within 10%. Only the meter total disagrees."
+ },
+ "request": "rec-F324-0021",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.015609
+}

@@ -1,0 +1,131 @@
+{
+ "id": "F338-0010",
+ "family": "F338",
+ "state": {
+  "site": {
+   "pol": "NO2",
+   "tier": "compliance",
+   "svc_days": 28,
+   "appr_days": 28
+  },
+  "visit": {
+   "date": "2024-11-19",
+   "start": "09:00",
+   "end": "11:00",
+   "seq": "complete",
+   "maint": true
+  },
+  "reference": {
+   "id": "N-3064",
+   "unit": "ppb",
+   "exp": "2025-09-28"
+  },
+  "checks": [
+   {
+    "t": "as_found_span",
+    "ref_id": "N-3604",
+    "ref": 200,
+    "unit": "ppb",
+    "read": 209.5,
+    "tol": 10,
+    "ts": "2024-11-19T09:30"
+   },
+   {
+    "t": "as_left_span",
+    "ref_id": "N-3604",
+    "ref": 200,
+    "unit": "ppb",
+    "read": 209,
+    "tol": 10,
+    "ts": "2024-11-19T10:30"
+   }
+  ],
+  "history": {
+   "last": "2024-10-22",
+   "results": [
+    "fail",
+    "pass",
+    "fail",
+    "fail"
+   ],
+   "autochecks": [
+    {
+     "d": "2024-10-25",
+     "r": "fail"
+    },
+    {
+     "d": "2024-10-26",
+     "r": "fail"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "pollutant": "NO2",
+  "as_found_ratio": 0.95,
+  "as_left_status": "marginal",
+  "cylinder_id_mismatch": "transposed_digit",
+  "cert_expiry_offset_days": 313,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": false,
+  "drift_explanation": "maintenance_window",
+  "days_since_last_visit": 28,
+  "visit_completeness": "complete",
+  "prior_fail_count": 3,
+  "timestamp_mismatch": "none",
+  "site_priority": "compliance"
+ },
+ "factors_sampled": {
+  "pollutant": "NO2",
+  "as_found_ratio": 3.85,
+  "as_left_status": "marginal",
+  "cylinder_id_mismatch": "transposed_digit",
+  "cert_expiry_offset_days": 313,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": false,
+  "drift_explanation": "maintenance_window",
+  "days_since_last_visit": 28,
+  "visit_completeness": "complete",
+  "prior_fail_count": 3,
+  "timestamp_mismatch": "none",
+  "site_priority": "compliance"
+ },
+ "plan": {
+  "data_accepted": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "reference_valid": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "withdraw",
+   "second": null
+  },
+  "flag_extent": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "return_urgency": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  }
+ },
+ "target_words": 58,
+ "deciding": {
+  "data_accepted": "The as-found span is 9.5 off against 10 tolerance (within it), though the autochecks fail and maint is true.",
+  "reference_valid": "The check ref_id N-3604 is the reference id N-3064 with two digits transposed; the expiry is in date, so this is probably a typo, though it is still a mismatch.",
+  "next_step": "Three prior fails, failing autochecks and a marginal as-left reading (9 off against 10 tolerance) after adjustment indicate a faulty analyser that needs workshop repair.",
+  "flag_extent": "The as-found reading is within tolerance, which argues for no flagging, but the autochecks failed from 2024-10-25, which may justify flagging up to a week.",
+  "return_urgency": "A compliance site with a marginal as-left and failing autochecks wants an extra visit soon. Timing between planned and prompt is open."
+ },
+ "request": "rec-F338-0006",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011292
+}

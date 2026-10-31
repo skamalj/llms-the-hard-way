@@ -1,0 +1,164 @@
+{
+ "id": "F328-0051",
+ "family": "F328",
+ "state": {
+  "report_meta": {
+   "id": "W21-A",
+   "veh": "LK70 RTE",
+   "driver_id": "D114",
+   "period": "2024-05-20/2024-05-26"
+  },
+  "vehicle_device": {
+   "health_flags": [
+    "gps_dropouts"
+   ],
+   "last_cal": "2024-01-10",
+   "odo_start": 80210,
+   "odo_end": 80748
+  },
+  "trips": [
+   {
+    "id": "T1",
+    "start": "05-21T05:00",
+    "end": "05-21T07:20",
+    "gps_km": 190,
+    "driver_card": "D114"
+   },
+   {
+    "id": "T2",
+    "start": "05-21T07:30",
+    "end": "05-21T09:45",
+    "gps_km": 160,
+    "driver_card": null
+   },
+   {
+    "id": "T3",
+    "start": "05-21T13:00",
+    "end": "05-21T15:00",
+    "gps_km": 167,
+    "driver_card": "D114"
+   }
+  ],
+  "events": [
+   {
+    "t": "05-21T08:12",
+    "type": "speed",
+    "recorded_mph": 76,
+    "posted_limit_mph": 60,
+    "map_ver": "M24.2"
+   },
+   {
+    "t": "05-21T06:10",
+    "type": "harsh_brake"
+   },
+   {
+    "t": "05-21T08:40",
+    "type": "harsh_brake"
+   },
+   {
+    "t": "05-21T14:05",
+    "type": "harsh_corner"
+   }
+  ],
+  "tacho_summary": {
+   "cards": [
+    {
+     "card": "D114",
+     "drive": [
+      [
+       "05:00",
+       "07:20"
+      ],
+      [
+       "07:30",
+       "09:45"
+      ]
+     ],
+     "breaks": [
+      [
+       "07:20",
+       "07:30"
+      ]
+     ]
+    }
+   ]
+  },
+  "notes_history": {
+   "coaching": [
+    {
+     "topic": "speed",
+     "status": "scheduled",
+     "due": "2024-06-03"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "driver_assignment": "match",
+  "raw_speed_excess_pct": 26.7,
+  "speed_mitigation": "none",
+  "harsh_event_count": 3,
+  "harsh_context_logged": false,
+  "device_health": "intermittent_dropouts",
+  "telematics_stint_hours": 4.58,
+  "tacho_break_reconciles": false,
+  "prior_coaching_count": 0,
+  "coaching_status": "scheduled",
+  "boundary_value": false,
+  "note_content": "none",
+  "distance_discrepancy_pct": 3.9
+ },
+ "factors_sampled": {
+  "driver_assignment": "match",
+  "raw_speed_excess_pct": 10.39,
+  "speed_mitigation": "none",
+  "harsh_event_count": 9,
+  "harsh_context_logged": false,
+  "device_health": "intermittent_dropouts",
+  "telematics_stint_hours": 5.76,
+  "tacho_break_reconciles": false,
+  "prior_coaching_count": 0,
+  "coaching_status": "scheduled",
+  "boundary_value": false,
+  "note_content": "none",
+  "distance_discrepancy_pct": 3.87
+ },
+ "plan": {
+  "driver_attributed": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "follow_up": {
+   "clarity": "leaning",
+   "target": "hold_verify",
+   "second": null
+  },
+  "worst_event_cause": {
+   "clarity": "clear",
+   "target": "driver_choice",
+   "second": null
+  },
+  "speed_excess": {
+   "clarity": "clear",
+   "target": "3",
+   "second": null
+  },
+  "hours_exposure": {
+   "clarity": "contested",
+   "target": "2",
+   "second": "1"
+  }
+ },
+ "target_words": 85,
+ "deciding": {
+  "driver_attributed": "T2 driver_card is null at the 08:12 speed event, but the D114 tacho drive entry covers 07:30-09:45 and T1 and T3 carry D114.",
+  "follow_up": "The speed breach rests on the null-card trip T2, so it needs card confirmation; speed coaching is only scheduled, with none completed.",
+  "worst_event_cause": "The speed event has no tags, no limit update and no diversion note; harsh events carry no context, and the dropout flag concerns GPS rather than the speed reading.",
+  "speed_excess": "76 mph recorded against a 60 mph posted limit is 26.7% over, with no mitigation.",
+  "hours_exposure": "T1 and T2 drive 2h20 plus 2h15 with a 10 min gap, about 4.6 h; the tacho break is only 10 min, and dropouts blur the exact stint, so levels 1 and 2 are both defensible."
+ },
+ "request": "rec-F328-0051",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.017725
+}

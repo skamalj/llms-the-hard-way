@@ -1,0 +1,129 @@
+{
+ "id": "F328-0018",
+ "family": "F328",
+ "state": {
+  "report_meta": {
+   "vehicle": "PK21WDM",
+   "driver_id": "D091",
+   "period": "2024-06-10/2024-06-16"
+  },
+  "vehicle_device": {
+   "health_flags": [],
+   "last_calibration": "2024-02-20",
+   "odo_start": 61030,
+   "odo_end": 61190
+  },
+  "trips": [
+   {
+    "start": "2024-06-11T07:00",
+    "end": "2024-06-11T08:50",
+    "gps_km": 70.3,
+    "driver_card": "D091"
+   },
+   {
+    "start": "2024-06-11T09:00",
+    "end": "2024-06-11T10:40",
+    "gps_km": 58.1,
+    "driver_card": "D091"
+   }
+  ],
+  "events": [
+   {
+    "time": "2024-06-11T09:30",
+    "type": "speed",
+    "recorded_mph": 85,
+    "posted_limit_mph": 70,
+    "map_ver": "2023.4",
+    "tags": [
+     "diversion_route"
+    ]
+   },
+   {
+    "time": "2024-06-11T09:15",
+    "type": "harsh_brake",
+    "tags": [
+     "diversion_route"
+    ]
+   },
+   {
+    "time": "2024-06-11T09:45",
+    "type": "harsh_corner",
+    "tags": [
+     "diversion_route"
+    ]
+   }
+  ],
+  "tacho_summary": null,
+  "notes_history": {
+   "supervisor_note": "Emergency diversion logged 2024-06-11 via B-road; driver says police closed the main road."
+  }
+ },
+ "factors": {
+  "driver_assignment": "match",
+  "raw_speed_excess_pct": 21.43,
+  "speed_mitigation": "emergency_diversion_logged",
+  "harsh_event_count": 2,
+  "harsh_context_logged": true,
+  "device_health": "ok",
+  "telematics_stint_hours": 3.67,
+  "tacho_break_reconciles": false,
+  "prior_coaching_count": 2,
+  "coaching_status": "none",
+  "boundary_value": false,
+  "note_content": "unverified_claim",
+  "distance_discrepancy_pct": 19.76
+ },
+ "factors_sampled": {
+  "driver_assignment": "mismatch_unexplained",
+  "raw_speed_excess_pct": 17.33,
+  "speed_mitigation": "emergency_diversion_logged",
+  "harsh_event_count": 12,
+  "harsh_context_logged": false,
+  "device_health": "ok",
+  "telematics_stint_hours": 1.79,
+  "tacho_break_reconciles": false,
+  "prior_coaching_count": 2,
+  "coaching_status": "none",
+  "boundary_value": false,
+  "note_content": "unverified_claim",
+  "distance_discrepancy_pct": 19.76
+ },
+ "plan": {
+  "driver_attributed": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "follow_up": {
+   "clarity": "clear",
+   "target": "no_action",
+   "second": null
+  },
+  "worst_event_cause": {
+   "clarity": "balanced",
+   "target": "road_conditions",
+   "second": "map_data"
+  },
+  "speed_excess": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  },
+  "hours_exposure": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  }
+ },
+ "target_words": 41,
+ "deciding": {
+  "driver_attributed": "Both trips show card D091 matching the report driver, but tacho_summary is null so there is no second record at the event time.",
+  "follow_up": "The speed event and both harsh events share the diversion_route tag on the dated emergency diversion day, so nothing confirmed remains once the exception is applied.",
+  "worst_event_cause": "The diversion_route tag and the logged diversion support road conditions, while the old map_ver 2023.4 leaves some room for a stale limit, though no limit update is present.",
+  "speed_excess": "85 mph in a 70 is 21.4% over, just past the 20% anchor, but the diversion note is a driver claim, so whether the event counts as unmitigated is open.",
+  "hours_exposure": "Trips 07:00-10:40 with a 10-min stop give about 3h40 elapsed and no tacho break, so a close stint of 3 to 4.5 hours."
+ },
+ "request": "rec-F328-0016",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.019511
+}

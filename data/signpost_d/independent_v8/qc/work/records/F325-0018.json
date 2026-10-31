@@ -1,0 +1,135 @@
+{
+ "id": "F325-0018",
+ "family": "F325",
+ "state": {
+  "pen": {
+   "pen_id": "G9",
+   "stage": "grower",
+   "limits": {
+    "do_min_mg_l": 6.0
+   }
+  },
+  "check": {
+   "pen_id": "G9",
+   "sampled_at": "2024-06-02T08:30",
+   "sampler_id": "T03",
+   "depth_profile": [
+    {
+     "depth_m": 2,
+     "do_mg_l": 5.1
+    }
+   ],
+   "readings": {
+    "do_mg_l": 5.1,
+    "do_unit": "mg/L"
+   }
+  },
+  "instrument": {
+   "last_cal": "2024-06-03",
+   "cal_result": "fail",
+   "cal_due": "2024-05-20",
+   "logger_do_mg_l": 6.7,
+   "logger_flags": [
+    "LOW_DO"
+   ]
+  },
+  "history": [
+   {
+    "do": 5.6,
+    "in_limits": false
+   },
+   {
+    "do": 6.8,
+    "in_limits": true
+   },
+   {
+    "do": 5.8,
+    "in_limits": false
+   },
+   {
+    "do": 6.9,
+    "in_limits": true
+   },
+   {
+    "do": 5.5,
+    "in_limits": false
+   },
+   {
+    "do": 6.7,
+    "in_limits": true
+   }
+  ],
+  "notes": {
+   "sampler": "Probe screen red but I read 6.9, fish feeding normally.",
+   "signoff": "S.Rae"
+  }
+ },
+ "factors": {
+  "stock_stage": "grower",
+  "true_do_margin": 0.7,
+  "primary_cause": "instrument",
+  "cross_section_mismatch": "large_transcription",
+  "calibration_state": "failed",
+  "logger_alarm_raised": true,
+  "mitigation_present": false,
+  "mitigation_kind": "documented_slack_tide",
+  "history_out_of_range": 3,
+  "missing_required": 2,
+  "date_order_fault": true,
+  "boundary_case": false,
+  "note_tone": "alarming_benign"
+ },
+ "factors_sampled": {
+  "stock_stage": "grower",
+  "true_do_margin": 1.78,
+  "primary_cause": "husbandry",
+  "cross_section_mismatch": "large_transcription",
+  "calibration_state": "failed",
+  "logger_alarm_raised": true,
+  "mitigation_present": false,
+  "mitigation_kind": "documented_slack_tide",
+  "history_out_of_range": 0,
+  "missing_required": 0,
+  "date_order_fault": true,
+  "boundary_case": false,
+  "note_tone": "alarming_benign"
+ },
+ "plan": {
+  "genuine_do_breach": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "file_routine",
+   "second": null
+  },
+  "deviation_cause": {
+   "clarity": "balanced",
+   "target": "instrument_fault",
+   "second": "recording_error"
+  },
+  "persistence": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "evidence_completeness": {
+   "clarity": "clear",
+   "target": "1",
+   "second": null
+  }
+ },
+ "target_words": 64,
+ "deciding": {
+  "genuine_do_breach": "Probe 5.1 is from a failed-calibration probe; logger reads 6.7 and the sampler's note says 6.9, both above do_min 6.0.",
+  "next_step": "Valid readings are within limits and fish feed normally, so keep the normal schedule; the probe fault is a separate fix.",
+  "deviation_cause": "cal_result fail, overdue cal_due and a probe/logger gap over 1 mg/L point to instrument, but the 5.1 versus 6.9 note mismatch keeps recording error plausible.",
+  "persistence": "Three of six history items out of range; whether the questionable current 5.1 counts moves it between 2-3 and 4.",
+  "evidence_completeness": "Calibration failed and last_cal 2024-06-03 is after sampled_at 2024-06-02, so exactly two elements invalid."
+ },
+ "request": "rec-F325-0016",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.009783
+}

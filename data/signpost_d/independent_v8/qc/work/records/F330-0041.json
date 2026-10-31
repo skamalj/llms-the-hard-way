@@ -1,0 +1,142 @@
+{
+ "id": "F330-0041",
+ "family": "F330",
+ "state": {
+  "request": {
+   "req_id": "X101",
+   "grade": "G3",
+   "cost_centre": "C220",
+   "trip_ref": "T41",
+   "requested_total": 636,
+   "ccy": "GBP"
+  },
+  "lines": [
+   {
+    "line_no": 1,
+    "date": "2025-04-10",
+    "category": "entertain",
+    "cost_centre": "C220",
+    "amount": 560,
+    "ccy": "GBP",
+    "fx_rate": 1,
+    "amount_gbp": 560,
+    "receipt_attached": true
+   },
+   {
+    "line_no": 2,
+    "date": "2025-04-10",
+    "category": "entertain",
+    "cost_centre": "C220",
+    "amount": 100.1,
+    "ccy": "USD",
+    "fx_rate": 0.759,
+    "amount_gbp": 76,
+    "receipt_attached": true
+   }
+  ],
+  "policy": {
+   "rule_id": "ENT-G3",
+   "grade_band": "G3",
+   "cap_gbp": 75,
+   "cap_unit": "head",
+   "units": 8,
+   "reviewer_limit_gbp": 500
+  },
+  "travel": {
+   "trip_ref": "T41",
+   "depart": "2025-04-10",
+   "return": "2025-04-11",
+   "booked_on": "2025-03-03",
+   "disruption": {
+    "code": "VENUE_CANCEL",
+    "source": "venue",
+    "logged_on": "2025-04-09"
+   },
+   "alt_check": null,
+   "client_recharge": {
+    "billable": true,
+    "client_code": "K17"
+   }
+  },
+  "approvals": {
+   "line_mgr": {
+    "approved": true
+   },
+   "pre_approval": null,
+   "attendees": []
+  },
+  "history": {
+   "exceptions_12m": 2,
+   "approved_12m": 2,
+   "declined_12m": 0
+  }
+ },
+ "factors": {
+  "breach_type": "client_entertainment_over_limit",
+  "true_excess_pct": 6.0,
+  "amount_mismatch": "none (tiny fx rounding only)",
+  "reference_mismatch": "none",
+  "pre_approval_state": "absent",
+  "external_disruption": true,
+  "compliant_option": "not_checked",
+  "missing_item": "attendee_list",
+  "excess_vs_authority": "well_within",
+  "client_rechargeable": true,
+  "prior_exceptions_12m": 2,
+  "booking_lead_days": 38,
+  "employee_grade": "G3"
+ },
+ "factors_sampled": {
+  "breach_type": "client_entertainment_over_limit",
+  "true_excess_pct": 13.71,
+  "amount_mismatch": "none",
+  "reference_mismatch": "none",
+  "pre_approval_state": "absent",
+  "external_disruption": true,
+  "compliant_option": "not_checked",
+  "missing_item": "attendee_list",
+  "excess_vs_authority": "well_within",
+  "client_rechargeable": true,
+  "prior_exceptions_12m": 2,
+  "booking_lead_days": 38,
+  "employee_grade": "G3"
+ },
+ "plan": {
+  "preapproval_covers": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "outside_control": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "excess_disposition": {
+   "clarity": "leaning",
+   "target": "hold_for_info",
+   "second": null
+  },
+  "excess_size": {
+   "clarity": "clear",
+   "target": "1",
+   "second": null
+  },
+  "discrepancy_count": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 48,
+ "deciding": {
+  "preapproval_covers": "approvals.pre_approval is null, so nothing covers the excess.",
+  "outside_control": "Venue cancellation is logged in travel.disruption, but alt_check is null so no compliant option was checked; both readings are plausible.",
+  "excess_disposition": "approvals.attendees is an empty list for an entertainment claim, one named missing item; excess is small and within the limit.",
+  "excess_size": "Lines sum to 636 against cap 75 x 8 = 600, an excess of 36 or 6% of cap.",
+  "discrepancy_count": "Totals, dates, trip_ref and cost centres all agree; only line 2 has a rounding gap (100.1 x 0.759 = 75.97 vs 76.00), which may or may not count."
+ },
+ "request": "rec-F330-0041",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.01534
+}

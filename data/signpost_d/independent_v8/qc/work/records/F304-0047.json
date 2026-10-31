@@ -1,0 +1,112 @@
+{
+ "id": "F304-0047",
+ "family": "F304",
+ "state": {
+  "request": {
+   "ref": "T2002",
+   "appt_type": "outpatient",
+   "appt_time": "2025-03-12T13:30",
+   "vehicle_class": "wheelchair",
+   "crew_requested": 2,
+   "mobility_booked": "wheelchair",
+   "equipment": [
+    "wheelchair"
+   ]
+  },
+  "patient": {
+   "mobility_assessed": "wheelchair",
+   "assessed_on": "2025-02-20",
+   "weight_kg": 80,
+   "oxygen_lpm": 2,
+   "monitoring": null,
+   "own_transport_available": true,
+   "exemption": {
+    "code": "MOB-3",
+    "approved_by": "Dr Rao",
+    "approved_on": "2025-02-21"
+   },
+   "fit_to_travel_signed": null
+  },
+  "journey": {
+   "window_end": "2025-03-12T12:20",
+   "est_duration_min": 40,
+   "late_tolerance_min": 0,
+   "destination": {
+    "reslot_same_day": false
+   }
+  },
+  "notes": {
+   "ward_note": "Needs own oxygen cylinder; fit-to-travel form to follow."
+  }
+ },
+ "factors": {
+  "mobility_alignment": "matches",
+  "secondary_discrepancy": "equipment_unlisted",
+  "eligibility_concern": true,
+  "eligibility_exception": true,
+  "clinical_support": "oxygen_2",
+  "crew_request_gap": "under_one_step",
+  "buffer_minutes": 30.0,
+  "duration_estimate_split": false,
+  "late_tolerance": false,
+  "appointment_type": "outpatient",
+  "same_day_reslot": false,
+  "confirmation_pending": true,
+  "prior_aborts": 0,
+  "aborts_related": false
+ },
+ "factors_sampled": {
+  "mobility_alignment": "matches",
+  "secondary_discrepancy": "equipment_unlisted",
+  "eligibility_concern": true,
+  "eligibility_exception": true,
+  "clinical_support": "high_flow_oxygen",
+  "crew_request_gap": "under_one_step",
+  "buffer_minutes": 154.48,
+  "duration_estimate_split": false,
+  "late_tolerance": false,
+  "appointment_type": "discharge",
+  "same_day_reslot": false,
+  "confirmation_pending": false,
+  "prior_aborts": 1,
+  "aborts_related": false
+ },
+ "plan": {
+  "vehicle_fit": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "disposition": {
+   "clarity": "balanced",
+   "target": "hold",
+   "second": "amend_confirm"
+  },
+  "crew_config": {
+   "clarity": "balanced",
+   "target": "clinical_escort",
+   "second": "double_crew"
+  },
+  "time_pressure": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  },
+  "delay_impact": {
+   "clarity": "leaning",
+   "target": "0",
+   "second": null
+  }
+ },
+ "target_words": 53,
+ "deciding": {
+  "vehicle_fit": "Patient is on oxygen 2 lpm and the ward note says own cylinder is needed, but request.equipment lists only a wheelchair.",
+  "disposition": "fit_to_travel_signed is null with a matching ward note (pending, favours hold), while the unlisted cylinder is an amendable gap (favours amend_confirm); the exemption covers eligibility.",
+  "crew_config": "Oxygen 2 lpm points to clinical escort, but wheelchair mobility with 2 crew requested keeps double crew plausible.",
+  "time_pressure": "window_end 12:20 plus 40 min gives 13:00 arrival against a 13:30 appointment: exactly 30 min spare, on the level 1 and 2 boundary.",
+  "delay_impact": "Routine outpatient appointment with no treatment indicated, so low impact and rebookable."
+ },
+ "request": "rec-F304-0046",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.010741
+}

@@ -1,0 +1,129 @@
+{
+ "id": "F338-0029",
+ "family": "F338",
+ "state": {
+  "site": {
+   "pollutant": "NO2",
+   "tier": "compliance",
+   "service_interval_days": 30
+  },
+  "visit": {
+   "date": "2024-08-12",
+   "start": "10:00",
+   "end": "11:20",
+   "sequence_status": "aborted",
+   "maint_window": true
+  },
+  "reference": {
+   "standard_id": "CY-7316",
+   "unit": "ppb",
+   "cert_expiry": "2024-11-19"
+  },
+  "checks": [
+   {
+    "type": "as_found",
+    "ref_id": "CY-7136",
+    "ref_conc": 200,
+    "unit": "ug/m3",
+    "reading": 65,
+    "tol": 10,
+    "ts": "2024-08-12T10:10"
+   },
+   {
+    "type": "as_left",
+    "ref_id": "CY-7136",
+    "ref_conc": 200,
+    "unit": "ug/m3",
+    "reading": 187,
+    "tol": 10,
+    "ts": "2024-08-12T11:05"
+   }
+  ],
+  "history": {
+   "last_visit_date": "2024-07-19",
+   "results": [
+    "pass",
+    "fail",
+    "fail"
+   ],
+   "autochecks": [
+    {
+     "d": "2024-08-08",
+     "r": "pass"
+    }
+   ]
+  },
+  "instrument": {
+   "enclosure_temp_min": 14,
+   "enclosure_temp_max": 28
+  }
+ },
+ "factors": {
+  "pollutant": "NO2",
+  "as_found_ratio": 3.07,
+  "as_left_status": "marginal",
+  "cylinder_id_mismatch": "transposed_digit",
+  "cert_expiry_offset_days": 99,
+  "unit_mismatch": true,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "maintenance_window",
+  "days_since_last_visit": 24,
+  "visit_completeness": "aborted_power",
+  "prior_fail_count": 2,
+  "timestamp_mismatch": "none",
+  "site_priority": "compliance"
+ },
+ "factors_sampled": {
+  "pollutant": "NO2",
+  "as_found_ratio": 3.07,
+  "as_left_status": "marginal",
+  "cylinder_id_mismatch": "transposed_digit",
+  "cert_expiry_offset_days": 99,
+  "unit_mismatch": true,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "maintenance_window",
+  "days_since_last_visit": 24,
+  "visit_completeness": "aborted_power",
+  "prior_fail_count": 2,
+  "timestamp_mismatch": "none",
+  "site_priority": "compliance"
+ },
+ "plan": {
+  "data_accepted": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "reference_valid": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "balanced",
+   "target": "close_visit",
+   "second": "close_flagged"
+  },
+  "flag_extent": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "return_urgency": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  }
+ },
+ "target_words": 79,
+ "deciding": {
+  "data_accepted": "Maintenance window true and autochecks pass explain the as-found miss, leaning accept.",
+  "reference_valid": "Check ref_id CY-7136 vs standard CY-7316 (transposed) and unit ug/m3 vs ppb.",
+  "next_step": "Sequence aborted and as-left 187 vs 200 is near the tol 10 edge; close versus close with flags is balanced.",
+  "flag_extent": "As-found 65 vs 200 is a huge miss over 24 days; whether all or more than thirty days is open, balanced against the maintenance window.",
+  "return_urgency": "Aborted visit, compliance tier, as-left marginal: return in three to seven days."
+ },
+ "request": "rec-F338-0026",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.005676
+}

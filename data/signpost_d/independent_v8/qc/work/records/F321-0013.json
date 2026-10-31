@@ -1,0 +1,148 @@
+{
+ "id": "F321-0013",
+ "family": "F321",
+ "state": {
+  "permit": {
+   "id": "P9033",
+   "site_id": "S1475",
+   "window_start": "2024-06-03T09:00",
+   "window_end": "2024-06-03T15:00",
+   "engineers": [
+    "E21",
+    "E22"
+   ],
+   "scoped_tasks": [
+    {
+     "task_code": "RRU-04",
+     "equipment_ref": "RU9"
+    },
+    {
+     "task_code": "CAB-01",
+     "equipment_ref": "CB2"
+    },
+    {
+     "task_code": "ANT-05",
+     "equipment_ref": "AN3"
+    }
+   ],
+   "landlord_notice_date": null
+  },
+  "attendance": [
+   {
+    "badge_id": "B21",
+    "event": "in",
+    "ts": "2024-06-03T08:48"
+   },
+   {
+    "badge_id": "B22",
+    "event": "in",
+    "ts": "2024-06-03T08:50"
+   },
+   {
+    "badge_id": "B77",
+    "event": "in",
+    "ts": "2024-06-03T09:20"
+   },
+   {
+    "badge_id": "B21",
+    "event": "out",
+    "ts": "2024-06-03T14:05"
+   }
+  ],
+  "personnel": [
+   {
+    "engineer_id": "E21",
+    "badge_id": "B21",
+    "height_cert_expiry": "2025-02-10"
+   },
+   {
+    "engineer_id": "E22",
+    "badge_id": "B22",
+    "height_cert_expiry": "2025-03-01"
+   }
+  ],
+  "works": [
+   {
+    "task_code": "RRU-04",
+    "equipment_ref": "RU9B",
+    "status": "complete",
+    "completed_at": "2024-06-03T12:00"
+   }
+  ],
+  "closeout": {
+   "signout_at": "2024-06-03T14:05",
+   "key_status": "returned",
+   "photos_required": 4,
+   "photos_uploaded": 4,
+   "variation_ref": null,
+   "submitted_at": "2024-06-03T14:30",
+   "hours_open": 5
+  }
+ },
+ "factors": {
+  "scope_mismatch": "different_equipment",
+  "window_deviation": "early_under_15min",
+  "cert_status": "all_valid",
+  "scoped_task_count": 3,
+  "completion_fraction": 0.33,
+  "signout_missing": false,
+  "key_return": "returned",
+  "photo_shortfall": 0,
+  "badge_id_mismatch": true,
+  "variation_approved": false,
+  "landlord_notice": "null",
+  "weather_hold_logged": false
+ },
+ "factors_sampled": {
+  "scope_mismatch": "different_equipment",
+  "window_deviation": "early_under_15min",
+  "cert_status": "all_valid",
+  "scoped_task_count": 5,
+  "completion_fraction": 0.47,
+  "signout_missing": false,
+  "key_return": "returned",
+  "photo_shortfall": 0,
+  "badge_id_mismatch": true,
+  "variation_approved": false,
+  "landlord_notice": "null",
+  "weather_hold_logged": false
+ },
+ "plan": {
+  "within_scope": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "certs_in_date": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "closeout_action": {
+   "clarity": "balanced",
+   "target": "close_visit",
+   "second": "hold_confirm"
+  },
+  "scope_completion": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "pending_age": {
+   "clarity": "clear",
+   "target": "0",
+   "second": null
+  }
+ },
+ "target_words": 116,
+ "deciding": {
+  "within_scope": "Works equipment_ref 'RU9B' vs permit 'RU9' on the same task code RRU-04; likely a suffix variant, not clearly a different item.",
+  "certs_in_date": "E21 and E22 certs expire in 2025, but badge B77 entered the gate and is not in personnel, so its holder's certification is unknown.",
+  "closeout_action": "Sign-out, key and photos (4 of 4) complete, but landlord notice is null, badge B77 is unlisted and only one works entry exists against three permitted tasks.",
+  "scope_completion": "The only complete entry has equipment 'RU9B' not matching permit 'RU9': zero matches if strict, one of three if lenient.",
+  "pending_age": "hours_open is 5, well under 24 hours."
+ },
+ "request": "rec-F321-0011",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012532
+}

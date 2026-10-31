@@ -1,0 +1,115 @@
+{
+ "id": "F304-0053",
+ "family": "F304",
+ "state": {
+  "request": {
+   "appt_type": "hospice_transfer",
+   "appt_time": "2024-07-08T15:30",
+   "vehicle_class": "wheelchair_car",
+   "crew_requested": "double",
+   "mobility_booked": "wheelchair",
+   "equipment": []
+  },
+  "patient": {
+   "mobility_assessed": "wheelchair",
+   "assessed_on": "2024-06-26",
+   "oxygen_lpm": 0,
+   "monitoring": null,
+   "own_transport_available": false,
+   "exemption": null
+  },
+  "journey": {
+   "window_end": "2024-07-08T14:50",
+   "est_duration_min": 22,
+   "late_tolerance_min": 0,
+   "destination": {
+    "reslot_same_day": false
+   }
+  },
+  "history": [
+   {
+    "date": "2024-05-20",
+    "outcome": "aborted",
+    "reason": "clinic cancelled"
+   },
+   {
+    "date": "2024-06-11",
+    "outcome": "aborted",
+    "reason": "patient not ready"
+   }
+  ],
+  "notes": {
+   "ward_note": "Hospice expects arrival 15:33; bed held until 16:00 only, none other today."
+  }
+ },
+ "factors": {
+  "mobility_alignment": "matches",
+  "secondary_discrepancy": "time_trivial",
+  "eligibility_concern": false,
+  "eligibility_exception": false,
+  "clinical_support": "transfer_assist",
+  "crew_request_gap": "correct",
+  "buffer_minutes": 18.0,
+  "duration_estimate_split": false,
+  "late_tolerance": false,
+  "appointment_type": "hospice_transfer",
+  "same_day_reslot": false,
+  "confirmation_pending": false,
+  "prior_aborts": 2,
+  "aborts_related": false
+ },
+ "factors_sampled": {
+  "mobility_alignment": "stale",
+  "secondary_discrepancy": "time_trivial",
+  "eligibility_concern": true,
+  "eligibility_exception": false,
+  "clinical_support": "low_flow_oxygen",
+  "crew_request_gap": "over_one_step",
+  "buffer_minutes": 34.36,
+  "duration_estimate_split": false,
+  "late_tolerance": false,
+  "appointment_type": "discharge",
+  "same_day_reslot": false,
+  "confirmation_pending": false,
+  "prior_aborts": 2,
+  "aborts_related": false
+ },
+ "plan": {
+  "vehicle_fit": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "disposition": {
+   "clarity": "clear",
+   "target": "confirm",
+   "second": null
+  },
+  "crew_config": {
+   "clarity": "clear",
+   "target": "double_crew",
+   "second": null
+  },
+  "time_pressure": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  },
+  "delay_impact": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 59,
+ "deciding": {
+  "vehicle_fit": "Wheelchair booked matches the assessment from 12 days earlier; the age of the assessment leaves modest doubt.",
+  "disposition": "No eligibility concern, no pending items, crew matches, and the 3 min 15:30 vs 15:33 difference is trivial; the aborts are unrelated.",
+  "crew_config": "Wheelchair transfer with oxygen_lpm 0 and monitoring null means double crew, as requested.",
+  "time_pressure": "Window_end 14:50 plus 22 min estimate leaves 18 min before 15:30, under 30 but on time.",
+  "delay_impact": "Ward_note says the hospice bed is held only to 16:00 with none else today; losing a transfer slot is critical, though a reader might rate it as high."
+ },
+ "request": "rec-F304-0051",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012042
+}

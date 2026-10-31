@@ -1,0 +1,120 @@
+{
+ "id": "F338-0099",
+ "family": "F338",
+ "state": {
+  "site": {
+   "pollutant": "NO2",
+   "tier": "compliance"
+  },
+  "visit": {
+   "date": "2024-04-09",
+   "start": "09:00",
+   "end": "11:30",
+   "sequence_status": "complete",
+   "maintenance_window": true
+  },
+  "reference": {
+   "standard_id": "NX-5520",
+   "unit": "ppb",
+   "cert_expiry": "2024-08-18"
+  },
+  "checks": [
+   {
+    "type": "span",
+    "stage": "as_found",
+    "ref_id": "NX-5520",
+    "ref_conc": 200,
+    "reading": 192,
+    "tol": 10,
+    "unit": "ppb"
+   },
+   {
+    "type": "span",
+    "stage": "as_left",
+    "ref_id": "NX-5524",
+    "ref_conc": 200,
+    "reading": 200.5,
+    "tol": 10,
+    "unit": "ppb"
+   }
+  ],
+  "history": {
+   "last_visit_date": "2024-01-30",
+   "results": [
+    "fail",
+    "pass",
+    "fail",
+    "fail",
+    "fail"
+   ]
+  }
+ },
+ "factors": {
+  "pollutant": "NO2",
+  "as_found_ratio": 0.77,
+  "as_left_status": "all_pass",
+  "cylinder_id_mismatch": "transposed_digit",
+  "cert_expiry_offset_days": 131,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "maintenance_window",
+  "days_since_last_visit": 70,
+  "visit_completeness": "complete",
+  "prior_fail_count": 4,
+  "timestamp_mismatch": "none",
+  "site_priority": "compliance"
+ },
+ "factors_sampled": {
+  "pollutant": "NO2",
+  "as_found_ratio": 0.77,
+  "as_left_status": "all_pass",
+  "cylinder_id_mismatch": "different_standard",
+  "cert_expiry_offset_days": 131,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "maintenance_window",
+  "days_since_last_visit": 70,
+  "visit_completeness": "complete",
+  "prior_fail_count": 4,
+  "timestamp_mismatch": "none",
+  "site_priority": "compliance"
+ },
+ "plan": {
+  "data_accepted": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "reference_valid": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "close_visit",
+   "second": null
+  },
+  "flag_extent": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  },
+  "return_urgency": {
+   "clarity": "balanced",
+   "target": "4",
+   "second": "3"
+  }
+ },
+ "target_words": 108,
+ "deciding": {
+  "data_accepted": "The as-found span is 192 vs 200 with tol 10, so it is within tolerance (0.8 of tol), and the maintenance window explains the drift. But 4 prior fails and the as-left ref_id mismatch leave doubt.",
+  "reference_valid": "The as-found ref_id NX-5520 matches the standard, while the as-left ref_id NX-5524 differs by one digit, which could be a typo. The certificate is in date and the units agree.",
+  "next_step": "The as-found and as-left are both within tolerance, the sequence is complete and the maintenance window is flagged, so the visit closes.",
+  "flag_extent": "The as-found is in tolerance after 70 days, so there is little to flag; 1-7 days around the maintenance window is plausible, or none at all.",
+  "return_urgency": "The as-left ID discrepancy at a compliance site may call for re-verification, so a same-day return is plausible, but urgent (1-2 days) is equally defensible since all points pass."
+ },
+ "request": "rec-F338-0096",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.006426
+}

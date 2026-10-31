@@ -1,0 +1,189 @@
+{
+ "id": "F318-0064",
+ "family": "F318",
+ "state": {
+  "work_order": {
+   "lock_id": "L31",
+   "visit_type": "planned_repair",
+   "tasks": [
+    {
+     "task_id": 1,
+     "asset_ref": "G1"
+    },
+    {
+     "task_id": 2,
+     "asset_ref": "P1"
+    },
+    {
+     "task_id": 3,
+     "asset_ref": "P2"
+    },
+    {
+     "task_id": 4,
+     "asset_ref": "SILL"
+    }
+   ]
+  },
+  "visit_log": {
+   "arrived": "2025-06-10T08:00",
+   "departed": "2025-06-10T13:00",
+   "crew_size": 3,
+   "timesheet_hours": 12.32,
+   "task_status": [
+    {
+     "task_id": 1,
+     "status": "done"
+    },
+    {
+     "task_id": 2,
+     "status": "done"
+    },
+    {
+     "task_id": 3,
+     "status": "done"
+    },
+    {
+     "task_id": 4,
+     "status": "temp_fix",
+     "deferral_ref": "DEF-41",
+     "deferral_due": "2025-06-15"
+    }
+   ]
+  },
+  "materials": {
+   "issued": [
+    {
+     "part_no": "M8",
+     "task_id": 2,
+     "qty": 10
+    },
+    {
+     "part_no": "M9",
+     "task_id": 4,
+     "qty": 6
+    }
+   ],
+   "returned": [
+    {
+     "part_no": "M8",
+     "qty": 1
+    }
+   ],
+   "fitted": [
+    {
+     "part_no": "M8",
+     "task_id": 2,
+     "qty": 6
+    },
+    {
+     "part_no": "M9",
+     "task_id": 4,
+     "qty": 6
+    }
+   ]
+  },
+  "checks": {
+   "post_checks": [
+    {
+     "asset_ref": "G1",
+     "result": "pass"
+    },
+    {
+     "asset_ref": "P1",
+     "result": "pass"
+    },
+    {
+     "asset_ref": "SILL",
+     "result": "pass"
+    }
+   ],
+   "leakage_ls": 7.2,
+   "leakage_limit_ls": 3.0,
+   "river_level_m": 3.1,
+   "flood_marker_m": 3.8
+  },
+  "asset_history": {
+   "prior_visits": [
+    {
+     "date": "2024-09-01",
+     "asset_ref": "SILL",
+     "defect_code": "D-SILL"
+    },
+    {
+     "date": "2025-01-20",
+     "asset_ref": "SILL",
+     "defect_code": "D-SILL"
+    }
+   ],
+   "open_defects": []
+  }
+ },
+ "factors": {
+  "visit_type": "planned_repair",
+  "tasks_ordered": 4,
+  "completion_state": "temporary_fix",
+  "parts_qty_mismatch": "moderate",
+  "hours_gap": 2.68,
+  "asset_ref_mismatch": false,
+  "post_check_result": "passed",
+  "leakage_ratio": 2.41,
+  "leakage_mitigation": false,
+  "navigation_notice_in_force": false,
+  "deferral_approved": true,
+  "prior_same_defect": 2,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "visit_type": "planned_repair",
+  "tasks_ordered": 4,
+  "completion_state": "temporary_fix",
+  "parts_qty_mismatch": "moderate",
+  "hours_gap": 2.68,
+  "asset_ref_mismatch": false,
+  "post_check_result": "passed",
+  "leakage_ratio": 2.41,
+  "leakage_mitigation": false,
+  "navigation_notice_in_force": false,
+  "deferral_approved": true,
+  "prior_same_defect": 2,
+  "boundary_case": false
+ },
+ "plan": {
+  "safe_to_reopen": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "record_disposition": {
+   "clarity": "leaning",
+   "target": "hold_query",
+   "second": null
+  },
+  "return_urgency": {
+   "clarity": "clear",
+   "target": "within_week",
+   "second": null
+  },
+  "affected_scope": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  },
+  "section_mismatches": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 39,
+ "deciding": {
+  "safe_to_reopen": "All post-checks pass and no open defects, but SILL is only a temp_fix and leakage 7.2 is 2.4 times the 3.0 limit with river 3.1 below the 3.8 marker.",
+  "record_disposition": "Parts and hours don't reconcile and leakage is unexplained, so closure is held for the crew to clarify; the deferral ref covers the temp fix.",
+  "return_urgency": "Temp fix on SILL has deferral_due 2025-06-15, five days after the visit, so a return within a week.",
+  "affected_scope": "No nav notice; the SILL and lock traffic are affected, between two to five and six to twenty units.",
+  "section_mismatches": "M8 issued 10, returned 1, fitted 6; timesheet 12.32 vs 15 expected; no matching post-check for P2 and leakage over limit unexplained. Two or three."
+ },
+ "request": "rec-F318-0061",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012092
+}

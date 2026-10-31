@@ -1,0 +1,171 @@
+{
+ "id": "F302-0090",
+ "family": "F302",
+ "state": {
+  "subject": {
+   "screening_no": "S-5092",
+   "initials": "KNO",
+   "dob": "1975-12-04",
+   "sex": "F",
+   "site": "312"
+  },
+  "consent": {
+   "form_version": "5.0",
+   "current_version": "5.0",
+   "signed_date": "2024-07-01",
+   "initials": "KNO"
+  },
+  "visit": {
+   "visit_date": "2024-07-08",
+   "review_date": "2024-07-19",
+   "window_days": 28,
+   "procedures": [
+    {
+     "name": "physical exam",
+     "date": "2024-07-08"
+    },
+    {
+     "name": "ECG",
+     "date": "2024-07-08"
+    }
+   ]
+  },
+  "labs": {
+   "max_repeats": 1,
+   "items": [
+    {
+     "test": "ALT",
+     "value": 60,
+     "unit": "U/L",
+     "threshold": 60,
+     "threshold_format": "<=",
+     "collected": "2024-07-05",
+     "valid_days": 14,
+     "flag": "H",
+     "repeat": false,
+     "requisition_screening_no": "S-5092"
+    },
+    {
+     "test": "HGB",
+     "value": 12.8,
+     "unit": "g/dL",
+     "threshold": 11,
+     "collected": "2024-07-05",
+     "valid_days": 14,
+     "repeat": false,
+     "requisition_screening_no": "S-5092"
+    }
+   ]
+  },
+  "eligibility": {
+   "criteria": [
+    {
+     "id": "E4",
+     "test": "ALT",
+     "operator": "lt",
+     "recorded_value": 60,
+     "unit": "U/L",
+     "met": true
+    },
+    {
+     "id": "I4",
+     "test": "HGB",
+     "operator": "gt",
+     "recorded_value": 12.8,
+     "unit": "g/dL",
+     "met": true
+    }
+   ],
+   "signoff": {
+    "signed": true,
+    "date": "2024-07-10"
+   },
+   "queries": [
+    {
+     "id": 1,
+     "status": "closed"
+    }
+   ]
+  },
+  "conmeds": {
+   "prohibited_classes": [
+    "strong CYP3A4 inhibitor"
+   ],
+   "washout_days": 28,
+   "items": [
+    {
+     "drug": "lisinopril",
+     "class": "ACE inhibitor",
+     "start": "2021-05-02",
+     "stop": null
+    }
+   ]
+  }
+ },
+ "factors": {
+  "lab_reconciliation": "identical",
+  "consent_status": "current_ok",
+  "window_days_remaining": 10,
+  "collection_date_mismatch": "within_window",
+  "prohibited_conmed": false,
+  "washout_completed": false,
+  "out_of_range_lab": false,
+  "valid_repeat_on_file": "none",
+  "boundary_value": true,
+  "identifier_mismatch": "none",
+  "investigator_signoff": "signed_after_results",
+  "open_query_count": 0
+ },
+ "factors_sampled": {
+  "lab_reconciliation": "identical",
+  "consent_status": "current_ok",
+  "window_days_remaining": 1,
+  "collection_date_mismatch": "within_window",
+  "prohibited_conmed": true,
+  "washout_completed": false,
+  "out_of_range_lab": false,
+  "valid_repeat_on_file": "valid_repeat_in_range",
+  "boundary_value": true,
+  "identifier_mismatch": "initials_transposed",
+  "investigator_signoff": "signed_after_results",
+  "open_query_count": 1
+ },
+ "plan": {
+  "eligibility_proven": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "release",
+   "second": null
+  },
+  "primary_issue": {
+   "clarity": "balanced",
+   "target": "timing_window",
+   "second": "clinical_value"
+  },
+  "affected_scope": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "window_left": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 200,
+ "deciding": {
+  "eligibility_proven": "ALT 60 equals the threshold while E4 operator is lt and the lab threshold format is <=, so whether E4 is met is open; HGB, consent and signoff are fine.",
+  "next_step": "No open queries, signoff present after results and everything else reconciles, so release is favoured despite the ALT boundary doubt.",
+  "primary_issue": "ALT at the threshold (clinical_value) versus lab validity ending 2024-07-19 on the review date and 10 days left in window (timing_window); neither is decisive.",
+  "affected_scope": "No count is shown; a single record with a threshold-edge issue could be read as 6-20 or over 20 units.",
+  "window_left": "Consent 2024-07-01 plus 28 days gives 2024-07-29; review 2024-07-19 leaves exactly 10 days, at the edge of levels 2 and 3."
+ },
+ "request": "rec-F302-0086",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.010706
+}

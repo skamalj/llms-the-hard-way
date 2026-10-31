@@ -1,0 +1,145 @@
+{
+ "id": "F317-0024",
+ "family": "F317",
+ "state": {
+  "vehicle": {
+   "fleet_no": "T5231",
+   "odometer_km": 52008
+  },
+  "exam": {
+   "exam_id": "EX-93",
+   "due_at_km": 52012,
+   "opened_at": "2025-01-20T05:00",
+   "items": [
+    {
+     "item_code": "M1",
+     "result": "ok",
+     "signed_by": "u6",
+     "signed_at": "2025-01-20T05:30"
+    },
+    {
+     "item_code": "M2",
+     "result": "ok",
+     "signed_by": "u6",
+     "signed_at": "2025-01-20T06:10"
+    },
+    {
+     "item_code": "M3",
+     "result": "ok",
+     "signed_by": "u11",
+     "signed_at": "2025-01-20T11:20"
+    }
+   ]
+  },
+  "defects": [
+   {
+    "defect_id": "D-140",
+    "subsystem": "pantograph",
+    "safety_critical": false,
+    "raised_at": "2025-01-18T08:00",
+    "status": "open",
+    "closed_at": null,
+    "retest_at": null,
+    "retest_result": null
+   },
+   {
+    "defect_id": "D-122",
+    "subsystem": "brakes",
+    "safety_critical": true,
+    "raised_at": "2024-12-02T08:00",
+    "status": "closed",
+    "closed_at": "2024-12-05T10:00",
+    "retest_at": "2024-12-06T07:00",
+    "retest_result": "pass"
+   }
+  ],
+  "work_orders": [
+   {
+    "wo_id": "W-90",
+    "defect_ref": "D-122",
+    "subsystem": "running_gear",
+    "completed_at": "2024-12-05T09:30",
+    "status": "closed"
+   }
+  ],
+  "concessions": [],
+  "release": {
+   "duty_id": "SP-8",
+   "duty_type": "spare",
+   "depart_at": "2025-01-20T10:00",
+   "odo_reading_km": 52012,
+   "brake_test_at": "2025-01-18T06:00",
+   "brake_test_result": "pass"
+  }
+ },
+ "factors": {
+  "km_to_exam_due": 0,
+  "odometer_disagreement": "trivial",
+  "exam_signed_fraction": 1.0,
+  "exam_record_missing": false,
+  "worst_defect_subsystem": "pantograph",
+  "worst_defect_state": "open_no_wo",
+  "worst_defect_safety_critical": false,
+  "retest_out_of_order": false,
+  "concession_present": false,
+  "concession_flaw": "none",
+  "wo_crossref_mismatch": "subsystem_differs",
+  "planned_duty_type": "spare",
+  "recent_brake_test_pass": false,
+  "balanced_signals": false
+ },
+ "factors_sampled": {
+  "km_to_exam_due": 74,
+  "odometer_disagreement": "trivial",
+  "exam_signed_fraction": 0.41,
+  "exam_record_missing": true,
+  "worst_defect_subsystem": "running_gear",
+  "worst_defect_state": "closed_no_retest",
+  "worst_defect_safety_critical": false,
+  "retest_out_of_order": false,
+  "concession_present": false,
+  "concession_flaw": "none",
+  "wo_crossref_mismatch": "subsystem_differs",
+  "planned_duty_type": "spare",
+  "recent_brake_test_pass": false,
+  "balanced_signals": false
+ },
+ "plan": {
+  "sc_defects_cleared": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "release_decision": {
+   "clarity": "contested",
+   "target": "release_restricted",
+   "second": "withdraw"
+  },
+  "worst_subsystem": {
+   "clarity": "clear",
+   "target": "pantograph",
+   "second": null
+  },
+  "exam_completion": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  },
+  "exam_mileage": {
+   "clarity": "contested",
+   "target": "1",
+   "second": "2"
+  }
+ },
+ "target_words": 96,
+ "deciding": {
+  "sc_defects_cleared": "The only safety-critical defect D-122 is closed with retest pass, but its WO lists running_gear instead of brakes, which casts some doubt.",
+  "release_decision": "Spare duty fits restricted running, but the open pantograph defect D-140 has no work order and no concession covers it, so withdrawal is also defensible.",
+  "worst_subsystem": "D-140 pantograph is the only open defect, with no WO and no retest.",
+  "exam_completion": "All 3 items are signed, but M3 signed_at (11:20) falls after depart_at 10:00, leaving doubt whether the exam was complete.",
+  "exam_mileage": "Release odo 52012 equals due_at_km 52012 (0 km left), while vehicle odometer 52008 shows 4 km left, so the level sits on the 0 km boundary."
+ },
+ "request": "rec-F317-0021",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.015131
+}

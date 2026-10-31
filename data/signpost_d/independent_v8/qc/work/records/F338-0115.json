@@ -1,0 +1,137 @@
+{
+ "id": "F338-0115",
+ "family": "F338",
+ "state": {
+  "site": {
+   "pollutant": "O3",
+   "tier": "standard",
+   "service_interval_days": 28,
+   "approved_interval_days": 56
+  },
+  "visit": {
+   "date": "2024-05-22",
+   "start": "13:00",
+   "end": "14:15",
+   "sequence_status": "complete",
+   "maintenance_window": false
+  },
+  "reference": {
+   "standard_id": "OZ-7720",
+   "unit": "ppb",
+   "cert_expiry": "2025-02-09"
+  },
+  "checks": [
+   {
+    "phase": "as_found",
+    "type": "span",
+    "ref_id": "OZ-7720",
+    "unit": "ppb",
+    "ref_conc": 80,
+    "reading": 86.9,
+    "tol": 4.0,
+    "ts": "2024-05-22T14:20"
+   },
+   {
+    "phase": "as_left",
+    "type": "span",
+    "ref_id": "OZ-7720",
+    "unit": "ppb",
+    "ref_conc": 80,
+    "reading": null,
+    "tol": 4.0,
+    "ts": null
+   }
+  ],
+  "history": {
+   "last_visit_date": "2024-04-05",
+   "results": [
+    "pass",
+    "fail",
+    "pass",
+    "fail"
+   ],
+   "autochecks": [
+    {
+     "d": "2024-04-10",
+     "r": "fail"
+    },
+    {
+     "d": "2024-04-11",
+     "r": "fail"
+    }
+   ]
+  },
+  "instrument": {
+   "enclosure_temp_min": 12,
+   "enclosure_temp_max": 27
+  }
+ },
+ "factors": {
+  "pollutant": "O3",
+  "as_found_ratio": 1.73,
+  "as_left_status": "not_recorded",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 263,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": false,
+  "drift_explanation": "approved_extended_interval",
+  "days_since_last_visit": 47,
+  "visit_completeness": "complete",
+  "prior_fail_count": 2,
+  "timestamp_mismatch": "minutes_outside",
+  "site_priority": "standard"
+ },
+ "factors_sampled": {
+  "pollutant": "O3",
+  "as_found_ratio": 1.73,
+  "as_left_status": "not_recorded",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 263,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": false,
+  "drift_explanation": "approved_extended_interval",
+  "days_since_last_visit": 47,
+  "visit_completeness": "complete",
+  "prior_fail_count": 2,
+  "timestamp_mismatch": "minutes_outside",
+  "site_priority": "standard"
+ },
+ "plan": {
+  "data_accepted": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "reference_valid": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "next_step": {
+   "clarity": "balanced",
+   "target": "close_visit",
+   "second": "close_flagged"
+  },
+  "flag_extent": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "return_urgency": {
+   "clarity": "contested",
+   "target": "4",
+   "second": "3"
+  }
+ },
+ "target_words": 56,
+ "deciding": {
+  "data_accepted": "As-found span 86.9 vs 80 (tol 4.0) is out and early autochecks failed, but the approved 56-day interval covers the 47-day gap, leaving acceptance two-sided.",
+  "reference_valid": "ref_id, units and expiry (2025-02-09) all agree; only the as-found timestamp 14:20 falls after visit end 14:15, which casts slight doubt.",
+  "next_step": "As-left reading and timestamp are null, which would favour repeating; but the record is marked complete and drift is explained by the extended interval, so closing or closing with flags are both plausible.",
+  "flag_extent": "Autocheck failures on 2024-04-10 and 04-11, just after the last visit, with an out-of-tolerance as-found, point to flagging most of the 47 days, though the extended interval may cut it to 8-30 days.",
+  "return_urgency": "Missing as-left readings on a standard-tier site could demand a same-day return or one within 1-2 days; readers would split."
+ },
+ "request": "rec-F338-0111",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.006857
+}

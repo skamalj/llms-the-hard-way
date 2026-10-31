@@ -1,0 +1,152 @@
+{
+ "id": "F316-0038",
+ "family": "F316",
+ "state": {
+  "run_header": {
+   "run_id": "G305",
+   "run_type": "reactive",
+   "reviewed_at": "2025-02-03T06:05"
+  },
+  "plan": [
+   {
+    "section_code": "C4-01",
+    "length_km": 6,
+    "width_m": 7,
+    "priority": "P1",
+    "planned_rate_gm2": 20,
+    "forecast_zone": "Z1"
+   },
+   {
+    "section_code": "C4-02",
+    "length_km": 2.2,
+    "width_m": 7,
+    "priority": "P1",
+    "planned_rate_gm2": 20,
+    "forecast_zone": "Z2"
+   }
+  ],
+  "forecast": {
+   "Z1": {
+    "freeze_time": "05:40"
+   },
+   "Z2": {
+    "freeze_time": "08:05"
+   },
+   "revisions": [
+    {
+     "issued_at": "04:50",
+     "freeze_time": {
+      "Z1": "06:10",
+      "Z2": "08:05"
+     }
+    }
+   ]
+  },
+  "telematics": {
+   "segments": [
+    {
+     "section_code": "C4-02",
+     "end": "04:40",
+     "spread_on": false
+    },
+    {
+     "section_code": "C4-02",
+     "end": "05:30",
+     "spread_on": true,
+     "logged_rate_gm2": 14
+    },
+    {
+     "section_code": "C4-01",
+     "end": "05:58",
+     "spread_on": true,
+     "logged_rate_gm2": 20
+    }
+   ],
+   "dropouts": [
+    {
+     "nearest_section": "C4-02"
+    },
+    {
+     "nearest_section": "C4-02"
+    }
+   ]
+  },
+  "materials": {
+   "loaded_t": 1.9,
+   "returned_t": 0.8,
+   "weighbridge_ticket": "W305"
+  },
+  "notes": {
+   "driver_note": "Spinner jammed on C4-02, cleared and section re-run.",
+   "depot_note": "Run R2 booked 08:30 same route"
+  }
+ },
+ "factors": {
+  "missed_extent": "2_to_10km",
+  "missed_section_mitigated": false,
+  "salt_gap": "3_to_10pct",
+  "rate_exception_approved": false,
+  "finish_vs_freeze_min": 12,
+  "hours_to_freeze_untreated": 2.0,
+  "forecast_revised": "warmer",
+  "crosscheck_mismatch": "none",
+  "driver_note_type": "alarming_resolved",
+  "follow_up_run_scheduled": true,
+  "pending_confirmation": false,
+  "gps_dropouts": 2,
+  "nonpriority_untreated": false
+ },
+ "factors_sampled": {
+  "missed_extent": "2_to_10km",
+  "missed_section_mitigated": false,
+  "salt_gap": "3_to_10pct",
+  "rate_exception_approved": false,
+  "finish_vs_freeze_min": -18,
+  "hours_to_freeze_untreated": 15.13,
+  "forecast_revised": "warmer",
+  "crosscheck_mismatch": "none",
+  "driver_note_type": "alarming_resolved",
+  "follow_up_run_scheduled": true,
+  "pending_confirmation": false,
+  "gps_dropouts": 2,
+  "nonpriority_untreated": false
+ },
+ "plan": {
+  "treated_before_freeze": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "salt_reconciles": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "follow_up": {
+   "clarity": "leaning",
+   "target": "full_rerun",
+   "second": null
+  },
+  "deficient_length": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  },
+  "freeze_proximity": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 85,
+ "deciding": {
+  "treated_before_freeze": "C4-01 ended 05:58, 12 min before the revised Z1 freeze of 06:10, but the original 05:40 freeze would make it late; C4-02 was re-run only at 14 g/m2.",
+  "salt_reconciles": "Expected from logged rates is about 1.06 t; net usage is 1.1 t (1.9 minus 0.8), about 4% apart.",
+  "follow_up": "Spinner jam, two dropouts on C4-02 and a low re-run rate leave coverage weakly supported; the depot already booked R2 on the same route, and some doubt remains.",
+  "deficient_length": "C4-02 (2.2 km) was re-run at 14 against 20 planned, just over the 2 km line between minor and moderate.",
+  "freeze_proximity": "Review at 06:05 and Z2 freeze at 08:05 gives 2.0 h for C4-02, the boundary between levels 3 and 2."
+ },
+ "request": "rec-F316-0036",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.018725
+}

@@ -1,0 +1,313 @@
+{
+ "id": "F307",
+ "domain": "university lab chemical inventory checks",
+ "role": "Departmental chemical safety officer reviewing individual container records from routine lab inventory checks",
+ "setting": "A university chemistry department runs rolling inventory checks across research labs. Each record covers one chemical container at one check. It holds the registered stock entry, where the container was found, what the checker counted and observed, who is responsible for it, and its prior check history. The record also carries short notes from the checker and the custodian. The safety officer reviews each record on its own. They decide whether stock reconciles, whether storage is permitted, what happens next and how overdue the container's review is.",
+ "questions": {
+  "qty_reconciled": {
+   "type": "noul",
+   "instructions": "Found quantity reconciles with recorded quantity once logged usage is counted.",
+   "criteria": {
+    "true": "Gap after logged usage is 10% or less",
+    "false": "Unexplained gap above 10%, or no count recorded"
+   }
+  },
+  "storage_permitted": {
+   "type": "noul",
+   "instructions": "Container's storage is permitted by class or a current approved exception.",
+   "criteria": {
+    "true": "Store type matches class, or exception unexpired at check",
+    "false": "Wrong store type and no unexpired exception"
+   }
+  },
+  "next_action": {
+   "type": "choice",
+   "instructions": "What should happen with this container after the check?",
+   "criteria": {
+    "sign_off": "No defects found, or every finding already resolved and documented.",
+    "recheck_hold": "Exactly one outstanding confirmation from custodian needed before closing.",
+    "corrective_task": "Fixable defect needs custodian action; container stays in use meanwhile.",
+    "quarantine_dispose": "Container unsafe or unaccounted for; withdraw from use immediately."
+   }
+  },
+  "source_support": {
+   "type": "score",
+   "instructions": "How many independent sources confirm the information in this record?",
+   "criteria": [
+    "No independent source confirms the information",
+    "Exactly one independent source confirms it",
+    "Two or three independent sources confirm it",
+    "Four or more independent sources confirm it"
+   ]
+  },
+  "review_overdue": {
+   "type": "score",
+   "instructions": "How far past its review-by date is the container at check?",
+   "criteria": [
+    "Review-by date not yet reached at check",
+    "Overdue by 1 to 29 days",
+    "Overdue by 30 to 180 days",
+    "Overdue by more than 180 days"
+   ]
+  }
+ },
+ "factors": [
+  {
+   "name": "qty_discrepancy_pct",
+   "description": "Percentage gap between recorded quantity and found quantity before any logged usage is deducted",
+   "kind": "number",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 60,
+   "p_true": 0,
+   "skills": [
+    "S6",
+    "S7"
+   ]
+  },
+  {
+   "name": "usage_logged",
+   "description": "Whether usage withdrawals since the last check are logged and explain most of the gap",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S5"
+   ]
+  },
+  {
+   "name": "qty_found_missing",
+   "description": "Checker left the found quantity null, so reconciliation cannot be shown",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.15,
+   "skills": [
+    "S2",
+    "S5"
+   ]
+  },
+  {
+   "name": "store_mismatch",
+   "description": "Whether the store type where the container was found differs from the type its hazard class requires",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.45,
+   "skills": [
+    "S7",
+    "S5"
+   ]
+  },
+  {
+   "name": "exception_status",
+   "description": "State of any approved storage exception covering the container at check date",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "current",
+    "expired"
+   ],
+   "weights": [
+    0.45,
+    0.35,
+    0.2
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S5",
+    "S6"
+   ]
+  },
+  {
+   "name": "days_overdue",
+   "description": "Days between the container's review-by date and the check date; negative means not yet due",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": -200,
+   "max": 400,
+   "p_true": 0,
+   "skills": [
+    "S4",
+    "S6",
+    "S7"
+   ]
+  },
+  {
+   "name": "recent_retest_passed",
+   "description": "For overdue items, whether a retest (peroxide strip or purity check) was logged after the due date with a passing result",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S6"
+   ]
+  },
+  {
+   "name": "container_condition",
+   "description": "Physical state observed by the checker",
+   "kind": "categorical",
+   "values": [
+    "good",
+    "worn_label",
+    "corroded_cap",
+    "leaking"
+   ],
+   "weights": [
+    0.45,
+    0.25,
+    0.2,
+    0.1
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S7",
+    "S4"
+   ]
+  },
+  {
+   "name": "custodian_status",
+   "description": "Whether the named custodian is still in post or has left, with or without reassignment",
+   "kind": "categorical",
+   "values": [
+    "active",
+    "left_reassigned",
+    "left_no_successor"
+   ],
+   "weights": [
+    0.6,
+    0.2,
+    0.2
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S2",
+    "S3"
+   ]
+  },
+  {
+   "name": "check_sequence_anomaly",
+   "description": "Check date earlier than the latest history entry, or the required photo missing while the checker's own text says one was taken",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.15,
+   "skills": [
+    "S2",
+    "S6"
+   ]
+  },
+  {
+   "name": "prior_open_actions",
+   "description": "Count of unresolved actions from earlier checks on this container",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 3,
+   "p_true": 0,
+   "skills": [
+    "S4",
+    "S6"
+   ]
+  },
+  {
+   "name": "checker_note_tone",
+   "description": "Content of the checker's free-text note: absent, routine, alarming but resolved on the spot, or alarming and unresolved",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "routine",
+    "alarming_resolved",
+    "alarming_unresolved"
+   ],
+   "weights": [
+    0.2,
+    0.35,
+    0.25,
+    0.2
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S6"
+   ]
+  },
+  {
+   "name": "custodian_reply_pending_fix",
+   "description": "Custodian reply promises a single fix or confirmation not yet evidenced in the record",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.4,
+   "skills": [
+    "S4",
+    "S5"
+   ]
+  }
+ ],
+ "sections": [
+  {
+   "name": "container",
+   "description": "Registered stock entry: id, chem_name, cas_no, hazard_class, qty_recorded, unit, opened_on, review_by, peroxide_former"
+  },
+  {
+   "name": "location",
+   "description": "Where it was found: building, room, store_found, store_required, neighbours list of hazard classes"
+  },
+  {
+   "name": "check",
+   "description": "This check: checked_on, checker_id, qty_found, usage_since_last list, condition, label_legible, photo_attached, retest object or null"
+  },
+  {
+   "name": "owner",
+   "description": "Responsibility: pi_group, custodian, custodian_left_on, successor, exception object or null"
+  },
+  {
+   "name": "history",
+   "description": "List of prior checks with date, finding and action_status"
+  },
+  {
+   "name": "notes",
+   "description": "Free text: checker_note and custodian_reply, each one or two sentences or null"
+  }
+ ],
+ "rendering_notes": "qty_discrepancy_pct is shown only indirectly as container.qty_recorded against check.qty_found (null when qty_found_missing). usage_logged appears as check.usage_since_last entries {date, qty, user} whose sum closes most of the gap when true; when false the list is empty or covers a small part. store_mismatch shows as location.store_found differing from location.store_required. exception_status is rendered as owner.exception null (none) or {ref, approved_by, expires}, with expires after checked_on (current) or before it (expired). The reviewer must compare dates. days_overdue is computed only from container.review_by against check.checked_on; never state the day count. recent_retest_passed appears as check.retest {date, method, result_ppm or result, pass}, dated after review_by; it lowers concern for next_action but does not change review_overdue. container_condition maps to check.condition and check.label_legible (worn_label sets it false). custodian_status shows via owner.custodian_left_on (null if active) and owner.successor (null when no successor). check_sequence_anomaly shows as checked_on earlier than the last history date, or photo_attached false while checker_note mentions a photo. prior_open_actions is the count of history entries with action_status 'open'. checker_note_tone and custodian_reply_pending_fix fill notes.checker_note and notes.custodian_reply; replies promise e.g. moving the bottle or recounting, without proof. Decoys: location.neighbours sometimes lists incompatible classes even when the store type is correct. Alarming words ('crusty cap', 'smells') sometimes appear in notes that also say the issue was cleaned or replaced. Peroxide_former true appears on items that are not overdue. Old closed history findings repeat past problems. No field may state a verdict: no 'reconciled', 'compliant', 'risk', 'overdue_days' or 'recommended_action' fields. Dates are ISO, quantities numeric with a separate unit, and unknowns are null.",
+ "skills": [
+  "S2",
+  "S3",
+  "S4",
+  "S5",
+  "S6",
+  "S7"
+ ],
+ "shared_scale": "source_support",
+ "design_cost": 0.113848
+}

@@ -1,0 +1,162 @@
+{
+ "id": "F318-0127",
+ "family": "F318",
+ "state": {
+  "work_order": {
+   "tasks": [
+    {
+     "task_id": 1,
+     "asset_ref": "GATE-B"
+    },
+    {
+     "task_id": 2,
+     "asset_ref": "PAD-1"
+    }
+   ],
+   "nav_notice": {
+    "in_force": false
+   }
+  },
+  "visit_log": {
+   "arrived": "2024-06-12T08:00",
+   "departed": "2024-06-12T10:00",
+   "crew_size": 2,
+   "timesheet_hours": 5.85,
+   "task_status": [
+    {
+     "task_id": 1,
+     "status": "temp_fix",
+     "deferral_ref": "DF-88",
+     "deferral_due": "2024-06-20"
+    },
+    {
+     "task_id": 2,
+     "status": "done"
+    }
+   ]
+  },
+  "materials": {
+   "issued": [
+    {
+     "part_no": "P3",
+     "task_id": 1,
+     "qty": 1
+    }
+   ],
+   "returned": [],
+   "fitted": [
+    {
+     "part_no": "P3",
+     "task_id": 1,
+     "qty": 1
+    },
+    {
+     "part_no": "P9",
+     "task_id": 2,
+     "qty": 1
+    }
+   ]
+  },
+  "checks": {
+   "post_checks": [
+    {
+     "asset_ref": "GATE-A",
+     "result": "pass_advisory"
+    },
+    {
+     "asset_ref": "PAD-1",
+     "result": "pass"
+    }
+   ],
+   "leakage_ls": 10.5,
+   "leakage_limit_ls": 10
+  },
+  "asset_history": {
+   "prior_visits": [
+    {
+     "date": "2023-05-01",
+     "asset_ref": "GATE-B",
+     "defect_code": "SL2"
+    },
+    {
+     "date": "2023-09-10",
+     "asset_ref": "GATE-B",
+     "defect_code": "SL2"
+    },
+    {
+     "date": "2024-02-20",
+     "asset_ref": "GATE-B",
+     "defect_code": "SL2"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "visit_type": "reactive_callout",
+  "tasks_ordered": 2,
+  "completion_state": "temporary_fix",
+  "parts_qty_mismatch": "large",
+  "hours_gap": 1.85,
+  "asset_ref_mismatch": true,
+  "post_check_result": "passed_with_advisory",
+  "leakage_ratio": 1.05,
+  "leakage_mitigation": false,
+  "navigation_notice_in_force": false,
+  "deferral_approved": true,
+  "prior_same_defect": 3,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "visit_type": "reactive_callout",
+  "tasks_ordered": 8,
+  "completion_state": "temporary_fix",
+  "parts_qty_mismatch": "trivial",
+  "hours_gap": 1.85,
+  "asset_ref_mismatch": true,
+  "post_check_result": "failed",
+  "leakage_ratio": 2.11,
+  "leakage_mitigation": false,
+  "navigation_notice_in_force": true,
+  "deferral_approved": true,
+  "prior_same_defect": 3,
+  "boundary_case": false
+ },
+ "plan": {
+  "safe_to_reopen": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "record_disposition": {
+   "clarity": "clear",
+   "target": "close_with_followup",
+   "second": null
+  },
+  "return_urgency": {
+   "clarity": "balanced",
+   "target": "next_scheduled",
+   "second": "within_week"
+  },
+  "affected_scope": {
+   "clarity": "contested",
+   "target": "2",
+   "second": "1"
+  },
+  "section_mismatches": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  }
+ },
+ "target_words": 26,
+ "deciding": {
+  "safe_to_reopen": "Checks show only pass_advisory and pass, but leakage 10.5 is slightly over limit 10 with no mitigation, and GATE-B has no check of its own.",
+  "record_disposition": "Task 1 temp_fix carries deferral ref DF-88 with due date, so the work is covered and the visit can close with a follow-up job.",
+  "return_urgency": "DF-88 is due 2024-06-20, 8 days after the visit, so it falls right at the week boundary between next cycle and a one-week return.",
+  "affected_scope": "No user count is recorded; one gate pair on a single lock could affect a small group or the boaters of the whole flight.",
+  "section_mismatches": "Task asset GATE-B vs check asset GATE-A; timesheet 5.85h vs 2h x 2 = 4h; fitted P9 has no issue line."
+ },
+ "request": "rec-F318-0126",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.015823
+}

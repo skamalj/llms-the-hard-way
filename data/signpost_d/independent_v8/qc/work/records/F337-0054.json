@@ -1,0 +1,108 @@
+{
+ "id": "F337-0054",
+ "family": "F337",
+ "state": {
+  "station": {
+   "sta": "PLNO",
+   "channels": [
+    {
+     "cha": "BHZ",
+     "sensor_serial": "T-901",
+     "response_epoch_start": "2022-03-01"
+    }
+   ]
+  },
+  "acquisition": {
+   "day": "2024-02-14",
+   "channel_hours_expected": 24,
+   "completeness_pct": 99.8,
+   "gaps": [],
+   "gps_lock_pct": 98
+  },
+  "qc_metrics": {
+   "psd_dev_db": 22,
+   "spikes": 40,
+   "dead": false,
+   "cal_pulse": {
+    "date": "2024-02-13",
+    "result": "pass"
+   }
+  },
+  "maintenance_log": [
+   {
+    "date": "2023-11-20",
+    "action": "sensor_swap",
+    "sensor_serial_installed": "T-977"
+   }
+  ],
+  "operator_notes": [
+   "Swapped sensor on 2022-03-01; no outages today."
+  ]
+ },
+ "factors": {
+  "sensor_metadata_state": "swap_stale",
+  "maintenance_log_present": true,
+  "gap_coverage": "no_gaps",
+  "true_usable_fraction": 0.95,
+  "completeness_summary_drift": 3.56,
+  "timing_quality": "locked",
+  "calibration_status": "passed",
+  "noise_excess_db": 22.02,
+  "benign_noise_cause_logged": false,
+  "operator_note_consistency": "contradicts_data",
+  "dead_channels": 0,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "sensor_metadata_state": "no_swap",
+  "maintenance_log_present": true,
+  "gap_coverage": "no_gaps",
+  "true_usable_fraction": 0.69,
+  "completeness_summary_drift": 3.56,
+  "timing_quality": "locked",
+  "calibration_status": "passed",
+  "noise_excess_db": 22.02,
+  "benign_noise_cause_logged": false,
+  "operator_note_consistency": "contradicts_data",
+  "dead_channels": 0,
+  "boundary_case": false
+ },
+ "plan": {
+  "response_valid": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "gaps_explained": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "disposition": {
+   "clarity": "leaning",
+   "target": "quarantine",
+   "second": null
+  },
+  "usable_fraction": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  },
+  "pending_age": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  }
+ },
+ "target_words": 67,
+ "deciding": {
+  "response_valid": "Station serial T-901 and epoch 2022-03-01 predate logged swap 2023-11-20 to T-977; the note contradicts the log.",
+  "gaps_explained": "No gaps listed, so vacuously true; unexplained 22 dB noise adds some doubt.",
+  "disposition": "Stale metadata plus unexplained heavy noise and contradictory note; cal pulse passed though, so doubt remains.",
+  "usable_fraction": "No gaps or dead channel but 22 dB noise and 40 spikes unexplained; near 90-99% boundary.",
+  "pending_age": "Day 2024-02-14 with no received date; weeks old likely, one-to-thirty-day range ambiguous."
+ },
+ "request": "rec-F337-0051",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.005043
+}

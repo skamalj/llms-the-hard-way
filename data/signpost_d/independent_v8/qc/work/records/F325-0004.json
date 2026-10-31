@@ -1,0 +1,117 @@
+{
+ "id": "F325-0004",
+ "family": "F325",
+ "state": {
+  "pen": {
+   "id": "B5",
+   "stage": "broodstock",
+   "limits": {
+    "do_min_mg_l": 6.0
+   }
+  },
+  "check": {
+   "pen_id": "B6",
+   "depth_profile": [
+    {
+     "depth_m": 5,
+     "do_mg_l": 4.65
+    }
+   ],
+   "readings": {
+    "do_mg_l": 4.65
+   }
+  },
+  "history": [
+   {
+    "in_limits": false
+   },
+   {
+    "in_limits": false
+   },
+   {
+    "in_limits": true
+   },
+   {
+    "in_limits": false
+   },
+   {
+    "in_limits": true
+   },
+   {
+    "in_limits": true
+   }
+  ],
+  "notes": {
+   "sampler": "all fine, good oxygen",
+   "signoff": null
+  }
+ },
+ "factors": {
+  "stock_stage": "broodstock",
+  "true_do_margin": -1.35,
+  "primary_cause": "recording",
+  "cross_section_mismatch": "pen_id_mismatch",
+  "calibration_state": "current",
+  "logger_alarm_raised": false,
+  "mitigation_present": false,
+  "mitigation_kind": "none",
+  "history_out_of_range": 3,
+  "missing_required": 2,
+  "date_order_fault": false,
+  "boundary_case": false,
+  "note_tone": "reassuring_contradicted"
+ },
+ "factors_sampled": {
+  "stock_stage": "broodstock",
+  "true_do_margin": -1.35,
+  "primary_cause": "none",
+  "cross_section_mismatch": "pen_id_mismatch",
+  "calibration_state": "current",
+  "logger_alarm_raised": false,
+  "mitigation_present": false,
+  "mitigation_kind": "aeration_running",
+  "history_out_of_range": 6,
+  "missing_required": 1,
+  "date_order_fault": false,
+  "boundary_case": false,
+  "note_tone": "reassuring_contradicted"
+ },
+ "plan": {
+  "genuine_do_breach": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "resample_first",
+   "second": null
+  },
+  "deviation_cause": {
+   "clarity": "clear",
+   "target": "recording_error",
+   "second": null
+  },
+  "persistence": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "evidence_completeness": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  }
+ },
+ "target_words": 35,
+ "deciding": {
+  "genuine_do_breach": "Reading 4.65 is far below do_min 6.0 and nothing offsets it; the 'all fine' note is contradicted by the value.",
+  "next_step": "check.pen_id B6 differs from pen.pen_id B5 and signoff is null, so the check must be repeated and attributed correctly.",
+  "deviation_cause": "The one-character pen_id mismatch between sections is the only anomaly; no instrument, environmental or husbandry fields.",
+  "persistence": "Three of six history checks are out of limits; with the current reading that is four, or three if the mismatched-pen check is not counted.",
+  "evidence_completeness": "The pen_id mismatch and null signoff are two invalid elements; the single-point profile and absent instrument block may make it three."
+ },
+ "request": "rec-F325-0001",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011348
+}

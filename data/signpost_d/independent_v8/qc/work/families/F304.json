@@ -1,0 +1,348 @@
+{
+ "id": "F304",
+ "domain": "hospital patient transport bookings",
+ "role": "Non-emergency patient transport booking clerk in a hospital transport control office. The clerk checks each submitted journey booking against the patient's clinical and eligibility details before releasing it to dispatch.",
+ "setting": "An acute hospital trust runs its own non-emergency patient transport service for outpatient appointments, discharges, dialysis, chemotherapy and inter-site transfers. Wards and clinics submit bookings through an internal system. A control clerk reviews each booking one at a time before it goes to the dispatch board. The clerk checks the requested vehicle and crew against the latest mobility assessment and equipment needs. The clerk also checks eligibility and exemptions, the pickup window against the estimated journey time, and the ward, referrer and control notes. Records often carry conflicting values between sections, partial confirmations and reassuring details that may or may not settle a concern.",
+ "questions": {
+  "vehicle_fit": {
+   "type": "noul",
+   "instructions": "The booked vehicle class fits the patient's assessed mobility and equipment.",
+   "criteria": {
+    "true": "Vehicle class matches current assessment and listed equipment.",
+    "false": "Vehicle mismatched, or assessment missing or out of date."
+   }
+  },
+  "disposition": {
+   "type": "choice",
+   "instructions": "What should happen to this booking before dispatch?",
+   "criteria": {
+    "confirm": "No conflicts or outstanding items; dispatch exactly as submitted.",
+    "amend_confirm": "Correctable field conflict, nothing outstanding; fix then dispatch.",
+    "hold": "One confirmation outstanding from ward; dispatch not yet safe.",
+    "decline": "Eligibility unmet with no recorded exception; refer elsewhere."
+   }
+  },
+  "crew_config": {
+   "type": "choice",
+   "instructions": "Which crew configuration does this journey require?",
+   "criteria": {
+    "single_crew": "No oxygen or monitoring; patient walks or sits unaided.",
+    "double_crew": "Wheelchair or stretcher transfer needed, without oxygen or monitoring.",
+    "clinical_escort": "Oxygen or en-route monitoring needed, patient under bariatric limit.",
+    "specialist_team": "Weight over bariatric limit or high-flow oxygen needing specialist kit."
+   }
+  },
+  "time_pressure": {
+   "type": "score",
+   "instructions": "How tight is the pickup window against required arrival time?",
+   "criteria": [
+    "Over 90 minutes spare after estimated journey",
+    "30 to 90 minutes spare, inclusive",
+    "Under 30 minutes spare, arrival still on time",
+    "Estimated journey overruns window; arrival will be late"
+   ]
+  },
+  "delay_impact": {
+   "type": "score",
+   "instructions": "What clinical consequence follows if this journey runs late?",
+   "criteria": [
+    "Low: routine outpatient slot, rebookable, no treatment involved",
+    "Moderate: discharge held, or treatment reslotted same day",
+    "High: treatment session lost, no same-day reslot available",
+    "Critical: theatre or transfer slot lost, no same-day alternative"
+   ]
+  }
+ },
+ "factors": [
+  {
+   "name": "mobility_alignment",
+   "description": "How request.mobility_booked and request.vehicle_class compare with patient.mobility_assessed and its date. 'understated' means the booking asks for less than the assessment shows (seated for a stretcher patient). 'overstated' means it asks for more. 'stale' means the assessment is more than 30 days older than the journey. 'missing' means the assessment is null.",
+   "kind": "categorical",
+   "values": [
+    "matches",
+    "understated",
+    "overstated",
+    "stale",
+    "missing"
+   ],
+   "weights": [
+    0.4,
+    0.2,
+    0.15,
+    0.13,
+    0.12
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S5"
+   ]
+  },
+  {
+   "name": "secondary_discrepancy",
+   "description": "A second cross-section mismatch, placed in varied fields and never flagged. 'ward_trivial' is a pickup ward code in a different format but the same ward. 'address_material' is a request pickup that differs from the patient's current location. 'time_trivial' is an appointment time differing by 5 minutes or less between request and journey. 'time_material' is a difference of more than 20 minutes. 'equipment_unlisted' is equipment named in a note but absent from request.equipment.",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "ward_trivial",
+    "address_material",
+    "time_trivial",
+    "time_material",
+    "equipment_unlisted"
+   ],
+   "weights": [
+    0.3,
+    0.14,
+    0.14,
+    0.14,
+    0.14,
+    0.14
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S4"
+   ]
+  },
+  {
+   "name": "eligibility_concern",
+   "description": "Whether patient fields suggest the patient may not meet transport eligibility. Examples: own_transport_available true, mobility independent, or a note saying a relative usually drives.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.35,
+   "skills": [
+    "S3",
+    "S5",
+    "S7"
+   ]
+  },
+  {
+   "name": "eligibility_exception",
+   "description": "Mitigation for an eligibility concern. An approved exemption code with approver and date is recorded in patient.exemption, for example a carer unable to assist a transfer or post-sedation travel. It appears with and without an eligibility concern about equally.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S6"
+   ]
+  },
+  {
+   "name": "clinical_support",
+   "description": "The highest en-route support the patient needs, shown through patient.oxygen_lpm, patient.monitoring and patient.weight_kg. Weight is compared with the service bariatric limit of 160 kg. The level of support determines the crew configuration, with the highest requirement taking precedence.",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "transfer_assist",
+    "low_flow_oxygen",
+    "cardiac_monitoring",
+    "high_flow_oxygen",
+    "bariatric"
+   ],
+   "weights": [
+    0.3,
+    0.25,
+    0.15,
+    0.1,
+    0.08,
+    0.12
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S7"
+   ]
+  },
+  {
+   "name": "crew_request_gap",
+   "description": "How request.crew_requested compares with the configuration that clinical_support implies. The request can be correct, one step too low or one step too high.",
+   "kind": "categorical",
+   "values": [
+    "correct",
+    "under_one_step",
+    "over_one_step"
+   ],
+   "weights": [
+    0.55,
+    0.3,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S4"
+   ]
+  },
+  {
+   "name": "buffer_minutes",
+   "description": "Required arrival time minus (latest pickup plus estimated journey duration), in minutes. Negative values mean a late arrival. The value is derived from journey.window_end, journey.est_duration_min and request.appt_time, and is never shown directly.",
+   "kind": "number",
+   "values": [],
+   "weights": [],
+   "min": -45,
+   "max": 160,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S6",
+    "S7"
+   ]
+  },
+  {
+   "name": "duration_estimate_split",
+   "description": "Whether the journey section carries two duration estimates, a routing estimate and a control-room manual estimate. The two estimates straddle the 30-minute or 90-minute buffer threshold, leaving the time pressure level contestable.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.2,
+   "skills": [
+    "S6"
+   ]
+  },
+  {
+   "name": "late_tolerance",
+   "description": "Mitigation for a tight window. The destination has recorded late-arrival tolerance in minutes (journey.late_tolerance_min greater than 0), or a note confirms the clinic will hold the slot. This changes the disposition but not the time pressure score. It appears near half the time regardless of buffer.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S4"
+   ]
+  },
+  {
+   "name": "appointment_type",
+   "description": "The purpose of the journey, given in request.appt_type with a matching destination department. This is the base input for the delay impact score.",
+   "kind": "categorical",
+   "values": [
+    "outpatient",
+    "discharge",
+    "dialysis",
+    "chemotherapy",
+    "theatre_transfer"
+   ],
+   "weights": [
+    0.32,
+    0.24,
+    0.18,
+    0.14,
+    0.12
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S7"
+   ]
+  },
+  {
+   "name": "same_day_reslot",
+   "description": "Mitigation for delay impact. The receiving unit notes that it can reslot the patient the same day, shown as a note line or destination.reslot_same_day true. It lowers delay impact by one band for treatment and theatre journeys. It appears near half the time.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S4",
+    "S6"
+   ]
+  },
+  {
+   "name": "confirmation_pending",
+   "description": "Exactly one item is outstanding before dispatch is safe. Examples: discharge medicines not yet ready, fit-to-travel sign-off blank, or the escort name to be confirmed. It appears as a null field plus a note line.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.3,
+   "skills": [
+    "S4",
+    "S5"
+   ]
+  },
+  {
+   "name": "prior_aborts",
+   "description": "The number of aborted journeys in the last 90 days in the history list. Each has a reason. Some reasons are unrelated and benign, such as clinic cancelled or a weather day. Others relate to the current booking, such as wrong vehicle sent or patient not ready.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 4,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S7"
+   ]
+  },
+  {
+   "name": "aborts_related",
+   "description": "Whether at least one prior abort reason matches a problem present in the current booking, such as wrong vehicle class or patient not ready. If false, any aborts present are decoys.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S5"
+   ]
+  }
+ ],
+ "sections": [
+  {
+   "name": "request",
+   "description": "Booking as submitted: ref, requester, appt_type, appt_time, vehicle_class, crew_requested, mobility_booked, equipment list, pickup and destination codes."
+  },
+  {
+   "name": "patient",
+   "description": "Patient details: pt_ref, mobility_assessed, assessed_on, weight_kg, oxygen_lpm, monitoring, own_transport_available, carer_available, exemption object or null, current_location."
+  },
+  {
+   "name": "journey",
+   "description": "Planning data: window_start, window_end, est_duration_min, manual_est_min or null, distance_km, late_tolerance_min, destination.reslot_same_day."
+  },
+  {
+   "name": "history",
+   "description": "List of prior journeys in the last 90 days, each with date, outcome (completed or aborted), vehicle_class and reason."
+  },
+  {
+   "name": "notes",
+   "description": "One to three short free-text lines: ward_note, referrer_note, control_note, each a single sentence or null."
+  }
+ ],
+ "rendering_notes": "mobility_alignment: shown by comparing request.mobility_booked and request.vehicle_class with patient.mobility_assessed and patient.assessed_on against request.appt_time. A stale or null assessment makes vehicle_fit false even when the values agree. secondary_discrepancy: placed in the field pair it names. Trivial variants include a ward code written 'W12' against 'Ward 12', or a 3-minute time difference. These are decoys that do not justify amend_confirm on their own. Material variants (an address mismatch, a time difference over 20 minutes, unlisted equipment such as 'needs own oxygen cylinder' in ward_note while request.equipment omits it) do justify it. eligibility_concern: shown by own_transport_available true, mobility independent or a referrer_note remark. eligibility_exception: shown as patient.exemption {code, approved_by, approved_on}, or null when absent. A concern with no exception leads to decline. A concern with an exception does not. clinical_support: shown only through numbers and flags: oxygen_lpm 0 or null, 2, or 10 (10 counts as high flow), monitoring 'cardiac' or null, and weight_kg (decoy weights of 150 to 159 sit just under the 160 kg limit). crew_request_gap: request.crew_requested differs from the implied configuration without any comment. buffer_minutes: derived only from window_end, est_duration_min and appt_time. Never print a buffer or slack field. duration_estimate_split: when true, manual_est_min is non-null and moves the buffer across 30 or 90. late_tolerance: journey.late_tolerance_min greater than 0, or a control_note stating the clinic will hold the slot. same_day_reslot: destination.reslot_same_day true, or a note line; it is null or false otherwise. confirmation_pending: one null field (for example fit_to_travel_signed or escort_name) plus a matching note sentence; if any confirmation is pending, the disposition is hold rather than amend_confirm. prior_aborts and aborts_related: shown as history entries with outcome 'aborted' and a reason. Unrelated reasons are decoys that must not raise concern alone. Never include fields that state an answer: no priority, risk, eligible, approved_for_dispatch, crew_required or urgency fields, and notes never say what the clerk should decide. Status-like values a real system shows, such as an exemption code, are acceptable.",
+ "skills": [
+  "S1",
+  "S3",
+  "S4",
+  "S5",
+  "S6",
+  "S7"
+ ],
+ "shared_scale": null,
+ "design_cost": 0.18654
+}

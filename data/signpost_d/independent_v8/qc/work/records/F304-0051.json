@@ -1,0 +1,108 @@
+{
+ "id": "F304-0051",
+ "family": "F304",
+ "state": {
+  "request": {
+   "appt_type": "chemotherapy",
+   "appt_time": "2024-05-09T10:00",
+   "vehicle_class": "wheelchair_car",
+   "crew_requested": "double",
+   "mobility_booked": "wheelchair",
+   "equipment": []
+  },
+  "patient": {
+   "mobility_assessed": "wheelchair",
+   "assessed_on": "2024-05-02",
+   "oxygen_lpm": 2,
+   "monitoring": null,
+   "own_transport_available": false,
+   "exemption": {
+    "code": "MOB2",
+    "approved_by": "MK",
+    "approved_on": "2024-03-01"
+   }
+  },
+  "journey": {
+   "window_end": "2024-05-09T09:00",
+   "est_duration_min": 30,
+   "late_tolerance_min": 0,
+   "destination": {
+    "reslot_same_day": true
+   }
+  },
+  "notes": {
+   "ward_note": "Patient needs own oxygen cylinder.",
+   "control_note": "Chair may be reused later if one is free."
+  }
+ },
+ "factors": {
+  "mobility_alignment": "matches",
+  "secondary_discrepancy": "equipment_material",
+  "eligibility_concern": false,
+  "eligibility_exception": true,
+  "clinical_support": "low_flow_oxygen",
+  "crew_request_gap": "under_one_step",
+  "buffer_minutes": 30.0,
+  "duration_estimate_split": false,
+  "late_tolerance": false,
+  "appointment_type": "chemotherapy",
+  "same_day_reslot": true,
+  "confirmation_pending": false,
+  "prior_aborts": 0,
+  "aborts_related": false
+ },
+ "factors_sampled": {
+  "mobility_alignment": "matches",
+  "secondary_discrepancy": "none",
+  "eligibility_concern": false,
+  "eligibility_exception": true,
+  "clinical_support": "transfer_assist",
+  "crew_request_gap": "under_one_step",
+  "buffer_minutes": 116.11,
+  "duration_estimate_split": false,
+  "late_tolerance": false,
+  "appointment_type": "chemotherapy",
+  "same_day_reslot": false,
+  "confirmation_pending": false,
+  "prior_aborts": 0,
+  "aborts_related": false
+ },
+ "plan": {
+  "vehicle_fit": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "disposition": {
+   "clarity": "leaning",
+   "target": "amend_confirm",
+   "second": null
+  },
+  "crew_config": {
+   "clarity": "leaning",
+   "target": "clinical_escort",
+   "second": null
+  },
+  "time_pressure": {
+   "clarity": "contested",
+   "target": "1",
+   "second": "2"
+  },
+  "delay_impact": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  }
+ },
+ "target_words": 30,
+ "deciding": {
+  "vehicle_fit": "Mobility and vehicle agree with a recent assessment, but the ward note mentions an oxygen cylinder that equipment omits, leaving some doubt.",
+  "disposition": "Ward_note says own oxygen cylinder while request.equipment is empty: a correctable conflict with nothing outstanding.",
+  "crew_config": "oxygen_lpm 2 with weight not near the limit points to clinical escort; the double crew requested is slightly under.",
+  "time_pressure": "Window_end 09:00 plus 30 min estimate leaves exactly 30 min before the 10:00 appointment, on the 1/2 boundary.",
+  "delay_impact": "Chemotherapy with reslot_same_day true suggests level 1, but the control note makes the reslot conditional on chair availability."
+ },
+ "request": "rec-F304-0051",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012042
+}

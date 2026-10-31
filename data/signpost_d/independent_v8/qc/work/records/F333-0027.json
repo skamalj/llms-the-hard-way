@@ -1,0 +1,144 @@
+{
+ "id": "F333-0027",
+ "family": "F333",
+ "state": {
+  "room": {
+   "room_id": "C03-110",
+   "rate_card_ref": "RC24"
+  },
+  "tenancy": {
+   "start_date": "2024-01-08",
+   "end_date": "2024-06-14"
+  },
+  "checkin_inventory": {
+   "signed_date": "2024-01-08",
+   "items": [
+    {
+     "item_code": "SHWR",
+     "grade": "fair"
+    },
+    {
+     "item_code": "CURT",
+     "grade": "good"
+    }
+   ]
+  },
+  "checkout_inspection": {
+   "inspection_type": "checkout",
+   "inspection_date": "2024-01-02",
+   "items": [
+    {
+     "item_code": "SHWR",
+     "grade": "damaged",
+     "defect_category": "no_hot_water",
+     "photo_refs": [
+      "p4"
+     ]
+    },
+    {
+     "item_code": "CURT",
+     "grade": "good",
+     "photo_refs": [
+      "p5"
+     ]
+    }
+   ]
+  },
+  "proposed_charges": {
+   "lines": [
+    {
+     "item_code": "SHWR",
+     "qty": 1,
+     "unit_rate": 40,
+     "line_total": 40
+    },
+    {
+     "item_code": "CURT",
+     "qty": 1,
+     "unit_rate": 100.5,
+     "line_total": 100.5
+    }
+   ],
+   "summary_total": 140.5,
+   "rate_card_ref": "RC24"
+  },
+  "works_orders": [
+   {
+    "wo_id": "W31",
+    "raised_date": "2024-03-02",
+    "location": "bathroom",
+    "category": "hot_water",
+    "priority_code": "P2",
+    "status": "open"
+   }
+  ]
+ },
+ "factors": {
+  "inspection_type": "checkout",
+  "checkin_inventory_state": "complete",
+  "prior_damage_on_charged_item": "one_item",
+  "charge_discrepancy": "large_over_100",
+  "worst_defect_tier": "habitability",
+  "true_cause": "building_fault",
+  "predating_works_order": false,
+  "safety_fault_remedied": false,
+  "photo_coverage": "full",
+  "tenancy_months": 5,
+  "date_out_of_order": true,
+  "deposit_dispute_lodged": false,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "inspection_type": "checkout",
+  "checkin_inventory_state": "complete",
+  "prior_damage_on_charged_item": "none",
+  "charge_discrepancy": "medium_25_to_100",
+  "worst_defect_tier": "cosmetic",
+  "true_cause": "resident_damage",
+  "predating_works_order": false,
+  "safety_fault_remedied": false,
+  "photo_coverage": "full",
+  "tenancy_months": 5,
+  "date_out_of_order": false,
+  "deposit_dispute_lodged": false,
+  "boundary_case": false
+ },
+ "plan": {
+  "checkin_clean": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "disposition": {
+   "clarity": "leaning",
+   "target": "order_reinspection",
+   "second": null
+  },
+  "main_cause": {
+   "clarity": "clear",
+   "target": "building_fault",
+   "second": null
+  },
+  "defect_severity": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  },
+  "charge_gap": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 39,
+ "deciding": {
+  "checkin_clean": "Charged SHWR is graded fair at check-in, which is not undamaged-perfect but not damaged; CURT is good. Both readings are defensible.",
+  "disposition": "inspection_date 2024-01-02 is before tenancy start 2024-01-08 and end 2024-06-14, so the inspection is misdated; reinspection is needed, though charge lines could alternatively be corrected.",
+  "main_cause": "no_hot_water at SHWR matches open works order W31 for hot_water in the bathroom, a building services fault.",
+  "defect_severity": "no_hot_water stops normal use of the room (habitability); it is not a safety category.",
+  "charge_gap": "CURT is graded good at checkout yet charged 100.50; with SHWR 40 as evidenced the gap is 100.50, just above the 100.00 boundary, and excluding the disputed SHWR charge could change it."
+ },
+ "request": "rec-F333-0026",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.013368
+}

@@ -1,0 +1,147 @@
+{
+ "id": "F317-0040",
+ "family": "F317",
+ "state": {
+  "vehicle": {
+   "fleet_no": 6071,
+   "class": "T1",
+   "odometer_km": 90198,
+   "last_exam_type": "B",
+   "last_exam_date": "2024-04-09"
+  },
+  "exam": {
+   "exam_id": "E-9015",
+   "due_at_km": 90000,
+   "opened_at": "2024-06-08T08:00",
+   "items": [
+    {
+     "item_code": "BR1",
+     "signed_by": "u6",
+     "signed_at": "2024-06-08T07:45"
+    },
+    {
+     "item_code": "DR2",
+     "signed_by": "u6",
+     "signed_at": "2024-06-08T08:30"
+    },
+    {
+     "item_code": "PN1",
+     "signed_by": "u6",
+     "signed_at": "2024-06-08T09:00"
+    },
+    {
+     "item_code": "WH3",
+     "signed_by": "u2",
+     "signed_at": "2024-06-08T09:20"
+    },
+    {
+     "item_code": "EL4",
+     "signed_by": "u2",
+     "signed_at": "2024-06-08T09:45"
+    },
+    {
+     "item_code": "CP5",
+     "signed_by": "u2",
+     "signed_at": "2024-06-08T10:10"
+    }
+   ]
+  },
+  "defects": [
+   {
+    "defect_id": "D-15",
+    "subsystem": "saloon_doors",
+    "safety_critical": true,
+    "status": "closed",
+    "closed_at": "2024-06-05",
+    "retest_at": null,
+    "retest_result": "waived"
+   }
+  ],
+  "work_orders": [
+   {
+    "defect_ref": "D-15",
+    "subsystem": "saloon_doors",
+    "completed_at": "2024-06-05",
+    "status": "completed"
+   }
+  ],
+  "concessions": [],
+  "release": {
+   "duty_type": "off_peak",
+   "depart_at": "2024-06-10T10:00",
+   "odo_reading_km": 90198,
+   "brake_test_at": "2024-06-10T08:30",
+   "brake_test_result": "pass"
+  }
+ },
+ "factors": {
+  "km_to_exam_due": -198,
+  "odometer_disagreement": "none",
+  "exam_signed_fraction": 1.0,
+  "exam_record_missing": false,
+  "worst_defect_subsystem": "none",
+  "worst_defect_state": "closed_retest_waived",
+  "worst_defect_safety_critical": true,
+  "retest_out_of_order": false,
+  "concession_present": false,
+  "concession_flaw": "none",
+  "wo_crossref_mismatch": "none",
+  "planned_duty_type": "off_peak",
+  "recent_brake_test_pass": true,
+  "balanced_signals": false
+ },
+ "factors_sampled": {
+  "km_to_exam_due": 74,
+  "odometer_disagreement": "none",
+  "exam_signed_fraction": 0.14,
+  "exam_record_missing": true,
+  "worst_defect_subsystem": "saloon_doors",
+  "worst_defect_state": "open_no_wo",
+  "worst_defect_safety_critical": false,
+  "retest_out_of_order": false,
+  "concession_present": true,
+  "concession_flaw": "none",
+  "wo_crossref_mismatch": "none",
+  "planned_duty_type": "off_peak",
+  "recent_brake_test_pass": true,
+  "balanced_signals": false
+ },
+ "plan": {
+  "sc_defects_cleared": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "release_decision": {
+   "clarity": "clear",
+   "target": "release",
+   "second": null
+  },
+  "worst_subsystem": {
+   "clarity": "clear",
+   "target": "none",
+   "second": null
+  },
+  "exam_completion": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "exam_mileage": {
+   "clarity": "contested",
+   "target": "2",
+   "second": "3"
+  }
+ },
+ "target_words": 61,
+ "deciding": {
+  "sc_defects_cleared": "D-15 is safety-critical and closed, but retest_at is null and retest_result is only 'waived', so no real retest is recorded.",
+  "release_decision": "Off-peak duty, a passing brake test 1.5 h before departure, a completed repair, a fully signed exam and no open defects, and no concession is needed.",
+  "worst_subsystem": "The only defect, D-15, is closed with its WO completed, so nothing is open or pending.",
+  "exam_completion": "All 6 items are signed with timestamps, but BR1 was signed at 07:45, before the exam opened_at of 08:00.",
+  "exam_mileage": "Odometer 90198 against due 90000 is 198 km past, just under the 200 km boundary, and both odometer readings agree."
+ },
+ "request": "rec-F317-0036",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.014678
+}

@@ -1,0 +1,134 @@
+{
+ "id": "F318-0103",
+ "family": "F318",
+ "state": {
+  "work_order": {
+   "visit_type": "routine_inspection",
+   "tasks": [
+    {
+     "task_id": 1,
+     "asset_ref": "GT-1"
+    },
+    {
+     "task_id": 2,
+     "asset_ref": "PD-2"
+    }
+   ],
+   "nav_notice": {
+    "in_force": false
+   }
+  },
+  "visit_log": {
+   "arrived": "2025-05-12T09:00",
+   "departed": "2025-05-12T11:00",
+   "crew_size": 2,
+   "timesheet_hours": 4.15,
+   "task_status": [
+    {
+     "task_id": 1,
+     "status": "done"
+    },
+    {
+     "task_id": 2,
+     "status": "done"
+    }
+   ]
+  },
+  "checks": {
+   "post_checks": [
+    {
+     "asset_ref": "GT-1",
+     "result": "pass"
+    },
+    {
+     "asset_ref": "PD-2",
+     "result": "pass"
+    }
+   ],
+   "leakage_ls": 8.1,
+   "leakage_limit_ls": 5,
+   "river_level_m": 2.2,
+   "flood_marker_m": 3
+  },
+  "asset_history": {
+   "prior_visits": [
+    {
+     "asset_ref": "PD-2",
+     "defect_code": "LEAK"
+    },
+    {
+     "asset_ref": "PD-2",
+     "defect_code": "LEAK"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "visit_type": "routine_inspection",
+  "tasks_ordered": 2,
+  "completion_state": "all_done",
+  "parts_qty_mismatch": "none",
+  "hours_gap": 0.15,
+  "asset_ref_mismatch": false,
+  "post_check_result": "passed",
+  "leakage_ratio": 1.62,
+  "leakage_mitigation": false,
+  "navigation_notice_in_force": false,
+  "deferral_approved": false,
+  "prior_same_defect": 2,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "visit_type": "routine_inspection",
+  "tasks_ordered": 2,
+  "completion_state": "all_done",
+  "parts_qty_mismatch": "none",
+  "hours_gap": 0.15,
+  "asset_ref_mismatch": false,
+  "post_check_result": "passed",
+  "leakage_ratio": 1.62,
+  "leakage_mitigation": false,
+  "navigation_notice_in_force": false,
+  "deferral_approved": false,
+  "prior_same_defect": 2,
+  "boundary_case": false
+ },
+ "plan": {
+  "safe_to_reopen": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "record_disposition": {
+   "clarity": "contested",
+   "target": "hold_query",
+   "second": "close_visit"
+  },
+  "return_urgency": {
+   "clarity": "contested",
+   "target": "within_week",
+   "second": "next_scheduled"
+  },
+  "affected_scope": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  },
+  "section_mismatches": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  }
+ },
+ "target_words": 42,
+ "deciding": {
+  "safe_to_reopen": "Both checks pass and tasks done, but leakage 8.1 exceeds limit 5 with no mitigating river level.",
+  "record_disposition": "Leakage over limit despite passing checks; query the crew or close as logged.",
+  "return_urgency": "Over-limit leakage with two prior PD-2 leak defects; week or next cycle defensible.",
+  "affected_scope": "One lock leaking, no notice; one unit or a few boats.",
+  "section_mismatches": "Leakage over limit against passing checks, hours gap 0.15, and repeat PD-2 leaks suggest several unexplained conflicts, a leaning three or more."
+ },
+ "request": "rec-F318-0101",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.006384
+}

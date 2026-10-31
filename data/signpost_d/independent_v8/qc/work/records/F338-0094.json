@@ -1,0 +1,120 @@
+{
+ "id": "F338-0094",
+ "family": "F338",
+ "state": {
+  "site": {
+   "id": "S-SO2-310",
+   "pollutant": "SO2",
+   "tier": "standard",
+   "service_interval_days": 90
+  },
+  "visit": {
+   "date": "2024-08-20",
+   "sequence_status": "complete"
+  },
+  "reference": {
+   "standard_id": "CYL-6620",
+   "conc": 401.5,
+   "unit": "ppb",
+   "cert_expiry": "2025-01-13"
+  },
+  "checks": [
+   {
+    "type": "as_found_span",
+    "ref_id": "CYL-6620",
+    "ref_conc": 400,
+    "unit": "ppb",
+    "reading": 454.4,
+    "tol": 40
+   },
+   {
+    "type": "as_left_span",
+    "ref_id": "CYL-6620",
+    "ref_conc": 400,
+    "unit": "ppb",
+    "reading": 399,
+    "tol": 40
+   }
+  ],
+  "history": {
+   "last_visit_date": "2024-05-23",
+   "results": [
+    "pass",
+    "pass"
+   ]
+  },
+  "instrument": {
+   "alarms": [
+    "UV_LAMP_FAULT"
+   ]
+  }
+ },
+ "factors": {
+  "pollutant": "SO2",
+  "as_found_ratio": 1.36,
+  "as_left_status": "all_pass",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 146,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "none",
+  "days_since_last_visit": 89,
+  "visit_completeness": "complete",
+  "prior_fail_count": 0,
+  "timestamp_mismatch": "none",
+  "site_priority": "standard"
+ },
+ "factors_sampled": {
+  "pollutant": "SO2",
+  "as_found_ratio": 1.36,
+  "as_left_status": "all_pass",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 146,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "none",
+  "days_since_last_visit": 89,
+  "visit_completeness": "complete",
+  "prior_fail_count": 0,
+  "timestamp_mismatch": "none",
+  "site_priority": "standard"
+ },
+ "plan": {
+  "data_accepted": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "reference_valid": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "withdraw",
+   "second": null
+  },
+  "flag_extent": {
+   "clarity": "contested",
+   "target": "2",
+   "second": "3"
+  },
+  "return_urgency": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 44,
+ "deciding": {
+  "data_accepted": "The as-left check is within tolerance and the history shows no fails, so the data are judged acceptable.",
+  "reference_valid": "Standard id and units match and the certificate runs to 2025-01-13, but check ref_conc 400 differs slightly from reference.conc 401.5.",
+  "next_step": "Active alarm UV_LAMP_FAULT in instrument.alarms means a hardware fault beyond site adjustment, so the analyser goes to the workshop.",
+  "flag_extent": "The as-found span is 54.4 off against tol 40 over the 89 days since 2024-05-23, so flagging the last 30 days or the whole interval are both defensible.",
+  "return_urgency": "The lamp fault alarm on a standard site argues for return within one to two days, but the as-left pass makes three to seven days plausible."
+ },
+ "request": "rec-F338-0091",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012993
+}

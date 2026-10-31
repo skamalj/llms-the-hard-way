@@ -1,0 +1,152 @@
+{
+ "id": "F333-0024",
+ "family": "F333",
+ "state": {
+  "room": {
+   "room_id": "D118",
+   "next_occupancy_date": "2024-07-01",
+   "rate_card_ref": "RC24"
+  },
+  "tenancy": {
+   "start_date": "2023-09-10",
+   "end_date": "2024-08-10"
+  },
+  "checkin_inventory": {
+   "signed_date": "2023-09-24",
+   "signed_by_resident": true,
+   "items": [
+    {
+     "item_code": "SMK",
+     "location": "bedroom",
+     "grade": "damaged"
+    },
+    {
+     "item_code": "WAL",
+     "location": "bedroom",
+     "grade": "good"
+    }
+   ]
+  },
+  "checkout_inspection": {
+   "inspection_type": "mid_term",
+   "inspection_date": "2024-02-12",
+   "items": [
+    {
+     "item_code": "SMK",
+     "location": "bedroom",
+     "grade": "damaged",
+     "defect_category": "smoke_detector_fail",
+     "photo_refs": []
+    },
+    {
+     "item_code": "WAL",
+     "location": "bedroom",
+     "grade": "fair",
+     "defect_category": "scuff",
+     "photo_refs": [
+      "p4"
+     ]
+    }
+   ]
+  },
+  "proposed_charges": {
+   "lines": [
+    {
+     "item_code": "SMK",
+     "reason_code": "DMG",
+     "qty": 1,
+     "unit_rate": 45,
+     "line_total": 45
+    },
+    {
+     "item_code": "WAL",
+     "reason_code": "MRK",
+     "qty": 1,
+     "unit_rate": 20,
+     "line_total": 20
+    }
+   ],
+   "summary_total": 85,
+   "rate_card_ref": "RC24"
+  },
+  "works_orders": [
+   {
+    "wo_id": "W9",
+    "raised_date": "2023-09-01",
+    "location": "bedroom",
+    "category": "fire_safety",
+    "status": "completed",
+    "completed_date": "2024-02-12",
+    "retest_passed": true
+   }
+  ]
+ },
+ "factors": {
+  "inspection_type": "mid_term",
+  "checkin_inventory_state": "signed_late",
+  "prior_damage_on_charged_item": "damaged",
+  "charge_discrepancy": "small_under_25",
+  "worst_defect_tier": "safety",
+  "true_cause": "prior_occupant",
+  "predating_works_order": true,
+  "safety_fault_remedied": true,
+  "photo_coverage": "half_or_less",
+  "tenancy_months": 11,
+  "date_out_of_order": true,
+  "deposit_dispute_lodged": false,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "inspection_type": "mid_term",
+  "checkin_inventory_state": "signed_late",
+  "prior_damage_on_charged_item": "none",
+  "charge_discrepancy": "small_under_25",
+  "worst_defect_tier": "safety",
+  "true_cause": "resident_damage",
+  "predating_works_order": true,
+  "safety_fault_remedied": true,
+  "photo_coverage": "half_or_less",
+  "tenancy_months": 11,
+  "date_out_of_order": true,
+  "deposit_dispute_lodged": false,
+  "boundary_case": false
+ },
+ "plan": {
+  "checkin_clean": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "disposition": {
+   "clarity": "balanced",
+   "target": "hold_for_evidence",
+   "second": "order_reinspection"
+  },
+  "main_cause": {
+   "clarity": "clear",
+   "target": "prior_occupant",
+   "second": null
+  },
+  "defect_severity": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "charge_gap": {
+   "clarity": "clear",
+   "target": "1",
+   "second": null
+  }
+ },
+ "target_words": 150,
+ "deciding": {
+  "checkin_clean": "SMK was graded damaged at check-in and the inventory was signed 14 days after start, so charged items were not all undamaged.",
+  "disposition": "SMK has no photo, which is one missing item, but the tenancy end date is after the mid-term inspection and the check-in was late, so reinspection is arguable.",
+  "main_cause": "SMK was already damaged in the check-in inventory and a works order W9 predates the tenancy, so the defect belongs to the prior occupant.",
+  "defect_severity": "smoke_detector_fail is a safety category but W9 was completed on the inspection date with retest passed, so it could be treated as cosmetic or functional.",
+  "charge_gap": "SMK charge of 45 is unsupported (no photo, no worsening) and WAL is 20 for good to fair; the sum 85 is not matched by evidence, but the difference is about 20 to 25."
+ },
+ "request": "rec-F333-0021",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.005981
+}

@@ -1,0 +1,110 @@
+{
+ "id": "F339-0040",
+ "family": "F339",
+ "state": {
+  "application": {
+   "id": "A-6032",
+   "submitted": "2025-06-30",
+   "hold_expires": "2025-07-12"
+  },
+  "household": {
+   "adults": 1,
+   "tenure": "rent",
+   "hours_alone": 3
+  },
+  "animal": {
+   "species": "dog",
+   "max_hours_alone": 5
+  },
+  "checks": {
+   "home_visit": {
+    "status": "completed",
+    "date": "2025-01-01"
+   },
+   "landlord_consent": {
+    "status": "approved",
+    "species_covered": [
+     "dog"
+    ]
+   },
+   "references": null,
+   "vet_reference": null
+  },
+  "history": {
+   "prior_adoptions": [
+    {
+     "outcome": "returned",
+     "return_reason": "owner_bereavement"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "home_visit_state": "completed_current",
+  "visit_date_out_of_order": false,
+  "visit_detail_mismatch": false,
+  "tenure_consent": "rent_consent_species_match",
+  "tenancy_pet_clause": false,
+  "contradicted_requirements": 0,
+  "behaviour_override": false,
+  "threshold_boundary": true,
+  "reference_status": "none_returned",
+  "prior_returns": "one_benign_reason",
+  "trusted_repeat_adopter": false,
+  "hold_days_remaining": 12,
+  "other_pet_vacc_unknown": false
+ },
+ "factors_sampled": {
+  "home_visit_state": "completed_stale",
+  "visit_date_out_of_order": false,
+  "visit_detail_mismatch": false,
+  "tenure_consent": "rent_consent_species_match",
+  "tenancy_pet_clause": true,
+  "contradicted_requirements": 3,
+  "behaviour_override": true,
+  "threshold_boundary": false,
+  "reference_status": "all_returned",
+  "prior_returns": "one_benign_reason",
+  "trusted_repeat_adopter": true,
+  "hold_days_remaining": 12,
+  "other_pet_vacc_unknown": false
+ },
+ "plan": {
+  "home_visit_valid": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "species_consent": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "disposition": {
+   "clarity": "balanced",
+   "target": "hold_pending",
+   "second": "approve_conditional"
+  },
+  "source_support": {
+   "clarity": "leaning",
+   "target": "0",
+   "second": null
+  },
+  "requirement_conflicts": {
+   "clarity": "leaning",
+   "target": "0",
+   "second": null
+  }
+ },
+ "target_words": 35,
+ "deciding": {
+  "home_visit_valid": "Visit completed 2025-01-01 is exactly 180 days before submission on 2025-06-30, right at the staleness limit. It is not more than 180 days, so it is just current.",
+  "species_consent": "landlord_consent is approved with species_covered [\"dog\"], matching the animal species.",
+  "disposition": "references and vet_reference are null, so required checks are outstanding and favour hold_pending. The checks that are done show no conflicts, so approve_conditional is defensible.",
+  "source_support": "references and vet_reference are null. The only possible corroboration is the borderline visit, which makes level 0 the lean.",
+  "requirement_conflicts": "hours_alone of 3 is within max_hours_alone 5 and no other requirement is listed, so nothing is contradicted."
+ },
+ "request": "rec-F339-0036",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.009643
+}

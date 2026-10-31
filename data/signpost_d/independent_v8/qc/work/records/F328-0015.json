@@ -1,0 +1,131 @@
+{
+ "id": "F328-0015",
+ "family": "F328",
+ "state": {
+  "report_meta": {
+   "driver_id": "D305",
+   "vehicle": "PQ68"
+  },
+  "vehicle_device": {
+   "health_flags": [
+    "gps_dropouts",
+    "card_reader_fault 2024-03-12"
+   ],
+   "odo": [
+    9300,
+    9560
+   ]
+  },
+  "trips": [
+   {
+    "s": "06:00",
+    "e": "09:00",
+    "driver_card": null,
+    "gps_km": 120.1
+   },
+   {
+    "s": "09:05",
+    "e": "10:35",
+    "driver_card": null,
+    "gps_km": 111.97
+   }
+  ],
+  "events": [
+   {
+    "t": "2024-03-12T08:40",
+    "type": "speed",
+    "recorded_mph": 84,
+    "posted_limit_mph": 70
+   },
+   "06:30 brake",
+   "06:55 corner",
+   "07:20 brake",
+   "07:45 accel",
+   "09:20 brake",
+   "09:55 corner",
+   "10:15 brake"
+  ],
+  "tacho_summary": {
+   "card": "D305",
+   "drive": [
+    "06:00-10:35"
+   ]
+  },
+  "notes_history": {
+   "supervisor_note": "Card reader fault 12 Mar; D305 rostered on PQ68.",
+   "coaching": [
+    "2023-10-04 speed completed",
+    "2023-12-11 speed completed",
+    "2024-01-30 speed completed"
+   ]
+  }
+ },
+ "factors": {
+  "driver_assignment": "card_missing",
+  "raw_speed_excess_pct": 20.0,
+  "speed_mitigation": "none",
+  "harsh_event_count": 7,
+  "harsh_context_logged": false,
+  "device_health": "intermittent_dropouts",
+  "telematics_stint_hours": 4.5,
+  "tacho_break_reconciles": false,
+  "prior_coaching_count": 3,
+  "coaching_status": "completed",
+  "boundary_value": true,
+  "note_content": "benign_explanation_supported",
+  "distance_discrepancy_pct": 10.74
+ },
+ "factors_sampled": {
+  "driver_assignment": "card_missing",
+  "raw_speed_excess_pct": 1.95,
+  "speed_mitigation": "none",
+  "harsh_event_count": 7,
+  "harsh_context_logged": false,
+  "device_health": "intermittent_dropouts",
+  "telematics_stint_hours": 1.95,
+  "tacho_break_reconciles": true,
+  "prior_coaching_count": 3,
+  "coaching_status": "none",
+  "boundary_value": true,
+  "note_content": "benign_explanation_supported",
+  "distance_discrepancy_pct": 10.74
+ },
+ "plan": {
+  "driver_attributed": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "follow_up": {
+   "clarity": "balanced",
+   "target": "no_action",
+   "second": "formal_review"
+  },
+  "worst_event_cause": {
+   "clarity": "leaning",
+   "target": "driver_choice",
+   "second": null
+  },
+  "speed_excess": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "hours_exposure": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  }
+ },
+ "target_words": 128,
+ "deciding": {
+  "driver_attributed": "Trip driver_card is null because of the logged reader fault; tacho card D305 and the rostered note favour attribution, but no card links the trips directly.",
+  "follow_up": "If attributed, the 84 in a 70 zone recurs after three completed speed coaching sessions (formal review); the null cards and GPS dropouts could leave nothing confirmed (no action).",
+  "worst_event_cause": "No limit update, tags or calibration change; the dropout flag is the only doubt, so driver choice leads.",
+  "speed_excess": "84 vs 70 is exactly 20.0%, on the line between level 2 and level 3.",
+  "hours_exposure": "Trips 06:00-10:35 with a 5 min stop give exactly 4.5 h drive with no qualifying break; right on the line between level 1 and 2."
+ },
+ "request": "rec-F328-0011",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.013075
+}

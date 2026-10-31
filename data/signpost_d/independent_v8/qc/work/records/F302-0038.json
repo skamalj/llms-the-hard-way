@@ -1,0 +1,114 @@
+{
+ "id": "F302-0038",
+ "family": "F302",
+ "state": {
+  "consent": {
+   "signed": "2024-06-10"
+  },
+  "visit": {
+   "review": "2024-07-08",
+   "window_days": 28,
+   "procedures": [
+    {
+     "n": "ECG",
+     "date": "2024-06-09"
+    }
+   ]
+  },
+  "labs": [
+   {
+    "code": "HGB",
+    "value": 9.1,
+    "threshold": 10,
+    "op": "ge",
+    "collected": "2024-06-09"
+   },
+   {
+    "code": "HGB",
+    "value": 10.4,
+    "repeat": true,
+    "collected": "2024-06-20"
+   }
+  ],
+  "eligibility": {
+   "signoff": {
+    "signed": true,
+    "date": "2024-06-25"
+   },
+   "queries": [
+    {
+     "status": "open"
+    },
+    {
+     "status": "open"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "lab_reconciliation": "threshold_crossing",
+  "consent_status": "signed_after_procedure",
+  "window_days_remaining": 0,
+  "collection_date_mismatch": "within_window",
+  "prohibited_conmed": false,
+  "washout_completed": true,
+  "out_of_range_lab": true,
+  "valid_repeat_on_file": "valid_repeat_in_range",
+  "boundary_value": false,
+  "identifier_mismatch": "none",
+  "investigator_signoff": "signed_after_results",
+  "open_query_count": 2
+ },
+ "factors_sampled": {
+  "lab_reconciliation": "threshold_crossing",
+  "consent_status": "superseded_reconsented",
+  "window_days_remaining": 19,
+  "collection_date_mismatch": "within_window",
+  "prohibited_conmed": false,
+  "washout_completed": true,
+  "out_of_range_lab": true,
+  "valid_repeat_on_file": "valid_repeat_in_range",
+  "boundary_value": false,
+  "identifier_mismatch": "none",
+  "investigator_signoff": "signed_after_results",
+  "open_query_count": 2
+ },
+ "plan": {
+  "eligibility_proven": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "screen_fail",
+   "second": null
+  },
+  "primary_issue": {
+   "clarity": "clear",
+   "target": "documentation",
+   "second": null
+  },
+  "affected_scope": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "window_left": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 44,
+ "deciding": {
+  "eligibility_proven": "First HGB 9.1 is below 10 but a repeat of 10.4 is on file; consent signed 06-10 comes after the ECG on 06-09, so both answers are defensible.",
+  "next_step": "Consent postdates the first procedure and the window is spent, which points to screen_fail; the passing repeat leaves some doubt.",
+  "primary_issue": "consent.signed 2024-06-10 is later than the earliest procedure 2024-06-09, a documentation defect that outranks the lab issue.",
+  "affected_scope": "Nothing in the record sizes the scope; a consent-sequence defect could reach many subjects (level 3) or fewer (level 2).",
+  "window_left": "Signed 06-10 plus 28 days is 07-08, equal to the review date, leaving 0 days; it sits between levels 0 and 1."
+ },
+ "request": "rec-F302-0036",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011013
+}

@@ -1,0 +1,173 @@
+{
+ "id": "F324-0072",
+ "family": "F324",
+ "state": {
+  "zone": {
+   "zone_id": "Z12",
+   "dripper_count": 80,
+   "dripper_rate_lph": 1.6
+  },
+  "schedule": {
+   "cycles": [
+    {
+     "start": "06:00",
+     "planned_ml_per_dripper": 250
+    },
+    {
+     "start": "10:00",
+     "planned_ml_per_dripper": 250
+    },
+    {
+     "start": "15:00",
+     "planned_ml_per_dripper": 250
+    }
+   ],
+   "planned_open_s": 900,
+   "drain_target_pct": {
+    "min": 20,
+    "max": 30
+   },
+   "overrides": [
+    {
+     "cycle": "15:00",
+     "approved_by_role": "head_grower",
+     "reduction_pct": 50
+    }
+   ]
+  },
+  "controller_log": {
+   "spec_bar": 2.2,
+   "cycles": [
+    {
+     "start": "06:00",
+     "valve_open_s": 900,
+     "delivered_l": 19.2,
+     "line_pressure_bar": 2.3
+    },
+    {
+     "start": "10:00",
+     "valve_open_s": 900,
+     "delivered_l": 17.9,
+     "line_pressure_bar": null
+    },
+    {
+     "start": "15:00",
+     "valve_open_s": 900,
+     "delivered_l": 6.5,
+     "line_pressure_bar": 1.6
+    }
+   ],
+   "daily_total_l": 45.6,
+   "meter_total_l": 45.5
+  },
+  "drainage": {
+   "drain_pct": [
+    29,
+    32.5
+   ],
+   "catch_test": {
+    "ordered": false,
+    "result": null
+   }
+  },
+  "sensors": {
+   "log_date": "2024-06-10",
+   "meter_last_calibrated": "2023-05-27",
+   "sensor_status": "ok"
+  },
+  "maintenance": {
+   "windows": [
+    {
+     "type": "line_repair",
+     "start": "2024-06-10T14:30",
+     "end": "2024-06-10T16:00"
+    }
+   ],
+   "alarms": [],
+   "recent_work_orders": [
+    {
+     "id": "WO-402",
+     "closed": "2024-06-01"
+    },
+    {
+     "id": "WO-377",
+     "closed": "2024-05-09"
+    },
+    {
+     "id": "WO-340",
+     "closed": "2024-03-15"
+    },
+    {
+     "id": "WO-301",
+     "closed": "2024-01-22"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "delivery_shortfall_pct": 27.36,
+  "mismatch_location": "cycle_sum_vs_total",
+  "fault_cause": "low_supply_pressure",
+  "approved_override": true,
+  "maintenance_window_active": true,
+  "drain_offset_points": 0.75,
+  "off_tolerance_cycles": 2,
+  "meter_calibration_age_days": 380,
+  "confirmation_pending": false,
+  "pressure_state": "partly_missing",
+  "benign_alarm_decoy": "none",
+  "recent_work_orders": 4
+ },
+ "factors_sampled": {
+  "delivery_shortfall_pct": 27.36,
+  "mismatch_location": "cycle_sum_vs_total",
+  "fault_cause": "low_supply_pressure",
+  "approved_override": true,
+  "maintenance_window_active": true,
+  "drain_offset_points": 19.31,
+  "off_tolerance_cycles": 1,
+  "meter_calibration_age_days": 380,
+  "confirmation_pending": false,
+  "pressure_state": "partly_missing",
+  "benign_alarm_decoy": "none",
+  "recent_work_orders": 4
+ },
+ "plan": {
+  "under_dosed": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "emitter_clogging": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "next_action": {
+   "clarity": "contested",
+   "target": "sign_off",
+   "second": "adjust_schedule"
+  },
+  "drain_deviation": {
+   "clarity": "contested",
+   "target": "0",
+   "second": "1"
+  },
+  "off_plan_cycles": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  }
+ },
+ "target_words": 77,
+ "deciding": {
+  "under_dosed": "The cycle sum is 43.6 L and the daily total is 45.6 L, against 60 L planned, which is 73-76% of plan. The 50% approved reduction on the 15:00 cycle lowers the plan to 50 L, so delivery is 87-91% of the adjusted plan, right at the 90% line.",
+  "emitter_clogging": "Valves opened the full 900 s on every cycle. The 10:00 cycle ran 10.5% under plan with its pressure null, which leaves clogging open. The 1.6 bar reading against a 2.2 spec_bar on the repair-window cycle points to low pressure instead.",
+  "next_action": "The deficit is largely covered by the approved override and the repair window, and the drain is at the band edge. The cycle sum (43.6 L) does not match daily_total_l (45.6 L) and the meter was calibrated 380 days ago. Either sign-off or a schedule change is defensible.",
+  "drain_deviation": "Drain samples 29 and 32.5 give a mean of 30.75 against a band maximum of 30. That is under 1 point over, with one sample inside the band, so the zone can be read as in band or as slight.",
+  "off_plan_cycles": "The 15:00 cycle delivered 6.5 L against the 10 L adjusted plan, which is clearly off. The 10:00 cycle delivered 17.9 L against 20 L, a 10.5% shortfall right at the tolerance edge, so the count is one or two."
+ },
+ "request": "rec-F324-0071",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.019527
+}

@@ -1,0 +1,148 @@
+{
+ "id": "F303-0026",
+ "family": "F303",
+ "state": {
+  "order": {
+   "prescription": {
+    "modality": "cylinder",
+    "flow_lpm": 2,
+    "hours_per_day": 8,
+    "rx_expiry": "2026-03-01"
+   },
+   "items_ordered": [
+    {
+     "sku": "HX2300",
+     "qty": 1
+    },
+    {
+     "sku": "TROLLEY",
+     "qty": 1
+    }
+   ],
+   "account": {
+    "billing_hold": true,
+    "arrears_gbp": 40
+   }
+  },
+  "visit": {
+   "visit_date": "2025-05-06",
+   "items_left": [
+    {
+     "sku": "HX2300",
+     "qty": 1,
+     "serial": "H88"
+    }
+   ],
+   "install_checks": {
+    "flow_verified": true,
+    "alarm_tested": true,
+    "training_given": true,
+    "completed_at": "2025-05-06T11:20"
+   },
+   "patient_signature": true,
+   "handover_at": "2025-05-06T11:25"
+  },
+  "site_assessment": {
+   "hazards": [
+    {
+     "code": "SMOKING",
+     "status": "resolved_on_visit",
+     "fix": "firebreak_fitted"
+    },
+    {
+     "code": "HEAT_SRC",
+     "status": "resolved_on_visit",
+     "fix": "cylinder_relocated"
+    },
+    {
+     "code": "NO_ALARM",
+     "status": "open",
+     "fix": "alarm_fitted"
+    }
+   ]
+  },
+  "equipment": {
+   "concentrator": null,
+   "flow_setting_lpm": 2,
+   "cylinders_on_site": [
+    {
+     "size": "HX 2300 L",
+     "fill_pct": 85
+    }
+   ]
+  },
+  "supply_plan": {
+   "next_delivery_date": null
+  }
+ },
+ "factors": {
+  "rx_alignment": "exact",
+  "items_shortfall": "one_short",
+  "setup_state": "all_logged",
+  "supply_hours": "about 49 clock hours (16.3 usage hours)",
+  "concentrator_fault": false,
+  "fault_mitigated": false,
+  "hazards_found": 3,
+  "hazard_mitigation": true,
+  "hazard_status_missing": false,
+  "handover_gap": false,
+  "timeline_out_of_order": false,
+  "next_delivery": "not_booked",
+  "dependency_level": "nocturnal",
+  "billing_hold": true
+ },
+ "factors_sampled": {
+  "rx_alignment": "exact",
+  "items_shortfall": "one_short",
+  "setup_state": "all_logged",
+  "supply_hours": 321.21,
+  "concentrator_fault": false,
+  "fault_mitigated": false,
+  "hazards_found": 3,
+  "hazard_mitigation": false,
+  "hazard_status_missing": false,
+  "handover_gap": false,
+  "timeline_out_of_order": false,
+  "next_delivery": "not_booked",
+  "dependency_level": "nocturnal",
+  "billing_hold": true
+ },
+ "plan": {
+  "rx_match": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "close_record",
+   "second": null
+  },
+  "fulfilment": {
+   "clarity": "contested",
+   "target": "items_short",
+   "second": "setup_incomplete"
+  },
+  "supply_runway": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  },
+  "open_hazards": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  }
+ },
+ "target_words": 30,
+ "deciding": {
+  "rx_match": "Cylinder modality and flow 2 lpm match the prescription, but the ordered trolley was not left, so the match is only modestly supported.",
+  "next_step": "All checks logged, signature and handover present; the only gap is an ancillary trolley, so closing is leaning.",
+  "fulfilment": "Ordered TROLLEY missing from items_left (items_short) while every install check is logged complete, which also suits setup_incomplete poorly; held in contest.",
+  "supply_runway": "One HX 2300 L at 85% is about 1955 L; at 2 lpm for 8 h/day that is about 49 clock hours, right at the 48-hour boundary.",
+  "open_hazards": "Two hazards resolved on visit; NO_ALARM is status open yet carries fix alarm_fitted, so one open or none is arguable."
+ },
+ "request": "rec-F303-0026",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.013915
+}

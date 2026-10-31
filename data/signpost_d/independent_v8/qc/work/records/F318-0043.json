@@ -1,0 +1,142 @@
+{
+ "id": "F318-0043",
+ "family": "F318",
+ "state": {
+  "work_order": {
+   "lock_id": "L03",
+   "visit_type": "planned_repair",
+   "tasks": [
+    {
+     "task_id": "T1"
+    },
+    {
+     "task_id": "T2"
+    },
+    {
+     "task_id": "T3"
+    },
+    {
+     "task_id": "T4"
+    },
+    {
+     "task_id": "T5"
+    },
+    {
+     "task_id": "T6"
+    }
+   ],
+   "nav_notice": {
+    "in_force": true,
+    "to": "2025-05-31",
+    "scope_assets": [
+     "GATE-N"
+    ]
+   }
+  },
+  "visit_log": {
+   "arrived": "2025-05-12T08:00",
+   "departed": "2025-05-12T11:00",
+   "crew_size": 2,
+   "timesheet_hours": 8,
+   "task_status": [
+    {
+     "task_id": "T1",
+     "status": "not_started"
+    },
+    {
+     "task_id": "T2",
+     "status": "not_started"
+    },
+    {
+     "task_id": "T3",
+     "status": "not_started"
+    },
+    {
+     "task_id": "T4",
+     "status": "not_started"
+    },
+    {
+     "task_id": "T5",
+     "status": "not_started"
+    },
+    {
+     "task_id": "T6",
+     "status": "not_started"
+    }
+   ]
+  },
+  "checks": {
+   "post_checks": [],
+   "leakage_ls": 1.1,
+   "leakage_limit_ls": 2.0
+  }
+ },
+ "factors": {
+  "visit_type": "planned_repair",
+  "tasks_ordered": 6,
+  "completion_state": "none_done",
+  "parts_qty_mismatch": "none",
+  "hours_gap": 1.33,
+  "asset_ref_mismatch": false,
+  "post_check_result": "not_logged",
+  "leakage_ratio": 0.55,
+  "leakage_mitigation": false,
+  "navigation_notice_in_force": true,
+  "deferral_approved": false,
+  "prior_same_defect": 0,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "visit_type": "planned_repair",
+  "tasks_ordered": 6,
+  "completion_state": "none_done",
+  "parts_qty_mismatch": "none",
+  "hours_gap": 2.06,
+  "asset_ref_mismatch": false,
+  "post_check_result": "not_logged",
+  "leakage_ratio": 0.55,
+  "leakage_mitigation": false,
+  "navigation_notice_in_force": true,
+  "deferral_approved": false,
+  "prior_same_defect": 0,
+  "boundary_case": false
+ },
+ "plan": {
+  "safe_to_reopen": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "record_disposition": {
+   "clarity": "clear",
+   "target": "reopen_revisit",
+   "second": null
+  },
+  "return_urgency": {
+   "clarity": "leaning",
+   "target": "next_scheduled",
+   "second": null
+  },
+  "affected_scope": {
+   "clarity": "contested",
+   "target": "0",
+   "second": "1"
+  },
+  "section_mismatches": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 30,
+ "deciding": {
+  "safe_to_reopen": "Empty post_checks and the notice still in force on GATE-N point to not safe, while leakage 1.1 is well under the 2.0 limit.",
+  "record_disposition": "All six tasks are not_started and no checks are logged, so the ordered work was not done and the visit needs redoing.",
+  "return_urgency": "Leakage is well within limit and no failed check or open defect is listed, so the next scheduled cycle is likely enough, with some doubt as the repair is undone.",
+  "affected_scope": "The notice names one asset, GATE-N, but the lock as a whole is affected. Level 0 or 1 are both defensible.",
+  "section_mismatches": "Timesheet 8h against a 3h span x 2 crew = 6h is a modest gap that could be read as an unexplained mismatch or as ordinary overrun. Nothing else disagrees."
+ },
+ "request": "rec-F318-0041",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012948
+}

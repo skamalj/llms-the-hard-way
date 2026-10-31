@@ -1,0 +1,139 @@
+{
+ "id": "F338-0046",
+ "family": "F338",
+ "state": {
+  "site": {
+   "id": "S114",
+   "pollutant": "O3",
+   "tier": "standard",
+   "service_interval_days": 60,
+   "approved_interval_days": 90
+  },
+  "visit": {
+   "date": "2025-03-20",
+   "start": "09:00",
+   "end": "11:30",
+   "sequence_status": "complete",
+   "maintenance_window": false
+  },
+  "reference": {
+   "standard_id": "CYL-48217",
+   "conc": 400,
+   "unit": "ppb",
+   "cert_expiry": "2025-03-14"
+  },
+  "checks": [
+   {
+    "type": "as_found",
+    "pt": "span",
+    "ref_id": "CYL-48271",
+    "ref_conc": 400,
+    "unit": "ppb",
+    "reading": 451,
+    "tol": 40,
+    "ts": "2025-03-20T09:20"
+   },
+   {
+    "type": "as_left",
+    "pt": "span",
+    "ref_id": "CYL-48271",
+    "ref_conc": 400,
+    "unit": "ppb",
+    "reading": 458,
+    "tol": 40,
+    "ts": "2025-03-20T10:50"
+   }
+  ],
+  "history": {
+   "last_visit_date": "2024-12-30",
+   "results": [
+    "pass",
+    "pass",
+    "fail",
+    "pass"
+   ],
+   "autochecks": [
+    {
+     "d": "2025-03-14",
+     "r": "pass"
+    },
+    {
+     "d": "2025-03-15",
+     "r": "pass"
+    }
+   ]
+  },
+  "instrument": {
+   "enclosure_temp_max": 24,
+   "enclosure_temp_min": 15
+  }
+ },
+ "factors": {
+  "pollutant": "O3",
+  "as_found_ratio": 1.27,
+  "as_left_status": "fail",
+  "cylinder_id_mismatch": "transposed_digit",
+  "cert_expiry_offset_days": -6,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "approved_extended_interval",
+  "days_since_last_visit": 80,
+  "visit_completeness": "complete",
+  "prior_fail_count": 1,
+  "timestamp_mismatch": "none",
+  "site_priority": "standard"
+ },
+ "factors_sampled": {
+  "pollutant": "O3",
+  "as_found_ratio": 1.27,
+  "as_left_status": "all_pass",
+  "cylinder_id_mismatch": "transposed_digit",
+  "cert_expiry_offset_days": -6,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "approved_extended_interval",
+  "days_since_last_visit": 80,
+  "visit_completeness": "complete",
+  "prior_fail_count": 1,
+  "timestamp_mismatch": "none",
+  "site_priority": "standard"
+ },
+ "plan": {
+  "data_accepted": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "reference_valid": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "withdraw",
+   "second": null
+  },
+  "flag_extent": {
+   "clarity": "contested",
+   "target": "2",
+   "second": "1"
+  },
+  "return_urgency": {
+   "clarity": "clear",
+   "target": "4",
+   "second": null
+  }
+ },
+ "target_words": 115,
+ "deciding": {
+  "data_accepted": "As-found span reading 451 vs 400 with tol 40 is just outside tolerance (deviation 51), and as-left span also misses, but the extended interval (90 vs 60) partly explains drift and autochecks passed until 5 days before.",
+  "reference_valid": "Check ref_id CYL-48271 differs from reference standard_id CYL-48217, and cert_expiry 2025-03-14 is before the visit date 2025-03-20.",
+  "next_step": "As-left span reading 458 against 400 (tol 40) fails after adjustment, so the analyser cannot be brought into tolerance on site.",
+  "flag_extent": "80 days since the last visit with the last passing autocheck on 2025-03-15; drift onset could be placed in the last week or over the past month.",
+  "return_urgency": "As-left fails after adjustment on a standard-tier site, so an analyser removal and replacement is needed the same day."
+ },
+ "request": "rec-F338-0046",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012154
+}

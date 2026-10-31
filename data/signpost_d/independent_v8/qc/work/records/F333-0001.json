@@ -1,0 +1,147 @@
+{
+ "id": "F333-0001",
+ "family": "F333",
+ "state": {
+  "room": {
+   "room_id": "B14",
+   "block": "Hale"
+  },
+  "tenancy": {
+   "start_date": "2024-09-14",
+   "end_date": "2024-10-15"
+  },
+  "checkin_inventory": {
+   "signed_date": "2024-09-12",
+   "items": [
+    {
+     "item_code": "curtain",
+     "grade": "good"
+    },
+    {
+     "item_code": "heater",
+     "grade": "damaged"
+    },
+    {
+     "item_code": "lamp",
+     "grade": null
+    }
+   ]
+  },
+  "checkout_inspection": {
+   "inspection_type": "checkout",
+   "inspection_date": "2024-10-15",
+   "items": [
+    {
+     "item_code": "curtain",
+     "grade": "good",
+     "photo_refs": [
+      "p1"
+     ]
+    },
+    {
+     "item_code": "heater",
+     "grade": "damaged",
+     "defect_category": "heater_fail",
+     "photo_refs": []
+    }
+   ]
+  },
+  "proposed_charges": {
+   "lines": [
+    {
+     "item_code": "curtain",
+     "reason_code": "LAUN",
+     "qty": 3,
+     "unit_rate": 8.33,
+     "line_total": 25.0
+    }
+   ],
+   "summary_total": 25.0
+  },
+  "works_orders": [
+   {
+    "wo_id": "W1",
+    "raised_date": "2024-08-30",
+    "location": "heater",
+    "category": "heating",
+    "status": "open"
+   },
+   {
+    "wo_id": "W2",
+    "raised_date": "2024-09-01",
+    "location": "hall",
+    "category": "smoke_detector",
+    "status": "open",
+    "retest_passed": false
+   }
+  ]
+ },
+ "factors": {
+  "inspection_type": "checkout",
+  "checkin_inventory_state": "partial",
+  "prior_damage_on_charged_item": "none",
+  "charge_discrepancy": "tiny_rounding_under_25",
+  "worst_defect_tier": "habitability",
+  "true_cause": "prior_occupant",
+  "predating_works_order": true,
+  "safety_fault_remedied": false,
+  "photo_coverage": "half_or_less",
+  "tenancy_months": 1,
+  "date_out_of_order": false,
+  "deposit_dispute_lodged": false,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "inspection_type": "checkout",
+  "checkin_inventory_state": "partial",
+  "prior_damage_on_charged_item": "none",
+  "charge_discrepancy": "large_over_100",
+  "worst_defect_tier": "habitability",
+  "true_cause": "prior_occupant",
+  "predating_works_order": true,
+  "safety_fault_remedied": false,
+  "photo_coverage": "half_or_less",
+  "tenancy_months": 1,
+  "date_out_of_order": false,
+  "deposit_dispute_lodged": false,
+  "boundary_case": false
+ },
+ "plan": {
+  "checkin_clean": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "disposition": {
+   "clarity": "leaning",
+   "target": "adjust_and_approve",
+   "second": null
+  },
+  "main_cause": {
+   "clarity": "balanced",
+   "target": "no_defect",
+   "second": "building_fault"
+  },
+  "defect_severity": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  },
+  "charge_gap": {
+   "clarity": "contested",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 73,
+ "deciding": {
+  "checkin_clean": "Only charged item, curtain, is graded good at check-in; the null lamp grade is uncharged but leaves slight doubt.",
+  "disposition": "Curtain line_total 25.00 differs from qty 3 x 8.33 = 24.99, a correctable line error using figures in the record.",
+  "main_cause": "Checkout grades equal check-in grades (curtain good, heater damaged), pointing to no_defect; the pre-tenancy heating work order keeps building_fault plausible.",
+  "defect_severity": "heater_fail is a habitability defect; an open pre-tenancy smoke_detector work order with retest_passed false makes level 3 plausible.",
+  "charge_gap": "The 0.01 difference between line_total 25.00 and 3 x 8.33 is level 1 by the letter but could be read as rounding, i.e. level 0."
+ },
+ "request": "rec-F333-0001",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.01257
+}

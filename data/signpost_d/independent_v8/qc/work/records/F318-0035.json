@@ -1,0 +1,147 @@
+{
+ "id": "F318-0035",
+ "family": "F318",
+ "state": {
+  "work_order": {
+   "wo_id": "WO-2086",
+   "lock_id": "L03",
+   "visit_type": "routine_inspection",
+   "tasks": [
+    {
+     "task_id": "T1",
+     "asset_ref": "G2"
+    },
+    {
+     "task_id": "T2",
+     "asset_ref": "G2"
+    }
+   ],
+   "nav_notice": {
+    "in_force": false
+   }
+  },
+  "visit_log": {
+   "arrived": "2025-02-18T09:00",
+   "departed": "2025-02-18T11:00",
+   "crew_size": 2,
+   "timesheet_hours": 4.2,
+   "task_status": [
+    {
+     "task_id": "T1",
+     "status": "done"
+    },
+    {
+     "task_id": "T2",
+     "status": "done"
+    }
+   ]
+  },
+  "materials": {
+   "issued": [],
+   "returned": [],
+   "fitted": []
+  },
+  "checks": {
+   "post_checks": [
+    {
+     "asset_ref": "G2",
+     "result": "pass",
+     "checked_at": "2025-02-18T10:40"
+    },
+    {
+     "asset_ref": "G2-N",
+     "result": "pass",
+     "checked_at": "2025-02-18T10:50"
+    }
+   ],
+   "leakage_ls": 7,
+   "leakage_limit_ls": 20,
+   "river_level_m": 2.2,
+   "flood_marker_m": 3.0
+  },
+  "asset_history": {
+   "prior_visits": [
+    {
+     "date": "2024-09-10",
+     "asset_ref": "LD1",
+     "defect_code": "LAD_LOOSE"
+    }
+   ],
+   "open_defects": [
+    {
+     "defect_code": "LAD_LOOSE",
+     "asset_ref": "LD1",
+     "raised": "2025-02-18"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "visit_type": "routine_inspection",
+  "tasks_ordered": 2,
+  "completion_state": "all_done",
+  "parts_qty_mismatch": "none",
+  "hours_gap": 0.05,
+  "asset_ref_mismatch": true,
+  "post_check_result": "passed",
+  "leakage_ratio": 0.35,
+  "leakage_mitigation": false,
+  "navigation_notice_in_force": false,
+  "deferral_approved": false,
+  "prior_same_defect": 1,
+  "boundary_case": true
+ },
+ "factors_sampled": {
+  "visit_type": "routine_inspection",
+  "tasks_ordered": 2,
+  "completion_state": "all_done",
+  "parts_qty_mismatch": "none",
+  "hours_gap": 1.77,
+  "asset_ref_mismatch": true,
+  "post_check_result": "passed",
+  "leakage_ratio": 0.35,
+  "leakage_mitigation": true,
+  "navigation_notice_in_force": false,
+  "deferral_approved": false,
+  "prior_same_defect": 1,
+  "boundary_case": true
+ },
+ "plan": {
+  "safe_to_reopen": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "record_disposition": {
+   "clarity": "leaning",
+   "target": "close_visit",
+   "second": null
+  },
+  "return_urgency": {
+   "clarity": "clear",
+   "target": "immediate",
+   "second": null
+  },
+  "affected_scope": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  },
+  "section_mismatches": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  }
+ },
+ "target_words": 78,
+ "deciding": {
+  "safe_to_reopen": "All navigation-asset checks pass, leakage is 7 of 20, both tasks are done, and no notice is in force. The open LAD_LOOSE defect is on ladder LD1, not a navigation asset.",
+  "record_disposition": "Work is done and records broadly reconcile, so closing as logged is leaning. The open LAD_LOOSE defect is handled by separate attendance.",
+  "return_urgency": "LAD_LOOSE on LD1 was raised on the visit date, is a repeat of the 2024-09-10 defect, and has no deferral ref or check. This is an uncovered unsafe condition needing a crew within 24 hours.",
+  "affected_scope": "A loose ladder at a lock used by all passing crews and boaters has no recorded user count. A figure just above or below twenty is equally defensible.",
+  "section_mismatches": "Tasks reference G2 while the second post-check is on G2-N. This near-identical suffix may be a naming variant or one mismatch. Hours (4.2 vs 4) reconcile and there are no parts."
+ },
+ "request": "rec-F318-0031",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.016177
+}

@@ -1,0 +1,145 @@
+{
+ "id": "F328-0017",
+ "family": "F328",
+ "state": {
+  "report_meta": {
+   "vehicle": "LN70HGT",
+   "driver_id": "D118",
+   "period": "2024-06-03/2024-06-09"
+  },
+  "vehicle_device": {
+   "health_flags": [],
+   "last_calibration": "2024-01-15",
+   "odo_start": 84200,
+   "odo_end": 84520
+  },
+  "trips": [
+   {
+    "start": "2024-06-05T05:30",
+    "end": "2024-06-05T07:20",
+    "gps_km": 150.1,
+    "driver_card": "D377"
+   },
+   {
+    "start": "2024-06-05T07:30",
+    "end": "2024-06-05T09:55",
+    "gps_km": 132.7,
+    "driver_card": "D377"
+   }
+  ],
+  "events": [
+   {
+    "time": "2024-06-05T08:40",
+    "type": "speed",
+    "recorded_mph": 71,
+    "posted_limit_mph": 60,
+    "map_ver": "2024.3"
+   },
+   {
+    "time": "2024-06-05T06:10",
+    "type": "harsh_brake",
+    "tags": [
+     "congestion"
+    ]
+   }
+  ],
+  "tacho_summary": {
+   "entries": [
+    {
+     "card": "D118",
+     "drive": "05:28-07:20"
+    },
+    {
+     "card": "D118",
+     "break": "07:20-07:30"
+    },
+    {
+     "card": "D118",
+     "drive": "07:30-09:58"
+    }
+   ]
+  },
+  "notes_history": {
+   "coaching": [
+    {
+     "date": "2023-09-12",
+     "topic": "harsh_braking",
+     "status": "completed"
+    },
+    {
+     "date": "2024-01-30",
+     "topic": "harsh_braking",
+     "status": "completed"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "driver_assignment": "mismatch_unexplained",
+  "raw_speed_excess_pct": 18.33,
+  "speed_mitigation": "none",
+  "harsh_event_count": 1,
+  "harsh_context_logged": true,
+  "device_health": "ok",
+  "telematics_stint_hours": 4.42,
+  "tacho_break_reconciles": false,
+  "prior_coaching_count": 2,
+  "coaching_status": "completed",
+  "boundary_value": false,
+  "note_content": "none",
+  "distance_discrepancy_pct": 11.62
+ },
+ "factors_sampled": {
+  "driver_assignment": "match",
+  "raw_speed_excess_pct": 17.64,
+  "speed_mitigation": "temp_limit_ended",
+  "harsh_event_count": 1,
+  "harsh_context_logged": true,
+  "device_health": "ok",
+  "telematics_stint_hours": 3.91,
+  "tacho_break_reconciles": false,
+  "prior_coaching_count": 2,
+  "coaching_status": "completed",
+  "boundary_value": false,
+  "note_content": "none",
+  "distance_discrepancy_pct": 11.62
+ },
+ "plan": {
+  "driver_attributed": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "follow_up": {
+   "clarity": "balanced",
+   "target": "hold_verify",
+   "second": "coaching"
+  },
+  "worst_event_cause": {
+   "clarity": "clear",
+   "target": "driver_choice",
+   "second": null
+  },
+  "speed_excess": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  },
+  "hours_exposure": {
+   "clarity": "contested",
+   "target": "1",
+   "second": "2"
+  }
+ },
+ "target_words": 56,
+ "deciding": {
+  "driver_attributed": "Trip cards read D377 while report driver D118 holds the tacho drive entries across the same times, with no swap logged; the two sources conflict.",
+  "follow_up": "Speed breach is real but the attribution is unresolved (D377 on trips vs D118 on tacho), and prior coaching was on a different topic (harsh braking), so verifying versus coaching are both defensible.",
+  "worst_event_cause": "The 71 in 60 speed event carries no context tag, no limit update and the device is healthy, so it is driver choice.",
+  "speed_excess": "71 mph against 60 is 18.3% over, near the 20% boundary between levels 2 and 3.",
+  "hours_exposure": "Trips 05:30-09:55 with only a 10-min stop give about 4h25 elapsed, which is just under the 4.5 h boundary between levels 1 and 2; the break is too short to qualify."
+ },
+ "request": "rec-F328-0016",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.019511
+}

@@ -1,0 +1,103 @@
+{
+ "id": "F338-0098",
+ "family": "F338",
+ "state": {
+  "site": {
+   "pollutant": "NO2",
+   "tier": "standard",
+   "service_interval_days": 30,
+   "approved_interval_days": 45
+  },
+  "visit": {
+   "date": "2024-07-15",
+   "sequence_status": "complete"
+  },
+  "reference": {
+   "standard_id": "N-731",
+   "unit": "ppb",
+   "cert_expiry": "2024-06-02"
+  },
+  "checks": [
+   {
+    "type": "span",
+    "stage": "as_found",
+    "ref_id": "N-731",
+    "ref_conc": 200,
+    "reading": 203,
+    "tol": 6,
+    "unit": "ppb"
+   }
+  ],
+  "history": {
+   "last_visit_date": "2024-06-21"
+  }
+ },
+ "factors": {
+  "pollutant": "NO2",
+  "as_found_ratio": 1.05,
+  "as_left_status": "not_recorded",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": -43,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "approved_extended_interval",
+  "days_since_last_visit": 24,
+  "visit_completeness": "complete",
+  "prior_fail_count": 0,
+  "timestamp_mismatch": "none",
+  "site_priority": "standard"
+ },
+ "factors_sampled": {
+  "pollutant": "NO2",
+  "as_found_ratio": 1.05,
+  "as_left_status": "not_recorded",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": -43,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "approved_extended_interval",
+  "days_since_last_visit": 24,
+  "visit_completeness": "complete",
+  "prior_fail_count": 3,
+  "timestamp_mismatch": "none",
+  "site_priority": "standard"
+ },
+ "plan": {
+  "data_accepted": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "reference_valid": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "recalibrate",
+   "second": null
+  },
+  "flag_extent": {
+   "clarity": "clear",
+   "target": "1",
+   "second": null
+  },
+  "return_urgency": {
+   "clarity": "balanced",
+   "target": "4",
+   "second": "3"
+  }
+ },
+ "target_words": 36,
+ "deciding": {
+  "data_accepted": "The as-found span of 203 vs 200 is well inside tol 6, and the interval of 24 days is within the approved 45 days, so the period's data stands.",
+  "reference_valid": "The certificate expiry of 2024-06-02 is before the visit date of 2024-07-15, which undermines validity. The matching ID and units and the good as-found result keep the other answer plausible.",
+  "next_step": "There are no as-left points, so the calibration is incomplete and a repeat on site is indicated, with a little doubt since the as-found was fine.",
+  "flag_extent": "The as-found is within tolerance and only 24 days have elapsed, so any flagging is limited to a few days around the missing as-left (1-7 days).",
+  "return_urgency": "The as-left is missing and the certificate had expired by 43 days, so the same-day return is plausible, but a 1-2 day return is equally defensible at a standard-tier site."
+ },
+ "request": "rec-F338-0096",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.006426
+}

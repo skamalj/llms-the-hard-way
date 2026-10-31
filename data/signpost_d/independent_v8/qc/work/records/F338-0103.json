@@ -1,0 +1,126 @@
+{
+ "id": "F338-0103",
+ "family": "F338",
+ "state": {
+  "site": {
+   "id": "N330",
+   "pollutant": "NO2",
+   "tier": "standard",
+   "service_interval_days": 90
+  },
+  "visit": {
+   "date": "2025-05-14",
+   "start": "13:00",
+   "end": "15:00",
+   "sequence_status": "complete",
+   "maintenance_window": false
+  },
+  "reference": {
+   "standard_id": "CYL2290",
+   "unit": "ppb",
+   "cert_no": null,
+   "cert_expiry": "2025-09-22"
+  },
+  "checks": [
+   {
+    "type": "as_found_span",
+    "ref_id": "CYL2290",
+    "ref_conc": 150,
+    "unit": "ppb",
+    "reading": 161,
+    "tol": 10,
+    "ts": "2025-05-14T13:20"
+   },
+   {
+    "type": "as_left_span",
+    "ref_id": "CYL2290",
+    "ref_conc": 150,
+    "unit": "ppb",
+    "reading": 150.4,
+    "tol": 10,
+    "ts": "2025-05-14T14:30"
+   }
+  ],
+  "history": {
+   "last_visit_date": "2025-02-12",
+   "autochecks": [
+    {
+     "d": "2025-04-28",
+     "r": "fail"
+    },
+    {
+     "d": "2025-05-09",
+     "r": "pass"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "pollutant": "NO2",
+  "as_found_ratio": 1.1,
+  "as_left_status": "all_pass",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 131,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": false,
+  "drift_explanation": "none",
+  "days_since_last_visit": 91,
+  "visit_completeness": "complete",
+  "prior_fail_count": 0,
+  "timestamp_mismatch": "none",
+  "site_priority": "standard"
+ },
+ "factors_sampled": {
+  "pollutant": "NO2",
+  "as_found_ratio": 2.62,
+  "as_left_status": "not_recorded",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 131,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": false,
+  "drift_explanation": "none",
+  "days_since_last_visit": 91,
+  "visit_completeness": "complete",
+  "prior_fail_count": 0,
+  "timestamp_mismatch": "none",
+  "site_priority": "standard"
+ },
+ "plan": {
+  "data_accepted": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "reference_valid": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "next_step": {
+   "clarity": "balanced",
+   "target": "hold",
+   "second": "close_flagged"
+  },
+  "flag_extent": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  },
+  "return_urgency": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  }
+ },
+ "target_words": 38,
+ "deciding": {
+  "data_accepted": "As-found span 161 vs 150 with tol 10 is just outside tolerance, and autochecks show a fail then a gap before 2025-05-09, so acceptance is only modestly favoured.",
+  "reference_valid": "Id, unit and expiry (2025-09-22) agree, but reference.cert_no is null, leaving certificate details partly absent.",
+  "next_step": "Sequence and as-left are complete, so the only outstanding item is the missing certificate number (hold), versus closing with flags for the marginal as-found.",
+  "flag_extent": "Autocheck fail on 2025-04-28 and no entries until 2025-05-09 span about 1-16 days, near the 7-day boundary between level 1 and level 2.",
+  "return_urgency": "Marginal as-found excess and the autocheck gap could justify an extra visit in 8-30 days, or a return in 3-7 days if the certificate cannot be confirmed."
+ },
+ "request": "rec-F338-0101",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011284
+}

@@ -1,0 +1,110 @@
+{
+ "id": "F340-0038",
+ "family": "F340",
+ "state": {
+  "booking": {
+   "ref": "KB-5107",
+   "dog_name": "Rex",
+   "microchip": "826004419003",
+   "checkin": "2025-08-11",
+   "checkout": "2025-08-18",
+   "owner_contact": {
+    "reachable_during_stay": true,
+    "confirm_call_done": true
+   }
+  },
+  "declaration": {
+   "weight_kg": 30.0,
+   "conditions": [],
+   "medications": []
+  },
+  "vaccination": {
+   "chip_on_cert": "826004419003",
+   "name_on_cert": "Rex",
+   "core_expiry": "2025-08-12",
+   "titre_result": null
+  },
+  "vet_history": {
+   "known_conditions": [],
+   "current_prescriptions": []
+  },
+  "arrival_check": {
+   "measured_weight_kg": 33.0,
+   "cough": true,
+   "nasal_discharge": false,
+   "temp_c": 38.6,
+   "prior_stay_incidents": 3
+  },
+  "intake_notes": [
+   "Dog coughed after the walk to reception."
+  ]
+ },
+ "factors": {
+  "vacc_expiry_offset_days": -6,
+  "titre_exemption_on_file": false,
+  "certificate_id_mismatch": "none",
+  "arrival_cough_observed": true,
+  "cough_benign_explanation": "none",
+  "weight_discrepancy_pct": 10.0,
+  "medication_state": "none_needed",
+  "next_dose_hours": 6,
+  "neuter_status_conflict": false,
+  "owner_reachable": true,
+  "prior_incident_count": 3,
+  "note_tone": "neutral",
+  "balanced_signals": false
+ },
+ "factors_sampled": {
+  "vacc_expiry_offset_days": 6,
+  "titre_exemption_on_file": false,
+  "certificate_id_mismatch": "none",
+  "arrival_cough_observed": false,
+  "cough_benign_explanation": "collar_pulling_noted",
+  "weight_discrepancy_pct": 10.06,
+  "medication_state": "none_needed",
+  "next_dose_hours": 6,
+  "neuter_status_conflict": false,
+  "owner_reachable": true,
+  "prior_incident_count": 3,
+  "note_tone": "neutral",
+  "balanced_signals": false
+ },
+ "plan": {
+  "vacc_cover_valid": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "declaration_consistent": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "admission_disposition": {
+   "clarity": "clear",
+   "target": "isolation_admit",
+   "second": null
+  },
+  "discrepancy_count": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "action_urgency": {
+   "clarity": "contested",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 71,
+ "deciding": {
+  "vacc_cover_valid": "core_expiry 2025-08-12 is before checkout 2025-08-18 and titre_result is null, so cover lapses mid-stay.",
+  "declaration_consistent": "Weight 30.0 vs 33.0 is exactly 10 percent, within the limit; no conditions or meds conflict. Only the boundary leaves doubt.",
+  "admission_disposition": "cough true with no vaccine, vet condition, or collar note explaining it, so isolation admit.",
+  "discrepancy_count": "Lapsed cover, unexplained cough, and 3 prior incidents against a clean declaration; whether these count as 2 or 3 mismatches is open.",
+  "action_urgency": "The isolation placement is immediate, but no dated action remains; the expiry renewal could wait or fall within 48 hours."
+ },
+ "request": "rec-F340-0036",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.00696
+}

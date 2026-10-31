@@ -1,0 +1,167 @@
+{
+ "id": "F328-0026",
+ "family": "F328",
+ "state": {
+  "report_meta": {
+   "id": "W11-0412",
+   "driver_id": "D117",
+   "date": "2025-03-11"
+  },
+  "vehicle_device": {
+   "health_flags": [
+    "accel_recal"
+   ],
+   "last_calibration": "2025-03-13",
+   "odo_start": 88100,
+   "odo_end": 88512
+  },
+  "trips": [
+   {
+    "start": "2025-03-11T06:10",
+    "end": "08:40",
+    "card": "D117",
+    "gps_km": 180.2
+   },
+   {
+    "start": "2025-03-11T08:46",
+    "end": "10:42",
+    "card": null,
+    "gps_km": 165.0
+   }
+  ],
+  "events": [
+   {
+    "t": "2025-03-11T09:05",
+    "type": "speed",
+    "mph": 68,
+    "limit": 60,
+    "map_ver": "24.1",
+    "seg": "A614"
+   },
+   {
+    "t": "2025-03-11T10:20",
+    "type": "speed",
+    "mph": 61,
+    "limit": 60,
+    "map_ver": "25.2",
+    "seg": "B1146"
+   },
+   {
+    "t": "2025-03-11T06:45",
+    "type": "harsh",
+    "tag": "congestion"
+   },
+   {
+    "t": "2025-03-11T07:30",
+    "type": "harsh",
+    "tag": "congestion"
+   },
+   {
+    "t": "2025-03-11T07:55",
+    "type": "harsh",
+    "tag": "rain"
+   },
+   {
+    "t": "2025-03-11T09:20",
+    "type": "harsh",
+    "tag": "rain"
+   },
+   {
+    "t": "2025-03-11T09:50",
+    "type": "harsh",
+    "tag": "congestion"
+   }
+  ],
+  "tacho_summary": {
+   "card": "D117",
+   "drive": "06:10-10:42",
+   "breaks": [
+    "08:40-08:46"
+   ]
+  },
+  "notes_history": {
+   "supervisor_note": "D117 on leave 11 Mar; agency cover drove.",
+   "limit_updates": [
+    {
+     "seg": "A614",
+     "limit": 70,
+     "date": "2025-02-20"
+    }
+   ],
+   "coaching": [
+    {
+     "date": "2025-03-20",
+     "status": "scheduled"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "driver_assignment": "card_missing",
+  "raw_speed_excess_pct": 13.33,
+  "speed_mitigation": "map_limit_outdated",
+  "harsh_event_count": 5,
+  "harsh_context_logged": true,
+  "device_health": "accelerometer_recalibrated",
+  "telematics_stint_hours": 4.53,
+  "tacho_break_reconciles": false,
+  "prior_coaching_count": 0,
+  "coaching_status": "scheduled",
+  "boundary_value": false,
+  "note_content": "contradicts_data",
+  "distance_discrepancy_pct": 19.34
+ },
+ "factors_sampled": {
+  "driver_assignment": "match",
+  "raw_speed_excess_pct": 1.22,
+  "speed_mitigation": "none",
+  "harsh_event_count": 5,
+  "harsh_context_logged": true,
+  "device_health": "accelerometer_recalibrated",
+  "telematics_stint_hours": 4.53,
+  "tacho_break_reconciles": false,
+  "prior_coaching_count": 0,
+  "coaching_status": "scheduled",
+  "boundary_value": false,
+  "note_content": "contradicts_data",
+  "distance_discrepancy_pct": 19.34
+ },
+ "plan": {
+  "driver_attributed": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "follow_up": {
+   "clarity": "clear",
+   "target": "hold_verify",
+   "second": null
+  },
+  "worst_event_cause": {
+   "clarity": "clear",
+   "target": "map_data",
+   "second": null
+  },
+  "speed_excess": {
+   "clarity": "contested",
+   "target": "1",
+   "second": "0"
+  },
+  "hours_exposure": {
+   "clarity": "contested",
+   "target": "1",
+   "second": "2"
+  }
+ },
+ "target_words": 89,
+ "deciding": {
+  "driver_attributed": "Trip 2 containing both speed events has card null and the note says D117 was on leave, but tacho shows D117 driving continuously 06:10-10:42.",
+  "follow_up": "Attribution of the trip is unconfirmed (null card vs tacho and note conflict) and the break record is thin; the possible breach hinges on that unresolved record, with coaching only scheduled.",
+  "worst_event_cause": "The 68 in 60 event on A614 uses older map_ver 24.1 while limit_updates give 70 for A614 dated 2025-02-20, before the event.",
+  "speed_excess": "A614 event is mitigated by the 70 limit; the remaining 61 in 60 on B1146 (map current) is about 1.7% over, which is level 1 or arguably within tolerance, level 0.",
+  "hours_exposure": "Trips 06:10-10:42 with a 6-minute stop give about 4.53 h, and the only tacho break is 6 minutes. This is just over the 4.5 h boundary, and level 1 or 2 are both defensible."
+ },
+ "request": "rec-F328-0026",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.022907
+}

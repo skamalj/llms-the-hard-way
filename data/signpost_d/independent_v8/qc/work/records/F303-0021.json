@@ -1,0 +1,137 @@
+{
+ "id": "F303-0021",
+ "family": "F303",
+ "state": {
+  "order": {
+   "prescription": {
+    "modality": "cylinder",
+    "flow_lpm": 2,
+    "hours_per_day": 8,
+    "rx_expiry": "2024-05-01"
+   },
+   "items_ordered": [
+    {
+     "sku": "HX2300",
+     "qty": 1
+    },
+    {
+     "sku": "CD460",
+     "qty": 1
+    }
+   ]
+  },
+  "visit": {
+   "visit_date": "2024-06-10",
+   "items_left": [
+    {
+     "sku": "HX2300",
+     "qty": 1,
+     "serial": "H1"
+    }
+   ],
+   "install_checks": {
+    "flow_verified": true,
+    "alarm_tested": true,
+    "training_given": true,
+    "completed_at": "2024-06-10T11:00"
+   },
+   "patient_signature": "on_file",
+   "handover_at": "2024-06-10T11:05"
+  },
+  "site_assessment": {
+   "hazards": [
+    {
+     "code": "SMOKE",
+     "status": "open",
+     "fix": null
+    },
+    {
+     "code": "HEAT",
+     "status": null,
+     "fix": null
+    }
+   ]
+  },
+  "equipment": {
+   "cylinders_on_site": [
+    {
+     "size": "HX 2300 L",
+     "fill_pct": 90
+    }
+   ]
+  },
+  "supply_plan": {
+   "next_delivery_date": "2024-06-13"
+  }
+ },
+ "factors": {
+  "rx_alignment": "rx_expired",
+  "items_shortfall": "one_short",
+  "setup_state": "all_logged",
+  "supply_hours": 52.0,
+  "concentrator_fault": false,
+  "fault_mitigated": false,
+  "hazards_found": 2,
+  "hazard_mitigation": false,
+  "hazard_status_missing": true,
+  "handover_gap": false,
+  "timeline_out_of_order": false,
+  "next_delivery": "booked_in_time",
+  "dependency_level": "nocturnal",
+  "billing_hold": false
+ },
+ "factors_sampled": {
+  "rx_alignment": "rx_expired",
+  "items_shortfall": "none",
+  "setup_state": "all_logged",
+  "supply_hours": 340.72,
+  "concentrator_fault": false,
+  "fault_mitigated": true,
+  "hazards_found": 5,
+  "hazard_mitigation": false,
+  "hazard_status_missing": true,
+  "handover_gap": true,
+  "timeline_out_of_order": false,
+  "next_delivery": "booked_in_time",
+  "dependency_level": "nocturnal",
+  "billing_hold": false
+ },
+ "plan": {
+  "rx_match": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "close_record",
+   "second": null
+  },
+  "fulfilment": {
+   "clarity": "leaning",
+   "target": "items_short",
+   "second": null
+  },
+  "supply_runway": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  },
+  "open_hazards": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  }
+ },
+ "target_words": 42,
+ "deciding": {
+  "rx_match": "rx_expiry 2024-05-01 is earlier than visit_date 2024-06-10, so the prescription is expired.",
+  "next_step": "All checks are logged, signature and handover are present and the next delivery is booked, so closing is favoured. The missing CD460 and the unclear hazard status leave some doubt.",
+  "fulfilment": "items_ordered has HX2300 and CD460 but items_left has only HX2300, so one item is short.",
+  "supply_runway": "One HX 2300 L at 90% is about 2070 L. At 2 lpm for 8 h/day that is about 52 h, close to the 48 h boundary.",
+  "open_hazards": "SMOKE is open and HEAT has a null status, so the count is one or two."
+ },
+ "request": "rec-F303-0021",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011874
+}

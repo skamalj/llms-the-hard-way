@@ -1,0 +1,124 @@
+{
+ "id": "F304-0024",
+ "family": "F304",
+ "state": {
+  "request": {
+   "ref": "B9012",
+   "appt_type": "chemotherapy",
+   "appt_time": "11:15",
+   "vehicle_class": "car",
+   "crew_requested": "single",
+   "mobility_booked": "walking",
+   "equipment": [],
+   "pickup": "Ward 7"
+  },
+  "patient": {
+   "mobility_assessed": "wheelchair",
+   "assessed_on": "2025-04-08",
+   "oxygen_lpm": 0,
+   "monitoring": null,
+   "own_transport_available": false,
+   "exemption": {
+    "code": "CHEMO-1",
+    "approved_by": "TM2",
+    "approved_on": "2025-03-30"
+   },
+   "ward": "W7"
+  },
+  "journey": {
+   "window_end": "10:30",
+   "est_duration_min": 45,
+   "late_tolerance_min": 0,
+   "destination": {
+    "reslot_same_day": true
+   }
+  },
+  "history": [
+   {
+    "outcome": "aborted",
+    "reason": "ward cancelled"
+   },
+   {
+    "outcome": "aborted",
+    "reason": "clinic overrun"
+   },
+   {
+    "outcome": "aborted",
+    "reason": "duplicate booking"
+   }
+  ],
+  "notes": {
+   "ward_note": "Chair transfer needed."
+  }
+ },
+ "factors": {
+  "mobility_alignment": "understated",
+  "secondary_discrepancy": "ward_trivial",
+  "eligibility_concern": false,
+  "eligibility_exception": true,
+  "clinical_support": "none",
+  "crew_request_gap": "under_one_step",
+  "buffer_minutes": 0.0,
+  "duration_estimate_split": false,
+  "late_tolerance": false,
+  "appointment_type": "chemotherapy",
+  "same_day_reslot": true,
+  "confirmation_pending": false,
+  "prior_aborts": 3,
+  "aborts_related": false
+ },
+ "factors_sampled": {
+  "mobility_alignment": "understated",
+  "secondary_discrepancy": "ward_trivial",
+  "eligibility_concern": false,
+  "eligibility_exception": true,
+  "clinical_support": "none",
+  "crew_request_gap": "under_one_step",
+  "buffer_minutes": 57.12,
+  "duration_estimate_split": true,
+  "late_tolerance": false,
+  "appointment_type": "outpatient",
+  "same_day_reslot": true,
+  "confirmation_pending": false,
+  "prior_aborts": 3,
+  "aborts_related": false
+ },
+ "plan": {
+  "vehicle_fit": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "disposition": {
+   "clarity": "clear",
+   "target": "amend_confirm",
+   "second": null
+  },
+  "crew_config": {
+   "clarity": "leaning",
+   "target": "double_crew",
+   "second": null
+  },
+  "time_pressure": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  },
+  "delay_impact": {
+   "clarity": "clear",
+   "target": "1",
+   "second": null
+  }
+ },
+ "target_words": 76,
+ "deciding": {
+  "vehicle_fit": "Car and walking booked against a current wheelchair assessment; the ward note supports the wheelchair need.",
+  "disposition": "Booked mobility, vehicle and crew are correctable against the current assessment, with nothing pending; exemption CHEMO-1 on file; W7 against Ward 7 is trivial.",
+  "crew_config": "Wheelchair transfer with oxygen 0 and no monitoring, but single crew was requested.",
+  "time_pressure": "Window end 10:30 plus 45 min is exactly 11:15, so zero spare; arrival is borderline on time or late.",
+  "delay_impact": "Chemotherapy with destination.reslot_same_day true."
+ },
+ "request": "rec-F304-0021",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.010623
+}

@@ -1,0 +1,128 @@
+{
+ "id": "F338-0047",
+ "family": "F338",
+ "state": {
+  "site": {
+   "pollutant": "CO",
+   "tier": "standard",
+   "service_interval_days": 90
+  },
+  "visit": {
+   "date": "2025-06-10",
+   "start": "08:00",
+   "end": "10:00",
+   "sequence_status": "aborted"
+  },
+  "reference": {
+   "standard_id": "C-5521",
+   "conc": 40,
+   "unit": "ppm",
+   "cert_no": null,
+   "cert_expiry": "2025-10-09"
+  },
+  "checks": [
+   {
+    "type": "as_found",
+    "pt": "span",
+    "ref_id": "C-5521",
+    "ref_conc": 40,
+    "unit": "ppm",
+    "reading": 46.2,
+    "tol": 4,
+    "ts": "2025-06-09T09:00"
+   },
+   {
+    "type": "as_left",
+    "pt": "span",
+    "ref_id": "C-5521",
+    "ref_conc": 40,
+    "unit": "ppm",
+    "reading": 40.3,
+    "tol": 4,
+    "ts": "2025-06-10T09:40"
+   }
+  ],
+  "history": {
+   "last_visit_date": "2025-03-08",
+   "results": [
+    "pass",
+    "fail",
+    "pass"
+   ],
+   "autochecks": [
+    {
+     "d": "2025-06-05",
+     "r": "pass"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "pollutant": "CO",
+  "as_found_ratio": 1.56,
+  "as_left_status": "all_pass",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 121,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "none",
+  "days_since_last_visit": 94,
+  "visit_completeness": "aborted_power",
+  "prior_fail_count": 1,
+  "timestamp_mismatch": "different_day",
+  "site_priority": "standard"
+ },
+ "factors_sampled": {
+  "pollutant": "CO",
+  "as_found_ratio": 1.56,
+  "as_left_status": "all_pass",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 121,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "none",
+  "days_since_last_visit": 94,
+  "visit_completeness": "aborted_power",
+  "prior_fail_count": 1,
+  "timestamp_mismatch": "different_day",
+  "site_priority": "standard"
+ },
+ "plan": {
+  "data_accepted": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "reference_valid": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "hold",
+   "second": null
+  },
+  "flag_extent": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "return_urgency": {
+   "clarity": "balanced",
+   "target": "4",
+   "second": "3"
+  }
+ },
+ "target_words": 40,
+ "deciding": {
+  "data_accepted": "As-found span 46.2 vs 40 with tol 4 is out of tolerance (deviation 6.2) after 94 days with no drift explanation, but autochecks pass and the as-left is in tolerance.",
+  "reference_valid": "IDs match and expiry 2025-10-09 is in date, but cert_no is null and the as-found timestamp is on 2025-06-09, the day before the visit.",
+  "next_step": "Sequence status is aborted, yet the as-left point passes; the missing certificate number and the timestamp date remain to be confirmed.",
+  "flag_extent": "94 days since the last visit, with the last passing autocheck on 2025-06-05; flagging could cover the whole interval or just the period back to roughly 90 days.",
+  "return_urgency": "Aborted visit with an out-of-tolerance as-found and only a single as-left point; a return that day versus within two days is defensible."
+ },
+ "request": "rec-F338-0046",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012154
+}

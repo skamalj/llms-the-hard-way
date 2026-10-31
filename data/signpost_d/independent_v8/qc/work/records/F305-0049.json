@@ -1,0 +1,158 @@
+{
+ "id": "F305-0049",
+ "family": "F305",
+ "state": {
+  "session": {
+   "needle_on": "2025-05-02T08:00",
+   "washback": "2025-05-02T12:05",
+   "review_at": "2025-06-01T00:00"
+  },
+  "prescription": {
+   "duration_min": 240,
+   "qb": 350
+  },
+  "machine": {
+   "qb_actual": 300,
+   "uf_removed_ml": 3100,
+   "washback_ml": 200,
+   "alarms": [
+    {
+     "c": "QB_REDUCED",
+     "code": "ART_PRESSURE_HIGH"
+    },
+    {
+     "c": "PUMP_STOP",
+     "t": "09:00"
+    },
+    {
+     "c": "PUMP_RESUME",
+     "t": "09:07"
+    }
+   ]
+  },
+  "observations": {
+   "pre_kg": 70.0,
+   "post_kg": 68.2,
+   "bp": [
+    [
+     "09:20",
+     86
+    ],
+    [
+     "09:35",
+     104
+    ],
+    [
+     "10:30",
+     85
+    ],
+    [
+     "10:45",
+     103
+    ],
+    [
+     "11:20",
+     88
+    ],
+    [
+     "11:35",
+     102
+    ]
+   ],
+   "interventions": [
+    {
+     "t": "09:22",
+     "saline_bolus_ml": 200
+    },
+    {
+     "t": "10:32",
+     "saline_bolus_ml": 200
+    },
+    {
+     "t": "11:22",
+     "saline_bolus_ml": 200
+    }
+   ]
+  },
+  "checks": [
+   {
+    "c": "prime",
+    "done": true,
+    "t": "2025-05-02T07:50"
+   },
+   {
+    "c": "heparin_check",
+    "done": true,
+    "t": "2025-05-02T07:55"
+   }
+  ]
+ },
+ "factors": {
+  "time_shortfall_min": 2,
+  "machine_pause_min": 7,
+  "uf_weight_gap_kg": 0.5,
+  "post_weight_missing": false,
+  "missing_check": "water_chlorine_test",
+  "check_logged_after_start": false,
+  "prescription_mismatch": "none",
+  "mismatch_magnitude": "trivial",
+  "hypotension_episodes": 3,
+  "hypotension_mitigated": true,
+  "circuit_clotted": false,
+  "prior_short_sessions": 0,
+  "documented_flow_reduction": true
+ },
+ "factors_sampled": {
+  "time_shortfall_min": 18,
+  "machine_pause_min": 7,
+  "uf_weight_gap_kg": 1.99,
+  "post_weight_missing": true,
+  "missing_check": "water_chlorine_test",
+  "check_logged_after_start": false,
+  "prescription_mismatch": "none",
+  "mismatch_magnitude": "clinically_relevant",
+  "hypotension_episodes": 3,
+  "hypotension_mitigated": true,
+  "circuit_clotted": false,
+  "prior_short_sessions": 0,
+  "documented_flow_reduction": true
+ },
+ "plan": {
+  "uf_reconciles": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "checks_before_start": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "log_disposition": {
+   "clarity": "balanced",
+   "target": "hold_query",
+   "second": "refer_prescriber"
+  },
+  "time_shortfall": {
+   "clarity": "clear",
+   "target": "0",
+   "second": null
+  },
+  "pending_age": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  }
+ },
+ "target_words": 68,
+ "deciding": {
+  "uf_reconciles": "Net UF 3100-200-600=2300 ml vs weight loss 1.8 kg: gap 0.5 kg, on the limit.",
+  "checks_before_start": "Checks list has prime and heparin only; no water_chlorine_test entry at all.",
+  "log_disposition": "Single missing check supports hold_query; three hypotension episodes were boluses and recovered, referral is the alternative.",
+  "time_shortfall": "Clock 245 min minus 7 min pause = 238 vs 240, short by 2.",
+  "pending_age": "Washback 2025-05-02 to review_at 2025-06-01T00:00 is about 29.5 days, near the 30 day line."
+ },
+ "request": "rec-F305-0046",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.01425
+}

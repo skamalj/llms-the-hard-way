@@ -1,0 +1,131 @@
+{
+ "id": "F338-0125",
+ "family": "F338",
+ "state": {
+  "site": {
+   "id": "S330",
+   "pollutant": "CO",
+   "tier": "standard",
+   "interval_days": 90,
+   "approved_interval_days": 120
+  },
+  "visit": {
+   "date": "2024-09-10",
+   "sequence_status": "complete"
+  },
+  "reference": {
+   "standard_id": "CYL-7714",
+   "conc": 40,
+   "unit": "ppm",
+   "cert_no": "C-55102",
+   "cert_expiry": "2025-05-27"
+  },
+  "checks": [
+   {
+    "type": "as_found_span",
+    "ref_id": "CYL-7714",
+    "ref_conc": 40,
+    "unit": "ppm",
+    "reading": 32.36,
+    "tol": 2
+   },
+   {
+    "type": "as_left_span",
+    "ref_id": "CYL-7714",
+    "ref_conc": 40,
+    "unit": "ppm",
+    "reading": 39.5,
+    "tol": 2
+   },
+   {
+    "type": "as_left_zero",
+    "ref_id": "CYL-7714",
+    "ref_conc": 0,
+    "unit": "ppm",
+    "reading": 0.2,
+    "tol": 1
+   }
+  ],
+  "history": {
+   "last_visit_date": "2024-05-19",
+   "autochecks": [
+    {
+     "d": "2024-07-08",
+     "r": "fail"
+    },
+    {
+     "d": "2024-08-12",
+     "r": "fail"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "pollutant": "CO",
+  "as_found_ratio": 3.82,
+  "as_left_status": "all_pass",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 259,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": false,
+  "drift_explanation": "approved_extended_interval",
+  "days_since_last_visit": 114,
+  "visit_completeness": "complete",
+  "prior_fail_count": 0,
+  "timestamp_mismatch": "none",
+  "site_priority": "standard"
+ },
+ "factors_sampled": {
+  "pollutant": "CO",
+  "as_found_ratio": 3.82,
+  "as_left_status": "one_point_fail",
+  "cylinder_id_mismatch": "different_standard",
+  "cert_expiry_offset_days": 259,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": false,
+  "drift_explanation": "approved_extended_interval",
+  "days_since_last_visit": 114,
+  "visit_completeness": "multipoint_missing",
+  "prior_fail_count": 0,
+  "timestamp_mismatch": "none",
+  "site_priority": "standard"
+ },
+ "plan": {
+  "data_accepted": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "reference_valid": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "close_visit",
+   "second": null
+  },
+  "flag_extent": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "return_urgency": {
+   "clarity": "contested",
+   "target": "1",
+   "second": "2"
+  }
+ },
+ "target_words": 70,
+ "deciding": {
+  "data_accepted": "As-found span reads 32.36 against 40 ppm (deviation 7.64, tolerance 2), and autochecks failed on 2024-07-08 and 2024-08-12, but the approved 120-day interval partly explains the drift.",
+  "reference_valid": "Standard id matches on every check, unit is ppm throughout, certificate number is present and expiry is 2025-05-27, well after the visit.",
+  "next_step": "Complete sequence with as-left span 39.5 and zero 0.2 both inside tolerance, and the visit is 114 days in an approved 120-day interval with no outstanding item.",
+  "flag_extent": "114 days since the last visit supports more than 30 days, but the last autocheck failure was on 2024-08-12, which supports only about 29 days.",
+  "return_urgency": "As-left passes, so no extra attendance might be needed or one planned visit within 8-30 days; the autocheck failures in July and August give some weight to a 3-7 day return."
+ },
+ "request": "rec-F338-0121",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012542
+}

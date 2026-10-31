@@ -1,0 +1,144 @@
+{
+ "id": "F338-0019",
+ "family": "F338",
+ "state": {
+  "site": {
+   "id": "S301",
+   "pollutant": "CO",
+   "tier": "indicative",
+   "service_interval_days": 90,
+   "approved_interval_days": 120
+  },
+  "visit": {
+   "date": "2024-10-08",
+   "start": "2024-10-08T13:00",
+   "end": "2024-10-08T14:00",
+   "sequence_status": "complete"
+  },
+  "reference": {
+   "standard_id": "C9902",
+   "conc": 40,
+   "unit": "ppm",
+   "cert_no": "UK-31905",
+   "cert_expiry": "2025-08-27"
+  },
+  "checks": [
+   {
+    "type": "as_found_span",
+    "ref_id": "C9902",
+    "ref_conc": 40,
+    "unit": "ppm",
+    "reading": 41.59,
+    "tol": 1,
+    "ts": "2024-10-08T13:10"
+   },
+   {
+    "type": "as_left_span",
+    "ref_id": "C9902",
+    "ref_conc": 40,
+    "unit": "ppm",
+    "reading": 40.3,
+    "tol": 1,
+    "ts": "2024-10-08T14:05"
+   }
+  ],
+  "history": {
+   "last_visit_date": "2024-07-03",
+   "results": [
+    "fail",
+    "pass",
+    "fail"
+   ],
+   "autochecks": [
+    {
+     "d": "2024-09-07",
+     "r": "fail"
+    },
+    {
+     "d": "2024-09-08",
+     "r": "fail"
+    },
+    {
+     "d": "2024-09-25",
+     "r": "pass"
+    },
+    {
+     "d": "2024-10-08",
+     "r": "fail"
+    }
+   ]
+  },
+  "instrument": {
+   "temp_min": 14,
+   "temp_max": 28
+  }
+ },
+ "factors": {
+  "pollutant": "CO",
+  "as_found_ratio": 1.59,
+  "as_left_status": "all_pass",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 323,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": false,
+  "drift_explanation": "approved_extended_interval",
+  "days_since_last_visit": 97,
+  "visit_completeness": "complete",
+  "prior_fail_count": 2,
+  "timestamp_mismatch": "minutes_outside",
+  "site_priority": "indicative"
+ },
+ "factors_sampled": {
+  "pollutant": "CO",
+  "as_found_ratio": 1.59,
+  "as_left_status": "all_pass",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 323,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": false,
+  "drift_explanation": "approved_extended_interval",
+  "days_since_last_visit": 97,
+  "visit_completeness": "complete",
+  "prior_fail_count": 2,
+  "timestamp_mismatch": "minutes_outside",
+  "site_priority": "indicative"
+ },
+ "plan": {
+  "data_accepted": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "reference_valid": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "close_visit",
+   "second": null
+  },
+  "flag_extent": {
+   "clarity": "contested",
+   "target": "2",
+   "second": "3"
+  },
+  "return_urgency": {
+   "clarity": "leaning",
+   "target": "4",
+   "second": null
+  }
+ },
+ "target_words": 57,
+ "deciding": {
+  "data_accepted": "As-found span is 1.59 times tol, but the approved interval of 120 days exceeds the 90-day service interval, which explains drift. Autochecks failed 09-07 and 09-08, so the data are not clean.",
+  "reference_valid": "Ids match on every check, units are ppm throughout, and the cert expiry 2025-08-27 is well after the visit.",
+  "next_step": "Complete sequence, as-left span 40.3 against tol 1 and a valid reference, so the visit can be closed.",
+  "flag_extent": "First autocheck fail on 2024-09-07 is 31 days before the visit, right at the boundary between level 2 and level 3, with a pass on 09-25 in between.",
+  "return_urgency": "The autocheck dated on the visit day (10-08) failed, which points to a return soon after the as-left pass. The indicative tier and the clean as-left leave some doubt."
+ },
+ "request": "rec-F338-0016",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012531
+}

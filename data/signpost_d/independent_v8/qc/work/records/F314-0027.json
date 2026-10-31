@@ -1,0 +1,131 @@
+{
+ "id": "F314-0027",
+ "family": "F314",
+ "state": {
+  "property": {
+   "inventory": [
+    {
+     "id": "B1",
+     "type": "boiler",
+     "loc": "kitchen",
+     "serial": "V9902",
+     "owned_by": "landlord"
+    },
+    {
+     "id": "H1",
+     "type": "hob",
+     "loc": "kitchen",
+     "owned_by": "tenant"
+    }
+   ]
+  },
+  "tenancy": {
+   "start_date": "2024-02-10",
+   "review_date": "2025-03-02"
+  },
+  "certificate": {
+   "inspection_date": "2024-03-02",
+   "issue_date": "2024-03-02",
+   "expiry_date": "2025-03-03",
+   "engineer_licence": "GS-310478"
+  },
+  "appliance_checks": [
+   {
+    "appliance_id": "B1",
+    "loc": "kitchen",
+    "serial": "V9902",
+    "defect_class": "NCS",
+    "analyser": {
+     "ratio": 0.003,
+     "threshold": 0.004
+    },
+    "isolation": {
+     "supply_off": true,
+     "capped": true,
+     "label_code": "L2",
+     "acknowledged_by_role": "tenant"
+    }
+   }
+  ],
+  "engineer": {
+   "licence_no": "GS-310478",
+   "valid_to": "2024-03-01",
+   "status": "active",
+   "categories": [
+    "boiler"
+   ]
+  },
+  "history": {
+   "renewal_booking": {
+    "date": "2025-03-10",
+    "status": "confirmed"
+   }
+  }
+ },
+ "factors": {
+  "inventory_mismatch": "none",
+  "tenant_owned_appliance": true,
+  "date_misalignment": "inspected_after_move_in",
+  "days_to_true_expiry": 0,
+  "renewal_booked": true,
+  "engineer_status": "lapsed_on_date",
+  "worst_defect_class": "NCS",
+  "defect_isolated": true,
+  "remedial_completed": false,
+  "combustion_reading": "normal",
+  "prior_defect_count": 0,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "inventory_mismatch": "serial_mismatch",
+  "tenant_owned_appliance": true,
+  "date_misalignment": "inspected_after_move_in",
+  "days_to_true_expiry": 314,
+  "renewal_booked": true,
+  "engineer_status": "lapsed_on_date",
+  "worst_defect_class": "immediately_dangerous",
+  "defect_isolated": false,
+  "remedial_completed": false,
+  "combustion_reading": "normal",
+  "prior_defect_count": 1,
+  "boundary_case": false
+ },
+ "plan": {
+  "covers_all_appliances": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "engineer_valid": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "accept",
+   "second": null
+  },
+  "renewal_urgency": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "open_hazard": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  }
+ },
+ "target_words": 66,
+ "deciding": {
+  "covers_all_appliances": "Landlord boiler B1 is checked with matching serial; the uncertified hob H1 is owned_by tenant.",
+  "engineer_valid": "Registration valid_to 2024-03-01 is a day before inspection 2024-03-02, but the snapshot status reads active and the licence matches.",
+  "next_step": "The landlord inventory reconciles and the only defect is NCS, so the certificate can be filed.",
+  "renewal_urgency": "True expiry from inspection is 2025-03-02, equal to the review date; the printed expiry 2025-03-03 leaves one day, and the renewal is booked for 2025-03-10.",
+  "open_hazard": "The defect is NCS (advisory), but B1 also carries a supply_off and capped isolation record that reads as an at-risk, contained item."
+ },
+ "request": "rec-F314-0026",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.013876
+}

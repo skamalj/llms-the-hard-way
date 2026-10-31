@@ -1,0 +1,129 @@
+{
+ "id": "F304-0031",
+ "family": "F304",
+ "state": {
+  "request": {
+   "ref": "T1041",
+   "appt_type": "dialysis",
+   "appt_time": "2025-03-11T10:00",
+   "vehicle_class": "wheelchair",
+   "crew_requested": "double",
+   "mobility_booked": "wheelchair",
+   "equipment": [
+    "oxygen"
+   ]
+  },
+  "patient": {
+   "mobility_assessed": "stretcher",
+   "assessed_on": "2024-09-02",
+   "weight_kg": 148,
+   "oxygen_lpm": 10,
+   "monitoring": "cardiac",
+   "own_transport_available": false,
+   "exemption": null
+  },
+  "journey": {
+   "window_start": "07:30",
+   "window_end": "08:00",
+   "est_duration_min": 25,
+   "manual_est_min": 58,
+   "late_tolerance_min": 0,
+   "reslot_same_day": false
+  },
+  "history": [
+   {
+    "date": "2025-01-08",
+    "outcome": "aborted",
+    "reason": "clinic cancelled"
+   },
+   {
+    "date": "2025-01-22",
+    "outcome": "aborted",
+    "reason": "patient refused"
+   },
+   {
+    "date": "2025-02-05",
+    "outcome": "aborted",
+    "reason": "severe weather"
+   },
+   {
+    "date": "2025-02-19",
+    "outcome": "aborted",
+    "reason": "unit closed"
+   }
+  ],
+  "notes": {
+   "control_note": "Unit cannot hold chair; no further slot today."
+  }
+ },
+ "factors": {
+  "mobility_alignment": "stale",
+  "secondary_discrepancy": "none",
+  "eligibility_concern": false,
+  "eligibility_exception": false,
+  "clinical_support": "high_flow_oxygen",
+  "crew_request_gap": "under_one_step",
+  "buffer_minutes": 61.87,
+  "duration_estimate_split": true,
+  "late_tolerance": false,
+  "appointment_type": "dialysis",
+  "same_day_reslot": false,
+  "confirmation_pending": false,
+  "prior_aborts": 4,
+  "aborts_related": false
+ },
+ "factors_sampled": {
+  "mobility_alignment": "stale",
+  "secondary_discrepancy": "none",
+  "eligibility_concern": false,
+  "eligibility_exception": false,
+  "clinical_support": "high_flow_oxygen",
+  "crew_request_gap": "under_one_step",
+  "buffer_minutes": 61.87,
+  "duration_estimate_split": true,
+  "late_tolerance": false,
+  "appointment_type": "dialysis",
+  "same_day_reslot": false,
+  "confirmation_pending": false,
+  "prior_aborts": 4,
+  "aborts_related": false
+ },
+ "plan": {
+  "vehicle_fit": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "disposition": {
+   "clarity": "clear",
+   "target": "amend_confirm",
+   "second": null
+  },
+  "crew_config": {
+   "clarity": "contested",
+   "target": "clinical_escort",
+   "second": "specialist_team"
+  },
+  "time_pressure": {
+   "clarity": "leaning",
+   "target": "0",
+   "second": null
+  },
+  "delay_impact": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 107,
+ "deciding": {
+  "vehicle_fit": "Assessment dated 2024-09-02 is stale and says stretcher, while a wheelchair is booked.",
+  "disposition": "The only problem is the vehicle/assessment conflict, which can be corrected; no pending confirmation, no eligibility concern, no exemption needed.",
+  "crew_config": "oxygen_lpm 10 with cardiac monitoring at 148 kg: high flow suggests specialist team, but weight is under the bariatric limit, so a clinical escort is also defensible.",
+  "time_pressure": "Window end 08:00 plus est 25 min against a 10:00 appointment leaves about 95 min, but manual_est_min 58 cuts it to about 62 min.",
+  "delay_impact": "Dialysis with reslot_same_day false and a control note that no further slot is available today; whether this counts as critical or as a lost session is open."
+ },
+ "request": "rec-F304-0031",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012636
+}

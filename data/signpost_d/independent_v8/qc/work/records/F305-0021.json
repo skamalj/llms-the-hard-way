@@ -1,0 +1,123 @@
+{
+ "id": "F305-0021",
+ "family": "F305",
+ "state": {
+  "session": {
+   "date": "2024-05-06",
+   "needle_on": "2024-05-06T08:00",
+   "washback": "2024-05-06T11:48",
+   "review_ts": "2024-05-06T19:00"
+  },
+  "prescription": {
+   "duration_min": 240
+  },
+  "machine": {
+   "uf_removed_ml": 2000,
+   "washback_ml": 200,
+   "alarms": [
+    {
+     "code": "PUMP_STOP",
+     "t": "09:30"
+    },
+    {
+     "code": "PUMP_RESUME",
+     "t": "09:40"
+    }
+   ]
+  },
+  "observations": {
+   "pre_kg": 72.4,
+   "post_kg": 70.8,
+   "bp": [
+    {
+     "t": "08:30",
+     "s": 128
+    },
+    {
+     "t": "10:30",
+     "s": 118
+    }
+   ]
+  },
+  "checks": [
+   {
+    "code": "ID_VERIFY",
+    "done": true,
+    "ts": "2024-05-06T07:52"
+   },
+   {
+    "code": "ACCESS_CHECK",
+    "done": true,
+    "ts": "2024-05-06T08:01"
+   }
+  ]
+ },
+ "factors": {
+  "time_shortfall_min": 22,
+  "machine_pause_min": 10,
+  "uf_weight_gap_kg": 0.2,
+  "post_weight_missing": false,
+  "missing_check": "none",
+  "check_logged_after_start": true,
+  "prescription_mismatch": "none",
+  "mismatch_magnitude": "trivial",
+  "hypotension_episodes": 0,
+  "hypotension_mitigated": false,
+  "circuit_clotted": false,
+  "prior_short_sessions": 0,
+  "documented_flow_reduction": false
+ },
+ "factors_sampled": {
+  "time_shortfall_min": 1,
+  "machine_pause_min": 10,
+  "uf_weight_gap_kg": 0.69,
+  "post_weight_missing": false,
+  "missing_check": "none",
+  "check_logged_after_start": false,
+  "prescription_mismatch": "none",
+  "mismatch_magnitude": "trivial",
+  "hypotension_episodes": 0,
+  "hypotension_mitigated": false,
+  "circuit_clotted": false,
+  "prior_short_sessions": 0,
+  "documented_flow_reduction": false
+ },
+ "plan": {
+  "uf_reconciles": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "checks_before_start": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "log_disposition": {
+   "clarity": "leaning",
+   "target": "hold_query",
+   "second": null
+  },
+  "time_shortfall": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  },
+  "pending_age": {
+   "clarity": "leaning",
+   "target": "0",
+   "second": null
+  }
+ },
+ "target_words": 36,
+ "deciding": {
+  "uf_reconciles": "Net UF 2000-200=1800 ml against weight loss 72.4-70.8=1.6 kg; gap 0.2 kg.",
+  "checks_before_start": "ACCESS_CHECK stamped 08:01, one minute after needle_on 08:00; done true, so a clock offset is plausible but it is formally after start.",
+  "log_disposition": "Only the one late-stamped check needs confirming with the treating nurse; nothing else open, though the shortfall adds some doubt.",
+  "time_shortfall": "Clock 228 min minus 10 min pump pause gives 218 effective against 240 prescribed: 22 short.",
+  "pending_age": "review_ts is the same day as the session date, about 7 hours after washback."
+ },
+ "request": "rec-F305-0021",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.010919
+}

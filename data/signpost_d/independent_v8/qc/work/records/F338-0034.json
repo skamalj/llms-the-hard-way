@@ -1,0 +1,127 @@
+{
+ "id": "F338-0034",
+ "family": "F338",
+ "state": {
+  "site": {
+   "pollutant": "O3",
+   "tier": "compliance",
+   "service_interval_days": 90,
+   "approved_interval_days": 120
+  },
+  "visit": {
+   "date": "2024-08-15",
+   "start": "10:00",
+   "end": "12:00",
+   "sequence_status": "complete",
+   "maint_window": true
+  },
+  "reference": {
+   "standard_id": "O3-5521",
+   "unit": "ppb",
+   "cert_expiry": "2024-09-26"
+  },
+  "checks": [
+   {
+    "type": "as_found_span",
+    "ref_id": "O3-7730",
+    "ref_conc": 80,
+    "unit": "ppb",
+    "reading": 96,
+    "tol": 4,
+    "ts": "2024-08-15T10:20"
+   },
+   {
+    "type": "as_left_zero",
+    "ref_id": "O3-7730",
+    "ref_conc": 0,
+    "unit": "ppb",
+    "reading": 3.5,
+    "tol": 2,
+    "ts": "2024-08-15T11:30"
+   }
+  ],
+  "history": {
+   "last_visit_date": "2024-05-07",
+   "results": [
+    "fail",
+    "fail",
+    "fail",
+    "fail"
+   ],
+   "autochecks": [
+    {
+     "d": "2024-06-01",
+     "r": "fail"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "pollutant": "O3",
+  "as_found_ratio": 2.92,
+  "as_left_status": "one_point_fail",
+  "cylinder_id_mismatch": "different_standard",
+  "cert_expiry_offset_days": 42,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": false,
+  "drift_explanation": "maintenance_window",
+  "days_since_last_visit": 100,
+  "visit_completeness": "complete",
+  "prior_fail_count": 4,
+  "timestamp_mismatch": "none",
+  "site_priority": "compliance"
+ },
+ "factors_sampled": {
+  "pollutant": "O3",
+  "as_found_ratio": 2.92,
+  "as_left_status": "one_point_fail",
+  "cylinder_id_mismatch": "different_standard",
+  "cert_expiry_offset_days": 42,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": false,
+  "drift_explanation": "maintenance_window",
+  "days_since_last_visit": 100,
+  "visit_completeness": "complete",
+  "prior_fail_count": 4,
+  "timestamp_mismatch": "none",
+  "site_priority": "compliance"
+ },
+ "plan": {
+  "data_accepted": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "reference_valid": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "close_visit",
+   "second": null
+  },
+  "flag_extent": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "return_urgency": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 60,
+ "deciding": {
+  "data_accepted": "Drift is explained by the maintenance window and approved extended interval; the record is treated as acceptable.",
+  "reference_valid": "checks ref_id O3-7730 differs entirely from reference.standard_id O3-5521.",
+  "next_step": "Visit complete and drift explained by the approved interval and maintenance window; close it.",
+  "flag_extent": "100 days since last visit with failed autochecks from early June; 30-day and over-30 flagging are both plausible.",
+  "return_urgency": "As-left zero reading 3.5 exceeds tol 2 at a compliance site; return within a couple of days or within a week both defensible."
+ },
+ "request": "rec-F338-0031",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.006461
+}

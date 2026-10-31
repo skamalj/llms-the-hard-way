@@ -1,0 +1,133 @@
+{
+ "id": "F338-0014",
+ "family": "F338",
+ "state": {
+  "site": {
+   "pollutant": "CO",
+   "tier": "indicative"
+  },
+  "visit": {
+   "date": "2024-05-20",
+   "sequence_status": "complete"
+  },
+  "reference": {
+   "standard_id": "C7782",
+   "unit": "ppm",
+   "cert_expiry": "2024-12-06"
+  },
+  "checks": [
+   {
+    "phase": "as_found",
+    "type": "span",
+    "ref_id": "C7782",
+    "ref_conc": 40,
+    "unit": "ppm",
+    "reading": 41.57,
+    "tol": 0.8
+   },
+   {
+    "phase": "as_left",
+    "type": "span",
+    "ref_id": "C7782",
+    "ref_conc": 40,
+    "unit": "ppm",
+    "reading": 40.2,
+    "tol": 0.8
+   }
+  ],
+  "instrument": {
+   "temp_max": 38
+  },
+  "history": {
+   "last_visit_date": "2024-04-15",
+   "autochecks": [
+    {
+     "d": "2024-04-14",
+     "r": "pass"
+    },
+    {
+     "d": "2024-04-20",
+     "r": "fail"
+    },
+    {
+     "d": "2024-05-10",
+     "r": "fail"
+    }
+   ],
+   "results": [
+    "fail",
+    "pass",
+    "fail",
+    "fail"
+   ]
+  }
+ },
+ "factors": {
+  "pollutant": "CO",
+  "as_found_ratio": 1.96,
+  "as_left_status": "all_pass",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 200,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": false,
+  "drift_explanation": "enclosure_temp_excursion",
+  "days_since_last_visit": 35,
+  "visit_completeness": "complete",
+  "prior_fail_count": 3,
+  "timestamp_mismatch": "none",
+  "site_priority": "indicative"
+ },
+ "factors_sampled": {
+  "pollutant": "CO",
+  "as_found_ratio": 1.96,
+  "as_left_status": "all_pass",
+  "cylinder_id_mismatch": "transposed_digit",
+  "cert_expiry_offset_days": -17,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": false,
+  "drift_explanation": "enclosure_temp_excursion",
+  "days_since_last_visit": 35,
+  "visit_completeness": "complete",
+  "prior_fail_count": 3,
+  "timestamp_mismatch": "none",
+  "site_priority": "indicative"
+ },
+ "plan": {
+  "data_accepted": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "reference_valid": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "close_flagged",
+   "second": null
+  },
+  "flag_extent": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "return_urgency": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "4"
+  }
+ },
+ "target_words": 25,
+ "deciding": {
+  "data_accepted": "The enclosure temp_max of 38 explains the as-found drift of 41.57 against 40 (tol 0.8). The as-left span is in tolerance.",
+  "reference_valid": "The IDs match C7782 and the certificate is in date until 2024-12, with consistent units. The certificate number is absent, which leaves a little doubt.",
+  "next_step": "The as-left span passes, but the as-found was out of tolerance and autochecks failed from 2024-04-20. The visit closes with flags.",
+  "flag_extent": "Autochecks first failed on 2024-04-20, about 30 days before the visit, right on the boundary between 8-30 and over 30 days.",
+  "return_urgency": "The as-left passes and the site is indicative tier, but the autocheck failures and the temperature excursion at 38 argue for an earlier return. This is balanced between 1-2 days and same day."
+ },
+ "request": "rec-F338-0011",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.009665
+}

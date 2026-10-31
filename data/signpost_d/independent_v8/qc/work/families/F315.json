@@ -1,0 +1,340 @@
+{
+ "id": "F315",
+ "domain": "street lighting fault reports",
+ "role": "Street lighting fault controller in a local highway authority's lighting team, reviewing one fault report at a time to decide dispatch and closure",
+ "setting": "A council lighting contract receives fault reports on street lights from the public, police, night scouts and a central management system (CMS) that monitors individual lantern nodes. Each record pulls together the incoming report, the asset register entry, the latest CMS reading, the unit's job history, the current job card and any supply network information from the distribution network operator. The controller must judge whether the fault sits on the electricity supply or the unit, whether this is a repeat failure after a recent repair, what to do next, and how far the current job has progressed. Signals are spread across sections and must be cross-checked: dates against dates, CMS state against the report, neighbouring outages against the network log.",
+ "questions": {
+  "supply_side_fault": {
+   "type": "noul",
+   "instructions": "Evidence places the fault on the electricity supply, not the unit.",
+   "criteria": {
+    "true": "Network incident logged, or three or more adjacent units dark.",
+    "false": "Single unit affected, or supply evidence missing or contradicted."
+   }
+  },
+  "repeat_failure": {
+   "type": "noul",
+   "instructions": "This unit failed again within 84 days of a completed repair.",
+   "criteria": {
+    "true": "Completed repair dated within 84 days before this report.",
+    "false": "No completed repair in window, or completion unconfirmed."
+   }
+  },
+  "next_action": {
+   "type": "choice",
+   "instructions": "What should the controller do next with this fault report?",
+   "criteria": {
+    "close_report": "Unit confirmed burning, or an open job already covers it.",
+    "hold_verify": "One confirmation, such as CMS reading or scout visit, needed first.",
+    "routine_repair": "Confirmed fault, no live hazard; dispatch within standard window.",
+    "urgent_make_safe": "Hazard not yet made safe, or critical site dark; attend within hours."
+   }
+  },
+  "source_support": {
+   "type": "score",
+   "instructions": "How many independent sources confirm the information in this record?",
+   "criteria": [
+    "No independent source confirms the information",
+    "Exactly one independent source confirms it",
+    "Two or three independent sources confirm it",
+    "Four or more independent sources confirm it"
+   ]
+  },
+  "repair_progress": {
+   "type": "score",
+   "instructions": "How far has work progressed toward a verified repair of this fault?",
+   "criteria": [
+    "No crew visit logged against this fault",
+    "Crew attended, fault still present or unresolved",
+    "Fix recorded on site, no CMS or scout confirmation",
+    "Fix recorded and confirmed by CMS or later scout"
+   ]
+  }
+ },
+ "factors": [
+  {
+   "name": "dark_unit_count",
+   "description": "Number of units on the same feeder or street currently dark, shown via supply.feeder_units_dark and the length of report.units_reported; 2 is a deliberate boundary for the supply-side claim",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 1,
+   "max": 8,
+   "p_true": 0,
+   "skills": [
+    "S5",
+    "S6",
+    "S7"
+   ]
+  },
+  {
+   "name": "dno_incident_logged",
+   "description": "Whether the distribution network operator has an open incident reference for the area covering the unit",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.35,
+   "skills": [
+    "S3",
+    "S5"
+   ]
+  },
+  {
+   "name": "cms_state",
+   "description": "Latest CMS reading for the unit's node, or the whole cms section null when the unit has no node fitted",
+   "kind": "categorical",
+   "values": [
+    "lamp_fail",
+    "normal_burning",
+    "no_comms",
+    "section_null"
+   ],
+   "weights": [
+    0.35,
+    0.2,
+    0.25,
+    0.2
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S2",
+    "S3",
+    "S4",
+    "S5"
+   ]
+  },
+  {
+   "name": "days_since_last_repair",
+   "description": "Days between the completion date of the most recent prior repair in history and report.received_at; values near 84 are common to create boundary cases",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 3,
+   "max": 400,
+   "p_true": 0,
+   "skills": [
+    "S5",
+    "S6"
+   ]
+  },
+  {
+   "name": "last_repair_state",
+   "description": "State of the most recent prior job in history: fully completed, attended but never closed, or no prior job on record",
+   "kind": "categorical",
+   "values": [
+    "completed",
+    "attended_not_completed",
+    "no_record"
+   ],
+   "weights": [
+    0.55,
+    0.2,
+    0.25
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S2",
+    "S4",
+    "S5"
+   ]
+  },
+  {
+   "name": "hazard_observed",
+   "description": "Physical hazard noted on the current job card or report fault code: none, column door missing, column knocked down or leaning, or cable exposed",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "door_missing",
+    "column_damaged",
+    "cable_exposed"
+   ],
+   "weights": [
+    0.55,
+    0.18,
+    0.12,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S7"
+   ]
+  },
+  {
+   "name": "hazard_made_safe",
+   "description": "Mitigation: a crew, police or the network operator has already isolated supply or fitted a temporary cover, shown by job.made_safe and job.isolated_at",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S7"
+   ]
+  },
+  {
+   "name": "site_category",
+   "description": "Location type recorded in the asset register; junctions, crossings and underpasses raise the importance of a dark unit, residential side roads lower it",
+   "kind": "categorical",
+   "values": [
+    "residential",
+    "main_road",
+    "junction_or_crossing",
+    "underpass_or_subway"
+   ],
+   "weights": [
+    0.4,
+    0.25,
+    0.2,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S6",
+    "S7"
+   ]
+  },
+  {
+   "name": "planned_works_active",
+   "description": "Mitigation: a scheduled lantern replacement or column test window covering the report date, which can explain a dark unit without a fault",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.45,
+   "skills": [
+    "S3",
+    "S6"
+   ]
+  },
+  {
+   "name": "current_job_stage",
+   "description": "Progress of the current job: none raised or not attended, attended but unresolved, rectified with no confirmation, rectified and confirmed by later CMS burning or a scout pass",
+   "kind": "categorical",
+   "values": [
+    "not_attended",
+    "attended_unresolved",
+    "rectified_unconfirmed",
+    "rectified_confirmed"
+   ],
+   "weights": [
+    0.35,
+    0.2,
+    0.27,
+    0.18
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S2",
+    "S4",
+    "S6"
+   ]
+  },
+  {
+   "name": "dates_out_of_order",
+   "description": "Whether a job date is inconsistent, such as completed_at earlier than attended_at or attended_at earlier than report.received_at, undermining a claimed repair",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.15,
+   "skills": [
+    "S2",
+    "S5"
+   ]
+  },
+  {
+   "name": "duplicate_of_open_job",
+   "description": "Whether job.linked_job_ref points to an already open job on the same unit raised before this report",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.2,
+   "skills": [
+    "S3",
+    "S4",
+    "S7"
+   ]
+  },
+  {
+   "name": "report_source",
+   "description": "Origin of the report; police and scout reports are trusted, public web reports sometimes give the wrong unit number",
+   "kind": "categorical",
+   "values": [
+    "public_web",
+    "police",
+    "night_scout",
+    "cms_auto"
+   ],
+   "weights": [
+    0.45,
+    0.15,
+    0.2,
+    0.2
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S6"
+   ]
+  }
+ ],
+ "sections": [
+  {
+   "name": "report",
+   "description": "Incoming fault: ref, received_at, source, fault_code, units_reported list."
+  },
+  {
+   "name": "asset",
+   "description": "Register entry: unit_id, column_type, lantern_type, site_category, install_year, planned_works."
+  },
+  {
+   "name": "cms",
+   "description": "Latest node reading: node_id, status_code, last_comms_at, lamp_hours; null if no node."
+  },
+  {
+   "name": "history",
+   "description": "List of prior jobs with job_ref, raised, attended, completed, outcome_code."
+  },
+  {
+   "name": "job",
+   "description": "Current job card: job_ref, stage, attended_at, completed_at, hazard_code, made_safe, isolated_at, linked_job_ref."
+  },
+  {
+   "name": "supply",
+   "description": "Network information: dno_incident_ref, dno_status, feeder_units_dark, feeder_id."
+  }
+ ],
+ "rendering_notes": "dark_unit_count appears as supply.feeder_units_dark (integer) and loosely as the number of ids in report.units_reported; public_web reports may list extra unit ids that cms shows burning (decoy). dno_incident_logged sets supply.dno_incident_ref to a reference string with dno_status 'open', otherwise null. cms_state maps to cms.status_code ('LF', 'OK', 'NC') with last_comms_at stale for no_comms; section_null makes the whole cms value null. days_since_last_repair and last_repair_state are rendered only as dates in history entries: completed jobs have a completed date, attended_not_completed has completed null, no_record gives an empty list; the controller must compute the gap to report.received_at. hazard_observed appears as job.hazard_code and/or report.fault_code ('DOOR', 'KNOCK', 'CABLE', or null); hazard_made_safe as job.made_safe boolean plus isolated_at timestamp, present with the same hazard about half the time. site_category is asset.site_category. planned_works_active fills asset.planned_works with window_start, window_end and work_type covering the report date, otherwise null. current_job_stage is shown through job.stage code ('RAISED', 'ATT', 'RECT') with attended_at/completed_at, and confirmation only via a cms OK reading after completed_at or a later scout entry in history; a RECT stage with cms null or NC is unconfirmed. dates_out_of_order inserts an impossible date sequence in job or the latest history entry. duplicate_of_open_job fills job.linked_job_ref with a ref matching an open history entry. report_source is report.source. Decoys: cms.lamp_hours high on healthy units, old install_year, alarming fault_code on reports where cms shows OK, feeder_units_dark of 2 without a network incident. No field may state a verdict: no 'supply_fault', 'repeat', 'priority', 'recommended_action' or 'progress' field; the answers must be inferred by comparing dates, codes and counts across sections. No free-text note fields.",
+ "skills": [
+  "S2",
+  "S3",
+  "S4",
+  "S5",
+  "S6",
+  "S7"
+ ],
+ "shared_scale": "source_support",
+ "design_cost": 0.1309
+}

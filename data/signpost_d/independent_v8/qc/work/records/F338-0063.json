@@ -1,0 +1,140 @@
+{
+ "id": "F338-0063",
+ "family": "F338",
+ "state": {
+  "site": {
+   "id": "S-330",
+   "pollutant": "O3",
+   "tier": "standard",
+   "service_interval_days": 28,
+   "approved_interval_days": 28
+  },
+  "visit": {
+   "id": "V-7102",
+   "date": "2024-07-09",
+   "start": "08:00",
+   "end": "09:30",
+   "sequence_status": "aborted",
+   "maint_window": true
+  },
+  "reference": {
+   "standard_id": "CYL-91355",
+   "conc": 80,
+   "unit": "ppb",
+   "cert_expiry": "2024-05-29"
+  },
+  "checks": [
+   {
+    "type": "as_found_span",
+    "ref_id": "CYL-91355",
+    "ref_conc": 80,
+    "unit": "ppb",
+    "reading": 66,
+    "tol": 4,
+    "ts": "2024-07-09T08:20"
+   },
+   {
+    "type": "as_left_span",
+    "ref_id": "CYL-91355",
+    "ref_conc": 80,
+    "unit": "ppb",
+    "reading": 80,
+    "tol": 4,
+    "ts": "2024-07-09T09:00"
+   }
+  ],
+  "history": {
+   "last_visit": "2024-06-08",
+   "results": [
+    "fail",
+    "fail",
+    "pass",
+    "fail",
+    "fail"
+   ],
+   "autochecks": [
+    {
+     "d": "2024-06-20",
+     "r": "pass"
+    },
+    {
+     "d": "2024-07-05",
+     "r": "pass"
+    }
+   ]
+  },
+  "instrument": {
+   "serial": "A-3308",
+   "temp_min": 11,
+   "temp_max": 28
+  }
+ },
+ "factors": {
+  "pollutant": "O3",
+  "as_found_ratio": 3.77,
+  "as_left_status": "all_pass",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": -41,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "maintenance_window",
+  "days_since_last_visit": 31,
+  "visit_completeness": "aborted_power",
+  "prior_fail_count": 4,
+  "timestamp_mismatch": "none",
+  "site_priority": "standard"
+ },
+ "factors_sampled": {
+  "pollutant": "O3",
+  "as_found_ratio": 3.77,
+  "as_left_status": "all_pass",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": -41,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "maintenance_window",
+  "days_since_last_visit": 31,
+  "visit_completeness": "aborted_power",
+  "prior_fail_count": 4,
+  "timestamp_mismatch": "none",
+  "site_priority": "standard"
+ },
+ "plan": {
+  "data_accepted": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "reference_valid": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "recalibrate",
+   "second": null
+  },
+  "flag_extent": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "return_urgency": {
+   "clarity": "clear",
+   "target": "2",
+   "second": null
+  }
+ },
+ "target_words": 74,
+ "deciding": {
+  "data_accepted": "Autochecks pass and a maintenance window is flagged, but as-found span 66 vs 80 is well outside tol 4.",
+  "reference_valid": "IDs and unit match, but cert_expiry 2024-05-29 precedes the visit date; the doubt makes it leaning true only on identity.",
+  "next_step": "Sequence is aborted with only one as-left point, so calibration is incomplete.",
+  "flag_extent": "31 days since the last visit and a large as-found miss put it at the 30-day boundary.",
+  "return_urgency": "Standard tier, as-left passes and autochecks pass, so a return in 3-7 days suffices."
+ },
+ "request": "rec-F338-0061",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.006891
+}

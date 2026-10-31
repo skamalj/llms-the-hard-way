@@ -1,0 +1,115 @@
+{
+ "id": "F305-0038",
+ "family": "F305",
+ "state": {
+  "session": {
+   "id": "S303",
+   "date": "2024-01-10",
+   "needle_on": "13:00",
+   "washback": "16:52",
+   "review_date": "2024-02-20"
+  },
+  "prescription": {
+   "duration_min": 240
+  },
+  "machine": {
+   "uf_removed_ml": 2600,
+   "washback_ml": 200,
+   "alarms": [
+    {
+     "c": "PUMP_STOP",
+     "t": "14:30"
+    },
+    {
+     "c": "PUMP_RESUME",
+     "t": "14:46"
+    }
+   ]
+  },
+  "observations": {
+   "pre_kg": 68.5,
+   "post_kg": 66.6,
+   "interventions": []
+  },
+  "checks": [
+   {
+    "code": "water_chlorine_test",
+    "done": true,
+    "t": "12:40"
+   },
+   {
+    "code": "machine_disinfection",
+    "done": true,
+    "t": "13:01"
+   }
+  ]
+ },
+ "factors": {
+  "time_shortfall_min": 24,
+  "machine_pause_min": 16,
+  "uf_weight_gap_kg": 0.5,
+  "post_weight_missing": false,
+  "missing_check": "none",
+  "check_logged_after_start": true,
+  "prescription_mismatch": "none",
+  "mismatch_magnitude": "trivial",
+  "hypotension_episodes": 0,
+  "hypotension_mitigated": true,
+  "circuit_clotted": false,
+  "prior_short_sessions": 0,
+  "documented_flow_reduction": false
+ },
+ "factors_sampled": {
+  "time_shortfall_min": 41,
+  "machine_pause_min": 16,
+  "uf_weight_gap_kg": 1.31,
+  "post_weight_missing": true,
+  "missing_check": "none",
+  "check_logged_after_start": false,
+  "prescription_mismatch": "none",
+  "mismatch_magnitude": "trivial",
+  "hypotension_episodes": 1,
+  "hypotension_mitigated": false,
+  "circuit_clotted": false,
+  "prior_short_sessions": 3,
+  "documented_flow_reduction": false
+ },
+ "plan": {
+  "uf_reconciles": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "checks_before_start": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "log_disposition": {
+   "clarity": "clear",
+   "target": "hold_query",
+   "second": null
+  },
+  "time_shortfall": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  },
+  "pending_age": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  }
+ },
+ "target_words": 50,
+ "deciding": {
+  "uf_reconciles": "Net UF 2600-200=2400 ml against weight loss 68.5-66.6=1.9 kg: gap exactly 0.5 kg, on the limit.",
+  "checks_before_start": "machine_disinfection is stamped 13:01, one minute after needle_on at 13:00, while the other check is at 12:40.",
+  "log_disposition": "The only open item is the single late-stamped check, which needs confirmation from the treating nurse. There are no clinical findings or setting differences.",
+  "time_shortfall": "Clock time 13:00-16:52 is 232 min, minus the 16 min pause gives 216 against 240. That is 24 short, within the moderate band.",
+  "pending_age": "Session date 2024-01-10 and review date 2024-02-20 are 41 days apart."
+ },
+ "request": "rec-F305-0036",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.013998
+}

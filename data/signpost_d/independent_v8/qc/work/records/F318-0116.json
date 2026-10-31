@@ -1,0 +1,180 @@
+{
+ "id": "F318-0116",
+ "family": "F318",
+ "state": {
+  "work_order": {
+   "wo_id": "WO-5531",
+   "lock_id": "L14",
+   "visit_type": "winter_stoppage",
+   "bookings_7d": 4,
+   "tasks": [
+    {
+     "task_id": "T1",
+     "asset_ref": "GATE-A",
+     "qty_planned": 1
+    },
+    {
+     "task_id": "T2",
+     "asset_ref": "GATE-B",
+     "qty_planned": 2
+    },
+    {
+     "task_id": "T3",
+     "asset_ref": "PAD-C",
+     "qty_planned": 1
+    }
+   ],
+   "nav_notice": {
+    "in_force": false
+   }
+  },
+  "visit_log": {
+   "arrived": "2025-01-14T08:00",
+   "departed": "2025-01-14T12:00",
+   "crew_size": 2,
+   "timesheet_hours": 9.2,
+   "task_status": [
+    {
+     "task_id": "T1",
+     "status": "done"
+    },
+    {
+     "task_id": "T2",
+     "status": "done"
+    },
+    {
+     "task_id": "T3",
+     "status": "done",
+     "deferral_ref": "DF-88",
+     "deferral_due": "2025-01-20"
+    }
+   ]
+  },
+  "materials": {
+   "issued": [
+    {
+     "part_no": "S-40",
+     "task_id": "T2",
+     "qty": 3
+    }
+   ],
+   "returned": [],
+   "fitted": [
+    {
+     "part_no": "S-40",
+     "task_id": "T2",
+     "qty": 2
+    }
+   ]
+  },
+  "checks": {
+   "post_checks": [
+    {
+     "asset_ref": "GATE-A",
+     "result": "pass"
+    },
+    {
+     "asset_ref": "GATE-B2",
+     "result": "pass"
+    },
+    {
+     "asset_ref": "PAD-C",
+     "result": "pass"
+    }
+   ],
+   "leakage_ls": 9.8,
+   "leakage_limit_ls": 20,
+   "river_level_m": 3.1,
+   "flood_marker_m": 2.8
+  },
+  "asset_history": {
+   "prior_visits": [
+    {
+     "date": "2024-03-02",
+     "asset_ref": "PAD-C",
+     "defect_code": "RK2"
+    },
+    {
+     "date": "2024-09-11",
+     "asset_ref": "PAD-C",
+     "defect_code": "RK2"
+    }
+   ],
+   "open_defects": [
+    {
+     "defect_code": "RK2",
+     "asset_ref": "PAD-C",
+     "raised": "2024-12-02"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "visit_type": "winter_stoppage",
+  "tasks_ordered": 3,
+  "completion_state": "all_done",
+  "parts_qty_mismatch": "one part: fitted 2 vs issued 3, none returned",
+  "hours_gap": 1.2,
+  "asset_ref_mismatch": true,
+  "post_check_result": "passed",
+  "leakage_ratio": 0.49,
+  "leakage_mitigation": true,
+  "navigation_notice_in_force": false,
+  "deferral_approved": true,
+  "prior_same_defect": 2,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "visit_type": "winter_stoppage",
+  "tasks_ordered": 3,
+  "completion_state": "all_done",
+  "parts_qty_mismatch": "none",
+  "hours_gap": 1.2,
+  "asset_ref_mismatch": true,
+  "post_check_result": "passed",
+  "leakage_ratio": 0.49,
+  "leakage_mitigation": true,
+  "navigation_notice_in_force": false,
+  "deferral_approved": true,
+  "prior_same_defect": 2,
+  "boundary_case": false
+ },
+ "plan": {
+  "safe_to_reopen": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "record_disposition": {
+   "clarity": "clear",
+   "target": "close_visit",
+   "second": null
+  },
+  "return_urgency": {
+   "clarity": "balanced",
+   "target": "within_week",
+   "second": "within_month"
+  },
+  "affected_scope": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  },
+  "section_mismatches": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  }
+ },
+ "target_words": 66,
+ "deciding": {
+  "safe_to_reopen": "Checks pass and leakage is well within limit, but open defect RK2 on PAD-C remains, and the GATE-B vs GATE-B2 check ref conflicts with the task.",
+  "record_disposition": "All three tasks are logged done and all checks pass; no failed check or notice, so closure as logged is the plan.",
+  "return_urgency": "The T3 deferral is approved with a due date 6 days after the visit, while the open RK2 defect has recurred twice and is not restricting; week and month are both plausible.",
+  "affected_scope": "bookings_7d is 4, which falls in the two-to-five band.",
+  "section_mismatches": "Three unexplained mismatches: timesheet 9.2 h vs 8 h visit span, GATE-B vs GATE-B2 asset ref, and S-40 fitted 2 vs issued 3 with no return."
+ },
+ "request": "rec-F318-0116",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.017141
+}

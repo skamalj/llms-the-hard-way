@@ -1,0 +1,127 @@
+{
+ "id": "F314-0051",
+ "family": "F314",
+ "state": {
+  "property": {
+   "inv": [
+    {
+     "id": "A1",
+     "type": "boiler",
+     "loc": "kitchen",
+     "serial": "B77",
+     "owner": "landlord"
+    },
+    {
+     "id": "A2",
+     "type": "fire",
+     "loc": "lounge",
+     "serial": "F12",
+     "owner": null
+    }
+   ]
+  },
+  "tenancy": {
+   "review": "2025-06-09"
+  },
+  "certificate": {
+   "insp": "2024-06-10",
+   "exp": "2025-06-10",
+   "lic": "GS4401",
+   "outcome": "pass"
+  },
+  "engineer": {
+   "lic": "GS4410",
+   "valid_to": "2025-12-31"
+  },
+  "appliance_checks": [
+   {
+    "id": "A1",
+    "loc": "kitchen",
+    "serial": "B77",
+    "ratio": 0.0052,
+    "thr": 0.004,
+    "retest": 0.0031,
+    "defect": "AR",
+    "isolation": {
+     "supply_off": null,
+     "label": "W1"
+    }
+   }
+  ],
+  "history": {
+   "defects": 2,
+   "remedials": [
+    {
+     "id": "A1",
+     "done": "2023-09-01"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "inventory_mismatch": "missing_from_cert",
+  "tenant_owned_appliance": false,
+  "date_misalignment": "none",
+  "days_to_true_expiry": 1,
+  "renewal_booked": false,
+  "engineer_status": "licence_mismatch",
+  "worst_defect_class": "at_risk",
+  "defect_isolated": false,
+  "remedial_completed": false,
+  "combustion_reading": "high_retest_pass",
+  "prior_defect_count": 2,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "inventory_mismatch": "missing_from_cert",
+  "tenant_owned_appliance": false,
+  "date_misalignment": "none",
+  "days_to_true_expiry": 265,
+  "renewal_booked": false,
+  "engineer_status": "active_matching",
+  "worst_defect_class": "none",
+  "defect_isolated": true,
+  "remedial_completed": true,
+  "combustion_reading": "high_retest_pass",
+  "prior_defect_count": 2,
+  "boundary_case": false
+ },
+ "plan": {
+  "covers_all_appliances": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "engineer_valid": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "balanced",
+   "target": "accept",
+   "second": "accept_with_works"
+  },
+  "renewal_urgency": {
+   "clarity": "contested",
+   "target": "2",
+   "second": "3"
+  },
+  "open_hazard": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 70,
+ "deciding": {
+  "covers_all_appliances": "A2 fire absent from checks, but its owner is null, so the gap is neither clearly excused nor clearly landlord's.",
+  "engineer_valid": "Certificate licence GS4401 differs from engineer licence GS4410.",
+  "next_step": "Open AR defect and missing A2 weigh against accept, but remedial history and retest pass leave accept arguable.",
+  "renewal_urgency": "True expiry 2025-06-10 is one day after review 2025-06-09, at the edge of level 2 and 3.",
+  "open_hazard": "A1 AR defect open with label W1 but supply_off null: isolation unconfirmed, between levels 2 and 3."
+ },
+ "request": "rec-F314-0051",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.010615
+}

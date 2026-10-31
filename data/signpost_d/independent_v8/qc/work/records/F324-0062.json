@@ -1,0 +1,136 @@
+{
+ "id": "F324-0062",
+ "family": "F324",
+ "state": {
+  "zone": {
+   "drippers": 200
+  },
+  "schedule": {
+   "cycles_ml": [
+    300,
+    0.3
+   ],
+   "overrides": [
+    {
+     "approved_by_role": "head_grower",
+     "reduction_pct": 10
+    }
+   ]
+  },
+  "controller_log": {
+   "cycles": [
+    {
+     "l": 55,
+     "open_s": "full",
+     "bar": 2.0
+    },
+    {
+     "l": 55,
+     "open_s": "full",
+     "bar": 2.0
+    }
+   ],
+   "daily_total_l": 110
+  },
+  "drainage": {
+   "drain_pct": [
+    24
+   ],
+   "band": [
+    20,
+    30
+   ]
+  },
+  "sensors": {
+   "log_date": "2024-09-10",
+   "meter_last_calibrated": "2023-10-05"
+  },
+  "maintenance": {
+   "windows": [
+    {
+     "type": "service",
+     "start": "09:00",
+     "end": "10:00"
+    }
+   ],
+   "alarms": [
+    {
+     "code": "TANK_LO",
+     "ack": true,
+     "cleared": true
+    }
+   ],
+   "recent_work_orders": [
+    "2024-08-20",
+    "2024-07-01",
+    "2024-02-10"
+   ]
+  }
+ },
+ "factors": {
+  "delivery_shortfall_pct": 8.3,
+  "mismatch_location": "unit_mismatch",
+  "fault_cause": "emitter_clogging",
+  "approved_override": true,
+  "maintenance_window_active": true,
+  "drain_offset_points": 0.0,
+  "off_tolerance_cycles": 0,
+  "meter_calibration_age_days": 341,
+  "confirmation_pending": false,
+  "pressure_state": "normal",
+  "benign_alarm_decoy": "tank_alarm_cleared",
+  "recent_work_orders": 3
+ },
+ "factors_sampled": {
+  "delivery_shortfall_pct": 8.32,
+  "mismatch_location": "unit_mismatch",
+  "fault_cause": "low_supply_pressure",
+  "approved_override": true,
+  "maintenance_window_active": true,
+  "drain_offset_points": 13.18,
+  "off_tolerance_cycles": 5,
+  "meter_calibration_age_days": 341,
+  "confirmation_pending": false,
+  "pressure_state": "normal",
+  "benign_alarm_decoy": "tank_alarm_cleared",
+  "recent_work_orders": 3
+ },
+ "plan": {
+  "under_dosed": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "emitter_clogging": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "next_action": {
+   "clarity": "contested",
+   "target": "adjust_schedule",
+   "second": "hold_for_check"
+  },
+  "drain_deviation": {
+   "clarity": "leaning",
+   "target": "0",
+   "second": null
+  },
+  "off_plan_cycles": {
+   "clarity": "clear",
+   "target": "0",
+   "second": null
+  }
+ },
+ "target_words": 25,
+ "deciding": {
+  "under_dosed": "110 L against 120 L planned is about 8% short, and a 10% reduction was approved. The 341-day-old calibration leaves some doubt.",
+  "emitter_clogging": "Pressure is normal and the valve opens fully, yet delivery is slightly low. Together with the approved reduction, this fits mild clogging.",
+  "next_action": "A small dose correction is possible, so adjust the schedule. The service window and the stale calibration could justify a manual check first, so the two are held in balance.",
+  "drain_deviation": "A drain of 24% sits inside the 20-30 band.",
+  "off_plan_cycles": "Both cycles delivered 55 L against 60 L planned, which is within tolerance. The 0.3 planned value is a litres-for-mL unit slip, not a real over-dose."
+ },
+ "request": "rec-F324-0061",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.013341
+}

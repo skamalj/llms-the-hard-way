@@ -1,0 +1,104 @@
+{
+ "id": "F338-0033",
+ "family": "F338",
+ "state": {
+  "site": {
+   "pollutant": "CO",
+   "tier": "indicative"
+  },
+  "visit": {
+   "date": "2024-07-02",
+   "sequence_status": "aborted",
+   "maint_window": true
+  },
+  "reference": {
+   "standard_id": "K88",
+   "cert_expiry": "2024-06-13"
+  },
+  "checks": [
+   {
+    "type": "as_left_span",
+    "ref_id": "K88",
+    "ts": "2024-07-03",
+    "reading": 9.8,
+    "ref_conc": 10,
+    "tol": 0.5
+   }
+  ],
+  "history": {
+   "autochecks": [
+    {
+     "r": "fail"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "pollutant": "CO",
+  "as_found_ratio": 2.52,
+  "as_left_status": "all_pass",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": -19,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": false,
+  "drift_explanation": "maintenance_window",
+  "days_since_last_visit": 40,
+  "visit_completeness": "aborted_power",
+  "prior_fail_count": 4,
+  "timestamp_mismatch": "different_day",
+  "site_priority": "indicative"
+ },
+ "factors_sampled": {
+  "pollutant": "CO",
+  "as_found_ratio": 2.52,
+  "as_left_status": "all_pass",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": -19,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": false,
+  "drift_explanation": "maintenance_window",
+  "days_since_last_visit": 40,
+  "visit_completeness": "aborted_power",
+  "prior_fail_count": 4,
+  "timestamp_mismatch": "different_day",
+  "site_priority": "indicative"
+ },
+ "plan": {
+  "data_accepted": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "reference_valid": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "withdraw",
+   "second": null
+  },
+  "flag_extent": {
+   "clarity": "contested",
+   "target": "2",
+   "second": "3"
+  },
+  "return_urgency": {
+   "clarity": "balanced",
+   "target": "4",
+   "second": "3"
+  }
+ },
+ "target_words": 25,
+ "deciding": {
+  "data_accepted": "Maintenance window explains drift, as-left passes, but autocheck fail and aborted visit weigh against.",
+  "reference_valid": "cert_expiry 2024-06-13 is before visit date 2024-07-02, but the ID matches and the lapse is brief.",
+  "next_step": "Aborted sequence with repeated failures suggests the analyser is faulty beyond site adjustment.",
+  "flag_extent": "40 days since last visit with failing autocheck; flagging could cover the 8-30 day or over-30 range.",
+  "return_urgency": "Aborted visit and a failing autocheck; same-day versus one-to-two-day return are both defensible."
+ },
+ "request": "rec-F338-0031",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.006461
+}

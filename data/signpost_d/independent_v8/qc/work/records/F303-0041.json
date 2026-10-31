@@ -1,0 +1,160 @@
+{
+ "id": "F303-0041",
+ "family": "F303",
+ "state": {
+  "order": {
+   "id": "O-4471",
+   "rx": {
+    "modality": "concentrator",
+    "flow_lpm": 2,
+    "hours_per_day": 8,
+    "rx_expiry": "2026-03-01"
+   },
+   "items": [
+    {
+     "sku": "CONC5",
+     "qty": 1
+    },
+    {
+     "sku": "HX2300",
+     "qty": 1
+    }
+   ],
+   "account": {
+    "billing_hold": true,
+    "arrears_gbp": 86.5
+   }
+  },
+  "visit": {
+   "date": "2025-06-10",
+   "arrived_at": "10:05",
+   "departed_at": "10:50",
+   "items_left": [
+    {
+     "sku": "CONC5",
+     "qty": 1,
+     "serial": "C5-1182"
+    },
+    {
+     "sku": "HX2300",
+     "qty": 1,
+     "serial": "HX-77"
+    }
+   ],
+   "install_checks": null,
+   "patient_signature": "A.Reed",
+   "handover_at": "10:48"
+  },
+  "site_assessment": {
+   "assessed_at": "10:20",
+   "hazards": [
+    {
+     "code": "SMOKING",
+     "status": "open",
+     "fix": null
+    },
+    {
+     "code": "GAS_HOB",
+     "status": "open",
+     "fix": null
+    },
+    {
+     "code": "HEATER",
+     "status": "open",
+     "fix": null
+    }
+   ]
+  },
+  "equipment": {
+   "concentrator": {
+    "serial": "C5-1182",
+    "flow_setting_lpm": 2
+   },
+   "fault_log": [
+    {
+     "code": "LOW_PURITY",
+     "retest_passed": false
+    }
+   ],
+   "cylinders_on_site": [
+    {
+     "size": "HX 2300 L",
+     "fill_pct": 85
+    }
+   ]
+  },
+  "supply_plan": {
+   "next_delivery_date": "2025-06-12"
+  }
+ },
+ "factors": {
+  "rx_alignment": "exact",
+  "items_shortfall": "none",
+  "setup_state": "checks_null",
+  "supply_hours": 49.0,
+  "concentrator_fault": true,
+  "fault_mitigated": false,
+  "hazards_found": 3,
+  "hazard_mitigation": false,
+  "hazard_status_missing": false,
+  "handover_gap": false,
+  "timeline_out_of_order": false,
+  "next_delivery": "booked_in_time",
+  "dependency_level": "nocturnal",
+  "billing_hold": true
+ },
+ "factors_sampled": {
+  "rx_alignment": "exact",
+  "items_shortfall": "one_short",
+  "setup_state": "checks_null",
+  "supply_hours": 259.42,
+  "concentrator_fault": true,
+  "fault_mitigated": false,
+  "hazards_found": 3,
+  "hazard_mitigation": true,
+  "hazard_status_missing": false,
+  "handover_gap": false,
+  "timeline_out_of_order": false,
+  "next_delivery": "booked_in_time",
+  "dependency_level": "nocturnal",
+  "billing_hold": true
+ },
+ "plan": {
+  "rx_match": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "urgent_dispatch",
+   "second": null
+  },
+  "fulfilment": {
+   "clarity": "leaning",
+   "target": "setup_incomplete",
+   "second": null
+  },
+  "supply_runway": {
+   "clarity": "contested",
+   "target": "1",
+   "second": "2"
+  },
+  "open_hazards": {
+   "clarity": "clear",
+   "target": "3",
+   "second": null
+  }
+ },
+ "target_words": 68,
+ "deciding": {
+  "rx_match": "Modality and the 2 lpm setting match the prescription, but the installed concentrator has an unresolved LOW_PURITY fault and no flow check was logged, so doubt remains.",
+  "next_step": "Faulty concentrator with failed retest, three open hazards and only about two days of cylinder oxygen make same-day action clear.",
+  "fulfilment": "Both ordered SKUs were left with serials, but install_checks is null, so setup is not shown complete.",
+  "supply_runway": "Faulted concentrator does not count; one HX 2300 L at 85% is about 1955 L against 960 L/day at 2 lpm for 8 h, about 49 hours, right at the 48-hour boundary.",
+  "open_hazards": "Three hazards all with status open and fix null."
+ },
+ "request": "rec-F303-0041",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.015162
+}

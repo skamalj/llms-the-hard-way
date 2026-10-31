@@ -1,0 +1,115 @@
+{
+ "id": "F314-0009",
+ "family": "F314",
+ "state": {
+  "property": {
+   "inventory": [
+    {
+     "id": "A1",
+     "type": "boiler"
+    },
+    {
+     "id": "A2",
+     "type": "hob",
+     "owned_by": "tenant"
+    }
+   ]
+  },
+  "tenancy": {
+   "review_date": "2025-07-15"
+  },
+  "certificate": {
+   "inspection_date": "2024-07-15",
+   "engineer_licence": "G9"
+  },
+  "appliance_checks": [
+   {
+    "id": "A1",
+    "defect_class": "AR",
+    "isolation": {
+     "supply_off": null,
+     "capped": false,
+     "label_code": "AR"
+    }
+   },
+   {
+    "id": "A2",
+    "defect_class": null
+   }
+  ],
+  "engineer": {
+   "licence_no": "G9",
+   "valid_to": "2024-07-15",
+   "categories": [
+    "boiler",
+    "hob"
+   ]
+  }
+ },
+ "factors": {
+  "inventory_mismatch": "none",
+  "tenant_owned_appliance": true,
+  "date_misalignment": "none",
+  "days_to_true_expiry": 0,
+  "renewal_booked": false,
+  "engineer_status": "valid_to_equals_inspection",
+  "worst_defect_class": "at_risk",
+  "defect_isolated": false,
+  "remedial_completed": false,
+  "combustion_reading": "normal",
+  "prior_defect_count": 0,
+  "boundary_case": true
+ },
+ "factors_sampled": {
+  "inventory_mismatch": "none",
+  "tenant_owned_appliance": true,
+  "date_misalignment": "none",
+  "days_to_true_expiry": 20,
+  "renewal_booked": false,
+  "engineer_status": "active_matching",
+  "worst_defect_class": "ncs",
+  "defect_isolated": false,
+  "remedial_completed": false,
+  "combustion_reading": "borderline",
+  "prior_defect_count": 3,
+  "boundary_case": false
+ },
+ "plan": {
+  "covers_all_appliances": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "engineer_valid": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "emergency_isolation",
+   "second": null
+  },
+  "renewal_urgency": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "open_hazard": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  }
+ },
+ "target_words": 61,
+ "deciding": {
+  "covers_all_appliances": "Checks list both inventory ids, A1 and A2, with nothing extra.",
+  "engineer_valid": "Licence G9 matches and categories cover both appliances, but valid_to equals the inspection date.",
+  "next_step": "AR defect on A1 with a label code only, supply_off null and capped false, so isolation is unconfirmed and disconnection is likely needed.",
+  "renewal_urgency": "True expiry 2025-07-15 equals the review date; reached versus final day is arguable.",
+  "open_hazard": "AR defect on A1 open with a label and capped false but supply_off unrecorded; contained is the likelier reading."
+ },
+ "request": "rec-F314-0006",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011136
+}

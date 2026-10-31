@@ -1,0 +1,119 @@
+{
+ "id": "F338-0124",
+ "family": "F338",
+ "state": {
+  "site": {
+   "pollutant": "NO2",
+   "tier": "indicative"
+  },
+  "visit": {
+   "date": "2024-08-05",
+   "sequence_status": "complete",
+   "maint_window": true
+  },
+  "reference": {
+   "standard_id": "CYL-9051",
+   "unit": "ppb",
+   "cert_expiry": "2025-01-01"
+  },
+  "checks": [
+   {
+    "type": "as_found_span",
+    "ref_id": "CYL-9051",
+    "ref_conc": 100,
+    "unit": "ppb",
+    "reading": 96,
+    "tol": 5
+   },
+   {
+    "type": "as_left_span",
+    "ref_id": "CYL-9051",
+    "ref_conc": 100,
+    "unit": "ppb",
+    "reading": 90,
+    "tol": 5
+   }
+  ],
+  "history": {
+   "last_visit_date": "2024-06-19",
+   "autochecks": [
+    {
+     "d": "2024-07-02",
+     "r": "pass"
+    },
+    {
+     "d": "2024-07-30",
+     "r": "pass"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "pollutant": "NO2",
+  "as_found_ratio": 0.8,
+  "as_left_status": "one_point_fail",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 149,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": false,
+  "drift_explanation": "maintenance_window",
+  "days_since_last_visit": 47,
+  "visit_completeness": "complete",
+  "prior_fail_count": 0,
+  "timestamp_mismatch": "none",
+  "site_priority": "indicative"
+ },
+ "factors_sampled": {
+  "pollutant": "NO2",
+  "as_found_ratio": 3.29,
+  "as_left_status": "one_point_fail",
+  "cylinder_id_mismatch": "different_standard",
+  "cert_expiry_offset_days": 149,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": false,
+  "drift_explanation": "maintenance_window",
+  "days_since_last_visit": 47,
+  "visit_completeness": "complete",
+  "prior_fail_count": 0,
+  "timestamp_mismatch": "none",
+  "site_priority": "indicative"
+ },
+ "plan": {
+  "data_accepted": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "reference_valid": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "recalibrate",
+   "second": null
+  },
+  "flag_extent": {
+   "clarity": "contested",
+   "target": "1",
+   "second": "0"
+  },
+  "return_urgency": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  }
+ },
+ "target_words": 29,
+ "deciding": {
+  "data_accepted": "As-found span deviation is 4 against tolerance 5 and there is a maintenance window, but the autochecks show a four-week gap between 2024-07-02 and 2024-07-30.",
+  "reference_valid": "Standard id matches on all checks, unit is ppb throughout and expiry is in 2025, but no certificate number is shown.",
+  "next_step": "As-left span reads 90 against 100 with tolerance 5, a deviation of 10, so the as-left fails and the calibration must be repeated.",
+  "flag_extent": "As-found passes, so nothing may need flagging, but the autocheck gap leaves a week of data unverified.",
+  "return_urgency": "The failed as-left means the analyser is left out of tolerance, so a return within 3-7 days fits, while the low-priority indicative tier gives some doubt."
+ },
+ "request": "rec-F338-0121",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012542
+}

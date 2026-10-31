@@ -1,0 +1,167 @@
+{
+ "id": "F338-0072",
+ "family": "F338",
+ "state": {
+  "site": {
+   "id": "S07",
+   "pol": "NO2",
+   "tier": "compliance",
+   "int_d": 90
+  },
+  "visit": {
+   "id": "V2291",
+   "date": "2025-06-10",
+   "start": "09:00",
+   "end": "11:30",
+   "seq": "complete"
+  },
+  "reference": {
+   "std": "NO2-5801",
+   "conc": 100,
+   "unit": "ppb",
+   "cert": "K-22817",
+   "exp": "2025-08-01"
+  },
+  "checks": [
+   {
+    "t": "as_found_zero",
+    "ref": "NO2-5801",
+    "conc": 0,
+    "unit": "ppb",
+    "rd": 1.4,
+    "tol": 2,
+    "ts": "2025-06-10T09:12"
+   },
+   {
+    "t": "as_found_span",
+    "ref": "NO2-5801",
+    "conc": 100,
+    "unit": "ppb",
+    "rd": 107.3,
+    "tol": 5,
+    "ts": "2025-06-10T09:25"
+   },
+   {
+    "t": "as_found_prec",
+    "ref": "NO2-5801",
+    "conc": 50,
+    "unit": "ppb",
+    "rd": 52.0,
+    "tol": 5,
+    "ts": "2025-06-10T09:40"
+   },
+   {
+    "t": "as_left_zero",
+    "ref": "NO2-5801",
+    "conc": 0,
+    "unit": "ppb",
+    "rd": 0.4,
+    "tol": 2,
+    "ts": "2025-06-10T11:10"
+   },
+   {
+    "t": "as_left_span",
+    "ref": "NO2-5810",
+    "conc": 100,
+    "unit": "ppb",
+    "rd": 104.6,
+    "tol": 5,
+    "ts": "2025-06-10T11:36"
+   }
+  ],
+  "history": {
+   "last": "2025-03-25",
+   "results": [
+    "pass",
+    "fail",
+    "pass",
+    "fail",
+    "fail",
+    "pass",
+    "fail"
+   ],
+   "auto": [
+    {
+     "d": "2025-06-01",
+     "r": "pass"
+    },
+    {
+     "d": "2025-06-03",
+     "r": "pass"
+    },
+    {
+     "d": "2025-06-07",
+     "r": "fail"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "pollutant": "NO2",
+  "as_found_ratio": 1.46,
+  "as_left_status": "marginal",
+  "cylinder_id_mismatch": "transposed_digit",
+  "cert_expiry_offset_days": 52,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "none",
+  "days_since_last_visit": 77,
+  "visit_completeness": "complete",
+  "prior_fail_count": 4,
+  "timestamp_mismatch": "minutes_outside",
+  "site_priority": "compliance"
+ },
+ "factors_sampled": {
+  "pollutant": "NO2",
+  "as_found_ratio": 1.46,
+  "as_left_status": "marginal",
+  "cylinder_id_mismatch": "transposed_digit",
+  "cert_expiry_offset_days": 52,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": false,
+  "drift_explanation": "none",
+  "days_since_last_visit": 77,
+  "visit_completeness": "complete",
+  "prior_fail_count": 4,
+  "timestamp_mismatch": "minutes_outside",
+  "site_priority": "compliance"
+ },
+ "plan": {
+  "data_accepted": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "reference_valid": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "close_visit",
+   "second": null
+  },
+  "flag_extent": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "return_urgency": {
+   "clarity": "leaning",
+   "target": "0",
+   "second": null
+  }
+ },
+ "target_words": 155,
+ "deciding": {
+  "data_accepted": "As-found span 107.3 vs 100 ppb is 7.3 off against tol 5, so correction is needed, though the autocheck failed only on 2025-06-07.",
+  "reference_valid": "Only the last as_left check carries ref NO2-5810 against standard NO2-5801 (transposed digits) and its ts is 6 min after visit end; every other check matches and the certificate is in date, holding it balanced.",
+  "next_step": "Sequence complete with zero, span and precision present, and as_left readings 0.4 and 4.6 off within tol 2 and 5.",
+  "flag_extent": "Autocheck passes to 2025-06-03 with one fail on 06-07 against a 77-day interval; zero days or a few days both defensible.",
+  "return_urgency": "As-left within tolerance and the certificate has 52 days left, so the routine next visit suffices; the marginal span is the reason for doubt."
+ },
+ "request": "rec-F338-0071",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011662
+}

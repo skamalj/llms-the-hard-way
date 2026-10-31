@@ -1,0 +1,193 @@
+{
+ "id": "F305-0015",
+ "family": "F305",
+ "state": {
+  "session": {
+   "id": "S-9054",
+   "date": "2025-04-08",
+   "needle_on": "2025-04-08T07:45",
+   "washback": "2025-04-08T11:28",
+   "review_ts": "2025-05-08T11:00"
+  },
+  "prescription": {
+   "duration_min": 240,
+   "qb": 300,
+   "heparin_units": 1000
+  },
+  "machine": {
+   "qb_actual": 260,
+   "heparin_units": null,
+   "uf_removed_ml": 3100,
+   "washback_ml": 250,
+   "alarms": [
+    {
+     "event": "QB_REDUCED",
+     "code": "ART_PRESSURE_HIGH"
+    },
+    {
+     "event": "PUMP_STOP",
+     "t": "2025-04-08T09:40"
+    },
+    {
+     "event": "PUMP_RESUME",
+     "t": "2025-04-08T09:54"
+    }
+   ]
+  },
+  "observations": {
+   "pre_kg": 82.5,
+   "post_kg": 79.45,
+   "bp": [
+    [
+     "08:30",
+     96
+    ],
+    [
+     "09:00",
+     86
+    ],
+    [
+     "09:10",
+     100
+    ],
+    [
+     "09:50",
+     84
+    ],
+    [
+     "10:00",
+     98
+    ],
+    [
+     "10:20",
+     88
+    ],
+    [
+     "10:30",
+     102
+    ],
+    [
+     "10:50",
+     85
+    ],
+    [
+     "11:00",
+     99
+    ]
+   ],
+   "interventions": [
+    {
+     "t": "09:02",
+     "saline_bolus_ml": 100
+    },
+    {
+     "t": "09:52",
+     "saline_bolus_ml": 100
+    },
+    {
+     "t": "10:22",
+     "saline_bolus_ml": 100
+    },
+    {
+     "t": "10:52",
+     "saline_bolus_ml": 100
+    }
+   ]
+  },
+  "checks": [
+   {
+    "code": "alarm_test",
+    "done": true,
+    "t": "2025-04-08T07:15"
+   },
+   {
+    "code": "chlorine",
+    "done": true,
+    "t": "2025-04-08T07:20"
+   },
+   {
+    "code": "access_inspection",
+    "done": true,
+    "t": "2025-04-08T07:30"
+   }
+  ],
+  "history": [
+   {
+    "presc_min": 240,
+    "eff_min": 225
+   },
+   {
+    "presc_min": 240,
+    "eff_min": 240
+   }
+  ]
+ },
+ "factors": {
+  "time_shortfall_min": 31,
+  "machine_pause_min": 14,
+  "uf_weight_gap_kg": 0.6,
+  "post_weight_missing": false,
+  "missing_check": "none",
+  "check_logged_after_start": false,
+  "prescription_mismatch": "none",
+  "mismatch_magnitude": "trivial",
+  "hypotension_episodes": 4,
+  "hypotension_mitigated": true,
+  "circuit_clotted": false,
+  "prior_short_sessions": 1,
+  "documented_flow_reduction": true
+ },
+ "factors_sampled": {
+  "time_shortfall_min": 65,
+  "machine_pause_min": 14,
+  "uf_weight_gap_kg": 1.27,
+  "post_weight_missing": false,
+  "missing_check": "none",
+  "check_logged_after_start": true,
+  "prescription_mismatch": "none",
+  "mismatch_magnitude": "clinically_relevant",
+  "hypotension_episodes": 4,
+  "hypotension_mitigated": true,
+  "circuit_clotted": false,
+  "prior_short_sessions": 1,
+  "documented_flow_reduction": true
+ },
+ "plan": {
+  "uf_reconciles": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "checks_before_start": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "log_disposition": {
+   "clarity": "leaning",
+   "target": "hold_query",
+   "second": null
+  },
+  "time_shortfall": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  },
+  "pending_age": {
+   "clarity": "contested",
+   "target": "2",
+   "second": "3"
+  }
+ },
+ "target_words": 116,
+ "deciding": {
+  "uf_reconciles": "Net UF 3100-250-400 saline=2450 ml against weight change 3.05 kg gives a gap of 0.6 kg, just over 0.5 but arguable.",
+  "checks_before_start": "All three checks are done between 07:15 and 07:30, before needle_on 07:45.",
+  "log_disposition": "Delivered heparin_units is null, a single missing value, which favours hold_query; the borderline UF gap adds to the query.",
+  "time_shortfall": "Clock 223 min minus a 14 min pause gives 209 effective vs 240, 31 short, at the level 2/3 boundary.",
+  "pending_age": "Washback 2025-04-08T11:28 to review_ts 2025-05-08T11:00 is just under 30 days, at the level 2/3 boundary."
+ },
+ "request": "rec-F305-0011",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.015305
+}

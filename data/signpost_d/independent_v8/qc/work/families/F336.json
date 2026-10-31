@@ -1,0 +1,324 @@
+{
+ "id": "F336",
+ "domain": "film archive restoration checks",
+ "role": "Restoration quality-control technician at a film preservation archive, checking one completed or in-progress restoration job record before the digital master is released and the original element is returned to storage",
+ "setting": "Each record is a restoration job for one catalogued film element (one title, one or more reels). The technician reconciles the catalogue entry against the inbound condition survey, the work log, the delivered scan files and the storage history, then decides whether the master can be released, what happens to the original element, how much work remains and how far the element's acetate decay has really progressed.",
+ "questions": {
+  "master_complete": {
+   "type": "noul",
+   "instructions": "Delivered master accounts for every catalogued frame and is checksum-verified.",
+   "criteria": {
+    "true": "Frames reconcile or gap covered; checksums verified.",
+    "false": "Unexplained frame or reel gap, or checksum unverified."
+   }
+  },
+  "job_disposition": {
+   "type": "choice",
+   "instructions": "What should happen to this restoration job next?",
+   "criteria": {
+    "release_master": "Everything reconciles and signed off; release master to access copies.",
+    "hold_confirm": "Only one confirmation, retest or sign-off stands between job and release.",
+    "partial_rework": "Redo specific failed or missing steps; accepted reels and work stand.",
+    "full_rework": "Delivered output unusable as a whole; restart from a fresh scan."
+   }
+  },
+  "element_handling": {
+   "type": "choice",
+   "instructions": "Where should the original element go after this check?",
+   "criteria": {
+    "return_vault": "Back to standard cold store on the normal re-inspection cycle.",
+    "shorter_cycle": "Back to cold store with re-inspection due within twelve months.",
+    "isolate": "Separate ventilated store, kept away from other acetate reels.",
+    "urgent_duplicate": "Copy to new stock before any further storage or handling."
+   }
+  },
+  "steps_outstanding": {
+   "type": "score",
+   "instructions": "How many planned restoration steps remain unfinished on this job?",
+   "criteria": [
+    "No planned steps left unfinished",
+    "Exactly one planned step unfinished",
+    "Two or three planned steps unfinished",
+    "Four or more planned steps unfinished"
+   ]
+  },
+  "decay_stage": {
+   "type": "score",
+   "instructions": "How advanced is the original element's confirmed acetate decay?",
+   "criteria": [
+    "None: latest valid AD strip reading is 0",
+    "Early: latest valid AD strip reading is 1",
+    "Active: latest valid AD strip reading is 1.5",
+    "Severe: latest valid AD strip reading 2 or higher"
+   ]
+  }
+ },
+ "factors": [
+  {
+   "name": "frame_gap",
+   "description": "Difference between catalogued frame count (length_ft x 16 for 35mm, x 40 for 16mm) and the sum of delivered frames: none, trivial leader-only gap up to 24 frames, moderate gap of 25 to 480 frames, or large gap of over 480 frames",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "trivial",
+    "moderate",
+    "large"
+   ],
+   "weights": [
+    0.35,
+    0.25,
+    0.25,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S5",
+    "S6"
+   ]
+  },
+  {
+   "name": "reel_count_mismatch",
+   "description": "Catalogue lists more reels than appear in the delivered file list, with no reel-level entry explaining the shortfall",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.15,
+   "skills": [
+    "S1",
+    "S7"
+   ]
+  },
+  {
+   "name": "gap_exception_approved",
+   "description": "An approved exception documents known lost footage whose frame range matches the observed gap; present about half the time a gap exists, sometimes with a range that only partly covers the gap",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S5",
+    "S6"
+   ]
+  },
+  {
+   "name": "checksum_status",
+   "description": "State of fixity verification across delivered files: all verified, at least one mismatch, or verification not yet run on one or more files",
+   "kind": "categorical",
+   "values": [
+    "verified",
+    "mismatch",
+    "not_run"
+   ],
+   "weights": [
+    0.6,
+    0.15,
+    0.25
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S4",
+    "S5"
+   ]
+  },
+  {
+   "name": "steps_unfinished",
+   "description": "Number of planned work-log steps whose status is not done (queued, in_progress or failed)",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 5,
+   "p_true": 0,
+   "skills": [
+    "S4",
+    "S7"
+   ]
+  },
+  {
+   "name": "ad_strip_raw",
+   "description": "Highest acid-detection strip reading recorded for the element across survey and storage history",
+   "kind": "categorical",
+   "values": [
+    "0",
+    "1",
+    "1.5",
+    "2",
+    "3"
+   ],
+   "weights": [
+    0.3,
+    0.25,
+    0.2,
+    0.15,
+    0.1
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S6",
+    "S7"
+   ]
+  },
+  {
+   "name": "reading_in_excursion",
+   "description": "The highest strip reading was taken during a logged vault temperature or humidity excursion or maintenance window, which makes it suspect",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S1"
+   ]
+  },
+  {
+   "name": "retest_logged",
+   "description": "A later strip retest under normal vault conditions is recorded, usually one step lower than the suspect reading; absent retest after an excursion leaves the reading needing confirmation",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S4",
+    "S6"
+   ]
+  },
+  {
+   "name": "shrinkage_pct",
+   "description": "Base shrinkage percentage measured at inbound survey; values near 1.0 and 1.5 sit on handling boundaries",
+   "kind": "number",
+   "values": [],
+   "weights": [],
+   "min": 0.1,
+   "max": 2.2,
+   "p_true": 0,
+   "skills": [
+    "S6",
+    "S7"
+   ]
+  },
+  {
+   "name": "shrinkage_remeasure_drift",
+   "description": "Difference between survey shrinkage and the remeasurement logged at the scan step: none, small (under 0.2 points) or large (0.5 points or more)",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "small",
+    "large"
+   ],
+   "weights": [
+    0.5,
+    0.3,
+    0.2
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S6"
+   ]
+  },
+  {
+   "name": "preservation_duplicate_exists",
+   "description": "A preservation duplicate on new stock is already held for this element, which lowers the need for urgent duplication",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3"
+   ]
+  },
+  {
+   "name": "curator_signoff_pending",
+   "description": "Curatorial sign-off on the restoration is not yet recorded even though technical work may be finished",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.3,
+   "skills": [
+    "S4"
+   ]
+  },
+  {
+   "name": "base_type",
+   "description": "Film base of the element; polyester elements carry an AD reading of 0 and test_required false, acting as a decoy against shrinkage values",
+   "kind": "categorical",
+   "values": [
+    "acetate",
+    "polyester"
+   ],
+   "weights": [
+    0.75,
+    0.25
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S7"
+   ]
+  }
+ ],
+ "sections": [
+  {
+   "name": "catalogue",
+   "description": "Accession entry: acc_id, title_ref, gauge, base, reels, length_ft, fps_nominal, element_type."
+  },
+  {
+   "name": "inbound_survey",
+   "description": "Condition survey at intake: survey_date, shrinkage_pct, ad_strip, splices, perf_damage_ft, odour_logged, test_required."
+  },
+  {
+   "name": "work_log",
+   "description": "List of planned steps with step, reel_no, status, started, finished, operator_id, remeasured_shrinkage_pct."
+  },
+  {
+   "name": "delivery",
+   "description": "Delivered scan files: list of reel_no, frames, resolution, fps, duration_s, checksum_ok; plus delivered_on."
+  },
+  {
+   "name": "storage",
+   "description": "Vault history: vault_id, ad_readings list (date, value), excursions list (start, end, type), duplicate_held."
+  },
+  {
+   "name": "approvals",
+   "description": "Exceptions list (exc_id, type, reel_no, frame_from, frame_to, approved_on) and curator_signoff date or null."
+  }
+ ],
+ "rendering_notes": "frame_gap is never stated: the reader must compute catalogue.length_ft x frames-per-foot (16 for 35mm, 40 for 16mm) and compare with the sum of delivery[].frames; trivial gaps sit at reel heads. reel_count_mismatch shows as catalogue.reels greater than the number of distinct delivery reel_no values. gap_exception_approved appears as an approvals.exceptions entry of type lost_footage whose frame_from/frame_to range matches, partly matches or does not exist for the gap. checksum_status shows per file as checksum_ok true, false or null. steps_unfinished is the count of work_log entries with status other than done; finished dates may be null. ad_strip_raw appears as the highest value in storage.ad_readings or inbound_survey.ad_strip; reading_in_excursion means its date falls inside a storage.excursions window; retest_logged adds a later lower reading outside any excursion. shrinkage_pct is inbound_survey.shrinkage_pct and shrinkage_remeasure_drift shows in work_log[].remeasured_shrinkage_pct on the scan step. preservation_duplicate_exists is storage.duplicate_held; curator_signoff_pending is approvals.curator_signoff null. Decoys: delivery fps and duration_s may differ (24 vs 25 fps) while frames still match; resolution varies freely; splice counts, perf_damage_ft and odour_logged vary without deciding the questions on their own; excursions sometimes exist on dates with no readings; polyester elements show shrinkage but AD 0. No field may state completeness, disposition, handling destination, decay stage or a count of unfinished steps; no free-text notes are included.",
+ "skills": [
+  "S1",
+  "S3",
+  "S4",
+  "S5",
+  "S6",
+  "S7"
+ ],
+ "shared_scale": null,
+ "design_cost": 0.156096
+}

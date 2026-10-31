@@ -1,0 +1,162 @@
+{
+ "id": "F333-0010",
+ "family": "F333",
+ "state": {
+  "room": {
+   "room_id": "A1-207"
+  },
+  "tenancy": {
+   "start_date": "2023-09-01",
+   "end_date": "2024-08-31",
+   "deposit_dispute_lodged": true
+  },
+  "checkin_inventory": {
+   "signed_date": "2023-09-01",
+   "items": [
+    {
+     "item_code": "HTR",
+     "grade": "good"
+    },
+    {
+     "item_code": "MAT",
+     "grade": "fair"
+    },
+    {
+     "item_code": "DSK",
+     "grade": "good"
+    }
+   ]
+  },
+  "checkout_inspection": {
+   "inspection_type": "checkout",
+   "inspection_date": "2024-08-31",
+   "items": [
+    {
+     "item_code": "HTR",
+     "grade": "damaged",
+     "defect_category": "heater_fail",
+     "photo_refs": [
+      "p1"
+     ]
+    },
+    {
+     "item_code": "MAT",
+     "grade": "damaged",
+     "photo_refs": [
+      "p2"
+     ]
+    },
+    {
+     "item_code": "DSK",
+     "grade": "damaged",
+     "photo_refs": []
+    }
+   ]
+  },
+  "proposed_charges": {
+   "lines": [
+    {
+     "item_code": "HTR",
+     "reason_code": "DMG",
+     "qty": 1,
+     "unit_rate": 150,
+     "line_total": 150
+    },
+    {
+     "item_code": "MAT",
+     "reason_code": "DMG",
+     "qty": 1,
+     "unit_rate": 40,
+     "line_total": 40
+    },
+    {
+     "item_code": "DSK",
+     "reason_code": "DMG",
+     "qty": 1,
+     "unit_rate": 20,
+     "line_total": 20
+    }
+   ],
+   "summary_total": 210
+  },
+  "works_orders": [
+   {
+    "wo_id": "W12",
+    "raised_date": "2023-08-20",
+    "location": "bathroom",
+    "category": "electrics",
+    "status": "open",
+    "completed_date": null,
+    "retest_passed": false
+   }
+  ]
+ },
+ "factors": {
+  "inspection_type": "checkout",
+  "checkin_inventory_state": "complete",
+  "prior_damage_on_charged_item": "one_item",
+  "charge_discrepancy": "none",
+  "worst_defect_tier": "habitability",
+  "true_cause": "resident_damage",
+  "predating_works_order": true,
+  "safety_fault_remedied": false,
+  "photo_coverage": "all_but_one",
+  "tenancy_months": 12,
+  "date_out_of_order": false,
+  "deposit_dispute_lodged": true,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "inspection_type": "checkout",
+  "checkin_inventory_state": "complete",
+  "prior_damage_on_charged_item": "one_item",
+  "charge_discrepancy": "none",
+  "worst_defect_tier": "habitability",
+  "true_cause": "fair_wear",
+  "predating_works_order": true,
+  "safety_fault_remedied": false,
+  "photo_coverage": "all_but_one",
+  "tenancy_months": 12,
+  "date_out_of_order": false,
+  "deposit_dispute_lodged": true,
+  "boundary_case": false
+ },
+ "plan": {
+  "checkin_clean": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "disposition": {
+   "clarity": "balanced",
+   "target": "adjust_and_approve",
+   "second": "order_reinspection"
+  },
+  "main_cause": {
+   "clarity": "clear",
+   "target": "resident_damage",
+   "second": null
+  },
+  "defect_severity": {
+   "clarity": "contested",
+   "target": "2",
+   "second": "3"
+  },
+  "charge_gap": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  }
+ },
+ "target_words": 102,
+ "deciding": {
+  "checkin_clean": "Charged item MAT was graded fair at check-in.",
+  "disposition": "DSK line has empty photo_refs (one photo missing), which could be corrected by dropping that line, or could prompt a revisit given the open electrics works order.",
+  "main_cause": "HTR and DSK went from good to damaged and the only works order is for the bathroom, not these items.",
+  "defect_severity": "heater_fail is a habitability defect; the open, untested electrics works order W12 gives some grounds for reading it as a safety issue.",
+  "charge_gap": "Lines total 210, evidenced lines HTR 150 and MAT 40 total 190; DSK 20 has no photo, giving a gap of 20."
+ },
+ "request": "rec-F333-0006",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.010594
+}

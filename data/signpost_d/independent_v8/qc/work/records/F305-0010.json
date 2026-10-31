@@ -1,0 +1,132 @@
+{
+ "id": "F305-0010",
+ "family": "F305",
+ "state": {
+  "session": {
+   "date": "2025-03-20",
+   "needle_on": "10:00",
+   "washback": "14:09"
+  },
+  "prescription": {
+   "duration_min": 240,
+   "qb_ml_min": 350,
+   "target_uf_ml": 2200
+  },
+  "machine": {
+   "qb": 355,
+   "uf_removed_ml": 2200,
+   "washback_ml": 200,
+   "alarms": [
+    {
+     "c": "PUMP_STOP",
+     "t": "11:00"
+    },
+    {
+     "c": "PUMP_RESUME",
+     "t": "11:05"
+    }
+   ]
+  },
+  "observations": {
+   "pre_kg": 74,
+   "post_kg": null,
+   "bp": [
+    "10:00 125",
+    "11:00 88",
+    "12:00 86",
+    "13:00 92"
+   ],
+   "interventions": [
+    {
+     "saline_bolus_ml": 100
+    }
+   ]
+  },
+  "checks": [
+   {
+    "c": "prime",
+    "done": true,
+    "t": "09:50"
+   },
+   {
+    "c": "access",
+    "done": true,
+    "t": "09:55"
+   }
+  ],
+  "history": [
+   {
+    "prescribed_min": 240,
+    "effective_min": 205
+   }
+  ]
+ },
+ "factors": {
+  "time_shortfall_min": 14,
+  "machine_pause_min": 5,
+  "uf_weight_gap_kg": 0.77,
+  "post_weight_missing": true,
+  "missing_check": "none",
+  "check_logged_after_start": false,
+  "prescription_mismatch": "blood_flow",
+  "mismatch_magnitude": "trivial",
+  "hypotension_episodes": 3,
+  "hypotension_mitigated": true,
+  "circuit_clotted": false,
+  "prior_short_sessions": 1,
+  "documented_flow_reduction": false
+ },
+ "factors_sampled": {
+  "time_shortfall_min": 14,
+  "machine_pause_min": 5,
+  "uf_weight_gap_kg": 0.77,
+  "post_weight_missing": true,
+  "missing_check": "none",
+  "check_logged_after_start": false,
+  "prescription_mismatch": "blood_flow",
+  "mismatch_magnitude": "trivial",
+  "hypotension_episodes": 3,
+  "hypotension_mitigated": true,
+  "circuit_clotted": false,
+  "prior_short_sessions": 1,
+  "documented_flow_reduction": false
+ },
+ "plan": {
+  "uf_reconciles": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "checks_before_start": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "log_disposition": {
+   "clarity": "clear",
+   "target": "hold_query",
+   "second": null
+  },
+  "time_shortfall": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "pending_age": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  }
+ },
+ "target_words": 54,
+ "deciding": {
+  "uf_reconciles": "Post weight is null, so the pre weight and the net UF of 2000 ml cannot be checked directly.",
+  "checks_before_start": "The two listed checks precede needle-on, but the list is short.",
+  "log_disposition": "The missing post weight is a single missing value needing confirmation, hence a hold.",
+  "time_shortfall": "Clock time is 249 min and the pause is 5 min, so effective time is 244 against 240 and sits at the level 0 side of the boundary.",
+  "pending_age": "The session date is the only age signal, near the 24 hour boundary."
+ },
+ "request": "rec-F305-0006",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.00639
+}

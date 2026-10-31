@@ -1,0 +1,113 @@
+{
+ "id": "F304-0003",
+ "family": "F304",
+ "state": {
+  "request": {
+   "appt_type": "discharge",
+   "appt_time": "14:00",
+   "vehicle_class": "car",
+   "crew_requested": 1,
+   "mobility_booked": "walking",
+   "pickup": "W12"
+  },
+  "patient": {
+   "mobility_assessed": "walking",
+   "assessed_on": "2024-06-11",
+   "oxygen_lpm": 0,
+   "monitoring": null,
+   "current_location": "Ward 12"
+  },
+  "journey": {
+   "window_end": "13:00",
+   "est_duration_min": 15,
+   "late_tolerance_min": 10,
+   "destination": {
+    "reslot_same_day": true
+   }
+  },
+  "history": [
+   {
+    "o": "aborted",
+    "r": "no answer at door"
+   },
+   {
+    "o": "aborted",
+    "r": "no answer at door"
+   },
+   {
+    "o": "aborted",
+    "r": "patient declined"
+   }
+  ]
+ },
+ "factors": {
+  "mobility_alignment": "matches",
+  "secondary_discrepancy": "trivial ward code W12 vs Ward 12",
+  "eligibility_concern": false,
+  "eligibility_exception": false,
+  "clinical_support": "none",
+  "crew_request_gap": "correct",
+  "buffer_minutes": 45.0,
+  "duration_estimate_split": false,
+  "late_tolerance": true,
+  "appointment_type": "discharge",
+  "same_day_reslot": true,
+  "confirmation_pending": false,
+  "prior_aborts": 3,
+  "aborts_related": false
+ },
+ "factors_sampled": {
+  "mobility_alignment": "matches",
+  "secondary_discrepancy": "none",
+  "eligibility_concern": false,
+  "eligibility_exception": false,
+  "clinical_support": "none",
+  "crew_request_gap": "correct",
+  "buffer_minutes": -9.63,
+  "duration_estimate_split": false,
+  "late_tolerance": true,
+  "appointment_type": "discharge",
+  "same_day_reslot": true,
+  "confirmation_pending": true,
+  "prior_aborts": 3,
+  "aborts_related": false
+ },
+ "plan": {
+  "vehicle_fit": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "disposition": {
+   "clarity": "balanced",
+   "target": "amend_confirm",
+   "second": "confirm"
+  },
+  "crew_config": {
+   "clarity": "leaning",
+   "target": "single_crew",
+   "second": null
+  },
+  "time_pressure": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  },
+  "delay_impact": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  }
+ },
+ "target_words": 63,
+ "deciding": {
+  "vehicle_fit": "Booked car and walking match assessed walking, assessed 2024-06-11, with no oxygen or equipment.",
+  "disposition": "Only a ward-code variant (W12 vs Ward 12) differs, so confirm as submitted or tidy it first is open; nothing outstanding.",
+  "crew_config": "Patient walks, oxygen 0, no monitoring, one crew requested; prior aborts add slight doubt.",
+  "time_pressure": "window_end 13:00 plus 15 min gives 45 minutes spare before 14:00.",
+  "delay_impact": "Discharge with reslot_same_day true and late_tolerance 10 suggests moderate; a held bed makes high plausible."
+ },
+ "request": "rec-F304-0001",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.010229
+}

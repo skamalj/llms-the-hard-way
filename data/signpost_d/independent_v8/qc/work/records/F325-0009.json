@@ -1,0 +1,146 @@
+{
+ "id": "F325-0009",
+ "family": "F325",
+ "state": {
+  "pen": {
+   "pen_id": "H3",
+   "stage": "harvest_size",
+   "density_kg_m3": 14,
+   "limits": {
+    "do_min_mg_l": 6.0,
+    "tan_max_mg_l": 1.0,
+    "temp_max_c": 16
+   }
+  },
+  "check": {
+   "pen_id": "H3",
+   "sampled_at": "2025-08-14T05:40",
+   "sampler_id": "S02",
+   "readings": {
+    "do_mg_l": 5.57,
+    "do_unit": "mg/L",
+    "tan_mg_l": 0.4
+   },
+   "depth_profile": [
+    {
+     "depth_m": 1,
+     "do_mg_l": 5.9
+    },
+    {
+     "depth_m": 6,
+     "do_mg_l": 5.57
+    }
+   ]
+  },
+  "instrument": {
+   "last_cal": "2025-07-15",
+   "cal_result": "pass",
+   "cal_due": "2025-08-14",
+   "logger_do_mg_l": 6.8,
+   "logger_flags": []
+  },
+  "conditions": {
+   "tide": "slack_low",
+   "temp_trend_c_24h": 0.3
+  },
+  "history": [
+   {
+    "do": 5.8,
+    "in_limits": false
+   },
+   {
+    "do": 5.7,
+    "in_limits": false
+   },
+   {
+    "do": 5.9,
+    "in_limits": true
+   },
+   {
+    "do": 6.3,
+    "in_limits": true
+   },
+   {
+    "do": 6.5,
+    "in_limits": true
+   },
+   {
+    "do": 6.6,
+    "in_limits": true
+   }
+  ],
+  "notes": {
+   "sampler": "Reading 5.6, sampled just after the slack low turn.",
+   "signoff": "SUP1",
+   "signoff_at": "2025-08-14T06:10"
+  }
+ },
+ "factors": {
+  "stock_stage": "harvest_size",
+  "true_do_margin": -0.43,
+  "primary_cause": "environmental",
+  "cross_section_mismatch": "rounding_only",
+  "calibration_state": "current",
+  "logger_alarm_raised": false,
+  "mitigation_present": true,
+  "mitigation_kind": "slack_low_timing_note",
+  "history_out_of_range": 3,
+  "missing_required": 0,
+  "date_order_fault": false,
+  "boundary_case": true,
+  "note_tone": "neutral"
+ },
+ "factors_sampled": {
+  "stock_stage": "harvest_size",
+  "true_do_margin": -0.43,
+  "primary_cause": "instrument",
+  "cross_section_mismatch": "rounding_only",
+  "calibration_state": "current",
+  "logger_alarm_raised": false,
+  "mitigation_present": true,
+  "mitigation_kind": "approved_treatment_window",
+  "history_out_of_range": 5,
+  "missing_required": 4,
+  "date_order_fault": false,
+  "boundary_case": true,
+  "note_tone": "neutral"
+ },
+ "plan": {
+  "genuine_do_breach": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "resample_first",
+   "second": null
+  },
+  "deviation_cause": {
+   "clarity": "balanced",
+   "target": "environmental_event",
+   "second": "instrument_fault"
+  },
+  "persistence": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "evidence_completeness": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 111,
+ "deciding": {
+  "genuine_do_breach": "Probe DO 5.57 is below the 6.0 limit and two depths are low, but the logger reads 6.8 at the same time and the sample was taken at slack low, so the low value may not be genuine.",
+  "next_step": "The probe and logger differ by 1.23 mg/L, more than 1 mg/L, and calibration is due that day. Validity is in doubt, so repeat the check with a calibrated probe first.",
+  "deviation_cause": "Slack low tide with the sampling timing note supports an environmental cause, while the probe-logger gap and cal_due on the sample date support an instrument fault.",
+  "persistence": "Two history entries are flagged out of limits, plus the current low reading, makes 3 of 7. The 5.9 entry flagged in limits is below 6.0, which would make 4.",
+  "evidence_completeness": "All sections are filled and the calibration passed. cal_due falls on the sampling day, so the calibration may count as borderline valid, leaving level 3 or 2."
+ },
+ "request": "rec-F325-0006",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.014093
+}

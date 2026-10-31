@@ -1,0 +1,120 @@
+{
+ "id": "F325-0036",
+ "family": "F325",
+ "state": {
+  "pen": {
+   "pen_id": "P-12",
+   "stage": "smolt",
+   "limits": {
+    "do_min_mg_l": 6.5
+   }
+  },
+  "check": {
+   "pen_id": "P-13",
+   "sampled_at": "2024-05-06T08:10",
+   "sampler_id": null,
+   "readings": {
+    "do_mg_l": 6.1
+   }
+  },
+  "instrument": {
+   "last_cal": "2024-05-07",
+   "cal_result": "pass",
+   "logger_do_mg_l": 7.4,
+   "logger_flags": [
+    "LOW_DO"
+   ]
+  },
+  "history": [
+   {
+    "in_limits": false
+   },
+   {
+    "in_limits": false
+   },
+   {
+    "in_limits": true
+   },
+   {
+    "in_limits": false
+   },
+   {
+    "in_limits": true
+   },
+   {
+    "in_limits": false
+   }
+  ],
+  "notes": {
+   "signoff": null
+  }
+ },
+ "factors": {
+  "stock_stage": "smolt",
+  "true_do_margin": -0.4,
+  "primary_cause": "instrument",
+  "cross_section_mismatch": "pen_id_mismatch",
+  "calibration_state": "current",
+  "logger_alarm_raised": true,
+  "mitigation_present": false,
+  "mitigation_kind": "aeration_running",
+  "history_out_of_range": 4,
+  "missing_required": 3,
+  "date_order_fault": true,
+  "boundary_case": false,
+  "note_tone": "neutral"
+ },
+ "factors_sampled": {
+  "stock_stage": "smolt",
+  "true_do_margin": 2.03,
+  "primary_cause": "husbandry",
+  "cross_section_mismatch": "pen_id_mismatch",
+  "calibration_state": "current",
+  "logger_alarm_raised": true,
+  "mitigation_present": false,
+  "mitigation_kind": "aeration_running",
+  "history_out_of_range": 0,
+  "missing_required": 2,
+  "date_order_fault": true,
+  "boundary_case": false,
+  "note_tone": "neutral"
+ },
+ "plan": {
+  "genuine_do_breach": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "resample_first",
+   "second": null
+  },
+  "deviation_cause": {
+   "clarity": "clear",
+   "target": "instrument_fault",
+   "second": null
+  },
+  "persistence": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  },
+  "evidence_completeness": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 39,
+ "deciding": {
+  "genuine_do_breach": "Probe 6.1 is below the 6.5 limit, but the logger shows 7.4 and the record has ID, date and sign-off problems, so the breach is only modestly favoured.",
+  "next_step": "Probe and logger differ by 1.3 mg/L and the calibration date is after sampling, so the reading is of doubtful validity and a repeat check is needed.",
+  "deviation_cause": "The gap between probe and logger is over 1 mg/L and last_cal is dated after sampled_at, which points to the instrument.",
+  "persistence": "Four of six history checks are out of limits and the current reading is also low, but the current reading is doubtful.",
+  "evidence_completeness": "sampler_id is null, sign-off is null, last_cal is dated after the check and the pen id is off by one character, so three or more elements are missing or invalid; the pen id fault could be read as a lesser issue, leaving level 1 plausible."
+ },
+ "request": "rec-F325-0036",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.008374
+}

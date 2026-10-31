@@ -1,0 +1,140 @@
+{
+ "id": "F303-0013",
+ "family": "F303",
+ "state": {
+  "order": {
+   "prescription": {
+    "modality": "concentrator",
+    "flow_lpm": 2,
+    "hours_per_day": 24
+   },
+   "items_ordered": []
+  },
+  "visit": {
+   "visit_date": "2025-06-30",
+   "items_left": [],
+   "install_checks": null,
+   "patient_signature": "on_file",
+   "handover_at": "14:30"
+  },
+  "site_assessment": {
+   "hazards": [
+    {
+     "code": "SMOKING",
+     "status": "open",
+     "fix": null
+    },
+    {
+     "code": "GAS_HOB",
+     "status": "open",
+     "fix": null
+    },
+    {
+     "code": "NO_ALARM",
+     "status": "open",
+     "fix": null
+    },
+    {
+     "code": "HEATER",
+     "status": "resolved_on_visit",
+     "fix": null
+    }
+   ]
+  },
+  "equipment": {
+   "concentrator": null,
+   "fault_log": [],
+   "cylinders_on_site": [
+    {
+     "size": "CD 460 L",
+     "fill_pct": 100
+    },
+    {
+     "size": "CD 460 L",
+     "fill_pct": 100
+    },
+    {
+     "size": "CD 460 L",
+     "fill_pct": 100
+    },
+    {
+     "size": "ZD 300 L",
+     "fill_pct": 50
+    }
+   ]
+  },
+  "supply_plan": {
+   "next_delivery_date": "2025-07-02"
+  }
+ },
+ "factors": {
+  "rx_alignment": "modality_mismatch",
+  "items_shortfall": "none_ordered_none_left",
+  "setup_state": "checks_null",
+  "supply_hours": 12.75,
+  "concentrator_fault": false,
+  "fault_mitigated": false,
+  "hazards_found": 4,
+  "hazard_mitigation": false,
+  "hazard_status_missing": false,
+  "handover_gap": false,
+  "timeline_out_of_order": false,
+  "next_delivery": "booked_in_time",
+  "dependency_level": "continuous",
+  "billing_hold": false
+ },
+ "factors_sampled": {
+  "rx_alignment": "modality_mismatch",
+  "items_shortfall": "none",
+  "setup_state": "checks_null",
+  "supply_hours": 190.95,
+  "concentrator_fault": false,
+  "fault_mitigated": false,
+  "hazards_found": 4,
+  "hazard_mitigation": true,
+  "hazard_status_missing": false,
+  "handover_gap": true,
+  "timeline_out_of_order": false,
+  "next_delivery": "booked_in_time",
+  "dependency_level": "nocturnal",
+  "billing_hold": false
+ },
+ "plan": {
+  "rx_match": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "close_record",
+   "second": null
+  },
+  "fulfilment": {
+   "clarity": "contested",
+   "target": "nothing_delivered",
+   "second": "setup_incomplete"
+  },
+  "supply_runway": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  },
+  "open_hazards": {
+   "clarity": "balanced",
+   "target": "4",
+   "second": "3"
+  }
+ },
+ "target_words": 42,
+ "deciding": {
+  "rx_match": "Prescription is a concentrator, but the equipment concentrator is null and only cylinders are on site. This leans to false, though no order was placed.",
+  "next_step": "items_ordered is empty, signature and handover time are present, and the next delivery is booked. No outstanding items or paperwork, so close.",
+  "fulfilment": "items_left is empty, which suggests nothing_delivered, while install_checks is null, which suggests setup_incomplete.",
+  "supply_runway": "Cylinders total about 1530 L. At 2 lpm continuous that is about 12.75 h, close to the 12 h boundary between levels 0 and 1.",
+  "open_hazards": "Three hazards are open, and HEATER is resolved_on_visit with a null fix, so it could be a fourth."
+ },
+ "request": "rec-F303-0011",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.014864
+}

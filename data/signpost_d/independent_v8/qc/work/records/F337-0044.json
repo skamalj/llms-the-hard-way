@@ -1,0 +1,130 @@
+{
+ "id": "F337-0044",
+ "family": "F337",
+ "state": {
+  "station": {
+   "net": "XQ",
+   "sta": "PINE",
+   "channels": [
+    {
+     "cha": "BHZ",
+     "sensor_serial": "V3308",
+     "response_epoch_start": "2024-03-11"
+    },
+    {
+     "cha": "BHN",
+     "sensor_serial": "V3308",
+     "response_epoch_start": "2024-03-11"
+    },
+    {
+     "cha": "BHE",
+     "sensor_serial": "V3308",
+     "response_epoch_start": "2024-03-11"
+    }
+   ]
+  },
+  "acquisition": {
+   "day": "2024-07-08",
+   "channel_hours_expected": 72,
+   "completeness_pct": 99.9,
+   "gaps": [
+    {
+     "cha": "BHN",
+     "start": "05:00",
+     "end": "05:50"
+    }
+   ],
+   "gps_lock_pct": 96,
+   "packet_age_h": 23
+  },
+  "qc_metrics": {
+   "psd_dev_db": 17.2,
+   "dead": false,
+   "clipped_minutes": 0,
+   "cal_pulse": {
+    "date": "2024-03-05",
+    "result": "pass"
+   }
+  },
+  "maintenance_log": [
+   {
+    "date": "2024-03-12",
+    "action": "sensor_swap",
+    "sensor_serial_installed": "V3308"
+   },
+   {
+    "date": "2024-07-08",
+    "action": "outage",
+    "outage_start": "04:55",
+    "outage_end": "05:50",
+    "note": "Quarry blasting 14:00-14:40 caused noise."
+   }
+  ]
+ },
+ "factors": {
+  "sensor_metadata_state": "swap_stale",
+  "maintenance_log_present": true,
+  "gap_coverage": "all_logged",
+  "true_usable_fraction": 0.99,
+  "completeness_summary_drift": 0.9,
+  "timing_quality": "locked",
+  "calibration_status": "predates_swap",
+  "noise_excess_db": 17.2,
+  "benign_noise_cause_logged": true,
+  "operator_note_consistency": "absent",
+  "dead_channels": 0,
+  "boundary_case": true
+ },
+ "factors_sampled": {
+  "sensor_metadata_state": "no_swap",
+  "maintenance_log_present": true,
+  "gap_coverage": "all_logged",
+  "true_usable_fraction": 0.34,
+  "completeness_summary_drift": 5.95,
+  "timing_quality": "locked",
+  "calibration_status": "predates_swap",
+  "noise_excess_db": 17.2,
+  "benign_noise_cause_logged": true,
+  "operator_note_consistency": "absent",
+  "dead_channels": 3,
+  "boundary_case": true
+ },
+ "plan": {
+  "response_valid": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "gaps_explained": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "disposition": {
+   "clarity": "balanced",
+   "target": "quarantine",
+   "second": "hold"
+  },
+  "usable_fraction": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  },
+  "pending_age": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 102,
+ "deciding": {
+  "response_valid": "Serial matches the swap entry, but the epoch 2024-03-11 is a day before the swap date 2024-03-12, so it is open whether the response is stale.",
+  "gaps_explained": "The BHN gap 05:00-05:50 lies inside the logged outage 04:55-05:50.",
+  "disposition": "The cal pulse (2024-03-05) predates the swap and the epoch is a day early; a hold for a metadata fix or a quarantine for the unvalidated sensor are both defensible.",
+  "usable_fraction": "The 50-minute gap in 72 ch-h is about 98.8% usable, near the 99% line; the noise is blasting-related.",
+  "pending_age": "packet_age_h is 23, just under the 24-hour boundary."
+ },
+ "request": "rec-F337-0041",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.009463
+}

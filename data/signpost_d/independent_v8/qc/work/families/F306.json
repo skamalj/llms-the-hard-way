@@ -1,0 +1,325 @@
+{
+ "id": "F306",
+ "domain": "school trip risk assessments",
+ "role": "Educational Visits Coordinator at a secondary school, reviewing each submitted trip risk assessment before sign-off",
+ "setting": "Teachers submit risk assessments for off-site trips through the school's visits management system. The coordinator opens one submission at a time and checks it across its sections: trip details, the pupil roster with consents and medical flags, the staff list, the planned activities with provider details, and the approvals log. Mismatches between sections are common and never announced. Alarming gaps often come with mitigating entries elsewhere in the record. The coordinator must decide whether consent and staffing hold up, how many unresolved inconsistencies remain, how well medical needs are covered, and what to do with the submission now.",
+ "questions": {
+  "consent_complete": {
+   "type": "noul",
+   "instructions": "Every rostered pupil has valid parental consent recorded or formally excepted.",
+   "criteria": null
+  },
+  "staffing_adequate": {
+   "type": "noul",
+   "instructions": "Confirmed adults meet the required supervision ratio on every trip day.",
+   "criteria": {
+    "true": "Confirmed adult count meets ratio on all days.",
+    "false": "Ratio short on any day, or adults unconfirmed."
+   }
+  },
+  "disposition": {
+   "type": "choice",
+   "instructions": "What should the coordinator do with this submission now?",
+   "criteria": {
+    "approve": "No outstanding issues; trip proceeds exactly as submitted.",
+    "approve_conditions": "Minor fixable issues; proceeds once organiser makes named changes.",
+    "hold": "Exactly one pending external confirmation blocks decision until received.",
+    "return_revise": "Multiple substantive gaps; organiser must rework and resubmit plan.",
+    "decline": "Hazard or staffing gap unfixable before departure; trip cancelled."
+   }
+  },
+  "mismatch_count": {
+   "type": "score",
+   "instructions": "How many unresolved mismatches exist between sections of this record?",
+   "criteria": [
+    "No unresolved mismatches between any sections",
+    "Exactly one unresolved mismatch between sections",
+    "Two or three unresolved mismatches between sections",
+    "Four or more unresolved mismatches between sections"
+   ]
+  },
+  "medical_coverage": {
+   "type": "score",
+   "instructions": "What share of medically flagged pupils have a care plan on file?",
+   "criteria": [
+    "Absent: two or more flagged pupils, none with plans",
+    "Sparse: some plans held, under half of flagged covered",
+    "Partial: half or more covered, two or more lacking",
+    "Near: exactly one flagged pupil lacks a plan",
+    "Complete: every flagged pupil covered, or none flagged"
+   ]
+  }
+ },
+ "factors": [
+  {
+   "name": "trip_type",
+   "description": "Kind of trip, which sets the required pupil-to-adult ratio and number of trip days.",
+   "kind": "categorical",
+   "values": [
+    "day_local",
+    "day_distant",
+    "residential_uk",
+    "overseas"
+   ],
+   "weights": [
+    0.35,
+    0.25,
+    0.25,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S7",
+    "S1"
+   ]
+  },
+  {
+   "name": "pupil_count",
+   "description": "Number of pupils on the roster; drives the staffing requirement and is restated in trip and transport fields.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 8,
+   "max": 60,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S7"
+   ]
+  },
+  {
+   "name": "consent_gap",
+   "description": "State of parental consent across the roster: all valid, one missing, one expired before the trip date, or several missing.",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "one_missing",
+    "one_expired",
+    "several_missing"
+   ],
+   "weights": [
+    0.4,
+    0.25,
+    0.15,
+    0.2
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S5",
+    "S4"
+   ]
+  },
+  {
+   "name": "consent_exception_logged",
+   "description": "Whether the approvals log holds a head-approved consent exception covering the gap pupils (e.g. recorded verbal consent). Only matters when a gap exists; covers one gap pupil, never several.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S5"
+   ]
+  },
+  {
+   "name": "staffing_position",
+   "description": "Confirmed adults against the ratio requirement: surplus, exactly at ratio, one short on one day only, or one short on all days.",
+   "kind": "categorical",
+   "values": [
+    "surplus",
+    "exact",
+    "short_one_day",
+    "short_all_days"
+   ],
+   "weights": [
+    0.3,
+    0.25,
+    0.25,
+    0.2
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S4",
+    "S6"
+   ]
+  },
+  {
+   "name": "provider_instructors_confirmed",
+   "description": "Whether the activity provider's contract entry confirms supervising instructors who may count toward the ratio for their sessions, closing a shortfall on those days.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S5"
+   ]
+  },
+  {
+   "name": "planted_mismatches",
+   "description": "Number of cross-section inconsistencies planted: headcount vs roster length, coach seats vs party size, staff attendance dates vs trip dates, return date vs accommodation nights, activity date outside trip window.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 5,
+   "p_true": 0,
+   "skills": [
+    "S1"
+   ]
+  },
+  {
+   "name": "amendment_explains_one",
+   "description": "Whether a logged, approved amendment explains one of the planted mismatches (e.g. a date change or late roster addition), so it is not unresolved.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S1",
+    "S6"
+   ]
+  },
+  {
+   "name": "medical_flagged",
+   "description": "Number of pupils carrying a medical flag on the roster.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 6,
+   "p_true": 0,
+   "skills": [
+    "S4",
+    "S7"
+   ]
+  },
+  {
+   "name": "plans_missing",
+   "description": "Number of flagged pupils with no care plan in the roster medical list, capped at medical_flagged.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 4,
+   "p_true": 0,
+   "skills": [
+    "S4",
+    "S1"
+   ]
+  },
+  {
+   "name": "provider_holds_plan_copy",
+   "description": "Whether the provider record lists receipt of care plan copies for one of the missing-plan pupils, which counts as a plan on file.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S1"
+   ]
+  },
+  {
+   "name": "high_hazard_activity",
+   "description": "Licence position of the highest-tier activity: no high-tier activity, licence valid, licence expired with renewal pending, or licence missing.",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "valid",
+    "renewal_pending",
+    "missing"
+   ],
+   "weights": [
+    0.4,
+    0.3,
+    0.15,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S6",
+    "S7"
+   ]
+  },
+  {
+   "name": "days_to_departure",
+   "description": "Days between the review date and departure; short lead times push unresolved gaps from conditions or hold toward revise or decline.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 3,
+   "max": 90,
+   "p_true": 0,
+   "skills": [
+    "S7",
+    "S6"
+   ]
+  },
+  {
+   "name": "boundary_case",
+   "description": "Whether one value is placed exactly on a threshold: consent expiring on departure day, adult count exactly at ratio with one adult joining on day two, or exactly half of flagged pupils covered.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.2,
+   "skills": [
+    "S6"
+   ]
+  }
+ ],
+ "sections": [
+  {
+   "name": "trip",
+   "description": "Trip id, destination, trip_type, depart/return dates, pupil_headcount, transport with seat count."
+  },
+  {
+   "name": "roster",
+   "description": "Pupil list with id, year_group, consent_date, consent_expiry, medical_flag, care_plan_ref."
+  },
+  {
+   "name": "staffing",
+   "description": "Adults with role, dbs_status, first_aid, confirmed flag and attend_from/attend_to dates."
+  },
+  {
+   "name": "activities",
+   "description": "Planned activities with date, hazard_tier, provider id, licence_ref, licence_expiry, instructors_supplied, plan_copies_received."
+  },
+  {
+   "name": "approvals",
+   "description": "Review date, ratio_required, amendments log, policy exceptions, prior visit reviews history."
+  }
+ ],
+ "rendering_notes": "trip_type appears as trip.trip_type; approvals.ratio_required is shown as a number (e.g. 10 meaning 1:10) and differs by type. pupil_count is the length of roster; trip.pupil_headcount and trip.transport.seats restate it and are where headcount mismatches are planted. consent_gap shows as roster entries with consent_date null (missing) or consent_expiry before trip.depart_date (expired); consent_exception_logged appears as an approvals.exceptions entry with type 'consent', pupil_id and approved_by, and covers only one pupil. staffing_position is derived only by comparing staffing entries with confirmed=true and attend_from/attend_to covering each trip day against roster length divided by ratio_required; unconfirmed adults are decoys that inflate the raw list. provider_instructors_confirmed appears as activities[].instructors_supplied > 0 with a provider contract_status 'signed'; instructors count only on that activity's date. planted_mismatches are scattered across trip, staffing dates, accommodation nights and activity dates; amendment_explains_one appears as an approvals.amendments entry whose field and new value match one mismatch. medical_flagged is the count of roster entries with medical_flag true; plans_missing is those with care_plan_ref null; provider_holds_plan_copy appears as a pupil id listed in activities[].plan_copies_received. high_hazard_activity shows via hazard_tier 3 with licence_ref present and licence_expiry after trip, expired with approvals.exceptions entry type 'licence_renewal' status 'pending', or licence_ref null. days_to_departure is depart_date minus approvals.review_date. Decoys: approvals.prior_reviews history (past trips passed or had incidents) and dbs_status 'renewal_due' for an adult with a valid date, neither of which change answers. No field states consent completeness, ratio met, mismatch count, coverage share, overall risk or a recommended disposition; the organiser's own self-rating is never included. Use null for unknown values, ISO dates, numbers as numbers, no free-text fields.",
+ "skills": [
+  "S1",
+  "S3",
+  "S4",
+  "S5",
+  "S6",
+  "S7"
+ ],
+ "shared_scale": null,
+ "design_cost": 0.16826
+}

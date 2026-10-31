@@ -1,0 +1,158 @@
+{
+ "id": "F328-0003",
+ "family": "F328",
+ "state": {
+  "report_meta": {
+   "id": "W21-C",
+   "driver_id": "D12"
+  },
+  "vehicle_device": {
+   "health_flags": [
+    "gps_dropouts:3"
+   ],
+   "last_calibration": "2024-02-12",
+   "odo_start": 88100,
+   "odo_end": 88489
+  },
+  "trips": [
+   {
+    "start": "2024-05-21T05:30",
+    "end": "2024-05-21T07:50",
+    "driver_card": "D12",
+    "ign_min": 140,
+    "gps_km": 150
+   },
+   {
+    "start": "2024-05-21T07:58",
+    "end": "2024-05-21T10:10",
+    "driver_card": "D12",
+    "ign_min": 132,
+    "gps_km": 140
+   },
+   {
+    "start": "2024-05-21T11:10",
+    "end": "2024-05-21T12:10",
+    "driver_card": "D77",
+    "ign_min": 60,
+    "gps_km": 60
+   }
+  ],
+  "events": [
+   {
+    "time": "2024-05-21T11:40",
+    "type": "speed",
+    "recorded_mph": 80.5,
+    "posted_limit_mph": 70,
+    "map_ver": "2023.9",
+    "ctx": [
+     "congestion"
+    ]
+   },
+   {
+    "type": "harsh",
+    "n": 9,
+    "ctx": [
+     "congestion"
+    ]
+   }
+  ],
+  "tacho_summary": {
+   "cards": [
+    {
+     "card": "D12",
+     "from": "2024-05-21T05:20",
+     "to": "2024-05-21T10:30"
+    }
+   ],
+   "second_driver": {
+    "card": "D77",
+    "from": "2024-05-21T11:00"
+   },
+   "breaks": [
+    {
+     "from": "2024-05-21T07:50",
+     "min": 8
+    }
+   ]
+  },
+  "notes_history": {
+   "supervisor_note": "Heavy congestion on the A14 that morning, confirmed by traffic tag.",
+   "coaching": [],
+   "limit_updates": [
+    {
+     "segment": "A14-E",
+     "limit_mph": 75,
+     "date": "2024-04-30"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "driver_assignment": "second_driver_on_shift",
+  "raw_speed_excess_pct": 15.0,
+  "speed_mitigation": "map_limit_outdated",
+  "harsh_event_count": 9,
+  "harsh_context_logged": true,
+  "device_health": "intermittent_dropouts",
+  "telematics_stint_hours": 4.53,
+  "tacho_break_reconciles": false,
+  "prior_coaching_count": 0,
+  "coaching_status": "none",
+  "boundary_value": false,
+  "note_content": "benign_explanation_supported",
+  "distance_discrepancy_pct": 11.18
+ },
+ "factors_sampled": {
+  "driver_assignment": "second_driver_on_shift",
+  "raw_speed_excess_pct": 32.07,
+  "speed_mitigation": "none",
+  "harsh_event_count": 9,
+  "harsh_context_logged": true,
+  "device_health": "intermittent_dropouts",
+  "telematics_stint_hours": 3.84,
+  "tacho_break_reconciles": true,
+  "prior_coaching_count": 0,
+  "coaching_status": "completed",
+  "boundary_value": false,
+  "note_content": "benign_explanation_supported",
+  "distance_discrepancy_pct": 11.18
+ },
+ "plan": {
+  "driver_attributed": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "follow_up": {
+   "clarity": "balanced",
+   "target": "coaching",
+   "second": "no_action"
+  },
+  "worst_event_cause": {
+   "clarity": "balanced",
+   "target": "map_data",
+   "second": "road_conditions"
+  },
+  "speed_excess": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  },
+  "hours_exposure": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  }
+ },
+ "target_words": 74,
+ "deciding": {
+  "driver_attributed": "The speed event at 11:40 is on a trip with card D77, listed as tacho second_driver from 11:00, not assigned driver D12.",
+  "follow_up": "The D12 stint is marginally over 4.5 h with no prior coaching, but the speed event belongs to the second driver and is partly explained by a map update, so coaching versus no action is close.",
+  "worst_event_cause": "The event has a congestion tag and a note backing it, while limit_updates shows a newer 75 mph limit dated 2024-04-30 against map_ver 2023.9; both explanations are plausible.",
+  "speed_excess": "80.5 against 70 is 15.0%, level 2; the newer 75 limit would give 7.3%, which keeps some doubt.",
+  "hours_exposure": "D12 trips of 140 and 132 ignition minutes with an 8 minute stop and no qualifying break come to about 4.53 h, just above the 4.5 h anchor."
+ },
+ "request": "rec-F328-0001",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.016876
+}

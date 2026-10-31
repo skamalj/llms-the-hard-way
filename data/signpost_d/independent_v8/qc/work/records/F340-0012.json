@@ -1,0 +1,116 @@
+{
+ "id": "F340-0012",
+ "family": "F340",
+ "state": {
+  "booking": {
+   "microchip": "941000018830027",
+   "dog_name": "Moss",
+   "checkin": "2025-06-09",
+   "checkout": "2025-06-12",
+   "owner_contact": {
+    "reachable_during_stay": true
+   }
+  },
+  "declaration": {
+   "weight_kg": 20.0,
+   "medications": [
+    {
+     "drug": "prednisolone",
+     "dose": "5mg sid",
+     "supplied_count": 0,
+     "next_due": "2025-06-10T18:00"
+    }
+   ]
+  },
+  "vaccination": {
+   "chip_on_cert": "941000018830027",
+   "name_on_cert": "Moss",
+   "core_expiry": "2025-06-10",
+   "titre_result": {
+    "date": "2025-01-15",
+    "accepted_by": "kennel vet"
+   }
+  },
+  "vet_history": {
+   "current_prescriptions": [
+    "prednisolone 5mg sid"
+   ]
+  },
+  "arrival_check": {
+   "measured_weight_kg": 22.0,
+   "cough": true,
+   "prior_stay_incidents": 3
+  },
+  "intake_notes": [
+   "Pulled hard on slip collar at door."
+  ]
+ },
+ "factors": {
+  "vacc_expiry_offset_days": -2,
+  "titre_exemption_on_file": true,
+  "certificate_id_mismatch": "none",
+  "arrival_cough_observed": true,
+  "cough_benign_explanation": "slip_collar_pulling_note",
+  "weight_discrepancy_pct": 10.0,
+  "medication_state": "declared_not_supplied",
+  "next_dose_hours": 33,
+  "neuter_status_conflict": false,
+  "owner_reachable": true,
+  "prior_incident_count": 3,
+  "note_tone": "neutral",
+  "balanced_signals": false
+ },
+ "factors_sampled": {
+  "vacc_expiry_offset_days": 6,
+  "titre_exemption_on_file": true,
+  "certificate_id_mismatch": "different_chip",
+  "arrival_cough_observed": true,
+  "cough_benign_explanation": "none",
+  "weight_discrepancy_pct": 24.39,
+  "medication_state": "declared_not_supplied",
+  "next_dose_hours": 33,
+  "neuter_status_conflict": false,
+  "owner_reachable": true,
+  "prior_incident_count": 3,
+  "note_tone": "neutral",
+  "balanced_signals": false
+ },
+ "plan": {
+  "vacc_cover_valid": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "declaration_consistent": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "admission_disposition": {
+   "clarity": "balanced",
+   "target": "admit_conditions",
+   "second": "isolation_admit"
+  },
+  "discrepancy_count": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  },
+  "action_urgency": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 34,
+ "deciding": {
+  "vacc_cover_valid": "core_expiry 2025-06-10 is two days before checkout 2025-06-12, but an accepted titre is on file; chip and name match.",
+  "declaration_consistent": "Weight 20.0 vs 22.0 is exactly at the 10 percent boundary; medication matches vet prescriptions.",
+  "admission_disposition": "Cough is present, and only a slip-collar pulling note offers a weak explanation; with 3 prior incidents, admit_conditions vs isolation_admit is close.",
+  "discrepancy_count": "Only the weight gap at the boundary (and arguably supplied_count 0) is a mismatch; levels 1 and 0 are both defensible.",
+  "action_urgency": "Prednisolone supplied_count is 0 with a dose due 2025-06-10T18:00, about 33 hours after arrival; whether that needs action is debatable."
+ },
+ "request": "rec-F340-0011",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.014572
+}

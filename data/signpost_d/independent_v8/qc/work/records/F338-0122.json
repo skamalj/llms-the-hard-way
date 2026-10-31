@@ -1,0 +1,155 @@
+{
+ "id": "F338-0122",
+ "family": "F338",
+ "state": {
+  "site": {
+   "id": "S207",
+   "pollutant": "O3",
+   "tier": "indicative",
+   "interval_days": 90
+  },
+  "visit": {
+   "date": "2024-05-14",
+   "start": "10:00",
+   "end": "11:30",
+   "sequence_status": "partial",
+   "maint_window": true
+  },
+  "reference": {
+   "standard_id": "CYL-6120",
+   "conc": 100,
+   "unit": "ppb",
+   "cert_no": "C-30417",
+   "cert_expiry": "2024-09-20"
+  },
+  "checks": [
+   {
+    "type": "as_found_zero",
+    "ref_id": "CYL-6120",
+    "ref_conc": 0,
+    "unit": "ppb",
+    "reading": 0.9,
+    "tol": 2,
+    "ts": "2024-05-14T10:10"
+   },
+   {
+    "type": "as_found_span",
+    "ref_id": "CYL-6120",
+    "ref_conc": 100,
+    "unit": "ppb",
+    "reading": 95.5,
+    "tol": 5,
+    "ts": "2024-05-14T10:25"
+   },
+   {
+    "type": "as_left_zero",
+    "ref_id": "CYL-6120",
+    "ref_conc": 0,
+    "unit": "ppb",
+    "reading": 0.1,
+    "tol": 2,
+    "ts": "2024-05-14T11:05"
+   },
+   {
+    "type": "as_left_span",
+    "ref_id": "CYL-8835",
+    "ref_conc": 100,
+    "unit": "ppb",
+    "reading": 100.4,
+    "tol": 5,
+    "ts": "2024-05-14T11:42"
+   }
+  ],
+  "history": {
+   "last_visit_date": "2024-04-28",
+   "last_outcome": "pass",
+   "results": [
+    "pass",
+    "pass",
+    "pass"
+   ],
+   "autochecks": [
+    {
+     "d": "2024-05-03",
+     "r": "pass"
+    },
+    {
+     "d": "2024-05-10",
+     "r": "pass"
+    }
+   ]
+  },
+  "instrument": {
+   "enclosure_temp_min": 14,
+   "enclosure_temp_max": 26
+  }
+ },
+ "factors": {
+  "pollutant": "O3",
+  "as_found_ratio": 0.9,
+  "as_left_status": "all_pass",
+  "cylinder_id_mismatch": "different_standard",
+  "cert_expiry_offset_days": 129,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "maintenance_window",
+  "days_since_last_visit": 16,
+  "visit_completeness": "multipoint_missing",
+  "prior_fail_count": 0,
+  "timestamp_mismatch": "minutes_outside",
+  "site_priority": "indicative"
+ },
+ "factors_sampled": {
+  "pollutant": "O3",
+  "as_found_ratio": 2.08,
+  "as_left_status": "all_pass",
+  "cylinder_id_mismatch": "different_standard",
+  "cert_expiry_offset_days": 129,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "maintenance_window",
+  "days_since_last_visit": 16,
+  "visit_completeness": "multipoint_missing",
+  "prior_fail_count": 0,
+  "timestamp_mismatch": "minutes_outside",
+  "site_priority": "indicative"
+ },
+ "plan": {
+  "data_accepted": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "reference_valid": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "balanced",
+   "target": "close_flagged",
+   "second": "hold"
+  },
+  "flag_extent": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  },
+  "return_urgency": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  }
+ },
+ "target_words": 123,
+ "deciding": {
+  "data_accepted": "As-found zero and span are within tolerance (span deviation 4.5 against 5), autochecks pass and last visit was 16 days ago; the as-left problems cast only some doubt on the earlier data.",
+  "reference_valid": "The as-left span point carries ref_id CYL-8835 while the reference standard is CYL-6120, a wholly different identifier.",
+  "next_step": "Closing with flags is supported by the passing as-left values and the maintenance window, but the as-left span used a different cylinder, the visit is partial with no precision point, and its timestamp is after the visit end, so holding for confirmation is also defensible.",
+  "flag_extent": "Only 16 days since the last visit and the as-found checks are in tolerance, so a few days of flagging fits, but the unconfirmed as-left reference could stretch it past a week.",
+  "return_urgency": "Indicative tier site with a partial visit and a mismatched cylinder; a return within 3-7 days fits, but an extra visit in 8-30 days is plausible since as-found data was in tolerance."
+ },
+ "request": "rec-F338-0121",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012542
+}

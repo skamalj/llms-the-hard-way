@@ -1,0 +1,119 @@
+{
+ "id": "F337-0023",
+ "family": "F337",
+ "state": {
+  "station": {
+   "channels": [
+    {
+     "cha": "HHZ",
+     "sensor_serial": "K09",
+     "response_epoch_start": "2021-04-01"
+    }
+   ]
+  },
+  "acquisition": {
+   "day": "2024-06-11",
+   "channel_hours_expected": 24,
+   "completeness_pct": 78.3,
+   "gaps": [
+    {
+     "cha": "HHZ",
+     "start": "2024-06-11T03:00",
+     "end": "2024-06-11T08:15"
+    }
+   ],
+   "gps_lock_pct": 86,
+   "qc_generated": "2024-06-12T01:00Z",
+   "as_of": "2024-06-12T23:00Z"
+  },
+  "qc_metrics": [
+   {
+    "cha": "HHZ",
+    "psd_dev_db": 0.16,
+    "dead": false,
+    "cal_pulse": {
+     "date": "2024-05-01",
+     "result": "pass"
+    }
+   }
+  ],
+  "maintenance_log": [
+   {
+    "date": "2023-09-20",
+    "action": "sensor_swap",
+    "sensor_serial_installed": "K12"
+   },
+   {
+    "action": "outage",
+    "outage_start": "2024-06-11T03:00",
+    "outage_end": "2024-06-11T08:05"
+   }
+  ]
+ },
+ "factors": {
+  "sensor_metadata_state": "swap_stale",
+  "maintenance_log_present": true,
+  "gap_coverage": "minor_overrun",
+  "true_usable_fraction": 0.78,
+  "completeness_summary_drift": 0.18,
+  "timing_quality": "intermittent",
+  "calibration_status": "passed",
+  "noise_excess_db": 0.16,
+  "benign_noise_cause_logged": false,
+  "operator_note_consistency": "absent",
+  "dead_channels": 0,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "sensor_metadata_state": "swap_stale",
+  "maintenance_log_present": true,
+  "gap_coverage": "minor_overrun",
+  "true_usable_fraction": 0.78,
+  "completeness_summary_drift": 0.18,
+  "timing_quality": "intermittent",
+  "calibration_status": "passed",
+  "noise_excess_db": 0.16,
+  "benign_noise_cause_logged": false,
+  "operator_note_consistency": "absent",
+  "dead_channels": 0,
+  "boundary_case": false
+ },
+ "plan": {
+  "response_valid": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "gaps_explained": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "disposition": {
+   "clarity": "clear",
+   "target": "release_flagged",
+   "second": null
+  },
+  "usable_fraction": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  },
+  "pending_age": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 39,
+ "deciding": {
+  "response_valid": "Station serial K09 and epoch 2021-04-01 predate the logged swap on 2023-09-20 to K12; metadata was not updated.",
+  "gaps_explained": "The single gap overlaps the logged outage but ends 10 minutes after outage_end (08:15 vs 08:05), a small overrun that could be read either way.",
+  "disposition": "Problems are confined to one identified gap and stale metadata on a single channel; noise is nominal, calibration passed, and no channel is dead.",
+  "usable_fraction": "A 5.25 h gap of 24 h leaves about 78% usable, well within 50-90%; completeness_pct 78.3 agrees.",
+  "pending_age": "qc_generated 2024-06-12T01:00Z vs as_of 23:00Z is 22 h, near but under the 24 h line."
+ },
+ "request": "rec-F337-0021",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.015145
+}

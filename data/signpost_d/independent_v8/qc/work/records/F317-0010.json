@@ -1,0 +1,178 @@
+{
+ "id": "F317-0010",
+ "family": "F317",
+ "state": {
+  "vehicle": {
+   "fleet_no": 6205,
+   "odometer_km": 40200
+  },
+  "exam": {
+   "due_at_km": 40000,
+   "items": [
+    {
+     "c": "A1",
+     "r": "ok",
+     "by": "t3",
+     "at": null
+    },
+    {
+     "c": "A2",
+     "r": "ok",
+     "by": null,
+     "at": null
+    },
+    {
+     "c": "A3",
+     "r": "ok",
+     "by": null,
+     "at": null
+    },
+    {
+     "c": "A4",
+     "r": null,
+     "by": null,
+     "at": null
+    },
+    {
+     "c": "A5",
+     "r": null,
+     "by": null,
+     "at": null
+    },
+    {
+     "c": "A6",
+     "r": null,
+     "by": null,
+     "at": null
+    }
+   ]
+  },
+  "defects": [
+   {
+    "id": "D1",
+    "fleet_no": 6205,
+    "subsystem": "pantograph",
+    "safety_critical": false,
+    "raised_at": "2024-06-08",
+    "status": "closed",
+    "closed_at": "2024-06-12",
+    "retest_at": null,
+    "retest_result": null
+   },
+   {
+    "id": "D0",
+    "fleet_no": 6205,
+    "subsystem": "brakes",
+    "safety_critical": true,
+    "raised_at": "2024-02-10",
+    "status": "closed",
+    "closed_at": "2024-02-14",
+    "retest_at": "2024-02-15",
+    "retest_result": "pass"
+   }
+  ],
+  "work_orders": [
+   {
+    "wo": "W2",
+    "defect_ref": "D1",
+    "subsystem": "pantograph",
+    "opened_at": "2024-06-09",
+    "completed_at": "2024-06-12",
+    "status": "complete",
+    "parts": [
+     "collector_strip"
+    ]
+   },
+   {
+    "wo": "W1",
+    "defect_ref": "D0",
+    "subsystem": "brakes",
+    "opened_at": "2024-02-11",
+    "completed_at": "2024-02-14",
+    "status": "complete",
+    "parts": [
+     "brake_pads"
+    ]
+   }
+  ],
+  "concessions": [],
+  "release": {
+   "duty_id": "S3",
+   "duty_type": "depot_shunt",
+   "depart_at": "2024-06-14T09:00",
+   "odo_reading_km": 40200,
+   "brake_test_at": "2024-06-14T07:30",
+   "brake_test_result": "pass"
+  }
+ },
+ "factors": {
+  "km_to_exam_due": -200,
+  "odometer_disagreement": "none",
+  "exam_signed_fraction": 0.0,
+  "exam_record_missing": false,
+  "worst_defect_subsystem": "pantograph",
+  "worst_defect_state": "closed_awaiting_retest",
+  "worst_defect_safety_critical": false,
+  "retest_out_of_order": false,
+  "concession_present": false,
+  "concession_flaw": "none",
+  "wo_crossref_mismatch": "none",
+  "planned_duty_type": "depot_shunt",
+  "recent_brake_test_pass": true,
+  "balanced_signals": false
+ },
+ "factors_sampled": {
+  "km_to_exam_due": 1300,
+  "odometer_disagreement": "none",
+  "exam_signed_fraction": 0.33,
+  "exam_record_missing": false,
+  "worst_defect_subsystem": "none",
+  "worst_defect_state": "closed_retested",
+  "worst_defect_safety_critical": true,
+  "retest_out_of_order": false,
+  "concession_present": false,
+  "concession_flaw": "none",
+  "wo_crossref_mismatch": "none",
+  "planned_duty_type": "depot_shunt",
+  "recent_brake_test_pass": true,
+  "balanced_signals": false
+ },
+ "plan": {
+  "sc_defects_cleared": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "release_decision": {
+   "clarity": "leaning",
+   "target": "hold",
+   "second": null
+  },
+  "worst_subsystem": {
+   "clarity": "balanced",
+   "target": "none",
+   "second": "pantograph"
+  },
+  "exam_completion": {
+   "clarity": "contested",
+   "target": "1",
+   "second": "0"
+  },
+  "exam_mileage": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  }
+ },
+ "target_words": 151,
+ "deciding": {
+  "sc_defects_cleared": "The only safety-critical defect, D0 on brakes, is closed with a pass retest the day after its work order completed; D1 is not safety critical.",
+  "release_decision": "Pantograph defect D1 is closed with no retest recorded, and the exam is mostly unsigned; that is one missing confirmation, and the depot shunt duty and passed brake test keep it a leaning hold rather than a clear one.",
+  "worst_subsystem": "D1 pantograph was closed on 06-12 with null retest_at and retest_result, so it may count as awaiting retest (pantograph) or as resolved (none).",
+  "exam_completion": "No item has both signed_by and signed_at; A1 has signed_by 't3' with null signed_at and A2 and A3 carry results only, so level 1 and level 0 are both defensible.",
+  "exam_mileage": "Odometer 40200 against due_at_km 40000 is exactly 200 km past due, the boundary between level 2 (200 km or less) and level 3."
+ },
+ "request": "rec-F317-0006",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.014435
+}

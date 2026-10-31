@@ -1,0 +1,146 @@
+{
+ "id": "F333-0063",
+ "family": "F333",
+ "state": {
+  "room": {
+   "room_id": "C031",
+   "next_occupancy_date": "2024-09-14"
+  },
+  "tenancy": {
+   "start_date": "2024-08-10",
+   "end_date": "2024-09-10"
+  },
+  "checkin_inventory": {
+   "signed_date": "2024-08-10",
+   "signed_by_resident": true,
+   "items": [
+    {
+     "item_code": "WALL",
+     "grade": "good"
+    },
+    {
+     "item_code": "LAMP",
+     "grade": "good"
+    },
+    {
+     "item_code": "HTR",
+     "grade": "good"
+    }
+   ]
+  },
+  "checkout_inspection": {
+   "inspection_type": "pre_arrival",
+   "inspection_date": "2024-09-11",
+   "items": [
+    {
+     "item_code": "WALL",
+     "grade": "fair",
+     "defect_category": "scuff",
+     "photo_refs": [
+      "p1"
+     ]
+    },
+    {
+     "item_code": "LAMP",
+     "grade": "good",
+     "photo_refs": [
+      "p2"
+     ]
+    },
+    {
+     "item_code": "HTR",
+     "grade": null,
+     "defect_category": "heater_fail",
+     "photo_refs": [
+      "p3"
+     ]
+    }
+   ]
+  },
+  "proposed_charges": {
+   "lines": [
+    {
+     "item_code": "WALL",
+     "qty": 1,
+     "unit_rate": 20,
+     "line_total": 20
+    },
+    {
+     "item_code": "LAMP",
+     "qty": 1,
+     "unit_rate": 25,
+     "line_total": 25
+    }
+   ],
+   "summary_total": 45.2
+  }
+ },
+ "factors": {
+  "inspection_type": "pre_arrival",
+  "checkin_inventory_state": "complete",
+  "prior_damage_on_charged_item": "none",
+  "charge_discrepancy": "boundary_25",
+  "worst_defect_tier": "habitability",
+  "true_cause": "fair_wear",
+  "predating_works_order": false,
+  "safety_fault_remedied": false,
+  "photo_coverage": "full",
+  "tenancy_months": 1,
+  "date_out_of_order": false,
+  "deposit_dispute_lodged": false,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "inspection_type": "pre_arrival",
+  "checkin_inventory_state": "complete",
+  "prior_damage_on_charged_item": "none",
+  "charge_discrepancy": "none",
+  "worst_defect_tier": "cosmetic",
+  "true_cause": "building_fault",
+  "predating_works_order": false,
+  "safety_fault_remedied": false,
+  "photo_coverage": "full",
+  "tenancy_months": 1,
+  "date_out_of_order": false,
+  "deposit_dispute_lodged": false,
+  "boundary_case": false
+ },
+ "plan": {
+  "checkin_clean": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "disposition": {
+   "clarity": "balanced",
+   "target": "hold_for_evidence",
+   "second": "approve_as_drafted"
+  },
+  "main_cause": {
+   "clarity": "balanced",
+   "target": "fair_wear",
+   "second": "no_defect"
+  },
+  "defect_severity": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  },
+  "charge_gap": {
+   "clarity": "contested",
+   "target": "1",
+   "second": "2"
+  }
+ },
+ "target_words": 67,
+ "deciding": {
+  "checkin_clean": "WALL and LAMP are good in a complete inventory signed on the start date, though the pre-arrival inspection type and the one-month tenancy leave some doubt.",
+  "disposition": "The HTR item has a null checkout grade with heater_fail and a photo. One missing grade suggests a hold, but the lines are otherwise complete and could be approved.",
+  "main_cause": "WALL drops good to fair in one month (a single step), while LAMP is unchanged, so fair_wear vs no_defect is open.",
+  "defect_severity": "heater_fail is a habitability failure (level 2), but a heater fault could be read as an electrics safety issue (level 3).",
+  "charge_gap": "The evidenced WALL line is 20.00; LAMP at 25.00 is graded good, and summary_total 45.20 exceeds the lines by 0.20, so the gap is about 25.00 to 25.20, on the 1/2 boundary."
+ },
+ "request": "rec-F333-0061",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.015065
+}

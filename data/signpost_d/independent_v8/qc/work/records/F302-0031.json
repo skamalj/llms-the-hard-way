@@ -1,0 +1,119 @@
+{
+ "id": "F302-0031",
+ "family": "F302",
+ "state": {
+  "consent": {
+   "form_version": "3.0",
+   "current_version": "3.0",
+   "signed_date": "2025-03-03"
+  },
+  "visit": {
+   "visit_date": "2025-03-05",
+   "review_date": "2025-03-20",
+   "window_days": 28
+  },
+  "labs": {
+   "max_repeats": 1,
+   "items": [
+    {
+     "test": "eGFR",
+     "value": 52,
+     "unit": "mL/min",
+     "collected": "2025-03-05",
+     "valid_days": 14
+    },
+    {
+     "test": "eGFR",
+     "value": 61,
+     "unit": "mL/min",
+     "collected": "2025-03-12",
+     "repeat": true,
+     "valid_days": 14
+    }
+   ]
+  },
+  "eligibility": {
+   "criteria": [
+    {
+     "id": "I4",
+     "operator": "gte",
+     "threshold": 60,
+     "recorded_value": 61,
+     "unit": "mL/min",
+     "met": true
+    }
+   ],
+   "signoff": {
+    "signed": true,
+    "date": "2025-03-18"
+   },
+   "queries": []
+  }
+ },
+ "factors": {
+  "lab_reconciliation": "threshold_crossing",
+  "consent_status": "current_ok",
+  "window_days_remaining": 11,
+  "collection_date_mismatch": "within_window",
+  "prohibited_conmed": false,
+  "washout_completed": false,
+  "out_of_range_lab": true,
+  "valid_repeat_on_file": "valid_repeat_in_range",
+  "boundary_value": false,
+  "identifier_mismatch": "none",
+  "investigator_signoff": "signed_after_results",
+  "open_query_count": 0
+ },
+ "factors_sampled": {
+  "lab_reconciliation": "threshold_crossing",
+  "consent_status": "signed_after_procedure",
+  "window_days_remaining": -2,
+  "collection_date_mismatch": "within_window",
+  "prohibited_conmed": false,
+  "washout_completed": false,
+  "out_of_range_lab": false,
+  "valid_repeat_on_file": "valid_repeat_in_range",
+  "boundary_value": false,
+  "identifier_mismatch": "none",
+  "investigator_signoff": "signed_before_results",
+  "open_query_count": 0
+ },
+ "plan": {
+  "eligibility_proven": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "release",
+   "second": null
+  },
+  "primary_issue": {
+   "clarity": "balanced",
+   "target": "clinical_value",
+   "second": "timing_window"
+  },
+  "affected_scope": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  },
+  "window_left": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 56,
+ "deciding": {
+  "eligibility_proven": "First eGFR 52 is below the 60 threshold, but a repeat of 61 is on file (max_repeats 1). That supports true; the crossing and the repeat being the only source keep false plausible.",
+  "next_step": "Valid in-range repeat, current consent, sign-off after results, no queries. Release is favoured; the initial failure leaves some doubt.",
+  "primary_issue": "The initial eGFR crossing is a clinical value problem; the repeat was taken 7 days after the visit, so timing is a second reading.",
+  "affected_scope": "Single subject record with one lab issue; the weight leans to a small group of 2 to 5 units but is thin.",
+  "window_left": "Consent 2025-03-03 plus 28 days minus review 2025-03-20 gives 11 days. That is just above the 10-day boundary, so level 2 is also defensible."
+ },
+ "request": "rec-F302-0031",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.010529
+}

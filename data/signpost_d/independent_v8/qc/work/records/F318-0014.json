@@ -1,0 +1,164 @@
+{
+ "id": "F318-0014",
+ "family": "F318",
+ "state": {
+  "work_order": {
+   "visit_type": "winter_stoppage",
+   "tasks": [
+    {
+     "task_id": 1,
+     "asset_ref": "GT-1"
+    },
+    {
+     "task_id": 2,
+     "asset_ref": "PD-N"
+    }
+   ],
+   "nav_notice": {
+    "in_force": false
+   },
+   "booked_passages_7d": 21
+  },
+  "visit_log": {
+   "arrived": "2025-01-20T07:00",
+   "departed": "2025-01-20T13:00",
+   "crew_size": 3,
+   "timesheet_hours": 15.22,
+   "task_status": [
+    {
+     "task_id": 1,
+     "status": "done"
+    },
+    {
+     "task_id": 2,
+     "status": "deferred",
+     "deferral_ref": "DF-58",
+     "deferral_due": "2025-02-10"
+    }
+   ]
+  },
+  "materials": {
+   "issued": [
+    {
+     "part_no": "GT-4",
+     "task_id": 1,
+     "qty": 5
+    }
+   ],
+   "returned": [
+    {
+     "part_no": "GT-4",
+     "qty": 1
+    }
+   ],
+   "fitted": [
+    {
+     "part_no": "GT-4",
+     "task_id": 1,
+     "qty": 3
+    },
+    {
+     "part_no": "WS-1",
+     "task_id": 1,
+     "qty": 1
+    }
+   ]
+  },
+  "checks": {
+   "post_checks": [
+    {
+     "asset_ref": "GT-1",
+     "result": "pass_advisory"
+    },
+    {
+     "asset_ref": "PD-N",
+     "result": "pass"
+    }
+   ],
+   "leakage_ls": 12.3,
+   "leakage_limit_ls": 5,
+   "river_level_m": 0.9,
+   "flood_marker_m": 1.6
+  },
+  "asset_history": {
+   "prior_visits": [
+    {
+     "asset_ref": "PD-N",
+     "defect_code": "LK2"
+    },
+    {
+     "asset_ref": "PD-N",
+     "defect_code": "LK2"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "visit_type": "winter_stoppage",
+  "tasks_ordered": 2,
+  "completion_state": "some_outstanding",
+  "parts_qty_mismatch": "moderate",
+  "hours_gap": 2.78,
+  "asset_ref_mismatch": false,
+  "post_check_result": "passed_advisory",
+  "leakage_ratio": 2.46,
+  "leakage_mitigation": false,
+  "navigation_notice_in_force": false,
+  "deferral_approved": true,
+  "prior_same_defect": 2,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "visit_type": "winter_stoppage",
+  "tasks_ordered": 2,
+  "completion_state": "all_done",
+  "parts_qty_mismatch": "moderate",
+  "hours_gap": 2.78,
+  "asset_ref_mismatch": false,
+  "post_check_result": "passed_advisory",
+  "leakage_ratio": 2.46,
+  "leakage_mitigation": false,
+  "navigation_notice_in_force": false,
+  "deferral_approved": true,
+  "prior_same_defect": 2,
+  "boundary_case": false
+ },
+ "plan": {
+  "safe_to_reopen": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "record_disposition": {
+   "clarity": "clear",
+   "target": "hold_query",
+   "second": null
+  },
+  "return_urgency": {
+   "clarity": "balanced",
+   "target": "within_month",
+   "second": "immediate"
+  },
+  "affected_scope": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "section_mismatches": {
+   "clarity": "contested",
+   "target": "2",
+   "second": "3"
+  }
+ },
+ "target_words": 73,
+ "deciding": {
+  "safe_to_reopen": "Post-checks pass (one advisory) and task 2 has an approved deferral, but leakage is 12.3 against a limit of 5 with no flood level or calibration excuse.",
+  "record_disposition": "The record has a timesheet shortfall of 2.78 h against 18 h and quantity gaps on GT-4 and WS-1 that need crew confirmation, but the checks pass and the deferral is approved, so it is a query hold rather than a redo.",
+  "return_urgency": "The deferral DF-58 due 2025-02-10 points to within a month, but leakage at 2.46 times the limit with no nav notice could be read as uncovered and immediate.",
+  "affected_scope": "booked_passages_7d is 21, just over the 20 boundary between level 2 and level 3.",
+  "section_mismatches": "The timesheet gap (15.22 h against 18 h) and GT-4 fitted 3 against issued 5 minus returned 1 are two; WS-1 fitted with no issue line may be a third or pack rounding."
+ },
+ "request": "rec-F318-0011",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.010812
+}

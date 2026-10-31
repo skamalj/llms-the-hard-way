@@ -1,0 +1,142 @@
+{
+ "id": "F317-0039",
+ "family": "F317",
+ "state": {
+  "vehicle": {
+   "fleet_no": 5218,
+   "class": "T5",
+   "odometer_km": 40990,
+   "last_exam_type": "B",
+   "last_exam_date": "2024-03-15"
+  },
+  "exam": {
+   "exam_id": "E-8044",
+   "due_at_km": 41000,
+   "opened_at": "2024-06-04T10:00",
+   "items": [
+    {
+     "item_code": "BR1",
+     "signed_by": "u3",
+     "signed_at": "2024-06-04T09:40"
+    },
+    {
+     "item_code": "DR2",
+     "signed_by": "u3",
+     "signed_at": "2024-06-04T10:20"
+    },
+    {
+     "item_code": "WH3",
+     "signed_by": "u8",
+     "signed_at": "2024-06-04T10:50"
+    },
+    {
+     "item_code": "EL4",
+     "signed_by": "u8",
+     "signed_at": "2024-06-04T11:10"
+    },
+    {
+     "item_code": "CP5",
+     "signed_by": "u3",
+     "signed_at": "2024-06-04T11:30"
+    }
+   ]
+  },
+  "defects": [
+   {
+    "defect_id": "D-230",
+    "subsystem": "running_gear",
+    "safety_critical": true,
+    "status": "closed",
+    "closed_at": "2024-06-03",
+    "retest_at": "2024-06-02",
+    "retest_result": "pass"
+   }
+  ],
+  "work_orders": [
+   {
+    "defect_ref": "D-230",
+    "subsystem": "running_gear",
+    "completed_at": "2024-06-03",
+    "status": "completed"
+   }
+  ],
+  "concessions": [],
+  "release": {
+   "duty_type": "peak_diagram",
+   "depart_at": "2024-06-06T06:00",
+   "odo_reading_km": 41015,
+   "brake_test_at": "2024-06-04T12:00",
+   "brake_test_result": "pass"
+  }
+ },
+ "factors": {
+  "km_to_exam_due": -15,
+  "odometer_disagreement": "large",
+  "exam_signed_fraction": 1.0,
+  "exam_record_missing": false,
+  "worst_defect_subsystem": "running_gear",
+  "worst_defect_state": "closed_retest_out_of_order",
+  "worst_defect_safety_critical": true,
+  "retest_out_of_order": true,
+  "concession_present": false,
+  "concession_flaw": "none",
+  "wo_crossref_mismatch": "none",
+  "planned_duty_type": "peak_diagram",
+  "recent_brake_test_pass": false,
+  "balanced_signals": true
+ },
+ "factors_sampled": {
+  "km_to_exam_due": -342,
+  "odometer_disagreement": "large",
+  "exam_signed_fraction": 0.93,
+  "exam_record_missing": false,
+  "worst_defect_subsystem": "running_gear",
+  "worst_defect_state": "open_wo_in_progress",
+  "worst_defect_safety_critical": true,
+  "retest_out_of_order": false,
+  "concession_present": false,
+  "concession_flaw": "none",
+  "wo_crossref_mismatch": "subsystem_differs",
+  "planned_duty_type": "peak_diagram",
+  "recent_brake_test_pass": false,
+  "balanced_signals": false
+ },
+ "plan": {
+  "sc_defects_cleared": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "release_decision": {
+   "clarity": "balanced",
+   "target": "hold",
+   "second": "release"
+  },
+  "worst_subsystem": {
+   "clarity": "clear",
+   "target": "running_gear",
+   "second": null
+  },
+  "exam_completion": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "exam_mileage": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  }
+ },
+ "target_words": 60,
+ "deciding": {
+  "sc_defects_cleared": "D-230 is closed with a pass, but retest_at (06-02) is earlier than the WO completed_at (06-03), so the retest predates the repair.",
+  "release_decision": "One missing confirmation (a valid retest after repair) points to hold; the brake test was 42 h before departure and not within 24 h, but the exam is fully signed and the overrun is small.",
+  "worst_subsystem": "D-230 on running_gear is the only defect and its retest is not valid after the repair.",
+  "exam_completion": "All 5 items are signed with timestamps, but BR1 was signed at 09:40, before the exam opened_at of 10:00, which leaves doubt.",
+  "exam_mileage": "Vehicle odometer is 10 km before due 41000, but the later release reading 41015 is 15 km past, near the zero boundary."
+ },
+ "request": "rec-F317-0036",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.014678
+}

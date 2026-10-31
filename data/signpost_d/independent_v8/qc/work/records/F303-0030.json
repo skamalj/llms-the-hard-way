@@ -1,0 +1,150 @@
+{
+ "id": "F303-0030",
+ "family": "F303",
+ "state": {
+  "order": {
+   "prescription": {
+    "modality": "concentrator",
+    "flow_lpm": 2,
+    "hours_per_day": 8,
+    "rx_expiry": "2026-01-15"
+   },
+   "items_ordered": [
+    {
+     "sku": "CONC5",
+     "qty": 1
+    }
+   ]
+  },
+  "visit": {
+   "visit_date": "2025-06-02",
+   "items_left": [
+    {
+     "sku": "CONC5",
+     "qty": 1,
+     "serial": "C5-9"
+    }
+   ],
+   "install_checks": {
+    "flow_verified": true,
+    "alarm_tested": true,
+    "training_given": false
+   },
+   "patient_signature": true
+  },
+  "site_assessment": {
+   "hazards": [
+    {
+     "code": "A",
+     "status": "open",
+     "fix": null
+    },
+    {
+     "code": "B",
+     "status": "open",
+     "fix": null
+    },
+    {
+     "code": "C",
+     "status": "open",
+     "fix": null
+    },
+    {
+     "code": "D",
+     "status": "open",
+     "fix": "cylinder_relocated"
+    }
+   ]
+  },
+  "equipment": {
+   "concentrator": {
+    "serial": "C5-9",
+    "flow_setting_lpm": 2.5
+   },
+   "fault_log": [
+    {
+     "code": "LOW_PURITY"
+    }
+   ],
+   "cylinders_on_site": [
+    {
+     "size": "HX 2300 L",
+     "fill_pct": 60
+    }
+   ]
+  },
+  "supply_plan": {
+   "next_delivery_date": "2025-06-05"
+  }
+ },
+ "factors": {
+  "rx_alignment": "exact",
+  "items_shortfall": "none",
+  "setup_state": "training_missing",
+  "supply_hours": "about 11.5 usage hours",
+  "concentrator_fault": true,
+  "fault_mitigated": false,
+  "hazards_found": 4,
+  "hazard_mitigation": false,
+  "hazard_status_missing": false,
+  "handover_gap": false,
+  "timeline_out_of_order": false,
+  "next_delivery": "booked_too_late",
+  "dependency_level": "nocturnal",
+  "billing_hold": false
+ },
+ "factors_sampled": {
+  "rx_alignment": "exact",
+  "items_shortfall": "none",
+  "setup_state": "training_missing",
+  "supply_hours": 202.79,
+  "concentrator_fault": false,
+  "fault_mitigated": true,
+  "hazards_found": 4,
+  "hazard_mitigation": true,
+  "hazard_status_missing": false,
+  "handover_gap": false,
+  "timeline_out_of_order": false,
+  "next_delivery": "booked_too_late",
+  "dependency_level": "nocturnal",
+  "billing_hold": false
+ },
+ "plan": {
+  "rx_match": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "next_step": {
+   "clarity": "balanced",
+   "target": "urgent_dispatch",
+   "second": "close_record"
+  },
+  "fulfilment": {
+   "clarity": "leaning",
+   "target": "setup_incomplete",
+   "second": null
+  },
+  "supply_runway": {
+   "clarity": "contested",
+   "target": "1",
+   "second": "0"
+  },
+  "open_hazards": {
+   "clarity": "balanced",
+   "target": "4",
+   "second": "3"
+  }
+ },
+ "target_words": 45,
+ "deciding": {
+  "rx_match": "Concentrator modality matches but flow_setting 2.5 lpm differs from prescribed 2 lpm; modest lean to false.",
+  "next_step": "Cylinder supply is about 11.5 usage hours with the concentrator faulted and next delivery 2025-06-05 is later; urgent dispatch vs closing is balanced.",
+  "fulfilment": "CONC5 left as ordered, but training_given false and no completed_at, so setup is incomplete.",
+  "supply_runway": "Faulted concentrator with no retest does not count; HX 2300 L at 60% is about 1380 L, about 11.5 hours at 2 lpm, just under the 12-hour boundary.",
+  "open_hazards": "Four hazards all status open; D has fix cylinder_relocated yet is still open, so 3 or 4 is arguable."
+ },
+ "request": "rec-F303-0026",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.013915
+}

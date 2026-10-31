@@ -1,0 +1,176 @@
+{
+ "id": "F324-0080",
+ "family": "F324",
+ "state": {
+  "zone": {
+   "id": "Z9",
+   "drippers": 120,
+   "rate_lph": 2.0,
+   "spec_bar": 1.5
+  },
+  "schedule": {
+   "plan_open_s": 180,
+   "cycles": [
+    {
+     "t": "06:30",
+     "ml": 90
+    },
+    {
+     "t": "09:30",
+     "ml": 90
+    },
+    {
+     "t": "12:30",
+     "ml": 90
+    },
+    {
+     "t": "15:30",
+     "ml": 90
+    }
+   ],
+   "drain_pct_band": [
+    22,
+    32
+   ],
+   "overrides": [
+    {
+     "approved_by_role": "grower",
+     "reduction_pct": 10,
+     "date": "2025-01-15"
+    }
+   ]
+  },
+  "controller_log": {
+   "date": "2025-04-22",
+   "cycles": [
+    {
+     "t": "06:30",
+     "open_s": 180,
+     "l": 9.75,
+     "bar": 1.5
+    },
+    {
+     "t": "09:30",
+     "open_s": 180,
+     "l": 9.72,
+     "bar": 1.5
+    },
+    {
+     "t": "12:30",
+     "open_s": 180,
+     "l": 9.8,
+     "bar": 1.5
+    },
+    {
+     "t": "15:30",
+     "open_s": 180,
+     "l": 9.7,
+     "bar": 1.5
+    }
+   ],
+   "daily_total_l": 38.97,
+   "meter_total_l": 38.9
+  },
+  "drainage": {
+   "drain_pct": [
+    16.8,
+    16.4
+   ],
+   "catch_test": {
+    "ordered": true,
+    "result": null
+   }
+  },
+  "sensors": {
+   "meter_last_calibrated": "2025-04-04"
+  },
+  "maintenance": {
+   "windows": [
+    {
+     "type": "valve_service",
+     "start": "2025-04-22T12:20",
+     "end": "2025-04-22T12:50"
+    }
+   ],
+   "alarms": [
+    {
+     "code": "TANK_LO",
+     "acknowledged": true,
+     "cleared": true
+    }
+   ],
+   "recent_work_orders": [
+    {
+     "date": "2025-02-27",
+     "type": "emitter_flush"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "delivery_shortfall_pct": 9.8,
+  "mismatch_location": "none",
+  "fault_cause": "emitter_clogging",
+  "approved_override": false,
+  "maintenance_window_active": true,
+  "drain_offset_points": "5.4 below band",
+  "off_tolerance_cycles": 0,
+  "meter_calibration_age_days": 18,
+  "confirmation_pending": true,
+  "pressure_state": "normal",
+  "benign_alarm_decoy": "tank_alarm_cleared",
+  "recent_work_orders": 1
+ },
+ "factors_sampled": {
+  "delivery_shortfall_pct": 26.23,
+  "mismatch_location": "none",
+  "fault_cause": "schedule_entry_error",
+  "approved_override": false,
+  "maintenance_window_active": true,
+  "drain_offset_points": 8.93,
+  "off_tolerance_cycles": 1,
+  "meter_calibration_age_days": 18,
+  "confirmation_pending": false,
+  "pressure_state": "normal",
+  "benign_alarm_decoy": "tank_alarm_cleared",
+  "recent_work_orders": 1
+ },
+ "plan": {
+  "under_dosed": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "emitter_clogging": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "next_action": {
+   "clarity": "clear",
+   "target": "hold_for_check",
+   "second": null
+  },
+  "drain_deviation": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  },
+  "off_plan_cycles": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 95,
+ "deciding": {
+  "under_dosed": "Metered 38.97 L against 43.2 L planned (about 90.2%), right at the 90% line. The only override is old (2025-01-15), and the 12:30 cycle overlaps a valve service window.",
+  "emitter_clogging": "Pressure is 1.5 bar, valve open_s is full at 180 every cycle, delivery is about 81 ml per dripper against 90 planned, and drain is low. A prior emitter_flush work order points to the same cause.",
+  "next_action": "The catch test is ordered with result null, so the low delivery and drain cannot be acted on until it is verified.",
+  "drain_deviation": "Mean drain is 16.6% against a band minimum of 22, which is 5.4 points below, just past the 5-point line between slight and marked.",
+  "off_plan_cycles": "Cycle deliveries are 9.75, 9.72, 9.8 and 9.7 L against 10.8 planned. The 9.72 and 9.70 L cycles are about 10% short and do not clearly exceed it, so the count is zero or one."
+ },
+ "request": "rec-F324-0076",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.024979
+}

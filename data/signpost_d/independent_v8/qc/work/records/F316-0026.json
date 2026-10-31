@@ -1,0 +1,138 @@
+{
+ "id": "F316-0026",
+ "family": "F316",
+ "state": {
+  "run_header": {
+   "run_type": "precautionary",
+   "reviewed_at": "2025-01-15T04:00"
+  },
+  "plan": [
+   {
+    "section_code": "A417-06",
+    "length_km": 12,
+    "width_m": 7,
+    "priority": "P1",
+    "planned_rate_gm2": 20,
+    "forecast_zone": "Z2"
+   },
+   {
+    "section_code": "A30-01",
+    "length_km": 3,
+    "width_m": 7,
+    "priority": "P1",
+    "planned_rate_gm2": 20,
+    "forecast_zone": "Z1"
+   }
+  ],
+  "forecast": {
+   "Z1": {
+    "freeze_time": "2025-01-15T03:00"
+   },
+   "Z2": {
+    "freeze_time": "2025-01-15T11:00"
+   },
+   "revisions": [
+    {
+     "issued_at": "2025-01-14T23:00",
+     "zone": "Z1",
+     "freeze_time": "2025-01-15T06:00"
+    }
+   ]
+  },
+  "telematics": {
+   "segments": [
+    {
+     "section_code": "A417-6",
+     "end": "2025-01-15T02:00",
+     "spread_on": true,
+     "logged_rate_gm2": 12
+    },
+    {
+     "section_code": "A30-01",
+     "end": "2025-01-15T03:36",
+     "spread_on": true,
+     "logged_rate_gm2": 20
+    }
+   ],
+   "dropouts": []
+  },
+  "materials": {
+   "loaded_t": 1.6,
+   "returned_t": 0.5,
+   "weighbridge_ticket": "WB118",
+   "rate_exception": null
+  },
+  "notes": {
+   "driver_note": "Run completed.",
+   "depot_note": "Run R2 booked 05:00 same route."
+  }
+ },
+ "factors": {
+  "missed_extent": "over_10km_undertreated",
+  "missed_section_mitigated": false,
+  "salt_gap": "over_10pct",
+  "rate_exception_approved": false,
+  "finish_vs_freeze_min": 144,
+  "hours_to_freeze_untreated": 7.0,
+  "forecast_revised": "warmer",
+  "crosscheck_mismatch": "section_code",
+  "driver_note_type": "routine",
+  "follow_up_run_scheduled": true,
+  "pending_confirmation": false,
+  "gps_dropouts": 0,
+  "nonpriority_untreated": false
+ },
+ "factors_sampled": {
+  "missed_extent": "none",
+  "missed_section_mitigated": false,
+  "salt_gap": "under_3pct",
+  "rate_exception_approved": false,
+  "finish_vs_freeze_min": 144,
+  "hours_to_freeze_untreated": 1.98,
+  "forecast_revised": "warmer",
+  "crosscheck_mismatch": "section_code",
+  "driver_note_type": "routine",
+  "follow_up_run_scheduled": true,
+  "pending_confirmation": false,
+  "gps_dropouts": 0,
+  "nonpriority_untreated": false
+ },
+ "plan": {
+  "treated_before_freeze": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "salt_reconciles": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "follow_up": {
+   "clarity": "leaning",
+   "target": "full_rerun",
+   "second": null
+  },
+  "deficient_length": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  },
+  "freeze_proximity": {
+   "clarity": "clear",
+   "target": "1",
+   "second": null
+  }
+ },
+ "target_words": 53,
+ "deciding": {
+  "treated_before_freeze": "Both P1 sections have spread_on true and end before the revised freeze (A30-01 03:36 vs 06:00; A417-6 02:00 vs 11:00); the code A417-6 vs A417-06 and the low rate leave some doubt.",
+  "salt_reconciles": "Net 1.1 t (1.6 loaded minus 0.5 returned) against about 2.10 t expected at planned rates, a shortfall of about 48%, and still about 23% under the 1.43 t implied by the logged rates.",
+  "follow_up": "A417-6 does not match plan code A417-06 and is logged at 12 against 20 g/m2 over 12 km, and the salt does not reconcile, so coverage cannot be supported; a second run is already booked.",
+  "deficient_length": "A417-06 is 12 km of P1 logged at 12 against 20 g/m2 with no rate exception, which is over 10 km undertreated.",
+  "freeze_proximity": "The undertreated section is in Z2, which freezes at 11:00; reviewed_at is 04:00, so about 7 hours."
+ },
+ "request": "rec-F316-0026",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.018597
+}

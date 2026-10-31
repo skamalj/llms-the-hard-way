@@ -1,0 +1,125 @@
+{
+ "id": "F330-0017",
+ "family": "F330",
+ "state": {
+  "request": {
+   "grade": "G6",
+   "cost_centre": "CC2",
+   "trip_ref": "T7",
+   "requested_total": 700
+  },
+  "lines": [
+   {
+    "line_no": 1,
+    "date": "2025-03-04",
+    "category": "mileage",
+    "cost_centre": "CC2",
+    "amount_gbp": 360.5
+   },
+   {
+    "line_no": 2,
+    "date": "2025-03-04",
+    "category": "mileage",
+    "cost_centre": "CC2",
+    "amount_gbp": 360.5
+   }
+  ],
+  "policy": {
+   "cap_gbp": 0.45,
+   "cap_unit": "mile",
+   "units": 800,
+   "reviewer_limit_gbp": 0.25
+  },
+  "travel": {
+   "trip_ref": "T7",
+   "depart": "2025-03-03",
+   "return": "2025-03-05",
+   "booked_on": "2025-01-20",
+   "disruption": null,
+   "alt_check": {
+    "options_seen": 3,
+    "compliant_found": false
+   }
+  },
+  "approvals": {
+   "pre_approval": {
+    "trip_ref": "T4",
+    "max_gbp": 500,
+    "valid_to": "2025-06-30"
+   }
+  },
+  "history": {
+   "exceptions_12m": 6,
+   "approved_12m": 4,
+   "declined_12m": 2
+  }
+ },
+ "factors": {
+  "breach_type": "mileage_over_rate",
+  "true_excess_pct": 0.14,
+  "amount_mismatch": "large_gap",
+  "reference_mismatch": "pre_approval_trip_differs",
+  "pre_approval_state": "different_trip",
+  "external_disruption": false,
+  "compliant_option": "none_found",
+  "missing_item": "none",
+  "excess_vs_authority": "above_limit",
+  "client_rechargeable": false,
+  "prior_exceptions_12m": 6,
+  "booking_lead_days": 42,
+  "employee_grade": "G6"
+ },
+ "factors_sampled": {
+  "breach_type": "mileage_over_rate",
+  "true_excess_pct": 88.23,
+  "amount_mismatch": "large_gap",
+  "reference_mismatch": "two_of_above",
+  "pre_approval_state": "different_trip",
+  "external_disruption": false,
+  "compliant_option": "available",
+  "missing_item": "none",
+  "excess_vs_authority": "above_limit",
+  "client_rechargeable": false,
+  "prior_exceptions_12m": 6,
+  "booking_lead_days": 42,
+  "employee_grade": "G6"
+ },
+ "plan": {
+  "preapproval_covers": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "outside_control": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "excess_disposition": {
+   "clarity": "balanced",
+   "target": "partial_approve",
+   "second": "refer_controller"
+  },
+  "excess_size": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "discrepancy_count": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 28,
+ "deciding": {
+  "preapproval_covers": "pre_approval.trip_ref T4 differs from trip T7, though it is valid with max 500 against a tiny excess.",
+  "outside_control": "alt_check shows 3 options seen and none compliant, but travel.disruption is null so the cause is otherwise undocumented.",
+  "excess_disposition": "Excess of 0.50 exceeds reviewer_limit_gbp 0.25, which points to the controller, but the sum is trivial, so a partial approval is also defensible.",
+  "excess_size": "After removing the duplicate, 360.50 against cap 0.45x800=360 leaves 0.50, at the boundary between none and up to 10%.",
+  "discrepancy_count": "Duplicate line 2, requested_total 700 against line sum 721, and the pre_approval trip T4; the total gap partly follows from the duplicate, so two is also arguable."
+ },
+ "request": "rec-F330-0016",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.016923
+}

@@ -1,0 +1,153 @@
+{
+ "id": "F330-0038",
+ "family": "F330",
+ "state": {
+  "request": {
+   "trip_ref": "TR-5521",
+   "grade": "G6",
+   "cost_centre": "CC-72",
+   "requested_total": 302.5,
+   "ccy": "GBP"
+  },
+  "lines": [
+   {
+    "line_no": 1,
+    "date": "2025-05-13",
+    "category": "entertainment",
+    "cost_centre": "CC-72",
+    "amount": 250,
+    "ccy": "EUR",
+    "fx_rate": 0.85,
+    "amount_gbp": 212.5,
+    "receipt_attached": true
+   },
+   {
+    "line_no": 2,
+    "date": "2025-05-18",
+    "category": "entertainment",
+    "cost_centre": "CC-70",
+    "amount": 100,
+    "ccy": "EUR",
+    "fx_rate": 0.87,
+    "amount_gbp": 90,
+    "receipt_attached": false
+   }
+  ],
+  "policy": {
+   "grade_band": "G6",
+   "cap_gbp": 75,
+   "cap_unit": "per_head",
+   "units": 4,
+   "reviewer_limit_gbp": 10
+  },
+  "travel": {
+   "trip_ref": "TR-5521",
+   "depart": "2025-05-12",
+   "return": "2025-05-15",
+   "booked_on": "2025-03-31",
+   "disruption": {
+    "code": "VENUE_CLOSED",
+    "source": "venue",
+    "logged_on": "2025-05-13"
+   },
+   "alt_check": {
+    "options_seen": 2,
+    "compliant_found": false
+   },
+   "client_recharge": {
+    "billable": false,
+    "client_code": null
+   }
+  },
+  "approvals": {
+   "line_mgr": {
+    "approved": true
+   },
+   "pre_approval": {
+    "ref": "PA9",
+    "trip_ref": "TR-5521B",
+    "max_gbp": 400,
+    "valid_to": "2025-05-20"
+   },
+   "attendees": [
+    "A",
+    "B",
+    "C",
+    "D"
+   ]
+  },
+  "history": {
+   "exceptions_12m": 3,
+   "approved_12m": 2,
+   "declined_12m": 1
+  }
+ },
+ "factors": {
+  "breach_type": "client_entertainment_over_limit",
+  "true_excess_pct": 0.0,
+  "amount_mismatch": "fx_rate_stale",
+  "reference_mismatch": "two_of_above",
+  "pre_approval_state": "different_trip",
+  "external_disruption": true,
+  "compliant_option": "none_available",
+  "missing_item": "receipt",
+  "excess_vs_authority": "near_limit",
+  "client_rechargeable": false,
+  "prior_exceptions_12m": 3,
+  "booking_lead_days": 42,
+  "employee_grade": "G6"
+ },
+ "factors_sampled": {
+  "breach_type": "client_entertainment_over_limit",
+  "true_excess_pct": 95.13,
+  "amount_mismatch": "fx_rate_stale",
+  "reference_mismatch": "two_of_above",
+  "pre_approval_state": "different_trip",
+  "external_disruption": true,
+  "compliant_option": "none_available",
+  "missing_item": "none",
+  "excess_vs_authority": "near_limit",
+  "client_rechargeable": false,
+  "prior_exceptions_12m": 3,
+  "booking_lead_days": 42,
+  "employee_grade": "G6"
+ },
+ "plan": {
+  "preapproval_covers": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "outside_control": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "excess_disposition": {
+   "clarity": "clear",
+   "target": "hold_for_info",
+   "second": null
+  },
+  "excess_size": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "discrepancy_count": {
+   "clarity": "balanced",
+   "target": "4",
+   "second": "3"
+  }
+ },
+ "target_words": 70,
+ "deciding": {
+  "preapproval_covers": "pre_approval trip_ref TR-5521B differs from TR-5521 only by a suffix, and max_gbp 400 and valid_to 2025-05-20 would cover; the ref difference leaves doubt.",
+  "outside_control": "disruption VENUE_CLOSED is logged and alt_check found no compliant option, but it was logged on the day of the dinner and the lines run past the trip.",
+  "excess_disposition": "Line 2 has receipt_attached false, so one named document is missing; the claim is held until it arrives.",
+  "excess_size": "Cap 75x4=300; stated sum 302.5 is a 0.8% excess, but line 2 recomputed at 100x0.87=87 gives 299.5, at or under the cap.",
+  "discrepancy_count": "Line 2 fx arithmetic, line 2 date 2025-05-18 after return, line 2 cost_centre CC-70 vs CC-72, and pre_approval trip_ref TR-5521B vs TR-5521; the last may be a suffix, so 4 or 3."
+ },
+ "request": "rec-F330-0036",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.01428
+}

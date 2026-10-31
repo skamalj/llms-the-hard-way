@@ -1,0 +1,140 @@
+{
+ "id": "F333-0068",
+ "family": "F333",
+ "state": {
+  "tenancy": {
+   "start_date": "2023-09-01",
+   "end_date": "2024-06-01",
+   "deposit_dispute_lodged": true
+  },
+  "checkin_inventory": {
+   "signed_date": "2023-09-12",
+   "items": [
+    {
+     "item_code": "HT1",
+     "grade": "fair"
+    },
+    {
+     "item_code": "CP4",
+     "grade": "good"
+    }
+   ]
+  },
+  "checkout_inspection": {
+   "inspection_type": "checkout",
+   "inspection_date": "2024-06-01",
+   "items": [
+    {
+     "item_code": "HT1",
+     "grade": "damaged",
+     "defect_category": "heater_fail",
+     "photo_refs": [
+      "a1"
+     ]
+    },
+    {
+     "item_code": "CP4",
+     "grade": "damaged",
+     "defect_category": "stain",
+     "photo_refs": [
+      "a2"
+     ]
+    }
+   ]
+  },
+  "proposed_charges": {
+   "lines": [
+    {
+     "item_code": "HT1",
+     "qty": 1,
+     "unit_rate": 90,
+     "line_total": 90
+    },
+    {
+     "item_code": "CP4",
+     "qty": 1,
+     "unit_rate": 40,
+     "line_total": 40
+    }
+   ],
+   "summary_total": 130
+  },
+  "works_orders": [
+   {
+    "wo_id": "W3",
+    "raised_date": "2024-01-15",
+    "location": "bedroom",
+    "category": "heating",
+    "status": "open"
+   }
+  ]
+ },
+ "factors": {
+  "inspection_type": "checkout",
+  "checkin_inventory_state": "signed_late",
+  "prior_damage_on_charged_item": "one_item",
+  "charge_discrepancy": "medium_25_to_100",
+  "worst_defect_tier": "habitability",
+  "true_cause": "building_fault",
+  "predating_works_order": false,
+  "safety_fault_remedied": false,
+  "photo_coverage": "full",
+  "tenancy_months": 9,
+  "date_out_of_order": false,
+  "deposit_dispute_lodged": true,
+  "boundary_case": true
+ },
+ "factors_sampled": {
+  "inspection_type": "checkout",
+  "checkin_inventory_state": "signed_late",
+  "prior_damage_on_charged_item": "one_item",
+  "charge_discrepancy": "medium_25_to_100",
+  "worst_defect_tier": "functional",
+  "true_cause": "prior_occupant",
+  "predating_works_order": false,
+  "safety_fault_remedied": false,
+  "photo_coverage": "full",
+  "tenancy_months": 9,
+  "date_out_of_order": false,
+  "deposit_dispute_lodged": true,
+  "boundary_case": false
+ },
+ "plan": {
+  "checkin_clean": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "disposition": {
+   "clarity": "balanced",
+   "target": "adjust_and_approve",
+   "second": "order_reinspection"
+  },
+  "main_cause": {
+   "clarity": "leaning",
+   "target": "building_fault",
+   "second": null
+  },
+  "defect_severity": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "charge_gap": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  }
+ },
+ "target_words": 61,
+ "deciding": {
+  "checkin_clean": "HT1 graded fair at check-in, which was signed 11 days after start; CP4 good.",
+  "disposition": "Late-signed inventory and HT1 baseline need correcting; could be adjusted or revisited.",
+  "main_cause": "HT1 heater_fail matches open heating works order W3 raised in January.",
+  "defect_severity": "heater_fail could be read as habitability or functional in a bedroom; held in balance.",
+  "charge_gap": "HT1 charge is arguably building fault, leaving CP4 (40) as evidenced; gap 90 sits near the £100 boundary against 130 total."
+ },
+ "request": "rec-F333-0066",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.00569
+}

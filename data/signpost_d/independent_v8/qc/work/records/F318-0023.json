@@ -1,0 +1,160 @@
+{
+ "id": "F318-0023",
+ "family": "F318",
+ "state": {
+  "work_order": {
+   "tasks": [
+    {
+     "id": 1,
+     "asset_ref": "BG1"
+    },
+    {
+     "id": 2,
+     "asset_ref": "PD2"
+    },
+    {
+     "id": 3,
+     "asset_ref": "PD2"
+    },
+    {
+     "id": 4,
+     "asset_ref": "SL1"
+    },
+    {
+     "id": 5,
+     "asset_ref": "SL1"
+    },
+    {
+     "id": 6,
+     "asset_ref": "BG1"
+    },
+    {
+     "id": 7,
+     "asset_ref": "BG1"
+    }
+   ]
+  },
+  "visit_log": {
+   "crew_size": 3,
+   "timesheet_hours": 18.4,
+   "span_h": 6,
+   "task_status": [
+    "done",
+    "done",
+    "done",
+    "done",
+    "done",
+    "done",
+    "deferred"
+   ]
+  },
+  "materials": {
+   "issued": [
+    {
+     "part": "G4",
+     "qty": 12
+    }
+   ],
+   "returned": [
+    {
+     "part": "G4",
+     "qty": 2
+    }
+   ],
+   "fitted": [
+    {
+     "part": "G4",
+     "qty": 4
+    }
+   ]
+  },
+  "checks": {
+   "post_checks": [
+    {
+     "asset_ref": "PD3",
+     "result": "pass"
+    }
+   ],
+   "leakage_ls": 1.2,
+   "leakage_limit_ls": 2
+  },
+  "asset_history": {
+   "prior_visits": [
+    {
+     "defect_code": "D4"
+    },
+    {
+     "defect_code": "D4"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "visit_type": "planned_repair",
+  "tasks_ordered": 7,
+  "completion_state": "some_outstanding",
+  "parts_qty_mismatch": "large",
+  "hours_gap": 0.36,
+  "asset_ref_mismatch": true,
+  "post_check_result": "passed",
+  "leakage_ratio": 0.6,
+  "leakage_mitigation": true,
+  "navigation_notice_in_force": false,
+  "deferral_approved": false,
+  "prior_same_defect": 2,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "visit_type": "planned_repair",
+  "tasks_ordered": 7,
+  "completion_state": "some_outstanding",
+  "parts_qty_mismatch": "large",
+  "hours_gap": 0.36,
+  "asset_ref_mismatch": true,
+  "post_check_result": "passed",
+  "leakage_ratio": 0.6,
+  "leakage_mitigation": true,
+  "navigation_notice_in_force": false,
+  "deferral_approved": false,
+  "prior_same_defect": 2,
+  "boundary_case": false
+ },
+ "plan": {
+  "safe_to_reopen": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "record_disposition": {
+   "clarity": "leaning",
+   "target": "close_visit",
+   "second": null
+  },
+  "return_urgency": {
+   "clarity": "balanced",
+   "target": "next_scheduled",
+   "second": "within_week"
+  },
+  "affected_scope": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  },
+  "section_mismatches": {
+   "clarity": "contested",
+   "target": "1",
+   "second": "2"
+  }
+ },
+ "target_words": 91,
+ "deciding": {
+  "safe_to_reopen": "Leakage 1.2 against 2 passes, but the check asset PD3 does not match the task assets and one task is deferred.",
+  "record_disposition": "Checks pass and leakage is under the limit.",
+  "return_urgency": "Deferred task with no ref and two prior D4 defects, against leakage well in limit.",
+  "affected_scope": "Single lock; maybe a few boaters.",
+  "section_mismatches": "Parts 4 vs 10 net and asset ref PD3 vs PD2; the hours gap is small and may be rounding."
+ },
+ "request": "rec-F318-0021",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.004557
+}

@@ -1,0 +1,145 @@
+{
+ "id": "F316-0035",
+ "family": "F316",
+ "state": {
+  "run_header": {
+   "run_id": "G402",
+   "reviewed_at": "2024-01-08T03:00"
+  },
+  "plan": [
+   {
+    "section_code": "D2-01",
+    "length_km": 6,
+    "width_m": 7,
+    "priority": "P1",
+    "planned_rate_gm2": 20,
+    "forecast_zone": "Z1"
+   },
+   {
+    "section_code": "D2-02",
+    "length_km": 1.5,
+    "width_m": 7,
+    "priority": "P1",
+    "planned_rate_gm2": 20,
+    "forecast_zone": "Z2"
+   }
+  ],
+  "forecast": {
+   "zones": [
+    {
+     "zone": "Z1",
+     "freeze_time": "2024-01-08T03:15"
+    },
+    {
+     "zone": "Z2",
+     "freeze_time": "2024-01-08T02:11"
+    }
+   ],
+   "revisions": []
+  },
+  "telematics": {
+   "segments": [
+    {
+     "section_code": "D2-01",
+     "start": "02:00",
+     "end": "02:45",
+     "spread_on": true,
+     "logged_rate_gm2": 20
+    }
+   ],
+   "dropouts": [
+    {
+     "start": "02:20",
+     "end": "02:24",
+     "nearest_section": "D2-01"
+    }
+   ]
+  },
+  "materials": {
+   "loaded_t": 1.0,
+   "returned_t": 0.07,
+   "weighbridge_ticket": "WB-912",
+   "rate_exception": null
+  },
+  "notes": {
+   "driver_note": "",
+   "depot_note": "R2 booked out 04:00 on same route.",
+   "closures": [
+    {
+     "section_code": "D2-02",
+     "closure_ref": "RC-4471",
+     "authority": "Police"
+    }
+   ],
+   "partner_cover": []
+  }
+ },
+ "factors": {
+  "missed_extent": "none",
+  "missed_section_mitigated": true,
+  "salt_gap": "over_10pct",
+  "rate_exception_approved": false,
+  "finish_vs_freeze_min": -30,
+  "hours_to_freeze_untreated": -0.81,
+  "forecast_revised": "none",
+  "crosscheck_mismatch": "none",
+  "driver_note_type": "routine",
+  "follow_up_run_scheduled": true,
+  "pending_confirmation": false,
+  "gps_dropouts": 1,
+  "nonpriority_untreated": false
+ },
+ "factors_sampled": {
+  "missed_extent": "none",
+  "missed_section_mitigated": true,
+  "salt_gap": "over_10pct",
+  "rate_exception_approved": false,
+  "finish_vs_freeze_min": -30,
+  "hours_to_freeze_untreated": -0.81,
+  "forecast_revised": "none",
+  "crosscheck_mismatch": "none",
+  "driver_note_type": "routine",
+  "follow_up_run_scheduled": true,
+  "pending_confirmation": false,
+  "gps_dropouts": 1,
+  "nonpriority_untreated": false
+ },
+ "plan": {
+  "treated_before_freeze": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "salt_reconciles": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "follow_up": {
+   "clarity": "clear",
+   "target": "sign_off",
+   "second": null
+  },
+  "deficient_length": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  },
+  "freeze_proximity": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 37,
+ "deciding": {
+  "treated_before_freeze": "D2-01 finished 02:45, 30 min before its 03:15 freeze. D2-02 has no segment, though it is closed under RC-4471. A strict reading of 'every priority section treated' therefore leans false.",
+  "salt_reconciles": "Net 0.93 t against 0.84 t expected for D2-01, about 11% over and right at the 10% limit. No rate exception exists.",
+  "follow_up": "D2-02 is closed with reference RC-4471, D2-01 was fully treated before freeze, and no confirmation is pending. The log can be accepted.",
+  "deficient_length": "D2-02 (1.5 km P1) has no segment but a police closure reference. It counts as 0 km if the closure mitigates it, 1.5 km otherwise.",
+  "freeze_proximity": "D2-02 freeze time was 02:11, about 0.8 h before the 03:00 review, so it is already frozen if counted, which is level 3. Being closed, it may instead be read as a lower level."
+ },
+ "request": "rec-F316-0031",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.018482
+}

@@ -1,0 +1,108 @@
+{
+ "id": "F304-0013",
+ "family": "F304",
+ "state": {
+  "request": {
+   "ref": "T3340",
+   "appt_type": "chemotherapy",
+   "appt_time": "11:00",
+   "vehicle_class": "car",
+   "crew_requested": "single",
+   "mobility_booked": "walking with frame",
+   "equipment": []
+  },
+  "patient": {
+   "mobility_assessed": "walking with frame",
+   "assessed_on": "2025-04-01",
+   "oxygen_lpm": 0,
+   "monitoring": null
+  },
+  "journey": {
+   "window_end": "09:45",
+   "est_duration_min": 87,
+   "late_tolerance_min": 20,
+   "destination": {
+    "reslot_same_day": true
+   }
+  },
+  "history": [
+   {
+    "outcome": "aborted",
+    "reason": "wheelchair not on vehicle"
+   }
+  ],
+  "notes": {
+   "ward_note": "Brings own folding wheelchair."
+  }
+ },
+ "factors": {
+  "mobility_alignment": "matches",
+  "secondary_discrepancy": "equipment_unlisted",
+  "eligibility_concern": false,
+  "eligibility_exception": false,
+  "clinical_support": "none",
+  "crew_request_gap": "under_one_step",
+  "buffer_minutes": -12.0,
+  "duration_estimate_split": false,
+  "late_tolerance": true,
+  "appointment_type": "chemotherapy",
+  "same_day_reslot": true,
+  "confirmation_pending": false,
+  "prior_aborts": 1,
+  "aborts_related": true
+ },
+ "factors_sampled": {
+  "mobility_alignment": "matches",
+  "secondary_discrepancy": "equipment_unlisted",
+  "eligibility_concern": false,
+  "eligibility_exception": false,
+  "clinical_support": "none",
+  "crew_request_gap": "under_one_step",
+  "buffer_minutes": 75.19,
+  "duration_estimate_split": false,
+  "late_tolerance": true,
+  "appointment_type": "chemotherapy",
+  "same_day_reslot": true,
+  "confirmation_pending": false,
+  "prior_aborts": 4,
+  "aborts_related": true
+ },
+ "plan": {
+  "vehicle_fit": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "disposition": {
+   "clarity": "leaning",
+   "target": "amend_confirm",
+   "second": null
+  },
+  "crew_config": {
+   "clarity": "contested",
+   "target": "double_crew",
+   "second": "single_crew"
+  },
+  "time_pressure": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  },
+  "delay_impact": {
+   "clarity": "contested",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 48,
+ "deciding": {
+  "vehicle_fit": "Car and walking with frame agree with a current assessment dated 2025-04-01.",
+  "disposition": "ward_note says the patient brings a folding wheelchair, but request.equipment is empty; the related earlier abort makes adding it worthwhile. Nothing is outstanding.",
+  "crew_config": "Patient walks with a frame but brings a wheelchair, so a wheelchair transfer may be needed; single crew is booked and oxygen and monitoring are absent.",
+  "time_pressure": "Appt 11:00 less window_end 09:45 is 75 min against est 87, so the journey overruns by 12 min.",
+  "delay_impact": "Chemotherapy with reslot_same_day true and a 20 min late_tolerance leaves the impact between a rebookable slot and a same-day reslot."
+ },
+ "request": "rec-F304-0011",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012558
+}

@@ -1,0 +1,119 @@
+{
+ "id": "F338-0111",
+ "family": "F338",
+ "state": {
+  "site": {
+   "pollutant": "CO",
+   "tier": "indicative",
+   "service_interval_days": 42
+  },
+  "visit": {
+   "date": "2024-06-20",
+   "sequence_status": "complete"
+  },
+  "reference": {
+   "standard_id": "C-4417",
+   "unit": "ppm",
+   "cert_expiry": "2025-05-23"
+  },
+  "checks": [
+   {
+    "phase": "as_found",
+    "type": "span",
+    "ref_id": "C-4417",
+    "unit": "ppm",
+    "ref_conc": 40,
+    "reading": 44.8,
+    "tol": 2.0
+   },
+   {
+    "phase": "as_left",
+    "type": "span",
+    "unit": "ppm",
+    "ref_conc": 40,
+    "reading": 40.2,
+    "tol": 2.0
+   }
+  ],
+  "history": {
+   "last_visit_date": "2024-05-14",
+   "results": [
+    "pass"
+   ],
+   "autochecks": [
+    "pass"
+   ]
+  },
+  "instrument": {
+   "enclosure_temp_max": 36
+  }
+ },
+ "factors": {
+  "pollutant": "CO",
+  "as_found_ratio": 1.87,
+  "as_left_status": "all_pass",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 337,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "enclosure_temp_excursion",
+  "days_since_last_visit": 37,
+  "visit_completeness": "complete",
+  "prior_fail_count": 0,
+  "timestamp_mismatch": "none",
+  "site_priority": "indicative"
+ },
+ "factors_sampled": {
+  "pollutant": "CO",
+  "as_found_ratio": 1.87,
+  "as_left_status": "all_pass",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 337,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "enclosure_temp_excursion",
+  "days_since_last_visit": 37,
+  "visit_completeness": "complete",
+  "prior_fail_count": 0,
+  "timestamp_mismatch": "none",
+  "site_priority": "indicative"
+ },
+ "plan": {
+  "data_accepted": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "reference_valid": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "balanced",
+   "target": "recalibrate",
+   "second": "close_visit"
+  },
+  "flag_extent": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  },
+  "return_urgency": {
+   "clarity": "balanced",
+   "target": "4",
+   "second": "3"
+  }
+ },
+ "target_words": 33,
+ "deciding": {
+  "data_accepted": "As-found span reads 44.8 vs 40 ppm with tolerance 2.0, a clear out-of-tolerance drift, so data since the last visit cannot be accepted unchanged.",
+  "reference_valid": "ref_id equals standard_id, units match, and cert_expiry is almost a year after the visit date.",
+  "next_step": "As-left span is within tolerance and the visit is complete, supporting close; the large as-found deviation despite the temperature note keeps recalibrate plausible.",
+  "flag_extent": "Last visit 37 days earlier and as-found drift is well out of tolerance; the temperature excursion leaves some doubt whether the whole period is affected.",
+  "return_urgency": "Indicative tier and a passing as-left argue against urgency, while the large as-found deviation could justify an immediate return; both are defensible."
+ },
+ "request": "rec-F338-0111",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.006857
+}

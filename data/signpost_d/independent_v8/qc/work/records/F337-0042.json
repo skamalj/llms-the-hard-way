@@ -1,0 +1,122 @@
+{
+ "id": "F337-0042",
+ "family": "F337",
+ "state": {
+  "station": {
+   "net": "XQ",
+   "sta": "MRTN",
+   "channels": [
+    {
+     "cha": "HHZ",
+     "sensor_serial": "S2210",
+     "response_epoch_start": "2022-08-15"
+    },
+    {
+     "cha": "HHE",
+     "sensor_serial": "S2210",
+     "response_epoch_start": "2022-08-15"
+    }
+   ]
+  },
+  "acquisition": {
+   "day": "2024-06-01",
+   "channel_hours_expected": 48,
+   "completeness_pct": 99.9,
+   "gaps": [
+    {
+     "cha": "HHZ",
+     "start": "11:00",
+     "end": "11:30"
+    }
+   ],
+   "gps_lock_pct": 98,
+   "packet_age_d": 12
+  },
+  "qc_metrics": [
+   {
+    "cha": "HHZ",
+    "psd_dev_db": 1.2,
+    "dead": false,
+    "clipped_minutes": 0,
+    "cal_pulse": {
+     "date": "2024-03-01",
+     "result": "pass"
+    }
+   },
+   {
+    "cha": "HHE",
+    "dead": true
+   }
+  ],
+  "maintenance_log": null,
+  "operator_notes": [
+   "Replaced HHE sensor 2024-05-20."
+  ]
+ },
+ "factors": {
+  "sensor_metadata_state": "no_swap",
+  "maintenance_log_present": false,
+  "gap_coverage": "minor_overrun",
+  "true_usable_fraction": 0.49,
+  "completeness_summary_drift": 0.9,
+  "timing_quality": "locked",
+  "calibration_status": "passed",
+  "noise_excess_db": 1.19,
+  "benign_noise_cause_logged": false,
+  "operator_note_consistency": "contradicts_data",
+  "dead_channels": 1,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "sensor_metadata_state": "no_swap",
+  "maintenance_log_present": false,
+  "gap_coverage": "minor_overrun",
+  "true_usable_fraction": 0.67,
+  "completeness_summary_drift": 3.24,
+  "timing_quality": "locked",
+  "calibration_status": "passed",
+  "noise_excess_db": 1.19,
+  "benign_noise_cause_logged": false,
+  "operator_note_consistency": "contradicts_data",
+  "dead_channels": 1,
+  "boundary_case": false
+ },
+ "plan": {
+  "response_valid": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "gaps_explained": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "disposition": {
+   "clarity": "clear",
+   "target": "release_flagged",
+   "second": null
+  },
+  "usable_fraction": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "pending_age": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  }
+ },
+ "target_words": 74,
+ "deciding": {
+  "response_valid": "Epoch 2022-08-15 predates the operator's claimed May 2024 HHE replacement, and no log exists to confirm or refute it.",
+  "gaps_explained": "maintenance_log is null, so the HHZ gap cannot overlap any logged outage.",
+  "disposition": "Faults are confined to the dead HHE channel and one HHZ gap; timing is locked and the cal passed, so flag and publish the rest.",
+  "usable_fraction": "HHE dead removes 24 of 48 ch-h and the 0.5 h gap leaves about 49%, right at the 50% boundary.",
+  "pending_age": "packet_age_d is 12, within eight to thirty days."
+ },
+ "request": "rec-F337-0041",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.009463
+}

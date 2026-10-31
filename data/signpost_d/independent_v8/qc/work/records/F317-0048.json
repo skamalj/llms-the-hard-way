@@ -1,0 +1,158 @@
+{
+ "id": "F317-0048",
+ "family": "F317",
+ "state": {
+  "vehicle": {
+   "fleet_no": 1807,
+   "odometer_km": 39292
+  },
+  "exam": {
+   "exam_id": "E40",
+   "due_at_km": 40000,
+   "items": [
+    {
+     "c": "A",
+     "signed_by": "t7",
+     "signed_at": "2025-06-01T05:00"
+    },
+    {
+     "c": "B",
+     "signed_by": "t7",
+     "signed_at": "2025-06-01T05:15"
+    },
+    {
+     "c": "C",
+     "result": "ok",
+     "signed_by": null,
+     "signed_at": null
+    },
+    {
+     "c": "D",
+     "result": "ok",
+     "signed_by": null,
+     "signed_at": null
+    },
+    {
+     "c": "E",
+     "result": "ok",
+     "signed_by": null,
+     "signed_at": null
+    },
+    {
+     "c": "F",
+     "result": "ok",
+     "signed_by": null,
+     "signed_at": null
+    },
+    {
+     "c": "G",
+     "result": "ok",
+     "signed_by": null,
+     "signed_at": null
+    }
+   ]
+  },
+  "defects": [
+   {
+    "defect_id": "D12",
+    "subsystem": "brakes",
+    "safety_critical": true,
+    "status": "open",
+    "retest_at": null
+   }
+  ],
+  "work_orders": [
+   {
+    "wo_id": "W8",
+    "defect_ref": "D12",
+    "subsystem": "saloon_doors",
+    "status": "in_progress"
+   }
+  ],
+  "concessions": [
+   {
+    "conc_id": "C4",
+    "fleet_no": 1807,
+    "defect_ref": "D13",
+    "valid_until": "2025-06-30"
+   }
+  ],
+  "release": {
+   "duty_type": "peak_diagram",
+   "depart_at": "2025-06-01T08:00",
+   "odo_reading_km": 39292,
+   "brake_test_result": "pass",
+   "brake_test_at": "2025-06-01T06:30"
+  }
+ },
+ "factors": {
+  "km_to_exam_due": 708,
+  "odometer_disagreement": "none",
+  "exam_signed_fraction": 0.29,
+  "exam_record_missing": false,
+  "worst_defect_subsystem": "brakes",
+  "worst_defect_state": "open_wo_in_progress",
+  "worst_defect_safety_critical": true,
+  "retest_out_of_order": false,
+  "concession_present": true,
+  "concession_flaw": "wrong_defect_ref",
+  "wo_crossref_mismatch": "subsystem_differs",
+  "planned_duty_type": "peak_diagram",
+  "recent_brake_test_pass": true,
+  "balanced_signals": false
+ },
+ "factors_sampled": {
+  "km_to_exam_due": 708,
+  "odometer_disagreement": "none",
+  "exam_signed_fraction": 0.29,
+  "exam_record_missing": false,
+  "worst_defect_subsystem": "brakes",
+  "worst_defect_state": "open_wo_in_progress",
+  "worst_defect_safety_critical": true,
+  "retest_out_of_order": false,
+  "concession_present": true,
+  "concession_flaw": "wrong_defect_ref",
+  "wo_crossref_mismatch": "subsystem_differs",
+  "planned_duty_type": "peak_diagram",
+  "recent_brake_test_pass": true,
+  "balanced_signals": false
+ },
+ "plan": {
+  "sc_defects_cleared": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "release_decision": {
+   "clarity": "leaning",
+   "target": "hold",
+   "second": null
+  },
+  "worst_subsystem": {
+   "clarity": "contested",
+   "target": "saloon_doors",
+   "second": "running_gear"
+  },
+  "exam_completion": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  },
+  "exam_mileage": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  }
+ },
+ "target_words": 49,
+ "deciding": {
+  "sc_defects_cleared": "D12 is safety-critical and open with no retest.",
+  "release_decision": "Brake test passed, but D12 is open and concession C4 refers to D13, not D12; one confirmation missing points to hold.",
+  "worst_subsystem": "Defect D12 says brakes but its work order W8 says saloon_doors, so doors versus running gear is contested.",
+  "exam_completion": "Only 2 of 7 items signed, but the others carry ok results; stated sign-off is partial while results suggest done, so the answer is contested.",
+  "exam_mileage": "Due 40000 minus 39292 gives 708 km, so it is nominally level 0; the leading level 2 is balanced against level 3 by an uncertain due basis."
+ },
+ "request": "rec-F317-0046",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.006329
+}

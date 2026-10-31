@@ -1,0 +1,170 @@
+{
+ "id": "F328-0047",
+ "family": "F328",
+ "state": {
+  "report_meta": {
+   "id": "W20-204",
+   "reg": "LN68",
+   "driver_id": "D07"
+  },
+  "vehicle_device": {
+   "last_calibration": "2024-05-15",
+   "health_flags": [
+    "speed_offset_corrected_05-15"
+   ],
+   "odo": [
+    48200,
+    48610.2
+   ]
+  },
+  "trips": [
+   {
+    "s": "2024-05-13T06:00",
+    "e": "08:30",
+    "card": "D07",
+    "km": 200
+   },
+   {
+    "s": "08:42",
+    "e": "10:26",
+    "card": "D22",
+    "km": 203
+   }
+  ],
+  "events": [
+   {
+    "t": "2024-05-13T07:05",
+    "type": "harsh_accel",
+    "g": 0.58
+   },
+   {
+    "t": "08:10",
+    "type": "harsh_brake",
+    "tags": [
+     "congestion"
+    ]
+   },
+   {
+    "t": "09:55",
+    "type": "harsh_brake",
+    "tags": [
+     "congestion"
+    ]
+   },
+   {
+    "t": "09:40",
+    "type": "speed",
+    "mph": 76.97,
+    "lim": 70,
+    "map": "v5"
+   }
+  ],
+  "tacho_summary": {
+   "entries": [
+    {
+     "card": "D07",
+     "drive": [
+      "06:00",
+      "08:30"
+     ]
+    },
+    {
+     "card": "D22",
+     "drive": [
+      "09:15",
+      "10:26"
+     ]
+    }
+   ],
+   "breaks": [
+    [
+     "08:30",
+     "09:15"
+    ]
+   ]
+  },
+  "notes_history": {
+   "driver_comment": "Wrong card was left in after the break; I drove the whole shift.",
+   "coaching": [
+    {
+     "date": "2024-02-10",
+     "status": "completed"
+    },
+    {
+     "date": "2024-03-18",
+     "status": "partly_completed",
+     "modules": "2/4"
+    }
+   ],
+   "limit_updates": []
+  }
+ },
+ "factors": {
+  "driver_assignment": "mismatch_unexplained",
+  "raw_speed_excess_pct": 9.95,
+  "speed_mitigation": "none",
+  "harsh_event_count": 3,
+  "harsh_context_logged": true,
+  "device_health": "recalibrated_mid_period",
+  "telematics_stint_hours": 4.44,
+  "tacho_break_reconciles": true,
+  "prior_coaching_count": 2,
+  "coaching_status": "partly_completed",
+  "boundary_value": false,
+  "note_content": "unverified_claim",
+  "distance_discrepancy_pct": 1.79
+ },
+ "factors_sampled": {
+  "driver_assignment": "mismatch_unexplained",
+  "raw_speed_excess_pct": 9.95,
+  "speed_mitigation": "none",
+  "harsh_event_count": 13,
+  "harsh_context_logged": true,
+  "device_health": "ok",
+  "telematics_stint_hours": 4.44,
+  "tacho_break_reconciles": true,
+  "prior_coaching_count": 2,
+  "coaching_status": "partly_completed",
+  "boundary_value": false,
+  "note_content": "unverified_claim",
+  "distance_discrepancy_pct": 1.79
+ },
+ "plan": {
+  "driver_attributed": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "follow_up": {
+   "clarity": "clear",
+   "target": "no_action",
+   "second": null
+  },
+  "worst_event_cause": {
+   "clarity": "leaning",
+   "target": "device_fault",
+   "second": null
+  },
+  "speed_excess": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  },
+  "hours_exposure": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 89,
+ "deciding": {
+  "driver_attributed": "Speed event 09:40 is on trip 2 with card D22 and a tacho D22 entry with no swap logged, against the unverified driver comment that he drove all shift.",
+  "follow_up": "Attribution is unconfirmed, there is a mid-period recalibration after the events, and the speed excess is under 10%; no confirmed breach remains.",
+  "worst_event_cause": "The largest event is the 0.58 g harsh_accel at 07:05 with no context tag, and it falls before the 2024-05-15 calibration that corrected a speed offset.",
+  "speed_excess": "76.97 against 70 is 9.95% over, just under 10%; doubt from the later calibration and the card mismatch could push it to level 0.",
+  "hours_exposure": "Trips with a 12 min gap give about 4.4 h, but tacho shows a 45 min break 08:30-09:15 overlapping trip 2 ignition at 08:42, so the stint is under 3 h or about 4.4 h."
+ },
+ "request": "rec-F328-0046",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.021983
+}

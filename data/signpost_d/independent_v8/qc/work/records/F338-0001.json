@@ -1,0 +1,136 @@
+{
+ "id": "F338-0001",
+ "family": "F338",
+ "state": {
+  "site": {
+   "pollutant": "SO2",
+   "tier": "indicative",
+   "service_interval_days": 30
+  },
+  "visit": {
+   "date": "2024-05-31",
+   "start": "09:00",
+   "end": "10:30",
+   "sequence_status": "complete"
+  },
+  "reference": {
+   "standard_id": "CYL-48213",
+   "conc": 400,
+   "unit": "ppb",
+   "cert_expiry": "2024-05-09"
+  },
+  "checks": [
+   {
+    "phase": "as_found",
+    "type": "zero",
+    "ref_id": "CYL-48231",
+    "ref_conc": 0,
+    "unit": "ppb",
+    "reading": 3.2,
+    "tol": 1.0,
+    "ts": "09:10"
+   },
+   {
+    "phase": "as_left",
+    "type": "zero",
+    "ref_id": "CYL-48231",
+    "ref_conc": 0,
+    "unit": "ppb",
+    "reading": 0.2,
+    "tol": 1.0,
+    "ts": "10:00"
+   }
+  ],
+  "history": {
+   "last_visit_date": "2024-05-01",
+   "results": [
+    "pass",
+    "fail",
+    "pass",
+    "fail"
+   ],
+   "autochecks": [
+    {
+     "d": "2024-05-03",
+     "r": "fail"
+    },
+    {
+     "d": "2024-05-10",
+     "r": "fail"
+    }
+   ]
+  },
+  "instrument": {
+   "enclosure_temp_min": 12,
+   "enclosure_temp_max": 36
+  }
+ },
+ "factors": {
+  "pollutant": "SO2",
+  "as_found_ratio": 3.19,
+  "as_left_status": "all_pass",
+  "cylinder_id_mismatch": "transposed_digit",
+  "cert_expiry_offset_days": -22,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": false,
+  "drift_explanation": "enclosure_temp_excursion",
+  "days_since_last_visit": 30,
+  "visit_completeness": "zero_only",
+  "prior_fail_count": 2,
+  "timestamp_mismatch": "none",
+  "site_priority": "indicative"
+ },
+ "factors_sampled": {
+  "pollutant": "SO2",
+  "as_found_ratio": 3.19,
+  "as_left_status": "all_pass",
+  "cylinder_id_mismatch": "transposed_digit",
+  "cert_expiry_offset_days": -22,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": false,
+  "drift_explanation": "enclosure_temp_excursion",
+  "days_since_last_visit": 30,
+  "visit_completeness": "zero_only",
+  "prior_fail_count": 2,
+  "timestamp_mismatch": "none",
+  "site_priority": "indicative"
+ },
+ "plan": {
+  "data_accepted": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "reference_valid": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "next_step": {
+   "clarity": "balanced",
+   "target": "close_visit",
+   "second": "hold"
+  },
+  "flag_extent": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  },
+  "return_urgency": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 58,
+ "deciding": {
+  "data_accepted": "Zero as-found 3.2 against tolerance 1.0 (ratio about 3.2) and no span or precision point; the 2024-05-03 and 05-10 autochecks failed, so the data cannot stand uncorrected.",
+  "reference_valid": "Cert expiry 2024-05-09 is 22 days before the visit, and ref_id CYL-48231 differs by transposed digits from standard_id CYL-48213; these are held against as-left passing, so validity is only modestly leaning true.",
+  "next_step": "As-left zero passes (0.2 vs tol 1.0) and the sequence is marked complete, but only a zero point exists and the reference certificate details are outstanding; close versus hold is balanced.",
+  "flag_extent": "The first autocheck failure was 05-03 and the temperature excursion (max 36) is a possible cause; the flag could be about a week or none, with the interval 30 days.",
+  "return_urgency": "Expired certificate and ID mismatch with only a zero check mean a recheck is needed soon, 1-2 days versus 3-7 days; tier indicative keeps it close."
+ },
+ "request": "rec-F338-0001",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.005738
+}

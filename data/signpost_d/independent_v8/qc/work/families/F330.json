@@ -1,0 +1,361 @@
+{
+ "id": "F330",
+ "domain": "expense-policy exception requests",
+ "role": "Travel and expense policy exceptions reviewer in group finance",
+ "setting": "A mid-sized engineering consultancy routes every expense claim that breaches a policy cap to a central reviewer. The reviewer opens one exception request at a time. Each request bundles the claim header, the itemised lines, the applicable policy limit, the trip and booking context, the approvals held and the employee's recent exception history. The reviewer decides whether the case is covered, why the overspend arose, how large it is, how clean the paperwork is, and what happens to the excess.",
+ "questions": {
+  "preapproval_covers": {
+   "type": "noul",
+   "instructions": "A valid pre-approval covers this trip and the full excess.",
+   "criteria": null
+  },
+  "outside_control": {
+   "type": "noul",
+   "instructions": "The overspend resulted from documented circumstances outside the employee's control.",
+   "criteria": {
+    "true": "Disruption or no compliant option is recorded in the record",
+    "false": "Cause undocumented, or a compliant option was available"
+   }
+  },
+  "excess_disposition": {
+   "type": "choice",
+   "instructions": "What should happen to the excess above the policy cap?",
+   "criteria": {
+    "decline_excess": "Reimburse only up to the cap; refuse the whole excess.",
+    "partial_approve": "Reimburse the cap plus a defined portion of the excess.",
+    "hold_for_info": "Pause until one named missing document or approval arrives.",
+    "approve_full": "Reimburse the full claimed excess within reviewer sign-off limit.",
+    "refer_controller": "Excess merits approval but exceeds reviewer limit; controller decides."
+   }
+  },
+  "excess_size": {
+   "type": "score",
+   "instructions": "How far does the reconciled claim exceed the policy cap?",
+   "criteria": [
+    "No excess once lines are reconciled to cap",
+    "Excess above zero and up to 10% of cap",
+    "Excess above 10% and up to 50% of cap",
+    "Excess above 50% of the applicable cap"
+   ]
+  },
+  "discrepancy_count": {
+   "type": "score",
+   "instructions": "How many cross-section discrepancies does the request contain?",
+   "criteria": [
+    "None: every corresponding value agrees across all sections",
+    "Single: exactly one corresponding value disagrees between sections",
+    "Pair: exactly two corresponding values disagree",
+    "Several: three or four corresponding values disagree",
+    "Pervasive: five or more corresponding values disagree"
+   ]
+  }
+ },
+ "factors": [
+  {
+   "name": "breach_type",
+   "description": "Which policy rule the claim breaches. This sets which lines, caps and supporting items matter.",
+   "kind": "categorical",
+   "values": [
+    "hotel_rate_over_cap",
+    "airfare_class_upgrade",
+    "meal_over_per_diem",
+    "late_booking_premium",
+    "client_entertainment_over_limit",
+    "mileage_over_rate"
+   ],
+   "weights": [
+    0.25,
+    0.15,
+    0.18,
+    0.14,
+    0.16,
+    0.12
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S7"
+   ]
+  },
+  {
+   "name": "true_excess_pct",
+   "description": "Actual excess of the reconciled line total in GBP over cap_gbp x units, as a percentage of the cap. About a fifth of records sit within 2 points of the 10% or 50% boundaries.",
+   "kind": "number",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 120,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S4",
+    "S6"
+   ]
+  },
+  {
+   "name": "amount_mismatch",
+   "description": "How request.requested_total relates to the sum of lines.amount_gbp. Values: agreement, a rounding gap under 1 GBP, a stale fx_rate on one line, a line duplicated with the same date and amount, or a large unexplained gap.",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "rounding",
+    "fx_rate_stale",
+    "duplicated_line",
+    "large_gap"
+   ],
+   "weights": [
+    0.34,
+    0.18,
+    0.18,
+    0.15,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1"
+   ]
+  },
+  {
+   "name": "reference_mismatch",
+   "description": "Disagreement in dates or identifiers between sections. Values: a line dated outside the travel window, trip_ref differing between request and travel, or a line cost_centre differing from the request.",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "line_date_outside_trip",
+    "trip_ref_differs",
+    "cost_centre_differs",
+    "two_of_above"
+   ],
+   "weights": [
+    0.36,
+    0.18,
+    0.15,
+    0.16,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1"
+   ]
+  },
+  {
+   "name": "pre_approval_state",
+   "description": "State of the pre-approval in the approvals section. Values: absent, valid and matching, expired before travel, issued for a different trip_ref, or capped below the claimed excess. The record looks reassuring in all but the valid case only on close comparison.",
+   "kind": "categorical",
+   "values": [
+    "absent",
+    "valid_matching",
+    "expired",
+    "different_trip",
+    "max_below_excess"
+   ],
+   "weights": [
+    0.3,
+    0.22,
+    0.16,
+    0.14,
+    0.18
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S3",
+    "S5"
+   ]
+  },
+  {
+   "name": "external_disruption",
+   "description": "Whether the travel feed records a disruption such as a cancellation, diversion or venue change. This mitigates an overspend that otherwise looks discretionary.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S5"
+   ]
+  },
+  {
+   "name": "compliant_option",
+   "description": "Whether the alternatives check found a within-policy option at booking time. Values: one was available, none was available, or no check was logged.",
+   "kind": "categorical",
+   "values": [
+    "available",
+    "none_available",
+    "not_checked"
+   ],
+   "weights": [
+    0.38,
+    0.34,
+    0.28
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S5",
+    "S6"
+   ]
+  },
+  {
+   "name": "missing_item",
+   "description": "Single required supporting item absent from the record, if any. The attendee list applies only to entertainment.",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "receipt",
+    "line_manager_approval",
+    "attendee_list"
+   ],
+   "weights": [
+    0.55,
+    0.17,
+    0.16,
+    0.12
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S4"
+   ]
+  },
+  {
+   "name": "excess_vs_authority",
+   "description": "Excess amount in GBP relative to policy.reviewer_limit_gbp. Near_limit cases sit within 5% either side of the limit.",
+   "kind": "categorical",
+   "values": [
+    "well_within",
+    "near_limit",
+    "above_limit"
+   ],
+   "weights": [
+    0.5,
+    0.22,
+    0.28
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S4",
+    "S6",
+    "S7"
+   ]
+  },
+  {
+   "name": "client_rechargeable",
+   "description": "Whether the trip is billable to a client with a recharge code. This lowers the net cost concern of an overspend.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3"
+   ]
+  },
+  {
+   "name": "prior_exceptions_12m",
+   "description": "Count of exception requests by the same employee in the last 12 months. High counts raise concern unless most were approved.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 7,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S6"
+   ]
+  },
+  {
+   "name": "booking_lead_days",
+   "description": "Days between booked_on and departure. Short leads look discretionary but are often explained by a disruption.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 60,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S6"
+   ]
+  },
+  {
+   "name": "employee_grade",
+   "description": "Grade band, which sets the cap in the policy section. It is largely a decoy, though the cap must be read for the right band.",
+   "kind": "categorical",
+   "values": [
+    "G3",
+    "G4",
+    "G5",
+    "G6",
+    "G7"
+   ],
+   "weights": [
+    0.18,
+    0.27,
+    0.27,
+    0.18,
+    0.1
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S7"
+   ]
+  }
+ ],
+ "sections": [
+  {
+   "name": "request",
+   "description": "Claim header: req_id, emp_ref, grade, cost_centre, trip_ref, breach_rule, requested_total, ccy, submitted_on, payroll_cutoff."
+  },
+  {
+   "name": "lines",
+   "description": "Itemised list of line_no, date, category, cost_centre, amount, ccy, fx_rate, amount_gbp, receipt_attached."
+  },
+  {
+   "name": "policy",
+   "description": "Applicable rule: rule_id, grade_band, cap_gbp, cap_unit, units, reviewer_limit_gbp."
+  },
+  {
+   "name": "travel",
+   "description": "Trip context: trip_ref, depart, return, booked_on, disruption object or null, alt_check object, client_recharge object."
+  },
+  {
+   "name": "approvals",
+   "description": "Line manager approval, pre_approval object or null, and attendees list where relevant."
+  },
+  {
+   "name": "history",
+   "description": "Employee record: exceptions_12m, approved_12m, declined_12m, last_exception_on."
+  }
+ ],
+ "rendering_notes": "There are no free-text fields; every signal is a number, date, code, boolean or null.\n\nHow each factor appears in the record:\n- true_excess_pct is never stated. The reader computes it from the sum of lines.amount_gbp (after removing a duplicated line) against policy.cap_gbp x policy.units.\n- amount_mismatch shows in three ways: request.requested_total disagrees with the line sum, one line's fx_rate x amount does not equal its amount_gbp, or two lines repeat the same date, category and amount.\n- reference_mismatch shows as a lines[].date outside travel.depart to travel.return, as request.trip_ref differing from travel.trip_ref, or as a lines[].cost_centre differing from request.cost_centre.\n- pre_approval_state is approvals.pre_approval {ref, trip_ref, max_gbp, valid_to} or null. Expired means valid_to is before travel.depart. Different_trip means its trip_ref differs. Max_below_excess means max_gbp is less than the computed excess.\n- external_disruption is travel.disruption {code, source, logged_on} when true, and null when false.\n- compliant_option is travel.alt_check {options_seen, compliant_found} as a count and boolean, or null when not checked.\n- missing_item appears as lines[].receipt_attached false on the breaching line, as approvals.line_mgr.approved null, or as approvals.attendees being an empty list for entertainment.\n- excess_vs_authority is derived by comparing the computed excess in GBP with policy.reviewer_limit_gbp.\n- client_rechargeable is travel.client_recharge {billable, client_code}.\n- prior_exceptions_12m and its outcomes are in the history section.\n- booking_lead_days is derived from travel.booked_on against travel.depart.\n- employee_grade appears in request.grade and policy.grade_band; these always agree, and the cap follows from them.\n\nCounting discrepancies: each differing corresponding value counts once, across these pairs:\n- requested_total against the line sum\n- fx arithmetic on each line\n- duplicated lines\n- line dates against the trip window\n- trip_ref across request, travel and pre_approval\n- cost_centre between request and lines\n\nAn expired pre-approval is a validity failure, not a cross-section mismatch.\n\nDecoys: payroll_cutoff, last_exception_on, small receipted lines unrelated to the breach, grade, and ccy on lines already converted correctly.\n\nThe record never states an answer. There must be no fields for excess percentage, discrepancy count, recommended outcome, 'within control', risk or coverage verdict, and no field labelled as a mismatch. Mitigating fields (disruption, recharge, valid pre-approval, mostly approved history) are placed with and without alarming signals at roughly equal rates.",
+ "skills": [
+  "S1",
+  "S3",
+  "S4",
+  "S5",
+  "S6",
+  "S7"
+ ],
+ "shared_scale": null,
+ "design_cost": 0.162464
+}

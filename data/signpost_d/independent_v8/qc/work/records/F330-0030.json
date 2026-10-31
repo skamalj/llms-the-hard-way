@@ -1,0 +1,155 @@
+{
+ "id": "F330-0030",
+ "family": "F330",
+ "state": {
+  "request": {
+   "req_id": "X505",
+   "grade": "G3",
+   "cost_centre": "CC5",
+   "trip_ref": "T3",
+   "requested_total": 540,
+   "ccy": "GBP"
+  },
+  "lines": [
+   {
+    "date": "2025-08-12",
+    "cat": "hotel",
+    "cost_centre": "CC5",
+    "amount": 180,
+    "ccy": "GBP",
+    "fx_rate": 1,
+    "amount_gbp": 180,
+    "receipt_attached": true
+   },
+   {
+    "date": "2025-08-13",
+    "cat": "hotel",
+    "cost_centre": "CC9",
+    "amount": 180,
+    "ccy": "GBP",
+    "fx_rate": 1,
+    "amount_gbp": 180,
+    "receipt_attached": true
+   },
+   {
+    "date": "2025-08-15",
+    "cat": "hotel",
+    "cost_centre": "CC5",
+    "amount": 215,
+    "ccy": "EUR",
+    "fx_rate": 0.83,
+    "amount_gbp": 192,
+    "receipt_attached": true
+   }
+  ],
+  "policy": {
+   "cap_gbp": 180,
+   "cap_unit": "night",
+   "units": 3,
+   "reviewer_limit_gbp": 25
+  },
+  "travel": {
+   "trip_ref": "T4",
+   "depart": "2025-08-12",
+   "return": "2025-08-14",
+   "booked_on": "2025-07-17",
+   "disruption": {
+    "code": "FLT_CXL",
+    "source": "airline",
+    "logged_on": "2025-08-11"
+   },
+   "alt_check": {
+    "options_seen": 2,
+    "compliant_found": false
+   },
+   "client_recharge": {
+    "billable": false,
+    "client_code": null
+   }
+  },
+  "approvals": {
+   "line_mgr": {
+    "approved": true
+   },
+   "pre_approval": {
+    "ref": "PA2",
+    "trip_ref": "T4",
+    "max_gbp": 5,
+    "valid_to": "2025-08-31"
+   }
+  },
+  "history": {
+   "exceptions_12m": 1,
+   "approved_12m": 1,
+   "declined_12m": 0
+  }
+ },
+ "factors": {
+  "breach_type": "hotel_rate_over_cap",
+  "true_excess_pct": 2.22,
+  "amount_mismatch": "requested_total_differs_and_fx_rate_stale",
+  "reference_mismatch": "trip_ref_differs, line_date_outside_trip, line_cost_centre_differs",
+  "pre_approval_state": "max_below_excess",
+  "external_disruption": true,
+  "compliant_option": "none_available",
+  "missing_item": "none",
+  "excess_vs_authority": "within_limit",
+  "client_rechargeable": false,
+  "prior_exceptions_12m": 1,
+  "booking_lead_days": 26,
+  "employee_grade": "G3"
+ },
+ "factors_sampled": {
+  "breach_type": "hotel_rate_over_cap",
+  "true_excess_pct": 2.22,
+  "amount_mismatch": "fx_rate_stale",
+  "reference_mismatch": "trip_ref_differs",
+  "pre_approval_state": "max_below_excess",
+  "external_disruption": false,
+  "compliant_option": "available",
+  "missing_item": "none",
+  "excess_vs_authority": "above_limit",
+  "client_rechargeable": false,
+  "prior_exceptions_12m": 1,
+  "booking_lead_days": 26,
+  "employee_grade": "G3"
+ },
+ "plan": {
+  "preapproval_covers": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "outside_control": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "excess_disposition": {
+   "clarity": "leaning",
+   "target": "decline_excess",
+   "second": null
+  },
+  "excess_size": {
+   "clarity": "clear",
+   "target": "1",
+   "second": null
+  },
+  "discrepancy_count": {
+   "clarity": "leaning",
+   "target": "4",
+   "second": null
+  }
+ },
+ "target_words": 65,
+ "deciding": {
+  "preapproval_covers": "PA2 max_gbp 5 is below the excess of 12 (552 vs cap 540); trip_ref T4 also differs from request T3.",
+  "outside_control": "disruption FLT_CXL logged by airline and alt_check found no compliant option; fx and date anomalies leave some doubt.",
+  "excess_disposition": "Excess 12 is within reviewer_limit 25, but pre-approval max 5 and the messy lines point to paying only to cap; disruption leaves doubt.",
+  "excess_size": "amount_gbp sum 552 vs cap 540 gives excess 12, 2.22% of cap.",
+  "discrepancy_count": "Total 540 vs 552, line 3 fx 215x0.83=178.45 vs 192, line 3 date 08-15 after return, line 2 cost centre CC9, and request T3 vs travel T4 (also vs PA2 T4) give five or six."
+ },
+ "request": "rec-F330-0026",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.014733
+}

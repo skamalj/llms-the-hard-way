@@ -1,0 +1,333 @@
+{
+ "id": "F303",
+ "domain": "home oxygen equipment deliveries",
+ "role": "Clinical service coordinator at a home oxygen supplier, reviewing each completed delivery and installation visit record before it is closed or followed up",
+ "setting": "A regional home oxygen service delivers concentrators, portable units and cylinders to patients' homes against an active prescription. Each visit produces a structured record covering the prescription and order, what the technician left and installed, the home fire-safety assessment, equipment fault history and the supply plan. The coordinator checks one visit record at a time. They decide whether the delivery matched the prescription, how far the order was fulfilled, how long on-site oxygen will last, how many safety hazards remain open, and what should happen to the record next.",
+ "questions": {
+  "rx_match": {
+   "type": "noul",
+   "instructions": "Delivered equipment matches the active prescription's modality and flow rate.",
+   "criteria": null
+  },
+  "next_step": {
+   "type": "choice",
+   "instructions": "What should happen to this delivery record next?",
+   "criteria": {
+    "close_record": "No outstanding items, checks or paperwork; file as complete.",
+    "chase_paperwork": "Only a signature or document is missing; no return visit.",
+    "hold_confirm": "One fact needs phone confirmation before closing or rebooking.",
+    "book_revisit": "Return visit needed for items or setup, not same-day.",
+    "urgent_dispatch": "Same-day visit needed because supply or safety is critical."
+   }
+  },
+  "fulfilment": {
+   "type": "choice",
+   "instructions": "How much of the ordered delivery was actually fulfilled on this visit?",
+   "criteria": {
+    "nothing_delivered": "No prescribed items were left on site during this visit.",
+    "items_short": "Some items left, but at least one prescribed item missing.",
+    "setup_incomplete": "All items left; install, testing or training not finished.",
+    "fully_complete": "All items left and every install check logged complete."
+   }
+  },
+  "supply_runway": {
+   "type": "score",
+   "instructions": "How long will on-site oxygen last at prescribed usage?",
+   "criteria": [
+    "Critical: under 12 hours at prescribed flow and hours",
+    "Short: 12 to 48 hours at prescribed usage",
+    "Adequate: over 48 hours, up to 7 days",
+    "Ample: over 7 days, or concentrator verified working"
+   ]
+  },
+  "open_hazards": {
+   "type": "score",
+   "instructions": "How many home safety hazards remain unresolved at visit close?",
+   "criteria": [
+    "No unresolved hazards at visit close",
+    "Exactly one unresolved hazard at visit close",
+    "Two unresolved hazards at visit close",
+    "Three unresolved hazards at visit close",
+    "Four or more unresolved hazards at visit close"
+   ]
+  }
+ },
+ "factors": [
+  {
+   "name": "rx_alignment",
+   "description": "How the delivered equipment relates to the active prescription: exact match, flow setting differs from prescribed flow, wrong modality (e.g. cylinders only where a concentrator is prescribed), or the prescription had expired before the visit date.",
+   "kind": "categorical",
+   "values": [
+    "exact",
+    "flow_mismatch",
+    "modality_mismatch",
+    "rx_expired"
+   ],
+   "weights": [
+    0.55,
+    0.18,
+    0.15,
+    0.12
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S5",
+    "S7",
+    "S2"
+   ]
+  },
+  {
+   "name": "items_shortfall",
+   "description": "Gap between items_ordered and items_left: none, one SKU short or under quantity, several SKUs short, or nothing left (no access or patient declined).",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "one_short",
+    "several_short",
+    "nothing_left"
+   ],
+   "weights": [
+    0.5,
+    0.25,
+    0.15,
+    0.1
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S4",
+    "S7"
+   ]
+  },
+  {
+   "name": "setup_state",
+   "description": "Completion of installation checks: all logged, training not given, flow or alarm test not logged, or the install_checks object entirely null.",
+   "kind": "categorical",
+   "values": [
+    "all_logged",
+    "training_missing",
+    "test_not_logged",
+    "checks_null"
+   ],
+   "weights": [
+    0.5,
+    0.18,
+    0.17,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S2",
+    "S4"
+   ]
+  },
+  {
+   "name": "supply_hours",
+   "description": "True hours of oxygen available on site at prescribed flow and daily hours, derived from cylinder sizes, fill levels and whether a working concentrator is installed; values cluster near the 12, 48 and 168 hour boundaries often.",
+   "kind": "number",
+   "values": [],
+   "weights": [],
+   "min": 4,
+   "max": 400,
+   "p_true": 0,
+   "skills": [
+    "S6",
+    "S7"
+   ]
+  },
+  {
+   "name": "concentrator_fault",
+   "description": "Equipment fault log shows a concentrator fault code raised during or shortly before the visit (alarming signal).",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.4,
+   "skills": [
+    "S3",
+    "S7"
+   ]
+  },
+  {
+   "name": "fault_mitigated",
+   "description": "When a fault is present, a later fault-log entry shows retest_passed true or a replacement serial was swapped in on the same visit; sampled independently so the fault appears with and without mitigation about equally.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S6"
+   ]
+  },
+  {
+   "name": "hazards_found",
+   "description": "Number of hazards recorded on the site assessment (smoker in household, open flame appliance, no smoke alarm, tubing trip risk, cylinder stored near heat).",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 5,
+   "p_true": 0,
+   "skills": [
+    "S7"
+   ]
+  },
+  {
+   "name": "hazard_mitigation",
+   "description": "Whether hazards that were found were mostly resolved on the visit (fire-break valves fitted, cylinders relocated, alarm fitted); each recorded hazard carries status resolved_on_visit or open, so alarming hazard codes appear resolved about half the time.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S4"
+   ]
+  },
+  {
+   "name": "hazard_status_missing",
+   "description": "One recorded hazard has status null because it was not rechecked before departure, leaving the open-hazard count on a boundary.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.25,
+   "skills": [
+    "S2",
+    "S6"
+   ]
+  },
+  {
+   "name": "handover_gap",
+   "description": "Patient signature null or handover_at timestamp missing while everything else is complete; a paperwork-only gap.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.3,
+   "skills": [
+    "S2",
+    "S4"
+   ]
+  },
+  {
+   "name": "timeline_out_of_order",
+   "description": "install_checks.completed_at earlier than visit.arrived_at, or departed_at before arrived_at, casting doubt on whether checks really happened on this visit.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.15,
+   "skills": [
+    "S2",
+    "S5",
+    "S6"
+   ]
+  },
+  {
+   "name": "next_delivery",
+   "description": "State of the next scheduled delivery relative to the supply runway: booked before supply runs out, booked after it runs out, or not booked; a timely booking mitigates short supply.",
+   "kind": "categorical",
+   "values": [
+    "booked_in_time",
+    "booked_too_late",
+    "not_booked"
+   ],
+   "weights": [
+    0.5,
+    0.25,
+    0.25
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S4",
+    "S7"
+   ]
+  },
+  {
+   "name": "dependency_level",
+   "description": "Prescribed usage pattern: ambulatory only, nocturnal, or continuous 24-hour use; changes how far a given cylinder stock lasts.",
+   "kind": "categorical",
+   "values": [
+    "ambulatory",
+    "nocturnal",
+    "continuous"
+   ],
+   "weights": [
+    0.3,
+    0.35,
+    0.35
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S6",
+    "S7"
+   ]
+  },
+  {
+   "name": "billing_hold",
+   "description": "Decoy: account carries a billing hold or arrears flag that looks alarming but has no bearing on clinical supply, fulfilment or safety.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.3,
+   "skills": [
+    "S7"
+   ]
+  }
+ ],
+ "sections": [
+  {
+   "name": "order",
+   "description": "Order id, prescription (modality, flow_lpm, hours_per_day, rx_expiry), items_ordered list of sku and qty, and account flags."
+  },
+  {
+   "name": "visit",
+   "description": "Visit id and date, arrived_at, departed_at, items_left list with sku, qty and serial, install_checks object, patient_signature, handover_at."
+  },
+  {
+   "name": "site_assessment",
+   "description": "assessed_at timestamp and a hazards list, each with a hazard code, status and fix code."
+  },
+  {
+   "name": "equipment",
+   "description": "Installed concentrator serial and flow_setting_lpm, fault_log entries, and cylinders_on_site with size code and fill_pct."
+  },
+  {
+   "name": "supply_plan",
+   "description": "Next delivery date, delivery window and the route day assigned."
+  }
+ ],
+ "rendering_notes": "rx_alignment: compare order.prescription.modality and flow_lpm with visit.items_left SKUs and equipment.concentrator.flow_setting_lpm; rx_expired shows as order.prescription.rx_expiry earlier than visit.visit_date. Never include a match flag. items_shortfall: visible only by comparing order.items_ordered with visit.items_left; nothing_left gives an empty items_left list and access_achieved false. setup_state: visit.install_checks has booleans flow_verified, alarm_tested, training_given and a completed_at time; individual booleans are false or null, and checks_null makes the whole object null. supply_hours is never stated. It must be derived from equipment.cylinders_on_site (size codes such as CD 460 L, ZD 300 L, HX 2300 L with fill_pct), order.prescription.flow_lpm and hours_per_day (driven by dependency_level). A concentrator counts only if installed with no unresolved fault. concentrator_fault adds an equipment.fault_log entry with a code such as LOW_PURITY or HIGH_PRESSURE. fault_mitigated adds a later entry with retest_passed true, or a second concentrator serial in items_left. hazards_found and hazard_mitigation shape the site_assessment.hazards list; each entry has a status of open or resolved_on_visit and a fix code (firebreak_fitted, cylinder_relocated, alarm_fitted, or null). hazard_status_missing sets one status to null. handover_gap sets visit.patient_signature to null or omits handover_at. timeline_out_of_order puts install_checks.completed_at before visit.arrived_at, or makes departed_at precede arrived_at. next_delivery shows as supply_plan.next_delivery_date, or null if not_booked, and is compared against the derived runway. billing_hold appears as order.account.billing_hold true with an arrears_gbp amount; it is a decoy. Other decoys: customer satisfaction rating, technician id, route day, and prior visit count; none bear on the answers. No free-text fields. No field may state fulfilment status, urgency, risk level, hazard totals, supply hours or a recommended action.",
+ "skills": [
+  "S2",
+  "S3",
+  "S4",
+  "S5",
+  "S6",
+  "S7"
+ ],
+ "shared_scale": null,
+ "design_cost": 0.163196
+}

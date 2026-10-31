@@ -1,0 +1,324 @@
+{
+ "id": "F332",
+ "domain": "credit union loan application screening",
+ "role": "Member loan underwriter at a community credit union, screening one personal loan application at a time before it reaches a lending decision",
+ "setting": "A regional credit union's lending desk receives personal loan applications for cars, home improvements and debt consolidation. Each application arrives as a structured file built from the application form, the member's account record, income verification documents, a credit bureau extract, the applicant's declared commitments and automated policy checks. Nothing on the file computes affordability or arrears for the underwriter. They must reconcile the sections themselves, weigh exceptions and arrangements that soften adverse signals, and decide the next step.",
+ "questions": {
+  "income_supported": {
+   "type": "noul",
+   "instructions": "Declared income is supported by current verified income within ten percent.",
+   "criteria": {
+    "true": "Current verified income within 10% of declared figure",
+    "false": "Verification missing, stale, or more than 10% short"
+   }
+  },
+  "debts_disclosed": {
+   "type": "noul",
+   "instructions": "Every open bureau account appears among the applicant's declared commitments.",
+   "criteria": {
+    "true": "Each open bureau account matches a declared commitment",
+    "false": "At least one open bureau account is undeclared"
+   }
+  },
+  "next_step": {
+   "type": "choice",
+   "instructions": "What should happen to this application next?",
+   "criteria": {
+    "approve": "File complete and consistent, all lending criteria met as requested",
+    "approve_conditions": "File complete; approvable only with reduced amount or term",
+    "hold_docs": "One missing or outdated document blocks a final decision",
+    "refer_committee": "Complete file breaches a policy cap with no approved exception",
+    "decline": "Affordability or credit history fails criteria even after restructuring"
+   }
+  },
+  "dti_level": {
+   "type": "score",
+   "instructions": "How high is the post-loan debt-to-income ratio?",
+   "criteria": [
+    "Low: monthly repayments under 25% of verified income",
+    "Moderate: repayments 25% to under 35% of verified income",
+    "High: repayments 35% to under 45% of verified income",
+    "Excessive: repayments 45% or more of verified income"
+   ]
+  },
+  "arrears_depth": {
+   "type": "score",
+   "instructions": "How deep was the worst countable arrears in 24 months?",
+   "criteria": [
+    "No countable late payment in last 24 months",
+    "Worst countable late payment under 30 days",
+    "Worst countable late payment 30 to 89 days",
+    "Default recorded or 90 or more days late"
+   ]
+  }
+ },
+ "factors": [
+  {
+   "name": "income_gap_pct",
+   "description": "Percentage by which verified gross monthly income falls short of declared income. Negative values mean verified income exceeds declared. Values near 10 sit on the question boundary.",
+   "kind": "number",
+   "values": [],
+   "weights": [],
+   "min": -6,
+   "max": 35,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S5",
+    "S6"
+   ]
+  },
+  {
+   "name": "income_doc_state",
+   "description": "State of the primary income evidence: current (dated within 60 days of application), stale (older than 60 days) or missing entirely.",
+   "kind": "categorical",
+   "values": [
+    "current",
+    "stale",
+    "missing"
+   ],
+   "weights": [
+    0.6,
+    0.25,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S4",
+    "S5",
+    "S7"
+   ]
+  },
+  {
+   "name": "second_income_verified",
+   "description": "Whether a second, separately verified income source exists, such as a pension or part-time role. It can close an apparent shortfall against declared income, which was entered as a combined figure.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.45,
+   "skills": [
+    "S3",
+    "S1"
+   ]
+  },
+  {
+   "name": "undeclared_account",
+   "description": "Whether the bureau shows an account missing from declared commitments, and its nature. Options are none, one closed or settled (does not breach), one small open account, or one large open account.",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "closed_settled",
+    "open_small",
+    "open_large"
+   ],
+   "weights": [
+    0.4,
+    0.2,
+    0.22,
+    0.18
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S3",
+    "S5"
+   ]
+  },
+  {
+   "name": "post_loan_dti",
+   "description": "True post-loan ratio of total monthly repayments to verified monthly income. Repayments are counted after any consolidation payoffs. Values near 0.25, 0.35 and 0.45 make the scale contested.",
+   "kind": "number",
+   "values": [],
+   "weights": [],
+   "min": 0.12,
+   "max": 0.58,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S6",
+    "S7"
+   ]
+  },
+  {
+   "name": "consolidation_payoff",
+   "description": "Whether the loan purpose is consolidation with named accounts to be paid off at drawdown. Those repayments leave the ratio, so a high-looking gross commitment total may be acceptable.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S1"
+   ]
+  },
+  {
+   "name": "worst_late_days",
+   "description": "Days past due of the worst late payment marker in the last 24 months, before any arrangement is taken into account.",
+   "kind": "categorical",
+   "values": [
+    "0",
+    "1_29",
+    "30_89",
+    "90_plus_or_default"
+   ],
+   "weights": [
+    0.35,
+    0.25,
+    0.25,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S6",
+    "S7"
+   ]
+  },
+  {
+   "name": "arrears_under_arrangement",
+   "description": "Whether the worst late marker falls inside a lender-agreed payment holiday or arrangement period. If so, it is not countable and the next-worst marker governs.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S6"
+   ]
+  },
+  {
+   "name": "policy_cap_breach",
+   "description": "Whether the requested amount or term exceeds the product cap. A breach can be on amount or on term; none means no breach.",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "amount_over_cap",
+    "term_over_cap"
+   ],
+   "weights": [
+    0.6,
+    0.22,
+    0.18
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S4"
+   ]
+  },
+  {
+   "name": "exception_approved",
+   "description": "Whether a logged, in-date exception approval covers the cap breach. It is present on about half of files with or without a breach, so it sometimes covers nothing.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S4"
+   ]
+  },
+  {
+   "name": "employer_name_variance",
+   "description": "How the employer name on the application compares with the payslip. It may match, differ trivially (abbreviation or suffix such as Ltd), or differ materially. A material difference makes the income evidence unusable until confirmed.",
+   "kind": "categorical",
+   "values": [
+    "match",
+    "trivial",
+    "material"
+   ],
+   "weights": [
+    0.6,
+    0.28,
+    0.12
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S4",
+    "S6"
+   ]
+  },
+  {
+   "name": "member_tenure_months",
+   "description": "Months since the applicant joined the credit union. Shown prominently but does not change any answer; it acts as a reassuring or worrying decoy.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 1,
+   "max": 240,
+   "p_true": 0,
+   "skills": [
+    "S7"
+   ]
+  },
+  {
+   "name": "share_balance",
+   "description": "Member's savings share balance in pounds. Large balances look reassuring but are not pledged and do not enter affordability, so this is a decoy.",
+   "kind": "number",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 25000,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S7"
+   ]
+  }
+ ],
+ "sections": [
+  {
+   "name": "application",
+   "description": "Loan request: app_id, received date, product code, purpose, amount, term_months, monthly_instalment, payoff_accounts list, declared_gross_monthly, employer_declared."
+  },
+  {
+   "name": "member",
+   "description": "Member record: member_no, joined date, share_balance, account_status, prior_loans list with outcome."
+  },
+  {
+   "name": "income_verification",
+   "description": "List of verified income documents, each with type, source, employer_name, gross_monthly, doc_date and verified flag."
+  },
+  {
+   "name": "credit_report",
+   "description": "Bureau extract: pulled date, accounts list (ref, lender, type, status open or closed, balance, monthly_payment, late_markers with month, days_past_due and arrangement_flag), defaults list."
+  },
+  {
+   "name": "declared_commitments",
+   "description": "Applicant's own list of existing debts: lender, type, balance, monthly_payment, plus housing_cost."
+  },
+  {
+   "name": "policy_checks",
+   "description": "Product caps (max_amount, max_term_months), cap_check results, and exceptions list with exception_id, covers, approved_by role, expiry date."
+  }
+ ],
+ "rendering_notes": "Income: declared_gross_monthly sits in application. Verified figures sit in income_verification documents; derive the gap from income_gap_pct. When second_income_verified is true, add a second verified document whose sum with the first closes part or all of the apparent gap; never print a total. For income_doc_state stale, set doc_date more than 60 days before application.received. For missing, omit the primary payslip, leaving only a bank statement with verified false, or an empty list. employer_name_variance shows as employer_declared versus the payslip employer_name: identical, an abbreviation or suffix change, or a different company.\n\nDebts: undeclared_account adds a bureau account whose lender and balance have no counterpart in declared_commitments. closed_settled shows status closed with balance 0. open_small and open_large show status open with a balance and monthly_payment. Declared and bureau entries for the same debt may differ slightly in balance (bureau date lag); that is decoy noise, not non-disclosure. Lender names may be abbreviated differently across sections.\n\nAffordability: post_loan_dti is rendered only through monthly_payment values (bureau open accounts plus any undeclared ones), housing_cost, monthly_instalment and verified income. The reviewer must compute it; no ratio field exists. When consolidation_payoff is true, purpose is consolidation and payoff_accounts lists bureau refs, which must be excluded. Sometimes one listed ref does not match any bureau account and cannot be excluded.\n\nArrears: worst_late_days appears as a late marker in credit_report accounts. When arrears_under_arrangement is true, that marker carries arrangement_flag true and its month falls inside the agreed period; the next-worst marker is unflagged and governs the arrears level. Defaults appear in the defaults list with date.\n\nPolicy: policy_cap_breach shows as amount or term_months exceeding policy_checks caps. cap_check lists only check names with values compared, never pass or fail verdicts. exception_approved adds an exceptions entry, which may cover the wrong item (term when amount is breached) or have expired; only an in-date entry covering the actual breach counts.\n\nDecoys: member_tenure_months (joined date), share_balance, prior_loans outcomes and bureau balance lag do not change answers.\n\nThe record must never contain fields stating income adequacy, a debt-to-income ratio, an arrears grade, a disclosure verdict, a risk rating or a recommended decision. All answers must be derived by reconciling sections.",
+ "skills": [
+  "S1",
+  "S3",
+  "S4",
+  "S5",
+  "S6",
+  "S7"
+ ],
+ "shared_scale": null,
+ "design_cost": 0.134924
+}

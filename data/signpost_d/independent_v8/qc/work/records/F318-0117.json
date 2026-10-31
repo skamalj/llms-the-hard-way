@@ -1,0 +1,177 @@
+{
+ "id": "F318-0117",
+ "family": "F318",
+ "state": {
+  "work_order": {
+   "visit_type": "winter_stoppage",
+   "tasks": [
+    {
+     "task_id": "T1",
+     "asset_ref": "G1"
+    },
+    {
+     "task_id": "T2",
+     "asset_ref": "G2"
+    },
+    {
+     "task_id": "T3",
+     "asset_ref": "G3"
+    }
+   ],
+   "nav_notice": {
+    "in_force": true,
+    "to": "2025-02-28",
+    "scope_assets": [
+     "G3"
+    ]
+   }
+  },
+  "visit_log": {
+   "arrived": "2025-01-10T08:00",
+   "departed": "2025-01-10T12:00",
+   "crew_size": 2,
+   "timesheet_hours": 4.84,
+   "task_status": [
+    {
+     "task_id": "T1",
+     "status": "done"
+    },
+    {
+     "task_id": "T2",
+     "status": "done"
+    },
+    {
+     "task_id": "T3",
+     "status": "done",
+     "deferral_ref": "DF-31",
+     "deferral_due": "2025-02-03"
+    }
+   ]
+  },
+  "materials": {
+   "issued": [
+    {
+     "part_no": "P1",
+     "task_id": "T1",
+     "qty": 2
+    }
+   ],
+   "fitted": [
+    {
+     "part_no": "P1",
+     "task_id": "T1",
+     "qty": 3
+    },
+    {
+     "part_no": "P2",
+     "task_id": "T2",
+     "qty": 1
+    }
+   ]
+  },
+  "checks": {
+   "post_checks": [
+    {
+     "asset_ref": "G1",
+     "result": "pass"
+    },
+    {
+     "asset_ref": "G2",
+     "result": "pass"
+    },
+    {
+     "asset_ref": "G3",
+     "result": "pass"
+    }
+   ],
+   "leakage_ls": 4.5,
+   "leakage_limit_ls": 10,
+   "river_level_m": 3.2,
+   "flood_marker_m": 3.0
+  },
+  "asset_history": {
+   "prior_visits": [
+    {
+     "date": "2024-05-06",
+     "asset_ref": "G3",
+     "defect_code": "HD1"
+    }
+   ],
+   "open_defects": [
+    {
+     "defect_code": "HD1",
+     "asset_ref": "G3",
+     "raised": "2024-12-20"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "visit_type": "winter_stoppage",
+  "tasks_ordered": 3,
+  "completion_state": "all_done",
+  "parts_qty_mismatch": "two parts: P1 fitted 3 vs issued 2; P2 fitted with no issue line",
+  "hours_gap": 3.16,
+  "asset_ref_mismatch": false,
+  "post_check_result": "passed",
+  "leakage_ratio": 0.45,
+  "leakage_mitigation": true,
+  "navigation_notice_in_force": true,
+  "deferral_approved": true,
+  "prior_same_defect": 1,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "visit_type": "winter_stoppage",
+  "tasks_ordered": 3,
+  "completion_state": "all_done",
+  "parts_qty_mismatch": "none",
+  "hours_gap": 3.16,
+  "asset_ref_mismatch": false,
+  "post_check_result": "passed",
+  "leakage_ratio": 0.45,
+  "leakage_mitigation": true,
+  "navigation_notice_in_force": true,
+  "deferral_approved": true,
+  "prior_same_defect": 1,
+  "boundary_case": false
+ },
+ "plan": {
+  "safe_to_reopen": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "record_disposition": {
+   "clarity": "balanced",
+   "target": "close_with_followup",
+   "second": "close_visit"
+  },
+  "return_urgency": {
+   "clarity": "clear",
+   "target": "within_month",
+   "second": null
+  },
+  "affected_scope": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "section_mismatches": {
+   "clarity": "clear",
+   "target": "3",
+   "second": null
+  }
+ },
+ "target_words": 37,
+ "deciding": {
+  "safe_to_reopen": "Open defect HD1 on G3 is covered by a navigation notice in force until 2025-02-28, so the lock is restricted.",
+  "record_disposition": "Material mismatches and the hours gap push toward a query, but the approved deferral DF-31 supports closing with a follow-up job; both are defensible.",
+  "return_urgency": "G3 deferral DF-31 is approved with a due date 24 days after the visit and the restriction is already covered by the notice, so non-restricting follow-up within 28 days fits.",
+  "affected_scope": "nav_notice scope_assets lists only G3, one unit, while the notice also affects navigation at the lock generally; level 0 or 1.",
+  "section_mismatches": "Three unexplained: timesheet 4.84 h vs 8 h span, P1 fitted 3 vs issued 2, and P2 fitted without an issue line."
+ },
+ "request": "rec-F318-0116",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.017141
+}

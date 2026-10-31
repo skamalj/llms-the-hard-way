@@ -1,0 +1,118 @@
+{
+ "id": "F315-0026",
+ "family": "F315",
+ "state": {
+  "report": {
+   "ref": "F1",
+   "received_at": "2025-03-21",
+   "source": "public_web",
+   "fault_code": "DOOR",
+   "units_reported": [
+    "a1",
+    "a2",
+    "a3",
+    "a4",
+    "a5",
+    "a6",
+    "a7",
+    "a8"
+   ]
+  },
+  "cms": {
+   "status_code": "NC",
+   "last_comms_at": "2025-03-10"
+  },
+  "history": [
+   {
+    "job_ref": "J1",
+    "completed": "2025-03-04",
+    "outcome_code": "FIXED"
+   },
+   {
+    "job_ref": "S1",
+    "completed": "2025-03-22",
+    "outcome_code": "SCOUT_LIT"
+   }
+  ],
+  "job": {
+   "job_ref": "J2",
+   "stage": "RECT",
+   "completed_at": "2025-03-22",
+   "hazard_code": "DOOR",
+   "made_safe": true,
+   "isolated_at": "2025-03-21T22:10"
+  },
+  "supply": {
+   "dno_incident_ref": null,
+   "feeder_units_dark": 8
+  }
+ },
+ "factors": {
+  "dark_unit_count": 8,
+  "dno_incident_logged": false,
+  "cms_state": "no_comms",
+  "days_since_last_repair": 17,
+  "last_repair_state": "completed",
+  "hazard_observed": "door_missing",
+  "hazard_made_safe": true,
+  "site_category": "residential",
+  "planned_works_active": false,
+  "current_job_stage": "rectified_unconfirmed",
+  "dates_out_of_order": false,
+  "duplicate_of_open_job": false,
+  "report_source": "public_web"
+ },
+ "factors_sampled": {
+  "dark_unit_count": 8,
+  "dno_incident_logged": false,
+  "cms_state": "no_comms",
+  "days_since_last_repair": 17,
+  "last_repair_state": "completed",
+  "hazard_observed": "door_missing",
+  "hazard_made_safe": false,
+  "site_category": "residential",
+  "planned_works_active": false,
+  "current_job_stage": "rectified_unconfirmed",
+  "dates_out_of_order": false,
+  "duplicate_of_open_job": false,
+  "report_source": "public_web"
+ },
+ "plan": {
+  "supply_side_fault": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "repeat_failure": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "next_action": {
+   "clarity": "clear",
+   "target": "close_report",
+   "second": null
+  },
+  "source_support": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "repair_progress": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 38,
+ "deciding": {
+  "supply_side_fault": "supply.feeder_units_dark is 8 and 8 ids are reported, which suggests a supply fault, but dno_incident_ref is null, so doubt remains.",
+  "repeat_failure": "The J1 repair was completed 2025-03-04, 17 days before the report received on 2025-03-21.",
+  "next_action": "The job is already at RECT with a scout entry S1 outcome SCOUT_LIT, and the hazard is made safe, so nothing more is needed.",
+  "source_support": "The report, feeder count, scout entry and job card all support it, but the CMS is NC and the report is public web, so the count could be 2 or 4.",
+  "repair_progress": "The scout entry S1 is dated the same day as job completion (2025-03-22) with CMS NC, so it is unclear whether this counts as later confirmation (level 3 or 2)."
+ },
+ "request": "rec-F315-0026",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.010369
+}

@@ -1,0 +1,144 @@
+{
+ "id": "F338-0016",
+ "family": "F338",
+ "state": {
+  "site": {
+   "id": "S114",
+   "pollutant": "SO2",
+   "tier": "compliance",
+   "service_interval_days": 60,
+   "approved_interval_days": 90
+  },
+  "visit": {
+   "date": "2024-05-20",
+   "start": "2024-05-20T09:10",
+   "end": "2024-05-20T10:05",
+   "sequence_status": "partial"
+  },
+  "reference": {
+   "standard_id": "C7731",
+   "conc": 400,
+   "unit": "ppb",
+   "cert_no": null,
+   "cert_expiry": "2024-06-05"
+  },
+  "checks": [
+   {
+    "type": "as_found_span",
+    "ref_id": "C7731",
+    "ref_conc": 400,
+    "unit": "ppb",
+    "reading": 407.4,
+    "tol": 20,
+    "ts": "2024-05-20T09:15"
+   },
+   {
+    "type": "as_left_zero",
+    "ref_id": "C7731",
+    "ref_conc": 0,
+    "unit": "ppb",
+    "reading": 1,
+    "tol": 5,
+    "ts": "2024-05-20T09:50"
+   },
+   {
+    "type": "as_left_span",
+    "ref_id": "C7731",
+    "ref_conc": 400,
+    "unit": "ppb",
+    "reading": 419,
+    "tol": 20,
+    "ts": "2024-05-20T10:12"
+   }
+  ],
+  "history": {
+   "last_visit_date": "2024-02-23",
+   "results": [
+    "pass",
+    "pass"
+   ],
+   "autochecks": [
+    {
+     "d": "2024-05-14",
+     "r": "pass"
+    },
+    {
+     "d": "2024-05-16",
+     "r": "pass"
+    }
+   ]
+  },
+  "instrument": {
+   "temp_min": 18,
+   "temp_max": 27
+  }
+ },
+ "factors": {
+  "pollutant": "SO2",
+  "as_found_ratio": 0.37,
+  "as_left_status": "marginal",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 16,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "approved_extended_interval",
+  "days_since_last_visit": 88,
+  "visit_completeness": "partial",
+  "prior_fail_count": 0,
+  "timestamp_mismatch": "minutes_outside",
+  "site_priority": "compliance"
+ },
+ "factors_sampled": {
+  "pollutant": "SO2",
+  "as_found_ratio": 0.37,
+  "as_left_status": "one_point_fail",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 16,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "approved_extended_interval",
+  "days_since_last_visit": 88,
+  "visit_completeness": "aborted_power",
+  "prior_fail_count": 0,
+  "timestamp_mismatch": "minutes_outside",
+  "site_priority": "compliance"
+ },
+ "plan": {
+  "data_accepted": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "reference_valid": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "close_visit",
+   "second": null
+  },
+  "flag_extent": {
+   "clarity": "clear",
+   "target": "1",
+   "second": null
+  },
+  "return_urgency": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  }
+ },
+ "target_words": 42,
+ "deciding": {
+  "data_accepted": "Visit is partial with no precision point, the as_left span ts 10:12 is after visit end 10:05, and autochecks stop on 05-16. Doubt remains because as-found was well within tolerance.",
+  "reference_valid": "Cylinder id, unit and expiry (2024-06-05) agree, but cert_no is null, so certificate details are partly absent.",
+  "next_step": "As-found was within tolerance (7.4 against tol 20) and as-left readings are within tolerance (span 19 against 20). The partial status and late timestamp leave some doubt.",
+  "flag_extent": "Autochecks passed until 2024-05-16 and then none before the visit on 05-20, so only a few days are affected.",
+  "return_urgency": "Compliance tier and a partial visit with the precision point missing; as-left span is near its limit (19 against 20). Either a planned or a prompt return is defensible."
+ },
+ "request": "rec-F338-0016",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012531
+}

@@ -1,0 +1,133 @@
+{
+ "id": "F330-0005",
+ "family": "F330",
+ "state": {
+  "request": {
+   "grade": "G6",
+   "cost_centre": "CC90",
+   "trip_ref": "T-30",
+   "requested_total": 912
+  },
+  "lines": [
+   {
+    "date": "2025-10-06",
+    "category": "hotel",
+    "cost_centre": "CC90",
+    "amount_gbp": 300
+   },
+   {
+    "date": "2025-10-07",
+    "category": "hotel",
+    "cost_centre": "CC90",
+    "amount": 500,
+    "ccy": "EUR",
+    "fx_rate": 0.8513,
+    "amount_gbp": 425.6
+   },
+   {
+    "date": "2025-10-11",
+    "category": "hotel",
+    "cost_centre": "CC95",
+    "amount_gbp": 186.4
+   }
+  ],
+  "policy": {
+   "cap_gbp": 200,
+   "cap_unit": "night",
+   "units": 3,
+   "reviewer_limit_gbp": 320
+  },
+  "travel": {
+   "trip_ref": "T-31",
+   "depart": "2025-10-06",
+   "return": "2025-10-09",
+   "booked_on": "2025-09-05",
+   "disruption": null,
+   "alt_check": {
+    "options_seen": 3,
+    "compliant_found": false
+   }
+  },
+  "approvals": {
+   "line_mgr": {
+    "approved": true
+   },
+   "pre_approval": {
+    "trip_ref": "T-29",
+    "max_gbp": 400,
+    "valid_to": "2025-10-31"
+   }
+  },
+  "history": {
+   "exceptions_12m": 2
+  }
+ },
+ "factors": {
+  "breach_type": "hotel_rate_over_cap",
+  "true_excess_pct": 52.0,
+  "amount_mismatch": "rounding",
+  "reference_mismatch": "multiple_trip_ref_date_cost_centre",
+  "pre_approval_state": "different_trip",
+  "external_disruption": false,
+  "compliant_option": "none_available",
+  "missing_item": "none",
+  "excess_vs_authority": "near_limit",
+  "client_rechargeable": false,
+  "prior_exceptions_12m": 2,
+  "booking_lead_days": 31,
+  "employee_grade": "G6"
+ },
+ "factors_sampled": {
+  "breach_type": "hotel_rate_over_cap",
+  "true_excess_pct": 84.24,
+  "amount_mismatch": "rounding",
+  "reference_mismatch": "none",
+  "pre_approval_state": "different_trip",
+  "external_disruption": false,
+  "compliant_option": "none_available",
+  "missing_item": "none",
+  "excess_vs_authority": "near_limit",
+  "client_rechargeable": false,
+  "prior_exceptions_12m": 2,
+  "booking_lead_days": 31,
+  "employee_grade": "G6"
+ },
+ "plan": {
+  "preapproval_covers": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "outside_control": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "excess_disposition": {
+   "clarity": "clear",
+   "target": "decline_excess",
+   "second": null
+  },
+  "excess_size": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "discrepancy_count": {
+   "clarity": "balanced",
+   "target": "4",
+   "second": "3"
+  }
+ },
+ "target_words": 70,
+ "deciding": {
+  "preapproval_covers": "Pre-approval trip_ref T-29 differs from the T-30 and T-31 on the claim, though its max_gbp 400 and valid_to 10-31 would otherwise cover the 312 excess.",
+  "outside_control": "alt_check shows 3 options seen and no compliant one found, though no disruption is logged.",
+  "excess_disposition": "Pre-approval is for a different trip, the excess of 312 is close to the 320 reviewer limit, and the claim has many reference breaks, so the excess is refused.",
+  "excess_size": "Lines sum 912 vs cap 200x3=600, about 52%, just above the 50% boundary.",
+  "discrepancy_count": "Trip_ref T-30 vs T-31, pre-approval T-29, line 3 dated 10-11 outside the window and line 3 CC95 vs CC90 make 4; the EUR line 500x0.8513=425.65 vs 425.6 may be a fifth."
+ },
+ "request": "rec-F330-0001",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.015116
+}

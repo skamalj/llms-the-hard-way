@@ -1,0 +1,160 @@
+{
+ "id": "F328-0049",
+ "family": "F328",
+ "state": {
+  "report_meta": {
+   "id": "W20-141",
+   "reg": "HX70",
+   "driver_id": "D40"
+  },
+  "vehicle_device": {
+   "health_flags": [
+    "intermittent_dropouts"
+   ],
+   "odo": [
+    22000,
+    22349.4
+   ]
+  },
+  "trips": [
+   {
+    "s": "2024-05-14T06:00",
+    "e": "08:44",
+    "card": "D40",
+    "km": 150
+   },
+   {
+    "s": "08:46",
+    "e": "11:30",
+    "card": "D40",
+    "km": 150
+   }
+  ],
+  "events": [
+   {
+    "t": "2024-05-14T07:10",
+    "type": "speed",
+    "mph": 72,
+    "lim": 60,
+    "seg": "M62",
+    "map": "v3"
+   },
+   {
+    "t": "09:05",
+    "type": "harsh_brake",
+    "tags": [
+     "rain"
+    ]
+   },
+   {
+    "t": "10:15",
+    "type": "harsh_brake",
+    "tags": [
+     "congestion"
+    ]
+   }
+  ],
+  "tacho_summary": {
+   "entries": [
+    {
+     "card": "D40",
+     "drive": [
+      "06:00",
+      "11:30"
+     ],
+     "breaks": [
+      [
+       "08:40",
+       "09:25"
+      ]
+     ]
+    }
+   ]
+  },
+  "notes_history": {
+   "supervisor_note": "M62 limit raised to 70 in May; depot map not yet synced.",
+   "coaching": [
+    {
+     "topic": "speed",
+     "status": "completed",
+     "date": "2024-03-01"
+    }
+   ],
+   "limit_updates": [
+    {
+     "seg": "M62",
+     "limit_mph": 70,
+     "eff": "2024-05-12"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "driver_assignment": "match",
+  "raw_speed_excess_pct": 20.0,
+  "speed_mitigation": "map_limit_outdated",
+  "harsh_event_count": 2,
+  "harsh_context_logged": true,
+  "device_health": "intermittent_dropouts",
+  "telematics_stint_hours": 5.5,
+  "tacho_break_reconciles": true,
+  "prior_coaching_count": 1,
+  "coaching_status": "completed",
+  "boundary_value": true,
+  "note_content": "benign_explanation_supported",
+  "distance_discrepancy_pct": 16.47
+ },
+ "factors_sampled": {
+  "driver_assignment": "card_missing",
+  "raw_speed_excess_pct": 6.47,
+  "speed_mitigation": "map_limit_outdated",
+  "harsh_event_count": 4,
+  "harsh_context_logged": true,
+  "device_health": "intermittent_dropouts",
+  "telematics_stint_hours": 1.72,
+  "tacho_break_reconciles": true,
+  "prior_coaching_count": 3,
+  "coaching_status": "completed",
+  "boundary_value": true,
+  "note_content": "benign_explanation_supported",
+  "distance_discrepancy_pct": 16.47
+ },
+ "plan": {
+  "driver_attributed": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "follow_up": {
+   "clarity": "clear",
+   "target": "no_action",
+   "second": null
+  },
+  "worst_event_cause": {
+   "clarity": "leaning",
+   "target": "map_data",
+   "second": null
+  },
+  "speed_excess": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  },
+  "hours_exposure": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 42,
+ "deciding": {
+  "driver_attributed": "Card D40 on both trips and in the tacho entry matches the reported driver; no card gap.",
+  "follow_up": "Speed excess is mitigated by the M62 update to 70 dated 2024-05-12, tacho shows a 45 min break, and harsh events are tagged; no confirmed breach.",
+  "worst_event_cause": "The 72 mph event on M62 is logged under map v3 while limit_updates holds a newer limit of 70 effective two days earlier, backed by the supervisor note.",
+  "speed_excess": "72 against the old limit 60 is exactly 20.0%, on the 2/3 boundary; against the newer limit it is not over, which leaves the reading contested.",
+  "hours_exposure": "Trips with a 2 min gap span 5.5 h, on the 2/3 boundary, but tacho shows a 45 min break 08:40-09:25 overlapping the 08:46 restart, with dropouts flagged."
+ },
+ "request": "rec-F328-0046",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.021983
+}

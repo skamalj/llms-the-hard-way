@@ -1,0 +1,102 @@
+{
+ "id": "F315-0049",
+ "family": "F315",
+ "state": {
+  "report": {
+   "source": "cms_auto",
+   "fault_code": "DOOR",
+   "units_reported": [
+    "K1",
+    "K2"
+   ]
+  },
+  "cms": {
+   "status_code": "NC",
+   "last_comms_at": "2025-05-01"
+  },
+  "history": [
+   {
+    "job_ref": "J9",
+    "completed": "2025-02-20"
+   }
+  ],
+  "job": {
+   "stage": "RECT",
+   "hazard_code": "DOOR",
+   "made_safe": true,
+   "isolated_at": "2025-05-18"
+  },
+  "supply": {
+   "dno_incident_ref": null,
+   "feeder_units_dark": 2
+  }
+ },
+ "factors": {
+  "dark_unit_count": 2,
+  "dno_incident_logged": false,
+  "cms_state": "no_comms",
+  "days_since_last_repair": 86,
+  "last_repair_state": "completed",
+  "hazard_observed": "door_missing",
+  "hazard_made_safe": true,
+  "site_category": "residential",
+  "planned_works_active": false,
+  "current_job_stage": "rectified_unconfirmed",
+  "dates_out_of_order": false,
+  "duplicate_of_open_job": false,
+  "report_source": "cms_auto"
+ },
+ "factors_sampled": {
+  "dark_unit_count": 2,
+  "dno_incident_logged": false,
+  "cms_state": "no_comms",
+  "days_since_last_repair": 149,
+  "last_repair_state": "no_record",
+  "hazard_observed": "door_missing",
+  "hazard_made_safe": true,
+  "site_category": "residential",
+  "planned_works_active": false,
+  "current_job_stage": "rectified_unconfirmed",
+  "dates_out_of_order": false,
+  "duplicate_of_open_job": false,
+  "report_source": "cms_auto"
+ },
+ "plan": {
+  "supply_side_fault": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "repeat_failure": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "next_action": {
+   "clarity": "balanced",
+   "target": "urgent_make_safe",
+   "second": "close_report"
+  },
+  "source_support": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "repair_progress": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  }
+ },
+ "target_words": 32,
+ "deciding": {
+  "supply_side_fault": "2 dark, no DNO ref, but CMS NC leaves supply open",
+  "repeat_failure": "J9 completed 2025-02-20, about 84 days before report",
+  "next_action": "made_safe true with isolated_at, yet CMS NC and no completion confirmed",
+  "source_support": "CMS auto, job card, history and feeder count, but NC weakens CMS",
+  "repair_progress": "stage RECT without completed_at or CMS confirmation"
+ },
+ "request": "rec-F315-0046",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.007929
+}

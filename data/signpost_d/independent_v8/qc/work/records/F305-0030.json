@@ -1,0 +1,161 @@
+{
+ "id": "F305-0030",
+ "family": "F305",
+ "state": {
+  "session": {
+   "date": "2025-02-20",
+   "needle_on": "08:00",
+   "washback": "11:53",
+   "review_date": "2025-03-22"
+  },
+  "prescription": {
+   "duration_min": 240,
+   "qb_ml_min": 300,
+   "dialysate_k": 2.0
+  },
+  "machine": {
+   "qb_actual": 300,
+   "dialysate_k": 2.0,
+   "uf_removed_ml": 1650,
+   "washback_ml": 250,
+   "alarms": [
+    {
+     "c": "PUMP_STOP",
+     "t": "09:20"
+    },
+    {
+     "c": "PUMP_RESUME",
+     "t": "09:36"
+    }
+   ]
+  },
+  "observations": {
+   "pre_kg": 65.0,
+   "post_kg": 63.9,
+   "bp": [
+    {
+     "t": "09:00",
+     "sys": 122
+    },
+    {
+     "t": "09:50",
+     "sys": 86
+    },
+    {
+     "t": "10:10",
+     "sys": 102
+    }
+   ],
+   "interventions": [
+    {
+     "saline_bolus_ml": 200,
+     "t": "09:52"
+    }
+   ]
+  },
+  "checks": [
+   {
+    "k": "machine_disinfection",
+    "done": true,
+    "t": "07:20"
+   },
+   {
+    "k": "chlorine_test",
+    "done": true,
+    "t": "07:25"
+   },
+   {
+    "k": "conductivity",
+    "done": true,
+    "t": "07:35"
+   },
+   {
+    "k": "access_check",
+    "done": true,
+    "t": "07:45"
+   }
+  ],
+  "history": [
+   {
+    "p": 240,
+    "e": 240
+   },
+   {
+    "p": 240,
+    "e": 232
+   },
+   {
+    "p": 240,
+    "e": 205
+   }
+  ]
+ },
+ "factors": {
+  "time_shortfall_min": 23,
+  "machine_pause_min": 16,
+  "uf_weight_gap_kg": 0.1,
+  "post_weight_missing": false,
+  "missing_check": "none",
+  "check_logged_after_start": false,
+  "prescription_mismatch": "none",
+  "mismatch_magnitude": "trivial",
+  "hypotension_episodes": 1,
+  "hypotension_mitigated": true,
+  "circuit_clotted": false,
+  "prior_short_sessions": 1,
+  "documented_flow_reduction": false
+ },
+ "factors_sampled": {
+  "time_shortfall_min": 43,
+  "machine_pause_min": 16,
+  "uf_weight_gap_kg": 1.26,
+  "post_weight_missing": false,
+  "missing_check": "none",
+  "check_logged_after_start": false,
+  "prescription_mismatch": "none",
+  "mismatch_magnitude": "trivial",
+  "hypotension_episodes": 1,
+  "hypotension_mitigated": true,
+  "circuit_clotted": false,
+  "prior_short_sessions": 1,
+  "documented_flow_reduction": false
+ },
+ "plan": {
+  "uf_reconciles": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "checks_before_start": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "log_disposition": {
+   "clarity": "leaning",
+   "target": "sign_off",
+   "second": null
+  },
+  "time_shortfall": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  },
+  "pending_age": {
+   "clarity": "contested",
+   "target": "2",
+   "second": "3"
+  }
+ },
+ "target_words": 79,
+ "deciding": {
+  "uf_reconciles": "Net UF 1650-250-200=1200 ml vs 1.1 kg loss (65.0 to 63.9): gap 0.1 kg.",
+  "checks_before_start": "All four checks done, stamped 07:20-07:45, well before needle_on 08:00.",
+  "log_disposition": "Single bp of 86 was followed by a 200 ml saline bolus and a reading of 102; settings match prescription; only one earlier short session; the 23-min shortfall leaves some doubt.",
+  "time_shortfall": "Clock 08:00-11:53 = 233 min minus 16 min pause (09:20-09:36) = 217 effective vs 240, short 23, moderate.",
+  "pending_age": "Session 2025-02-20 vs review_date 2025-03-22 = 30 days, on the boundary of 8-30 vs over 30."
+ },
+ "request": "rec-F305-0026",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.0147
+}

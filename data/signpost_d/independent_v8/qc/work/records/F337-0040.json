@@ -1,0 +1,123 @@
+{
+ "id": "F337-0040",
+ "family": "F337",
+ "state": {
+  "station": {
+   "channels": [
+    {
+     "cha": "BHZ",
+     "sensor_serial": "S1",
+     "response_epoch_start": "2024-11-01"
+    }
+   ]
+  },
+  "acquisition": {
+   "day": "2025-03-01",
+   "queued": "2025-03-02",
+   "asof": "2025-04-02",
+   "channel_hours_expected": 24,
+   "completeness_pct": 99.9,
+   "gps_lock_pct": 99,
+   "gaps": [
+    {
+     "cha": "BHZ",
+     "start": "06:00",
+     "end": "06:05"
+    }
+   ]
+  },
+  "qc_metrics": {
+   "channels": [
+    {
+     "cha": "BHZ",
+     "psd_dev_db": 4.2,
+     "dead": false,
+     "clipped_minutes": 0
+    }
+   ],
+   "cal_pulse": {
+    "date": "2025-02-10",
+    "result": "pass"
+   }
+  },
+  "maintenance_log": [
+   {
+    "date": "2025-02-14",
+    "action": "sensor_swap",
+    "sensor_serial_installed": "S2"
+   },
+   {
+    "date": "2025-03-01",
+    "action": "outage",
+    "outage_start": "06:00",
+    "outage_end": "06:00"
+   }
+  ]
+ },
+ "factors": {
+  "sensor_metadata_state": "swap_stale",
+  "maintenance_log_present": true,
+  "gap_coverage": "minor_overrun",
+  "true_usable_fraction": 0.996,
+  "completeness_summary_drift": 0.1,
+  "timing_quality": "locked",
+  "calibration_status": "predates_swap",
+  "noise_excess_db": 4.2,
+  "benign_noise_cause_logged": false,
+  "operator_note_consistency": "absent",
+  "dead_channels": 0,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "sensor_metadata_state": "no_swap",
+  "maintenance_log_present": true,
+  "gap_coverage": "minor_overrun",
+  "true_usable_fraction": 0.4,
+  "completeness_summary_drift": 5.16,
+  "timing_quality": "locked",
+  "calibration_status": "predates_swap",
+  "noise_excess_db": 21.38,
+  "benign_noise_cause_logged": false,
+  "operator_note_consistency": "absent",
+  "dead_channels": 3,
+  "boundary_case": false
+ },
+ "plan": {
+  "response_valid": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "gaps_explained": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "disposition": {
+   "clarity": "leaning",
+   "target": "release",
+   "second": null
+  },
+  "usable_fraction": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  },
+  "pending_age": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 29,
+ "deciding": {
+  "response_valid": "Station keeps serial S1 with epoch 2024-11-01, but the log shows S2 installed 2025-02-14; the cal pulse of 2025-02-10 predates the swap.",
+  "gaps_explained": "The 5-minute gap 06:00-06:05 matches a logged outage that starts at 06:00 with an essentially zero-length window, so it is largely explained.",
+  "disposition": "Timing, noise and gap statistics are all clean, and the only issue is the stale metadata, which leans toward release.",
+  "usable_fraction": "A single 5-minute gap in 1440 minutes leaves about 99.7% usable.",
+  "pending_age": "Queued 2025-03-02 and as-of 2025-04-02 gives 31 days, just past the 30-day edge between levels 2 and 3."
+ },
+ "request": "rec-F337-0036",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012815
+}

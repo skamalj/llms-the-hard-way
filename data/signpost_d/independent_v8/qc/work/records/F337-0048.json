@@ -1,0 +1,131 @@
+{
+ "id": "F337-0048",
+ "family": "F337",
+ "state": {
+  "station": {
+   "channels": [
+    {
+     "cha": "BHZ",
+     "sensor_serial": "T2290",
+     "response_epoch_start": "2025-04-08"
+    },
+    {
+     "cha": "BHE",
+     "sensor_serial": "T1105",
+     "response_epoch_start": "2021-09-14"
+    }
+   ]
+  },
+  "acquisition": {
+   "day": "2025-04-20",
+   "queued_at": "2025-04-21T02:00",
+   "as_of": "2025-04-29T00:00",
+   "channel_hours_expected": 48,
+   "completeness_pct": 99.9,
+   "gps_lock_pct": 98,
+   "gaps": [
+    {
+     "cha": "BHZ",
+     "start": "2025-04-20T10:00",
+     "end": "2025-04-20T11:00"
+    }
+   ]
+  },
+  "qc_metrics": [
+   {
+    "cha": "BHZ",
+    "psd_dev_db": 1.9,
+    "dead": false,
+    "clipped_minutes": 220,
+    "cal_pulse": {
+     "date": "2025-03-20",
+     "result": "pass"
+    }
+   },
+   {
+    "cha": "BHE",
+    "psd_dev_db": 1.5,
+    "dead": false,
+    "clipped_minutes": 0
+   }
+  ],
+  "maintenance_log": [
+   {
+    "action": "sensor_swap",
+    "date": "2025-04-08",
+    "sensor_serial_installed": "T2290"
+   },
+   {
+    "action": "visit",
+    "outage_start": "2025-04-20T10:55",
+    "outage_end": "2025-04-20T11:30"
+   }
+  ]
+ },
+ "factors": {
+  "sensor_metadata_state": "metadata_matches_swap",
+  "maintenance_log_present": true,
+  "gap_coverage": "barely_overlaps",
+  "true_usable_fraction": 0.903,
+  "completeness_summary_drift": 2.37,
+  "timing_quality": "locked",
+  "calibration_status": "predates_swap",
+  "noise_excess_db": 1.94,
+  "benign_noise_cause_logged": false,
+  "operator_note_consistency": "absent",
+  "dead_channels": 0,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "sensor_metadata_state": "no_swap",
+  "maintenance_log_present": true,
+  "gap_coverage": "no_gaps",
+  "true_usable_fraction": 0.77,
+  "completeness_summary_drift": 2.37,
+  "timing_quality": "locked",
+  "calibration_status": "predates_swap",
+  "noise_excess_db": 1.94,
+  "benign_noise_cause_logged": false,
+  "operator_note_consistency": "absent",
+  "dead_channels": 3,
+  "boundary_case": false
+ },
+ "plan": {
+  "response_valid": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "gaps_explained": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "disposition": {
+   "clarity": "balanced",
+   "target": "release_flagged",
+   "second": "release"
+  },
+  "usable_fraction": {
+   "clarity": "contested",
+   "target": "2",
+   "second": "1"
+  },
+  "pending_age": {
+   "clarity": "contested",
+   "target": "1",
+   "second": "2"
+  }
+ },
+ "target_words": 81,
+ "deciding": {
+  "response_valid": "BHZ serial T2290 and epoch 2025-04-08 match the logged swap, but the only cal pulse (2025-03-20) predates the swap, leaving doubt.",
+  "gaps_explained": "The 1-hour BHZ gap (10:00-11:00) overlaps the logged visit (10:55-11:30) by only 5 minutes, so it is mostly unexplained yet technically overlapping.",
+  "disposition": "Single BHZ gap and 220 clipped minutes are confined and flaggable; the old cal pulse and weak gap match keep release defensible.",
+  "usable_fraction": "1 h gap plus 220 clipped minutes is about 4.7 h of 48, roughly 90.3%, at the 90% boundary; completeness_pct 99.9 is a decoy.",
+  "pending_age": "queued_at 2025-04-21T02:00 to as_of 2025-04-29T00:00 is about 7.9 days, right at the seven/eight-day boundary."
+ },
+ "request": "rec-F337-0046",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.013929
+}

@@ -1,0 +1,134 @@
+{
+ "id": "F333-0059",
+ "family": "F333",
+ "state": {
+  "tenancy": {
+   "start_date": "2024-09-10",
+   "end_date": "2025-05-10"
+  },
+  "checkin_inventory": {
+   "signed_date": "2024-09-20",
+   "items": [
+    {
+     "item_code": "LATCH",
+     "location": "window",
+     "grade": "good"
+    },
+    {
+     "item_code": "WALL",
+     "location": "desk",
+     "grade": "good"
+    }
+   ]
+  },
+  "checkout_inspection": {
+   "inspection_type": "mid_term",
+   "inspection_date": "2025-02-10",
+   "items": [
+    {
+     "item_code": "LATCH",
+     "location": "window",
+     "grade": "damaged",
+     "defect_category": "broken_fitting",
+     "photo_refs": [
+      "p3"
+     ]
+    },
+    {
+     "item_code": "WALL",
+     "location": "desk",
+     "grade": "damaged",
+     "defect_category": "scuff",
+     "photo_refs": []
+    }
+   ]
+  },
+  "proposed_charges": {
+   "lines": [
+    {
+     "item_code": "LATCH",
+     "reason_code": "BRK",
+     "qty": 1,
+     "unit_rate": 45,
+     "line_total": 45
+    },
+    {
+     "item_code": "WALL",
+     "reason_code": "MARK",
+     "qty": 1,
+     "unit_rate": 20,
+     "line_total": 20
+    }
+   ],
+   "summary_total": 65
+  }
+ },
+ "factors": {
+  "inspection_type": "mid_term",
+  "checkin_inventory_state": "signed_late",
+  "prior_damage_on_charged_item": "none",
+  "charge_discrepancy": "none",
+  "worst_defect_tier": "functional",
+  "true_cause": "resident_damage",
+  "predating_works_order": false,
+  "safety_fault_remedied": false,
+  "photo_coverage": "half_or_less",
+  "tenancy_months": 8,
+  "date_out_of_order": false,
+  "deposit_dispute_lodged": false,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "inspection_type": "mid_term",
+  "checkin_inventory_state": "signed_late",
+  "prior_damage_on_charged_item": "one_item",
+  "charge_discrepancy": "none",
+  "worst_defect_tier": "cosmetic",
+  "true_cause": "fair_wear",
+  "predating_works_order": true,
+  "safety_fault_remedied": true,
+  "photo_coverage": "half_or_less",
+  "tenancy_months": 8,
+  "date_out_of_order": true,
+  "deposit_dispute_lodged": false,
+  "boundary_case": false
+ },
+ "plan": {
+  "checkin_clean": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "disposition": {
+   "clarity": "balanced",
+   "target": "approve_as_drafted",
+   "second": "hold_for_evidence"
+  },
+  "main_cause": {
+   "clarity": "clear",
+   "target": "resident_damage",
+   "second": null
+  },
+  "defect_severity": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  },
+  "charge_gap": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 51,
+ "deciding": {
+  "checkin_clean": "Both charged items are graded good at check-in, but the inventory was signed on 2024-09-20, 10 days after the 2024-09-10 start, which leaves some doubt.",
+  "disposition": "The WALL line has empty photo_refs while the LATCH line is photographed, so exactly one missing photo could warrant a hold. Otherwise the lines and totals are consistent and releasable.",
+  "main_cause": "Both items went from good to damaged and the record has no works orders, so this is new resident damage.",
+  "defect_severity": "The LATCH broken_fitting needs repair. Whether a window latch stops normal use is arguable between levels 1 and 2.",
+  "charge_gap": "If the unphotographed £20 WALL line is not evidenced, the gap is £20 (level 1). If it is accepted, the gap is £0."
+ },
+ "request": "rec-F333-0056",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012665
+}

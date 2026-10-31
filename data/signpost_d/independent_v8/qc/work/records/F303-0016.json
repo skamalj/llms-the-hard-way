@@ -1,0 +1,166 @@
+{
+ "id": "F303-0016",
+ "family": "F303",
+ "state": {
+  "order": {
+   "prescription": {
+    "modality": "concentrator",
+    "flow_lpm": 2,
+    "hours_per_day": 10,
+    "rx_expiry": "2026-02-01"
+   },
+   "items_ordered": [
+    {
+     "sku": "CONC5",
+     "qty": 1
+    },
+    {
+     "sku": "HX2300",
+     "qty": 3
+    }
+   ],
+   "account": {
+    "billing_hold": true,
+    "arrears_gbp": 84.5
+   }
+  },
+  "visit": {
+   "visit_date": "2025-05-06",
+   "items_left": [
+    {
+     "sku": "CONC5",
+     "qty": 1,
+     "serial": "C-1150"
+    },
+    {
+     "sku": "HX2300",
+     "qty": 3
+    }
+   ],
+   "install_checks": {
+    "flow_verified": true,
+    "alarm_tested": false,
+    "training_given": true,
+    "completed_at": "11:20"
+   }
+  },
+  "site_assessment": {
+   "hazards": [
+    {
+     "code": "SMOKING",
+     "status": "open",
+     "fix": null
+    },
+    {
+     "code": "HEAT_SRC",
+     "status": "open",
+     "fix": null
+    },
+    {
+     "code": "CYL_STORE",
+     "status": null,
+     "fix": null
+    }
+   ]
+  },
+  "equipment": {
+   "concentrator": {
+    "serial": "C-1150",
+    "flow_setting_lpm": 3
+   },
+   "fault_log": [
+    {
+     "code": "LOW_PURITY",
+     "serial": "C-1150"
+    }
+   ],
+   "cylinders_on_site": [
+    {
+     "size": "HX 2300 L",
+     "fill_pct": 100
+    },
+    {
+     "size": "HX 2300 L",
+     "fill_pct": 100
+    },
+    {
+     "size": "HX 2300 L",
+     "fill_pct": 100
+    }
+   ]
+  },
+  "supply_plan": {
+   "next_delivery_date": "2025-05-08"
+  }
+ },
+ "factors": {
+  "rx_alignment": "flow_mismatch",
+  "items_shortfall": "none",
+  "setup_state": "alarm_test_missing",
+  "supply_hours": 57.5,
+  "concentrator_fault": true,
+  "fault_mitigated": false,
+  "hazards_found": 3,
+  "hazard_mitigation": false,
+  "hazard_status_missing": true,
+  "handover_gap": false,
+  "timeline_out_of_order": false,
+  "next_delivery": "booked_in_time",
+  "dependency_level": "ambulatory",
+  "billing_hold": true
+ },
+ "factors_sampled": {
+  "rx_alignment": "exact",
+  "items_shortfall": "one_short",
+  "setup_state": "all_logged",
+  "supply_hours": 57.72,
+  "concentrator_fault": false,
+  "fault_mitigated": true,
+  "hazards_found": 3,
+  "hazard_mitigation": false,
+  "hazard_status_missing": true,
+  "handover_gap": false,
+  "timeline_out_of_order": false,
+  "next_delivery": "booked_in_time",
+  "dependency_level": "ambulatory",
+  "billing_hold": true
+ },
+ "plan": {
+  "rx_match": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "urgent_dispatch",
+   "second": null
+  },
+  "fulfilment": {
+   "clarity": "clear",
+   "target": "setup_incomplete",
+   "second": null
+  },
+  "supply_runway": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  },
+  "open_hazards": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  }
+ },
+ "target_words": 47,
+ "deciding": {
+  "rx_match": "Prescribed flow_lpm is 2 but the installed concentrator flow_setting_lpm is 3.",
+  "next_step": "Unresolved LOW_PURITY fault with no retest, open hazards and a missing hazard status point to a same-day visit, though the next delivery is booked within 2 days.",
+  "fulfilment": "All ordered SKUs and quantities were left, but alarm_tested is false.",
+  "supply_runway": "The concentrator is faulty and does not count; 3 full HX 2300 L cylinders at 2 lpm last about 57 hours.",
+  "open_hazards": "Two hazards are open and the third has a null status; if that one is open the count is 3."
+ },
+ "request": "rec-F303-0016",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.014977
+}

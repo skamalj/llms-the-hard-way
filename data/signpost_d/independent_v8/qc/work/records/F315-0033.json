@@ -1,0 +1,106 @@
+{
+ "id": "F315-0033",
+ "family": "F315",
+ "state": {
+  "report": {
+   "received_at": "2025-06-20",
+   "source": "public_web",
+   "units_reported": [
+    "U31",
+    "U32",
+    "U33"
+   ]
+  },
+  "asset": {
+   "site_category": "residential"
+  },
+  "cms": {
+   "status_code": "OK",
+   "last_comms_at": "2025-06-02T15:00"
+  },
+  "history": [
+   {
+    "job_ref": "J-7",
+    "completed": "2025-03-24"
+   }
+  ],
+  "job": {
+   "stage": "RECT",
+   "completed_at": "2025-06-02T14:00",
+   "hazard_code": null
+  },
+  "supply": {
+   "dno_incident_ref": "N-88",
+   "dno_status": "open",
+   "feeder_units_dark": 3
+  }
+ },
+ "factors": {
+  "dark_unit_count": 3,
+  "dno_incident_logged": true,
+  "cms_state": "normal_burning",
+  "days_since_last_repair": 88,
+  "last_repair_state": "completed",
+  "hazard_observed": "none",
+  "hazard_made_safe": true,
+  "site_category": "residential",
+  "planned_works_active": false,
+  "current_job_stage": "rectified_confirmed",
+  "dates_out_of_order": false,
+  "duplicate_of_open_job": false,
+  "report_source": "public_web"
+ },
+ "factors_sampled": {
+  "dark_unit_count": 1,
+  "dno_incident_logged": false,
+  "cms_state": "normal_burning",
+  "days_since_last_repair": 261,
+  "last_repair_state": "completed",
+  "hazard_observed": "column_damaged",
+  "hazard_made_safe": false,
+  "site_category": "residential",
+  "planned_works_active": false,
+  "current_job_stage": "attended_unresolved",
+  "dates_out_of_order": false,
+  "duplicate_of_open_job": true,
+  "report_source": "public_web"
+ },
+ "plan": {
+  "supply_side_fault": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "repeat_failure": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "next_action": {
+   "clarity": "clear",
+   "target": "routine_repair",
+   "second": null
+  },
+  "source_support": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  },
+  "repair_progress": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 63,
+ "deciding": {
+  "supply_side_fault": "Open DNO incident N-88 and feeder_units_dark 3; the cms OK reading is the only doubt.",
+  "repeat_failure": "History completed 2025-03-24 is 88 days before the 2025-06-20 report, just outside the 84-day window.",
+  "next_action": "No hazard_code, no linked open job, residential site, and an open DNO incident with three units dark: standard dispatch.",
+  "source_support": "Report, cms and supply overlap, but cms OK conflicts with the dark report, so one or two sources really agree.",
+  "repair_progress": "job RECT completed_at 14:00 and cms OK at 15:00 on 2025-06-02, close to the completion time, so the confirmation is only marginally after it."
+ },
+ "request": "rec-F315-0031",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.009523
+}

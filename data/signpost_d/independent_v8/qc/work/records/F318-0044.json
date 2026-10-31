@@ -1,0 +1,134 @@
+{
+ "id": "F318-0044",
+ "family": "F318",
+ "state": {
+  "work_order": {
+   "lock_id": "L21",
+   "visit_type": "winter_stoppage",
+   "tasks": [
+    {
+     "task_id": "T1",
+     "asset_ref": "SILL"
+    },
+    {
+     "task_id": "T2",
+     "asset_ref": "GATE-S"
+    }
+   ],
+   "nav_notice": {
+    "in_force": false
+   }
+  },
+  "visit_log": {
+   "arrived": "2025-01-14T08:00",
+   "departed": "2025-01-14T12:00",
+   "crew_size": 2,
+   "timesheet_hours": 27.3,
+   "task_status": [
+    {
+     "task_id": "T1",
+     "status": "done"
+    },
+    {
+     "task_id": "T2",
+     "status": "deferred",
+     "deferral_ref": null
+    }
+   ]
+  },
+  "checks": {
+   "post_checks": [
+    {
+     "asset_ref": "GATE-S",
+     "result": "fail"
+    }
+   ],
+   "leakage_ls": 1.1,
+   "leakage_limit_ls": 2.0,
+   "river_level_m": 3.6,
+   "flood_marker_m": 3.2
+  },
+  "asset_history": {
+   "prior_visits": [
+    {
+     "date": "2024-03-01",
+     "asset_ref": "GATE-S",
+     "defect_code": "D44"
+    },
+    {
+     "date": "2024-09-10",
+     "asset_ref": "GATE-S",
+     "defect_code": "D44"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "visit_type": "winter_stoppage",
+  "tasks_ordered": 2,
+  "completion_state": "some_outstanding",
+  "parts_qty_mismatch": "none",
+  "hours_gap": 3.41,
+  "asset_ref_mismatch": false,
+  "post_check_result": "failed",
+  "leakage_ratio": 0.54,
+  "leakage_mitigation": true,
+  "navigation_notice_in_force": false,
+  "deferral_approved": false,
+  "prior_same_defect": 2,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "visit_type": "winter_stoppage",
+  "tasks_ordered": 2,
+  "completion_state": "some_outstanding",
+  "parts_qty_mismatch": "none",
+  "hours_gap": 3.41,
+  "asset_ref_mismatch": false,
+  "post_check_result": "failed",
+  "leakage_ratio": 0.54,
+  "leakage_mitigation": true,
+  "navigation_notice_in_force": false,
+  "deferral_approved": false,
+  "prior_same_defect": 2,
+  "boundary_case": false
+ },
+ "plan": {
+  "safe_to_reopen": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "record_disposition": {
+   "clarity": "balanced",
+   "target": "close_with_followup",
+   "second": "reopen_revisit"
+  },
+  "return_urgency": {
+   "clarity": "clear",
+   "target": "next_scheduled",
+   "second": null
+  },
+  "affected_scope": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  },
+  "section_mismatches": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  }
+ },
+ "target_words": 32,
+ "deciding": {
+  "safe_to_reopen": "GATE-S failed its post check and T2 is deferred with no ref, against leakage 1.1 under a 2.0 limit and no open-defect list entry.",
+  "record_disposition": "T1 is done but T2 is deferred unapproved and GATE-S failed, with the same D44 defect twice before. Closing with a follow-up and a full revisit are both defensible.",
+  "return_urgency": "Winter stoppage with no nav notice in force and leakage well within limit means no uncovered unsafe condition, so the next scheduled cycle suffices.",
+  "affected_scope": "A lock on a shared navigation corridor affects all boaters on the route, which is likely more than twenty, though no count is shown.",
+  "section_mismatches": "Two unexplained mismatches: timesheet 27.3h against 4h x 2 = 8h, and T2 deferred with a null deferral_ref and due date."
+ },
+ "request": "rec-F318-0041",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012948
+}

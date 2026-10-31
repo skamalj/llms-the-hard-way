@@ -1,0 +1,158 @@
+{
+ "id": "F337-0039",
+ "family": "F337",
+ "state": {
+  "station": {
+   "channels": [
+    {
+     "cha": "HHZ",
+     "sensor_serial": "T7713",
+     "gain_counts_per_ms": 5200,
+     "azimuth_deg": 0,
+     "response_epoch_start": "2025-01-20"
+    },
+    {
+     "cha": "HHN",
+     "sensor_serial": "T7714",
+     "gain_counts_per_ms": 5210,
+     "azimuth_deg": 0,
+     "response_epoch_start": "2024-06-05"
+    },
+    {
+     "cha": "HHE",
+     "sensor_serial": "T7715",
+     "gain_counts_per_ms": 5190,
+     "azimuth_deg": 90,
+     "response_epoch_start": "2024-06-05"
+    }
+   ]
+  },
+  "acquisition": {
+   "day": "2025-02-09",
+   "queued": "2025-02-10",
+   "asof": "2025-03-12",
+   "channel_hours_expected": 72,
+   "completeness_pct": 71.5,
+   "gps_lock_pct": 97,
+   "gaps": [
+    {
+     "cha": "HHN",
+     "start": "08:00",
+     "end": "20:05"
+    }
+   ]
+  },
+  "qc_metrics": {
+   "channels": [
+    {
+     "cha": "HHZ",
+     "psd_dev_db": 18.5,
+     "spikes": 9,
+     "dead": false,
+     "clipped_minutes": 0
+    },
+    {
+     "cha": "HHN",
+     "psd_dev_db": 2.4,
+     "spikes": 0,
+     "dead": false,
+     "clipped_minutes": 0
+    },
+    {
+     "cha": "HHE",
+     "psd_dev_db": null,
+     "spikes": 0,
+     "dead": true,
+     "clipped_minutes": 0
+    }
+   ],
+   "cal_pulse": {
+    "date": "2025-01-21",
+    "result": "pass"
+   }
+  },
+  "maintenance_log": [
+   {
+    "date": "2025-01-20",
+    "action": "sensor_swap",
+    "cha": "HHZ",
+    "sensor_serial_installed": "T7731"
+   },
+   {
+    "date": "2025-02-09",
+    "action": "outage",
+    "cha": "HHN",
+    "outage_start": "08:00",
+    "outage_end": "20:04",
+    "note": "Snow-melt flooding near vault; pumps 11:00-14:00 raised HHZ noise."
+   }
+  ],
+  "operator_notes": null
+ },
+ "factors": {
+  "sensor_metadata_state": "serial_typo",
+  "maintenance_log_present": true,
+  "gap_coverage": "minor_overrun",
+  "true_usable_fraction": 0.5,
+  "completeness_summary_drift": 6.18,
+  "timing_quality": "locked",
+  "calibration_status": "passed",
+  "noise_excess_db": 18.51,
+  "benign_noise_cause_logged": true,
+  "operator_note_consistency": "absent",
+  "dead_channels": 1,
+  "boundary_case": true
+ },
+ "factors_sampled": {
+  "sensor_metadata_state": "no_swap",
+  "maintenance_log_present": true,
+  "gap_coverage": "minor_overrun",
+  "true_usable_fraction": 0.53,
+  "completeness_summary_drift": 6.18,
+  "timing_quality": "locked",
+  "calibration_status": "passed",
+  "noise_excess_db": 18.51,
+  "benign_noise_cause_logged": true,
+  "operator_note_consistency": "absent",
+  "dead_channels": 1,
+  "boundary_case": true
+ },
+ "plan": {
+  "response_valid": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "gaps_explained": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "disposition": {
+   "clarity": "leaning",
+   "target": "hold",
+   "second": null
+  },
+  "usable_fraction": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "pending_age": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 181,
+ "deciding": {
+  "response_valid": "HHZ serial T7713 differs by one character from the logged installed serial T7731; the epoch matches the swap date.",
+  "gaps_explained": "The HHN gap ends 20:05 against a logged outage end of 20:04, a 1-minute overrun; HHE is dead with no logged cause.",
+  "disposition": "A single serial typo needs correction before the data can be trusted; timing is locked and calibration passed, so hold.",
+  "usable_fraction": "HHE dead (1440 min) plus a 725-minute HHN gap lose 2165 of 4320 channel-minutes, about 49.9% usable, at the 50% boundary.",
+  "pending_age": "Queued 2025-02-10 and as-of 2025-03-12 is exactly 30 days, on the edge between levels 2 and 3."
+ },
+ "request": "rec-F337-0036",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012815
+}

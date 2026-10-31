@@ -1,0 +1,150 @@
+{
+ "id": "F303-0042",
+ "family": "F303",
+ "state": {
+  "order": {
+   "id": "O-2290",
+   "rx": {
+    "modality": "cylinder",
+    "flow_lpm": 1,
+    "hours_per_day": 24,
+    "rx_expiry": "2026-01-15"
+   },
+   "items": [
+    {
+     "sku": "HX2300",
+     "qty": 1
+    },
+    {
+     "sku": "CD460",
+     "qty": 1
+    }
+   ],
+   "account": {
+    "billing_hold": true,
+    "arrears_gbp": 40
+   }
+  },
+  "visit": {
+   "date": "2025-05-20",
+   "arrived_at": "09:10",
+   "departed_at": "09:50",
+   "access_achieved": true,
+   "items_left": [],
+   "install_checks": {
+    "flow_verified": true,
+    "alarm_tested": null,
+    "training_given": true,
+    "completed_at": "09:45"
+   },
+   "patient_signature": "J.Okoye",
+   "handover_at": "09:48"
+  },
+  "site_assessment": {
+   "assessed_at": "09:15",
+   "hazards": [
+    {
+     "code": "HEATER_NEAR",
+     "status": "open",
+     "fix": null
+    },
+    {
+     "code": "NO_SIGN",
+     "status": "open",
+     "fix": null
+    }
+   ]
+  },
+  "equipment": {
+   "concentrator": null,
+   "fault_log": [],
+   "cylinders_on_site": [
+    {
+     "size": "HX 2300 L",
+     "fill_pct": 100
+    },
+    {
+     "size": "CD 460 L",
+     "fill_pct": 100
+    },
+    {
+     "size": "ZD 300 L",
+     "fill_pct": 60
+    }
+   ]
+  },
+  "supply_plan": {
+   "next_delivery_date": "2025-05-22"
+  }
+ },
+ "factors": {
+  "rx_alignment": "exact",
+  "items_shortfall": "nothing_left",
+  "setup_state": "test_not_logged",
+  "supply_hours": 49.0,
+  "concentrator_fault": false,
+  "fault_mitigated": false,
+  "hazards_found": 2,
+  "hazard_mitigation": false,
+  "hazard_status_missing": false,
+  "handover_gap": false,
+  "timeline_out_of_order": false,
+  "next_delivery": "booked_in_time",
+  "dependency_level": "continuous",
+  "billing_hold": true
+ },
+ "factors_sampled": {
+  "rx_alignment": "exact",
+  "items_shortfall": "none",
+  "setup_state": "test_not_logged",
+  "supply_hours": 110.25,
+  "concentrator_fault": false,
+  "fault_mitigated": true,
+  "hazards_found": 2,
+  "hazard_mitigation": false,
+  "hazard_status_missing": false,
+  "handover_gap": false,
+  "timeline_out_of_order": false,
+  "next_delivery": "booked_in_time",
+  "dependency_level": "continuous",
+  "billing_hold": true
+ },
+ "plan": {
+  "rx_match": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "chase_paperwork",
+   "second": null
+  },
+  "fulfilment": {
+   "clarity": "balanced",
+   "target": "nothing_delivered",
+   "second": "setup_incomplete"
+  },
+  "supply_runway": {
+   "clarity": "contested",
+   "target": "2",
+   "second": "1"
+  },
+  "open_hazards": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  }
+ },
+ "target_words": 66,
+ "deciding": {
+  "rx_match": "Prescription is cylinder at 1 lpm and cylinders on site match the modality, with no concentrator in play.",
+  "next_step": "Only alarm_tested is null in an otherwise complete, signed and handed-over record, pointing to a paperwork chase; two open hazards leave some doubt.",
+  "fulfilment": "items_left is empty against two ordered SKUs, yet access was achieved and install checks were run, so nothing delivered and setup incomplete are both defensible.",
+  "supply_runway": "HX 2300 L and CD 460 L full plus ZD 300 L at 60% is about 2940 L at 60 L/h, about 49 hours, at the 48-hour boundary.",
+  "open_hazards": "Two hazards with status open and no fix code; no resolved entries."
+ },
+ "request": "rec-F303-0041",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.015162
+}

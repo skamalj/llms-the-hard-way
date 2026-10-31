@@ -1,0 +1,140 @@
+{
+ "id": "F337-0022",
+ "family": "F337",
+ "state": {
+  "station": {
+   "channels": [
+    {
+     "cha": "HHZ",
+     "sensor_serial": "B207",
+     "response_epoch_start": "2024-03-14"
+    },
+    {
+     "cha": "HHN",
+     "sensor_serial": "B207",
+     "response_epoch_start": "2024-03-14"
+    },
+    {
+     "cha": "HHE",
+     "sensor_serial": "B207",
+     "response_epoch_start": "2024-03-14"
+    }
+   ]
+  },
+  "acquisition": {
+   "day": "2024-04-02",
+   "channel_hours_expected": 72,
+   "completeness_pct": 96.0,
+   "gaps": [
+    {
+     "cha": "HHZ",
+     "start": "2024-04-02T02:00",
+     "end": "2024-04-02T05:30"
+    },
+    {
+     "cha": "HHN",
+     "start": "2024-04-02T02:00",
+     "end": "2024-04-02T05:30"
+    }
+   ],
+   "gps_lock_pct": 98,
+   "qc_generated": "2024-04-03",
+   "as_of": "2024-05-03"
+  },
+  "qc_metrics": {
+   "channels": [
+    {
+     "cha": "HHZ",
+     "psd_dev_db": 7.46,
+     "dead": false
+    }
+   ],
+   "cal_pulse": {
+    "date": null,
+    "result": null
+   }
+  },
+  "maintenance_log": [
+   {
+    "date": "2024-03-14",
+    "action": "sensor_swap",
+    "sensor_serial_installed": "B207"
+   },
+   {
+    "action": "outage",
+    "outage_start": "2024-04-02T01:50",
+    "outage_end": "2024-04-02T05:40"
+   }
+  ],
+  "operator_notes": [
+   "Quarry blasting 14:00-15:00 UTC raised noise.",
+   "Sensor replaced 2024-03-12 per field tech."
+  ]
+ },
+ "factors": {
+  "sensor_metadata_state": "no_swap",
+  "maintenance_log_present": true,
+  "gap_coverage": "all_logged",
+  "true_usable_fraction": 0.9,
+  "completeness_summary_drift": 5.83,
+  "timing_quality": "locked",
+  "calibration_status": "not_run",
+  "noise_excess_db": 7.46,
+  "benign_noise_cause_logged": true,
+  "operator_note_consistency": "contradicts_data",
+  "dead_channels": 0,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "sensor_metadata_state": "swap_stale",
+  "maintenance_log_present": false,
+  "gap_coverage": "some_unlogged",
+  "true_usable_fraction": 0.69,
+  "completeness_summary_drift": 5.83,
+  "timing_quality": "locked",
+  "calibration_status": "not_run",
+  "noise_excess_db": 7.46,
+  "benign_noise_cause_logged": true,
+  "operator_note_consistency": "contradicts_data",
+  "dead_channels": 1,
+  "boundary_case": false
+ },
+ "plan": {
+  "response_valid": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "gaps_explained": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "disposition": {
+   "clarity": "leaning",
+   "target": "hold",
+   "second": null
+  },
+  "usable_fraction": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  },
+  "pending_age": {
+   "clarity": "contested",
+   "target": "2",
+   "second": "3"
+  }
+ },
+ "target_words": 73,
+ "deciding": {
+  "response_valid": "Station serial B207 and epoch 2024-03-14 match the log swap entry, but an operator note gives a different replacement date (03-12), holding it in balance.",
+  "gaps_explained": "Both gaps (02:00-05:30) fall fully inside the logged outage 01:50-05:40.",
+  "disposition": "cal_pulse date and result are null, a single item needing confirmation; gaps are logged, GPS is 98%, and no channel is dead.",
+  "usable_fraction": "Two 3.5 h gaps total 7 h of 72 h, about 90.3% usable, right at the 90% line; completeness_pct 96 is inflated.",
+  "pending_age": "qc_generated 2024-04-03 vs as_of 2024-05-03 is 30 days, at the boundary between the 8-30 day and over-30-day levels."
+ },
+ "request": "rec-F337-0021",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.015145
+}

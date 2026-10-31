@@ -1,0 +1,106 @@
+{
+ "id": "F304-0050",
+ "family": "F304",
+ "state": {
+  "request": {
+   "appt_type": "discharge",
+   "appt_time": "15:00",
+   "vehicle_class": "seated",
+   "crew_requested": 1,
+   "mobility_booked": "independent",
+   "equipment": []
+  },
+  "patient": {
+   "mobility_assessed": "walking_aided",
+   "assessed_on": "2025-03-09",
+   "weight_kg": 157,
+   "oxygen_lpm": 0,
+   "monitoring": null,
+   "ward": "W12"
+  },
+  "journey": {
+   "window_end": "14:20",
+   "est_duration_min": 38,
+   "reslot_same_day": false
+  },
+  "history": [
+   {
+    "outcome": "aborted",
+    "reason": "bed not ready"
+   }
+  ],
+  "notes": {
+   "ward_note": "Ward 12 discharge."
+  }
+ },
+ "factors": {
+  "mobility_alignment": "overstated",
+  "secondary_discrepancy": "time_trivial",
+  "eligibility_concern": false,
+  "eligibility_exception": false,
+  "clinical_support": "none_weight_150s",
+  "crew_request_gap": "under_one_step",
+  "buffer_minutes": 2.0,
+  "duration_estimate_split": false,
+  "late_tolerance": false,
+  "appointment_type": "discharge",
+  "same_day_reslot": false,
+  "confirmation_pending": false,
+  "prior_aborts": 1,
+  "aborts_related": false
+ },
+ "factors_sampled": {
+  "mobility_alignment": "overstated",
+  "secondary_discrepancy": "time_trivial",
+  "eligibility_concern": false,
+  "eligibility_exception": false,
+  "clinical_support": "high_flow_oxygen",
+  "crew_request_gap": "under_one_step",
+  "buffer_minutes": 5.96,
+  "duration_estimate_split": false,
+  "late_tolerance": false,
+  "appointment_type": "discharge",
+  "same_day_reslot": false,
+  "confirmation_pending": false,
+  "prior_aborts": 1,
+  "aborts_related": false
+ },
+ "plan": {
+  "vehicle_fit": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "disposition": {
+   "clarity": "clear",
+   "target": "amend_confirm",
+   "second": null
+  },
+  "crew_config": {
+   "clarity": "balanced",
+   "target": "single_crew",
+   "second": "specialist_team"
+  },
+  "time_pressure": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  },
+  "delay_impact": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  }
+ },
+ "target_words": 38,
+ "deciding": {
+  "vehicle_fit": "A seated vehicle suits a recently assessed aided walker, but mobility_booked independent against walking_aided and an empty equipment list leave doubt.",
+  "disposition": "mobility_booked independent against assessed walking_aided is a correctable conflict with nothing pending; the W12 against Ward 12 variance is trivial.",
+  "crew_config": "Oxygen 0 and monitoring null with an aided walker suggest single crew; 157 kg sits just under the 160 kg limit, keeping specialist team plausible.",
+  "time_pressure": "14:20 plus 38 min arrives 14:58 for 15:00: about 2 min spare, with an estimate error risking lateness (level 2 or 3).",
+  "delay_impact": "Discharge with no treatment and reslot_same_day false; a late pickup holds the discharge, so moderate."
+ },
+ "request": "rec-F304-0046",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.010741
+}

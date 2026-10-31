@@ -1,0 +1,148 @@
+{
+ "id": "F321-0015",
+ "family": "F321",
+ "state": {
+  "permit": {
+   "id": "P6041",
+   "site_id": "S3390",
+   "window_start": "2024-06-12T08:00",
+   "window_end": "2024-06-12T16:00",
+   "engineers": [
+    "E50",
+    "E51"
+   ],
+   "scoped_tasks": [
+    {
+     "task_code": "ANT-03",
+     "equipment_ref": "AN2"
+    },
+    {
+     "task_code": "CAB-01",
+     "equipment_ref": "CB1"
+    }
+   ],
+   "landlord_notice_date": "2024-06-05"
+  },
+  "attendance": [
+   {
+    "badge_id": "B50",
+    "event": "in",
+    "ts": "2024-06-12T08:10"
+   },
+   {
+    "badge_id": "B51",
+    "event": "in",
+    "ts": "2024-06-12T08:12"
+   },
+   {
+    "badge_id": "B50",
+    "event": "out",
+    "ts": "2024-06-12T15:40"
+   }
+  ],
+  "personnel": [
+   {
+    "engineer_id": "E50",
+    "badge_id": "B50",
+    "role": "climber",
+    "height_cert_expiry": "2025-03-30"
+   },
+   {
+    "engineer_id": "E51",
+    "badge_id": "B51",
+    "role": "groundhand",
+    "height_cert_expiry": null
+   }
+  ],
+  "works": [
+   {
+    "task_code": "ANT-03",
+    "equipment_ref": "AN2",
+    "status": "in_progress",
+    "started_at": "2024-06-12T09:00",
+    "completed_at": "2024-06-12T13:00"
+   },
+   {
+    "task_code": "CAB-01",
+    "equipment_ref": "CB1",
+    "status": "not_started",
+    "completed_at": null
+   }
+  ],
+  "closeout": {
+   "signout_at": "2024-06-12T15:40",
+   "key_status": "returned_late",
+   "photos_required": 4,
+   "photos_uploaded": 8,
+   "variation_ref": null,
+   "submitted_at": "2024-06-12T16:00",
+   "days_open": 7
+  }
+ },
+ "factors": {
+  "scope_mismatch": "none",
+  "window_deviation": "within",
+  "cert_status": "climber_valid_groundhand_null",
+  "scoped_task_count": 2,
+  "completion_fraction": 0.0,
+  "signout_missing": false,
+  "key_return": "returned_late",
+  "photo_shortfall": -4,
+  "badge_id_mismatch": false,
+  "variation_approved": false,
+  "landlord_notice": "given_in_time",
+  "weather_hold_logged": false
+ },
+ "factors_sampled": {
+  "scope_mismatch": "none",
+  "window_deviation": "within",
+  "cert_status": "all_valid",
+  "scoped_task_count": 1,
+  "completion_fraction": 0.49,
+  "signout_missing": false,
+  "key_return": "returned_late",
+  "photo_shortfall": -4,
+  "badge_id_mismatch": false,
+  "variation_approved": false,
+  "landlord_notice": "given_in_time",
+  "weather_hold_logged": false
+ },
+ "plan": {
+  "within_scope": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "certs_in_date": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "closeout_action": {
+   "clarity": "balanced",
+   "target": "hold_confirm",
+   "second": "refer_compliance"
+  },
+  "scope_completion": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "pending_age": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  }
+ },
+ "target_words": 53,
+ "deciding": {
+  "within_scope": "Both works entries match permit codes and equipment refs exactly (ANT-03/AN2, CAB-01/CB1).",
+  "certs_in_date": "Climber E50 cert runs to 2025-03-30; E51 is a groundhand with a null cert, probably not climbing but unconfirmed.",
+  "closeout_action": "key_status is returned_late and the in-progress/not_started tasks are open; E51 has no out gate event and a null cert, which could prompt compliance referral.",
+  "scope_completion": "No task has status complete; ANT-03 is in_progress but carries a completed_at timestamp, which could be read as a sign-off.",
+  "pending_age": "days_open is 7, at the boundary between one to seven days and eight to thirty days."
+ },
+ "request": "rec-F321-0011",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012532
+}

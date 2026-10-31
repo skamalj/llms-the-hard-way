@@ -1,0 +1,107 @@
+{
+ "id": "F302-0057",
+ "family": "F302",
+ "state": {
+  "consent": {
+   "form_version": "2.0",
+   "current_version": "2.0",
+   "signed_date": "2025-05-02"
+  },
+  "visit": {
+   "review_date": "2025-05-26",
+   "window_days": 28
+  },
+  "labs": {
+   "max_repeats": 1,
+   "batch_n": 6,
+   "items": [
+    {
+     "test": "ALT",
+     "value": 66,
+     "threshold": 60,
+     "unit": "U/L"
+    },
+    {
+     "test": "ALT",
+     "value": 52,
+     "threshold": 60,
+     "unit": "U/L",
+     "repeat": true
+    }
+   ]
+  },
+  "eligibility": {
+   "queries": [
+    {
+     "status": "open"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "lab_reconciliation": "identical",
+  "consent_status": "current_ok",
+  "window_days_remaining": 4,
+  "collection_date_mismatch": "none",
+  "prohibited_conmed": false,
+  "washout_completed": false,
+  "out_of_range_lab": false,
+  "valid_repeat_on_file": "valid_repeat_in_range",
+  "boundary_value": false,
+  "identifier_mismatch": "none",
+  "investigator_signoff": "signed_after_results",
+  "open_query_count": 1
+ },
+ "factors_sampled": {
+  "lab_reconciliation": "threshold_crossing",
+  "consent_status": "signed_after_procedure",
+  "window_days_remaining": 4,
+  "collection_date_mismatch": "none",
+  "prohibited_conmed": false,
+  "washout_completed": false,
+  "out_of_range_lab": true,
+  "valid_repeat_on_file": "none",
+  "boundary_value": false,
+  "identifier_mismatch": "none",
+  "investigator_signoff": "signed_after_results",
+  "open_query_count": 3
+ },
+ "plan": {
+  "eligibility_proven": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "contested",
+   "target": "hold_query",
+   "second": "rescreen"
+  },
+  "primary_issue": {
+   "clarity": "leaning",
+   "target": "clinical_value",
+   "second": null
+  },
+  "affected_scope": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  },
+  "window_left": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  }
+ },
+ "target_words": 25,
+ "deciding": {
+  "eligibility_proven": "Repeat ALT 52 is under threshold 60 and within max_repeats 1; consent version is current.",
+  "next_step": "One open query remains, supporting hold_query, while the earlier ALT 66 excursion could also justify rescreen.",
+  "primary_issue": "Initial ALT 66 exceeded threshold 60, the only value-related concern; consent and timing are sound.",
+  "affected_scope": "labs.batch_n is 6, exactly at the boundary between the two-to-five and six-to-twenty bands.",
+  "window_left": "Consent 05-02 plus 28 days closes 05-30; review 05-26 leaves 4 days, at the boundary of the one-to-three and four-to-ten bands."
+ },
+ "request": "rec-F302-0056",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011187
+}

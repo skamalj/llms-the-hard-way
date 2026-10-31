@@ -1,0 +1,152 @@
+{
+ "id": "F318-0134",
+ "family": "F318",
+ "state": {
+  "work_order": {
+   "wo_id": "WO-9044",
+   "lock_id": "L08",
+   "visit_type": "reactive_callout",
+   "tasks": [
+    {
+     "task_id": "T1"
+    },
+    {
+     "task_id": "T2"
+    },
+    {
+     "task_id": "T3"
+    },
+    {
+     "task_id": "T4"
+    },
+    {
+     "task_id": "T5"
+    }
+   ],
+   "nav_notice": {
+    "in_force": false,
+    "to": "2025-05-01"
+   }
+  },
+  "visit_log": {
+   "arrived": "2025-05-20T09:00",
+   "departed": "2025-05-20T10:00",
+   "crew_size": 2,
+   "timesheet_hours": 6.5,
+   "task_status": [
+    {
+     "task_id": "T1",
+     "status": "done"
+    },
+    {
+     "task_id": "T2",
+     "status": "done"
+    },
+    {
+     "task_id": "T3",
+     "status": "done"
+    },
+    {
+     "task_id": "T4",
+     "status": "done"
+    },
+    {
+     "task_id": "T5",
+     "status": "done"
+    }
+   ]
+  },
+  "materials": {
+   "issued": [],
+   "fitted": [
+    {
+     "part_no": "P-3",
+     "task_id": "T2",
+     "qty": 2
+    }
+   ]
+  },
+  "checks": {
+   "post_checks": [],
+   "leakage_ls": 6.9,
+   "leakage_limit_ls": 10
+  },
+  "asset_history": {
+   "prior_visits": [
+    {
+     "date": "2024-11-02",
+     "asset_ref": "C2",
+     "defect_code": "RAM-SEAL"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "visit_type": "reactive_callout",
+  "tasks_ordered": 5,
+  "completion_state": "all marked done",
+  "parts_qty_mismatch": "fitted part with no issue line",
+  "hours_gap": 3.26,
+  "asset_ref_mismatch": false,
+  "post_check_result": "not_logged",
+  "leakage_ratio": 0.69,
+  "leakage_mitigation": false,
+  "navigation_notice_in_force": false,
+  "deferral_approved": false,
+  "prior_same_defect": 1,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "visit_type": "reactive_callout",
+  "tasks_ordered": 5,
+  "completion_state": "all_done",
+  "parts_qty_mismatch": "none",
+  "hours_gap": 3.26,
+  "asset_ref_mismatch": false,
+  "post_check_result": "not_logged",
+  "leakage_ratio": 0.69,
+  "leakage_mitigation": false,
+  "navigation_notice_in_force": true,
+  "deferral_approved": false,
+  "prior_same_defect": 1,
+  "boundary_case": false
+ },
+ "plan": {
+  "safe_to_reopen": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "record_disposition": {
+   "clarity": "clear",
+   "target": "reopen_revisit",
+   "second": null
+  },
+  "return_urgency": {
+   "clarity": "balanced",
+   "target": "within_week",
+   "second": "immediate"
+  },
+  "affected_scope": {
+   "clarity": "contested",
+   "target": "2",
+   "second": "3"
+  },
+  "section_mismatches": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 51,
+ "deciding": {
+  "safe_to_reopen": "Leakage 6.9 vs limit 10 and the notice has expired, favouring true; empty post_checks and no recorded repair evidence leave real doubt.",
+  "record_disposition": "Five tasks marked done in a one-hour visit, timesheet 6.5 h against 2 h, empty post_checks and a fitted part with nothing issued: work is not credible, so the crew must return.",
+  "return_urgency": "Leakage is within limit and the notice has expired, which suggests a week, but unchecked work with no post-checks could justify immediate attendance.",
+  "affected_scope": "A callout lock with unverified work affects all craft using it; no traffic figure is given, so six to twenty versus over twenty is split.",
+  "section_mismatches": "Timesheet 6.5 h vs 2 h span-by-crew, P-3 fitted with no issue line, and five tasks done but no post_checks make three; the third could be read as an omission rather than a mismatch."
+ },
+ "request": "rec-F318-0131",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.01483
+}

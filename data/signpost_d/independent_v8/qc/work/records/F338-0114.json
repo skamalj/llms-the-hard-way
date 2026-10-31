@@ -1,0 +1,136 @@
+{
+ "id": "F338-0114",
+ "family": "F338",
+ "state": {
+  "site": {
+   "pollutant": "NO2",
+   "tier": "compliance",
+   "service_interval_days": 84
+  },
+  "visit": {
+   "date": "2024-09-10",
+   "start": "11:00",
+   "end": "12:20",
+   "sequence_status": "partial",
+   "maintenance_window": false
+  },
+  "reference": {
+   "standard_id": "N-90314",
+   "unit": "ppb",
+   "cert_expiry": "2024-08-20"
+  },
+  "checks": [
+   {
+    "phase": "as_found",
+    "type": "zero",
+    "ref_id": "N-90314",
+    "unit": "ppb",
+    "ref_conc": 0,
+    "reading": 1.1,
+    "tol": 2.0,
+    "ts": "2024-09-10T11:10"
+   },
+   {
+    "phase": "as_left",
+    "type": "zero",
+    "ref_id": "N-90314",
+    "unit": "ppb",
+    "ref_conc": 0,
+    "reading": 0.2,
+    "tol": 2.0,
+    "ts": "2024-09-10T11:50"
+   }
+  ],
+  "history": {
+   "last_visit_date": "2024-06-23",
+   "results": [
+    "pass",
+    "pass",
+    "fail",
+    "pass"
+   ],
+   "autochecks": [
+    {
+     "d": "2024-08-30",
+     "r": "pass"
+    },
+    {
+     "d": "2024-09-06",
+     "r": "pass"
+    }
+   ]
+  },
+  "instrument": {
+   "enclosure_temp_min": 15,
+   "enclosure_temp_max": 27
+  }
+ },
+ "factors": {
+  "pollutant": "NO2",
+  "as_found_ratio": 3.18,
+  "as_left_status": "all_pass",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": -21,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "none",
+  "days_since_last_visit": 79,
+  "visit_completeness": "zero_only",
+  "prior_fail_count": 1,
+  "timestamp_mismatch": "none",
+  "site_priority": "compliance"
+ },
+ "factors_sampled": {
+  "pollutant": "NO2",
+  "as_found_ratio": 3.18,
+  "as_left_status": "all_pass",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": -21,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "none",
+  "days_since_last_visit": 79,
+  "visit_completeness": "zero_only",
+  "prior_fail_count": 1,
+  "timestamp_mismatch": "none",
+  "site_priority": "compliance"
+ },
+ "plan": {
+  "data_accepted": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "reference_valid": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "recalibrate",
+   "second": null
+  },
+  "flag_extent": {
+   "clarity": "clear",
+   "target": "0",
+   "second": null
+  },
+  "return_urgency": {
+   "clarity": "leaning",
+   "target": "4",
+   "second": null
+  }
+ },
+ "target_words": 68,
+ "deciding": {
+  "data_accepted": "The only as-found point is zero, 1.1 vs tolerance 2.0 (within), and autochecks pass through 2024-09-06, so data acceptance is leaning despite no span check.",
+  "reference_valid": "ID and units match, but cert_expiry 2024-08-20 is 21 days before the visit date; the zero gas reading is unaffected, leaving the validity question balanced.",
+  "next_step": "sequence_status is partial and checks contain only zero points, with no span or precision, so the calibration is incomplete and a repeat on site is required.",
+  "flag_extent": "Zero as-found is within tolerance and autochecks pass up to a few days before the visit, so no prior days need flagging.",
+  "return_urgency": "Compliance site with no span calibration after 79 days and an expired reference suggests same-day return, though passing autochecks leave some doubt."
+ },
+ "request": "rec-F338-0111",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.006857
+}

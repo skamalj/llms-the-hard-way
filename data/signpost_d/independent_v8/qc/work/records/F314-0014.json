@@ -1,0 +1,127 @@
+{
+ "id": "F314-0014",
+ "family": "F314",
+ "state": {
+  "property": {
+   "inventory": [
+    {
+     "id": "A1",
+     "type": "boiler",
+     "owned_by": "landlord"
+    },
+    {
+     "id": "A2",
+     "type": "hob",
+     "owned_by": null,
+     "install_date": null
+    }
+   ]
+  },
+  "tenancy": {
+   "review_date": "2025-02-15"
+  },
+  "certificate": {
+   "inspection_date": "2024-02-15",
+   "expiry_date": "2025-02-15",
+   "engineer_licence": "G41"
+  },
+  "appliance_checks": [
+   {
+    "appliance_id": "A1",
+    "defect_class": null
+   }
+  ],
+  "engineer": {
+   "licence_no": "G41",
+   "valid_to": "2026-03-01",
+   "categories": [
+    "BOI",
+    "COOK"
+   ]
+  },
+  "history": {
+   "prior_certificates": [
+    {
+     "date": "2023-02-10",
+     "defects": [
+      {
+       "id": "A1",
+       "class": "NCS"
+      },
+      {
+       "id": "A1",
+       "class": "NCS"
+      }
+     ]
+    }
+   ],
+   "remedials": []
+  }
+ },
+ "factors": {
+  "inventory_mismatch": "missing_from_cert",
+  "tenant_owned_appliance": false,
+  "date_misalignment": "none",
+  "days_to_true_expiry": 0,
+  "renewal_booked": false,
+  "engineer_status": "active_matching",
+  "worst_defect_class": "none",
+  "defect_isolated": false,
+  "remedial_completed": false,
+  "combustion_reading": "normal",
+  "prior_defect_count": 2,
+  "boundary_case": true
+ },
+ "factors_sampled": {
+  "inventory_mismatch": "missing_from_cert",
+  "tenant_owned_appliance": false,
+  "date_misalignment": "none",
+  "days_to_true_expiry": -34,
+  "renewal_booked": false,
+  "engineer_status": "active_matching",
+  "worst_defect_class": "ncs",
+  "defect_isolated": false,
+  "remedial_completed": false,
+  "combustion_reading": "normal",
+  "prior_defect_count": 2,
+  "boundary_case": false
+ },
+ "plan": {
+  "covers_all_appliances": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "engineer_valid": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "hold",
+   "second": null
+  },
+  "renewal_urgency": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  },
+  "open_hazard": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 53,
+ "deciding": {
+  "covers_all_appliances": "A2 hob is absent from checks, but its owned_by is null, so it may be tenant-owned; not clearly a landlord appliance.",
+  "engineer_valid": "Licence G41 matches, valid_to 2026-03-01 is after inspection, and categories cover the boiler checked.",
+  "next_step": "One missing detail, the owned_by of A2 and its absence from checks, needs landlord confirmation; nothing else is wrong and no defects are open.",
+  "renewal_urgency": "True expiry 2025-02-15 equals the review date, so it is either reached (level 3) or still the last valid day (level 2).",
+  "open_hazard": "Current check on A1 has null defect_class (level 0), but earlier NCS entries on A1 have no remedial, which could count as advisory (level 1)."
+ },
+ "request": "rec-F314-0011",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.013553
+}

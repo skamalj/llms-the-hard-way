@@ -1,0 +1,322 @@
+{
+ "id": "F302",
+ "domain": "clinical-trial screening visits",
+ "role": "Site eligibility reviewer at a multi-site clinical trial unit, checking each completed screening visit record before a subject may be randomised",
+ "setting": "After a screening visit, the site enters consent, demographics, visit timing, laboratory results, eligibility criterion checks and concomitant medications into the trial's electronic data capture system. The reviewer opens one subject's screening record at a time. They reconcile the sections against each other and against protocol thresholds and windows. They then decide whether eligibility is proven, what happens to the record next, which kind of issue most constrains it, and how much time is left in the screening window.",
+ "questions": {
+  "eligibility_proven": {
+   "type": "noul",
+   "instructions": "Recorded evidence shows the subject meets every inclusion and exclusion criterion.",
+   "criteria": {
+    "true": "Every criterion supported by valid, in-window, reconciled source values",
+    "false": "Any criterion unmet, unverified, contradicted or merely plausible"
+   }
+  },
+  "next_step": {
+   "type": "choice",
+   "instructions": "What should happen to this screening record next?",
+   "criteria": {
+    "release": "No open issue; record released for randomisation as it stands.",
+    "hold_query": "One confirmable gap; randomisation waits on a single site response.",
+    "rescreen": "Repeatable defect or lapsed window; a new screening visit is needed.",
+    "screen_fail": "Criterion definitively unmet on valid data; subject is excluded."
+   }
+  },
+  "primary_issue": {
+   "type": "choice",
+   "instructions": "Which single issue type most constrains this subject's eligibility?",
+   "criteria": {
+    "no_issue": "Sections reconcile; no documentation, clinical or timing problem found.",
+    "documentation": "Consent, signature or identifier defect; outranks all other issue types.",
+    "clinical_value": "Lab or medication conflicts with criterion; documentation sound, outranks timing.",
+    "timing_window": "Only remaining problem is a date outside a protocol window."
+   }
+  },
+  "affected_scope": {
+   "type": "score",
+   "instructions": "How many people or units does this issue directly affect?",
+   "criteria": [
+    "Affects one person or unit only",
+    "Affects two to five people or units",
+    "Affects six to twenty people or units",
+    "Affects more than twenty people or units"
+   ]
+  },
+  "window_left": {
+   "type": "score",
+   "instructions": "How many days remain before the screening window closes?",
+   "criteria": [
+    "Window already closed on the review date",
+    "One to three days remain in window",
+    "Four to ten days remain in window",
+    "More than ten days remain in window"
+   ]
+  }
+ },
+ "factors": [
+  {
+   "name": "lab_reconciliation",
+   "description": "How a key lab value in labs compares with the value transcribed into the matching eligibility criterion: identical; same value in a different unit that agrees after conversion; small transcription rounding not crossing the threshold; or a transcription that hides a threshold crossing",
+   "kind": "categorical",
+   "values": [
+    "identical",
+    "unit_only",
+    "rounding_minor",
+    "threshold_crossing"
+   ],
+   "weights": [
+    0.35,
+    0.25,
+    0.2,
+    0.2
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S4",
+    "S6"
+   ]
+  },
+  {
+   "name": "consent_status",
+   "description": "State of informed consent: current version signed before any procedure; superseded version signed but re-consent on the current version also on file; superseded version only; or signature date later than the first screening procedure",
+   "kind": "categorical",
+   "values": [
+    "current_ok",
+    "superseded_reconsented",
+    "superseded_only",
+    "signed_after_procedure"
+   ],
+   "weights": [
+    0.45,
+    0.25,
+    0.15,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S3",
+    "S7"
+   ]
+  },
+  {
+   "name": "window_days_remaining",
+   "description": "Days between the review date and the window end, where window end is the consent date plus the protocol screening window length; negative means already closed",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": -6,
+   "max": 21,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S4",
+    "S7"
+   ]
+  },
+  {
+   "name": "collection_date_mismatch",
+   "description": "A lab collection date in labs differs from the visit date in visit; sometimes by one day within window, sometimes placing the sample before consent or outside the lab validity window",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "within_window",
+    "before_consent",
+    "outside_validity"
+   ],
+   "weights": [
+    0.5,
+    0.25,
+    0.1,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S4"
+   ]
+  },
+  {
+   "name": "prohibited_conmed",
+   "description": "A concomitant medication whose class matches the protocol's prohibited list appears in conmeds",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.4,
+   "skills": [
+    "S1",
+    "S3"
+   ]
+  },
+  {
+   "name": "washout_completed",
+   "description": "Mitigation for a prohibited medication: its stop date precedes the visit date by at least the required washout days; sampled independently so the alarming medication appears with and without it about equally",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S1"
+   ]
+  },
+  {
+   "name": "out_of_range_lab",
+   "description": "One protocol-relevant lab result falls outside the criterion threshold on first draw",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.4,
+   "skills": [
+    "S3",
+    "S7"
+   ]
+  },
+  {
+   "name": "valid_repeat_on_file",
+   "description": "Mitigation for an out-of-range lab: a repeat sample within window and within the protocol's allowed repeat count is in range; sometimes the repeat exists but exceeds the allowed repeat count",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "valid_repeat_in_range",
+    "repeat_exceeds_allowance"
+   ],
+   "weights": [
+    0.45,
+    0.45,
+    0.1
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S4",
+    "S6"
+   ]
+  },
+  {
+   "name": "boundary_value",
+   "description": "A lab or age value sits exactly on a criterion threshold whose inequality direction is ambiguous between the criterion text code and the lab reference format, leaving judges split",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.2,
+   "skills": [
+    "S6",
+    "S5"
+   ]
+  },
+  {
+   "name": "identifier_mismatch",
+   "description": "Subject identifiers disagree across sections: none; initials transposed on the consent record; or the screening number on a lab requisition differs from the subject section",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "initials_transposed",
+    "screening_no_differs"
+   ],
+   "weights": [
+    0.7,
+    0.18,
+    0.12
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S4"
+   ]
+  },
+  {
+   "name": "investigator_signoff",
+   "description": "Investigator eligibility sign-off: signed after all results; signed before the last lab result was dated; or unsigned",
+   "kind": "categorical",
+   "values": [
+    "signed_after_results",
+    "signed_before_results",
+    "unsigned"
+   ],
+   "weights": [
+    0.55,
+    0.2,
+    0.25
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S4",
+    "S5"
+   ]
+  },
+  {
+   "name": "open_query_count",
+   "description": "Number of unresolved data queries listed against the record; closed queries are also listed as decoys",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 3,
+   "p_true": 0,
+   "skills": [
+    "S4",
+    "S7"
+   ]
+  }
+ ],
+ "sections": [
+  {
+   "name": "subject",
+   "description": "Screening number, initials, date of birth, sex, site code"
+  },
+  {
+   "name": "consent",
+   "description": "Form version signed, current approved version, signature dates, re-consent entries"
+  },
+  {
+   "name": "visit",
+   "description": "Visit date, review date, protocol window length, procedures with dates"
+  },
+  {
+   "name": "labs",
+   "description": "List of results with test code, value, unit, threshold, collection date, requisition number, repeat flag"
+  },
+  {
+   "name": "eligibility",
+   "description": "Criterion checks with recorded values and site met flags, investigator sign-off, query list"
+  },
+  {
+   "name": "conmeds",
+   "description": "Medications with class, start and stop dates, prohibited-class list and washout days"
+  }
+ ],
+ "rendering_notes": "Each factor appears only through raw fields. lab_reconciliation: labs[].value and unit set against eligibility.criteria[].recorded_value and unit; unit_only uses umol/L versus mg/dL, or g/L versus g/dL. consent_status: consent.form_version versus consent.current_version, consent.signed_date versus the earliest visit.procedures[].date, and consent.reconsent[] entries. window_days_remaining: never shown; derived from consent.signed_date plus visit.window_days minus visit.review_date. collection_date_mismatch: labs[].collected versus visit.visit_date, consent.signed_date and labs[].valid_days. prohibited_conmed and washout_completed: conmeds.items[].class against conmeds.prohibited_classes, with items[].stop compared to visit.visit_date and washout_days; stop may be null, meaning ongoing. out_of_range_lab and valid_repeat_on_file: labs[] entries with repeat:true, with labs.max_repeats in the protocol block. boundary_value: a value equal to the threshold, where criteria[].operator is written as \"lt\" while labs[].threshold_format shows \"<=\". identifier_mismatch: subject.initials and screening_no versus consent.initials and labs[].requisition_screening_no. investigator_signoff: eligibility.signoff.signed (boolean) and signoff.date versus the latest labs[].collected. open_query_count: eligibility.queries[] with status open or closed. Decoys: site-entered criteria[].met flags are sometimes true despite a crossing, so they must not be trusted; labs[].flag H/L marks reference-range deviations that may be irrelevant to protocol thresholds; closed queries; superseded consent versions that were properly re-consented; prohibited-class medications stopped well before the visit. No field states eligibility, disposition, issue type, days remaining or affected scope. There is no overall status field and no free-text notes.",
+ "skills": [
+  "S1",
+  "S3",
+  "S4",
+  "S5",
+  "S6",
+  "S7"
+ ],
+ "shared_scale": "affected_scope",
+ "design_cost": 0.136516
+}

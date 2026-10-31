@@ -1,0 +1,141 @@
+{
+ "id": "F317-0053",
+ "family": "F317",
+ "state": {
+  "vehicle": {
+   "fleet_no": 3050,
+   "odometer_km": 31994
+  },
+  "exam": {
+   "due_at_km": 32000,
+   "items": [
+    {
+     "item_code": "C1",
+     "result": "pass",
+     "signed_by": "m4",
+     "signed_at": "2024-06-01T08:00"
+    },
+    {
+     "item_code": "C2",
+     "result": "pass",
+     "signed_by": "m4",
+     "signed_at": "2024-06-01T08:30"
+    },
+    {
+     "item_code": "C3",
+     "result": "pass",
+     "signed_by": "m7",
+     "signed_at": null
+    },
+    {
+     "item_code": "C4",
+     "result": null,
+     "signed_by": null,
+     "signed_at": null
+    }
+   ]
+  },
+  "defects": [
+   {
+    "defect_id": "D88",
+    "subsystem": "pantograph",
+    "safety_critical": true,
+    "status": "closed",
+    "closed_at": "2024-05-20",
+    "retest_at": "2024-05-20",
+    "retest_result": "pass"
+   }
+  ],
+  "work_orders": [
+   {
+    "defect_ref": "D88",
+    "subsystem": "pantograph",
+    "completed_at": "2024-05-19"
+   }
+  ],
+  "concessions": [
+   {
+    "defect_ref": "D88",
+    "fleet_no": 3051,
+    "valid_until": "2024-08-01"
+   }
+  ],
+  "release": {
+   "duty_type": "depot_shunt",
+   "depart_at": "2024-06-04T06:00",
+   "odo_reading_km": 32003,
+   "brake_test_at": "2024-05-30T05:00",
+   "brake_test_result": "pass"
+  }
+ },
+ "factors": {
+  "km_to_exam_due": 6,
+  "odometer_disagreement": "trivial",
+  "exam_signed_fraction": 0.5,
+  "exam_record_missing": false,
+  "worst_defect_subsystem": "none",
+  "worst_defect_state": "closed_retested",
+  "worst_defect_safety_critical": true,
+  "retest_out_of_order": false,
+  "concession_present": true,
+  "concession_flaw": "wrong_fleet_no",
+  "wo_crossref_mismatch": "none",
+  "planned_duty_type": "depot_shunt",
+  "recent_brake_test_pass": false,
+  "balanced_signals": true
+ },
+ "factors_sampled": {
+  "km_to_exam_due": -94,
+  "odometer_disagreement": "trivial",
+  "exam_signed_fraction": 0.56,
+  "exam_record_missing": false,
+  "worst_defect_subsystem": "none",
+  "worst_defect_state": "closed_retested",
+  "worst_defect_safety_critical": true,
+  "retest_out_of_order": true,
+  "concession_present": true,
+  "concession_flaw": "wrong_fleet_no",
+  "wo_crossref_mismatch": "none",
+  "planned_duty_type": "depot_shunt",
+  "recent_brake_test_pass": false,
+  "balanced_signals": true
+ },
+ "plan": {
+  "sc_defects_cleared": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "release_decision": {
+   "clarity": "balanced",
+   "target": "hold",
+   "second": "release"
+  },
+  "worst_subsystem": {
+   "clarity": "leaning",
+   "target": "none",
+   "second": null
+  },
+  "exam_completion": {
+   "clarity": "contested",
+   "target": "2",
+   "second": "1"
+  },
+  "exam_mileage": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  }
+ },
+ "target_words": 53,
+ "deciding": {
+  "sc_defects_cleared": "D88 is safety-critical, closed, retest pass on 2024-05-20 after work order completion on 05-19, with matching defect_ref and subsystem.",
+  "release_decision": "The exam is half open and the concession names fleet 3051 not 3050 (points to hold), but the defect is cleared, the duty is only a depot shunt and mileage is at the boundary (points to release).",
+  "worst_subsystem": "The only defect is closed and retested pass; the mismatched concession adds minor doubt.",
+  "exam_completion": "2 of 4 items are fully signed, which is exactly half; C3 has signed_by but no timestamp.",
+  "exam_mileage": "Vehicle odometer 31994 is 6 km short of due 32000, while the later release reading 32003 is 3 km past it, which sits on the level 1 and 2 boundary."
+ },
+ "request": "rec-F317-0051",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.014219
+}

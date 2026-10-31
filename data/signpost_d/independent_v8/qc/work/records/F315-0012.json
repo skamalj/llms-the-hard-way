@@ -1,0 +1,100 @@
+{
+ "id": "F315-0012",
+ "family": "F315",
+ "state": {
+  "report": {
+   "source": "cms_auto",
+   "received_at": "2025-06-02T03:00",
+   "units_reported": [
+    "B4"
+   ]
+  },
+  "cms": {
+   "status_code": "NC",
+   "last_comms_at": "2025-05-10"
+  },
+  "history": [
+   {
+    "job_ref": "J-310",
+    "raised": "2025-12-30",
+    "attended": "2025-12-28",
+    "completed": null
+   }
+  ],
+  "job": {
+   "stage": "RAISED",
+   "linked_job_ref": "J-310"
+  },
+  "supply": {
+   "feeder_units_dark": 1
+  }
+ },
+ "factors": {
+  "dark_unit_count": 1,
+  "dno_incident_logged": false,
+  "cms_state": "no_comms",
+  "days_since_last_repair": 158,
+  "last_repair_state": "attended_not_completed",
+  "hazard_observed": "none",
+  "hazard_made_safe": true,
+  "site_category": "residential",
+  "planned_works_active": false,
+  "current_job_stage": "not_attended",
+  "dates_out_of_order": true,
+  "duplicate_of_open_job": true,
+  "report_source": "cms_auto"
+ },
+ "factors_sampled": {
+  "dark_unit_count": 5,
+  "dno_incident_logged": false,
+  "cms_state": "no_comms",
+  "days_since_last_repair": 158,
+  "last_repair_state": "attended_not_completed",
+  "hazard_observed": "none",
+  "hazard_made_safe": true,
+  "site_category": "residential",
+  "planned_works_active": false,
+  "current_job_stage": "not_attended",
+  "dates_out_of_order": true,
+  "duplicate_of_open_job": true,
+  "report_source": "cms_auto"
+ },
+ "plan": {
+  "supply_side_fault": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "repeat_failure": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "next_action": {
+   "clarity": "balanced",
+   "target": "hold_verify",
+   "second": "close_report"
+  },
+  "source_support": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  },
+  "repair_progress": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  }
+ },
+ "target_words": 25,
+ "deciding": {
+  "supply_side_fault": "feeder_units_dark is 1 and no DNO incident.",
+  "repeat_failure": "The only history job has completed null, so no completed repair exists.",
+  "next_action": "job.linked_job_ref J-310 matches an open history entry, which supports closing as duplicate, but its attended date precedes raised and cms is NC, so verification is also defensible.",
+  "source_support": "Only the automated CMS report with a stale NC reading; the linked job gives one weak item with impossible dates.",
+  "repair_progress": "Current job is RAISED with no attendance; the linked J-310 attended date is questionable, giving a leaning towards level 1 over 0."
+ },
+ "request": "rec-F315-0011",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.005806
+}

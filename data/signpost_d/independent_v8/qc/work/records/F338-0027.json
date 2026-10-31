@@ -1,0 +1,132 @@
+{
+ "id": "F338-0027",
+ "family": "F338",
+ "state": {
+  "site": {
+   "pollutant": "SO2",
+   "tier": "compliance",
+   "service_interval_days": 30,
+   "approved_interval_days": 30
+  },
+  "visit": {
+   "date": "2024-06-20",
+   "start": "08:30",
+   "end": "10:45",
+   "sequence_status": "complete",
+   "maint_window": false
+  },
+  "reference": {
+   "standard_id": "CY-8802",
+   "unit": "ppb",
+   "cert_expiry": "2025-02-21"
+  },
+  "checks": [
+   {
+    "type": "as_found",
+    "ref_id": "CY-8802",
+    "ref_conc": 100,
+    "unit": "ppb",
+    "reading": 74,
+    "tol": 5,
+    "ts": "2024-06-20T08:40"
+   },
+   {
+    "type": "as_left",
+    "ref_id": "CY-8802",
+    "ref_conc": 100,
+    "unit": "ppb",
+    "reading": 100.5,
+    "tol": 5,
+    "ts": "2024-06-20T10:30"
+   }
+  ],
+  "history": {
+   "last_visit_date": "2024-04-30",
+   "results": [
+    "fail",
+    "fail",
+    "pass",
+    "fail",
+    "fail"
+   ],
+   "autochecks": [
+    {
+     "d": "2024-06-15",
+     "r": "pass"
+    }
+   ]
+  },
+  "instrument": {
+   "enclosure_temp_min": 12,
+   "enclosure_temp_max": 36
+  }
+ },
+ "factors": {
+  "pollutant": "SO2",
+  "as_found_ratio": 2.52,
+  "as_left_status": "all_pass",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 246,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "enclosure_temp_excursion",
+  "days_since_last_visit": 51,
+  "visit_completeness": "complete",
+  "prior_fail_count": 4,
+  "timestamp_mismatch": "none",
+  "site_priority": "compliance"
+ },
+ "factors_sampled": {
+  "pollutant": "SO2",
+  "as_found_ratio": 2.52,
+  "as_left_status": "all_pass",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 246,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "enclosure_temp_excursion",
+  "days_since_last_visit": 51,
+  "visit_completeness": "complete",
+  "prior_fail_count": 4,
+  "timestamp_mismatch": "none",
+  "site_priority": "compliance"
+ },
+ "plan": {
+  "data_accepted": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "reference_valid": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "close_visit",
+   "second": null
+  },
+  "flag_extent": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "return_urgency": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "4"
+  }
+ },
+ "target_words": 83,
+ "deciding": {
+  "data_accepted": "As-found 74 vs 100 (tol 5) is far out, but enclosure max 36 offers a drift explanation and autochecks pass; balanced.",
+  "reference_valid": "IDs match, units match, certificate expires 2025-02-21, well after the visit.",
+  "next_step": "As-left 100.5 passes, all point types present, visit complete, reference fine.",
+  "flag_extent": "51 days since last visit with a large as-found miss; whether all 51 or only about 30 days are flagged is open.",
+  "return_urgency": "Compliance tier with 4 prior fails in history and as-left passing; one to two days versus same day is balanced."
+ },
+ "request": "rec-F338-0026",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.005676
+}

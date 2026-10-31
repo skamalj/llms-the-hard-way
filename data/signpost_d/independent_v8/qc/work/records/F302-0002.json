@@ -1,0 +1,140 @@
+{
+ "id": "F302-0002",
+ "family": "F302",
+ "state": {
+  "subject": {
+   "screening_no": "S-204",
+   "initials": "KLM",
+   "site": "07"
+  },
+  "consent": {
+   "initials": "KLM",
+   "form_version": "3.0",
+   "current_version": "3.0",
+   "signed_date": "2025-04-01"
+  },
+  "visit": {
+   "visit_date": "2025-04-13",
+   "review_date": "2025-04-14",
+   "window_days": 28,
+   "procedures": [
+    {
+     "name": "ECG",
+     "date": "2025-04-02"
+    }
+   ]
+  },
+  "labs": [
+   {
+    "test": "ALT",
+    "value": 34,
+    "unit": "U/L",
+    "threshold": "<=60",
+    "collected": "2025-04-02",
+    "valid_days": 12,
+    "requisition_screening_no": "S-204",
+    "lot_n": 21
+   }
+  ],
+  "eligibility": {
+   "criteria": [
+    {
+     "test": "ALT",
+     "recorded_value": 34,
+     "unit": "U/L",
+     "operator": "le",
+     "met": true
+    }
+   ],
+   "signoff": {
+    "signed": true,
+    "date": "2025-04-10"
+   },
+   "queries": [
+    {
+     "id": 1,
+     "topic": "confirm ALT draw date",
+     "status": "open"
+    }
+   ]
+  },
+  "conmeds": {
+   "prohibited_classes": [
+    "steroid"
+   ],
+   "washout_days": 14,
+   "items": [
+    {
+     "class": "steroid",
+     "stop": "2025-02-01"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "lab_reconciliation": "identical",
+  "consent_status": "valid",
+  "window_days_remaining": 15,
+  "collection_date_mismatch": "within_window",
+  "prohibited_conmed": false,
+  "washout_completed": true,
+  "out_of_range_lab": false,
+  "valid_repeat_on_file": "none",
+  "boundary_value": false,
+  "identifier_mismatch": "none",
+  "investigator_signoff": "signed_after_results",
+  "open_query_count": 1
+ },
+ "factors_sampled": {
+  "lab_reconciliation": "unit_only",
+  "consent_status": "signed_after_procedure",
+  "window_days_remaining": 15,
+  "collection_date_mismatch": "outside_validity",
+  "prohibited_conmed": true,
+  "washout_completed": false,
+  "out_of_range_lab": false,
+  "valid_repeat_on_file": "none",
+  "boundary_value": false,
+  "identifier_mismatch": "initials_transposed",
+  "investigator_signoff": "unsigned",
+  "open_query_count": 0
+ },
+ "plan": {
+  "eligibility_proven": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "hold_query",
+   "second": null
+  },
+  "primary_issue": {
+   "clarity": "leaning",
+   "target": "timing_window",
+   "second": null
+  },
+  "affected_scope": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "window_left": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  }
+ },
+ "target_words": 110,
+ "deciding": {
+  "eligibility_proven": "ALT 34 U/L matches the criterion value and is under 60; consent, identifiers and sign-off 2025-04-10 (after the lab) are all in order; the steroid stopped long before washout.",
+  "next_step": "One open query asks the site to confirm the ALT draw date; that single gap means a hold for a site response.",
+  "primary_issue": "Lab collected 2025-04-02 with valid_days 12 expires on the 2025-04-14 review date, so date handling is the only thing in question; a modest doubt remains.",
+  "affected_scope": "labs[0].lot_n is 21 subjects sharing the draw lot, just over the 20 boundary, so level 3 leads and level 2 is defensible.",
+  "window_left": "consent 2025-04-01 + 28 = 2025-04-29 minus review 2025-04-14 = 15 days, above ten."
+ },
+ "request": "rec-F302-0001",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012795
+}

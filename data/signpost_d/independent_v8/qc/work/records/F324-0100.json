@@ -1,0 +1,162 @@
+{
+ "id": "F324-0100",
+ "family": "F324",
+ "state": {
+  "zone": {
+   "zone_id": "Z12",
+   "dripper_count": 200,
+   "dripper_rate_lph": 2
+  },
+  "schedule": {
+   "cycles": [
+    {
+     "start": "06:00",
+     "planned_ml_per_dripper": 100
+    },
+    {
+     "start": "09:30",
+     "planned_ml_per_dripper": 0.1
+    },
+    {
+     "start": "13:00",
+     "planned_ml_per_dripper": 100
+    },
+    {
+     "start": "16:30",
+     "planned_ml_per_dripper": 100
+    }
+   ],
+   "drain_target_pct": {
+    "min": 20,
+    "max": 30
+   },
+   "overrides": [
+    {
+     "approved_by_role": "head_grower",
+     "reduction_pct": 20
+    }
+   ]
+  },
+  "controller_log": {
+   "log_date": "2025-08-12",
+   "spec_bar": 2.0,
+   "cycles": [
+    {
+     "start": "06:00",
+     "valve_open_s": 144,
+     "delivered_l": 16.0,
+     "line_pressure_bar": 2.0
+    },
+    {
+     "start": "09:30",
+     "valve_open_s": 144,
+     "delivered_l": 16.1,
+     "line_pressure_bar": 2.0
+    },
+    {
+     "start": "13:00",
+     "valve_open_s": 144,
+     "delivered_l": 11.0,
+     "line_pressure_bar": 2.0
+    },
+    {
+     "start": "16:30",
+     "valve_open_s": 144,
+     "delivered_l": 16.0,
+     "line_pressure_bar": 2.0
+    }
+   ],
+   "daily_total_l": 59.1,
+   "meter_total_l": 59.0
+  },
+  "drainage": {
+   "drain_pct": [
+    5.0,
+    4.5,
+    4.6
+   ],
+   "catch_test": {
+    "ordered": false,
+    "result": null
+   }
+  },
+  "sensors": {
+   "meter_last_calibrated": "2025-05-18"
+  },
+  "maintenance": {
+   "windows": [],
+   "alarms": [],
+   "recent_work_orders": [
+    "2025-07-28",
+    "2025-06-03",
+    "2025-01-15"
+   ]
+  }
+ },
+ "factors": {
+  "delivery_shortfall_pct": 7.7,
+  "mismatch_location": "unit_mismatch",
+  "fault_cause": "emitter_clogging",
+  "approved_override": true,
+  "maintenance_window_active": false,
+  "drain_offset_points": -15.3,
+  "off_tolerance_cycles": 1,
+  "meter_calibration_age_days": 86,
+  "confirmation_pending": false,
+  "pressure_state": "normal",
+  "benign_alarm_decoy": "none",
+  "recent_work_orders": 3
+ },
+ "factors_sampled": {
+  "delivery_shortfall_pct": 1.71,
+  "mismatch_location": "unit_mismatch",
+  "fault_cause": "low_supply_pressure",
+  "approved_override": true,
+  "maintenance_window_active": false,
+  "drain_offset_points": -10.85,
+  "off_tolerance_cycles": 6,
+  "meter_calibration_age_days": 86,
+  "confirmation_pending": false,
+  "pressure_state": "low",
+  "benign_alarm_decoy": "none",
+  "recent_work_orders": 3
+ },
+ "plan": {
+  "under_dosed": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "emitter_clogging": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "next_action": {
+   "clarity": "balanced",
+   "target": "sign_off",
+   "second": "dispatch_repair"
+  },
+  "drain_deviation": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  },
+  "off_plan_cycles": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  }
+ },
+ "target_words": 32,
+ "deciding": {
+  "under_dosed": "An approved 20% reduction gives 16 L per cycle (64 L a day); the metered 59.0 L is about 92% of it. The 0.1 planned value in cycle 2 is a unit slip, not an over-dose.",
+  "emitter_clogging": "Cycle 3 ran the full 144 s at 2.0 bar (spec 2.0) but delivered 11.0 L, about 1.4 L/h per dripper against 2.0 rated, and drain is very low; pressure and valve times are normal.",
+  "next_action": "The daily total is within tolerance of the reduced plan and could be signed off, but one cycle shows a flow loss with normal pressure that may need physical emitter work.",
+  "drain_deviation": "Mean drain is about 4.7% against a 20 to 30 band, about 15.3 points below, just past the 15-point boundary.",
+  "off_plan_cycles": "Against 16 L planned per cycle, only cycle 3 (11.0 L, about 31% short) is outside tolerance; cycle 2's 0.1 planned value is a unit slip, and cycles 1, 2 and 4 are on plan."
+ },
+ "request": "rec-F324-0096",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.018022
+}

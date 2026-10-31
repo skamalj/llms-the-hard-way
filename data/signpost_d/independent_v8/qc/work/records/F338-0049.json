@@ -1,0 +1,133 @@
+{
+ "id": "F338-0049",
+ "family": "F338",
+ "state": {
+  "site": {
+   "pollutant": "O3",
+   "tier": "compliance",
+   "service_interval_days": 60
+  },
+  "visit": {
+   "date": "2025-02-18",
+   "start": "09:00",
+   "end": "11:00",
+   "sequence_status": "complete",
+   "maintenance_window": false
+  },
+  "reference": {
+   "standard_id": "CYL-20946",
+   "conc": 80,
+   "unit": "ppb",
+   "cert_expiry": "2025-12-23"
+  },
+  "checks": [
+   {
+    "type": "as_found",
+    "pt": "span",
+    "ref_id": "CYL-77310",
+    "ref_conc": 80,
+    "unit": "ppb",
+    "reading": 81.4,
+    "tol": 8,
+    "ts": "2025-02-18T09:15"
+   },
+   {
+    "type": "as_left",
+    "pt": "span",
+    "ref_id": "CYL-77310",
+    "ref_conc": 80,
+    "unit": "ppb",
+    "reading": 87.4,
+    "tol": 8,
+    "ts": "2025-02-18T10:30"
+   }
+  ],
+  "history": {
+   "last_visit_date": "2025-01-08",
+   "results": [
+    "pass",
+    "fail",
+    "pass",
+    "fail"
+   ],
+   "autochecks": [
+    {
+     "d": "2025-02-15",
+     "r": "pass"
+    },
+    {
+     "d": "2025-02-16",
+     "r": "pass"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "pollutant": "O3",
+  "as_found_ratio": 0.18,
+  "as_left_status": "marginal",
+  "cylinder_id_mismatch": "different_standard",
+  "cert_expiry_offset_days": 308,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "none",
+  "days_since_last_visit": 41,
+  "visit_completeness": "complete",
+  "prior_fail_count": 2,
+  "timestamp_mismatch": "none",
+  "site_priority": "compliance"
+ },
+ "factors_sampled": {
+  "pollutant": "O3",
+  "as_found_ratio": 0.18,
+  "as_left_status": "marginal",
+  "cylinder_id_mismatch": "different_standard",
+  "cert_expiry_offset_days": 308,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": false,
+  "drift_explanation": "none",
+  "days_since_last_visit": 41,
+  "visit_completeness": "complete",
+  "prior_fail_count": 2,
+  "timestamp_mismatch": "none",
+  "site_priority": "compliance"
+ },
+ "plan": {
+  "data_accepted": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "reference_valid": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "hold",
+   "second": null
+  },
+  "flag_extent": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "return_urgency": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  }
+ },
+ "target_words": 83,
+ "deciding": {
+  "data_accepted": "As-found span 81.4 vs 80 with tol 8 is a tiny deviation, and autochecks pass to 2025-02-16, so the interval data stand.",
+  "reference_valid": "Check ref_id CYL-77310 is a wholly different identifier from reference standard_id CYL-20946.",
+  "next_step": "The visit is complete and as-left is within tolerance, but the reference identity needs one confirmation before closing.",
+  "flag_extent": "As-found is nearly on target and autochecks pass, which points to no flagging, but the unconfirmed reference leaves a case for a few days.",
+  "return_urgency": "As-left span 87.4 vs 80 (tol 8) sits at the edge of tolerance on a compliance site, so a planned recheck versus none is arguable."
+ },
+ "request": "rec-F338-0046",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012154
+}

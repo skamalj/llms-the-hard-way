@@ -1,0 +1,155 @@
+{
+ "id": "F338-0065",
+ "family": "F338",
+ "state": {
+  "site": {
+   "id": "S-418",
+   "pollutant": "NO2",
+   "tier": "standard",
+   "service_interval_days": 28,
+   "approved_interval_days": 56
+  },
+  "visit": {
+   "id": "V-5519",
+   "date": "2024-09-17",
+   "start": "11:00",
+   "end": "12:30",
+   "sequence_status": "partial",
+   "maint_window": false
+  },
+  "reference": {
+   "standard_id": "CYL-18864",
+   "conc": 100,
+   "unit": "ppb",
+   "cert_expiry": null,
+   "cert_no": null
+  },
+  "checks": [
+   {
+    "type": "as_found_zero",
+    "ref_id": "CYL-18864",
+    "ref_conc": 0,
+    "unit": "ppb",
+    "reading": 1.5,
+    "tol": 2,
+    "ts": "2024-09-17T11:10"
+   },
+   {
+    "type": "as_left_zero",
+    "ref_id": "CYL-18864",
+    "ref_conc": 0,
+    "unit": "ppb",
+    "reading": 0.3,
+    "tol": 2,
+    "ts": "2024-09-17T11:40"
+   },
+   {
+    "type": "as_left_precision",
+    "ref_id": "CYL-18864",
+    "ref_conc": 100,
+    "unit": "ppb",
+    "reading": 91,
+    "tol": 5,
+    "ts": "2024-09-17T12:00"
+   }
+  ],
+  "history": {
+   "last_visit": "2024-07-29",
+   "results": [
+    "fail",
+    "pass",
+    "fail",
+    "fail",
+    "pass"
+   ],
+   "autochecks": [
+    {
+     "d": "2024-08-03",
+     "r": "fail"
+    },
+    {
+     "d": "2024-08-04",
+     "r": "fail"
+    },
+    {
+     "d": "2024-09-10",
+     "r": "pass"
+    }
+   ]
+  },
+  "instrument": {
+   "serial": "A-9946",
+   "temp_min": 13,
+   "temp_max": 28,
+   "firmware": "4.0.2"
+  }
+ },
+ "factors": {
+  "pollutant": "NO2",
+  "as_found_ratio": 3.57,
+  "as_left_status": "one_point_fail",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 116,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": false,
+  "drift_explanation": "approved_extended_interval",
+  "days_since_last_visit": 50,
+  "visit_completeness": "zero_only",
+  "prior_fail_count": 3,
+  "timestamp_mismatch": "none",
+  "site_priority": "standard"
+ },
+ "factors_sampled": {
+  "pollutant": "NO2",
+  "as_found_ratio": 3.57,
+  "as_left_status": "one_point_fail",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 116,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": false,
+  "drift_explanation": "approved_extended_interval",
+  "days_since_last_visit": 50,
+  "visit_completeness": "zero_only",
+  "prior_fail_count": 3,
+  "timestamp_mismatch": "none",
+  "site_priority": "standard"
+ },
+ "plan": {
+  "data_accepted": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "reference_valid": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "hold",
+   "second": null
+  },
+  "flag_extent": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  },
+  "return_urgency": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "4"
+  }
+ },
+ "target_words": 200,
+ "deciding": {
+  "data_accepted": "As-found zero is in tolerance and the interval was extended to 56 days, though autochecks failed in early August.",
+  "reference_valid": "Certificate expiry and certificate number are null, so certificate details are absent.",
+  "next_step": "Certificate confirmation is the one outstanding item, so hold.",
+  "flag_extent": "Early August autochecks failed and 50 days passed since the last visit; 8-30 days versus over thirty is balanced.",
+  "return_urgency": "As-left precision 91 vs 100 exceeds tol 5 on a standard site; 1-2 days versus same-day is balanced."
+ },
+ "request": "rec-F338-0061",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.006891
+}

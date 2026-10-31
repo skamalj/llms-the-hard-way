@@ -1,0 +1,149 @@
+{
+ "id": "F303-0054",
+ "family": "F303",
+ "state": {
+  "order": {
+   "prescription": {
+    "modality": "concentrator",
+    "flow_lpm": 1,
+    "hours_per_day": 8,
+    "rx_expiry": "2026-04-01"
+   },
+   "items_ordered": [
+    {
+     "sku": "CONC-3",
+     "qty": 1
+    },
+    {
+     "sku": "CYL-CD",
+     "qty": 1
+    },
+    {
+     "sku": "CYL-ZD",
+     "qty": 1
+    }
+   ],
+   "account": {
+    "billing_hold": true,
+    "arrears_gbp": 60
+   }
+  },
+  "visit": {
+   "visit_date": "2025-08-12",
+   "items_left": [
+    {
+     "sku": "CYL-CD",
+     "qty": 1,
+     "serial": "CD11"
+    },
+    {
+     "sku": "CYL-ZD",
+     "qty": 1,
+     "serial": "ZD07"
+    }
+   ],
+   "install_checks": {
+    "flow_verified": true,
+    "alarm_tested": true,
+    "training_given": true,
+    "completed_at": "11:30"
+   },
+   "patient_signature": null
+  },
+  "site_assessment": {
+   "hazards": [
+    {
+     "code": "NO_SIGN",
+     "status": "open",
+     "fix": "firebreak_fitted"
+    }
+   ]
+  },
+  "equipment": {
+   "concentrator": null,
+   "cylinders_on_site": [
+    {
+     "size": "CD 460 L",
+     "fill_pct": 100
+    },
+    {
+     "size": "ZD 300 L",
+     "fill_pct": 80
+    }
+   ]
+  },
+  "supply_plan": {
+   "next_delivery_date": null
+  }
+ },
+ "factors": {
+  "rx_alignment": "modality_mismatch",
+  "items_shortfall": "one_short",
+  "setup_state": "all_logged",
+  "supply_hours": "about 11.7 usage hours (about 35 calendar hours), cylinders only",
+  "concentrator_fault": false,
+  "fault_mitigated": false,
+  "hazards_found": 1,
+  "hazard_mitigation": false,
+  "hazard_status_missing": false,
+  "handover_gap": true,
+  "timeline_out_of_order": false,
+  "next_delivery": "not_booked",
+  "dependency_level": "nocturnal",
+  "billing_hold": true
+ },
+ "factors_sampled": {
+  "rx_alignment": "exact",
+  "items_shortfall": "one_short",
+  "setup_state": "all_logged",
+  "supply_hours": 195.91,
+  "concentrator_fault": false,
+  "fault_mitigated": false,
+  "hazards_found": 3,
+  "hazard_mitigation": false,
+  "hazard_status_missing": false,
+  "handover_gap": true,
+  "timeline_out_of_order": false,
+  "next_delivery": "not_booked",
+  "dependency_level": "nocturnal",
+  "billing_hold": true
+ },
+ "plan": {
+  "rx_match": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "hold_confirm",
+   "second": null
+  },
+  "fulfilment": {
+   "clarity": "clear",
+   "target": "items_short",
+   "second": null
+  },
+  "supply_runway": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "open_hazards": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  }
+ },
+ "target_words": 51,
+ "deciding": {
+  "rx_match": "Rx is a concentrator at 1 lpm, but only cylinders were left and equipment.concentrator is null. Cylinders could be read as an acceptable interim supply.",
+  "next_step": "patient_signature is null, the concentrator is missing and next_delivery_date is null, so a confirmation call is needed before rebooking.",
+  "fulfilment": "Ordered CONC-3, CYL-CD and CYL-ZD, but only the two cylinders were left.",
+  "supply_runway": "Cylinders hold 460 L plus 240 L, which is 700 L. At 1 lpm for 8 h/day that is about 11.7 usage hours or about 35 calendar hours, at the 12-hour boundary.",
+  "open_hazards": "The one hazard is still status open but carries fix firebreak_fitted, so it counts as one or zero."
+ },
+ "request": "rec-F303-0051",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.017494
+}

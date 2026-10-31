@@ -1,0 +1,142 @@
+{
+ "id": "F338-0058",
+ "family": "F338",
+ "state": {
+  "site": {
+   "id": "O21",
+   "pol": "O3",
+   "tier": "compliance",
+   "int_d": 90,
+   "appr_int_d": 120
+  },
+  "visit": {
+   "date": "2024-08-15",
+   "start": "10:00",
+   "end": "12:10",
+   "seq": "partial"
+  },
+  "reference": {
+   "std_id": "C9035",
+   "conc": 100,
+   "unit": "ppb",
+   "cert_exp": "2025-05-21"
+  },
+  "checks": [
+   {
+    "t": "af_span",
+    "ref_id": "C9035",
+    "ref": 100,
+    "u": "ppb",
+    "rd": 114,
+    "tol": 6,
+    "ts": "10:20"
+   },
+   {
+    "t": "al_zero",
+    "ref_id": "C9035",
+    "ref": 0,
+    "u": "ppb",
+    "rd": 9,
+    "tol": 5,
+    "ts": "11:30"
+   },
+   {
+    "t": "al_span",
+    "ref_id": "C9035",
+    "ref": 100,
+    "u": "ppb",
+    "rd": 88,
+    "tol": 6,
+    "ts": "11:55"
+   }
+  ],
+  "history": {
+   "last": "2024-04-27",
+   "res": [
+    "fail",
+    "fail",
+    "pass",
+    "fail",
+    "fail"
+   ],
+   "auto": [
+    {
+     "d": "2024-08-10",
+     "r": "pass"
+    },
+    {
+     "d": "2024-08-13",
+     "r": "pass"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "pollutant": "O3",
+  "as_found_ratio": 2.33,
+  "as_left_status": "multiple_fail",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 279,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "approved_extended_interval",
+  "days_since_last_visit": 110,
+  "visit_completeness": "multipoint_missing",
+  "prior_fail_count": 4,
+  "timestamp_mismatch": "none",
+  "site_priority": "compliance"
+ },
+ "factors_sampled": {
+  "pollutant": "O3",
+  "as_found_ratio": 2.33,
+  "as_left_status": "all_pass",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 279,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": false,
+  "drift_explanation": "approved_extended_interval",
+  "days_since_last_visit": 110,
+  "visit_completeness": "multipoint_missing",
+  "prior_fail_count": 4,
+  "timestamp_mismatch": "none",
+  "site_priority": "compliance"
+ },
+ "plan": {
+  "data_accepted": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "reference_valid": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "withdraw",
+   "second": null
+  },
+  "flag_extent": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "return_urgency": {
+   "clarity": "balanced",
+   "target": "4",
+   "second": "3"
+  }
+ },
+ "target_words": 65,
+ "deciding": {
+  "data_accepted": "As-found span error of 14 against tolerance 6 is out, which argues for rejection; the passing autochecks and the approved 120-day interval give some support for accepting.",
+  "reference_valid": "The ref_id on every check matches std_id C9035, the units are ppb throughout and the certificate expires 2025-05-21, well after the visit.",
+  "next_step": "Both as-left points fail after adjustment (zero reads 9 against tolerance 5, span 88 against 100 with tolerance 6) and there are 4 prior fails, so the analyser is faulty beyond adjustment.",
+  "flag_extent": "The passing autochecks and the extended interval point to no flagging; the large as-found span error keeps a 1-7 day flag plausible.",
+  "return_urgency": "Compliance-tier site with both as-left points failing and the analyser needing removal calls for same-day or 1-2 day attendance; the passing autochecks leave the two close."
+ },
+ "request": "rec-F338-0056",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.013785
+}

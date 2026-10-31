@@ -1,0 +1,151 @@
+{
+ "id": "F324-0123",
+ "family": "F324",
+ "state": {
+  "zone": {
+   "zone_id": "G7-R3",
+   "dripper_count": 200
+  },
+  "schedule": {
+   "cycles": [
+    {
+     "start": "07:00",
+     "planned_ml_per_dripper": 100
+    },
+    {
+     "start": "10:00",
+     "planned_ml_per_dripper": 100
+    },
+    {
+     "start": "13:00",
+     "planned_ml_per_dripper": 0.1
+    },
+    {
+     "start": "16:00",
+     "planned_ml_per_dripper": 100
+    }
+   ],
+   "drain_target_pct": {
+    "min": 20,
+    "max": 30
+   },
+   "overrides": []
+  },
+  "controller_log": {
+   "spec_bar": 2.0,
+   "cycles": [
+    {
+     "valve_open_s": 300,
+     "delivered_l": 16.6,
+     "line_pressure_bar": 2.0
+    },
+    {
+     "valve_open_s": 300,
+     "delivered_l": 16.8,
+     "line_pressure_bar": null
+    },
+    {
+     "valve_open_s": 300,
+     "delivered_l": 17.0,
+     "line_pressure_bar": null
+    },
+    {
+     "valve_open_s": 300,
+     "delivered_l": 17.2,
+     "line_pressure_bar": 2.0
+    }
+   ],
+   "daily_total_l": 67.6,
+   "meter_total_l": 67.6
+  },
+  "drainage": {
+   "drain_pct": [
+    15.0,
+    15.4
+   ]
+  },
+  "sensors": {
+   "meter_last_calibrated": "2025-01-19"
+  },
+  "maintenance": {
+   "windows": [
+    {
+     "type": "flush",
+     "start": "2025-05-12T08:00",
+     "end": "2025-05-12T09:00"
+    }
+   ],
+   "recent_work_orders": [
+    "2025-04-28",
+    "2025-03-02",
+    "2024-11-15"
+   ]
+  }
+ },
+ "factors": {
+  "delivery_shortfall_pct": 15.52,
+  "mismatch_location": "unit_mismatch",
+  "fault_cause": "emitter_clogging",
+  "approved_override": false,
+  "maintenance_window_active": false,
+  "drain_offset_points": -4.8,
+  "off_tolerance_cycles": 4,
+  "meter_calibration_age_days": 121,
+  "confirmation_pending": false,
+  "pressure_state": "partly_missing",
+  "benign_alarm_decoy": "none",
+  "recent_work_orders": 3
+ },
+ "factors_sampled": {
+  "delivery_shortfall_pct": 15.52,
+  "mismatch_location": "unit_mismatch",
+  "fault_cause": "emitter_clogging",
+  "approved_override": true,
+  "maintenance_window_active": true,
+  "drain_offset_points": 3.81,
+  "off_tolerance_cycles": 1,
+  "meter_calibration_age_days": 121,
+  "confirmation_pending": true,
+  "pressure_state": "partly_missing",
+  "benign_alarm_decoy": "none",
+  "recent_work_orders": 3
+ },
+ "plan": {
+  "under_dosed": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "emitter_clogging": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "next_action": {
+   "clarity": "leaning",
+   "target": "adjust_schedule",
+   "second": null
+  },
+  "drain_deviation": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  },
+  "off_plan_cycles": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 55,
+ "deciding": {
+  "under_dosed": "Delivered 67.6 L vs 80 L planned (200 x 100 mL x 4) is 84.5%, no overrides, meter equals controller; the only window is on another date.",
+  "emitter_clogging": "Valve open is full 300 s and pressure is 2.0 where recorded, with low delivery and low drain pointing to clogging, but two pressure readings are null so low supply cannot be ruled out.",
+  "next_action": "Shortfall is consistent across cycles and calibration is recent; drain is low, so a dose change fits, with the missing pressures a reason for some doubt.",
+  "drain_deviation": "Drain mean 15.2% vs band 20-30 is 4.8 points under, just inside level 1 and near the 5-point boundary.",
+  "off_plan_cycles": "Every cycle delivered 16.6-17.2 L vs 20 L planned (more than 10% under) for 4; but cycle 3 plans 0.1 where mL is expected (a units slip), so some would count only 3."
+ },
+ "request": "rec-F324-0121",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.014522
+}

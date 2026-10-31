@@ -1,0 +1,110 @@
+{
+ "id": "F304-0036",
+ "family": "F304",
+ "state": {
+  "request": {
+   "ref": "T101",
+   "appt_type": "dialysis",
+   "appt_time": "2025-05-14T10:00",
+   "vehicle_class": "bariatric_wc",
+   "crew_requested": "clinical_escort",
+   "mobility_booked": "wheelchair",
+   "pickup": "14 Elm Rd"
+  },
+  "patient": {
+   "mobility_assessed": "wheelchair",
+   "assessed_on": "2025-05-02",
+   "weight_kg": 172,
+   "oxygen_lpm": 0,
+   "monitoring": "cardiac",
+   "exemption": {
+    "code": "DX1",
+    "approved_by": "TM",
+    "approved_on": "2024-11-01"
+   }
+  },
+  "journey": {
+   "window_end": "2025-05-14T08:00",
+   "est_duration_min": 30,
+   "manual_est_min": null,
+   "late_tolerance_min": 15,
+   "destination": {
+    "reslot_same_day": true
+   }
+  },
+  "history": [],
+  "notes": {
+   "ward_note": "Pt now staying at 41 Mill Lane."
+  }
+ },
+ "factors": {
+  "mobility_alignment": "matches",
+  "secondary_discrepancy": "address_material",
+  "eligibility_concern": false,
+  "eligibility_exception": true,
+  "clinical_support": "cardiac_monitoring_bariatric_weight",
+  "crew_request_gap": "under_one_step",
+  "buffer_minutes": 90.0,
+  "duration_estimate_split": false,
+  "late_tolerance": true,
+  "appointment_type": "dialysis",
+  "same_day_reslot": true,
+  "confirmation_pending": false,
+  "prior_aborts": 0,
+  "aborts_related": false
+ },
+ "factors_sampled": {
+  "mobility_alignment": "stale",
+  "secondary_discrepancy": "address_material",
+  "eligibility_concern": false,
+  "eligibility_exception": true,
+  "clinical_support": "cardiac_monitoring",
+  "crew_request_gap": "under_one_step",
+  "buffer_minutes": 32.68,
+  "duration_estimate_split": false,
+  "late_tolerance": true,
+  "appointment_type": "dialysis",
+  "same_day_reslot": false,
+  "confirmation_pending": true,
+  "prior_aborts": 0,
+  "aborts_related": true
+ },
+ "plan": {
+  "vehicle_fit": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "disposition": {
+   "clarity": "clear",
+   "target": "amend_confirm",
+   "second": null
+  },
+  "crew_config": {
+   "clarity": "leaning",
+   "target": "specialist_team",
+   "second": null
+  },
+  "time_pressure": {
+   "clarity": "contested",
+   "target": "1",
+   "second": "0"
+  },
+  "delay_impact": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 62,
+ "deciding": {
+  "vehicle_fit": "Wheelchair assessed 12 days before appointment and bariatric wheelchair vehicle booked; fits, with slight doubt from weight.",
+  "disposition": "Pickup 14 Elm Rd conflicts with ward_note address 41 Mill Lane; no null confirmations, so fix then dispatch.",
+  "crew_config": "weight_kg 172 is over the 160 kg limit, with cardiac monitoring; specialist team, though requested crew is clinical_escort.",
+  "time_pressure": "Window_end 08:00 plus 30 min journey leaves exactly 90 min before 10:00, on the boundary between levels 0 and 1.",
+  "delay_impact": "Dialysis with reslot_same_day true and 15 min late tolerance; moderate (level 1) versus routine (level 0) is open."
+ },
+ "request": "rec-F304-0036",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.01213
+}

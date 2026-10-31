@@ -1,0 +1,164 @@
+{
+ "id": "F314-0017",
+ "family": "F314",
+ "state": {
+  "property": {
+   "inv": [
+    {
+     "id": "B1",
+     "type": "boiler",
+     "loc": "kitchen",
+     "sn": "S4411",
+     "own": "landlord",
+     "installed": "2015-03-01"
+    },
+    {
+     "id": "H1",
+     "type": "hob",
+     "loc": "kitchen",
+     "sn": "H90",
+     "own": "landlord"
+    },
+    {
+     "id": "C1",
+     "type": "cooker",
+     "loc": "utility",
+     "sn": "C07",
+     "own": "tenant"
+    }
+   ]
+  },
+  "tenancy": {
+   "start": "2022-05-01",
+   "review": "2025-03-12"
+  },
+  "certificate": {
+   "insp": "2024-03-12",
+   "issue": "2024-03-11",
+   "expiry": "2025-03-12",
+   "lic": "G77",
+   "outcome": "pass"
+  },
+  "engineer": {
+   "lic": "G77",
+   "valid_from": "2021-01-01",
+   "valid_to": "2026-01-01",
+   "cat": [
+    "boiler",
+    "hob",
+    "cooker"
+   ]
+  },
+  "appliance_checks": [
+   {
+    "id": "B1",
+    "loc": "kitchen",
+    "sn": "S4411",
+    "ratio": 0.009,
+    "thr": 0.008,
+    "retest": 0.006,
+    "defect": "NCS",
+    "iso": null
+   },
+   {
+    "id": "H1",
+    "loc": "kitchen",
+    "sn": "H90",
+    "defect": "AR",
+    "iso": {
+     "supply_off": true,
+     "capped": true,
+     "label": "L2",
+     "ack": null
+    }
+   }
+  ],
+  "history": {
+   "prior": [
+    {
+     "date": "2023-03-10",
+     "defects": [
+      "B1"
+     ]
+    },
+    {
+     "date": "2022-03-08",
+     "defects": [
+      "B1",
+      "B1"
+     ]
+    }
+   ],
+   "booking": {
+    "date": "2025-03-20",
+    "status": "booked"
+   }
+  }
+ },
+ "factors": {
+  "inventory_mismatch": "missing_from_cert",
+  "tenant_owned_appliance": true,
+  "date_misalignment": "issued_before_inspection",
+  "days_to_true_expiry": 0,
+  "renewal_booked": true,
+  "engineer_status": "active_matching",
+  "worst_defect_class": "AR",
+  "defect_isolated": true,
+  "remedial_completed": false,
+  "combustion_reading": "high_retest_pass",
+  "prior_defect_count": 3,
+  "boundary_case": true
+ },
+ "factors_sampled": {
+  "inventory_mismatch": "missing_from_cert",
+  "tenant_owned_appliance": true,
+  "date_misalignment": "issued_before_inspection",
+  "days_to_true_expiry": 280,
+  "renewal_booked": true,
+  "engineer_status": "active_matching",
+  "worst_defect_class": "ncs",
+  "defect_isolated": false,
+  "remedial_completed": false,
+  "combustion_reading": "high_retest_pass",
+  "prior_defect_count": 3,
+  "boundary_case": false
+ },
+ "plan": {
+  "covers_all_appliances": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "engineer_valid": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "balanced",
+   "target": "accept_with_works",
+   "second": "hold"
+  },
+  "renewal_urgency": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "open_hazard": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  }
+ },
+ "target_words": 163,
+ "deciding": {
+  "covers_all_appliances": "Only C1 is absent from the checks and it is tenant-owned, which excuses it; the missing check still leaves some doubt.",
+  "engineer_valid": "Licence G77 matches, registration runs to 2026-01-01, and categories cover boiler, hob and cooker.",
+  "next_step": "Open defects are one NCS and one isolated AR hob, so scheduled works fit; the missing C1 check and the issue date before inspection make hold plausible.",
+  "renewal_urgency": "Inspection 2024-03-12 plus 12 months equals the review date 2025-03-12, so expiry is reached today; a later booking could read as days remaining.",
+  "open_hazard": "H1 is AR with supply off and capped, but the acknowledgement is null; B1 is only NCS. Level 2 or level 1 are both defensible."
+ },
+ "request": "rec-F314-0016",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.018406
+}

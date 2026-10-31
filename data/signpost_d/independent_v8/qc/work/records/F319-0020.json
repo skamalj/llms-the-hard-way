@@ -1,0 +1,146 @@
+{
+ "id": "F319-0020",
+ "family": "F319",
+ "state": {
+  "asset": {
+   "site": "Norvik",
+   "turbine_id": "T09",
+   "blade_pos": "C",
+   "blade_serial": "BL-7741"
+  },
+  "inspection": {
+   "date": "2025-05-12",
+   "method": "drone",
+   "zones": [
+    {
+     "z": "LE",
+     "image_count": 28,
+     "quality_score": 0.8
+    },
+    {
+     "z": "PS",
+     "image_count": 26,
+     "quality_score": 0.85
+    }
+   ],
+   "inspector_note": "Paint loss patches on pressure side; spar cap region shows exposed material in one patch."
+  },
+  "findings": [
+   {
+    "zone": "PS",
+    "radius_m": 18,
+    "chord_pos": 0.4,
+    "length_mm": 180,
+    "depth_mm": 4.5,
+    "laminate_thickness_mm": 12,
+    "layers_affected": 3,
+    "spar_cap_affected": true,
+    "core_visible": false,
+    "flags": [
+     "paint_loss"
+    ],
+    "remark": "Paint loss over spar cap"
+   },
+   {
+    "zone": "PS",
+    "radius_m": 9,
+    "length_mm": 10,
+    "depth_mm": 0.1,
+    "flags": [
+     "paint_chip"
+    ]
+   },
+   {
+    "zone": "PS",
+    "radius_m": 11,
+    "length_mm": 6,
+    "depth_mm": 0.1,
+    "flags": [
+     "paint_chip"
+    ]
+   }
+  ],
+  "history": {
+   "previous": null,
+   "repairs": []
+  },
+  "maintenance": {
+   "lps": {
+    "result": "pass"
+   },
+   "curtailment": {
+    "active": true,
+    "rpm_limit": 10
+   },
+   "work_note": "Curtailed pending review."
+  }
+ },
+ "factors": {
+  "worst_depth": "core",
+  "mechanism": "coating_wear",
+  "growth_state": "no_baseline",
+  "baseline_defect": "valid",
+  "coverage_gap": false,
+  "mitigation_present": true,
+  "mitigation_type": "curtailed",
+  "lps_result": "pass",
+  "repair_state": "none",
+  "boundary_case": false,
+  "note_tone": "neutral",
+  "finding_count": 3,
+  "season_exposure": false
+ },
+ "factors_sampled": {
+  "worst_depth": "laminate",
+  "mechanism": "structural",
+  "growth_state": "no_baseline",
+  "baseline_defect": "valid",
+  "coverage_gap": false,
+  "mitigation_present": true,
+  "mitigation_type": "curtailed",
+  "lps_result": "pass",
+  "repair_state": "none",
+  "boundary_case": false,
+  "note_tone": "neutral",
+  "finding_count": 8,
+  "season_exposure": false
+ },
+ "plan": {
+  "damage_worsened": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "disposition": {
+   "clarity": "leaning",
+   "target": "no_action",
+   "second": null
+  },
+  "damage_mechanism": {
+   "clarity": "clear",
+   "target": "coating_wear",
+   "second": null
+  },
+  "defect_depth": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  },
+  "repair_urgency": {
+   "clarity": "balanced",
+   "target": "4",
+   "second": "3"
+  }
+ },
+ "target_words": 147,
+ "deciding": {
+  "damage_worsened": "history.previous is null, so there is no baseline; worsening cannot be shown.",
+  "disposition": "spar_cap_affected true and curtailment active, so no_action is not supported; plan conflicts with record.",
+  "damage_mechanism": "paint_loss flag on PS away from LE, no erosion pattern: coating_wear.",
+  "defect_depth": "spar_cap_affected true: core level.",
+  "repair_urgency": "Spar cap damage under curtailment: immediate versus within four weeks."
+ },
+ "request": "rec-F319-0016",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.005379
+}

@@ -1,0 +1,130 @@
+{
+ "id": "F338-0130",
+ "family": "F338",
+ "state": {
+  "site": {
+   "pol": "NO2",
+   "tier": "indicative"
+  },
+  "visit": {
+   "date": "2025-09-09",
+   "seq": "partial"
+  },
+  "reference": {
+   "id": "N-5560",
+   "conc": 400,
+   "unit": "ppb",
+   "cert_expiry": "2026-01-19"
+  },
+  "checks": [
+   {
+    "t": "as_found",
+    "type": "span",
+    "ref_id": "N-5560",
+    "ref": 400,
+    "unit": "ppb",
+    "read": 507,
+    "tol": 40
+   },
+   {
+    "t": "as_left",
+    "type": "zero",
+    "ref_id": "N-5560",
+    "ref": 0,
+    "unit": "ppb",
+    "read": 1,
+    "tol": 5
+   },
+   {
+    "t": "as_left",
+    "type": "span",
+    "ref_id": "N-5560",
+    "ref": 400,
+    "unit": "ppb",
+    "read": 468,
+    "tol": 40
+   }
+  ],
+  "history": {
+   "last": "2025-07-29",
+   "results": [
+    "pass",
+    "pass"
+   ],
+   "autochecks": [
+    {
+     "d": "2025-08-01",
+     "r": "fail"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "pollutant": "NO2",
+  "as_found_ratio": 2.67,
+  "as_left_status": "one_point_fail",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 132,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": false,
+  "drift_explanation": "none",
+  "days_since_last_visit": 42,
+  "visit_completeness": "multipoint_missing",
+  "prior_fail_count": 0,
+  "timestamp_mismatch": "none",
+  "site_priority": "indicative"
+ },
+ "factors_sampled": {
+  "pollutant": "NO2",
+  "as_found_ratio": 2.67,
+  "as_left_status": "all_pass",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 132,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": false,
+  "drift_explanation": "none",
+  "days_since_last_visit": 42,
+  "visit_completeness": "multipoint_missing",
+  "prior_fail_count": 0,
+  "timestamp_mismatch": "none",
+  "site_priority": "indicative"
+ },
+ "plan": {
+  "data_accepted": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "reference_valid": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "withdraw",
+   "second": null
+  },
+  "flag_extent": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  },
+  "return_urgency": {
+   "clarity": "leaning",
+   "target": "0",
+   "second": null
+  }
+ },
+ "target_words": 45,
+ "deciding": {
+  "data_accepted": "The as-found span reads 507 against 400 (deviation 107, tol 40) and the autocheck fails on 2025-08-01 with no passes after, so data cannot be accepted.",
+  "reference_valid": "The ref_ids match, the units are ppb throughout, and expiry 2026-01-19 is well after the visit date.",
+  "next_step": "The as-left span still deviates 68 against tol 40 after adjustment, which is beyond site adjustment, so the analyser is removed for repair.",
+  "flag_extent": "The autocheck fail came 3 days after the last visit and no passes followed, so the drift spans all 42 days since the last visit. The flag window of 8-30 days versus over 30 days is open.",
+  "return_urgency": "The analyser is withdrawn to the workshop at an indicative-tier site and no further site attendance is stated, so routine fits. Some doubt remains."
+ },
+ "request": "rec-F338-0126",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.0108
+}

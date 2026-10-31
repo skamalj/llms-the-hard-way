@@ -1,0 +1,104 @@
+{
+ "id": "F340-0009",
+ "family": "F340",
+ "state": {
+  "booking": {
+   "dog_name": "Rex",
+   "microchip": "900200003344115",
+   "checkin": "2025-07-01",
+   "checkout": "2025-07-08",
+   "owner_contact": {
+    "reachable_during_stay": false
+   }
+  },
+  "declaration": {
+   "weight_kg": 30.5,
+   "conditions": []
+  },
+  "vaccination": {
+   "chip_on_cert": "900200003341415",
+   "name_on_cert": "Rolo",
+   "core_expiry": "2025-08-23",
+   "titre_result": null
+  },
+  "vet_history": {
+   "known_conditions": [
+    "mild heart murmur"
+   ]
+  },
+  "arrival_check": {
+   "measured_weight_kg": 32.9,
+   "cough": false,
+   "temp_c": 38.6,
+   "prior_stay_incidents": 3
+  }
+ },
+ "factors": {
+  "vacc_expiry_offset_days": 46,
+  "titre_exemption_on_file": false,
+  "certificate_id_mismatch": "transposed_digit",
+  "arrival_cough_observed": false,
+  "cough_benign_explanation": "none",
+  "weight_discrepancy_pct": 7.87,
+  "medication_state": "none_needed",
+  "next_dose_hours": "not applicable",
+  "neuter_status_conflict": false,
+  "owner_reachable": false,
+  "prior_incident_count": 3,
+  "note_tone": "neutral",
+  "balanced_signals": false
+ },
+ "factors_sampled": {
+  "vacc_expiry_offset_days": 46,
+  "titre_exemption_on_file": false,
+  "certificate_id_mismatch": "transposed_digit",
+  "arrival_cough_observed": false,
+  "cough_benign_explanation": "none",
+  "weight_discrepancy_pct": 7.87,
+  "medication_state": "none_needed",
+  "next_dose_hours": 20,
+  "neuter_status_conflict": false,
+  "owner_reachable": false,
+  "prior_incident_count": 3,
+  "note_tone": "neutral",
+  "balanced_signals": false
+ },
+ "plan": {
+  "vacc_cover_valid": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "declaration_consistent": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "admission_disposition": {
+   "clarity": "clear",
+   "target": "refuse",
+   "second": null
+  },
+  "discrepancy_count": {
+   "clarity": "contested",
+   "target": "0",
+   "second": "1"
+  },
+  "action_urgency": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 66,
+ "deciding": {
+  "vacc_cover_valid": "The cert chip 900200003341415 differs from booking 900200003344115 and the name is Rolo, not Rex, so the certificate cannot be matched to this dog despite a later expiry.",
+  "declaration_consistent": "Vet history lists a heart murmur not declared (conditions empty); the weight gap is only 7.87% and does not conflict.",
+  "admission_disposition": "Wrong dog's certificate, no titre and owner unreachable, so refuse.",
+  "discrepancy_count": "Counting depends on whether the cert mismatch and the undeclared murmur are treated as booking-level problems or as cross-section mismatches; the weight gap is within tolerance.",
+  "action_urgency": "The dog is being refused and sent home, so no action is needed during a stay; a reader could still see a follow-up on the certificate."
+ },
+ "request": "rec-F340-0006",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012677
+}

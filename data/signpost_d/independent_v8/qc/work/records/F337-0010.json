@@ -1,0 +1,133 @@
+{
+ "id": "F337-0010",
+ "family": "F337",
+ "state": {
+  "station": {
+   "channels": [
+    {
+     "cha": "BHZ",
+     "sensor_serial": "N7731",
+     "response_epoch_start": "2024-07-08"
+    }
+   ]
+  },
+  "acquisition": {
+   "day": "2024-08-10",
+   "run": "2024-09-09",
+   "channel_hours_expected": 72,
+   "completeness_pct": 88.1,
+   "gaps": [
+    {
+     "cha": "BHZ",
+     "start": "02:00",
+     "end": "08:30"
+    },
+    {
+     "cha": "BHN",
+     "start": "14:00",
+     "end": "20:00"
+    }
+   ],
+   "gps_lock_pct": 86
+  },
+  "qc_metrics": {
+   "channels": [
+    {
+     "cha": "BHE",
+     "dead": true,
+     "psd_dev_db": 22.9
+    }
+   ],
+   "cal_pulse": {
+    "date": "2024-08-10",
+    "result": "pass"
+   }
+  },
+  "maintenance_log": [
+   {
+    "date": "2024-07-09",
+    "action": "sensor_swap",
+    "sensor_serial_installed": "N7731"
+   },
+   {
+    "action": "outage",
+    "outage_start": "2024-08-10T02:00",
+    "outage_end": "2024-08-10T08:30"
+   },
+   {
+    "action": "telemetry_fault",
+    "outage_start": "2024-08-10T14:05",
+    "outage_end": "2024-08-10T20:00"
+   }
+  ],
+  "operator_notes": [
+   "Generator ran 09:00-15:00 beside vault."
+  ]
+ },
+ "factors": {
+  "sensor_metadata_state": "swap_stale",
+  "maintenance_log_present": true,
+  "gap_coverage": "minor_overrun",
+  "true_usable_fraction": 0.49,
+  "completeness_summary_drift": 5.48,
+  "timing_quality": "intermittent",
+  "calibration_status": "passed",
+  "noise_excess_db": 22.91,
+  "benign_noise_cause_logged": true,
+  "operator_note_consistency": "consistent",
+  "dead_channels": 1,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "sensor_metadata_state": "swap_updated",
+  "maintenance_log_present": false,
+  "gap_coverage": "some_unlogged",
+  "true_usable_fraction": 0.31,
+  "completeness_summary_drift": 5.48,
+  "timing_quality": "intermittent",
+  "calibration_status": "passed",
+  "noise_excess_db": 22.91,
+  "benign_noise_cause_logged": true,
+  "operator_note_consistency": "consistent",
+  "dead_channels": 1,
+  "boundary_case": false
+ },
+ "plan": {
+  "response_valid": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "gaps_explained": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "disposition": {
+   "clarity": "clear",
+   "target": "hold",
+   "second": null
+  },
+  "usable_fraction": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "pending_age": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  }
+ },
+ "target_words": 47,
+ "deciding": {
+  "response_valid": "The serial N7731 matches the swap, but the response epoch 2024-07-08 is a day before the logged swap date 2024-07-09, so the metadata is possibly stale.",
+  "gaps_explained": "The BHZ gap matches its outage exactly and the BHN gap overlaps the telemetry fault but begins 5 minutes earlier, leaving a slight doubt.",
+  "disposition": "GPS lock is 86%, so timing is not lost, and the epoch-versus-swap-date discrepancy is a single item needing confirmation, which means hold.",
+  "usable_fraction": "The dead BHE (24 h) and 12.5 h of gaps leave about 35.5 of 72 channel-hours, about 49%, right at the 50% boundary; completeness_pct 88.1 is inflated.",
+  "pending_age": "Day 2024-08-10 against run 2024-09-09 is exactly 30 days, at the edge between levels 2 and 3."
+ },
+ "request": "rec-F337-0006",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011958
+}

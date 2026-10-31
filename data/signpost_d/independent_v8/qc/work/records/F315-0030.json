@@ -1,0 +1,112 @@
+{
+ "id": "F315-0030",
+ "family": "F315",
+ "state": {
+  "report": {
+   "ref": "F5",
+   "received_at": "2025-09-12",
+   "source": "public_web",
+   "units_reported": [
+    "c1",
+    "c2",
+    "c3",
+    "c4",
+    "c5"
+   ]
+  },
+  "asset": {
+   "site_category": "residential",
+   "planned_works": {
+    "work_type": "resurfacing",
+    "window_start": "2025-09-08",
+    "window_end": "2025-09-19"
+   }
+  },
+  "cms": {
+   "status_code": "LF",
+   "last_comms_at": "2025-09-12"
+  },
+  "history": [
+   {
+    "job_ref": "J20",
+    "completed": "2025-03-26"
+   }
+  ],
+  "job": {
+   "stage": "RECT",
+   "completed_at": "2025-09-13"
+  },
+  "supply": {
+   "dno_incident_ref": null,
+   "feeder_units_dark": 5
+  }
+ },
+ "factors": {
+  "dark_unit_count": 5,
+  "dno_incident_logged": false,
+  "cms_state": "lamp_fail",
+  "days_since_last_repair": 170,
+  "last_repair_state": "completed",
+  "hazard_observed": "none",
+  "hazard_made_safe": false,
+  "site_category": "residential",
+  "planned_works_active": true,
+  "current_job_stage": "rectified_unconfirmed",
+  "dates_out_of_order": false,
+  "duplicate_of_open_job": false,
+  "report_source": "public_web"
+ },
+ "factors_sampled": {
+  "dark_unit_count": 5,
+  "dno_incident_logged": false,
+  "cms_state": "lamp_fail",
+  "days_since_last_repair": 170,
+  "last_repair_state": "completed",
+  "hazard_observed": "none",
+  "hazard_made_safe": false,
+  "site_category": "residential",
+  "planned_works_active": true,
+  "current_job_stage": "rectified_unconfirmed",
+  "dates_out_of_order": false,
+  "duplicate_of_open_job": false,
+  "report_source": "public_web"
+ },
+ "plan": {
+  "supply_side_fault": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "repeat_failure": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "next_action": {
+   "clarity": "clear",
+   "target": "routine_repair",
+   "second": null
+  },
+  "source_support": {
+   "clarity": "contested",
+   "target": "1",
+   "second": "2"
+  },
+  "repair_progress": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  }
+ },
+ "target_words": 42,
+ "deciding": {
+  "supply_side_fault": "feeder_units_dark is 5 with 5 ids reported, which indicates a supply fault, but dno_incident_ref is null and resurfacing works could be an alternative cause.",
+  "repeat_failure": "J20 was completed 2025-03-26, 170 days before the report received on 2025-09-12, well outside the 84-day window.",
+  "next_action": "cms LF confirms the fault, there is no hazard code and the site is residential, so a standard repair applies.",
+  "source_support": "Only the public web report and cms LF corroborate the fault, and the feeder count is not an independent confirmation, so it could be 1 or 2 sources.",
+  "repair_progress": "job.stage RECT with completed_at 2025-09-13 and no cms OK reading or scout entry after it, so the fix is recorded but unconfirmed."
+ },
+ "request": "rec-F315-0026",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.010369
+}

@@ -1,0 +1,185 @@
+{
+ "id": "F318-0051",
+ "family": "F318",
+ "state": {
+  "work_order": {
+   "visit_type": "reactive_callout",
+   "tasks": [
+    {
+     "task_id": 1,
+     "asset_ref": "PD2"
+    },
+    {
+     "task_id": 2,
+     "asset_ref": "PD2"
+    },
+    {
+     "task_id": 3,
+     "asset_ref": "GT1"
+    },
+    {
+     "task_id": 4,
+     "asset_ref": "GT1"
+    },
+    {
+     "task_id": 5,
+     "asset_ref": "SL3"
+    },
+    {
+     "task_id": 6,
+     "asset_ref": "SL3"
+    }
+   ],
+   "nav_notice": {
+    "in_force": true,
+    "to": "2025-06-30",
+    "scope_assets": [
+     "PD2"
+    ]
+   }
+  },
+  "visit_log": {
+   "arrived": "2025-06-10T08:00",
+   "departed": "2025-06-10T12:00",
+   "crew_size": 2,
+   "timesheet_hours": 4.19,
+   "task_status": [
+    {
+     "task_id": 1,
+     "status": "done"
+    },
+    {
+     "task_id": 2,
+     "status": "done"
+    },
+    {
+     "task_id": 3,
+     "status": "done"
+    },
+    {
+     "task_id": 4,
+     "status": "not_started",
+     "deferral_ref": null
+    },
+    {
+     "task_id": 5,
+     "status": "done"
+    },
+    {
+     "task_id": 6,
+     "status": "not_started",
+     "deferral_ref": null
+    }
+   ]
+  },
+  "materials": {
+   "issued": [
+    {
+     "part_no": "S41",
+     "qty": 6
+    }
+   ],
+   "returned": [
+    {
+     "part_no": "S41",
+     "qty": 2
+    }
+   ],
+   "fitted": [
+    {
+     "part_no": "S41",
+     "qty": 3
+    }
+   ]
+  },
+  "checks": {
+   "post_checks": [
+    {
+     "asset_ref": "PD2",
+     "result": "fail"
+    }
+   ],
+   "leakage_ls": 7,
+   "leakage_limit_ls": 4,
+   "river_level_m": 3.4,
+   "flood_marker_m": 3.1
+  },
+  "asset_history": {
+   "prior_visits": [
+    {
+     "date": "2024-11-02",
+     "asset_ref": "PD2",
+     "defect_code": "LK"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "visit_type": "reactive_callout",
+  "tasks_ordered": 6,
+  "completion_state": "some_outstanding",
+  "parts_qty_mismatch": "moderate",
+  "hours_gap": 3.81,
+  "asset_ref_mismatch": false,
+  "post_check_result": "failed",
+  "leakage_ratio": 1.75,
+  "leakage_mitigation": true,
+  "navigation_notice_in_force": true,
+  "deferral_approved": false,
+  "prior_same_defect": 1,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "visit_type": "reactive_callout",
+  "tasks_ordered": 6,
+  "completion_state": "some_outstanding",
+  "parts_qty_mismatch": "moderate",
+  "hours_gap": 3.81,
+  "asset_ref_mismatch": false,
+  "post_check_result": "failed",
+  "leakage_ratio": 1.75,
+  "leakage_mitigation": true,
+  "navigation_notice_in_force": true,
+  "deferral_approved": false,
+  "prior_same_defect": 1,
+  "boundary_case": false
+ },
+ "plan": {
+  "safe_to_reopen": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "record_disposition": {
+   "clarity": "leaning",
+   "target": "hold_query",
+   "second": null
+  },
+  "return_urgency": {
+   "clarity": "contested",
+   "target": "within_month",
+   "second": "immediate"
+  },
+  "affected_scope": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "section_mismatches": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  }
+ },
+ "target_words": 42,
+ "deciding": {
+  "safe_to_reopen": "PD2 post-check is fail and two tasks are not started, but river 3.4m is above the 3.1m flood marker, which explains the high leakage; nav notice covers PD2.",
+  "record_disposition": "Not-started tasks have null deferral refs, parts differ, and hours are short; one point needs crew confirmation.",
+  "return_urgency": "Failed PD2 with leakage 1.75x limit is flood-mitigated, so within_month is plausible; the failed check keeps immediate defensible.",
+  "affected_scope": "One lock with a single failed gate asset, PD2, so one unit; the nav notice could affect a few boats.",
+  "section_mismatches": "Part S41 issued 6, returned 2, fitted 3 is unexplained; timesheet 4.19h vs 8h span is a second, though it could be read as one."
+ },
+ "request": "rec-F318-0051",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.006245
+}

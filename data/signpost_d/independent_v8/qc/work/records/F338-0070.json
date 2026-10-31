@@ -1,0 +1,162 @@
+{
+ "id": "F338-0070",
+ "family": "F338",
+ "state": {
+  "site": {
+   "pollutant": "NO2",
+   "tier": "standard",
+   "service_interval_days": 90,
+   "approved_interval_days": 90
+  },
+  "visit": {
+   "date": "2025-02-11",
+   "start": "10:15",
+   "end": "11:05",
+   "sequence_status": "partial",
+   "maintenance_window": true
+  },
+  "reference": {
+   "standard_id": "NO2-7716",
+   "conc": 200,
+   "unit": "ppb",
+   "cert_no": "QA-60214",
+   "cert_expiry": "2026-01-27"
+  },
+  "checks": [
+   {
+    "phase": "as_found",
+    "type": "zero",
+    "ref_id": "NO2-7716",
+    "ref_conc": 0,
+    "unit": "ppb",
+    "reading": 2.1,
+    "tol": 10,
+    "ts": "2025-02-11T10:25"
+   },
+   {
+    "phase": "as_found",
+    "type": "span",
+    "ref_id": "NO2-7716",
+    "ref_conc": 200,
+    "unit": "ppb",
+    "reading": 222,
+    "tol": 10,
+    "ts": "2025-02-11T10:35"
+   },
+   {
+    "phase": "as_left",
+    "type": "zero",
+    "ref_id": "NO2-7716",
+    "ref_conc": 0,
+    "unit": "ppb",
+    "reading": 0.8,
+    "tol": 10,
+    "ts": "2025-02-11T10:55"
+   },
+   {
+    "phase": "as_left",
+    "type": "span",
+    "ref_id": "NO2-7716",
+    "ref_conc": 200,
+    "unit": "ppb",
+    "reading": 201,
+    "tol": 10,
+    "ts": "2025-02-11T11:12"
+   }
+  ],
+  "history": {
+   "last_visit_date": "2024-10-18",
+   "results": [
+    "pass",
+    "fail",
+    "pass",
+    "fail",
+    "pass"
+   ],
+   "autochecks": [
+    {
+     "d": "2025-01-20",
+     "result": "pass"
+    },
+    {
+     "d": "2025-02-07",
+     "result": "pass"
+    }
+   ]
+  },
+  "instrument": {
+   "serial": "N2-1190",
+   "firmware": "3.4.1",
+   "enclosure_temp_min": 12,
+   "enclosure_temp_max": 34
+  }
+ },
+ "factors": {
+  "pollutant": "NO2",
+  "as_found_ratio": 2.19,
+  "as_left_status": "all_pass",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 350,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "maintenance_window",
+  "days_since_last_visit": 116,
+  "visit_completeness": "multipoint_missing",
+  "prior_fail_count": 2,
+  "timestamp_mismatch": "minutes_outside",
+  "site_priority": "standard"
+ },
+ "factors_sampled": {
+  "pollutant": "NO2",
+  "as_found_ratio": 2.19,
+  "as_left_status": "all_pass",
+  "cylinder_id_mismatch": "different_standard",
+  "cert_expiry_offset_days": 350,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "maintenance_window",
+  "days_since_last_visit": 116,
+  "visit_completeness": "multipoint_missing",
+  "prior_fail_count": 2,
+  "timestamp_mismatch": "minutes_outside",
+  "site_priority": "standard"
+ },
+ "plan": {
+  "data_accepted": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "reference_valid": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "withdraw",
+   "second": null
+  },
+  "flag_extent": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  },
+  "return_urgency": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 111,
+ "deciding": {
+  "data_accepted": "As-found span 222 vs 200 with tol 10 is out, but autochecks pass to 2025-02-07, enclosure max 34 and the maintenance window flag explain the drift, and as-left passes.",
+  "reference_valid": "All ref_id values equal standard_id NO2-7716, units are ppb throughout, and the certificate runs to 2026-01-27.",
+  "next_step": "Span error of over twice tolerance after 116 days, a partial sequence with no precision point, and a high enclosure temperature suggest an analyser fault, though as-left points pass, so withdrawal is only leaned toward.",
+  "flag_extent": "Autochecks pass until a few days before the visit but the as-found span is well out over 116 days, so 1-7 days or 8-30 days are both plausible.",
+  "return_urgency": "The as-left span timestamp 11:12 is after visit end 11:05 and the multipoint check is missing, making a 1-2 day return versus 3-7 days a genuine split."
+ },
+ "request": "rec-F338-0066",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.01342
+}

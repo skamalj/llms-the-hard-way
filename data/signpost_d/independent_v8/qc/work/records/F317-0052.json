@@ -1,0 +1,150 @@
+{
+ "id": "F317-0052",
+ "family": "F317",
+ "state": {
+  "vehicle": {
+   "fleet_no": 3302,
+   "class": "T2",
+   "odometer_km": 49510,
+   "last_exam_date": "2024-01-15"
+  },
+  "exam": {
+   "exam_id": "E58",
+   "exam_type": "G2",
+   "due_at_km": 50000,
+   "items": [
+    {
+     "item_code": "A1",
+     "result": "pass",
+     "signed_by": "k12",
+     "signed_at": "2024-06-03T09:00"
+    },
+    {
+     "item_code": "A2",
+     "result": "pass",
+     "signed_by": "k12",
+     "signed_at": "2024-06-03T09:20"
+    },
+    {
+     "item_code": "A3",
+     "result": "pass",
+     "signed_by": "k09",
+     "signed_at": null
+    },
+    {
+     "item_code": "A4",
+     "result": null,
+     "signed_by": null,
+     "signed_at": null
+    },
+    {
+     "item_code": "A5",
+     "result": null,
+     "signed_by": null,
+     "signed_at": null
+    }
+   ]
+  },
+  "defects": [
+   {
+    "defect_id": "D310",
+    "fleet_no": 3302,
+    "subsystem": "running_gear",
+    "safety_critical": true,
+    "raised_at": "2024-05-28",
+    "status": "closed",
+    "closed_at": "2024-06-02",
+    "retest_at": "2024-06-01",
+    "retest_result": "pass"
+   }
+  ],
+  "work_orders": [
+   {
+    "wo_id": "W210",
+    "defect_ref": "D310",
+    "subsystem": "running_gear",
+    "completed_at": "2024-06-02",
+    "status": "done"
+   }
+  ],
+  "concessions": [],
+  "release": {
+   "duty_id": "U21",
+   "duty_type": "peak_diagram",
+   "depart_at": "2024-06-05T05:30",
+   "odo_reading_km": 49510,
+   "brake_test_at": "2024-06-02T04:00",
+   "brake_test_result": "pass"
+  }
+ },
+ "factors": {
+  "km_to_exam_due": 490,
+  "odometer_disagreement": "none",
+  "exam_signed_fraction": 0.4,
+  "exam_record_missing": false,
+  "worst_defect_subsystem": "none",
+  "worst_defect_state": "closed_retested",
+  "worst_defect_safety_critical": true,
+  "retest_out_of_order": true,
+  "concession_present": false,
+  "concession_flaw": "none",
+  "wo_crossref_mismatch": "none",
+  "planned_duty_type": "peak_diagram",
+  "recent_brake_test_pass": false,
+  "balanced_signals": false
+ },
+ "factors_sampled": {
+  "km_to_exam_due": -458,
+  "odometer_disagreement": "none",
+  "exam_signed_fraction": 0.81,
+  "exam_record_missing": false,
+  "worst_defect_subsystem": "running_gear",
+  "worst_defect_state": "closed_no_retest",
+  "worst_defect_safety_critical": true,
+  "retest_out_of_order": true,
+  "concession_present": true,
+  "concession_flaw": "none",
+  "wo_crossref_mismatch": "none",
+  "planned_duty_type": "peak_diagram",
+  "recent_brake_test_pass": false,
+  "balanced_signals": false
+ },
+ "plan": {
+  "sc_defects_cleared": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "release_decision": {
+   "clarity": "leaning",
+   "target": "release",
+   "second": null
+  },
+  "worst_subsystem": {
+   "clarity": "leaning",
+   "target": "none",
+   "second": null
+  },
+  "exam_completion": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  },
+  "exam_mileage": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  }
+ },
+ "target_words": 100,
+ "deciding": {
+  "sc_defects_cleared": "D310 is safety-critical and closed with retest pass, but retest_at 2024-06-01 precedes work order completed_at 2024-06-02, so the retest is out of sequence.",
+  "release_decision": "Defect is closed, no concession is needed, the exam is not overdue, and the duty has no restriction; the out-of-order retest is the one doubt.",
+  "worst_subsystem": "The only defect is closed with a pass retest and a completed work order, so nothing is open; the retest order adds some doubt.",
+  "exam_completion": "2 of 5 items are fully signed; A3 has signed_by but null signed_at, so it is 0.4 or 0.6 depending on how that item is counted.",
+  "exam_mileage": "due_at_km 50000 minus odometer 49510 leaves 490 km, just inside the 500 km boundary between level 0 and level 1."
+ },
+ "request": "rec-F317-0051",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.014219
+}

@@ -1,0 +1,140 @@
+{
+ "id": "F333-0065",
+ "family": "F333",
+ "state": {
+  "room": {
+   "room_id": "E305",
+   "next_occupancy_date": "2024-07-01"
+  },
+  "tenancy": {
+   "start_date": "2023-10-01",
+   "end_date": "2024-06-30",
+   "deposit_held": 350
+  },
+  "checkin_inventory": {
+   "signed_date": "2023-10-09",
+   "signed_by_resident": true,
+   "items": [
+    {
+     "item_code": "DET",
+     "grade": "good"
+    },
+    {
+     "item_code": "LOCK",
+     "grade": "good"
+    }
+   ]
+  },
+  "checkout_inspection": {
+   "inspection_type": "mid_term",
+   "inspection_date": "2024-04-12",
+   "items": [
+    {
+     "item_code": "DET",
+     "grade": "good",
+     "defect_category": "smoke_detector_fail",
+     "photo_refs": [
+      "p1"
+     ]
+    },
+    {
+     "item_code": "LOCK",
+     "grade": "good",
+     "photo_refs": []
+    }
+   ]
+  },
+  "proposed_charges": {
+   "lines": [
+    {
+     "item_code": "LOCK",
+     "reason_code": "REPL",
+     "qty": 1,
+     "unit_rate": 99.9,
+     "line_total": 99.9
+    }
+   ],
+   "summary_total": 99.9
+  },
+  "works_orders": [
+   {
+    "wo_id": "W7",
+    "raised_date": "2024-04-10",
+    "location": "DET",
+    "category": "electrical",
+    "priority_code": "P1",
+    "status": "completed",
+    "completed_date": "2024-04-12",
+    "retest_passed": true
+   }
+  ]
+ },
+ "factors": {
+  "inspection_type": "mid_term",
+  "checkin_inventory_state": "signed_late",
+  "prior_damage_on_charged_item": "none",
+  "charge_discrepancy": "boundary_100",
+  "worst_defect_tier": "safety",
+  "true_cause": "no_defect",
+  "predating_works_order": false,
+  "safety_fault_remedied": true,
+  "photo_coverage": "all_but_one",
+  "tenancy_months": 9,
+  "date_out_of_order": false,
+  "deposit_dispute_lodged": false,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "inspection_type": "mid_term",
+  "checkin_inventory_state": "signed_late",
+  "prior_damage_on_charged_item": "none",
+  "charge_discrepancy": "small_under_25",
+  "worst_defect_tier": "safety",
+  "true_cause": "fair_wear",
+  "predating_works_order": false,
+  "safety_fault_remedied": true,
+  "photo_coverage": "all_but_one",
+  "tenancy_months": 9,
+  "date_out_of_order": false,
+  "deposit_dispute_lodged": false,
+  "boundary_case": false
+ },
+ "plan": {
+  "checkin_clean": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "disposition": {
+   "clarity": "clear",
+   "target": "hold_for_evidence",
+   "second": null
+  },
+  "main_cause": {
+   "clarity": "clear",
+   "target": "no_defect",
+   "second": null
+  },
+  "defect_severity": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  },
+  "charge_gap": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  }
+ },
+ "target_words": 75,
+ "deciding": {
+  "checkin_clean": "Charged LOCK is good in the check-in, but it was signed 8 days after the 2023-10-01 start, which leaves some doubt.",
+  "disposition": "The one missing item is a photo: LOCK, the charged item, has empty photo_refs, and all else is complete and dated.",
+  "main_cause": "Both items have the same grade (good) at check-in and checkout, so there is no change in condition.",
+  "defect_severity": "smoke_detector_fail is a safety defect (level 3), but work order W7 was completed on the inspection date with retest_passed true, so a lower reading is defensible.",
+  "charge_gap": "LOCK is graded good at checkout, so its 99.90 line is unevidenced; that sits just under the 100.00 boundary between levels 2 and 3."
+ },
+ "request": "rec-F333-0061",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.015065
+}

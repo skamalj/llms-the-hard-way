@@ -1,0 +1,154 @@
+{
+ "id": "F333-0061",
+ "family": "F333",
+ "state": {
+  "room": {
+   "room_id": "B214",
+   "block": "B",
+   "room_type": "study_bedroom",
+   "floor": 2,
+   "rate_card_ref": "RC24"
+  },
+  "tenancy": {
+   "resident_ref": "S771",
+   "start_date": "2023-09-16",
+   "end_date": "2024-07-15",
+   "key_return_date": null,
+   "deposit_held": 300,
+   "deposit_dispute_lodged": false
+  },
+  "checkin_inventory": null,
+  "checkout_inspection": {
+   "inspection_type": "mid_term",
+   "inspection_date": "2024-03-05",
+   "inspector_id": "I09",
+   "items": [
+    {
+     "item_code": "DESK",
+     "location": "desk",
+     "grade": "fair",
+     "defect_category": "scuff",
+     "photo_refs": [
+      "p1"
+     ]
+    },
+    {
+     "item_code": "WALL",
+     "location": "bed wall",
+     "grade": "fair",
+     "defect_category": "scuff",
+     "photo_refs": [
+      "p2"
+     ]
+    },
+    {
+     "item_code": "SOCK",
+     "location": "desk wall",
+     "grade": "fair",
+     "defect_category": "socket_scorched",
+     "photo_refs": []
+    }
+   ]
+  },
+  "proposed_charges": {
+   "rate_card_ref": "RC24",
+   "lines": [
+    {
+     "item_code": "DESK",
+     "reason_code": "SCUFF",
+     "qty": 1,
+     "unit_rate": 12.5,
+     "line_total": 12.5
+    },
+    {
+     "item_code": "WALL",
+     "reason_code": "SCUFF",
+     "qty": 1,
+     "unit_rate": 12.5,
+     "line_total": 12.51
+    }
+   ],
+   "summary_total": 25.01
+  },
+  "works_orders": [
+   {
+    "wo_id": "W1",
+    "raised_date": "2024-02-10",
+    "location": "kitchen",
+    "category": "plumbing",
+    "priority_code": "P3",
+    "status": "completed",
+    "completed_date": "2024-02-02",
+    "retest_passed": true
+   }
+  ]
+ },
+ "factors": {
+  "inspection_type": "mid_term",
+  "checkin_inventory_state": "missing",
+  "prior_damage_on_charged_item": "none",
+  "charge_discrepancy": "small_under_25",
+  "worst_defect_tier": "safety",
+  "true_cause": "fair_wear",
+  "predating_works_order": false,
+  "safety_fault_remedied": false,
+  "photo_coverage": "all_but_one",
+  "tenancy_months": 10,
+  "date_out_of_order": true,
+  "deposit_dispute_lodged": false,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "inspection_type": "mid_term",
+  "checkin_inventory_state": "missing",
+  "prior_damage_on_charged_item": "none",
+  "charge_discrepancy": "small_under_25",
+  "worst_defect_tier": "cosmetic",
+  "true_cause": "resident_damage",
+  "predating_works_order": false,
+  "safety_fault_remedied": false,
+  "photo_coverage": "all_but_one",
+  "tenancy_months": 10,
+  "date_out_of_order": true,
+  "deposit_dispute_lodged": false,
+  "boundary_case": false
+ },
+ "plan": {
+  "checkin_clean": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "disposition": {
+   "clarity": "leaning",
+   "target": "adjust_and_approve",
+   "second": null
+  },
+  "main_cause": {
+   "clarity": "balanced",
+   "target": "no_defect",
+   "second": "fair_wear"
+  },
+  "defect_severity": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "charge_gap": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 170,
+ "deciding": {
+  "checkin_clean": "checkin_inventory is null, so no charged item can be shown as graded undamaged at check-in.",
+  "disposition": "Charge lines are close to correct; the 12.51 line_total does not equal qty times unit_rate, which is fixable from record figures. The odd works-order dates are for an unrelated location.",
+  "main_cause": "Without check-in grades nothing shows a drop, so no_defect vs fair_wear is open; all items sit at fair after 10 months, and the missing check-in leaves it balanced.",
+  "defect_severity": "The SOCK item carries socket_scorched (electrics, level 3), but it is graded only fair with no photo, so level 2 stays defensible.",
+  "charge_gap": "Lines sum to 25.01 against 25.00 implied by qty times rate, a one-penny difference sitting on the 0/1 boundary."
+ },
+ "request": "rec-F333-0061",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.015065
+}

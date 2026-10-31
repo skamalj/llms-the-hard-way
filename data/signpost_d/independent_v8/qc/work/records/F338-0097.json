@@ -1,0 +1,115 @@
+{
+ "id": "F338-0097",
+ "family": "F338",
+ "state": {
+  "site": {
+   "pollutant": "CO",
+   "tier": "compliance"
+  },
+  "visit": {
+   "date": "2024-06-11",
+   "sequence_status": "aborted"
+  },
+  "reference": {
+   "standard_id": "CY-208",
+   "unit": "ppm",
+   "cert_expiry": "2025-04-02"
+  },
+  "checks": [
+   {
+    "type": "span",
+    "stage": "as_found",
+    "ref_id": "CY-208",
+    "ref_conc": 40,
+    "reading": 41.6,
+    "tol": 1,
+    "unit": "ppm"
+   },
+   {
+    "type": "span",
+    "stage": "as_left",
+    "ref_id": "CY-208",
+    "ref_conc": 40,
+    "reading": 40.9,
+    "tol": 1,
+    "unit": "ppm"
+   }
+  ],
+  "history": {
+   "last_visit_date": "2024-02-13",
+   "results": [
+    "pass",
+    "pass",
+    "fail"
+   ]
+  }
+ },
+ "factors": {
+  "pollutant": "CO",
+  "as_found_ratio": 1.59,
+  "as_left_status": "marginal",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 295,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "none",
+  "days_since_last_visit": 119,
+  "visit_completeness": "aborted_power",
+  "prior_fail_count": 1,
+  "timestamp_mismatch": "none",
+  "site_priority": "compliance"
+ },
+ "factors_sampled": {
+  "pollutant": "CO",
+  "as_found_ratio": 1.59,
+  "as_left_status": "marginal",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 295,
+  "unit_mismatch": true,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "none",
+  "days_since_last_visit": 119,
+  "visit_completeness": "aborted_power",
+  "prior_fail_count": 1,
+  "timestamp_mismatch": "none",
+  "site_priority": "compliance"
+ },
+ "plan": {
+  "data_accepted": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "reference_valid": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "close_visit",
+   "second": null
+  },
+  "flag_extent": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "return_urgency": {
+   "clarity": "leaning",
+   "target": "4",
+   "second": null
+  }
+ },
+ "target_words": 54,
+ "deciding": {
+  "data_accepted": "As-found 41.6 vs 40 is 1.6 against tol 1, slightly outside, but the as-left is within tolerance (0.9 vs 1). Leaning true with some doubt.",
+  "reference_valid": "The ref_id CY-208 matches standard_id, the unit is ppm on both, and the certificate expires 2025-04-02, well after the visit.",
+  "next_step": "The as-left span of 40.9 is inside tol 1, so the visit can close, although the sequence_status is aborted and no zero point is present, which gives some doubt.",
+  "flag_extent": "119 days since the last visit with an as-found just outside tolerance. Flagging the full interval (over 30 days) is likely, but a shorter flag of 8-30 days is defensible given the drift.",
+  "return_urgency": "The aborted visit leaves the sequence incomplete at a compliance site with a marginal as-left (0.9 of tol 1), pointing to a same-day return, though a 1-2 day return is arguable."
+ },
+ "request": "rec-F338-0096",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.006426
+}

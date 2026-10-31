@@ -1,0 +1,160 @@
+{
+ "id": "F338-0020",
+ "family": "F338",
+ "state": {
+  "site": {
+   "id": "S058",
+   "pollutant": "NO2",
+   "tier": "compliance",
+   "service_interval_days": 60,
+   "approved_interval_days": 60
+  },
+  "visit": {
+   "date": "2024-11-12",
+   "start": "2024-11-12T09:00",
+   "end": "2024-11-12T10:30",
+   "sequence_status": "complete",
+   "maintenance_window": false
+  },
+  "reference": {
+   "standard_id": "C6150",
+   "conc": 200,
+   "unit": "ppb",
+   "cert_no": "UK-52077",
+   "cert_expiry": "2025-05-07"
+  },
+  "checks": [
+   {
+    "type": "as_found_zero",
+    "ref_id": "C6150",
+    "ref_conc": 0,
+    "unit": "ppb",
+    "reading": 2,
+    "tol": 5,
+    "ts": "2024-11-12T09:10"
+   },
+   {
+    "type": "as_found_span",
+    "ref_id": "C6150",
+    "ref_conc": 200,
+    "unit": "ppb",
+    "reading": 239,
+    "tol": 10,
+    "ts": "2024-11-12T09:20"
+   },
+   {
+    "type": "as_left_zero",
+    "ref_id": "C6150",
+    "ref_conc": 0,
+    "unit": "ppb",
+    "reading": 4.5,
+    "tol": 5,
+    "ts": "2024-11-12T10:10"
+   },
+   {
+    "type": "as_left_span",
+    "ref_id": "C6150",
+    "ref_conc": 200,
+    "unit": "ppb",
+    "reading": 209.6,
+    "tol": 10,
+    "ts": "2024-11-11T16:40"
+   }
+  ],
+  "history": {
+   "last_visit_date": "2024-09-23",
+   "results": [
+    "fail",
+    "fail",
+    "pass",
+    "fail"
+   ],
+   "autochecks": [
+    {
+     "d": "2024-10-05",
+     "r": "fail"
+    },
+    {
+     "d": "2024-10-06",
+     "r": "fail"
+    },
+    {
+     "d": "2024-11-12",
+     "r": "fail"
+    }
+   ]
+  },
+  "instrument": {
+   "temp_min": 12,
+   "temp_max": 34.5
+  }
+ },
+ "factors": {
+  "pollutant": "NO2",
+  "as_found_ratio": 3.9,
+  "as_left_status": "marginal",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 207,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": false,
+  "drift_explanation": "enclosure_temp_excursion",
+  "days_since_last_visit": 50,
+  "visit_completeness": "complete",
+  "prior_fail_count": 3,
+  "timestamp_mismatch": "different_day",
+  "site_priority": "compliance"
+ },
+ "factors_sampled": {
+  "pollutant": "NO2",
+  "as_found_ratio": 3.9,
+  "as_left_status": "marginal",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 207,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "enclosure_temp_excursion",
+  "days_since_last_visit": 50,
+  "visit_completeness": "complete",
+  "prior_fail_count": 3,
+  "timestamp_mismatch": "different_day",
+  "site_priority": "compliance"
+ },
+ "plan": {
+  "data_accepted": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "reference_valid": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "close_flagged",
+   "second": null
+  },
+  "flag_extent": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "return_urgency": {
+   "clarity": "clear",
+   "target": "4",
+   "second": null
+  }
+ },
+ "target_words": 72,
+ "deciding": {
+  "data_accepted": "As-found span 239 against 200 with tol 10 is far out and autochecks failed from 10-05, but temp_max 34.5 offers a drift explanation. The as-left span ts is on the previous day, 11-11.",
+  "reference_valid": "Ids and units agree on all points and the cert expiry is 2025-05-07, well after the visit. The doubt is only the odd as-left span timestamp.",
+  "next_step": "As-left readings are within tol (4.5 of 5, 209.6 against 200 with tol 10) after adjustment, but the as-found failure and autocheck fails mean prior data need flagging.",
+  "flag_extent": "Autochecks failed from 10-05, which is 38 days before the visit, but the last visit was 50 days earlier and the temperature excursion is not dated. Level 2 and level 3 are both plausible.",
+  "return_urgency": "Compliance tier, a failing autocheck dated on the visit day (11-12) and a marginal as-left span make a same-day return clearly necessary."
+ },
+ "request": "rec-F338-0016",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012531
+}

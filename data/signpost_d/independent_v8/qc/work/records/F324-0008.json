@@ -1,0 +1,179 @@
+{
+ "id": "F324-0008",
+ "family": "F324",
+ "state": {
+  "zone": {
+   "id": "G2-5",
+   "dripper_count": 50,
+   "rate_lph": 2.0
+  },
+  "schedule": {
+   "dur_s": 720,
+   "cycles": [
+    {
+     "t": "06:00",
+     "ml": 400
+    },
+    {
+     "t": "08:00",
+     "ml": 400
+    },
+    {
+     "t": "10:00",
+     "ml": 400
+    },
+    {
+     "t": "12:00",
+     "ml": 400
+    },
+    {
+     "t": "14:00",
+     "ml": 400
+    }
+   ],
+   "drain_target_pct": [
+    20,
+    30
+   ],
+   "overrides": [
+    {
+     "approved_by_role": "head_grower",
+     "reduction_pct": 20
+    }
+   ]
+  },
+  "controller_log": {
+   "spec_bar": 2.0,
+   "cycles": [
+    {
+     "open_s": 720,
+     "l": 16.0,
+     "bar": 2.0
+    },
+    {
+     "open_s": 720,
+     "l": 15.8,
+     "bar": 2.0
+    },
+    {
+     "open_s": 720,
+     "l": 16.2,
+     "bar": 2.0
+    },
+    {
+     "open_s": 720,
+     "l": 17.9,
+     "bar": 2.0
+    },
+    {
+     "open_s": 720,
+     "l": 18.5,
+     "bar": 2.0
+    }
+   ],
+   "daily_total_l": 84.4,
+   "meter_total_l": 80.1
+  },
+  "drainage": {
+   "drain_pct": [
+    5.3,
+    4.7
+   ],
+   "catch_test": {
+    "ordered": false,
+    "result_lph": null
+   }
+  },
+  "sensors": {
+   "log_date": "2025-04-08",
+   "meter_last_calibrated": "2025-03-17",
+   "events": [
+    {
+     "t": "05:40",
+     "type": "hand_water"
+    },
+    {
+     "t": "05:55",
+     "moisture_spike": true
+    }
+   ]
+  },
+  "maintenance": {
+   "windows": [
+    {
+     "type": "valve_service",
+     "start": "07:30",
+     "end": "08:30"
+    }
+   ],
+   "alarms": [],
+   "recent_work_orders": []
+  }
+ },
+ "factors": {
+  "delivery_shortfall_pct": 15.6,
+  "mismatch_location": "meter_vs_controller",
+  "fault_cause": "none",
+  "approved_override": true,
+  "maintenance_window_active": true,
+  "drain_offset_points": -15.0,
+  "off_tolerance_cycles": 4,
+  "meter_calibration_age_days": 22,
+  "confirmation_pending": false,
+  "pressure_state": "normal",
+  "benign_alarm_decoy": "post_handwater_moisture",
+  "recent_work_orders": 0
+ },
+ "factors_sampled": {
+  "delivery_shortfall_pct": 21.17,
+  "mismatch_location": "meter_vs_controller",
+  "fault_cause": "none",
+  "approved_override": false,
+  "maintenance_window_active": true,
+  "drain_offset_points": -3.1,
+  "off_tolerance_cycles": 4,
+  "meter_calibration_age_days": 22,
+  "confirmation_pending": false,
+  "pressure_state": "normal",
+  "benign_alarm_decoy": "post_handwater_moisture",
+  "recent_work_orders": 0
+ },
+ "plan": {
+  "under_dosed": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "emitter_clogging": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "next_action": {
+   "clarity": "balanced",
+   "target": "monitor",
+   "second": "hold_for_check"
+  },
+  "drain_deviation": {
+   "clarity": "contested",
+   "target": "2",
+   "second": "3"
+  },
+  "off_plan_cycles": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 42,
+ "deciding": {
+  "under_dosed": "Delivered 84.4 L controller and 80.1 L meter against 100 L planned, but schedule.overrides holds a 20% reduction approved by the head grower, so both totals are at or above the reduced target.",
+  "emitter_clogging": "Pressure is normal, the valves are fully open and there is no catch test. Low per-dripper volume and low drain suggest clogging, but the 20% approved reduction explains both.",
+  "next_action": "Meter (80.1 L) and controller (84.4 L) totals disagree by 4.3 L even though the meter was calibrated 22 days ago. The overlapping valve_service window is mitigating, and the moisture spike follows a hand-water event. Monitoring and holding for a check are both defensible.",
+  "drain_deviation": "Drain samples 5.3 and 4.7 average 5.0 against a 20-30 band, which is 15 points below the minimum. That sits on the line between levels 2 and 3.",
+  "off_plan_cycles": "Cycles 1 to 3 are 19-21% under plan (20 L per cycle) and cycle 4 at 17.9 L is 10.5% under. Cycle 5 at 18.5 L is 7.5% under. The count is 4, but the approved reduction makes 2 or 3 arguable."
+ },
+ "request": "rec-F324-0006",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.017297
+}

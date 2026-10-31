@@ -1,0 +1,129 @@
+{
+ "id": "F337-0007",
+ "family": "F337",
+ "state": {
+  "station": {
+   "channels": [
+    {
+     "cha": "BHZ",
+     "sensor_serial": "K5509",
+     "gain_counts_per_ms": 1200,
+     "azimuth_deg": 0,
+     "response_epoch_start": "2024-04-02"
+    }
+   ]
+  },
+  "acquisition": {
+   "day": "2024-04-20",
+   "run": "2024-05-21",
+   "channel_hours_expected": 72,
+   "completeness_pct": 76.1,
+   "gaps": [
+    {
+     "cha": "BHN",
+     "start": "00:00",
+     "end": "18:08"
+    }
+   ],
+   "gps_lock_pct": 98
+  },
+  "qc_metrics": {
+   "channels": [
+    {
+     "cha": "BHE",
+     "dead": true,
+     "clipped_minutes": 0,
+     "psd_dev_db": 3.8
+    },
+    {
+     "cha": "BHZ",
+     "dead": false,
+     "clipped_minutes": 150,
+     "psd_dev_db": 3.1
+    }
+   ],
+   "cal_pulse": {
+    "date": "2024-04-20",
+    "result": "pass"
+   }
+  },
+  "maintenance_log": [
+   {
+    "date": "2024-04-02",
+    "action": "sensor_swap",
+    "sensor_serial_installed": "K5509"
+   },
+   {
+    "action": "outage",
+    "outage_start": "2024-04-20T00:00",
+    "outage_end": "2024-04-20T18:00"
+   }
+  ]
+ },
+ "factors": {
+  "sensor_metadata_state": "swap_updated",
+  "maintenance_log_present": true,
+  "gap_coverage": "minor_overrun",
+  "true_usable_fraction": 0.38,
+  "completeness_summary_drift": 1.11,
+  "timing_quality": "locked",
+  "calibration_status": "passed",
+  "noise_excess_db": 3.75,
+  "benign_noise_cause_logged": false,
+  "operator_note_consistency": "absent",
+  "dead_channels": 1,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "sensor_metadata_state": "serial_typo",
+  "maintenance_log_present": true,
+  "gap_coverage": "all_logged",
+  "true_usable_fraction": 0.53,
+  "completeness_summary_drift": 1.11,
+  "timing_quality": "locked",
+  "calibration_status": "passed",
+  "noise_excess_db": 3.75,
+  "benign_noise_cause_logged": false,
+  "operator_note_consistency": "absent",
+  "dead_channels": 1,
+  "boundary_case": false
+ },
+ "plan": {
+  "response_valid": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "gaps_explained": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "disposition": {
+   "clarity": "balanced",
+   "target": "release_flagged",
+   "second": "hold"
+  },
+  "usable_fraction": {
+   "clarity": "clear",
+   "target": "0",
+   "second": null
+  },
+  "pending_age": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 104,
+ "deciding": {
+  "response_valid": "Station serial K5509 and epoch 2024-04-02 match the logged sensor_swap exactly.",
+  "gaps_explained": "The BHN gap 00:00-18:08 overlaps the logged outage 00:00-18:00 and overruns it by only 8 minutes.",
+  "disposition": "The faults are confined to a flagged dead BHE channel, a logged gap and clipping on BHZ, so release_flagged fits; the unexplained dead channel and the 8-minute overrun could instead justify hold.",
+  "usable_fraction": "The dead BHE (24 h), the 18 h gap and 150 clipped minutes leave about 27.5 of 72 channel-hours, around 38%, well under 50%.",
+  "pending_age": "Day 2024-04-20 against run 2024-05-21 is 31 days, barely past the 30-day boundary."
+ },
+ "request": "rec-F337-0006",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011958
+}

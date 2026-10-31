@@ -1,0 +1,113 @@
+{
+ "id": "F315-0004",
+ "family": "F315",
+ "state": {
+  "report": {
+   "received_at": "2025-03-08T18:30",
+   "source": "public_web",
+   "units_reported": [
+    "S7",
+    "S8",
+    "S9"
+   ]
+  },
+  "asset": {
+   "unit_id": "S7",
+   "site_category": "underpass_or_subway",
+   "planned_works": null
+  },
+  "cms": {
+   "status_code": "NC",
+   "last_comms_at": "2025-01-14T03:10"
+  },
+  "history": [
+   {
+    "job_ref": "J19",
+    "raised": "2024-03-01",
+    "attended": "2024-03-02",
+    "completed": null,
+    "outcome_code": "NO_ACCESS"
+   }
+  ],
+  "job": {
+   "job_ref": "J244",
+   "stage": "RAISED",
+   "attended_at": null,
+   "completed_at": null,
+   "hazard_code": null,
+   "linked_job_ref": null
+  },
+  "supply": {
+   "dno_incident_ref": null,
+   "feeder_units_dark": 3
+  }
+ },
+ "factors": {
+  "dark_unit_count": 3,
+  "dno_incident_logged": false,
+  "cms_state": "no_comms",
+  "days_since_last_repair": 371,
+  "last_repair_state": "attended_not_completed",
+  "hazard_observed": "none",
+  "hazard_made_safe": false,
+  "site_category": "underpass_or_subway",
+  "planned_works_active": false,
+  "current_job_stage": "not_attended",
+  "dates_out_of_order": false,
+  "duplicate_of_open_job": false,
+  "report_source": "public_web"
+ },
+ "factors_sampled": {
+  "dark_unit_count": 3,
+  "dno_incident_logged": false,
+  "cms_state": "lamp_fail",
+  "days_since_last_repair": 371,
+  "last_repair_state": "attended_not_completed",
+  "hazard_observed": "none",
+  "hazard_made_safe": false,
+  "site_category": "underpass_or_subway",
+  "planned_works_active": false,
+  "current_job_stage": "rectified_unconfirmed",
+  "dates_out_of_order": false,
+  "duplicate_of_open_job": false,
+  "report_source": "public_web"
+ },
+ "plan": {
+  "supply_side_fault": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "repeat_failure": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "next_action": {
+   "clarity": "contested",
+   "target": "close_report",
+   "second": "urgent_make_safe"
+  },
+  "source_support": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "repair_progress": {
+   "clarity": "clear",
+   "target": "0",
+   "second": null
+  }
+ },
+ "target_words": 42,
+ "deciding": {
+  "supply_side_fault": "feeder_units_dark 3 with three ids in units_reported, but no DNO incident is logged.",
+  "repeat_failure": "The only history job J19 has completed null, so there is no completed repair in the window.",
+  "next_action": "Open job J244 is already raised (close_report), but asset.site_category is underpass_or_subway with units dark (urgent_make_safe).",
+  "source_support": "Only the public report plus the feeder count, while cms is NC with stale comms from 2025-01-14, so it is 0 or 1.",
+  "repair_progress": "job J244 is RAISED with attended_at null and the only earlier attendance was on a different, uncompleted job."
+ },
+ "request": "rec-F315-0001",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.010136
+}

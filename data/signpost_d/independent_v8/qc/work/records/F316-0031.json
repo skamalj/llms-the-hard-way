@@ -1,0 +1,147 @@
+{
+ "id": "F316-0031",
+ "family": "F316",
+ "state": {
+  "run_header": {
+   "run_id": "G114",
+   "run_type": "precautionary",
+   "reviewed_at": "2024-01-11T02:00"
+  },
+  "plan": [
+   {
+    "section_code": "A1-01",
+    "length_km": 6,
+    "width_m": 7,
+    "priority": "P1",
+    "planned_rate_gm2": 20,
+    "forecast_zone": "Z1"
+   },
+   {
+    "section_code": "A1-02",
+    "length_km": 10,
+    "width_m": 7,
+    "priority": "P1",
+    "planned_rate_gm2": 20,
+    "forecast_zone": "Z2"
+   }
+  ],
+  "forecast": {
+   "zones": [
+    {
+     "zone": "Z1",
+     "freeze_time": "2024-01-11T02:30"
+    },
+    {
+     "zone": "Z2",
+     "freeze_time": "2024-01-11T04:00"
+    }
+   ],
+   "revisions": []
+  },
+  "telematics": {
+   "segments": [
+    {
+     "section_code": "A1-01",
+     "start": "00:40",
+     "end": "01:00",
+     "spread_on": true,
+     "logged_rate_gm2": 20
+    },
+    {
+     "section_code": "A1-01",
+     "start": "01:10",
+     "end": "01:50",
+     "spread_on": true,
+     "logged_rate_gm2": 20
+    }
+   ],
+   "dropouts": [
+    {
+     "start": "01:52",
+     "end": "01:59",
+     "nearest_section": "A1-02"
+    }
+   ]
+  },
+  "materials": {
+   "loaded_t": 1.0,
+   "returned_t": 0.14,
+   "weighbridge_ticket": null,
+   "rate_exception": null
+  },
+  "notes": {
+   "driver_note": "Spinner jammed near Holt Lane, cleared after ten minutes and section re-run.",
+   "depot_note": "Loaded 1000 kg. R2 booked out 03:00 on same route.",
+   "closures": [],
+   "partner_cover": []
+  }
+ },
+ "factors": {
+  "missed_extent": "about_10km_unproven",
+  "missed_section_mitigated": false,
+  "salt_gap": "under_3pct",
+  "rate_exception_approved": false,
+  "finish_vs_freeze_min": -40,
+  "hours_to_freeze_untreated": 2.0,
+  "forecast_revised": "none",
+  "crosscheck_mismatch": "unit_kg_t",
+  "driver_note_type": "alarming_resolved",
+  "follow_up_run_scheduled": true,
+  "pending_confirmation": true,
+  "gps_dropouts": 1,
+  "nonpriority_untreated": false
+ },
+ "factors_sampled": {
+  "missed_extent": "none",
+  "missed_section_mitigated": false,
+  "salt_gap": "under_3pct",
+  "rate_exception_approved": false,
+  "finish_vs_freeze_min": -40,
+  "hours_to_freeze_untreated": 7.96,
+  "forecast_revised": "none",
+  "crosscheck_mismatch": "unit_kg_t",
+  "driver_note_type": "alarming_resolved",
+  "follow_up_run_scheduled": true,
+  "pending_confirmation": true,
+  "gps_dropouts": 1,
+  "nonpriority_untreated": false
+ },
+ "plan": {
+  "treated_before_freeze": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "salt_reconciles": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "follow_up": {
+   "clarity": "contested",
+   "target": "hold",
+   "second": "partial_retreat"
+  },
+  "deficient_length": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "freeze_proximity": {
+   "clarity": "contested",
+   "target": "2",
+   "second": "3"
+  }
+ },
+ "target_words": 55,
+ "deciding": {
+  "treated_before_freeze": "A1-01 finished 01:50, 40 min before its 02:30 freeze. A1-02 has no segment, only a GPS dropout beside it, so coverage is unproven rather than shown missed.",
+  "salt_reconciles": "Net 0.86 t against 0.84 t expected for A1-01 (about 2%), but the weighbridge ticket is null, so the tonnage is unconfirmed.",
+  "follow_up": "The null weighbridge ticket points to a hold. A1-02 (10 km P1) has no segment, which supports a partial retreat. R2 is already booked on the same route.",
+  "deficient_length": "A1-02 is 10 km of P1 with no treatment segment, right at the 10 km boundary between Moderate and Major. Only the dropout leaves it open.",
+  "freeze_proximity": "A1-02 is in Z2, freezing 04:00, and the log was reviewed at 02:00. That is about 2 h, on the boundary between levels 2 and 3."
+ },
+ "request": "rec-F316-0031",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.018482
+}

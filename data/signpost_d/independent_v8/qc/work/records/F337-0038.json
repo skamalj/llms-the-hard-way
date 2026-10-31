@@ -1,0 +1,138 @@
+{
+ "id": "F337-0038",
+ "family": "F337",
+ "state": {
+  "station": {
+   "channels": [
+    {
+     "cha": "BHZ",
+     "sensor_serial": "K12",
+     "gain_counts_per_ms": 3900,
+     "response_epoch_start": "2024-08-01"
+    },
+    {
+     "cha": "BHN",
+     "sensor_serial": "K13",
+     "gain_counts_per_ms": 3910,
+     "response_epoch_start": "2024-08-01"
+    }
+   ]
+  },
+  "acquisition": {
+   "day": "2025-05-09",
+   "queued": "2025-05-10",
+   "asof": "2025-06-10",
+   "channel_hours_expected": 48,
+   "completeness_pct": 99.2,
+   "gps_lock_pct": 96,
+   "gaps": [
+    {
+     "cha": "BHZ",
+     "start": "01:05",
+     "end": "03:35"
+    }
+   ]
+  },
+  "qc_metrics": {
+   "channels": [
+    {
+     "cha": "BHZ",
+     "psd_dev_db": 14.5,
+     "dead": false,
+     "clipped_minutes": 0
+    },
+    {
+     "cha": "BHN",
+     "psd_dev_db": 1.9,
+     "dead": false,
+     "clipped_minutes": 20
+    }
+   ],
+   "cal_pulse": {
+    "date": "2025-04-20",
+    "result": "pass"
+   }
+  },
+  "maintenance_log": [
+   {
+    "date": "2025-05-07",
+    "action": "sensor_swap",
+    "cha": "BHZ",
+    "sensor_serial_installed": "K19"
+   },
+   {
+    "date": "2025-05-09",
+    "action": "power_fault"
+   }
+  ],
+  "operator_notes": [
+   "Quarry blasting 14:00-15:00 local raised noise."
+  ]
+ },
+ "factors": {
+  "sensor_metadata_state": "swap_stale",
+  "maintenance_log_present": true,
+  "gap_coverage": "all_logged",
+  "true_usable_fraction": 0.94,
+  "completeness_summary_drift": 6.56,
+  "timing_quality": "locked",
+  "calibration_status": "predates_swap",
+  "noise_excess_db": 14.52,
+  "benign_noise_cause_logged": true,
+  "operator_note_consistency": "consistent",
+  "dead_channels": 0,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "sensor_metadata_state": "swap_stale",
+  "maintenance_log_present": true,
+  "gap_coverage": "all_logged",
+  "true_usable_fraction": 0.38,
+  "completeness_summary_drift": 6.56,
+  "timing_quality": "lost_hours",
+  "calibration_status": "predates_swap",
+  "noise_excess_db": 14.52,
+  "benign_noise_cause_logged": true,
+  "operator_note_consistency": "consistent",
+  "dead_channels": 0,
+  "boundary_case": false
+ },
+ "plan": {
+  "response_valid": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "gaps_explained": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "disposition": {
+   "clarity": "leaning",
+   "target": "release",
+   "second": null
+  },
+  "usable_fraction": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  },
+  "pending_age": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 75,
+ "deciding": {
+  "response_valid": "BHZ still lists serial K12 with epoch 2024-08-01, but the log shows K19 installed 2025-05-07; the cal pulse of 2025-04-20 predates the swap.",
+  "gaps_explained": "The BHZ gap falls on 2025-05-09, the date of a logged power_fault, but that entry has no outage window.",
+  "disposition": "Gap is logged, timing is locked and there are no dead channels; only the stale BHZ metadata argues against plain release.",
+  "usable_fraction": "A 150-minute gap plus 20 clipped minutes lose 170 of 2880 channel-minutes, about 94% usable.",
+  "pending_age": "Queued 2025-05-10 and as-of 2025-06-10 gives 31 days, just over the 30-day edge between levels 2 and 3."
+ },
+ "request": "rec-F337-0036",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012815
+}

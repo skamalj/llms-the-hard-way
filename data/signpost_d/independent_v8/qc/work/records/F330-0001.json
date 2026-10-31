@@ -1,0 +1,145 @@
+{
+ "id": "F330-0001",
+ "family": "F330",
+ "state": {
+  "request": {
+   "req_id": "X-4417",
+   "grade": "G3",
+   "cost_centre": "CC310",
+   "trip_ref": "T-881",
+   "requested_total": 608,
+   "ccy": "GBP",
+   "payroll_cutoff": "2025-03-28"
+  },
+  "lines": [
+   {
+    "line_no": 1,
+    "date": "2025-03-10",
+    "category": "air",
+    "cost_centre": "CC310",
+    "amount_gbp": 520,
+    "receipt_attached": true
+   },
+   {
+    "line_no": 2,
+    "date": "2025-03-10",
+    "category": "air",
+    "cost_centre": "CC310",
+    "amount_gbp": 520,
+    "receipt_attached": true
+   },
+   {
+    "line_no": 3,
+    "date": "2025-03-16",
+    "category": "taxi",
+    "cost_centre": "CC310",
+    "amount_gbp": 88,
+    "receipt_attached": true
+   }
+  ],
+  "policy": {
+   "grade_band": "G3",
+   "cap_gbp": 400,
+   "cap_unit": "trip",
+   "units": 1,
+   "reviewer_limit_gbp": 150
+  },
+  "travel": {
+   "trip_ref": "T-881",
+   "depart": "2025-03-10",
+   "return": "2025-03-13",
+   "booked_on": "2025-01-25",
+   "disruption": {
+    "code": "FLT_CANC",
+    "source": "airline",
+    "logged_on": "2025-03-09"
+   },
+   "alt_check": null,
+   "client_recharge": {
+    "billable": false,
+    "client_code": null
+   }
+  },
+  "approvals": {
+   "line_mgr": {
+    "approved": true
+   },
+   "pre_approval": null,
+   "attendees": []
+  },
+  "history": {
+   "exceptions_12m": 5,
+   "approved_12m": 3,
+   "declined_12m": 2,
+   "last_exception_on": "2024-12-02"
+  }
+ },
+ "factors": {
+  "breach_type": "airfare_class_upgrade",
+  "true_excess_pct": 52.0,
+  "amount_mismatch": "duplicated_line",
+  "reference_mismatch": "line_date_outside_trip",
+  "pre_approval_state": "absent",
+  "external_disruption": true,
+  "compliant_option": "not_checked",
+  "missing_item": "attendee_list",
+  "excess_vs_authority": "above_limit",
+  "client_rechargeable": false,
+  "prior_exceptions_12m": 5,
+  "booking_lead_days": 44,
+  "employee_grade": "G3"
+ },
+ "factors_sampled": {
+  "breach_type": "airfare_class_upgrade",
+  "true_excess_pct": 100.68,
+  "amount_mismatch": "duplicated_line",
+  "reference_mismatch": "line_date_outside_trip",
+  "pre_approval_state": "absent",
+  "external_disruption": true,
+  "compliant_option": "available",
+  "missing_item": "attendee_list",
+  "excess_vs_authority": "above_limit",
+  "client_rechargeable": false,
+  "prior_exceptions_12m": 5,
+  "booking_lead_days": 44,
+  "employee_grade": "G3"
+ },
+ "plan": {
+  "preapproval_covers": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "outside_control": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "excess_disposition": {
+   "clarity": "balanced",
+   "target": "decline_excess",
+   "second": "hold_for_info"
+  },
+  "excess_size": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "discrepancy_count": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 99,
+ "deciding": {
+  "preapproval_covers": "approvals.pre_approval is null, so no pre-approval exists for the trip or the excess.",
+  "outside_control": "travel.disruption logged (FLT_CANC, airline, day before departure); no alternative check contradicts it.",
+  "excess_disposition": "Excess 208 exceeds reviewer_limit 150 and there is no pre-approval, which favours declining; empty attendees list and 5 prior exceptions (2 declined) are held against the disruption, leaving hold for info plausible.",
+  "excess_size": "Lines net of the duplicate give 608 vs cap 400, about 52%, just over the 50% boundary.",
+  "discrepancy_count": "Duplicate line 2, line 3 dated 03-16 outside the trip window, and requested_total 608 vs line sum 1128; the total gap may be only the duplicate's effect, so 2 or 3."
+ },
+ "request": "rec-F330-0001",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.015116
+}

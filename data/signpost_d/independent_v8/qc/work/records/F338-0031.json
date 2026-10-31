@@ -1,0 +1,122 @@
+{
+ "id": "F338-0031",
+ "family": "F338",
+ "state": {
+  "site": {
+   "pollutant": "NO2",
+   "tier": "indicative",
+   "service_interval_days": 30
+  },
+  "visit": {
+   "date": "2024-05-10",
+   "start": "09:00",
+   "end": "10:00",
+   "sequence_status": "partial"
+  },
+  "reference": {
+   "standard_id": "C4471",
+   "unit": "ppb",
+   "cert_expiry": "2025-03-22"
+  },
+  "checks": [
+   {
+    "type": "as_left_zero",
+    "ref_id": "C4471",
+    "ref_conc": 0,
+    "unit": "ppb",
+    "reading": 0.4,
+    "tol": 2,
+    "ts": "2024-05-10T10:12"
+   },
+   {
+    "type": "as_left_span",
+    "ref_id": "C4471",
+    "ref_conc": 100,
+    "unit": "ppb",
+    "reading": 99,
+    "tol": 5,
+    "ts": "2024-05-10T10:20"
+   }
+  ],
+  "history": {
+   "last_visit_date": "2024-04-04",
+   "autochecks": [
+    {
+     "d": "2024-05-07",
+     "r": "pass"
+    }
+   ]
+  },
+  "instrument": {
+   "temp_max": 34
+  }
+ },
+ "factors": {
+  "pollutant": "NO2",
+  "as_found_ratio": 2.02,
+  "as_left_status": "all_pass",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 316,
+  "unit_mismatch": true,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "enclosure_temp_excursion",
+  "days_since_last_visit": 36,
+  "visit_completeness": "multipoint_missing",
+  "prior_fail_count": 4,
+  "timestamp_mismatch": "minutes_outside",
+  "site_priority": "indicative"
+ },
+ "factors_sampled": {
+  "pollutant": "NO2",
+  "as_found_ratio": 2.02,
+  "as_left_status": "all_pass",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 316,
+  "unit_mismatch": true,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "enclosure_temp_excursion",
+  "days_since_last_visit": 36,
+  "visit_completeness": "multipoint_missing",
+  "prior_fail_count": 4,
+  "timestamp_mismatch": "minutes_outside",
+  "site_priority": "indicative"
+ },
+ "plan": {
+  "data_accepted": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "reference_valid": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "recalibrate",
+   "second": null
+  },
+  "flag_extent": {
+   "clarity": "leaning",
+   "target": "0",
+   "second": null
+  },
+  "return_urgency": {
+   "clarity": "balanced",
+   "target": "4",
+   "second": "3"
+  }
+ },
+ "target_words": 44,
+ "deciding": {
+  "data_accepted": "Autochecks pass to 3 days before visit and as-left points are within tolerance; temperature excursion explains drift.",
+  "reference_valid": "IDs match and the cert is in date, but the ppb vs ppm style unit question is borderline, held by reference.unit and checks unit agreeing only nominally.",
+  "next_step": "Sequence_status partial and no precision or multipoint as-found points present, so calibration looks incomplete.",
+  "flag_extent": "Passing autochecks and temperature excursion explanation mean little prior data needs flagging.",
+  "return_urgency": "Incomplete calibration with checks timestamped after visit end; indicative tier fits a slower return, but same-day completion is plausible."
+ },
+ "request": "rec-F338-0031",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.006461
+}

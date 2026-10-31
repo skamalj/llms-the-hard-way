@@ -1,0 +1,133 @@
+{
+ "id": "F330-0048",
+ "family": "F330",
+ "state": {
+  "request": {
+   "req_id": "X-9017",
+   "grade": "G7",
+   "cost_centre": "CC305",
+   "trip_ref": "T-4471",
+   "breach_rule": "AIR-01",
+   "requested_total": 1212,
+   "ccy": "GBP",
+   "submitted_on": "2024-07-15"
+  },
+  "lines": [
+   {
+    "line_no": 1,
+    "date": "2024-07-03",
+    "category": "airfare_business",
+    "cost_centre": "CC305",
+    "amount": 1400,
+    "ccy": "EUR",
+    "fx_rate": 0.855,
+    "amount_gbp": 1212,
+    "receipt_attached": true
+   }
+  ],
+  "policy": {
+   "rule_id": "AIR-01",
+   "grade_band": "G7",
+   "cap_gbp": 1200,
+   "cap_unit": "per_flight",
+   "units": 1,
+   "reviewer_limit_gbp": 500
+  },
+  "travel": {
+   "trip_ref": "T-4471",
+   "depart": "2024-07-03",
+   "return": "2024-07-05",
+   "booked_on": "2024-06-21",
+   "disruption": null,
+   "alt_check": null,
+   "client_recharge": {
+    "billable": true,
+    "client_code": "CL-090"
+   }
+  },
+  "approvals": {
+   "line_mgr": {
+    "approved": null
+   },
+   "pre_approval": {
+    "ref": "PA-118",
+    "trip_ref": "T-4471",
+    "max_gbp": 400,
+    "valid_to": "2024-07-31"
+   }
+  },
+  "history": {
+   "exceptions_12m": 3,
+   "approved_12m": 3,
+   "declined_12m": 0
+  }
+ },
+ "factors": {
+  "breach_type": "airfare_class_upgrade",
+  "true_excess_pct": 1.0,
+  "amount_mismatch": "fx_rate_stale",
+  "reference_mismatch": "none",
+  "pre_approval_state": "valid_matching",
+  "external_disruption": false,
+  "compliant_option": "not_checked",
+  "missing_item": "line_mgr_approval",
+  "excess_vs_authority": "well_within",
+  "client_rechargeable": true,
+  "prior_exceptions_12m": 3,
+  "booking_lead_days": 12,
+  "employee_grade": "G7"
+ },
+ "factors_sampled": {
+  "breach_type": "airfare_class_upgrade",
+  "true_excess_pct": 113.62,
+  "amount_mismatch": "fx_rate_stale",
+  "reference_mismatch": "cost_centre_differs",
+  "pre_approval_state": "expired",
+  "external_disruption": false,
+  "compliant_option": "not_checked",
+  "missing_item": "attendee_list",
+  "excess_vs_authority": "well_within",
+  "client_rechargeable": true,
+  "prior_exceptions_12m": 3,
+  "booking_lead_days": 12,
+  "employee_grade": "G7"
+ },
+ "plan": {
+  "preapproval_covers": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "outside_control": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "excess_disposition": {
+   "clarity": "clear",
+   "target": "hold_for_info",
+   "second": null
+  },
+  "excess_size": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  },
+  "discrepancy_count": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  }
+ },
+ "target_words": 73,
+ "deciding": {
+  "preapproval_covers": "PA-118 matches T-4471, valid_to 2024-07-31, max 400 well above the small excess; slight doubt as line manager approval is null.",
+  "outside_control": "disruption null and alt_check null: cause undocumented.",
+  "excess_disposition": "approvals.line_mgr.approved is null, a single named missing approval; excess is tiny and within limit.",
+  "excess_size": "Stated 1212 vs cap 1200 is 1%, but 1400x0.855=1197 would be under cap.",
+  "discrepancy_count": "Only line 1 fx arithmetic disagrees (1197 vs 1212); everything else agrees, but the stale-rate item makes 0 vs 1 arguable."
+ },
+ "request": "rec-F330-0046",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012742
+}

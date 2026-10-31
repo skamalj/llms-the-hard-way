@@ -1,0 +1,307 @@
+{
+ "id": "F310",
+ "domain": "benefits eligibility reassessments",
+ "role": "Benefits reassessment officer reviewing one claimant's periodic eligibility reassessment for a means-tested housing and living-costs support award",
+ "setting": "A regional welfare office runs scheduled reassessments of existing awards. Each record brings together the claimant's current award, their latest declaration, figures verified from external data feeds, the case history and a short officer or caseworker note. The officer must decide whether circumstances have changed without being reported, what to do with the award now, what kind of change matters most, and how long payments may have been affected.",
+ "questions": {
+  "undeclared_change": {
+   "type": "noul",
+   "instructions": "Verified data shows an unreported change that alters the entitlement band.",
+   "criteria": {
+    "true": "Trusted verified figure contradicts declaration and crosses band threshold.",
+    "false": "No contradiction, change reported, explained, or below threshold."
+   }
+  },
+  "next_step": {
+   "type": "choice",
+   "instructions": "What should the officer do with this reassessment now?",
+   "criteria": {
+    "continue_award": "Entitlement confirmed; current award continues at the same rate.",
+    "hold_pending": "One outstanding item must be confirmed before any decision.",
+    "revise_award": "Entitlement stands but the award rate must be recalculated.",
+    "suspend_payment": "Payments stop while apparent nil entitlement is formally investigated."
+   }
+  },
+  "change_category": {
+   "type": "choice",
+   "instructions": "Which type of change most affects entitlement on this record?",
+   "criteria": {
+    "no_change": "No verified change that would move the entitlement calculation.",
+    "income_change": "Earnings, pension or other income differs from assessed figures.",
+    "household_change": "A person has joined or left the assessed household.",
+    "housing_cost_change": "Rent, tenancy terms or address differ from assessed figures."
+   }
+  },
+  "affected_scope": {
+   "type": "score",
+   "instructions": "How many people or units does this issue directly affect?",
+   "criteria": [
+    "Affects one person or unit only",
+    "Affects two to five people or units",
+    "Affects six to twenty people or units",
+    "Affects more than twenty people or units"
+   ]
+  },
+  "affected_duration": {
+   "type": "score",
+   "instructions": "How long have payments potentially been affected by the change?",
+   "criteria": [
+    "No affected payment period identified in the record",
+    "Affected period shorter than 4 weeks",
+    "Affected period from 4 to 26 weeks",
+    "Affected period longer than 26 weeks"
+   ]
+  }
+ },
+ "factors": [
+  {
+   "name": "change_type",
+   "description": "The true kind of circumstance change underlying the record, if any; determines which section pair carries the contradiction.",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "income",
+    "household",
+    "housing_costs"
+   ],
+   "weights": [
+    0.25,
+    0.35,
+    0.2,
+    0.2
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S7"
+   ]
+  },
+  {
+   "name": "discrepancy_size",
+   "description": "Size of the gap between the declared and verified value relative to the award band threshold: trivial stays well inside the band, moderate moves the rate, large removes entitlement.",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "trivial",
+    "moderate",
+    "large"
+   ],
+   "weights": [
+    0.2,
+    0.25,
+    0.35,
+    0.2
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S4",
+    "S6"
+   ]
+  },
+  {
+   "name": "discrepancy_location",
+   "description": "Which pair of sections must be compared to find the mismatch: declared earnings vs payroll feed, declared savings vs bank snapshot, household list vs tenancy occupants, or a term in the case note vs the listed household.",
+   "kind": "categorical",
+   "values": [
+    "declaration_vs_payroll",
+    "declaration_vs_bank",
+    "household_vs_tenancy",
+    "note_vs_household"
+   ],
+   "weights": [
+    0.35,
+    0.2,
+    0.25,
+    0.2
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1"
+   ]
+  },
+  {
+   "name": "change_reported",
+   "description": "Whether the claimant reported the change through a contact log entry dated before the reassessment, mitigating an apparent contradiction.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S5"
+   ]
+  },
+  {
+   "name": "benign_explanation",
+   "description": "Whether a field explains the alarming figure innocently, such as a one-off backdated pay correction, a temporary visitor flag, or an approved rent-arrears arrangement.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S6"
+   ]
+  },
+  {
+   "name": "weeks_since_change",
+   "description": "Weeks between the verified effective date of the change and the reassessment date; drives the affected-period answer.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 60,
+   "p_true": 0,
+   "skills": [
+    "S4",
+    "S7"
+   ]
+  },
+  {
+   "name": "pending_evidence",
+   "description": "Whether one requested document (payslip, tenancy agreement, departure confirmation) is still outstanding in history requests.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.35,
+   "skills": [
+    "S4"
+   ]
+  },
+  {
+   "name": "data_source_trust",
+   "description": "Origin of the contradicting figure: an automated verified feed, a claimant upload, or an unverified third-party report; lower trust weakens the contradiction.",
+   "kind": "categorical",
+   "values": [
+    "verified_feed",
+    "claimant_upload",
+    "third_party_report"
+   ],
+   "weights": [
+    0.5,
+    0.25,
+    0.25
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S5"
+   ]
+  },
+  {
+   "name": "boundary_case",
+   "description": "Whether a key value sits exactly on a scale or band edge, such as the verified income equal to the taper threshold or the change dated exactly 4 or 26 weeks back.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.2,
+   "skills": [
+    "S6"
+   ]
+  },
+  {
+   "name": "prior_overpayments",
+   "description": "Count of earlier overpayment episodes in history; a decoy that looks alarming but does not decide the current record.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 3,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S7"
+   ]
+  },
+  {
+   "name": "note_tone",
+   "description": "Tone of the free-text case note: neutral, alarming (suspicion voiced without evidence) or reassuring (unsupported comfort); decoy unless it names a concrete fact.",
+   "kind": "categorical",
+   "values": [
+    "neutral",
+    "alarming",
+    "reassuring"
+   ],
+   "weights": [
+    0.4,
+    0.3,
+    0.3
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S5",
+    "S6"
+   ]
+  },
+  {
+   "name": "recalculation_started",
+   "description": "Whether a recalculation was begun but not completed, shown by a draft rate in the award section with no approval date.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.3,
+   "skills": [
+    "S4"
+   ]
+  }
+ ],
+ "sections": [
+  {
+   "name": "award",
+   "description": "Current award: reference, weekly_rate, band, band thresholds, last_assessed date, draft_rate and draft_approved_on."
+  },
+  {
+   "name": "declaration",
+   "description": "Claimant's latest declared figures: monthly earnings, savings, household members, rent, address, declared_on."
+  },
+  {
+   "name": "verified_data",
+   "description": "Externally sourced figures with source, retrieved_on, effective_from, and one evidence_line free-text field."
+  },
+  {
+   "name": "household",
+   "description": "Listed occupants with relationship, date joined, date left, temporary flag, plus tenancy occupant count."
+  },
+  {
+   "name": "history",
+   "description": "Dated list of contact log entries, evidence requests with status, and prior overpayment episodes."
+  },
+  {
+   "name": "case_notes",
+   "description": "Reassessment date, officer initials and one short free-text note."
+  }
+ ],
+ "rendering_notes": "change_type and discrepancy_location decide where the contradiction lives: income shows as declaration.monthly_earnings vs verified_data.payroll_monthly (or declaration.savings vs verified_data.bank_balance); household shows as household.members vs household.tenancy_occupants or a name/relative mentioned in case_notes.note that is absent from the members list; housing_costs shows as declaration.rent or address vs verified_data.landlord_rent or address. discrepancy_size is rendered only as raw numbers; the reader must compare the gap with award.band_lower/band_upper and taper_threshold. weeks_since_change is rendered as verified_data.effective_from against case_notes.reassessment_date; never print a weeks count. change_reported appears as a history contact entry (type 'change_notified', dated, short message) or its absence. benign_explanation appears as a field such as verified_data.one_off_payment=true, household member temporary=true with an end date, or an evidence_line like 'Includes backdated arrears correction for March'. data_source_trust is verified_data.source. pending_evidence is a history request with status 'outstanding'. recalculation_started is award.draft_rate non-null with draft_approved_on null. boundary_case places a value exactly at a threshold or a date exactly 28 or 182 days back. Decoys: prior_overpayments in history, note_tone in case_notes.note, unchanged fields that look large (e.g. high rent that matches both sections), and trivial mismatches such as rounding or a postcode spacing difference. Use null for unknown values. The record must never contain fields like 'change_detected', 'recommended_action', 'overpayment_weeks' or 'risk'; answers must be inferred by comparing sections.",
+ "skills": [
+  "S1",
+  "S3",
+  "S4",
+  "S5",
+  "S6",
+  "S7"
+ ],
+ "shared_scale": "affected_scope",
+ "design_cost": 0.114136
+}

@@ -1,0 +1,147 @@
+{
+ "id": "F317-0049",
+ "family": "F317",
+ "state": {
+  "vehicle": {
+   "fleet_no": 2650,
+   "odometer_km": 60410,
+   "last_exam_type": "A",
+   "last_exam_date": "2024-11-20"
+  },
+  "exam": {
+   "exam_id": "E55",
+   "due_at_km": 60184,
+   "items": [
+    {
+     "c": "A",
+     "signed_by": "t3",
+     "signed_at": "2025-07-04T05:00"
+    },
+    {
+     "c": "B",
+     "result": "ok",
+     "signed_by": null,
+     "signed_at": null
+    },
+    {
+     "c": "C",
+     "result": "ok",
+     "signed_by": null,
+     "signed_at": null
+    },
+    {
+     "c": "D",
+     "result": "ok",
+     "signed_by": null,
+     "signed_at": null
+    },
+    {
+     "c": "E",
+     "result": "ok",
+     "signed_by": null,
+     "signed_at": null
+    }
+   ]
+  },
+  "defects": [
+   {
+    "defect_id": "D21",
+    "subsystem": "pantograph",
+    "safety_critical": true,
+    "status": "open"
+   },
+   {
+    "defect_id": "D22",
+    "subsystem": "saloon_doors",
+    "safety_critical": true,
+    "status": "open",
+    "raised_at": "2025-06-20"
+   }
+  ],
+  "work_orders": [
+   {
+    "wo_id": "W31",
+    "defect_ref": "D21",
+    "subsystem": "pantograph",
+    "status": "in_progress"
+   }
+  ],
+  "release": {
+   "duty_type": "off_peak",
+   "depart_at": "2025-07-04T09:00",
+   "odo_reading_km": 60410,
+   "brake_test_result": "pass",
+   "brake_test_at": "2025-07-04T07:00"
+  }
+ },
+ "factors": {
+  "km_to_exam_due": -226,
+  "odometer_disagreement": "trivial",
+  "exam_signed_fraction": 0.2,
+  "exam_record_missing": false,
+  "worst_defect_subsystem": "saloon_doors",
+  "worst_defect_state": "open_wo_in_progress",
+  "worst_defect_safety_critical": true,
+  "retest_out_of_order": false,
+  "concession_present": false,
+  "concession_flaw": "none",
+  "wo_crossref_mismatch": "none",
+  "planned_duty_type": "off_peak",
+  "recent_brake_test_pass": true,
+  "balanced_signals": false
+ },
+ "factors_sampled": {
+  "km_to_exam_due": 226,
+  "odometer_disagreement": "large",
+  "exam_signed_fraction": 0.82,
+  "exam_record_missing": false,
+  "worst_defect_subsystem": "pantograph",
+  "worst_defect_state": "open_wo_in_progress",
+  "worst_defect_safety_critical": true,
+  "retest_out_of_order": false,
+  "concession_present": false,
+  "concession_flaw": "wrong_defect_ref",
+  "wo_crossref_mismatch": "none",
+  "planned_duty_type": "off_peak",
+  "recent_brake_test_pass": true,
+  "balanced_signals": false
+ },
+ "plan": {
+  "sc_defects_cleared": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "release_decision": {
+   "clarity": "balanced",
+   "target": "release_restricted",
+   "second": "release"
+  },
+  "worst_subsystem": {
+   "clarity": "leaning",
+   "target": "saloon_doors",
+   "second": null
+  },
+  "exam_completion": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  },
+  "exam_mileage": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  }
+ },
+ "target_words": 98,
+ "deciding": {
+  "sc_defects_cleared": "D21 and D22 are safety-critical and open.",
+  "release_decision": "Open safety-critical defects without concession, off-peak duty and a recent brake test pass; restricted versus plain release is balanced, with no valid concession pulling either way.",
+  "worst_subsystem": "D22 doors is safety-critical and open with no work order, and was raised earlier than the pantograph defect timing implies, so doors lead.",
+  "exam_completion": "1 of 5 items signed; the other items have ok results but no signature, so level 1 versus 0.",
+  "exam_mileage": "Odometer 60410 minus due 60184 is 226 km past due, in the over-200 band, but readings are close to the boundary; level 2 is taken by the stated due. "
+ },
+ "request": "rec-F317-0046",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.006329
+}

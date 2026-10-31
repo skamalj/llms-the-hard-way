@@ -1,0 +1,137 @@
+{
+ "id": "F328-0034",
+ "family": "F328",
+ "state": {
+  "report_meta": {
+   "driver_id": "D5120",
+   "vehicle": "RV68 TTC"
+  },
+  "vehicle_device": {
+   "health_flags": [],
+   "last_calibration": "2025-04-01",
+   "odo_km": [
+    92000,
+    92385
+   ]
+  },
+  "trips": [
+   {
+    "start": "2025-08-12T05:30",
+    "end": "2025-08-12T08:20",
+    "gps_km": 190,
+    "driver_card": null
+   },
+   {
+    "start": "2025-08-12T08:31",
+    "end": "2025-08-12T10:57",
+    "gps_km": 185,
+    "driver_card": null
+   }
+  ],
+  "events": [
+   {
+    "time": "2025-08-12T09:10",
+    "type": "speed",
+    "recorded_mph": 63,
+    "posted_limit_mph": 50
+   },
+   {
+    "type": "harsh",
+    "times": [
+     "05:50",
+     "06:15",
+     "06:40",
+     "07:05",
+     "07:20",
+     "07:45",
+     "08:40",
+     "09:00",
+     "09:30",
+     "10:05",
+     "10:30"
+    ]
+   }
+  ],
+  "tacho_summary": {
+   "cards": [
+    {
+     "card": "D7782",
+     "drive": "05:30/10:57"
+    }
+   ],
+   "swaps": []
+  },
+  "notes_history": {
+   "supervisor_note": "2025-08-12: M6 closed, convoy diverted via A-road by police.",
+   "coaching": []
+  }
+ },
+ "factors": {
+  "driver_assignment": "card_missing",
+  "raw_speed_excess_pct": 26.0,
+  "speed_mitigation": "emergency_diversion_logged",
+  "harsh_event_count": 11,
+  "harsh_context_logged": false,
+  "device_health": "ok",
+  "telematics_stint_hours": 5.45,
+  "tacho_break_reconciles": false,
+  "prior_coaching_count": 0,
+  "coaching_status": "none",
+  "boundary_value": false,
+  "note_content": "none",
+  "distance_discrepancy_pct": 2.6
+ },
+ "factors_sampled": {
+  "driver_assignment": "card_missing",
+  "raw_speed_excess_pct": 26.11,
+  "speed_mitigation": "emergency_diversion_logged",
+  "harsh_event_count": 11,
+  "harsh_context_logged": false,
+  "device_health": "gps_drift",
+  "telematics_stint_hours": 5.85,
+  "tacho_break_reconciles": true,
+  "prior_coaching_count": 0,
+  "coaching_status": "none",
+  "boundary_value": false,
+  "note_content": "none",
+  "distance_discrepancy_pct": 2.6
+ },
+ "plan": {
+  "driver_attributed": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "follow_up": {
+   "clarity": "clear",
+   "target": "hold_verify",
+   "second": null
+  },
+  "worst_event_cause": {
+   "clarity": "clear",
+   "target": "driver_choice",
+   "second": null
+  },
+  "speed_excess": {
+   "clarity": "leaning",
+   "target": "0",
+   "second": null
+  },
+  "hours_exposure": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  }
+ },
+ "target_words": 113,
+ "deciding": {
+  "driver_attributed": "Trip cards are null and the tacho shows card D7782 driving the whole period with no swap entry, while the report driver is D5120.",
+  "follow_up": "The hours and harsh findings cannot be pinned on D5120 until the card mismatch is resolved; the speed event is covered by the logged diversion.",
+  "worst_event_cause": "Eleven harsh events carry no context tags, the device is healthy and there is no limit update, so no external explanation exists.",
+  "speed_excess": "The 63 vs 50 event falls on 2025-08-12, the date of the logged diversion, so it is mitigated; doubt remains about how far the diversion covers that road.",
+  "hours_exposure": "Trips 05:30-10:57 with an 11 min stop and no tacho break give about 5.45 h, just under the 5.5 h anchor between levels 2 and 3."
+ },
+ "request": "rec-F328-0031",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.019571
+}

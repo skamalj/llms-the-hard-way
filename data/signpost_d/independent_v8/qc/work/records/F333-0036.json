@@ -1,0 +1,158 @@
+{
+ "id": "F333-0036",
+ "family": "F333",
+ "state": {
+  "room": {
+   "room_id": "B214",
+   "block": "B",
+   "room_type": "study",
+   "next_occupancy_date": "2024-07-05",
+   "rate_card_ref": "RC24"
+  },
+  "tenancy": {
+   "start_date": "2023-09-01",
+   "end_date": "2024-06-30",
+   "deposit_held": 350,
+   "deposit_dispute_lodged": false
+  },
+  "checkin_inventory": {
+   "signed_date": "2023-08-30",
+   "signed_by_resident": true,
+   "items": [
+    {
+     "item_code": "WIN_LATCH",
+     "location": "window",
+     "grade": "damaged"
+    },
+    {
+     "item_code": "DESK",
+     "location": "desk",
+     "grade": "fair"
+    }
+   ]
+  },
+  "checkout_inspection": {
+   "inspection_type": "checkout",
+   "inspection_date": "2024-06-30",
+   "inspector_id": "I7",
+   "items": [
+    {
+     "item_code": "WIN_LATCH",
+     "location": "window",
+     "grade": "damaged",
+     "defect_category": "broken_fitting",
+     "photo_refs": [
+      "p1"
+     ]
+    },
+    {
+     "item_code": "DESK",
+     "location": "desk",
+     "grade": "fair",
+     "defect_category": "scuff",
+     "photo_refs": [
+      "p2"
+     ]
+    }
+   ]
+  },
+  "proposed_charges": {
+   "lines": [
+    {
+     "item_code": "WIN_LATCH",
+     "reason_code": "DMG",
+     "qty": 1,
+     "unit_rate": 62,
+     "line_total": 62
+    },
+    {
+     "item_code": "DESK",
+     "reason_code": "DMG",
+     "qty": 1,
+     "unit_rate": 40,
+     "line_total": 40
+    }
+   ],
+   "summary_total": 102,
+   "rate_card_ref": "RC24"
+  },
+  "works_orders": [
+   {
+    "wo_id": "W88",
+    "raised_date": "2023-08-20",
+    "location": "window",
+    "category": "fabric",
+    "priority_code": "P3",
+    "status": "open"
+   }
+  ]
+ },
+ "factors": {
+  "inspection_type": "checkout",
+  "checkin_inventory_state": "complete",
+  "prior_damage_on_charged_item": "two_or_more",
+  "charge_discrepancy": "none",
+  "worst_defect_tier": "functional",
+  "true_cause": "no_defect",
+  "predating_works_order": true,
+  "safety_fault_remedied": false,
+  "photo_coverage": "full",
+  "tenancy_months": 10,
+  "date_out_of_order": false,
+  "deposit_dispute_lodged": false,
+  "boundary_case": true
+ },
+ "factors_sampled": {
+  "inspection_type": "checkout",
+  "checkin_inventory_state": "complete",
+  "prior_damage_on_charged_item": "two_or_more",
+  "charge_discrepancy": "small_under_25",
+  "worst_defect_tier": "safety",
+  "true_cause": "no_defect",
+  "predating_works_order": true,
+  "safety_fault_remedied": false,
+  "photo_coverage": "full",
+  "tenancy_months": 10,
+  "date_out_of_order": false,
+  "deposit_dispute_lodged": false,
+  "boundary_case": true
+ },
+ "plan": {
+  "checkin_clean": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "disposition": {
+   "clarity": "leaning",
+   "target": "adjust_and_approve",
+   "second": null
+  },
+  "main_cause": {
+   "clarity": "leaning",
+   "target": "no_defect",
+   "second": null
+  },
+  "defect_severity": {
+   "clarity": "contested",
+   "target": "1",
+   "second": "2"
+  },
+  "charge_gap": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 59,
+ "deciding": {
+  "checkin_clean": "Both charged items, WIN_LATCH (damaged) and DESK (fair), were not good at check-in.",
+  "disposition": "Checkout grades equal check-in grades, so the charge lines are wrong, but removing them is correctable from figures already in the record.",
+  "main_cause": "Checkout grades match check-in for both items; the window latch also matches works order W88 raised before the tenancy started.",
+  "defect_severity": "The worst category is a broken_fitting on the window latch: it needs repair, but the room is usable. Whether it stops normal use of the room is arguable, so levels 1 and 2 are both defensible.",
+  "charge_gap": "The proposed summary_total of 102 is entirely unevidenced (no worsening), which puts the gap right on the 100 boundary."
+ },
+ "request": "rec-F333-0036",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.014474
+}

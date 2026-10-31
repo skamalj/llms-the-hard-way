@@ -1,0 +1,99 @@
+{
+ "id": "F318-0113",
+ "family": "F318",
+ "state": {
+  "work_order": {
+   "wo_id": "WO-9013",
+   "visit_type": "planned_repair",
+   "tasks": 6,
+   "nav_notice": {
+    "in_force": false
+   }
+  },
+  "visit_log": {
+   "task_status": [
+    {
+     "task_id": 2,
+     "status": "temp_fix",
+     "deferral_ref": "DEF-5",
+     "deferral_due": "2025-02-09"
+    }
+   ],
+   "crew_size": 2,
+   "timesheet_hours": 10
+  },
+  "checks": {
+   "post_checks": [],
+   "leakage_ls": 71.7,
+   "leakage_limit_ls": 30
+  }
+ },
+ "factors": {
+  "visit_type": "planned_repair",
+  "tasks_ordered": 6,
+  "completion_state": "temporary_fix",
+  "parts_qty_mismatch": "none",
+  "hours_gap": 0.01,
+  "asset_ref_mismatch": false,
+  "post_check_result": "not_logged",
+  "leakage_ratio": 2.39,
+  "leakage_mitigation": false,
+  "navigation_notice_in_force": false,
+  "deferral_approved": true,
+  "prior_same_defect": 3,
+  "boundary_case": true
+ },
+ "factors_sampled": {
+  "visit_type": "planned_repair",
+  "tasks_ordered": 6,
+  "completion_state": "temporary_fix",
+  "parts_qty_mismatch": "none",
+  "hours_gap": 0.01,
+  "asset_ref_mismatch": false,
+  "post_check_result": "not_logged",
+  "leakage_ratio": 2.39,
+  "leakage_mitigation": false,
+  "navigation_notice_in_force": false,
+  "deferral_approved": true,
+  "prior_same_defect": 3,
+  "boundary_case": true
+ },
+ "plan": {
+  "safe_to_reopen": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "record_disposition": {
+   "clarity": "clear",
+   "target": "reopen_revisit",
+   "second": null
+  },
+  "return_urgency": {
+   "clarity": "leaning",
+   "target": "immediate",
+   "second": null
+  },
+  "affected_scope": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "section_mismatches": {
+   "clarity": "clear",
+   "target": "1",
+   "second": null
+  }
+ },
+ "target_words": 43,
+ "deciding": {
+  "safe_to_reopen": "Leakage is 2.39 times its limit, the post-check is empty and the task is only a temp_fix, though the deferral is approved and there is no nav notice.",
+  "record_disposition": "A temp_fix with no post-checks and leakage far over limit means the work is not accepted, so the crew must return.",
+  "return_urgency": "Excess leakage with no mitigation and no check points to attendance within 24 hours, although the approved deferral to 2025-02-09 gives some doubt.",
+  "affected_scope": "A 6-task lock with unrestricted navigation and high leakage affects boaters and units near the 20 boundary.",
+  "section_mismatches": "The only unexplained mismatch is the missing post-check against the logged work; the temp_fix has a deferral ref."
+ },
+ "request": "rec-F318-0111",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.006773
+}

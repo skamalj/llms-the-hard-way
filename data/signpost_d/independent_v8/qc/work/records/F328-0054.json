@@ -1,0 +1,143 @@
+{
+ "id": "F328-0054",
+ "family": "F328",
+ "state": {
+  "report_meta": {
+   "id": "W20-K",
+   "veh": "MN19 ZTC",
+   "driver_id": "D071",
+   "period": "2024-05-13/2024-05-19"
+  },
+  "vehicle_device": {
+   "health_flags": [
+    "accel_recalibrated"
+   ],
+   "last_cal": "2024-05-15",
+   "odo_start": 20000,
+   "odo_end": 20150
+  },
+  "trips": [
+   {
+    "id": "T1",
+    "start": "05-16T06:00",
+    "end": "05-16T08:55",
+    "gps_km": 140,
+    "driver_card": "D071",
+    "ign_min": 182
+   }
+  ],
+  "events": [
+   {
+    "t": "05-16T07:40",
+    "type": "speed",
+    "seg": "A-road seg 14",
+    "recorded_mph": 66,
+    "posted_limit_mph": 55,
+    "map_ver": "M23.4"
+   },
+   {
+    "t": "05-13T10:20",
+    "type": "harsh_brake"
+   }
+  ],
+  "tacho_summary": {
+   "cards": [
+    {
+     "card": "D071",
+     "drive": [
+      [
+       "06:00",
+       "08:55"
+      ]
+     ]
+    }
+   ]
+  },
+  "notes_history": {
+   "limit_updates": [
+    {
+     "seg": "A-road seg 14",
+     "limit_mph": 60,
+     "date": "2024-04-02"
+    }
+   ],
+   "supervisor_note": "Driver says van was lent out that day.",
+   "coaching": [
+    {
+     "status": "cancelled"
+    },
+    {
+     "status": "cancelled"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "driver_assignment": "match",
+  "raw_speed_excess_pct": 20.0,
+  "speed_mitigation": "map_limit_outdated",
+  "harsh_event_count": 1,
+  "harsh_context_logged": false,
+  "device_health": "accelerometer_recalibrated",
+  "telematics_stint_hours": 2.92,
+  "tacho_break_reconciles": false,
+  "prior_coaching_count": 2,
+  "coaching_status": "none",
+  "boundary_value": true,
+  "note_content": "unverified_claim",
+  "distance_discrepancy_pct": 6.67
+ },
+ "factors_sampled": {
+  "driver_assignment": "match",
+  "raw_speed_excess_pct": 20.22,
+  "speed_mitigation": "none",
+  "harsh_event_count": 1,
+  "harsh_context_logged": false,
+  "device_health": "accelerometer_recalibrated",
+  "telematics_stint_hours": 6.06,
+  "tacho_break_reconciles": true,
+  "prior_coaching_count": 2,
+  "coaching_status": "none",
+  "boundary_value": true,
+  "note_content": "unverified_claim",
+  "distance_discrepancy_pct": 6.67
+ },
+ "plan": {
+  "driver_attributed": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "follow_up": {
+   "clarity": "leaning",
+   "target": "coaching",
+   "second": null
+  },
+  "worst_event_cause": {
+   "clarity": "clear",
+   "target": "map_data",
+   "second": null
+  },
+  "speed_excess": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  },
+  "hours_exposure": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 65,
+ "deciding": {
+  "driver_attributed": "The trip card and tacho both show D071, but the supervisor note claims the van was lent out that day; the claim is unsupported, so doubt is modest.",
+  "follow_up": "The speed excess is still confirmed against the updated limit, and both earlier coaching entries were cancelled, so no coaching on speed has been completed.",
+  "worst_event_cause": "The event's map_ver M23.4 is older than the 2024-04-02 limit update for the same segment, which raised the limit to 60 mph before the event.",
+  "speed_excess": "66 mph is 20% over the old 55 limit but exactly 10.0% over the updated 60, so level 1 and level 2 are both defensible.",
+  "hours_exposure": "The trip runs 2h55 with 182 min ignition-on, straddling the 3 h line, with no break."
+ },
+ "request": "rec-F328-0051",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.017725
+}

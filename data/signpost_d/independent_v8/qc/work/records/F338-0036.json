@@ -1,0 +1,107 @@
+{
+ "id": "F338-0036",
+ "family": "F338",
+ "state": {
+  "site": {
+   "pollutant": "CO",
+   "tier": "indicative",
+   "service_interval_days": 90,
+   "approved_interval_days": 120
+  },
+  "visit": {
+   "date": "2024-06-10",
+   "sequence_status": "aborted"
+  },
+  "reference": {
+   "standard_id": "CY48213",
+   "cert_expiry": "2024-08-07",
+   "unit": "ppm"
+  },
+  "checks": [
+   {
+    "type": "as_found",
+    "ref_id": "CY48123",
+    "ref_conc": 40,
+    "unit": "ppm",
+    "reading": 51.2,
+    "tol": 2
+   }
+  ],
+  "history": {
+   "last_visit_date": "2024-02-23",
+   "results": [
+    "pass",
+    "fail",
+    "pass"
+   ]
+  }
+ },
+ "factors": {
+  "pollutant": "CO",
+  "as_found_ratio": 1.28,
+  "as_left_status": "marginal",
+  "cylinder_id_mismatch": "transposed_digit",
+  "cert_expiry_offset_days": 58,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "approved_extended_interval",
+  "days_since_last_visit": 108,
+  "visit_completeness": "aborted_power",
+  "prior_fail_count": 1,
+  "timestamp_mismatch": "none",
+  "site_priority": "indicative"
+ },
+ "factors_sampled": {
+  "pollutant": "CO",
+  "as_found_ratio": 1.28,
+  "as_left_status": "marginal",
+  "cylinder_id_mismatch": "transposed_digit",
+  "cert_expiry_offset_days": 58,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "approved_extended_interval",
+  "days_since_last_visit": 108,
+  "visit_completeness": "aborted_power",
+  "prior_fail_count": 1,
+  "timestamp_mismatch": "none",
+  "site_priority": "indicative"
+ },
+ "plan": {
+  "data_accepted": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "reference_valid": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "hold",
+   "second": null
+  },
+  "flag_extent": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  },
+  "return_urgency": {
+   "clarity": "clear",
+   "target": "2",
+   "second": null
+  }
+ },
+ "target_words": 36,
+ "deciding": {
+  "data_accepted": "As-found reading 51.2 vs 40 ppm is outside tolerance, but the 120-day approved interval partly explains drift; the visit was aborted.",
+  "reference_valid": "checks ref_id CY48123 vs standard_id CY48213 is a transposed digit, likely a typo; the certificate is in date for 58 days.",
+  "next_step": "Visit sequence_status is aborted with no as-left points, so confirmation of the visit is outstanding and it stays open.",
+  "flag_extent": "108 days since the last visit, with the 120-day approved interval; flagging could cover all of it (over 30 days) or only the recent drift period (8 to 30 days).",
+  "return_urgency": "Aborted visit at an indicative-tier site with passing autochecks implies a return in 3 to 7 days."
+ },
+ "request": "rec-F338-0036",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.005764
+}

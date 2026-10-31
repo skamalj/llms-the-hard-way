@@ -1,0 +1,147 @@
+{
+ "id": "F338-0121",
+ "family": "F338",
+ "state": {
+  "site": {
+   "id": "S114",
+   "pollutant": "O3",
+   "tier": "standard",
+   "interval_days": 90
+  },
+  "visit": {
+   "date": "2024-06-20",
+   "start": "09:10",
+   "end": "11:00",
+   "sequence_status": "complete",
+   "maint_window": false
+  },
+  "reference": {
+   "standard_id": "CYL-4471",
+   "conc": 80,
+   "unit": "ppb",
+   "cert_no": "C22981",
+   "cert_expiry": "2024-12-13"
+  },
+  "checks": [
+   {
+    "type": "as_found_zero",
+    "ref_id": "CYL-4471",
+    "ref_conc": 0,
+    "unit": "ppb",
+    "reading": 1,
+    "tol": 3,
+    "ts": "2024-06-20T09:20"
+   },
+   {
+    "type": "as_found_span",
+    "ref_id": "CYL-4471",
+    "ref_conc": 80,
+    "unit": "ppb",
+    "reading": 70.45,
+    "tol": 5,
+    "ts": "2024-06-20T09:40"
+   },
+   {
+    "type": "as_left_span",
+    "ref_id": "CYL-4471",
+    "ref_conc": 80,
+    "unit": "ppb",
+    "reading": 79.2,
+    "tol": 5,
+    "ts": "2024-06-20T10:40"
+   }
+  ],
+  "history": {
+   "last_visit_date": "2024-02-22",
+   "last_outcome": "pass",
+   "results": [
+    "pass",
+    "fail",
+    "pass",
+    "fail"
+   ],
+   "autochecks": [
+    {
+     "d": "2024-06-12",
+     "r": "pass"
+    },
+    {
+     "d": "2024-06-16",
+     "r": "pass"
+    }
+   ]
+  },
+  "instrument": {
+   "enclosure_temp_min": 11,
+   "enclosure_temp_max": 36
+  }
+ },
+ "factors": {
+  "pollutant": "O3",
+  "as_found_ratio": 1.91,
+  "as_left_status": "all_pass",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 176,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "enclosure_temp_excursion",
+  "days_since_last_visit": 119,
+  "visit_completeness": "complete",
+  "prior_fail_count": 2,
+  "timestamp_mismatch": "none",
+  "site_priority": "standard"
+ },
+ "factors_sampled": {
+  "pollutant": "O3",
+  "as_found_ratio": 1.91,
+  "as_left_status": "not_recorded",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 176,
+  "unit_mismatch": true,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "enclosure_temp_excursion",
+  "days_since_last_visit": 119,
+  "visit_completeness": "zero_only",
+  "prior_fail_count": 2,
+  "timestamp_mismatch": "none",
+  "site_priority": "standard"
+ },
+ "plan": {
+  "data_accepted": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "reference_valid": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "next_step": {
+   "clarity": "contested",
+   "target": "withdraw",
+   "second": "close_flagged"
+  },
+  "flag_extent": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "return_urgency": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 73,
+ "deciding": {
+  "data_accepted": "As-found span reads 70.45 against 80 ppb (deviation 9.55, tolerance 5), so the earlier data drifted well out of tolerance.",
+  "reference_valid": "Standard id, unit and expiry (about 176 days ahead) agree across the record, but the certificate number is the only certificate detail shown, which leaves modest doubt.",
+  "next_step": "As-left span passes after adjustment, which favours close_flagged, but the large as-found drift, the enclosure max of 36 and the two prior fails make an instrument fault plausible, which favours withdraw.",
+  "flag_extent": "119 days since the last visit; drift may date from the temperature excursion, but the autocheck passes do not show when it began, which leaves 8-30 days plausible against more than 30.",
+  "return_urgency": "Large as-found drift and prior fails call for a quick return, but the as-left passes and recent autocheck passes leave a few days of slack, which holds it between 1-2 days and 3-7 days."
+ },
+ "request": "rec-F338-0121",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012542
+}

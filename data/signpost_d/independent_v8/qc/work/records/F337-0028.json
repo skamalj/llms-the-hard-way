@@ -1,0 +1,112 @@
+{
+ "id": "F337-0028",
+ "family": "F337",
+ "state": {
+  "station": {
+   "channels": [
+    {
+     "cha": "HNZ",
+     "sensor_serial": "K220",
+     "response_epoch_start": "2022-06-14"
+    }
+   ]
+  },
+  "acquisition": {
+   "day": "2024-07-02",
+   "channel_hours_expected": 120,
+   "completeness_pct": 96,
+   "gaps": [
+    {
+     "cha": "HNE",
+     "start": "10:00",
+     "end": "10:48"
+    }
+   ],
+   "gps_lock_pct": 88
+  },
+  "qc_metrics": {
+   "dead": 3,
+   "psd_dev_db": 1.5,
+   "cal_pulse": {
+    "date": "2021-02-01",
+    "result": "pass"
+   }
+  },
+  "maintenance_log": [
+   {
+    "action": "outage",
+    "outage_start": "10:00",
+    "outage_end": "10:45"
+   }
+  ],
+  "operator_notes": [
+   "Power fault 10:00."
+  ]
+ },
+ "factors": {
+  "sensor_metadata_state": "no_swap",
+  "maintenance_log_present": true,
+  "gap_coverage": "minor_overrun",
+  "true_usable_fraction": 0.39,
+  "completeness_summary_drift": 4.66,
+  "timing_quality": "intermittent",
+  "calibration_status": "predates_swap",
+  "noise_excess_db": 1.5,
+  "benign_noise_cause_logged": true,
+  "operator_note_consistency": "consistent",
+  "dead_channels": 3,
+  "boundary_case": true
+ },
+ "factors_sampled": {
+  "sensor_metadata_state": "no_swap",
+  "maintenance_log_present": true,
+  "gap_coverage": "minor_overrun",
+  "true_usable_fraction": 0.39,
+  "completeness_summary_drift": 4.66,
+  "timing_quality": "intermittent",
+  "calibration_status": "predates_swap",
+  "noise_excess_db": 1.5,
+  "benign_noise_cause_logged": true,
+  "operator_note_consistency": "consistent",
+  "dead_channels": 3,
+  "boundary_case": true
+ },
+ "plan": {
+  "response_valid": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "gaps_explained": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "disposition": {
+   "clarity": "leaning",
+   "target": "release_flagged",
+   "second": null
+  },
+  "usable_fraction": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "pending_age": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  }
+ },
+ "target_words": 49,
+ "deciding": {
+  "response_valid": "No sensor_swap in the log; serial K220 and epoch 2022 are unchanged, so metadata is consistent.",
+  "gaps_explained": "Gap 10:00-10:48 overlaps the logged outage ending 10:45, a 3-minute overrun at the boundary.",
+  "disposition": "Faults sit in specific channels (dead channels, one gap) and timing is intermittent but above 80% lock; leans release_flagged.",
+  "usable_fraction": "Dead flags on 3 channels of a few; the usable share is near 50%, so level 0 or 1.",
+  "pending_age": "Day 2024-07-02 is the only date and there is no review timestamp, so age is under 1 day or 1-7 days."
+ },
+ "request": "rec-F337-0026",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.005129
+}

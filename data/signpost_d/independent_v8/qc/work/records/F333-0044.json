@@ -1,0 +1,129 @@
+{
+ "id": "F333-0044",
+ "family": "F333",
+ "state": {
+  "tenancy": {
+   "start_date": "2024-10-01",
+   "end_date": "2025-02-01",
+   "deposit_dispute_lodged": true
+  },
+  "checkin_inventory": {
+   "signed_date": "2024-10-01",
+   "items": [
+    {
+     "item_code": "SMOKE",
+     "location": "hall",
+     "grade": "good"
+    },
+    {
+     "item_code": "LOCK",
+     "location": "door",
+     "grade": null
+    }
+   ]
+  },
+  "checkout_inspection": {
+   "inspection_type": "pre_arrival",
+   "items": [
+    {
+     "item_code": "SMOKE",
+     "location": "hall",
+     "grade": "damaged",
+     "defect_category": "smoke_detector_fail",
+     "photo_refs": [
+      "p3"
+     ]
+    }
+   ]
+  },
+  "proposed_charges": {
+   "lines": [
+    {
+     "item_code": "SMOKE",
+     "qty": 1,
+     "unit_rate": 140,
+     "line_total": 140
+    }
+   ],
+   "summary_total": 140
+  },
+  "works_orders": [
+   {
+    "wo_id": "W41",
+    "location": "hall",
+    "category": "electrics",
+    "status": "completed",
+    "completed_date": "2025-02-01",
+    "retest_passed": true
+   }
+  ]
+ },
+ "factors": {
+  "inspection_type": "pre_arrival",
+  "checkin_inventory_state": "partial",
+  "prior_damage_on_charged_item": "none",
+  "charge_discrepancy": "none",
+  "worst_defect_tier": "safety",
+  "true_cause": "resident_damage",
+  "predating_works_order": false,
+  "safety_fault_remedied": true,
+  "photo_coverage": "all_but_one",
+  "tenancy_months": 4,
+  "date_out_of_order": false,
+  "deposit_dispute_lodged": true,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "inspection_type": "pre_arrival",
+  "checkin_inventory_state": "partial",
+  "prior_damage_on_charged_item": "none",
+  "charge_discrepancy": "none",
+  "worst_defect_tier": "functional",
+  "true_cause": "resident_damage",
+  "predating_works_order": false,
+  "safety_fault_remedied": true,
+  "photo_coverage": "all_but_one",
+  "tenancy_months": 4,
+  "date_out_of_order": false,
+  "deposit_dispute_lodged": true,
+  "boundary_case": false
+ },
+ "plan": {
+  "checkin_clean": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "disposition": {
+   "clarity": "balanced",
+   "target": "approve_as_drafted",
+   "second": "adjust_and_approve"
+  },
+  "main_cause": {
+   "clarity": "balanced",
+   "target": "resident_damage",
+   "second": "building_fault"
+  },
+  "defect_severity": {
+   "clarity": "clear",
+   "target": "3",
+   "second": null
+  },
+  "charge_gap": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 50,
+ "deciding": {
+  "checkin_clean": "SMOKE was graded good at check-in, but the inventory is partial (LOCK is null), so cleanliness is probably true with some doubt.",
+  "disposition": "The charge line matches the photo-supported grade drop, but a partial inventory and a works order make unchanged approval versus adjustment close.",
+  "main_cause": "SMOKE went from good to damaged, suggesting resident damage, but the hall electrics works order W41 could point to a building fault.",
+  "defect_severity": "smoke_detector_fail is a safety defect, level 3, even though it was remedied.",
+  "charge_gap": "The 140 line may be wholly or partly unevidenced given the remedied electrics works order, so the gap sits between level 2 and level 3 around the 100 boundary."
+ },
+ "request": "rec-F333-0041",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.005478
+}

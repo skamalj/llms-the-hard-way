@@ -1,0 +1,105 @@
+{
+ "id": "F315-0028",
+ "family": "F315",
+ "state": {
+  "report": {
+   "ref": "F3",
+   "received_at": "2025-06-01",
+   "source": "night_scout",
+   "units_reported": [
+    "u7"
+   ]
+  },
+  "asset": {
+   "unit_id": "u7",
+   "site_category": "underpass_or_subway"
+  },
+  "cms": {
+   "status_code": "LF",
+   "last_comms_at": "2025-06-01"
+  },
+  "history": [
+   {
+    "job_ref": "J3",
+    "attended": "2025-03-13",
+    "completed": null
+   }
+  ],
+  "job": {
+   "stage": "RECT",
+   "completed_at": "2025-06-02"
+  },
+  "supply": {
+   "dno_incident_ref": null,
+   "feeder_units_dark": 1
+  }
+ },
+ "factors": {
+  "dark_unit_count": 1,
+  "dno_incident_logged": false,
+  "cms_state": "lamp_fail",
+  "days_since_last_repair": 80,
+  "last_repair_state": "attended_not_completed",
+  "hazard_observed": "none",
+  "hazard_made_safe": false,
+  "site_category": "underpass_or_subway",
+  "planned_works_active": false,
+  "current_job_stage": "rectified_unconfirmed",
+  "dates_out_of_order": false,
+  "duplicate_of_open_job": false,
+  "report_source": "night_scout"
+ },
+ "factors_sampled": {
+  "dark_unit_count": 4,
+  "dno_incident_logged": false,
+  "cms_state": "lamp_fail",
+  "days_since_last_repair": 80,
+  "last_repair_state": "no_record",
+  "hazard_observed": "none",
+  "hazard_made_safe": false,
+  "site_category": "underpass_or_subway",
+  "planned_works_active": false,
+  "current_job_stage": "not_attended",
+  "dates_out_of_order": false,
+  "duplicate_of_open_job": false,
+  "report_source": "night_scout"
+ },
+ "plan": {
+  "supply_side_fault": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "repeat_failure": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "next_action": {
+   "clarity": "balanced",
+   "target": "routine_repair",
+   "second": "urgent_make_safe"
+  },
+  "source_support": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "repair_progress": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 32,
+ "deciding": {
+  "supply_side_fault": "One unit is reported, feeder_units_dark is 1 and dno_incident_ref is null, so this is a single-unit fault.",
+  "repeat_failure": "J3 was attended 80 days before the report (inside the 84-day window) but completed is null, so completion is unconfirmed.",
+  "next_action": "cms LF confirms the fault with no hazard code, but the site is an underpass, which could justify faster attendance.",
+  "source_support": "The scout report, cms LF, feeder count and job card all agree, but the cms reading is a same-day reading that may not be independent.",
+  "repair_progress": "job.stage RECT with completed_at 2025-06-02, while the cms LF reading is dated 2025-06-01, before the fix, so it is unclear whether any confirmation exists."
+ },
+ "request": "rec-F315-0026",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.010369
+}

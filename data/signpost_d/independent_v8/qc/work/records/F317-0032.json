@@ -1,0 +1,117 @@
+{
+ "id": "F317-0032",
+ "family": "F317",
+ "state": {
+  "vehicle": {
+   "fleet_no": "T3307",
+   "odometer_km": 30998
+  },
+  "exam": {
+   "due_at_km": 31000,
+   "items": [
+    {
+     "c": "A1",
+     "signed_by": "u2",
+     "signed_at": "2024-05-20T07:00"
+    },
+    {
+     "c": "A2",
+     "signed_by": "u2",
+     "signed_at": "2024-05-20T07:15"
+    },
+    {
+     "c": "A3",
+     "result": "ok",
+     "signed_by": null,
+     "signed_at": null
+    }
+   ]
+  },
+  "defects": [
+   {
+    "defect_id": "D12",
+    "subsystem": "brakes",
+    "safety_critical": false,
+    "status": "open"
+   }
+  ],
+  "work_orders": [],
+  "release": {
+   "duty_type": "peak_diagram",
+   "depart_at": "2024-05-21T06:00",
+   "odo_reading_km": 31001,
+   "brake_test_at": "2024-05-19T18:00",
+   "brake_test_result": "pass"
+  }
+ },
+ "factors": {
+  "km_to_exam_due": -1,
+  "odometer_disagreement": "trivial",
+  "exam_signed_fraction": 0.67,
+  "exam_record_missing": false,
+  "worst_defect_subsystem": "brakes",
+  "worst_defect_state": "open_no_wo",
+  "worst_defect_safety_critical": false,
+  "retest_out_of_order": false,
+  "concession_present": false,
+  "concession_flaw": "none",
+  "wo_crossref_mismatch": "none",
+  "planned_duty_type": "peak_diagram",
+  "recent_brake_test_pass": false,
+  "balanced_signals": false
+ },
+ "factors_sampled": {
+  "km_to_exam_due": 2,
+  "odometer_disagreement": "trivial",
+  "exam_signed_fraction": 0.46,
+  "exam_record_missing": false,
+  "worst_defect_subsystem": "none",
+  "worst_defect_state": "open_no_wo",
+  "worst_defect_safety_critical": true,
+  "retest_out_of_order": false,
+  "concession_present": false,
+  "concession_flaw": "wrong_defect_ref",
+  "wo_crossref_mismatch": "none",
+  "planned_duty_type": "peak_diagram",
+  "recent_brake_test_pass": false,
+  "balanced_signals": false
+ },
+ "plan": {
+  "sc_defects_cleared": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "release_decision": {
+   "clarity": "balanced",
+   "target": "hold",
+   "second": "release"
+  },
+  "worst_subsystem": {
+   "clarity": "clear",
+   "target": "brakes",
+   "second": null
+  },
+  "exam_completion": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  },
+  "exam_mileage": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  }
+ },
+ "target_words": 43,
+ "deciding": {
+  "sc_defects_cleared": "The only defect D12 has safety_critical false, so there is no safety-critical defect outstanding.",
+  "release_decision": "Open non-critical brake defect with no work order, a brake test over 24 h old and one unsigned exam item favour hold; the non-critical flag and a passed test keep release defensible.",
+  "worst_subsystem": "D12 on brakes is open with no work order and is the only defect.",
+  "exam_completion": "2 of 3 items signed; the third has a result but null signature, so substantial versus complete is arguable.",
+  "exam_mileage": "Vehicle odometer 30998 is 2 km before due 31000, but the later release reading 31001 is 1 km past, straddling the 0 boundary."
+ },
+ "request": "rec-F317-0031",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.010782
+}

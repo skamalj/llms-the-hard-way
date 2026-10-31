@@ -1,0 +1,125 @@
+{
+ "id": "F338-0041",
+ "family": "F338",
+ "state": {
+  "site": {
+   "pol": "CO",
+   "tier": "standard",
+   "int_d": 90
+  },
+  "visit": {
+   "date": "2024-05-20",
+   "start": "09:00",
+   "end": "10:30",
+   "seq": "complete"
+  },
+  "reference": {
+   "id": "C-4471",
+   "conc": 40,
+   "unit": "ppm",
+   "exp": "2024-09-09"
+  },
+  "checks": [
+   {
+    "t": "af_span",
+    "ref_id": "C-4471",
+    "ref": 40,
+    "unit": "ppm",
+    "read": 43.9,
+    "tol": 1.0,
+    "ts": "2024-05-20T09:10"
+   },
+   {
+    "t": "al_span",
+    "ref_id": "C-4471",
+    "ref": 40,
+    "unit": "ppm",
+    "read": 40.2,
+    "tol": 1.0,
+    "ts": "2024-05-20T10:05"
+   }
+  ],
+  "history": {
+   "last": "2024-03-11",
+   "results": [
+    "pass",
+    "fail",
+    "pass"
+   ],
+   "auto": [
+    {
+     "d": "2024-05-16",
+     "r": "pass"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "pollutant": "CO",
+  "as_found_ratio": 3.89,
+  "as_left_status": "all_pass",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 112,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "none",
+  "days_since_last_visit": 70,
+  "visit_completeness": "complete",
+  "prior_fail_count": 1,
+  "timestamp_mismatch": "none",
+  "site_priority": "standard"
+ },
+ "factors_sampled": {
+  "pollutant": "CO",
+  "as_found_ratio": 3.89,
+  "as_left_status": "all_pass",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 112,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "none",
+  "days_since_last_visit": 70,
+  "visit_completeness": "complete",
+  "prior_fail_count": 1,
+  "timestamp_mismatch": "none",
+  "site_priority": "standard"
+ },
+ "plan": {
+  "data_accepted": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "reference_valid": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "close_visit",
+   "second": null
+  },
+  "flag_extent": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  },
+  "return_urgency": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "4"
+  }
+ },
+ "target_words": 33,
+ "deciding": {
+  "data_accepted": "As-found span reads 43.9 vs 40 ppm with tol 1.0, nearly 4x tolerance, against passing autochecks to 4 days before the visit; both views plausible.",
+  "reference_valid": "ref_id matches the standard, units match, expiry 2024-09-09 is after the visit date; only the bare minimum of certificate detail is shown, so some doubt remains.",
+  "next_step": "As-left span 40.2 within tol 1.0, sequence complete, ids and units match; nothing outstanding, though the large as-found error leaves some doubt.",
+  "flag_extent": "As-found error is large but autochecks passed until days before the visit, so the drift onset is uncertain: one week or a longer span, within a 70-day gap.",
+  "return_urgency": "As-left passes, so no obvious return is needed; the as-found size and 1 prior fail leave a 1-2 day vs same-day return open to dispute."
+ },
+ "request": "rec-F338-0041",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.008854
+}

@@ -1,0 +1,161 @@
+{
+ "id": "F302-0023",
+ "family": "F302",
+ "state": {
+  "subject": {
+   "screening_no": "S-2207",
+   "initials": "AJT"
+  },
+  "consent": {
+   "form_version": "3.1",
+   "current_version": "3.1",
+   "signed_date": "2024-06-03",
+   "initials": "AJT"
+  },
+  "visit": {
+   "visit_date": "2024-06-05",
+   "review_date": "2024-06-20",
+   "window_days": 28
+  },
+  "labs": {
+   "max_repeats": 1,
+   "batch": {
+    "samples": 21,
+    "qc": 2
+   },
+   "items": [
+    {
+     "test": "ALT",
+     "value": 140,
+     "unit": "U/L",
+     "threshold": 120,
+     "threshold_format": "<=",
+     "collected": "2024-06-05",
+     "valid_days": 30,
+     "repeat": false,
+     "requisition_screening_no": "S-2207"
+    },
+    {
+     "test": "ALT",
+     "value": 112,
+     "unit": "U/L",
+     "threshold": 120,
+     "collected": "2024-06-09",
+     "valid_days": 30,
+     "repeat": true,
+     "requisition_screening_no": "S-2207"
+    },
+    {
+     "test": "ALT",
+     "value": 108,
+     "unit": "U/L",
+     "threshold": 120,
+     "collected": "2024-06-14",
+     "valid_days": 30,
+     "repeat": true,
+     "requisition_screening_no": "S-2207"
+    }
+   ]
+  },
+  "eligibility": {
+   "criteria": [
+    {
+     "test": "ALT",
+     "recorded_value": 108,
+     "unit": "U/L",
+     "operator": "lte",
+     "threshold": 120,
+     "met": true
+    }
+   ],
+   "signoff": {
+    "signed": true,
+    "date": "2024-06-16"
+   },
+   "queries": [
+    {
+     "status": "closed"
+    }
+   ]
+  },
+  "conmeds": {
+   "prohibited_classes": [
+    "anticoagulant"
+   ],
+   "washout_days": 7,
+   "items": [
+    {
+     "class": "statin",
+     "start": "2022-01-10",
+     "stop": null
+    }
+   ]
+  }
+ },
+ "factors": {
+  "lab_reconciliation": "identical",
+  "consent_status": "current_ok",
+  "window_days_remaining": 11,
+  "collection_date_mismatch": "within_window",
+  "prohibited_conmed": false,
+  "washout_completed": true,
+  "out_of_range_lab": true,
+  "valid_repeat_on_file": "repeat_exceeds_allowance",
+  "boundary_value": false,
+  "identifier_mismatch": "none",
+  "investigator_signoff": "signed_after_results",
+  "open_query_count": 0
+ },
+ "factors_sampled": {
+  "lab_reconciliation": "identical",
+  "consent_status": "current_ok",
+  "window_days_remaining": 10,
+  "collection_date_mismatch": "within_window",
+  "prohibited_conmed": false,
+  "washout_completed": true,
+  "out_of_range_lab": true,
+  "valid_repeat_on_file": "repeat_exceeds_allowance",
+  "boundary_value": false,
+  "identifier_mismatch": "initials_transposed",
+  "investigator_signoff": "signed_after_results",
+  "open_query_count": 2
+ },
+ "plan": {
+  "eligibility_proven": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "rescreen",
+   "second": null
+  },
+  "primary_issue": {
+   "clarity": "clear",
+   "target": "clinical_value",
+   "second": null
+  },
+  "affected_scope": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  },
+  "window_left": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 127,
+ "deciding": {
+  "eligibility_proven": "Initial ALT 140 exceeds 120; the in-range 108 comes from the second repeat while max_repeats is 1, though the values trend downward and the site marked met.",
+  "next_step": "Repeats exceed the allowed count, so the in-range value is not valid; this is a repeatable lab defect and no query is open.",
+  "primary_issue": "Consent, ids and conmeds are clean; the lab conflicts with the ALT criterion.",
+  "affected_scope": "Batch of 21 samples including 2 QC gives 19 subjects against a 20 anchor; the count is borderline.",
+  "window_left": "2024-06-03 plus 28 days is 2024-07-01 against review 2024-06-20, which leaves 11 days, just past the 10-day anchor."
+ },
+ "request": "rec-F302-0021",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012449
+}

@@ -1,0 +1,121 @@
+{
+ "id": "F338-0004",
+ "family": "F338",
+ "state": {
+  "site": {
+   "pollutant": "SO2",
+   "tier": "standard",
+   "service_interval_days": 90,
+   "approved_interval_days": 120
+  },
+  "visit": {
+   "date": "2024-07-10",
+   "sequence_status": "partial"
+  },
+  "reference": {
+   "standard_id": "CYL-52007",
+   "unit": "ppb",
+   "cert_expiry": "2025-01-22"
+  },
+  "checks": [
+   {
+    "phase": "as_found",
+    "type": "zero",
+    "ref_id": "CYL-66190",
+    "ref_conc": 0,
+    "unit": "ppm",
+    "reading": 2.6,
+    "tol": 1.0
+   },
+   {
+    "phase": "as_left",
+    "type": "zero",
+    "ref_id": "CYL-66190",
+    "ref_conc": 0,
+    "unit": "ppm",
+    "reading": 0.3,
+    "tol": 1.0
+   }
+  ],
+  "history": {
+   "last_visit_date": "2024-03-20",
+   "results": [
+    "pass"
+   ],
+   "autochecks": [
+    {
+     "d": "2024-07-05",
+     "r": "pass"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "pollutant": "SO2",
+  "as_found_ratio": 2.6,
+  "as_left_status": "all_pass",
+  "cylinder_id_mismatch": "different_standard",
+  "cert_expiry_offset_days": 196,
+  "unit_mismatch": true,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "approved_extended_interval",
+  "days_since_last_visit": 112,
+  "visit_completeness": "zero_only",
+  "prior_fail_count": 0,
+  "timestamp_mismatch": "none",
+  "site_priority": "standard"
+ },
+ "factors_sampled": {
+  "pollutant": "SO2",
+  "as_found_ratio": 2.6,
+  "as_left_status": "all_pass",
+  "cylinder_id_mismatch": "different_standard",
+  "cert_expiry_offset_days": 196,
+  "unit_mismatch": true,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "approved_extended_interval",
+  "days_since_last_visit": 112,
+  "visit_completeness": "zero_only",
+  "prior_fail_count": 0,
+  "timestamp_mismatch": "none",
+  "site_priority": "standard"
+ },
+ "plan": {
+  "data_accepted": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "reference_valid": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "hold",
+   "second": null
+  },
+  "flag_extent": {
+   "clarity": "clear",
+   "target": "1",
+   "second": null
+  },
+  "return_urgency": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  }
+ },
+ "target_words": 46,
+ "deciding": {
+  "data_accepted": "Zero as-found 2.6 vs tol 1.0 is out, but the extended interval of 120 days explains the drift; autocheck passes up to 07-05, so the data stand.",
+  "reference_valid": "Check ref_id CYL-66190 is wholly different from standard_id CYL-52007 and the check unit ppm differs from ppb.",
+  "next_step": "As-left zero passes, but the reference identity and units must be confirmed first; only that one confirmation is outstanding.",
+  "flag_extent": "Interim autochecks passed until 07-05 and the extended interval covers the drift; a short window of a few days is flagged.",
+  "return_urgency": "Only the zero point was done with the reference unconfirmed; 3-7 days versus 1-2 days is balanced."
+ },
+ "request": "rec-F338-0001",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.005738
+}

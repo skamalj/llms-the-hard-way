@@ -1,0 +1,156 @@
+{
+ "id": "F338-0067",
+ "family": "F338",
+ "state": {
+  "site": {
+   "pollutant": "O3",
+   "tier": "standard",
+   "service_interval_days": 90,
+   "approved_interval_days": 90
+  },
+  "visit": {
+   "date": "2024-09-10",
+   "start": "10:00",
+   "end": "11:20",
+   "sequence_status": "complete",
+   "maintenance_window": true
+  },
+  "reference": {
+   "standard_id": "C-902",
+   "conc": 80,
+   "unit": "ppb",
+   "cert_expiry": "2025-01-03"
+  },
+  "checks": [
+   {
+    "phase": "as_found",
+    "type": "span",
+    "ref_id": "C-902",
+    "ref_conc": 80,
+    "unit": "ppb",
+    "reading": 86.6,
+    "tol": 4,
+    "ts": "2024-09-10T10:15"
+   },
+   {
+    "phase": "as_left",
+    "type": "zero",
+    "ref_id": "C-902",
+    "ref_conc": 0,
+    "unit": "ppb",
+    "reading": 0.4,
+    "tol": 4,
+    "ts": "2024-09-10T10:50"
+   },
+   {
+    "phase": "as_left",
+    "type": "span",
+    "ref_id": "C-902",
+    "ref_conc": 80,
+    "unit": "ppb",
+    "reading": 80.6,
+    "tol": 4,
+    "ts": "2024-09-10T11:00"
+   },
+   {
+    "phase": "as_left",
+    "type": "precision",
+    "ref_id": "C-902",
+    "ref_conc": 40,
+    "unit": "ppb",
+    "reading": 40.3,
+    "tol": 4,
+    "ts": "2024-09-10T11:10"
+   }
+  ],
+  "history": {
+   "last_visit_date": "2024-06-02",
+   "results": [
+    "fail",
+    "pass",
+    "fail",
+    "pass",
+    "fail",
+    "fail"
+   ],
+   "autochecks": [
+    {
+     "d": "2024-09-05",
+     "result": "fail"
+    },
+    {
+     "d": "2024-09-07",
+     "result": "fail"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "pollutant": "O3",
+  "as_found_ratio": 1.64,
+  "as_left_status": "all_pass",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 115,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": false,
+  "drift_explanation": "maintenance_window",
+  "days_since_last_visit": 100,
+  "visit_completeness": "complete",
+  "prior_fail_count": 4,
+  "timestamp_mismatch": "none",
+  "site_priority": "standard"
+ },
+ "factors_sampled": {
+  "pollutant": "O3",
+  "as_found_ratio": 1.64,
+  "as_left_status": "all_pass",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 115,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": false,
+  "drift_explanation": "maintenance_window",
+  "days_since_last_visit": 100,
+  "visit_completeness": "complete",
+  "prior_fail_count": 4,
+  "timestamp_mismatch": "none",
+  "site_priority": "standard"
+ },
+ "plan": {
+  "data_accepted": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "reference_valid": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "close_flagged",
+   "second": null
+  },
+  "flag_extent": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  },
+  "return_urgency": {
+   "clarity": "contested",
+   "target": "4",
+   "second": "3"
+  }
+ },
+ "target_words": 39,
+ "deciding": {
+  "data_accepted": "As-found span 86.6 vs 80 with tol 4 is out of tolerance, and two autochecks failed days before the visit; but the maintenance window flag offers an explanation for the drift.",
+  "reference_valid": "ids, units and expiry (115 days ahead) agree throughout; the cylinder certificate number is not shown in the record, which leaves some doubt.",
+  "next_step": "Sequence complete with zero, span and precision as-left points all within tolerance after an out-of-tolerance as-found, so acceptable after adjustment with some prior data flagged.",
+  "flag_extent": "Autochecks failed only on 2024-09-05 and 2024-09-07, pointing to roughly a week of affected data, though the earlier start of the drift is unclear.",
+  "return_urgency": "Failing autochecks right up to the visit on a standard-tier site make an immediate or 1-2 day return defensible, but as-left points all pass."
+ },
+ "request": "rec-F338-0066",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.01342
+}

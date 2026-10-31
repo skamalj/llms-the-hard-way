@@ -1,0 +1,166 @@
+{
+ "id": "F324-0097",
+ "family": "F324",
+ "state": {
+  "zone": {
+   "zone_id": "Z9",
+   "dripper_count": 150,
+   "dripper_rate_lph": 2
+  },
+  "schedule": {
+   "cycles": [
+    {
+     "start": "05:00",
+     "planned_ml_per_dripper": 80
+    },
+    {
+     "start": "08:00",
+     "planned_ml_per_dripper": 80
+    },
+    {
+     "start": "11:00",
+     "planned_ml_per_dripper": 80
+    },
+    {
+     "start": "14:00",
+     "planned_ml_per_dripper": 80
+    },
+    {
+     "start": "17:00",
+     "planned_ml_per_dripper": 80
+    }
+   ],
+   "drain_target_pct": {
+    "min": 25,
+    "max": 35
+   },
+   "overrides": []
+  },
+  "controller_log": {
+   "log_date": "2025-06-10",
+   "spec_bar": 2.0,
+   "cycles": [
+    {
+     "start": "05:00",
+     "valve_open_s": 144,
+     "delivered_l": 10.5,
+     "line_pressure_bar": 1.7
+    },
+    {
+     "start": "08:00",
+     "valve_open_s": 144,
+     "delivered_l": 10.6,
+     "line_pressure_bar": 1.8
+    },
+    {
+     "start": "11:00",
+     "valve_open_s": 144,
+     "delivered_l": 10.65,
+     "line_pressure_bar": 1.7
+    },
+    {
+     "start": "14:00",
+     "valve_open_s": 144,
+     "delivered_l": 10.7,
+     "line_pressure_bar": 1.8
+    },
+    {
+     "start": "17:00",
+     "valve_open_s": 144,
+     "delivered_l": 10.9,
+     "line_pressure_bar": 1.8
+    }
+   ],
+   "daily_total_l": 52.0,
+   "meter_total_l": 52.1
+  },
+  "drainage": {
+   "drain_pct": [
+    9.0,
+    9.4,
+    8.8
+   ],
+   "catch_test": {
+    "ordered": false,
+    "result": null
+   }
+  },
+  "sensors": {
+   "meter_last_calibrated": "2025-05-23"
+  },
+  "maintenance": {
+   "windows": [],
+   "alarms": [],
+   "recent_work_orders": [
+    "2025-05-02",
+    "2025-02-10"
+   ]
+  }
+ },
+ "factors": {
+  "delivery_shortfall_pct": 13.3,
+  "mismatch_location": "cycle_sum_vs_total",
+  "fault_cause": "sensor_drift",
+  "approved_override": false,
+  "maintenance_window_active": false,
+  "drain_offset_points": -16.0,
+  "off_tolerance_cycles": 4,
+  "meter_calibration_age_days": 18,
+  "confirmation_pending": false,
+  "pressure_state": "low",
+  "benign_alarm_decoy": "none",
+  "recent_work_orders": 2
+ },
+ "factors_sampled": {
+  "delivery_shortfall_pct": 26.51,
+  "mismatch_location": "cycle_sum_vs_total",
+  "fault_cause": "sensor_drift",
+  "approved_override": true,
+  "maintenance_window_active": false,
+  "drain_offset_points": -19.24,
+  "off_tolerance_cycles": 4,
+  "meter_calibration_age_days": 18,
+  "confirmation_pending": false,
+  "pressure_state": "low",
+  "benign_alarm_decoy": "none",
+  "recent_work_orders": 2
+ },
+ "plan": {
+  "under_dosed": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "emitter_clogging": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "next_action": {
+   "clarity": "leaning",
+   "target": "monitor",
+   "second": null
+  },
+  "drain_deviation": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  },
+  "off_plan_cycles": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 38,
+ "deciding": {
+  "under_dosed": "Metered 52.1 L against a 60 L plan (150 drippers x 80 ml x 5), about 87%, with no overrides; the cycle sum (53.35 L) differs from daily_total_l (52.0), which adds slight doubt.",
+  "emitter_clogging": "Valve times are full and per-dripper volume is low, which fits clogging, but line pressure of 1.7 to 1.8 bar is below the 2.0 spec and could equally explain it.",
+  "next_action": "The shortfall is modest (about 13%), the meter was calibrated recently and no confirmed hardware fault is logged, so a watch is reasonable, though the cycle-sum discrepancy and low drain keep it open.",
+  "drain_deviation": "Mean drain is about 9.1% against a 25 to 35 band, about 15.9 points below, right at the 15-point boundary.",
+  "off_plan_cycles": "Of 12 L planned per cycle, four cycles (10.5, 10.6, 10.65, 10.7) are 10.8 to 12.5% short, two of them barely past 10%; the fifth (10.9) is 9% short."
+ },
+ "request": "rec-F324-0096",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.018022
+}

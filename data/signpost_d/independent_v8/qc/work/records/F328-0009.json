@@ -1,0 +1,143 @@
+{
+ "id": "F328-0009",
+ "family": "F328",
+ "state": {
+  "report_meta": {
+   "driver_id": "D415",
+   "d": "2024-07-02"
+  },
+  "vehicle_device": {
+   "health_flags": [],
+   "odo": [
+    72000,
+    72193
+   ]
+  },
+  "trips": [
+   {
+    "s": "05:30",
+    "e": "08:30",
+    "km": 90,
+    "card": "D415"
+   },
+   {
+    "s": "09:00",
+    "e": "12:00",
+    "km": 93,
+    "card": "D530"
+   }
+  ],
+  "events": [
+   {
+    "t": "10:30",
+    "type": "speed",
+    "mph": 54,
+    "limit": 50,
+    "tags": [
+     "roadworks_end_2024-06-20"
+    ]
+   },
+   {
+    "type": "harsh",
+    "n": 3,
+    "tags": [
+     "congestion"
+    ]
+   }
+  ],
+  "tacho_summary": {
+   "card": "D415",
+   "drive": "05:30-08:30",
+   "second_driver": "D530",
+   "second_drive": "09:00-12:00"
+  },
+  "notes_history": {
+   "supervisor_note": "D415 drove the whole shift.",
+   "coaching": [
+    {
+     "d": "2023-09-11",
+     "issue": "speed",
+     "status": "completed"
+    },
+    {
+     "d": "2023-12-04",
+     "issue": "speed",
+     "status": "completed"
+    },
+    {
+     "d": "2024-03-18",
+     "issue": "speed",
+     "status": "completed"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "driver_assignment": "second_driver_on_shift",
+  "raw_speed_excess_pct": 8.0,
+  "speed_mitigation": "temp_limit_ended",
+  "harsh_event_count": 3,
+  "harsh_context_logged": true,
+  "device_health": "ok",
+  "telematics_stint_hours": 3.0,
+  "tacho_break_reconciles": true,
+  "prior_coaching_count": 3,
+  "coaching_status": "completed",
+  "boundary_value": true,
+  "note_content": "contradicts_data",
+  "distance_discrepancy_pct": 5.46
+ },
+ "factors_sampled": {
+  "driver_assignment": "second_driver_on_shift",
+  "raw_speed_excess_pct": 14.08,
+  "speed_mitigation": "temp_limit_ended",
+  "harsh_event_count": 3,
+  "harsh_context_logged": true,
+  "device_health": "ok",
+  "telematics_stint_hours": 4.63,
+  "tacho_break_reconciles": true,
+  "prior_coaching_count": 3,
+  "coaching_status": "none",
+  "boundary_value": true,
+  "note_content": "contradicts_data",
+  "distance_discrepancy_pct": 5.46
+ },
+ "plan": {
+  "driver_attributed": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "follow_up": {
+   "clarity": "clear",
+   "target": "formal_review",
+   "second": null
+  },
+  "worst_event_cause": {
+   "clarity": "leaning",
+   "target": "road_conditions",
+   "second": null
+  },
+  "speed_excess": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "hours_exposure": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  }
+ },
+ "target_words": 38,
+ "deciding": {
+  "driver_attributed": "The 10:30 event falls in the 09:00-12:00 trip on card D530, who is the tacho second_driver. The supervisor note that D415 drove all day contradicts the trip and tacho times, which leaves a little doubt.",
+  "follow_up": "Three completed speed coaching entries precede this week, so any confirmed speed breach recurs after completed coaching.",
+  "worst_event_cause": "The speed event carries a roadworks tag ending 2024-06-20, before the event, and the harsh events are tagged congestion. Road conditions explain the events; the doubt is whether the posted 50 was still in force.",
+  "speed_excess": "54 mph against a posted 50 is 8% over (level 1), but the roadworks limit ended on 2024-06-20 and should have reverted to 70. Level 0 is slightly favoured.",
+  "hours_exposure": "Each driver's stint is exactly 3.0 h (05:30-08:30 and 09:00-12:00), with a driver changeover between them. That puts it right on the 3 h line between level 1 and level 0."
+ },
+ "request": "rec-F328-0006",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.020176
+}

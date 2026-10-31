@@ -1,0 +1,140 @@
+{
+ "id": "F317-0006",
+ "family": "F317",
+ "state": {
+  "vehicle": {
+   "fleet_no": 2114,
+   "odometer_km": 10160
+  },
+  "exam": {
+   "due_at_km": 10000,
+   "items": [
+    {
+     "c": "A1",
+     "r": "ok",
+     "by": "k7",
+     "at": "2024-05-02T06:10"
+    },
+    {
+     "c": "A2",
+     "r": "ok",
+     "by": "k7",
+     "at": "2024-05-02T06:25"
+    },
+    {
+     "c": "A3",
+     "r": "ok",
+     "by": null,
+     "at": null
+    },
+    {
+     "c": "B1",
+     "r": null,
+     "by": null,
+     "at": null
+    },
+    {
+     "c": "B2",
+     "r": null,
+     "by": null,
+     "at": null
+    }
+   ]
+  },
+  "defects": [
+   {
+    "id": "D1",
+    "fleet_no": 2114,
+    "subsystem": "running_gear",
+    "safety_critical": false,
+    "status": "open",
+    "retest_at": null
+   }
+  ],
+  "work_orders": [
+   {
+    "wo": "W1",
+    "defect_ref": "D1",
+    "subsystem": "running_gear",
+    "status": "in_progress"
+   }
+  ],
+  "release": {
+   "duty_type": "off_peak",
+   "depart_at": "2024-05-02T15:00",
+   "odo_reading_km": 10205,
+   "brake_test_at": "2024-05-02T09:00",
+   "brake_test_result": "pass"
+  }
+ },
+ "factors": {
+  "km_to_exam_due": -205,
+  "odometer_disagreement": "large",
+  "exam_signed_fraction": 0.4,
+  "exam_record_missing": false,
+  "worst_defect_subsystem": "running_gear",
+  "worst_defect_state": "open_wo_in_progress",
+  "worst_defect_safety_critical": false,
+  "retest_out_of_order": false,
+  "concession_present": false,
+  "concession_flaw": "none",
+  "wo_crossref_mismatch": "none",
+  "planned_duty_type": "off_peak",
+  "recent_brake_test_pass": true,
+  "balanced_signals": false
+ },
+ "factors_sampled": {
+  "km_to_exam_due": 52,
+  "odometer_disagreement": "large",
+  "exam_signed_fraction": 0.03,
+  "exam_record_missing": false,
+  "worst_defect_subsystem": "running_gear",
+  "worst_defect_state": "open_wo_in_progress",
+  "worst_defect_safety_critical": true,
+  "retest_out_of_order": false,
+  "concession_present": false,
+  "concession_flaw": "wrong_fleet_no",
+  "wo_crossref_mismatch": "none",
+  "planned_duty_type": "off_peak",
+  "recent_brake_test_pass": true,
+  "balanced_signals": false
+ },
+ "plan": {
+  "sc_defects_cleared": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "release_decision": {
+   "clarity": "leaning",
+   "target": "hold",
+   "second": null
+  },
+  "worst_subsystem": {
+   "clarity": "clear",
+   "target": "running_gear",
+   "second": null
+  },
+  "exam_completion": {
+   "clarity": "contested",
+   "target": "1",
+   "second": "2"
+  },
+  "exam_mileage": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  }
+ },
+ "target_words": 41,
+ "deciding": {
+  "sc_defects_cleared": "The only defect D1 is not safety critical, so no safety-critical item is open; but it is open with a work order in progress, which leaves some doubt.",
+  "release_decision": "D1 is open on running gear with its work order in progress and the exam is unfinished; the off-peak duty and passed brake test soften this, so hold is likely but not certain.",
+  "worst_subsystem": "D1 running_gear is the only defect and is open, with no retest.",
+  "exam_completion": "2 of 5 items are signed with a timestamp; A3 has a result but null signed_at, so the count is 2/5 or 3/5, which sits on the boundary between level 1 and level 2.",
+  "exam_mileage": "The release odometer reading of 10205 against due_at_km 10000 is 205 km past due, just over the 200 km boundary; vehicle odometer 10160 gives 160 km, so levels 2 and 3 are both defensible."
+ },
+ "request": "rec-F317-0006",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.014435
+}

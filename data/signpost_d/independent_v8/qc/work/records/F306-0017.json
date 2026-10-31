@@ -1,0 +1,177 @@
+{
+ "id": "F306-0017",
+ "family": "F306",
+ "state": {
+  "trip": {
+   "id": "T-2318",
+   "trip_type": "day_local",
+   "depart_date": "2025-11-12",
+   "return_date": "2025-11-13",
+   "pupil_headcount": 34,
+   "transport": {
+    "seats": 34
+   }
+  },
+  "roster": {
+   "count": 34,
+   "default_consent": {
+    "date": "2025-09-02",
+    "expiry": "2026-09-01"
+   },
+   "overrides": [
+    {
+     "id": "P22",
+     "consent_date": "2024-10-30",
+     "consent_expiry": "2025-10-30"
+    },
+    {
+     "id": "P05",
+     "medical_flag": true,
+     "care_plan_ref": null
+    },
+    {
+     "id": "P11",
+     "medical_flag": true,
+     "care_plan_ref": null
+    },
+    {
+     "id": "P19",
+     "medical_flag": true,
+     "care_plan_ref": "CP-31"
+    },
+    {
+     "id": "P27",
+     "medical_flag": true,
+     "care_plan_ref": "CP-32",
+     "plan_status": "draft"
+    }
+   ]
+  },
+  "staffing": [
+   {
+    "id": "S1",
+    "confirmed": true,
+    "from": "2025-11-12",
+    "to": "2025-11-12"
+   },
+   {
+    "id": "S2",
+    "confirmed": true,
+    "from": "2025-11-12",
+    "to": "2025-11-12"
+   },
+   {
+    "id": "S3",
+    "confirmed": true,
+    "from": "2025-11-12",
+    "to": "2025-11-12"
+   },
+   {
+    "id": "S4",
+    "confirmed": true,
+    "from": "2025-11-12",
+    "to": "2025-11-12"
+   }
+  ],
+  "activities": [
+   {
+    "name": "gorge scramble",
+    "date": "2025-11-12",
+    "hazard_tier": 3,
+    "provider": "PRV-9",
+    "contract_status": "signed",
+    "licence_ref": "AALA-77",
+    "licence_expiry": "2026-03-31",
+    "instructors_supplied": 4,
+    "plan_copies_received": []
+   }
+  ],
+  "approvals": {
+   "review_date": "2025-09-29",
+   "ratio_required": 10,
+   "amendments": [
+    {
+     "field": "return_date",
+     "new": "2025-11-12"
+    }
+   ],
+   "exceptions": [],
+   "prior_reviews": [
+    {
+     "trip": "T-2010",
+     "result": "incident"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "trip_type": "day_local",
+  "pupil_count": 34,
+  "consent_gap": "one_expired",
+  "consent_exception_logged": false,
+  "staffing_position": "exact",
+  "provider_instructors_confirmed": true,
+  "planted_mismatches": 1,
+  "amendment_explains_one": true,
+  "medical_flagged": 4,
+  "plans_missing": 2,
+  "provider_holds_plan_copy": false,
+  "high_hazard_activity": "valid",
+  "days_to_departure": 44,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "trip_type": "day_local",
+  "pupil_count": 34,
+  "consent_gap": "none",
+  "consent_exception_logged": false,
+  "staffing_position": "exact",
+  "provider_instructors_confirmed": true,
+  "planted_mismatches": 1,
+  "amendment_explains_one": true,
+  "medical_flagged": 3,
+  "plans_missing": 4,
+  "provider_holds_plan_copy": false,
+  "high_hazard_activity": "valid",
+  "days_to_departure": 44,
+  "boundary_case": false
+ },
+ "plan": {
+  "consent_complete": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "staffing_adequate": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "disposition": {
+   "clarity": "balanced",
+   "target": "hold",
+   "second": "decline"
+  },
+  "mismatch_count": {
+   "clarity": "contested",
+   "target": "0",
+   "second": "1"
+  },
+  "medical_coverage": {
+   "clarity": "contested",
+   "target": "1",
+   "second": "2"
+  }
+ },
+ "target_words": 89,
+ "deciding": {
+  "consent_complete": "P22's consent_expiry 2025-10-30 is before depart_date 2025-11-12, and there is no consent exception. The gap may be a data lag, but nothing in the record shows renewal.",
+  "staffing_adequate": "34 pupils at 1:10 need 4 adults. S1-S4 are all confirmed and cover 11-12. The return_date of 11-13 casts slight doubt on the second day.",
+  "disposition": "P22's lapsed consent is one pending external item (parent renewal), which points to hold. Against that, a tier 3 activity with two flagged pupils lacking plans could push towards decline, although 44 days is ample time.",
+  "mismatch_count": "return_date 2025-11-13 conflicts with the staffing and activity dates of 11-12. An amendment sets it to 11-12 but the trip field is not updated, so it can count as resolved (0) or still open (1).",
+  "medical_coverage": "There are 4 flagged pupils; P05 and P11 have no plan, P19 has CP-31, and P27's CP-32 is only a draft. Counting the draft gives 2 of 4 covered (level 2); excluding it gives 1 of 4 (level 1)."
+ },
+ "request": "rec-F306-0016",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.021327
+}

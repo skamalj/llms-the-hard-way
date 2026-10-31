@@ -1,0 +1,143 @@
+{
+ "id": "F338-0056",
+ "family": "F338",
+ "state": {
+  "site": {
+   "id": "N14",
+   "pol": "NO2",
+   "tier": "standard",
+   "int_d": 90
+  },
+  "visit": {
+   "date": "2024-05-20",
+   "start": "09:00",
+   "end": "11:30",
+   "seq": "complete",
+   "maint": true
+  },
+  "reference": {
+   "std_id": "C4471",
+   "conc": 400,
+   "unit": "ppb",
+   "cert_exp": "2025-04-19"
+  },
+  "checks": [
+   {
+    "t": "af_span",
+    "ref_id": "C4471",
+    "ref": 400,
+    "u": "ppb",
+    "rd": 418,
+    "tol": 20,
+    "ts": "09:20"
+   },
+   {
+    "t": "al_zero",
+    "ref_id": "C4471",
+    "ref": 0,
+    "u": "ppb",
+    "rd": 1,
+    "tol": 5,
+    "ts": "10:50"
+   },
+   {
+    "t": "al_span",
+    "ref_id": "C4741",
+    "ref": 400,
+    "u": "ppb",
+    "rd": 415,
+    "tol": 10,
+    "ts": "11:41"
+   }
+  ],
+  "history": {
+   "last": "2024-01-29",
+   "res": [
+    "pass",
+    "fail",
+    "fail",
+    "pass",
+    "fail",
+    "fail"
+   ],
+   "auto": [
+    {
+     "d": "2024-05-16",
+     "r": "pass"
+    },
+    {
+     "d": "2024-05-18",
+     "r": "pass"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "pollutant": "NO2",
+  "as_found_ratio": 0.9,
+  "as_left_status": "one_point_fail",
+  "cylinder_id_mismatch": "transposed_digit",
+  "cert_expiry_offset_days": 334,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "maintenance_window",
+  "days_since_last_visit": 112,
+  "visit_completeness": "complete",
+  "prior_fail_count": 4,
+  "timestamp_mismatch": "minutes_outside",
+  "site_priority": "standard"
+ },
+ "factors_sampled": {
+  "pollutant": "NO2",
+  "as_found_ratio": 2.6,
+  "as_left_status": "one_point_fail",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 334,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "maintenance_window",
+  "days_since_last_visit": 112,
+  "visit_completeness": "complete",
+  "prior_fail_count": 4,
+  "timestamp_mismatch": "minutes_outside",
+  "site_priority": "standard"
+ },
+ "plan": {
+  "data_accepted": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "reference_valid": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "contested",
+   "target": "withdraw",
+   "second": "close_flagged"
+  },
+  "flag_extent": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "return_urgency": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  }
+ },
+ "target_words": 57,
+ "deciding": {
+  "data_accepted": "As-found span error 18 against tolerance 20 is inside tolerance and autochecks pass to within days of the visit; the maintenance window and 4 prior fails add some doubt.",
+  "reference_valid": "The as-left span check lists ref_id C4741 while reference.std_id is C4471 (transposed digits); the expiry and units agree, so some doubt remains.",
+  "next_step": "As-left span reads 415 against 400 with tolerance 10 (one point fails) and the history has 4 fails, so withdrawal and a flagged close are both defensible.",
+  "flag_extent": "As-found is within tolerance and the autochecks pass, which points to no flagging; the failed as-left point and the 112-day gap keep a 1-7 day flag plausible.",
+  "return_urgency": "The as-left span point fails and the site is standard tier, so a return within 3-7 days is favoured, with 1-2 days also plausible given the repeated prior fails."
+ },
+ "request": "rec-F338-0056",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.013785
+}

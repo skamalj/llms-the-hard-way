@@ -1,0 +1,133 @@
+{
+ "id": "F317-0012",
+ "family": "F317",
+ "state": {
+  "vehicle": {
+   "fleet_no": "T3041",
+   "odometer_km": 52010
+  },
+  "exam": {
+   "due_at_km": 52025,
+   "items": [
+    {
+     "c": "E1",
+     "signed_by": "u3",
+     "signed_at": "2024-06-07T06:00"
+    },
+    {
+     "c": "E2",
+     "signed_by": "u3",
+     "signed_at": "2024-06-07T06:20"
+    },
+    {
+     "c": "E3",
+     "signed_by": "u9",
+     "signed_at": "2024-06-07T06:45"
+    },
+    {
+     "c": "E4",
+     "signed_by": null,
+     "signed_at": null
+    },
+    {
+     "c": "E5",
+     "signed_by": null,
+     "signed_at": null
+    }
+   ]
+  },
+  "defects": [
+   {
+    "defect_id": "D71",
+    "subsystem": "pantograph",
+    "safety_critical": true,
+    "status": "closed",
+    "closed_at": "2024-06-02",
+    "retest_at": "2024-06-03",
+    "retest_result": "pass"
+   }
+  ],
+  "concessions": [
+   {
+    "conc_id": "C9",
+    "defect_ref": "D71",
+    "valid_until": "2024-06-01"
+   }
+  ],
+  "release": {
+   "duty_type": "peak_diagram",
+   "depart_at": "2024-06-08T05:30",
+   "odo_reading_km": 52030
+  }
+ },
+ "factors": {
+  "km_to_exam_due": 15,
+  "odometer_disagreement": "trivial",
+  "exam_signed_fraction": 0.6,
+  "exam_record_missing": false,
+  "worst_defect_subsystem": "pantograph",
+  "worst_defect_state": "closed_retested",
+  "worst_defect_safety_critical": true,
+  "retest_out_of_order": false,
+  "concession_present": true,
+  "concession_flaw": "expired",
+  "wo_crossref_mismatch": "none",
+  "planned_duty_type": "peak_diagram",
+  "recent_brake_test_pass": false,
+  "balanced_signals": false
+ },
+ "factors_sampled": {
+  "km_to_exam_due": 288,
+  "odometer_disagreement": "trivial",
+  "exam_signed_fraction": 0.63,
+  "exam_record_missing": false,
+  "worst_defect_subsystem": "pantograph",
+  "worst_defect_state": "closed_retested",
+  "worst_defect_safety_critical": false,
+  "retest_out_of_order": false,
+  "concession_present": false,
+  "concession_flaw": "expired",
+  "wo_crossref_mismatch": "none",
+  "planned_duty_type": "peak_diagram",
+  "recent_brake_test_pass": false,
+  "balanced_signals": false
+ },
+ "plan": {
+  "sc_defects_cleared": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "release_decision": {
+   "clarity": "contested",
+   "target": "release_restricted",
+   "second": "hold"
+  },
+  "worst_subsystem": {
+   "clarity": "clear",
+   "target": "none",
+   "second": null
+  },
+  "exam_completion": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  },
+  "exam_mileage": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  }
+ },
+ "target_words": 32,
+ "deciding": {
+  "sc_defects_cleared": "D71 is safety-critical and closed with a passing retest, but an expired concession still references it, which makes the clearance doubtful.",
+  "release_decision": "Peak duty, exam 3 of 5 signed and mileage right at the due point; the expired concession gives no valid restriction. Both restricted running and hold are defensible.",
+  "worst_subsystem": "The only defect, D71, is closed with retest pass, so nothing is unresolved.",
+  "exam_completion": "3 of 5 exam items carry signed_by and signed_at, so half or more are signed with items outstanding: level 2.",
+  "exam_mileage": "Vehicle odometer 52010 is 15 km under due 52025, but the release reading 52030 is 5 km past it, so the sign of the margin is open."
+ },
+ "request": "rec-F317-0011",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.014441
+}

@@ -1,0 +1,160 @@
+{
+ "id": "F318-0045",
+ "family": "F318",
+ "state": {
+  "work_order": {
+   "lock_id": "L15",
+   "visit_type": "routine_inspection",
+   "tasks": [
+    {
+     "task_id": "T1",
+     "asset_ref": "A1"
+    },
+    {
+     "task_id": "T2",
+     "asset_ref": "A2"
+    },
+    {
+     "task_id": "T3",
+     "asset_ref": "A3"
+    },
+    {
+     "task_id": "T4",
+     "asset_ref": "A4"
+    },
+    {
+     "task_id": "T5",
+     "asset_ref": "A5"
+    }
+   ],
+   "nav_notice": {
+    "in_force": false,
+    "to": "2025-04-01",
+    "scope_assets": [
+     "A5"
+    ]
+   }
+  },
+  "visit_log": {
+   "arrived": "2025-04-08T09:00",
+   "departed": "2025-04-08T12:00",
+   "crew_size": 2,
+   "timesheet_hours": 9,
+   "task_status": [
+    {
+     "task_id": "T5",
+     "status": "temp_fix",
+     "deferral_ref": "DEF-52",
+     "deferral_due": "2025-06-10"
+    }
+   ]
+  },
+  "materials": {
+   "issued": [
+    {
+     "part_no": "S2",
+     "task_id": "T5",
+     "qty": 3
+    }
+   ],
+   "returned": [],
+   "fitted": [
+    {
+     "part_no": "S2",
+     "task_id": "T5",
+     "qty": 3
+    }
+   ]
+  },
+  "checks": {
+   "post_checks": [
+    {
+     "asset_ref": "A5",
+     "result": "fail"
+    }
+   ],
+   "leakage_ls": 5.0,
+   "leakage_limit_ls": 2.0,
+   "river_level_m": 3.7,
+   "flood_marker_m": 3.2
+  },
+  "asset_history": {
+   "prior_visits": [
+    {
+     "date": "2024-11-05",
+     "asset_ref": "A5",
+     "defect_code": "D17"
+    }
+   ],
+   "open_defects": []
+  }
+ },
+ "factors": {
+  "visit_type": "routine_inspection",
+  "tasks_ordered": 5,
+  "completion_state": "temporary_fix",
+  "parts_qty_mismatch": "none",
+  "hours_gap": 1.5,
+  "asset_ref_mismatch": false,
+  "post_check_result": "failed",
+  "leakage_ratio": 2.5,
+  "leakage_mitigation": true,
+  "navigation_notice_in_force": false,
+  "deferral_approved": true,
+  "prior_same_defect": 1,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "visit_type": "routine_inspection",
+  "tasks_ordered": 5,
+  "completion_state": "temporary_fix",
+  "parts_qty_mismatch": "none",
+  "hours_gap": 3.04,
+  "asset_ref_mismatch": false,
+  "post_check_result": "failed",
+  "leakage_ratio": 2.5,
+  "leakage_mitigation": true,
+  "navigation_notice_in_force": true,
+  "deferral_approved": true,
+  "prior_same_defect": 1,
+  "boundary_case": false
+ },
+ "plan": {
+  "safe_to_reopen": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "record_disposition": {
+   "clarity": "leaning",
+   "target": "close_visit",
+   "second": null
+  },
+  "return_urgency": {
+   "clarity": "clear",
+   "target": "next_scheduled",
+   "second": null
+  },
+  "affected_scope": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  },
+  "section_mismatches": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  }
+ },
+ "target_words": 81,
+ "deciding": {
+  "safe_to_reopen": "The notice on A5 lapsed on 2025-04-01 and the temp fix is deferred with a ref, with river level 3.7 above the 3.2 marker explaining high leakage. Against that, A5 failed its check and leakage is 5.0 against a 2.0 limit.",
+  "record_disposition": "The temp fix on T5 has an approved deferral ref and due date 2025-06-10 and parts reconcile, so closing as logged is favoured despite the failed check.",
+  "return_urgency": "Deferral DEF-52 is approved and due 2025-06-10, and high river level explains the leakage, so no urgent return is needed beyond the next scheduled cycle.",
+  "affected_scope": "A routine-inspected lock on a through route affects many boaters, likely over twenty, though no count is given.",
+  "section_mismatches": "Timesheet 9h against a 3h span x 2 crew = 6h is a modest overrun that may count as one unexplained mismatch or be tolerated. Parts, assets and deferral all reconcile."
+ },
+ "request": "rec-F318-0041",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012948
+}

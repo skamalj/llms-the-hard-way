@@ -1,0 +1,117 @@
+{
+ "id": "F316-0025",
+ "family": "F316",
+ "state": {
+  "run_header": {
+   "reviewed_at": "2025-01-09T23:40"
+  },
+  "plan": [
+   {
+    "section_code": "E-01",
+    "length_km": 1.8,
+    "width_m": 7,
+    "priority": "P1",
+    "planned_rate_gm2": 20,
+    "forecast_zone": "Z1"
+   }
+  ],
+  "forecast": {
+   "Z1": {
+    "rst_min_c": -3,
+    "freeze_time": "20:30"
+   }
+  },
+  "telematics": {
+   "segments": [
+    {
+     "section_code": "E-01",
+     "end": "23:20",
+     "spread_on": true,
+     "logged_rate_gm2": 18
+    }
+   ],
+   "dropouts": [
+    {
+     "nearest_section": "E-01"
+    }
+   ]
+  },
+  "materials": {
+   "loaded_t": 0.4,
+   "returned_t": 0.15,
+   "weighbridge_ticket": "W-310"
+  },
+  "notes": {
+   "driver_note": "Late out, no faults.",
+   "depot_note": "Loaded 400 kg. R2 booked 02:00."
+  }
+ },
+ "factors": {
+  "missed_extent": "under_2km",
+  "missed_section_mitigated": false,
+  "salt_gap": "about_10pct",
+  "rate_exception_approved": false,
+  "finish_vs_freeze_min": 170,
+  "hours_to_freeze_untreated": -3.2,
+  "forecast_revised": "none",
+  "crosscheck_mismatch": "unit_kg_t",
+  "driver_note_type": "routine",
+  "follow_up_run_scheduled": true,
+  "pending_confirmation": false,
+  "gps_dropouts": 1,
+  "nonpriority_untreated": false
+ },
+ "factors_sampled": {
+  "missed_extent": "none",
+  "missed_section_mitigated": true,
+  "salt_gap": "over_10pct",
+  "rate_exception_approved": false,
+  "finish_vs_freeze_min": 170,
+  "hours_to_freeze_untreated": 11.73,
+  "forecast_revised": "none",
+  "crosscheck_mismatch": "unit_kg_t",
+  "driver_note_type": "alarming_unresolved",
+  "follow_up_run_scheduled": true,
+  "pending_confirmation": false,
+  "gps_dropouts": 4,
+  "nonpriority_untreated": false
+ },
+ "plan": {
+  "treated_before_freeze": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "salt_reconciles": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "follow_up": {
+   "clarity": "leaning",
+   "target": "sign_off_noted",
+   "second": null
+  },
+  "deficient_length": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  },
+  "freeze_proximity": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 60,
+ "deciding": {
+  "treated_before_freeze": "E-01 telematics end 23:20 against freeze 20:30 means it was treated 170 minutes after freeze.",
+  "salt_reconciles": "Net is 0.25 t. Expected is 0.227 t at the logged 18 g/m2, about 10% over, or 0.252 t at the planned 20, so it is on the boundary. The depot note's 400 kg matches the 0.4 t loaded, so it is a trivial unit difference.",
+  "follow_up": "The late treatment and 18 vs 20 g/m2 are small matters for noting. R2 is booked 02:00 and the kg depot note matches the tonnes, so accept with the discrepancy noted.",
+  "deficient_length": "E-01 (1.8 km) was spread at 18 against 20 planned, so it is slightly undertreated. That is under 2 km, but the shortfall is small enough that it could count as none.",
+  "freeze_proximity": "E-01 froze at 20:30, before the 23:20 treatment and before reviewed_at 23:40, so it counts as already frozen. Nothing remains untreated, so a lower level is arguable."
+ },
+ "request": "rec-F316-0021",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.020264
+}

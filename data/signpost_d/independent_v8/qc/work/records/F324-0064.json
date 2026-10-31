@@ -1,0 +1,113 @@
+{
+ "id": "F324-0064",
+ "family": "F324",
+ "state": {
+  "zone": {
+   "drippers": 400
+  },
+  "schedule": {
+   "ml": 250,
+   "cycles": 3,
+   "drain_pct": [
+    20,
+    30
+   ],
+   "overrides": []
+  },
+  "controller_log": {
+   "cycles_l": [
+    90,
+    90,
+    89.8
+   ],
+   "open_s_pct": 100,
+   "bar": 2.0,
+   "spec_bar": 2.0,
+   "daily_total_l": 269.8,
+   "meter_total_l": 270
+  },
+  "drainage": {
+   "drain_pct": [
+    19.5,
+    20.5,
+    19
+   ]
+  },
+  "sensors": {
+   "log_date": "2024-07-08",
+   "meter_last_calibrated": "2024-05-24"
+  },
+  "maintenance": {
+   "recent_work_orders": [
+    "2024-06-10",
+    "2024-02-01"
+   ]
+  }
+ },
+ "factors": {
+  "delivery_shortfall_pct": 10.1,
+  "mismatch_location": "none",
+  "fault_cause": "emitter_clogging",
+  "approved_override": false,
+  "maintenance_window_active": false,
+  "drain_offset_points": -0.3,
+  "off_tolerance_cycles": 1,
+  "meter_calibration_age_days": 45,
+  "confirmation_pending": false,
+  "pressure_state": "normal",
+  "benign_alarm_decoy": "none",
+  "recent_work_orders": 2
+ },
+ "factors_sampled": {
+  "delivery_shortfall_pct": 21.92,
+  "mismatch_location": "dripper_count_mismatch",
+  "fault_cause": "low_supply_pressure",
+  "approved_override": false,
+  "maintenance_window_active": false,
+  "drain_offset_points": -12.97,
+  "off_tolerance_cycles": 4,
+  "meter_calibration_age_days": 45,
+  "confirmation_pending": false,
+  "pressure_state": "normal",
+  "benign_alarm_decoy": "none",
+  "recent_work_orders": 2
+ },
+ "plan": {
+  "under_dosed": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "emitter_clogging": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "next_action": {
+   "clarity": "balanced",
+   "target": "dispatch_repair",
+   "second": "hold_for_check"
+  },
+  "drain_deviation": {
+   "clarity": "contested",
+   "target": "0",
+   "second": "1"
+  },
+  "off_plan_cycles": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 40,
+ "deciding": {
+  "under_dosed": "269.8 L against 300 L planned is about 10% short, which is the 90% line. There is no override, and the meter and controller agree.",
+  "emitter_clogging": "Pressure equals spec at 2.0 bar, valves are 100% open, and the meter and controller agree. Per-dripper delivery is low and drain sits at the bottom of the band, which fits clogging.",
+  "next_action": "Normal pressure and full opening point to physical clogging, which favours repair. Nothing has been verified on site, which leaves a manual check as a defensible alternative.",
+  "drain_deviation": "Mean drain is about 19.7% against a 20-30 band, only 0.3 points under. It is at the edge of the band, so level 0 or 1 are both defensible.",
+  "off_plan_cycles": "Against 100 L planned, two cycles delivered 90 L, exactly 10% under and not over it. The 89.8 L cycle is 10.2% under, just over the tolerance. It counts as zero or one depending on rounding."
+ },
+ "request": "rec-F324-0061",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.013341
+}

@@ -1,0 +1,96 @@
+{
+ "id": "F340-0062",
+ "family": "F340",
+ "state": {
+  "booking": {
+   "checkin": "2025-06-02",
+   "checkout": "2025-06-06"
+  },
+  "declaration": {
+   "weight_kg": 18.2,
+   "neutered": true
+  },
+  "vaccination": {
+   "core_expiry": "2025-06-06"
+  },
+  "vet_history": {
+   "neutered": true
+  },
+  "arrival_check": {
+   "measured_weight_kg": 18.15,
+   "cough": false,
+   "prior_stay_incidents": 0
+  },
+  "intake_notes": [
+   "Owner says jabs all up to date; check cert expiry."
+  ]
+ },
+ "factors": {
+  "vacc_expiry_offset_days": 0,
+  "titre_exemption_on_file": false,
+  "certificate_id_mismatch": "none",
+  "arrival_cough_observed": false,
+  "cough_benign_explanation": "none",
+  "weight_discrepancy_pct": 0.29,
+  "medication_state": "none_needed",
+  "next_dose_hours": 52,
+  "neuter_status_conflict": false,
+  "owner_reachable": false,
+  "prior_incident_count": 0,
+  "note_tone": "reassuring_unverified",
+  "balanced_signals": false
+ },
+ "factors_sampled": {
+  "vacc_expiry_offset_days": 18,
+  "titre_exemption_on_file": true,
+  "certificate_id_mismatch": "none",
+  "arrival_cough_observed": true,
+  "cough_benign_explanation": "collar_pulling_noted",
+  "weight_discrepancy_pct": 0.29,
+  "medication_state": "in_vet_history_not_declared",
+  "next_dose_hours": 52,
+  "neuter_status_conflict": true,
+  "owner_reachable": false,
+  "prior_incident_count": 3,
+  "note_tone": "reassuring_unverified",
+  "balanced_signals": false
+ },
+ "plan": {
+  "vacc_cover_valid": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "declaration_consistent": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "admission_disposition": {
+   "clarity": "leaning",
+   "target": "admit_standard",
+   "second": null
+  },
+  "discrepancy_count": {
+   "clarity": "contested",
+   "target": "0",
+   "second": "1"
+  },
+  "action_urgency": {
+   "clarity": "contested",
+   "target": "1",
+   "second": "2"
+  }
+ },
+ "target_words": 25,
+ "deciding": {
+  "vacc_cover_valid": "core_expiry equals checkout 2025-06-06, so cover lasts through the checkout date but with no margin, and the note says to check the expiry.",
+  "declaration_consistent": "Weight 18.2 vs 18.15 and neutered true in both declaration and vet_history agree. The note is unverified, so a little doubt remains.",
+  "admission_disposition": "No cough, no medication, 0 incidents and no hold item point to admit_standard; the expiry-on-checkout note leaves a little doubt.",
+  "discrepancy_count": "Sections agree on weight and neutering; only the expiry-on-checkout date might be counted as a single open point.",
+  "action_urgency": "The note asks for the cert expiry to be checked, which could be done within 48h or by the end of arrival day; nothing sets a clear deadline."
+ },
+ "request": "rec-F340-0061",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012525
+}

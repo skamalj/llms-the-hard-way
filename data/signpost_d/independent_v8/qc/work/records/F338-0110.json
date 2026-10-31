@@ -1,0 +1,110 @@
+{
+ "id": "F338-0110",
+ "family": "F338",
+ "state": {
+  "site": {
+   "pol": "SO2",
+   "tier": "standard"
+  },
+  "visit": {
+   "date": "2024-02-14",
+   "seq": "complete"
+  },
+  "reference": {
+   "id": "S-771",
+   "unit": "ppb",
+   "exp": "2024-05-03"
+  },
+  "checks": [
+   {
+    "t": "as_found_span",
+    "ref_id": "S-309",
+    "ref": 200,
+    "u": "ppb",
+    "rd": 690,
+    "tol": 10
+   },
+   {
+    "t": "as_left_span",
+    "ref_id": "S-771",
+    "ref": 200,
+    "u": "ppb",
+    "rd": 199,
+    "tol": 10
+   }
+  ],
+  "history": {
+   "last_visit": "2023-12-04",
+   "fails": 4,
+   "autochecks_last_pass": "2024-02-06"
+  }
+ },
+ "factors": {
+  "pollutant": "SO2",
+  "as_found_ratio": 3.45,
+  "as_left_status": "all_pass",
+  "cylinder_id_mismatch": "different_standard",
+  "cert_expiry_offset_days": 79,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "none",
+  "days_since_last_visit": 72,
+  "visit_completeness": "complete",
+  "prior_fail_count": 4,
+  "timestamp_mismatch": "none",
+  "site_priority": "standard"
+ },
+ "factors_sampled": {
+  "pollutant": "SO2",
+  "as_found_ratio": 3.45,
+  "as_left_status": "all_pass",
+  "cylinder_id_mismatch": "different_standard",
+  "cert_expiry_offset_days": 79,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "none",
+  "days_since_last_visit": 72,
+  "visit_completeness": "multipoint_missing",
+  "prior_fail_count": 4,
+  "timestamp_mismatch": "none",
+  "site_priority": "standard"
+ },
+ "plan": {
+  "data_accepted": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "reference_valid": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "close_flagged",
+   "second": null
+  },
+  "flag_extent": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  },
+  "return_urgency": {
+   "clarity": "contested",
+   "target": "2",
+   "second": "3"
+  }
+ },
+ "target_words": 39,
+ "deciding": {
+  "data_accepted": "As-found span reads 690 against 200 (tol 10) so earlier data are suspect, but as-left passes and autochecks passed until 2024-02-06.",
+  "reference_valid": "The as-found check ref_id S-309 differs from reference id S-771, although the as-left ref_id matches.",
+  "next_step": "As-left passes and as-found failed badly, so the result is acceptable after adjustment with prior data to flag.",
+  "flag_extent": "Last autocheck pass was 2024-02-06, 8 days before the visit, which sits on the 1-7 and 8-30 day boundary.",
+  "return_urgency": "As-left passes but the as-found error was large, there were 4 prior fails and the reference identifier is uncertain; a return in 3-7 days versus 1-2 days is a close call."
+ },
+ "request": "rec-F338-0106",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011254
+}

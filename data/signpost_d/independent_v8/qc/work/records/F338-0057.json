@@ -1,0 +1,161 @@
+{
+ "id": "F338-0057",
+ "family": "F338",
+ "state": {
+  "site": {
+   "id": "O07",
+   "pol": "O3",
+   "tier": "indicative",
+   "int_d": 60
+  },
+  "visit": {
+   "date": "2024-06-12",
+   "start": "08:30",
+   "end": "10:45",
+   "seq": "complete",
+   "maint": false
+  },
+  "reference": {
+   "std_id": "C2208",
+   "conc": 80,
+   "unit": "ppb",
+   "cert_exp": "2025-06-27"
+  },
+  "instrument": {
+   "temp_min": 15,
+   "temp_max": 26
+  },
+  "checks": [
+   {
+    "t": "af_zero",
+    "ref_id": "C2208",
+    "ref": 0,
+    "u": "ppb",
+    "rd": 0.5,
+    "tol": 5,
+    "ts": "2024-06-12T08:40"
+   },
+   {
+    "t": "af_span",
+    "ref_id": "C2208",
+    "ref": 80,
+    "u": "ppb",
+    "rd": 81.5,
+    "tol": 5,
+    "ts": "2024-06-12T08:55"
+   },
+   {
+    "t": "al_zero",
+    "ref_id": "C2208",
+    "ref": 0,
+    "u": "ppb",
+    "rd": 0.2,
+    "tol": 5,
+    "ts": "2024-06-12T10:10"
+   },
+   {
+    "t": "al_span",
+    "ref_id": "C2208A",
+    "ref": 80,
+    "u": "ppb",
+    "rd": 80,
+    "tol": 5,
+    "ts": "2024-06-11T16:40"
+   }
+  ],
+  "history": {
+   "last": "2024-05-17",
+   "res": [
+    "pass",
+    "pass",
+    "pass"
+   ],
+   "auto": [
+    {
+     "d": "2024-05-19",
+     "r": "fail"
+    },
+    {
+     "d": "2024-05-20",
+     "r": "fail"
+    },
+    {
+     "d": "2024-06-02",
+     "r": "pass"
+    },
+    {
+     "d": "2024-06-09",
+     "r": "pass"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "pollutant": "O3",
+  "as_found_ratio": 0.3,
+  "as_left_status": "all_pass",
+  "cylinder_id_mismatch": "suffix_variant",
+  "cert_expiry_offset_days": 380,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": false,
+  "drift_explanation": "none",
+  "days_since_last_visit": 26,
+  "visit_completeness": "complete",
+  "prior_fail_count": 0,
+  "timestamp_mismatch": "different_day",
+  "site_priority": "indicative"
+ },
+ "factors_sampled": {
+  "pollutant": "O3",
+  "as_found_ratio": 0.3,
+  "as_left_status": "all_pass",
+  "cylinder_id_mismatch": "different_standard",
+  "cert_expiry_offset_days": 380,
+  "unit_mismatch": true,
+  "interim_autocheck_pass": false,
+  "drift_explanation": "none",
+  "days_since_last_visit": 26,
+  "visit_completeness": "complete",
+  "prior_fail_count": 0,
+  "timestamp_mismatch": "different_day",
+  "site_priority": "indicative"
+ },
+ "plan": {
+  "data_accepted": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "reference_valid": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "close_flagged",
+   "second": null
+  },
+  "flag_extent": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  },
+  "return_urgency": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  }
+ },
+ "target_words": 96,
+ "deciding": {
+  "data_accepted": "As-found errors of 0.5 and 1.5 against tolerance 5 are small and as-left all pass, with no prior fails; the early autocheck failures are the only doubt.",
+  "reference_valid": "The as-left span ref_id C2208A differs from standard C2208 by a suffix and is timestamped the previous day; the expiry is far off and the other checks match, so it could be the same cylinder.",
+  "next_step": "Adjustment succeeded with all as-left points passing, but the autochecks failed on 05-19 and 05-20 and then have a gap until 06-02, so some prior data needs flagging.",
+  "flag_extent": "Autocheck failures on 05-19 and 05-20 followed by no entries until 06-02 leave roughly 8-14 days in doubt, or only the first few days if the gap is accepted.",
+  "return_urgency": "Indicative tier with all as-left points passing needs no urgent return; the unclear reference identifier could justify a planned extra visit."
+ },
+ "request": "rec-F338-0056",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.013785
+}

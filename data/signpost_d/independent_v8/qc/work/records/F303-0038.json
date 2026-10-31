@@ -1,0 +1,139 @@
+{
+ "id": "F303-0038",
+ "family": "F303",
+ "state": {
+  "order": {
+   "id": "O-3090",
+   "prescription": {
+    "modality": "portable",
+    "flow_lpm": 2,
+    "hours_per_day": 4,
+    "rx_expiry": "2025-01-15"
+   },
+   "items_ordered": [
+    {
+     "sku": "POC-2",
+     "qty": 1
+    }
+   ],
+   "account": {
+    "billing_hold": true,
+    "arrears_gbp": 184.5
+   }
+  },
+  "visit": {
+   "visit_id": "V-8821",
+   "visit_date": "2024-10-02",
+   "arrived_at": "2024-10-02T13:00",
+   "departed_at": "2024-10-02T13:30",
+   "items_left": [],
+   "access_achieved": false,
+   "install_checks": {
+    "flow_verified": true,
+    "alarm_tested": true,
+    "training_given": true,
+    "completed_at": "2024-10-02T13:28"
+   },
+   "patient_signature": "on_file",
+   "handover_at": "2024-10-02T13:29"
+  },
+  "site_assessment": {
+   "assessed_at": "2024-10-02T13:05",
+   "hazards": [
+    {
+     "code": "GAS_HOB_NEAR",
+     "status": null,
+     "fix": null
+    }
+   ]
+  },
+  "equipment": {
+   "concentrator": {
+    "serial": "HC-4470",
+    "flow_setting_lpm": 3
+   },
+   "fault_log": [],
+   "cylinders_on_site": [
+    {
+     "size": "ZD 300 L",
+     "fill_pct": 40
+    }
+   ]
+  },
+  "supply_plan": {
+   "next_delivery_date": "2024-10-03",
+   "delivery_window": "08:00-12:00",
+   "route_day": "Thu"
+  }
+ },
+ "factors": {
+  "rx_alignment": "flow_mismatch",
+  "items_shortfall": "nothing_left",
+  "setup_state": "all_logged",
+  "supply_hours": 94.23,
+  "concentrator_fault": false,
+  "fault_mitigated": false,
+  "hazards_found": 1,
+  "hazard_mitigation": false,
+  "hazard_status_missing": true,
+  "handover_gap": false,
+  "timeline_out_of_order": false,
+  "next_delivery": "booked_in_time",
+  "dependency_level": "ambulatory",
+  "billing_hold": true
+ },
+ "factors_sampled": {
+  "rx_alignment": "flow_mismatch",
+  "items_shortfall": "nothing_left",
+  "setup_state": "all_logged",
+  "supply_hours": 94.23,
+  "concentrator_fault": false,
+  "fault_mitigated": false,
+  "hazards_found": 1,
+  "hazard_mitigation": false,
+  "hazard_status_missing": true,
+  "handover_gap": false,
+  "timeline_out_of_order": false,
+  "next_delivery": "booked_in_time",
+  "dependency_level": "ambulatory",
+  "billing_hold": true
+ },
+ "plan": {
+  "rx_match": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "close_record",
+   "second": null
+  },
+  "fulfilment": {
+   "clarity": "clear",
+   "target": "nothing_delivered",
+   "second": null
+  },
+  "supply_runway": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "open_hazards": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "4"
+  }
+ },
+ "target_words": 200,
+ "deciding": {
+  "rx_match": "Concentrator flow setting 3 vs prescribed 2 lpm, but a portable unit was ordered and none left; mismatch is modest.",
+  "next_step": "Checks all logged, signature and handover present, next delivery booked for the next day; billing hold is a decoy.",
+  "fulfilment": "items_left is empty and access_achieved is false.",
+  "supply_runway": "One ZD 300 L cylinder at 40 percent is 120 L; at 2 lpm that is about 1 hour, and the next delivery is a day away.",
+  "open_hazards": "Only one hazard row with null status and no fix; count of three or four is not supported."
+ },
+ "request": "rec-F303-0036",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.006749
+}

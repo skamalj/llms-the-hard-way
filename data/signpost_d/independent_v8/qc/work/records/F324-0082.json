@@ -1,0 +1,155 @@
+{
+ "id": "F324-0082",
+ "family": "F324",
+ "state": {
+  "zone": {
+   "dripper_count": 120,
+   "valve_id": "V07",
+   "meter_id": "M07"
+  },
+  "schedule": {
+   "ml_per_dripper": [
+    100,
+    100,
+    100
+   ],
+   "valve_s": 480,
+   "drain_target_pct": [
+    15,
+    25
+   ],
+   "overrides": []
+  },
+  "controller_log": {
+   "date": "2025-06-10",
+   "cycles": [
+    {
+     "start": "07:00",
+     "valve_open_s": 480,
+     "delivered_l": 10.85,
+     "line_pressure_bar": 2.0
+    },
+    {
+     "start": "11:00",
+     "valve_open_s": 480,
+     "delivered_l": 10.7,
+     "line_pressure_bar": null
+    },
+    {
+     "start": "15:00",
+     "valve_open_s": 480,
+     "delivered_l": 10.8,
+     "line_pressure_bar": 2.1
+    }
+   ],
+   "spec_bar": 2.0,
+   "daily_total_l": 32.35,
+   "meter_total_l": 32.3
+  },
+  "drainage": {
+   "drain_pct": [
+    12.5,
+    13.5
+   ],
+   "catch_test": {
+    "ordered": false,
+    "result": null
+   }
+  },
+  "sensors": {
+   "meter_last_calibrated": "2024-10-09"
+  },
+  "maintenance": {
+   "windows": [
+    {
+     "type": "filter_service",
+     "start": "2025-06-10T10:30",
+     "end": "2025-06-10T11:30"
+    }
+   ],
+   "alarms": [
+    {
+     "code": "TANK_LOW",
+     "acknowledged": true,
+     "cleared": true
+    }
+   ],
+   "recent_work_orders": [
+    {
+     "id": "WO-311",
+     "closed": "2025-05-20"
+    },
+    {
+     "id": "WO-274",
+     "closed": "2025-02-11"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "delivery_shortfall_pct": 10.14,
+  "mismatch_location": "none",
+  "fault_cause": "emitter_clogging",
+  "approved_override": false,
+  "maintenance_window_active": true,
+  "drain_offset_points": -2.0,
+  "off_tolerance_cycles": 1,
+  "meter_calibration_age_days": 244,
+  "confirmation_pending": false,
+  "pressure_state": "partly_missing",
+  "benign_alarm_decoy": "tank_alarm_cleared",
+  "recent_work_orders": 2
+ },
+ "factors_sampled": {
+  "delivery_shortfall_pct": 31.09,
+  "mismatch_location": "none",
+  "fault_cause": "emitter_clogging",
+  "approved_override": true,
+  "maintenance_window_active": true,
+  "drain_offset_points": -13.75,
+  "off_tolerance_cycles": 2,
+  "meter_calibration_age_days": 244,
+  "confirmation_pending": false,
+  "pressure_state": "partly_missing",
+  "benign_alarm_decoy": "tank_alarm_cleared",
+  "recent_work_orders": 2
+ },
+ "plan": {
+  "under_dosed": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "emitter_clogging": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "next_action": {
+   "clarity": "balanced",
+   "target": "monitor",
+   "second": "sign_off"
+  },
+  "drain_deviation": {
+   "clarity": "clear",
+   "target": "1",
+   "second": null
+  },
+  "off_plan_cycles": {
+   "clarity": "contested",
+   "target": "1",
+   "second": "0"
+  }
+ },
+ "target_words": 115,
+ "deciding": {
+  "under_dosed": "Delivered of 32.35 L against 36 L planned (120 drippers x 100 mL x 3) is 89.9%, with no override listed, and the meter agrees (32.3 L). Only just under the 90% line, so it leans true.",
+  "emitter_clogging": "Full 480 s valve opening and recorded pressure of 2.0-2.1 bar (spec 2.0) go with low delivery of about 0.09 L per dripper per cycle and low drain. The one null pressure reading does not change this.",
+  "next_action": "The shortfall is small, the filter-service window overlaps the 11:00 cycle, and the totals reconcile. That supports sign-off, but the shortfall of about 10% and the low drain leave monitor equally defensible.",
+  "drain_deviation": "Mean drain is 13.0% against a 15-25% band, so 2 points below. That is slightly outside the band and well short of 5 points.",
+  "off_plan_cycles": "Against 12 L planned, the 10.7 L cycle is 10.8% off, 10.85 L is 9.6% off and 10.8 L is exactly 10%. That is one cycle or none, depending on rounding and on the maintenance window at 11:00."
+ },
+ "request": "rec-F324-0081",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.015356
+}

@@ -1,0 +1,118 @@
+{
+ "id": "F338-0040",
+ "family": "F338",
+ "state": {
+  "site": {
+   "pollutant": "NO2",
+   "tier": "standard",
+   "service_interval_days": 90,
+   "approved_interval_days": 120
+  },
+  "visit": {
+   "date": "2024-03-20",
+   "start": "13:00",
+   "end": "15:00",
+   "sequence_status": "partial"
+  },
+  "reference": {
+   "standard_id": "CY88140",
+   "cert_expiry": "2024-06-07",
+   "unit": "ppb"
+  },
+  "checks": [
+   {
+    "type": "as_found_span",
+    "ref_id": "CY88140",
+    "ref_conc": 200,
+    "unit": "ppm",
+    "reading": 486,
+    "tol": 10,
+    "ts": "13:20"
+   },
+   {
+    "type": "as_left_span",
+    "ref_id": "CY88140",
+    "ref_conc": 200,
+    "unit": "ppb",
+    "reading": 175,
+    "tol": 10,
+    "ts": "14:30"
+   }
+  ],
+  "history": {
+   "last_visit_date": "2024-02-29",
+   "results": [
+    "pass",
+    "fail"
+   ]
+  }
+ },
+ "factors": {
+  "pollutant": "NO2",
+  "as_found_ratio": 2.43,
+  "as_left_status": "one_point_fail",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 79,
+  "unit_mismatch": true,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "approved_extended_interval",
+  "days_since_last_visit": 20,
+  "visit_completeness": "multipoint_missing",
+  "prior_fail_count": 1,
+  "timestamp_mismatch": "none",
+  "site_priority": "standard"
+ },
+ "factors_sampled": {
+  "pollutant": "NO2",
+  "as_found_ratio": 2.43,
+  "as_left_status": "one_point_fail",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 79,
+  "unit_mismatch": true,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "approved_extended_interval",
+  "days_since_last_visit": 20,
+  "visit_completeness": "multipoint_missing",
+  "prior_fail_count": 1,
+  "timestamp_mismatch": "none",
+  "site_priority": "standard"
+ },
+ "plan": {
+  "data_accepted": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "reference_valid": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "hold",
+   "second": null
+  },
+  "flag_extent": {
+   "clarity": "contested",
+   "target": "1",
+   "second": "0"
+  },
+  "return_urgency": {
+   "clarity": "balanced",
+   "target": "4",
+   "second": "3"
+  }
+ },
+ "target_words": 54,
+ "deciding": {
+  "data_accepted": "As-found span 486 vs 200 is out of tolerance and the as-left 175 vs 200 also fails; the approved interval only partly explains it.",
+  "reference_valid": "ID matches and the certificate has 79 days left; only the as-found unit label ppm differs from the ppb reference, probably an entry slip.",
+  "next_step": "The visit is partial with the multipoint checks missing, so a confirmation is outstanding and the record is held.",
+  "flag_extent": "20 days since the last visit with an extended interval approved; flagging 1 to 7 days or none are both defensible.",
+  "return_urgency": "The as-left span of 175 vs 200 ppb is out of tolerance and the multipoint checks are incomplete; same-day versus one-to-two-day return are both reasonable."
+ },
+ "request": "rec-F338-0036",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.005764
+}

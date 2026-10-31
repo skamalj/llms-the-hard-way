@@ -1,0 +1,328 @@
+{
+ "id": "F334",
+ "domain": "football match officiating reports",
+ "role": "League discipline desk officer reviewing referees' post-match misconduct reports before sanctions are issued",
+ "setting": "A regional amateur football league runs a discipline desk. After each fixture where a referee shows a caution or a dismissal, the referee files a misconduct report. The report holds fixture details, both team sheets, an incident list with free-text referee notes, any written observations from assistant referees or the fourth official, submission metadata and the season history of the sanctioned players. One desk officer reviews each report alone. The officer must decide four things: whether every sanctioned player is reliably identified, what to do with the report next, which category the most serious incident belongs to, and how many unexplained inconsistencies the report contains. Reports are never pre-labelled. The officer has to cross-check the sections against each other, weigh explanations such as logged substitutions or approved filing extensions, and recognise when a single query to the referee is enough or when a hearing is needed.",
+ "questions": {
+  "identity_confirmed": {
+   "type": "noul",
+   "instructions": "Every sanctioned player is identified consistently across all report sections.",
+   "criteria": {
+    "true": "Shirt, name and registration agree, or a log explains it.",
+    "false": "At least one sanctioned identity unresolved or only possibly correct."
+   }
+  },
+  "next_step": {
+   "type": "choice",
+   "instructions": "What should the discipline desk do with this report next?",
+   "criteria": {
+    "process_as_filed": "Accept the report unchanged and issue standard sanctions now.",
+    "correct_and_process": "Fix a clerical error resolvable from other sections, then issue.",
+    "hold_clarification": "Pause until the referee answers one specific written query.",
+    "refer_to_panel": "Send to a hearing; facts or tariff exceed desk powers."
+   }
+  },
+  "incident_category": {
+   "type": "choice",
+   "instructions": "Which category does the report's most serious incident fall into?",
+   "criteria": {
+    "caution_only": "No dismissals; every sanction recorded is a caution.",
+    "second_caution": "Dismissal arising solely from two cautions in one match.",
+    "direct_dismissal": "Straight dismissal for conduct towards players, not match officials.",
+    "official_targeted": "Dismissal for conduct directed at a referee or assistant."
+   }
+  },
+  "affected_scope": {
+   "type": "score",
+   "instructions": "How many people or units does this issue directly affect?",
+   "criteria": [
+    "Affects one person or unit only",
+    "Affects two to five people or units",
+    "Affects six to twenty people or units",
+    "Affects more than twenty people or units"
+   ]
+  },
+  "mismatch_count": {
+   "type": "score",
+   "instructions": "How many unexplained cross-section mismatches does the report contain?",
+   "criteria": [
+    "No unexplained mismatches between any sections",
+    "Exactly one unexplained mismatch between sections",
+    "Two or three unexplained mismatches between sections",
+    "Four or more unexplained mismatches between sections"
+   ]
+  }
+ },
+ "factors": [
+  {
+   "name": "identity_mismatch",
+   "description": "Kind of disagreement between a sanctioned player's incident entry and the team sheet: none, shirt number differs, name spelling differs, registration id differs, or player absent from sheet",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "shirt_number",
+    "name_spelling",
+    "registration_id",
+    "not_on_sheet"
+   ],
+   "weights": [
+    0.35,
+    0.2,
+    0.15,
+    0.15,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S5"
+   ]
+  },
+  {
+   "name": "identity_explained",
+   "description": "Whether another section benignly explains the identity mismatch, such as a substitution log showing a shirt swap, a kit-change note, or an alias recorded on registration",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S5"
+   ]
+  },
+  {
+   "name": "most_serious_offence",
+   "description": "True category of the gravest incident in the report",
+   "kind": "categorical",
+   "values": [
+    "caution_only",
+    "second_caution",
+    "direct_dismissal",
+    "official_targeted"
+   ],
+   "weights": [
+    0.3,
+    0.25,
+    0.3,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S7"
+   ]
+  },
+  {
+   "name": "code_text_conflict",
+   "description": "Whether the referee's free-text note describes conduct different from the offence code entered, e.g. code shows dissent but note describes pushing an assistant",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.3,
+   "skills": [
+    "S1",
+    "S6"
+   ]
+  },
+  {
+   "name": "minute_conflict",
+   "description": "Disagreement between incident minute and substitution log or official notes: none, small gap of 1 to 3 minutes, or impossible timing such as player already substituted off",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "small_gap",
+    "impossible"
+   ],
+   "weights": [
+    0.5,
+    0.3,
+    0.2
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S6"
+   ]
+  },
+  {
+   "name": "official_accounts",
+   "description": "How assistant or fourth official observations relate to the referee's account of the gravest incident",
+   "kind": "categorical",
+   "values": [
+    "corroborate",
+    "silent",
+    "partial_conflict",
+    "contradict"
+   ],
+   "weights": [
+    0.35,
+    0.3,
+    0.2,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S6"
+   ]
+  },
+  {
+   "name": "submission_delay_hours",
+   "description": "Hours between final whistle and report submission; the league deadline is 48 hours",
+   "kind": "number",
+   "values": [],
+   "weights": [],
+   "min": 2,
+   "max": 110,
+   "p_true": 0,
+   "skills": [
+    "S3"
+   ]
+  },
+  {
+   "name": "extension_approved",
+   "description": "Whether a filing extension was approved for this fixture, making a late submission benign",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3"
+   ]
+  },
+  {
+   "name": "amendment_count",
+   "description": "Number of times the referee amended the report after first submission; each amendment has a short reason",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 3,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S6"
+   ]
+  },
+  {
+   "name": "clarification_state",
+   "description": "Status of any query already raised to the referee: none raised, raised and awaiting reply, or reply logged",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "awaiting_reply",
+    "reply_logged"
+   ],
+   "weights": [
+    0.55,
+    0.25,
+    0.2
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S4"
+   ]
+  },
+  {
+   "name": "note_specificity",
+   "description": "Quality of the referee's free-text note on the gravest incident: specific with conduct and target, vague, or blank",
+   "kind": "categorical",
+   "values": [
+    "specific",
+    "vague",
+    "blank"
+   ],
+   "weights": [
+    0.55,
+    0.3,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S4",
+    "S6"
+   ]
+  },
+  {
+   "name": "prior_cautions",
+   "description": "Season caution count of the gravest-incident player before this match; five triggers an accumulation ban, otherwise a decoy",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 7,
+   "p_true": 0,
+   "skills": [
+    "S6",
+    "S7"
+   ]
+  },
+  {
+   "name": "sanctioned_count",
+   "description": "Number of distinct players sanctioned in the report",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 1,
+   "max": 5,
+   "p_true": 0,
+   "skills": [
+    "S7"
+   ]
+  }
+ ],
+ "sections": [
+  {
+   "name": "match",
+   "description": "Fixture id, competition, ISO date, kick-off time, venue, referee id and assistant ids."
+  },
+  {
+   "name": "team_sheets",
+   "description": "Home and away lists of players with shirt number, name, registration id, starter flag, plus substitution log entries."
+  },
+  {
+   "name": "incidents",
+   "description": "List of sanctions with minute, team, shirt, player name, registration id, offence_code, target and a short ref_note."
+  },
+  {
+   "name": "officials_notes",
+   "description": "List of observations from assistants or fourth official, each with author role, minute and one-sentence text."
+  },
+  {
+   "name": "submission",
+   "description": "Submitted_at timestamp, deadline_at, extension_ref (null if none), amendments list with reason, and query status."
+  },
+  {
+   "name": "history",
+   "description": "Per sanctioned player: season cautions, prior dismissals, current suspension flag; referee's season report correction count."
+  }
+ ],
+ "rendering_notes": "identity_mismatch appears only by comparing incidents[].shirt/player_name/reg_id with team_sheets entries; when identity_explained is true a substitution log entry, a kit-change line in officials_notes or an alias on the sheet resolves it, otherwise nothing does. most_serious_offence is never stated as a category: it shows through offence_code (invented codes such as CAU-UB, CAU-DIS, DIS-2C, DIS-SFP, DIS-VC, DIS-OFA), the target field (player, spectator, referee, assistant, null) and ref_note wording. When code_text_conflict is true the ref_note describes conduct inconsistent with the code (e.g. DIS-VC with target player but note mentions shoving the assistant), so the true category must be read from the text. minute_conflict shows as incident minute versus team_sheets substitution minutes or officials_notes minutes. official_accounts is rendered as officials_notes text that echoes, omits or disputes the referee's version. submission_delay_hours is implied by submitted_at versus match date and kick-off plus deadline_at; extension_approved fills extension_ref with an id, else null. amendment_count is the length of submission.amendments, each with a one-line reason, some benign (typo in venue) and some substantive (changed offence code). clarification_state appears as submission.query_status (none, sent, answered) with the answer text if answered. note_specificity governs ref_note length and detail; blank is an empty string. prior_cautions sits in history and is a decoy unless reaching 5. Decoys: referee correction count, venue name variations, kick-off time format, prior dismissals of unsanctioned players, benign amendments. Explained mismatches do not count toward mismatch_count. No record contains fields such as identity_status, recommended_action, category, severity or discrepancy_count; answers must be derived by cross-checking.",
+ "skills": [
+  "S1",
+  "S3",
+  "S4",
+  "S5",
+  "S6",
+  "S7"
+ ],
+ "shared_scale": "affected_scope",
+ "design_cost": 0.14362
+}

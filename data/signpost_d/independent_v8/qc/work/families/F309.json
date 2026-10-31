@@ -1,0 +1,356 @@
+{
+ "id": "F309",
+ "domain": "rare books reading room requests",
+ "role": "Reading room duty supervisor in a rare books and special collections library, reviewing each advance consultation request before items are paged",
+ "setting": "Readers book a consultation slot and list the items they wish to see. Before anything is fetched, the duty supervisor opens the request record, which pulls together the reader's registration, the request as submitted, the catalogue records of the items, conservation survey data, the reader's visit history and any permissions or clearances. The supervisor then decides whether and how the request can go ahead. Records often contain small disagreements between sections, steps not yet done, and alarming flags that come with offsetting evidence.",
+ "questions": {
+  "reg_valid": {
+   "type": "noul",
+   "instructions": "Reader's registration is valid and verified on the consultation date.",
+   "criteria": null
+  },
+  "disposition": {
+   "type": "choice",
+   "instructions": "What should the supervisor do with this request now?",
+   "criteria": {
+    "approve": "All checks pass; produce items as requested without added terms.",
+    "approve_conditions": "Checks pass, but production requires stated handling or supervision terms.",
+    "hold": "Exactly one confirmation is outstanding; keep the request pending until it arrives.",
+    "decline": "A blocking failure exists, so the request cannot proceed this visit."
+   }
+  },
+  "access_form": {
+   "type": "choice",
+   "instructions": "Under what arrangement should the most vulnerable requested item be consulted?",
+   "criteria": {
+    "standard_table": "Original used at an ordinary table without supports or invigilation.",
+    "supported": "Original needs cradle, snake weights or foam, but no invigilation.",
+    "invigilated_table": "Original used only at the supervised table under staff watch.",
+    "surrogate_only": "Original withheld; reader uses the digital or microfilm copy.",
+    "not_produced": "Neither original nor any surrogate can be offered this visit."
+   }
+  },
+  "items_blocked": {
+   "type": "score",
+   "instructions": "How many requested items cannot be produced as requested?",
+   "criteria": [
+    "None: all requested items producible as catalogued and asked.",
+    "One: exactly one item blocked, substituted or deferred.",
+    "Several: two or more items affected, but not all.",
+    "All: no requested item can be produced as asked."
+   ]
+  },
+  "handling_risk": {
+   "type": "score",
+   "instructions": "How high is the handling risk of the most vulnerable item?",
+   "criteria": [
+    "Worst item graded good, with no fragility flags.",
+    "Worst item fair, or fragile with treatment logged after survey.",
+    "Worst item fragile, with no treatment logged since survey.",
+    "Worst item graded poor or under an active conservation hold."
+   ]
+  }
+ },
+ "factors": [
+  {
+   "name": "reg_validity",
+   "description": "State of the reader's registration relative to the requested slot: current and verified, expiring between submission and slot, already lapsed at submission, or present but photo ID never verified.",
+   "kind": "categorical",
+   "values": [
+    "valid_through_slot",
+    "expires_before_slot",
+    "lapsed_at_submission",
+    "id_unverified"
+   ],
+   "weights": [
+    0.55,
+    0.17,
+    0.1,
+    0.18
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S2",
+    "S5"
+   ]
+  },
+  {
+   "name": "renewal_pending",
+   "description": "Whether a registration renewal has been submitted but not yet processed; mitigates an expiry and makes hold the natural disposition rather than decline.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S4",
+    "S6"
+   ]
+  },
+  {
+   "name": "item_count",
+   "description": "Number of items listed in the request.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 1,
+   "max": 6,
+   "p_true": 0,
+   "skills": [
+    "S4",
+    "S7"
+   ]
+  },
+  {
+   "name": "shelfmark_mismatch",
+   "description": "How the shelfmark or volume the reader typed differs from the catalogue record it was matched to: no difference, a trivial formatting difference, a different volume of the same work, or a different item altogether.",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "format_only",
+    "volume_differs",
+    "different_item"
+   ],
+   "weights": [
+    0.5,
+    0.2,
+    0.16,
+    0.14
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S6"
+   ]
+  },
+  {
+   "name": "worst_condition",
+   "description": "Condition grade of the most vulnerable requested item from the latest conservation survey.",
+   "kind": "categorical",
+   "values": [
+    "good",
+    "fair",
+    "fragile",
+    "poor"
+   ],
+   "weights": [
+    0.33,
+    0.3,
+    0.22,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S7",
+    "S1"
+   ]
+  },
+  {
+   "name": "treated_since_survey",
+   "description": "Whether conservation treatment was completed on the worst item after its survey date, lowering effective risk; the date must be compared with the survey date and may sit before it as a decoy.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S1",
+    "S6"
+   ]
+  },
+  {
+   "name": "conservation_hold",
+   "description": "Conservation hold state on any requested item: none, active hold, or hold placed and later lifted with a release date.",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "active",
+    "lifted"
+   ],
+   "weights": [
+    0.7,
+    0.15,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S2",
+    "S3",
+    "S4"
+   ]
+  },
+  {
+   "name": "surrogate_available",
+   "description": "Whether a digital or microfilm surrogate exists for the most vulnerable or blocked item.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.45,
+   "skills": [
+    "S3",
+    "S4"
+   ]
+  },
+  {
+   "name": "offsite_unretrieved",
+   "description": "Number of requested items held at the off-site store whose retrieval is not yet logged as complete.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 3,
+   "p_true": 0,
+   "skills": [
+    "S2",
+    "S4"
+   ]
+  },
+  {
+   "name": "lead_days",
+   "description": "Working days between submission and slot; off-site retrieval needs three working days, so a short lead with unretrieved items blocks those items unless a courier is booked.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 10,
+   "p_true": 0,
+   "skills": [
+    "S1",
+    "S2",
+    "S6"
+   ]
+  },
+  {
+   "name": "restricted_permission",
+   "description": "Whether any item is under depositor restriction and the state of its permission: unrestricted, permission granted, permission requested but pending, or restriction with no permission record at all.",
+   "kind": "categorical",
+   "values": [
+    "unrestricted",
+    "granted",
+    "pending",
+    "no_record"
+   ],
+   "weights": [
+    0.6,
+    0.15,
+    0.13,
+    0.12
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S2",
+    "S3",
+    "S5"
+   ]
+  },
+  {
+   "name": "prior_incident",
+   "description": "Most significant prior handling incident in the reader's visit history.",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "minor_old",
+    "minor_recent",
+    "serious"
+   ],
+   "weights": [
+    0.6,
+    0.15,
+    0.15,
+    0.1
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S6",
+    "S7"
+   ]
+  },
+  {
+   "name": "incident_cleared",
+   "description": "Whether a supervisor clearance for the reader exists, dated after the latest incident; mitigates recent or serious incidents so that conditions rather than decline apply.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S6"
+   ]
+  },
+  {
+   "name": "sequence_anomaly",
+   "description": "Whether a date shows a step out of order, such as permission granted dated after the slot, ID verification dated after the first paging, or clearance dated before the incident it supposedly clears.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.15,
+   "skills": [
+    "S2",
+    "S1",
+    "S5"
+   ]
+  }
+ ],
+ "sections": [
+  {
+   "name": "reader",
+   "description": "Registration record: reader_id, category, reg_issued, reg_expiry, id_verified, id_verified_on, renewal_submitted_on."
+  },
+  {
+   "name": "request",
+   "description": "Request as submitted: request_id, reader_id, submitted_on, slot_date, slot_session, and a list of items with shelfmark_as_typed and vol_as_typed."
+  },
+  {
+   "name": "items",
+   "description": "Catalogue records matched to each request line: shelfmark, vol, record_id, location, retrieval_status, retrieved_on, courier_booked, restriction, surrogate_type."
+  },
+  {
+   "name": "conservation",
+   "description": "Per-shelfmark survey data: condition_grade, survey_date, fragility_flags list, treatment_completed_on, hold_placed_on, hold_released_on, supports_required."
+  },
+  {
+   "name": "history",
+   "description": "Reader's visit history: visits_total, last_visit, and an incidents list with date and grade."
+  },
+  {
+   "name": "approvals",
+   "description": "Permissions and clearances: depositor_permission entries with requested_on, granted_on, and supervisor_clearance with cleared_on, scope."
+  }
+ ],
+ "rendering_notes": "reg_validity shows only through reader.reg_expiry compared with request.slot_date and request.submitted_on, and through id_verified (false or null with id_verified_on null for id_unverified); renewal_pending appears as reader.renewal_submitted_on with a date or null. Shelfmark mismatch is never flagged: compare request.items[].shelfmark_as_typed and vol_as_typed with items[].shelfmark and vol (format_only differs in spacing, case or punctuation only; volume_differs changes vol; different_item changes the shelfmark number). worst_condition appears in conservation[].condition_grade, with fragility_flags such as loose_boards or red_rot; treated_since_survey is treatment_completed_on later than survey_date, while a decoy treatment date earlier than the survey appears on some untreated records. conservation_hold is hold_placed_on with hold_released_on null (active) or a date (lifted). surrogate_available is items[].surrogate_type set to digital or microfilm, or null. offsite_unretrieved shows as items with location offsite and retrieval_status requested or null rather than on_reserve; lead_days is derived from submitted_on and slot_date, and courier_booked true can mitigate a short lead. restricted_permission shows as items[].restriction depositor plus an approvals.depositor_permission entry with granted_on set (granted), granted_on null (pending) or no entry at all (no_record). prior_incident appears in history.incidents with date and grade minor or serious; incident_cleared is approvals.supervisor_clearance.cleared_on later than the latest incident. sequence_anomaly is a date placed out of order in one of these fields. Decoys: reader.category, history.visits_total, items[].record_id, a format_only shelfmark difference, supports_required on items whose grade is good, and an expired lapsed registration from a previous year in reg_issued. No field states a disposition, risk level, access arrangement, count of blocked items or validity verdict; there is no status, risk or recommendation field, and no free-text notes.",
+ "skills": [
+  "S1",
+  "S2",
+  "S3",
+  "S4",
+  "S5",
+  "S6",
+  "S7"
+ ],
+ "shared_scale": null,
+ "design_cost": 0.161524
+}

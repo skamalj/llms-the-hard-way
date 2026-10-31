@@ -1,0 +1,181 @@
+{
+ "id": "F324-0101",
+ "family": "F324",
+ "state": {
+  "zone": {
+   "id": "Z3",
+   "dripper_count": 200,
+   "rate_lph": 2,
+   "spec_bar": 1.8
+  },
+  "schedule": {
+   "date": "2024-06-12",
+   "cycles": [
+    {
+     "t": "06:00",
+     "ml": 100,
+     "s": 300
+    },
+    {
+     "t": "09:00",
+     "ml": 100,
+     "s": 300
+    },
+    {
+     "t": "12:00",
+     "ml": 100,
+     "s": 300
+    },
+    {
+     "t": "15:00",
+     "ml": 100,
+     "s": 300
+    }
+   ],
+   "drain_pct": [
+    15,
+    25
+   ],
+   "overrides": [
+    {
+     "approved_by_role": "head_grower",
+     "reduction_pct": 8
+    }
+   ]
+  },
+  "controller_log": {
+   "cycles": [
+    {
+     "t": "06:00",
+     "open_s": 300,
+     "l": 15.6,
+     "bar": 1.8
+    },
+    {
+     "t": "09:00",
+     "open_s": 300,
+     "l": 18.0,
+     "bar": 1.8
+    },
+    {
+     "t": "12:00",
+     "open_s": 300,
+     "l": 18.1,
+     "bar": 1.8
+    },
+    {
+     "t": "15:00",
+     "open_s": 300,
+     "l": 18.1,
+     "bar": 1.8
+    }
+   ],
+   "daily_total_l": 72.0,
+   "meter_total_l": 69.8
+  },
+  "drainage": {
+   "drain_pct": [
+    14.4,
+    14.8,
+    14.6
+   ],
+   "catch_test": {
+    "ordered": true,
+    "result": null
+   }
+  },
+  "sensors": {
+   "meter_last_calibrated": "2023-05-11",
+   "handwater": "10:40"
+  },
+  "maintenance": {
+   "windows": [
+    {
+     "type": "flush",
+     "start": "2024-06-12T05:45",
+     "end": "2024-06-12T06:30"
+    }
+   ],
+   "alarms": [
+    {
+     "code": "MOIST_HI",
+     "t": "10:55",
+     "acknowledged": true,
+     "cleared": true
+    }
+   ],
+   "wo_closed": [
+    "2023-11-05",
+    "2024-02-10",
+    "2024-03-22",
+    "2024-04-30"
+   ]
+  }
+ },
+ "factors": {
+  "delivery_shortfall_pct": 12.75,
+  "mismatch_location": "cycle_sum_vs_total",
+  "fault_cause": "emitter_clogging",
+  "approved_override": true,
+  "maintenance_window_active": true,
+  "drain_offset_points": -0.4,
+  "off_tolerance_cycles": 2,
+  "meter_calibration_age_days": 398,
+  "confirmation_pending": true,
+  "pressure_state": "normal",
+  "benign_alarm_decoy": "post_handwater_moisture",
+  "recent_work_orders": 4
+ },
+ "factors_sampled": {
+  "delivery_shortfall_pct": 13.34,
+  "mismatch_location": "cycle_sum_vs_total",
+  "fault_cause": "sensor_drift",
+  "approved_override": true,
+  "maintenance_window_active": true,
+  "drain_offset_points": -2.63,
+  "off_tolerance_cycles": 0,
+  "meter_calibration_age_days": 398,
+  "confirmation_pending": false,
+  "pressure_state": "normal",
+  "benign_alarm_decoy": "post_handwater_moisture",
+  "recent_work_orders": 4
+ },
+ "plan": {
+  "under_dosed": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "emitter_clogging": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "next_action": {
+   "clarity": "leaning",
+   "target": "hold_for_check",
+   "second": null
+  },
+  "drain_deviation": {
+   "clarity": "contested",
+   "target": "1",
+   "second": "0"
+  },
+  "off_plan_cycles": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  }
+ },
+ "target_words": 55,
+ "deciding": {
+  "under_dosed": "Meter 69.8 L against 80 L planned is about 87%, but an approved 8% reduction (head_grower) puts the target near 73.6 L, so it is close to the 90% line.",
+  "emitter_clogging": "Pressure equals spec 1.8 bar and valve open_s is the full 300 on every cycle, yet delivered is only about 78-90 ml per dripper against 100 and drain sits at the band's low edge.",
+  "next_action": "Catch test ordered with result null leaves the low delivery unconfirmed, and daily_total 72.0 does not match the cycle sum 69.8; a manual check is pending.",
+  "drain_deviation": "Mean drain 14.6 against band minimum 15 is 0.4 points under, with one sample 14.8 and none in band; in or just out of band is open.",
+  "off_plan_cycles": "The 06:00 cycle at 15.6 L is about 22% under plan, and the 09:00 cycle at 18.0 L is exactly 10% under; whether it counts, and the 8% override, leave one or two cycles open."
+ },
+ "request": "rec-F324-0101",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.018178
+}

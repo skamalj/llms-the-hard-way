@@ -1,0 +1,119 @@
+{
+ "id": "F338-0083",
+ "family": "F338",
+ "state": {
+  "site": {
+   "pollutant": "O3",
+   "tier": "standard"
+  },
+  "visit": {
+   "date": "2025-06-02",
+   "sequence_status": "partial"
+  },
+  "reference": {
+   "standard_id": "C-5512",
+   "unit": "ppb",
+   "cert_expiry": "2025-09-18"
+  },
+  "checks": [
+   {
+    "phase": "as_found",
+    "type": "span",
+    "ref_id": "C-5512",
+    "unit": "ppb",
+    "ref_conc": 100,
+    "reading": 128.7,
+    "tol": 10
+   },
+   {
+    "phase": "as_left",
+    "type": "span",
+    "ref_id": "C-5512",
+    "unit": "ppb",
+    "ref_conc": 100,
+    "reading": 117,
+    "tol": 10
+   }
+  ],
+  "history": {
+   "last_visit_date": "2025-03-07",
+   "results": [
+    "fail",
+    "pass",
+    "fail",
+    "fail"
+   ]
+  },
+  "instrument": {
+   "temp_max": 36
+  }
+ },
+ "factors": {
+  "pollutant": "O3",
+  "as_found_ratio": 2.87,
+  "as_left_status": "fail",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 108,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "enclosure_temp_excursion",
+  "days_since_last_visit": 87,
+  "visit_completeness": "multipoint_missing",
+  "prior_fail_count": 3,
+  "timestamp_mismatch": "none",
+  "site_priority": "standard"
+ },
+ "factors_sampled": {
+  "pollutant": "O3",
+  "as_found_ratio": 2.87,
+  "as_left_status": "all_pass",
+  "cylinder_id_mismatch": "transposed_digit",
+  "cert_expiry_offset_days": 108,
+  "unit_mismatch": true,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "enclosure_temp_excursion",
+  "days_since_last_visit": 87,
+  "visit_completeness": "multipoint_missing",
+  "prior_fail_count": 3,
+  "timestamp_mismatch": "none",
+  "site_priority": "standard"
+ },
+ "plan": {
+  "data_accepted": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "reference_valid": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "withdraw",
+   "second": null
+  },
+  "flag_extent": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "return_urgency": {
+   "clarity": "contested",
+   "target": "4",
+   "second": "3"
+  }
+ },
+ "target_words": 35,
+ "deciding": {
+  "data_accepted": "The as-found span error is 28.7 against tolerance 10, which argues against accepting. A 36 degree enclosure maximum could partly explain the drift.",
+  "reference_valid": "The ref_id matches standard_id, units are ppb, and the certificate is in date to 2025-09-18. No certificate number is given.",
+  "next_step": "The as-left span still reads 117 against 100 with tolerance 10, and the multipoint check is missing. The analyser cannot be brought into tolerance on site and needs workshop repair.",
+  "flag_extent": "The as-found failure over an 87-day interval means all of it is suspect. The 36 degree excursion might shorten the affected period to 30 days or fewer.",
+  "return_urgency": "The analyser is out of tolerance after adjustment, so it is effectively unusable. Return could be same day for removal or within 1-2 days."
+ },
+ "request": "rec-F338-0081",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.00981
+}

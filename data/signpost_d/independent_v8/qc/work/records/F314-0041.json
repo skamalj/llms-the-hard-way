@@ -1,0 +1,160 @@
+{
+ "id": "F314-0041",
+ "family": "F314",
+ "state": {
+  "property": {
+   "ref": "P-1041",
+   "inventory": [
+    {
+     "id": "A1",
+     "type": "boiler",
+     "loc": "kitchen",
+     "serial": "WB88213",
+     "owned_by": "landlord"
+    },
+    {
+     "id": "A2",
+     "type": "hob",
+     "loc": "kitchen",
+     "serial": "HB4471",
+     "owned_by": "landlord"
+    }
+   ]
+  },
+  "tenancy": {
+   "start_date": "2023-06-01",
+   "review_date": "2025-02-10"
+  },
+  "certificate": {
+   "no": "C-5521",
+   "inspection_date": "2024-03-10",
+   "issue_date": "2024-03-10",
+   "expiry_date": "2025-03-10",
+   "engineer_licence": "GS-30417",
+   "overall_outcome": "pass"
+  },
+  "appliance_checks": [
+   {
+    "id": "A1",
+    "loc": "kitchen",
+    "serial": "WB88213",
+    "analyser": {
+     "ratio": 0.0021,
+     "threshold": 0.002,
+     "retest_ratio": 0.0024
+    },
+    "defect_class": null,
+    "isolation": {
+     "supply_off": false
+    }
+   },
+   {
+    "id": "A2",
+    "loc": "utility",
+    "serial": "HB4471",
+    "defect_class": null
+   }
+  ],
+  "engineer": {
+   "licence_no": "GS-30417",
+   "valid_from": "2021-03-10",
+   "valid_to": "2024-03-10",
+   "categories": [
+    "boiler",
+    "hob"
+   ]
+  },
+  "history": {
+   "prior_certificates": [
+    {
+     "date": "2023-03-08",
+     "defects": [
+      "A1:NCS"
+     ]
+    },
+    {
+     "date": "2022-03-05",
+     "defects": [
+      "A1:NCS"
+     ]
+    },
+    {
+     "date": "2021-03-02",
+     "defects": [
+      "A1:NCS"
+     ]
+    }
+   ],
+   "renewal_booking": {
+    "date": "2025-02-24",
+    "status": "confirmed"
+   }
+  }
+ },
+ "factors": {
+  "inventory_mismatch": "location_mismatch",
+  "tenant_owned_appliance": false,
+  "date_misalignment": "none",
+  "days_to_true_expiry": 28,
+  "renewal_booked": true,
+  "engineer_status": "lapsed_on_date",
+  "worst_defect_class": "none",
+  "defect_isolated": false,
+  "remedial_completed": false,
+  "combustion_reading": "high_retest_fail",
+  "prior_defect_count": 3,
+  "boundary_case": true
+ },
+ "factors_sampled": {
+  "inventory_mismatch": "location_mismatch",
+  "tenant_owned_appliance": false,
+  "date_misalignment": "none",
+  "days_to_true_expiry": 289,
+  "renewal_booked": true,
+  "engineer_status": "lapsed_on_date",
+  "worst_defect_class": "at_risk",
+  "defect_isolated": true,
+  "remedial_completed": false,
+  "combustion_reading": "high_retest_pass",
+  "prior_defect_count": 3,
+  "boundary_case": false
+ },
+ "plan": {
+  "covers_all_appliances": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "engineer_valid": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "emergency_isolation",
+   "second": null
+  },
+  "renewal_urgency": {
+   "clarity": "contested",
+   "target": "2",
+   "second": "1"
+  },
+  "open_hazard": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 75,
+ "deciding": {
+  "covers_all_appliances": "Both inventory ids appear in checks; only A2 location differs (kitchen vs utility), serials match, so coverage is likely but not certain.",
+  "engineer_valid": "Licence numbers match and categories cover both appliances, but engineer.valid_to equals inspection_date (2024-03-10), holding validity in balance.",
+  "next_step": "A1 retest_ratio 0.0024 still exceeds threshold 0.002 with supply_off false and outcome pass, so the boiler is in service un-isolated.",
+  "renewal_urgency": "Review 2025-02-10 against inspection 2024-03-10 leaves 28 days to true expiry, right at the 28/29 boundary.",
+  "open_hazard": "Every defect_class is null, but the failed retest could be read as an advisory-level concern; this holds levels 0 and 1 in balance."
+ },
+ "request": "rec-F314-0041",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.014965
+}

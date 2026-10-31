@@ -1,0 +1,129 @@
+{
+ "id": "F328-0010",
+ "family": "F328",
+ "state": {
+  "report_meta": {
+   "driver_id": "D640",
+   "d": "2024-09-17"
+  },
+  "vehicle_device": {
+   "health_flags": [],
+   "odo": [
+    30011,
+    30500
+   ]
+  },
+  "trips": [
+   {
+    "s": "06:00",
+    "e": "09:20",
+    "km": 230,
+    "card": "D712"
+   },
+   {
+    "s": "09:30",
+    "e": "12:10",
+    "km": 211,
+    "card": "D712"
+   }
+  ],
+  "events": [
+   {
+    "t": "10:15",
+    "type": "speed",
+    "mph": 72.3,
+    "limit": 60,
+    "tags": [
+     "rain"
+    ]
+   },
+   {
+    "type": "harsh",
+    "n": 4,
+    "tags": [
+     "congestion"
+    ]
+   }
+  ],
+  "tacho_summary": {
+   "card": "D712",
+   "drive": "06:00-12:10"
+  },
+  "notes_history": {
+   "coaching": [
+    {
+     "d": "2024-10-01",
+     "status": "scheduled"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "driver_assignment": "mismatch_unexplained",
+  "raw_speed_excess_pct": 20.5,
+  "speed_mitigation": "none",
+  "harsh_event_count": 4,
+  "harsh_context_logged": true,
+  "device_health": "ok",
+  "telematics_stint_hours": 6.17,
+  "tacho_break_reconciles": false,
+  "prior_coaching_count": 0,
+  "coaching_status": "scheduled",
+  "boundary_value": false,
+  "note_content": "none",
+  "distance_discrepancy_pct": 10.88
+ },
+ "factors_sampled": {
+  "driver_assignment": "mismatch_unexplained",
+  "raw_speed_excess_pct": 1.38,
+  "speed_mitigation": "temp_limit_ended",
+  "harsh_event_count": 4,
+  "harsh_context_logged": true,
+  "device_health": "ok",
+  "telematics_stint_hours": 5.38,
+  "tacho_break_reconciles": true,
+  "prior_coaching_count": 0,
+  "coaching_status": "scheduled",
+  "boundary_value": false,
+  "note_content": "none",
+  "distance_discrepancy_pct": 10.88
+ },
+ "plan": {
+  "driver_attributed": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "follow_up": {
+   "clarity": "balanced",
+   "target": "coaching",
+   "second": "hold_verify"
+  },
+  "worst_event_cause": {
+   "clarity": "leaning",
+   "target": "road_conditions",
+   "second": null
+  },
+  "speed_excess": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "hours_exposure": {
+   "clarity": "clear",
+   "target": "3",
+   "second": null
+  }
+ },
+ "target_words": 55,
+ "deciding": {
+  "driver_attributed": "Report driver D640 differs from the card D712 on all trips and the tacho, and no swap is logged. That favours false, but nothing shows who D712 is, so true stays plausible.",
+  "follow_up": "The hours breach is clear, but it is unconfirmed which driver it belongs to because of the card mismatch. No prior coaching is completed, so coaching versus hold_verify is open.",
+  "worst_event_cause": "The speed event is tagged rain and the harsh events are tagged congestion, so logged conditions point to road_conditions. No limit update and the device is ok.",
+  "speed_excess": "72.3 mph against 60 is 20.5% over, just past the 20% line, with no mitigation. Level 3 versus level 2 is a close call.",
+  "hours_exposure": "Trips 06:00-09:20 and 09:30-12:10 have a 10 minute stop, and the tacho drive of 06:00-12:10 has no 45 minute break. That is about 6.2 h, well over 5.5 h."
+ },
+ "request": "rec-F328-0006",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.020176
+}

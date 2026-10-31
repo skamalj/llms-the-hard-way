@@ -1,0 +1,165 @@
+{
+ "id": "F328-0030",
+ "family": "F328",
+ "state": {
+  "report_meta": {
+   "driver_id": "D305",
+   "period": "2025-03-17/23"
+  },
+  "vehicle_device": {
+   "odo_start": 20100,
+   "odo_end": 20712
+  },
+  "trips": [
+   {
+    "start": "2025-03-18T06:20",
+    "end": "09:00",
+    "card": "D305",
+    "gps_km": 300.4
+   },
+   {
+    "start": "2025-03-18T09:06",
+    "end": "11:54",
+    "card": "D305",
+    "gps_km": 292.6
+   }
+  ],
+  "events": [
+   {
+    "t": "2025-03-18T10:45",
+    "type": "speed",
+    "mph": 72.4,
+    "limit": 60
+   },
+   {
+    "t": "2025-03-18T06:50",
+    "type": "harsh"
+   },
+   {
+    "t": "2025-03-18T07:10",
+    "type": "harsh"
+   },
+   {
+    "t": "2025-03-18T07:35",
+    "type": "harsh"
+   },
+   {
+    "t": "2025-03-18T08:05",
+    "type": "harsh"
+   },
+   {
+    "t": "2025-03-18T08:20",
+    "type": "harsh"
+   },
+   {
+    "t": "2025-03-18T08:45",
+    "type": "harsh"
+   },
+   {
+    "t": "2025-03-18T09:15",
+    "type": "harsh"
+   },
+   {
+    "t": "2025-03-18T09:40",
+    "type": "harsh"
+   },
+   {
+    "t": "2025-03-18T10:05",
+    "type": "harsh"
+   },
+   {
+    "t": "2025-03-18T10:30",
+    "type": "harsh"
+   },
+   {
+    "t": "2025-03-18T11:00",
+    "type": "harsh"
+   },
+   {
+    "t": "2025-03-18T11:25",
+    "type": "harsh"
+   }
+  ],
+  "tacho_summary": null,
+  "notes_history": {
+   "supervisor_note": "M1 congestion 07:00-09:00 explains the speeds.",
+   "driver_comment": "Break taken at services, card not downloaded.",
+   "coaching": [
+    {
+     "date": "2025-02-18",
+     "topic": "speed",
+     "status": "partly_completed",
+     "modules": "2/4"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "driver_assignment": "match",
+  "raw_speed_excess_pct": 20.67,
+  "speed_mitigation": "none",
+  "harsh_event_count": 12,
+  "harsh_context_logged": false,
+  "device_health": "ok",
+  "telematics_stint_hours": 5.57,
+  "tacho_break_reconciles": false,
+  "prior_coaching_count": 0,
+  "coaching_status": "partly_completed",
+  "boundary_value": false,
+  "note_content": "contradicts_data",
+  "distance_discrepancy_pct": 3.21
+ },
+ "factors_sampled": {
+  "driver_assignment": "mismatch_unexplained",
+  "raw_speed_excess_pct": 10.23,
+  "speed_mitigation": "none",
+  "harsh_event_count": 12,
+  "harsh_context_logged": false,
+  "device_health": "ok",
+  "telematics_stint_hours": 4.2,
+  "tacho_break_reconciles": false,
+  "prior_coaching_count": 0,
+  "coaching_status": "partly_completed",
+  "boundary_value": false,
+  "note_content": "contradicts_data",
+  "distance_discrepancy_pct": 3.21
+ },
+ "plan": {
+  "driver_attributed": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "follow_up": {
+   "clarity": "clear",
+   "target": "hold_verify",
+   "second": null
+  },
+  "worst_event_cause": {
+   "clarity": "contested",
+   "target": "driver_choice",
+   "second": "road_conditions"
+  },
+  "speed_excess": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "hours_exposure": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 61,
+ "deciding": {
+  "driver_attributed": "Both trips carry card D305, the same as report_meta.driver_id, and the speed event at 10:45 falls inside trip 2.",
+  "follow_up": "tacho_summary is null and the driver says a break was taken, so the hours breach depends on a card download not yet received, while coaching is only 2/4 complete.",
+  "worst_event_cause": "The speed event at 10:45 has no tag or limit update, and the note cites M1 congestion only for 07:00-09:00, which does not cover it. Even so, a reader might still credit the claimed congestion.",
+  "speed_excess": "72.4 in 60 is 20.7% over with no mitigation, just above the 20% boundary between levels 2 and 3.",
+  "hours_exposure": "Trips 06:20-11:54 with a 6-minute stop give about 5.57 h, just over 5.5 h. The tacho is absent, so the claimed break cannot be checked."
+ },
+ "request": "rec-F328-0026",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.022907
+}

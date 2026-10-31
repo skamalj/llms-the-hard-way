@@ -1,0 +1,142 @@
+{
+ "id": "F338-0127",
+ "family": "F338",
+ "state": {
+  "site": {
+   "pol": "NO2",
+   "tier": "compliance",
+   "interval_days": 42
+  },
+  "visit": {
+   "date": "2025-06-05",
+   "start": "08:00",
+   "end": "10:30",
+   "seq": "complete"
+  },
+  "reference": {
+   "id": "N-9032",
+   "conc": 200,
+   "unit": "ppb",
+   "cert_expiry": "2026-06-14"
+  },
+  "checks": [
+   {
+    "t": "as_found",
+    "type": "zero",
+    "ref_id": "N-9032",
+    "ref": 0,
+    "unit": "ppb",
+    "read": 1,
+    "tol": 5,
+    "ts": "2025-06-05T08:20"
+   },
+   {
+    "t": "as_found",
+    "type": "span",
+    "ref_id": "N-9032",
+    "ref": 200,
+    "unit": "ppb",
+    "read": 222,
+    "tol": 20,
+    "ts": "2025-06-05T08:40"
+   },
+   {
+    "t": "as_left",
+    "type": "span",
+    "ref_id": "N-9032",
+    "ref": 200,
+    "unit": "ppb",
+    "read": 208,
+    "tol": 20,
+    "ts": "2025-06-04T23:50"
+   }
+  ],
+  "history": {
+   "last": "2025-04-30",
+   "results": [
+    "pass",
+    "fail",
+    "pass",
+    "fail"
+   ],
+   "autochecks": [
+    {
+     "d": "2025-05-20",
+     "r": "pass"
+    },
+    {
+     "d": "2025-06-01",
+     "r": "pass"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "pollutant": "NO2",
+  "as_found_ratio": 1.1,
+  "as_left_status": "marginal",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 374,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "none",
+  "days_since_last_visit": 36,
+  "visit_completeness": "complete",
+  "prior_fail_count": 2,
+  "timestamp_mismatch": "different_day",
+  "site_priority": "compliance"
+ },
+ "factors_sampled": {
+  "pollutant": "NO2",
+  "as_found_ratio": 1.73,
+  "as_left_status": "one_point_fail",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 374,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "none",
+  "days_since_last_visit": 36,
+  "visit_completeness": "zero_only",
+  "prior_fail_count": 2,
+  "timestamp_mismatch": "different_day",
+  "site_priority": "compliance"
+ },
+ "plan": {
+  "data_accepted": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "reference_valid": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "close_visit",
+   "second": null
+  },
+  "flag_extent": {
+   "clarity": "contested",
+   "target": "2",
+   "second": "3"
+  },
+  "return_urgency": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  }
+ },
+ "target_words": 66,
+ "deciding": {
+  "data_accepted": "Autochecks pass to 2025-06-01 and the as-left is within tolerance. The as-found span deviates 22 against tol 20, just over the limit, so accepting is only modestly favoured.",
+  "reference_valid": "The ids, units and expiry (2026-06-14) all agree. The as-left check timestamp of 2025-06-04T23:50 falls on the day before the visit, which casts mild doubt.",
+  "next_step": "The sequence is complete, as-left is within tolerance (8 vs 20), and the autochecks pass. The slight as-found exceedance leaves some doubt about closing without flags.",
+  "flag_extent": "The as-found span is just over tolerance, and 36 days since the last visit sits near the 30-day boundary between 8-30 and over 30 days. Readers could split.",
+  "return_urgency": "The compliance-tier site had a span exceedance and an out-of-window as-left timestamp. A return in three to seven days is favoured, but one to two days is defensible."
+ },
+ "request": "rec-F338-0126",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.0108
+}

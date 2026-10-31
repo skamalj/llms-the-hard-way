@@ -1,0 +1,116 @@
+{
+ "id": "F340-0014",
+ "family": "F340",
+ "state": {
+  "booking": {
+   "microchip": "826001400277345",
+   "dog_name": "Bellarose",
+   "checkin": "2025-05-05",
+   "checkout": "2025-05-12",
+   "owner_contact": {
+    "reachable_during_stay": true,
+    "confirm_call_done": false
+   }
+  },
+  "declaration": {
+   "weight_kg": 22.0,
+   "conditions": [],
+   "medications": [
+    {
+     "drug": "levothyroxine",
+     "dose": "0.4mg bid",
+     "supplied_count": 14,
+     "next_due": "2025-05-05T18:30"
+    }
+   ]
+  },
+  "vaccination": {
+   "chip_on_cert": "826001400277345",
+   "name_on_cert": "Bella-Rose",
+   "core_expiry": "2025-06-27",
+   "titre_result": null
+  },
+  "vet_history": {
+   "current_prescriptions": [
+    "levothyroxine 0.3mg bid"
+   ]
+  },
+  "arrival_check": {
+   "measured_weight_kg": 22.5,
+   "cough": true,
+   "nasal_discharge": true,
+   "prior_stay_incidents": 0
+  },
+  "intake_notes": [
+   "Arrived 08:30."
+  ]
+ },
+ "factors": {
+  "vacc_expiry_offset_days": 46,
+  "titre_exemption_on_file": false,
+  "certificate_id_mismatch": "name_spelling_only",
+  "arrival_cough_observed": true,
+  "cough_benign_explanation": "none",
+  "weight_discrepancy_pct": 2.27,
+  "medication_state": "declared_and_supplied",
+  "next_dose_hours": 10,
+  "neuter_status_conflict": false,
+  "owner_reachable": true,
+  "prior_incident_count": 0,
+  "note_tone": "neutral",
+  "balanced_signals": false
+ },
+ "factors_sampled": {
+  "vacc_expiry_offset_days": 46,
+  "titre_exemption_on_file": false,
+  "certificate_id_mismatch": "name_spelling_only",
+  "arrival_cough_observed": false,
+  "cough_benign_explanation": "none",
+  "weight_discrepancy_pct": 2.27,
+  "medication_state": "declared_and_supplied",
+  "next_dose_hours": 10,
+  "neuter_status_conflict": false,
+  "owner_reachable": true,
+  "prior_incident_count": 0,
+  "note_tone": "neutral",
+  "balanced_signals": false
+ },
+ "plan": {
+  "vacc_cover_valid": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "declaration_consistent": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "admission_disposition": {
+   "clarity": "leaning",
+   "target": "isolation_admit",
+   "second": null
+  },
+  "discrepancy_count": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  },
+  "action_urgency": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  }
+ },
+ "target_words": 57,
+ "deciding": {
+  "vacc_cover_valid": "core_expiry 2025-06-27 is well after checkout and the chip matches; only the name spelling (Bella-Rose vs Bellarose) differs, so true is plausible.",
+  "declaration_consistent": "Weight is within 10 percent and conditions are declared empty, but levothyroxine is 0.4mg declared vs 0.3mg in vet prescriptions, and the cough and nasal discharge contradict a healthy declaration.",
+  "admission_disposition": "arrival_check.cough true with nasal_discharge and no vaccine, vet or note explanation, so isolation_admit; the medication is a minor reason for doubt.",
+  "discrepancy_count": "Name spelling, levothyroxine dose mismatch and cough against the declaration are three items; the declared-supply versus stay-length question is arguably a fourth.",
+  "action_urgency": "Levothyroxine is due 2025-05-05T18:30, ten hours after arrival; the dose conflict could be settled either within 48 hours or before the end of the arrival day."
+ },
+ "request": "rec-F340-0011",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.014572
+}

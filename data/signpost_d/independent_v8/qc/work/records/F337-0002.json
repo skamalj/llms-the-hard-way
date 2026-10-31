@@ -1,0 +1,115 @@
+{
+ "id": "F337-0002",
+ "family": "F337",
+ "state": {
+  "station": {
+   "sta": "BRK7",
+   "channels": [
+    {
+     "cha": "HNZ",
+     "sensor_serial": "A220"
+    },
+    {
+     "cha": "HNN",
+     "sensor_serial": "A220"
+    },
+    {
+     "cha": "HNE",
+     "sensor_serial": "A220"
+    }
+   ]
+  },
+  "acquisition": {
+   "day": "2024-01-08",
+   "as_of": "2024-02-08",
+   "completeness_pct": 100,
+   "gaps": [],
+   "gps_lock_pct": 98
+  },
+  "qc_metrics": [
+   {
+    "cha": "HNZ",
+    "dead": false,
+    "psd_dev_db": 17.6
+   },
+   {
+    "cha": "HNN",
+    "dead": true
+   },
+   {
+    "cha": "HNE",
+    "dead": true
+   }
+  ],
+  "maintenance_log": null,
+  "operator_notes": [
+   "Quarry blasting 09:00-15:00 nearby."
+  ]
+ },
+ "factors": {
+  "sensor_metadata_state": "no_swap",
+  "maintenance_log_present": false,
+  "gap_coverage": "no_gaps",
+  "true_usable_fraction": 0.33,
+  "completeness_summary_drift": 0.15,
+  "timing_quality": "locked",
+  "calibration_status": "passed",
+  "noise_excess_db": 17.59,
+  "benign_noise_cause_logged": true,
+  "operator_note_consistency": "absent",
+  "dead_channels": 2,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "sensor_metadata_state": "swap_stale",
+  "maintenance_log_present": false,
+  "gap_coverage": "no_gaps",
+  "true_usable_fraction": 0.57,
+  "completeness_summary_drift": 0.15,
+  "timing_quality": "locked",
+  "calibration_status": "passed",
+  "noise_excess_db": 17.59,
+  "benign_noise_cause_logged": true,
+  "operator_note_consistency": "absent",
+  "dead_channels": 3,
+  "boundary_case": false
+ },
+ "plan": {
+  "response_valid": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "gaps_explained": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "disposition": {
+   "clarity": "clear",
+   "target": "release_flagged",
+   "second": null
+  },
+  "usable_fraction": {
+   "clarity": "leaning",
+   "target": "0",
+   "second": null
+  },
+  "pending_age": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 52,
+ "deciding": {
+  "response_valid": "Serials are identical across channels and no log swap entry exists to contradict them.",
+  "gaps_explained": "The gap list is empty, so no gap lacks an explanation; log is null, hence slight doubt.",
+  "disposition": "Faults are confined to two dead channels while HNZ is live with timing locked, so flag those channels and publish the rest.",
+  "usable_fraction": "HNN and HNE are dead, leaving one of three channels, about 33%, though completeness_pct still reads 100.",
+  "pending_age": "as_of is 31 days after the station day, just past the 30-day line."
+ },
+ "request": "rec-F337-0001",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.010421
+}

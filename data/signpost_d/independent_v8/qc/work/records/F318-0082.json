@@ -1,0 +1,164 @@
+{
+ "id": "F318-0082",
+ "family": "F318",
+ "state": {
+  "work_order": {
+   "wo_id": "WO-7731",
+   "visit_type": "reactive_callout",
+   "tasks": [
+    {
+     "task_id": 1,
+     "asset_ref": "GATE-N"
+    },
+    {
+     "task_id": 2,
+     "asset_ref": "GATE-S"
+    },
+    {
+     "task_id": 3,
+     "asset_ref": "PADDLE-E"
+    },
+    {
+     "task_id": 4,
+     "asset_ref": "PADDLE-W"
+    },
+    {
+     "task_id": 5,
+     "asset_ref": "SILL"
+    }
+   ],
+   "nav_notice": {
+    "in_force": true,
+    "to": "2025-06-20",
+    "scope_assets": [
+     "SILL"
+    ]
+   }
+  },
+  "visit_log": {
+   "arrived": "2025-06-10T09:00",
+   "departed": "2025-06-10T15:00",
+   "crew_size": 3,
+   "timesheet_hours": 18,
+   "task_status": [
+    {
+     "task_id": 5,
+     "status": "deferred",
+     "deferral_ref": "DEF-212",
+     "deferral_due": "2025-07-01"
+    }
+   ]
+  },
+  "materials": {
+   "issued": [
+    {
+     "part_no": "P-88",
+     "qty": 6
+    }
+   ],
+   "returned": [
+    {
+     "part_no": "P-88",
+     "qty": 2
+    }
+   ],
+   "fitted": [
+    {
+     "part_no": "P-88",
+     "qty": 4
+    }
+   ]
+  },
+  "checks": {
+   "post_checks": [
+    {
+     "asset_ref": "GATE-N",
+     "result": "pass"
+    },
+    {
+     "asset_ref": "SILL",
+     "result": "fail"
+    }
+   ],
+   "leakage_ls": 7.8,
+   "leakage_limit_ls": 10
+  },
+  "asset_history": {
+   "prior_visits": [
+    {
+     "date": "2024-09-02",
+     "asset_ref": "SILL",
+     "defect_code": "D-14"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "visit_type": "reactive_callout",
+  "tasks_ordered": 5,
+  "completion_state": "all_done",
+  "parts_qty_mismatch": "none",
+  "hours_gap": 0.0,
+  "asset_ref_mismatch": false,
+  "post_check_result": "failed",
+  "leakage_ratio": 0.78,
+  "leakage_mitigation": false,
+  "navigation_notice_in_force": true,
+  "deferral_approved": true,
+  "prior_same_defect": 1,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "visit_type": "reactive_callout",
+  "tasks_ordered": 5,
+  "completion_state": "all_done",
+  "parts_qty_mismatch": "moderate",
+  "hours_gap": 2.27,
+  "asset_ref_mismatch": false,
+  "post_check_result": "failed",
+  "leakage_ratio": 0.78,
+  "leakage_mitigation": false,
+  "navigation_notice_in_force": true,
+  "deferral_approved": true,
+  "prior_same_defect": 1,
+  "boundary_case": false
+ },
+ "plan": {
+  "safe_to_reopen": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "record_disposition": {
+   "clarity": "contested",
+   "target": "close_with_followup",
+   "second": "hold_query"
+  },
+  "return_urgency": {
+   "clarity": "balanced",
+   "target": "next_scheduled",
+   "second": "within_month"
+  },
+  "affected_scope": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  },
+  "section_mismatches": {
+   "clarity": "clear",
+   "target": "0",
+   "second": null
+  }
+ },
+ "target_words": 93,
+ "deciding": {
+  "safe_to_reopen": "Sill check fails but is covered by notice and deferral DEF-212; leakage 7.8 of 10 within limit.",
+  "record_disposition": "Deferral with ref and due date supports a follow-up job, but the failed sill check could justify holding for a query.",
+  "return_urgency": "Deferral due 2025-07-01 (about three weeks) and notice covers sill, versus one prior same-defect visit.",
+  "affected_scope": "Lock users not stated; a reactive callout on a busy lock likely affects six to twenty boats under the notice.",
+  "section_mismatches": "Hours 18 equal 6h x 3; fitted 4 equals issued 6 minus returned 2; asset refs consistent; deferral has ref."
+ },
+ "request": "rec-F318-0081",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.00515
+}

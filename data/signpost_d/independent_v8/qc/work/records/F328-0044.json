@@ -1,0 +1,122 @@
+{
+ "id": "F328-0044",
+ "family": "F328",
+ "state": {
+  "report_meta": {
+   "driver_id": "D3305"
+  },
+  "vehicle_device": {
+   "health_flags": [
+    "gps_drift"
+   ],
+   "odo_km": [
+    9000,
+    9330
+   ]
+  },
+  "trips": [
+   {
+    "s": "06:00",
+    "e": "11:10",
+    "km": 300,
+    "card": "D3305"
+   }
+  ],
+  "events": [
+   {
+    "t": "08:00",
+    "mph": 36,
+    "limit": 30,
+    "map_ver": "1.8",
+    "tags": [
+     "roadworks"
+    ]
+   }
+  ],
+  "tacho_summary": {
+   "second_driver": "D9002 08:00-09:30"
+  },
+  "notes_history": {
+   "limit_updates": [
+    {
+     "mph": 40,
+     "date": "01-15"
+    }
+   ],
+   "coaching": [
+    {
+     "n": 4,
+     "status": "scheduled"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "driver_assignment": "second_driver_on_shift",
+  "raw_speed_excess_pct": 20.0,
+  "speed_mitigation": "map_limit_outdated",
+  "harsh_event_count": 3,
+  "harsh_context_logged": false,
+  "device_health": "gps_drift",
+  "telematics_stint_hours": 5.19,
+  "tacho_break_reconciles": false,
+  "prior_coaching_count": 4,
+  "coaching_status": "scheduled",
+  "boundary_value": false,
+  "note_content": "none",
+  "distance_discrepancy_pct": 9.17
+ },
+ "factors_sampled": {
+  "driver_assignment": "second_driver_on_shift",
+  "raw_speed_excess_pct": 20.43,
+  "speed_mitigation": "map_limit_outdated",
+  "harsh_event_count": 3,
+  "harsh_context_logged": false,
+  "device_health": "gps_drift",
+  "telematics_stint_hours": 5.19,
+  "tacho_break_reconciles": false,
+  "prior_coaching_count": 4,
+  "coaching_status": "scheduled",
+  "boundary_value": false,
+  "note_content": "none",
+  "distance_discrepancy_pct": 9.17
+ },
+ "plan": {
+  "driver_attributed": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "follow_up": {
+   "clarity": "balanced",
+   "target": "coaching",
+   "second": "hold_verify"
+  },
+  "worst_event_cause": {
+   "clarity": "clear",
+   "target": "road_conditions",
+   "second": null
+  },
+  "speed_excess": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "hours_exposure": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  }
+ },
+ "target_words": 59,
+ "deciding": {
+  "driver_attributed": "Second driver D9002 is on shift at the event time 08:00.",
+  "follow_up": "A long stint without a recorded break supports coaching, but the second driver and outdated limit leave doubt.",
+  "worst_event_cause": "Roadworks tag on the event, which accounts for it.",
+  "speed_excess": "Against the newer 40 limit the event is not over, level 0, but the outdated map and drift leave level 1 plausible.",
+  "hours_exposure": "Trip lasts 5 h 10 min, with a second driver in the middle and no 45 min break, putting it near 4.5 h."
+ },
+ "request": "rec-F328-0041",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.006146
+}

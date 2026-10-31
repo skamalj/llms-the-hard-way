@@ -1,0 +1,154 @@
+{
+ "id": "F333-0052",
+ "family": "F333",
+ "state": {
+  "room": {
+   "room_id": "C1-207",
+   "room_type": "study bedroom",
+   "rate_card_ref": "RC25"
+  },
+  "tenancy": {
+   "start_date": "2024-09-01",
+   "end_date": "2025-08-01",
+   "deposit_held": 300
+  },
+  "checkin_inventory": {
+   "signed_date": "2024-09-12",
+   "signed_by_resident": true,
+   "items": [
+    {
+     "item_code": "WLL",
+     "location": "north wall",
+     "grade": "good"
+    },
+    {
+     "item_code": "WNC",
+     "location": "window",
+     "grade": "damaged"
+    },
+    {
+     "item_code": "CRT",
+     "location": "window",
+     "grade": "good"
+    }
+   ]
+  },
+  "checkout_inspection": {
+   "inspection_type": "mid_term",
+   "inspection_date": "2025-03-10",
+   "items": [
+    {
+     "item_code": "WLL",
+     "location": "north wall",
+     "grade": "fair",
+     "defect_category": "scuff",
+     "photo_refs": [
+      "p11"
+     ]
+    },
+    {
+     "item_code": "WNC",
+     "location": "window",
+     "grade": "damaged",
+     "defect_category": "broken_fitting",
+     "photo_refs": []
+    },
+    {
+     "item_code": "CRT",
+     "location": "window",
+     "grade": "good",
+     "defect_category": null,
+     "photo_refs": []
+    }
+   ]
+  },
+  "proposed_charges": {
+   "rate_card_ref": "RC25",
+   "lines": [
+    {
+     "item_code": "WLL",
+     "reason_code": "MRK",
+     "qty": 2,
+     "unit_rate": 12.0,
+     "line_total": 24.0
+    },
+    {
+     "item_code": "WNC",
+     "reason_code": "DMG",
+     "qty": 1,
+     "unit_rate": 12.5,
+     "line_total": 12.5
+    }
+   ],
+   "summary_total": 36.5
+  }
+ },
+ "factors": {
+  "inspection_type": "mid_term",
+  "checkin_inventory_state": "signed_late",
+  "prior_damage_on_charged_item": "one_item",
+  "charge_discrepancy": "qty_mismatch_and_unevidenced_line_near_25",
+  "worst_defect_tier": "functional",
+  "true_cause": "prior_occupant",
+  "predating_works_order": false,
+  "safety_fault_remedied": false,
+  "photo_coverage": "half_or_less",
+  "tenancy_months": 11,
+  "date_out_of_order": false,
+  "deposit_dispute_lodged": false,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "inspection_type": "mid_term",
+  "checkin_inventory_state": "signed_late",
+  "prior_damage_on_charged_item": "one_item",
+  "charge_discrepancy": "medium_25_to_100",
+  "worst_defect_tier": "safety",
+  "true_cause": "fair_wear",
+  "predating_works_order": true,
+  "safety_fault_remedied": false,
+  "photo_coverage": "half_or_less",
+  "tenancy_months": 11,
+  "date_out_of_order": false,
+  "deposit_dispute_lodged": false,
+  "boundary_case": false
+ },
+ "plan": {
+  "checkin_clean": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "disposition": {
+   "clarity": "clear",
+   "target": "adjust_and_approve",
+   "second": null
+  },
+  "main_cause": {
+   "clarity": "balanced",
+   "target": "prior_occupant",
+   "second": "no_defect"
+  },
+  "defect_severity": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  },
+  "charge_gap": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  }
+ },
+ "target_words": 137,
+ "deciding": {
+  "checkin_clean": "Charged WNC was graded damaged at check-in (inventory also signed 11 days after start).",
+  "disposition": "WLL qty 2 versus one item at checkout and WNC pre-damaged are both correctable from figures already in the record.",
+  "main_cause": "WNC damaged at check-in and still damaged at checkout points to a prior occupant; unchanged grade also fits no_defect.",
+  "defect_severity": "Worst defect is broken_fitting on WNC (functional) but it is unchanged from check-in; otherwise only a wall scuff, so level 0 remains plausible.",
+  "charge_gap": "Evidenced WLL is 12.00 (one item, photo) against total 36.50: gap 24.50, just under 25; missing photos could shift it above 25."
+ },
+ "request": "rec-F333-0051",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.013569
+}

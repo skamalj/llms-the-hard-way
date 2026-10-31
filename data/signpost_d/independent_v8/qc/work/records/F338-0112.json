@@ -1,0 +1,159 @@
+{
+ "id": "F338-0112",
+ "family": "F338",
+ "state": {
+  "site": {
+   "pollutant": "CO",
+   "tier": "compliance",
+   "service_interval_days": 70,
+   "approved_interval_days": 70
+  },
+  "visit": {
+   "date": "2024-03-15",
+   "start": "09:10",
+   "end": "10:40",
+   "sequence_status": "complete",
+   "maintenance_window": false
+  },
+  "reference": {
+   "standard_id": "CY-30581",
+   "unit": "ppm",
+   "cert_expiry": "2024-07-31"
+  },
+  "checks": [
+   {
+    "phase": "as_found",
+    "type": "zero",
+    "ref_id": "CY-30581",
+    "unit": "ppm",
+    "ref_conc": 0,
+    "reading": 0.3,
+    "tol": 0.5,
+    "ts": "2024-03-15T09:15"
+   },
+   {
+    "phase": "as_found",
+    "type": "span",
+    "ref_id": "CY-30581",
+    "unit": "ppm",
+    "ref_conc": 40,
+    "reading": 41.5,
+    "tol": 2.0,
+    "ts": "2024-03-15T09:50"
+   },
+   {
+    "phase": "as_found",
+    "type": "precision",
+    "ref_id": "CY-30851",
+    "unit": "ppm",
+    "ref_conc": 20,
+    "reading": 23.4,
+    "tol": 1.0,
+    "ts": "2024-03-15T10:12"
+   },
+   {
+    "phase": "as_left",
+    "type": "span",
+    "ref_id": "CY-30581",
+    "unit": "ppm",
+    "ref_conc": 40,
+    "reading": 43.1,
+    "tol": 2.0,
+    "ts": "2024-03-15T10:47"
+   }
+  ],
+  "history": {
+   "last_visit_date": "2024-01-06",
+   "results": [
+    "pass",
+    "fail",
+    "fail",
+    "pass",
+    "fail",
+    "fail"
+   ],
+   "autochecks": [
+    {
+     "d": "2024-02-01",
+     "r": "fail"
+    },
+    {
+     "d": "2024-02-02",
+     "r": "fail"
+    }
+   ]
+  },
+  "instrument": {
+   "enclosure_temp_min": 14,
+   "enclosure_temp_max": 26
+  }
+ },
+ "factors": {
+  "pollutant": "CO",
+  "as_found_ratio": 3.74,
+  "as_left_status": "one_point_fail",
+  "cylinder_id_mismatch": "transposed_digit",
+  "cert_expiry_offset_days": 138,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": false,
+  "drift_explanation": "none",
+  "days_since_last_visit": 69,
+  "visit_completeness": "complete",
+  "prior_fail_count": 4,
+  "timestamp_mismatch": "minutes_outside",
+  "site_priority": "compliance"
+ },
+ "factors_sampled": {
+  "pollutant": "CO",
+  "as_found_ratio": 3.74,
+  "as_left_status": "one_point_fail",
+  "cylinder_id_mismatch": "transposed_digit",
+  "cert_expiry_offset_days": 138,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": false,
+  "drift_explanation": "none",
+  "days_since_last_visit": 69,
+  "visit_completeness": "complete",
+  "prior_fail_count": 4,
+  "timestamp_mismatch": "minutes_outside",
+  "site_priority": "compliance"
+ },
+ "plan": {
+  "data_accepted": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "reference_valid": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "withdraw",
+   "second": null
+  },
+  "flag_extent": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  },
+  "return_urgency": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 36,
+ "deciding": {
+  "data_accepted": "Worst as-found is precision 23.4 vs 20 ppm (tol 1.0), which is out; but span and zero are within tolerance and the precision point carries a different ref_id, leaving the acceptance question two-sided.",
+  "reference_valid": "Precision point ref_id CY-30851 differs from standard_id CY-30581 by transposed digits, while the other points match and the certificate is in date; a typo versus a wrong cylinder.",
+  "next_step": "As-left span 43.1 vs 40 (tol 2.0) fails after adjustment, with repeated autocheck failures and four prior fails in history, pointing to an analyser fault that site adjustment cannot fix.",
+  "flag_extent": "Autocheck failures on 2024-02-01 and 02-02 (short window) versus the as-found span and zero points being in tolerance; flagging a few days is plausible but so is none.",
+  "return_urgency": "Compliance tier with a failed as-left favours return within 1-2 days, but the instrument is withdrawn for workshop work, so 3-7 days is also defensible; the last_visit gap is 69 days."
+ },
+ "request": "rec-F338-0111",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.006857
+}

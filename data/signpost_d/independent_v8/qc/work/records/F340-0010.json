@@ -1,0 +1,116 @@
+{
+ "id": "F340-0010",
+ "family": "F340",
+ "state": {
+  "booking": {
+   "ref": "KB-6203",
+   "dog_name": "Tilly",
+   "microchip": "826004100077291",
+   "breed": "Pug",
+   "checkin": "2025-09-12",
+   "checkout": "2025-09-19",
+   "nights": 7,
+   "owner_contact": {
+    "reachable_during_stay": false,
+    "confirm_call_done": false
+   }
+  },
+  "declaration": {
+   "weight_kg": 22.0,
+   "neutered": true,
+   "conditions": [],
+   "medications": []
+  },
+  "vaccination": {
+   "chip_on_cert": "826004100077291",
+   "name_on_cert": "Tilly",
+   "core_expiry": "2025-09-28",
+   "titre_result": null
+  },
+  "vet_history": {
+   "neutered": true,
+   "known_conditions": [],
+   "current_prescriptions": [],
+   "last_visit": "2025-03-20"
+  },
+  "arrival_check": {
+   "measured_weight_kg": 26.31,
+   "cough": false,
+   "temp_c": 38.7,
+   "coat_skin": "clear",
+   "prior_stay_incidents": 1
+  },
+  "intake_notes": [
+   "Assistant: chip scan seemed odd, may not match cert, please recheck.",
+   "Owner says the weight is from last vet visit in spring."
+  ]
+ },
+ "factors": {
+  "vacc_expiry_offset_days": 9,
+  "titre_exemption_on_file": false,
+  "certificate_id_mismatch": "none",
+  "arrival_cough_observed": false,
+  "cough_benign_explanation": "none",
+  "weight_discrepancy_pct": 19.59,
+  "medication_state": "none_needed",
+  "next_dose_hours": "not applicable",
+  "neuter_status_conflict": false,
+  "owner_reachable": false,
+  "prior_incident_count": 1,
+  "note_tone": "flags_concern",
+  "balanced_signals": false
+ },
+ "factors_sampled": {
+  "vacc_expiry_offset_days": 9,
+  "titre_exemption_on_file": false,
+  "certificate_id_mismatch": "different_chip",
+  "arrival_cough_observed": false,
+  "cough_benign_explanation": "collar_pulling_noted",
+  "weight_discrepancy_pct": 19.59,
+  "medication_state": "none_needed",
+  "next_dose_hours": 6,
+  "neuter_status_conflict": false,
+  "owner_reachable": false,
+  "prior_incident_count": 2,
+  "note_tone": "flags_concern",
+  "balanced_signals": false
+ },
+ "plan": {
+  "vacc_cover_valid": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "declaration_consistent": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "admission_disposition": {
+   "clarity": "balanced",
+   "target": "admit_standard",
+   "second": "refuse"
+  },
+  "discrepancy_count": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "action_urgency": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  }
+ },
+ "target_words": 150,
+ "deciding": {
+  "vacc_cover_valid": "chip_on_cert and name_on_cert match the booking exactly, and core_expiry 2025-09-28 is after checkout 2025-09-19; the assistant's chip worry is contradicted by the fields.",
+  "declaration_consistent": "Declared 22.0 kg vs measured 26.31 kg is a 19.59% gap, well over 10%, so the declaration conflicts with the arrival check.",
+  "admission_disposition": "Structured fields support a standard admit (cert matches, no cough, no meds, 1 incident), but the assistant's unverified chip concern leaves refusal arguable.",
+  "discrepancy_count": "The large weight gap has an owner explanation (old vet weight) that may count as resolving it, while the chip concern is not backed by the fields.",
+  "action_urgency": "The weight gap and the chip recheck are not blocking, but the unreachable owner means they should be settled within 48 hours of arrival."
+ },
+ "request": "rec-F340-0006",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012677
+}

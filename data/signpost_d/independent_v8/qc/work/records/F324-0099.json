@@ -1,0 +1,170 @@
+{
+ "id": "F324-0099",
+ "family": "F324",
+ "state": {
+  "zone": {
+   "zone_id": "Z7",
+   "dripper_count": 250,
+   "dripper_rate_lph": 2
+  },
+  "schedule": {
+   "dripper_count_assumed": 300,
+   "cycles": [
+    {
+     "start": "06:00",
+     "planned_ml_per_dripper": 100
+    },
+    {
+     "start": "10:00",
+     "planned_ml_per_dripper": 100
+    },
+    {
+     "start": "14:00",
+     "planned_ml_per_dripper": 100
+    },
+    {
+     "start": "17:00",
+     "planned_ml_per_dripper": 100
+    }
+   ],
+   "drain_target_pct": {
+    "min": 20,
+    "max": 30
+   },
+   "overrides": [
+    {
+     "approved_by_role": "head_grower",
+     "reduction_pct": 30
+    }
+   ]
+  },
+  "controller_log": {
+   "log_date": "2025-11-04",
+   "spec_bar": 2.0,
+   "cycles": [
+    {
+     "start": "06:00",
+     "valve_open_s": 126,
+     "delivered_l": 17.4,
+     "line_pressure_bar": 2.0
+    },
+    {
+     "start": "10:00",
+     "valve_open_s": 126,
+     "delivered_l": 17.2,
+     "line_pressure_bar": 2.0
+    },
+    {
+     "start": "14:00",
+     "valve_open_s": 126,
+     "delivered_l": 15.4,
+     "line_pressure_bar": 2.0
+    },
+    {
+     "start": "17:00",
+     "valve_open_s": 126,
+     "delivered_l": 15.7,
+     "line_pressure_bar": 2.0
+    }
+   ],
+   "daily_total_l": 65.7,
+   "meter_total_l": 65.4
+  },
+  "drainage": {
+   "drain_pct": [
+    15.4,
+    15.0,
+    15.2
+   ],
+   "catch_test": {
+    "ordered": false,
+    "result": null
+   }
+  },
+  "sensors": {
+   "meter_last_calibrated": "2024-12-22"
+  },
+  "maintenance": {
+   "windows": [],
+   "alarms": [
+    {
+     "code": "TANK_LOW",
+     "time": "05:40",
+     "acknowledged": true,
+     "cleared": true
+    }
+   ],
+   "recent_work_orders": [
+    "2025-10-15",
+    "2025-08-01",
+    "2025-03-12"
+   ]
+  }
+ },
+ "factors": {
+  "delivery_shortfall_pct": 34.3,
+  "mismatch_location": "dripper_count_mismatch",
+  "fault_cause": "emitter_clogging",
+  "approved_override": true,
+  "maintenance_window_active": false,
+  "drain_offset_points": -4.8,
+  "off_tolerance_cycles": 2,
+  "meter_calibration_age_days": 317,
+  "confirmation_pending": false,
+  "pressure_state": "normal",
+  "benign_alarm_decoy": "tank_alarm_cleared",
+  "recent_work_orders": 3
+ },
+ "factors_sampled": {
+  "delivery_shortfall_pct": 31.9,
+  "mismatch_location": "dripper_count_mismatch",
+  "fault_cause": "sensor_drift",
+  "approved_override": true,
+  "maintenance_window_active": false,
+  "drain_offset_points": -2.15,
+  "off_tolerance_cycles": 6,
+  "meter_calibration_age_days": 317,
+  "confirmation_pending": true,
+  "pressure_state": "low",
+  "benign_alarm_decoy": "tank_alarm_cleared",
+  "recent_work_orders": 3
+ },
+ "plan": {
+  "under_dosed": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "emitter_clogging": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "next_action": {
+   "clarity": "balanced",
+   "target": "sign_off",
+   "second": "adjust_schedule"
+  },
+  "drain_deviation": {
+   "clarity": "contested",
+   "target": "1",
+   "second": "2"
+  },
+  "off_plan_cycles": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  }
+ },
+ "target_words": 72,
+ "deciding": {
+  "under_dosed": "An approved 30% reduction applies, so the effective plan is 17.5 L per cycle (70 L a day), and the metered 65.4 to 65.7 L is about 94% of it.",
+  "emitter_clogging": "Pressure is 2.0 bar against spec 2.0 and the valve is open the full 126 s, yet the later cycles deliver 15.4 to 15.7 L, about 1.76 L/h per dripper against a 2.0 rating, and drain is low, which is the clogging pattern.",
+  "next_action": "The totals sit within 10% of the reduced plan, so sign-off is defensible, but the late-day cycle shortfalls, the low drain and the assumed dripper count of 300 against 250 installed leave room for a schedule adjustment.",
+  "drain_deviation": "Mean drain is about 15.2% against a 20 to 30 band, about 4.8 points below, at the slight and marked boundary.",
+  "off_plan_cycles": "Against 17.5 L, cycle 3 (15.4 L) is about 12% short and cycle 4 (15.7 L) about 10.3% short, right at the tolerance edge; cycles 1 and 2 are on plan."
+ },
+ "request": "rec-F324-0096",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.018022
+}

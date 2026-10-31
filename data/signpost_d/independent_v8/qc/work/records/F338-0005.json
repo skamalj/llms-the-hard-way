@@ -1,0 +1,109 @@
+{
+ "id": "F338-0005",
+ "family": "F338",
+ "state": {
+  "site": {
+   "pollutant": "NO2",
+   "tier": "indicative"
+  },
+  "visit": {
+   "date": "2024-08-12",
+   "sequence_status": "aborted",
+   "abort_cause": "power"
+  },
+  "reference": {
+   "standard_id": "CYL-84092",
+   "cert_expiry": "2025-06-30"
+  },
+  "checks": [
+   {
+    "phase": "as_found",
+    "ref_id": "CYL-84092",
+    "ref_conc": 200,
+    "reading": 227,
+    "tol": 20
+   },
+   {
+    "phase": "as_left",
+    "ref_id": "CYL-84092",
+    "ref_conc": 200,
+    "reading": 201,
+    "tol": 20
+   }
+  ],
+  "history": {
+   "last_visit_date": "2024-06-26"
+  },
+  "instrument": {
+   "enclosure_temp_max": 38
+  }
+ },
+ "factors": {
+  "pollutant": "NO2",
+  "as_found_ratio": 1.35,
+  "as_left_status": "all_pass",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 322,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "enclosure_temp_excursion",
+  "days_since_last_visit": 47,
+  "visit_completeness": "aborted_power",
+  "prior_fail_count": 0,
+  "timestamp_mismatch": "none",
+  "site_priority": "indicative"
+ },
+ "factors_sampled": {
+  "pollutant": "NO2",
+  "as_found_ratio": 1.35,
+  "as_left_status": "all_pass",
+  "cylinder_id_mismatch": "transposed_digit",
+  "cert_expiry_offset_days": 322,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "enclosure_temp_excursion",
+  "days_since_last_visit": 47,
+  "visit_completeness": "aborted_power",
+  "prior_fail_count": 0,
+  "timestamp_mismatch": "none",
+  "site_priority": "indicative"
+ },
+ "plan": {
+  "data_accepted": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "reference_valid": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "balanced",
+   "target": "close_visit",
+   "second": "hold"
+  },
+  "flag_extent": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  },
+  "return_urgency": {
+   "clarity": "clear",
+   "target": "4",
+   "second": null
+  }
+ },
+ "target_words": 25,
+ "deciding": {
+  "data_accepted": "As-found 227 vs 200 with tol 20 is only 7 over, and the temperature max of 38 explains it; the as-left reading of 201 is within tolerance.",
+  "reference_valid": "ref_id equals standard_id CYL-84092 throughout and the certificate expires 2025-06-30, well after the visit.",
+  "next_step": "As-left passes but the visit is aborted by power, so closing is only modestly favoured over holding for confirmation.",
+  "flag_extent": "As-found exceeded tolerance across 47 days since last visit; the full period is flagged but the temperature excursion may shorten it.",
+  "return_urgency": "The visit was aborted by power loss at an analyser still out of tolerance, so the technician must return the same day."
+ },
+ "request": "rec-F338-0001",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.005738
+}

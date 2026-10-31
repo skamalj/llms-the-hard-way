@@ -1,0 +1,175 @@
+{
+ "id": "F318-0125",
+ "family": "F318",
+ "state": {
+  "work_order": {
+   "wo_id": "WO-7305",
+   "lock_id": "L-3",
+   "visit_type": "planned_repair",
+   "raised": "2025-05-12",
+   "tasks": [
+    {
+     "task_id": "T1",
+     "asset_ref": "BG-2",
+     "qty_planned": 2
+    },
+    {
+     "task_id": "T2",
+     "asset_ref": "PD-1",
+     "qty_planned": 1
+    }
+   ],
+   "nav_notice": {
+    "in_force": false
+   }
+  },
+  "visit_log": {
+   "arrived": "2025-05-20T09:00",
+   "departed": "2025-05-20T13:00",
+   "crew_size": 2,
+   "timesheet_hours": 6,
+   "task_status": [
+    {
+     "task_id": "T1",
+     "status": "done",
+     "deferral_ref": null,
+     "deferral_due": null
+    },
+    {
+     "task_id": "T2",
+     "status": "done",
+     "deferral_ref": "DF-51",
+     "deferral_due": "2025-05-26"
+    }
+   ]
+  },
+  "materials": {
+   "issued": [
+    {
+     "part_no": "P-12",
+     "task_id": "T1",
+     "qty": 4
+    },
+    {
+     "part_no": "P-19",
+     "task_id": "T2",
+     "qty": 2
+    }
+   ],
+   "returned": [
+    {
+     "part_no": "P-12",
+     "qty": 2
+    }
+   ],
+   "fitted": [
+    {
+     "part_no": "P-12",
+     "task_id": "T1",
+     "qty": 2
+    },
+    {
+     "part_no": "P-19",
+     "task_id": "T2",
+     "qty": 2
+    }
+   ]
+  },
+  "checks": {
+   "post_checks": [
+    {
+     "asset_ref": "BG-2",
+     "result": "pass",
+     "checked_at": "2025-05-20T12:40"
+    },
+    {
+     "asset_ref": "PD-1",
+     "result": "pass",
+     "checked_at": "2025-05-20T12:50"
+    }
+   ],
+   "leakage_ls": 5,
+   "leakage_limit_ls": 6,
+   "river_level_m": 2.3,
+   "flood_marker_m": 2.0
+  },
+  "asset_history": {
+   "prior_visits": [],
+   "open_defects": [
+    {
+     "defect_code": "PD-WEAR",
+     "asset_ref": "PD-1",
+     "raised": "2025-05-20"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "visit_type": "planned_repair",
+  "tasks_ordered": 2,
+  "completion_state": "all_done",
+  "parts_qty_mismatch": "none",
+  "hours_gap": 2.0,
+  "asset_ref_mismatch": false,
+  "post_check_result": "passed",
+  "leakage_ratio": 0.83,
+  "leakage_mitigation": true,
+  "navigation_notice_in_force": false,
+  "deferral_approved": true,
+  "prior_same_defect": 0,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "visit_type": "planned_repair",
+  "tasks_ordered": 2,
+  "completion_state": "all_done",
+  "parts_qty_mismatch": "none",
+  "hours_gap": 2.0,
+  "asset_ref_mismatch": false,
+  "post_check_result": "passed",
+  "leakage_ratio": 0.83,
+  "leakage_mitigation": true,
+  "navigation_notice_in_force": false,
+  "deferral_approved": true,
+  "prior_same_defect": 0,
+  "boundary_case": false
+ },
+ "plan": {
+  "safe_to_reopen": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "record_disposition": {
+   "clarity": "balanced",
+   "target": "close_with_followup",
+   "second": "hold_query"
+  },
+  "return_urgency": {
+   "clarity": "clear",
+   "target": "within_week",
+   "second": null
+  },
+  "affected_scope": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  },
+  "section_mismatches": {
+   "clarity": "clear",
+   "target": "1",
+   "second": null
+  }
+ },
+ "target_words": 159,
+ "deciding": {
+  "safe_to_reopen": "Both post-checks pass and leakage 5 is under the limit of 6.",
+  "record_disposition": "Deferral DF-51 on T2 supports a follow-up job, though the done status conflicting with a deferral could justify a query.",
+  "return_urgency": "Deferral DF-51 is due 2025-05-26, six days after the visit, so within a week.",
+  "affected_scope": "Users of a single lock sit between levels 1 and 2.",
+  "section_mismatches": "Only the 6h timesheet vs 8h expected gap is unexplained; the P-12 return and the deferral are explained."
+ },
+ "request": "rec-F318-0121",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.006889
+}

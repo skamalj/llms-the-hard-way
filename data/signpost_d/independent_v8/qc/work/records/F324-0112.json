@@ -1,0 +1,164 @@
+{
+ "id": "F324-0112",
+ "family": "F324",
+ "state": {
+  "zone": {
+   "zone_id": "G2-7",
+   "dripper_count": 270
+  },
+  "schedule": {
+   "dripper_count_assumed": 280,
+   "cycles": [
+    {
+     "planned_ml_per_dripper": 500,
+     "planned_s": 600
+    },
+    {
+     "planned_ml_per_dripper": 500,
+     "planned_s": 600
+    },
+    {
+     "planned_ml_per_dripper": 500,
+     "planned_s": 600
+    },
+    {
+     "planned_ml_per_dripper": 500,
+     "planned_s": 600
+    },
+    {
+     "planned_ml_per_dripper": 500,
+     "planned_s": 600
+    }
+   ],
+   "drain_target_pct": {
+    "min": 20,
+    "max": 30
+   },
+   "overrides": []
+  },
+  "controller_log": {
+   "log_date": "2025-03-12",
+   "spec_bar": 1.5,
+   "cycles": [
+    {
+     "valve_open_s": 600,
+     "delivered_l": 118,
+     "line_pressure_bar": 1.5
+    },
+    {
+     "valve_open_s": 600,
+     "delivered_l": 119,
+     "line_pressure_bar": 1.5
+    },
+    {
+     "valve_open_s": 600,
+     "delivered_l": 120,
+     "line_pressure_bar": 1.5
+    },
+    {
+     "valve_open_s": 600,
+     "delivered_l": 121,
+     "line_pressure_bar": 1.5
+    },
+    {
+     "valve_open_s": 600,
+     "delivered_l": 135,
+     "line_pressure_bar": 1.5
+    }
+   ],
+   "daily_total_l": 613,
+   "meter_total_l": 613
+  },
+  "drainage": {
+   "drain_pct": [
+    12,
+    14
+   ]
+  },
+  "sensors": {
+   "meter_last_calibrated": "2024-08-29"
+  },
+  "maintenance": {
+   "recent_work_orders": [
+    {
+     "date": "2025-02-11"
+    },
+    {
+     "date": "2024-12-02"
+    },
+    {
+     "date": "2024-10-14"
+    },
+    {
+     "date": "2024-07-30"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "delivery_shortfall_pct": 9.19,
+  "mismatch_location": "dripper_count_mismatch",
+  "fault_cause": "emitter_clogging",
+  "approved_override": false,
+  "maintenance_window_active": false,
+  "drain_offset_points": -7.0,
+  "off_tolerance_cycles": 4,
+  "meter_calibration_age_days": 195,
+  "confirmation_pending": false,
+  "pressure_state": "normal",
+  "benign_alarm_decoy": "none",
+  "recent_work_orders": 4
+ },
+ "factors_sampled": {
+  "delivery_shortfall_pct": 13.88,
+  "mismatch_location": "dripper_count_mismatch",
+  "fault_cause": "sensor_drift",
+  "approved_override": false,
+  "maintenance_window_active": false,
+  "drain_offset_points": -21.97,
+  "off_tolerance_cycles": 3,
+  "meter_calibration_age_days": 195,
+  "confirmation_pending": false,
+  "pressure_state": "normal",
+  "benign_alarm_decoy": "none",
+  "recent_work_orders": 4
+ },
+ "plan": {
+  "under_dosed": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "emitter_clogging": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "next_action": {
+   "clarity": "clear",
+   "target": "sign_off",
+   "second": null
+  },
+  "drain_deviation": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  },
+  "off_plan_cycles": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 42,
+ "deciding": {
+  "under_dosed": "Total 613 L against 675 L planned from the zone count (270 x 500 mL x 5), about 90.8%, so within 10%. It sits close to the edge, and the assumed count of 280 adds doubt.",
+  "emitter_clogging": "Pressure is at the 1.5 bar spec, valves are open the full 600 s, and four cycles deliver low per-dripper volume. Drain is also low at 12-14%, and no other fault is visible.",
+  "next_action": "Daily total equals meter total, there are no alarms or pending checks, and totals are within 10% of plan, so sign-off.",
+  "drain_deviation": "Drain samples 12 and 14 give a mean of 13 against a 20-30 band, 7 points under the minimum. That is level 2, though the band edge leaves some doubt.",
+  "off_plan_cycles": "Against 135 L planned, cycles of 118, 119, 120 and 121 L are 12.6%, 11.9%, 11.1% and 10.4% off, and 135 L is on plan. The 121 L cycle is only just over the line, so the count of 4 versus 3 is arguable."
+ },
+ "request": "rec-F324-0111",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.018002
+}

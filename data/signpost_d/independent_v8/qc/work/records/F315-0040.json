@@ -1,0 +1,116 @@
+{
+ "id": "F315-0040",
+ "family": "F315",
+ "state": {
+  "report": {
+   "ref": "F-8215",
+   "received_at": "2024-07-22",
+   "source": "police",
+   "fault_code": "OUT",
+   "units_reported": [
+    "U41"
+   ]
+  },
+  "asset": {
+   "unit_id": "U41",
+   "site_category": "main_road",
+   "planned_works": null
+  },
+  "cms": {
+   "node_id": "N41",
+   "status_code": "LF",
+   "last_comms_at": "2024-07-22T05:00",
+   "lamp_hours": 9800
+  },
+  "history": [
+   {
+    "job_ref": "J-7300",
+    "raised": "2024-04-24",
+    "attended": "2024-04-26",
+    "completed": "2024-04-27",
+    "outcome_code": "FIX"
+   }
+  ],
+  "job": {
+   "job_ref": "J-8230",
+   "stage": "ATT",
+   "attended_at": "2024-07-22T10:20",
+   "completed_at": null,
+   "hazard_code": null
+  },
+  "supply": {
+   "dno_incident_ref": "DNO-92150",
+   "dno_status": "open",
+   "feeder_units_dark": 1,
+   "feeder_id": "FD-4"
+  }
+ },
+ "factors": {
+  "dark_unit_count": 1,
+  "dno_incident_logged": true,
+  "cms_state": "lamp_fail",
+  "days_since_last_repair": 86,
+  "last_repair_state": "completed",
+  "hazard_observed": "none",
+  "hazard_made_safe": false,
+  "site_category": "main_road",
+  "planned_works_active": false,
+  "current_job_stage": "attended_unresolved",
+  "dates_out_of_order": false,
+  "duplicate_of_open_job": false,
+  "report_source": "police"
+ },
+ "factors_sampled": {
+  "dark_unit_count": 1,
+  "dno_incident_logged": true,
+  "cms_state": "lamp_fail",
+  "days_since_last_repair": 65,
+  "last_repair_state": "completed",
+  "hazard_observed": "none",
+  "hazard_made_safe": true,
+  "site_category": "main_road",
+  "planned_works_active": false,
+  "current_job_stage": "attended_unresolved",
+  "dates_out_of_order": false,
+  "duplicate_of_open_job": false,
+  "report_source": "police"
+ },
+ "plan": {
+  "supply_side_fault": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "repeat_failure": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "next_action": {
+   "clarity": "balanced",
+   "target": "routine_repair",
+   "second": "hold_verify"
+  },
+  "source_support": {
+   "clarity": "contested",
+   "target": "2",
+   "second": "1"
+  },
+  "repair_progress": {
+   "clarity": "contested",
+   "target": "1",
+   "second": "0"
+  }
+ },
+ "target_words": 77,
+ "deciding": {
+  "supply_side_fault": "An open DNO incident is logged, but only 1 unit is dark and cms shows LF (lamp failure), which holds it in balance.",
+  "repeat_failure": "J-7300 completed 2024-04-27, 86 days before 2024-07-22, just outside the 84-day window.",
+  "next_action": "cms LF confirms the fault and there is no hazard, favouring routine repair; the open DNO incident could justify a verification hold.",
+  "source_support": "The police report, cms LF and DNO incident are present, but the incident may be unrelated, so 2 vs 1.",
+  "repair_progress": "job.attended_at is set but completed_at is null and the job is not resolved, giving level 1; with no outcome logged, 0 is arguable."
+ },
+ "request": "rec-F315-0036",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.009378
+}

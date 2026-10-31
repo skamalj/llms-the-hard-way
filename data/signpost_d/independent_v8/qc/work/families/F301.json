@@ -1,0 +1,336 @@
+{
+ "id": "F301",
+ "domain": "clinic referral triage",
+ "role": "Gastroenterology referral vetting nurse: a specialist nurse in a hospital outpatient department who vets each incoming GP referral and decides its pathway, format and priority.",
+ "setting": "A district general hospital gastroenterology outpatient service receives electronic referrals from primary care. Each referral arrives as a structured record built from the referrer's form, the extracted patient summary, attached investigation results and the hospital's own contact history. The vetting nurse reviews one referral at a time against local protocols. These include a suspected-cancer fast-track (for example iron deficiency anaemia at age 60 or over, faecal immunochemical test of 10 or above, or progressive dysphagia). Before booking, the nurse decides whether the referral is complete and consistent, how urgent the need is, and which first-contact format fits.",
+ "questions": {
+  "fast_track_met": {
+   "type": "noul",
+   "instructions": "Referral meets the clinic's suspected-cancer fast-track criteria as documented.",
+   "criteria": null
+  },
+  "vetting_outcome": {
+   "type": "choice",
+   "instructions": "What should the vetting nurse do with this referral now?",
+   "criteria": {
+    "return_to_referrer": "Decline with advice; problem outside remit or already managed elsewhere.",
+    "hold_for_info": "Pause vetting; one required result or clarification still outstanding.",
+    "accept_routine": "Book standard slot; information sufficient and no urgent features confirmed.",
+    "accept_expedited": "Book earliest or fast-track slot; urgent features confirmed by record."
+   }
+  },
+  "first_contact": {
+   "type": "choice",
+   "instructions": "Which first-contact format best suits this referral?",
+   "criteria": {
+    "advice_letter": "Written guidance to referrer; question answerable without seeing patient.",
+    "telephone_review": "Remote consultant call; history needed but no examination required.",
+    "nurse_clinic": "Nurse-led protocol appointment for straightforward, low-comorbidity presentations.",
+    "consultant_clinic": "Face-to-face consultant visit; examination or multiple comorbidities need assessment.",
+    "straight_to_test": "Book endoscopy directly; criteria met and patient fit for procedure."
+   }
+  },
+  "clinical_urgency": {
+   "type": "score",
+   "instructions": "How urgent is the clinical need for specialist review?",
+   "criteria": [
+    "Routine: stable symptoms, no red-flag features recorded",
+    "Soon: deterioration documented within eight weeks, no red flags",
+    "Urgent: one red-flag feature not explained by results",
+    "Very urgent: unexplained red flag plus abnormal bloods or rapid decline"
+   ]
+  },
+  "record_agreement": {
+   "type": "score",
+   "instructions": "How closely do details agree across the referral's sections?",
+   "criteria": [
+    "Two or more material mismatches between sections",
+    "Exactly one material mismatch between sections",
+    "Only trivial mismatches such as spelling or rounding",
+    "All corresponding values agree across every section"
+   ]
+  }
+ },
+ "factors": [
+  {
+   "name": "presenting_problem",
+   "description": "Main complaint driving the referral; sets which protocol thresholds and red flags apply.",
+   "kind": "categorical",
+   "values": [
+    "rectal_bleeding",
+    "iron_deficiency_anaemia",
+    "dysphagia",
+    "change_in_bowel_habit",
+    "abnormal_lfts",
+    "chronic_reflux"
+   ],
+   "weights": [
+    0.2,
+    0.18,
+    0.12,
+    0.2,
+    0.15,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S7"
+   ]
+  },
+  {
+   "name": "red_flag_count",
+   "description": "Number of genuine red-flag features (weight loss, anaemia, progressive dysphagia, palpable mass, FIT at or above 10) supported by the record.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 3,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S5",
+    "S7"
+   ]
+  },
+  {
+   "name": "benign_explanation",
+   "description": "Whether the record holds a credible benign explanation for the alarming signal, such as normal colonoscopy within two years, confirmed haemorrhoids, or anaemia explained by menorrhagia under gynaecology.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.5,
+   "skills": [
+    "S3",
+    "S5",
+    "S6"
+   ]
+  },
+  {
+   "name": "results_status",
+   "description": "State of the investigations the protocol requires: all recent, some pending, older than three months, or none attached.",
+   "kind": "categorical",
+   "values": [
+    "complete_recent",
+    "partial_pending",
+    "stale",
+    "absent"
+   ],
+   "weights": [
+    0.4,
+    0.25,
+    0.15,
+    0.2
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S2",
+    "S4"
+   ]
+  },
+  {
+   "name": "mismatch_severity",
+   "description": "Size of disagreement between corresponding values in different sections, from none through trivial (spelling, rounding) to material (value changes protocol eligibility).",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "trivial",
+    "one_material",
+    "two_material"
+   ],
+   "weights": [
+    0.3,
+    0.25,
+    0.3,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1"
+   ]
+  },
+  {
+   "name": "mismatch_site",
+   "description": "Where the main mismatch sits: age in demographics vs note, a value quoted in note vs lab result, red-flag checklist vs note, medication list vs note, or dates vs contact history.",
+   "kind": "categorical",
+   "values": [
+    "demographics_vs_note",
+    "note_vs_results",
+    "checklist_vs_note",
+    "meds_vs_note",
+    "dates_vs_history"
+   ],
+   "weights": [
+    0.2,
+    0.25,
+    0.2,
+    0.15,
+    0.2
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S1"
+   ]
+  },
+  {
+   "name": "sequence_anomaly",
+   "description": "A date shows events out of order, such as a referral sent before the result it quotes was collected, or symptom onset recorded after the referral date.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.2,
+   "skills": [
+    "S2",
+    "S1"
+   ]
+  },
+  {
+   "name": "symptom_trajectory",
+   "description": "Course of symptoms over recent weeks as recorded in the clinical section: stable, slowly worsening, or rapid decline.",
+   "kind": "categorical",
+   "values": [
+    "stable",
+    "slowly_worsening",
+    "rapid"
+   ],
+   "weights": [
+    0.45,
+    0.4,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S4",
+    "S6"
+   ]
+  },
+  {
+   "name": "prior_contact",
+   "description": "Relevant hospital history: none, recent normal investigation, discharged from this clinic within 12 months, or an open episode with another service.",
+   "kind": "categorical",
+   "values": [
+    "none",
+    "normal_investigation_recent",
+    "discharged_within_12m",
+    "open_episode_elsewhere"
+   ],
+   "weights": [
+    0.4,
+    0.25,
+    0.2,
+    0.15
+   ],
+   "min": 0,
+   "max": 0,
+   "p_true": 0,
+   "skills": [
+    "S3",
+    "S2",
+    "S7"
+   ]
+  },
+  {
+   "name": "comorbidity_burden",
+   "description": "Count of significant comorbidities (anticoagulation, heart failure, frailty, renal impairment) affecting fitness for direct endoscopy and choice of format.",
+   "kind": "integer",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 4,
+   "p_true": 0,
+   "skills": [
+    "S7",
+    "S4"
+   ]
+  },
+  {
+   "name": "threshold_boundary",
+   "description": "A key value sits exactly on or within rounding of a protocol cut-off (age 60, FIT 10, ferritin limit), leaving eligibility arguable.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.25,
+   "skills": [
+    "S6",
+    "S5"
+   ]
+  },
+  {
+   "name": "referrer_urgency_label",
+   "description": "Referrer ticked urgent on the form, independent of clinical content; a decoy that may or may not be supported.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.45,
+   "skills": [
+    "S3",
+    "S6"
+   ]
+  },
+  {
+   "name": "advice_only_request",
+   "description": "Referrer's actual question could be answered in writing (for example a medication query) without an appointment.",
+   "kind": "boolean",
+   "values": [],
+   "weights": [],
+   "min": 0,
+   "max": 0,
+   "p_true": 0.15,
+   "skills": [
+    "S7",
+    "S4"
+   ]
+  }
+ ],
+ "sections": [
+  {
+   "name": "referral",
+   "description": "Identifiers, sent date, referrer details, requested priority, and short free-text reason for referral."
+  },
+  {
+   "name": "patient",
+   "description": "Date of birth, stated age, sex, comorbidities list, current medications."
+  },
+  {
+   "name": "clinical",
+   "description": "Symptom list with onset dates, trajectory, referrer-ticked red-flag checklist, weight change, short examination note."
+  },
+  {
+   "name": "investigations",
+   "description": "List of results with test, value, unit, reference range, collected date and status; may be null."
+  },
+  {
+   "name": "history",
+   "description": "Prior hospital contacts, procedures, discharges and open episodes, with dates and one-line outcome summaries."
+  }
+ ],
+ "rendering_notes": "Free text: referral.reason_text (two or three sentences from the referrer), clinical.exam_note (one sentence), and history[].outcome_summary (one line per contact). presenting_problem appears in referral.reason_text and clinical.symptoms; it is never a labelled category field. red_flag_count is shown indirectly through symptom entries, weight change in kg over months, investigation values against reference ranges, and phrases in reason_text. The clinical.red_flags_ticked checklist is filled by the referrer and may overstate or understate. benign_explanation appears as a history entry (normal colonoscopy with date), an investigations entry, or a line in reason_text such as 'known haemorrhoids, under gynae for heavy periods'; it is never labelled as mitigation. results_status: complete_recent gives dated results within 90 days of referral.sent_date; partial_pending includes entries with status 'pending' and value null; stale gives collected dates older than 90 days; absent sets investigations to null or an empty list. mismatch_severity and mismatch_site place disagreements unannounced, for example: patient.age 59 vs date of birth giving 60; Hb quoted as 98 in reason_text vs 108 g/L in results; checklist ticks weight loss while clinical.weight_change_kg is 0; medication list omits an anticoagulant mentioned in exam_note; reason_text says 'never scoped' while history lists a colonoscopy. Trivial mismatches are name spelling, unit rounding (11.9 vs 12) or reordered initials. sequence_anomaly shows as referral.sent_date earlier than a quoted result's collected_date, or symptom onset after sent_date. symptom_trajectory appears via dated symptom entries and reason_text wording. prior_contact appears only in the history list. comorbidity_burden appears in patient.comorbidities and medications. threshold_boundary sets a value exactly at a cut-off. referrer_urgency_label sets referral.priority_requested to 'urgent'; this is a decoy and must not decide answers alone. advice_only_request shows as a question in reason_text such as 'please advise on stopping PPI'. Decoy fields: priority_requested, red_flags_ticked, and alarming words in reason_text. No record ever contains a triage outcome, urgency rating, format choice, eligibility flag or agreement score.",
+ "skills": [
+  "S1",
+  "S2",
+  "S3",
+  "S4",
+  "S5",
+  "S6",
+  "S7"
+ ],
+ "shared_scale": null,
+ "design_cost": 0.172836
+}

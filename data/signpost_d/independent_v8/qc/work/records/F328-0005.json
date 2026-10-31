@@ -1,0 +1,150 @@
+{
+ "id": "F328-0005",
+ "family": "F328",
+ "state": {
+  "report_meta": {
+   "id": "W23-E",
+   "driver_id": "D64"
+  },
+  "vehicle_device": {
+   "health_flags": [
+    "gps_dropouts:5"
+   ],
+   "last_calibration": "2024-01-20",
+   "odo_start": 71000,
+   "odo_end": 71357.4
+  },
+  "trips": [
+   {
+    "start": "2024-06-03T06:00",
+    "end": "2024-06-03T08:45",
+    "driver_card": "D64",
+    "ign_min": 164,
+    "gps_km": 180
+   },
+   {
+    "start": "2024-06-03T08:52",
+    "end": "2024-06-03T11:40",
+    "driver_card": "D64",
+    "ign_min": 165,
+    "gps_km": 150
+   }
+  ],
+  "events": [
+   {
+    "time": "2024-06-03T10:15",
+    "type": "speed",
+    "recorded_mph": 77.6,
+    "posted_limit_mph": 70,
+    "ctx": [
+     "gps_dropout"
+    ]
+   },
+   {
+    "type": "harsh",
+    "n": 12,
+    "ctx": [
+     "congestion"
+    ]
+   }
+  ],
+  "tacho_summary": {
+   "cards": [
+    {
+     "card": "D64",
+     "from": "2024-06-03T05:50",
+     "to": "2024-06-03T11:50"
+    }
+   ],
+   "breaks": [
+    {
+     "from": "2024-06-03T08:45",
+     "min": 7
+    }
+   ]
+  },
+  "notes_history": {
+   "supervisor_note": "Driver claims he was diverted off the M6 after an incident; no control-room log found.",
+   "coaching": [
+    {
+     "date": "2023-10-02",
+     "topic": "harsh_braking",
+     "status": "completed"
+    },
+    {
+     "date": "2024-01-15",
+     "topic": "harsh_braking",
+     "status": "completed"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "driver_assignment": "match",
+  "raw_speed_excess_pct": 10.86,
+  "speed_mitigation": "none",
+  "harsh_event_count": 12,
+  "harsh_context_logged": true,
+  "device_health": "intermittent_dropouts",
+  "telematics_stint_hours": 5.48,
+  "tacho_break_reconciles": false,
+  "prior_coaching_count": 2,
+  "coaching_status": "completed",
+  "boundary_value": false,
+  "note_content": "unverified_claim",
+  "distance_discrepancy_pct": 8.31
+ },
+ "factors_sampled": {
+  "driver_assignment": "match",
+  "raw_speed_excess_pct": 10.8,
+  "speed_mitigation": "emergency_diversion_logged",
+  "harsh_event_count": 12,
+  "harsh_context_logged": true,
+  "device_health": "ok",
+  "telematics_stint_hours": 3.38,
+  "tacho_break_reconciles": true,
+  "prior_coaching_count": 2,
+  "coaching_status": "completed",
+  "boundary_value": false,
+  "note_content": "unverified_claim",
+  "distance_discrepancy_pct": 8.31
+ },
+ "plan": {
+  "driver_attributed": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "follow_up": {
+   "clarity": "leaning",
+   "target": "no_action",
+   "second": null
+  },
+  "worst_event_cause": {
+   "clarity": "leaning",
+   "target": "device_fault",
+   "second": null
+  },
+  "speed_excess": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  },
+  "hours_exposure": {
+   "clarity": "contested",
+   "target": "2",
+   "second": "3"
+  }
+ },
+ "target_words": 64,
+ "deciding": {
+  "driver_attributed": "Both trips carry card D64, the tacho card D64 covers the 10:15 event, and report driver_id is D64.",
+  "follow_up": "The speed event carries a gps_dropout tag and matches a gps_dropouts health flag, so the telematics evidence is unreliable; the earlier coaching was on harsh braking, not speed or hours.",
+  "worst_event_cause": "The speed event is tagged gps_dropout and the unit has a gps_dropouts:5 health flag, though the diversion claim in the supervisor note is unverified.",
+  "speed_excess": "77.6 against 70 is 10.9%, just over the 10% anchor, and the dropout and the unlogged diversion claim leave level 1 defensible.",
+  "hours_exposure": "Trips of 164 and 165 ignition minutes with a 7 minute break come to about 5.48 h, at the 5.5 h anchor between levels 2 and 3."
+ },
+ "request": "rec-F328-0001",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.016876
+}

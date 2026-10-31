@@ -1,0 +1,124 @@
+{
+ "id": "F317-0046",
+ "family": "F317",
+ "state": {
+  "vehicle": {
+   "fleet_no": 2114,
+   "odometer_km": 48975
+  },
+  "exam": {
+   "exam_id": "E71",
+   "due_at_km": 50000,
+   "items": [
+    {
+     "c": "A",
+     "signed_by": "t4",
+     "signed_at": "2025-03-02T06:00"
+    },
+    {
+     "c": "B",
+     "signed_by": "t4",
+     "signed_at": "2025-03-02T06:10"
+    },
+    {
+     "c": "C",
+     "result": "ok",
+     "signed_by": null,
+     "signed_at": null
+    }
+   ]
+  },
+  "defects": [
+   {
+    "defect_id": "D9",
+    "subsystem": "saloon_doors",
+    "safety_critical": false,
+    "status": "open"
+   }
+  ],
+  "work_orders": [
+   {
+    "wo_id": "W5",
+    "defect_ref": "D3",
+    "status": "in_progress"
+   }
+  ],
+  "release": {
+   "duty_type": "off_peak",
+   "depart_at": "2025-03-02T09:00",
+   "odo_reading_km": 48980,
+   "brake_test_result": "pass",
+   "brake_test_at": "2025-03-02T07:30"
+  }
+ },
+ "factors": {
+  "km_to_exam_due": 1020,
+  "odometer_disagreement": "trivial",
+  "exam_signed_fraction": 0.67,
+  "exam_record_missing": false,
+  "worst_defect_subsystem": "saloon_doors",
+  "worst_defect_state": "open_wo_in_progress",
+  "worst_defect_safety_critical": false,
+  "retest_out_of_order": false,
+  "concession_present": false,
+  "concession_flaw": "none",
+  "wo_crossref_mismatch": "defect_ref_unknown",
+  "planned_duty_type": "off_peak",
+  "recent_brake_test_pass": true,
+  "balanced_signals": false
+ },
+ "factors_sampled": {
+  "km_to_exam_due": 1025,
+  "odometer_disagreement": "trivial",
+  "exam_signed_fraction": 0.95,
+  "exam_record_missing": false,
+  "worst_defect_subsystem": "saloon_doors",
+  "worst_defect_state": "open_wo_in_progress",
+  "worst_defect_safety_critical": false,
+  "retest_out_of_order": false,
+  "concession_present": false,
+  "concession_flaw": "none",
+  "wo_crossref_mismatch": "defect_ref_unknown",
+  "planned_duty_type": "off_peak",
+  "recent_brake_test_pass": true,
+  "balanced_signals": false
+ },
+ "plan": {
+  "sc_defects_cleared": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "release_decision": {
+   "clarity": "leaning",
+   "target": "withdraw",
+   "second": null
+  },
+  "worst_subsystem": {
+   "clarity": "balanced",
+   "target": "none",
+   "second": "saloon_doors"
+  },
+  "exam_completion": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  },
+  "exam_mileage": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 45,
+ "deciding": {
+  "sc_defects_cleared": "Only defect D9 is non-safety-critical; no safety-critical defect exists, so the claim holds.",
+  "release_decision": "Open door defect with work order W5 citing unknown ref D3; the repair link is unverified, pointing to withdraw with some doubt.",
+  "worst_subsystem": "D9 saloon_doors is open, but the work order points to a different ref D3, so whether D9 is unresolved is uncertain.",
+  "exam_completion": "Item C has result ok but null signature and time, so complete versus substantial is contestable.",
+  "exam_mileage": "Due 50000 minus odometer 48975 gives 1025 km, though release reading 48980 and due ambiguity leave level 0 favoured modestly over 1."
+ },
+ "request": "rec-F317-0046",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.006329
+}

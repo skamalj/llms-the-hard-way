@@ -1,0 +1,131 @@
+{
+ "id": "F338-0086",
+ "family": "F338",
+ "state": {
+  "site": {
+   "pollutant": "NO2",
+   "tier": "compliance",
+   "service_interval_days": 90
+  },
+  "visit": {
+   "date": "2024-06-20",
+   "start": "09:00",
+   "end": "10:30",
+   "sequence_status": "complete"
+  },
+  "reference": {
+   "standard_id": "CYL-4471",
+   "unit": "ppb",
+   "cert_expiry": "2024-10-25"
+  },
+  "checks": [
+   {
+    "type": "as_found",
+    "ref_id": "CYL-4471",
+    "ref_conc": 200,
+    "unit": "ppb",
+    "reading": 199,
+    "tol": 10,
+    "ts": "2024-06-20T09:10"
+   },
+   {
+    "type": "as_found",
+    "ref_id": "CYL-4471",
+    "ref_conc": 0,
+    "unit": "ppb",
+    "reading": 3,
+    "tol": 5,
+    "ts": "2024-06-20T10:35"
+   }
+  ],
+  "history": {
+   "last_visit_date": "2024-03-11",
+   "results": [
+    "fail",
+    "pass",
+    "fail",
+    "fail",
+    "pass",
+    "fail"
+   ],
+   "autochecks": [
+    {
+     "d": "2024-06-15",
+     "r": "pass"
+    }
+   ]
+  },
+  "instrument": {
+   "enclosure_temp_min": 8,
+   "enclosure_temp_max": 36
+  }
+ },
+ "factors": {
+  "pollutant": "NO2",
+  "as_found_ratio": 0.34,
+  "as_left_status": "not_recorded",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 127,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "enclosure_temp_excursion",
+  "days_since_last_visit": 101,
+  "visit_completeness": "complete",
+  "prior_fail_count": 4,
+  "timestamp_mismatch": "minutes_outside",
+  "site_priority": "compliance"
+ },
+ "factors_sampled": {
+  "pollutant": "NO2",
+  "as_found_ratio": 0.34,
+  "as_left_status": "not_recorded",
+  "cylinder_id_mismatch": "different_standard",
+  "cert_expiry_offset_days": 127,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "enclosure_temp_excursion",
+  "days_since_last_visit": 101,
+  "visit_completeness": "complete",
+  "prior_fail_count": 4,
+  "timestamp_mismatch": "minutes_outside",
+  "site_priority": "compliance"
+ },
+ "plan": {
+  "data_accepted": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "reference_valid": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "close_visit",
+   "second": null
+  },
+  "flag_extent": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  },
+  "return_urgency": {
+   "clarity": "contested",
+   "target": "4",
+   "second": "3"
+  }
+ },
+ "target_words": 43,
+ "deciding": {
+  "data_accepted": "As-found points are within tolerance and autochecks pass, but enclosure max 36 and min 8 plus a 101-day gap and 4 prior fails leave doubt.",
+  "reference_valid": "ref_id matches standard_id and units agree; expiry is 127 days after the visit. The late timestamp adds slight doubt.",
+  "next_step": "As-found readings are within tolerance, so the visit can close even though the as-left list is empty.",
+  "flag_extent": "A 101-day interval against a 90-day service interval with temperature excursion puts the flag span between 8-30 and over 30 days.",
+  "return_urgency": "No as-left points on a compliance site with a temperature excursion; same day or within two days are both arguable."
+ },
+ "request": "rec-F338-0086",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.001753
+}

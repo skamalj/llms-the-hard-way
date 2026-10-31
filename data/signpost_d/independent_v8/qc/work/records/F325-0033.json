@@ -1,0 +1,143 @@
+{
+ "id": "F325-0033",
+ "family": "F325",
+ "state": {
+  "pen": {
+   "pen_id": "P11",
+   "stage": "harvest_size",
+   "density_kg_m3": 24.5,
+   "limits": {
+    "do_min_mg_l": 6.0
+   }
+  },
+  "check": {
+   "sampled_at": "2025-07-03T14:00",
+   "sampler_id": null,
+   "depth_profile": [
+    {
+     "depth_m": 1,
+     "do_mg_l": 6.6
+    },
+    {
+     "depth_m": 6,
+     "do_mg_l": 6.4
+    }
+   ],
+   "readings": {
+    "do_mg_l": 6.4,
+    "do_unit": "mg/L"
+   }
+  },
+  "instrument": {
+   "last_cal": null,
+   "cal_result": null,
+   "logger_do_mg_l": 6.3,
+   "logger_flags": [
+    "LOW_DO"
+   ]
+  },
+  "conditions": {
+   "feed_kg_last_6h": 48,
+   "feed_usual_kg": 30
+  },
+  "history": [
+   {
+    "min_do": 6.5,
+    "in_limits": true
+   },
+   {
+    "min_do": 6.2,
+    "in_limits": true
+   },
+   {
+    "min_do": 5.8,
+    "in_limits": false
+   },
+   {
+    "min_do": 6.4,
+    "in_limits": true
+   },
+   {
+    "min_do": 6.3,
+    "in_limits": true
+   },
+   {
+    "min_do": 6.6,
+    "in_limits": true
+   }
+  ],
+  "notes": {
+   "sampler": "Routine profile taken.",
+   "signoff": "J.K.",
+   "signoff_at": "2025-07-03T11:30"
+  }
+ },
+ "factors": {
+  "stock_stage": "harvest_size",
+  "true_do_margin": 0.4,
+  "primary_cause": "husbandry",
+  "cross_section_mismatch": "none",
+  "calibration_state": "absent",
+  "logger_alarm_raised": true,
+  "mitigation_present": false,
+  "mitigation_kind": "none",
+  "history_out_of_range": 1,
+  "missing_required": 2,
+  "date_order_fault": true,
+  "boundary_case": false,
+  "note_tone": "neutral"
+ },
+ "factors_sampled": {
+  "stock_stage": "harvest_size",
+  "true_do_margin": -2.41,
+  "primary_cause": "instrument",
+  "cross_section_mismatch": "none",
+  "calibration_state": "current",
+  "logger_alarm_raised": true,
+  "mitigation_present": false,
+  "mitigation_kind": "documented_slack_tide",
+  "history_out_of_range": 3,
+  "missing_required": 1,
+  "date_order_fault": true,
+  "boundary_case": false,
+  "note_tone": "neutral"
+ },
+ "plan": {
+  "genuine_do_breach": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "reduce_feeding",
+   "second": null
+  },
+  "deviation_cause": {
+   "clarity": "clear",
+   "target": "husbandry_load",
+   "second": null
+  },
+  "persistence": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  },
+  "evidence_completeness": {
+   "clarity": "clear",
+   "target": "0",
+   "second": null
+  }
+ },
+ "target_words": 78,
+ "deciding": {
+  "genuine_do_breach": "Every profile depth (6.6 and 6.4) and the logger (6.3) are at or above the 6.0 limit. The LOW_DO flag is a decoy, so there is no breach.",
+  "next_step": "Feed in the last 6 h was 48 kg against a usual 30 kg and density is high. Oxygen is falling toward the limit, so cutting feed is the sensible response.",
+  "deviation_cause": "The load signals are feed_kg_last_6h of 48 against a usual 30 and a density of 24.5. No instrument fault, mismatch or environmental signal is present.",
+  "persistence": "One history check is out of range (5.8) and the current check is within limits. Counting the history gives level 1; judging only the current check gives level 0.",
+  "evidence_completeness": "sampler_id is null, last_cal and cal_result are null, and signoff_at (11:30) is earlier than sampled_at (14:00). That is three invalid elements, so level 0."
+ },
+ "request": "rec-F325-0031",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011178
+}

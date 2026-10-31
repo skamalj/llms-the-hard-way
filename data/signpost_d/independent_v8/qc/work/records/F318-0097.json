@@ -1,0 +1,173 @@
+{
+ "id": "F318-0097",
+ "family": "F318",
+ "state": {
+  "work_order": {
+   "wo_id": "R-2208",
+   "lock_id": "L31",
+   "visit_type": "planned_repair",
+   "tasks": [
+    {
+     "task_id": "T1",
+     "asset_ref": "TG-1",
+     "qty_planned": 2
+    },
+    {
+     "task_id": "T2",
+     "asset_ref": "SL-2",
+     "qty_planned": 6
+    },
+    {
+     "task_id": "T3",
+     "asset_ref": "PD-1",
+     "qty_planned": 1
+    }
+   ],
+   "nav_notice": {
+    "in_force": false
+   },
+   "passages_7d": 40
+  },
+  "visit_log": {
+   "arrived": "2025-05-06T09:00",
+   "departed": "2025-05-06T13:00",
+   "crew_size": 3,
+   "timesheet_hours": 12.2,
+   "task_status": [
+    {
+     "task_id": "T1",
+     "status": "done"
+    },
+    {
+     "task_id": "T2",
+     "status": "temp_fix",
+     "deferral_ref": null,
+     "deferral_due": null
+    },
+    {
+     "task_id": "T3",
+     "status": "done"
+    }
+   ]
+  },
+  "materials": {
+   "issued": [
+    {
+     "part_no": "P90",
+     "task_id": "T2",
+     "qty": 20
+    }
+   ],
+   "returned": [
+    {
+     "part_no": "P90",
+     "qty": 2
+    }
+   ],
+   "fitted": [
+    {
+     "part_no": "P90",
+     "task_id": "T2",
+     "qty": 10
+    },
+    {
+     "part_no": "P55",
+     "task_id": "T1",
+     "qty": 2
+    }
+   ]
+  },
+  "checks": {
+   "post_checks": [
+    {
+     "asset_ref": "TG-1",
+     "result": "pass"
+    },
+    {
+     "asset_ref": "SL-2",
+     "result": "pass"
+    },
+    {
+     "asset_ref": "PD-1",
+     "result": "pass"
+    }
+   ],
+   "leakage_ls": 12.3,
+   "leakage_limit_ls": 10,
+   "river_level_m": 2.5,
+   "flood_marker_m": 2.4
+  },
+  "asset_history": {
+   "prior_visits": [],
+   "open_defects": []
+  }
+ },
+ "factors": {
+  "visit_type": "planned_repair",
+  "tasks_ordered": 3,
+  "completion_state": "temporary_fix",
+  "parts_qty_mismatch": "large",
+  "hours_gap": 0.2,
+  "asset_ref_mismatch": false,
+  "post_check_result": "passed",
+  "leakage_ratio": 1.23,
+  "leakage_mitigation": true,
+  "navigation_notice_in_force": false,
+  "deferral_approved": false,
+  "prior_same_defect": 0,
+  "boundary_case": true
+ },
+ "factors_sampled": {
+  "visit_type": "planned_repair",
+  "tasks_ordered": 3,
+  "completion_state": "temporary_fix",
+  "parts_qty_mismatch": "large",
+  "hours_gap": 0.23,
+  "asset_ref_mismatch": false,
+  "post_check_result": "passed",
+  "leakage_ratio": 1.23,
+  "leakage_mitigation": true,
+  "navigation_notice_in_force": false,
+  "deferral_approved": false,
+  "prior_same_defect": 0,
+  "boundary_case": true
+ },
+ "plan": {
+  "safe_to_reopen": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "record_disposition": {
+   "clarity": "balanced",
+   "target": "close_visit",
+   "second": "hold_query"
+  },
+  "return_urgency": {
+   "clarity": "clear",
+   "target": "within_week",
+   "second": null
+  },
+  "affected_scope": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  },
+  "section_mismatches": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  }
+ },
+ "target_words": 90,
+ "deciding": {
+  "safe_to_reopen": "Checks all pass and leakage 12.3 over limit 10 is excused by river 2.5 only just above marker 2.4, but SL-2 is only a temp fix.",
+  "record_disposition": "Parts mismatches are explicit but checks pass; closure vs a query on P90 and P55 is arguable.",
+  "return_urgency": "T2 temp_fix with null deferral ref and no notice: permanent repair needed within a week.",
+  "affected_scope": "passages_7d 40 is well over twenty, but it is a weekly traffic figure.",
+  "section_mismatches": "P90 fitted 10 vs issued 20 minus returned 2 is 18; P55 fitted with no issue line; timesheet 12.2 vs 12 is trivial."
+ },
+ "request": "rec-F318-0096",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011833
+}

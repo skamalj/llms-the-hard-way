@@ -1,0 +1,188 @@
+{
+ "id": "F305-0035",
+ "family": "F305",
+ "state": {
+  "session": {
+   "id": "S-7310",
+   "pt": "P-2265",
+   "chair": 3,
+   "needle_on": "2025-09-12T08:00",
+   "washback": "2025-09-12T12:06",
+   "review_ts": "2025-09-16T08:30",
+   "rn": [
+    "N22"
+   ]
+  },
+  "prescription": {
+   "duration_min": 240,
+   "dialysate_k": 2.0,
+   "qb_ml_min": 300,
+   "target_uf_ml": 2400,
+   "dry_weight_kg": 83.0
+  },
+  "machine": {
+   "settings": {
+    "dialysate_k": 2.0
+   },
+   "qb_actual": 250,
+   "uf_removed_ml": 2450,
+   "washback_ml": 200,
+   "alarms": [
+    {
+     "code": "PUMP_STOP",
+     "t": "09:40"
+    },
+    {
+     "code": "PUMP_RESUME",
+     "t": "09:58"
+    },
+    {
+     "code": "QB_REDUCED",
+     "reason": "ART_PRESSURE_HIGH",
+     "t": "10:30"
+    }
+   ]
+  },
+  "observations": {
+   "pre_kg": 85.0,
+   "post_kg": 83.4,
+   "bp": [
+    {
+     "t": "08:00",
+     "sys": 130
+    },
+    {
+     "t": "09:35",
+     "sys": 86
+    },
+    {
+     "t": "09:50",
+     "sys": 104
+    },
+    {
+     "t": "10:50",
+     "sys": 88
+    },
+    {
+     "t": "11:00",
+     "sys": 106
+    }
+   ],
+   "interventions": [
+    {
+     "t": "09:36",
+     "saline_bolus_ml": 100
+    },
+    {
+     "t": "10:51",
+     "saline_bolus_ml": 100
+    }
+   ]
+  },
+  "checks": [
+   {
+    "code": "ID",
+    "done": true,
+    "t": "07:40"
+   },
+   {
+    "code": "ACCESS",
+    "done": true,
+    "t": "07:52"
+   },
+   {
+    "code": "MACH",
+    "done": true,
+    "t": "08:00"
+   }
+  ],
+  "history": [
+   {
+    "d": "2025-09-02",
+    "rx": 240,
+    "eff": 240,
+    "kg": 83.1
+   },
+   {
+    "d": "2025-09-05",
+    "rx": 240,
+    "eff": 238,
+    "kg": 83.0
+   },
+   {
+    "d": "2025-09-09",
+    "rx": 240,
+    "eff": 215,
+    "kg": 83.2
+   }
+  ]
+ },
+ "factors": {
+  "time_shortfall_min": 12,
+  "machine_pause_min": 18,
+  "uf_weight_gap_kg": 0.45,
+  "post_weight_missing": false,
+  "missing_check": "none",
+  "check_logged_after_start": false,
+  "prescription_mismatch": "none",
+  "mismatch_magnitude": "trivial",
+  "hypotension_episodes": 2,
+  "hypotension_mitigated": true,
+  "circuit_clotted": false,
+  "prior_short_sessions": 1,
+  "documented_flow_reduction": true
+ },
+ "factors_sampled": {
+  "time_shortfall_min": 31,
+  "machine_pause_min": 18,
+  "uf_weight_gap_kg": 1.12,
+  "post_weight_missing": false,
+  "missing_check": "none",
+  "check_logged_after_start": false,
+  "prescription_mismatch": "none",
+  "mismatch_magnitude": "trivial",
+  "hypotension_episodes": 3,
+  "hypotension_mitigated": true,
+  "circuit_clotted": false,
+  "prior_short_sessions": 3,
+  "documented_flow_reduction": true
+ },
+ "plan": {
+  "uf_reconciles": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "checks_before_start": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "log_disposition": {
+   "clarity": "balanced",
+   "target": "hold_query",
+   "second": "sign_off"
+  },
+  "time_shortfall": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  },
+  "pending_age": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  }
+ },
+ "target_words": 69,
+ "deciding": {
+  "uf_reconciles": "Loss 1.6 kg; net UF 2450-200-200=2050 ml gives gap 0.45, near 0.5; skipping a deduction would push it past.",
+  "checks_before_start": "MACH check timestamp 08:00 equals needle_on 08:00; the other two checks are earlier.",
+  "log_disposition": "Two hypotensive readings (86, 88) each mitigated by saline and a recovered next reading, and the MACH check at the start time: either could be queried or signed off.",
+  "time_shortfall": "Clock 246 min looks full, minus 18 min pause = 228 effective vs 240; short by 12.",
+  "pending_age": "Session 2025-09-12, review_ts 2025-09-16: 4 days."
+ },
+ "request": "rec-F305-0031",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.014158
+}

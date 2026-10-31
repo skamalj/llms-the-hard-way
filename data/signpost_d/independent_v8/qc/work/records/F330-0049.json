@@ -1,0 +1,155 @@
+{
+ "id": "F330-0049",
+ "family": "F330",
+ "state": {
+  "request": {
+   "req_id": "X-4420",
+   "grade": "G4",
+   "cost_centre": "CC220",
+   "trip_ref": "T-3306",
+   "breach_rule": "ENT-01",
+   "requested_total": 352.4,
+   "ccy": "GBP",
+   "submitted_on": "2024-09-16",
+   "payroll_cutoff": "2024-09-27"
+  },
+  "lines": [
+   {
+    "line_no": 1,
+    "date": "2024-09-10",
+    "category": "client_dinner",
+    "cost_centre": "CC220",
+    "amount": 176,
+    "ccy": "GBP",
+    "fx_rate": 1,
+    "amount_gbp": 176,
+    "receipt_attached": true
+   },
+   {
+    "line_no": 2,
+    "date": "2024-09-10",
+    "category": "client_dinner",
+    "cost_centre": "CC220",
+    "amount": 176.4,
+    "ccy": "GBP",
+    "fx_rate": 1,
+    "amount_gbp": 176.4,
+    "receipt_attached": true
+   }
+  ],
+  "policy": {
+   "rule_id": "ENT-01",
+   "grade_band": "G4",
+   "cap_gbp": 80,
+   "cap_unit": "per_head",
+   "units": 4,
+   "reviewer_limit_gbp": 400
+  },
+  "travel": {
+   "trip_ref": "T-3306",
+   "depart": "2024-09-09",
+   "return": "2024-09-12",
+   "booked_on": "2024-09-02",
+   "disruption": null,
+   "alt_check": {
+    "options_seen": 3,
+    "compliant_found": true
+   },
+   "client_recharge": {
+    "billable": false,
+    "client_code": null
+   }
+  },
+  "approvals": {
+   "line_mgr": {
+    "approved": true
+   },
+   "pre_approval": {
+    "ref": "PA-902",
+    "trip_ref": "T-3306",
+    "max_gbp": 60,
+    "valid_to": "2024-10-31"
+   },
+   "attendees": [
+    "E104",
+    "E221",
+    "C017",
+    "C018"
+   ]
+  },
+  "history": {
+   "exceptions_12m": 1,
+   "approved_12m": 1,
+   "declined_12m": 0,
+   "last_exception_on": "2024-01-22"
+  }
+ },
+ "factors": {
+  "breach_type": "client_entertainment_over_limit",
+  "true_excess_pct": 10.1,
+  "amount_mismatch": "none",
+  "reference_mismatch": "none",
+  "pre_approval_state": "valid_matching",
+  "external_disruption": false,
+  "compliant_option": "available",
+  "missing_item": "none",
+  "excess_vs_authority": "well_within",
+  "client_rechargeable": false,
+  "prior_exceptions_12m": 1,
+  "booking_lead_days": 7,
+  "employee_grade": "G4"
+ },
+ "factors_sampled": {
+  "breach_type": "client_entertainment_over_limit",
+  "true_excess_pct": 87.75,
+  "amount_mismatch": "duplicated_line",
+  "reference_mismatch": "line_date_outside_trip",
+  "pre_approval_state": "max_below_excess",
+  "external_disruption": true,
+  "compliant_option": "none_available",
+  "missing_item": "none",
+  "excess_vs_authority": "well_within",
+  "client_rechargeable": false,
+  "prior_exceptions_12m": 1,
+  "booking_lead_days": 7,
+  "employee_grade": "G4"
+ },
+ "plan": {
+  "preapproval_covers": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "outside_control": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "excess_disposition": {
+   "clarity": "leaning",
+   "target": "decline_excess",
+   "second": null
+  },
+  "excess_size": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  },
+  "discrepancy_count": {
+   "clarity": "contested",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 165,
+ "deciding": {
+  "preapproval_covers": "PA-902 matches T-3306, valid_to 2024-10-31, max_gbp 60 above the 32.4 excess.",
+  "outside_control": "disruption null and alt_check compliant_found true: cause undocumented and a compliant option existed.",
+  "excess_disposition": "Compliant option available, no disruption, not client-billable: reimburse only to cap leaning, despite the valid pre-approval.",
+  "excess_size": "Line sum 352.4 vs cap 80x4=320 gives 10.1%, just over the 10% boundary.",
+  "discrepancy_count": "Lines 1 and 2 share date and category but amounts differ (176.00 vs 176.40), so arguably not a duplicate; all other values agree."
+ },
+ "request": "rec-F330-0046",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012742
+}

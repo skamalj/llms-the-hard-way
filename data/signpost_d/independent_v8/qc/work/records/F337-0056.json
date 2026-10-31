@@ -1,0 +1,127 @@
+{
+ "id": "F337-0056",
+ "family": "F337",
+ "state": {
+  "station": {
+   "channels": [
+    {
+     "cha": "BHZ",
+     "sensor_serial": "S1041",
+     "gain_counts_per_ms": 1500,
+     "azimuth_deg": 0,
+     "response_epoch_start": "2022-03-01"
+    }
+   ]
+  },
+  "acquisition": {
+   "day": "2024-05-02",
+   "queued_since": "2024-05-03",
+   "asof": "2024-07-10",
+   "channel_hours_expected": 24,
+   "completeness_pct": 95.3,
+   "gaps": [
+    {
+     "cha": "BHZ",
+     "start": "2024-05-02T04:00",
+     "end": "2024-05-02T05:30"
+    }
+   ],
+   "gps_lock_pct": 99.1
+  },
+  "qc_metrics": [
+   {
+    "cha": "BHZ",
+    "psd_dev_db": 4.12,
+    "spike_count": 2,
+    "dead": false,
+    "clipped_minutes": 0,
+    "cal_pulse": {
+     "date": "2024-04-01",
+     "result": "pass"
+    }
+   }
+  ],
+  "maintenance_log": [
+   {
+    "date": "2024-03-15",
+    "action": "sensor_swap",
+    "sensor_serial_installed": "S2207"
+   },
+   {
+    "date": "2024-05-02",
+    "action": "outage",
+    "outage_start": "2024-05-02T04:00",
+    "outage_end": "2024-05-02T05:15"
+   }
+  ],
+  "operator_notes": [
+   "Generator test 14:00-15:00 local."
+  ]
+ },
+ "factors": {
+  "sensor_metadata_state": "swap_stale",
+  "maintenance_log_present": true,
+  "gap_coverage": "minor_overrun",
+  "true_usable_fraction": 0.94,
+  "completeness_summary_drift": 1.56,
+  "timing_quality": "locked",
+  "calibration_status": "passed",
+  "noise_excess_db": 4.12,
+  "benign_noise_cause_logged": true,
+  "operator_note_consistency": "absent",
+  "dead_channels": 0,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "sensor_metadata_state": "swap_stale",
+  "maintenance_log_present": true,
+  "gap_coverage": "all_logged",
+  "true_usable_fraction": 0.77,
+  "completeness_summary_drift": 1.56,
+  "timing_quality": "lost_hours",
+  "calibration_status": "not_run",
+  "noise_excess_db": 4.12,
+  "benign_noise_cause_logged": true,
+  "operator_note_consistency": "absent",
+  "dead_channels": 3,
+  "boundary_case": false
+ },
+ "plan": {
+  "response_valid": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "gaps_explained": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "disposition": {
+   "clarity": "balanced",
+   "target": "release_flagged",
+   "second": "release"
+  },
+  "usable_fraction": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  },
+  "pending_age": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  }
+ },
+ "target_words": 62,
+ "deciding": {
+  "response_valid": "Station serial S1041 and epoch 2022-03-01 predate the logged 2024-03-15 swap installing S2207; the later cal pulse leaves a little doubt.",
+  "gaps_explained": "The only gap (04:00-05:30) overlaps the logged outage (04:00-05:15) but runs 15 minutes past its end.",
+  "disposition": "One short gap is mostly logged, the cal pulse passed and timing is locked, but the metadata is stale and the gap overruns; flagging versus plain release is close.",
+  "usable_fraction": "1.5 h gap in 24 expected channel-hours gives about 93.8% usable; completeness_pct 95.3 is inflated.",
+  "pending_age": "queued_since 2024-05-03 against asof 2024-07-10 is about 68 days."
+ },
+ "request": "rec-F337-0056",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.013764
+}

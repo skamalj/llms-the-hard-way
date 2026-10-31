@@ -1,0 +1,140 @@
+{
+ "id": "F328-0001",
+ "family": "F328",
+ "state": {
+  "report_meta": {
+   "id": "W19-A",
+   "driver_id": "D41"
+  },
+  "vehicle_device": {
+   "health_flags": [
+    "gps_dropouts"
+   ],
+   "last_calibration": "2024-01-10",
+   "odo_start": 41000,
+   "odo_end": 41213
+  },
+  "trips": [
+   {
+    "start": "2024-05-07T06:00",
+    "end": "2024-05-07T09:00",
+    "driver_card": null,
+    "ign_min": 179,
+    "gps_km": 212.34
+   }
+  ],
+  "events": [
+   {
+    "time": "2024-05-07T07:10",
+    "type": "speed",
+    "recorded_mph": 76.9,
+    "posted_limit_mph": 70,
+    "ctx": [
+     "gps_dropout"
+    ]
+   },
+   {
+    "time": "2024-05-07T07:40",
+    "type": "harsh_brake",
+    "ctx": [
+     "congestion"
+    ]
+   }
+  ],
+  "tacho_summary": {
+   "cards": [
+    {
+     "card": "D41",
+     "from": "2024-05-07T04:30",
+     "to": "2024-05-07T05:50"
+    }
+   ]
+  },
+  "notes_history": {
+   "supervisor_note": "Driver says he diverted off the A5 that morning.",
+   "coaching": [
+    {
+     "date": "2023-09-04",
+     "status": "completed"
+    },
+    {
+     "date": "2023-12-11",
+     "status": "completed"
+    },
+    {
+     "date": "2024-04-02",
+     "status": "partly_completed",
+     "modules": "2/4"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "driver_assignment": "card_missing",
+  "raw_speed_excess_pct": 9.86,
+  "speed_mitigation": "emergency_diversion_logged",
+  "harsh_event_count": 1,
+  "harsh_context_logged": true,
+  "device_health": "intermittent_dropouts",
+  "telematics_stint_hours": 2.98,
+  "tacho_break_reconciles": false,
+  "prior_coaching_count": 3,
+  "coaching_status": "partly_completed",
+  "boundary_value": false,
+  "note_content": "unverified_claim",
+  "distance_discrepancy_pct": 0.31
+ },
+ "factors_sampled": {
+  "driver_assignment": "match",
+  "raw_speed_excess_pct": 14.46,
+  "speed_mitigation": "emergency_diversion_logged",
+  "harsh_event_count": 1,
+  "harsh_context_logged": true,
+  "device_health": "intermittent_dropouts",
+  "telematics_stint_hours": 4.02,
+  "tacho_break_reconciles": false,
+  "prior_coaching_count": 3,
+  "coaching_status": "partly_completed",
+  "boundary_value": false,
+  "note_content": "unverified_claim",
+  "distance_discrepancy_pct": 0.31
+ },
+ "plan": {
+  "driver_attributed": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "follow_up": {
+   "clarity": "clear",
+   "target": "no_action",
+   "second": null
+  },
+  "worst_event_cause": {
+   "clarity": "clear",
+   "target": "device_fault",
+   "second": null
+  },
+  "speed_excess": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  },
+  "hours_exposure": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 27,
+ "deciding": {
+  "driver_attributed": "Trip driver_card is null and the tacho entry for D41 ends 05:50, before the 07:10 speed event; the assigned driver is neither confirmed nor ruled out.",
+  "follow_up": "The only speed event carries a gps_dropout tag under a gps_dropouts health flag and is near the limit, so no confirmed breach remains.",
+  "worst_event_cause": "The speed event is tagged gps_dropout and the unit has a gps_dropouts health flag, so the reading is unreliable.",
+  "speed_excess": "76.9 against 70 is 9.9%, just under the 10% anchor, so level 1 or 2 are both defensible, and the dropout adds doubt.",
+  "hours_exposure": "A single trip with 179 ignition minutes is about 2.98 h, right at the 3 h anchor between levels 0 and 1."
+ },
+ "request": "rec-F328-0001",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.016876
+}

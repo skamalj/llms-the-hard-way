@@ -1,0 +1,166 @@
+{
+ "id": "F338-0059",
+ "family": "F338",
+ "state": {
+  "site": {
+   "id": "O33",
+   "pol": "O3",
+   "tier": "standard",
+   "int_d": 120
+  },
+  "visit": {
+   "date": "2024-09-10",
+   "start": "09:15",
+   "end": "12:00",
+   "seq": "complete",
+   "maint": false
+  },
+  "reference": {
+   "std_id": "C7716",
+   "conc": 100,
+   "unit": "ppb",
+   "cert_no": "CR-2231",
+   "cert_exp": "2025-08-13"
+  },
+  "instrument": {
+   "serial": "A5512",
+   "temp_min": 14,
+   "temp_max": 27
+  },
+  "checks": [
+   {
+    "t": "af_zero",
+    "ref_id": "C7716",
+    "ref": 0,
+    "u": "ppb",
+    "rd": 1,
+    "tol": 3,
+    "ts": "09:30"
+   },
+   {
+    "t": "af_span",
+    "ref_id": "C7716",
+    "ref": 100,
+    "u": "ppb",
+    "rd": 105,
+    "tol": 3,
+    "ts": "09:50"
+   },
+   {
+    "t": "al_zero",
+    "ref_id": "C7716",
+    "ref": 0,
+    "u": "ppb",
+    "rd": 0,
+    "tol": 3,
+    "ts": "11:10"
+   },
+   {
+    "t": "al_span",
+    "ref_id": "C7716",
+    "ref": 100,
+    "u": "ppb",
+    "rd": 100,
+    "tol": 3,
+    "ts": "11:30"
+   },
+   {
+    "t": "al_prec",
+    "ref_id": "C7716",
+    "ref": 50,
+    "u": "ppb",
+    "rd": 50,
+    "tol": 3,
+    "ts": "11:45"
+   }
+  ],
+  "history": {
+   "last": "2024-05-16",
+   "res": [
+    "pass",
+    "pass",
+    "fail",
+    "pass"
+   ],
+   "auto": [
+    {
+     "d": "2024-09-04",
+     "r": "pass"
+    },
+    {
+     "d": "2024-09-07",
+     "r": "pass"
+    }
+   ],
+   "next_due": "2024-09-12"
+  }
+ },
+ "factors": {
+  "pollutant": "O3",
+  "as_found_ratio": 1.66,
+  "as_left_status": "all_pass",
+  "cylinder_id_mismatch": "none",
+  "cert_expiry_offset_days": 337,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "none",
+  "days_since_last_visit": 117,
+  "visit_completeness": "complete",
+  "prior_fail_count": 1,
+  "timestamp_mismatch": "none",
+  "site_priority": "standard"
+ },
+ "factors_sampled": {
+  "pollutant": "O3",
+  "as_found_ratio": 1.66,
+  "as_left_status": "not_recorded",
+  "cylinder_id_mismatch": "transposed_digit",
+  "cert_expiry_offset_days": 337,
+  "unit_mismatch": false,
+  "interim_autocheck_pass": true,
+  "drift_explanation": "none",
+  "days_since_last_visit": 117,
+  "visit_completeness": "aborted_power",
+  "prior_fail_count": 1,
+  "timestamp_mismatch": "none",
+  "site_priority": "standard"
+ },
+ "plan": {
+  "data_accepted": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "reference_valid": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "close_visit",
+   "second": null
+  },
+  "flag_extent": {
+   "clarity": "leaning",
+   "target": "0",
+   "second": null
+  },
+  "return_urgency": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  }
+ },
+ "target_words": 109,
+ "deciding": {
+  "data_accepted": "As-found span error 5 against tolerance 3 is slightly out, but the autochecks pass to within days of the visit and the as-left checks all pass.",
+  "reference_valid": "ref_id C7716 matches std_id on every check, units are ppb throughout, cert_no is present and expiry 2025-08-13 is well after the visit.",
+  "next_step": "The sequence is complete and zero, span and precision as-left points all read within tolerance, with passing autochecks and a single old fail.",
+  "flag_extent": "Passing autochecks up to 09-07 and in-tolerance as-left results point to no flagging; the slightly out as-found span over 117 days leaves a little doubt.",
+  "return_urgency": "history.next_due is 2024-09-12, two days after the visit, so a technician must be back within 1-2 days despite the clean results."
+ },
+ "request": "rec-F338-0056",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.013785
+}

@@ -1,0 +1,123 @@
+{
+ "id": "F315-0029",
+ "family": "F315",
+ "state": {
+  "report": {
+   "ref": "F4",
+   "received_at": "2025-08-10",
+   "source": "public_web",
+   "fault_code": "CABLE",
+   "units_reported": [
+    "u31"
+   ]
+  },
+  "asset": {
+   "unit_id": "u31",
+   "site_category": "residential",
+   "install_year": 1998,
+   "planned_works": {
+    "work_type": "cable_renewal",
+    "window_start": "2025-08-04",
+    "window_end": "2025-08-22"
+   }
+  },
+  "cms": {
+   "node_id": "N31",
+   "status_code": "LF",
+   "last_comms_at": "2025-08-10T01:00",
+   "lamp_hours": 9100
+  },
+  "history": [
+   {
+    "job_ref": "J41",
+    "raised": "2025-05-14",
+    "attended": "2025-05-19",
+    "completed": "2025-05-20",
+    "outcome_code": "FIXED"
+   }
+  ],
+  "job": {
+   "job_ref": "J58",
+   "stage": "ATT",
+   "attended_at": "2025-08-10",
+   "completed_at": null,
+   "hazard_code": "CABLE",
+   "made_safe": true,
+   "isolated_at": "2025-08-10T09:40"
+  },
+  "supply": {
+   "feeder_id": "FD7",
+   "dno_incident_ref": null,
+   "dno_status": null,
+   "feeder_units_dark": 1
+  }
+ },
+ "factors": {
+  "dark_unit_count": 1,
+  "dno_incident_logged": false,
+  "cms_state": "lamp_fail",
+  "days_since_last_repair": 82,
+  "last_repair_state": "completed",
+  "hazard_observed": "cable_exposed",
+  "hazard_made_safe": true,
+  "site_category": "residential",
+  "planned_works_active": true,
+  "current_job_stage": "attended_unresolved",
+  "dates_out_of_order": false,
+  "duplicate_of_open_job": false,
+  "report_source": "public_web"
+ },
+ "factors_sampled": {
+  "dark_unit_count": 8,
+  "dno_incident_logged": true,
+  "cms_state": "lamp_fail",
+  "days_since_last_repair": 362,
+  "last_repair_state": "completed",
+  "hazard_observed": "cable_exposed",
+  "hazard_made_safe": false,
+  "site_category": "residential",
+  "planned_works_active": true,
+  "current_job_stage": "rectified_confirmed",
+  "dates_out_of_order": false,
+  "duplicate_of_open_job": false,
+  "report_source": "public_web"
+ },
+ "plan": {
+  "supply_side_fault": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "repeat_failure": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "next_action": {
+   "clarity": "balanced",
+   "target": "routine_repair",
+   "second": "hold_verify"
+  },
+  "source_support": {
+   "clarity": "contested",
+   "target": "2",
+   "second": "3"
+  },
+  "repair_progress": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  }
+ },
+ "target_words": 111,
+ "deciding": {
+  "supply_side_fault": "One unit is reported, feeder_units_dark is 1 and dno_incident_ref is null, so it is a single-unit fault and not a supply fault.",
+  "repeat_failure": "J41 was completed 2025-05-20, 82 days before the report received on 2025-08-10 (inside the 84-day window, close to the edge); the cable fault may relate to the planned works rather than the old repair.",
+  "next_action": "The cable hazard is made safe (isolated_at set) so it is not urgent and cms LF confirms the fault, but the active cable_renewal works window might explain the dark unit.",
+  "source_support": "The report, cms LF, feeder count and job card agree, but the supply and job data may not be independent of each other, so the count could be 2 or 3 sources.",
+  "repair_progress": "job.stage ATT with attended_at 2025-08-10, completed_at null and cms still LF, so the crew attended and the fault is unresolved; the made-safe isolation could be read as a partial fix (level 2)."
+ },
+ "request": "rec-F315-0026",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.010369
+}

@@ -1,0 +1,143 @@
+{
+ "id": "F330-0018",
+ "family": "F330",
+ "state": {
+  "request": {
+   "req_id": "X3",
+   "grade": "G4",
+   "cost_centre": "CC40",
+   "trip_ref": "T3",
+   "breach_rule": "MIL-01",
+   "requested_total": 240,
+   "ccy": "GBP",
+   "payroll_cutoff": "2025-04-25"
+  },
+  "lines": [
+   {
+    "line_no": 1,
+    "date": "2025-04-08",
+    "category": "mileage",
+    "cost_centre": "CC40",
+    "amount_gbp": 120,
+    "receipt_attached": true
+   },
+   {
+    "line_no": 2,
+    "date": "2025-04-08",
+    "category": "mileage",
+    "cost_centre": "CC40",
+    "amount_gbp": 120,
+    "receipt_attached": true
+   }
+  ],
+  "policy": {
+   "rule_id": "MIL",
+   "grade_band": "G4",
+   "cap_gbp": 0.4,
+   "cap_unit": "mile",
+   "units": 600,
+   "reviewer_limit_gbp": 250
+  },
+  "travel": {
+   "trip_ref": "T3",
+   "depart": "2025-04-07",
+   "return": "2025-04-09",
+   "booked_on": "2025-02-15",
+   "disruption": {
+    "code": "RAIL_STRIKE",
+    "source": "operator",
+    "logged_on": "2025-04-08"
+   },
+   "alt_check": null,
+   "client_recharge": {
+    "billable": false,
+    "client_code": null
+   }
+  },
+  "approvals": {
+   "line_mgr": {
+    "approved": null
+   },
+   "pre_approval": {
+    "ref": "PA3",
+    "trip_ref": "T3",
+    "max_gbp": 100,
+    "valid_to": "2025-05-01"
+   }
+  },
+  "history": {
+   "exceptions_12m": 2,
+   "approved_12m": 1,
+   "declined_12m": 1,
+   "last_exception_on": "2024-11-12"
+  }
+ },
+ "factors": {
+  "breach_type": "mileage_over_rate",
+  "true_excess_pct": 0.0,
+  "amount_mismatch": "duplicated_line",
+  "reference_mismatch": "none",
+  "pre_approval_state": "valid_covers",
+  "external_disruption": true,
+  "compliant_option": "not_checked",
+  "missing_item": "line_manager_approval",
+  "excess_vs_authority": "none",
+  "client_rechargeable": false,
+  "prior_exceptions_12m": 2,
+  "booking_lead_days": 51,
+  "employee_grade": "G4"
+ },
+ "factors_sampled": {
+  "breach_type": "mileage_over_rate",
+  "true_excess_pct": 96.13,
+  "amount_mismatch": "none",
+  "reference_mismatch": "none",
+  "pre_approval_state": "absent",
+  "external_disruption": true,
+  "compliant_option": "not_checked",
+  "missing_item": "line_manager_approval",
+  "excess_vs_authority": "near_limit",
+  "client_rechargeable": false,
+  "prior_exceptions_12m": 2,
+  "booking_lead_days": 51,
+  "employee_grade": "G4"
+ },
+ "plan": {
+  "preapproval_covers": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "outside_control": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "excess_disposition": {
+   "clarity": "leaning",
+   "target": "hold_for_info",
+   "second": null
+  },
+  "excess_size": {
+   "clarity": "clear",
+   "target": "0",
+   "second": null
+  },
+  "discrepancy_count": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  }
+ },
+ "target_words": 95,
+ "deciding": {
+  "preapproval_covers": "pre_approval T3 matches the trip and is valid with max 100, and there is no excess to cover; but line_mgr approval is null, so doubt remains.",
+  "outside_control": "RAIL_STRIKE disruption logged by the operator, but alt_check is null so alternatives were not tested.",
+  "excess_disposition": "approvals.line_mgr.approved is null, the one named missing approval, so the case waits for it.",
+  "excess_size": "Lines sum 240 and equal cap 0.40x600=240; deduplicated it is 120, so no excess either way.",
+  "discrepancy_count": "Lines 1 and 2 repeat the same date, category and amount; they may be two real trips, so zero is also plausible."
+ },
+ "request": "rec-F330-0016",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.016923
+}
