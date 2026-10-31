@@ -121,6 +121,7 @@ All calls went through the Anthropic API, billed to the team's API key, from sep
   - {len(rejected)} records failed the code checks ({reason_txt});
   - {off_plan} records failed the accept rule.
 - **Kept:** {st['records']}.
+- **Passed every check but not needed** (their family already had 25 closer to the targets): {written + len(rejected) - len(rejected) - off_plan - st['records']}.
 - **Families below 25 records:** {', '.join(f'{k} ({v})' for k, v in sorted(short.items())) or 'none'}.
 
 ## Families
