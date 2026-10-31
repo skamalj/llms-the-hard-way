@@ -199,7 +199,7 @@ def check_record(state, fam: dict | None = None, n_words: int | None = None) -> 
     w = record_words(state)
     if w > 320:
         return f"{w} words (maximum 320)"
-    if n_words is not None and w > max(1.5 * n_words, n_words + 40):
+    if n_words is not None and w > max(2 * n_words, n_words + 60):
         return f"{w} words against a target of about {n_words}"
     return None
 
@@ -211,16 +211,20 @@ JUDGE_BASE = """You read one record from an operational system and answer a fixe
 How to judge:
 - Weigh the signals, notice what is missing, compare values across sections, and apply any rule the record states. Signals that lower concern (a benign explanation, an approved exception, a recent successful check) count as much as signals that raise it.
 - A true/false statement is a claim: put most probability on true only when the record supports it. A claim that is merely possible is not true.
-- Be calibrated. When the record settles a question, say so: 0.85 to 0.97 on that answer. When it points one way with some room for doubt, about 0.65 to 0.85. Spread probability between two answers only when signals genuinely pull both ways or a value sits on a boundary the options leave open, and then in proportion to how strongly you hold each. Do not hedge out of habit: spreading probability over answers the record does not support is as wrong as false certainty.
+- Be calibrated and decisive where the record allows. Read each probability as how often careful people in your role, reading this record, would land on that answer. Typical shapes:
+  * the record settles it: 0.85 to 0.95 on one answer, the rest small;
+  * one answer is clearly better but a reasonable person could see it differently: 0.65 to 0.8 on it, most of the rest on the nearest alternative;
+  * two answers genuinely in balance: roughly 0.4 to 0.55 on each, little elsewhere.
+- On an ordered scale, first decide which level's description fits best and commit to it. A neighbouring level gets only what real doubt about the fit justifies, not mass by default; do not spread probability across three or more levels unless the record truly leaves that open. The same holds for choice options: a plausible-sounding option the record does not point to gets little.
 - Give a small probability (0.005 to 0.03) to options that are implausible but not impossible; zero only when the record makes an option impossible. For an ordered scale, most probability sits on one level and its neighbours.
 - Use the option names exactly as given. Probabilities for each question sum to 1."""
 
 PERSONAS = [
     {"id": "careful_operator", "model": "opus", "effort": "medium",
      "text": "You are an experienced practitioner in this role: thorough, practical, and used to acting on records like this every day."},
-    {"id": "cautious_reviewer", "model": "sonnet", "effort": "low",
+    {"id": "cautious_reviewer", "model": "sonnet", "effort": "medium",
      "text": "You are a cautious reviewer: you take discrepancies and gaps seriously and hesitate to clear a record that has an open point, but you do not invent problems."},
-    {"id": "pragmatic_operator", "model": "sonnet", "effort": "low",
+    {"id": "pragmatic_operator", "model": "sonnet", "effort": "medium",
      "text": "You are a pragmatic operator under time pressure: you look for what actually matters for the decision and give reasonable benefit of the doubt where a mitigating explanation is on the record."},
     {"id": "by_the_book", "model": "haiku", "effort": "medium",
      "text": "You are a by-the-book auditor: you apply the stated rules and thresholds literally and treat anything not on the record as unknown."},
