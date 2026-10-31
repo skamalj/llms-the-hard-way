@@ -1,0 +1,130 @@
+{
+ "id": "F232-0085",
+ "family": "F232",
+ "state": {
+  "night_header": {
+   "date": "2025-06-10",
+   "allocated_hours": 0.5,
+   "twilight_end_utc": "2025-06-11T00:00"
+  },
+  "conditions": {
+   "closures": []
+  },
+  "exposures": [
+   {
+    "target_id": "T1",
+    "filter": "g",
+    "start_utc": "2025-06-11T00:00",
+    "exptime_s": 1200,
+    "seeing_arcsec": 0.8,
+    "qa": "fail"
+   },
+   {
+    "target_id": "T1",
+    "filter": "g",
+    "start_utc": "2025-06-11T00:21",
+    "exptime_s": 600,
+    "seeing_arcsec": 0.8,
+    "qa": null
+   }
+  ],
+  "programme_request": {
+   "T1": {
+    "filters": [
+     "g"
+    ],
+    "total_s": 1800,
+    "max_seeing_arcsec": 1.5
+   },
+   "exception": {
+    "target_ids": [
+     "T1"
+    ],
+    "relaxed_seeing_arcsec": 1.8
+   }
+  },
+  "faults": [
+   {
+    "subsystem": "filter_wheel",
+    "start_utc": "2025-06-10T21:00",
+    "end_utc": "2025-06-10T22:40",
+    "cleared": true,
+    "retest_utc": null,
+    "workaround": null,
+    "ticket_ref": "E-902"
+   }
+  ],
+  "notes": {
+   "observer_note": "T1 complete.",
+   "night_assistant_note": "Filter wheel hesitated on last change, same as ticket E-902."
+  }
+ },
+ "factors": {
+  "weather_loss_hours": 0.0,
+  "fault_overlap": "none",
+  "fault_resolution_state": "cleared_no_retest",
+  "maintenance_window": false,
+  "closure_reason_mismatch": "none",
+  "note_claim_discrepancy": "none",
+  "seeing_vs_limit": "well_within",
+  "seeing_exception_approved": true,
+  "usable_fraction": 0.0,
+  "qa_pending_count": 1,
+  "utc_date_rollover": true,
+  "assistant_note_tone": "alarmed_real",
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "weather_loss_hours": 6.41,
+  "fault_overlap": "none",
+  "fault_resolution_state": "cleared_no_retest",
+  "maintenance_window": true,
+  "closure_reason_mismatch": "coincides_with_fault",
+  "note_claim_discrepancy": "filter_missing",
+  "seeing_vs_limit": "well_within",
+  "seeing_exception_approved": true,
+  "usable_fraction": 0.22,
+  "qa_pending_count": 1,
+  "utc_date_rollover": true,
+  "assistant_note_tone": "alarmed_real",
+  "boundary_case": false
+ },
+ "plan": {
+  "weather_only_loss": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "claims_supported": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "night_disposition": {
+   "clarity": "leaning",
+   "target": "charge_full",
+   "second": null
+  },
+  "usable_share": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "fault_followup": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  }
+ },
+ "target_words": 114,
+ "deciding": {
+  "weather_only_loss": "There are no closures and no gaps. The two frames fill the 1800 s allocation and the fault ended before twilight, so no lost time is attributed to equipment.",
+  "claims_supported": "T1 requires g for 1800 s. The logged g frames sum to 1200+600 = 1800 s, matching the request.",
+  "night_disposition": "No time was lost, which favours charge_full. One frame still has qa null, so hold remains somewhat plausible.",
+  "usable_share": "The only completed QA is a fail on the 1200 s frame and the 600 s frame is pending. If it passes, usable time is 600 of 1800 s (33%, level 1), otherwise none (level 0). That holds the split.",
+  "fault_followup": "The filter wheel fault E-902 is cleared with retest_utc null and no workaround, so level 1. The assistant's note of a similar hesitation adds some doubt."
+ },
+ "request": "rec-F232-0081",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.016623
+}

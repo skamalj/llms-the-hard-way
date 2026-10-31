@@ -1,0 +1,148 @@
+{
+ "id": "F230-0076",
+ "family": "F230",
+ "state": {
+  "resident": {
+   "id": "R104",
+   "status": "home",
+   "weight_kg": 62,
+   "allergies": [
+    "latex"
+   ]
+  },
+  "prescriptions": [
+   {
+    "item_id": "i1",
+    "drug": "warfarin",
+    "strength_mg": 3,
+    "dose_units": 1,
+    "high_risk": true,
+    "time_critical": false
+   },
+   {
+    "item_id": "i2",
+    "drug": "senna",
+    "strength_mg": 7.5,
+    "dose_units": 1,
+    "high_risk": false
+   }
+  ],
+  "administrations": [
+   {
+    "item_id": "i1",
+    "scheduled": "2024-05-06T18:00",
+    "given_at": "2024-05-06T18:34",
+    "units_given": 2,
+    "strength_mg_used": 3,
+    "initials": "KB"
+   },
+   {
+    "item_id": "i2",
+    "scheduled": "2024-05-06T18:00",
+    "given_at": "2024-05-06T18:20",
+    "units_given": 1,
+    "strength_mg_used": 7.5,
+    "initials": "KB"
+   }
+  ],
+  "stock": {
+   "i1": {
+    "opening": 28,
+    "closing": 26
+   },
+   "i2": {
+    "opening": 30,
+    "closing": 29
+   }
+  },
+  "round": {
+   "date": "2024-05-06",
+   "open_queries": [
+    {
+     "type": "pharmacy",
+     "raised": "2024-05-06T19:10",
+     "item_id": "i2"
+    }
+   ],
+   "post_dose_obs": [
+    {
+     "type": "pulse",
+     "value": 72
+    }
+   ]
+  },
+  "history": {
+   "errors_30d": 3
+  }
+ },
+ "factors": {
+  "dose_mismatch_type": "extra_units",
+  "prescription_change_documented": false,
+  "omission_count": 0,
+  "omission_reason_valid": true,
+  "late_minutes": 34,
+  "time_critical_affected": true,
+  "stock_variance": 0,
+  "stock_variance_explained": false,
+  "signature_gaps": 0,
+  "unit_expression_decoy": "matching_units",
+  "post_dose_obs_reassuring": true,
+  "pending_query": "pharmacy_query_open",
+  "prior_errors_30d": 3,
+  "item_count": 2
+ },
+ "factors_sampled": {
+  "dose_mismatch_type": "none",
+  "prescription_change_documented": true,
+  "omission_count": 3,
+  "omission_reason_valid": false,
+  "late_minutes": 34,
+  "time_critical_affected": true,
+  "stock_variance": -2,
+  "stock_variance_explained": false,
+  "signature_gaps": 2,
+  "unit_expression_decoy": "matching_units",
+  "post_dose_obs_reassuring": true,
+  "pending_query": "pharmacy_query_open",
+  "prior_errors_30d": 3,
+  "item_count": 5
+ },
+ "plan": {
+  "dose_mismatch": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "stock_reconciles": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "balanced",
+   "target": "sign_off",
+   "second": "report_incident"
+  },
+  "open_discrepancies": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  },
+  "error_severity": {
+   "clarity": "balanced",
+   "target": "4",
+   "second": "3"
+  }
+ },
+ "target_words": 75,
+ "deciding": {
+  "dose_mismatch": "i1 prescribed dose_units 1 of 3 mg, but units_given 2 at strength 3, so double the prescribed dose.",
+  "stock_reconciles": "i1 28 minus 2 signed gives 26 and i2 30 minus 1 gives 29, so both close as expected. Slight doubt only because the stock section is sparse.",
+  "next_step": "A confirmed overdose on a high_risk item points to reporting, but the open pharmacy query on i2 and the dose being clinically minor keep sign_off or hold arguable.",
+  "open_discrepancies": "i1 is clearly discrepant. The open pharmacy query on i2 may or may not count as a second unresolved item.",
+  "error_severity": "The wrong-dose item i1 is high_risk but time_critical is false, which holds level 4 against level 3."
+ },
+ "request": "rec-F230-0076",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.013371
+}

@@ -1,0 +1,137 @@
+{
+ "id": "F201-0102",
+ "family": "F201",
+ "state": {
+  "register_header": {
+   "drug": "methadone",
+   "concentration_mg_ml": 10,
+   "schedule": 2,
+   "witness_required": true,
+   "branch_id": "B1",
+   "opening_balance_ml": 150
+  },
+  "entries": [
+   {
+    "entry_id": "E1",
+    "date": "2024-04-03",
+    "type": "receipt",
+    "qty_ml": 50,
+    "running_balance_ml": 200,
+    "signed_by": "VT4",
+    "witness_id": "VT9"
+   },
+   {
+    "entry_id": "E2",
+    "date": "2024-04-12",
+    "type": "use",
+    "qty_ml": 8,
+    "patient_id": "P7",
+    "running_balance_ml": 192,
+    "signed_by": "VT4",
+    "witness_id": "VT9"
+   },
+   {
+    "entry_id": "E3",
+    "date": "2024-04-20",
+    "type": "use",
+    "qty_ml": 6,
+    "patient_id": "P8",
+    "running_balance_ml": 186,
+    "signed_by": "VT4",
+    "witness_id": null
+   }
+  ],
+  "clinical_records": [
+   {
+    "patient_id": "P7",
+    "date": "2024-04-12",
+    "dose": 8,
+    "dose_unit": "ml"
+   },
+   {
+    "patient_id": "P8",
+    "date": "2024-04-20",
+    "dose": 6,
+    "dose_unit": "ml"
+   },
+   {
+    "patient_id": "P9",
+    "date": "2024-04-24",
+    "dose": 2,
+    "dose_unit": "ml"
+   }
+  ],
+  "stock_check": {
+   "count_date": "2024-04-30",
+   "counted_ml": 183
+  }
+ },
+ "factors": {
+  "drug_profile": "methadone_10mg_ml",
+  "arithmetic_slip_count": 0,
+  "unrecorded_admin": "trivial_under_1pct",
+  "clinical_records_missing": false,
+  "disposal_state": "none_needed",
+  "unexplained_shortfall_pct": 0.5,
+  "variance_exception": "none",
+  "manufacturer_overfill": false,
+  "auth_gap_count": 1,
+  "count_out_of_order": false,
+  "unit_mismatch": false,
+  "locum_signatory": false,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "drug_profile": "methadone_10mg_ml",
+  "arithmetic_slip_count": 2,
+  "unrecorded_admin": "moderate_2_to_8pct",
+  "clinical_records_missing": false,
+  "disposal_state": "none_needed",
+  "unexplained_shortfall_pct": 13.57,
+  "variance_exception": "none",
+  "manufacturer_overfill": false,
+  "auth_gap_count": 4,
+  "count_out_of_order": false,
+  "unit_mismatch": false,
+  "locum_signatory": false,
+  "boundary_case": false
+ },
+ "plan": {
+  "unexplained_shortfall": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "line_disposition": {
+   "clarity": "leaning",
+   "target": "hold_pending",
+   "second": null
+  },
+  "variance_cause": {
+   "clarity": "balanced",
+   "target": "no_discrepancy",
+   "second": "unrecorded_administration"
+  },
+  "variance_size": {
+   "clarity": "clear",
+   "target": "1",
+   "second": null
+  },
+  "auth_gaps": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  }
+ },
+ "target_words": 36,
+ "deciding": {
+  "unexplained_shortfall": "Balance 186 vs count 183 leaves 3 ml short. The P9 dose of 2 ml has no entry, so 1 ml remains with no clinical record, disposal or exception to explain it.",
+  "line_disposition": "E3 lacks the required witness (witness_id null), which is one missing confirmation. The balances are arithmetically correct, and the small count gap needs that confirmation first.",
+  "variance_cause": "P9 dose 2 ml has no register line and accounts for most of the 3 ml gap (unrecorded administration). The remaining 1 ml is small enough that a reader may call it no discrepancy.",
+  "variance_size": "At most 3 ml short on volume handled 200 (150 + 50), which is 1.5% at most and 0.5% after the P9 dose. This is below 2%.",
+  "auth_gaps": "E3 witness_id is null while witness_required is true, which is one clear gap. E2's witness matches E1's, which leaves a doubt over whether other entries were independently witnessed."
+ },
+ "request": "rec-F201-0101",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.014637
+}

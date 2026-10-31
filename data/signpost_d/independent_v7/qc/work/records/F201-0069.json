@@ -1,0 +1,149 @@
+{
+ "id": "F201-0069",
+ "family": "F201",
+ "state": {
+  "register_header": {
+   "drug": "ketamine",
+   "strength": "100mg/ml",
+   "concentration_mg_ml": 100,
+   "schedule": 3,
+   "witness_required": false,
+   "branch_id": "B4",
+   "page_id": "P31",
+   "period_start": "2024-05-01",
+   "period_end": "2024-05-31",
+   "opening_balance_ml": 50
+  },
+  "entries": [
+   {
+    "entry_id": "E1",
+    "date": "2024-05-04",
+    "type": "admin",
+    "qty_ml": 5,
+    "patient_id": "P401",
+    "running_balance_ml": 45,
+    "signed_by": "S1",
+    "witness_id": null
+   },
+   {
+    "entry_id": "E2",
+    "date": "2024-05-11",
+    "type": "admin",
+    "qty_ml": 5,
+    "patient_id": "P402",
+    "running_balance_ml": 40,
+    "signed_by": "S1",
+    "witness_id": null
+   },
+   {
+    "entry_id": "E3",
+    "date": "2024-05-18",
+    "type": "admin",
+    "qty_ml": 5,
+    "patient_id": "P403",
+    "running_balance_ml": 35,
+    "signed_by": null,
+    "witness_id": null
+   }
+  ],
+  "clinical_records": null,
+  "stock_check": {
+   "count_date": "2024-05-31",
+   "counted_ml": 30.26,
+   "counted_by": "S1",
+   "checked_by": "S3",
+   "batch_no": "K4",
+   "overfill_allowance_ml": 0.3
+  },
+  "disposals": [
+   {
+    "batch_no": "K4",
+    "qty_ml": 4.74,
+    "reason_code": "BRK",
+    "removed_date": "2024-05-22",
+    "register_entry_id": null,
+    "witness_id": "W1",
+    "denatured_date": "2024-05-23"
+   }
+  ],
+  "exceptions": [
+   {
+    "exception_id": "X4",
+    "batch_no": "K4",
+    "qty_ml": 4.74,
+    "reason_code": "BRK",
+    "approved_by": "D1",
+    "valid_from": "2024-05-01",
+    "valid_to": "2024-06-30"
+   }
+  ]
+ },
+ "factors": {
+  "drug_profile": "ketamine_100mg_ml",
+  "arithmetic_slip_count": 0,
+  "unrecorded_admin": "none",
+  "clinical_records_missing": true,
+  "disposal_state": "removed_unlogged",
+  "unexplained_shortfall_pct": 9.48,
+  "variance_exception": "valid_full_cover",
+  "manufacturer_overfill": true,
+  "auth_gap_count": 1,
+  "count_out_of_order": false,
+  "unit_mismatch": false,
+  "locum_signatory": false,
+  "boundary_case": true
+ },
+ "factors_sampled": {
+  "drug_profile": "ketamine_100mg_ml",
+  "arithmetic_slip_count": 0,
+  "unrecorded_admin": "trivial_under_1pct",
+  "clinical_records_missing": true,
+  "disposal_state": "removed_unlogged",
+  "unexplained_shortfall_pct": 9.48,
+  "variance_exception": "valid_full_cover",
+  "manufacturer_overfill": true,
+  "auth_gap_count": 0,
+  "count_out_of_order": false,
+  "unit_mismatch": false,
+  "locum_signatory": false,
+  "boundary_case": true
+ },
+ "plan": {
+  "unexplained_shortfall": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "line_disposition": {
+   "clarity": "leaning",
+   "target": "sign_off",
+   "second": null
+  },
+  "variance_cause": {
+   "clarity": "clear",
+   "target": "no_discrepancy",
+   "second": null
+  },
+  "variance_size": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  },
+  "auth_gaps": {
+   "clarity": "contested",
+   "target": "2",
+   "second": "1"
+  }
+ },
+ "target_words": 65,
+ "deciding": {
+  "unexplained_shortfall": "Recomputed 35 vs counted 30.26 is 4.74 ml, which matches the unlogged breakage disposal and valid exception X4 (same batch, valid dates); the shortfall is explained, so the planned true is not supported.",
+  "line_disposition": "Shortfall is covered by X4, but the disposal has register_entry_id null and E3 lacks a signature; closure needs those confirmed, so sign_off is only loosely supported.",
+  "variance_cause": "4.74 ml gap equals disposal qty and exception X4 qty exactly, leaving nothing after documented adjustments.",
+  "variance_size": "After X4 and 0.3 overfill allowance no variance remains; the plan's level 3 does not follow from the record.",
+  "auth_gaps": "Only E3 signed_by null counts as a gap; witness_id null is not a gap since witness_required is false, giving a one-entry count that a reader might read as two."
+ },
+ "request": "rec-F201-0066",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.016511
+}

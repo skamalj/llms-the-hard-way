@@ -1,0 +1,145 @@
+{
+ "id": "F230-0100",
+ "family": "F230",
+ "state": {
+  "resident": {
+   "id": "E505",
+   "status": "home"
+  },
+  "prescriptions": [
+   {
+    "item_id": "i1",
+    "strength_mg": 10,
+    "dose_units": 1
+   },
+   {
+    "item_id": "i2",
+    "strength_mg": 5,
+    "dose_units": 1
+   },
+   {
+    "item_id": "i3",
+    "strength_mg": 25,
+    "dose_units": 1,
+    "controlled": true
+   }
+  ],
+  "administrations": [
+   {
+    "item_id": "i1",
+    "scheduled": "08:00",
+    "given_at": "10:26",
+    "units_given": 1,
+    "strength_mg_used": 10,
+    "initials": null
+   },
+   {
+    "item_id": "i2",
+    "scheduled": "08:00",
+    "units_given": 0,
+    "code": "N"
+   },
+   {
+    "item_id": "i3",
+    "scheduled": "08:00",
+    "given_at": "08:05",
+    "units_given": 1,
+    "initials": "KT",
+    "second_initials": null
+   }
+  ],
+  "stock": {
+   "i3": {
+    "opening": 10,
+    "closing": 7,
+    "wasted": 2,
+    "wasted_witnessed": true
+   }
+  },
+  "round": {
+   "open_queries": [
+    {
+     "type": "recount",
+     "raised": "2024-06-02T08:30",
+     "item_id": "i3"
+    }
+   ],
+   "post_dose_obs": [
+    {
+     "type": "HR",
+     "value": 72
+    }
+   ]
+  }
+ },
+ "factors": {
+  "dose_mismatch_type": "none",
+  "prescription_change_documented": false,
+  "omission_count": 1,
+  "omission_reason_valid": false,
+  "late_minutes": 146,
+  "time_critical_affected": false,
+  "stock_variance": -2,
+  "stock_variance_explained": true,
+  "signature_gaps": 2,
+  "unit_expression_decoy": "matching_units",
+  "post_dose_obs_reassuring": true,
+  "pending_query": "stock_recount_due",
+  "prior_errors_30d": 2,
+  "item_count": 3
+ },
+ "factors_sampled": {
+  "dose_mismatch_type": "none",
+  "prescription_change_documented": false,
+  "omission_count": 3,
+  "omission_reason_valid": false,
+  "late_minutes": 146,
+  "time_critical_affected": false,
+  "stock_variance": -2,
+  "stock_variance_explained": true,
+  "signature_gaps": 2,
+  "unit_expression_decoy": "matching_units",
+  "post_dose_obs_reassuring": true,
+  "pending_query": "stock_recount_due",
+  "prior_errors_30d": 2,
+  "item_count": 8
+ },
+ "plan": {
+  "dose_mismatch": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "stock_reconciles": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "hold",
+   "second": null
+  },
+  "open_discrepancies": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "error_severity": {
+   "clarity": "clear",
+   "target": "1",
+   "second": null
+  }
+ },
+ "target_words": 85,
+ "deciding": {
+  "dose_mismatch": "Doses given match prescriptions, but i2 has code N with no dose, a possible omission.",
+  "stock_reconciles": "i3 closing 7 vs 10 minus 1 signed minus 2 witnessed waste: expected 7, but the recount is open.",
+  "next_step": "Open recount query on i3 must be answered before outcome.",
+  "open_discrepancies": "i1 and i3 have signature gaps, i2 omission unsupported; two or three items, borderline.",
+  "error_severity": "Null initials on i1 and null second initials on controlled i3 are documentation gaps."
+ },
+ "request": "rec-F230-0096",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.005355
+}

@@ -1,0 +1,135 @@
+{
+ "id": "F204-0072",
+ "family": "F204",
+ "state": {
+  "rx": {
+   "drug": "lisinopril",
+   "strength": {
+    "val": 10,
+    "unit": "mg"
+   },
+   "form": "tab",
+   "dose": 1,
+   "freq_per_day": 1,
+   "qty": 28,
+   "days_intended": 28
+  },
+  "patient": {
+   "pt_id": "P2290",
+   "supplies": [
+    {
+     "date": "2025-03-10",
+     "days_covered": 21
+    }
+   ],
+   "near_miss_count": 3
+  },
+  "dispensed": {
+   "product_name": "enalapril",
+   "strength": {
+    "val": 20,
+    "unit": "mg"
+   },
+   "form": "tab",
+   "pack_size": 28,
+   "packs": 1,
+   "owing": null,
+   "expiry": "2027-01-31",
+   "high_risk": false
+  },
+  "label": {
+   "pt_id": "P2290",
+   "dose_qty": 1,
+   "freq_per_day": 1,
+   "qty_printed": 28
+  },
+  "check_log": {
+   "checked_at": "2025-03-31T10:20",
+   "clin_check": {
+    "by": "RP",
+    "at": "2025-03-31T10:05"
+   },
+   "queries": [
+    {
+     "raised_at": "2025-03-31T09:15",
+     "field": "product",
+     "status": "confirmed"
+    },
+    {
+     "raised_at": "2025-03-31T09:15",
+     "field": "strength",
+     "status": "confirmed"
+    }
+   ],
+   "interventions": []
+  }
+ },
+ "factors": {
+  "strength_status": "differs",
+  "product_status": "different_drug",
+  "quantity_status": "exact",
+  "label_status": "correct",
+  "prescriber_query": "confirmed",
+  "pharmacist_intervention": false,
+  "clinical_check_signed": true,
+  "home_supply_days": 0,
+  "emergency_supply": false,
+  "short_expiry": false,
+  "prior_error_count": 3,
+  "high_risk_drug": false,
+  "boundary_case": true
+ },
+ "factors_sampled": {
+  "strength_status": "match_same_units",
+  "product_status": "different_drug",
+  "quantity_status": "exact",
+  "label_status": "directions_mismatch",
+  "prescriber_query": "confirmed",
+  "pharmacist_intervention": false,
+  "clinical_check_signed": true,
+  "home_supply_days": 7,
+  "emergency_supply": false,
+  "short_expiry": false,
+  "prior_error_count": 3,
+  "high_risk_drug": false,
+  "boundary_case": true
+ },
+ "plan": {
+  "strength_differs": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "release_annotated",
+   "second": null
+  },
+  "error_category": {
+   "clarity": "clear",
+   "target": "none_found",
+   "second": null
+  },
+  "open_discrepancies": {
+   "clarity": "clear",
+   "target": "0",
+   "second": null
+  },
+  "supply_urgency": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  }
+ },
+ "target_words": 55,
+ "deciding": {
+  "strength_differs": "rx 10 mg vs dispensed 20 mg in the same unit; the strength query is confirmed but the pack values themselves still differ.",
+  "next_step": "Both queries are confirmed and clin_check is signed, with no owing slip, so it is released once the confirmation is annotated.",
+  "error_category": "The product and strength queries are both confirmed, and quantity 28 equals 1 x 28 with a label that matches, so nothing unresolved remains.",
+  "open_discrepancies": "Every difference (product, strength) has a confirmed query; quantity and label match, leaving zero.",
+  "supply_urgency": "Last supply 2025-03-10 with 21 days covered ends 2025-03-31, the same day as checked_at, so the home supply is likely exhausted, though a reader could count it as one day left."
+ },
+ "request": "rec-F204-0071",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012521
+}

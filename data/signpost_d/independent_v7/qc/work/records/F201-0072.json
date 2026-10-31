@@ -1,0 +1,138 @@
+{
+ "id": "F201-0072",
+ "family": "F201",
+ "state": {
+  "register_header": {
+   "drug": "fentanyl",
+   "concentration_mg_ml": 0.05,
+   "schedule": 2,
+   "witness_required": true,
+   "opening_balance_ml": 100
+  },
+  "entries": [
+   {
+    "entry_id": 1,
+    "qty_ml": -10,
+    "running_balance_ml": 90,
+    "signed_by": "V3",
+    "witness_id": "V5",
+    "batch_no": "B7"
+   },
+   {
+    "entry_id": 2,
+    "qty_ml": -8,
+    "running_balance_ml": 78,
+    "signed_by": "V3",
+    "witness_id": null,
+    "batch_no": "B7"
+   },
+   {
+    "entry_id": 3,
+    "qty_ml": -5,
+    "running_balance_ml": 68,
+    "signed_by": "V4",
+    "witness_id": "V5",
+    "batch_no": "B7"
+   },
+   {
+    "entry_id": 4,
+    "qty_ml": -5,
+    "running_balance_ml": 63,
+    "signed_by": "V4",
+    "witness_id": "V5",
+    "batch_no": "B7"
+   }
+  ],
+  "disposals": [
+   {
+    "batch_no": "B7",
+    "qty_ml": 4,
+    "register_entry_id": 4,
+    "witness_id": "V5",
+    "denatured_date": "2024-05-20"
+   }
+  ],
+  "stock_check": {
+   "count_date": "2024-05-30",
+   "counted_ml": 58,
+   "batch_no": "B7",
+   "overfill_allowance_ml": 1
+  },
+  "exceptions": [
+   {
+    "exception_id": "X1",
+    "batch_no": "B2",
+    "qty_ml": 5,
+    "valid_to": "2024-02-01"
+   }
+  ]
+ },
+ "factors": {
+  "drug_profile": "fentanyl_50mcg_ml",
+  "arithmetic_slip_count": 0,
+  "unrecorded_admin": "none",
+  "clinical_records_missing": false,
+  "disposal_state": "witnessed_complete",
+  "unexplained_shortfall_pct": 4.5,
+  "variance_exception": "expired_or_other_batch",
+  "manufacturer_overfill": true,
+  "auth_gap_count": 1,
+  "count_out_of_order": false,
+  "unit_mismatch": false,
+  "locum_signatory": false,
+  "boundary_case": true
+ },
+ "factors_sampled": {
+  "drug_profile": "fentanyl_50mcg_ml",
+  "arithmetic_slip_count": 2,
+  "unrecorded_admin": "none",
+  "clinical_records_missing": false,
+  "disposal_state": "witnessed_complete",
+  "unexplained_shortfall_pct": 12.78,
+  "variance_exception": "expired_or_other_batch",
+  "manufacturer_overfill": true,
+  "auth_gap_count": 1,
+  "count_out_of_order": false,
+  "unit_mismatch": false,
+  "locum_signatory": false,
+  "boundary_case": false
+ },
+ "plan": {
+  "unexplained_shortfall": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "line_disposition": {
+   "clarity": "balanced",
+   "target": "sign_off",
+   "second": "hold_pending"
+  },
+  "variance_cause": {
+   "clarity": "leaning",
+   "target": "unexplained_loss",
+   "second": null
+  },
+  "variance_size": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  },
+  "auth_gaps": {
+   "clarity": "contested",
+   "target": "2",
+   "second": "1"
+  }
+ },
+ "target_words": 154,
+ "deciding": {
+  "unexplained_shortfall": "Count 58 vs balance 63 less 4 ml witnessed disposal is 1 ml short, which equals the overfill allowance; the exception is another batch.",
+  "line_disposition": "Near-reconciled, but entry 2 lacks a witness_id, so closing versus holding for that confirmation is open.",
+  "variance_cause": "No clinical or disposal match for the small gap, and the exception does not apply, so it points to loss.",
+  "variance_size": "Residual of about 1 ml on about 100 ml handled sits near the 2% anchor between trace and material.",
+  "auth_gaps": "Only entry 2 has witness_id null, but the disposal entry is also weakly evidenced, so one vs two gaps is arguable."
+ },
+ "request": "rec-F201-0071",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.005515
+}

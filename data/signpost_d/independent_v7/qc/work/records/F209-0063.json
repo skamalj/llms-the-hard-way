@@ -1,0 +1,128 @@
+{
+ "id": "F209-0063",
+ "family": "F209",
+ "state": {
+  "unit": {
+   "asset_id": "C0615",
+   "type": "co2",
+   "capacity_kg": 5,
+   "manufacture_date": "2010-05-02",
+   "full_weight_kg": 14.0
+  },
+  "visit": {
+   "visit_date": "2025-06-14",
+   "tech_cert_expiry": "2026-03-01",
+   "service_type": "basic_service",
+   "checks": {
+    "weight_kg": 13.8,
+    "seal_ok": true,
+    "hose_ok": false,
+    "discharge_done": false,
+    "hydro_test_done": false
+   }
+  },
+  "tag": {
+   "tag_asset_id": "C0651",
+   "tag_service_date": "2025-06-10",
+   "tag_next_due": "2025-06-13"
+  },
+  "history": [
+   {
+    "date": "2024-06-14",
+    "service_type": "basic_service",
+    "result": "pass"
+   },
+   {
+    "date": "2015-06-20",
+    "service_type": "overhaul",
+    "result": "pass"
+   }
+  ],
+  "register": {
+   "reg_type": "dry_powder",
+   "reg_capacity_kg": 6,
+   "zone_risk_class": "cooking_oil",
+   "exemption": {
+    "approved": true,
+    "expires": "2026-01-01"
+   }
+  },
+  "remedial": [
+   {
+    "action_code": "HOSE_REPL",
+    "raised": "2025-06-14",
+    "completed": "2025-06-14"
+   }
+  ]
+ },
+ "factors": {
+  "unit_type": "co2",
+  "unit_age_years": 15,
+  "service_level_gap": "under_performed",
+  "days_past_due": 0,
+  "deferral_approved": false,
+  "injected_mismatch_count": 4,
+  "physical_defect": "hose_damaged",
+  "defect_rectified_on_visit": true,
+  "type_location_mismatch": true,
+  "location_exemption_on_file": true,
+  "record_gap": "none",
+  "technician_cert_status": "valid",
+  "out_of_order_dates": false,
+  "borderline_case": false
+ },
+ "factors_sampled": {
+  "unit_type": "co2",
+  "unit_age_years": 15,
+  "service_level_gap": "under_performed",
+  "days_past_due": -48,
+  "deferral_approved": false,
+  "injected_mismatch_count": 1,
+  "physical_defect": "hose_damaged",
+  "defect_rectified_on_visit": true,
+  "type_location_mismatch": true,
+  "location_exemption_on_file": true,
+  "record_gap": "remedial_open",
+  "technician_cert_status": "expired_before_visit",
+  "out_of_order_dates": false,
+  "borderline_case": false
+ },
+ "plan": {
+  "left_compliant": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "accept_record",
+   "second": null
+  },
+  "service_level_due": {
+   "clarity": "contested",
+   "target": "interim_check",
+   "second": "overhaul"
+  },
+  "visit_lateness": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "mismatch_count": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  }
+ },
+ "target_words": 67,
+ "deciding": {
+  "left_compliant": "hose_ok is false but a hose replacement was raised and completed on the visit date; CO2 in a cooking-oil zone has an approved exemption, while only a basic service was done on a 15-year-old unit.",
+  "next_step": "Defect completed the same day, weight 13.8 is above 90% of 14.0, cert valid, exemption on file; filing is favoured despite tag discrepancies.",
+  "service_level_due": "Last overhaul 2015-06-20 falls due 2025-06-20, six days after the visit, so an interim check or the overhaul are both defensible; visit did only a basic service.",
+  "visit_lateness": "Last basic 2024-06-14 gives due 2025-06-14, equal to the visit date; tag_next_due 2025-06-13 would make it one day late.",
+  "mismatch_count": "Tag asset C0651 vs C0615, tag date 06-10 vs 06-14, reg_type dry_powder vs co2, reg capacity 6 vs 5: four disagreements."
+ },
+ "request": "rec-F209-0061",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.01628
+}

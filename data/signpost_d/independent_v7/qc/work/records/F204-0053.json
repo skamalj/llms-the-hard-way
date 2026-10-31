@@ -1,0 +1,126 @@
+{
+ "id": "F204-0053",
+ "family": "F204",
+ "state": {
+  "rx": {
+   "drug": "amoxicillin",
+   "form": "susp",
+   "strength": {
+    "val": 250,
+    "unit": "mg",
+    "per_ml": 5
+   },
+   "qty": 100
+  },
+  "patient": {
+   "supplies": [
+    {
+     "date": "2025-03-08",
+     "days_covered": 5
+    }
+   ],
+   "emergency_supplies": [
+    {
+     "date": "2025-03-12",
+     "days": 2
+    }
+   ],
+   "near_miss_count": 1
+  },
+  "dispensed": {
+   "product_name": "amoxicillin",
+   "form": "susp",
+   "strength": {
+    "val": 50,
+    "unit": "mg",
+    "per_ml": 1
+   },
+   "pack_size": 100,
+   "packs": 1
+  },
+  "check_log": {
+   "checked_at": "2025-03-13T10:00",
+   "clin_check": {
+    "by": "JT"
+   },
+   "queries": [
+    {
+     "field": "strength",
+     "status": "pending"
+    },
+    {
+     "field": "dose",
+     "status": "pending"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "strength_status": "match_converted_units",
+  "product_status": "exact",
+  "quantity_status": "exact",
+  "label_status": "correct",
+  "prescriber_query": "pending (two queries)",
+  "pharmacist_intervention": false,
+  "clinical_check_signed": true,
+  "home_supply_days": "2 (supply ending 03-13 plus 2 emergency days)",
+  "emergency_supply": true,
+  "short_expiry": false,
+  "prior_error_count": 1,
+  "high_risk_drug": false,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "strength_status": "match_converted_units",
+  "product_status": "exact",
+  "quantity_status": "exact",
+  "label_status": "correct",
+  "prescriber_query": "pending",
+  "pharmacist_intervention": true,
+  "clinical_check_signed": true,
+  "home_supply_days": 3,
+  "emergency_supply": true,
+  "short_expiry": false,
+  "prior_error_count": 1,
+  "high_risk_drug": false,
+  "boundary_case": false
+ },
+ "plan": {
+  "strength_differs": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "hold_query",
+   "second": null
+  },
+  "error_category": {
+   "clarity": "leaning",
+   "target": "none_found",
+   "second": null
+  },
+  "open_discrepancies": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  },
+  "supply_urgency": {
+   "clarity": "clear",
+   "target": "2",
+   "second": null
+  }
+ },
+ "target_words": 48,
+ "deciding": {
+  "strength_differs": "250 mg per 5 ml equals 50 mg per ml only after conversion of the per-volume basis; a pending strength query leaves slight doubt.",
+  "next_step": "Two pending queries (strength, dose) and a signed clinical check, so hold on the shelf.",
+  "error_category": "Product, quantity 100 of 100 and strength match once converted, so nothing is truly wrong; the pending queries cause the doubt.",
+  "open_discrepancies": "Two pending queries on strength and dose could be counted as two unresolved fields.",
+  "supply_urgency": "Supply 2025-03-08 plus 5 days ends 03-13, plus 2 emergency days gives 2 days left at the 03-13 check."
+ },
+ "request": "rec-F204-0051",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012064
+}

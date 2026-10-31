@@ -1,0 +1,161 @@
+{
+ "id": "F224-0056",
+ "family": "F224",
+ "state": {
+  "request": {
+   "views": [
+    "BW_R"
+   ],
+   "ind": "PA1",
+   "risk": "low",
+   "date": "2024-05-02",
+   "prior": "2023-02-01",
+   "exc": [
+    {
+     "code": "EARLY_RECALL",
+     "appr": "D17"
+    }
+   ],
+   "verbal_auth": [
+    {
+     "t": "10:04",
+     "view": "PA_16"
+    },
+    {
+     "t": "10:05",
+     "view": "PA_17"
+    }
+   ]
+  },
+  "exposures": [
+   {
+    "id": 1,
+    "view": "BW_R",
+    "t": "10:02",
+    "kV": 66,
+    "s": 0.2,
+    "mGy": 0.95,
+    "retake_of": null
+   },
+   {
+    "id": 2,
+    "view": "BW_R",
+    "t": "10:03",
+    "retake_of": 1
+   },
+   {
+    "id": 3,
+    "view": "PA_16",
+    "t": "10:06"
+   },
+   {
+    "id": 4,
+    "view": "PA_17",
+    "t": "10:07"
+   },
+   {
+    "id": 5,
+    "view": "PA_26",
+    "t": "10:09"
+   }
+  ],
+  "image_review": {
+   "grade": 2,
+   "faults": {
+    "1": [
+     "FC_BLUR"
+    ]
+   },
+   "sensor_errors": [],
+   "second_grader": "done"
+  },
+  "equipment": {
+   "last_qa": "2024-01-10",
+   "qa_months": 6,
+   "output_test": "pass",
+   "drl_ref": {
+    "BW_R": 1.0
+   },
+   "console_log": [
+    {
+     "t": "10:02",
+     "kV": 70,
+     "s": 0.28
+    }
+   ]
+  },
+  "operator": {
+   "id": "OP4",
+   "signoff_at": null,
+   "prior_findings_12m": 0
+  }
+ },
+ "factors": {
+  "indication_match": "partial_match",
+  "recall_interval_months": 15,
+  "dose_ratio_to_drl": "1.50 (verified from console settings)",
+  "console_log_discrepancy": "setting_mismatch",
+  "retake_cause": "patient_movement_ambiguous",
+  "equipment_qa_status": "in_date",
+  "approved_exception": true,
+  "patient_cooperation_flag": false,
+  "unrequested_exposure_count": 3,
+  "verbal_authorisation_logged": true,
+  "image_grade": "diagnostic",
+  "audit_completeness": "operator_signoff_missing",
+  "operator_prior_findings": 0
+ },
+ "factors_sampled": {
+  "indication_match": "partial_match",
+  "recall_interval_months": 15,
+  "dose_ratio_to_drl": 0.96,
+  "console_log_discrepancy": "timestamp_drift",
+  "retake_cause": "positioning",
+  "equipment_qa_status": "in_date",
+  "approved_exception": true,
+  "patient_cooperation_flag": false,
+  "unrequested_exposure_count": 3,
+  "verbal_authorisation_logged": true,
+  "image_grade": "diagnostic",
+  "audit_completeness": "operator_signoff_missing",
+  "operator_prior_findings": 0
+ },
+ "plan": {
+  "justified": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "operator_retake": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "follow_up": {
+   "clarity": "leaning",
+   "target": "operator_feedback",
+   "second": null
+  },
+  "dose_position": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "unjustified_count": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  }
+ },
+ "target_words": 40,
+ "deciding": {
+  "justified": "Low-risk recall allows 24 months but prior view was 15 months earlier and indication PA1 only partly fits a bitewing; the early-recall exception with approver is the doubt.",
+  "operator_retake": "Retake follows an FC_BLUR image with no sensor error and in-date QA, but no patient_flags field exists, so movement versus technique is ambiguous.",
+  "follow_up": "Unauthorised PA_26 and short recall point to a technique/justification error for feedback; missing sign-off and the exception add some doubt.",
+  "dose_position": "Listed 0.95 mGy against DRL 1.0, but console shows 70 kV/0.28 s versus 66 kV/0.2 s, implying about 1.50 times the reference, right on the level 2/3 boundary.",
+  "unjustified_count": "PA_16 and PA_17 are covered by earlier verbal auths for matching views; PA_26 has none, giving one unjustified, with some doubt from the short recall."
+ },
+ "request": "rec-F224-0056",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.015799
+}

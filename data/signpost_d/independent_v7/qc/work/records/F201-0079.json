@@ -1,0 +1,145 @@
+{
+ "id": "F201-0079",
+ "family": "F201",
+ "state": {
+  "register_header": {
+   "drug": "buprenorphine",
+   "concentration_mg_ml": 0.3,
+   "schedule": 3,
+   "witness_required": false,
+   "opening_balance_ml": 40
+  },
+  "entries": [
+   {
+    "id": 1,
+    "date": "2024-08-02",
+    "type": "receipt",
+    "qty_ml": 60,
+    "running_balance_ml": 100,
+    "signed_by": "S3",
+    "batch_no": "B2"
+   },
+   {
+    "id": 2,
+    "date": "2024-08-09",
+    "type": "use",
+    "qty_ml": 5,
+    "patient_id": "P1",
+    "running_balance_ml": 95,
+    "signed_by": null
+   },
+   {
+    "id": 3,
+    "date": "2024-08-16",
+    "type": "use",
+    "qty_ml": 4,
+    "patient_id": "P2",
+    "running_balance_ml": 91,
+    "signed_by": null,
+    "witness_id": null
+   },
+   {
+    "id": 4,
+    "date": "2024-08-23",
+    "type": "use",
+    "qty_ml": 3,
+    "patient_id": "P3",
+    "running_balance_ml": 88,
+    "signed_by": "S3"
+   }
+  ],
+  "clinical_records": [
+   {
+    "patient_id": "P1",
+    "dose": 5,
+    "dose_unit": "ml"
+   },
+   {
+    "patient_id": "P2",
+    "dose": 4,
+    "dose_unit": "ml"
+   },
+   {
+    "patient_id": "P3",
+    "dose": 3,
+    "dose_unit": "ml"
+   }
+  ],
+  "stock_check": {
+   "count_date": "2024-08-31",
+   "counted_ml": 76,
+   "overfill_allowance_ml": 0.3,
+   "batch_no": "B2"
+  },
+  "disposals": [],
+  "exceptions": []
+ },
+ "factors": {
+  "drug_profile": "buprenorphine_0.3mg_ml",
+  "arithmetic_slip_count": 0,
+  "unrecorded_admin": "none",
+  "clinical_records_missing": false,
+  "disposal_state": "none_needed",
+  "unexplained_shortfall_pct": 11.7,
+  "variance_exception": "none",
+  "manufacturer_overfill": true,
+  "auth_gap_count": 2,
+  "count_out_of_order": false,
+  "unit_mismatch": false,
+  "locum_signatory": false,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "drug_profile": "buprenorphine_0.3mg_ml",
+  "arithmetic_slip_count": 3,
+  "unrecorded_admin": "none",
+  "clinical_records_missing": false,
+  "disposal_state": "none_needed",
+  "unexplained_shortfall_pct": 11.73,
+  "variance_exception": "valid_full_cover",
+  "manufacturer_overfill": true,
+  "auth_gap_count": 3,
+  "count_out_of_order": false,
+  "unit_mismatch": false,
+  "locum_signatory": false,
+  "boundary_case": false
+ },
+ "plan": {
+  "unexplained_shortfall": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "line_disposition": {
+   "clarity": "balanced",
+   "target": "sign_off",
+   "second": "hold_pending"
+  },
+  "variance_cause": {
+   "clarity": "clear",
+   "target": "no_discrepancy",
+   "second": null
+  },
+  "variance_size": {
+   "clarity": "clear",
+   "target": "3",
+   "second": null
+  },
+  "auth_gaps": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  }
+ },
+ "target_words": 67,
+ "deciding": {
+  "unexplained_shortfall": "Balances are consistent, closing 88 ml vs counted 76 ml; clinical doses match entries, no disposals and no exceptions, so 12 ml (11.7 ml after 0.3 overfill) is unexplained.",
+  "line_disposition": "Missing signatures on entries 2 and 3 plus a large unexplained gap; the plan's sign_off/hold balance is not supported, as this data points to escalation.",
+  "variance_cause": "No clinical, disposal, exception or slip counterpart for the 12 ml gap, so it is unexplained_loss; the plan's no_discrepancy cannot be supported.",
+  "variance_size": "11.7 ml remaining over 100 ml handled (40 + 60) is 11.7%, above 10%.",
+  "auth_gaps": "signed_by null on entries 2 and 3 (two gaps); witness_id null there is irrelevant since witness_required is false."
+ },
+ "request": "rec-F201-0076",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.013576
+}

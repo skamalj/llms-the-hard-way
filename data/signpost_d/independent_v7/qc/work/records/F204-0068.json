@@ -1,0 +1,142 @@
+{
+ "id": "F204-0068",
+ "family": "F204",
+ "state": {
+  "rx": {
+   "drug": "levothyroxine",
+   "strength": {
+    "val": 100,
+    "unit": "mcg"
+   },
+   "form": "tab",
+   "dose": 1,
+   "freq_per_day": 1,
+   "qty": 56
+  },
+  "patient": {
+   "pt_id": "P7731",
+   "supplies": [
+    {
+     "date": "2024-02-01",
+     "days_covered": 28
+    }
+   ],
+   "emergency_supplies": [],
+   "near_miss_count": 1
+  },
+  "dispensed": {
+   "product_name": "Eltroxin",
+   "generic_name": "levothyroxine",
+   "form": "tab",
+   "strength": {
+    "val": 0.05,
+    "unit": "mg"
+   },
+   "packs": 1,
+   "pack_size": 28,
+   "owing": {
+    "qty": 28,
+    "slip_no": "OW318"
+   },
+   "req_warnings": [
+    "C"
+   ]
+  },
+  "label": {
+   "pt_id": "P7731",
+   "dose_qty": 2,
+   "freq_per_day": 1,
+   "warning_codes": [],
+   "qty_printed": 28
+  },
+  "check_log": {
+   "checked_at": "2024-03-12",
+   "queries": [
+    {
+     "field": "strength",
+     "status": "pending"
+    }
+   ],
+   "interventions": [
+    {
+     "code": "ADV2",
+     "field": "counselling",
+     "accepted": true,
+     "by": "RK"
+    }
+   ],
+   "clin_check": {
+    "by": "RK",
+    "at": "2024-03-12"
+   }
+  }
+ },
+ "factors": {
+  "strength_status": "mismatch_converted",
+  "product_status": "generic_brand_equivalent",
+  "quantity_status": "owing_documented",
+  "label_status": "dose and warnings wrong",
+  "prescriber_query": "pending",
+  "pharmacist_intervention": false,
+  "clinical_check_signed": true,
+  "home_supply_days": 0,
+  "emergency_supply": false,
+  "short_expiry": false,
+  "prior_error_count": 1,
+  "high_risk_drug": false,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "strength_status": "mismatch_converted",
+  "product_status": "generic_brand_equivalent",
+  "quantity_status": "owing_documented",
+  "label_status": "correct",
+  "prescriber_query": "confirmed",
+  "pharmacist_intervention": true,
+  "clinical_check_signed": true,
+  "home_supply_days": 12,
+  "emergency_supply": false,
+  "short_expiry": false,
+  "prior_error_count": 1,
+  "high_risk_drug": false,
+  "boundary_case": false
+ },
+ "plan": {
+  "strength_differs": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "balanced",
+   "target": "hold_query",
+   "second": "redispense"
+  },
+  "error_category": {
+   "clarity": "leaning",
+   "target": "product_error",
+   "second": null
+  },
+  "open_discrepancies": {
+   "clarity": "clear",
+   "target": "3",
+   "second": null
+  },
+  "supply_urgency": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  }
+ },
+ "target_words": 85,
+ "deciding": {
+  "strength_differs": "0.05 mg = 50 mcg against prescribed 100 mcg; the brand name is equivalent to the generic, but the strength is half.",
+  "next_step": "A pending strength query favours hold_query, but label faults and the wrong strength not settled by a query keep redispense defensible.",
+  "error_category": "Eltroxin 50 mcg was picked for a 100 mcg prescription, which is a wrong-strength product; this outranks the label faults.",
+  "open_discrepancies": "Three unresolved: strength 50 vs 100 mcg, label dose_qty 2 vs rx 1, and empty warning_codes vs req C; the owing slip covers quantity.",
+  "supply_urgency": "Supply of 2024-02-01 for 28 days ended 2024-02-29; checked 2024-03-12 with no emergency supplies, so none remains."
+ },
+ "request": "rec-F204-0066",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011247
+}

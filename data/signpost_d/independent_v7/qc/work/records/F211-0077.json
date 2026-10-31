@@ -1,0 +1,128 @@
+{
+ "id": "F211-0077",
+ "family": "F211",
+ "state": {
+  "vehicle": {
+   "odometer_km": 60405,
+   "service_due_km": 60000
+  },
+  "check": {
+   "shift_date": "2025-06-02",
+   "sections_required": [
+    "veh",
+    "clin",
+    "drug",
+    "cab"
+   ],
+   "sections_signed": [
+    "veh",
+    "cab"
+   ],
+   "signed_at": "06:10",
+   "crew_note": "Strap a bit frayed."
+  },
+  "defects": [
+   {
+    "item": "stretcher strap",
+    "status": "open",
+    "substitute_on_board": true,
+    "deferral": {
+     "valid_until": "2025-05-30"
+    }
+   }
+  ],
+  "stock": {
+   "lines": [
+    {
+     "item": "adrenaline",
+     "expiry": "2025-06-11"
+    }
+   ]
+  },
+  "activity": {
+   "prior_checks": [
+    {
+     "defects": [
+      "stretcher strap"
+     ]
+    },
+    {
+     "defects": [
+      "stretcher strap"
+     ]
+    },
+    {
+     "defects": [
+      "stretcher strap"
+     ]
+    }
+   ]
+  }
+ },
+ "factors": {
+  "checklist_completion": "half_or_more_signed",
+  "worst_defect_tier": "noncritical_equipment",
+  "defect_area": "vehicle_systems",
+  "deferral_authorised": true,
+  "deferral_invalid": true,
+  "workshop_return_recent": false,
+  "earliest_drug_expiry_days": 9,
+  "restock_in_progress": false,
+  "service_margin_km": -405,
+  "crew_note_tone": "understated_real",
+  "signed_after_mobilisation": false,
+  "repeat_defect_count": 3
+ },
+ "factors_sampled": {
+  "checklist_completion": "half_or_more_signed",
+  "worst_defect_tier": "noncritical_equipment",
+  "defect_area": "stock_and_drugs",
+  "deferral_authorised": true,
+  "deferral_invalid": true,
+  "workshop_return_recent": false,
+  "earliest_drug_expiry_days": 9,
+  "restock_in_progress": false,
+  "service_margin_km": -405,
+  "crew_note_tone": "understated_real",
+  "signed_after_mobilisation": false,
+  "repeat_defect_count": 3
+ },
+ "plan": {
+  "defects_controlled": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "readiness_status": {
+   "clarity": "clear",
+   "target": "release",
+   "second": null
+  },
+  "limiting_area": {
+   "clarity": "contested",
+   "target": "stock_and_drugs",
+   "second": "vehicle_systems"
+  },
+  "check_completeness": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  },
+  "defect_severity": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  }
+ },
+ "target_words": 31,
+ "deciding": {
+  "defects_controlled": "Only a non-critical strap is open, so no critical defect is unresolved; the deferral valid_until 2025-05-30 has lapsed before the shift date, which keeps doubt.",
+  "readiness_status": "Plan sets release: the only defect is a strap with a substitute carried, adrenaline expiry 9 days away is in date.",
+  "limiting_area": "Odometer 60405 is past service_due_km 60000 (vehicle systems) while adrenaline expires in 9 days (stock); neither clearly dominates.",
+  "check_completeness": "Two of four sections signed, exactly half, with signed_at present and no countersignature: level 1 by threshold but near level 0.",
+  "defect_severity": "Stretcher strap open with substitute_on_board true and a lapsed deferral: non-critical (level 2), though the substitute wording could read as level 3."
+ },
+ "request": "rec-F211-0076",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.008318
+}

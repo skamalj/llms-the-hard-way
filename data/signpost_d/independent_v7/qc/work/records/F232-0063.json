@@ -1,0 +1,169 @@
+{
+ "id": "F232-0063",
+ "family": "F232",
+ "state": {
+  "night_header": {
+   "date": "2025-06-04",
+   "allocated_hours": 6,
+   "eng_window": [
+    "2025-06-05T00:30Z",
+    "2025-06-05T02:45Z"
+   ]
+  },
+  "conditions": {
+   "limits": {
+    "humidity_pct": 85,
+    "wind_kmh": 45,
+    "cloud_okta": 4
+   },
+   "closures": [
+    {
+     "start": "2025-06-05T00:35Z",
+     "end": "2025-06-05T02:45Z",
+     "reason": "weather"
+    }
+   ],
+   "hourly": [
+    {
+     "h": 1,
+     "humidity_pct": 52,
+     "wind_kmh": 14,
+     "cloud_okta": 0
+    },
+    {
+     "h": 2,
+     "humidity_pct": 50,
+     "wind_kmh": 12,
+     "cloud_okta": 0
+    }
+   ]
+  },
+  "exposures": [
+   {
+    "id": "x1",
+    "tgt": "T1",
+    "start_utc": "2025-06-05T03:10Z",
+    "exptime_s": 600,
+    "filter": "r",
+    "seeing_arcsec": 1.0,
+    "qa": "pass"
+   },
+   {
+    "id": "x2",
+    "tgt": "T1",
+    "start_utc": "2025-06-05T03:21Z",
+    "exptime_s": 590,
+    "filter": "r",
+    "seeing_arcsec": 1.1,
+    "qa": null
+   },
+   {
+    "id": "x3",
+    "tgt": "T2",
+    "start_utc": "2025-06-05T03:32Z",
+    "exptime_s": 300,
+    "filter": "g",
+    "seeing_arcsec": 1.1,
+    "qa": null
+   }
+  ],
+  "programme_request": {
+   "max_seeing_arcsec": 1.5,
+   "targets": [
+    {
+     "id": "T1",
+     "filter": "r",
+     "total_s": 1200
+    },
+    {
+     "id": "T2",
+     "filter": "g",
+     "total_s": 1800
+    }
+   ]
+  },
+  "faults": [
+   {
+    "subsystem": "dome_drive",
+    "start_utc": "2025-06-05T00:34Z",
+    "end_utc": "2025-06-05T02:40Z",
+    "cleared": true,
+    "retest_utc": null,
+    "workaround": null,
+    "ticket_ref": "D-518"
+   }
+  ],
+  "notes": {
+   "observer_note": "T1 complete.",
+   "night_assistant_note": "Loud grinding from dome drive around 01:10, eng window test."
+  }
+ },
+ "factors": {
+  "weather_loss_hours": 2.17,
+  "fault_overlap": "none",
+  "fault_resolution_state": "cleared_no_retest",
+  "maintenance_window": true,
+  "closure_reason_mismatch": "coincides_with_fault",
+  "note_claim_discrepancy": "short_small",
+  "seeing_vs_limit": "well_within",
+  "seeing_exception_approved": false,
+  "usable_fraction": 0.03,
+  "qa_pending_count": 2,
+  "utc_date_rollover": true,
+  "assistant_note_tone": "alarmed_benign",
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "weather_loss_hours": 2.17,
+  "fault_overlap": "none",
+  "fault_resolution_state": "cleared_no_retest",
+  "maintenance_window": true,
+  "closure_reason_mismatch": "coincides_with_fault",
+  "note_claim_discrepancy": "short_small",
+  "seeing_vs_limit": "well_within",
+  "seeing_exception_approved": false,
+  "usable_fraction": 0.37,
+  "qa_pending_count": 2,
+  "utc_date_rollover": true,
+  "assistant_note_tone": "alarmed_benign",
+  "boundary_case": false
+ },
+ "plan": {
+  "weather_only_loss": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "claims_supported": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "night_disposition": {
+   "clarity": "leaning",
+   "target": "charge_full",
+   "second": null
+  },
+  "usable_share": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  },
+  "fault_followup": {
+   "clarity": "leaning",
+   "target": "0",
+   "second": null
+  }
+ },
+ "target_words": 76,
+ "deciding": {
+  "weather_only_loss": "The 'weather' closure (00:35-02:45) has station values far below limits (humidity 52, wind 14, cloud 0). A dome_drive fault starts at 00:34, one minute earlier. The loss is an engineering test, not weather.",
+  "claims_supported": "T1 claimed complete. r frames total 1190 s against 1200 s requested, a small rounding-level shortfall, and the required filter is present.",
+  "night_disposition": "The lost interval is exactly the engineering window (00:30-02:45), which is not programme time. No weather or technical programme loss is evident, so charge_full leans, with doubt from the two pending QA frames.",
+  "usable_share": "Only x1 (600 s) passes QA, about 3% of 21600 s. Two frames have qa null. That leaves level 1 leading, with level 0 plausible.",
+  "fault_followup": "The dome_drive fault lies entirely within eng_window, so it is a maintenance test and not science-affecting. It is cleared, with retest_utc null, so level 0 leans with some doubt."
+ },
+ "request": "rec-F232-0061",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.022885
+}

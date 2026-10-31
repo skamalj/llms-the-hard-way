@@ -1,0 +1,149 @@
+{
+ "id": "F232-0068",
+ "family": "F232",
+ "state": {
+  "night_header": {
+   "date": "2025-07-22",
+   "prog": "P19",
+   "alloc_h": 8,
+   "eng_window": null
+  },
+  "conditions": {
+   "limits": {
+    "hum": 90,
+    "wind": 60,
+    "cloud": 4
+   },
+   "closures": [
+    {
+     "s": "2025-07-22T05:00",
+     "e": "2025-07-22T06:29",
+     "reason": "weather",
+     "hum": 93,
+     "wind": 40,
+     "cloud": 7
+    }
+   ]
+  },
+  "exposures": [
+   {
+    "t": "T1",
+    "f": "r",
+    "exp_s": 300,
+    "n": 40,
+    "see": 1.2,
+    "qa": "pass"
+   },
+   {
+    "t": "T1",
+    "f": "g",
+    "exp_s": 300,
+    "n": 30,
+    "see": 1.38,
+    "qa": "pass"
+   },
+   {
+    "t": "T2",
+    "f": "r",
+    "exp_s": 300,
+    "n": 7,
+    "see": 1.3,
+    "qa": "pass"
+   }
+  ],
+  "programme_request": {
+   "T1": {
+    "r": 12000,
+    "g": 9000
+   },
+   "T2": {
+    "r": 3600
+   },
+   "max_see": 1.4,
+   "exception": null
+  },
+  "faults": [
+   {
+    "sub": "guider",
+    "start": "2025-07-22T02:10",
+    "end": null,
+    "cleared": false,
+    "retest": null,
+    "workaround": "manual offset guiding",
+    "ticket": "TK-540"
+   }
+  ],
+  "notes": {
+   "obs": "T1 and T2 complete.",
+   "na": "Guider camera swapped at 03:00, looks fine since."
+  }
+ },
+ "factors": {
+  "weather_loss_hours": 1.48,
+  "fault_overlap": "none",
+  "fault_resolution_state": "open_workaround",
+  "maintenance_window": false,
+  "closure_reason_mismatch": "none",
+  "note_claim_discrepancy": "short_large",
+  "seeing_vs_limit": "near_boundary",
+  "seeing_exception_approved": false,
+  "usable_fraction": 0.8,
+  "qa_pending_count": 0,
+  "utc_date_rollover": false,
+  "assistant_note_tone": "neutral",
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "weather_loss_hours": 1.48,
+  "fault_overlap": "minor_overlap",
+  "fault_resolution_state": "no_fault",
+  "maintenance_window": true,
+  "closure_reason_mismatch": "none",
+  "note_claim_discrepancy": "short_large",
+  "seeing_vs_limit": "near_boundary",
+  "seeing_exception_approved": false,
+  "usable_fraction": 0.64,
+  "qa_pending_count": 3,
+  "utc_date_rollover": false,
+  "assistant_note_tone": "neutral",
+  "boundary_case": false
+ },
+ "plan": {
+  "weather_only_loss": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "claims_supported": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "night_disposition": {
+   "clarity": "clear",
+   "target": "requeue_targets",
+   "second": null
+  },
+  "usable_share": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "fault_followup": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  }
+ },
+ "target_words": 31,
+ "deciding": {
+  "weather_only_loss": "The only lost interval is the 89-minute weather closure with humidity and cloud above limits; the guider fault fell while exposures continued, so no lost time overlaps it.",
+  "claims_supported": "Observer claims T2 complete but T2 r has 2100 s against 3600 s requested, a clear shortfall; T1 is met. Doubt remains only because the shortfall is on one target.",
+  "night_disposition": "T2 r is incomplete and needs a repeat; loss was weather only and nothing is pending.",
+  "usable_share": "Passing frames total 23100 s against 28800 s allocated, 80.2%, right at the boundary between Substantial and Full; the T1 g seeing of 1.38 is just under the 1.4 limit.",
+  "fault_followup": "Guider fault has cleared:false and end null with a manual guiding workaround and no retest, but the night-assistant note says the camera was swapped at 03:00 and looks fine, so a cleared-no-retest reading is plausible."
+ },
+ "request": "rec-F232-0066",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.017748
+}

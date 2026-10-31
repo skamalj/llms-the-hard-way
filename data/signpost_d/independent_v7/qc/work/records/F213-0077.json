@@ -1,0 +1,148 @@
+{
+ "id": "F213-0077",
+ "family": "F213",
+ "state": {
+  "pool": {
+   "type": "leisure",
+   "test_interval_min": 60,
+   "opening": {
+    "open": "2025-07-02T09:00",
+    "close": "2025-07-02T12:30"
+   },
+   "limits": {
+    "free_cl_min": 1.0,
+    "free_cl_max": 3.0,
+    "ph_min": 7.2,
+    "ph_max": 7.8
+   },
+   "tolerance": {
+    "free_cl": 0.3,
+    "ph": 0.2
+   },
+   "micro_due": "2025-07-20"
+  },
+  "manual_tests": [
+   {
+    "time": "2025-07-02T09:00",
+    "free_cl": 1.8,
+    "ph": 7.5,
+    "kit_id": "K3"
+   },
+   {
+    "time": "2025-07-02T10:20",
+    "free_cl": 1.7,
+    "ph": 7.8,
+    "kit_id": "K3"
+   },
+   {
+    "time": "2025-07-02T11:20",
+    "free_cl": 1.7,
+    "ph": 7.4,
+    "kit_id": "K3"
+   }
+  ],
+  "plant": {
+   "controller_readings": [
+    {
+     "time": "2025-07-02T10:20",
+     "free_cl": 1.7,
+     "ph": 7.55
+    }
+   ],
+   "dosing_events": [
+    {
+     "time": "2025-07-02T10:35",
+     "type": "acid"
+    }
+   ],
+   "backwash": [
+    "2025-07-02T11:45"
+   ]
+  },
+  "equipment": {
+   "kits": [
+    {
+     "kit_id": "K3",
+     "cal_due": "2025-07-02"
+    }
+   ]
+  },
+  "actions": [
+   {
+    "time": "2025-07-02T10:35",
+    "action_type": "acid_dose",
+    "reading_ref": "2025-07-02T10:20",
+    "retest_time": "2025-07-02T11:20"
+   }
+  ],
+  "lab_sample": null
+ },
+ "factors": {
+  "pool_type": "leisure",
+  "test_coverage_gap": 1,
+  "boundary_interval": false,
+  "log_controller_discrepancy": "at_tolerance_edge",
+  "discrepancy_location": "ph",
+  "excursion_severity": "at_limit",
+  "corrective_action_delay": "prompt",
+  "retest_logged": true,
+  "dosing_event_explains": true,
+  "kit_calibration_status": "expires_on_day",
+  "lab_sample_state": "not_due",
+  "out_of_order_entry": false,
+  "benign_noise": "backwash"
+ },
+ "factors_sampled": {
+  "pool_type": "leisure",
+  "test_coverage_gap": 3,
+  "boundary_interval": false,
+  "log_controller_discrepancy": "none",
+  "discrepancy_location": "ph",
+  "excursion_severity": "marginal",
+  "corrective_action_delay": "delayed",
+  "retest_logged": true,
+  "dosing_event_explains": true,
+  "kit_calibration_status": "expires_on_day",
+  "lab_sample_state": "not_due",
+  "out_of_order_entry": false,
+  "benign_noise": "backwash"
+ },
+ "plan": {
+  "test_frequency_met": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "readings_reconcile": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "log_disposition": {
+   "clarity": "balanced",
+   "target": "accept",
+   "second": "accept_with_query"
+  },
+  "action_delay": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "failed_checks": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  }
+ },
+ "target_words": 64,
+ "deciding": {
+  "test_frequency_met": "Gap from 09:00 to 10:20 is 80 min against a 60 min interval; one clear gap.",
+  "readings_reconcile": "Manual ph 7.8 against controller 7.55 at 10:20 is a difference of 0.25, just over the 0.2 tolerance; free_cl matches.",
+  "log_disposition": "Water is back within limits after the retest, and the kit expires on the log date and the 80 min gap are minor, so accept versus query is close.",
+  "action_delay": "ph 7.8 equals ph_max, so it is arguably not outside the limit, and the action logged at 10:35 came 15 min after the 10:20 reading.",
+  "failed_checks": "Gap, ph mismatch and kit due on the log date count against it, with the at-limit ph a possible fourth; some doubt remains."
+ },
+ "request": "rec-F213-0076",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.013285
+}

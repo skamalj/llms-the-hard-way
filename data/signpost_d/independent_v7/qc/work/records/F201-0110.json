@@ -1,0 +1,118 @@
+{
+ "id": "F201-0110",
+ "family": "F201",
+ "state": {
+  "register_header": {
+   "drug": "midazolam",
+   "concentration_mg_ml": 5,
+   "schedule": 3,
+   "witness_required": false,
+   "opening_balance_ml": 20
+  },
+  "entries": [
+   {
+    "entry_id": "E1",
+    "type": "admin",
+    "qty_ml": 2,
+    "running_balance_ml": 18,
+    "signed_by": null
+   },
+   {
+    "entry_id": "E2",
+    "type": "admin",
+    "qty_ml": 3,
+    "running_balance_ml": 15,
+    "signed_by": null
+   },
+   {
+    "entry_id": "E3",
+    "type": "admin",
+    "qty_ml": 2,
+    "running_balance_ml": 13,
+    "signed_by": "S4"
+   }
+  ],
+  "stock_check": {
+   "count_date": "2024-08-31",
+   "counted_ml": 11.9,
+   "batch_no": "B9"
+  },
+  "exceptions": [
+   {
+    "batch_no": "B9",
+    "qty_ml": 1.0,
+    "approved_by": "D1",
+    "valid_from": "2024-08-01",
+    "valid_to": "2024-08-31"
+   }
+  ]
+ },
+ "factors": {
+  "drug_profile": "midazolam_5mg_ml",
+  "arithmetic_slip_count": 0,
+  "unrecorded_admin": "none",
+  "clinical_records_missing": false,
+  "disposal_state": "none_needed",
+  "unexplained_shortfall_pct": 0.5,
+  "variance_exception": "valid_full_cover",
+  "manufacturer_overfill": false,
+  "auth_gap_count": 2,
+  "count_out_of_order": false,
+  "unit_mismatch": false,
+  "locum_signatory": false,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "drug_profile": "midazolam_5mg_ml",
+  "arithmetic_slip_count": 0,
+  "unrecorded_admin": "large_over_10pct",
+  "clinical_records_missing": true,
+  "disposal_state": "none_needed",
+  "unexplained_shortfall_pct": 2.17,
+  "variance_exception": "valid_full_cover",
+  "manufacturer_overfill": false,
+  "auth_gap_count": 3,
+  "count_out_of_order": false,
+  "unit_mismatch": true,
+  "locum_signatory": false,
+  "boundary_case": false
+ },
+ "plan": {
+  "unexplained_shortfall": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "line_disposition": {
+   "clarity": "clear",
+   "target": "sign_off",
+   "second": null
+  },
+  "variance_cause": {
+   "clarity": "clear",
+   "target": "no_discrepancy",
+   "second": null
+  },
+  "variance_size": {
+   "clarity": "contested",
+   "target": "0",
+   "second": "1"
+  },
+  "auth_gaps": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  }
+ },
+ "target_words": 49,
+ "deciding": {
+  "unexplained_shortfall": "Recomputed closing is 13 and the count is 11.9, a 1.1 ml gap. Exception B9 covers 1.0 ml, leaving 0.1 ml with no counterpart, which is a weak but real unexplained residual.",
+  "line_disposition": "The running balances are arithmetically consistent and the exception covers essentially the whole gap. The only gaps are two unsigned entries, and these are minor.",
+  "variance_cause": "After exception B9 the count agrees with the register to within 0.1 ml, and there are no slips and no disposals. This is effectively a matched count.",
+  "variance_size": "The residual is 0.1 ml on 20 ml handled, which is 0.5%. It is at the edge of nil versus trace.",
+  "auth_gaps": "signed_by is null on E1 and E2, which makes two gaps. witness is not required."
+ },
+ "request": "rec-F201-0106",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.018274
+}

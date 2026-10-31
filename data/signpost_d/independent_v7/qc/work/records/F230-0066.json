@@ -1,0 +1,133 @@
+{
+ "id": "F230-0066",
+ "family": "F230",
+ "state": {
+  "prescriptions": [
+   {
+    "item_id": "A1",
+    "drug": "ramipril",
+    "strength_mg": 5,
+    "dose_units": 2,
+    "time_critical": false,
+    "changes": [
+     {
+      "effective": "2025-03-11",
+      "new_dose_units": 1,
+      "order_ref": "GP-2291",
+      "authorised_by_role": "GP"
+     }
+    ]
+   },
+   {
+    "item_id": "A2",
+    "drug": "senna",
+    "strength_mg": 7.5,
+    "dose_units": 1,
+    "time_critical": false,
+    "changes": []
+   }
+  ],
+  "administrations": [
+   {
+    "item_id": "A1",
+    "scheduled": "2025-03-11T08:00",
+    "given_at": "2025-03-11T08:10",
+    "units_given": 1,
+    "strength_mg_used": 5,
+    "initials": "JM"
+   },
+   {
+    "item_id": "A2",
+    "scheduled": "2025-03-11T08:00",
+    "given_at": "2025-03-11T08:15",
+    "units_given": 1,
+    "strength_mg_used": 7.5,
+    "initials": null
+   }
+  ],
+  "stock": [
+   {
+    "item_id": "A1",
+    "opening": 28,
+    "received": 0,
+    "wasted": 0,
+    "returned": 0,
+    "closing": 25
+   }
+  ],
+  "round": {
+   "date": "2025-03-11",
+   "open_queries": []
+  }
+ },
+ "factors": {
+  "dose_mismatch_type": "change_effective_same_day",
+  "prescription_change_documented": true,
+  "omission_count": 0,
+  "omission_reason_valid": false,
+  "late_minutes": 10,
+  "time_critical_affected": false,
+  "stock_variance": -2,
+  "stock_variance_explained": false,
+  "signature_gaps": 1,
+  "unit_expression_decoy": "none_present",
+  "post_dose_obs_reassuring": true,
+  "pending_query": "none",
+  "prior_errors_30d": 1,
+  "item_count": 2
+ },
+ "factors_sampled": {
+  "dose_mismatch_type": "wrong_strength",
+  "prescription_change_documented": true,
+  "omission_count": 0,
+  "omission_reason_valid": false,
+  "late_minutes": 138,
+  "time_critical_affected": true,
+  "stock_variance": -2,
+  "stock_variance_explained": false,
+  "signature_gaps": 1,
+  "unit_expression_decoy": "equivalent_split",
+  "post_dose_obs_reassuring": true,
+  "pending_query": "none",
+  "prior_errors_30d": 1,
+  "item_count": 5
+ },
+ "plan": {
+  "dose_mismatch": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "stock_reconciles": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "balanced",
+   "target": "sign_off",
+   "second": "correct_and_close"
+  },
+  "open_discrepancies": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "error_severity": {
+   "clarity": "contested",
+   "target": "1",
+   "second": "0"
+  }
+ },
+ "target_words": 62,
+ "deciding": {
+  "dose_mismatch": "A1 dose_units 2 on the item but 1 unit given; the change to 1 unit is effective on the round date with an order_ref, so the prescription in force is arguable.",
+  "stock_reconciles": "A1 opening 28, one unit signed, expected 27, closing 25, no waste or return recorded.",
+  "next_step": "The dose matches the documented change, so the only fault is a null initials on A2 and a stock gap: sign_off versus correct_and_close is balanced.",
+  "open_discrepancies": "Either none remain once the change is accepted or one remains (the A1 stock gap); no queries are open.",
+  "error_severity": "A2 initials are null although it was given on time, a documentation gap only; whether that counts as an error is the split between level 1 and 0."
+ },
+ "request": "rec-F230-0066",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.014518
+}

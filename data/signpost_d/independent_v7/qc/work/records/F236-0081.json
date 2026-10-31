@@ -1,0 +1,142 @@
+{
+ "id": "F236-0081",
+ "family": "F236",
+ "state": {
+  "changeover": {
+   "line": "L2",
+   "from_allergens": [
+    "wheat",
+    "milk"
+   ],
+   "to_allergens": [
+    "wheat"
+   ],
+   "to_code": "B14"
+  },
+  "cleaning": {
+   "steps": [
+    {
+     "id": 1,
+     "completed": true,
+     "spec_min": 20,
+     "actual_min": 20
+    }
+   ]
+  },
+  "verification": {
+   "swabs": [
+    {
+     "id": "S1",
+     "ppm": 12,
+     "limit_ppm": 10,
+     "t": "05:40"
+    },
+    {
+     "id": "S2",
+     "retest_of": "S1",
+     "ppm": 4,
+     "limit_ppm": 10,
+     "t": "05:59"
+    }
+   ]
+  },
+  "production": {
+   "line": "L2",
+   "product_code": "B14",
+   "start_at": "06:00",
+   "qty": 38.4,
+   "unit": "kg",
+   "packaging_allergens": [
+    "soya"
+   ]
+  },
+  "approvals": {
+   "qa_signoff": {
+    "signed_at": "05:59"
+   }
+  },
+  "history": [
+   {
+    "ok": false
+   },
+   {
+    "ok": true
+   },
+   {
+    "ok": false
+   },
+   {
+    "ok": false
+   },
+   {
+    "ok": true
+   }
+  ]
+ },
+ "factors": {
+  "allergen_transition": "removes_allergen",
+  "cleaning_completion": "full",
+  "swab_outcome": "over_limit_retest_passed",
+  "swab_timing_mismatch": false,
+  "cross_section_discrepancy": "label_allergen_mismatch",
+  "exposed_quantity_kg": 38.4,
+  "approved_deviation": false,
+  "label_precaution": false,
+  "dedicated_tooling": false,
+  "qa_signoff_state": "signed_before_start",
+  "line_failure_history": 3,
+  "boundary_value": false
+ },
+ "factors_sampled": {
+  "allergen_transition": "removes_allergen",
+  "cleaning_completion": "duration_short",
+  "swab_outcome": "trace_below_limit",
+  "swab_timing_mismatch": false,
+  "cross_section_discrepancy": "label_allergen_mismatch",
+  "exposed_quantity_kg": 243.56,
+  "approved_deviation": false,
+  "label_precaution": false,
+  "dedicated_tooling": false,
+  "qa_signoff_state": "signed_before_start",
+  "line_failure_history": 3,
+  "boundary_value": false
+ },
+ "plan": {
+  "swabs_cleared": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "line_disposition": {
+   "clarity": "clear",
+   "target": "reclean_quarantine",
+   "second": null
+  },
+  "worst_deficiency": {
+   "clarity": "clear",
+   "target": "records_only",
+   "second": null
+  },
+  "exposed_product": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "residue_evidence": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  }
+ },
+ "target_words": 55,
+ "deciding": {
+  "swabs_cleared": "S1 over limit, retest S2 4 ppm at 05:59, one minute before 06:00 start; passed but only just.",
+  "line_disposition": "Packaging lists only soya while to_allergens is wheat, so the packed batch is mislabelled and needs reclean/quarantine.",
+  "worst_deficiency": "Cleaning is full and swabs cleared; the only fault is the label allergen mismatch, which is paperwork.",
+  "exposed_product": "Retest passed 1 minute before start on a 38.4 kg batch; the earlier failure leaves doubt whether it counts as 0 or under 50 kg.",
+  "residue_evidence": "S1 12 ppm over the 10 limit, retest S2 4 ppm passed."
+ },
+ "request": "rec-F236-0081",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011612
+}

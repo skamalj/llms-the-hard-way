@@ -1,0 +1,134 @@
+{
+ "id": "F236-0057",
+ "family": "F236",
+ "state": {
+  "changeover": {
+   "line": "L1",
+   "from_allergens": [
+    "milk"
+   ],
+   "to_allergens": []
+  },
+  "cleaning": {
+   "steps": [
+    {
+     "s": "wash",
+     "completed": true,
+     "spec_min": 40,
+     "actual_min": 42
+    }
+   ]
+  },
+  "verification": {
+   "swabs": [
+    {
+     "id": "S1",
+     "loc": "lid",
+     "target": "milk",
+     "reading": 14,
+     "limit_ppm": 10,
+     "at": "2024-06-11T05:40"
+    },
+    {
+     "id": "S2",
+     "loc": "lid",
+     "retest_of": "S1",
+     "reading": 12,
+     "limit_ppm": 10,
+     "at": "2024-06-11T06:05"
+    },
+    {
+     "id": "S3",
+     "loc": "belt",
+     "target": "milk",
+     "reading": 0,
+     "limit_ppm": 10,
+     "at": "2024-06-11T06:10"
+    }
+   ]
+  },
+  "production": {
+   "start_at": "2024-06-11T06:30",
+   "qty": 500,
+   "unit": "kg"
+  },
+  "approvals": {
+   "qa_signoff": {
+    "signed_at": "2024-06-11T06:20"
+   },
+   "deviations": [
+    {
+     "id": "D7",
+     "scope": "S1 lid swab waived",
+     "approved_at": "2024-06-11T06:15"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "allergen_transition": "removes_allergen",
+  "cleaning_completion": "full",
+  "swab_outcome": "positive_retest_fail",
+  "swab_timing_mismatch": false,
+  "cross_section_discrepancy": "none",
+  "exposed_quantity_kg": 500.0,
+  "approved_deviation": true,
+  "label_precaution": false,
+  "dedicated_tooling": false,
+  "qa_signoff_state": "signed_before_start",
+  "line_failure_history": "not recorded",
+  "boundary_value": true
+ },
+ "factors_sampled": {
+  "allergen_transition": "removes_allergen",
+  "cleaning_completion": "full",
+  "swab_outcome": "positive_retest_fail",
+  "swab_timing_mismatch": false,
+  "cross_section_discrepancy": "none",
+  "exposed_quantity_kg": 429.74,
+  "approved_deviation": true,
+  "label_precaution": true,
+  "dedicated_tooling": false,
+  "qa_signoff_state": "signed_before_start",
+  "line_failure_history": 4,
+  "boundary_value": true
+ },
+ "plan": {
+  "swabs_cleared": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "line_disposition": {
+   "clarity": "clear",
+   "target": "release",
+   "second": null
+  },
+  "worst_deficiency": {
+   "clarity": "clear",
+   "target": "none",
+   "second": null
+  },
+  "exposed_product": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  },
+  "residue_evidence": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  }
+ },
+ "target_words": 38,
+ "deciding": {
+  "swabs_cleared": "Deviation D7 waives the S1 lid swab, approved 06:15 before the 06:30 start. The remaining required swab S3 passed at 06:10.",
+  "line_disposition": "The failed lid swab is covered by an approved deviation and QA signed at 06:20, before start, so nothing further is needed.",
+  "worst_deficiency": "Cleaning is complete, the failed swab is covered by approved deviation D7, sign-off precedes start and identifiers are intact.",
+  "exposed_product": "Batch qty is exactly 500 kg, the boundary between levels 2 and 3.",
+  "residue_evidence": "S1 reads 14 ppm and the S2 retest reads 12 ppm against a 10 ppm limit. The retest failed, though the deviation adds some doubt."
+ },
+ "request": "rec-F236-0056",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.01392
+}

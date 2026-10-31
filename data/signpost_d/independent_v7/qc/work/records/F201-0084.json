@@ -1,0 +1,140 @@
+{
+ "id": "F201-0084",
+ "family": "F201",
+ "state": {
+  "register_header": {
+   "drug": "buprenorphine",
+   "concentration_mg_ml": 0.3,
+   "schedule": 3,
+   "witness_required": false,
+   "opening_balance_ml": 6
+  },
+  "entries": [
+   {
+    "entry_id": "E1",
+    "date": "2024-05-02",
+    "type": "receipt",
+    "qty_ml": 4,
+    "running_balance_ml": 10,
+    "signed_by": "S1",
+    "witness_id": null
+   },
+   {
+    "entry_id": "E2",
+    "date": "2024-05-08",
+    "type": "use",
+    "qty_ml": 2,
+    "patient_id": "P41",
+    "running_balance_ml": 8,
+    "signed_by": "S1"
+   },
+   {
+    "entry_id": "E3",
+    "date": "2024-05-15",
+    "type": "use",
+    "qty_ml": 1,
+    "patient_id": "P42",
+    "running_balance_ml": 7,
+    "signed_by": "S1"
+   }
+  ],
+  "clinical_records": [
+   {
+    "patient_id": "P41",
+    "date": "2024-05-08",
+    "dose": 2,
+    "dose_unit": "ml"
+   },
+   {
+    "patient_id": "P42",
+    "date": "2024-05-15",
+    "dose": 1,
+    "dose_unit": "ml"
+   }
+  ],
+  "stock_check": {
+   "count_date": "2024-05-31",
+   "counted_ml": 6.82,
+   "overfill_allowance_ml": 0.02
+  },
+  "disposals": [
+   {
+    "batch_no": "B5",
+    "qty_ml": 0.2,
+    "reason_code": "RESID",
+    "removed_date": "2024-05-20",
+    "register_entry_id": null,
+    "witness_id": "W2",
+    "denatured_date": "2024-05-20"
+   }
+  ]
+ },
+ "factors": {
+  "drug_profile": "buprenorphine_0.3mg_ml",
+  "arithmetic_slip_count": 0,
+  "unrecorded_admin": "none",
+  "clinical_records_missing": false,
+  "disposal_state": "removed_unlogged",
+  "unexplained_shortfall_pct": 0.0,
+  "variance_exception": "none",
+  "manufacturer_overfill": true,
+  "auth_gap_count": 0,
+  "count_out_of_order": false,
+  "unit_mismatch": false,
+  "locum_signatory": false,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "drug_profile": "buprenorphine_0.3mg_ml",
+  "arithmetic_slip_count": 0,
+  "unrecorded_admin": "trivial_under_1pct",
+  "clinical_records_missing": false,
+  "disposal_state": "none_needed",
+  "unexplained_shortfall_pct": 11.66,
+  "variance_exception": "none",
+  "manufacturer_overfill": true,
+  "auth_gap_count": 4,
+  "count_out_of_order": false,
+  "unit_mismatch": false,
+  "locum_signatory": false,
+  "boundary_case": false
+ },
+ "plan": {
+  "unexplained_shortfall": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "line_disposition": {
+   "clarity": "clear",
+   "target": "correct_and_sign",
+   "second": null
+  },
+  "variance_cause": {
+   "clarity": "clear",
+   "target": "undocumented_disposal",
+   "second": null
+  },
+  "variance_size": {
+   "clarity": "contested",
+   "target": "2",
+   "second": "1"
+  },
+  "auth_gaps": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 68,
+ "deciding": {
+  "unexplained_shortfall": "Closing 7.0 ml vs counted 6.82 ml (plus 0.02 allowance) leaves 0.2 ml short, exactly the 0.2 ml witnessed disposal with no entry, so the shortfall is accounted for, though the missing register line leaves some doubt.",
+  "line_disposition": "The disposals item has witness W2 and a denatured date but register_entry_id null; balances all recompute, so a dated annotation adding the disposal line fixes it without further evidence.",
+  "variance_cause": "The 0.2 ml disposal on 2024-05-20 has register_entry_id null and no entries line, and equals the gap; clinical doses match entries and there are no balance slips.",
+  "variance_size": "Gap 0.18 ml after allowance (1.8%) or 0.2 ml (2.0%) on 10 ml handled (6 opening + 4 receipt) sits at the 2% boundary between Trace and Material.",
+  "auth_gaps": "All entries have signed_by; E1 witness_id null is irrelevant since witness_required is false, though a reader might count it as one gap."
+ },
+ "request": "rec-F201-0081",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.021535
+}

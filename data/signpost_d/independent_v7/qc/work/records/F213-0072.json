@@ -1,0 +1,149 @@
+{
+ "id": "F213-0072",
+ "family": "F213",
+ "state": {
+  "pool": {
+   "type": "teaching",
+   "test_interval_min": 60,
+   "opening": {
+    "open": "2024-06-03T09:00",
+    "close": "2024-06-03T12:00"
+   },
+   "limits": {
+    "free_cl_min": 1.0,
+    "ph_max": 7.8
+   },
+   "tolerance": {
+    "free_cl": 0.3,
+    "ph": 0.2
+   },
+   "micro_due": "2024-06-20"
+  },
+  "manual_tests": [
+   {
+    "time": "2024-06-03T09:00",
+    "free_cl": 1.4,
+    "ph": 7.5,
+    "kit_id": "T2"
+   },
+   {
+    "time": "2024-06-03T10:00",
+    "free_cl": 1.3,
+    "ph": 7.5,
+    "kit_id": "T2"
+   },
+   {
+    "time": "2024-06-03T11:00",
+    "free_cl": 0.6,
+    "ph": 7.5,
+    "kit_id": "T2"
+   },
+   {
+    "time": "2024-06-03T12:00",
+    "free_cl": 0.7,
+    "ph": 7.5,
+    "kit_id": "T2"
+   }
+  ],
+  "plant": {
+   "controller_readings": [
+    {
+     "time": "2024-06-03T11:00",
+     "free_cl": 0.6,
+     "ph": 7.5
+    }
+   ],
+   "dosing_events": [
+    {
+     "time": "2024-06-03T11:05",
+     "type": "shock"
+    }
+   ]
+  },
+  "equipment": {
+   "kits": [
+    {
+     "kit_id": "T2",
+     "cal_due": "2024-05-15"
+    }
+   ]
+  },
+  "actions": [
+   {
+    "time": "2024-06-03T12:00",
+    "action_type": "dose_increase",
+    "reading_ref": "2024-06-03T11:00",
+    "retest_time": null
+   }
+  ],
+  "lab_sample": null
+ },
+ "factors": {
+  "pool_type": "teaching",
+  "test_coverage_gap": 0,
+  "boundary_interval": false,
+  "log_controller_discrepancy": "none",
+  "discrepancy_location": "free_chlorine",
+  "excursion_severity": "serious",
+  "corrective_action_delay": "delayed",
+  "retest_logged": false,
+  "dosing_event_explains": true,
+  "kit_calibration_status": "expired_before",
+  "lab_sample_state": "not_due",
+  "out_of_order_entry": false,
+  "benign_noise": "none"
+ },
+ "factors_sampled": {
+  "pool_type": "teaching",
+  "test_coverage_gap": 2,
+  "boundary_interval": false,
+  "log_controller_discrepancy": "none",
+  "discrepancy_location": "free_chlorine",
+  "excursion_severity": "none",
+  "corrective_action_delay": "prompt",
+  "retest_logged": false,
+  "dosing_event_explains": true,
+  "kit_calibration_status": "expired_before",
+  "lab_sample_state": "not_due",
+  "out_of_order_entry": false,
+  "benign_noise": "none"
+ },
+ "plan": {
+  "test_frequency_met": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "readings_reconcile": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "log_disposition": {
+   "clarity": "balanced",
+   "target": "require_closure",
+   "second": "accept_with_query"
+  },
+  "action_delay": {
+   "clarity": "clear",
+   "target": "2",
+   "second": null
+  },
+  "failed_checks": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  }
+ },
+ "target_words": 25,
+ "deciding": {
+  "test_frequency_met": "Hourly tests at 09:00, 10:00, 11:00 and 12:00 cover the 60 min interval across opening hours.",
+  "readings_reconcile": "Controller 11:00 free_cl 0.6 and pH 7.5 equal the manual entry.",
+  "log_disposition": "Free chlorine 0.6 then 0.7 against min 1.0 with no later retest favours closure; the action was logged and the kit is the only other issue, so accept_with_query stays plausible.",
+  "action_delay": "Action at 12:00 against the 11:00 low reading is 60 min, in the 30 to 120 band.",
+  "failed_checks": "Kit T2 cal_due 2024-05-15 is before the log date; the delayed action and unresolved low chlorine may or may not be counted as further fails."
+ },
+ "request": "rec-F213-0071",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.013107
+}

@@ -1,0 +1,124 @@
+{
+ "id": "F204-0059",
+ "family": "F204",
+ "state": {
+  "rx": {
+   "drug": "sertraline",
+   "strength": {
+    "val": 50,
+    "unit": "mg"
+   },
+   "qty": 28,
+   "dose": 1,
+   "freq_per_day": 1
+  },
+  "patient": {
+   "pt_id": "P7730",
+   "supplies": [
+    {
+     "date": "2025-02-01",
+     "days_covered": 28
+    }
+   ],
+   "near_miss": 4
+  },
+  "dispensed": {
+   "product_name": "Lustral",
+   "generic_name": "sertraline",
+   "strength": {
+    "val": 50,
+    "unit": "mg"
+   },
+   "packs": 2,
+   "pack_size": 28
+  },
+  "label": {
+   "pt_id": "P7730",
+   "dose_qty": 1,
+   "freq_per_day": 1,
+   "qty_printed": 56
+  },
+  "check_log": {
+   "checked_at": "2025-02-28T09:30",
+   "clin_check": {
+    "by": "RPh",
+    "at": "2025-02-28T09:10"
+   },
+   "queries": [
+    {
+     "raised_at": "2025-02-28T09:15",
+     "field": "qty",
+     "status": "pending"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "strength_status": "match_same_units",
+  "product_status": "generic_brand_equivalent",
+  "quantity_status": "over_supplied",
+  "label_status": "correct",
+  "prescriber_query": "pending",
+  "pharmacist_intervention": false,
+  "clinical_check_signed": true,
+  "home_supply_days": 1,
+  "emergency_supply": false,
+  "short_expiry": false,
+  "prior_error_count": 4,
+  "high_risk_drug": false,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "strength_status": "match_same_units",
+  "product_status": "generic_brand_equivalent",
+  "quantity_status": "over_supplied",
+  "label_status": "correct",
+  "prescriber_query": "confirmed",
+  "pharmacist_intervention": false,
+  "clinical_check_signed": true,
+  "home_supply_days": 3,
+  "emergency_supply": false,
+  "short_expiry": false,
+  "prior_error_count": 4,
+  "high_risk_drug": false,
+  "boundary_case": false
+ },
+ "plan": {
+  "strength_differs": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "hold_query",
+   "second": null
+  },
+  "error_category": {
+   "clarity": "leaning",
+   "target": "none_found",
+   "second": null
+  },
+  "open_discrepancies": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  },
+  "supply_urgency": {
+   "clarity": "contested",
+   "target": "2",
+   "second": "3"
+  }
+ },
+ "target_words": 67,
+ "deciding": {
+  "strength_differs": "50 mg against 50 mg in the same unit, and the generic name matches rx.drug, so the strengths agree.",
+  "next_step": "The quantity query is pending and the clinical check is signed, so the item waits on one confirmation.",
+  "error_category": "The quantity gap (56 against 28) is covered by the pending query, so it could be read as none_found, though quantity_only is arguable.",
+  "open_discrepancies": "The only open field is quantity, 2 x 28 against rx 28, and it is covered by a pending query. The record offers no second field, so this stays a one-field case read loosely.",
+  "supply_urgency": "The 28-day supply from 02-01 covers through 02-28, which is the check date. That is one day if today is counted or zero if not, so 2 or 3."
+ },
+ "request": "rec-F204-0056",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012172
+}

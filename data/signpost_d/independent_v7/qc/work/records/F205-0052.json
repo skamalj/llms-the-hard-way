@@ -1,0 +1,117 @@
+{
+ "id": "F205-0052",
+ "family": "F205",
+ "state": {
+  "flight": {
+   "no": "NB508",
+   "std": "2024-06-11T06:50",
+   "turn": "night_stop_departure"
+  },
+  "times": {
+   "last_bag": "2024-06-11T06:40",
+   "doors_closed": "2024-06-11T06:46",
+   "off_blocks": "2024-06-11T06:54",
+   "delay_code": "BAG",
+   "delay_min": 4
+  },
+  "load": {
+   "pax_total": 96,
+   "bags_count": 58,
+   "bags_kg": 812,
+   "fuel_kg": 6200,
+   "captain_accepted": true
+  },
+  "hold_log": [
+   {
+    "pos": 1,
+    "bag_count": 27,
+    "weight": 372,
+    "weight_unit": "kg"
+   },
+   {
+    "pos": 2,
+    "bag_count": 26,
+    "weight": 370,
+    "weight_unit": "kg"
+   }
+  ],
+  "services": {
+   "fuel": {
+    "uplift_kg": 6190
+   }
+  },
+  "remarks": [
+   {
+    "role": "ramp",
+    "t": "06:38",
+    "msg": "5 bags offloaded pos 2, pax no-show."
+   }
+  ]
+ },
+ "factors": {
+  "bag_mismatch_size": "moderate_3_9_bags",
+  "mismatch_location": "loadsheet_bags_vs_hold_log",
+  "missing_record": "none",
+  "milestone_out_of_order": false,
+  "delay_minutes": 4,
+  "delay_code_fit": "supported",
+  "explanatory_remark": true,
+  "pending_signoff": false,
+  "dg_on_board": false,
+  "decoy_noise": "rounding_within_tolerance",
+  "boundary_value": false,
+  "turn_type": "night_stop_departure"
+ },
+ "factors_sampled": {
+  "bag_mismatch_size": "moderate_3_9_bags",
+  "mismatch_location": "loadsheet_bags_vs_hold_log",
+  "missing_record": "none",
+  "milestone_out_of_order": false,
+  "delay_minutes": -4,
+  "delay_code_fit": "contradicted",
+  "explanatory_remark": true,
+  "pending_signoff": false,
+  "dg_on_board": false,
+  "decoy_noise": "rounding_within_tolerance",
+  "boundary_value": false,
+  "turn_type": "night_stop_departure"
+ },
+ "plan": {
+  "load_reconciled": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "delay_code_supported": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "log_disposition": {
+   "clarity": "leaning",
+   "target": "close_with_note",
+   "second": null
+  },
+  "offblock_delay": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  },
+  "failed_checks": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 47,
+ "deciding": {
+  "load_reconciled": "bags_count 58 vs hold 27+26=53 and 812 vs 742 kg; remark offers an offload explanation but loadsheet was not corrected.",
+  "delay_code_supported": "Code BAG; last_bag 06:40 is the final milestone before doors_closed 06:46 and off_blocks 06:54, consistent.",
+  "log_disposition": "Bag difference of 5 is explained by the ramp remark about offloaded bags; annotate and close, with some doubt as loadsheet not re-issued.",
+  "offblock_delay": "off_blocks 06:54 vs std 06:50 is 4 min, just over the 3-minute limit of level 0.",
+  "failed_checks": "Bag count and weight differences plus the unreissued loadsheet; fuel 6200 vs 6190 is within rounding. Count sits near the 2-3 versus 4+ boundary."
+ },
+ "request": "rec-F205-0051",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011092
+}

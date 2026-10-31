@@ -1,0 +1,126 @@
+{
+ "id": "F224-0084",
+ "family": "F224",
+ "state": {
+  "request": {
+   "views": [
+    "BW_L",
+    "BW_R"
+   ],
+   "ind": "C2",
+   "risk": "moderate",
+   "date": "2024-07-01",
+   "prior": "2023-10-02",
+   "exceptions": [
+    {
+     "code": "EXC_RECALL",
+     "by": "D204"
+    }
+   ]
+  },
+  "exposures": [
+   {
+    "view": "BW_L",
+    "dose": 0.98,
+    "t": "09:30"
+   },
+   {
+    "view": "BW_R",
+    "dose": 0.98,
+    "t": "09:32"
+   },
+   {
+    "view": "PA_36",
+    "dose": 0.98,
+    "t": "09:35"
+   }
+  ],
+  "image_review": {
+   "grade": 1,
+   "faults": [],
+   "sensor_err": null,
+   "second_grader": "done"
+  },
+  "equipment": {
+   "qa": "2024-03-01",
+   "int": 12,
+   "test": "pass",
+   "drl": {
+    "BW": 1.0,
+    "PA": 1.0
+   }
+  },
+  "operator": {
+   "signoff": null,
+   "prior": 1
+  }
+ },
+ "factors": {
+  "indication_match": "match",
+  "recall_interval_months": 9,
+  "dose_ratio_to_drl": 0.98,
+  "console_log_discrepancy": "none",
+  "retake_cause": "no_retake",
+  "equipment_qa_status": "in_date",
+  "approved_exception": true,
+  "patient_cooperation_flag": false,
+  "unrequested_exposure_count": 1,
+  "verbal_authorisation_logged": false,
+  "image_grade": "diagnostic",
+  "audit_completeness": "operator_signoff_missing",
+  "operator_prior_findings": 1
+ },
+ "factors_sampled": {
+  "indication_match": "match",
+  "recall_interval_months": 9,
+  "dose_ratio_to_drl": 0.98,
+  "console_log_discrepancy": "none",
+  "retake_cause": "no_retake",
+  "equipment_qa_status": "in_date",
+  "approved_exception": true,
+  "patient_cooperation_flag": false,
+  "unrequested_exposure_count": 0,
+  "verbal_authorisation_logged": false,
+  "image_grade": "diagnostic",
+  "audit_completeness": "complete",
+  "operator_prior_findings": 1
+ },
+ "plan": {
+  "justified": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "operator_retake": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "follow_up": {
+   "clarity": "leaning",
+   "target": "hold_confirm",
+   "second": null
+  },
+  "dose_position": {
+   "clarity": "clear",
+   "target": "1",
+   "second": null
+  },
+  "unjustified_count": {
+   "clarity": "clear",
+   "target": "1",
+   "second": null
+  }
+ },
+ "target_words": 45,
+ "deciding": {
+  "justified": "The 9-month gap (2023-10-02 to 2024-07-01) is shorter than the moderate-risk 12 months, but exception EXC_RECALL (D204) is on file and indication C2 matches the bitewings.",
+  "operator_retake": "No exposure has retake_of set, so there was no retake.",
+  "follow_up": "The one open item is operator.signoff, which is null. Image grade, QA and dose are otherwise fine, so it is held for the sign-off. The unrequested PA_36 could argue for feedback.",
+  "dose_position": "Each dose is 0.98 mGy against a reference of 1.0, a ratio of 0.98, in the 75-100% band.",
+  "unjustified_count": "PA_36 is not in views_requested, and there is no verbal auth or exception for it. The exception covers only the recall interval, so exactly one exposure is unjustified."
+ },
+ "request": "rec-F224-0081",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.014925
+}

@@ -1,0 +1,98 @@
+{
+ "id": "F201-0093",
+ "family": "F201",
+ "state": {
+  "register_header": {
+   "drug": "midazolam",
+   "witness_required": false,
+   "opening_balance_ml": 10
+  },
+  "entries": [
+   {
+    "id": "E1",
+    "qty_ml": 2,
+    "running_balance_ml": 8,
+    "signed_by": "RN03",
+    "witness_id": null
+   },
+   {
+    "id": "E2",
+    "qty_ml": 1,
+    "running_balance_ml": 7,
+    "signed_by": null
+   }
+  ],
+  "stock_check": {
+   "counted_ml": 6.7,
+   "overfill_allowance_ml": 0.1
+  }
+ },
+ "factors": {
+  "drug_profile": "midazolam_5mg_ml",
+  "arithmetic_slip_count": 0,
+  "unrecorded_admin": "none",
+  "clinical_records_missing": true,
+  "disposal_state": "none_needed",
+  "unexplained_shortfall_pct": 2.0,
+  "variance_exception": "none",
+  "manufacturer_overfill": true,
+  "auth_gap_count": 1,
+  "count_out_of_order": false,
+  "unit_mismatch": false,
+  "locum_signatory": false,
+  "boundary_case": true
+ },
+ "factors_sampled": {
+  "drug_profile": "midazolam_5mg_ml",
+  "arithmetic_slip_count": 2,
+  "unrecorded_admin": "trivial_under_1pct",
+  "clinical_records_missing": false,
+  "disposal_state": "none_needed",
+  "unexplained_shortfall_pct": 11.51,
+  "variance_exception": "none",
+  "manufacturer_overfill": true,
+  "auth_gap_count": 3,
+  "count_out_of_order": false,
+  "unit_mismatch": false,
+  "locum_signatory": false,
+  "boundary_case": true
+ },
+ "plan": {
+  "unexplained_shortfall": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "line_disposition": {
+   "clarity": "balanced",
+   "target": "sign_off",
+   "second": "escalate"
+  },
+  "variance_cause": {
+   "clarity": "leaning",
+   "target": "no_discrepancy",
+   "second": null
+  },
+  "variance_size": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  },
+  "auth_gaps": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  }
+ },
+ "target_words": 25,
+ "deciding": {
+  "unexplained_shortfall": "Balance 7 ml against counted 6.7 ml leaves 0.3 ml, with a 0.1 ml overfill allowance. The remainder is small, so the answer is leaning false.",
+  "line_disposition": "E2 has no signature, and the residual of 0.2 ml after allowance is near the 2% boundary. Sign-off and escalation are both arguable.",
+  "variance_cause": "The balances are arithmetically correct and only a tiny gap remains that overfill largely covers.",
+  "variance_size": "0.2 ml remaining against 10 ml handled is exactly 2%, on the boundary between trace and material.",
+  "auth_gaps": "E2 signed_by is null (a gap). E1 witness_id null is not a gap because witness_required is false, so a reader might count 1 or 0."
+ },
+ "request": "rec-F201-0091",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012613
+}

@@ -1,0 +1,153 @@
+{
+ "id": "F232-0067",
+ "family": "F232",
+ "state": {
+  "night_header": {
+   "date": "2025-04-18",
+   "prog": "P07",
+   "alloc_h": 6,
+   "twilight": {
+    "eve": "2025-04-18T23:50",
+    "morn": "2025-04-19T08:40"
+   },
+   "eng_window": null
+  },
+  "conditions": {
+   "limits": {
+    "hum": 90,
+    "wind": 60,
+    "cloud": 4
+   },
+   "closures": [
+    {
+     "s": "2025-04-19T01:10",
+     "e": "2025-04-19T02:50",
+     "reason": "weather",
+     "hum": 97,
+     "wind": 74,
+     "cloud": 8
+    }
+   ]
+  },
+  "exposures": [
+   {
+    "t": "T1",
+    "f": "r",
+    "exp_s": 2300,
+    "n": 2,
+    "see": 1.2,
+    "qa": "pass"
+   },
+   {
+    "t": "T1",
+    "f": "g",
+    "exp_s": 1120,
+    "n": 3,
+    "see": 1.3,
+    "qa": "pass"
+   },
+   {
+    "t": "T2",
+    "f": "r",
+    "exp_s": 600,
+    "n": 6,
+    "see": 2.1,
+    "qa": "fail"
+   }
+  ],
+  "programme_request": {
+   "T1": {
+    "r": 4600,
+    "g": 3600
+   },
+   "T2": {
+    "r": 3600
+   },
+   "max_see": 1.5,
+   "exception": null
+  },
+  "faults": [
+   {
+    "sub": "shutter",
+    "start": "2025-04-19T08:41",
+    "end": null,
+    "cleared": false,
+    "retest": null,
+    "workaround": null,
+    "ticket": "TK-882"
+   }
+  ],
+  "notes": {
+   "obs": "T1 done.",
+   "na": "Loud grinding from camera shutter at 08:41, now jammed shut."
+  }
+ },
+ "factors": {
+  "weather_loss_hours": 1.66,
+  "fault_overlap": "none",
+  "fault_resolution_state": "open_no_workaround",
+  "maintenance_window": false,
+  "closure_reason_mismatch": "none",
+  "note_claim_discrepancy": "short_small",
+  "seeing_vs_limit": "exceeded",
+  "seeing_exception_approved": false,
+  "usable_fraction": 0.37,
+  "qa_pending_count": 0,
+  "utc_date_rollover": true,
+  "assistant_note_tone": "alarmed_real",
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "weather_loss_hours": 1.66,
+  "fault_overlap": "major_overlap",
+  "fault_resolution_state": "open_workaround",
+  "maintenance_window": false,
+  "closure_reason_mismatch": "coincides_with_fault",
+  "note_claim_discrepancy": "none",
+  "seeing_vs_limit": "exceeded",
+  "seeing_exception_approved": false,
+  "usable_fraction": 0.48,
+  "qa_pending_count": 4,
+  "utc_date_rollover": true,
+  "assistant_note_tone": "alarmed_real",
+  "boundary_case": false
+ },
+ "plan": {
+  "weather_only_loss": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "claims_supported": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "night_disposition": {
+   "clarity": "clear",
+   "target": "charge_partial",
+   "second": null
+  },
+  "usable_share": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  },
+  "fault_followup": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  }
+ },
+ "target_words": 32,
+ "deciding": {
+  "weather_only_loss": "Only lost time is the 100-minute weather closure with station values above limits; the shutter fault starts at 08:41, after morning twilight at 08:40.",
+  "claims_supported": "T1 g totals 3360 s against 3600 s requested, about 93%: either rounding or a real shortfall, so the claim of T1 done is borderline.",
+  "night_disposition": "Loss is weather only, nothing needs repeating, no QA is pending, and the fault opened after the night; so charge with weather returned.",
+  "usable_share": "Passing in-limit frames total 7960 s against 21600 s allocated, about 37%, just under the 40% boundary; T2 frames fail at seeing 2.1.",
+  "fault_followup": "Shutter fault is open with no workaround (null), ticket TK-882, and the note says it is jammed shut; the doubt is that it opened only after the night ended."
+ },
+ "request": "rec-F232-0066",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.017748
+}

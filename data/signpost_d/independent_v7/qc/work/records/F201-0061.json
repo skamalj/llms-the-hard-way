@@ -1,0 +1,117 @@
+{
+ "id": "F201-0061",
+ "family": "F201",
+ "state": {
+  "register_header": {
+   "drug": "pentobarbital",
+   "concentration_mg_ml": 200,
+   "witness_required": true,
+   "opening_balance_ml": 50
+  },
+  "entries": [
+   {
+    "entry_id": "E1",
+    "date": "2025-04-02",
+    "type": "receipt",
+    "qty_ml": 50,
+    "running_balance_ml": 100,
+    "signed_by": "S1",
+    "witness_id": "W1"
+   },
+   {
+    "entry_id": "E2",
+    "date": "2025-04-09",
+    "type": "disposal",
+    "qty_ml": 20,
+    "running_balance_ml": 70,
+    "signed_by": "S1",
+    "witness_id": null
+   }
+  ],
+  "clinical_records": [],
+  "stock_check": {
+   "count_date": "2025-04-30",
+   "counted_ml": 80,
+   "counted_by": "S1",
+   "checked_by": "S3"
+  },
+  "disposals": [
+   {
+    "qty_ml": 20,
+    "reason_code": "expired",
+    "removed_date": "2025-04-09",
+    "register_entry_id": "E2",
+    "witness_id": "W2",
+    "denatured_date": "2025-04-09"
+   }
+  ]
+ },
+ "factors": {
+  "drug_profile": "pentobarbital_200mg_ml",
+  "arithmetic_slip_count": 1,
+  "unrecorded_admin": "none",
+  "clinical_records_missing": false,
+  "disposal_state": "witnessed_complete",
+  "unexplained_shortfall_pct": 0.0,
+  "variance_exception": "none",
+  "manufacturer_overfill": false,
+  "auth_gap_count": 1,
+  "count_out_of_order": false,
+  "unit_mismatch": false,
+  "locum_signatory": false,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "drug_profile": "pentobarbital_200mg_ml",
+  "arithmetic_slip_count": 1,
+  "unrecorded_admin": "trivial_under_1pct",
+  "clinical_records_missing": false,
+  "disposal_state": "witnessed_complete",
+  "unexplained_shortfall_pct": 11.3,
+  "variance_exception": "valid_partial_cover",
+  "manufacturer_overfill": false,
+  "auth_gap_count": 0,
+  "count_out_of_order": false,
+  "unit_mismatch": false,
+  "locum_signatory": false,
+  "boundary_case": false
+ },
+ "plan": {
+  "unexplained_shortfall": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "line_disposition": {
+   "clarity": "contested",
+   "target": "correct_and_sign",
+   "second": "hold_pending"
+  },
+  "variance_cause": {
+   "clarity": "balanced",
+   "target": "no_discrepancy",
+   "second": "arithmetic_slip"
+  },
+  "variance_size": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  },
+  "auth_gaps": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  }
+ },
+ "target_words": 36,
+ "deciding": {
+  "unexplained_shortfall": "Count 80 ml equals the recomputed balance (50+50-20); the 20 ml disposal is witnessed in disposals, so no stock is missing.",
+  "line_disposition": "E2 running balance 70 is a clerical slip (should be 80), fixable by annotation; E2 witness_id is null though the disposal record shows W2, so a confirmation could be awaited. Both answers are defensible.",
+  "variance_cause": "Count matches the recomputed balance, so no discrepancy; the only gap is the E2 balance of 70 versus 80, which keeps arithmetic_slip plausible.",
+  "variance_size": "The 10 ml gap between register balance 70 and count 80 against 100 ml handled (50 opening + 50 receipt) sits right at the 10% boundary between Material and Major, if one counts it at all.",
+  "auth_gaps": "E2 witness_id is null while witness_required is true (one gap), but disposals shows witness W2 for E2, so level 0 is also arguable."
+ },
+ "request": "rec-F201-0061",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.013506
+}

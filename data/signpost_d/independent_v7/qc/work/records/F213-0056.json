@@ -1,0 +1,153 @@
+{
+ "id": "F213-0056",
+ "family": "F213",
+ "state": {
+  "pool": {
+   "type": "leisure",
+   "test_interval_min": 120,
+   "opening": {
+    "open": "2024-06-10T09:00",
+    "close": "2024-06-10T17:00"
+   },
+   "limits": {
+    "free_cl_min": 1.0
+   },
+   "tolerance": {
+    "free_cl": 0.3
+   },
+   "micro_due": "2024-06-05"
+  },
+  "manual_tests": [
+   {
+    "time": "2024-06-10T09:00",
+    "free_cl": 1.8,
+    "kit_id": "K1"
+   },
+   {
+    "time": "2024-06-10T11:00",
+    "free_cl": 1.6,
+    "kit_id": "K1"
+   },
+   {
+    "time": "2024-06-10T13:00",
+    "free_cl": 0.9,
+    "kit_id": "K1"
+   },
+   {
+    "time": "2024-06-10T15:00",
+    "free_cl": 1.1,
+    "kit_id": "K1"
+   },
+   {
+    "time": "2024-06-10T15:30",
+    "free_cl": 1.6,
+    "kit_id": "K1"
+   },
+   {
+    "time": "2024-06-10T17:00",
+    "free_cl": 1.7,
+    "kit_id": "K1"
+   }
+  ],
+  "plant": {
+   "controller_readings": [
+    {
+     "time": "2024-06-10T13:00",
+     "free_cl": 1.0
+    }
+   ]
+  },
+  "equipment": {
+   "kits": [
+    {
+     "kit_id": "K1",
+     "cal_due": "2025-02-01"
+    }
+   ]
+  },
+  "actions": [
+   {
+    "time": "2024-06-10T15:00",
+    "action_type": "dose_increase",
+    "reading_ref": "2024-06-10T13:00",
+    "retest_time": "2024-06-10T15:30"
+   }
+  ],
+  "lab_sample": {
+   "sampled_on": "2024-06-04",
+   "result_on": null,
+   "status": "pending",
+   "tvc_37": null,
+   "coliforms": null,
+   "pseudomonas": null
+  }
+ },
+ "factors": {
+  "pool_type": "leisure",
+  "test_coverage_gap": 0,
+  "boundary_interval": false,
+  "log_controller_discrepancy": "none",
+  "discrepancy_location": "free_chlorine",
+  "excursion_severity": "marginal",
+  "corrective_action_delay": "boundary_120_min",
+  "retest_logged": true,
+  "dosing_event_explains": false,
+  "kit_calibration_status": "in_date",
+  "lab_sample_state": "pending",
+  "out_of_order_entry": false,
+  "benign_noise": "none"
+ },
+ "factors_sampled": {
+  "pool_type": "leisure",
+  "test_coverage_gap": 0,
+  "boundary_interval": false,
+  "log_controller_discrepancy": "none",
+  "discrepancy_location": "free_chlorine",
+  "excursion_severity": "none",
+  "corrective_action_delay": "prompt",
+  "retest_logged": true,
+  "dosing_event_explains": false,
+  "kit_calibration_status": "in_date",
+  "lab_sample_state": "not_due",
+  "out_of_order_entry": false,
+  "benign_noise": "none"
+ },
+ "plan": {
+  "test_frequency_met": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "readings_reconcile": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "log_disposition": {
+   "clarity": "leaning",
+   "target": "hold_for_retest",
+   "second": null
+  },
+  "action_delay": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  },
+  "failed_checks": {
+   "clarity": "contested",
+   "target": "1",
+   "second": "2"
+  }
+ },
+ "target_words": 40,
+ "deciding": {
+  "test_frequency_met": "Manual tests every 120 min from 09:00 to 17:00 match test_interval_min; extra 15:30 retest; no gap.",
+  "readings_reconcile": "13:00 manual free_cl 0.9 vs controller 1.0, within 0.3 tolerance; only one controller reading to compare.",
+  "log_disposition": "Water recovered after retest, but lab_sample is pending (result_on null) with micro_due 2024-06-05 passed, so outcome hinges on that result.",
+  "action_delay": "Free_cl 0.9 (below 1.0 min) at 13:00; first action at 15:00, exactly 120 min, on the level 2/3 boundary.",
+  "failed_checks": "Late action is one failure; pending lab result may count as a second."
+ },
+ "request": "rec-F213-0056",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.014815
+}

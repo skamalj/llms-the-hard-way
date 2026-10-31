@@ -1,0 +1,118 @@
+{
+ "id": "F204-0058",
+ "family": "F204",
+ "state": {
+  "rx": {
+   "drug": "levothyroxine",
+   "strength": {
+    "val": 0.1,
+    "unit": "mg"
+   },
+   "qty": 28
+  },
+  "patient": {
+   "pt_id": "P5120",
+   "supplies": [
+    {
+     "date": "2025-05-20",
+     "days_covered": 14
+    }
+   ],
+   "emergency_supplies": [
+    {
+     "date": "2025-05-28",
+     "days": 7
+    }
+   ]
+  },
+  "dispensed": {
+   "product_name": "Eltroxin",
+   "generic_name": "levothyroxine",
+   "strength": {
+    "val": 100,
+    "unit": "mcg"
+   },
+   "packs": 1,
+   "pack_size": 28
+  },
+  "label": {
+   "pt_id": "P5102",
+   "qty_printed": 28
+  },
+  "check_log": {
+   "checked_at": "2025-05-30T14:00",
+   "clin_check": {
+    "by": "RPh",
+    "at": "2025-05-30T13:40"
+   }
+  }
+ },
+ "factors": {
+  "strength_status": "match_converted_units",
+  "product_status": "generic_brand_equivalent",
+  "quantity_status": "exact",
+  "label_status": "patient_id_mismatch",
+  "prescriber_query": "none",
+  "pharmacist_intervention": false,
+  "clinical_check_signed": true,
+  "home_supply_days": 11,
+  "emergency_supply": true,
+  "short_expiry": false,
+  "prior_error_count": 2,
+  "high_risk_drug": false,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "strength_status": "match_converted_units",
+  "product_status": "generic_brand_equivalent",
+  "quantity_status": "short_undocumented",
+  "label_status": "correct",
+  "prescriber_query": "none",
+  "pharmacist_intervention": false,
+  "clinical_check_signed": true,
+  "home_supply_days": 10,
+  "emergency_supply": true,
+  "short_expiry": false,
+  "prior_error_count": 2,
+  "high_risk_drug": false,
+  "boundary_case": false
+ },
+ "plan": {
+  "strength_differs": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "balanced",
+   "target": "release_annotated",
+   "second": "hold_query"
+  },
+  "error_category": {
+   "clarity": "clear",
+   "target": "label_error",
+   "second": null
+  },
+  "open_discrepancies": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "supply_urgency": {
+   "clarity": "clear",
+   "target": "0",
+   "second": null
+  }
+ },
+ "target_words": 38,
+ "deciding": {
+  "strength_differs": "rx 0.1 mg equals dispensed 100 mcg after conversion, so the strengths agree. This goes against a leaning true.",
+  "next_step": "label.pt_id P5102 differs from patient.pt_id P5120 and no query or annotation covers it, so the item should go back for relabel. This conflicts with a balanced release_annotated or hold_query.",
+  "error_category": "The label patient identifier differs by transposed digits, while the product and quantity are correct, so it is a label error.",
+  "open_discrepancies": "Only the label patient identifier is unresolved: one discrepancy, with the rest matching.",
+  "supply_urgency": "The 14-day supply from 05-20 leaves about 4 days at the 05-30 check, and the 05-28 emergency supply adds 7, which is about 11 days, so well over 7."
+ },
+ "request": "rec-F204-0056",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012172
+}

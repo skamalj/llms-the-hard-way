@@ -1,0 +1,138 @@
+{
+ "id": "F201-0052",
+ "family": "F201",
+ "state": {
+  "register_header": {
+   "drug": "ketamine",
+   "concentration_mg_ml": 100,
+   "witness_required": false,
+   "opening_balance_ml": 100
+  },
+  "entries": [
+   {
+    "entry_id": 1,
+    "type": "use",
+    "qty_ml": 5,
+    "patient_id": "P1",
+    "running_balance_ml": 95,
+    "signed_by": "V03"
+   },
+   {
+    "entry_id": 2,
+    "type": "use",
+    "qty_ml": 10,
+    "patient_id": "P2",
+    "running_balance_ml": 80,
+    "signed_by": "V03"
+   },
+   {
+    "entry_id": 3,
+    "type": "use",
+    "qty_ml": 5,
+    "patient_id": "P3",
+    "running_balance_ml": 70,
+    "signed_by": null
+   },
+   {
+    "entry_id": 4,
+    "type": "disposal",
+    "qty_ml": 5,
+    "running_balance_ml": 60,
+    "signed_by": "V03"
+   }
+  ],
+  "clinical_records": [
+   {
+    "patient_id": "P1",
+    "dose": 5,
+    "dose_unit": "ml"
+   },
+   {
+    "patient_id": "P9",
+    "dose": 1,
+    "dose_unit": "ml"
+   }
+  ],
+  "stock_check": {
+   "counted_ml": 73.7,
+   "overfill_allowance_ml": 0
+  },
+  "disposals": [
+   {
+    "batch_no": "B7",
+    "qty_ml": 5,
+    "register_entry_id": 4,
+    "witness_id": null,
+    "denatured_date": null
+   }
+  ]
+ },
+ "factors": {
+  "drug_profile": "ketamine_100mg_ml",
+  "arithmetic_slip_count": 3,
+  "unrecorded_admin": "small_about_1pct",
+  "clinical_records_missing": false,
+  "disposal_state": "entered_unwitnessed",
+  "unexplained_shortfall_pct": 1.3,
+  "variance_exception": "none",
+  "manufacturer_overfill": false,
+  "auth_gap_count": 1,
+  "count_out_of_order": false,
+  "unit_mismatch": false,
+  "locum_signatory": false,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "drug_profile": "ketamine_100mg_ml",
+  "arithmetic_slip_count": 3,
+  "unrecorded_admin": "none",
+  "clinical_records_missing": false,
+  "disposal_state": "entered_unwitnessed",
+  "unexplained_shortfall_pct": 1.3,
+  "variance_exception": "none",
+  "manufacturer_overfill": false,
+  "auth_gap_count": 1,
+  "count_out_of_order": false,
+  "unit_mismatch": false,
+  "locum_signatory": false,
+  "boundary_case": false
+ },
+ "plan": {
+  "unexplained_shortfall": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "line_disposition": {
+   "clarity": "balanced",
+   "target": "sign_off",
+   "second": "hold_pending"
+  },
+  "variance_cause": {
+   "clarity": "balanced",
+   "target": "unrecorded_administration",
+   "second": "unexplained_loss"
+  },
+  "variance_size": {
+   "clarity": "leaning",
+   "target": "0",
+   "second": null
+  },
+  "auth_gaps": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  }
+ },
+ "target_words": 50,
+ "deciding": {
+  "unexplained_shortfall": "Recomputed balance 75 ml vs counted 73.7 ml, no exception or overfill; the P9 dose of 1 ml has no entry, leaving a gap beyond it.",
+  "line_disposition": "Disposal entry 4 has witness_id null and entry 3 lacks signature, so hold is defensible; yet small gap and complete disposal entry make sign-off arguable.",
+  "variance_cause": "P9 dose 1 ml has no entries line, matching most of the 1.3 ml gap; remaining 0.3 ml has no counterpart, so unexplained loss is also plausible.",
+  "variance_size": "After the unrecorded P9 dose, only about 0.3 ml remains on 100 ml handled, which is trace-to-nil.",
+  "auth_gaps": "Entry 3 signed_by null is one gap; the disposal with witness_id null (witness not required for this drug) might count as a second."
+ },
+ "request": "rec-F201-0051",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012855
+}

@@ -1,0 +1,112 @@
+{
+ "id": "F205-0051",
+ "family": "F205",
+ "state": {
+  "flight": {
+   "no": "QX214",
+   "std": "2024-05-03T10:00",
+   "revised_std": "2024-05-03T10:25",
+   "turn": "full_turn"
+  },
+  "times": {
+   "last_bag": "2024-05-03T09:52",
+   "doors_closed": "2024-05-03T09:58",
+   "off_blocks": "2024-05-03T10:03",
+   "delay_code": "BAG",
+   "delay_min": 3
+  },
+  "load": {
+   "pax_total": 112,
+   "bags_count": 40,
+   "bags_kg": 612,
+   "captain_accepted": true
+  },
+  "hold_log": [
+   {
+    "pos": 1,
+    "bag_count": 22,
+    "weight": 330,
+    "weight_unit": "kg"
+   },
+   {
+    "pos": 2,
+    "bag_count": 18,
+    "weight": 236,
+    "weight_unit": "kg"
+   }
+  ],
+  "remarks": [
+   {
+    "role": "ramp",
+    "t": "09:50",
+    "msg": "Boarding closed, 111 pax."
+   }
+  ]
+ },
+ "factors": {
+  "bag_mismatch_size": "weight_only_46kg",
+  "mismatch_location": "pax_count_vs_boarding_close",
+  "missing_record": "none",
+  "milestone_out_of_order": false,
+  "delay_minutes": 3,
+  "delay_code_fit": "ambiguous",
+  "explanatory_remark": false,
+  "pending_signoff": false,
+  "dg_on_board": false,
+  "decoy_noise": "revised_std_in_schedule",
+  "boundary_value": true,
+  "turn_type": "full_turn"
+ },
+ "factors_sampled": {
+  "bag_mismatch_size": "none",
+  "mismatch_location": "pax_count_vs_boarding_close",
+  "missing_record": "none",
+  "milestone_out_of_order": false,
+  "delay_minutes": 81,
+  "delay_code_fit": "ambiguous",
+  "explanatory_remark": false,
+  "pending_signoff": false,
+  "dg_on_board": false,
+  "decoy_noise": "revised_std_in_schedule",
+  "boundary_value": false,
+  "turn_type": "full_turn"
+ },
+ "plan": {
+  "load_reconciled": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "delay_code_supported": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "log_disposition": {
+   "clarity": "leaning",
+   "target": "hold_confirm",
+   "second": null
+  },
+  "offblock_delay": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "failed_checks": {
+   "clarity": "contested",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 48,
+ "deciding": {
+  "load_reconciled": "bags_kg 612 vs hold weights 330+236=566 kg; counts match at 40 but weight differs by 46 kg.",
+  "delay_code_supported": "Code BAG; last_bag 09:52 is the late milestone shortly before doors_closed 09:58, mostly supporting it, though only 3 min delay.",
+  "log_disposition": "pax_total 112 vs boarding remark 111 is a single item to confirm; no explanation given and nothing else missing.",
+  "offblock_delay": "off_blocks 10:03 vs original std 10:00 is exactly 3 min (boundary of levels 0 and 1); revised_std 10:25 is a decoy.",
+  "failed_checks": "Bag weight differs and pax is off by one; whether these count as failed checks is open, so 0 or 1 is defensible."
+ },
+ "request": "rec-F205-0051",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011092
+}

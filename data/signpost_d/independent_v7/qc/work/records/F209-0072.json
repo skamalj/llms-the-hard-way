@@ -1,0 +1,120 @@
+{
+ "id": "F209-0072",
+ "family": "F209",
+ "state": {
+  "unit": {
+   "asset_id": "DP-310",
+   "type": "dry_powder",
+   "capacity_kg": 2,
+   "manufacture_date": "2015-03-20"
+  },
+  "visit": {
+   "visit_date": "2025-03-20",
+   "tech_cert_expiry": "2026-06-30",
+   "service_type": "basic",
+   "checks": {
+    "hose_ok": false,
+    "seal_ok": true,
+    "discharge_done": false,
+    "hydro_test_done": false
+   }
+  },
+  "history": [
+   {
+    "date": "2023-12-13",
+    "service_type": "basic",
+    "result": "pass"
+   }
+  ],
+  "register": {
+   "reg_type": "powder",
+   "reg_capacity_kg": 2.0,
+   "deferral": {
+    "approved": true,
+    "expires": "2025-03-20"
+   },
+   "exemption": {
+    "approved": true,
+    "expires": "2026-01-01"
+   }
+  },
+  "remedial": [
+   {
+    "action_code": "REPLACE_UNIT",
+    "raised": "2025-03-20",
+    "completed": null,
+    "replacement_asset_id": "DP-377"
+   }
+  ]
+ },
+ "factors": {
+  "unit_type": "dry_powder",
+  "unit_age_years": 10,
+  "service_level_gap": "matched",
+  "days_past_due": 0,
+  "deferral_approved": true,
+  "injected_mismatch_count": 0,
+  "physical_defect": "damaged_hose",
+  "defect_rectified_on_visit": false,
+  "type_location_mismatch": false,
+  "location_exemption_on_file": true,
+  "record_gap": "remedial_open",
+  "technician_cert_status": "valid",
+  "out_of_order_dates": false,
+  "borderline_case": true
+ },
+ "factors_sampled": {
+  "unit_type": "dry_powder",
+  "unit_age_years": 13,
+  "service_level_gap": "matched",
+  "days_past_due": 97,
+  "deferral_approved": true,
+  "injected_mismatch_count": 5,
+  "physical_defect": "none",
+  "defect_rectified_on_visit": false,
+  "type_location_mismatch": false,
+  "location_exemption_on_file": true,
+  "record_gap": "remedial_open",
+  "technician_cert_status": "valid",
+  "out_of_order_dates": false,
+  "borderline_case": true
+ },
+ "plan": {
+  "left_compliant": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "balanced",
+   "target": "withdraw_unit",
+   "second": "accept_record"
+  },
+  "service_level_due": {
+   "clarity": "contested",
+   "target": "overhaul",
+   "second": "basic_service"
+  },
+  "visit_lateness": {
+   "clarity": "contested",
+   "target": "0",
+   "second": "1"
+  },
+  "mismatch_count": {
+   "clarity": "contested",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 39,
+ "deciding": {
+  "left_compliant": "hose_ok is false and the only remedial entry (REPLACE_UNIT) has completed null, so the defect is unresolved.",
+  "next_step": "Open REPLACE_UNIT with replacement DP-377 points to removing the unit, but the contractor did a basic service and the record is otherwise tidy, so accepting is also arguable.",
+  "service_level_due": "Manufacture 2015-03-20 vs visit 2025-03-20 puts age exactly at 10 years; overhaul is a CO2 rule, so basic service competes with overhaul.",
+  "visit_lateness": "Last basic 2023-12-13 gives due 2024-12-13 (97 days before the visit), but the approved deferral expires exactly on the visit date, so on time vs 1 day late is open.",
+  "mismatch_count": "Only naming/format differences: reg_type powder vs dry_powder and capacity 2.0 vs 2; whether the type wording counts is open between 0 and 1."
+ },
+ "request": "rec-F209-0071",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.016585
+}

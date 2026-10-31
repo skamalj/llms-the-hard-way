@@ -1,0 +1,115 @@
+{
+ "id": "F204-0055",
+ "family": "F204",
+ "state": {
+  "rx": {
+   "drug": "sertraline",
+   "strength": {
+    "val": 50,
+    "unit": "mg"
+   },
+   "dose": 1,
+   "freq_per_day": 1,
+   "qty": 28
+  },
+  "patient": {
+   "pt_id": "P31905",
+   "supplies": [
+    {
+     "date": "2025-03-05",
+     "days_covered": 28
+    }
+   ],
+   "near_miss_count": 3
+  },
+  "dispensed": {
+   "product_name": "sertraline",
+   "strength": {
+    "val": 50,
+    "unit": "mg"
+   },
+   "pack_size": 28,
+   "packs": 1
+  },
+  "label": {
+   "pt_id": "P31906",
+   "dose_qty": 2,
+   "freq_per_day": 3,
+   "qty_printed": 28
+  },
+  "check_log": {
+   "checked_at": "2025-03-14T11:00",
+   "clin_check": {
+    "by": "LD"
+   }
+  }
+ },
+ "factors": {
+  "strength_status": "match_same_units",
+  "product_status": "exact",
+  "quantity_status": "exact",
+  "label_status": "patient_id_dose_frequency_mismatch",
+  "prescriber_query": "none",
+  "pharmacist_intervention": false,
+  "clinical_check_signed": true,
+  "home_supply_days": 19,
+  "emergency_supply": false,
+  "short_expiry": false,
+  "prior_error_count": 3,
+  "high_risk_drug": false,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "strength_status": "match_same_units",
+  "product_status": "different_drug",
+  "quantity_status": "exact",
+  "label_status": "correct",
+  "prescriber_query": "confirmed",
+  "pharmacist_intervention": false,
+  "clinical_check_signed": true,
+  "home_supply_days": 14,
+  "emergency_supply": false,
+  "short_expiry": false,
+  "prior_error_count": 3,
+  "high_risk_drug": false,
+  "boundary_case": false
+ },
+ "plan": {
+  "strength_differs": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "release",
+   "second": null
+  },
+  "error_category": {
+   "clarity": "clear",
+   "target": "label_error",
+   "second": null
+  },
+  "open_discrepancies": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  },
+  "supply_urgency": {
+   "clarity": "leaning",
+   "target": "0",
+   "second": null
+  }
+ },
+ "target_words": 40,
+ "deciding": {
+  "strength_differs": "Both 50 mg in the same unit; no strength conflict.",
+  "next_step": "Plan wanted release, but the label errors are unresolved, with no query or intervention covering them, so redispense or relabel is the sound step; nothing else in the record supports release.",
+  "error_category": "Label pt_id P31906 against P31905, dose_qty 2 against 1 and frequency 3 against 1, while drug, strength and quantity 28 are correct.",
+  "open_discrepancies": "Three label fields are wrong (patient id, dose, frequency) and none is covered by a query or intervention.",
+  "supply_urgency": "Last supply 2025-03-05 plus 28 days leaves about 19 days at the 03-14 check, well over 7."
+ },
+ "request": "rec-F204-0051",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012064
+}

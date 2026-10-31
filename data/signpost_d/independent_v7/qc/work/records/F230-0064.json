@@ -1,0 +1,100 @@
+{
+ "id": "F230-0064",
+ "family": "F230",
+ "state": {
+  "prescriptions": [
+   {
+    "item_id": "D1",
+    "time_critical": true,
+    "dose_units": 1
+   }
+  ],
+  "administrations": [
+   {
+    "item_id": "D1",
+    "scheduled": "08:00",
+    "given_at": "09:33",
+    "units_given": 1,
+    "initials": null
+   }
+  ],
+  "stock": {
+   "D1": {
+    "opening": 10,
+    "wasted": 1,
+    "wasted_witnessed": true,
+    "closing": 8
+   }
+  }
+ },
+ "factors": {
+  "dose_mismatch_type": "none",
+  "prescription_change_documented": false,
+  "omission_count": 0,
+  "omission_reason_valid": true,
+  "late_minutes": 93,
+  "time_critical_affected": true,
+  "stock_variance": 0,
+  "stock_variance_explained": true,
+  "signature_gaps": 1,
+  "unit_expression_decoy": "matching_units",
+  "post_dose_obs_reassuring": false,
+  "pending_query": "none",
+  "prior_errors_30d": 3,
+  "item_count": 1
+ },
+ "factors_sampled": {
+  "dose_mismatch_type": "none",
+  "prescription_change_documented": false,
+  "omission_count": 0,
+  "omission_reason_valid": true,
+  "late_minutes": 93,
+  "time_critical_affected": true,
+  "stock_variance": -1,
+  "stock_variance_explained": true,
+  "signature_gaps": 2,
+  "unit_expression_decoy": "matching_units",
+  "post_dose_obs_reassuring": false,
+  "pending_query": "none",
+  "prior_errors_30d": 3,
+  "item_count": 10
+ },
+ "plan": {
+  "dose_mismatch": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "stock_reconciles": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "next_step": {
+   "clarity": "balanced",
+   "target": "correct_and_close",
+   "second": "clinical_escalation"
+  },
+  "open_discrepancies": {
+   "clarity": "contested",
+   "target": "2",
+   "second": "1"
+  },
+  "error_severity": {
+   "clarity": "balanced",
+   "target": "4",
+   "second": "3"
+  }
+ },
+ "target_words": 25,
+ "deciding": {
+  "dose_mismatch": "D1 units_given 1 equals prescribed dose_units 1.",
+  "stock_reconciles": "10 minus 1 wasted (witnessed) minus 1 signed equals 8, but the waste is the only reason it balances.",
+  "next_step": "D1 time-critical given 93 min late with null initials; slip versus escalation is open.",
+  "open_discrepancies": "Only D1 is affected; null initials and lateness may be one item or counted separately.",
+  "error_severity": "D1 is time-critical and 93 min late, and the dose was correct, so level 4 versus 3 is arguable."
+ },
+ "request": "rec-F230-0061",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.008518
+}

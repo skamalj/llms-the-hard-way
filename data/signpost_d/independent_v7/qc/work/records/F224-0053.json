@@ -1,0 +1,139 @@
+{
+ "id": "F224-0053",
+ "family": "F224",
+ "state": {
+  "request": {
+   "views": [
+    "BW_R"
+   ],
+   "ind": "I_CARIES_MONITOR",
+   "risk": "low",
+   "date": "2024-08-02",
+   "prior_same_view": "2022-12-05",
+   "exceptions": [
+    {
+     "code": "EX_ADDL",
+     "by": "D03"
+    }
+   ],
+   "patient_flags": []
+  },
+  "exposures": [
+   {
+    "id": 1,
+    "view": "BW_R",
+    "dose": 0.75
+   },
+   {
+    "id": 2,
+    "view": "BW_R",
+    "retake_of": 1,
+    "dose": 0.75
+   },
+   {
+    "id": 3,
+    "view": "PA_46",
+    "dose": 0.75
+   },
+   {
+    "id": 4,
+    "view": "PA_47",
+    "dose": 0.75
+   },
+   {
+    "id": 5,
+    "view": "PA_36",
+    "dose": 0.75
+   }
+  ],
+  "image_review": {
+   "grade": 2,
+   "faults": {
+    "1": [
+     "FC_CONE_CUT"
+    ]
+   },
+   "second_grader": "done",
+   "sensor_errors": []
+  },
+  "equipment": {
+   "qa_ok": true,
+   "drl": {
+    "BW": 1.0,
+    "PA": 1.0
+   }
+  },
+  "operator": {
+   "signoff_at": "2024-08-02T16:00",
+   "prior_findings_12m": 0
+  }
+ },
+ "factors": {
+  "indication_match": "partial_match",
+  "recall_interval_months": 20,
+  "dose_ratio_to_drl": 0.75,
+  "console_log_discrepancy": "none",
+  "retake_cause": "positioning",
+  "equipment_qa_status": "in_date",
+  "approved_exception": true,
+  "patient_cooperation_flag": false,
+  "unrequested_exposure_count": 3,
+  "verbal_authorisation_logged": false,
+  "image_grade": "acceptable_minor_faults",
+  "audit_completeness": "complete",
+  "operator_prior_findings": 0
+ },
+ "factors_sampled": {
+  "indication_match": "partial_match",
+  "recall_interval_months": 20,
+  "dose_ratio_to_drl": 0.64,
+  "console_log_discrepancy": "none",
+  "retake_cause": "positioning",
+  "equipment_qa_status": "in_date",
+  "approved_exception": true,
+  "patient_cooperation_flag": true,
+  "unrequested_exposure_count": 3,
+  "verbal_authorisation_logged": false,
+  "image_grade": "acceptable_minor_faults",
+  "audit_completeness": "operator_signoff_missing",
+  "operator_prior_findings": 0
+ },
+ "plan": {
+  "justified": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "operator_retake": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "follow_up": {
+   "clarity": "leaning",
+   "target": "close_record",
+   "second": null
+  },
+  "dose_position": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "unjustified_count": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 27,
+ "deciding": {
+  "justified": "Caries-monitor indication fits bitewings, the 20-month interval is within the 24-month low-risk limit, and an EX_ADDL exception exists, but the indication only partly covers the extra periapicals.",
+  "operator_retake": "Retake follows FC_CONE_CUT with no sensor errors, a passing QA, and no patient flags, so operator technique is the cause.",
+  "follow_up": "QA is fine, grading and sign-off are complete, there are no prior findings and an approved exception exists, but three extra views leave some doubt.",
+  "dose_position": "Every dose of 0.75 against a reference of 1.0 is exactly 75%, the boundary between low and typical.",
+  "unjustified_count": "Three periapicals (PA_46, PA_47, PA_36) are absent from the request. The EX_ADDL exception has no view listed, so whether it covers one of them is uncertain, which splits level 3 and level 2."
+ },
+ "request": "rec-F224-0051",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011636
+}

@@ -1,0 +1,119 @@
+{
+ "id": "F230-0087",
+ "family": "F230",
+ "state": {
+  "prescriptions": [
+   {
+    "item_id": "W",
+    "strength_mg": 5,
+    "dose_units": 1,
+    "high_risk": true
+   },
+   {
+    "item_id": "X",
+    "dose_units": 1
+   },
+   {
+    "item_id": "Y",
+    "dose_units": 1
+   }
+  ],
+  "administrations": [
+   {
+    "item_id": "W",
+    "units_given": 1,
+    "strength_mg_used": 10,
+    "initials": "MB"
+   }
+  ],
+  "stock": {
+   "W": {
+    "opening": 20,
+    "closing": 17
+   }
+  },
+  "round": {
+   "open_queries": [
+    {
+     "type": "gp",
+     "item_id": "W"
+    }
+   ],
+   "post_dose_obs": [
+    {
+     "hr": 128
+    }
+   ]
+  }
+ },
+ "factors": {
+  "dose_mismatch_type": "wrong_strength",
+  "prescription_change_documented": false,
+  "omission_count": 2,
+  "omission_reason_valid": false,
+  "late_minutes": 4,
+  "time_critical_affected": true,
+  "stock_variance": 2,
+  "stock_variance_explained": false,
+  "signature_gaps": 0,
+  "unit_expression_decoy": "matching_units",
+  "post_dose_obs_reassuring": false,
+  "pending_query": "gp_callback_awaited",
+  "prior_errors_30d": 3,
+  "item_count": 3
+ },
+ "factors_sampled": {
+  "dose_mismatch_type": "wrong_strength",
+  "prescription_change_documented": false,
+  "omission_count": 3,
+  "omission_reason_valid": false,
+  "late_minutes": 4,
+  "time_critical_affected": false,
+  "stock_variance": 0,
+  "stock_variance_explained": false,
+  "signature_gaps": 0,
+  "unit_expression_decoy": "matching_units",
+  "post_dose_obs_reassuring": false,
+  "pending_query": "gp_callback_awaited",
+  "prior_errors_30d": 3,
+  "item_count": 7
+ },
+ "plan": {
+  "dose_mismatch": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "stock_reconciles": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "clinical_escalation",
+   "second": null
+  },
+  "open_discrepancies": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  },
+  "error_severity": {
+   "clarity": "leaning",
+   "target": "0",
+   "second": null
+  }
+ },
+ "target_words": 38,
+ "deciding": {
+  "dose_mismatch": "Item W strength_mg_used 10 against prescribed 5 mg with no change entry.",
+  "stock_reconciles": "Item W closing 17 against opening 20 less one signed dose leaves an unexplained gap of 2.",
+  "next_step": "The wrong strength is on a high_risk item and the heart rate of 128 is abnormal, with a GP callback awaited.",
+  "open_discrepancies": "Items X and Y have no administration entries and W has a strength error and a stock gap, giving four or more.",
+  "error_severity": "Entry timing and signatures are clean, but the strength error points away from level 0, so the evidence conflicts."
+ },
+ "request": "rec-F230-0086",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.008305
+}

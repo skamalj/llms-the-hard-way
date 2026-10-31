@@ -1,0 +1,127 @@
+{
+ "id": "F204-0071",
+ "family": "F204",
+ "state": {
+  "rx": {
+   "drug": "sertraline",
+   "strength": {
+    "val": 50,
+    "unit": "mg"
+   },
+   "form": "tab",
+   "dose": 1,
+   "freq_per_day": 1,
+   "qty": 28,
+   "days_intended": 28
+  },
+  "patient": {
+   "pt_id": "P4471",
+   "supplies": [
+    {
+     "date": "2025-03-05",
+     "days_covered": 28
+    }
+   ],
+   "near_miss_count": 3
+  },
+  "dispensed": {
+   "product_name": "sertraline",
+   "strength": {
+    "val": 100,
+    "unit": "mg"
+   },
+   "form": "tab",
+   "pack_size": 14,
+   "packs": 1,
+   "owing": null,
+   "expiry": "2026-09-30",
+   "high_risk": true
+  },
+  "label": {
+   "pt_id": "P4471",
+   "dose_qty": 1,
+   "freq_per_day": 1,
+   "qty_printed": 14
+  },
+  "check_log": {
+   "checked_at": "2025-03-30T14:10",
+   "clin_check": null,
+   "queries": [
+    {
+     "raised_at": "2025-03-30T13:50",
+     "field": "strength",
+     "status": "pending"
+    }
+   ],
+   "interventions": []
+  }
+ },
+ "factors": {
+  "strength_status": "differs",
+  "product_status": "exact",
+  "quantity_status": "short_undocumented",
+  "label_status": "correct",
+  "prescriber_query": "pending",
+  "pharmacist_intervention": false,
+  "clinical_check_signed": false,
+  "home_supply_days": 3,
+  "emergency_supply": false,
+  "short_expiry": false,
+  "prior_error_count": 3,
+  "high_risk_drug": true,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "strength_status": "match_same_units",
+  "product_status": "exact",
+  "quantity_status": "short_undocumented",
+  "label_status": "correct",
+  "prescriber_query": "pending",
+  "pharmacist_intervention": true,
+  "clinical_check_signed": false,
+  "home_supply_days": 2,
+  "emergency_supply": false,
+  "short_expiry": false,
+  "prior_error_count": 3,
+  "high_risk_drug": true,
+  "boundary_case": false
+ },
+ "plan": {
+  "strength_differs": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "redispense",
+   "second": null
+  },
+  "error_category": {
+   "clarity": "leaning",
+   "target": "none_found",
+   "second": null
+  },
+  "open_discrepancies": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "supply_urgency": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  }
+ },
+ "target_words": 58,
+ "deciding": {
+  "strength_differs": "rx.strength 50 mg vs dispensed.strength 100 mg, same unit and form, so converted strength is not equal.",
+  "next_step": "Quantity 14 supplied against 28 prescribed with owing null is not covered by the only query, which is on strength, so the item goes back to the dispenser.",
+  "error_category": "Product name, form, expiry and label identifiers are correct and the only query is pending; the strength and quantity differences are what a reviewer may or may not count as unresolved.",
+  "open_discrepancies": "Strength (query pending) and quantity (no owing slip) are two; clin_check null is a possible third, which holds three against two in balance.",
+  "supply_urgency": "Last supply 2025-03-05 with 28 days covered runs to 2025-04-02 against checked_at 2025-03-30, so about 3 days, near the 2-day boundary depending on inclusive counting."
+ },
+ "request": "rec-F204-0071",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012521
+}

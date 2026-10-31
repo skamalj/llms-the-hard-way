@@ -1,0 +1,127 @@
+{
+ "id": "F236-0060",
+ "family": "F236",
+ "state": {
+  "changeover": {
+   "line": "L5",
+   "from_allergens": [
+    "milk",
+    "egg"
+   ],
+   "to_allergens": [
+    "milk",
+    "egg"
+   ]
+  },
+  "cleaning": {
+   "steps": [
+    {
+     "s": "wash",
+     "completed": true,
+     "spec_min": 30,
+     "actual_min": 30
+    }
+   ],
+   "part_swap": true,
+   "set_id": "DS-9"
+  },
+  "verification": {
+   "swabs": [
+    {
+     "id": "S1",
+     "loc": "depositor",
+     "target": "egg",
+     "reading": 5,
+     "limit_ppm": 5,
+     "at": "2024-09-03T06:05"
+    },
+    {
+     "id": "S2",
+     "loc": "depositor",
+     "retest_of": "S1",
+     "reading": 0,
+     "limit_ppm": 5,
+     "at": "2024-09-03T06:25"
+    }
+   ]
+  },
+  "production": {
+   "batch_id": null,
+   "start_at": "2024-09-03T06:20",
+   "end_at": "2024-09-03T09:20",
+   "qty": 154.4,
+   "unit": "kg"
+  },
+  "approvals": {
+   "qa_signoff": {
+    "signed_at": "2024-09-03T06:10"
+   }
+  }
+ },
+ "factors": {
+  "allergen_transition": "same_allergen_set",
+  "cleaning_completion": "full",
+  "swab_outcome": "at_limit_retest_pass",
+  "swab_timing_mismatch": true,
+  "cross_section_discrepancy": "batch_id missing",
+  "exposed_quantity_kg": "about 4 from 5 min of a 154.4 kg batch",
+  "approved_deviation": false,
+  "label_precaution": false,
+  "dedicated_tooling": true,
+  "qa_signoff_state": "signed_before_start",
+  "line_failure_history": "not recorded",
+  "boundary_value": true
+ },
+ "factors_sampled": {
+  "allergen_transition": "same_allergen_set",
+  "cleaning_completion": "multiple_steps_skipped",
+  "swab_outcome": "all_negative",
+  "swab_timing_mismatch": false,
+  "cross_section_discrepancy": "none",
+  "exposed_quantity_kg": 154.4,
+  "approved_deviation": false,
+  "label_precaution": false,
+  "dedicated_tooling": true,
+  "qa_signoff_state": "missing",
+  "line_failure_history": 2,
+  "boundary_value": false
+ },
+ "plan": {
+  "swabs_cleared": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "line_disposition": {
+   "clarity": "clear",
+   "target": "release",
+   "second": null
+  },
+  "worst_deficiency": {
+   "clarity": "leaning",
+   "target": "records_only",
+   "second": null
+  },
+  "exposed_product": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  },
+  "residue_evidence": {
+   "clarity": "contested",
+   "target": "2",
+   "second": "1"
+  }
+ },
+ "target_words": 42,
+ "deciding": {
+  "swabs_cleared": "The S1 retest S2 passed at 06:25, 5 min after the 06:20 start. Passing swabs preceded sign-off, so true or false is defensible.",
+  "line_disposition": "Cleaning is complete, dedicated set DS-9 was fitted, the retest passed and sign-off precedes start.",
+  "worst_deficiency": "production.batch_id is null, a paperwork gap. Cleaning is complete and sign-off precedes start.",
+  "exposed_product": "The passing retest was 5 min after start, roughly 4 kg of 154.4 kg. Level 0 is arguable if S1 counts.",
+  "residue_evidence": "S1 reads exactly 5 ppm against a 5 ppm limit and the retest reads 0. That is at limit with retest passed, or arguably trace."
+ },
+ "request": "rec-F236-0056",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.01392
+}

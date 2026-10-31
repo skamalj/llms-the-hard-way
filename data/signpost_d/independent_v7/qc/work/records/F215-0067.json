@@ -1,0 +1,120 @@
+{
+ "id": "F215-0067",
+ "family": "F215",
+ "state": {
+  "bin": {
+   "crop": "barley",
+   "safe_mc_pct": 14.5,
+   "baseline_c": 14,
+   "intake_cond": "blended",
+   "prior_heat_logs": [
+    "2024-06-18",
+    "2025-02-10"
+   ]
+  },
+  "cable_readings": [
+   {
+    "cable_id": "C1",
+    "cal_due": "2026-02-01",
+    "fault": false,
+    "nodes": [
+     {
+      "depth_m": 0.5,
+      "temp_c": [
+       16,
+       17,
+       24
+      ]
+     }
+    ]
+   }
+  ],
+  "moisture": [
+   {
+    "sample_date": "2025-06-16",
+    "method": "lab",
+    "mc_pct": 15.2
+   }
+  ],
+  "environment": {
+   "ambient_c_7d_mean": 23,
+   "headspace_c": 24,
+   "reading_date": "2025-06-20"
+  },
+  "aeration": [
+   {
+    "start": "2025-06-19",
+    "end": null,
+    "fan_hours": 20
+   }
+  ]
+ },
+ "factors": {
+  "peak_excess_c": 10.0,
+  "rise_trend": "single_jump",
+  "second_cable_corroboration": false,
+  "sensor_fault_flag": false,
+  "ambient_warming": true,
+  "moisture_vs_limit": "above",
+  "moisture_sample_status": "recent_lab",
+  "aeration_running": true,
+  "co2_elevation": "normal",
+  "insect_trap_count": 16,
+  "missing_section": "none",
+  "date_order_anomaly": false,
+  "intake_condition": "blended"
+ },
+ "factors_sampled": {
+  "peak_excess_c": 10.53,
+  "rise_trend": "single_jump",
+  "second_cable_corroboration": false,
+  "sensor_fault_flag": false,
+  "ambient_warming": true,
+  "moisture_vs_limit": "within_0_5_pct",
+  "moisture_sample_status": "recent_lab",
+  "aeration_running": true,
+  "co2_elevation": "normal",
+  "insect_trap_count": 16,
+  "missing_section": "none",
+  "date_order_anomaly": false,
+  "intake_condition": "blended"
+ },
+ "plan": {
+  "hotspot_active": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "moisture_safe": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "next_action": {
+   "clarity": "balanced",
+   "target": "hold_recheck",
+   "second": "turn_or_unload"
+  },
+  "recurrence_count": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  },
+  "temp_excess": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  }
+ },
+ "target_words": 38,
+ "deciding": {
+  "hotspot_active": "Top node 0.5 m jumps 17 to 24 with one cable and ambient 23 and headspace 24, so ambient warming explains it, but fans are running.",
+  "moisture_safe": "Recent lab mc_pct 15.2 exceeds safe_mc_pct 14.5.",
+  "next_action": "Single uncorroborated jump with warm ambient favours recheck; the 10 degree excess and wet grain keep unloading arguable.",
+  "recurrence_count": "Two logs, but 2024-06-18 sits at the edge of the 12 month window, so one or two.",
+  "temp_excess": "Peak 24 vs baseline 14 is exactly 10, at the level 2/3 boundary."
+ },
+ "request": "rec-F215-0066",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.009489
+}

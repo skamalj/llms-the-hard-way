@@ -1,0 +1,147 @@
+{
+ "id": "F204-0075",
+ "family": "F204",
+ "state": {
+  "rx": {
+   "drug": "nifedipine",
+   "strength": {
+    "val": 20,
+    "unit": "mg"
+   },
+   "form": "tab",
+   "dose": 1,
+   "freq_per_day": 2,
+   "qty": 56,
+   "days_intended": 28,
+   "issued": "2025-06-10"
+  },
+  "patient": {
+   "pt_id": "P9042",
+   "age": 67,
+   "supplies": [
+    {
+     "date": "2025-06-01",
+     "days_covered": 14
+    }
+   ],
+   "emergency_supplies": [],
+   "near_miss_count": 2
+  },
+  "dispensed": {
+   "product_name": "nifedipine",
+   "strength": {
+    "val": 40,
+    "unit": "mg"
+   },
+   "form": "MR tab",
+   "pack_size": 28,
+   "packs": 1,
+   "owing": null,
+   "batch": "N8830",
+   "expiry": "2027-04-30",
+   "req_warnings": [
+    "25"
+   ],
+   "high_risk": false
+  },
+  "label": {
+   "pt_id": "P9042",
+   "dose_qty": 1,
+   "freq_per_day": 2,
+   "warning_codes": [
+    "25"
+   ],
+   "qty_printed": 28
+  },
+  "check_log": {
+   "checked_at": "2025-06-13T15:25",
+   "clin_check": null,
+   "queries": [
+    {
+     "raised_at": "2025-06-13T14:50",
+     "field": "strength",
+     "status": "pending"
+    },
+    {
+     "raised_at": "2025-06-13T14:50",
+     "field": "form",
+     "status": "pending"
+    },
+    {
+     "raised_at": "2025-06-13T14:55",
+     "field": "quantity",
+     "status": "pending"
+    }
+   ],
+   "interventions": []
+  }
+ },
+ "factors": {
+  "strength_status": "differs",
+  "product_status": "form_differs",
+  "quantity_status": "short_undocumented",
+  "label_status": "correct",
+  "prescriber_query": "pending",
+  "pharmacist_intervention": false,
+  "clinical_check_signed": false,
+  "home_supply_days": 2,
+  "emergency_supply": false,
+  "short_expiry": false,
+  "prior_error_count": 2,
+  "high_risk_drug": false,
+  "boundary_case": true
+ },
+ "factors_sampled": {
+  "strength_status": "match_same_units",
+  "product_status": "form_differs",
+  "quantity_status": "short_undocumented",
+  "label_status": "warning_code_missing",
+  "prescriber_query": "none",
+  "pharmacist_intervention": true,
+  "clinical_check_signed": false,
+  "home_supply_days": 12,
+  "emergency_supply": false,
+  "short_expiry": false,
+  "prior_error_count": 2,
+  "high_risk_drug": false,
+  "boundary_case": true
+ },
+ "plan": {
+  "strength_differs": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "hold_query",
+   "second": null
+  },
+  "error_category": {
+   "clarity": "contested",
+   "target": "quantity_only",
+   "second": "none_found"
+  },
+  "open_discrepancies": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "supply_urgency": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  }
+ },
+ "target_words": 188,
+ "deciding": {
+  "strength_differs": "rx 20 mg vs dispensed 40 mg in the same unit and per-volume basis, so the strength is plainly not equal.",
+  "next_step": "Strength, form and quantity are each covered by a pending query, nothing is uncovered, and clin_check is null, so the item waits on the confirmation shelf.",
+  "error_category": "Quantity 28 against 56 prescribed with owing null is the only difference a reader would class as quantity, while the strength and form differences sit under pending queries, so some may count nothing as unresolved.",
+  "open_discrepancies": "Strength, form and quantity are three differences, each with a pending query; strength and form can be read as one product issue, which holds three against two in balance.",
+  "supply_urgency": "Last supply 2025-06-01 for 14 days ends 2025-06-15 against checked_at 2025-06-13, which is 2 days exclusive or 3 days if the end date is counted."
+ },
+ "request": "rec-F204-0071",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012521
+}

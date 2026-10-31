@@ -1,0 +1,123 @@
+{
+ "id": "F201-0055",
+ "family": "F201",
+ "state": {
+  "register_header": {
+   "drug": "ketamine",
+   "concentration_mg_ml": 100,
+   "witness_required": false,
+   "opening_balance_ml": 80
+  },
+  "entries": [
+   {
+    "entry_id": 1,
+    "type": "use",
+    "qty_ml": 10,
+    "running_balance_ml": 70,
+    "signed_by": null
+   },
+   {
+    "entry_id": 2,
+    "type": "use",
+    "qty_ml": 5,
+    "running_balance_ml": 65,
+    "signed_by": null
+   },
+   {
+    "entry_id": 3,
+    "type": "use",
+    "qty_ml": 5,
+    "running_balance_ml": 60,
+    "signed_by": null
+   },
+   {
+    "entry_id": 4,
+    "type": "use",
+    "qty_ml": 5,
+    "running_balance_ml": 55,
+    "signed_by": "LOC-4"
+   }
+  ],
+  "clinical_records": null,
+  "stock_check": {
+   "counted_ml": 50,
+   "batch_no": "K3"
+  },
+  "exceptions": [
+   {
+    "batch_no": "K3",
+    "qty_ml": 5,
+    "reason_code": "stock_adjust",
+    "valid_to": "2025-12-31"
+   }
+  ]
+ },
+ "factors": {
+  "drug_profile": "ketamine_100mg_ml",
+  "arithmetic_slip_count": 0,
+  "unrecorded_admin": "none",
+  "clinical_records_missing": true,
+  "disposal_state": "none_needed",
+  "unexplained_shortfall_pct": 6.25,
+  "variance_exception": "valid_partial_cover",
+  "manufacturer_overfill": false,
+  "auth_gap_count": 3,
+  "count_out_of_order": false,
+  "unit_mismatch": false,
+  "locum_signatory": true,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "drug_profile": "ketamine_100mg_ml",
+  "arithmetic_slip_count": 1,
+  "unrecorded_admin": "large_over_10pct",
+  "clinical_records_missing": true,
+  "disposal_state": "removed_unlogged",
+  "unexplained_shortfall_pct": 9.87,
+  "variance_exception": "valid_partial_cover",
+  "manufacturer_overfill": false,
+  "auth_gap_count": 4,
+  "count_out_of_order": false,
+  "unit_mismatch": false,
+  "locum_signatory": true,
+  "boundary_case": false
+ },
+ "plan": {
+  "unexplained_shortfall": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "line_disposition": {
+   "clarity": "clear",
+   "target": "hold_pending",
+   "second": null
+  },
+  "variance_cause": {
+   "clarity": "clear",
+   "target": "no_discrepancy",
+   "second": null
+  },
+  "variance_size": {
+   "clarity": "leaning",
+   "target": "0",
+   "second": null
+  },
+  "auth_gaps": {
+   "clarity": "clear",
+   "target": "2",
+   "second": null
+  }
+ },
+ "target_words": 40,
+ "deciding": {
+  "unexplained_shortfall": "Recomputed 55 ml vs counted 50 ml; a valid same-batch 5 ml exception covers it, but with clinical_records null a nonspecific adjustment code leaves some doubt.",
+  "line_disposition": "clinical_records is null: a single missing confirmation, while the count otherwise reconciles, so hold.",
+  "variance_cause": "Balances are consistent, no disposals or doses are unmatched, and the valid exception covers the whole 5 ml gap.",
+  "variance_size": "Exception fully covers the 5 ml difference, leaving nil, though the missing clinical export adds slight doubt.",
+  "auth_gaps": "signed_by null on entries 1, 2 and 3 (three gaps); entry 4 signed by locum LOC-4 is valid; witness not required."
+ },
+ "request": "rec-F201-0051",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012855
+}

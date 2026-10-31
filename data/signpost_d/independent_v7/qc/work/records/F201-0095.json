@@ -1,0 +1,128 @@
+{
+ "id": "F201-0095",
+ "family": "F201",
+ "state": {
+  "register_header": {
+   "drug": "buprenorphine",
+   "concentration_mg_ml": 0.3,
+   "witness_required": false,
+   "opening_balance_ml": 20
+  },
+  "entries": [
+   {
+    "id": "E1",
+    "type": "admin",
+    "qty_ml": 5,
+    "patient_id": "P1",
+    "running_balance_ml": 15,
+    "signed_by": "LOC-8842"
+   },
+   {
+    "id": "E2",
+    "type": "admin",
+    "qty_ml": 2,
+    "patient_id": "P2",
+    "running_balance_ml": 13,
+    "signed_by": null
+   },
+   {
+    "id": "E3",
+    "type": "disposal",
+    "qty_ml": 1,
+    "running_balance_ml": 12,
+    "signed_by": "RN05"
+   }
+  ],
+  "clinical_records": [
+   {
+    "patient_id": "P1",
+    "dose": 5,
+    "dose_unit": "ml"
+   },
+   {
+    "patient_id": "P2",
+    "dose": 2,
+    "dose_unit": "ml"
+   }
+  ],
+  "stock_check": {
+   "counted_ml": 11.9
+  },
+  "disposals": [
+   {
+    "qty_ml": 1,
+    "register_entry_id": "E3",
+    "witness_id": "RN05",
+    "denatured_date": "2024-06-12"
+   }
+  ]
+ },
+ "factors": {
+  "drug_profile": "buprenorphine_0.3mg_ml",
+  "arithmetic_slip_count": 0,
+  "unrecorded_admin": "none",
+  "clinical_records_missing": false,
+  "disposal_state": "witnessed_complete",
+  "unexplained_shortfall_pct": 0.5,
+  "variance_exception": "none",
+  "manufacturer_overfill": false,
+  "auth_gap_count": 1,
+  "count_out_of_order": false,
+  "unit_mismatch": false,
+  "locum_signatory": true,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "drug_profile": "buprenorphine_0.3mg_ml",
+  "arithmetic_slip_count": 1,
+  "unrecorded_admin": "moderate_2_to_8pct",
+  "clinical_records_missing": false,
+  "disposal_state": "removed_unlogged",
+  "unexplained_shortfall_pct": 13.27,
+  "variance_exception": "none",
+  "manufacturer_overfill": false,
+  "auth_gap_count": 0,
+  "count_out_of_order": false,
+  "unit_mismatch": false,
+  "locum_signatory": true,
+  "boundary_case": false
+ },
+ "plan": {
+  "unexplained_shortfall": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "line_disposition": {
+   "clarity": "clear",
+   "target": "hold_pending",
+   "second": null
+  },
+  "variance_cause": {
+   "clarity": "leaning",
+   "target": "no_discrepancy",
+   "second": null
+  },
+  "variance_size": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "auth_gaps": {
+   "clarity": "clear",
+   "target": "1",
+   "second": null
+  }
+ },
+ "target_words": 41,
+ "deciding": {
+  "unexplained_shortfall": "Counted 11.9 ml against a balance of 12 ml is a 0.1 ml gap. This is tiny but not zero, and no exception or overfill allowance covers it, so the answer is leaning true.",
+  "line_disposition": "E2 signed_by is null. That is the single missing confirmation, and balances, clinical records and disposal are otherwise fully consistent, so the line is held pending that signature.",
+  "variance_cause": "Balances are arithmetically correct, clinical doses match entries, and the disposal is witnessed with a register entry. Only 0.1 ml is left over.",
+  "variance_size": "0.1 ml against 20 ml handled is 0.5%. It could be treated as nil or as a trace.",
+  "auth_gaps": "Only E2 lacks a signature (signed_by null). The locum id on E1 is valid, and witness is not required."
+ },
+ "request": "rec-F201-0091",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012613
+}

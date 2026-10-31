@@ -1,0 +1,184 @@
+{
+ "id": "F224-0059",
+ "family": "F224",
+ "state": {
+  "request": {
+   "views": [
+    "BW_L"
+   ],
+   "ind": "C1",
+   "risk": "high",
+   "date": "2024-04-09",
+   "prior": "2023-10-09",
+   "exc": [],
+   "verbal_auth": [
+    {
+     "t": "11:40",
+     "view": "PA_46"
+    }
+   ],
+   "patient_flags": [
+    "SPECIAL_CARE"
+   ]
+  },
+  "exposures": [
+   {
+    "id": 1,
+    "view": "BW_L",
+    "t": "11:31",
+    "kV": 60,
+    "s": 0.16,
+    "mGy": 0.9,
+    "retake_of": null
+   },
+   {
+    "id": 2,
+    "view": "BW_L",
+    "t": "11:33",
+    "kV": 60,
+    "s": 0.16,
+    "mGy": 0.9,
+    "retake_of": 1
+   },
+   {
+    "id": 3,
+    "view": "PA_46",
+    "t": "11:40",
+    "kV": 60,
+    "s": 0.1,
+    "mGy": 0.5,
+    "retake_of": null
+   },
+   {
+    "id": 4,
+    "view": "PA_47",
+    "t": "11:48",
+    "kV": 60,
+    "s": 0.1,
+    "mGy": 0.5,
+    "retake_of": null
+   }
+  ],
+  "image_review": {
+   "grade": 2,
+   "faults": {
+    "1": [
+     "FC_BLUR"
+    ]
+   },
+   "sensor_errors": [],
+   "second_grader": "done"
+  },
+  "equipment": {
+   "last_qa": "2024-02-12",
+   "qa_months": 12,
+   "output_test": "pass",
+   "service_log": [
+    {
+     "visit": "2024-04-08",
+     "status": "open"
+    }
+   ],
+   "drl_ref": {
+    "BW_L": 0.8,
+    "PA_46": 0.8,
+    "PA_47": 0.8
+   },
+   "console_log": [
+    {
+     "t": "11:31",
+     "kV": 62,
+     "s": 0.2
+    },
+    {
+     "t": "11:34",
+     "kV": 60,
+     "s": 0.16
+    },
+    {
+     "t": "11:40",
+     "kV": 60,
+     "s": 0.1
+    },
+    {
+     "t": "11:48",
+     "kV": 60,
+     "s": 0.1
+    }
+   ]
+  },
+  "operator": {
+   "id": "OP5",
+   "signoff_at": null,
+   "prior_findings_12m": 3
+  }
+ },
+ "factors": {
+  "indication_match": "partial_match",
+  "recall_interval_months": 6,
+  "dose_ratio_to_drl": "1.50 (verified from console settings)",
+  "console_log_discrepancy": "setting_mismatch",
+  "retake_cause": "patient_movement",
+  "equipment_qa_status": "under_service",
+  "approved_exception": false,
+  "patient_cooperation_flag": true,
+  "unrequested_exposure_count": 2,
+  "verbal_authorisation_logged": true,
+  "image_grade": "diagnostic",
+  "audit_completeness": "operator_signoff_missing",
+  "operator_prior_findings": 3
+ },
+ "factors_sampled": {
+  "indication_match": "partial_match",
+  "recall_interval_months": 3,
+  "dose_ratio_to_drl": 1.01,
+  "console_log_discrepancy": "timestamp_drift",
+  "retake_cause": "positioning",
+  "equipment_qa_status": "under_service",
+  "approved_exception": false,
+  "patient_cooperation_flag": true,
+  "unrequested_exposure_count": 0,
+  "verbal_authorisation_logged": true,
+  "image_grade": "diagnostic",
+  "audit_completeness": "operator_signoff_missing",
+  "operator_prior_findings": 3
+ },
+ "plan": {
+  "justified": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "operator_retake": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "follow_up": {
+   "clarity": "clear",
+   "target": "operator_feedback",
+   "second": null
+  },
+  "dose_position": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  },
+  "unjustified_count": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  }
+ },
+ "target_words": 65,
+ "deciding": {
+  "justified": "High-risk recall of exactly 6 months is at the allowed limit, but indication C1 only partly fits the bitewing and there is no exception.",
+  "operator_retake": "Retake follows an FC_BLUR image with SPECIAL_CARE flag and an open service visit, pointing to patient or equipment, though sensor_errors is empty.",
+  "follow_up": "PA_47 has no authorisation and the operator has 3 prior findings, a confirmed justification error for feedback.",
+  "dose_position": "Listed 0.9 mGy against DRL 0.8, but console 62 kV/0.20 s versus 60 kV/0.16 s implies about 1.50 times the reference, on the 2/3 boundary.",
+  "unjustified_count": "PA_47 has no auth; PA_46 verbal auth at 11:40 is the same minute as the exposure, so coverage is borderline between one and two."
+ },
+ "request": "rec-F224-0056",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.015799
+}

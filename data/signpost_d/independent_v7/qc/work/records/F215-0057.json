@@ -1,0 +1,176 @@
+{
+ "id": "F215-0057",
+ "family": "F215",
+ "state": {
+  "bin": {
+   "bin_id": "F2",
+   "crop": "barley",
+   "fill_t": 410,
+   "capacity_t": 450,
+   "intake_date": "2024-07-20",
+   "intake_cond": "undried",
+   "safe_mc_pct": 15,
+   "baseline_c": 12,
+   "prior_logs_12m": 6
+  },
+  "cable_readings": [
+   {
+    "cable_id": "C1",
+    "cal_due": "2025-04-01",
+    "fault": true,
+    "nodes": [
+     {
+      "depth_m": 1,
+      "temp_c": [
+       12.4,
+       19,
+       31
+      ]
+     }
+    ]
+   },
+   {
+    "cable_id": "C2",
+    "cal_due": "2025-04-01",
+    "fault": false,
+    "nodes": [
+     {
+      "depth_m": 1,
+      "temp_c": [
+       14.2,
+       15.8,
+       17.4
+      ]
+     },
+     {
+      "depth_m": 3,
+      "temp_c": [
+       12.5,
+       12.9,
+       13.4
+      ]
+     }
+    ]
+   },
+   {
+    "cable_id": "C3",
+    "cal_due": "2025-04-01",
+    "fault": false,
+    "nodes": [
+     {
+      "depth_m": 1,
+      "temp_c": [
+       12.1,
+       12.2,
+       12.2
+      ]
+     },
+     {
+      "depth_m": 3,
+      "temp_c": [
+       12,
+       12,
+       12.1
+      ]
+     }
+    ]
+   }
+  ],
+  "moisture": [
+   {
+    "sample_date": "2024-09-24",
+    "method": "handheld",
+    "mc_pct": 17.2
+   }
+  ],
+  "environment": {
+   "ambient_c_7d_mean": 12.5,
+   "headspace_c": 13.5,
+   "co2_ppm": 520,
+   "reading_date": "2024-10-01"
+  },
+  "aeration": [
+   {
+    "start": "2024-09-10",
+    "end": "2024-09-11",
+    "fan_hours": 14,
+    "mode": "cooling"
+   }
+  ],
+  "pest_checks": [
+   {
+    "check_date": "2024-09-28",
+    "traps_set": 6,
+    "insects_counted": 27
+   }
+  ]
+ },
+ "factors": {
+  "peak_excess_c": 5.4,
+  "rise_trend": "steady_climb",
+  "second_cable_corroboration": false,
+  "sensor_fault_flag": true,
+  "ambient_warming": false,
+  "moisture_vs_limit": "above",
+  "moisture_sample_status": "handheld_only",
+  "aeration_running": false,
+  "co2_elevation": "normal",
+  "insect_trap_count": 27,
+  "missing_section": "none",
+  "date_order_anomaly": false,
+  "intake_condition": "undried"
+ },
+ "factors_sampled": {
+  "peak_excess_c": 9.15,
+  "rise_trend": "steady_climb",
+  "second_cable_corroboration": false,
+  "sensor_fault_flag": true,
+  "ambient_warming": false,
+  "moisture_vs_limit": "above",
+  "moisture_sample_status": "handheld_only",
+  "aeration_running": false,
+  "co2_elevation": "normal",
+  "insect_trap_count": 27,
+  "missing_section": "none",
+  "date_order_anomaly": false,
+  "intake_condition": "undried"
+ },
+ "plan": {
+  "hotspot_active": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "moisture_safe": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "next_action": {
+   "clarity": "balanced",
+   "target": "continue_monitoring",
+   "second": "turn_or_unload"
+  },
+  "recurrence_count": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  },
+  "temp_excess": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  }
+ },
+ "target_words": 162,
+ "deciding": {
+  "hotspot_active": "Valid C2 climbs steadily at 1 m (14.2, 15.8, 17.4), but C3 at the same depth is flat and C2's deeper node rises only slightly; C1's 31 is a faulty-cable decoy.",
+  "moisture_safe": "Handheld mc 17.2 against safe limit 15 and undried intake; no lab confirmation.",
+  "next_action": "Uncorroborated climb on one valid cable with C1 faulty and no CO2 or ambient signal (continue monitoring), against a steady rise on undried grain with repeated logs (turn or unload).",
+  "recurrence_count": "prior_logs_12m is 6, which is five or more.",
+  "temp_excess": "Valid peak 17.4 (C2) against baseline 12 gives 5.4, just above the level 1/2 boundary at 5; the C1 raw 31 is excluded because it is faulty."
+ },
+ "request": "rec-F215-0056",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.009101
+}

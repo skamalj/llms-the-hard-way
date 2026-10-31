@@ -1,0 +1,181 @@
+{
+ "id": "F230-0053",
+ "family": "F230",
+ "state": {
+  "resident": {
+   "id": "C303",
+   "weight_kg": 68,
+   "allergies": [
+    "latex"
+   ],
+   "status": "home"
+  },
+  "prescriptions": [
+   {
+    "item_id": "I1",
+    "drug": "levodopa",
+    "strength_mg": 100,
+    "form": "tab",
+    "dose_units": 1,
+    "times": [
+     "08:00",
+     "12:00"
+    ],
+    "time_critical": true
+   },
+   {
+    "item_id": "I2",
+    "drug": "baclofen",
+    "strength_mg": 10,
+    "form": "tab",
+    "dose_units": 1,
+    "times": [
+     "08:00"
+    ]
+   },
+   {
+    "item_id": "I3",
+    "drug": "amlodipine",
+    "strength_mg": 10,
+    "form": "tab",
+    "dose_units": 1,
+    "times": [
+     "08:00"
+    ]
+   }
+  ],
+  "administrations": [
+   {
+    "item_id": "I1",
+    "scheduled": "08:00",
+    "given_at": "08:33",
+    "units_given": 2,
+    "strength_mg_used": 100,
+    "initials": "EF"
+   },
+   {
+    "item_id": "I2",
+    "scheduled": "08:00",
+    "given_at": "08:10",
+    "units_given": 2,
+    "strength_mg_used": 5,
+    "initials": "EF"
+   },
+   {
+    "item_id": "I3",
+    "scheduled": "08:00",
+    "given_at": "08:12",
+    "units_given": 1,
+    "strength_mg_used": 10,
+    "initials": "EF"
+   }
+  ],
+  "stock": {
+   "I1": {
+    "opening": 40,
+    "received": 0,
+    "wasted": 0,
+    "closing": 38
+   },
+   "I2": {
+    "opening": 28,
+    "received": 0,
+    "wasted": 2,
+    "wasted_witnessed": true,
+    "closing": 24
+   },
+   "I3": {
+    "opening": 30,
+    "received": 0,
+    "closing": 29
+   }
+  },
+  "round": {
+   "round_id": "RD9",
+   "date": "2024-05-03",
+   "slot": "am",
+   "staff_on": 4,
+   "open_queries": [],
+   "post_dose_obs": [
+    {
+     "type": "bp_sys",
+     "value": 122
+    }
+   ]
+  },
+  "history": {
+   "errors_30d": 2,
+   "last_audit_passed": true
+  }
+ },
+ "factors": {
+  "dose_mismatch_type": "wrong_quantity",
+  "prescription_change_documented": false,
+  "omission_count": 0,
+  "omission_reason_valid": true,
+  "late_minutes": 33,
+  "time_critical_affected": true,
+  "stock_variance": 0,
+  "stock_variance_explained": true,
+  "signature_gaps": 0,
+  "unit_expression_decoy": "equivalent_split",
+  "post_dose_obs_reassuring": true,
+  "pending_query": "none",
+  "prior_errors_30d": 2,
+  "item_count": 3
+ },
+ "factors_sampled": {
+  "dose_mismatch_type": "none",
+  "prescription_change_documented": false,
+  "omission_count": 0,
+  "omission_reason_valid": true,
+  "late_minutes": 33,
+  "time_critical_affected": true,
+  "stock_variance": 0,
+  "stock_variance_explained": true,
+  "signature_gaps": 0,
+  "unit_expression_decoy": "equivalent_split",
+  "post_dose_obs_reassuring": true,
+  "pending_query": "none",
+  "prior_errors_30d": 2,
+  "item_count": 3
+ },
+ "plan": {
+  "dose_mismatch": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "stock_reconciles": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "clinical_escalation",
+   "second": null
+  },
+  "open_discrepancies": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "error_severity": {
+   "clarity": "leaning",
+   "target": "4",
+   "second": null
+  }
+ },
+ "target_words": 163,
+ "deciding": {
+  "dose_mismatch": "I1 given 2 units of 100 mg against 1 prescribed with no change order; I2 split is equivalent and not a mismatch.",
+  "stock_reconciles": "I1 closing 38 against expected 38 is fine, I2 gap explained by witnessed waste, but I3 and I1 differ in doses signed so a recount could differ.",
+  "next_step": "Double dose of time-critical levodopa suggests GP advice.",
+  "open_discrepancies": "I1 mismatch is unresolved; stock counts for I1 and I2 could also be counted, so two or three items.",
+  "error_severity": "Wrong quantity on time-critical I1 with no change order."
+ },
+ "request": "rec-F230-0051",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.007129
+}

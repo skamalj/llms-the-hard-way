@@ -1,0 +1,151 @@
+{
+ "id": "F236-0073",
+ "family": "F236",
+ "state": {
+  "changeover": {
+   "line_id": "L4",
+   "from_allergens": [
+    "soya"
+   ],
+   "to_allergens": [
+    "soya",
+    "sesame"
+   ]
+  },
+  "cleaning": {
+   "steps": [
+    {
+     "id": 1,
+     "completed": true,
+     "spec_min": 30,
+     "actual_min": 28
+    },
+    {
+     "id": 2,
+     "completed": true,
+     "spec_min": 15,
+     "actual_min": 15
+    }
+   ],
+   "part_swap": true,
+   "dedicated_set": "DS-9"
+  },
+  "verification": {
+   "swabs": [
+    {
+     "id": "S1",
+     "target": "sesame",
+     "reading": 14,
+     "limit_ppm": 10,
+     "at": "2025-04-08T05:40"
+    },
+    {
+     "id": "S2",
+     "retest_of": "S1",
+     "target": "sesame",
+     "reading": 3,
+     "limit_ppm": 10,
+     "at": "2025-04-08T06:04"
+    }
+   ]
+  },
+  "production": {
+   "line_id": "L4",
+   "product_code": "P31",
+   "start_at": "2025-04-08T06:00",
+   "end_at": "2025-04-08T14:00",
+   "quantity": 782720,
+   "unit": "g",
+   "packaging_allergens": [
+    "soya",
+    "sesame"
+   ]
+  },
+  "approvals": {
+   "qa_signoff": {
+    "signed_at": "2025-04-08T05:50"
+   },
+   "deviations": []
+  },
+  "history": [
+   {
+    "verification_passed": false
+   },
+   {
+    "verification_passed": true
+   },
+   {
+    "verification_passed": false
+   },
+   {
+    "verification_passed": true
+   }
+  ]
+ },
+ "factors": {
+  "allergen_transition": "adds_allergen",
+  "cleaning_completion": "duration_short",
+  "swab_outcome": "over_limit_retest_passed",
+  "swab_timing_mismatch": true,
+  "cross_section_discrepancy": "quantity_unit_mismatch",
+  "exposed_quantity_kg": 6.5,
+  "approved_deviation": false,
+  "label_precaution": false,
+  "dedicated_tooling": true,
+  "qa_signoff_state": "signed_before_start",
+  "line_failure_history": 2,
+  "boundary_value": false
+ },
+ "factors_sampled": {
+  "allergen_transition": "adds_allergen",
+  "cleaning_completion": "duration_short",
+  "swab_outcome": "positive_no_retest",
+  "swab_timing_mismatch": true,
+  "cross_section_discrepancy": "quantity_unit_mismatch",
+  "exposed_quantity_kg": 782.72,
+  "approved_deviation": false,
+  "label_precaution": false,
+  "dedicated_tooling": true,
+  "qa_signoff_state": "signed_after_start",
+  "line_failure_history": 2,
+  "boundary_value": false
+ },
+ "plan": {
+  "swabs_cleared": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "line_disposition": {
+   "clarity": "leaning",
+   "target": "hold",
+   "second": null
+  },
+  "worst_deficiency": {
+   "clarity": "balanced",
+   "target": "cleaning_shortfall",
+   "second": "none"
+  },
+  "exposed_product": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  },
+  "residue_evidence": {
+   "clarity": "clear",
+   "target": "2",
+   "second": null
+  }
+ },
+ "target_words": 112,
+ "deciding": {
+  "swabs_cleared": "The passing retest S2 is timed 06:04, after production start_at 06:00, so not every swab passed before the first production.",
+  "line_disposition": "The retest passed 4 minutes after start, so the batch is held until confirmation. The retest passing makes release with a condition conceivable, hence leaning.",
+  "worst_deficiency": "The step 1 duration is 28 of 30 min, a mild shortfall. The retest 4 min late is the only other issue, and QA signed before start, so none is also defensible.",
+  "exposed_product": "The gap of 4 min on a 782 kg batch over 8 h is about 6.5 kg, so level 1. Level 0 is arguable because the retest was negative and the gap was brief.",
+  "residue_evidence": "S1 reads 14 against a limit of 10 and retest S2 reads 3, so the reading was over limit and the retest passed."
+ },
+ "request": "rec-F236-0071",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.015373
+}

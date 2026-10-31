@@ -1,0 +1,148 @@
+{
+ "id": "F230-0077",
+ "family": "F230",
+ "state": {
+  "prescriptions": [
+   {
+    "item_id": "i1",
+    "drug": "metformin",
+    "strength_mg": 500,
+    "dose_units": 1
+   },
+   {
+    "item_id": "i2",
+    "drug": "ramipril",
+    "strength_mg": 5,
+    "dose_units": 1
+   },
+   {
+    "item_id": "i3",
+    "drug": "vitamin D",
+    "strength_mg": 1,
+    "dose_units": 1
+   },
+   {
+    "item_id": "i4",
+    "drug": "senna",
+    "strength_mg": 7.5,
+    "dose_units": 1
+   }
+  ],
+  "administrations": [
+   {
+    "item_id": "i1",
+    "scheduled": "2024-05-06T08:00",
+    "given_at": "2024-05-06T08:39",
+    "units_given": 2,
+    "strength_mg_used": 500,
+    "initials": "AP"
+   },
+   {
+    "item_id": "i2",
+    "code": "R",
+    "units_given": 0
+   },
+   {
+    "item_id": "i3",
+    "code": "O",
+    "units_given": 0
+   },
+   {
+    "item_id": "i4",
+    "units_given": 1,
+    "initials": null
+   }
+  ],
+  "stock": {
+   "i1": {
+    "opening": 40,
+    "closing": 38
+   },
+   "i2": {
+    "opening": 28,
+    "closing": 28
+   },
+   "i3": {
+    "opening": 60,
+    "closing": 60
+   },
+   "i4": {
+    "opening": 20,
+    "closing": 19
+   }
+  },
+  "round": {
+   "open_queries": []
+  }
+ },
+ "factors": {
+  "dose_mismatch_type": "wrong_strength",
+  "prescription_change_documented": false,
+  "omission_count": 2,
+  "omission_reason_valid": false,
+  "late_minutes": 39,
+  "time_critical_affected": false,
+  "stock_variance": 0,
+  "stock_variance_explained": false,
+  "signature_gaps": 1,
+  "unit_expression_decoy": "matching_units",
+  "post_dose_obs_reassuring": true,
+  "pending_query": "none",
+  "prior_errors_30d": 1,
+  "item_count": 4
+ },
+ "factors_sampled": {
+  "dose_mismatch_type": "wrong_strength",
+  "prescription_change_documented": true,
+  "omission_count": 2,
+  "omission_reason_valid": false,
+  "late_minutes": 39,
+  "time_critical_affected": false,
+  "stock_variance": -3,
+  "stock_variance_explained": false,
+  "signature_gaps": 2,
+  "unit_expression_decoy": "matching_units",
+  "post_dose_obs_reassuring": true,
+  "pending_query": "pharmacy_query_open",
+  "prior_errors_30d": 1,
+  "item_count": 6
+ },
+ "plan": {
+  "dose_mismatch": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "stock_reconciles": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "report_incident",
+   "second": null
+  },
+  "open_discrepancies": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "error_severity": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 63,
+ "deciding": {
+  "dose_mismatch": "i1 prescribed dose_units 1 but units_given 2 at 500 mg, with no change entry.",
+  "stock_reconciles": "Every closing count matches opening minus signed units (i1 38, i4 19, omitted items unchanged). Doubt only because of the omitted items.",
+  "next_step": "The error is confirmed on ordinary drugs with no time_critical or high_risk flags and no open query, so an incident report follows.",
+  "open_discrepancies": "i1 wrong dose, i2 and i3 omitted with no supporting status or withhold order, and i4 null initials make four items, close to the 2-3 band.",
+  "error_severity": "The ordinary-drug double dose and two unsupported omissions argue for level 3, while the 39-minute delay and the missing signature on i4 are mild and fuel the level 2 reading."
+ },
+ "request": "rec-F230-0076",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.013371
+}

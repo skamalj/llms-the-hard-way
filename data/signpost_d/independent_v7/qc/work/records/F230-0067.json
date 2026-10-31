@@ -1,0 +1,147 @@
+{
+ "id": "F230-0067",
+ "family": "F230",
+ "state": {
+  "prescriptions": [
+   {
+    "item_id": "B1",
+    "drug": "metformin",
+    "dose_units": 2,
+    "time_critical": false,
+    "changes": []
+   },
+   {
+    "item_id": "B2",
+    "drug": "amlodipine",
+    "dose_units": 1,
+    "time_critical": false
+   },
+   {
+    "item_id": "B3",
+    "drug": "sertraline",
+    "dose_units": 1,
+    "time_critical": false
+   },
+   {
+    "item_id": "B4",
+    "drug": "vitamin D",
+    "dose_units": 1,
+    "time_critical": false
+   }
+  ],
+  "administrations": [
+   {
+    "item_id": "B1",
+    "scheduled": "2025-04-02T08:00",
+    "given_at": "2025-04-02T09:25",
+    "units_given": 1,
+    "initials": "LP"
+   },
+   {
+    "item_id": "B2",
+    "scheduled": "2025-04-02T08:00",
+    "given_at": "2025-04-02T09:40",
+    "units_given": 1,
+    "initials": "LP"
+   },
+   {
+    "item_id": "B3",
+    "scheduled": "2025-04-02T08:00",
+    "given_at": "2025-04-02T09:35",
+    "units_given": 1,
+    "initials": "LP"
+   },
+   {
+    "item_id": "B4",
+    "scheduled": "2025-04-02T08:00",
+    "given_at": "2025-04-02T09:30",
+    "units_given": 1,
+    "initials": "LP"
+   }
+  ],
+  "stock": [
+   {
+    "item_id": "B1",
+    "opening": 40,
+    "received": 0,
+    "wasted": 0,
+    "returned": 0,
+    "closing": 39
+   }
+  ],
+  "round": {
+   "date": "2025-04-02",
+   "open_queries": []
+  }
+ },
+ "factors": {
+  "dose_mismatch_type": "wrong_units",
+  "prescription_change_documented": false,
+  "omission_count": 0,
+  "omission_reason_valid": false,
+  "late_minutes": "85-100",
+  "time_critical_affected": false,
+  "stock_variance": 0,
+  "stock_variance_explained": false,
+  "signature_gaps": 0,
+  "unit_expression_decoy": "none_present",
+  "post_dose_obs_reassuring": true,
+  "pending_query": "none",
+  "prior_errors_30d": 2,
+  "item_count": 4
+ },
+ "factors_sampled": {
+  "dose_mismatch_type": "none",
+  "prescription_change_documented": false,
+  "omission_count": 3,
+  "omission_reason_valid": false,
+  "late_minutes": 40,
+  "time_critical_affected": true,
+  "stock_variance": 0,
+  "stock_variance_explained": true,
+  "signature_gaps": 2,
+  "unit_expression_decoy": "none_present",
+  "post_dose_obs_reassuring": true,
+  "pending_query": "none",
+  "prior_errors_30d": 2,
+  "item_count": 5
+ },
+ "plan": {
+  "dose_mismatch": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "stock_reconciles": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "report_incident",
+   "second": null
+  },
+  "open_discrepancies": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  },
+  "error_severity": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  }
+ },
+ "target_words": 51,
+ "deciding": {
+  "dose_mismatch": "B1 prescribed 2 units, 1 unit given, no change entry.",
+  "stock_reconciles": "B1 opening 40, one unit signed, closing 39; the other items have no stock rows to contradict it.",
+  "next_step": "Errors are confirmed on ordinary drugs (none time-critical or high-risk) and no query is open, so an incident report is the step.",
+  "open_discrepancies": "All four items are affected: B1 short dose, and B2, B3, B4 each given 90-100 minutes after 08:00.",
+  "error_severity": "B2, B3, B4 were over 60 minutes late (timing); the B1 underdose is also a dose error, so level 3 is a possible reading beyond the leading level 2."
+ },
+ "request": "rec-F230-0066",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.014518
+}

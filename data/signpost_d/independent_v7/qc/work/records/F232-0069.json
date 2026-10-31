@@ -1,0 +1,172 @@
+{
+ "id": "F232-0069",
+ "family": "F232",
+ "state": {
+  "night_header": {
+   "date": "2025-06-12",
+   "prog": "P33",
+   "alloc_h": 6,
+   "twilight": {
+    "eve": "2025-06-12T00:20",
+    "morn": "2025-06-12T05:05"
+   },
+   "eng_window": [
+    "2025-06-12T01:00",
+    "2025-06-12T01:30"
+   ]
+  },
+  "conditions": {
+   "limits": {
+    "hum": 90,
+    "wind": 60,
+    "cloud": 4
+   },
+   "closures": [
+    {
+     "s": "2025-06-12T01:00",
+     "e": "2025-06-12T01:44",
+     "reason": "weather",
+     "hum": 94,
+     "wind": 55,
+     "cloud": 6
+    }
+   ]
+  },
+  "exposures": [
+   {
+    "t": "T1",
+    "f": "r",
+    "exp_s": 300,
+    "n": 24,
+    "see": 1.2,
+    "qa": "pass"
+   },
+   {
+    "t": "T1",
+    "f": "g",
+    "exp_s": 300,
+    "n": 12,
+    "see": 1.3,
+    "qa": "pass"
+   },
+   {
+    "t": "T2",
+    "f": "r",
+    "exp_s": 500,
+    "n": 13,
+    "see": 2.0,
+    "qa": "pass"
+   }
+  ],
+  "programme_request": {
+   "T1": {
+    "r": 7200,
+    "g": 3600
+   },
+   "T2": {
+    "r": 6600
+   },
+   "T3": {
+    "r": 3000
+   },
+   "max_see": 1.5,
+   "exception": {
+    "target_ids": [
+     "T2"
+    ],
+    "relaxed_see": 2.2
+   }
+  },
+  "faults": [
+   {
+    "sub": "dome drive",
+    "start": "2025-06-12T01:01",
+    "end": "2025-06-12T01:25",
+    "cleared": true,
+    "retest": "2025-06-12T01:28",
+    "ticket": "TK-120"
+   },
+   {
+    "sub": "filter wheel",
+    "start": "2025-06-12T04:55",
+    "end": null,
+    "cleared": false,
+    "retest": null,
+    "workaround": null,
+    "ticket": "TK-121"
+   }
+  ],
+  "notes": {
+   "obs": "T1 and T2 done; T3 not started.",
+   "na": "Loud grinding from dome drive at 01:01 during test; filter wheel stuck at 04:55."
+  }
+ },
+ "factors": {
+  "weather_loss_hours": 0.74,
+  "fault_overlap": "minor_overlap",
+  "fault_resolution_state": "open_no_workaround",
+  "maintenance_window": true,
+  "closure_reason_mismatch": "coincides_with_fault",
+  "note_claim_discrepancy": "short_small",
+  "seeing_vs_limit": "near_boundary",
+  "seeing_exception_approved": true,
+  "usable_fraction": 0.8,
+  "qa_pending_count": 0,
+  "utc_date_rollover": false,
+  "assistant_note_tone": "alarmed_real",
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "weather_loss_hours": 0.74,
+  "fault_overlap": "major_overlap",
+  "fault_resolution_state": "cleared_retested",
+  "maintenance_window": true,
+  "closure_reason_mismatch": "coincides_with_fault",
+  "note_claim_discrepancy": "short_small",
+  "seeing_vs_limit": "near_boundary",
+  "seeing_exception_approved": true,
+  "usable_fraction": 0.54,
+  "qa_pending_count": 0,
+  "utc_date_rollover": false,
+  "assistant_note_tone": "alarmed_real",
+  "boundary_case": false
+ },
+ "plan": {
+  "weather_only_loss": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "claims_supported": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "night_disposition": {
+   "clarity": "clear",
+   "target": "requeue_targets",
+   "second": null
+  },
+  "usable_share": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  },
+  "fault_followup": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  }
+ },
+ "target_words": 101,
+ "deciding": {
+  "weather_only_loss": "The weather closure has humidity and cloud above limits, but the dome fault starts 1 minute after it (inside eng_window) and the filter wheel fault begins at 04:55, about 10 minutes before twilight, leaving slight doubt.",
+  "claims_supported": "T1 r 7200/7200, T1 g 3600/3600 and T2 r 6500/6600 (rounding) all meet the request; T3 is not claimed, and T2 seeing 2.0 is within the approved relaxed 2.2.",
+  "night_disposition": "T3 was not started and the open filter wheel fault blocks it, so only that target needs repeating; the other claims are met.",
+  "usable_share": "Passing in-limit frames total 17300 s against 21600 s allocated, 80.1%, right at the Substantial/Full boundary.",
+  "fault_followup": "Filter wheel fault TK-121 is open with null workaround and null retest; the doubt is that it began only 10 minutes before twilight, near the end of the night."
+ },
+ "request": "rec-F232-0066",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.017748
+}

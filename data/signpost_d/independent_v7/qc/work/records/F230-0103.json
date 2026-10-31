@@ -1,0 +1,109 @@
+{
+ "id": "F230-0103",
+ "family": "F230",
+ "state": {
+  "prescriptions": [
+   {
+    "item_id": "i1",
+    "strength_mg": 10,
+    "dose_units": 1
+   },
+   {
+    "item_id": "i2",
+    "strength_mg": 5,
+    "dose_units": 1
+   }
+  ],
+  "administrations": [
+   {
+    "item_id": "i1",
+    "scheduled": "08:00",
+    "given_at": "08:39",
+    "units_given": 2,
+    "strength_mg_used": 5,
+    "initials": "LB"
+   },
+   {
+    "item_id": "i2",
+    "units_given": 1,
+    "initials": "LB"
+   }
+  ],
+  "stock": {
+   "i2": {
+    "opening": 28,
+    "closing": 25
+   }
+  }
+ },
+ "factors": {
+  "dose_mismatch_type": "none",
+  "prescription_change_documented": false,
+  "omission_count": 0,
+  "omission_reason_valid": true,
+  "late_minutes": 39,
+  "time_critical_affected": false,
+  "stock_variance": -2,
+  "stock_variance_explained": false,
+  "signature_gaps": 0,
+  "unit_expression_decoy": "equivalent_split",
+  "post_dose_obs_reassuring": false,
+  "pending_query": "none",
+  "prior_errors_30d": 0,
+  "item_count": 2
+ },
+ "factors_sampled": {
+  "dose_mismatch_type": "none",
+  "prescription_change_documented": false,
+  "omission_count": 0,
+  "omission_reason_valid": true,
+  "late_minutes": 39,
+  "time_critical_affected": false,
+  "stock_variance": 0,
+  "stock_variance_explained": false,
+  "signature_gaps": 0,
+  "unit_expression_decoy": "equivalent_split",
+  "post_dose_obs_reassuring": false,
+  "pending_query": "none",
+  "prior_errors_30d": 0,
+  "item_count": 6
+ },
+ "plan": {
+  "dose_mismatch": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "stock_reconciles": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "report_incident",
+   "second": null
+  },
+  "open_discrepancies": {
+   "clarity": "contested",
+   "target": "2",
+   "second": "1"
+  },
+  "error_severity": {
+   "clarity": "leaning",
+   "target": "0",
+   "second": null
+  }
+ },
+ "target_words": 34,
+ "deciding": {
+  "dose_mismatch": "i1 given 2 x 5 mg against 1 x 10 mg; the totals are equal, but the unit count and strength used differ from the prescription, so a reader could take it either way.",
+  "stock_reconciles": "i2 opening 28, 1 signed, expected 27 but closing 25, with no waste or return recorded.",
+  "next_step": "Unexplained loss of 2 units of an ordinary item with no mismatch of dose suggests an internal incident report. Note the plan's report_incident next step does not sit well with severity 0.",
+  "open_discrepancies": "i2 stock gap is unresolved; i1 split administration may or may not be counted as a second item.",
+  "error_severity": "All doses match in total and are only 39 minutes late with signatures present; the stock gap is not a dose error, so 0 is favoured."
+ },
+ "request": "rec-F230-0101",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.013117
+}

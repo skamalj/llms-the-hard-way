@@ -1,0 +1,177 @@
+{
+ "id": "F236-0088",
+ "family": "F236",
+ "state": {
+  "changeover": {
+   "line_id": "L3",
+   "from_allergens": [
+    "sesame"
+   ],
+   "to_allergens": [
+    "soya",
+    "wheat"
+   ],
+   "to_code": "C5"
+  },
+  "cleaning": {
+   "steps": [
+    {
+     "n": 1,
+     "completed": true,
+     "spec_min": 25,
+     "actual_min": 25
+    },
+    {
+     "n": 2,
+     "completed": false,
+     "spec_min": 15,
+     "actual_min": 0
+    }
+   ],
+   "part_swap": false
+  },
+  "verification": {
+   "swabs": [
+    {
+     "id": "S1",
+     "loc": "mixer",
+     "target": "sesame",
+     "ppm": 2,
+     "limit_ppm": 5,
+     "at": "2024-06-10T05:40"
+    },
+    {
+     "id": "S2",
+     "loc": "oven belt",
+     "target": "sesame",
+     "ppm": 14,
+     "limit_ppm": 5,
+     "at": "2024-06-10T05:45"
+    }
+   ]
+  },
+  "production": {
+   "line_id": "L3",
+   "product_code": "C5",
+   "start_at": "2024-06-10T06:00",
+   "end_at": "2024-06-10T10:00",
+   "qty": 520,
+   "unit": "kg",
+   "packaging_allergens": [
+    "wheat"
+   ],
+   "may_contain": [
+    "sesame"
+   ]
+  },
+  "approvals": {
+   "qa_signoff": {
+    "signer": "QA2",
+    "signed_at": "2024-06-10T05:50"
+   },
+   "deviations": [
+    {
+     "id": "D3",
+     "scope": "S2 retest waived",
+     "approved_at": "2024-06-10T05:55"
+    }
+   ]
+  },
+  "history": [
+   {
+    "d": "06-03",
+    "ok": false
+   },
+   {
+    "d": "05-27",
+    "ok": false
+   },
+   {
+    "d": "05-20",
+    "ok": true
+   },
+   {
+    "d": "05-13",
+    "ok": false
+   },
+   {
+    "d": "05-06",
+    "ok": false
+   },
+   {
+    "d": "04-29",
+    "ok": true
+   },
+   {
+    "d": "04-22",
+    "ok": false
+   }
+  ]
+ },
+ "factors": {
+  "allergen_transition": "swaps_allergen",
+  "cleaning_completion": "one_step_skipped",
+  "swab_outcome": "positive_no_retest",
+  "swab_timing_mismatch": false,
+  "cross_section_discrepancy": "label_allergen_mismatch",
+  "exposed_quantity_kg": 520.0,
+  "approved_deviation": true,
+  "label_precaution": true,
+  "dedicated_tooling": false,
+  "qa_signoff_state": "signed_before_start",
+  "line_failure_history": 5,
+  "boundary_value": false
+ },
+ "factors_sampled": {
+  "allergen_transition": "swaps_allergen",
+  "cleaning_completion": "one_step_skipped",
+  "swab_outcome": "positive_no_retest",
+  "swab_timing_mismatch": false,
+  "cross_section_discrepancy": "label_allergen_mismatch",
+  "exposed_quantity_kg": 657.2,
+  "approved_deviation": true,
+  "label_precaution": true,
+  "dedicated_tooling": false,
+  "qa_signoff_state": "signed_after_start",
+  "line_failure_history": 5,
+  "boundary_value": false
+ },
+ "plan": {
+  "swabs_cleared": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "line_disposition": {
+   "clarity": "balanced",
+   "target": "hold",
+   "second": "reclean_quarantine"
+  },
+  "worst_deficiency": {
+   "clarity": "leaning",
+   "target": "cleaning_shortfall",
+   "second": null
+  },
+  "exposed_product": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "residue_evidence": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  }
+ },
+ "target_words": 52,
+ "deciding": {
+  "swabs_cleared": "Deviation D3, approved 05:55 before start, waives the S2 retest, and the remaining required swab S1 passed at 05:40. Both swab timestamps precede the 06:00 start.",
+  "line_disposition": "S2 read 14 ppm against a limit of 5 with its retest waived, and step 2 was skipped. Holding the batch and recleaning with quarantine are both defensible.",
+  "worst_deficiency": "Cleaning step 2 has completed false and actual_min 0, and S2 is over limit. QA signed at 05:50, before the 06:00 start, and no swab came after start.",
+  "exposed_product": "The 520 kg batch ran 06:00-10:00 and the oven belt never passed, which is just over the 500 kg line. Exposure may be counted as the full batch (level 3) or not (level 2).",
+  "residue_evidence": "S2 on the oven belt read 14 ppm over its limit of 5, and no retest entry exists. The waiver keeps this from being fully certain."
+ },
+ "request": "rec-F236-0086",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.01756
+}

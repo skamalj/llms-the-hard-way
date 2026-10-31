@@ -1,0 +1,165 @@
+{
+ "id": "F236-0087",
+ "family": "F236",
+ "state": {
+  "changeover": {
+   "line_id": "L2",
+   "from_allergens": [
+    "egg",
+    "wheat"
+   ],
+   "to_allergens": [
+    "wheat"
+   ],
+   "to_code": "B21"
+  },
+  "cleaning": {
+   "steps": [
+    {
+     "n": 1,
+     "completed": true,
+     "spec_min": 30,
+     "actual_min": 32
+    },
+    {
+     "n": 2,
+     "completed": true,
+     "spec_min": 15,
+     "actual_min": 15
+    }
+   ],
+   "part_swap": true,
+   "tool_set": "DT-9"
+  },
+  "verification": {
+   "swabs": [
+    {
+     "id": "S1",
+     "target": "egg",
+     "ppm": 5,
+     "limit_ppm": 5,
+     "at": "2024-03-04T05:10"
+    },
+    {
+     "id": "S2",
+     "retest_of": "S1",
+     "target": "egg",
+     "ppm": 1.2,
+     "limit_ppm": 5,
+     "at": "2024-03-04T05:40"
+    }
+   ],
+   "atp_rlu": [
+    310
+   ]
+  },
+  "production": {
+   "line_id": "L2",
+   "product_code": "B21",
+   "start_at": "2024-03-04T06:00",
+   "qty": 500,
+   "unit": "g",
+   "packaging_allergens": [
+    "wheat"
+   ]
+  },
+  "approvals": {
+   "qa_signoff": null,
+   "deviations": [
+    {
+     "id": "D7",
+     "scope": "S1 retest interval",
+     "approved_at": "2024-03-04T05:30"
+    }
+   ]
+  },
+  "history": [
+   {
+    "d": "02-26",
+    "ok": false
+   },
+   {
+    "d": "02-20",
+    "ok": true
+   },
+   {
+    "d": "02-12",
+    "ok": false
+   },
+   {
+    "d": "02-05",
+    "ok": false
+   },
+   {
+    "d": "01-29",
+    "ok": true
+   }
+  ]
+ },
+ "factors": {
+  "allergen_transition": "removes_allergen",
+  "cleaning_completion": "full",
+  "swab_outcome": "reading_at_limit_retest_passed",
+  "swab_timing_mismatch": false,
+  "cross_section_discrepancy": "quantity_unit_mismatch",
+  "exposed_quantity_kg": 0.0,
+  "approved_deviation": true,
+  "label_precaution": false,
+  "dedicated_tooling": true,
+  "qa_signoff_state": "missing",
+  "line_failure_history": 3,
+  "boundary_value": true
+ },
+ "factors_sampled": {
+  "allergen_transition": "removes_allergen",
+  "cleaning_completion": "full",
+  "swab_outcome": "trace_below_limit",
+  "swab_timing_mismatch": false,
+  "cross_section_discrepancy": "quantity_unit_mismatch",
+  "exposed_quantity_kg": 390.89,
+  "approved_deviation": true,
+  "label_precaution": false,
+  "dedicated_tooling": true,
+  "qa_signoff_state": "missing",
+  "line_failure_history": 3,
+  "boundary_value": true
+ },
+ "plan": {
+  "swabs_cleared": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "line_disposition": {
+   "clarity": "balanced",
+   "target": "release",
+   "second": "hold"
+  },
+  "worst_deficiency": {
+   "clarity": "balanced",
+   "target": "records_only",
+   "second": "none"
+  },
+  "exposed_product": {
+   "clarity": "clear",
+   "target": "0",
+   "second": null
+  },
+  "residue_evidence": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  }
+ },
+ "target_words": 72,
+ "deciding": {
+  "swabs_cleared": "The retest S2 (1.2 ppm, limit 5) at 05:40 passed, before the 06:00 start. It supersedes S1.",
+  "line_disposition": "Swabs are cleared and cleaning is complete, which favours release. The missing QA sign-off and the unit anomaly leave hold plausible.",
+  "worst_deficiency": "Quantity is 500 in unit g where kg is expected, and qa_signoff is null. Cleaning and swabs are fine, so none is arguable if the sign-off is treated as not yet due.",
+  "exposed_product": "Both swabs, including the passing retest, precede the 06:00 start, so no product was made before verification.",
+  "residue_evidence": "S1 read 5 ppm against a limit of 5, exactly at the limit, and the retest passed at 1.2 ppm (above zero). That supports level 2, with level 1 defensible."
+ },
+ "request": "rec-F236-0086",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.01756
+}

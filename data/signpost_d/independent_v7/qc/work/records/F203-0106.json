@@ -1,0 +1,143 @@
+{
+ "id": "F203-0106",
+ "family": "F203",
+ "state": {
+  "request": {
+   "submitted_on": "2025-03-10",
+   "need_by": "2025-03-20",
+   "scope": "whole_item",
+   "copyright_declaration_on": "2025-03-08"
+  },
+  "borrower_library": {
+   "agreement": {
+    "status": "active",
+    "expires_on": "2026-01-01",
+    "renewal_submitted_on": null
+   },
+   "open_loans": [
+    {
+     "loan_id": "L1",
+     "due_on": "2025-02-10",
+     "renewed_on": null,
+     "return_scan_on": null
+    },
+    {
+     "loan_id": "L2",
+     "due_on": "2025-02-18",
+     "renewed_on": null,
+     "return_scan_on": null
+    },
+    {
+     "loan_id": "L3",
+     "due_on": "2025-02-25",
+     "renewed_on": null,
+     "return_scan_on": null
+    },
+    {
+     "loan_id": "L4",
+     "due_on": "2025-03-01",
+     "renewed_on": null,
+     "return_scan_on": null
+    }
+   ]
+  },
+  "patron": {
+   "member_id": "M4410",
+   "home_branch": "North",
+   "verified_on": "2025-02-01"
+  },
+  "item": {
+   "condition_grade": "fragile",
+   "conservation_check": {
+    "checked_on": "2025-02-25",
+    "outcome": "pass",
+    "box_supplied": true
+   },
+   "local_holds": 6
+  },
+  "holdings_network": {
+   "copies": [
+    {
+     "library_code": "EAS",
+     "status": "reference_only"
+    }
+   ],
+   "supplier_status": {
+    "print_status": "out_of_print",
+    "secondhand_listings": 0
+   }
+  },
+  "logistics": {
+   "route_code": "R7",
+   "est_arrival": "2025-03-21"
+  }
+ },
+ "factors": {
+  "agreement_status": "active",
+  "borrower_overdue_count": 4,
+  "overdue_mitigated": false,
+  "patron_verification": "verified",
+  "item_condition": "fragile",
+  "conservation_cleared": true,
+  "local_holds_queue": 6,
+  "network_other_copies": 0,
+  "print_status": "out_of_print_none",
+  "request_scope": "whole_item",
+  "copyright_declaration_present": true,
+  "need_by_slack_days": -1,
+  "need_by_missing": false
+ },
+ "factors_sampled": {
+  "agreement_status": "active",
+  "borrower_overdue_count": 4,
+  "overdue_mitigated": false,
+  "patron_verification": "verified",
+  "item_condition": "fragile",
+  "conservation_cleared": true,
+  "local_holds_queue": 6,
+  "network_other_copies": 0,
+  "print_status": "in_print",
+  "request_scope": "whole_item",
+  "copyright_declaration_present": true,
+  "need_by_slack_days": 8,
+  "need_by_missing": true
+ },
+ "plan": {
+  "borrower_good_standing": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "disposition": {
+   "clarity": "leaning",
+   "target": "hold",
+   "second": null
+  },
+  "loan_restriction": {
+   "clarity": "leaning",
+   "target": "copy_supplied",
+   "second": null
+  },
+  "time_slack": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "replacement_difficulty": {
+   "clarity": "balanced",
+   "target": "4",
+   "second": "3"
+  }
+ },
+ "target_words": 32,
+ "deciding": {
+  "borrower_good_standing": "Four open loans have due_on before submitted_on, all with null renewed_on and return_scan_on, while the agreement is active.",
+  "disposition": "The unreturned overdue loans need confirming before lending; the copy passed its conservation check and the patron is verified, so one confirmation is the open point.",
+  "loan_restriction": "Fragile grade, 6 local holds and no other lendable copy favour sending a copy; the passed conservation check with box gives some doubt.",
+  "time_slack": "est_arrival 2025-03-21 is one day after need_by 2025-03-20, right at the missed/tight boundary.",
+  "replacement_difficulty": "No lendable network copy and out of print with secondhand_listings 0; the reference_only copy keeps level 3 open."
+ },
+ "request": "rec-F203-0106",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.009696
+}

@@ -1,0 +1,149 @@
+{
+ "id": "F213-0091",
+ "family": "F213",
+ "state": {
+  "pool": {
+   "type": "competition",
+   "test_interval_min": 60,
+   "open": "2024-05-06T07:00",
+   "close": "2024-05-06T10:00",
+   "limits": {
+    "free_cl_min": 1.0,
+    "free_cl_max": 3.0,
+    "ph_min": 7.2,
+    "ph_max": 7.8
+   },
+   "tolerance": {
+    "free_cl": 0.3,
+    "ph": 0.2
+   },
+   "micro_due": "2024-05-20"
+  },
+  "manual_tests": [
+   {
+    "time": "2024-05-06T07:00",
+    "free_cl": 2.0,
+    "ph": 7.4,
+    "kit_id": "K1"
+   },
+   {
+    "time": "2024-05-06T08:05",
+    "free_cl": 3.2,
+    "ph": 7.5,
+    "kit_id": "K1"
+   },
+   {
+    "time": "2024-05-06T09:05",
+    "free_cl": 2.6,
+    "ph": 7.5,
+    "kit_id": "K1"
+   }
+  ],
+  "plant": {
+   "controller_readings": [
+    {
+     "time": "2024-05-06T07:15",
+     "free_cl": 2.0,
+     "ph": 7.4
+    },
+    {
+     "time": "2024-05-06T08:20",
+     "free_cl": 2.9,
+     "ph": 7.5
+    },
+    {
+     "time": "2024-05-06T09:20",
+     "free_cl": 2.6,
+     "ph": 7.5
+    }
+   ],
+   "backwash": [
+    "2024-05-06T06:30"
+   ]
+  },
+  "equipment": {
+   "kits": [
+    {
+     "kit_id": "K1",
+     "cal_due": "2024-04-30"
+    }
+   ]
+  },
+  "actions": [
+   {
+    "time": "2024-05-06T08:40",
+    "action_type": "dose_reduce",
+    "reading_ref": "2024-05-06T08:05"
+   }
+  ],
+  "lab_sample": null
+ },
+ "factors": {
+  "pool_type": "competition",
+  "test_coverage_gap": 1,
+  "boundary_interval": false,
+  "log_controller_discrepancy": "at_tolerance",
+  "discrepancy_location": "timestamp_offset",
+  "excursion_severity": "marginal",
+  "corrective_action_delay": "delayed",
+  "retest_logged": false,
+  "dosing_event_explains": false,
+  "kit_calibration_status": "expired_before",
+  "lab_sample_state": "not_due",
+  "out_of_order_entry": false,
+  "benign_noise": "backwash"
+ },
+ "factors_sampled": {
+  "pool_type": "competition",
+  "test_coverage_gap": 1,
+  "boundary_interval": false,
+  "log_controller_discrepancy": "none",
+  "discrepancy_location": "timestamp_offset",
+  "excursion_severity": "marginal",
+  "corrective_action_delay": "delayed",
+  "retest_logged": false,
+  "dosing_event_explains": false,
+  "kit_calibration_status": "expired_before",
+  "lab_sample_state": "not_due",
+  "out_of_order_entry": false,
+  "benign_noise": "backwash"
+ },
+ "plan": {
+  "test_frequency_met": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "readings_reconcile": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "log_disposition": {
+   "clarity": "clear",
+   "target": "accept_with_query",
+   "second": null
+  },
+  "action_delay": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  },
+  "failed_checks": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  }
+ },
+ "target_words": 67,
+ "deciding": {
+  "test_frequency_met": "Gap from 07:00 to 08:05 is 65 min against a 60 min interval; only slightly over, so balanced.",
+  "readings_reconcile": "Nearest controller free_cl 2.9 vs manual 3.2 differs by 0.3, exactly the tolerance; timestamps offset 15 min.",
+  "log_disposition": "Water only marginally off and acted on, but the interval gap and expired kit (cal_due 2024-04-30) need a written operator explanation.",
+  "action_delay": "Free_cl 3.2 at 08:05 against max 3.0; action logged 08:40, 35 min later, near the 30 min boundary.",
+  "failed_checks": "Expired kit fails plainly; the 65 min gap and 35 min action delay are each borderline, so one or two or three failures are arguable."
+ },
+ "request": "rec-F213-0091",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011744
+}

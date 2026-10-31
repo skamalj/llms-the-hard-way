@@ -1,0 +1,153 @@
+{
+ "id": "F204-0079",
+ "family": "F204",
+ "state": {
+  "rx": {
+   "drug": "simvastatin",
+   "strength": {
+    "val": 20,
+    "unit": "mg"
+   },
+   "form": "tab",
+   "dose": 1,
+   "freq_per_day": 1,
+   "qty": 28,
+   "days_intended": 28,
+   "issued": "2024-03-11"
+  },
+  "patient": {
+   "pt_id": "P30519",
+   "age": 67,
+   "supplies": [
+    {
+     "date": "2024-03-01",
+     "days_covered": 14
+    }
+   ],
+   "emergency_supplies": [],
+   "near_miss_count": 4
+  },
+  "dispensed": {
+   "product_name": "Zocor 40mg",
+   "generic_name": "simvastatin",
+   "strength": {
+    "val": 40,
+    "unit": "mg"
+   },
+   "form": "tab",
+   "pack_size": 28,
+   "packs": 2,
+   "owing": null,
+   "batch": "B2291",
+   "expiry": "2025-06-30",
+   "req_warnings": [
+    "W9"
+   ],
+   "high_risk": false
+  },
+  "label": {
+   "pt_id": "P30519",
+   "dose_qty": 1,
+   "freq_per_day": 1,
+   "warning_codes": [
+    "W9"
+   ],
+   "qty_printed": 56
+  },
+  "check_log": {
+   "checked_at": "2024-03-12T14:20",
+   "clin_check": {
+    "by": "LP",
+    "at": "2024-03-12T14:05"
+   },
+   "queries": [
+    {
+     "raised_at": "2024-03-12T14:10",
+     "field": "strength",
+     "status": "pending"
+    },
+    {
+     "raised_at": "2024-03-12T14:10",
+     "field": "qty",
+     "status": "pending"
+    }
+   ],
+   "interventions": [
+    {
+     "code": "GEN",
+     "field": "brand_name",
+     "accepted": true,
+     "by": "RPh"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "strength_status": "mismatch_same_units",
+  "product_status": "generic_brand_equivalent",
+  "quantity_status": "over_supplied",
+  "label_status": "correct",
+  "prescriber_query": "pending",
+  "pharmacist_intervention": false,
+  "clinical_check_signed": true,
+  "home_supply_days": "3 (borderline 2)",
+  "emergency_supply": false,
+  "short_expiry": false,
+  "prior_error_count": 4,
+  "high_risk_drug": false,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "strength_status": "match_same_units",
+  "product_status": "generic_brand_equivalent",
+  "quantity_status": "over_supplied",
+  "label_status": "correct",
+  "prescriber_query": "pending",
+  "pharmacist_intervention": true,
+  "clinical_check_signed": true,
+  "home_supply_days": 9,
+  "emergency_supply": false,
+  "short_expiry": false,
+  "prior_error_count": 4,
+  "high_risk_drug": false,
+  "boundary_case": false
+ },
+ "plan": {
+  "strength_differs": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "hold_query",
+   "second": null
+  },
+  "error_category": {
+   "clarity": "leaning",
+   "target": "none_found",
+   "second": null
+  },
+  "open_discrepancies": {
+   "clarity": "contested",
+   "target": "2",
+   "second": "3"
+  },
+  "supply_urgency": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  }
+ },
+ "target_words": 200,
+ "deciding": {
+  "strength_differs": "rx 20 mg vs dispensed 40 mg, same units; unequal.",
+  "next_step": "Pending queries on strength and qty cover the discrepancies and clinical check is signed, so keep it on the hold shelf; the accepted intervention is on brand_name, unrelated.",
+  "error_category": "Both differences (strength 40 vs 20, 2x28=56 vs 28) are under pending queries and label and product name are consistent, so no uncovered unresolved difference, though a reader could still see a strength issue.",
+  "open_discrepancies": "Strength and quantity are two open fields under pending queries; the brand-name substitution intervention or the label dosing of one 40 mg tablet could push a reader to three.",
+  "supply_urgency": "14 days from 03-01 runs to 03-14; checked 03-12 leaves 2 or 3 days depending on counting today."
+ },
+ "request": "rec-F204-0076",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.015752
+}

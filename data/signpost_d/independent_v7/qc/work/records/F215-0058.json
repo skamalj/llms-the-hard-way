@@ -1,0 +1,143 @@
+{
+ "id": "F215-0058",
+ "family": "F215",
+ "state": {
+  "bin": {
+   "bin_id": "S7",
+   "crop": "wheat",
+   "intake_date": "2024-07-30",
+   "intake_cond": "blended",
+   "safe_mc_pct": 14.5,
+   "baseline_c": 13,
+   "prior_logs_12m": 1
+  },
+  "cable_readings": [
+   {
+    "cable_id": "C1",
+    "cal_due": "2025-05-01",
+    "fault": false,
+    "nodes": [
+     {
+      "depth_m": 2,
+      "temp_c": [
+       13.1,
+       13.2,
+       15.2
+      ]
+     }
+    ]
+   },
+   {
+    "cable_id": "C2",
+    "cal_due": "2025-05-01",
+    "fault": false,
+    "nodes": [
+     {
+      "depth_m": 2,
+      "temp_c": [
+       13,
+       13.1,
+       14.6
+      ]
+     }
+    ]
+   }
+  ],
+  "moisture": [
+   {
+    "sample_date": "2024-10-08",
+    "method": "lab",
+    "mc_pct": 14.4
+   }
+  ],
+  "environment": {
+   "ambient_c_7d_mean": 12,
+   "headspace_c": 13.5,
+   "co2_ppm": 1700,
+   "reading_date": "2024-10-14"
+  },
+  "aeration": [
+   {
+    "start": "2024-10-12",
+    "end": null,
+    "fan_hours": 18,
+    "mode": "cooling"
+   }
+  ],
+  "pest_checks": [
+   {
+    "check_date": "2024-10-11",
+    "traps_set": 6,
+    "insects_counted": 39
+   }
+  ]
+ },
+ "factors": {
+  "peak_excess_c": 2.2,
+  "rise_trend": "single_jump",
+  "second_cable_corroboration": true,
+  "sensor_fault_flag": false,
+  "ambient_warming": false,
+  "moisture_vs_limit": "within_0_5_pct",
+  "moisture_sample_status": "recent_lab",
+  "aeration_running": true,
+  "co2_elevation": "high",
+  "insect_trap_count": 39,
+  "missing_section": "none",
+  "date_order_anomaly": false,
+  "intake_condition": "blended"
+ },
+ "factors_sampled": {
+  "peak_excess_c": 4.77,
+  "rise_trend": "single_jump",
+  "second_cable_corroboration": true,
+  "sensor_fault_flag": false,
+  "ambient_warming": false,
+  "moisture_vs_limit": "within_0_5_pct",
+  "moisture_sample_status": "recent_lab",
+  "aeration_running": true,
+  "co2_elevation": "high",
+  "insect_trap_count": 39,
+  "missing_section": "none",
+  "date_order_anomaly": false,
+  "intake_condition": "blended"
+ },
+ "plan": {
+  "hotspot_active": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "moisture_safe": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "next_action": {
+   "clarity": "clear",
+   "target": "continue_monitoring",
+   "second": null
+  },
+  "recurrence_count": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  },
+  "temp_excess": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 86,
+ "deciding": {
+  "hotspot_active": "Both C1 and C2 rise at 2 m (to 15.2 and 14.6) and CO2 is 1700, but the rise is small, so a hotspot is only modestly favoured.",
+  "moisture_safe": "Recent lab mc 14.4 against limit 14.5, only 0.1 below the limit.",
+  "next_action": "Fans are already running (end null, 18 h) and the temperatures are only slightly elevated, so nothing more is needed.",
+  "recurrence_count": "prior_logs_12m is 1, with some doubt over whether it is the same issue.",
+  "temp_excess": "Peak 15.2 against baseline 13 gives 2.2, just above the 2 boundary between levels 0 and 1."
+ },
+ "request": "rec-F215-0056",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.009101
+}

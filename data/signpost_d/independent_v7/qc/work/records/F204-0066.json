@@ -1,0 +1,124 @@
+{
+ "id": "F204-0066",
+ "family": "F204",
+ "state": {
+  "rx": {
+   "drug": "digoxin",
+   "strength": {
+    "val": 0.5,
+    "unit": "mg"
+   },
+   "dose": 1,
+   "freq_per_day": 1,
+   "qty": 28
+  },
+  "patient": {
+   "pt_id": "P4417",
+   "supplies": [
+    {
+     "date": "2024-05-01",
+     "days_covered": 28
+    }
+   ],
+   "emergency_supplies": [],
+   "near_miss_count": 2
+  },
+  "dispensed": {
+   "product_name": "digoxin",
+   "form": "tab",
+   "strength": {
+    "val": 250,
+    "unit": "mcg"
+   },
+   "packs": 1,
+   "pack_size": 28
+  },
+  "label": {
+   "pt_id": "P4417",
+   "dose_qty": 1,
+   "freq_per_day": 1,
+   "qty_printed": 28
+  },
+  "check_log": {
+   "checked_at": "2024-06-10T10:00",
+   "queries": [
+    {
+     "field": "strength",
+     "status": "confirmed"
+    }
+   ],
+   "clin_check": {
+    "by": "JT",
+    "at": "2024-06-10T09:50"
+   }
+  }
+ },
+ "factors": {
+  "strength_status": "mismatch_converted",
+  "product_status": "exact",
+  "quantity_status": "exact",
+  "label_status": "correct",
+  "prescriber_query": "confirmed",
+  "pharmacist_intervention": false,
+  "clinical_check_signed": true,
+  "home_supply_days": 0,
+  "emergency_supply": false,
+  "short_expiry": false,
+  "prior_error_count": 2,
+  "high_risk_drug": false,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "strength_status": "match_converted_units",
+  "product_status": "exact",
+  "quantity_status": "exact",
+  "label_status": "directions_mismatch",
+  "prescriber_query": "confirmed",
+  "pharmacist_intervention": false,
+  "clinical_check_signed": true,
+  "home_supply_days": 12,
+  "emergency_supply": true,
+  "short_expiry": false,
+  "prior_error_count": 2,
+  "high_risk_drug": false,
+  "boundary_case": false
+ },
+ "plan": {
+  "strength_differs": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "release",
+   "second": null
+  },
+  "error_category": {
+   "clarity": "leaning",
+   "target": "none_found",
+   "second": null
+  },
+  "open_discrepancies": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  },
+  "supply_urgency": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  }
+ },
+ "target_words": 46,
+ "deciding": {
+  "strength_differs": "rx 0.5 mg = 500 mcg, dispensed 250 mcg; they differ after conversion, though a confirmed query on strength leaves some doubt.",
+  "next_step": "The strength query is confirmed, clinical check signed, quantity 28 = 1x28 and label matches the rx; nothing is outstanding.",
+  "error_category": "The only strength difference is covered by the confirmed query; product, quantity and label otherwise agree.",
+  "open_discrepancies": "The strength difference has a confirmed query, so the count is not clearly 2 or 3; it is held near the balance by the unreconciled 500 vs 250 mcg.",
+  "supply_urgency": "Last supply 2024-05-01 for 28 days ended 2024-05-29, there are no emergency supplies, and the check is on 2024-06-10, so the supply is exhausted."
+ },
+ "request": "rec-F204-0066",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011247
+}

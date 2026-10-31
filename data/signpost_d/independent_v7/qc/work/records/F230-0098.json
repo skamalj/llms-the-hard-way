@@ -1,0 +1,139 @@
+{
+ "id": "F230-0098",
+ "family": "F230",
+ "state": {
+  "resident": {
+   "id": "C303",
+   "status": "home"
+  },
+  "prescriptions": [
+   {
+    "item_id": "i1",
+    "drug": "levothyroxine",
+    "strength_mg": 50,
+    "dose_units": 1,
+    "time_critical": true,
+    "changes": [
+     {
+      "effective": "2024-05-20",
+      "new_dose_units": 1,
+      "order_ref": "O12",
+      "authorised_by_role": "GP"
+     }
+    ]
+   },
+   {
+    "item_id": "i2",
+    "strength_mg": 10,
+    "dose_units": 1
+   }
+  ],
+  "administrations": [
+   {
+    "item_id": "i1",
+    "scheduled": "07:00",
+    "given_at": "09:11",
+    "units_given": 1,
+    "strength_mg_used": 100
+   },
+   {
+    "item_id": "i2",
+    "scheduled": "08:00",
+    "given_at": "08:05",
+    "units_given": 2,
+    "strength_mg_used": 5
+   }
+  ],
+  "stock": {
+   "i1": {
+    "opening": 28,
+    "closing": 24,
+    "wasted": 3,
+    "wasted_witnessed": true
+   },
+   "i2": {
+    "opening": 30,
+    "closing": 28
+   }
+  },
+  "round": {
+   "open_queries": [],
+   "post_dose_obs": [
+    {
+     "type": "HR",
+     "value": 128
+    }
+   ]
+  }
+ },
+ "factors": {
+  "dose_mismatch_type": "wrong_strength",
+  "prescription_change_documented": true,
+  "omission_count": 0,
+  "omission_reason_valid": true,
+  "late_minutes": 131,
+  "time_critical_affected": true,
+  "stock_variance": 3,
+  "stock_variance_explained": true,
+  "signature_gaps": 0,
+  "unit_expression_decoy": "equivalent_split",
+  "post_dose_obs_reassuring": false,
+  "pending_query": "none",
+  "prior_errors_30d": 1,
+  "item_count": 2
+ },
+ "factors_sampled": {
+  "dose_mismatch_type": "wrong_strength",
+  "prescription_change_documented": true,
+  "omission_count": 0,
+  "omission_reason_valid": true,
+  "late_minutes": 131,
+  "time_critical_affected": true,
+  "stock_variance": 3,
+  "stock_variance_explained": true,
+  "signature_gaps": 0,
+  "unit_expression_decoy": "equivalent_split",
+  "post_dose_obs_reassuring": false,
+  "pending_query": "none",
+  "prior_errors_30d": 1,
+  "item_count": 4
+ },
+ "plan": {
+  "dose_mismatch": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "stock_reconciles": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "hold",
+   "second": null
+  },
+  "open_discrepancies": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "error_severity": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "4"
+  }
+ },
+ "target_words": 96,
+ "deciding": {
+  "dose_mismatch": "i1 given at strength 100 mg vs prescribed 50 mg.",
+  "stock_reconciles": "i1 gap of 3 covered by witnessed waste of 3; i2 reconciles.",
+  "next_step": "Time-critical error with abnormal HR 128 and no open query; seek confirmation from the GP before outcome.",
+  "open_discrepancies": "i1 clearly discrepant; i2 shows a decoy split and reconciles, so count is open between 2 and 3.",
+  "error_severity": "Wrong strength on i1 flagged time_critical, 131 min late; between dose and critical levels."
+ },
+ "request": "rec-F230-0096",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.005355
+}

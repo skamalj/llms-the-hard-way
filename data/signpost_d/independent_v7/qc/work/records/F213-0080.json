@@ -1,0 +1,145 @@
+{
+ "id": "F213-0080",
+ "family": "F213",
+ "state": {
+  "pool": {
+   "type": "leisure",
+   "test_interval_min": 60,
+   "opening": {
+    "open": "2025-10-07T09:00",
+    "close": "2025-10-07T12:00"
+   },
+   "limits": {
+    "free_cl_min": 1.0,
+    "free_cl_max": 3.0,
+    "ph_min": 7.2,
+    "ph_max": 7.8
+   },
+   "tolerance": {
+    "free_cl": 0.3,
+    "ph": 0.2
+   },
+   "micro_due": "2025-10-01"
+  },
+  "manual_tests": [
+   {
+    "time": "2025-10-07T09:00",
+    "free_cl": 1.7,
+    "ph": 7.5,
+    "kit_id": "K7"
+   },
+   {
+    "time": "2025-10-07T10:00",
+    "free_cl": 1.7,
+    "ph": 7.84,
+    "kit_id": "K7"
+   },
+   {
+    "time": "2025-10-07T11:00",
+    "free_cl": 1.8,
+    "ph": 7.6,
+    "kit_id": "K7"
+   }
+  ],
+  "plant": {
+   "controller_readings": [
+    {
+     "time": "2025-10-07T10:00",
+     "free_cl": 1.8,
+     "ph": 7.8
+    }
+   ],
+   "dosing_events": [
+    {
+     "time": "2025-10-07T10:30",
+     "type": "acid"
+    }
+   ]
+  },
+  "equipment": {
+   "kits": [
+    {
+     "kit_id": "K7",
+     "cal_due": "2025-10-07"
+    }
+   ]
+  },
+  "actions": [
+   {
+    "time": "2025-10-07T10:30",
+    "action_type": "acid_dose",
+    "reading_ref": "2025-10-07T10:00",
+    "retest_time": "2025-10-07T11:00"
+   }
+  ],
+  "lab_sample": null
+ },
+ "factors": {
+  "pool_type": "leisure",
+  "test_coverage_gap": 0,
+  "boundary_interval": false,
+  "log_controller_discrepancy": "none",
+  "discrepancy_location": "ph",
+  "excursion_severity": "marginal",
+  "corrective_action_delay": "prompt",
+  "retest_logged": true,
+  "dosing_event_explains": true,
+  "kit_calibration_status": "expires_on_day",
+  "lab_sample_state": "missing_when_due",
+  "out_of_order_entry": false,
+  "benign_noise": "none"
+ },
+ "factors_sampled": {
+  "pool_type": "leisure",
+  "test_coverage_gap": 0,
+  "boundary_interval": false,
+  "log_controller_discrepancy": "none",
+  "discrepancy_location": "ph",
+  "excursion_severity": "none",
+  "corrective_action_delay": "prompt",
+  "retest_logged": true,
+  "dosing_event_explains": true,
+  "kit_calibration_status": "expires_on_day",
+  "lab_sample_state": "missing_when_due",
+  "out_of_order_entry": false,
+  "benign_noise": "none"
+ },
+ "plan": {
+  "test_frequency_met": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "readings_reconcile": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "log_disposition": {
+   "clarity": "contested",
+   "target": "accept_with_query",
+   "second": "hold_for_retest"
+  },
+  "action_delay": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  },
+  "failed_checks": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 67,
+ "deciding": {
+  "test_frequency_met": "Tests at 09:00, 10:00 and 11:00, each 60 min apart within opening hours.",
+  "readings_reconcile": "Manual ph 7.84 against controller 7.8 and free_cl 1.7 against 1.8, both within tolerance.",
+  "log_disposition": "lab_sample is null although micro_due 2025-10-01 has passed, while water readings are fine after the 11:00 retest; a query to the operator or holding for the sample are both defensible.",
+  "action_delay": "ph 7.84 at 10:00 exceeds 7.8, and the action at 10:30 came exactly 30 min later, on the boundary between prompt and delayed.",
+  "failed_checks": "Missing lab sample, the ph excursion and the kit due on the log date count, with the borderline action timing deciding between two or three failures."
+ },
+ "request": "rec-F213-0076",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.013285
+}

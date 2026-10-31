@@ -1,0 +1,120 @@
+{
+ "id": "F209-0073",
+ "family": "F209",
+ "state": {
+  "unit": {
+   "asset_id": "WC-2201",
+   "type": "wet_chemical",
+   "capacity_kg": 6,
+   "manufacture_date": "2020-06-01",
+   "gauge_green_min_bar": 10,
+   "gauge_green_max_bar": 14
+  },
+  "visit": {
+   "visit_date": "2025-05-20",
+   "tech_cert_expiry": "2026-02-28",
+   "service_type": "basic",
+   "checks": {
+    "pressure_bar": 0,
+    "seal_ok": false,
+    "corrosion": true,
+    "hose_ok": true
+   }
+  },
+  "tag": {
+   "tag_asset_id": "WC-2210",
+   "tag_service_date": "2025-05-20",
+   "tag_next_due": "2025-01-14",
+   "tag_service_type": "basic"
+  },
+  "history": [],
+  "register": {
+   "reg_asset_id": "WC-2201",
+   "reg_type": "water",
+   "reg_capacity_kg": 9,
+   "floor": 3,
+   "zone": "K1",
+   "zone_risk_class": "kitchen"
+  },
+  "remedial": [
+   {
+    "action_code": "REPLACE_UNIT",
+    "raised": "2025-05-20",
+    "completed": "2025-05-20",
+    "replacement_asset_id": "WC-2290",
+    "floor": 3,
+    "zone": "K-1"
+   }
+  ]
+ },
+ "factors": {
+  "unit_type": "wet_chemical",
+  "unit_age_years": 5,
+  "service_level_gap": "matched",
+  "days_past_due": 126,
+  "deferral_approved": false,
+  "injected_mismatch_count": 4,
+  "physical_defect": "low_pressure_corrosion_seal",
+  "defect_rectified_on_visit": true,
+  "type_location_mismatch": false,
+  "location_exemption_on_file": false,
+  "record_gap": "history_missing",
+  "technician_cert_status": "valid",
+  "out_of_order_dates": false,
+  "borderline_case": false
+ },
+ "factors_sampled": {
+  "unit_type": "wet_chemical",
+  "unit_age_years": 22,
+  "service_level_gap": "matched",
+  "days_past_due": 126,
+  "deferral_approved": false,
+  "injected_mismatch_count": 5,
+  "physical_defect": "none",
+  "defect_rectified_on_visit": false,
+  "type_location_mismatch": false,
+  "location_exemption_on_file": false,
+  "record_gap": "history_missing",
+  "technician_cert_status": "valid",
+  "out_of_order_dates": false,
+  "borderline_case": false
+ },
+ "plan": {
+  "left_compliant": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "withdraw_unit",
+   "second": null
+  },
+  "service_level_due": {
+   "clarity": "contested",
+   "target": "interim_check",
+   "second": "extended_service"
+  },
+  "visit_lateness": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "mismatch_count": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 85,
+ "deciding": {
+  "left_compliant": "Old unit has pressure 0 bar, failed seal and corrosion, but a replacement WC-2290 was fitted the same day; its zone code K-1 vs register K1 leaves doubt whether it stands in the right place.",
+  "next_step": "Pressure 0 bar against a 10-14 green band, seal_ok false and corrosion true make the unit unsafe, so it must come out of service.",
+  "service_level_due": "Empty history and age just under 5 years (2020-06-01 to 2025-05-20): interim check if no basic is due, extended service if the five-year mark is treated as reached.",
+  "visit_lateness": "History is empty so due date is unclear; tag_next_due 2025-01-14 is 126 days before the visit (level 3), but as a possible decoy it leaves level 2 plausible.",
+  "mismatch_count": "Tag id WC-2210 vs WC-2201, reg_type water vs wet_chemical and capacity 9 vs 6 clearly disagree; zone K-1 vs K1 is a borderline fourth."
+ },
+ "request": "rec-F209-0071",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.016585
+}

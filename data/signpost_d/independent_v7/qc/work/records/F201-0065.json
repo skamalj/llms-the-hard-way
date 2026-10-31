@@ -1,0 +1,151 @@
+{
+ "id": "F201-0065",
+ "family": "F201",
+ "state": {
+  "register_header": {
+   "drug": "ketamine",
+   "concentration_mg_ml": 100,
+   "witness_required": false,
+   "opening_balance_ml": 30
+  },
+  "entries": [
+   {
+    "entry_id": "E1",
+    "date": "2025-07-02",
+    "type": "receipt",
+    "qty_ml": 20,
+    "running_balance_ml": 50,
+    "signed_by": "S2",
+    "witness_id": null,
+    "batch_no": "B5"
+   },
+   {
+    "entry_id": "E2",
+    "date": "2025-07-09",
+    "type": "admin",
+    "qty_ml": 4,
+    "patient_id": "P7",
+    "running_balance_ml": 46,
+    "signed_by": "S2",
+    "witness_id": null,
+    "batch_no": "B5"
+   },
+   {
+    "entry_id": "E3",
+    "date": "2025-07-15",
+    "type": "disposal",
+    "qty_ml": 3,
+    "running_balance_ml": 43,
+    "signed_by": "S2",
+    "witness_id": null,
+    "batch_no": "B5"
+   }
+  ],
+  "clinical_records": [
+   {
+    "patient_id": "P7",
+    "date": "2025-07-09",
+    "dose": 400,
+    "dose_unit": "mg",
+    "route": "IV",
+    "clinician_id": "S2"
+   }
+  ],
+  "stock_check": {
+   "count_date": "2025-07-31",
+   "counted_ml": 37,
+   "batch_no": "B5",
+   "overfill_allowance_ml": 0
+  },
+  "disposals": [
+   {
+    "batch_no": "B5",
+    "qty_ml": 3,
+    "reason_code": "expired",
+    "removed_date": "2025-07-15",
+    "register_entry_id": "E3",
+    "witness_id": null,
+    "denatured_date": "2025-07-15"
+   }
+  ],
+  "exceptions": [
+   {
+    "exception_id": "X5",
+    "batch_no": "B5",
+    "qty_ml": 6,
+    "reason_code": "spill",
+    "approved_by": "D2",
+    "valid_from": "2025-07-01",
+    "valid_to": "2025-07-31"
+   }
+  ]
+ },
+ "factors": {
+  "drug_profile": "ketamine_100mg_ml",
+  "arithmetic_slip_count": 0,
+  "unrecorded_admin": "none",
+  "clinical_records_missing": false,
+  "disposal_state": "entered_unwitnessed",
+  "unexplained_shortfall_pct": 0.0,
+  "variance_exception": "valid_full_cover",
+  "manufacturer_overfill": false,
+  "auth_gap_count": 0,
+  "count_out_of_order": false,
+  "unit_mismatch": true,
+  "locum_signatory": false,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "drug_profile": "ketamine_100mg_ml",
+  "arithmetic_slip_count": 0,
+  "unrecorded_admin": "none",
+  "clinical_records_missing": false,
+  "disposal_state": "entered_unwitnessed",
+  "unexplained_shortfall_pct": 13.26,
+  "variance_exception": "valid_full_cover",
+  "manufacturer_overfill": false,
+  "auth_gap_count": 0,
+  "count_out_of_order": false,
+  "unit_mismatch": true,
+  "locum_signatory": false,
+  "boundary_case": false
+ },
+ "plan": {
+  "unexplained_shortfall": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "line_disposition": {
+   "clarity": "clear",
+   "target": "sign_off",
+   "second": null
+  },
+  "variance_cause": {
+   "clarity": "leaning",
+   "target": "no_discrepancy",
+   "second": null
+  },
+  "variance_size": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "auth_gaps": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  }
+ },
+ "target_words": 52,
+ "deciding": {
+  "unexplained_shortfall": "Count 37 is 6 ml below balance 43 (12% of 50 ml handled), but exception X5 (6 ml, batch B5, July) covers it exactly; the size of the exception leaves some room for doubt.",
+  "line_disposition": "Balances recompute, the 400 mg dose equals the 4 ml in E2, the disposal is logged against E3, and the valid exception covers the shortfall; witness_required is false so null witnesses do not matter.",
+  "variance_cause": "Count 37 plus exception 6 equals balance 43, so the count matches once documented; the large exception is the only reason for doubt.",
+  "variance_size": "Nothing remains after exception X5, so nil; the planned 3/2 level was dropped to keep the line reconciled.",
+  "auth_gaps": "All entries have signed_by S2; witness_id is null throughout but witness_required is false, so no gaps."
+ },
+ "request": "rec-F201-0061",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.013506
+}

@@ -1,0 +1,147 @@
+{
+ "id": "F232-0082",
+ "family": "F232",
+ "state": {
+  "night_header": {
+   "date": "2025-04-11",
+   "allocated_hours": 4,
+   "eng_window": [
+    "01:00",
+    "02:00"
+   ]
+  },
+  "conditions": {
+   "closures": []
+  },
+  "exposures": [
+   {
+    "target_id": "T1",
+    "filter": "r",
+    "exptime_s": 2600,
+    "seeing_arcsec": 1.3,
+    "qa": "pass"
+   },
+   {
+    "target_id": "T2",
+    "filter": "r",
+    "exptime_s": 900,
+    "seeing_arcsec": 2.2,
+    "qa": "fail"
+   },
+   {
+    "target_id": "T2",
+    "filter": "r",
+    "exptime_s": 300,
+    "seeing_arcsec": 2.3,
+    "qa": null
+   },
+   {
+    "target_id": "T2",
+    "filter": "r",
+    "exptime_s": 300,
+    "seeing_arcsec": 2.3,
+    "qa": null
+   }
+  ],
+  "programme_request": {
+   "T1": {
+    "filters": [
+     "r"
+    ],
+    "total_s": 2600,
+    "max_seeing_arcsec": 1.5
+   },
+   "T2": {
+    "filters": [
+     "r"
+    ],
+    "total_s": 3600,
+    "max_seeing_arcsec": 1.5
+   },
+   "exception": null
+  },
+  "faults": [
+   {
+    "subsystem": "focus",
+    "start_utc": "01:20",
+    "end_utc": "02:03",
+    "cleared": true,
+    "retest_utc": null,
+    "workaround": "manual focus offset kept",
+    "ticket_ref": "E-4411"
+   }
+  ],
+  "notes": {
+   "observer_note": "T1 and T2 complete.",
+   "night_assistant_note": "Focus stage whining around 01:25, during eng test."
+  }
+ },
+ "factors": {
+  "weather_loss_hours": 0.0,
+  "fault_overlap": "minor_overlap",
+  "fault_resolution_state": "cleared_no_retest",
+  "maintenance_window": true,
+  "closure_reason_mismatch": "none",
+  "note_claim_discrepancy": "shortfall",
+  "seeing_vs_limit": "exceeded",
+  "seeing_exception_approved": false,
+  "usable_fraction": 0.18,
+  "qa_pending_count": 2,
+  "utc_date_rollover": false,
+  "assistant_note_tone": "alarmed_benign",
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "weather_loss_hours": 2.15,
+  "fault_overlap": "minor_overlap",
+  "fault_resolution_state": "cleared_retested",
+  "maintenance_window": true,
+  "closure_reason_mismatch": "coincides_with_fault",
+  "note_claim_discrepancy": "none",
+  "seeing_vs_limit": "exceeded",
+  "seeing_exception_approved": false,
+  "usable_fraction": 0.18,
+  "qa_pending_count": 2,
+  "utc_date_rollover": false,
+  "assistant_note_tone": "alarmed_benign",
+  "boundary_case": false
+ },
+ "plan": {
+  "weather_only_loss": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "claims_supported": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "night_disposition": {
+   "clarity": "clear",
+   "target": "charge_full",
+   "second": null
+  },
+  "usable_share": {
+   "clarity": "clear",
+   "target": "1",
+   "second": null
+  },
+  "fault_followup": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  }
+ },
+ "target_words": 69,
+ "deciding": {
+  "weather_only_loss": "There are no closures at all. The only gap is the focus fault, which sits inside the eng window and runs 3 minutes past it. That overlap is minor, so the lean is true with some doubt.",
+  "claims_supported": "The observer note claims T2 complete. T2 needs 3600 s in r, but only 1500 s is logged, and all of it exceeds the 1.5 arcsec limit with no exception.",
+  "night_disposition": "No closures and no lost allocated time. The fault is inside the eng window and the poor seeing is not a loss, so the full allocation is charged.",
+  "usable_share": "Only the 2600 s T1 frame passes QA within limits, against 14400 s allocated, about 18%. That is level 1.",
+  "fault_followup": "The focus fault is cleared with retest_utc null, which is level 1. The 'manual focus offset kept' workaround hints at a lingering problem, so level 2 is also plausible."
+ },
+ "request": "rec-F232-0081",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.016623
+}

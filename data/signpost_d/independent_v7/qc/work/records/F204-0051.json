@@ -1,0 +1,146 @@
+{
+ "id": "F204-0051",
+ "family": "F204",
+ "state": {
+  "rx": {
+   "drug": "warfarin",
+   "form": "tab",
+   "strength": {
+    "val": 3,
+    "unit": "mg"
+   },
+   "dose": 1,
+   "freq_per_day": 1,
+   "qty": 7,
+   "days": 7
+  },
+  "patient": {
+   "pt_id": "P48213",
+   "supplies": [
+    {
+     "date": "2025-02-28",
+     "days_covered": 14
+    }
+   ],
+   "near_miss_count": 0
+  },
+  "dispensed": {
+   "product_name": "warfarin",
+   "form": "tab",
+   "strength": {
+    "val": 3,
+    "unit": "mg"
+   },
+   "pack_size": 6,
+   "packs": 1,
+   "owing": {
+    "qty": 1,
+    "slip_no": "OW-3391"
+   },
+   "expiry": "2025-03-21",
+   "req_warnings": [
+    "W2"
+   ],
+   "high_risk": true
+  },
+  "label": {
+   "pt_id": "P48213",
+   "dose_qty": 1,
+   "freq_per_day": 1,
+   "warning_codes": [
+    "W2"
+   ],
+   "qty_printed": 6
+  },
+  "check_log": {
+   "checked_at": "2025-03-14T09:10",
+   "clin_check": {
+    "by": "RPh Osei",
+    "at": "2025-03-14T09:02"
+   },
+   "queries": [
+    {
+     "raised_at": "2025-03-14T08:40",
+     "field": "qty",
+     "status": "confirmed"
+    }
+   ],
+   "interventions": [
+    {
+     "code": "INT2",
+     "field": "qty",
+     "accepted": true,
+     "by": "RPh Osei"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "strength_status": "match_same_units",
+  "product_status": "exact",
+  "quantity_status": "owing_documented",
+  "label_status": "correct",
+  "prescriber_query": "confirmed",
+  "pharmacist_intervention": true,
+  "clinical_check_signed": true,
+  "home_supply_days": "0 (supply runs out on check date, boundary with 1)",
+  "emergency_supply": false,
+  "short_expiry": false,
+  "prior_error_count": 0,
+  "high_risk_drug": true,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "strength_status": "match_same_units",
+  "product_status": "exact",
+  "quantity_status": "exact",
+  "label_status": "directions_mismatch",
+  "prescriber_query": "confirmed",
+  "pharmacist_intervention": true,
+  "clinical_check_signed": true,
+  "home_supply_days": 12,
+  "emergency_supply": true,
+  "short_expiry": false,
+  "prior_error_count": 0,
+  "high_risk_drug": true,
+  "boundary_case": false
+ },
+ "plan": {
+  "strength_differs": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "release_annotated",
+   "second": null
+  },
+  "error_category": {
+   "clarity": "balanced",
+   "target": "product_error",
+   "second": "quantity_only"
+  },
+  "open_discrepancies": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "supply_urgency": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 90,
+ "deciding": {
+  "strength_differs": "rx 3 mg and dispensed 3 mg in the same unit; the only doubt is the earlier quantity query logged.",
+  "next_step": "Owing slip OW-3391 plus a confirmed qty query and an accepted qty intervention, with a signed clinical check, so release once annotated.",
+  "error_category": "Expiry 2025-03-21 equals check date plus 7 days intended (just not short) while 6 of 7 are supplied with the balance owed, so a product or quantity reading is both arguable.",
+  "open_discrepancies": "Shortfall of 1 is covered by the owing slip and the confirmed query, so 0 remains, but the borderline expiry could count as one.",
+  "supply_urgency": "Last supply 2025-02-28 plus 14 days ends exactly at the 2025-03-14 check, so exhausted today or one day left."
+ },
+ "request": "rec-F204-0051",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012064
+}

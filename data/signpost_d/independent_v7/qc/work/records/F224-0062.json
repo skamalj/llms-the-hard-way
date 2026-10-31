@@ -1,0 +1,153 @@
+{
+ "id": "F224-0062",
+ "family": "F224",
+ "state": {
+  "request": {
+   "views": [
+    "BW_R",
+    "BW_L"
+   ],
+   "ind": "CARIES_REVIEW",
+   "risk": "low",
+   "date": "2024-03-04",
+   "prior_same_view": "2021-05-20",
+   "exceptions": [],
+   "patient_flags": [],
+   "verbal_auth": [
+    {
+     "view": "PA_LL6",
+     "t": "10:15"
+    }
+   ]
+  },
+  "exposures": [
+   {
+    "id": 1,
+    "view": "BW_R",
+    "t": "10:02",
+    "dose": 0.6
+   },
+   {
+    "id": 2,
+    "view": "BW_L",
+    "t": "10:04",
+    "dose": 0.6
+   },
+   {
+    "id": 3,
+    "view": "BW_R",
+    "t": "10:07",
+    "dose": 0.6,
+    "retake_of": 1
+   },
+   {
+    "id": 4,
+    "view": "PA_LL6",
+    "t": "10:15",
+    "dose": 0.375
+   },
+   {
+    "id": 5,
+    "view": "PA_LL7",
+    "t": "10:18",
+    "dose": 0.375
+   },
+   {
+    "id": 6,
+    "view": "PA_LL5",
+    "t": "10:20",
+    "dose": 0.375
+   }
+  ],
+  "image_review": {
+   "grade": 1,
+   "faults": {
+    "1": "FC_CONE_CUT"
+   },
+   "sensor_err": [],
+   "grader2": "done"
+  },
+  "equipment": {
+   "qa_last": "2024-01-15",
+   "qa_months": 12,
+   "output": "pass",
+   "drl": {
+    "BW": 0.8,
+    "PA": 0.5
+   }
+  },
+  "operator": {
+   "id": "OP7",
+   "signoff": null,
+   "prior_findings_12m": 3
+  }
+ },
+ "factors": {
+  "indication_match": "match",
+  "recall_interval_months": 34,
+  "dose_ratio_to_drl": 0.75,
+  "console_log_discrepancy": "none",
+  "retake_cause": "positioning",
+  "equipment_qa_status": "in_date",
+  "approved_exception": false,
+  "patient_cooperation_flag": false,
+  "unrequested_exposure_count": 3,
+  "verbal_authorisation_logged": true,
+  "image_grade": "diagnostic",
+  "audit_completeness": "operator_signoff_missing",
+  "operator_prior_findings": 3
+ },
+ "factors_sampled": {
+  "indication_match": "missing",
+  "recall_interval_months": 34,
+  "dose_ratio_to_drl": 1.18,
+  "console_log_discrepancy": "none",
+  "retake_cause": "no_retake",
+  "equipment_qa_status": "in_date",
+  "approved_exception": true,
+  "patient_cooperation_flag": true,
+  "unrequested_exposure_count": 0,
+  "verbal_authorisation_logged": true,
+  "image_grade": "diagnostic",
+  "audit_completeness": "operator_signoff_missing",
+  "operator_prior_findings": 3
+ },
+ "plan": {
+  "justified": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "operator_retake": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "follow_up": {
+   "clarity": "balanced",
+   "target": "close_record",
+   "second": "hold_confirm"
+  },
+  "dose_position": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "unjustified_count": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  }
+ },
+ "target_words": 84,
+ "deciding": {
+  "justified": "Indication CARIES_REVIEW fits the requested bitewings, and the 34-month gap from 2021-05-20 exceeds the 24 months allowed for low risk.",
+  "operator_retake": "Exposure 3 retakes exposure 1, which has FC_CONE_CUT, with no sensor errors, QA in date, and no patient flags; some doubt remains because no cooperation field was recorded.",
+  "follow_up": "Image grade 1 and QA are fine, but operator signoff is null, so hold_confirm is plausible; close_record is leading because the clinical content is otherwise sound.",
+  "dose_position": "Doses 0.60 against BW reference 0.80 and 0.375 against PA reference 0.50 both give 0.75, exactly the Low/Typical boundary.",
+  "unjustified_count": "PA_LL6, PA_LL7 and PA_LL5 are not in the requested views; the verbal auth for PA_LL6 is at 10:15, the same minute as exposure 4, so whether it covers it is ambiguous, leaving 2 or 3."
+ },
+ "request": "rec-F224-0061",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.015085
+}

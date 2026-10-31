@@ -1,0 +1,173 @@
+{
+ "id": "F236-0063",
+ "family": "F236",
+ "state": {
+  "changeover": {
+   "line": "L3",
+   "from": "P40",
+   "to": "P44",
+   "from_allergens": [
+    "sesame",
+    "soya"
+   ],
+   "to_allergens": [
+    "soya"
+   ],
+   "end": "2024-07-02T05:50"
+  },
+  "cleaning": {
+   "steps": [
+    {
+     "s": "dry_clean",
+     "done": true,
+     "spec_min": 30,
+     "act_min": 30
+    },
+    {
+     "s": "wash",
+     "done": true,
+     "spec_min": 25,
+     "act_min": 10
+    }
+   ],
+   "chemical": "CH-22",
+   "part_swap": true,
+   "set_id": "DS-8",
+   "op": "OP114"
+  },
+  "verification": {
+   "swabs": [
+    {
+     "id": "S1",
+     "loc": "mixer",
+     "target": "sesame",
+     "ppm": 0,
+     "limit_ppm": 10,
+     "at": "2024-07-02T05:55"
+    },
+    {
+     "id": "S2",
+     "loc": "oven belt",
+     "target": "sesame",
+     "ppm": 0.2,
+     "limit_ppm": 10,
+     "at": "2024-07-02T06:00"
+    }
+   ],
+   "atp_rlu": [
+    {
+     "loc": "mixer",
+     "rlu": 310
+    }
+   ]
+  },
+  "production": {
+   "line": "L3",
+   "product": "P44",
+   "batch": "B772",
+   "start_at": "2024-07-02T06:15",
+   "end_at": "2024-07-02T14:15",
+   "qty": 500,
+   "unit": "kg",
+   "pack_allergens": [
+    "may_contain:sesame"
+   ],
+   "held": false
+  },
+  "approvals": {
+   "qa_signoff": {
+    "by": "QA05",
+    "signed_at": "2024-07-02T06:10"
+   },
+   "deviations": []
+  },
+  "history": [
+   {
+    "d": "2024-06-10",
+    "ok": true
+   },
+   {
+    "d": "2024-06-14",
+    "ok": false
+   },
+   {
+    "d": "2024-06-19",
+    "ok": false
+   },
+   {
+    "d": "2024-06-24",
+    "ok": true
+   },
+   {
+    "d": "2024-06-28",
+    "ok": false
+   }
+  ]
+ },
+ "factors": {
+  "allergen_transition": "removes_allergen",
+  "cleaning_completion": "duration_short",
+  "swab_outcome": "trace_below_limit",
+  "swab_timing_mismatch": false,
+  "cross_section_discrepancy": "label_allergen_mismatch",
+  "exposed_quantity_kg": 0.0,
+  "approved_deviation": false,
+  "label_precaution": true,
+  "dedicated_tooling": true,
+  "qa_signoff_state": "signed_before_start",
+  "line_failure_history": 3,
+  "boundary_value": true
+ },
+ "factors_sampled": {
+  "allergen_transition": "removes_allergen",
+  "cleaning_completion": "duration_short",
+  "swab_outcome": "trace_below_limit",
+  "swab_timing_mismatch": false,
+  "cross_section_discrepancy": "label_allergen_mismatch",
+  "exposed_quantity_kg": 837.7,
+  "approved_deviation": false,
+  "label_precaution": true,
+  "dedicated_tooling": true,
+  "qa_signoff_state": "signed_before_start",
+  "line_failure_history": 3,
+  "boundary_value": true
+ },
+ "plan": {
+  "swabs_cleared": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "line_disposition": {
+   "clarity": "balanced",
+   "target": "release_conditional",
+   "second": "hold"
+  },
+  "worst_deficiency": {
+   "clarity": "clear",
+   "target": "cleaning_shortfall",
+   "second": null
+  },
+  "exposed_product": {
+   "clarity": "leaning",
+   "target": "0",
+   "second": null
+  },
+  "residue_evidence": {
+   "clarity": "contested",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 104,
+ "deciding": {
+  "swabs_cleared": "Both swabs are under the 10 ppm limit and timed 06:00 or earlier, before the 06:15 start.",
+  "line_disposition": "The may_contain:sesame label is a precaution, but the pack list omits soya. Clean swabs support conditional release and the omission and short wash support a hold.",
+  "worst_deficiency": "The wash ran 10 min against a 25 min spec with no approving deviation, while swabs and sign-off are in order.",
+  "exposed_product": "Both swabs are before start, so no product was made unverified. The batch quantity is exactly 500 kg, a boundary value that leaves some doubt.",
+  "residue_evidence": "S2 reads 0.2 ppm against a 10 ppm limit, barely above zero, while mixer ATP is high. Level 0 and level 1 are both defensible."
+ },
+ "request": "rec-F236-0061",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.015747
+}

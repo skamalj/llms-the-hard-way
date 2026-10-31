@@ -1,0 +1,126 @@
+{
+ "id": "F232-0054",
+ "family": "F232",
+ "state": {
+  "night_header": {
+   "alloc_h": 4
+  },
+  "conditions": {
+   "closures": [
+    {
+     "s": "01:00",
+     "e": "01:22",
+     "reason": "weather",
+     "hum": 93
+    }
+   ],
+   "limits": {
+    "hum": 85
+   }
+  },
+  "exposures": [
+   {
+    "tgt": "A",
+    "exp_s": 3000,
+    "qa": "pass"
+   },
+   {
+    "tgt": "B",
+    "exp_s": 3000,
+    "qa": "pass"
+   },
+   {
+    "tgt": "A",
+    "exp_s": 900,
+    "frames": 4,
+    "qa": null
+   }
+  ],
+  "programme_request": {
+   "A": {
+    "r": 9000
+   }
+  },
+  "faults": [
+   {
+    "sub": "shutter",
+    "start_utc": "03:20",
+    "end_utc": null,
+    "cleared": false,
+    "workaround": null
+   }
+  ],
+  "notes": {
+   "observer_note": "A done.",
+   "night_assistant_note": "Shutter grinding, then jammed at 03:20."
+  }
+ },
+ "factors": {
+  "weather_loss_hours": 0.37,
+  "fault_overlap": "none",
+  "fault_resolution_state": "open_blocking",
+  "maintenance_window": false,
+  "closure_reason_mismatch": "none",
+  "note_claim_discrepancy": "short_large",
+  "seeing_vs_limit": "well_within",
+  "seeing_exception_approved": false,
+  "usable_fraction": 0.42,
+  "qa_pending_count": 4,
+  "utc_date_rollover": true,
+  "assistant_note_tone": "alarmed_real",
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "weather_loss_hours": 0.37,
+  "fault_overlap": "none",
+  "fault_resolution_state": "open_blocking",
+  "maintenance_window": false,
+  "closure_reason_mismatch": "none",
+  "note_claim_discrepancy": "none",
+  "seeing_vs_limit": "well_within",
+  "seeing_exception_approved": false,
+  "usable_fraction": 0.63,
+  "qa_pending_count": 4,
+  "utc_date_rollover": true,
+  "assistant_note_tone": "alarmed_benign",
+  "boundary_case": false
+ },
+ "plan": {
+  "weather_only_loss": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "claims_supported": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "night_disposition": {
+   "clarity": "balanced",
+   "target": "charge_partial",
+   "second": "charge_full"
+  },
+  "usable_share": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  },
+  "fault_followup": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 46,
+ "deciding": {
+  "weather_only_loss": "The 01:00-01:22 closure has hum 93 above the 85 limit. The shutter fault starts at 03:20, after the last exposures, so no logged lost time overlaps it. The doubt is that nothing shows exposures resumed before the jam.",
+  "claims_supported": "Observer claims A done, but A has only 3000 s passed plus 3600 s pending (4 frames) against 9000 s requested. This is a clear shortfall.",
+  "night_disposition": "Only a short weather loss is logged, which supports charge_partial. No technical time loss is shown, and the shutter jam came late, so charge_full is also arguable.",
+  "usable_share": "6000 s passed against 14400 s allocated is about 42%. Four pending frames (3600 s) could lift it well above that, so the call sits between low and substantial.",
+  "fault_followup": "The shutter fault is open, workaround is null, and the assistant note says it jammed. Whether the instrument is truly unusable is not stated, hence the balance."
+ },
+ "request": "rec-F232-0051",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.015249
+}

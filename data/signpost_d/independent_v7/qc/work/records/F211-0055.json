@@ -1,0 +1,135 @@
+{
+ "id": "F211-0055",
+ "family": "F211",
+ "state": {
+  "vehicle": {
+   "callsign": "A402",
+   "type": "DSA",
+   "odometer_km": 47530,
+   "service_due_km": 50000
+  },
+  "check": {
+   "shift_date": "2025-05-07",
+   "signed_at": null,
+   "sections_required": 4,
+   "sections_signed": [
+    "vehicle",
+    "clinical",
+    "drugs"
+   ],
+   "countersigned_by": null,
+   "crew_note": "Blue lights dropped out briefly on start-up, back after wiring reseat; tyres and fuel normal."
+  },
+  "defects": [
+   {
+    "item": "blue lights",
+    "area": "vehicle_systems",
+    "desc": "Offside rear blue light flickers, portable beacon carried.",
+    "status": "open",
+    "substitute_on_board": true,
+    "deferral": null
+   },
+   {
+    "item": "stretcher strap",
+    "area": "clinical_equipment",
+    "desc": "Strap frayed to near failure, replaced.",
+    "status": "closed",
+    "substitute_on_board": false,
+    "deferral": null
+   }
+  ],
+  "stock": {
+   "lines": [
+    {
+     "item": "midazolam",
+     "qty": 2,
+     "par_level": 4,
+     "expiry": "2025-05-22"
+    }
+   ],
+   "restock_request": null
+  },
+  "activity": {
+   "first_mobilised_at": "2025-05-07T08:00",
+   "workshop_jobs": [
+    {
+     "date": "2025-05-06",
+     "job_note": "Blue light loom repaired."
+    }
+   ],
+   "prior_checks": [
+    {
+     "defects": [
+      "blue lights"
+     ]
+    }
+   ]
+  }
+ },
+ "factors": {
+  "checklist_completion": "half_or_more_signed",
+  "worst_defect_tier": "critical_with_substitute",
+  "defect_area": "vehicle_systems",
+  "deferral_authorised": false,
+  "deferral_invalid": false,
+  "workshop_return_recent": true,
+  "earliest_drug_expiry_days": 15,
+  "restock_in_progress": false,
+  "service_margin_km": 2470,
+  "crew_note_tone": "alarming_benign",
+  "signed_after_mobilisation": false,
+  "repeat_defect_count": 1
+ },
+ "factors_sampled": {
+  "checklist_completion": "all_signed_countersigned",
+  "worst_defect_tier": "critical_with_substitute",
+  "defect_area": "clinical_equipment",
+  "deferral_authorised": false,
+  "deferral_invalid": false,
+  "workshop_return_recent": true,
+  "earliest_drug_expiry_days": 15,
+  "restock_in_progress": false,
+  "service_margin_km": 2470,
+  "crew_note_tone": "alarming_benign",
+  "signed_after_mobilisation": false,
+  "repeat_defect_count": 1
+ },
+ "plan": {
+  "defects_controlled": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "readiness_status": {
+   "clarity": "clear",
+   "target": "hold",
+   "second": null
+  },
+  "limiting_area": {
+   "clarity": "balanced",
+   "target": "vehicle_systems",
+   "second": "stock_and_drugs"
+  },
+  "check_completeness": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  },
+  "defect_severity": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 180,
+ "deciding": {
+  "defects_controlled": "The critical blue lights defect is open with no deferral. The workshop repair on 2025-05-06 has no retest recorded, and the crew note says the lights dropped out again, so it is not resolved.",
+  "readiness_status": "The blue lights fault is unconfirmed after the workshop job and the check is unsigned. One missing confirmation, a retest, would clear it, so hold.",
+  "limiting_area": "The blue lights defect (vehicle_systems) is the main open item. The midazolam line is below par (2 of 4) with no restock request, so stock is the alternative.",
+  "check_completeness": "3 of 4 sections are signed, signed_at is null and countersigned_by is null. That puts it at level 1.",
+  "defect_severity": "Blue lights are a critical item and a portable beacon is carried, which gives level 3. Only one of several lights flickers, so a reader could call it non-critical (level 2)."
+ },
+ "request": "rec-F211-0051",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.013138
+}

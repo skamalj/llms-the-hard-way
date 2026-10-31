@@ -1,0 +1,150 @@
+{
+ "id": "F224-0065",
+ "family": "F224",
+ "state": {
+  "request": {
+   "views": [
+    "BW_R",
+    "BW_L"
+   ],
+   "ind": "CARIES_RECALL",
+   "risk": "moderate",
+   "date": "2024-04-09",
+   "prior_same_view": "2022-05-06",
+   "exceptions": [],
+   "patient_flags": []
+  },
+  "exposures": [
+   {
+    "id": 1,
+    "view": "BW_R",
+    "t": "15:10",
+    "kV": 70,
+    "s": 0.08,
+    "dose": 1.07
+   },
+   {
+    "id": 2,
+    "view": "BW_L",
+    "t": "15:12",
+    "kV": 70,
+    "s": 0.08,
+    "dose": 1.07
+   },
+   {
+    "id": 3,
+    "view": "BW_R",
+    "t": "15:16",
+    "kV": 70,
+    "s": 0.08,
+    "dose": 1.07,
+    "retake_of": 1
+   }
+  ],
+  "image_review": {
+   "grade": 1,
+   "faults": {
+    "1": "FC_CONE_CUT"
+   },
+   "sensor_err": [],
+   "grader2": "done"
+  },
+  "equipment": {
+   "qa_last": "2024-02-20",
+   "qa_months": 12,
+   "output": "pass",
+   "drl": {
+    "BW": 0.8
+   },
+   "console_log": [
+    {
+     "t": "15:10",
+     "kV": 70,
+     "s": 0.09
+    },
+    {
+     "t": "15:12",
+     "kV": 70,
+     "s": 0.09
+    },
+    {
+     "t": "15:16",
+     "kV": 70,
+     "s": 0.09
+    }
+   ]
+  },
+  "operator": {
+   "signoff": "2024-04-09T15:40",
+   "prior_findings_12m": 4
+  }
+ },
+ "factors": {
+  "indication_match": "partial_match",
+  "recall_interval_months": 23,
+  "dose_ratio_to_drl": 1.5,
+  "console_log_discrepancy": "setting_mismatch",
+  "retake_cause": "positioning",
+  "equipment_qa_status": "in_date",
+  "approved_exception": false,
+  "patient_cooperation_flag": false,
+  "unrequested_exposure_count": 0,
+  "verbal_authorisation_logged": false,
+  "image_grade": "diagnostic",
+  "audit_completeness": "complete",
+  "operator_prior_findings": 4
+ },
+ "factors_sampled": {
+  "indication_match": "partial_match",
+  "recall_interval_months": 23,
+  "dose_ratio_to_drl": 1.3,
+  "console_log_discrepancy": "setting_mismatch",
+  "retake_cause": "positioning",
+  "equipment_qa_status": "in_date",
+  "approved_exception": false,
+  "patient_cooperation_flag": true,
+  "unrequested_exposure_count": 2,
+  "verbal_authorisation_logged": false,
+  "image_grade": "diagnostic",
+  "audit_completeness": "complete",
+  "operator_prior_findings": 4
+ },
+ "plan": {
+  "justified": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "operator_retake": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "follow_up": {
+   "clarity": "balanced",
+   "target": "escalate_rpa",
+   "second": "close_record"
+  },
+  "dose_position": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "unjustified_count": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 62,
+ "deciding": {
+  "justified": "CARIES_RECALL fits bitewings and the 23-month gap exceeds the 12 months allowed for moderate risk; partial indication match leaves slight doubt.",
+  "operator_retake": "Retake id 3 follows FC_CONE_CUT on exposure 1, with no sensor errors, QA in date and no patient flags; doubt remains because cooperation was not recorded.",
+  "follow_up": "Console time 0.09 s against listed 0.08 s raises the dose near 150% of reference with 4 prior findings, favouring escalation, while the complete audit and in-date QA keep close_record plausible.",
+  "dose_position": "Listed 1.07 against reference 0.80 is 1.34, but console 0.09 s against 0.08 s scales it to about 1.50, right at the Raised/Excessive boundary.",
+  "unjustified_count": "Every exposure is a requested BW view with a sound recall interval; only the retake id 3 might be counted as a repeat lacking its own justification, giving 0 or 1."
+ },
+ "request": "rec-F224-0061",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.015085
+}

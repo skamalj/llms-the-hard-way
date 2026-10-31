@@ -1,0 +1,173 @@
+{
+ "id": "F236-0077",
+ "family": "F236",
+ "state": {
+  "changeover": {
+   "line_id": "L2",
+   "from_code": "WHT-30",
+   "to_code": "MLK-21",
+   "from_allergens": [
+    "wheat",
+    "soya"
+   ],
+   "to_allergens": [
+    "wheat",
+    "soya",
+    "milk"
+   ]
+  },
+  "cleaning": {
+   "steps": [
+    {
+     "n": 1,
+     "completed": true,
+     "spec_min": 30,
+     "actual_min": 31
+    },
+    {
+     "n": 2,
+     "completed": true,
+     "spec_min": 25,
+     "actual_min": 25
+    },
+    {
+     "n": 3,
+     "completed": false,
+     "spec_min": 20,
+     "actual_min": 0
+    }
+   ],
+   "part_swap": true,
+   "dedicated_set": "DS-2A"
+  },
+  "verification": {
+   "swabs": [
+    {
+     "id": "S1",
+     "target": "soya",
+     "reading": 9,
+     "limit_ppm": 10,
+     "at": "2025-04-02T05:40"
+    },
+    {
+     "id": "S2",
+     "target": "soya",
+     "reading": 0,
+     "limit_ppm": 10,
+     "at": "2025-04-02T06:45",
+     "retest_of": "S1"
+    }
+   ]
+  },
+  "production": {
+   "line_id": "L2",
+   "product_code": "MLK-22",
+   "start_at": "2025-04-02T06:00",
+   "end_at": "2025-04-02T10:00",
+   "quantity": 400,
+   "unit": "kg",
+   "packaging_allergens": [
+    "wheat",
+    "soya",
+    "milk",
+    {
+     "may_contain": "soya"
+    }
+   ],
+   "held": false
+  },
+  "approvals": {
+   "qa_signoff": null,
+   "deviations": []
+  },
+  "history": [
+   {
+    "passed": false
+   },
+   {
+    "passed": false
+   },
+   {
+    "passed": true
+   },
+   {
+    "passed": false
+   },
+   {
+    "passed": false
+   },
+   {
+    "passed": false
+   },
+   {
+    "passed": true
+   }
+  ]
+ },
+ "factors": {
+  "allergen_transition": "adds_allergen",
+  "cleaning_completion": "one_step_skipped",
+  "swab_outcome": "trace_below_limit_retest_pass",
+  "swab_timing_mismatch": true,
+  "cross_section_discrepancy": "product_code_mismatch",
+  "exposed_quantity_kg": 75.0,
+  "approved_deviation": false,
+  "label_precaution": true,
+  "dedicated_tooling": true,
+  "qa_signoff_state": "missing",
+  "line_failure_history": 5,
+  "boundary_value": false
+ },
+ "factors_sampled": {
+  "allergen_transition": "adds_allergen",
+  "cleaning_completion": "one_step_skipped",
+  "swab_outcome": "positive_retest_pass",
+  "swab_timing_mismatch": false,
+  "cross_section_discrepancy": "product_code_mismatch",
+  "exposed_quantity_kg": 782.37,
+  "approved_deviation": false,
+  "label_precaution": true,
+  "dedicated_tooling": true,
+  "qa_signoff_state": "missing",
+  "line_failure_history": 5,
+  "boundary_value": false
+ },
+ "plan": {
+  "swabs_cleared": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "line_disposition": {
+   "clarity": "clear",
+   "target": "release_conditional",
+   "second": null
+  },
+  "worst_deficiency": {
+   "clarity": "clear",
+   "target": "release_breach",
+   "second": null
+  },
+  "exposed_product": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  },
+  "residue_evidence": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  }
+ },
+ "target_words": 165,
+ "deciding": {
+  "swabs_cleared": "The retest S2 is timed 06:45, after production start at 06:00, so the swabs were not all cleared before production. A reader might still credit the below-limit S1.",
+  "line_disposition": "The record carries a may_contain soya label precaution and production.held is false. That is an added control, not a hold or quarantine.",
+  "worst_deficiency": "approvals.qa_signoff is null and production ran from 06:00. The sign-off is missing and the retest came after start, which makes this a release_breach, worse than the skipped step 3.",
+  "exposed_product": "A 400 kg batch runs 06:00-10:00 at 100 kg/h. The retest passed at 06:45, so about 75 kg was made before verified clean, which is level 2.",
+  "residue_evidence": "S1 read 9 ppm against a limit of 10, which is trace and below limit (level 1). A retest was still run and read 0, which a reader could take as Cleared."
+ },
+ "request": "rec-F236-0076",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012786
+}

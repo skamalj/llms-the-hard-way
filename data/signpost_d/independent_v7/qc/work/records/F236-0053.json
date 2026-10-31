@@ -1,0 +1,134 @@
+{
+ "id": "F236-0053",
+ "family": "F236",
+ "state": {
+  "changeover": {
+   "line": "L3",
+   "from_allergens": [
+    "egg"
+   ],
+   "to_allergens": [
+    "egg"
+   ],
+   "to_code": "BR-14"
+  },
+  "cleaning": {
+   "steps": [
+    {
+     "id": "hopper_wipe",
+     "completed": false
+    }
+   ],
+   "part_swap": true,
+   "set_id": "DS-3"
+  },
+  "verification": {
+   "swabs": [
+    {
+     "id": "S1",
+     "ppm": 4.8,
+     "limit_ppm": 5,
+     "at": "2025-04-02T06:00"
+    }
+   ]
+  },
+  "production": {
+   "line": "L3",
+   "product_code": "BR-41",
+   "start_at": "2025-04-02T06:00",
+   "qty_kg": 42
+  },
+  "approvals": {
+   "qa_signoff": {
+    "signed_at": "2025-04-02T05:50"
+   },
+   "deviations": [
+    {
+     "id": "D-7",
+     "scope": "L3 hopper_wipe",
+     "approved_at": "2025-04-01T16:00"
+    }
+   ]
+  },
+  "history": {
+   "passed": [
+    true,
+    false,
+    false,
+    true,
+    false,
+    true,
+    false,
+    true,
+    true,
+    false
+   ]
+  }
+ },
+ "factors": {
+  "allergen_transition": "same_allergen_set",
+  "cleaning_completion": "one_step_skipped",
+  "swab_outcome": "trace_below_limit",
+  "swab_timing_mismatch": false,
+  "cross_section_discrepancy": "product_code_mismatch",
+  "exposed_quantity_kg": 42.07,
+  "approved_deviation": true,
+  "label_precaution": false,
+  "dedicated_tooling": true,
+  "qa_signoff_state": "signed_before_start",
+  "line_failure_history": 5,
+  "boundary_value": false
+ },
+ "factors_sampled": {
+  "allergen_transition": "same_allergen_set",
+  "cleaning_completion": "full",
+  "swab_outcome": "trace_below_limit",
+  "swab_timing_mismatch": true,
+  "cross_section_discrepancy": "product_code_mismatch",
+  "exposed_quantity_kg": 42.07,
+  "approved_deviation": true,
+  "label_precaution": false,
+  "dedicated_tooling": true,
+  "qa_signoff_state": "signed_after_start",
+  "line_failure_history": 5,
+  "boundary_value": false
+ },
+ "plan": {
+  "swabs_cleared": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "line_disposition": {
+   "clarity": "clear",
+   "target": "release",
+   "second": null
+  },
+  "worst_deficiency": {
+   "clarity": "clear",
+   "target": "cleaning_shortfall",
+   "second": null
+  },
+  "exposed_product": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  },
+  "residue_evidence": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  }
+ },
+ "target_words": 54,
+ "deciding": {
+  "swabs_cleared": "S1 reads 4.8 against a limit of 5 and passes. Its timestamp equals the production start, so it was not strictly before first production.",
+  "line_disposition": "The skipped hopper_wipe is covered by deviation D-7, approved before start. Dedicated set DS-3 was swapped in, the swab is under limit and QA signed before start, so release.",
+  "worst_deficiency": "hopper_wipe has completed false, a skipped clean step. The BR-14 vs BR-41 code mismatch is the lesser paperwork issue. There is no breach, since sign-off preceded start.",
+  "exposed_product": "The batch is 42 kg, under 50. The swab time equals the start time, so the gap is zero, but a small amount could count as level 1.",
+  "residue_evidence": "S1 reads 4.8 ppm, above zero and just under the 5 ppm limit. That is trace, though close enough to the limit that it could be read as level 2."
+ },
+ "request": "rec-F236-0051",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.016473
+}

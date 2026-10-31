@@ -1,0 +1,160 @@
+{
+ "id": "F201-0086",
+ "family": "F201",
+ "state": {
+  "register_header": {
+   "drug": "methadone",
+   "concentration_mg_ml": 10,
+   "schedule": 2,
+   "witness_required": true,
+   "branch_id": "B3",
+   "opening_balance_ml": 100
+  },
+  "entries": [
+   {
+    "entry_id": "E1",
+    "type": "receipt",
+    "qty_ml": 100,
+    "running_balance_ml": 200,
+    "signed_by": "S4",
+    "witness_id": "S7",
+    "batch_no": "M81"
+   },
+   {
+    "entry_id": "E2",
+    "type": "admin",
+    "qty_ml": 20,
+    "patient_id": "P1",
+    "running_balance_ml": 180,
+    "signed_by": "S4",
+    "witness_id": "S7"
+   },
+   {
+    "entry_id": "E3",
+    "type": "admin",
+    "qty_ml": 15,
+    "patient_id": "P2",
+    "running_balance_ml": 165,
+    "signed_by": "S4",
+    "witness_id": "S7"
+   },
+   {
+    "entry_id": "E4",
+    "type": "admin",
+    "qty_ml": 10,
+    "patient_id": "P3",
+    "running_balance_ml": 150,
+    "signed_by": "S4",
+    "witness_id": "S7"
+   },
+   {
+    "entry_id": "E5",
+    "type": "disposal",
+    "qty_ml": 10,
+    "running_balance_ml": 140,
+    "signed_by": "S4",
+    "witness_id": "S7"
+   }
+  ],
+  "clinical_records": [
+   {
+    "patient_id": "P1",
+    "dose": 20,
+    "dose_unit": "ml"
+   },
+   {
+    "patient_id": "P2",
+    "dose": 15,
+    "dose_unit": "ml"
+   },
+   {
+    "patient_id": "P3",
+    "dose": 10,
+    "dose_unit": "ml"
+   }
+  ],
+  "stock_check": {
+   "count_date": "2024-05-31",
+   "counted_ml": 125,
+   "overfill_allowance_ml": 0
+  },
+  "disposals": [
+   {
+    "batch_no": "M81",
+    "qty_ml": 10,
+    "reason_code": "expired",
+    "register_entry_id": "E5",
+    "witness_id": null,
+    "denatured_date": null
+   }
+  ]
+ },
+ "factors": {
+  "drug_profile": "methadone_10mg_ml",
+  "arithmetic_slip_count": 1,
+  "unrecorded_admin": "none",
+  "clinical_records_missing": false,
+  "disposal_state": "entered_unwitnessed",
+  "unexplained_shortfall_pct": 10.0,
+  "variance_exception": "none",
+  "manufacturer_overfill": false,
+  "auth_gap_count": 0,
+  "count_out_of_order": false,
+  "unit_mismatch": false,
+  "locum_signatory": false,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "drug_profile": "methadone_10mg_ml",
+  "arithmetic_slip_count": 1,
+  "unrecorded_admin": "none",
+  "clinical_records_missing": false,
+  "disposal_state": "entered_unwitnessed",
+  "unexplained_shortfall_pct": 3.91,
+  "variance_exception": "none",
+  "manufacturer_overfill": false,
+  "auth_gap_count": 4,
+  "count_out_of_order": true,
+  "unit_mismatch": false,
+  "locum_signatory": false,
+  "boundary_case": false
+ },
+ "plan": {
+  "unexplained_shortfall": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "line_disposition": {
+   "clarity": "leaning",
+   "target": "correct_and_sign",
+   "second": null
+  },
+  "variance_cause": {
+   "clarity": "leaning",
+   "target": "unexplained_loss",
+   "second": null
+  },
+  "variance_size": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  },
+  "auth_gaps": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 73,
+ "deciding": {
+  "unexplained_shortfall": "Recomputed closing is 145 ml (200-20-15-10-10) but counted_ml is 125; the 20 ml gap matches no clinical record, disposal or exception.",
+  "line_disposition": "One balance slip at E4 is clerical, but the 20 ml gap and the unwitnessed disposal item (witness_id null) pull toward hold; reviewers could differ.",
+  "variance_cause": "Slip at E4 is only 5 ml; the 20 ml gap has no counterpart in clinical records or disposals (disposal E5 is already in the register).",
+  "variance_size": "20 ml remaining over 200 ml handled (100 opening + 100 receipt) is exactly 10%, on the line between Material and Major.",
+  "auth_gaps": "Every entry has signed_by and witness_id; only the disposals item for E5 has witness_id null, which may or may not count as a gap on that entry."
+ },
+ "request": "rec-F201-0086",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.018334
+}

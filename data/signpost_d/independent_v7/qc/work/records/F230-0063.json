@@ -1,0 +1,139 @@
+{
+ "id": "F230-0063",
+ "family": "F230",
+ "state": {
+  "resident": {
+   "id": "r3",
+   "status": "home"
+  },
+  "prescriptions": [
+   {
+    "item_id": "C1",
+    "drug": "tramadol",
+    "strength_mg": 50,
+    "dose_units": 1,
+    "controlled": true
+   },
+   {
+    "item_id": "C2",
+    "drug": "ramipril",
+    "dose_units": 1
+   },
+   {
+    "item_id": "C3",
+    "drug": "vitB",
+    "dose_units": 2,
+    "strength_mg": 5
+   }
+  ],
+  "administrations": [
+   {
+    "item_id": "C1",
+    "scheduled": "08:00",
+    "given_at": "08:04",
+    "units_given": 1,
+    "strength_mg_used": 50,
+    "initials": "MP",
+    "second_initials": null
+   },
+   {
+    "item_id": "C1",
+    "scheduled": "08:00",
+    "given_at": "08:04",
+    "units_given": 1,
+    "strength_mg_used": 50,
+    "initials": "MP",
+    "second_initials": null
+   },
+   {
+    "item_id": "C2",
+    "scheduled": "08:00",
+    "units_given": 1,
+    "initials": null
+   },
+   {
+    "item_id": "C3",
+    "scheduled": "08:00",
+    "units_given": 2,
+    "strength_mg_used": 5,
+    "initials": "MP"
+   }
+  ],
+  "stock": {
+   "C1": {
+    "opening": 14,
+    "closing": 13
+   }
+  }
+ },
+ "factors": {
+  "dose_mismatch_type": "duplicate_entry",
+  "prescription_change_documented": true,
+  "omission_count": 0,
+  "omission_reason_valid": true,
+  "late_minutes": 4,
+  "time_critical_affected": false,
+  "stock_variance": -1,
+  "stock_variance_explained": false,
+  "signature_gaps": 2,
+  "unit_expression_decoy": "matching_units",
+  "post_dose_obs_reassuring": false,
+  "pending_query": "none",
+  "prior_errors_30d": 3,
+  "item_count": 3
+ },
+ "factors_sampled": {
+  "dose_mismatch_type": "duplicate_entry",
+  "prescription_change_documented": true,
+  "omission_count": 3,
+  "omission_reason_valid": false,
+  "late_minutes": 4,
+  "time_critical_affected": true,
+  "stock_variance": -3,
+  "stock_variance_explained": false,
+  "signature_gaps": 2,
+  "unit_expression_decoy": "matching_units",
+  "post_dose_obs_reassuring": false,
+  "pending_query": "none",
+  "prior_errors_30d": 3,
+  "item_count": 3
+ },
+ "plan": {
+  "dose_mismatch": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "stock_reconciles": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "correct_and_close",
+   "second": null
+  },
+  "open_discrepancies": {
+   "clarity": "clear",
+   "target": "2",
+   "second": null
+  },
+  "error_severity": {
+   "clarity": "contested",
+   "target": "2",
+   "second": "1"
+  }
+ },
+ "target_words": 67,
+ "deciding": {
+  "dose_mismatch": "C1 has two entries for the same scheduled time, but closing stock fell by one, so a real second dose is doubtful.",
+  "stock_reconciles": "C1 closing 13 equals one dose signed, but two entries are signed, giving expected 12.",
+  "next_step": "Issues are recording slips: duplicate entry and missing initials, with timing fine.",
+  "open_discrepancies": "Two items: C1 (duplicate and null second initials) and C2 (null initials).",
+  "error_severity": "Gaps are signature-only; whether the duplicate counts as a dose error splits between level 1 and level 2."
+ },
+ "request": "rec-F230-0061",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.008518
+}

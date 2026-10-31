@@ -1,0 +1,159 @@
+{
+ "id": "F224-0063",
+ "family": "F224",
+ "state": {
+  "request": {
+   "views": [
+    "BW_R",
+    "BW_L"
+   ],
+   "ind": "PERIO_REVIEW",
+   "risk": "high",
+   "prescriber": "D221",
+   "date": "2024-06-18",
+   "prior_same_view": "2023-08-22",
+   "exceptions": [],
+   "patient_flags": [],
+   "verbal_auth": []
+  },
+  "exposures": [
+   {
+    "id": 1,
+    "view": "BW_R",
+    "t": "11:30",
+    "kV": 70,
+    "mA": 7,
+    "s": 0.08,
+    "dose": 0.66
+   },
+   {
+    "id": 2,
+    "view": "BW_L",
+    "t": "11:32",
+    "kV": 70,
+    "mA": 7,
+    "s": 0.08,
+    "dose": 0.66
+   },
+   {
+    "id": 3,
+    "view": "BW_R",
+    "t": "11:35",
+    "kV": 70,
+    "mA": 7,
+    "s": 0.08,
+    "dose": 0.66,
+    "retake_of": 1
+   }
+  ],
+  "image_review": {
+   "final_grade": 2,
+   "fault_codes": {
+    "1": "FC_CONE_CUT"
+   },
+   "sensor_errors": [],
+   "second_grader": "done"
+  },
+  "equipment": {
+   "unit_serial": "XU-40318",
+   "last_qa": "2024-02-12",
+   "qa_months": 12,
+   "output_test": "pass",
+   "service_log": [],
+   "drl": {
+    "BW": 0.8
+   },
+   "console_log": [
+    {
+     "t": "11:30",
+     "kV": 66,
+     "s": 0.08
+    },
+    {
+     "t": "11:32",
+     "kV": 66,
+     "s": 0.08
+    },
+    {
+     "t": "11:35",
+     "kV": 66,
+     "s": 0.08
+    }
+   ]
+  },
+  "operator": {
+   "id": "OP12",
+   "signoff": "2024-06-18T12:05",
+   "prior_findings_12m": 2,
+   "last_training": "2023-11-02"
+  }
+ },
+ "factors": {
+  "indication_match": "partial_match",
+  "recall_interval_months": 10,
+  "dose_ratio_to_drl": 0.75,
+  "console_log_discrepancy": "setting_mismatch",
+  "retake_cause": "positioning",
+  "equipment_qa_status": "in_date",
+  "approved_exception": false,
+  "patient_cooperation_flag": false,
+  "unrequested_exposure_count": 0,
+  "verbal_authorisation_logged": false,
+  "image_grade": "acceptable_minor_faults",
+  "audit_completeness": "complete",
+  "operator_prior_findings": 2
+ },
+ "factors_sampled": {
+  "indication_match": "partial_match",
+  "recall_interval_months": 10,
+  "dose_ratio_to_drl": 0.89,
+  "console_log_discrepancy": "setting_mismatch",
+  "retake_cause": "patient_movement",
+  "equipment_qa_status": "in_date",
+  "approved_exception": false,
+  "patient_cooperation_flag": false,
+  "unrequested_exposure_count": 0,
+  "verbal_authorisation_logged": false,
+  "image_grade": "acceptable_minor_faults",
+  "audit_completeness": "operator_signoff_missing",
+  "operator_prior_findings": 2
+ },
+ "plan": {
+  "justified": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "operator_retake": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "follow_up": {
+   "clarity": "leaning",
+   "target": "log_trend",
+   "second": null
+  },
+  "dose_position": {
+   "clarity": "contested",
+   "target": "0",
+   "second": "1"
+  },
+  "unjustified_count": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  }
+ },
+ "target_words": 172,
+ "deciding": {
+  "justified": "PERIO_REVIEW only partly fits bitewings, but the 10-month interval is within the 6-month allowance for high risk, so partial indication match and acceptable interval hold it in balance.",
+  "operator_retake": "Retake id 3 follows FC_CONE_CUT on exposure 1, with no sensor errors, QA in date and no patient flags; doubt remains only because no cooperation field was recorded.",
+  "follow_up": "Signoff and second grader complete, QA fine, the console kV difference is small and the retake is explained, so only a trend note is needed.",
+  "dose_position": "Listed dose 0.66 against reference 0.80 is 0.825, but console kV 66 against logged 70 lowers it to about 0.73, straddling the 75% boundary.",
+  "unjustified_count": "All three exposures depend on one request with only a partial indication match and no exception or verbal authorisation, so 3 is leading, though a reader accepting the request would count fewer."
+ },
+ "request": "rec-F224-0061",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.015085
+}

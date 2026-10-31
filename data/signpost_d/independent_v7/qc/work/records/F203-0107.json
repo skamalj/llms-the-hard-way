@@ -1,0 +1,148 @@
+{
+ "id": "F203-0107",
+ "family": "F203",
+ "state": {
+  "request": {
+   "submitted_on": "2025-04-02",
+   "need_by": "2025-04-25",
+   "scope": "whole_item",
+   "copyright_declaration_on": "2025-04-01"
+  },
+  "borrower_library": {
+   "agreement": {
+    "status": "expired",
+    "expires_on": "2025-03-31",
+    "renewal_submitted_on": "2025-03-12"
+   },
+   "open_loans": [
+    {
+     "loan_id": "A1",
+     "due_on": "2025-03-20",
+     "renewed_on": null,
+     "return_scan_on": "2025-03-18"
+    },
+    {
+     "loan_id": "A2",
+     "due_on": "2025-03-25",
+     "renewed_on": "2025-03-22",
+     "return_scan_on": null
+    },
+    {
+     "loan_id": "A3",
+     "due_on": "2025-03-28",
+     "renewed_on": null,
+     "return_scan_on": "2025-03-27"
+    }
+   ]
+  },
+  "patron": {
+   "member_id": "M2087",
+   "home_branch": "Mill",
+   "verified_on": "2025-01-15"
+  },
+  "item": {
+   "condition_grade": "good",
+   "conservation_check": null,
+   "local_holds": 1
+  },
+  "holdings_network": {
+   "copies": [
+    {
+     "library_code": "AAA",
+     "status": "lendable"
+    },
+    {
+     "library_code": "BBB",
+     "status": "lendable"
+    },
+    {
+     "library_code": "CCC",
+     "status": "lendable"
+    },
+    {
+     "library_code": "DDD",
+     "status": "lendable"
+    },
+    {
+     "library_code": "EEE",
+     "status": "on_loan"
+    }
+   ],
+   "supplier_status": {
+    "print_status": "in_print"
+   }
+  },
+  "logistics": {
+   "route_code": "R2",
+   "est_arrival": "2025-04-13"
+  }
+ },
+ "factors": {
+  "agreement_status": "renewal_pending",
+  "borrower_overdue_count": 3,
+  "overdue_mitigated": true,
+  "patron_verification": "verified",
+  "item_condition": "good",
+  "conservation_cleared": false,
+  "local_holds_queue": 1,
+  "network_other_copies": 4,
+  "print_status": "in_print",
+  "request_scope": "whole_item",
+  "copyright_declaration_present": true,
+  "need_by_slack_days": 12,
+  "need_by_missing": false
+ },
+ "factors_sampled": {
+  "agreement_status": "renewal_pending",
+  "borrower_overdue_count": 3,
+  "overdue_mitigated": true,
+  "patron_verification": "verified",
+  "item_condition": "good",
+  "conservation_cleared": false,
+  "local_holds_queue": 1,
+  "network_other_copies": 4,
+  "print_status": "in_print",
+  "request_scope": "chapter_or_article",
+  "copyright_declaration_present": true,
+  "need_by_slack_days": 15,
+  "need_by_missing": false
+ },
+ "plan": {
+  "borrower_good_standing": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "disposition": {
+   "clarity": "balanced",
+   "target": "decline",
+   "second": "lend_conditional"
+  },
+  "loan_restriction": {
+   "clarity": "leaning",
+   "target": "library_use_only",
+   "second": null
+  },
+  "time_slack": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  },
+  "replacement_difficulty": {
+   "clarity": "leaning",
+   "target": "0",
+   "second": null
+  }
+ },
+ "target_words": 47,
+ "deciding": {
+  "borrower_good_standing": "Agreement status is expired but renewal_submitted_on 2025-03-12 precedes expires_on, and the three overdue-dated loans each have a renewal or return scan before due_on.",
+  "disposition": "The expired agreement with renewal still pending, against four other lendable copies and mitigated loans, keeps decline and conditional lending both defensible.",
+  "loan_restriction": "Whole-item request under an unconfirmed agreement, good condition and low demand; on-premises use fits best, with some doubt.",
+  "time_slack": "est_arrival 2025-04-13 is 12 days before need_by 2025-04-25.",
+  "replacement_difficulty": "Four entries in holdings_network.copies have status lendable."
+ },
+ "request": "rec-F203-0106",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.009696
+}

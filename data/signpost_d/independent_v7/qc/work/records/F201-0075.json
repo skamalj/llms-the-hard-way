@@ -1,0 +1,136 @@
+{
+ "id": "F201-0075",
+ "family": "F201",
+ "state": {
+  "register_header": {
+   "drug": "methadone",
+   "concentration_mg_ml": 10,
+   "schedule": 2,
+   "witness_required": true,
+   "opening_balance_ml": 100
+  },
+  "entries": [
+   {
+    "entry_id": 1,
+    "date": "2024-06-10",
+    "qty_ml": -10,
+    "running_balance_ml": 90,
+    "signed_by": "L77",
+    "witness_id": null
+   },
+   {
+    "entry_id": 2,
+    "date": "2024-06-12",
+    "qty_ml": -10,
+    "running_balance_ml": 78,
+    "signed_by": null,
+    "witness_id": null
+   },
+   {
+    "entry_id": 3,
+    "date": "2024-06-20",
+    "qty_ml": -10,
+    "running_balance_ml": 68,
+    "signed_by": "V2",
+    "witness_id": null
+   },
+   {
+    "entry_id": 4,
+    "date": "2024-06-25",
+    "qty_ml": -10,
+    "running_balance_ml": 55,
+    "signed_by": "V2",
+    "witness_id": "V6"
+   }
+  ],
+  "clinical_records": [
+   {
+    "patient_id": "P2",
+    "date": "2024-06-27",
+    "dose": 0.5,
+    "dose_unit": "ml"
+   }
+  ],
+  "disposals": [
+   {
+    "qty_ml": 5,
+    "register_entry_id": 4,
+    "witness_id": "V6",
+    "denatured_date": "2024-06-26"
+   }
+  ],
+  "stock_check": {
+   "count_date": "2024-06-22",
+   "counted_ml": 48,
+   "overfill_allowance_ml": 1
+  }
+ },
+ "factors": {
+  "drug_profile": "methadone_10mg_ml",
+  "arithmetic_slip_count": 2,
+  "unrecorded_admin": "trivial_under_1pct",
+  "clinical_records_missing": false,
+  "disposal_state": "witnessed_complete",
+  "unexplained_shortfall_pct": 2.0,
+  "variance_exception": "none",
+  "manufacturer_overfill": true,
+  "auth_gap_count": 3,
+  "count_out_of_order": true,
+  "unit_mismatch": false,
+  "locum_signatory": true,
+  "boundary_case": true
+ },
+ "factors_sampled": {
+  "drug_profile": "methadone_10mg_ml",
+  "arithmetic_slip_count": 3,
+  "unrecorded_admin": "trivial_under_1pct",
+  "clinical_records_missing": false,
+  "disposal_state": "witnessed_complete",
+  "unexplained_shortfall_pct": 14.29,
+  "variance_exception": "none",
+  "manufacturer_overfill": true,
+  "auth_gap_count": 3,
+  "count_out_of_order": true,
+  "unit_mismatch": false,
+  "locum_signatory": true,
+  "boundary_case": false
+ },
+ "plan": {
+  "unexplained_shortfall": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "line_disposition": {
+   "clarity": "contested",
+   "target": "hold_pending",
+   "second": "sign_off"
+  },
+  "variance_cause": {
+   "clarity": "balanced",
+   "target": "unexplained_loss",
+   "second": "no_discrepancy"
+  },
+  "variance_size": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  },
+  "auth_gaps": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 94,
+ "deciding": {
+  "unexplained_shortfall": "Recomputed balance 60 minus 5 disposal leaves 55 vs count 48; only 0.5 ml dose explains any; 7 ml gap unexplained.",
+  "line_disposition": "Count dated 2024-06-22 precedes entries to 06-25, making comparison unreliable; hold versus sign-off is split.",
+  "variance_cause": "No counterpart for most of the gap, but the out-of-order count undermines it, so no_discrepancy remains plausible.",
+  "variance_size": "Gap is small on 100 ml handled and the count is dated before later entries, so trace vs nil is open.",
+  "auth_gaps": "Witness_id null on entries 1-3 and signed_by null on entry 2 gives three or four lacking entries; level 2 vs 3."
+ },
+ "request": "rec-F201-0071",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.005515
+}

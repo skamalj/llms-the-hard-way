@@ -1,0 +1,147 @@
+{
+ "id": "F230-0051",
+ "family": "F230",
+ "state": {
+  "resident": {
+   "id": "A101",
+   "status": "home"
+  },
+  "prescriptions": [
+   {
+    "item_id": "I1",
+    "drug": "warfarin",
+    "strength_mg": 3,
+    "dose_units": 1,
+    "time_critical": true,
+    "changes": [
+     {
+      "effective": "2024-05-01",
+      "new_dose_units": 1,
+      "order_ref": "O77",
+      "authorised_by_role": "GP"
+     }
+    ]
+   },
+   {
+    "item_id": "I2",
+    "drug": "senna",
+    "strength_mg": 7.5,
+    "dose_units": 1,
+    "changes": [
+     {
+      "effective": "2024-05-02",
+      "new_dose_units": 0,
+      "order_ref": "O78",
+      "authorised_by_role": "GP"
+     }
+    ]
+   }
+  ],
+  "administrations": [
+   {
+    "item_id": "I1",
+    "scheduled": "18:00",
+    "given_at": "19:23",
+    "units_given": 1,
+    "strength_mg_used": 3,
+    "initials": "AB"
+   },
+   {
+    "item_id": "I2",
+    "scheduled": "08:00",
+    "units_given": 0,
+    "code": "W",
+    "initials": null
+   }
+  ],
+  "stock": {
+   "I1": {
+    "opening": 20,
+    "closing": 18
+   },
+   "I2": {
+    "opening": 30,
+    "closing": 30
+   }
+  },
+  "round": {
+   "open_queries": [],
+   "post_dose_obs": [
+    {
+     "type": "hr",
+     "value": 72
+    }
+   ]
+  }
+ },
+ "factors": {
+  "dose_mismatch_type": "none",
+  "prescription_change_documented": true,
+  "omission_count": 1,
+  "omission_reason_valid": true,
+  "late_minutes": 83,
+  "time_critical_affected": true,
+  "stock_variance": 2,
+  "stock_variance_explained": false,
+  "signature_gaps": 2,
+  "unit_expression_decoy": "matching_units",
+  "post_dose_obs_reassuring": true,
+  "pending_query": "none",
+  "prior_errors_30d": 2,
+  "item_count": 2
+ },
+ "factors_sampled": {
+  "dose_mismatch_type": "wrong_quantity",
+  "prescription_change_documented": true,
+  "omission_count": 1,
+  "omission_reason_valid": true,
+  "late_minutes": 83,
+  "time_critical_affected": true,
+  "stock_variance": 0,
+  "stock_variance_explained": true,
+  "signature_gaps": 2,
+  "unit_expression_decoy": "matching_units",
+  "post_dose_obs_reassuring": true,
+  "pending_query": "none",
+  "prior_errors_30d": 2,
+  "item_count": 10
+ },
+ "plan": {
+  "dose_mismatch": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "stock_reconciles": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "correct_and_close",
+   "second": null
+  },
+  "open_discrepancies": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  },
+  "error_severity": {
+   "clarity": "balanced",
+   "target": "0",
+   "second": "1"
+  }
+ },
+ "target_words": 79,
+ "deciding": {
+  "dose_mismatch": "Units and strength given match the prescription in force; withhold is ordered.",
+  "stock_reconciles": "I1 opening 20, closing 18 with one dose signed: expected 19, so a gap of 1 is unexplained (no wastage).",
+  "next_step": "Only slips found, no confirmed error; the withhold is documented but initials are null, so amend and close.",
+  "open_discrepancies": "Missing initials on I2 and the I1 stock gap; two items affected, but the lateness leaves some doubt.",
+  "error_severity": "Doses are correct and the withhold valid, but the null initials make documentation level plausible against none; the 83 minute lateness on I1 hints at timing."
+ },
+ "request": "rec-F230-0051",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.007129
+}

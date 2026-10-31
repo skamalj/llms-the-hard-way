@@ -1,0 +1,137 @@
+{
+ "id": "F201-0094",
+ "family": "F201",
+ "state": {
+  "register_header": {
+   "drug": "methadone",
+   "concentration_mg_ml": 10,
+   "witness_required": true,
+   "opening_balance_ml": 20
+  },
+  "entries": [
+   {
+    "id": "E1",
+    "qty_ml": 4,
+    "patient_id": "P1",
+    "running_balance_ml": 16,
+    "signed_by": "RN09",
+    "witness_id": "RN12"
+   },
+   {
+    "id": "E2",
+    "qty_ml": 3,
+    "patient_id": "P2",
+    "running_balance_ml": 13,
+    "signed_by": "RN09",
+    "witness_id": null
+   },
+   {
+    "id": "E3",
+    "qty_ml": 2,
+    "patient_id": "P3",
+    "running_balance_ml": 11.2,
+    "signed_by": "RN11",
+    "witness_id": "pending"
+   }
+  ],
+  "clinical_records": [
+   {
+    "patient_id": "P1",
+    "dose": 40,
+    "dose_unit": "mg"
+   },
+   {
+    "patient_id": "P2",
+    "dose": 30,
+    "dose_unit": "mg"
+   },
+   {
+    "patient_id": "P3",
+    "dose": 20,
+    "dose_unit": "mg"
+   },
+   {
+    "patient_id": "P4",
+    "dose": 10,
+    "dose_unit": "mg"
+   }
+  ],
+  "stock_check": {
+   "counted_ml": 9
+  },
+  "disposals": [
+   {
+    "qty_ml": 1,
+    "register_entry_id": null
+   }
+  ]
+ },
+ "factors": {
+  "drug_profile": "methadone_10mg_ml",
+  "arithmetic_slip_count": 1,
+  "unrecorded_admin": "small_P4_1ml",
+  "clinical_records_missing": false,
+  "disposal_state": "removed_unlogged",
+  "unexplained_shortfall_pct": 10.0,
+  "variance_exception": "none",
+  "manufacturer_overfill": false,
+  "auth_gap_count": 2,
+  "count_out_of_order": false,
+  "unit_mismatch": true,
+  "locum_signatory": false,
+  "boundary_case": true
+ },
+ "factors_sampled": {
+  "drug_profile": "methadone_10mg_ml",
+  "arithmetic_slip_count": 1,
+  "unrecorded_admin": "none",
+  "clinical_records_missing": false,
+  "disposal_state": "entered_unwitnessed",
+  "unexplained_shortfall_pct": 8.74,
+  "variance_exception": "none",
+  "manufacturer_overfill": false,
+  "auth_gap_count": 1,
+  "count_out_of_order": false,
+  "unit_mismatch": true,
+  "locum_signatory": false,
+  "boundary_case": false
+ },
+ "plan": {
+  "unexplained_shortfall": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "line_disposition": {
+   "clarity": "contested",
+   "target": "hold_pending",
+   "second": "correct_and_sign"
+  },
+  "variance_cause": {
+   "clarity": "balanced",
+   "target": "undocumented_disposal",
+   "second": "unrecorded_administration"
+  },
+  "variance_size": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  },
+  "auth_gaps": {
+   "clarity": "contested",
+   "target": "2",
+   "second": "1"
+  }
+ },
+ "target_words": 34,
+ "deciding": {
+  "unexplained_shortfall": "Recomputed closing is 11 ml and counted 9 ml. The 1 ml disposal has no register entry and P4 (10 mg = 1 ml) has no entry, so 2 ml is not matched by any entry.",
+  "line_disposition": "The E3 balance slip of 0.2 ml is clerical. However, the missing witness on E2 and the unlogged removal and unrecorded dose point toward hold, so hold and correct_and_sign are both defensible.",
+  "variance_cause": "The unlogged 1 ml disposal (register_entry_id null) and the unrecorded P4 dose of 1 ml are equal in size. They give two close candidate causes.",
+  "variance_size": "2 ml remaining against 20 ml handled is 10%, right at the line between material and major.",
+  "auth_gaps": "E2 witness_id is null, which is a clear gap. E3 witness_id is 'pending', which may or may not count as a second gap."
+ },
+ "request": "rec-F201-0091",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012613
+}

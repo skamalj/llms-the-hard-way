@@ -1,0 +1,150 @@
+{
+ "id": "F230-0088",
+ "family": "F230",
+ "state": {
+  "resident": {
+   "status": "hospital",
+   "status_since": "2024-05-01"
+  },
+  "prescriptions": [
+   {
+    "item_id": "P",
+    "strength_mg": 10,
+    "dose_units": 2,
+    "times": [
+     "08:00"
+    ],
+    "changes": [
+     {
+      "effective": "2024-05-10",
+      "new_dose_units": 2,
+      "order_ref": "GP417",
+      "authorised_by_role": "GP"
+     }
+    ]
+   },
+   {
+    "item_id": "Q",
+    "strength_mg": 10,
+    "dose_units": 1,
+    "times": [
+     "08:00"
+    ]
+   },
+   {
+    "item_id": "R",
+    "dose_units": 1
+   }
+  ],
+  "administrations": [
+   {
+    "item_id": "P",
+    "scheduled": "2024-05-10T08:00",
+    "given_at": "2024-05-10T10:30",
+    "units_given": 1,
+    "strength_mg_used": 10,
+    "code": "G",
+    "initials": "LH"
+   },
+   {
+    "item_id": "Q",
+    "units_given": 2,
+    "strength_mg_used": 5,
+    "initials": "LH"
+   },
+   {
+    "item_id": "R",
+    "units_given": 0,
+    "code": "H",
+    "initials": "LH"
+   }
+  ],
+  "stock": {
+   "Q": {
+    "opening": 40,
+    "closing": 35,
+    "wasted": 3,
+    "wasted_witnessed": true
+   }
+  },
+  "round": {
+   "date": "2024-05-10",
+   "open_queries": [],
+   "post_dose_obs": [
+    {
+     "bp_sys": 124
+    }
+   ]
+  }
+ },
+ "factors": {
+  "dose_mismatch_type": "wrong_quantity",
+  "prescription_change_documented": true,
+  "omission_count": 1,
+  "omission_reason_valid": true,
+  "late_minutes": 150,
+  "time_critical_affected": false,
+  "stock_variance": 3,
+  "stock_variance_explained": true,
+  "signature_gaps": 0,
+  "unit_expression_decoy": "equivalent_split",
+  "post_dose_obs_reassuring": true,
+  "pending_query": "none",
+  "prior_errors_30d": 3,
+  "item_count": 3
+ },
+ "factors_sampled": {
+  "dose_mismatch_type": "none",
+  "prescription_change_documented": false,
+  "omission_count": 1,
+  "omission_reason_valid": true,
+  "late_minutes": 150,
+  "time_critical_affected": false,
+  "stock_variance": 3,
+  "stock_variance_explained": true,
+  "signature_gaps": 0,
+  "unit_expression_decoy": "equivalent_split",
+  "post_dose_obs_reassuring": true,
+  "pending_query": "none",
+  "prior_errors_30d": 3,
+  "item_count": 9
+ },
+ "plan": {
+  "dose_mismatch": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "stock_reconciles": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "leaning",
+   "target": "sign_off",
+   "second": null
+  },
+  "open_discrepancies": {
+   "clarity": "contested",
+   "target": "0",
+   "second": "1"
+  },
+  "error_severity": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  }
+ },
+ "target_words": 77,
+ "deciding": {
+  "dose_mismatch": "Item P was given 1 unit although the change effective on the round date sets 2; item Q's 2 x 5 mg against 10 mg is a valid split.",
+  "stock_reconciles": "Item Q gap of 3 is matched by wasted 3 with wasted_witnessed true.",
+  "next_step": "No open queries and the omission code is supported by hospital status, but the P dose change leaves a little doubt.",
+  "open_discrepancies": "The P dose and its late timing are the only possible open items, so zero and one are both defensible.",
+  "error_severity": "Item P was given 150 minutes late, but its dose problem could be rated as dose or timing, leaving the level between 1 and 2."
+ },
+ "request": "rec-F230-0086",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.008305
+}

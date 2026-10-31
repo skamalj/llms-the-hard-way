@@ -1,0 +1,159 @@
+{
+ "id": "F236-0071",
+ "family": "F236",
+ "state": {
+  "changeover": {
+   "line_id": "L2",
+   "to_code": "P14",
+   "from_allergens": [
+    "egg"
+   ],
+   "to_allergens": [
+    "sesame"
+   ]
+  },
+  "cleaning": {
+   "steps": [
+    {
+     "id": 1,
+     "completed": true,
+     "spec_min": 30,
+     "actual_min": 32
+    },
+    {
+     "id": 2,
+     "completed": true,
+     "spec_min": 20,
+     "actual_min": 20
+    }
+   ],
+   "part_swap": true,
+   "dedicated_set": "DS-4"
+  },
+  "verification": {
+   "swabs": [
+    {
+     "id": "S1",
+     "target": "egg",
+     "reading": 0,
+     "limit_ppm": 10,
+     "at": "2025-03-04T06:12"
+    }
+   ]
+  },
+  "production": {
+   "line_id": "L2",
+   "product_code": "P14",
+   "start_at": "2025-03-04T06:10",
+   "end_at": "2025-03-04T14:10",
+   "quantity": 1066370,
+   "unit": "g",
+   "packaging_allergens": [
+    "sesame"
+   ]
+  },
+  "approvals": {
+   "qa_signoff": {
+    "signer": "Q3",
+    "signed_at": "2025-03-04T06:00"
+   },
+   "deviations": []
+  },
+  "history": [
+   {
+    "d": "02-14",
+    "verification_passed": false
+   },
+   {
+    "d": "02-17",
+    "verification_passed": false
+   },
+   {
+    "d": "02-21",
+    "verification_passed": true
+   },
+   {
+    "d": "02-25",
+    "verification_passed": false
+   },
+   {
+    "d": "02-27",
+    "verification_passed": false
+   },
+   {
+    "d": "03-01",
+    "verification_passed": true
+   },
+   {
+    "d": "03-03",
+    "verification_passed": false
+   }
+  ]
+ },
+ "factors": {
+  "allergen_transition": "swaps_allergen",
+  "cleaning_completion": "full",
+  "swab_outcome": "all_negative",
+  "swab_timing_mismatch": true,
+  "cross_section_discrepancy": "quantity_unit_mismatch",
+  "exposed_quantity_kg": 4.4,
+  "approved_deviation": false,
+  "label_precaution": false,
+  "dedicated_tooling": true,
+  "qa_signoff_state": "signed_before_start",
+  "line_failure_history": 5,
+  "boundary_value": false
+ },
+ "factors_sampled": {
+  "allergen_transition": "swaps_allergen",
+  "cleaning_completion": "full",
+  "swab_outcome": "all_negative",
+  "swab_timing_mismatch": false,
+  "cross_section_discrepancy": "quantity_unit_mismatch",
+  "exposed_quantity_kg": 1066.37,
+  "approved_deviation": false,
+  "label_precaution": false,
+  "dedicated_tooling": true,
+  "qa_signoff_state": "signed_before_start",
+  "line_failure_history": 5,
+  "boundary_value": false
+ },
+ "plan": {
+  "swabs_cleared": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "line_disposition": {
+   "clarity": "leaning",
+   "target": "hold",
+   "second": null
+  },
+  "worst_deficiency": {
+   "clarity": "clear",
+   "target": "release_breach",
+   "second": null
+  },
+  "exposed_product": {
+   "clarity": "contested",
+   "target": "0",
+   "second": "1"
+  },
+  "residue_evidence": {
+   "clarity": "leaning",
+   "target": "0",
+   "second": null
+  }
+ },
+ "target_words": 71,
+ "deciding": {
+  "swabs_cleared": "Only swab S1 is negative, but it is timed 06:12, after production start_at 06:10.",
+  "line_disposition": "Swab and cleaning are fine; the missing piece is a verified-clean swab before start, and the 5 failures in line history add doubt, so hold for confirmation.",
+  "worst_deficiency": "The first and only swab (06:12) post-dates production start (06:10), so production started before swabs passed.",
+  "exposed_product": "The 2-minute gap against a 1066 kg batch over 8 h is about 4 kg, so level 1. Level 0 is defensible because the swab was negative and the unit is in g.",
+  "residue_evidence": "The egg swab reading is 0 against a limit of 10, with no retest needed."
+ },
+ "request": "rec-F236-0071",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.015373
+}

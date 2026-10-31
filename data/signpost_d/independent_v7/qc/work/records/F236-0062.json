@@ -1,0 +1,183 @@
+{
+ "id": "F236-0062",
+ "family": "F236",
+ "state": {
+  "changeover": {
+   "line": "L4",
+   "from": "P21",
+   "to": "P27",
+   "from_allergens": [
+    "milk",
+    "wheat"
+   ],
+   "to_allergens": [
+    "egg",
+    "wheat"
+   ],
+   "end": "2024-06-11T06:45"
+  },
+  "cleaning": {
+   "steps": [
+    {
+     "s": "dry_clean",
+     "done": true,
+     "spec_min": 30,
+     "act_min": 30
+    },
+    {
+     "s": "wash",
+     "done": true,
+     "spec_min": 20,
+     "act_min": 22
+    }
+   ],
+   "part_swap": true,
+   "set_id": "DS-5",
+   "atp_rlu": 40
+  },
+  "verification": {
+   "swabs": [
+    {
+     "id": "S1",
+     "loc": "depositor",
+     "target": "milk",
+     "ppm": 0,
+     "limit_ppm": 5,
+     "at": "2024-06-11T06:50"
+    },
+    {
+     "id": "S2",
+     "loc": "mixer",
+     "target": "milk",
+     "ppm": 9,
+     "limit_ppm": 5,
+     "at": "2024-06-11T06:55"
+    },
+    {
+     "id": "S3",
+     "loc": "belt",
+     "target": "milk",
+     "ppm": 0,
+     "limit_ppm": 5,
+     "at": "2024-06-11T07:05"
+    }
+   ]
+  },
+  "production": {
+   "line": "L4",
+   "product": "P27",
+   "batch": "B310",
+   "start_at": "2024-06-11T07:00",
+   "end_at": "2024-06-11T12:00",
+   "qty": 300,
+   "unit": "kg",
+   "pack_allergens": [
+    "egg",
+    "wheat"
+   ],
+   "held": false
+  },
+  "approvals": {
+   "qa_signoff": {
+    "by": "QA03",
+    "signed_at": "2024-06-11T06:58"
+   },
+   "deviations": [
+    {
+     "id": "D12",
+     "scope": "L4 S2 mixer milk swab, DS-5 swap",
+     "approved_at": "2024-06-11T06:30"
+    },
+    {
+     "id": "D09",
+     "scope": "L1 wash step",
+     "approved_at": "2024-06-01T09:00"
+    }
+   ]
+  },
+  "history": [
+   {
+    "d": "2024-05-20",
+    "ok": false
+   },
+   {
+    "d": "2024-05-27",
+    "ok": true
+   },
+   {
+    "d": "2024-06-03",
+    "ok": false
+   },
+   {
+    "d": "2024-06-07",
+    "ok": false
+   }
+  ]
+ },
+ "factors": {
+  "allergen_transition": "swaps_allergen",
+  "cleaning_completion": "full",
+  "swab_outcome": "positive_no_retest",
+  "swab_timing_mismatch": true,
+  "cross_section_discrepancy": "none",
+  "exposed_quantity_kg": 5.0,
+  "approved_deviation": true,
+  "label_precaution": false,
+  "dedicated_tooling": true,
+  "qa_signoff_state": "signed_before_start",
+  "line_failure_history": 3,
+  "boundary_value": false
+ },
+ "factors_sampled": {
+  "allergen_transition": "swaps_allergen",
+  "cleaning_completion": "full",
+  "swab_outcome": "trace_below_limit",
+  "swab_timing_mismatch": true,
+  "cross_section_discrepancy": "none",
+  "exposed_quantity_kg": 562.58,
+  "approved_deviation": true,
+  "label_precaution": false,
+  "dedicated_tooling": true,
+  "qa_signoff_state": "signed_before_start",
+  "line_failure_history": 3,
+  "boundary_value": false
+ },
+ "plan": {
+  "swabs_cleared": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "line_disposition": {
+   "clarity": "clear",
+   "target": "release_conditional",
+   "second": null
+  },
+  "worst_deficiency": {
+   "clarity": "contested",
+   "target": "cleaning_shortfall",
+   "second": "none"
+  },
+  "exposed_product": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "0"
+  },
+  "residue_evidence": {
+   "clarity": "clear",
+   "target": "3",
+   "second": null
+  }
+ },
+ "target_words": 38,
+ "deciding": {
+  "swabs_cleared": "S2 reads 9 ppm against a limit of 5 with no retest entry, and S3 is timed after the 07:00 start. A deviation partly covers S2.",
+  "line_disposition": "The over-limit S2 is covered by deviation D12 (DS-5 swap) approved before start, and S1 and S3 are clean. Release with an added control such as a test is the clear outcome.",
+  "worst_deficiency": "Cleaning steps are fully done and S2 is over limit. D12 covers S2, so cleaning_shortfall and none are both defensible.",
+  "exposed_product": "The last passing swab S3 is at 07:05 against a 07:00 start, about 5 kg of 300 kg. The small gap and the deviation make level 0 and level 1 both plausible.",
+  "residue_evidence": "S2 reads 9 ppm against a limit of 5 and no retest is present, which is persistent."
+ },
+ "request": "rec-F236-0061",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.015747
+}

@@ -1,0 +1,139 @@
+{
+ "id": "F211-0061",
+ "family": "F211",
+ "state": {
+  "vehicle": {
+   "callsign": "A14",
+   "odometer_km": 61280,
+   "service_due_km": 63000
+  },
+  "check": {
+   "shift_date": "2025-03-10",
+   "signed_at": "2025-03-10T07:40",
+   "sections_required": 3,
+   "sections_signed": [
+    "veh",
+    "clin",
+    "stock"
+   ],
+   "countersigned_by": "Sgt Okoye",
+   "crew_note": "Defib screen flickered badly, looks fine now."
+  },
+  "defects": [
+   {
+    "item": "defibrillator",
+    "area": "clinical_equipment",
+    "status": "closed",
+    "substitute_on_board": false,
+    "deferral": {
+     "authorised_by": "Sgt Okoye",
+     "authorised_at": "2025-03-10T07:15",
+     "valid_until": "2025-03-08"
+    }
+   },
+   {
+    "item": "seat trim",
+    "area": "vehicle_systems",
+    "status": "closed"
+   }
+  ],
+  "stock": {
+   "lines": [
+    {
+     "item": "morphine",
+     "qty": 2,
+     "par_level": 4,
+     "expiry": "2025-03-17"
+    }
+   ],
+   "restock_request": null
+  },
+  "activity": {
+   "first_mobilised_at": "2025-03-10T07:05",
+   "workshop_jobs": [
+    {
+     "date": "2025-03-09",
+     "job_note": "Defibrillator unit repaired."
+    }
+   ],
+   "prior_checks": [
+    {
+     "items": [
+      "defibrillator"
+     ]
+    },
+    {
+     "items": [
+      "defibrillator"
+     ]
+    }
+   ]
+  }
+ },
+ "factors": {
+  "checklist_completion": "all_signed_countersigned",
+  "worst_defect_tier": "none",
+  "defect_area": "clinical_equipment",
+  "deferral_authorised": true,
+  "deferral_invalid": true,
+  "workshop_return_recent": true,
+  "earliest_drug_expiry_days": 7,
+  "restock_in_progress": false,
+  "service_margin_km": 1720,
+  "crew_note_tone": "alarming_benign",
+  "signed_after_mobilisation": true,
+  "repeat_defect_count": 2
+ },
+ "factors_sampled": {
+  "checklist_completion": "all_signed_countersigned",
+  "worst_defect_tier": "cosmetic",
+  "defect_area": "vehicle_systems",
+  "deferral_authorised": false,
+  "deferral_invalid": true,
+  "workshop_return_recent": true,
+  "earliest_drug_expiry_days": 7,
+  "restock_in_progress": false,
+  "service_margin_km": 1720,
+  "crew_note_tone": "alarming_benign",
+  "signed_after_mobilisation": true,
+  "repeat_defect_count": 2
+ },
+ "plan": {
+  "defects_controlled": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "readiness_status": {
+   "clarity": "leaning",
+   "target": "off_road",
+   "second": null
+  },
+  "limiting_area": {
+   "clarity": "balanced",
+   "target": "stock_and_drugs",
+   "second": "clinical_equipment"
+  },
+  "check_completeness": {
+   "clarity": "contested",
+   "target": "3",
+   "second": "2"
+  },
+  "defect_severity": {
+   "clarity": "leaning",
+   "target": "0",
+   "second": null
+  }
+ },
+ "target_words": 64,
+ "deciding": {
+  "defects_controlled": "Defibrillator deferral valid_until 2025-03-08 is before shift_date and authorised_at is after first_mobilised_at; workshop repair has no retest.",
+  "readiness_status": "Critical defibrillator rests on an invalid deferral and an untested repair, with two prior checks listing it; points to off_road.",
+  "limiting_area": "Morphine is below par and expires in 7 days with no restock, against the defibrillator issue in clinical equipment; both plausible.",
+  "check_completeness": "All 3 sections signed and countersigned, but signed_at 07:40 is after first_mobilised_at 07:05, so a reader may doubt it.",
+  "defect_severity": "Both listed defects are status closed, so no open defect, though the deferral problem casts some doubt."
+ },
+ "request": "rec-F211-0061",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.010291
+}

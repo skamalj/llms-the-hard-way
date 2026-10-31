@@ -1,0 +1,153 @@
+{
+ "id": "F201-0122",
+ "family": "F201",
+ "state": {
+  "register_header": {
+   "drug": "midazolam",
+   "mg_ml": 5,
+   "schedule": 3,
+   "witness_required": true,
+   "opening_balance_ml": 20
+  },
+  "entries": [
+   {
+    "id": 1,
+    "type": "receipt",
+    "qty_ml": 80,
+    "balance_ml": 100,
+    "signed_by": "AK1",
+    "witness_id": "W2"
+   },
+   {
+    "id": 2,
+    "type": "use",
+    "qty_ml": 10,
+    "pt": "P1",
+    "balance_ml": 90,
+    "signed_by": null,
+    "witness_id": "W2"
+   },
+   {
+    "id": 3,
+    "type": "use",
+    "qty_ml": 10,
+    "pt": "P2",
+    "balance_ml": 80,
+    "signed_by": null,
+    "witness_id": "W3"
+   },
+   {
+    "id": 4,
+    "type": "use",
+    "qty_ml": 10,
+    "pt": "P3",
+    "balance_ml": 70,
+    "signed_by": "AK1",
+    "witness_id": null
+   },
+   {
+    "id": 5,
+    "type": "use",
+    "qty_ml": 10,
+    "pt": "P4",
+    "balance_ml": 51,
+    "signed_by": null,
+    "witness_id": "W2"
+   }
+  ],
+  "clinical_records": [
+   {
+    "pt": "P1",
+    "dose": 50,
+    "unit": "mg"
+   },
+   {
+    "pt": "P2",
+    "dose": 50,
+    "unit": "mg"
+   },
+   {
+    "pt": "P3",
+    "dose": 50,
+    "unit": "mg"
+   },
+   {
+    "pt": "P4",
+    "dose": 50,
+    "unit": "mg"
+   }
+  ],
+  "stock_check": {
+   "counted_ml": 50.5,
+   "count_date": "2024-07-31"
+  }
+ },
+ "factors": {
+  "drug_profile": "midazolam_5mg_ml",
+  "arithmetic_slip_count": 1,
+  "unrecorded_admin": "none",
+  "clinical_records_missing": false,
+  "disposal_state": "none_needed",
+  "unexplained_shortfall_pct": 9.5,
+  "variance_exception": "none",
+  "manufacturer_overfill": false,
+  "auth_gap_count": 4,
+  "count_out_of_order": false,
+  "unit_mismatch": true,
+  "locum_signatory": false,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "drug_profile": "midazolam_5mg_ml",
+  "arithmetic_slip_count": 0,
+  "unrecorded_admin": "moderate_2_to_8pct",
+  "clinical_records_missing": false,
+  "disposal_state": "none_needed",
+  "unexplained_shortfall_pct": 14.95,
+  "variance_exception": "none",
+  "manufacturer_overfill": false,
+  "auth_gap_count": 0,
+  "count_out_of_order": false,
+  "unit_mismatch": true,
+  "locum_signatory": false,
+  "boundary_case": false
+ },
+ "plan": {
+  "unexplained_shortfall": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "line_disposition": {
+   "clarity": "leaning",
+   "target": "sign_off",
+   "second": null
+  },
+  "variance_cause": {
+   "clarity": "balanced",
+   "target": "no_discrepancy",
+   "second": "arithmetic_slip"
+  },
+  "variance_size": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  },
+  "auth_gaps": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 64,
+ "deciding": {
+  "unexplained_shortfall": "Printed final balance 51 is within 0.5 ml of the count 50.5, so it looks reconciled; recomputing (100 minus 4x10 = 60) leaves 9.5 ml with no disposal, exception or extra clinical record.",
+  "line_disposition": "The printed balance matches the count, which favours closing; the unsigned entries and the recompute difference are the doubt.",
+  "variance_cause": "Entry 5 balance 51 should be 60 after 70 minus 10, a 9 ml slip; the printed-balance view shows no discrepancy, the recomputed view points to the slip.",
+  "variance_size": "Recomputed 60 vs counted 50.5 is 9.5 ml of 100 handled (9.5%), just under the 10% boundary between Material and Major.",
+  "auth_gaps": "Entries 2, 3 and 5 have signed_by null and entry 4 has witness_id null with witness_required true: four gaps, with three the nearby alternative."
+ },
+ "request": "rec-F201-0121",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.017276
+}

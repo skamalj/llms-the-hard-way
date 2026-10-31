@@ -1,0 +1,131 @@
+{
+ "id": "F213-0079",
+ "family": "F213",
+ "state": {
+  "pool": {
+   "type": "teaching",
+   "test_interval_min": 60,
+   "opening": {
+    "open": "2025-09-05T09:00",
+    "close": "2025-09-05T12:00"
+   },
+   "limits": {
+    "ph_min": 7.2,
+    "ph_max": 7.8
+   },
+   "tolerance": {
+    "ph": 0.2
+   }
+  },
+  "manual_tests": [
+   {
+    "time": "2025-09-05T09:00",
+    "ph": 7.85,
+    "kit_id": "K5"
+   },
+   {
+    "time": "2025-09-05T10:00",
+    "ph": 7.6,
+    "kit_id": "K5"
+   },
+   {
+    "time": "2025-09-05T11:02",
+    "ph": 7.5,
+    "kit_id": "K5"
+   }
+  ],
+  "plant": {
+   "controller_readings": [
+    {
+     "time": "2025-09-05T09:00",
+     "ph": 7.84
+    }
+   ],
+   "bather_count": 48
+  },
+  "equipment": {
+   "kits": [
+    {
+     "kit_id": "K5",
+     "cal_due": "2026-01-10"
+    }
+   ]
+  },
+  "actions": [
+   {
+    "time": "2025-09-05T11:00",
+    "action_type": "acid_dose",
+    "reading_ref": "2025-09-05T09:00",
+    "retest_time": null
+   }
+  ]
+ },
+ "factors": {
+  "pool_type": "teaching",
+  "test_coverage_gap": 1,
+  "boundary_interval": true,
+  "log_controller_discrepancy": "none",
+  "discrepancy_location": "ph",
+  "excursion_severity": "marginal",
+  "corrective_action_delay": "delayed",
+  "retest_logged": false,
+  "dosing_event_explains": true,
+  "kit_calibration_status": "in_date",
+  "lab_sample_state": "not_due",
+  "out_of_order_entry": false,
+  "benign_noise": "high_bathers"
+ },
+ "factors_sampled": {
+  "pool_type": "teaching",
+  "test_coverage_gap": 2,
+  "boundary_interval": true,
+  "log_controller_discrepancy": "none",
+  "discrepancy_location": "ph",
+  "excursion_severity": "marginal",
+  "corrective_action_delay": "delayed",
+  "retest_logged": false,
+  "dosing_event_explains": true,
+  "kit_calibration_status": "in_date",
+  "lab_sample_state": "not_due",
+  "out_of_order_entry": false,
+  "benign_noise": "high_bathers"
+ },
+ "plan": {
+  "test_frequency_met": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "readings_reconcile": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "log_disposition": {
+   "clarity": "leaning",
+   "target": "accept",
+   "second": null
+  },
+  "action_delay": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  },
+  "failed_checks": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  }
+ },
+ "target_words": 35,
+ "deciding": {
+  "test_frequency_met": "Gaps are 60 min (exactly the interval) and 62 min (2 min over), so it hinges on a tiny overrun.",
+  "readings_reconcile": "Manual ph 7.85 against controller 7.84 at 09:00.",
+  "log_disposition": "ph 7.85 is only marginally above 7.8, later readings are within limits, and there is no pending lab sample, so the log is largely acceptable.",
+  "action_delay": "Action at 11:00 references the 09:00 reading, exactly 120 min later, on the boundary between delayed and unaddressed.",
+  "failed_checks": "The marginal ph excursion with a slow action and the possible 62 min gap: one or two checks fail; no retest is logged."
+ },
+ "request": "rec-F213-0076",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.013285
+}

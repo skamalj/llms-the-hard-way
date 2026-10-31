@@ -1,0 +1,156 @@
+{
+ "id": "F230-0105",
+ "family": "F230",
+ "state": {
+  "resident": {
+   "id": "R-377",
+   "status": "in_home"
+  },
+  "prescriptions": [
+   {
+    "item_id": "i1",
+    "strength_mg": 20,
+    "dose_units": 1
+   },
+   {
+    "item_id": "i2",
+    "strength_mg": 40,
+    "dose_units": 1,
+    "changes": [
+     {
+      "effective": "2024-06-02",
+      "new_dose_units": 0,
+      "order_ref": "W-19",
+      "authorised_by_role": "GP"
+     }
+    ]
+   },
+   {
+    "item_id": "i3",
+    "strength_mg": 2,
+    "dose_units": 1
+   },
+   {
+    "item_id": "i4",
+    "strength_mg": 500,
+    "dose_units": 2
+   }
+  ],
+  "administrations": [
+   {
+    "item_id": "i1",
+    "scheduled": "08:00",
+    "given_at": "09:00",
+    "units_given": 1,
+    "strength_mg_used": 20,
+    "initials": "PD"
+   },
+   {
+    "item_id": "i2",
+    "units_given": 0,
+    "code": "W"
+   },
+   {
+    "item_id": "i3",
+    "given_at": "08:10",
+    "units_given": 1,
+    "strength_mg_used": 2,
+    "initials": null
+   },
+   {
+    "item_id": "i4",
+    "given_at": "08:12",
+    "units_given": 2,
+    "strength_mg_used": 500,
+    "initials": "PD"
+   }
+  ],
+  "stock": {
+   "i4": {
+    "opening": 60,
+    "wasted": 1,
+    "wasted_witnessed": true,
+    "closing": 57
+   }
+  },
+  "round": {
+   "date": "2024-06-03",
+   "post_dose_obs": [
+    {
+     "type": "hr",
+     "value": 74
+    }
+   ]
+  }
+ },
+ "factors": {
+  "dose_mismatch_type": "none",
+  "prescription_change_documented": true,
+  "omission_count": 1,
+  "omission_reason_valid": true,
+  "late_minutes": 60,
+  "time_critical_affected": false,
+  "stock_variance": 1,
+  "stock_variance_explained": true,
+  "signature_gaps": 1,
+  "unit_expression_decoy": "none_present",
+  "post_dose_obs_reassuring": true,
+  "pending_query": "none",
+  "prior_errors_30d": 3,
+  "item_count": 4
+ },
+ "factors_sampled": {
+  "dose_mismatch_type": "none",
+  "prescription_change_documented": true,
+  "omission_count": 1,
+  "omission_reason_valid": true,
+  "late_minutes": 27,
+  "time_critical_affected": false,
+  "stock_variance": 1,
+  "stock_variance_explained": true,
+  "signature_gaps": 1,
+  "unit_expression_decoy": "none_present",
+  "post_dose_obs_reassuring": true,
+  "pending_query": "none",
+  "prior_errors_30d": 3,
+  "item_count": 7
+ },
+ "plan": {
+  "dose_mismatch": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "stock_reconciles": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "sign_off",
+   "second": null
+  },
+  "open_discrepancies": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  },
+  "error_severity": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  }
+ },
+ "target_words": 109,
+ "deciding": {
+  "dose_mismatch": "Every given dose matches its prescription; i2 is withheld under a GP withhold order_ref W-19 effective before the round date. Plan's lean to true is not supported by the record.",
+  "stock_reconciles": "i4 opening 60 - 1 witnessed waste - 2 signed = 57 = closing.",
+  "next_step": "Only a slip remains (i3 null initials) so correct_and_close fits better than sign_off; the plan's sign_off cannot hold with a signature gap.",
+  "open_discrepancies": "i3 null initials is the one item needing correction; i1 given exactly 60 minutes late is borderline and might be counted as a second.",
+  "error_severity": "i1 given at 09:00 against 08:00, exactly 60 minutes, not over 60, so timing is borderline; i3 missing initials is a documentation gap, so 1 or 2 are both defensible."
+ },
+ "request": "rec-F230-0101",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.013117
+}

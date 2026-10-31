@@ -1,0 +1,132 @@
+{
+ "id": "F203-0102",
+ "family": "F203",
+ "state": {
+  "request": {
+   "submitted_on": "2025-06-02",
+   "need_by": "2025-08-01",
+   "scope": "whole_item",
+   "copyright_declaration_on": null
+  },
+  "borrower_library": {
+   "agreement": {
+    "status": "expired",
+    "expires_on": "2025-05-01",
+    "renewal_submitted_on": "2025-05-06"
+   },
+   "open_loans": [
+    {
+     "loan_id": "x1",
+     "due_on": "2025-05-20",
+     "renewed_on": null,
+     "return_scan_on": "2025-05-18"
+    }
+   ],
+   "loans_last_12m": 340
+  },
+  "patron": {
+   "member_id": "P2",
+   "home_branch": "East",
+   "verified_on": null
+  },
+  "item": {
+   "condition_grade": "worn",
+   "conservation_check": {
+    "checked_on": "2025-05-15",
+    "outcome": "pass",
+    "box_supplied": true
+   },
+   "local_holds": 3,
+   "list_price": 42.5
+  },
+  "holdings_network": {
+   "copies": [
+    {
+     "library_code": "K",
+     "status": "on_loan"
+    },
+    {
+     "library_code": "M",
+     "status": "reference_only"
+    }
+   ],
+   "supplier_status": {
+    "print_status": "out_of_print",
+    "secondhand_listings": 1
+   }
+  },
+  "logistics": {
+   "route_code": "R7",
+   "dispatch_on": "2025-06-30",
+   "est_arrival": "2025-07-03"
+  }
+ },
+ "factors": {
+  "agreement_status": "lapsed",
+  "borrower_overdue_count": 1,
+  "overdue_mitigated": true,
+  "patron_verification": "pending",
+  "item_condition": "worn",
+  "conservation_cleared": true,
+  "local_holds_queue": 3,
+  "network_other_copies": 0,
+  "print_status": "out_of_print_secondhand",
+  "request_scope": "whole_item",
+  "copyright_declaration_present": false,
+  "need_by_slack_days": 29,
+  "need_by_missing": false
+ },
+ "factors_sampled": {
+  "agreement_status": "lapsed",
+  "borrower_overdue_count": 1,
+  "overdue_mitigated": true,
+  "patron_verification": "pending",
+  "item_condition": "worn",
+  "conservation_cleared": true,
+  "local_holds_queue": 3,
+  "network_other_copies": 5,
+  "print_status": "in_print",
+  "request_scope": "whole_item",
+  "copyright_declaration_present": false,
+  "need_by_slack_days": 29,
+  "need_by_missing": false
+ },
+ "plan": {
+  "borrower_good_standing": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "disposition": {
+   "clarity": "balanced",
+   "target": "lend_conditional",
+   "second": "hold"
+  },
+  "loan_restriction": {
+   "clarity": "balanced",
+   "target": "no_renewal",
+   "second": "library_use_only"
+  },
+  "time_slack": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  },
+  "replacement_difficulty": {
+   "clarity": "contested",
+   "target": "4",
+   "second": "3"
+  }
+ },
+ "target_words": 123,
+ "deciding": {
+  "borrower_good_standing": "Agreement expired 2025-05-01 with renewal submitted five days later, but the only past-due loan was scanned back in time.",
+  "disposition": "Patron verified_on is null and the agreement renewal is late, so hold is plausible; conservation pass and a worn-only item support conditional lending.",
+  "loan_restriction": "Worn copy with a passed check and no network replacement: no-renewal versus in-library use are both reasonable.",
+  "time_slack": "Arrival 2025-07-03 against need-by 2025-08-01 leaves 29 days.",
+  "replacement_difficulty": "No lendable network copy, out of print, and secondhand_listings is 1, a marginal count between listed and none."
+ },
+ "request": "rec-F203-0101",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011763
+}

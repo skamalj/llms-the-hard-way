@@ -1,0 +1,147 @@
+{
+ "id": "F201-0053",
+ "family": "F201",
+ "state": {
+  "register_header": {
+   "drug": "methadone",
+   "concentration_mg_ml": 10,
+   "witness_required": true,
+   "opening_balance_ml": 60
+  },
+  "entries": [
+   {
+    "entry_id": 1,
+    "type": "use",
+    "qty_ml": 3,
+    "patient_id": "P1",
+    "running_balance_ml": 57,
+    "signed_by": "V1",
+    "witness_id": "W1"
+   },
+   {
+    "entry_id": 2,
+    "type": "use",
+    "qty_ml": 4,
+    "patient_id": "P2",
+    "running_balance_ml": 52,
+    "signed_by": "V1",
+    "witness_id": null
+   },
+   {
+    "entry_id": 3,
+    "type": "use",
+    "qty_ml": 2,
+    "patient_id": "P3",
+    "running_balance_ml": 49,
+    "signed_by": "V1",
+    "witness_id": null
+   },
+   {
+    "entry_id": 4,
+    "type": "disposal",
+    "qty_ml": 5,
+    "running_balance_ml": 43,
+    "signed_by": "V1",
+    "witness_id": null,
+    "batch_no": "B2"
+   }
+  ],
+  "clinical_records": [
+   {
+    "patient_id": "P1",
+    "dose": 30,
+    "dose_unit": "mg"
+   },
+   {
+    "patient_id": "P2",
+    "dose": 40,
+    "dose_unit": "mg"
+   },
+   {
+    "patient_id": "P3",
+    "dose": 20,
+    "dose_unit": "mg"
+   }
+  ],
+  "stock_check": {
+   "counted_ml": 41.9,
+   "batch_no": "B2"
+  },
+  "exceptions": [
+   {
+    "batch_no": "B2",
+    "qty_ml": 4,
+    "valid_from": "2025-01-01",
+    "valid_to": "2025-12-31"
+   }
+  ]
+ },
+ "factors": {
+  "drug_profile": "methadone_10mg_ml",
+  "arithmetic_slip_count": 3,
+  "unrecorded_admin": "none",
+  "clinical_records_missing": false,
+  "disposal_state": "entered_unwitnessed",
+  "unexplained_shortfall_pct": 7.08,
+  "variance_exception": "valid_partial_cover",
+  "manufacturer_overfill": false,
+  "auth_gap_count": 3,
+  "count_out_of_order": false,
+  "unit_mismatch": true,
+  "locum_signatory": false,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "drug_profile": "methadone_10mg_ml",
+  "arithmetic_slip_count": 3,
+  "unrecorded_admin": "none",
+  "clinical_records_missing": false,
+  "disposal_state": "entered_unwitnessed",
+  "unexplained_shortfall_pct": 7.08,
+  "variance_exception": "valid_partial_cover",
+  "manufacturer_overfill": false,
+  "auth_gap_count": 5,
+  "count_out_of_order": false,
+  "unit_mismatch": true,
+  "locum_signatory": false,
+  "boundary_case": false
+ },
+ "plan": {
+  "unexplained_shortfall": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "line_disposition": {
+   "clarity": "leaning",
+   "target": "sign_off",
+   "second": null
+  },
+  "variance_cause": {
+   "clarity": "contested",
+   "target": "no_discrepancy",
+   "second": "arithmetic_slip"
+  },
+  "variance_size": {
+   "clarity": "leaning",
+   "target": "0",
+   "second": null
+  },
+  "auth_gaps": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  }
+ },
+ "target_words": 44,
+ "deciding": {
+  "unexplained_shortfall": "Recomputed balance 46 ml vs counted 41.9 ml; valid exception covers 4 ml, leaving 0.1 ml uncovered.",
+  "line_disposition": "Variance is covered but three entries lack witnesses, so sign-off is only leaning; the register balances need annotation.",
+  "variance_cause": "Exception covers the gap, favouring no_discrepancy, but running balances 52, 49, 43 are each inconsistent with the prior line, so arithmetic slip is equally defensible.",
+  "variance_size": "After 4 ml exception only 0.1 ml remains on 60 ml handled, essentially nil.",
+  "auth_gaps": "witness_required true; witness_id null on entries 2, 3 and 4, which is three gaps."
+ },
+ "request": "rec-F201-0051",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012855
+}

@@ -1,0 +1,164 @@
+{
+ "id": "F201-0118",
+ "family": "F201",
+ "state": {
+  "register_header": {
+   "drug": "buprenorphine",
+   "concentration_mg_ml": 0.3,
+   "schedule": 3,
+   "witness_required": false,
+   "branch_id": "B1",
+   "opening_balance_ml": 40
+  },
+  "entries": [
+   {
+    "id": "E1",
+    "date": "2025-03-01",
+    "type": "receipt",
+    "qty_ml": 30,
+    "bal": 70,
+    "signed_by": "S21"
+   },
+   {
+    "id": "E2",
+    "date": "2025-03-03",
+    "type": "admin",
+    "qty_ml": 2,
+    "patient_id": "P210",
+    "bal": 68,
+    "signed_by": "S21"
+   },
+   {
+    "id": "E3",
+    "date": "2025-03-08",
+    "type": "admin",
+    "qty_ml": 1.5,
+    "patient_id": "P211",
+    "bal": 67.5,
+    "signed_by": null
+   },
+   {
+    "id": "E4",
+    "date": "2025-03-15",
+    "type": "admin",
+    "qty_ml": 2.5,
+    "patient_id": "P212",
+    "bal": 65,
+    "signed_by": null
+   }
+  ],
+  "clinical_records": [
+   {
+    "patient_id": "P210",
+    "date": "2025-03-03",
+    "dose": 2,
+    "unit": "ml"
+   },
+   {
+    "patient_id": "P211",
+    "date": "2025-03-08",
+    "dose": 1.5,
+    "unit": "ml"
+   },
+   {
+    "patient_id": "P212",
+    "date": "2025-03-15",
+    "dose": 2.5,
+    "unit": "ml"
+   },
+   {
+    "patient_id": "P201",
+    "date": "2025-03-04",
+    "dose": 2,
+    "unit": "ml"
+   },
+   {
+    "patient_id": "P202",
+    "date": "2025-03-10",
+    "dose": 1.8,
+    "unit": "ml"
+   },
+   {
+    "patient_id": "P203",
+    "date": "2025-03-20",
+    "dose": 1.8,
+    "unit": "ml"
+   }
+  ],
+  "stock_check": {
+   "count_date": "2025-03-31",
+   "counted_ml": 56.8,
+   "overfill_allowance_ml": 0.2
+  },
+  "disposals": [],
+  "exceptions": []
+ },
+ "factors": {
+  "drug_profile": "buprenorphine_0.3mg_ml",
+  "arithmetic_slip_count": 1,
+  "unrecorded_admin": "moderate_2_to_8pct",
+  "clinical_records_missing": false,
+  "disposal_state": "none_needed",
+  "unexplained_shortfall_pct": 2.0,
+  "variance_exception": "none",
+  "manufacturer_overfill": true,
+  "auth_gap_count": 2,
+  "count_out_of_order": false,
+  "unit_mismatch": false,
+  "locum_signatory": false,
+  "boundary_case": true
+ },
+ "factors_sampled": {
+  "drug_profile": "buprenorphine_0.3mg_ml",
+  "arithmetic_slip_count": 1,
+  "unrecorded_admin": "none",
+  "clinical_records_missing": true,
+  "disposal_state": "removed_unlogged",
+  "unexplained_shortfall_pct": 9.54,
+  "variance_exception": "none",
+  "manufacturer_overfill": true,
+  "auth_gap_count": 4,
+  "count_out_of_order": false,
+  "unit_mismatch": false,
+  "locum_signatory": true,
+  "boundary_case": false
+ },
+ "plan": {
+  "unexplained_shortfall": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "line_disposition": {
+   "clarity": "balanced",
+   "target": "hold_pending",
+   "second": "sign_off"
+  },
+  "variance_cause": {
+   "clarity": "clear",
+   "target": "unrecorded_administration",
+   "second": null
+  },
+  "variance_size": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  },
+  "auth_gaps": {
+   "clarity": "clear",
+   "target": "2",
+   "second": null
+  }
+ },
+ "target_words": 108,
+ "deciding": {
+  "unexplained_shortfall": "Count 56.8 is 7.2 ml below recomputed 64.0; clinical records P201-P203 explain 5.6 ml, leaving 1.4 ml after the 0.2 allowance, a small residue that could be rounding or loss.",
+  "line_disposition": "Two unsigned entries and 1.4 ml unmatched residue point to hold; the residue is small enough that sign-off is arguable.",
+  "variance_cause": "Three clinical doses (P201, P202, P203; 5.6 ml) have no entries line and match most of the 7.2 ml shortfall; no disposal or exception is present.",
+  "variance_size": "Residual 1.4 ml of 70 ml handled is 2.0%, right at the Trace/Material boundary.",
+  "auth_gaps": "E3 and E4 have signed_by null: exactly two entries lack a signature. The plan's null clinical_records and unlogged disposal were changed so the unrecorded-administration cause is evident."
+ },
+ "request": "rec-F201-0116",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011831
+}

@@ -1,0 +1,135 @@
+{
+ "id": "F211-0060",
+ "family": "F211",
+ "state": {
+  "vehicle": {
+   "callsign": "A09",
+   "odometer_km": 55732,
+   "service_due_km": 56000
+  },
+  "check": {
+   "shift_date": "2025-09-05",
+   "signed_at": "2025-09-05T06:50",
+   "sections_required": 3,
+   "sections_signed": [
+    "vehicle",
+    "clinical",
+    "drugs"
+   ],
+   "countersigned_by": null,
+   "crew_note": "Oxygen hissed loudly at the regulator, was just the cylinder valve not seated, fine now. Supervisor looked it over, signing at handover."
+  },
+  "defects": [
+   {
+    "item": "main oxygen",
+    "area": "clinical",
+    "desc": "Regulator leak, closed by crew without a workshop job.",
+    "status": "closed",
+    "substitute_on_board": false,
+    "deferral": {
+     "authorised_by": "Duty Mgr",
+     "authorised_at": "2025-09-01T10:00",
+     "valid_until": "2025-09-03"
+    }
+   },
+   {
+    "item": "locker latch",
+    "area": "vehicle",
+    "desc": "Latch sticks on the equipment locker door.",
+    "status": "open",
+    "substitute_on_board": false,
+    "deferral": null
+   }
+  ],
+  "stock": {
+   "lines": [
+    {
+     "item": "morphine",
+     "qty": 4,
+     "par_level": 4,
+     "expiry": "2025-09-25"
+    }
+   ],
+   "restock_request": {
+    "eta": "2025-09-05T15:00"
+   }
+  },
+  "activity": {
+   "first_mobilised_at": "2025-09-05T07:40",
+   "workshop_jobs": [],
+   "prior_checks": [
+    {
+     "items": [
+      "locker latch"
+     ]
+    }
+   ]
+  }
+ },
+ "factors": {
+  "checklist_completion": "all_signed_no_countersign",
+  "worst_defect_tier": "cosmetic",
+  "defect_area": "clinical_equipment",
+  "deferral_authorised": false,
+  "deferral_invalid": false,
+  "workshop_return_recent": false,
+  "earliest_drug_expiry_days": 20,
+  "restock_in_progress": true,
+  "service_margin_km": 268,
+  "crew_note_tone": "alarming_benign",
+  "signed_after_mobilisation": false,
+  "repeat_defect_count": 1
+ },
+ "factors_sampled": {
+  "checklist_completion": "all_signed_no_countersign",
+  "worst_defect_tier": "cosmetic",
+  "defect_area": "clinical_equipment",
+  "deferral_authorised": false,
+  "deferral_invalid": false,
+  "workshop_return_recent": false,
+  "earliest_drug_expiry_days": -3,
+  "restock_in_progress": true,
+  "service_margin_km": 268,
+  "crew_note_tone": "alarming_benign",
+  "signed_after_mobilisation": false,
+  "repeat_defect_count": 1
+ },
+ "plan": {
+  "defects_controlled": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "readiness_status": {
+   "clarity": "leaning",
+   "target": "release",
+   "second": null
+  },
+  "limiting_area": {
+   "clarity": "balanced",
+   "target": "no_limitation",
+   "second": "clinical_equipment"
+  },
+  "check_completeness": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  },
+  "defect_severity": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  }
+ },
+ "target_words": 101,
+ "deciding": {
+  "defects_controlled": "The main oxygen leak was marked closed by the crew with no workshop job, and its deferral expired 2025-09-03, before the shift date. The critical item is therefore not validly resolved.",
+  "readiness_status": "The only open item is a sticking locker latch, which is minor. All sections are signed and the drugs are in date, so release leads. The unverified oxygen closure leaves some doubt.",
+  "limiting_area": "The service margin is 268 km, the morphine expiry is 20 days out, and the only open item is a latch. The unverified oxygen closure, a clinical item, is the only thing pulling towards clinical_equipment.",
+  "check_completeness": "All 3 sections are signed and countersigned_by is null, which makes level 2. The crew note says the supervisor reviewed it and is signing at handover, which keeps level 3 plausible.",
+  "defect_severity": "The open locker latch sits between cosmetic and a fitting. The desc says it sticks on the equipment locker door, which holds level 1 and level 2 in balance."
+ },
+ "request": "rec-F211-0056",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012742
+}

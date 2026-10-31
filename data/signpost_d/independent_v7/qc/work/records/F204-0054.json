@@ -1,0 +1,133 @@
+{
+ "id": "F204-0054",
+ "family": "F204",
+ "state": {
+  "rx": {
+   "drug": "levothyroxine",
+   "form": "tab",
+   "strength": {
+    "val": 0.1,
+    "unit": "mg"
+   },
+   "dose": 1,
+   "freq_per_day": 1,
+   "qty": 28
+  },
+  "patient": {
+   "pt_id": "P70552",
+   "supplies": [
+    {
+     "date": "2025-03-01",
+     "days_covered": 13
+    }
+   ],
+   "near_miss_count": 2
+  },
+  "dispensed": {
+   "product_name": "levothyroxine",
+   "form": "tab",
+   "strength": {
+    "val": 100,
+    "unit": "mcg"
+   },
+   "pack_size": 28,
+   "packs": 1,
+   "expiry": "2026-01-31",
+   "req_warnings": [
+    "W5"
+   ]
+  },
+  "label": {
+   "pt_id": "P70552",
+   "dose_qty": 2,
+   "freq_per_day": 2,
+   "warning_codes": [
+    "W5",
+    "W9"
+   ],
+   "qty_printed": 28
+  },
+  "check_log": {
+   "checked_at": "2025-03-14T08:50",
+   "clin_check": {
+    "by": "MK",
+    "at": "2025-03-14T08:30"
+   },
+   "queries": [
+    {
+     "raised_at": "2025-03-14T08:35",
+     "field": "dose",
+     "status": "pending"
+    }
+   ]
+  }
+ },
+ "factors": {
+  "strength_status": "match_converted_units",
+  "product_status": "exact",
+  "quantity_status": "exact",
+  "label_status": "dose_frequency_and_warning_mismatch",
+  "prescriber_query": "pending",
+  "pharmacist_intervention": false,
+  "clinical_check_signed": true,
+  "home_supply_days": "0 (supply ends on check date 2025-03-14, boundary with 1)",
+  "emergency_supply": false,
+  "short_expiry": false,
+  "prior_error_count": 2,
+  "high_risk_drug": false,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "strength_status": "match_converted_units",
+  "product_status": "exact",
+  "quantity_status": "exact",
+  "label_status": "correct",
+  "prescriber_query": "confirmed",
+  "pharmacist_intervention": false,
+  "clinical_check_signed": true,
+  "home_supply_days": 7,
+  "emergency_supply": false,
+  "short_expiry": false,
+  "prior_error_count": 2,
+  "high_risk_drug": false,
+  "boundary_case": false
+ },
+ "plan": {
+  "strength_differs": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "hold_query",
+   "second": null
+  },
+  "error_category": {
+   "clarity": "leaning",
+   "target": "label_error",
+   "second": null
+  },
+  "open_discrepancies": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  },
+  "supply_urgency": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 82,
+ "deciding": {
+  "strength_differs": "0.1 mg against 100 mcg is equal only after unit conversion; a reviewer may still doubt it.",
+  "next_step": "The pending dose query covers the label dose discrepancy, and the clinical check is signed, so hold for the confirmation.",
+  "error_category": "Label shows dose_qty 2 against rx 1, frequency 2 against 1 and an extra W9 warning, while product and pack are correct.",
+  "open_discrepancies": "Label dose, frequency and extra warning are three unresolved fields, though the pending dose query may be counted with frequency as two.",
+  "supply_urgency": "Last supply 2025-03-01 plus 13 days ends 03-14, the check date, so exhausted today or 1 or 2 days left."
+ },
+ "request": "rec-F204-0051",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012064
+}

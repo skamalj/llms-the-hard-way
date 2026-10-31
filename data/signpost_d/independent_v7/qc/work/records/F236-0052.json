@@ -1,0 +1,163 @@
+{
+ "id": "F236-0052",
+ "family": "F236",
+ "state": {
+  "changeover": {
+   "line": "L1",
+   "from_allergens": [
+    "tree_nuts"
+   ],
+   "to_allergens": [
+    "tree_nuts",
+    "egg"
+   ],
+   "to_code": "BK-210"
+  },
+  "cleaning": {
+   "steps": [
+    {
+     "id": "depositor_wash",
+     "completed": true,
+     "spec_min": 25,
+     "actual_min": 26
+    }
+   ]
+  },
+  "verification": {
+   "swabs": [
+    {
+     "id": "S1",
+     "loc": "depositor",
+     "allergen": "tree_nuts",
+     "ppm": 10,
+     "limit_ppm": 10,
+     "at": "2025-06-03T05:50"
+    },
+    {
+     "id": "S2",
+     "loc": "mixer",
+     "allergen": "tree_nuts",
+     "ppm": 0,
+     "limit_ppm": 10,
+     "at": "2025-06-03T05:55"
+    },
+    {
+     "id": "S3",
+     "retest_of": "S1",
+     "allergen": "tree_nuts",
+     "ppm": 0,
+     "limit_ppm": 10,
+     "at": "2025-06-03T06:50"
+    }
+   ],
+   "atp_rlu": 12
+  },
+  "production": {
+   "line": "L1",
+   "product_code": "BK-201",
+   "first_batch": "L1-0912",
+   "start_at": "2025-06-03T06:00",
+   "end_at": "2025-06-03T08:00",
+   "qty_kg": 400,
+   "contains": [
+    "tree_nuts",
+    "egg"
+   ],
+   "may_contain": [
+    "tree_nuts"
+   ]
+  },
+  "approvals": {
+   "qa_signoff": {
+    "signed_at": "2025-06-03T05:45"
+   },
+   "deviations": [
+    {
+     "id": "D-18",
+     "scope": "L4 oven",
+     "approved_at": "2025-06-02T10:00"
+    }
+   ]
+  },
+  "history": {
+   "passed": [
+    true,
+    false,
+    true,
+    true,
+    false,
+    true,
+    false,
+    true,
+    true,
+    true
+   ]
+  }
+ },
+ "factors": {
+  "allergen_transition": "adds_allergen",
+  "cleaning_completion": "full",
+  "swab_outcome": "positive_retest_pass",
+  "swab_timing_mismatch": true,
+  "cross_section_discrepancy": "product_code_mismatch",
+  "exposed_quantity_kg": 167.0,
+  "approved_deviation": false,
+  "label_precaution": true,
+  "dedicated_tooling": false,
+  "qa_signoff_state": "signed_before_start",
+  "line_failure_history": 3,
+  "boundary_value": true
+ },
+ "factors_sampled": {
+  "allergen_transition": "adds_allergen",
+  "cleaning_completion": "one_step_skipped",
+  "swab_outcome": "all_negative",
+  "swab_timing_mismatch": false,
+  "cross_section_discrepancy": "product_code_mismatch",
+  "exposed_quantity_kg": 820.18,
+  "approved_deviation": false,
+  "label_precaution": true,
+  "dedicated_tooling": false,
+  "qa_signoff_state": "signed_before_start",
+  "line_failure_history": 3,
+  "boundary_value": true
+ },
+ "plan": {
+  "swabs_cleared": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "line_disposition": {
+   "clarity": "clear",
+   "target": "reclean_quarantine",
+   "second": null
+  },
+  "worst_deficiency": {
+   "clarity": "contested",
+   "target": "records_only",
+   "second": "release_breach"
+  },
+  "exposed_product": {
+   "clarity": "leaning",
+   "target": "2",
+   "second": null
+  },
+  "residue_evidence": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "3"
+  }
+ },
+ "target_words": 126,
+ "deciding": {
+  "swabs_cleared": "S1 reads 10 ppm against a limit of 10, so it fails. Its retest S3 passes at 06:50, after the 06:00 start.",
+  "line_disposition": "A swab failed and the only passing retest came after production began. About 167 kg was made before verification, so reclean and quarantine.",
+  "worst_deficiency": "production.product_code BK-201 differs from changeover to_code BK-210, which is a records issue. The late retest means production began before the swabs passed, which is a release breach. Both are defensible.",
+  "exposed_product": "A 400 kg batch ran 06:00 to 08:00. The retest passed at 06:50, so about 50 of 120 minutes is exposed, roughly 167 kg, which is level 2. The code mismatch adds some doubt.",
+  "residue_evidence": "S1 reads exactly at the limit, which counts as at or over. The retest S3 reads 0 but was timed after start, so level 2 or 3 depending on how the late retest is weighed."
+ },
+ "request": "rec-F236-0051",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.016473
+}

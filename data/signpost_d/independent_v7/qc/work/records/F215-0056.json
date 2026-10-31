@@ -1,0 +1,136 @@
+{
+ "id": "F215-0056",
+ "family": "F215",
+ "state": {
+  "bin": {
+   "bin_id": "S4",
+   "crop": "wheat",
+   "intake_date": "2024-08-02",
+   "intake_cond": "dried_cleaned",
+   "safe_mc_pct": 14.5,
+   "baseline_c": 14,
+   "prior_logs_12m": 1
+  },
+  "cable_readings": [
+   {
+    "cable_id": "C1",
+    "cal_due": "2025-03-01",
+    "fault": false,
+    "nodes": [
+     {
+      "depth_m": 2,
+      "temp_c": [
+       14.2,
+       14.3,
+       24.2
+      ]
+     }
+    ]
+   },
+   {
+    "cable_id": "C2",
+    "cal_due": "2025-03-01",
+    "fault": false,
+    "nodes": [
+     {
+      "depth_m": 2,
+      "temp_c": [
+       14,
+       14.1,
+       14.3
+      ]
+     }
+    ]
+   }
+  ],
+  "moisture": [
+   {
+    "sample_date": "2024-09-20",
+    "method": "lab",
+    "mc_pct": 14.2
+   }
+  ],
+  "environment": {
+   "ambient_c_7d_mean": 13,
+   "headspace_c": 15,
+   "co2_ppm": 1000,
+   "reading_date": "2024-10-18"
+  },
+  "aeration": null,
+  "pest_checks": [
+   {
+    "check_date": "2024-10-15",
+    "traps_set": 6,
+    "insects_counted": 36
+   }
+  ]
+ },
+ "factors": {
+  "peak_excess_c": 10.2,
+  "rise_trend": "single_jump",
+  "second_cable_corroboration": false,
+  "sensor_fault_flag": false,
+  "ambient_warming": false,
+  "moisture_vs_limit": "within_0_5_pct",
+  "moisture_sample_status": "lab sample 28 days old, near the overdue boundary",
+  "aeration_running": false,
+  "co2_elevation": "raised",
+  "insect_trap_count": 36,
+  "missing_section": "aeration_null",
+  "date_order_anomaly": false,
+  "intake_condition": "dried_cleaned"
+ },
+ "factors_sampled": {
+  "peak_excess_c": 9.2,
+  "rise_trend": "single_jump",
+  "second_cable_corroboration": false,
+  "sensor_fault_flag": false,
+  "ambient_warming": false,
+  "moisture_vs_limit": "within_0_5_pct",
+  "moisture_sample_status": "missing",
+  "aeration_running": false,
+  "co2_elevation": "raised",
+  "insect_trap_count": 36,
+  "missing_section": "aeration_null",
+  "date_order_anomaly": false,
+  "intake_condition": "dried_cleaned"
+ },
+ "plan": {
+  "hotspot_active": {
+   "clarity": "balanced",
+   "target": "false",
+   "second": "true"
+  },
+  "moisture_safe": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "next_action": {
+   "clarity": "balanced",
+   "target": "aerate",
+   "second": "continue_monitoring"
+  },
+  "recurrence_count": {
+   "clarity": "leaning",
+   "target": "1",
+   "second": null
+  },
+  "temp_excess": {
+   "clarity": "balanced",
+   "target": "3",
+   "second": "2"
+  }
+ },
+ "target_words": 45,
+ "deciding": {
+  "hotspot_active": "C1 jumps from 14.3 to 24.2 in one reading, while C2 at the same depth stays flat at about 14.3; no fault or ambient warming, so a single uncorroborated jump.",
+  "moisture_safe": "Lab mc 14.2 against limit 14.5, but the sample is 28 days old, close to the 30-day overdue line.",
+  "next_action": "Aeration is null with a large uncorroborated jump and raised CO2 (aerate), against flat C2 and no corroboration (keep monitoring).",
+  "recurrence_count": "prior_logs_12m is 1.",
+  "temp_excess": "Valid peak 24.2 against baseline 14 gives 10.2, right at the level 2/3 boundary."
+ },
+ "request": "rec-F215-0056",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.009101
+}

@@ -1,0 +1,132 @@
+{
+ "id": "F209-0058",
+ "family": "F209",
+ "state": {
+  "unit": {
+   "asset_id": "W-310",
+   "type": "water",
+   "capacity_kg": 9,
+   "manufacture_date": "2022-04-12",
+   "gauge_green_min_bar": 10,
+   "gauge_green_max_bar": 14
+  },
+  "visit": {
+   "visit_date": "2025-05-30",
+   "tech_cert_expiry": "2026-03-15",
+   "service_type": "interim",
+   "checks": {
+    "pressure_bar": 12,
+    "seal_ok": true,
+    "tamper_tag_ok": true,
+    "hose_ok": true,
+    "corrosion": false,
+    "discharge_done": false,
+    "hydro_test_done": false
+   }
+  },
+  "tag": {
+   "tag_asset_id": "W-310",
+   "tag_service_date": "2025-05-30"
+  },
+  "history": [
+   {
+    "date": "2024-02-20",
+    "service_type": "basic",
+    "result": "pass"
+   }
+  ],
+  "register": {
+   "reg_asset_id": "W-310",
+   "reg_type": "co2",
+   "reg_capacity_kg": 9,
+   "zone": "S2",
+   "zone_risk_class": "electrical",
+   "deferral": {
+    "approved": true,
+    "ref": "D-19",
+    "expires": "2025-03-01"
+   },
+   "exemption": {
+    "approved": false
+   }
+  },
+  "remedial": [
+   {
+    "action_code": "SWAP_UNIT",
+    "raised": "2025-05-30",
+    "completed": null,
+    "replacement_asset_id": null
+   }
+  ]
+ },
+ "factors": {
+  "unit_type": "water",
+  "unit_age_years": 3,
+  "service_level_gap": "matched",
+  "days_past_due": 90,
+  "deferral_approved": true,
+  "injected_mismatch_count": 1,
+  "physical_defect": "none",
+  "defect_rectified_on_visit": false,
+  "type_location_mismatch": true,
+  "location_exemption_on_file": false,
+  "record_gap": "remedial_open",
+  "technician_cert_status": "valid",
+  "out_of_order_dates": false,
+  "borderline_case": false
+ },
+ "factors_sampled": {
+  "unit_type": "water",
+  "unit_age_years": 21,
+  "service_level_gap": "matched",
+  "days_past_due": -28,
+  "deferral_approved": true,
+  "injected_mismatch_count": 3,
+  "physical_defect": "none",
+  "defect_rectified_on_visit": true,
+  "type_location_mismatch": true,
+  "location_exemption_on_file": true,
+  "record_gap": "none",
+  "technician_cert_status": "valid",
+  "out_of_order_dates": false,
+  "borderline_case": false
+ },
+ "plan": {
+  "left_compliant": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "schedule_revisit",
+   "second": null
+  },
+  "service_level_due": {
+   "clarity": "balanced",
+   "target": "interim_check",
+   "second": "overhaul"
+  },
+  "visit_lateness": {
+   "clarity": "contested",
+   "target": "2",
+   "second": "3"
+  },
+  "mismatch_count": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  }
+ },
+ "target_words": 86,
+ "deciding": {
+  "left_compliant": "Water unit sits in an electrical-class zone with no exemption, and a SWAP_UNIT remedial is open.",
+  "next_step": "SWAP_UNIT raised on visit date with completed null and no replacement asset id; technician must return.",
+  "service_level_due": "Unit about 3 years old so no age-based extended work and interim was done, but register type co2 makes an overhaul plausible; the two stay in balance.",
+  "visit_lateness": "Deferral expiry 2025-03-01 is later than history due 2025-02-20, so due 2025-03-01; visit 2025-05-30 is exactly 90 days late, on the level 2/3 boundary.",
+  "mismatch_count": "reg_type co2 vs unit type water; all other counterparts agree, though the register capacity could be read as another difference."
+ },
+ "request": "rec-F209-0056",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.013585
+}

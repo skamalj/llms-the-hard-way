@@ -1,0 +1,117 @@
+{
+ "id": "F203-0069",
+ "family": "F203",
+ "state": {
+  "request": {
+   "id": "ILL-7208",
+   "submitted_on": "2025-06-02",
+   "need_by": "2025-07-27",
+   "scope": "whole_item"
+  },
+  "borrower_library": {
+   "agreement": {
+    "status": "expired",
+    "expires_on": "2025-06-30",
+    "renewal_submitted_on": "2025-05-20"
+   },
+   "open_loans": []
+  },
+  "patron": {
+   "member_id": "M12",
+   "home_branch": "South",
+   "verified_on": "2025-01-09"
+  },
+  "item": {
+   "condition_grade": "worn",
+   "conservation_check": {
+    "checked_on": "2025-02-01",
+    "outcome": "refer",
+    "box_supplied": false
+   },
+   "local_holds": 0
+  },
+  "holdings_network": {
+   "copies": [
+    {
+     "library_code": "GF",
+     "status": "reference_only"
+    }
+   ],
+   "supplier_status": {
+    "print_status": "out_of_print",
+    "secondhand_listings": 0
+   }
+  },
+  "logistics": {
+   "est_arrival": "2025-07-02"
+  }
+ },
+ "factors": {
+  "agreement_status": "renewal_pending",
+  "borrower_overdue_count": 0,
+  "overdue_mitigated": false,
+  "patron_verification": "verified",
+  "item_condition": "worn",
+  "conservation_cleared": false,
+  "local_holds_queue": 0,
+  "network_other_copies": 0,
+  "print_status": "out_of_print_none_secondhand",
+  "request_scope": "whole_item",
+  "copyright_declaration_present": false,
+  "need_by_slack_days": 25,
+  "need_by_missing": false
+ },
+ "factors_sampled": {
+  "agreement_status": "renewal_pending",
+  "borrower_overdue_count": 1,
+  "overdue_mitigated": false,
+  "patron_verification": "verified",
+  "item_condition": "worn",
+  "conservation_cleared": true,
+  "local_holds_queue": 0,
+  "network_other_copies": 5,
+  "print_status": "out_of_print_secondhand",
+  "request_scope": "chapter_or_article",
+  "copyright_declaration_present": true,
+  "need_by_slack_days": 25,
+  "need_by_missing": false
+ },
+ "plan": {
+  "borrower_good_standing": {
+   "clarity": "clear",
+   "target": "true",
+   "second": null
+  },
+  "disposition": {
+   "clarity": "contested",
+   "target": "decline",
+   "second": "hold"
+  },
+  "loan_restriction": {
+   "clarity": "leaning",
+   "target": "library_use_only",
+   "second": null
+  },
+  "time_slack": {
+   "clarity": "clear",
+   "target": "3",
+   "second": null
+  },
+  "replacement_difficulty": {
+   "clarity": "balanced",
+   "target": "4",
+   "second": "3"
+  }
+ },
+ "target_words": 32,
+ "deciding": {
+  "borrower_good_standing": "No open loans and renewal_submitted_on precedes expires_on, so no overdue or lapse.",
+  "disposition": "Conservation check is old (2025-02-01, over 60 days) with outcome refer; this supports decline, but a fresh check would let a hold fit.",
+  "loan_restriction": "Worn grade and a refer outcome with no box point to reading on premises.",
+  "time_slack": "Arrival 2025-07-02 against need_by 2025-07-27 gives 25 days spare.",
+  "replacement_difficulty": "No lendable network copy (only reference_only), out of print, secondhand_listings 0; the lone reference copy keeps level 3 plausible."
+ },
+ "request": "rec-F203-0066",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.010212
+}

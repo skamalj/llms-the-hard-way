@@ -1,0 +1,129 @@
+{
+ "id": "F213-0055",
+ "family": "F213",
+ "state": {
+  "pool": {
+   "type": "leisure",
+   "test_interval_min": 120,
+   "open": "2024-05-14T10:00",
+   "close": "2024-05-14T16:00",
+   "limits": {
+    "free_cl_max": 3.0,
+    "combined_cl_max": 0.5
+   },
+   "tolerance": {
+    "free_cl": 0.3
+   }
+  },
+  "manual_tests": [
+   {
+    "time": "2024-05-14T10:00",
+    "free_cl": 2.6,
+    "combined_cl": 0.2,
+    "temp_c": 27.5
+   },
+   {
+    "time": "2024-05-14T12:00",
+    "free_cl": 3.2,
+    "combined_cl": 0.4,
+    "temp_c": 29.1
+   },
+   {
+    "time": "2024-05-14T16:00",
+    "free_cl": 2.7,
+    "combined_cl": 0.3,
+    "temp_c": 28.0
+   }
+  ],
+  "plant": {
+   "controller_readings": [
+    {
+     "time": "2024-05-14T12:00",
+     "free_cl": 2.8
+    }
+   ],
+   "dosing_events": [
+    {
+     "time": "2024-05-14T11:40",
+     "type": "shock"
+    }
+   ]
+  },
+  "actions": [
+   {
+    "time": "2024-05-14T14:01",
+    "action_type": "dilution",
+    "reading_ref": "2024-05-14T12:00",
+    "retest_time": null
+   }
+  ]
+ },
+ "factors": {
+  "pool_type": "leisure",
+  "test_coverage_gap": 1,
+  "boundary_interval": false,
+  "log_controller_discrepancy": "just_over",
+  "discrepancy_location": "free_chlorine",
+  "excursion_severity": "marginal",
+  "corrective_action_delay": "delayed",
+  "retest_logged": false,
+  "dosing_event_explains": true,
+  "kit_calibration_status": "in_date",
+  "lab_sample_state": "clear",
+  "out_of_order_entry": false,
+  "benign_noise": "temp_swing"
+ },
+ "factors_sampled": {
+  "pool_type": "leisure",
+  "test_coverage_gap": 0,
+  "boundary_interval": false,
+  "log_controller_discrepancy": "just_over",
+  "discrepancy_location": "free_chlorine",
+  "excursion_severity": "none",
+  "corrective_action_delay": "prompt",
+  "retest_logged": false,
+  "dosing_event_explains": true,
+  "kit_calibration_status": "in_date",
+  "lab_sample_state": "positive",
+  "out_of_order_entry": false,
+  "benign_noise": "temp_swing"
+ },
+ "plan": {
+  "test_frequency_met": {
+   "clarity": "clear",
+   "target": "false",
+   "second": null
+  },
+  "readings_reconcile": {
+   "clarity": "leaning",
+   "target": "false",
+   "second": null
+  },
+  "log_disposition": {
+   "clarity": "leaning",
+   "target": "accept",
+   "second": null
+  },
+  "action_delay": {
+   "clarity": "contested",
+   "target": "2",
+   "second": "3"
+  },
+  "failed_checks": {
+   "clarity": "clear",
+   "target": "2",
+   "second": null
+  }
+ },
+ "target_words": 30,
+ "deciding": {
+  "test_frequency_met": "No test between 12:00 and 16:00, a 240 minute spacing against the 120 minute interval.",
+  "readings_reconcile": "At 12:00 manual free_cl 3.2 against controller 2.8, a 0.4 difference over the 0.3 tolerance.",
+  "log_disposition": "The free_cl 3.2 is only marginally above 3.0 and was treated by dilution, with combined_cl within limit; the test gap is the open point.",
+  "action_delay": "Action at 14:01 for the 12:00 reading is 121 minutes later, just across the 120 minute boundary.",
+  "failed_checks": "Frequency and reconciliation fail, plus the late action, giving two or three failures."
+ },
+ "request": "rec-F213-0051",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.015269
+}

@@ -1,0 +1,185 @@
+{
+ "id": "F230-0054",
+ "family": "F230",
+ "state": {
+  "resident": {
+   "id": "D404",
+   "weight_kg": 55,
+   "allergies": [
+    "penicillin"
+   ],
+   "status": "home"
+  },
+  "prescriptions": [
+   {
+    "item_id": "I1",
+    "drug": "paracetamol",
+    "strength_mg": 500,
+    "dose_units": 2,
+    "times": [
+     "08:00"
+    ]
+   },
+   {
+    "item_id": "I2",
+    "drug": "metformin",
+    "strength_mg": 500,
+    "dose_units": 1,
+    "times": [
+     "08:00"
+    ]
+   },
+   {
+    "item_id": "I3",
+    "drug": "ramipril",
+    "strength_mg": 5,
+    "dose_units": 1,
+    "times": [
+     "08:00"
+    ]
+   }
+  ],
+  "administrations": [
+   {
+    "item_id": "I1",
+    "scheduled": "08:00",
+    "given_at": "09:16",
+    "units_given": 2,
+    "strength_mg_used": 500,
+    "initials": "GH"
+   },
+   {
+    "item_id": "I2",
+    "scheduled": "08:00",
+    "given_at": "08:05",
+    "units_given": 1,
+    "strength_mg_used": 500,
+    "initials": null
+   },
+   {
+    "item_id": "I3",
+    "scheduled": "08:00",
+    "given_at": "08:08",
+    "units_given": 1,
+    "strength_mg_used": 5,
+    "initials": null
+   }
+  ],
+  "stock": {
+   "I1": {
+    "opening": 60,
+    "received": 0,
+    "wasted": 0,
+    "closing": 58
+   },
+   "I2": {
+    "opening": 40,
+    "received": 0,
+    "wasted": 0,
+    "closing": 39
+   },
+   "I3": {
+    "opening": 30,
+    "received": 0,
+    "wasted": 3,
+    "wasted_witnessed": true,
+    "closing": 26
+   }
+  },
+  "round": {
+   "round_id": "RD12",
+   "date": "2024-05-03",
+   "slot": "am",
+   "staff_on": 3,
+   "open_queries": [
+    {
+     "type": "stock_recount",
+     "raised": "2024-05-03T09:30",
+     "item_id": "I3"
+    }
+   ],
+   "post_dose_obs": [
+    {
+     "type": "bp_sys",
+     "value": 118
+    }
+   ]
+  },
+  "history": {
+   "errors_30d": 4,
+   "refusals_7d": 0,
+   "last_audit": "2024-04-20",
+   "last_audit_passed": true
+  }
+ },
+ "factors": {
+  "dose_mismatch_type": "none",
+  "prescription_change_documented": false,
+  "omission_count": 0,
+  "omission_reason_valid": true,
+  "late_minutes": 76,
+  "time_critical_affected": false,
+  "stock_variance": -3,
+  "stock_variance_explained": true,
+  "signature_gaps": 2,
+  "unit_expression_decoy": "none_present",
+  "post_dose_obs_reassuring": true,
+  "pending_query": "stock_recount_due",
+  "prior_errors_30d": 4,
+  "item_count": 3
+ },
+ "factors_sampled": {
+  "dose_mismatch_type": "none",
+  "prescription_change_documented": false,
+  "omission_count": 0,
+  "omission_reason_valid": true,
+  "late_minutes": 76,
+  "time_critical_affected": false,
+  "stock_variance": -3,
+  "stock_variance_explained": true,
+  "signature_gaps": 2,
+  "unit_expression_decoy": "none_present",
+  "post_dose_obs_reassuring": true,
+  "pending_query": "stock_recount_due",
+  "prior_errors_30d": 4,
+  "item_count": 3
+ },
+ "plan": {
+  "dose_mismatch": {
+   "clarity": "balanced",
+   "target": "true",
+   "second": "false"
+  },
+  "stock_reconciles": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "next_step": {
+   "clarity": "clear",
+   "target": "sign_off",
+   "second": null
+  },
+  "open_discrepancies": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  },
+  "error_severity": {
+   "clarity": "contested",
+   "target": "4",
+   "second": "3"
+  }
+ },
+ "target_words": 200,
+ "deciding": {
+  "dose_mismatch": "Units and strength match prescriptions for all three items; no duplicate entries.",
+  "stock_reconciles": "I1, I2 and I3 each equal opening minus signed doses and witnessed waste.",
+  "next_step": "Pending recount query on I3 prevents closing, though the recorded doses are right.",
+  "open_discrepancies": "Null initials on I2 and I3 plus the I3 recount query; one or two items.",
+  "error_severity": "Null initials give documentation level, while I1 is 76 minutes late, giving timing level."
+ },
+ "request": "rec-F230-0051",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.007129
+}

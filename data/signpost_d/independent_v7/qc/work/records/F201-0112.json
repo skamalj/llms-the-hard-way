@@ -1,0 +1,158 @@
+{
+ "id": "F201-0112",
+ "family": "F201",
+ "state": {
+  "register_header": {
+   "drug": "buprenorphine",
+   "concentration_mg_ml": 0.3,
+   "witness_required": false,
+   "opening_balance_ml": 20
+  },
+  "entries": [
+   {
+    "entry_id": "E1",
+    "date": "2024-03-01",
+    "type": "receipt",
+    "qty_ml": 10,
+    "running_balance_ml": 30,
+    "signed_by": "S1"
+   },
+   {
+    "entry_id": "E2",
+    "date": "2024-03-04",
+    "type": "use",
+    "qty_ml": 2,
+    "patient_id": "P1",
+    "running_balance_ml": 29,
+    "signed_by": null
+   },
+   {
+    "entry_id": "E3",
+    "date": "2024-03-09",
+    "type": "use",
+    "qty_ml": 1.5,
+    "patient_id": "P2",
+    "running_balance_ml": 27.5,
+    "signed_by": "S1"
+   },
+   {
+    "entry_id": "E4",
+    "date": "2024-03-15",
+    "type": "disposal",
+    "qty_ml": 2,
+    "running_balance_ml": 26,
+    "signed_by": null
+   }
+  ],
+  "clinical_records": [
+   {
+    "patient_id": "P1",
+    "date": "2024-03-04",
+    "dose": 600,
+    "dose_unit": "mcg"
+   },
+   {
+    "patient_id": "P2",
+    "date": "2024-03-09",
+    "dose": 450,
+    "dose_unit": "mcg"
+   }
+  ],
+  "stock_check": {
+   "count_date": "2024-03-31",
+   "counted_ml": 24.35,
+   "batch_no": "B7",
+   "overfill_allowance_ml": 0
+  },
+  "disposals": [
+   {
+    "batch_no": "B7",
+    "qty_ml": 2,
+    "reason_code": "expired",
+    "removed_date": "2024-03-15",
+    "register_entry_id": "E4",
+    "witness_id": "W3",
+    "denatured_date": "2024-03-15"
+   }
+  ],
+  "exceptions": [
+   {
+    "exception_id": "EX1",
+    "batch_no": "B7",
+    "qty_ml": 0.1,
+    "reason_code": "breakage",
+    "approved_by": "D1",
+    "valid_from": "2024-03-01",
+    "valid_to": "2024-03-31"
+   }
+  ]
+ },
+ "factors": {
+  "drug_profile": "buprenorphine_0.3mg_ml",
+  "arithmetic_slip_count": 2,
+  "unrecorded_admin": "none",
+  "clinical_records_missing": false,
+  "disposal_state": "witnessed_complete",
+  "unexplained_shortfall_pct": 0.17,
+  "variance_exception": "valid_full_cover",
+  "manufacturer_overfill": false,
+  "auth_gap_count": 2,
+  "count_out_of_order": false,
+  "unit_mismatch": true,
+  "locum_signatory": false,
+  "boundary_case": true
+ },
+ "factors_sampled": {
+  "drug_profile": "buprenorphine_0.3mg_ml",
+  "arithmetic_slip_count": 2,
+  "unrecorded_admin": "none",
+  "clinical_records_missing": false,
+  "disposal_state": "witnessed_complete",
+  "unexplained_shortfall_pct": 1.05,
+  "variance_exception": "valid_full_cover",
+  "manufacturer_overfill": false,
+  "auth_gap_count": 5,
+  "count_out_of_order": false,
+  "unit_mismatch": true,
+  "locum_signatory": false,
+  "boundary_case": true
+ },
+ "plan": {
+  "unexplained_shortfall": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "line_disposition": {
+   "clarity": "balanced",
+   "target": "hold_pending",
+   "second": "correct_and_sign"
+  },
+  "variance_cause": {
+   "clarity": "clear",
+   "target": "arithmetic_slip",
+   "second": null
+  },
+  "variance_size": {
+   "clarity": "leaning",
+   "target": "0",
+   "second": null
+  },
+  "auth_gaps": {
+   "clarity": "balanced",
+   "target": "2",
+   "second": "1"
+  }
+ },
+ "target_words": 52,
+ "deciding": {
+  "unexplained_shortfall": "Recomputed balance 24.5 vs counted 24.35; a 0.1 ml valid exception covers most of it, leaving a 0.05 ml residual that is arguably unexplained.",
+  "line_disposition": "Two unsigned entries need confirmation (hold) but the rest is clerical balance slips fixable by annotation, so hold and correct_and_sign are both defensible.",
+  "variance_cause": "E2 shows 29 where 30-2=28, and E4 shows 26 where 27.5-2=25.5; the register is the only place the numbers disagree, while doses (600 mcg=2 ml, 450 mcg=1.5 ml) and disposal match.",
+  "variance_size": "After the 0.1 ml exception only 0.05 ml of 30 ml handled remains, which is nil or trace, leaning nil.",
+  "auth_gaps": "signed_by is null on E2 and E4 (two gaps, witness not required); the E4 disposal is witnessed elsewhere, which makes level 1 plausible."
+ },
+ "request": "rec-F201-0111",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.015791
+}

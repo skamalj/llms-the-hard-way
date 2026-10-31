@@ -1,0 +1,133 @@
+{
+ "id": "F201-0092",
+ "family": "F201",
+ "state": {
+  "register_header": {
+   "drug": "methadone",
+   "concentration_mg_ml": 10,
+   "witness_required": true,
+   "opening_balance_ml": 10
+  },
+  "entries": [
+   {
+    "id": "E1",
+    "qty_ml": 2,
+    "patient_id": "P1",
+    "running_balance_ml": 8,
+    "signed_by": "RN02",
+    "witness_id": null
+   },
+   {
+    "id": "E2",
+    "qty_ml": 2,
+    "patient_id": "P2",
+    "running_balance_ml": 5.2,
+    "signed_by": "LOC-5518",
+    "witness_id": "RN02"
+   },
+   {
+    "id": "E3",
+    "qty_ml": 1,
+    "patient_id": "P3",
+    "running_balance_ml": 4.2,
+    "signed_by": "RN07",
+    "witness_id": "RN07"
+   }
+  ],
+  "clinical_records": [
+   {
+    "patient_id": "P1",
+    "dose": 20,
+    "dose_unit": "mg"
+   },
+   {
+    "patient_id": "P2",
+    "dose": 20,
+    "dose_unit": "mg"
+   },
+   {
+    "patient_id": "P3",
+    "dose": 10,
+    "dose_unit": "mg"
+   }
+  ],
+  "stock_check": {
+   "counted_ml": 3.6,
+   "overfill_allowance_ml": 0.1
+  },
+  "disposals": [
+   {
+    "qty_ml": 1,
+    "register_entry_id": null
+   }
+  ]
+ },
+ "factors": {
+  "drug_profile": "methadone_10mg_ml",
+  "arithmetic_slip_count": 1,
+  "unrecorded_admin": "none",
+  "clinical_records_missing": false,
+  "disposal_state": "removed_unlogged",
+  "unexplained_shortfall_pct": 13.0,
+  "variance_exception": "none",
+  "manufacturer_overfill": true,
+  "auth_gap_count": 1,
+  "count_out_of_order": false,
+  "unit_mismatch": true,
+  "locum_signatory": true,
+  "boundary_case": false
+ },
+ "factors_sampled": {
+  "drug_profile": "methadone_10mg_ml",
+  "arithmetic_slip_count": 1,
+  "unrecorded_admin": "none",
+  "clinical_records_missing": false,
+  "disposal_state": "none_needed",
+  "unexplained_shortfall_pct": 4.22,
+  "variance_exception": "valid_full_cover",
+  "manufacturer_overfill": true,
+  "auth_gap_count": 1,
+  "count_out_of_order": false,
+  "unit_mismatch": true,
+  "locum_signatory": true,
+  "boundary_case": false
+ },
+ "plan": {
+  "unexplained_shortfall": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "line_disposition": {
+   "clarity": "leaning",
+   "target": "sign_off",
+   "second": null
+  },
+  "variance_cause": {
+   "clarity": "contested",
+   "target": "undocumented_disposal",
+   "second": "arithmetic_slip"
+  },
+  "variance_size": {
+   "clarity": "leaning",
+   "target": "3",
+   "second": null
+  },
+  "auth_gaps": {
+   "clarity": "balanced",
+   "target": "1",
+   "second": "2"
+  }
+ },
+ "target_words": 52,
+ "deciding": {
+  "unexplained_shortfall": "True closing balance is 5 ml but counted is 3.6 ml. Only 0.1 ml is overfill allowance, and the 1 ml disposal has no register entry, so most of the gap is unreconciled.",
+  "line_disposition": "The planned sign_off sits poorly with this record. Reconciliation is not complete, with a large gap, an unlogged removal, a slip and a missing witness. Treat sign_off as only weakly supported.",
+  "variance_cause": "The 1 ml unlogged disposal (register_entry_id null) and the E2 balance slip (5.2 listed against 6 recomputed) are close in size and read as competing causes.",
+  "variance_size": "Recomputed 5 minus counted 3.6 minus allowance 0.1 leaves 1.3 ml, 13% of the 10 ml handled. That is above 10%, though a reader using the listed balance could see less.",
+  "auth_gaps": "E1 witness_id is null, which is a gap because a witness is required. On E3 the witness is the same person as the signer (RN07), so it is ambiguous whether that counts as a second gap."
+ },
+ "request": "rec-F201-0091",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.012613
+}

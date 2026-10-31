@@ -1,0 +1,136 @@
+{
+ "id": "F236-0083",
+ "family": "F236",
+ "state": {
+  "changeover": {
+   "line": "L1",
+   "from_allergens": [
+    "wheat",
+    "milk"
+   ],
+   "to_allergens": [
+    "wheat",
+    "milk"
+   ]
+  },
+  "cleaning": {
+   "steps": [
+    {
+     "completed": true,
+     "spec_min": 45,
+     "actual_min": 30
+    }
+   ]
+  },
+  "verification": {
+   "swabs": [
+    {
+     "id": "S1",
+     "ppm": 10,
+     "limit_ppm": 10,
+     "t": "05:50"
+    }
+   ]
+  },
+  "production": {
+   "line": "L1",
+   "start_at": "06:00",
+   "qty": 30,
+   "unit": "kg",
+   "packaging_allergens": [
+    "wheat",
+    "milk",
+    "may_contain:milk"
+   ]
+  },
+  "approvals": {
+   "qa_signoff": null
+  },
+  "history": [
+   {
+    "ok": false
+   },
+   {
+    "ok": false
+   },
+   {
+    "ok": true
+   },
+   {
+    "ok": false
+   },
+   {
+    "ok": false
+   },
+   {
+    "ok": true
+   }
+  ]
+ },
+ "factors": {
+  "allergen_transition": "same_allergen_set",
+  "cleaning_completion": "duration_short",
+  "swab_outcome": "at_limit_no_retest",
+  "swab_timing_mismatch": false,
+  "cross_section_discrepancy": "none",
+  "exposed_quantity_kg": 30.0,
+  "approved_deviation": false,
+  "label_precaution": true,
+  "dedicated_tooling": false,
+  "qa_signoff_state": "missing",
+  "line_failure_history": 4,
+  "boundary_value": true
+ },
+ "factors_sampled": {
+  "allergen_transition": "same_allergen_set",
+  "cleaning_completion": "duration_short",
+  "swab_outcome": "trace_below_limit",
+  "swab_timing_mismatch": false,
+  "cross_section_discrepancy": "none",
+  "exposed_quantity_kg": 255.21,
+  "approved_deviation": false,
+  "label_precaution": true,
+  "dedicated_tooling": false,
+  "qa_signoff_state": "missing",
+  "line_failure_history": 4,
+  "boundary_value": true
+ },
+ "plan": {
+  "swabs_cleared": {
+   "clarity": "leaning",
+   "target": "true",
+   "second": null
+  },
+  "line_disposition": {
+   "clarity": "clear",
+   "target": "hold",
+   "second": null
+  },
+  "worst_deficiency": {
+   "clarity": "leaning",
+   "target": "cleaning_shortfall",
+   "second": null
+  },
+  "exposed_product": {
+   "clarity": "contested",
+   "target": "0",
+   "second": "1"
+  },
+  "residue_evidence": {
+   "clarity": "clear",
+   "target": "3",
+   "second": null
+  }
+ },
+ "target_words": 48,
+ "deciding": {
+  "swabs_cleared": "S1 reads 10 ppm against limit 10, taken 05:50 before start; equal to the limit, not over, so likely counted as passed.",
+  "line_disposition": "qa_signoff is null; the missing sign-off is the one confirmation outstanding, so the batch is held.",
+  "worst_deficiency": "Cleaning actual 30 min against spec 45 is a shortfall; no swab taken after start.",
+  "exposed_product": "30 kg batch with the only swab exactly at limit: 0 if it counts as a pass, under 50 kg if not.",
+  "residue_evidence": "Reading at the limit with no retest entry."
+ },
+ "request": "rec-F236-0081",
+ "model": "claude-sonnet-5-5",
+ "cost": 0.011612
+}
