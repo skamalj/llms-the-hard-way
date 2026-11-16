@@ -1,35 +1,77 @@
 # Signpost-D
 
-A 4B decision model. Given a piece of state (a JSON record or text) and typed questions about it, it answers each
-question with a probability for every option: true/false statements, choices between named options, and levels on
-ordered scales. It doesn't generate text: each question is one forward pass, read from the answer tokens, and it
-serves unchanged through vLLM's `/v1/systemone`.
+Decision models, in a 4B and a 9B. Given a piece of state (a JSON record or text) and typed questions about it, the
+model answers each question with a probability for every option: true/false statements, choices between named
+options, and levels on ordered scales. It doesn't generate text: each question is one forward pass, read from the
+answer tokens, and it serves unchanged through vLLM's `/v1/systemone`.
 
-The model is [skamalj/signpost-d-4b](https://huggingface.co/skamalj/signpost-d-4b).
+| Model | Base | Typed Decisions zero-shot table |
+|---|---|---|
+| [skamalj/signpost-d-9b](https://huggingface.co/skamalj/signpost-d-9b) | Qwen3.5-9B | #16, accuracy 0.7345 |
+| [skamalj/signpost-d-4b](https://huggingface.co/skamalj/signpost-d-4b) | Qwen3.5-4B | #24, accuracy 0.712 |
 
 ## Result
 
 [LocalLLaMA/typed-decisions](https://huggingface.co/datasets/LocalLLaMA/typed-decisions), `test` split (400 cases,
-2,000 decisions), general mode, scored on HF Jobs with the benchmark's own scorer:
+2,000 decisions), general mode, scored with the benchmark's own scorer:
 
-| Accuracy | KL from gold | Brier | ECE |
-|---|---|---|---|
-| 0.712 | 0.1615 | 0.0853 | 0.0914 |
+| Model | Accuracy | KL from gold | Brier | ECE | Latency per case |
+|---|---|---|---|---|---|
+| Signpost-D-9B | 0.7345 [0.713, 0.756] | 0.159 | 0.082 | 0.101 | 214 ms (one L40S) |
+| Signpost-D-4B | 0.712 | 0.1615 | 0.0853 | 0.0914 | 62 ms (RTX PRO 6000) |
+
+By type, the 9B scores 0.818 on true/false, 0.735 on choices and 0.670 on scales.
+
+The maintainers rescored both models' published predictions and got the same numbers. The 9B was chosen among four
+candidates on the benchmark's `train` split (0.7315 there); `train` is never trained on.
 
 ## How it is built
 
-- **Base:** Qwen3.5-4B, fine-tuned with LoRA (rank 16) in fp16, in exactly the prompt vLLM's `/v1/systemone` builds:
-  one question per sequence, the answer read from the first reply token over the option labels.
+- **Fine-tuning:** LoRA in fp16, in exactly the prompt vLLM's `/v1/systemone` builds: one question per sequence, the
+  answer read from the first reply token over the option labels. No extra head.
 - **Data:** our own generated records in invented domains (2,575 to train on, 200 as dev), with soft gold from three
-  simulated judges.
-- **Final model:** three seeds trained alike; the mean of their weight changes is added to the base at 0.75.
+  simulated judges. Both models use the same data.
+- **Final model:** several LoRA runs trained alike; the mean of their weight changes is added to the base at 0.75.
+  - **4B:** three seeds at rank 16.
+  - **9B:** rank 16 at learning rate 1e-4 with seeds 42 and 1042, and rank 32 at learning rate 5e-5 with seed 42.
 
 ## Notebooks
 
 | Notebook | What it does |
 |---|---|
-| [01_train.ipynb](01_train.ipynb) | trains the three seeds (about 37 minutes each on a Colab G4 GPU), resuming from checkpoints |
+| [01_train.ipynb](01_train.ipynb) | trains the LoRA runs, resuming from checkpoints (4B: about 37 minutes per seed on a Colab G4 GPU; 9B: about 100 minutes per run on an L40S) |
 | [02_evaluate.ipynb](02_evaluate.ipynb) | merges the adapters, serves each model with vLLM nightly and scores it as the benchmark does; with `PUBLISH`, uploads the final model |
+| [03_jevbench.ipynb](03_jevbench.ipynb) | runs both models on [JevBench](https://github.com/fstandhartinger/jevbench)'s 231 public items with its own CLI, and estimates its Intelligence score by family and by length |
 
-Both run on Colab or Kaggle and install their own pinned packages. They need a Hugging Face token in `HF_TOKEN`
-(the environment, a Kaggle secret or a Colab secret).
+They run on Colab, Kaggle or Modal and install their own pinned packages. They need a Hugging Face token in
+`HF_TOKEN` (the environment, a Kaggle or Colab secret, or the Modal secret `huggingface`).
+
+**Settings** come from the environment, and the defaults reproduce Signpost-D-4B exactly:
+
+| Setting | Default | Used for |
+|---|---|---|
+| `BASE_MODEL` | `Qwen/Qwen3.5-4B` | the base model |
+| `SEEDS` | `42,1042,2042` | one LoRA run per seed |
+| `LORA_R`, `LR` | `16`, `1e-4` | LoRA rank and learning rate |
+| `GPUS`, `DTYPE` | `2` (fewer if fewer are visible), `fp16` | data-parallel training, and precision |
+| `RUNS_JSON` | (02 only) | the runs to score and merge, instead of one run per seed |
+| `PUBLISH`, `PUBLISH_RUN`, `MODEL_REPO` | off | (02 only) which model to upload, and where |
+
+## Running on Modal
+
+[modal/](modal/) holds the scripts used for the 9B:
+
+- **[modal_run.py](modal/modal_run.py)** runs a notebook headless on a Modal GPU, with its checkpoints on a Modal volume
+  so a rerun resumes:
+
+  ```
+  MODAL_GPU=L40S modal run --detach modal/modal_run.py --notebook 01_train.ipynb --name sd-9b \
+      --settings "BASE_MODEL=Qwen/Qwen3.5-9B;SEEDS=42;GPUS=1"
+  MODAL_GPU=L40S modal run --detach modal/modal_run.py --notebook 02_evaluate.ipynb --name sd-9b \
+      --settings "BASE_MODEL=Qwen/Qwen3.5-9B;SEEDS=42"
+  ```
+
+- **[modal_upload_checkpoints.py](modal/modal_upload_checkpoints.py)** backs up runs' adapters and results to a private
+  Hugging Face repo.
+- **[modal_release.py](modal/modal_release.py)** replaces a published model's card, makes it public and, optionally,
+  posts the benchmark submission.
